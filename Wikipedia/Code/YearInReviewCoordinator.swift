@@ -19,6 +19,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     let yearInReviewDonateText = WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button")
     weak var badgeDelegate: YearInReviewBadgeDelegate?
+    
+    // When true, presents a toast when they exit the Intro slide. Toast explains that they can access later via Profile menu.
+    public var needsExitFromIntroToast: Bool = false
 
     private var languageCode: String? {
         return dataStore.languageLinkController.appLanguage?.languageCode
@@ -950,6 +953,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loginCoordinator.start()
         }
         let action2 = UIAlertAction(title: button2Title, style: .default) { action in
+           
             DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
         }
         alert.addAction(action1)
@@ -1061,6 +1065,13 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
         viewModel?.logYearInReviewDidTapDone()
         (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
     }
+    
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+            needsExitFromIntroToast = false
+        }
+    }
 }
 
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
@@ -1069,7 +1080,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         case .tappedIntroV3GetStartedWhileLoggedOut:
             showLoginPromptFromIntroV3GetStarted()
         case .tappedIntroV3DoneWhileLoggedOut:
-            showExitConfirmationPromptFromIntroV3Done()
+            showExitToastFromIntroV3Done()
         case .donate(let getSourceRect):
             
             let donateSuccessAction: () -> Void = { [weak self] in
@@ -1182,7 +1193,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         let title = CommonStrings.yearInReviewLoginPromptIntroTitle
         let subtitle = CommonStrings.yearInReviewLoginPromptSubtitle
         let button1Title = CommonStrings.joinLoginTitle
-        let button2Title = CommonStrings.noThanksTitle
+        let button2Title = CommonStrings.continueWithoutLoggingIn
         
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
 
@@ -1215,7 +1226,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         
         let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
             guard let viewModel = self?.viewModel else { return }
-            
             viewModel.tappedIntroV3LoginPromptNoThanks()
         }
         
@@ -1227,34 +1237,15 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         }
     }
     
-    private func showExitConfirmationPromptFromIntroV3Done() {
-        let title = WMFLocalizedString("year-in-review-intro-exit-confirmation-title", value: "Are you sure you want to exit?", comment: "Title of alert that appears when a logged-out user attempts to exit on the Year in Review intro.")
-        let subtitle = WMFLocalizedString("year-in-review-intro-exit-confirmation-subtitle", value: "You can still see a collective Year in Review without logging in.", comment: "Subtitle of alert that appears when a logged-out user attempts to exit on the Year in Review intro.")
-        let button1Title = CommonStrings.getStartedTitle
-        let button2Title = CommonStrings.notNowTitle
-        
-        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-
-        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
-            
-            guard let viewModel = self?.viewModel else { return }
-                    
-            viewModel.tappedIntroV3ExitConfirmationGetStarted()
-        }
-        
-        let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
-            guard let self else { return }
-            
-            navigationController.dismiss(animated: true) {
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide."), subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+    private func showExitToastFromIntroV3Done() {
+        if navigationController.presentedViewController != nil {
+            navigationController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                if needsExitFromIntroToast {
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+                    needsExitFromIntroToast = false
+                }
             }
-        }
-        
-        if let presentedViewController = navigationController.presentedViewController {
-            alert.addAction(action1)
-            alert.addAction(action2)
-            
-            presentedViewController.present(alert, animated: true)
         }
     }
 }

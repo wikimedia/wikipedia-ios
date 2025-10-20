@@ -107,24 +107,6 @@ import CoreData
         }
     }
 
-    func isAnnouncementActive() -> Bool {
-        
-        if developerSettingsDataController.showYiRV2 ||
-            developerSettingsDataController.showYiRV3 {
-            return true
-        }
-        
-        guard let config = self.config else {
-            return false
-        }
-
-        guard config.isActive(for: Date()) else {
-            return false
-        }
-        
-        return true
-    }
-
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
         
         if !developerSettingsDataController.showYiRV2 &&
@@ -132,7 +114,11 @@ import CoreData
             return false
         }
         
-        guard isAnnouncementActive() else {
+        guard let config = self.config else {
+            return false
+        }
+
+        guard config.isActive(for: Date()) else {
             return false
         }
 
