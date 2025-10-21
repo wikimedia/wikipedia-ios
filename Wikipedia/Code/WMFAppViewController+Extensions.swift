@@ -823,7 +823,12 @@ extension WMFAppViewController {
                 totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
                 onWikipediaiOS: onWikipediaiOS,
                 timeSpentReading: timeSpentReading),
-           username: dataStore.authenticationManager.authStatePermanentUsername ?? "", hoursRead: 0, minutesRead: 0)
+           username: dataStore.authenticationManager.authStatePermanentUsername ?? "",
+            hoursRead: 0,
+            minutesRead: 0,
+            hasSeenActivityTab: {
+            activityTabDataController.hasSeenActivityTab = true
+        })
 
 
         let controller = WMFActivityTabViewController(

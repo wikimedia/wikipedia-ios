@@ -90,8 +90,37 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
         
+        dataController.hasSeenActivityTab = false
+        
+        presentOnboardingIfNecessary()
+        
         configureNavigationBar()
     }
+    
+    private func presentOnboardingIfNecessary() {
+        guard !dataController.hasSeenActivityTab else {
+            return
+        }
+
+        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: firstItemTitle, subtitle: firstItemSubitle, fillIconBackground: true)
+
+//        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .plusForwardSlashMinus), title: viewModel.localizedStrings.onboardingStrings.secondItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.secondItemBody, fillIconBackground: true)
+//
+//        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFIcon.commons, title: viewModel.localizedStrings.onboardingStrings.thirdItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.thirdItemBody, fillIconBackground: true)
+
+        let onboardingViewModel = WMFOnboardingViewModel(title: "", cells: [firstItem], primaryButtonTitle: "continue", secondaryButtonTitle: "sharting")
+
+        let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
+        onboardingController.delegate = self
+        present(onboardingController, animated: true, completion: {
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
+        })
+
+        dataController.hasSeenActivityTab = true
+    }
+    
+    private let firstItemTitle = WMFLocalizedString("activity-tab-onboarding-first-item-title", value: "Reading patterns", comment: "Title for activity tabs first item")
+    private let firstItemSubitle = WMFLocalizedString("activity-tab-onboarding-first-item-subitle", value: "See how much time you've spent reading and which articles or topics you've explored over time.", comment: "Title for activity tabs first item subtitle")
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -205,3 +234,30 @@ extension WMFActivityTabViewController: LogoutCoordinatorDelegate {
 }
 
 extension WMFActivityTabViewController: ShareableArticlesProvider {}
+
+extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
+
+    public func onboardingViewDidClickPrimaryButton() {
+        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
+            //
+        })
+
+        // TODO: Log
+    }
+
+    public func onboardingViewDidClickSecondaryButton() {
+//        guard let url = viewModel.learnMoreURL else {
+//            return
+//        }
+//
+//        UIApplication.shared.open(url)
+
+        // TODO: Log
+    }
+
+    public func onboardingViewWillSwipeToDismiss() {
+//        viewModel.fetchImageRecommendationsIfNeeded {
+//
+//        }
+    }
+}

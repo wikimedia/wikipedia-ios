@@ -40,6 +40,9 @@ public struct WMFActivityTabView: View {
             }
             .frame(maxWidth: .infinity)
         }
+        .onAppear {
+            viewModel.hasSeenActivityTab()
+        }
         .background(
             LinearGradient(
                 stops: [

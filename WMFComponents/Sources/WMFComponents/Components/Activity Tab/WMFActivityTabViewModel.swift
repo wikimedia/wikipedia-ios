@@ -7,12 +7,14 @@ import WMFData
     @Published var username: String
     @Published var hoursRead: Int
     @Published var minutesRead: Int
+    var hasSeenActivityTab: () -> Void
     
-    public init(localizedStrings: LocalizedStrings, username: String, hoursRead: Int, minutesRead: Int) {
+    public init(localizedStrings: LocalizedStrings, username: String, hoursRead: Int, minutesRead: Int, hasSeenActivityTab: @escaping () -> Void) {
         self.localizedStrings = localizedStrings
         self.username = username
         self.hoursRead = hoursRead
         self.minutesRead = minutesRead
+        self.hasSeenActivityTab = hasSeenActivityTab
         super.init()
     }
     
