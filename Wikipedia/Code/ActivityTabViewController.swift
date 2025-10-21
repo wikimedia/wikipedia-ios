@@ -69,7 +69,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
 
         guard let existingProfileCoordinator = _profileCoordinator else {
-            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .historyProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.activity, yirCoordinator: yirCoordinator)
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .activityTabProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.activity, yirCoordinator: yirCoordinator)
             _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
@@ -199,7 +199,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
-        ArticleTabsFunnel.shared.logIconClick(interface: .activityTab, project: nil)
+        ArticleTabsFunnel.shared.logIconClick(interface: .activity, project: nil)
     }
 
     @objc func userDidTapProfile() {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WMFActivityExperimentComponentView: View {
+public struct WMFActivityExperimentOldComponentView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     let activityItem: ActivityItem

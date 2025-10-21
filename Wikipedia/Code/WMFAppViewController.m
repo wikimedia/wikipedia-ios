@@ -68,7 +68,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
-@property (nonatomic, strong, readonly) WMFActivityTabExperimentViewController *activityTabExperimentViewController;
+@property (nonatomic, strong, readonly) WMFActivityTabExperimentOldViewController *activityTabExperimentOldViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
 
@@ -122,7 +122,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @synthesize savedViewController = _savedViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize activityTabViewController = _activityTabViewController;
-@synthesize activityTabExperimentViewController = _activityTabExperimentViewController;
+@synthesize activityTabExperimentOldViewController = _activityTabExperimentOldViewController;
 @synthesize placesViewController = _placesViewController;
 
 - (void)dealloc {
@@ -145,19 +145,30 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)updateFourthTab {
     NSInteger assignment = [self getAssignmentForActivityTab];
 
+    // Don't change unnecessarily or else we'll get a crash
+    if (self.viewControllers.count >= 4 && ([self.viewControllers[3] isKindOfClass:[UINavigationController class]])) {
+        UINavigationController *fourthNavVC = self.viewControllers[3];
+        if (fourthNavVC.viewControllers.count >= 1) {
+            UIViewController *rootVC = fourthNavVC.viewControllers[0];
+            if (assignment == 1 && [rootVC isKindOfClass:[WMFActivityTabViewController class]]) {
+                return;
+            } else if (assignment == 0 && [rootVC isKindOfClass:[WMFHistoryViewController class]]) {
+                return;
+            }
+        }
+    }
+
     WMFComponentNavigationController *newNav4 = [self setupFourthTab:assignment];
 
     NSInteger selectedIndex = self.selectedIndex;
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableArray *viewControllers = [self.viewControllers mutableCopy];
-        if (viewControllers.count >= 4) {
-            viewControllers[3] = newNav4;
-            [self setViewControllers:viewControllers animated:NO];
-        }
+    NSMutableArray *viewControllers = [self.viewControllers mutableCopy];
+    if (viewControllers.count >= 4) {
+        viewControllers[3] = newNav4;
+        [self setViewControllers:viewControllers animated:NO];
+    }
 
-        self.selectedIndex = selectedIndex;
-    });
+    self.selectedIndex = selectedIndex;
 }
 
 - (void)viewDidLoad {
@@ -277,11 +288,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showErrorBanner:)
                                                  name:NSNotification.showErrorBanner
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(activityTabDidChange:)
-                                                 name:@"ActivityTabDidChangeNotification"
                                                object:nil];
 
     [self observeArticleTabsNSNotifications];
@@ -888,7 +894,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedContentControllerBusyStateDidChange:) name:WMFExploreFeedContentControllerBusyStateDidChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(activityTabDidChange:)
-                                                 name:@"ActivityTabDidChangeNotification"
+                                                 name:WMFNSNotificationBridge.ActivityTabDidChangeNotificationName
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preferredLanguagesDidChange:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
@@ -925,7 +931,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (void)activityTabDidChange:(NSNotification *)notification {
-    [self updateFourthTab];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateFourthTab];
+    });
 }
 
 - (void)migrateIfNecessary {
@@ -1572,13 +1580,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _activityTabViewController;
 }
 
-- (WMFActivityTabExperimentViewController *)activityTabExperimentViewController {
-    if (!_activityTabExperimentViewController) {
-        _activityTabExperimentViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
-        _activityTabExperimentViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
-        _activityTabExperimentViewController.title = [WMFCommonStrings activityTitle];
+- (WMFActivityTabExperimentOldViewController *)activityTabExperimentOldViewController {
+    if (!_activityTabExperimentOldViewController) {
+        _activityTabExperimentOldViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
+        _activityTabExperimentOldViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
+        _activityTabExperimentOldViewController.title = [WMFCommonStrings activityTitle];
     }
-    return _activityTabExperimentViewController;
+    return _activityTabExperimentOldViewController;
 }
 
 - (void)updateActivityTabLoginStateObjC {

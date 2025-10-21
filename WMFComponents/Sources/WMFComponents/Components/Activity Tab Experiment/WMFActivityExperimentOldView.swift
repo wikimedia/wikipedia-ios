@@ -1,16 +1,16 @@
 import SwiftUI
 import WMFData
 
-public struct WMFActivityExperimentView: View {
+public struct WMFActivityExperimentOldView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    @ObservedObject var viewModel: WMFActivityExperimentViewModel
+    @ObservedObject var viewModel: WMFActivityExperimentOldViewModel
 
-    public init(viewModel: WMFActivityExperimentViewModel) {
+    public init(viewModel: WMFActivityExperimentOldViewModel) {
         self.viewModel = viewModel
     }
 
@@ -28,7 +28,7 @@ public struct WMFActivityExperimentView: View {
                     .padding(.bottom, 8)
 
                 if let editActivityItem = viewModel.editActivityItem {
-                    WMFActivityExperimentComponentView(
+                    WMFActivityExperimentOldComponentView(
                         activityItem: editActivityItem,
                         title: viewModel.title(for: editActivityItem.type),
                         onButtonTap: viewModel.action(for: editActivityItem.type),
@@ -42,7 +42,7 @@ public struct WMFActivityExperimentView: View {
                 }
 
                 if let readActivityItem = viewModel.readActivityItem {
-                    WMFActivityExperimentComponentView(
+                    WMFActivityExperimentOldComponentView(
                         activityItem: readActivityItem,
                         title: viewModel.title(for: readActivityItem.type),
                         onButtonTap: viewModel.action(for: readActivityItem.type),
@@ -56,7 +56,7 @@ public struct WMFActivityExperimentView: View {
                 }
 
                 if let savedActivityItem = viewModel.savedActivityItem {
-                    WMFActivityExperimentComponentView(
+                    WMFActivityExperimentOldComponentView(
                         activityItem: savedActivityItem,
                         title: viewModel.title(for: savedActivityItem.type),
                         onButtonTap: viewModel.action(for: savedActivityItem.type),
@@ -77,7 +77,7 @@ public struct WMFActivityExperimentView: View {
                     guard let project = viewModel.project,
                           let username = viewModel.username else { return }
 
-                    let dataController = try WMFActivityExperimentDataController()
+                    let dataController = try WMFActivityExperimentOldDataController()
                     dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
                     let activity = try await dataController.fetchAllStuff(username: username, project: project)
@@ -95,7 +95,7 @@ public struct WMFActivityExperimentView: View {
             .background(Color(theme.paperBackground))
         } else {
             if let loginAction = viewModel.loginAction {
-                WMFActivityTabExperimentLoggedOutView(viewModel: viewModel, loginAction: loginAction, openHistory: viewModel.openHistoryLoggedOut)
+                WMFActivityTabExperimentOldLoggedOutView(viewModel: viewModel, loginAction: loginAction, openHistory: viewModel.openHistoryLoggedOut)
             }
         }
     }

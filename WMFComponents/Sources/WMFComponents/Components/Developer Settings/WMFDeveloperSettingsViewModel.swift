@@ -78,7 +78,8 @@ import WMFData
                 forceMaxArticleTabsTo5,
                 enableMoreDynamicTabsV2GroupB,
                 enableMoreDynamicTabsV2GroupC,
-                showYiRV3
+                showYiRV3,
+                showActivityTab
             ], selectType: .multi)
         ])
 
