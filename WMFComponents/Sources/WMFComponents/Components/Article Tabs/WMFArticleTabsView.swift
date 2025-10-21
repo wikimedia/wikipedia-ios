@@ -174,24 +174,10 @@ public struct WMFArticleTabsView: View {
                 }
                 .padding(.horizontal, 8)
                 .onAppear {
-                    guard !didInitialScroll else { return }
-                    didInitialScroll = true
-
-                    Task { @MainActor in
-                        try? await Task.sleep(nanoseconds: 150_000_000) // ~150ms
+                    Task {
                         if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
-                    }
-                }
-            }
-            .onChange(of: areRecommendationsVisible()) { visible in
-                guard visible, !didCompensationScroll else { return }
-                didCompensationScroll = true
-                Task { @MainActor in
-                    try? await Task.sleep(nanoseconds: 100_000_000)
-                    if let id = viewModel.currentTabID {
-                        proxy.scrollTo(id, anchor: .bottom)
                     }
                 }
             }
