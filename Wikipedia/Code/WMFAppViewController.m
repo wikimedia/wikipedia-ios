@@ -68,7 +68,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
-@property (nonatomic, strong, readonly) WMFActivityTabExperimentViewController *activityTabExperimentViewController;
+@property (nonatomic, strong, readonly) WMFActivityTabExperimentOldViewController *activityTabExperimentOldViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
 
@@ -122,7 +122,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @synthesize savedViewController = _savedViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize activityTabViewController = _activityTabViewController;
-@synthesize activityTabExperimentViewController = _activityTabExperimentViewController;
+@synthesize activityTabExperimentOldViewController = _activityTabExperimentOldViewController;
 @synthesize placesViewController = _placesViewController;
 
 - (void)dealloc {
@@ -894,7 +894,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedContentControllerBusyStateDidChange:) name:WMFExploreFeedContentControllerBusyStateDidChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(activityTabDidChange:)
-                                                 name:@"ActivityTabDidChangeNotification"
+                                                 name:WMFNSNotificationBridge.ActivityTabDidChangeNotificationName
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preferredLanguagesDidChange:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
@@ -1580,13 +1580,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _activityTabViewController;
 }
 
-- (WMFActivityTabExperimentViewController *)activityTabExperimentViewController {
-    if (!_activityTabExperimentViewController) {
-        _activityTabExperimentViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
-        _activityTabExperimentViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
-        _activityTabExperimentViewController.title = [WMFCommonStrings activityTitle];
+- (WMFActivityTabExperimentOldViewController *)activityTabExperimentOldViewController {
+    if (!_activityTabExperimentOldViewController) {
+        _activityTabExperimentOldViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
+        _activityTabExperimentOldViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
+        _activityTabExperimentOldViewController.title = [WMFCommonStrings activityTitle];
     }
-    return _activityTabExperimentViewController;
+    return _activityTabExperimentOldViewController;
 }
 
 - (void)updateActivityTabLoginStateObjC {

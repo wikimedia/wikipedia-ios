@@ -22,3 +22,7 @@ private enum WMFNotificationName: String {
     case coreDataStoreSetup = "WMFDataCoreDataStoreSetup"
     case activityTabToggled = "ActivityTabDidChangeNotification"
 }
+
+@objc public class WMFNSNotificationBridge: NSObject {
+    @objc public static let ActivityTabDidChangeNotificationName = "ActivityTabDidChangeNotification"
+}

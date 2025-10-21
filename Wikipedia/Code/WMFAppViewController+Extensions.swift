@@ -120,7 +120,7 @@ extension WMFAppViewController {
     }
     
     @objc func assignAndLogActivityTabExperiment() {
-        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+        guard let dataController = WMFActivityTabExperimentsOldDataController.shared,
               let primaryLanguage = dataStore.languageLinkController.appLanguage,
               let project = WikimediaProject(siteURL: primaryLanguage.siteURL),
                 let wmfProject = project.wmfProject else {
@@ -140,7 +140,7 @@ extension WMFAppViewController {
     }
 
     @objc func getAssignmentForActivityTabExperiment() -> Int {
-        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+        guard let dataController = WMFActivityTabExperimentsOldDataController.shared,
               let primaryLanguage = dataStore.languageLinkController.appLanguage,
               let project = WikimediaProject(siteURL: primaryLanguage.siteURL),
               let wmfProject = project.wmfProject else {
@@ -819,7 +819,7 @@ extension WMFAppViewController {
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
-                noUsernameReading: "",
+                noUsernameReading: noUsernameReading,
                 totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
                 onWikipediaiOS: onWikipediaiOS,
                 timeSpentReading: timeSpentReading),
@@ -836,7 +836,7 @@ extension WMFAppViewController {
         return controller
     }
 
-    @objc func generateActivityTabExperiment(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentViewController {
+    @objc func generateActivityTabExperiment(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentOldViewController {
         
         var wikimediaProject: WikimediaProject? = nil
         var wmfProject: WMFProject? = nil
@@ -975,7 +975,7 @@ extension WMFAppViewController {
         }
 
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        let localizedStrings = WMFActivityExperimentViewModel.LocalizedStrings(
+        let localizedStrings = WMFActivityExperimentOldViewModel.LocalizedStrings(
             activityTabNoEditsAddImagesTitle: CommonStrings.activityTabNoEditsAddImagesTitle,
             activityTabNoEditsGenericTitle: CommonStrings.activityTabNoEditsGenericTitle,
             getActivityTabSaveTitle: activityTabSaveTitle,
@@ -991,7 +991,7 @@ extension WMFAppViewController {
             loggedOutSubtitle: CommonStrings.actitvityTabLoggedOutSubtitle
         )
         
-        let viewModel = WMFActivityExperimentViewModel(
+        let viewModel = WMFActivityExperimentOldViewModel(
             localizedStrings: localizedStrings,
             openHistory: openHistoryClosure,
             openHistoryLoggedOut: openHistoryLoggedOutClosure,
@@ -1017,7 +1017,7 @@ extension WMFAppViewController {
             })
         }
 
-        let activityTabViewController = WMFActivityTabExperimentViewController(viewModel: viewModel, theme: theme, showSurvey: showSurveyClosure, dataStore: dataStore)
+        let activityTabViewController = WMFActivityTabExperimentOldViewController(viewModel: viewModel, theme: theme, showSurvey: showSurveyClosure, dataStore: dataStore)
         
         let loginAction = { [weak self] in
             
@@ -1065,7 +1065,7 @@ extension WMFAppViewController {
         return activityTabViewController
     }
     
-    @objc func updateActivityTabExperimentProject(activityTabViewController: WMFActivityTabExperimentViewController) {
+    @objc func updateActivityTabExperimentProject(activityTabViewController: WMFActivityTabExperimentOldViewController) {
         if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
            let wikimediaProject = WikimediaProject(siteURL: siteURL),
            let wmfProject = wikimediaProject.wmfProject {

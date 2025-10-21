@@ -6,7 +6,7 @@ public enum WMFActivityDataControllerError: Error {
     case dateFailure
 }
 
-public class WMFActivityExperimentDataController: NSObject {
+public class WMFActivityExperimentOldDataController: NSObject {
     
     public let coreDataStore: WMFCoreDataStore
     private let service = WMFDataEnvironment.current.mediaWikiService
