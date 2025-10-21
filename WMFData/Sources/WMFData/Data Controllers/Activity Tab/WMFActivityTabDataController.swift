@@ -27,6 +27,22 @@ public final class WMFActivityTabDataController {
         return (hours, minutes)
     }
     
+    public func getArticlesRead() async throws -> Int? {
+        let calendar = Calendar.current
+        let now = Date()
+
+        guard let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: now)) else {
+            return 0
+        }
+
+        let endDate = now
+        
+        let dataController = try WMFPageViewsDataController()
+        let articlesRead = try await dataController.fetchPageViewCounts(startDate: startOfMonth, endDate: endDate)
+
+        return articlesRead.count
+    }
+    
     @objc public func getActivityAssignment() -> Int {
         // TODO: More thoroughly assign experiment
         if shouldShowActivityTab { return 1 }

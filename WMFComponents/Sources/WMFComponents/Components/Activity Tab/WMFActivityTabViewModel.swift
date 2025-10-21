@@ -7,6 +7,7 @@ import WMFData
     @Published var username: String
     @Published var hoursRead: Int
     @Published var minutesRead: Int
+    @Published var totalArticlesRead: Int = 0
     var hasSeenActivityTab: () -> Void
     
     public init(localizedStrings: LocalizedStrings, username: String, hoursRead: Int, minutesRead: Int, hasSeenActivityTab: @escaping () -> Void) {
@@ -29,6 +30,8 @@ import WMFData
         localizedStrings.totalHoursMinutesRead(hoursRead, minutesRead)
     }
 
+    // External updates for async
+    
     public func updateHoursMinutesRead(hours: Int, minutes: Int) {
         self.hoursRead = hours
         self.minutesRead = minutes
@@ -37,6 +40,12 @@ import WMFData
     public func updateUsername(username: String) {
         self.username = username
     }
+    
+    public func updateTotalArticlesRead(totalArticlesRead: Int) {
+        self.totalArticlesRead = totalArticlesRead
+    }
+    
+    // Localized strings
 
     public struct LocalizedStrings {
         let userNamesReading: (String) -> String

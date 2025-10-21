@@ -92,6 +92,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
         
+        Task {
+            if let articlesRead = try? await dataController.getArticlesRead() {
+                viewModel.updateTotalArticlesRead(totalArticlesRead: articlesRead)
+            }
+        }
+        
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
         }
