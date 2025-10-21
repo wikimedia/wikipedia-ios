@@ -11,6 +11,7 @@ struct WMFLargeButtonLoading: View {
     
     let configuration: Configuration
     let title: String
+    let icon: UIImage?
     @Binding var isLoading: Bool
     let action: (() -> Void)?
     
@@ -46,15 +47,19 @@ struct WMFLargeButtonLoading: View {
                     .background(Color(backgroundColor))
                     .cornerRadius(8)
             } else {
-                Text(title)
-                    .font(Font(WMFFont.for(.semiboldHeadline)))
-                    .foregroundColor(Color(foregroundColor))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 46)
-                    .background(Color(backgroundColor))
-                    .cornerRadius(8)
+                HStack(alignment: .center, spacing: 6) {
+                    if let icon {
+                        Image(uiImage: icon)
+                    }
+                    Text(title)
+                        .font(Font(WMFFont.for(.semiboldHeadline)))
+                }
+                .foregroundColor(Color(foregroundColor))
+                .frame(maxWidth: .infinity)
+                .frame(height: 46)
+                .background(Color(backgroundColor))
+                .cornerRadius(8)
             }
-           
         })
     }
 }

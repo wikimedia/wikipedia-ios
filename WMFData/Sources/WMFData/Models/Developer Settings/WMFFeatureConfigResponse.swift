@@ -83,8 +83,7 @@ public struct WMFFeatureConfigResponse: Codable {
                 
                 // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
                 let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
-                if developerSettingsDataController.showYiRV2 ||
-                    developerSettingsDataController.showYiRV3 {
+                if developerSettingsDataController.showYiRV3 {
                     return true
                 }
                 

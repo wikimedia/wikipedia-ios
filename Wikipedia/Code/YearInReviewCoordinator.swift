@@ -57,6 +57,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ?uselang=\(languageCode ?? "en")#Editing"
     }
     
+    private func noncontributorTitle() -> String {
+        return WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your contributor reward for next year!", comment: "Year in review, non contributor slide title")
+    }
+    
     private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings(
             donateButtonTitle: CommonStrings.donateTitle,
@@ -65,12 +69,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             nextButtonTitle: CommonStrings.nextTitle,
             finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
             shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
-            introV2Title: CommonStrings.exploreYiRTitle,
-            introV2TitlePersonalized: CommonStrings.exploreYIRTitlePersonalized,
-            introV2Subtitle: CommonStrings.exploreYIRBody,
-            introV2SubtitlePersonzalized: CommonStrings.exploreYIRBodyPersonalized,
-            introV2PrimaryButtonTitle: CommonStrings.getStartedTitle,
-            introV2SecondaryButtonTitle: CommonStrings.learnMoreTitle(),
             introV3Title: CommonStrings.exploreYIRTitlePersonalized,
             introV3Subtitle: CommonStrings.exploreYIRBodyV3,
             introV3Footer: CommonStrings.exploreYIRFooterV3,
@@ -115,12 +113,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveEditsPerMinuteSlideSubtitle: collectiveEditsPerMinuteSlideSubtitle,
             collectiveZeroAdsSlideTitle: WMFLocalizedString("year-in-review-base-donate-title", value: "0 ads served on Wikipedia", comment: "Year in review, donate slide title when user has not made any donations that year."),
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
-            personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
-            personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
             personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount: minutesRead:),
             personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
-            personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
-            personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
             personalizedDateSlideTitleV3: WMFLocalizedString("year-in-review-personalized-date-title-v3", value: "You have clear reading patterns", comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most."),
             personalizedDateSlideTimeV3: getLocalizedTime(hour:),
             personalizedDateSlideTimeFooterV3: WMFLocalizedString("year-in-review-personalized-date-time-footer-v3", value: "Favorite time to read", comment: "Year in review, personalized slide footer text below the time-of-day that users read the most."),
@@ -144,10 +138,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
             personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:),
-            noncontributorTitle: WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your custom contributor icon", comment: "Year in review, non contributor slide title"),
+            noncontributorTitle: noncontributorTitle(),
             noncontributorSubtitle: noncontributorSlideSubtitle(),
             noncontributorButtonText: CommonStrings.donateTitle,
-            contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New icon unlocked", comment: "Year in review subtitle for contributors"),
+            contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New app icon unlocked for your home screen", comment: "Year in review title for contributors"),
             contributorSubtitle: contributorSlideSubtitle(isEditor:isDonator:),
             contributorGiftTitle: WMFLocalizedString("year-in-review-contributor-gift-title", value: "Activate new app icon", comment: "Year in review title for the new icon"),
             contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon"),
@@ -347,12 +341,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         dataController.updateContributorStatus(isContributor: (isEditor || isDonator))
-        
-        let editorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
 
-        let donorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has donated that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
+        let editorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.", comment: "Year in review, contributor slide subtitle, when user has edited that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
 
-        let bothText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor-and-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited and donated that year. %1$@ is replaced with the Year in Review target year (e.g. 2025)")
+        let donorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.", comment: "Year in review, contributor slide subtitle, when user has donated that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
+
+        let bothText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor-and-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.", comment: "Year in review, contributor slide subtitle, when user has edited and donated that year.  %1$@ is replaced with the Year in Review target year (e.g. 2025).")
 
         if isEditor && isDonator {
             return String.localizedStringWithFormat(bothText, String(config.year))
@@ -371,8 +365,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return ""
         }
         
-        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! [Learn more](%2$@) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
-        return String.localizedStringWithFormat(format, String(config.year), editingFAQURLString)
+        let thisYear = config.year
+        let nextYear = config.year + 1
+
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! Unlock a special reward in your %2$@ Year in Review by becoming a contributor—whether by [editing Wikipedia](%3$@) or by donating to the [Wikimedia Foundation](%4$@), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with the Year in Review target year + 1 (e.g. 2026). %3$@ is replaced with a MediaWiki url with more information about editing. %4$@ is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.")
+
+        return String.localizedStringWithFormat(format, String(thisYear), String(nextYear), editingFAQURLString, aboutWikimediaURLString)
     }
     
     // MARK: - English Slide Strings
@@ -521,25 +519,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     // MARK: - Personalized Slide Strings
 
-    func personalizedYouReadSlideTitleV2(readCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-title-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
-        return String.localizedStringWithFormat(format, readCount)
-    }
-
-    func personalizedYouReadSlideSubtitleV2(readCount: Int) -> String {
-        
-        guard let config = dataController.config else {
-            return ""
-        }
-        
-        let articlesString = formatNumber(NSNumber(value: config.articles), fractionDigits: 0)
-        let languagesString = formatNumber(NSNumber(value: config.languages), fractionDigits: 0)
-        
-        let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}. Wikipedia had %2$@ articles available across over %3$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read. %2$@ is replaced with the number of articles available across Wikipedia. %3$@ is replaced with the number of active languages available on Wikipedia.")
-        
-        return String.localizedStringWithFormat(format, readCount, articlesString, languagesString)
-    }
-    
     func personalizedYouReadSlideTitleV3(readCount: Int, minutesRead: Int) -> String {
         
         guard let config = dataController.config else {
@@ -630,25 +609,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             }
         }
         return secondSentence
-    }
-
-    func personalizedDateSlideTitleV2(day: Int) -> String {
-        let format = WMFLocalizedString(
-            "year-in-review-personalized-day-title-format",
-            value: "You read most on %1$@.",
-            comment: "Year in review, personalized slide title for users that displays the weekday they read most. %1$@ is replaced with the weekday."
-        )
-        
-        return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
-    }
-    
-    func personalizedDateSlideSubtitleV2(day: Int) -> String {
-        let format = WMFLocalizedString(
-            "year-in-review-personalized-day-subtitle-format",
-            value: "You read the most articles on %1$@. It's clear that %1$@ are your prime day for exploring new content. Thanks for making the most of your reading time!",
-            comment: "Year in review, personalized slide subtitle for users that displays the weekday they read most. %1$@ is replaced with the weekday."
-        )
-        return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
     }
     
     func getLocalizedMonth(month: Int) -> String {
@@ -919,51 +879,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    private func needsPostSurveyLoginPrompt() -> Bool {
-        return !dataStore.authenticationManager.authStateIsPermanent && WMFDeveloperSettingsDataController.shared.showYiRV2
-    }
-
-    private func presentPostSurveyLoginPrompt() {
-        let title = WMFLocalizedString("year-in-review-login-title", value: "Improve your Year in Review", comment: "Title of alert that asks user to login. Displayed after they completed the feature for the first time.")
-        let subtitle = WMFLocalizedString("year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalized insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
-        let button1Title = CommonStrings.joinLoginTitle
-        let button2Title = CommonStrings.noThanksTitle
-
-        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
-
-            guard let self else { return }
-
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
-            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
-            
-            
-            loginCoordinator.loginSuccessCompletion = {
-                self.navigationController.dismiss(animated: true) {
-                    self.start()
-                }
-            }
-            
-            loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                self.navigationController.dismiss(animated: true) {
-                    self.start()
-                }
-            }
-            
-            loginCoordinator.start()
-        }
-        let action2 = UIAlertAction(title: button2Title, style: .default) { action in
-           
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
-        }
-        alert.addAction(action1)
-        alert.addAction(action2)
-
-        DonateFunnel.shared.logYearInReviewLoginPromptDidAppear()
-
-        navigationController.present(alert, animated: true)
-    }
-
     private func surveyViewController() -> UIViewController {
         let title = WMFLocalizedString("year-in-review-survey-title", value: "Satisfaction survey", comment: "Year in review survey title. Survey is displayed after user has viewed the last slide of their year in review feature.")
         let subtitle = WMFLocalizedString("year-in-review-survey-subtitle", value: "Help improve the Wikipedia Year in Review. Are you satisfied with this feature? What would like to see next year?", comment: "Year in review survey subtitle. Survey is displayed after user has viewed the last slide of their year in review feature.")
@@ -996,10 +911,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
             self?.navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
-
-                if self.needsPostSurveyLoginPrompt() {
-                    presentPostSurveyLoginPrompt()
-                }
             })
             DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
         }, submitAction: { [weak self] options, otherText in
@@ -1008,13 +919,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
                 guard let self else { return }
 
-                if self.needsPostSurveyLoginPrompt() {
-                    presentPostSurveyLoginPrompt()
-                } else {
-                    let image = UIImage(systemName: "checkmark.circle.fill")
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
-                    DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
-                }
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
             })
         })
 

@@ -64,8 +64,7 @@ import CoreData
     
     public func shouldShowYiRNotification(isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
         
@@ -109,8 +108,7 @@ import CoreData
 
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
         
@@ -148,8 +146,7 @@ import CoreData
         
         let currentDate = currentDate ?? Date()
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
 
@@ -192,8 +189,7 @@ import CoreData
 
     @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?) -> Bool {
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
 
@@ -228,8 +224,7 @@ import CoreData
 
     func shouldPopulateYearInReviewReportData(countryCode: String?) -> Bool {
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
         
