@@ -11,6 +11,7 @@ public enum WMFDataControllerError: LocalizedError {
     case serviceError(Error)
     case mediaWikiResponseError(WMFMediaWikiError)
     case paymentsWikiResponseError(String?)
+    case missingPrimaryAppLanguage
 }
 
 public enum WMFServiceError: Error, Equatable {

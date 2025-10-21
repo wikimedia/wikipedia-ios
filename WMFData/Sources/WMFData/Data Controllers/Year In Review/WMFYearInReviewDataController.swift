@@ -4,10 +4,16 @@ import CoreData
 
 @preconcurrency
 @objc public class WMFYearInReviewDataController: NSObject {
-
+    
+    enum CustomError: Error {
+        case missingExperimentsDataController
+        case unexpectedAssignment
+    }
+    
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+    private let experimentsDataController: WMFExperimentsDataController?
 
     @objc public static let targetYear = 2025
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
@@ -42,7 +48,7 @@ import CoreData
         return nil
     }
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared, experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) throws {
 
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -50,6 +56,11 @@ import CoreData
         self.coreDataStore = coreDataStore
         self.userDefaultsStore = userDefaultsStore
         self.developerSettingsDataController = developerSettingsDataController
+        if let experimentStore {
+            self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+        } else {
+            self.experimentsDataController = nil
+        }
     }
 
     // MARK: - Feature Announcement
@@ -219,7 +230,94 @@ import CoreData
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue, value: newValue)
         }
     }
+    
+    // MARK: - Experiment
+    
+    public enum YiRLoginExperimentAssignment {
+        case control
+        case groupB
+    }
+    
+    private var assignmentCache: YiRLoginExperimentAssignment?
+    
+    private func shouldAssignLoginExperiment() -> Bool {
+        guard let experimentsDataController else {
+            return false
+        }
+        return experimentsDataController.bucketForExperiment(.yirLoginPrompt) == nil
+    }
 
+    
+    public func assignLoginExperimentIfNeeded() throws {
+        
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            throw WMFDataControllerError.missingPrimaryAppLanguage
+        }
+        
+        guard let experimentsDataController else {
+            throw CustomError.missingExperimentsDataController
+        }
+        
+        guard primaryAppLanguage.qualifiesForExperiment else {
+            return
+        }
+        
+        guard shouldAssignLoginExperiment() else {
+            return
+        }
+        
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.yirLoginPrompt, withPercentage: 50)
+
+        let assignment: YiRLoginExperimentAssignment
+        
+        switch bucketValue {
+        case .yirLoginPromptControl:
+            assignment = .control
+        case .yirLoginPromptGroupB:
+            assignment = .groupB
+        default:
+            throw CustomError.unexpectedAssignment
+        }
+        
+        self.assignmentCache = assignment
+    }
+    
+    public func getLoginExperiment() -> YiRLoginExperimentAssignment? {
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return nil
+        }
+        
+        guard let experimentsDataController else {
+            return nil
+        }
+        
+        guard primaryAppLanguage.qualifiesForExperiment else {
+            return nil
+        }
+        
+        if let assignmentCache {
+            return assignmentCache
+        }
+        
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.yirLoginPrompt) else {
+            return nil
+        }
+        
+        let assignment: YiRLoginExperimentAssignment
+        switch bucketValue {
+            
+        case .yirLoginPromptControl:
+            assignment = .control
+        case .yirLoginPromptGroupB:
+            assignment = .groupB
+        default:
+            return nil
+        }
+        
+        self.assignmentCache = assignment
+        return assignment
+    }
+    
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?) -> Bool {
@@ -594,4 +692,10 @@ public protocol SavedArticleSlideDataDelegate: AnyObject {
 
 public protocol LegacyPageViewsDataDelegate: AnyObject {
     func getLegacyPageViews(from startDate: Date, to endDate: Date, needsLatLong: Bool) async throws -> [WMFLegacyPageView]
+}
+
+fileprivate extension WMFLanguage {
+    var qualifiesForExperiment: Bool {
+        return languageCode.lowercased() == "en"
+    }
 }
