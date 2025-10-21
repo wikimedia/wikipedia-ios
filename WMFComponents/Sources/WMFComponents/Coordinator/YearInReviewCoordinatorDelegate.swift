@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 public protocol YearInReviewCoordinatorDelegate: AnyObject {
     func handleYearInReviewAction(_ action: YearInReviewCoordinatorAction)
@@ -13,4 +14,5 @@ public enum YearInReviewCoordinatorAction {
     case introLearnMore
     case learnMore(url: URL?, shouldShowDonateButton: Bool)
     case info(url: URL?)
+    case logExperimentAssignment(assignment: WMFYearInReviewDataController.YiRLoginExperimentAssignment)
 }

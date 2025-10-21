@@ -8,6 +8,9 @@ import CoreData
     enum CustomError: Error {
         case missingExperimentsDataController
         case unexpectedAssignment
+        case alreadyAssignedExperiment
+        case notQualifiedForExperiment
+        case missingPrimaryAppLanguage
     }
     
     public let coreDataStore: WMFCoreDataStore
@@ -240,18 +243,10 @@ import CoreData
     
     private var assignmentCache: YiRLoginExperimentAssignment?
     
-    private func shouldAssignLoginExperiment() -> Bool {
-        guard let experimentsDataController else {
-            return false
-        }
-        return experimentsDataController.bucketForExperiment(.yirLoginPrompt) == nil
-    }
-
-    
-    public func assignLoginExperimentIfNeeded() throws {
+    public func assignLoginExperimentIfNeeded() throws -> YiRLoginExperimentAssignment {
         
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
-            throw WMFDataControllerError.missingPrimaryAppLanguage
+            throw CustomError.missingPrimaryAppLanguage
         }
         
         guard let experimentsDataController else {
@@ -259,11 +254,11 @@ import CoreData
         }
         
         guard primaryAppLanguage.qualifiesForExperiment else {
-            return
+            throw CustomError.notQualifiedForExperiment
         }
         
-        guard shouldAssignLoginExperiment() else {
-            return
+        guard experimentsDataController.bucketForExperiment(.yirLoginPrompt) == nil else {
+            throw CustomError.alreadyAssignedExperiment
         }
         
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.yirLoginPrompt, withPercentage: 50)
@@ -280,10 +275,11 @@ import CoreData
         }
         
         self.assignmentCache = assignment
+        return assignment
     }
     
-    public var needsPermanentAccountForPersonalizedFlow: Bool {
-        if developerSettingsDataController.enableYiRLoginExperimentControl {
+    public var bypassLoginForPersonalizedFlow: Bool {
+        if developerSettingsDataController.enableMoreDynamicTabsV2GroupB {
             return true
         }
         
@@ -291,13 +287,13 @@ import CoreData
         if let assignment {
             switch assignment {
             case .control:
-                return true
-            case .groupB:
                 return false
+            case .groupB:
+                return true
             }
         }
         
-        return true
+        return false
     }
     
     public var loginExperimentBEnabled: Bool {

@@ -1093,6 +1093,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true)
+        case .logExperimentAssignment(let assignment):
+            //todo: log assignment
         }
     }
     
