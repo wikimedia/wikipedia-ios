@@ -145,19 +145,30 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)updateFourthTab {
     NSInteger assignment = [self getAssignmentForActivityTab];
 
+    // Don't change unnecessarily or else we'll get a crash
+    if (self.viewControllers.count >= 4 && ([self.viewControllers[3] isKindOfClass:[UINavigationController class]])) {
+        UINavigationController *fourthNavVC = self.viewControllers[3];
+        if (fourthNavVC.viewControllers.count >= 1) {
+            UIViewController *rootVC = fourthNavVC.viewControllers[0];
+            if (assignment == 1 && [rootVC isKindOfClass:[WMFActivityTabViewController class]]) {
+                return;
+            } else if (assignment == 0 && [rootVC isKindOfClass:[WMFHistoryViewController class]]) {
+                return;
+            }
+        }
+    }
+
     WMFComponentNavigationController *newNav4 = [self setupFourthTab:assignment];
 
     NSInteger selectedIndex = self.selectedIndex;
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableArray *viewControllers = [self.viewControllers mutableCopy];
-        if (viewControllers.count >= 4) {
-            viewControllers[3] = newNav4;
-            [self setViewControllers:viewControllers animated:NO];
-        }
+    NSMutableArray *viewControllers = [self.viewControllers mutableCopy];
+    if (viewControllers.count >= 4) {
+        viewControllers[3] = newNav4;
+        [self setViewControllers:viewControllers animated:NO];
+    }
 
-        self.selectedIndex = selectedIndex;
-    });
+    self.selectedIndex = selectedIndex;
 }
 
 - (void)viewDidLoad {
@@ -277,11 +288,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showErrorBanner:)
                                                  name:NSNotification.showErrorBanner
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(activityTabDidChange:)
-                                                 name:@"ActivityTabDidChangeNotification"
                                                object:nil];
 
     [self observeArticleTabsNSNotifications];
@@ -925,7 +931,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (void)activityTabDidChange:(NSNotification *)notification {
-    [self updateFourthTab];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateFourthTab];
+    });
 }
 
 - (void)migrateIfNecessary {
