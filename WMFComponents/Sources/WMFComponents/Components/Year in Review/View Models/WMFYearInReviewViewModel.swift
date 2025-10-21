@@ -900,23 +900,25 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         let checkLoginAndProceed: () -> Void = {
             if !self.isUserPermanent {
-                self.coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
+                self.coordinatorDelegate?.handleYearInReviewAction(.presentLoginPromptFromIntroGetStarted)
             } else {
                 self.populateReportAndShowFirstSlide()
             }
         }
         
         if let dataController {
-            do {
-                let assignment = try dataController.assignLoginExperimentIfNeeded()
-                coordinatorDelegate?.handleYearInReviewAction(.logExperimentAssignment(assignment: assignment))
-                switch assignment {
-                case .control:
-                    checkLoginAndProceed()
-                case .groupB:
-                    populateReportAndShowFirstSlide()
+            if dataController.needsLoginExperimentAssignment() {
+                do {
+                    let assignment = try dataController.assignLoginExperimentIfNeeded()
+                    coordinatorDelegate?.handleYearInReviewAction(.logExperimentAssignment(assignment: assignment))
+                } catch {
+                    
                 }
-            } catch {
+            }
+            
+            if dataController.bypassLoginForPersonalizedFlow {
+                populateReportAndShowFirstSlide()
+            } else {
                 checkLoginAndProceed()
             }
         } else {
@@ -1090,7 +1092,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             if isUserPermanent {
                 standardDismissal()
             } else {
-                coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
+                coordinatorDelegate?.handleYearInReviewAction(.presentExitToastFromIntroDone)
             }
         }
     }

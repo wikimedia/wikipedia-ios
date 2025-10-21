@@ -5,7 +5,7 @@ import CoreData
 @preconcurrency
 @objc public class WMFYearInReviewDataController: NSObject {
     
-    enum CustomError: Error {
+    public enum CustomError: Error {
         case missingExperimentsDataController
         case unexpectedAssignment
         case alreadyAssignedExperiment
@@ -243,22 +243,38 @@ import CoreData
     
     private var assignmentCache: YiRLoginExperimentAssignment?
     
-    public func assignLoginExperimentIfNeeded() throws -> YiRLoginExperimentAssignment {
-        
-        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
-            throw CustomError.missingPrimaryAppLanguage
+    public func needsLoginExperimentAssignment() -> Bool {
+        if developerSettingsDataController.enableYiRLoginExperimentB {
+            return false
         }
         
-        guard let experimentsDataController else {
-            throw CustomError.missingExperimentsDataController
+        if developerSettingsDataController.enableYiRLoginExperimentControl {
+            return false
+        }
+        
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return false
         }
         
         guard primaryAppLanguage.qualifiesForExperiment else {
-            throw CustomError.notQualifiedForExperiment
+            return false
+        }
+        
+        guard let experimentsDataController else {
+            return false
         }
         
         guard experimentsDataController.bucketForExperiment(.yirLoginPrompt) == nil else {
-            throw CustomError.alreadyAssignedExperiment
+            return false
+        }
+        
+        return true
+    }
+    
+    public func assignLoginExperimentIfNeeded() throws -> YiRLoginExperimentAssignment {
+        
+        guard let experimentsDataController else {
+            throw CustomError.missingExperimentsDataController
         }
         
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.yirLoginPrompt, withPercentage: 50)
@@ -279,7 +295,7 @@ import CoreData
     }
     
     public var bypassLoginForPersonalizedFlow: Bool {
-        if developerSettingsDataController.enableMoreDynamicTabsV2GroupB {
+        if developerSettingsDataController.enableYiRLoginExperimentB {
             return true
         }
         
@@ -294,10 +310,6 @@ import CoreData
         }
         
         return false
-    }
-    
-    public var loginExperimentBEnabled: Bool {
-        developerSettingsDataController.enableYiRLoginExperimentB || (getLoginExperimentAssignment() == .groupB)
     }
     
     private func getLoginExperimentAssignment() -> YiRLoginExperimentAssignment? {
