@@ -26,11 +26,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         super.init()
     }
     
+    var learnMoreAboutActivityURL: URL? {
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = "\(primaryAppLanguageCode)"
+        }
+        return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Activity_Tab?uselang=\(languageCodeSuffix)")
+    }
+    
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Profile button dependencies
 
     private var _yirCoordinator: YearInReviewCoordinator?
     var yirCoordinator: YearInReviewCoordinator? {
@@ -90,22 +96,18 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
         
-        dataController.hasSeenActivityTab = false
-        
-        presentOnboardingIfNecessary()
+        if !dataController.hasSeenActivityTab {
+            presentOnboarding()
+        }
         
         configureNavigationBar()
     }
     
-    private func presentOnboardingIfNecessary() {
-        guard !dataController.hasSeenActivityTab else {
-            return
-        }
-
-        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: firstItemTitle, subtitle: firstItemSubtitle, fillIconBackground: true)
-        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: secondItemTitle, subtitle: secondItemSubtitle, fillIconBackground: true)
-        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: thirdItemTitle, subtitle: thirdItemSubtitle, fillIconBackground: true)
-        let fourthItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: fourthItemTitle, subtitle: fourthItemSubtitle, fillIconBackground: true)
+    private func presentOnboarding() {
+        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .bookPages), title: firstItemTitle, subtitle: firstItemSubtitle, fillIconBackground: false)
+        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .pencil), title: secondItemTitle, subtitle: secondItemSubtitle, fillIconBackground: false)
+        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .bookmark), title: thirdItemTitle, subtitle: thirdItemSubtitle, fillIconBackground: false)
+        let fourthItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .lock), title: fourthItemTitle, subtitle: fourthItemSubtitle, fillIconBackground: false)
 
         let onboardingViewModel = WMFOnboardingViewModel(
             title: activityOnboardingHeader,
@@ -118,8 +120,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
-
-        dataController.hasSeenActivityTab = true
     }
     
     private let firstItemTitle = WMFLocalizedString("activity-tab-onboarding-first-item-title", value: "Reading patterns", comment: "Title for activity tabs first item")
@@ -254,25 +254,25 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewDidClickPrimaryButton() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            //
+            self?.dataController.hasSeenActivityTab = true
         })
 
         // TODO: Log
     }
 
     public func onboardingViewDidClickSecondaryButton() {
-//        guard let url = viewModel.learnMoreURL else {
-//            return
-//        }
-//
-//        UIApplication.shared.open(url)
+        guard let url = learnMoreAboutActivityURL else {
+            return
+        }
+
+        UIApplication.shared.open(url)
 
         // TODO: Log
     }
 
     public func onboardingViewWillSwipeToDismiss() {
-//        viewModel.fetchImageRecommendationsIfNeeded {
-//
-//        }
+        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
+            self?.dataController.hasSeenActivityTab = true
+        })
     }
 }
