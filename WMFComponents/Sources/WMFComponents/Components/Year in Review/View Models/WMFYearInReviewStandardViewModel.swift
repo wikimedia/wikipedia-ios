@@ -14,19 +14,17 @@ struct WMFYearInReviewSlideStandardViewModel: WMFYearInReviewSlideViewModelProto
     let subtitle: String
     let subtitleType: SubtitleType
     var infoURL: URL?
-    let forceHideDonateButton: Bool
     let loggingID: String
     let tappedLearnMore: ((URL) -> Void)?
     let tappedInfo: () -> Void
     
-    init(gifName: String, altText: String, title: String, subtitle: String, subtitleType: SubtitleType = .standard, infoURL: URL?, forceHideDonateButton: Bool, loggingID: String, tappedLearnMore: ((URL) -> Void)? = nil, tappedInfo: @escaping () -> Void) {
+    init(gifName: String, altText: String, title: String, subtitle: String, subtitleType: SubtitleType = .standard, infoURL: URL?, loggingID: String, tappedLearnMore: ((URL) -> Void)? = nil, tappedInfo: @escaping () -> Void) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
         self.subtitle = subtitle
         self.subtitleType = subtitleType
         self.infoURL = infoURL
-        self.forceHideDonateButton = forceHideDonateButton
         self.loggingID = loggingID
         self.tappedLearnMore = tappedLearnMore
         self.tappedInfo = tappedInfo
