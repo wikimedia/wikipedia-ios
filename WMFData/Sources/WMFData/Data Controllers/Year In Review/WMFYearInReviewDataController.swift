@@ -282,7 +282,29 @@ import CoreData
         self.assignmentCache = assignment
     }
     
-    public func getLoginExperiment() -> YiRLoginExperimentAssignment? {
+    public var needsPermanentAccountForPersonalizedFlow: Bool {
+        if developerSettingsDataController.enableYiRLoginExperimentControl {
+            return true
+        }
+        
+        let assignment = getLoginExperimentAssignment()
+        if let assignment {
+            switch assignment {
+            case .control:
+                return true
+            case .groupB:
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    public var loginExperimentBEnabled: Bool {
+        developerSettingsDataController.enableYiRLoginExperimentB || (getLoginExperimentAssignment() == .groupB)
+    }
+    
+    private func getLoginExperimentAssignment() -> YiRLoginExperimentAssignment? {
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return nil
         }
