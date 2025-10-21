@@ -6,11 +6,7 @@ import Combine
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}
 
-@objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
-    
-    var topSafeAreaOverlayView: UIView?
-    
-    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+@objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
     private var theme: Theme
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -73,7 +69,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
 
         guard let existingProfileCoordinator = _profileCoordinator else {
-            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .historyProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.history, yirCoordinator: yirCoordinator)
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .historyProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.activity, yirCoordinator: yirCoordinator)
             _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
@@ -109,18 +105,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-
-        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.calculateTopSafeAreaOverlayHeight()
-        }
-    }
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
-
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
+    }
+    
+    @objc private func didLogIn() {
+        if let username = dataStore?.authenticationManager.authStatePermanentUsername {
+            viewModel.updateUsername(username: username)
+         }
     }
     
     private lazy var moreBarButtonItem: UIBarButtonItem = {
@@ -141,7 +135,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.savedTabTitle, customView: nil, alignment: .leadingLarge)
+                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingLarge)
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
@@ -161,7 +155,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
-        ArticleTabsFunnel.shared.logIconClick(interface: .saved, project: nil)
+        ArticleTabsFunnel.shared.logIconClick(interface: .activityTab, project: nil)
     }
 
     @objc func userDidTapProfile() {
@@ -171,11 +165,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-              let metricsID = DonateCoordinator.metricsID(for: .savedProfile, languageCode: languageCode) else {
+              let metricsID = DonateCoordinator.metricsID(for: .activityTabProfile, languageCode: languageCode) else {
             return
         }
-        
-        DonateFunnel.shared.logSavedProfile(metricsID: metricsID)
               
         profileCoordinator?.start()
     }

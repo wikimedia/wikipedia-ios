@@ -17,7 +17,10 @@ import WMFData
     }
     
     public var usernamesReading: String {
-        localizedStrings.userNamesReading(username)
+        if username.isEmpty {
+            return localizedStrings.noUsernameReading
+        }
+        return localizedStrings.userNamesReading(username)
     }
     
     public var hoursMinutesRead: String {
@@ -35,12 +38,14 @@ import WMFData
 
     public struct LocalizedStrings {
         let userNamesReading: (String) -> String
+        let noUsernameReading: String
         var totalHoursMinutesRead: (Int, Int) -> String
         let onWikipediaiOS: String
         let timeSpentReading: String
         
-        public init(userNamesReading: @escaping (String) -> String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String) {
             self.userNamesReading = userNamesReading
+            self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
             self.onWikipediaiOS = onWikipediaiOS
             self.timeSpentReading = timeSpentReading

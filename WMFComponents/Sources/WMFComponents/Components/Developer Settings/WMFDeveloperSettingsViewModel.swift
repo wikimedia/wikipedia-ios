@@ -116,7 +116,7 @@ import WMFData
             .sink { isSelected in
                 WMFDeveloperSettingsDataController.shared.showActivityTab = isSelected
                 NotificationCenter.default.post(
-                    name: NSNotification.Name("ActivityTabDidChangeNotification"),
+                    name: WMFNSNotification.activityTab,
                     object: nil,
                     userInfo: ["isOn": isSelected]
                 )

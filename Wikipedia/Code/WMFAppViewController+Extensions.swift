@@ -802,6 +802,8 @@ extension WMFAppViewController {
             )
             return String.localizedStringWithFormat(format, username)
         }
+        
+        let noUsernameReading = WMFLocalizedString("activity-tab-no-username-reading-title", value: "Your reading", comment: "Activity tab header, for when there is no username.")
 
         func hoursMinutesRead(hours: Int, minutes: Int) -> String {
             let hoursString = hours.description
@@ -817,6 +819,7 @@ extension WMFAppViewController {
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
+                noUsernameReading: "",
                 totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
                 onWikipediaiOS: onWikipediaiOS,
                 timeSpentReading: timeSpentReading),

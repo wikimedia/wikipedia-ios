@@ -142,10 +142,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
 - (void)updateFourthTab {
     NSInteger assignment = [self getAssignmentForActivityTab];
 
@@ -1362,10 +1358,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
 
-            BOOL showActivityTab = [[NSUserDefaults standardUserDefaults] boolForKey:@"showActivityTab"];
-            if (showActivityTab) {
-                [self.currentTabNavigationController setViewControllers:@[_activityTabViewController] animated:NO];
-            }
         } break;
         case WMFUserActivityTypeSearch:
             [self switchToSearchAnimated:animated];
@@ -1622,14 +1614,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)setDidShowOnboarding {
-    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
-
-    // If the user is onboarding, variant info alerts do not need to be presented
-    // So, set the user default to the current library version
-    [[NSUserDefaults standardUserDefaults] setInteger:MWKDataStore.currentLibraryVersion forKey:WMFLanguageVariantAlertsLibraryVersion];
-}
-
-- (void)shouldShowActivityTab {
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
 
     // If the user is onboarding, variant info alerts do not need to be presented
