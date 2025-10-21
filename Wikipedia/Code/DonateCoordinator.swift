@@ -224,6 +224,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logSearchProfileDonateCancel(metricsID: metricsID)
             case .activityTabProfile:
                 // TODO: Logging
+                return
             }
         }))
         
@@ -258,6 +259,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
             case .activityTabProfile:
                 // TODO: Logging
+                return
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -294,6 +296,7 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
             case .activityTabProfile:
                 // TODO: Logging
+                return
             }
             navigateToOtherPaymentMethod()
         }))
@@ -732,6 +735,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .activityTabProfile:
             // TODO: Logging
+            return
         }
     }
     
@@ -849,6 +853,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .activityTabProfile:
                 // TODO: Logging
+                return
             }
         }
     }

@@ -79,6 +79,7 @@
 "activity-tab-logged-out-title" = "Log in or create an account to see more editing and reading activity.";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
+"activity-tab-no-username-reading-title" = "Your reading";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-start-editing" = "Start editing";
@@ -1511,16 +1512,12 @@
 "year-in-review-highlights-title" = "Thank you for spending your year with Wikipedia";
 "year-in-review-intro-exit-toast-title" = "You can access your Year in Review later in Profile.";
 "year-in-review-intro-login-title" = "Log in for personalization";
-"year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
-"year-in-review-login-title" = "Improve your Year in Review";
 "year-in-review-non-contributor-slide-title" = "Unlock your contributor reward for next year!";
 "year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your $1! Unlock a special reward in your $2 Year in Review by becoming a contributor—whether by [editing Wikipedia]($3) or by donating to the [Wikimedia Foundation]($4), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.";
 "year-in-review-personalized-date-day-footer-v3" = "Favorite day to read";
 "year-in-review-personalized-date-month-footer-v3" = "Month you did the most reading";
 "year-in-review-personalized-date-time-footer-v3" = "Favorite time to read";
 "year-in-review-personalized-date-title-v3" = "You have clear reading patterns";
-"year-in-review-personalized-day-subtitle-format" = "You read the most articles on $1. It's clear that $1 are your prime day for exploring new content. Thanks for making the most of your reading time!";
-"year-in-review-personalized-day-title-format" = "You read most on $1.";
 "year-in-review-personalized-donate-subtitle" = "Thank you for investing in the future of free knowledge. This year, the Wikimedia Foundation improved the technology to serve every reader and volunteer better, developed tools that empower collaboration, and supported Wikipedia in more languages. [Learn more about our work]($1).";
 "year-in-review-personalized-donate-title" = "Your generosity helped keep Wikipedia thriving";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia logo";
@@ -1536,9 +1533,7 @@
 "year-in-review-personalized-location-subtitle-format-3" = "You read about $4$1$5, $4$2$5, and $4$3$5.";
 "year-in-review-personalized-location-title-format" = "Articles you read are closest to $1";
 "year-in-review-personalized-most-read-articles-title" = "Your top articles";
-"year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}. Wikipedia had $2 articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-subtitle-format-v3" = "We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
-"year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-reading-title-v3-format" = "You spent {{PLURAL:$1|$1 minute|$1 minutes}} reading {{PLURAL:$2|$2 article|$2 articles}} in $3";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";
 "year-in-review-personalized-saved-subtitle-format-v3" = "These articles included $1, $2, and $3. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had $4 saved articles this year.";

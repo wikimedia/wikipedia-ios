@@ -1097,29 +1097,7 @@ extension ExploreViewController {
             return
         }
 
-        if WMFDeveloperSettingsDataController.shared.showYiRV2 {
-            let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
-            let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
-            let primaryButtonTitle = CommonStrings.continueButton
-            let image = UIImage(named: "wikipedia-globe")
-            let backgroundImage = UIImage(named: "Announcement")
-            let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
-            let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
-
-            let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
-                guard let self else { return }
-                yirCoordinator?.start()
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-            }, closeButtonAction: {
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
-            })
-
-            if let profileBarButtonItem = navigationItem.rightBarButtonItem {
-                announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-                yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-            }
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
+        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             // A change in V3 is that we just show the feature itself with a modified intro slide.
             // No feature announcement component
             yirCoordinator?.needsExitFromIntroToast = true

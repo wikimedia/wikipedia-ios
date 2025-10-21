@@ -5,7 +5,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var enableMoreDynamicTabsV2GroupB: Bool { get }
     var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
-    var showYiRV2: Bool { get }
     var showYiRV3: Bool { get }
     var showActivityTab: Bool { get }
 }
@@ -141,15 +140,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue)
         }
     }
-    
-    public var showYiRV2: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue, value: newValue)
-        }
-    }
-    
+
     public var showYiRV3: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
