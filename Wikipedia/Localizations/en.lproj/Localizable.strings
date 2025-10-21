@@ -80,6 +80,10 @@
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
+"activity-tab-onboarding-first-item-subitle" = "See how much time you've spent reading and which articles or topics you've explored over time.";
+"activity-tab-onboarding-first-item-title" = "Reading patterns";
+"activity-tab-onboarding-second-item-subitle" = "Discover insights about your contributions and the reach of the knowledge you've shared.";
+"activity-tab-onboarding-second-item-title" = "Impact highlights";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-start-editing" = "Start editing";

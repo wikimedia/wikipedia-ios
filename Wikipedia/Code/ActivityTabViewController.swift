@@ -102,13 +102,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             return
         }
 
-        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: firstItemTitle, subtitle: firstItemSubitle, fillIconBackground: true)
+        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: firstItemTitle, subtitle: firstItemSubtitle, fillIconBackground: true)
+        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: secondItemTitle, subtitle: secondItemSubtitle, fillIconBackground: true)
+        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: thirdItemTitle, subtitle: thirdItemSubtitle, fillIconBackground: true)
+        let fourthItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photoOnRectangleAngled), title: fourthItemTitle, subtitle: fourthItemSubtitle, fillIconBackground: true)
 
-//        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .plusForwardSlashMinus), title: viewModel.localizedStrings.onboardingStrings.secondItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.secondItemBody, fillIconBackground: true)
-//
-//        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFIcon.commons, title: viewModel.localizedStrings.onboardingStrings.thirdItemTitle, subtitle: viewModel.localizedStrings.onboardingStrings.thirdItemBody, fillIconBackground: true)
-
-        let onboardingViewModel = WMFOnboardingViewModel(title: "", cells: [firstItem], primaryButtonTitle: "continue", secondaryButtonTitle: "sharting")
+        let onboardingViewModel = WMFOnboardingViewModel(
+            title: activityOnboardingHeader,
+            cells: [firstItem, secondItem, thirdItem, fourthItem],
+            primaryButtonTitle: CommonStrings.continueButton,
+            secondaryButtonTitle: learnMoreAboutActivity)
 
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         onboardingController.delegate = self
@@ -120,7 +123,19 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     private let firstItemTitle = WMFLocalizedString("activity-tab-onboarding-first-item-title", value: "Reading patterns", comment: "Title for activity tabs first item")
-    private let firstItemSubitle = WMFLocalizedString("activity-tab-onboarding-first-item-subitle", value: "See how much time you've spent reading and which articles or topics you've explored over time.", comment: "Title for activity tabs first item subtitle")
+    private let firstItemSubtitle = WMFLocalizedString("activity-tab-onboarding-first-item-subtitle", value: "See how much time you've spent reading and which articles or topics you've explored over time.", comment: "Activity tabs first item subtitle")
+    
+    private let secondItemTitle = WMFLocalizedString("activity-tab-onboarding-second-item-title", value: "Impact highlights", comment: "Title for activity tabs second item")
+    private let secondItemSubtitle = WMFLocalizedString("activity-tab-onboarding-second-item-subtitle", value: "Discover insights about your contributions and the reach of the knowledge you've shared.", comment: "Activity tabs second item subtitle")
+    
+    private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title", value: "More ways to engage", comment: "Title for activity tabs third item")
+    private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle", value: "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.", comment: "Activity tabs third item subtitle")
+
+    private let fourthItemTitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-title", value: "Stay in control", comment: "Title for activity tabs fourth item")
+    private let fourthItemSubtitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-subtitle", value: "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.", comment: "Activity tabs fourth item subtitle")
+    
+    private let activityOnboardingHeader = WMFLocalizedString("activity-tab-onboarding-header", value: "Introducing Activity", comment: "Activity tabs onboarding header")
+    private let learnMoreAboutActivity = WMFLocalizedString("activity-tab-onboarding-second-button-title", value: "Learn more about Activity", comment: "Activity tabs secondary button to learn more")
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
