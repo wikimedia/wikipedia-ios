@@ -21,7 +21,7 @@ public struct WMFActivityTabView: View {
                         .font(Font(WMFFont.for(.boldHeadline)))
                         .frame(maxWidth: .infinity, alignment: .center)
                     Text(viewModel.localizedStrings.onWikipediaiOS)
-                        .font(Font(WMFFont.for(.caption2)))
+                        .font(.custom("Menlo", size: 11, relativeTo: .caption2))
                         .foregroundColor(Color(uiColor: theme.text))
                         .padding(.vertical, 4)
                         .padding(.horizontal, 8)
