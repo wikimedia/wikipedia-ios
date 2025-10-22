@@ -750,6 +750,7 @@
 "main-page" = "Huvudsida";
 // Fuzzy
 "microsite-yir-english-edits-bytes-slide-subtitle" = "Under 2024 lade volontärer till 4 104 852 969 byte på engelskspråkiga Wikipedia. Summan av deras arbete leder tillsammans till en faktabaserad och pålitlig kunskapsresurs för omvärlden som ständigt förbättras. Alla har kunskap att dela med sig, så [läs om hur man deltar]($1).";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "3,4 miljarder byte lades till";
 // Fuzzy
 "microsite-yir-english-edits-slide-subtitle" = "Volontärer gjorde 98 222 407 ändringar på över 300 olika språkversioner av Wikipedia. Över 37 miljoner ändringar gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.";
@@ -757,9 +758,11 @@
 "microsite-yir-english-edits-slide-title" = "Redigerare gjorde 98 miljoner ändringar i år";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "Folk tillbringade uppskattningsvis 2,9 miljarder timmar (över 331 000 år!) på att läsa på engelskspråkiga Wikipedia under 2024. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.";
+// Fuzzy
 "microsite-yir-english-reading-slide-title" = "Vi spenderade 2,4 miljarder timmar på att läsa";
 // Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktiva användare av iOS-appen hade över 62,2 miljoner läslistor. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
+// Fuzzy
 "microsite-yir-english-saved-reading-slide-title" = "Vi hade över 37 miljoner sparade artiklar";
 // Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "De 5 mest besökta artiklarna på engelskspråkiga Wikipedia var:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nLäs mer på $6vårt dedikerade blogginlägg$7.";
@@ -1475,7 +1478,9 @@
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "Wikipedia redigerades med en genomsnittlig hastighet av $1 gånger per minut. Artiklar skapas och förbättras tillsammans med hjälp av tillförlitliga källor. Allihopa har kunskap att dela med sig, så [läs hur man deltar]($2).";
 "year-in-review-base-edits-title" = "Wikipedia redigerades $1 gånger per minut";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipedia hade fler än $1 miljon artiklar på över $2 aktiva språk. Du anslöt dig till miljontals andra för att utöka kunskapen och utforska olika ämnen.";
+// Fuzzy
 "year-in-review-base-reading-title" = "Wikipedia gjordes tillgänglig på fler än 300 språk";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "Aktiva användare av iOS-appen hade över 62,2 miljoner läslistor. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
@@ -1494,6 +1499,7 @@
 "year-in-review-collective-saved-articles" = "En pusselglob med Wikipedias logotyp som representerar ett globalt samarbete.";
 "year-in-review-collective-zero-ads" = "Wikimedia-logotyp";
 "year-in-review-contributor-gift-title" = "Aktivera ny appikon";
+// Fuzzy
 "year-in-review-contributor-slide-title" = "Ny ikon låstes upp";
 "year-in-review-day-friday" = "Fredagar";
 "year-in-review-day-monday" = "Måndagar";
@@ -1514,7 +1520,6 @@
 "year-in-review-finish" = "Slutför";
 "year-in-review-highlights-articles-saved" = "Artiklar som har sparats";
 "year-in-review-highlights-articles-viewed" = "Antal lästa artiklar";
-"year-in-review-highlights-articles-viewed-value" = "$1 miljarder";
 "year-in-review-highlights-button-title" = "Dela höjdpunkter";
 "year-in-review-highlights-categories" = "Kategorier som intresserade mig";
 "year-in-review-highlights-changes" = "Ändringar som redigerare gjorde";
@@ -1530,23 +1535,19 @@
 "year-in-review-highlights-subtitle" = "Vi ser fram emot nästa år!";
 "year-in-review-highlights-times-edited" = "Antal redigerade";
 "year-in-review-highlights-title" = "Tack för att du tillbringade ditt år med Wikipedia";
-"year-in-review-intro-exit-confirmation-subtitle" = "Du kan fortfarande se en samlad årsöversikt utan att logga in.";
-"year-in-review-intro-exit-confirmation-title" = "Är du säker på att du vill avsluta?";
 "year-in-review-intro-exit-toast-title" = "Du kan komma åt din årsöversikt senare i profilen.";
 "year-in-review-intro-login-title" = "Logga in för att anpassa";
-"year-in-review-login-subtitle" = "Logga in eller skapa ett konto för att bli berättigad till mer personliga insikter";
-"year-in-review-login-title" = "Förbättra din årsöversikt";
+// Fuzzy
 "year-in-review-non-contributor-slide-title" = "Lås upp din anpassade bidragsikon";
 "year-in-review-personalized-date-day-footer-v3" = "Favoritdag för att läsa";
 "year-in-review-personalized-date-month-footer-v3" = "Månaden du läste mest";
 "year-in-review-personalized-date-time-footer-v3" = "Favorittidpunkt för att läsa";
-"year-in-review-personalized-day-subtitle-format" = "$1 läser du flest artiklar och är uppenbarligen den främsta dagen att utforska nytt innehåll. Tack för att du får ut det mesta av din lästid!";
-"year-in-review-personalized-day-title-format" = "Du läste mestadels på $1.";
 "year-in-review-personalized-donate-subtitle" = "Tack för att du investerar i framtiden för gratis kunskap. I år förbättrade Wikimedia Foundation tekniken som alla läsare och volontärer använder, utvecklade samarbetsverktyg och lade till stöd för Wikipedia på fler språk. [Läs mer om vårt arbete]($1).";
 "year-in-review-personalized-donate-title" = "Din generositet bidrog till att låta Wikipedia blomstra";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-logotyp";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Läsare runt om i världen uppskattar dina bidrag. Under de senaste två månaderna har artiklarna som du redigerade fått totalt $1 visningar. Tack vare redigerare som dig är Wikipedia en faktabaserad och pålitlig kunskapsresurs för hela världen som ständigt förbättras";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Dina redigeringar har nyligen visats mer än $1 gånger";
 "year-in-review-personalized-editing-title-format" = "Du har redigerat Wikipedia {{PLURAL:$1|$1 gång|$1 gånger}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Du har redigerat Wikipedia 500+ gånger";
@@ -1555,8 +1556,6 @@
 "year-in-review-personalized-location-subtitle-format-2" = "Du läste om $3$1$4 och $3$2$4.";
 "year-in-review-personalized-location-subtitle-format-3" = "Du läste om $4$1$5, $4$2$5 och $4$3$5.";
 "year-in-review-personalized-most-read-articles-title" = "Dina mest lästa artiklar";
-"year-in-review-personalized-reading-subtitle-format" = "Du har läst {{PLURAL:$1|$1 artikel|$1 artiklar}}. Wikipedia fick $2 miljoner artiklar tillgängliga på över $3 aktiva språk. Du anslöt dig till miljoner andra för att utöka kunskapen och utforska olika ämnen.";
-"year-in-review-personalized-reading-title-format" = "Du har läst {{PLURAL:$1|$1 artikel|$1 artiklar}}";
 "year-in-review-personalized-saved-articles" = "Illustration av en pusselbit som bär en hjälm och har datorskärmar bakom sig.";
 "year-in-review-personalized-saved-title-format" = "Du sparade {{PLURAL:$1|$1 artikel|$1 artiklar}}";
 "year-in-review-personalized-user-edits" = "En animerad illustration av staplade kuber som symboliserar fri kunskap som skapas kontinuerligt.";
