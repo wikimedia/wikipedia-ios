@@ -20,7 +20,7 @@ public struct WMFArticleTabsView: View {
     /// Flag to allow us to know if we can scroll to the current tab position
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
-//    @State private var revealFallbackTriggered: Bool = false
+    @State private var hideLoadingWithDelay = false
 
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
@@ -51,7 +51,7 @@ public struct WMFArticleTabsView: View {
                     }
                 }
 
-                if !shouldHideLoading {
+                if !hideLoadingWithDelay {
                     loadingOverlay
                 }
             }
@@ -70,7 +70,15 @@ public struct WMFArticleTabsView: View {
                 viewModel.maybeStartSecondaryLoads()
             }
         }
-
+        .onChange(of: shouldHideLoading) { ready in
+            guard ready else { return }
+            Task {
+                try? await Task.sleep(nanoseconds: 250_000_000)
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    hideLoadingWithDelay = true
+                }
+            }
+        }
         .background(Color(theme.midBackground))
         .onAppear {
             if viewModel.shouldShowTabsV2 {
