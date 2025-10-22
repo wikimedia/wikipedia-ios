@@ -816,20 +816,22 @@ extension WMFAppViewController {
             return String.localizedStringWithFormat(format, hoursString, minutesString)
         }
         
+        let articlesRead = WMFLocalizedString("activity-tab-articles-read", value: "Articles read this month", comment: "Title for module about articles read this month, displayed below the time spent reading this week")
+        
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
                 noUsernameReading: noUsernameReading,
                 totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
                 onWikipediaiOS: onWikipediaiOS,
-                timeSpentReading: timeSpentReading),
+                timeSpentReading: timeSpentReading,
+                totalArticlesRead: articlesRead),
            username: dataStore.authenticationManager.authStatePermanentUsername ?? "",
             hoursRead: 0,
             minutesRead: 0,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
         })
-
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,

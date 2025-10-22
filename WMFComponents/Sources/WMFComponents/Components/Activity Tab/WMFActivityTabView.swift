@@ -30,14 +30,22 @@ public struct WMFActivityTabView: View {
                                 .fill(Color(uiColor: WMFColor.blue100))
                         )
                 }
-                VStack(alignment: .center, spacing: 8) {
-                    hoursMinutesRead
-                    Text(viewModel.localizedStrings.timeSpentReading)
-                        .font(Font(WMFFont.for(.semiboldHeadline)))
-                        .foregroundColor(Color(uiColor: theme.text))
+                VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .center, spacing: 8) {
+                        hoursMinutesRead
+                        Text(viewModel.localizedStrings.timeSpentReading)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundColor(Color(uiColor: theme.text))
+                    }
+                    .frame(maxWidth: .infinity)
+                    // Start of modules on top section
+                    articlesReadModule
                 }
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
             }
+            .padding(.top, 16)
             .frame(maxWidth: .infinity)
         }
         .onAppear {
@@ -76,4 +84,14 @@ public struct WMFActivityTabView: View {
             )
 
     }
+    
+    private var articlesReadModule: some View {
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+            title: viewModel.localizedStrings.totalArticlesRead,
+            dateText: "9:34 AM",
+            amount: viewModel.totalArticlesRead
+        )
+    }
+
 }
