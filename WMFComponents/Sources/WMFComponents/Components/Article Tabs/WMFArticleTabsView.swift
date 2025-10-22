@@ -112,6 +112,12 @@ public struct WMFArticleTabsView: View {
             .progressViewStyle(CircularProgressViewStyle())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+    
+    private var recLoadingOverlay: some View {
+            ZStack {
+                Color(theme.midBackground).ignoresSafeArea()
+            }
+        }
 
     private var emptyStateContainer: some View {
         GeometryReader { geometry in
@@ -180,71 +186,79 @@ public struct WMFArticleTabsView: View {
     private func tabsV2Grid(_ geometry: GeometryProxy) -> some View {
         ScrollViewReader { proxy in
             ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: viewModel.calculateColumns(for: geometry.size))) {
-                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
-                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
-                            .id(tab.id)
-                            .background(
-                                GeometryReader { geo in
-                                    Color.clear
-                                        .preference(key: TabGlobalFramePreferenceKey.self,
-                                                    value: [tab.id: geo.frame(in: .global)])
+                ZStack {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: viewModel.calculateColumns(for: geometry.size))) {
+                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
+                            WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                                .id(tab.id)
+                                .background(
+                                    GeometryReader { geo in
+                                        Color.clear
+                                            .preference(key: TabGlobalFramePreferenceKey.self,
+                                                        value: [tab.id: geo.frame(in: .global)])
+                                    }
+                                )
+                                .onAppear {
+                                    Task { await viewModel.ensureInfo(for: tab) }
                                 }
-                            )
-                            .onAppear {
-                                Task { await viewModel.ensureInfo(for: tab) }
-                            }
-                            .contextMenu(menuItems: {
-                                Button {
-                                    viewModel.didTapTab(tab.data)
-                                } label: {
-                                    Text(viewModel.localizedStrings.openTabAccessibility)
-                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
-                                }
-                                Button {
-                                    viewModel.didTapShareTab(tab.data, cellFrames[tab.id])
-                                } label: {
-                                    Text(viewModel.localizedStrings.shareTabButtonTitle)
-                                    Image(uiImage:  WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
-                                }
-                                if viewModel.shouldShowCloseButton {
-                                    Button(role: .destructive) {
-                                        viewModel.closeTab(tab: tab)
+                                .contextMenu(menuItems: {
+                                    Button {
+                                        viewModel.didTapTab(tab.data)
                                     } label: {
-                                        Text(viewModel.localizedStrings.closeTabAccessibility)
-                                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .close) ?? UIImage())
+                                        Text(viewModel.localizedStrings.openTabAccessibility)
+                                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
+                                    }
+                                    Button {
+                                        viewModel.didTapShareTab(tab.data, cellFrames[tab.id])
+                                    } label: {
+                                        Text(viewModel.localizedStrings.shareTabButtonTitle)
+                                        Image(uiImage:  WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+                                    }
+                                    if viewModel.shouldShowCloseButton {
+                                        Button(role: .destructive) {
+                                            viewModel.closeTab(tab: tab)
+                                        } label: {
+                                            Text(viewModel.localizedStrings.closeTabAccessibility)
+                                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .close) ?? UIImage())
+                                        }
+                                    }
+                                }, preview: {
+                                    ArticlePreviewContainer(
+                                           tab: tab,
+                                           viewModel: viewModel,
+                                           build: { getPreviewViewModel(from: $0) }
+                                       )
+                                })
+                                .accessibilityActions {
+                                    accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                                        viewModel.didTapTab(tab.data)
+                                    }
+                                    if viewModel.shouldShowCloseButton {
+                                        accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                            viewModel.closeTab(tab: tab)
+                                        }
                                     }
                                 }
-                            }, preview: {
-                                ArticlePreviewContainer(
-                                       tab: tab,
-                                       viewModel: viewModel,
-                                       build: { getPreviewViewModel(from: $0) }
-                                   )
-                            })
-                            .accessibilityActions {
-                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
-                                    viewModel.didTapTab(tab.data)
-                                }
-                                if viewModel.shouldShowCloseButton {
-                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
-                                        viewModel.closeTab(tab: tab)
-                                    }
-                                }
-                            }
-                    }
-                }
-                .onPreferenceChange(TabGlobalFramePreferenceKey.self) { updates in
-                    cellFrames.merge(updates, uniquingKeysWith: { _, new in new })
-                }
-                .padding(.horizontal, 8)
-                .onAppear {
-                    Task { @MainActor in
-                        if let id = viewModel.currentTabID {
-                            proxy.scrollTo(id, anchor: .center)
                         }
                     }
+                    .onPreferenceChange(TabGlobalFramePreferenceKey.self) { updates in
+                        cellFrames.merge(updates, uniquingKeysWith: { _, new in new })
+                    }
+                    .padding(.horizontal, 8)
+                    .onAppear {
+                        Task { @MainActor in
+                            if let id = viewModel.currentTabID {
+                                proxy.scrollTo(id, anchor: .center)
+                            }
+                        }
+                    }
+                    
+                    if !viewModel.recLoaded {
+                        recLoadingOverlay
+                    }
+                    
                 }
+                
             }
             .onChange(of: viewModel.recLoaded) { recLoaded in
                 guard recLoaded else { return }
