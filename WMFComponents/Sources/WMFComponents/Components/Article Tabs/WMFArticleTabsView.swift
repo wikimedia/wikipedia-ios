@@ -185,7 +185,7 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
-            .background(Color(theme.paperBackground))
+            .background(Color(theme.midBackground))
             .scrollBounceBehavior(.always)
         }
     }
