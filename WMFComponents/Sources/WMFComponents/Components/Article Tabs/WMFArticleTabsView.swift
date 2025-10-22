@@ -20,6 +20,7 @@ public struct WMFArticleTabsView: View {
     /// Flag to allow us to know if we can scroll to the current tab position
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
+//    @State private var revealFallbackTriggered: Bool = false
 
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
@@ -27,49 +28,70 @@ public struct WMFArticleTabsView: View {
 
     public var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                Group {
-                    if !isReady {
-                        loadingView
-                    } else if viewModel.articleTabs.isEmpty {
-                        emptyStateContainer
-                    } else {
-                        if viewModel.shouldShowTabsV2 {
-                            tabsV2Grid(geometry)
+            ZStack {
+                VStack(spacing: 0) {
+                    Group {
+                        if !isReady {
+                            loadingView
+                        } else if isEmptyState {
+                            emptyStateContainer
                         } else {
-                            tabsGrid(geometry)
+                            if viewModel.shouldShowTabsV2 {
+                                tabsV2Grid(geometry)
+                            } else {
+                                tabsGrid(geometry)
+                            }
                         }
                     }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(theme.midBackground))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(theme.midBackground))
 
-                if viewModel.shouldShowSuggestions {
-                    bottomSection
+                    if viewModel.shouldShowSuggestions {
+                        bottomSection
+                    }
+                }
+
+                if !shouldHideLoading {
+                    loadingOverlay
                 }
             }
         }
         .onReceive(viewModel.$articleTabs) { tabs in
             guard !isReady else { return }
-
             Task {
                 if tabs.isEmpty {
                     await MainActor.run { isReady = true }
                     return
                 }
                 viewModel.prefetchAllSummariesTrickled(initialWindow: 24, pageSize: 12)
-
                 await MainActor.run { isReady = true }
             }
-            viewModel.maybeStartSecondaryLoads()
+            if viewModel.shouldShowTabsV2 {
+                viewModel.maybeStartSecondaryLoads()
+            }
         }
+
         .background(Color(theme.midBackground))
         .onAppear {
-            viewModel.maybeStartSecondaryLoads()
+            if viewModel.shouldShowTabsV2 {
+                viewModel.maybeStartSecondaryLoads()
+            }
         }
     }
 
     // MARK: - Bottom Section
+
+    private var expectingBottom: Bool {
+        viewModel.shouldShowTabsV2 && viewModel.shouldShowSuggestions
+    }
+
+    private var bottomDataReady: Bool {
+        let recReady = (viewModel.recommendedArticlesViewModel != nil)
+        let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
+        let showRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs
+        let showDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs
+        return (showRecs && recReady) || (showDYK && dykReady)
+    }
 
     @ViewBuilder
     private var bottomSection: some View {
@@ -107,10 +129,31 @@ public struct WMFArticleTabsView: View {
     
     // MARK: - Loading / Empty
 
+    private var shouldHideLoading: Bool {
+        guard isReady else { return false }
+        if isEmptyState { return true }
+        if !expectingBottom { return true }
+        return bottomDataReady
+    }
+
     private var loadingView: some View {
         ProgressView()
             .progressViewStyle(CircularProgressViewStyle())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var loadingOverlay: some View {
+        ZStack {
+            Color(theme.midBackground).ignoresSafeArea()
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle())
+        }
+        .transition(.opacity)
+        .animation(.easeInOut(duration: 0.2), value: shouldHideLoading)
+    }
+
+    private var isEmptyState: Bool {
+        viewModel.articleTabs.isEmpty
     }
 
     private var emptyStateContainer: some View {
@@ -139,7 +182,7 @@ public struct WMFArticleTabsView: View {
         }
     }
 
-    // MARK: - Grid
+    // MARK: - Grid (V1)
 
     private func tabsGrid(_ geometry: GeometryProxy) -> some View {
         ScrollViewReader { proxy in
@@ -175,7 +218,7 @@ public struct WMFArticleTabsView: View {
         }
     }
 
-    // MARK: - Grid V2
+    // MARK: - Grid (V2)
 
     private func tabsV2Grid(_ geometry: GeometryProxy) -> some View {
         ScrollViewReader { proxy in
@@ -248,7 +291,7 @@ public struct WMFArticleTabsView: View {
             }
             .onChange(of: viewModel.recLoaded) { recLoaded in
                 guard recLoaded else { return }
-                Task { @MainActor in
+                Task {
                     if let id = viewModel.currentTabID {
                         proxy.scrollTo(id, anchor: .center)
                     }
@@ -513,7 +556,6 @@ fileprivate struct WMFArticleTabsViewContent: View {
 
 struct AspectRatioModifier: ViewModifier {
     let shouldLockAspectRatio: Bool
-
     func body(content: Content) -> some View {
         if shouldLockAspectRatio {
             content.aspectRatio(3/4, contentMode: .fit)
