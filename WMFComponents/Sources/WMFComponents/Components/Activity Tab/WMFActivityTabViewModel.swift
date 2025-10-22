@@ -46,6 +46,22 @@ import WMFData
         self.totalArticlesRead = totalArticlesRead
     }
     
+    public func updateDateTimeRead(dateTime: Date) {
+        let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
+        
+        if calendar.isDateInToday(dateTime) {
+            dateFormatter.timeStyle = .short
+            dateFormatter.dateStyle = .none
+        } else {
+            dateFormatter.dateFormat = "MMMM d"
+        }
+        
+        let formattedString = dateFormatter.string(from: dateTime)
+        dateTimeLastRead = formattedString
+    }
+
+    
     // Localized strings
 
     public struct LocalizedStrings {

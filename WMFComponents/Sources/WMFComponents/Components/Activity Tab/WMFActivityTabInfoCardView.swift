@@ -5,15 +5,17 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     let title: String
     let dateText: String?
     let amount: Int
+    let onTapDateText: () -> Void
     // Content will eventually be graphs or images or whatever
     let content: () -> Content
 
-    public init( icon: UIImage?, title: String, dateText: String?, amount: Int = 0, @ViewBuilder content: @escaping () -> Content = { EmptyView() }) {
+    public init( icon: UIImage?, title: String, dateText: String?, amount: Int = 0, onTapDateText: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content = { EmptyView() }) {
         self.icon = icon
         self.title = title
         self.dateText = dateText
         self.amount = amount
         self.content = content
+        self.onTapDateText = onTapDateText
     }
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -32,17 +34,19 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                     .foregroundStyle(Color(theme.text))
                     .font(Font(WMFFont.for(.boldCaption1)))
                 Spacer()
-                HStack(spacing: 2) {
+                HStack(spacing: 8) {
                     if let dateText = dateText {
                         Text(dateText)
                             .foregroundStyle(Color(theme.secondaryText))
                             .font(Font(WMFFont.for(.caption1)))
                     }
-                    if let chevronRight = WMFSFSymbolIcon.for(symbol: .chevronForward) {
+                    if let chevronRight = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .caption1) {
                         Image(uiImage: chevronRight)
                             .foregroundStyle(Color(theme.secondaryText))
-                            .font(Font(WMFFont.for(.caption1)))
                     }
+                }
+                .onTapGesture {
+                    onTapDateText()
                 }
             }
 

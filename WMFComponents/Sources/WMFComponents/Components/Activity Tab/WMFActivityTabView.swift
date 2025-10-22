@@ -89,8 +89,12 @@ public struct WMFActivityTabView: View {
         WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .bookPages),
             title: viewModel.localizedStrings.totalArticlesRead,
-            dateText: "9:34 AM",
-            amount: viewModel.totalArticlesRead
+            dateText: viewModel.dateTimeLastRead,
+            amount: viewModel.totalArticlesRead,
+            onTapDateText: {
+                print("Tapped date text")
+                // TODO: Navigate to history below
+            }
         )
     }
 

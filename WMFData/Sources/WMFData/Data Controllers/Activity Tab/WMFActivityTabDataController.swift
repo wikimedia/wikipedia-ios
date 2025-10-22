@@ -64,4 +64,9 @@ public final class WMFActivityTabDataController {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue, value: newValue)
         }
     }
+    
+    public func getMostRecentReadDateTime() async throws -> Date? {
+        let dataController = try WMFPageViewsDataController()
+        return try await dataController.fetchMostRecentTime()
+    }
 }

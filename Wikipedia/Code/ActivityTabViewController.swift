@@ -98,6 +98,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
         
+        Task {
+            if let dateTime = try? await dataController.getMostRecentReadDateTime() {
+                viewModel.updateDateTimeRead(dateTime: dateTime)
+            }
+        }
+        
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
         }
