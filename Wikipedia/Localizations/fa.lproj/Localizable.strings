@@ -26,6 +26,7 @@
 // Author: Jeeputer
 // Author: Ladsgroup
 // Author: Leyth
+// Author: LordProfo
 // Author: Macofe
 // Author: Mahdiz
 // Author: Mardetanha
@@ -262,9 +263,9 @@
 "diff-thanks-anonymous-no-thanks" = "از کاربران ناشناس نمی‌توان تشکر کرد";
 "diff-thanks-login-subtitle" = "«تشکر» راه ساده‌ای برای نشان دادن قدردانی از کار یک ویرایشگر در ویکی‌پدیا است. برای ارسال «تشکر» باید به سامانه وارد شوید.";
 "diff-thanks-login-title" = "برای ارسال «تشکر» وارد شوید";
-"diff-thanks-send-button-title" = "ارسال تشکر";
+"diff-thanks-send-button-title" = "فرستادن «تشکر»";
 "diff-thanks-send-subtitle" = "«تشکر» راه ساده‌ای برای نشان دادن قدردانی از کار یک ویرایشگر در ویکی‌پدیا است. «تشکرها» به‌طور عمومی قابل مشاهده هستند و نمی‌توان آن‌ها را برگرداند.";
-"diff-thanks-send-title" = "ارسال «تشکر» به‌صورت عمومی";
+"diff-thanks-send-title" = "فرستادن «تشکر» به‌صورت عمومی";
 "diff-thanks-sent" = "«تشکر» شما برای $1 فرستاده شد";
 "diff-thanks-sent-already" = "شما برای این ویرایش «تشکر» ارسال کرده‌اید";
 "diff-thanks-sent-cannot-unsend" = "تشکر را نمی‌توان پس گرفت";
@@ -541,7 +542,7 @@
 "field-password-confirm-placeholder" = "رمز عبور را دوباره وارد کنید";
 "field-password-confirm-title" = "تأیید رمز عبور";
 "field-password-placeholder" = "رمز عبور را وارد کنید";
-"field-password-title" = "رمز عبور";
+"field-password-title" = "گذرواژه";
 "field-token-title" = "کد تائید";
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
@@ -1378,5 +1379,6 @@
 "wikitext-upload-save-sign-in" = "ورود";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "با انتشار تغییرات، $1شرایط استفاده$2 را می‌پذیرید و قبول می‌کنید که به‌طور برگشت‌ناپذیری مشارکت‌های خود را تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 منتشر کنید. همچنین می‌پذیرید که تحت اجازه‌نامهٔ کریتیو کامنز، تنها یک ابرپیوند یا نشانی وب برای انتشاب به مشارکت‌های شما کفایت می‌کند.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
+// Fuzzy
 "year-in-review-base-reading-title" = "ویکی‌پدیا در بیش از ۳۰۰ زبان در دسترس بوده است";
 "year-in-review-collective-zero-ads" = "لوگوی ویکی‌مدیا";

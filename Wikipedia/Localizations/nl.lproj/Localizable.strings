@@ -764,15 +764,15 @@
 "main-menu-title" = "Meer";
 "main-menu-zero-faq" = "Veelgestelde vragen over Wikipedia Zero";
 "main-page" = "Hoofdpagina";
-"microsite-yir-english-edits-bytes-slide-subtitle" = "In 2024 voegden vrijwilligers 3.416.899.197 bytes toe aan de Engelstalige Wikipedia. Door al hun gezamenlijke werk krijgt de hele wereld een gestaag beter wordende, op feiten gebaseerde en betrouwbare kennisbron. We hebben allemaal kennis om te delen. [Lees hier hoe u ook kunt meedoen]($1).";
-"microsite-yir-english-edits-bytes-slide-title" = "3,4 miljard bytes toegevoegd";
-"microsite-yir-english-edits-slide-subtitle" = "Vrijwilligers hebben 81.987.181 wijzigingen aangebracht in meer dan 300 verschillende taalversies van Wikipedia. Meer dan 31,2 miljoen wijzigingen zijn aangebracht op de Engelstalige Wikipedia. Elk uur van elke dag werken vrijwilligers aan het verbeteren van Wikipedia.";
-"microsite-yir-english-edits-slide-title" = "Bewerkers hebben dit jaar bijna 82 miljoen wijzigingen doorgevoerd";
-"microsite-yir-english-reading-slide-subtitle" = "Naar schatting hebben mensen in 2024 2,4 miljard uur (meer dan 275.000 jaar!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.";
-"microsite-yir-english-reading-slide-subtitle-short" = "Naar schatting hebben mensen in 2025 2,4 miljard uur (meer dan 275.000 jaar!) besteed aan het lezen van de Engelstalige Wikipedia.";
-"microsite-yir-english-reading-slide-title" = "We hebben 2,4 miljard uur lang gelezen";
-"microsite-yir-english-saved-reading-slide-subtitle" = "Gebruikers van de app hadden dit jaar meer dan 37 miljoen opgeslagen artikelen. Artikelen die u aan leeslijsten hebt toegevoegd kunt u ook offline raadplegen. Daarnaast kunt u, na aanmelden, leeslijsten op verschillende apparaten synchroniseren.";
-"microsite-yir-english-saved-reading-slide-title" = "We hadden meer dan 37 miljoen opgeslagen artikelen";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "In $1 voegden vrijwilligers $2 bytes toe aan de Engelstalige Wikipedia. Door al hun gezamenlijke werk krijgt de hele wereld een gestaag beter wordende, op feiten gebaseerde en betrouwbare kennisbron. We hebben allemaal kennis om te delen. [Lees hier hoe u ook kunt meedoen]($3).";
+"microsite-yir-english-edits-bytes-slide-title" = "$1 bytes toegevoegd";
+"microsite-yir-english-edits-slide-subtitle" = "Vrijwilligers hebben $1 wijzigingen aangebracht in meer dan $2 verschillende taalversies van Wikipedia. Er zijn $3 wijzigingen aangebracht op de Engelstalige Wikipedia. Elk uur van elke dag werken vrijwilligers aan het verbeteren van Wikipedia.";
+"microsite-yir-english-edits-slide-title" = "Bewerkers hebben dit jaar $1 wijzigingen doorgevoerd";
+"microsite-yir-english-reading-slide-subtitle" = "Naar schatting hebben mensen in $3 wel $1 uur (ongeveer $2 jaar!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.";
+"microsite-yir-english-reading-slide-subtitle-short" = "Naar schatting hebben mensen in $3 wel $1 uur (ongeveer $2 jaar!) besteed aan het lezen van de Engelstalige Wikipedia.";
+"microsite-yir-english-reading-slide-title" = "We hebben $1 uur lang gelezen";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Gebruikers van de app hadden dit jaar $1 opgeslagen artikelen. Artikelen die u aan leeslijsten hebt toegevoegd kunt u ook offline raadplegen. Daarnaast kunt u, na aanmelden, leeslijsten op verschillende apparaten synchroniseren.";
+"microsite-yir-english-saved-reading-slide-title" = "We hadden $1 opgeslagen artikelen";
 "microsite-yir-english-top-read-slide-subtitle" = "Als mensen meer willen weten over onze wereld – het goede, het slechte, het vreemde en het wilde – wenden ze zich tot Wikipedia. De top 5 meest bezochte artikelen op de Engelstalige Wikipedia waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLees meer in $6ons speciale blogartikel$7.";
 "microsite-yir-english-top-read-slide-title" = "De populairste artikelen op de Engelstalige Wikipedia";
 "more-languages-tooltip-description" = "Doorzoek Wikipedia in meer dan 300 talen";
@@ -1491,15 +1491,15 @@
 "year-in-review-base-donate-subtitle" = "Met jouw hulp kan de Wikimedia Foundation - de non-profit organisatie achter Wikipedia - ervoor blijven zorgen dat de informatie waar jij op vertrouwt advertentievrij en betrouwbaar is, terwijl Wikipedia soepel blijft draaien met geavanceerde tools en technologieën. Overweeg vandaag nog een donatie te doen. [Meer informatie over ons werk]($1).";
 "year-in-review-base-donate-title" = "0 Advertenties getoond op Wikipedia";
 "year-in-review-base-editors-subtitle" = "De gemeenschap van vrijwillige bewerkers van Wikipedia heeft meer dan 555.647 bewerkingen gemaakt op de iOS-app. Het hart en de ziel van Wikipedia is onze wereldwijde gemeenschap van vrijwillige bijdragers, donateurs en miljarden lezers zoals u - allemaal verenigd om onbeperkte toegang tot betrouwbare informatie te delen.";
-"year-in-review-base-editors-title" = "Redacteuren op de officiële Wikipedia-apps hebben meer dan $1 bewerkingen aangebracht";
+"year-in-review-base-editors-title" = "Redacteuren op de officiële Wikipedia-apps hebben $1 bewerkingen aangebracht";
 "year-in-review-base-edits-subtitle" = "Artikelen worden gezamenlijk gemaakt en verbeterd met behulp van betrouwbare bronnen. We hebben allemaal kennis te delen. [Lees hier hoe u kunt deelnemen]($1).";
 "year-in-review-base-edits-title" = "Wikipedia is $1 keer per minuut bewerkt";
-"year-in-review-base-reading-subtitle" = "Wikipedia had meer dan $1 miljoen artikelen in meer dan $2 actieve talen. U hebt zich aangesloten bij miljoenen anderen om kennis uit te breiden en diverse onderwerpen te verkennen.";
-"year-in-review-base-reading-title" = "Wikipedia was beschikbaar in meer dan 300 talen";
-"year-in-review-base-saved-subtitle" = "Actieve appgebruikers hadden dit jaar meer dan $1 miljoen opgeslagen artikelen. Door artikelen aan leeslijsten toe te voegen kunt u ze ook als u offline bent nog openen. Daarnaast kunt u, als u zich aanmeldt, uw leeslijsten tussen al uw apparaten laten synchroniseren.";
-"year-in-review-base-saved-title" = "We hadden meer dan $1 miljoen opgeslagen artikelen";
-"year-in-review-base-viewed-subtitle" = "Appgebruikers hebben Wikipedia-artikelen $1 miljard keer bekeken. Voor mensen over de hele wereld is Wikipedia de eerste halte bij het beantwoorden van een vraag, het opzoeken van informatie voor school of werk, of het leren van een nieuw feit.";
-"year-in-review-base-viewed-title" = "We hebben Wikipedia-artikelen $1 miljard keer bekeken";
+"year-in-review-base-reading-subtitle" = "Wikipedia had $1 artikelen in meer dan $2 actieve talen. U hebt zich aangesloten bij miljoenen anderen om kennis uit te breiden en diverse onderwerpen te verkennen.";
+"year-in-review-base-reading-title" = "Wikipedia was beschikbaar in meer dan $1 talen";
+"year-in-review-base-saved-subtitle" = "Door artikelen aan leeslijsten toe te voegen kunt u ze ook als u offline bent nog openen. Daarnaast kunt u, als u zich aanmeldt, uw leeslijsten tussen al uw apparaten laten synchroniseren.";
+"year-in-review-base-saved-title" = "App-gebruikers hadden $1 opgeslagen artikelen";
+"year-in-review-base-viewed-subtitle" = "Overal ter wereld gaan mensen eerst naar Wikipedia als ze het antwoord op een vraag zoeken, informatie voor school of werk nodig hebben, of gewoon iets nieuws willen leren.";
+"year-in-review-base-viewed-title" = "App-gebruikers hebben Wikipedia-artikelen $1 keer bekeken";
 "year-in-review-button-title" = "Jaaroverzicht";
 "year-in-review-collective-article-views" = "Een geanimeerde illustratie van een computerscherm met een geopende webbrowser, waarin actief door een Wikipedia-artikel wordt genavigeerd.";
 "year-in-review-collective-edits" = "Een illustratie van twee Wikipedia-puzzelstukjes, elk met een stukje informatie.";
@@ -1510,9 +1510,13 @@
 "year-in-review-collective-zero-ads" = "Wikimedia-logo";
 "year-in-review-contributor-gift-subtitle" = "Als u het nu niet inschakelt, dan kan dat later via Instellingen onder Thema.";
 "year-in-review-contributor-gift-title" = "Nieuw app-pictogram activeren";
-"year-in-review-contributor-slide-subtitle-donor" = "Bedankt voor het investeren in de toekomst van de vrije kennis.\n\nUw bijdragen als donateur in 2025 helpen de weg vrij te maken naar een wereld van vrije informatie. Daarom is nu voor u een eigen bijdragerspictogram ontsloten.";
-"year-in-review-contributor-slide-subtitle-editor" = "Bedankt voor het investeren in de toekomst van de vrije kennis.\n\nUw bijdragen als redacteur in 2025 helpen de weg vrij te maken naar een wereld van vrije informatie. Daarom is nu voor u een eigen bijdragerspictogram ontsloten.";
-"year-in-review-contributor-slide-subtitle-editor-and-donor" = "Bedankt voor het investeren in de toekomst van de vrije kennis.\n\nUw bijdragen als donateur en redacteur in 2025 helpen de weg vrij te maken naar een wereld van vrije informatie. Daarom is nu voor u een eigen bijdragerspictogram ontsloten.";
+// Fuzzy
+"year-in-review-contributor-slide-subtitle-donor" = "Bedankt voor het investeren in de toekomst van de vrije kennis.\n\nUw bijdragen als donateur in $1 helpen de weg vrij te maken naar een wereld van vrije informatie. Daarom is nu voor u een eigen bijdragerspictogram ontsloten.";
+// Fuzzy
+"year-in-review-contributor-slide-subtitle-editor" = "Bedankt voor het investeren in de toekomst van de vrije kennis.\n\nUw bijdragen als redacteur in $1 helpen de weg vrij te maken naar een wereld van vrije informatie. Daarom is nu voor u een eigen bijdragerspictogram ontsloten.";
+// Fuzzy
+"year-in-review-contributor-slide-subtitle-editor-and-donor" = "Bedankt voor het investeren in de toekomst van de vrije kennis.\n\nUw bijdragen als donateur en redacteur in $1 helpen de weg vrij te maken naar een wereld van vrije informatie. Daarom is nu voor u een eigen bijdragerspictogram ontsloten.";
+// Fuzzy
 "year-in-review-contributor-slide-title" = "Nieuw pictogram ontgrendeld";
 "year-in-review-day-friday" = "Vrijdagen";
 "year-in-review-day-monday" = "Maandagen";
@@ -1535,7 +1539,6 @@
 "year-in-review-finish" = "Voltooien";
 "year-in-review-highlights-articles-saved" = "Artikelen opgeslagen";
 "year-in-review-highlights-articles-viewed" = "Aantal bekeken artikelen";
-"year-in-review-highlights-articles-viewed-value" = "$1 miljard";
 "year-in-review-highlights-button-title" = "Hoogtepunten delen";
 "year-in-review-highlights-categories" = "Categorieën die mij interesseerden";
 "year-in-review-highlights-changes" = "Wijzigingen van redacteuren";
@@ -1552,28 +1555,23 @@
 "year-in-review-highlights-subtitle" = "Wij kijken uit naar volgend jaar!";
 "year-in-review-highlights-times-edited" = "Keer bewerkt";
 "year-in-review-highlights-title" = "Bedankt dat u uw jaar met Wikipedia hebt doorgebracht";
-"year-in-review-intro-exit-confirmation-subtitle" = "U kunt wel een collectief jaaroverzicht bekijken zonder u aan te melden.";
-"year-in-review-intro-exit-confirmation-title" = "Weet u zeker dat u wilt afsluiten?";
 "year-in-review-intro-exit-toast-title" = "U kunt uw Jaaroverzicht later via Profiel bekijken.";
 "year-in-review-intro-login-title" = "Meld u aan voor personalisatie";
-"year-in-review-login-subtitle" = "Log in of maak een account aan om in aanmerking te komen voor meer gepersonaliseerde inzichten";
-"year-in-review-login-title" = "Verbeter uw jaaroverzicht";
+// Fuzzy
 "year-in-review-non-contributor-slide-title" = "Ontsluit uw eigen bijdragerspictogram";
-"year-in-review-noncontributor-slide-subtitle" = "Wat fijn dat Wikipedia deel uitmaakte van uw jaar 2025! [Lees meer]($1) over hoe u kunt bijdragen en uw pictogram ontsluiten. Dat doet u door Wikipedia te bewerken of door te doneren aan de Wikimedia Foundation, de non-profitorganisatie erachter. Als Wikipedia dit jaar voor u behulpzaam is geweest, overweeg dan te doneren zodat Wikipedia ook in de toekomst voor iedereen gratis, advertentievrij, betrouwbaar en toegankelijk blijft.";
+// Fuzzy
+"year-in-review-noncontributor-slide-subtitle" = "Wat fijn dat Wikipedia deel uitmaakte van uw jaar $1! [Lees meer]($2) over hoe u met uw bijdragen uw pictogram kunt ontsluiten. Dat doet u door Wikipedia te bewerken of door te doneren aan de Wikimedia Foundation, de non-profitorganisatie erachter. Als Wikipedia dit jaar voor u behulpzaam is geweest, overweeg dan te doneren zodat Wikipedia ook in de toekomst voor iedereen gratis, advertentievrij, betrouwbaar en toegankelijk blijft.";
 "year-in-review-personalized-date-day-footer-v3" = "Favoriete dag om te lezen";
 "year-in-review-personalized-date-month-footer-v3" = "Maand waarin u het meest hebt gelezen";
 "year-in-review-personalized-date-time-footer-v3" = "Favoriete tijd om te lezen";
 "year-in-review-personalized-date-title-v3" = "U hebt duidelijke leespatronen";
-"year-in-review-personalized-day-subtitle-format" = "U leest de meeste artikelen op $1. Het is duidelijk dat $1 uw belangrijkste dag is om nieuwe inhoud te ontdekken. Bedankt voor het optimaal benutten van uw leestijd!";
-"year-in-review-personalized-day-title-format" = "U leest op $1 het meeste.";
 "year-in-review-personalized-donate-subtitle" = "Bedankt voor uw investering in de toekomst van vrije kennis. Dit jaar heeft de Wikimedia Foundation de technologie verbeterd om elke lezer en vrijwilliger beter van dienst te zijn, tools ontwikkeld die samenwerking mogelijk maken en Wikipedia in meer talen ondersteund. [Lees meer over ons werk]($1).";
 "year-in-review-personalized-donate-title" = "Dankzij jouw vrijgevigheid blijft Wikipedia bloeien";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-logo";
-"year-in-review-personalized-edit-views-subtitle-format" = "Lezers over de hele wereld waarderen uw bijdragen. In de afgelopen 2 maanden zijn artikelen die u hebt bewerkt in totaal $1 keer bekeken. Dankzij bewerkers zoals u is Wikipedia een steeds betere, op feiten gebaseerde en betrouwbare kennisbron voor de wereld.";
-"year-in-review-personalized-edit-views-title-format" = "Uw bewerkingen zijn onlangs meer dan $1 keer bekeken";
+"year-in-review-personalized-edit-views-subtitle-format" = "Over de hele wereld waarderen lezers uw bijdragen. In de afgelopen twee maanden zijn de artikelen die u hebt bewerkt {{PLURAL:$1|één keer|in totaal $1 keer}} bekeken. Dankzij bewerkers zoals u is Wikipedia een steeds betere, op feiten gebaseerde en betrouwbare kennisbron voor de wereld.";
+"year-in-review-personalized-edit-views-title-format" = "Uw bewerkingen zijn onlangs meer dan {{PLURAL:$1|$1 keer}} bekeken";
 "year-in-review-personalized-editing-subtitle-1" = "Hartelijk dank dat u een van de vrijwillige redacteuren bent die een verschil maakt op Wikimedia-projecten over de hele wereld.";
-"year-in-review-personalized-editing-subtitle-2" = "Vrijwilligers zoals u hebben 81.987.181 wijzigingen aangebracht in meer dan 300 verschillende taalversies van Wikipedia.";
-"year-in-review-personalized-editing-subtitle-non-en" = "Hartelijk dank dat u een van de vrijwillige redacteuren bent die een verschil maakt op Wikimedia-projecten over de hele wereld.";
+"year-in-review-personalized-editing-subtitle-2" = "Vrijwilligers zoals u hebben $1 wijzigingen aangebracht in $2 verschillende taalversies van Wikipedia.";
 "year-in-review-personalized-editing-title-format" = "U hebt Wikipedia {{PLURAL:$1|$1 keer}} bewerkt";
 "year-in-review-personalized-editing-title-format-500plus" = "U hebt Wikipedia meer dan 500 keer bewerkt.";
 "year-in-review-personalized-explore" = "Een animatie van een hand die de Wikipedia-wereldbol vasthoudt. De wereldbol verandert geleidelijk in een klein puzzelstukje, wat symbool staat voor individuele bijdragen aan het platform.";
@@ -1582,12 +1580,10 @@
 "year-in-review-personalized-location-subtitle-format-3" = "U hebt over $4$1$5, $4$2$5 en $4$3$5 gelezen.";
 "year-in-review-personalized-location-title-format" = "De artikelen die u hebt gelezen staan het dichtst bij $1";
 "year-in-review-personalized-most-read-articles-title" = "Uw meest gelezen artikelen";
-"year-in-review-personalized-reading-subtitle-format" = "U hebt $1 artikel{{PLURAL:$1||en}} gelezen. Wikipedia bevatte $2 miljoen artikelen in meer dan $3 actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.";
 "year-in-review-personalized-reading-subtitle-format-v3" = "Hiermee behoort u naar onze schatting wereldwijd tot de top **PERCENT** van Wikipedia-lezers. De gemiddelde persoon leest $1 artikel{{PLURAL:$1||en}} per jaar.";
-"year-in-review-personalized-reading-title-format" = "U hebt {{PLURAL:$1|$1 artikel|$1 artikelen}} gelezen";
-"year-in-review-personalized-reading-title-v3-format" = "In 2025 hebt u $1 {{PLURAL:$1|minuut|minuten}} besteed aan het lezen van $2 artikel{{PLURAL:$2||en}}";
+"year-in-review-personalized-reading-title-v3-format" = "In $3 hebt u $1 {{PLURAL:$1|minuut|minuten}} besteed aan het lezen van $2 artikel{{PLURAL:$2||en}}";
 "year-in-review-personalized-saved-articles" = "Illustratie van een puzzelstukje met een veiligheidshelm op, met computerschermen in de achtergrond.";
-"year-in-review-personalized-saved-subtitle-format-v3" = "Deze artikelen zijn o.a. $1, $2 en $3. Elk opgeslagen artikel weerspiegelt uw interesses en helpt bij het opbouwen van uw eigen kennisbank op Wikipedia.\n\nActieve app-gebruikers hadden dit jaar meer dan $4 miljoen opgeslagen artikelen.";
+"year-in-review-personalized-saved-subtitle-format-v3" = "Deze artikelen zijn o.a. $1, $2 en $3. Elk opgeslagen artikel weerspiegelt uw interesses en helpt bij het opbouwen van uw eigen kennisbank op Wikipedia.\n\nActieve app-gebruikers hadden dit jaar meer dan $4 opgeslagen artikelen.";
 "year-in-review-personalized-saved-title-format" = "U hebt {{PLURAL:$1|$1 artikel|$1 artikelen}} opgeslagen";
 "year-in-review-personalized-user-edits" = "Een animatie van bytes die op elkaar gestapeld worden. Dit staat symbool voor voortdurende schepping van vrije kennis.";
 "year-in-review-personalized-weekday" = "Een tikkende klok symboliseert de tijd die mensen besteden aan het lezen van Wikipedia.";

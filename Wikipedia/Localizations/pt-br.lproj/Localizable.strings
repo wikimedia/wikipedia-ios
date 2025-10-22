@@ -278,11 +278,12 @@
 "developer-settings-activity-tab-group-B" = "Defina a guia de atividades para o grupo B";
 "developer-settings-activity-tab-group-C" = "Defina a guia de atividades para o grupo C";
 "developer-settings-bypass-donation" = "Pular doação";
+"developer-settings-dynamic-tabs-group-B-v2" = "Ativar guias V2 com o grupo B";
+"developer-settings-dynamic-tabs-group-C-v2" = "Ativar guias V2 com o grupo C";
 "developer-settings-enable-year-in-review" = "Ativar resumo do ano";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análises para wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Não publicar recomendações de imagens editadas.";
-// Fuzzy
-"did-you-know" = "Você sabia";
+"did-you-know" = "Você sabia?";
 "diff-article-revision-history" = "Histórico de revisões do artigo";
 "diff-change-added" = "Adição, $1, fim de adição.";
 "diff-change-paragraph-lines-moved-down" = "Parágrafo movido {{PLURAL:$1|0=0 linhas|$1 linha|$1 linhas}} para baixo. Ir para nova localização.";
@@ -1490,7 +1491,9 @@
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "A comunidade de editores voluntários da Wikipédia fez mais de 555.647 edições no aplicativo iOS. O coração e a alma da Wikipédia são a nossa comunidade global de colaboradores voluntários, doadores e bilhões de leitores como você – todos unidos para compartilhar acesso ilimitado a informações confiáveis.";
 "year-in-review-base-edits-title" = "A Wikipédia foi editada $1 vez por minuto.";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "A Wikipédia tinha mais de $1 milhão de artigos em mais de $2 idiomas ativos. Você se juntou a milhões de pessoas na expansão do conhecimento e na exploração de diversos tópicos.";
+// Fuzzy
 "year-in-review-base-reading-title" = "A Wikipédia estava disponível em mais de 300 idiomas.";
 // Fuzzy
 "year-in-review-base-saved-title" = "Tínhamos mais de $1 milhão em listas de leitura.";
@@ -1515,17 +1518,13 @@
 "year-in-review-feature-explore-body" = "A Wikipédia é a maior fonte de conhecimento já reunida na história do mundo e está disponível gratuitamente para todos em qualquer lugar. Aqui está uma retrospectiva de 2024 através das lentes da Wikipédia.";
 "year-in-review-feature-explore-body-personalized" = "Veja informações sobre os artigos que você leu no aplicativo da Wikipédia e as edições que você fez em 2024. Seu histórico de leitura é mantido protegido. As informações de leitura são calculadas usando dados armazenados localmente no seu dispositivo.";
 "year-in-review-finish" = "Finalizar";
-"year-in-review-login-subtitle" = "Entre ou crie uma conta para ter acesso a informações mais personalizadas.";
-"year-in-review-login-title" = "Melhore o seu resumo do ano";
-"year-in-review-personalized-day-subtitle-format" = "Você leu a maioria dos artigos por $1. É claro que $1 é o seu dia ideal para explorar novos conteúdos. Obrigado por aproveitar ao máximo o seu tempo de leitura!";
-"year-in-review-personalized-day-title-format" = "Você lê mais por $1.";
 "year-in-review-personalized-donate-title" = "Sua generosidade ajudou a manter a Wikipédia prosperando";
 "year-in-review-personalized-donation-thank-you" = "Logotipo da Wikimedia";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Leitores de todo o mundo apreciam suas contribuições. Nos últimos dois meses, os artigos que você editou receberam um total de $1 visualizações. Graças a editores como você, a Wikipédia é um recurso de conhecimento em constante aperfeiçoamento, baseado em fatos e confiável para o mundo todo.";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Nossas edições foram visualizadas mais de $1 vezes recentemente.";
 "year-in-review-personalized-editing-title-format-500plus" = "Você editou a Wikipédia mais de 500 vezes.";
-"year-in-review-personalized-reading-title-format" = "Você leu {{PLURAL:$1|$1 artigo|$1 artigos}}";
 "year-in-review-personalized-saved-articles" = "Ilustração de uma peça de quebra-cabeça usando um capacete com telas de computador ao fundo.";
 "year-in-review-personalized-saved-title-format" = "Você salvou {{PLURAL:$1|$1 artigo|$1 artigos}}";
 "year-in-review-personalized-user-edits" = "Uma ilustração animada mostrando bytes empilhados uns sobre os outros, simbolizando a criação contínua de conhecimento livre.";
