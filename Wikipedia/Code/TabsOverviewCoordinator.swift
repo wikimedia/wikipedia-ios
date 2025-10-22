@@ -261,7 +261,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 
     private func tappedArticle(_ item: HistoryItem) {
         if let articleURL = item.url {
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
             if let presented = navigationController.presentedViewController {
                 presented.dismiss(animated: true) {
                     articleCoordinator.start()

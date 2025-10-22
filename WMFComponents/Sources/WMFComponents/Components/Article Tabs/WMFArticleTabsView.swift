@@ -21,6 +21,9 @@ public struct WMFArticleTabsView: View {
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
 
+    @State private var didInitialScroll: Bool = false
+    @State private var didCompensationScroll: Bool = false
+
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
     }
@@ -43,6 +46,7 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(theme.midBackground))
+
                 if viewModel.shouldShowSuggestions {
                     bottomSection
                 }
@@ -102,6 +106,12 @@ public struct WMFArticleTabsView: View {
             .background(Color(theme.midBackground))
             .animation(.default, value: shouldShowRecs || shouldShowDYK)
         }
+    }
+
+    private func areRecommendationsVisible() -> Bool {
+        let recReady = (viewModel.recommendedArticlesViewModel != nil)
+        let recVisible = viewModel.shouldShowSuggestions && viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs && recReady
+        return recVisible
     }
 
     // MARK: - Loading / Empty
@@ -165,7 +175,6 @@ public struct WMFArticleTabsView: View {
                 .padding(.horizontal, 8)
                 .onAppear {
                     Task {
-                        await Task.yield()
                         if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
@@ -174,6 +183,8 @@ public struct WMFArticleTabsView: View {
             }
         }
     }
+
+    // MARK: - Grid V2
 
     private func tabsV2Grid(_ geometry: GeometryProxy) -> some View {
         ScrollViewReader { proxy in
@@ -237,11 +248,24 @@ public struct WMFArticleTabsView: View {
                 }
                 .padding(.horizontal, 8)
                 .onAppear {
-                    Task {
-                        await Task.yield()
+                    guard !didInitialScroll else { return }
+                    didInitialScroll = true
+
+                    Task { @MainActor in
+                        try? await Task.sleep(nanoseconds: 150_000_000)
                         if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
+                    }
+                }
+            }
+            .onChange(of: areRecommendationsVisible()) { visible in
+                guard visible, !didCompensationScroll else { return }
+                didCompensationScroll = true
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: 100_000_000)
+                    if let id = viewModel.currentTabID {
+                        proxy.scrollTo(id, anchor: .bottom)
                     }
                 }
             }
