@@ -930,6 +930,7 @@
 "year-in-review-base-edits-subtitle" = "W tym roku Wikipedia była edytowana średnio $1 razy na minutę. Artykuły są tworzone wspólnie i ulepszane przy użyciu wiarygodnych źródeł. Wszyscy mamy wiedzę do podzielenia się, [dowiedz się, jak wziąć w tym udział]($2).";
 // Fuzzy
 "year-in-review-base-reading-subtitle" = "W tym roku Wikipedia miała ponad $1 milion artykułów w ponad $2 językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.";
+// Fuzzy
 "year-in-review-base-reading-title" = "Wikipedia była (i jest) dostępna w ponad 300 językach";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "Aktywni użytkownicy aplikacji iOS mieli w tym roku ponad 62,2 miliona list do przeczytania. Dodawanie do nich artykułów pozwala na czytanie ich nawet bez dostępu do internetu. Możesz się zalogować, aby synchronizować zawartość list między urządzeniami.";
@@ -956,10 +957,9 @@
 "year-in-review-personalized-donation-thank-you" = "Logo Wikipedii";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Czytelnicy na całym świecie doceniają Twój wkład. W ciągu ostatnich 2 miesięcy artykuły, które edytowałeś(-aś), uzyskały łącznie $1 wyświetleń. Dzięki takim redaktorom jak Ty, Wikipedia jest stale rozwijającym się, opartym na faktach i wiarygodnym źródłem wiedzy dla świata";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Twoje edycje zostały ostatnio wyświetlone więcej niż $1 razy";
 "year-in-review-personalized-explore" = "Animowana ilustracja ręki trzymającej kulę Wikipedii, która stopniowo przekształca się w mały element układanki, symbolizujący indywidualny wkład w rozwój platformy.";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format" = "W tym roku przeczytałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}}. Wikipedia miała $2 mln artykułów dostępnych w ponad $3 językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.";
 "year-in-review-personalized-saved-articles" = "Ilustracja puzzla noszącego hask z ekranami komputerów w tle.";
 "year-in-review-personalized-saved-title-format" = "Zapisałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}}";
 "year-in-review-personalized-user-edits" = "Animowana ilustracja przedstawiająca bajty układające się jeden na drugim, symbolizujące nieustanne tworzenie wolnej wiedzy.";
