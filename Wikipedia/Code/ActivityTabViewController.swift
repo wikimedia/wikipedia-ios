@@ -104,6 +104,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
         
+        Task {
+            if let topCategories = try? await dataController.getTopCategories() {
+                viewModel.updateTopCategories(topCategories: topCategories)
+            }
+        }
+        
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
         }

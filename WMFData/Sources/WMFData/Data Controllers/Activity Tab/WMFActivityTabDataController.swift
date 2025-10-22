@@ -69,4 +69,26 @@ public final class WMFActivityTabDataController {
         let dataController = try WMFPageViewsDataController()
         return try await dataController.fetchMostRecentTime()
     }
+    
+    public func getTopCategories() async throws -> [String]? {
+        let calendar = Calendar.current
+        let now = Date()
+
+        guard let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: now)) else {
+            return nil
+        }
+
+        let endDate = now
+        let dataController = try WMFPageViewsDataController()
+
+        let categories = try await dataController.fetchTopCategories(startDate: startOfMonth, endDate: endDate)
+
+        let topThreeCategories = categories
+            .sorted { $0.count > $1.count }
+            .prefix(3)
+            .map { $0.replacingOccurrences(of: "_", with: " ") }
+
+        return Array(topThreeCategories)
+    }
+
 }

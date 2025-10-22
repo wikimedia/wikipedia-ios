@@ -9,6 +9,7 @@ import WMFData
     @Published var minutesRead: Int
     @Published var totalArticlesRead: Int = 0
     @Published var dateTimeLastRead: String? = nil
+    @Published var topCategories: [String]? = nil
     var hasSeenActivityTab: () -> Void
     
     public init(localizedStrings: LocalizedStrings, username: String, hoursRead: Int, minutesRead: Int, hasSeenActivityTab: @escaping () -> Void) {
@@ -60,7 +61,10 @@ import WMFData
         let formattedString = dateFormatter.string(from: dateTime)
         dateTimeLastRead = formattedString
     }
-
+    
+    public func updateTopCategories(topCategories: [String]) {
+        self.topCategories = topCategories
+    }
     
     // Localized strings
 
@@ -71,14 +75,16 @@ import WMFData
         let onWikipediaiOS: String
         let timeSpentReading: String
         let totalArticlesRead: String
-        
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String) {
+        let topCategories: String
+
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, topCategories: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
             self.onWikipediaiOS = onWikipediaiOS
             self.timeSpentReading = timeSpentReading
             self.totalArticlesRead = totalArticlesRead
+            self.topCategories = topCategories
         }
     }
 }
