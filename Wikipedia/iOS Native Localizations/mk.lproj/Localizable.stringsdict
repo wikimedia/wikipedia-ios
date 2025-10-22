@@ -903,6 +903,38 @@
 			<string>%1$d пати</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Читателите ширум светот ги ценат вашите придонеси. Во изминативе 2 месеца, статиите што ги уредивте беа посетени %#@v1@. Благодарение на уредниците како вас Википедија постепено се подобрува како фактографски и веродостоен ресурс на знаења за светот.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>еднаш</string>
+			<key>other</key>
+			<string>вкупно %1$d пати</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Во последно време вашите уредувања беа посетени %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>еднаш</string>
+			<key>other</key>
+			<string>%1$d пати</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -933,6 +965,33 @@
 			<string>%1$d статија</string>
 			<key>other</key>
 			<string>%1$d статии</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Во %3$@ г. проведовте %#@v1@ читајќи %#@v2@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d минута</string>
+			<key>other</key>
+			<string>%1$d минути</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d статија</string>
+			<key>other</key>
+			<string>%2$d статии</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
