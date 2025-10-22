@@ -767,6 +767,7 @@
 "microsite-yir-english-edits-slide-title" = "Editoren machten 98 Millionen Änderungen in diesem Jahr";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "Menschen verbrachten geschätzte 2,4 Milliarden Stunden - über 275.000 Jahre! - mit dem Lesen der englischen Wikipedia im Jahr 2025. Wikipedia ist da, wenn Sie über unsere sich verändernde Welt lernen, eine Wette unter Freunden gewinnen oder die Frage eines neugierigen Kindes beantworten möchten.";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle-short" = "Menschen verbrachten geschätzte 2,4 Milliarden Stunden - über 275.000 Jahre! - mit dem Lesen der englischen Wikipedia im Jahr 2025.";
 // Fuzzy
 "microsite-yir-english-reading-slide-title" = "Wir verbrachten 2,9 Milliarden Stunden mit Lesen";
@@ -1488,7 +1489,9 @@
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "Wikipedia wurde durchschnittlich $1 Mal pro Minute bearbeitet. Artikel werden gemeinschaftlich erstellt und mit Hilfe zuverlässiger Quellen verbessert. Wir alle haben Wissen, das wir weitergeben können – [erfahre, wie du dich beteiligen kannst]($2).";
 "year-in-review-base-edits-title" = "Wikipedia wurde $1 Mal pro Minute bearbeitet";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipedia hat mehr als $1 Millionen Artikel in über $2 aktiven Sprachen. Gemeinsam mit Millionen anderen hast du dein Wissen erweitert und verschiedene Themen erkundet.";
+// Fuzzy
 "year-in-review-base-reading-title" = "Wikipedia war in über 300 Sprachen verfügbar";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "Aktive Nutzer der iOS-App hatten über 62,2 Millionen Leselisten. Durch das Hinzufügen von Artikeln zu Leselisten kannst du auf Artikel zugreifen, auch wenn du offline bist. Außerdem kannst du dich anmelden, um Leselisten geräteübergreifend zu synchronisieren.";
@@ -1508,6 +1511,7 @@
 "year-in-review-collective-zero-ads" = "Wikimedia-Logo";
 "year-in-review-contributor-gift-subtitle" = "Wenn Sie es jetzt nicht aktivieren, können Sie später in den Einstellungen unter Design darauf zugreifen.";
 "year-in-review-contributor-gift-title" = "Neues App-Symbol aktivieren";
+// Fuzzy
 "year-in-review-contributor-slide-title" = "Neues Symbol freigeschaltet";
 "year-in-review-day-friday" = "Freitag";
 "year-in-review-day-monday" = "Montag";
@@ -1528,12 +1532,8 @@
 "year-in-review-feature-explore-body-v3" = "Sehen Sie Einblicke darüber, welche Artikel Sie in der Wikipedia-App gelesen haben und welche Bearbeitungen Sie vorgenommen haben.";
 "year-in-review-feature-explore-footer-v3" = "Ihre Lesehistorie wird geschützt aufbewahrt. Lese-Einblicke werden mit lokal gespeicherten Daten auf Ihrem Gerät berechnet.";
 "year-in-review-finish" = "Fertig";
-"year-in-review-intro-exit-confirmation-subtitle" = "Sie können immer noch einen kollektiven Jahresrückblick sehen, ohne sich anzumelden.";
-"year-in-review-intro-exit-confirmation-title" = "Sind Sie sicher, dass Sie beenden möchten?";
 "year-in-review-intro-exit-toast-title" = "Sie können später in Ihrem Profil auf Ihren Jahresrückblick zugreifen.";
 "year-in-review-intro-login-title" = "Für Personalisierung anmelden";
-"year-in-review-login-subtitle" = "Melde dich an oder erstelle ein Konto, um mehr personalisierte Einblicke zu erhalten";
-"year-in-review-login-title" = "Verbessere deinen Jahresrückblick";
 // Fuzzy
 "year-in-review-non-contributor-slide-title" = "Individuelles Symbol freischalten";
 // Fuzzy
@@ -1542,13 +1542,12 @@
 "year-in-review-personalized-date-month-footer-v3" = "Monat, in dem Sie am meisten gelesen haben";
 "year-in-review-personalized-date-time-footer-v3" = "Lieblings-Lesezeit";
 "year-in-review-personalized-date-title-v3" = "Sie haben klare Lesemuster";
-"year-in-review-personalized-day-subtitle-format" = "Du liest die meisten Artikel am $1. Es ist klar, dass der $1 dein Haupttag ist, um neue Inhalte zu entdecken. Danke, dass du das Beste aus deiner Lesezeit machst!";
-"year-in-review-personalized-day-title-format" = "Du hast am meisten am $1 gelesen.";
 "year-in-review-personalized-donate-subtitle" = "Danke, dass du in die Zukunft des freien Wissens investierst. In diesem Jahr hat die Wikimedia Foundation die Technologie verbessert, um alle Leser und freiwilligen Helfer besser zu unterstützen, Tools entwickelt, die die Zusammenarbeit fördern, und Wikipedia in mehr Sprachen zur Verfügung gestellt. [Erfahre mehr über unsere Arbeit]($1).";
 "year-in-review-personalized-donate-title" = "Deine Großzügigkeit hat Wikipedia in Schwung gehalten";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-Logo";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Leser in aller Welt schätzen deine Beiträge. In den letzten 2 Monaten wurden die von dir bearbeiteten Artikel insgesamt $1 Mal aufgerufen. Dank Editoren wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die Welt.";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Deine Bearbeitungen wurden in letzter Zeit mehr als $1 Mal angesehen";
 "year-in-review-personalized-editing-title-format" = "Du hast Wikipedia {{PLURAL:$1|einmal|$1 mal}} bearbeitet";
 "year-in-review-personalized-editing-title-format-500plus" = "Sie haben Wikipedia 500+ Mal bearbeitet";
@@ -1559,10 +1558,9 @@
 // Fuzzy
 "year-in-review-personalized-location-title-format" = "Artikel, die Sie gelesen haben, sind am nächsten zu $1.";
 "year-in-review-personalized-most-read-articles-title" = "Ihre Top-Artikel";
-"year-in-review-personalized-reading-subtitle-format" = "Dieses Jahr hast du {{PLURAL:$1|$1 Artikel}} gelesen. Bei Wikipedia sind $2 Millionen Artikel in über $3 aktiven Sprachen verfügbar. Du hast dich Millionen von Menschen angeschlossen, die ihr Wissen erweitern und verschiedene Themen erforschen wollen.";
 // Fuzzy
 "year-in-review-personalized-reading-subtitle-format-v3" = "Das bringt Sie in die Top **PERCENT** der Wikipedia-Leser weltweit. Die durchschnittliche Person liest {{PLURAL:$1|$1 Artikel}} pro Jahr.";
-"year-in-review-personalized-reading-title-format" = "Du hast dieses Jahr {{PLURAL:$1|$1 Artikel}} gelesen";
+// Fuzzy
 "year-in-review-personalized-reading-title-v3-format" = "Sie haben {{PLURAL:$1|$1 Minute|$1 Minuten}} damit verbracht, {{PLURAL:$2|$2 Artikel}} im Jahr 2025 zu lesen";
 "year-in-review-personalized-saved-articles" = "Illustration eines Puzzleteils mit Schutzhelm und Computerbildschirmen im Hintergrund.";
 "year-in-review-personalized-saved-title-format" = "Du hast {{PLURAL:$1|$1 Artikel}} gespeichert";
