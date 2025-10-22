@@ -82,6 +82,30 @@ public final class WMFCategoriesDataController {
         }
     }
     
+    public func deleteAllCategories() async throws {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        try await backgroundContext.perform { [weak self] in
+            guard let self else { return }
+            
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CDCategory")
+            fetchRequest.includesPropertyValues = false
+            
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            batchDeleteRequest.resultType = .resultTypeObjectIDs
+            
+            let result = try backgroundContext.execute(batchDeleteRequest) as? NSBatchDeleteResult
+            
+            if let objectIDs = result?.result as? [NSManagedObjectID], !objectIDs.isEmpty {
+                let changes: [AnyHashable: Any] = [NSDeletedObjectsKey: objectIDs]
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
+            }
+            
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+
     public func fetchCategoryCounts(startDate: Date, endDate: Date) async throws -> [WMFCategory: Int] {
         
         let context = try coreDataStore.newBackgroundContext

@@ -1,5 +1,5 @@
-import Foundation
-
+import WMFData
+import CocoaLumberjackSwift
 
 extension NSManagedObjectContext {
     public func clearReadHistory() throws {
@@ -16,6 +16,10 @@ extension NSManagedObjectContext {
                 reset()
             }
             articles = try fetch(request)
+        }
+        
+        Task {
+            try await WMFCategoriesDataController().deleteAllCategories()
         }
     }
     
