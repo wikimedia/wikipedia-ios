@@ -816,14 +816,16 @@ extension WMFAppViewController {
             return String.localizedStringWithFormat(format, hoursString, minutesString)
         }
         
-        let viewModel = WMFActivityTabViewModel(localizedStrings:
-            WMFActivityTabViewModel.LocalizedStrings(
-                userNamesReading: usernamesReading(username:),
-                noUsernameReading: noUsernameReading,
-                totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
-                onWikipediaiOS: onWikipediaiOS,
-                timeSpentReading: timeSpentReading),
-           username: dataStore.authenticationManager.authStatePermanentUsername ?? "", hoursRead: 0, minutesRead: 0)
+        let viewModel = WMFActivityTabViewModel(
+            localizedStrings:
+                WMFActivityTabViewModel.LocalizedStrings(
+                    userNamesReading: usernamesReading(username:),
+                    noUsernameReading: noUsernameReading,
+                    totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
+                    onWikipediaiOS: onWikipediaiOS,
+                    timeSpentReading: timeSpentReading),
+            username: dataStore.authenticationManager.authStatePermanentUsername ?? "",
+            dataController: activityTabDataController)
 
 
         let controller = WMFActivityTabViewController(

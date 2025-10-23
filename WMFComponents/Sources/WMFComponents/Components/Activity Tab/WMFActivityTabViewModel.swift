@@ -4,16 +4,24 @@ import WMFData
 
 @objc public class WMFActivityTabViewModel: NSObject, ObservableObject {
     var localizedStrings: LocalizedStrings
+    var dataController: WMFActivityTabDataController
     @Published var username: String
-    @Published var hoursRead: Int
-    @Published var minutesRead: Int
+    @Published var hoursRead: Int = 0
+    @Published var minutesRead: Int = 0
     
-    public init(localizedStrings: LocalizedStrings, username: String, hoursRead: Int, minutesRead: Int) {
+    public init(localizedStrings: LocalizedStrings, username: String, dataController: WMFActivityTabDataController) {
         self.localizedStrings = localizedStrings
         self.username = username
-        self.hoursRead = hoursRead
-        self.minutesRead = minutesRead
+        self.dataController = dataController
         super.init()
+    }
+    
+    public func viewDidLoad() {
+        Task {
+            if let (hours, minutes) = try? await dataController.getTimeReadPast7Days() {
+                updateHoursMinutesRead(hours: hours, minutes: minutes)
+            }
+        }
     }
     
     public var usernamesReading: String {

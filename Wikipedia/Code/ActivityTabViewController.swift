@@ -80,12 +80,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        Task {
-            if let (hours, minutes) = try? await dataController.getTimeReadPast7Days() {
-                viewModel.updateHoursMinutesRead(hours: hours, minutes: minutes)
-            }
-        }
-        
         didLogIn()
         
         configureNavigationBar()
