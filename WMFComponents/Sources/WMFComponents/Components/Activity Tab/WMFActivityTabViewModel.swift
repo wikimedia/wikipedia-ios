@@ -10,6 +10,7 @@ import WMFData
     @Published var minutesRead: Int = 0
     @Published var totalArticlesRead: Int = 0
     @Published var dateTimeLastRead: String? = nil
+    @Published var weeklyReads: [Int]? = []
     var hasSeenActivityTab: () -> Void
     
     public init(localizedStrings: LocalizedStrings, username: String, dataController: WMFActivityTabDataController, hasSeenActivityTab: @escaping () -> Void) {
@@ -37,6 +38,12 @@ import WMFData
         Task {
             if let dateTime = try? await dataController.getMostRecentReadDateTime() {
                 updateDateTimeRead(dateTime: dateTime)
+            }
+        }
+        
+        Task {
+            if let weeklyReads = try? await dataController.getWeeklyReadsThisMonth() {
+                updateWeeklyReads(weeklyReads: weeklyReads)
             }
         }
         
@@ -68,7 +75,7 @@ import WMFData
         self.totalArticlesRead = totalArticlesRead
     }
     
-    public func updateDateTimeRead(dateTime: Date) {
+    private func updateDateTimeRead(dateTime: Date) {
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
         
@@ -81,6 +88,10 @@ import WMFData
         
         let formattedString = dateFormatter.string(from: dateTime)
         dateTimeLastRead = formattedString
+    }
+    
+    private func updateWeeklyReads(weeklyReads: [Int]) {
+        self.weeklyReads = weeklyReads
     }
 
     

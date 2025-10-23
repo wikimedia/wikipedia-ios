@@ -1,4 +1,5 @@
 import SwiftUI
+import Charts
 
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -96,8 +97,33 @@ public struct WMFActivityTabView: View {
             onTapDateText: {
                 print("Tapped date text")
                 // TODO: Navigate to history below
+            },
+            content: {
+                if let weeklyReads = viewModel.weeklyReads {
+                    articlesReadGraph(weeklyReads: weeklyReads)
+                }
             }
         )
     }
-
+    
+    private func articlesReadGraph(weeklyReads: [Int]) -> some View {
+        Chart {
+            ForEach(weeklyReads.indices, id: \.self) { index in
+                BarMark(
+                    x: .value("Week", index),
+                    y: .value("Articles", weeklyReads[index] + 1),
+                    width: 12
+                )
+                .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.baseBackground))
+                .cornerRadius(1.5)
+            }
+        }
+        .frame(maxWidth: 65, maxHeight: 45)
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
+        .chartPlotStyle { plotArea in
+            plotArea
+                .background(Color.clear)
+        }
+    }
 }

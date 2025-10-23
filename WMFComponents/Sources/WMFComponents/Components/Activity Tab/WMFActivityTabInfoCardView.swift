@@ -50,7 +50,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                 }
             }
 
-            HStack {
+            HStack(alignment: .center) {
                 Text("\(amount)")
                     .foregroundStyle(Color(theme.text))
                     .font(Font(WMFFont.for(.boldTitle1)))
