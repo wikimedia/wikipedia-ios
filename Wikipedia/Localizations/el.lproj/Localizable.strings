@@ -6,6 +6,7 @@
 // Author: Geraki
 // Author: Giorgos456
 // Author: Glavkos
+// Author: Jimkats
 // Author: KATRINE1992
 // Author: KATRINE1993
 // Author: McDutchie
@@ -320,6 +321,7 @@
 "places-empty-search-title" = "Αναζήτηση σε λήμματα της Βικιπαίδειας με γεωγραφικές τοποθεσίες";
 "places-enable-location-action-button-title" = "Ενεργοποίηση τοποθεσίας";
 "places-enable-location-description" = "Η πρόσβαση στην τοποθεσία σας είναι διαθέσιμη μόνο όταν η εφαρμογή ή ένα από τα χαρακτηριστικά της είναι ορατά στην οθόνη σας.";
+"places-filter-articles-action-sheet-title" = "Φιλτράρισμα άρθρων";
 "places-filter-no-saved-places" = "Δεν έχετε αποθηκευμένα μέρη";
 "places-filter-saved-articles" = "Αποθηκευμένα άρθρα";
 "places-filter-top-articles" = "Κορυφαίο διαβασμένο";

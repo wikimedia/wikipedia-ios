@@ -605,6 +605,8 @@
 "main-menu-terms-of-use" = "Condições de utilização";
 "main-menu-title" = "Mais";
 "main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
+"microsite-yir-english-edits-bytes-slide-title" = "$1 bytes adicionados";
+"microsite-yir-english-reading-slide-title" = "Nós passamos $1 hora(s) a ler";
 "more-languages-tooltip-description" = "Pesquise a Wikipédia em mais de 300 línguas";
 "more-languages-tooltip-title" = "Adicionar línguas";
 "more-menu" = "Mais";
@@ -1244,3 +1246,4 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar as alterações, concorda com as $1Condições de Utilização$2 e concorda irrevogavelmente em publicar o seu contributo com a licença $3CC BY-SA 4.0$4 e a $5GFDL$6. Concorda que uma hiperligação ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condições de utilização";
 "year-in-review-contributor-gift-title" = "Ativar novo ícone da aplicação";
+"year-in-review-personalized-edit-views-title-format" = "Recentemente, as suas edições foram visualizadas mais de {{PLURAL:$1|$1 vez|$1 vezes}}";
