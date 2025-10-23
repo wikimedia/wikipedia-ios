@@ -816,17 +816,17 @@ extension WMFAppViewController {
             return String.localizedStringWithFormat(format, hoursString, minutesString)
         }
         
-        let viewModel = WMFActivityTabViewModel(localizedStrings:
-            WMFActivityTabViewModel.LocalizedStrings(
-                userNamesReading: usernamesReading(username:),
-                noUsernameReading: noUsernameReading,
-                totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
-                onWikipediaiOS: onWikipediaiOS,
-                timeSpentReading: timeSpentReading),
-           username: dataStore.authenticationManager.authStatePermanentUsername ?? "",
-            hoursRead: 0,
-            minutesRead: 0,
-            hasSeenActivityTab: {
+        let viewModel = WMFActivityTabViewModel(
+            localizedStrings:
+                WMFActivityTabViewModel.LocalizedStrings(
+                    userNamesReading: usernamesReading(username:),
+                    noUsernameReading: noUsernameReading,
+                    totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
+                    onWikipediaiOS: onWikipediaiOS,
+                    timeSpentReading: timeSpentReading),
+            username: dataStore.authenticationManager.authStatePermanentUsername ?? "",
+            dataController: activityTabDataController,
+			hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
         })
 
@@ -1079,12 +1079,10 @@ extension WMFAppViewController {
     }
     
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
-        // todo grey
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        // activityTabViewController.viewModel.isLoggedIn = isLoggedIn
-        
         if let username = dataStore.authenticationManager.authStatePermanentUsername {
-            // activityTabViewController.username = username
+            activityTabViewController.viewModel.updateUsername(username: username)
+        } else {
+            activityTabViewController.viewModel.updateUsername(username: "")
         }
     }
     

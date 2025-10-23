@@ -86,15 +86,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        Task {
-            if let (hours, minutes) = try? await dataController.getTimeReadPast7Days() {
-                viewModel.updateHoursMinutesRead(hours: hours, minutes: minutes)
-            }
-        }
-        
-        if let username = dataStore?.authenticationManager.authStatePermanentUsername {
-            viewModel.updateUsername(username: username)
-        }
+        didLogIn()
         
         if !dataController.hasSeenActivityTab {
             presentOnboarding()
@@ -158,7 +150,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     @objc private func didLogIn() {
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
-         }
+        } else {
+            viewModel.updateUsername(username: "")
+        }
     }
     
     private lazy var moreBarButtonItem: UIBarButtonItem = {
