@@ -4,21 +4,48 @@ import WMFData
 
 @objc public class WMFActivityTabViewModel: NSObject, ObservableObject {
     var localizedStrings: LocalizedStrings
+    var dataController: WMFActivityTabDataController
     @Published var username: String
-    @Published var hoursRead: Int
-    @Published var minutesRead: Int
+    @Published var hoursRead: Int = 0
+    @Published var minutesRead: Int = 0
     @Published var totalArticlesRead: Int = 0
     @Published var dateTimeLastRead: String? = nil
     @Published var topCategories: [String]? = nil
     var hasSeenActivityTab: () -> Void
     
-    public init(localizedStrings: LocalizedStrings, username: String, hoursRead: Int, minutesRead: Int, hasSeenActivityTab: @escaping () -> Void) {
+    public init(localizedStrings: LocalizedStrings, username: String, dataController: WMFActivityTabDataController, hasSeenActivityTab: @escaping () -> Void) {
         self.localizedStrings = localizedStrings
         self.username = username
-        self.hoursRead = hoursRead
-        self.minutesRead = minutesRead
+        self.dataController = dataController
         self.hasSeenActivityTab = hasSeenActivityTab
         super.init()
+    }
+    
+    @MainActor
+    public func viewDidLoad() {
+        Task {
+            if let (hours, minutes) = try? await dataController.getTimeReadPast7Days() {
+                updateHoursMinutesRead(hours: hours, minutes: minutes)
+            }
+        }
+        
+        Task {
+            if let articlesRead = try? await dataController.getArticlesRead() {
+                updateTotalArticlesRead(totalArticlesRead: articlesRead)
+            }
+        }
+        
+        Task {
+            if let dateTime = try? await dataController.getMostRecentReadDateTime() {
+                updateDateTimeRead(dateTime: dateTime)
+            }
+        }
+        
+        Task {
+            if let topCategories = try? await dataController.getTopCategories() {
+                updateTopCategories(topCategories: topCategories)
+            }
+        }
     }
     
     public var usernamesReading: String {
@@ -34,7 +61,7 @@ import WMFData
 
     // External updates for async
     
-    public func updateHoursMinutesRead(hours: Int, minutes: Int) {
+    private func updateHoursMinutesRead(hours: Int, minutes: Int) {
         self.hoursRead = hours
         self.minutesRead = minutes
     }
@@ -43,7 +70,7 @@ import WMFData
         self.username = username
     }
     
-    public func updateTotalArticlesRead(totalArticlesRead: Int) {
+    private func updateTotalArticlesRead(totalArticlesRead: Int) {
         self.totalArticlesRead = totalArticlesRead
     }
     

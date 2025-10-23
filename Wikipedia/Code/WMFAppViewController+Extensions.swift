@@ -829,8 +829,7 @@ extension WMFAppViewController {
                 totalArticlesRead: articlesRead,
                 topCategories: topCategories),
            username: dataStore.authenticationManager.authStatePermanentUsername ?? "",
-            hoursRead: 0,
-            minutesRead: 0,
+            dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
         })
@@ -1083,12 +1082,10 @@ extension WMFAppViewController {
     }
     
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
-        // todo grey
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        // activityTabViewController.viewModel.isLoggedIn = isLoggedIn
-        
         if let username = dataStore.authenticationManager.authStatePermanentUsername {
-            // activityTabViewController.username = username
+            activityTabViewController.viewModel.updateUsername(username: username)
+        } else {
+            activityTabViewController.viewModel.updateUsername(username: "")
         }
     }
     

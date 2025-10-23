@@ -52,8 +52,10 @@ public struct WMFActivityTabView: View {
             .frame(maxWidth: .infinity)
         }
         .onAppear {
-            viewModel.hasSeenActivityTab()
+            viewModel.viewDidLoad()
+			viewModel.hasSeenActivityTab()
         }
+        .padding(.top, 16)
         .background(
             LinearGradient(
                 stops: [
