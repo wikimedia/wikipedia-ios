@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WMFData
 
 @objc(WMFDonateFunnel) final class DonateFunnel: NSObject {
    
@@ -56,6 +57,7 @@ import WMF
         case profileClick = "profile_click"
         case startClick = "start_click"
         case learnClick = "learn_click"
+        case loginClick = "login_click"
         case nextClick = "next_click"
         case continueClick = "continue_click"
         case donateStartClickYir = "donate_start_click_yir"
@@ -413,10 +415,35 @@ import WMF
     
     // MARK: - Year In Review
     
+    // Profile
     func logProfileDidTapYearInReview() {
-        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile"])
+        logEvent(activeInterface: .wikiYiR, action: .profileClick, actionData: ["slide": "profile"])
     }
     
+    // Intro
+    func logYearInReviewDidTapIntroGetStarted(slideLoggingID: String, assignment: WMFYearInReviewDataController.YiRLoginExperimentAssignment?) {
+        var actionData: [String: String] = ["slide": slideLoggingID]
+        if let assignment = assignment {
+            let assignmentString = assignment == .control ? "ios_yir_2025_a" : "ios_yir_2025_b"
+            actionData["group"] = assignmentString
+        }
+        
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: actionData)
+    }
+    
+    func logYearInReviewDidTapIntroLearnMore(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewLoginPromptDidTapLogin(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .loginClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewLoginPromptDidTapContinue(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    // Generic (occurs on all slides, including intro)
     func logYearInReviewSlideImpression(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": slideLoggingID])
     }
@@ -425,60 +452,21 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": slideLoggingID])
     }
     
-    func logYearInReviewDidTapIntroContinue(isEntryC: Bool = false) {
-        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": isEntryC ? "start_c" : "start"])
-    }
-    
-    func logYearInReviewDidTapIntroLearnMore(isEntryC: Bool = false) {
-        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": isEntryC ? "start_c" : "start"])
-    }
-    
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .nextClick, actionData: ["slide": slideLoggingID])
     }
-    
-    func logYearInReviewFeatureAnnouncementDidAppear(isEntryA: Bool = true) {
-        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
-    }
-    
-    func logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: Bool = true) {
-        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
-    }
-    
-    func logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: Bool = true) {
-        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
-    }
-    
     
     func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
             "slide": slideLoggingID,
             "campaign_id": metricsID])
     }
-
-    func logYearInReviewLoginPromptDidAppear() {
-        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "new_account_engage"])
-    }
-    
-    func logYearInReviewLoginPromptDidTapLogin() {
-        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "new_account_engage"])
-    }
-    
-    func logYearInReviewLoginPromptDidTapLoginProfile() {
-        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "entry_b_profile"])
-    }
-    
-    func logYearInReviewLoginPromptDidTapNoThanks() {
-        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "new_account_engage"])
-    }
-    
-    func logYearInReviewLoginPromptDidTapNoThanksProfile() {
-        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "entry_b_profile"])
-    }
     
     func logYearInReviewDidTapShare(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .shareClick, actionData: ["slide": slideLoggingID])
     }
+    
+    // Survey
     
     func logYearInReviewSurveyDidAppear() {
         logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "feedback_choice"])
@@ -509,14 +497,19 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .feedbackSubmitted)
     }
     
+    // Donate Slide
+    
+    // maybe not needed?
     func logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": slideLoggingID])
     }
     
+    // maybe not needed?
     func logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": slideLoggingID])
     }
     
+    // maybe not needed?
     func logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: String) {
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia_base",
                                                                                        "campaign_id": metricsID])

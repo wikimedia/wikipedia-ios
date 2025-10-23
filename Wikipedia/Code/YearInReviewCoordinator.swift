@@ -22,6 +22,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     // When true, presents a toast when they exit the Intro slide. Toast explains that they can access later via Profile menu.
     public var needsExitFromIntroToast: Bool = false
+    
+    /// Used as a slide ID when performing actions on the intro slide
+    public var introSlideLoggingID: String = "profile"
 
     private var languageCode: String? {
         return dataStore.languageLinkController.appLanguage?.languageCode
@@ -812,6 +815,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             shareLink: appShareLink,
             hashtag: hashtag,
             plaintextURL: plaintextURL,
+            introSlideLoggingID: self.introSlideLoggingID,
             coordinatorDelegate: self,
             loggingDelegate: self,
             badgeDelegate: badgeDelegate,
@@ -842,6 +846,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
         navigationController.present(hostingController, animated: true, completion: nil)
         return true
+    }
+    
+    func setupForFeatureAnnouncement(introSlideLoggingID: String) {
+        needsExitFromIntroToast = true
+        self.introSlideLoggingID = introSlideLoggingID
+    }
+    
+    func resetFromFeatureAnnouncement() {
+        needsExitFromIntroToast = false
+        introSlideLoggingID = "profile"
     }
     
     func populateYearInReviewReport() async throws {
@@ -946,12 +960,8 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         }
     }
 
-    func logYearInReviewIntroDidTapContinue() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroContinue(isEntryC: dataStore.authenticationManager.authStateIsPermanent)
-    }
-
     func logYearInReviewIntroDidTapLearnMore() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(isEntryC: dataStore.authenticationManager.authStateIsPermanent)
+        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(slideLoggingID: introSlideLoggingID)
     }
 
     func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String) {
@@ -976,7 +986,7 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
-            needsExitFromIntroToast = false
+            resetFromFeatureAnnouncement()
         }
     }
 }
@@ -984,9 +994,11 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .presentLoginPromptFromIntroGetStarted:
-            showLoginPromptFromIntroV3GetStarted()
-        case .presentExitToastFromIntroDone:
+        case .tappedIntroV3GetStartedWhileLoggedOut:
+            tappedIntroV3GetStartedWhileLoggedOut()
+        case .tappedIntroV3GetStartedWhileLoggedIn:
+            tappedIntroV3GetStartedWhileLoggedIn()
+        case .tappedIntroV3DoneWhileLoggedOut:
             showExitToastFromIntroV3Done()
         case .donate(let getSourceRect):
             
@@ -1093,8 +1105,30 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true)
-        case .logExperimentAssignment(let assignment):
-            print("🔵🔵🔵🔵TODO: log assignment \(assignment)🔵🔵🔵🔵")
+        }
+    }
+    
+    private func tappedIntroV3GetStartedWhileLoggedIn() {
+        DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
+        viewModel?.populateReportAndShowFirstSlide()
+    }
+    
+    private func tappedIntroV3GetStartedWhileLoggedOut() {
+        if dataController.needsLoginExperimentAssignment() {
+            do {
+                let assignment = try dataController.assignLoginExperimentIfNeeded()
+                DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: assignment)
+            } catch {
+                DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
+            }
+        } else {
+            DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
+        }
+        
+        if dataController.bypassLoginForPersonalizedFlow {
+            viewModel?.populateReportAndShowFirstSlide()
+        } else {
+            showLoginPromptFromIntroV3GetStarted()
         }
     }
     
@@ -1109,6 +1143,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
                     
             guard let self else { return }
+            
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin(slideLoggingID: self.introSlideLoggingID)
             
             let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
             loginCoordinator.loginSuccessCompletion = { [weak self] in
@@ -1134,7 +1170,10 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         }
         
         let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
-            guard let viewModel = self?.viewModel else { return }
+            guard let self else { return }
+            guard let viewModel = self.viewModel else { return }
+            
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapContinue(slideLoggingID: self.introSlideLoggingID)
             viewModel.tappedIntroV3LoginPromptNoThanks()
         }
         
@@ -1152,7 +1191,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 guard let self else { return }
                 if needsExitFromIntroToast {
                     WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
-                    needsExitFromIntroToast = false
+                    resetFromFeatureAnnouncement()
                 }
             }
         }

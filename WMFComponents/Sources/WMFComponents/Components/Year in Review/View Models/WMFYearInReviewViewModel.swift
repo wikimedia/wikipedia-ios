@@ -3,7 +3,6 @@ import SwiftUI
 import WMFData
 
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
-    func logYearInReviewIntroDidTapContinue()
     func logYearInReviewIntroDidTapLearnMore()
     func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String)
     func logYearInReviewSlideDidAppear(slideLoggingID: String)
@@ -292,12 +291,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
         return try? WMFYearInReviewDataController()
     }()
     
-    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool, populateYearInReviewReport: @escaping () async throws -> Void) {
+    private let introSlideLoggingID: String
+    
+    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, introSlideLoggingID: String,  coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool, populateYearInReviewReport: @escaping () async throws -> Void) {
 
         self.localizedStrings = localizedStrings
         self.shareLink = shareLink
         self.hashtag = hashtag
         self.plaintextURL = plaintextURL
+        self.introSlideLoggingID = introSlideLoggingID
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
         self.badgeDelegate = badgeDelegate
@@ -538,7 +540,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         // Intro slide
         if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            let introV3LoggingID = "" // TODO: logging ID
             let introV3ViewModel = WMFYearInReviewIntroV3ViewModel(
                 gifName: "personal-slide-00",
                 altText: localizedStrings.personalizedExploreAccessibilityLabel,
@@ -547,10 +548,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 footer: localizedStrings.introV3Footer,
                 primaryButtonTitle: localizedStrings.introV3PrimaryButtonTitle,
                 secondaryButtonTitle: localizedStrings.introV3SecondaryButtonTitle,
-                loggingID: introV3LoggingID,
+                loggingID: self.introSlideLoggingID,
                 onAppear: { [weak self] in
-                    self?.loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: introV3LoggingID)
-                    self?.markFirstSlideAsSeen()
+                    guard let self else { return }
+                    self.loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: self.introSlideLoggingID)
+                    self.markFirstSlideAsSeen()
                 },
                 tappedPrimaryButton: { [weak self] in
                     self?.tappedIntroV3GetStarted()
@@ -897,32 +899,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func tappedIntroV3GetStarted() {
-        
-        let checkLoginAndProceed: () -> Void = {
-            if !self.isUserPermanent {
-                self.coordinatorDelegate?.handleYearInReviewAction(.presentLoginPromptFromIntroGetStarted)
-            } else {
-                self.populateReportAndShowFirstSlide()
-            }
-        }
-        
-        if let dataController {
-            if dataController.needsLoginExperimentAssignment() {
-                do {
-                    let assignment = try dataController.assignLoginExperimentIfNeeded()
-                    coordinatorDelegate?.handleYearInReviewAction(.logExperimentAssignment(assignment: assignment))
-                } catch {
-                    
-                }
-            }
-            
-            if dataController.bypassLoginForPersonalizedFlow {
-                populateReportAndShowFirstSlide()
-            } else {
-                checkLoginAndProceed()
-            }
+        if !isUserPermanent {
+            coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
         } else {
-            checkLoginAndProceed()
+            coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedIn)
         }
     }
     
@@ -943,7 +923,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    private func populateReportAndShowFirstSlide() {
+    public func populateReportAndShowFirstSlide() {
         isPopulatingReport = true
         Task { [weak self] in
             guard let self else { return }
@@ -955,7 +935,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     
                     self.updateSlides(isUserPermanent: isUserPermanent)
                     self.isPopulatingReport = false
-                    self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
                     self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     
                     // Maybe delay a little bit to let slide changes propagate
@@ -972,7 +951,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     
                     self.updateSlides(isUserPermanent: isUserPermanent)
                     self.isPopulatingReport = false
-                    self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
                     self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     
                     // Maybe delay a little bit to let slide changes propagate
@@ -1092,7 +1070,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             if isUserPermanent {
                 standardDismissal()
             } else {
-                coordinatorDelegate?.handleYearInReviewAction(.presentExitToastFromIntroDone)
+                logYearInReviewDidTapDone()
+                coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
             }
         }
     }
