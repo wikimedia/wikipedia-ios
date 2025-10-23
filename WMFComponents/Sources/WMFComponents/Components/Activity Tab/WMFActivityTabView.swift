@@ -43,6 +43,7 @@ public struct WMFActivityTabView: View {
         .onAppear {
             viewModel.viewDidLoad()
         }
+        .padding(.top, 16)
         .background(
             LinearGradient(
                 stops: [
