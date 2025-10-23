@@ -24,5 +24,5 @@ private enum WMFNotificationName: String {
 }
 
 @objc public class WMFNSNotificationBridge: NSObject {
-    @objc public static let ActivityTabDidChangeNotificationName = "ActivityTabDidChangeNotification"
+    @objc public static let ActivityTabDidChangeNotificationName = WMFNotificationName.activityTabToggled.rawValue
 }
