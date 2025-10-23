@@ -1074,12 +1074,10 @@ extension WMFAppViewController {
     }
     
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
-        // todo grey
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        // activityTabViewController.viewModel.isLoggedIn = isLoggedIn
-        
         if let username = dataStore.authenticationManager.authStatePermanentUsername {
-            // activityTabViewController.username = username
+            activityTabViewController.viewModel.updateUsername(username: username)
+        } else {
+            activityTabViewController.viewModel.updateUsername(username: "")
         }
     }
     

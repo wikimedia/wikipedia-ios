@@ -86,9 +86,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
         
-        if let username = dataStore?.authenticationManager.authStatePermanentUsername {
-            viewModel.updateUsername(username: username)
-        }
+        didLogIn()
         
         configureNavigationBar()
     }
@@ -114,7 +112,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     @objc private func didLogIn() {
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
-         }
+        } else {
+            viewModel.updateUsername(username: "")
+        }
     }
     
     private lazy var moreBarButtonItem: UIBarButtonItem = {
