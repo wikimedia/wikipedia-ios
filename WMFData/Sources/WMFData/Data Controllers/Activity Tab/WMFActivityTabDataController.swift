@@ -81,7 +81,7 @@ public final class WMFActivityTabDataController {
         let endDate = now
         let dataController = try WMFPageViewsDataController()
 
-        let categories = try await dataController.fetchTopCategories(startDate: startOfMonth, endDate: endDate)
+        let categories = try await fetchTopCategories(startDate: startOfMonth, endDate: endDate)
 
         let topThreeCategories = categories
             .sorted { $0.count > $1.count }
@@ -90,5 +90,13 @@ public final class WMFActivityTabDataController {
 
         return Array(topThreeCategories)
     }
+    
+    public func fetchTopCategories(startDate: Date, endDate: Date) async throws -> [String] {
+        let categoryCounts = try await WMFCategoriesDataController()
+            .fetchCategoryCounts(startDate: startDate, endDate: endDate)
 
+        return categoryCounts
+            .sorted { $0.value > $1.value }
+            .map { $0.key.categoryName }
+    }
 }

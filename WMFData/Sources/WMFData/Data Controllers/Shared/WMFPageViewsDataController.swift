@@ -397,13 +397,4 @@ public final class WMFPageViewsDataController {
 
         return result
     }
-    
-    public func fetchTopCategories(startDate: Date, endDate: Date) async throws -> [String] {
-        let categoryCounts = try await WMFCategoriesDataController()
-            .fetchCategoryCounts(startDate: startDate, endDate: endDate)
-
-        return categoryCounts
-            .sorted { $0.value > $1.value }
-            .map { $0.key.categoryName }
-    }
 }

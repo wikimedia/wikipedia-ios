@@ -17,10 +17,6 @@ extension NSManagedObjectContext {
             }
             articles = try fetch(request)
         }
-        
-        Task {
-            try await WMFCategoriesDataController().deleteAllCategories()
-        }
     }
     
     @objc public var mostRecentlyReadArticle: WMFArticle? {
