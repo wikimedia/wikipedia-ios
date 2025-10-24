@@ -31,4 +31,5 @@ public enum WMFUserDefaultsKey: String {
     case qualifiesForIcon2025 = "qualifies-for-icon-2025"
     case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
     case developerSettingsShowActivityTab = "developer-settings-show-activity-tab"
+    case hasSeenActivityTab = "has-seen-activity-tab"
 }

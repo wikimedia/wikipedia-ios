@@ -80,6 +80,16 @@
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
+"activity-tab-onboarding-first-item-subtitle" = "See how much time you've spent reading and which articles or topics you've explored over time.";
+"activity-tab-onboarding-first-item-title" = "Reading patterns";
+"activity-tab-onboarding-fourth-item-subtitle" = "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.";
+"activity-tab-onboarding-fourth-item-title" = "Stay in control";
+"activity-tab-onboarding-header" = "Introducing Activity";
+"activity-tab-onboarding-second-button-title" = "Learn more about Activity";
+"activity-tab-onboarding-second-item-subtitle" = "Discover insights about your contributions and the reach of the knowledge you've shared.";
+"activity-tab-onboarding-second-item-title" = "Impact highlights";
+"activity-tab-onboarding-third-item-subtitle" = "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.";
+"activity-tab-onboarding-third-item-title" = "More ways to engage";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-start-editing" = "Start editing";
