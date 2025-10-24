@@ -28,6 +28,7 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
         }
         if let pageViewCounts = try? await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate) {
             let top5 = pageViewCounts
+                .filter { $0.count > 1 }
                 .sorted { $0.count > $1.count }
                 .prefix(5).map { item in
                     return item.page.title.replacingOccurrences(of: "_", with: " ")
