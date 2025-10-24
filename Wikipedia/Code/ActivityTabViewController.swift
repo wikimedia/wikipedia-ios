@@ -7,14 +7,14 @@ import Combine
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}
 
 @objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
-    private var theme: Theme
+    private let theme: Theme
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
     private let dataStore: MWKDataStore?
     private let hostingController: WMFActivityTabHostingController
-    var viewModel: WMFActivityTabViewModel
-    var dataController: WMFActivityTabDataController
+    public let viewModel: WMFActivityTabViewModel
+    private let dataController: WMFActivityTabDataController
     
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
         self.dataStore = dataStore
@@ -37,6 +37,23 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil) // < new line
+        addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
+    }
+    
+    @objc private func updateLoginState() {
+        if let username = dataStore?.authenticationManager.authStatePermanentUsername {
+            viewModel.updateUsername(username: username)
+        } else {
+            viewModel.updateUsername(username: "")
+        }
+    }
+    
+    // MARK: - Profile button dependencies
 
     private var _yirCoordinator: YearInReviewCoordinator?
     var yirCoordinator: YearInReviewCoordinator? {
@@ -139,12 +156,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 }
             }
         }
-    }
-    
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
-        addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
     }
     
     @objc private func didLogIn() {
