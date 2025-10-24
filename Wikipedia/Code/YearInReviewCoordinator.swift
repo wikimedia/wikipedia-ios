@@ -957,10 +957,6 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
         DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(slideLoggingID: introSlideLoggingID)
     }
 
-    func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: slideLoggingID)
-    }
-
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         DonateFunnel.shared.logYearInReviewDidTapNext(slideLoggingID: slideLoggingID)
     }
@@ -1082,7 +1078,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
-            presentedViewController.present(newNavigationVC, animated: true, completion: { DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: slideLoggingID)})
+            presentedViewController.present(newNavigationVC, animated: true)
         case .info(let url):
             
             guard let url else {

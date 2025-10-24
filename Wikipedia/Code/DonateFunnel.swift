@@ -538,22 +538,6 @@ import WMFData
         }
     }
     
-    // maybe not needed?
-    func logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": slideLoggingID])
-    }
-    
-    // maybe not needed?
-    func logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": slideLoggingID])
-    }
-    
-    // maybe not needed?
-    func logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia_base",
-                                                                                       "campaign_id": metricsID])
-    }
-    
     // Year in Review Donate flow events
     
     func logYearInReviewDidTapDonateCancel(metricsID: String) {
