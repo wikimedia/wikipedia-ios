@@ -380,4 +380,21 @@ public final class WMFPageViewsDataController {
         
         return result
     }
+    
+    public func fetchMostRecentTime() async throws -> Date? {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        let result: Date? = try await backgroundContext.perform {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
+            fetchRequest.fetchLimit = 1
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            
+            if let pageView = try backgroundContext.fetch(fetchRequest).first as? CDPageView {
+               return pageView.timestamp
+            }
+            return nil
+        }
+
+        return result
+    }
 }

@@ -102,8 +102,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        didLogIn()
+
+        if let username = dataStore?.authenticationManager.authStatePermanentUsername {
+            viewModel.updateUsername(username: username)
+        }
         
         if !dataController.hasSeenActivityTab {
             presentOnboarding()
