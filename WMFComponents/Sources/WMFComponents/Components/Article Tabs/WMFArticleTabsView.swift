@@ -2,25 +2,28 @@ import SwiftUI
 import WMFData
 import UIKit
 
-@available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
+@available(iOS 16.4, *)
 public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
 
-    var viewHeight: CGFloat {
-        sizeCategory > .large ? 180 : 140
-    }
+    var viewHeight: CGFloat { sizeCategory > .large ? 180 : 140 }
 
-    private var theme: WMFTheme {
-        return appEnvironment.theme
-    }
+    private var theme: WMFTheme { appEnvironment.theme }
 
     @ObservedObject var viewModel: WMFArticleTabsViewModel
-    /// Flag to allow us to know if we can scroll to the current tab position
+
+    /// Primary readiness (tabs list ready to render)
     @State private var isReady: Bool = false
+
+    /// V2: cell frames for share positioning
     @State private var cellFrames: [String: CGRect] = [:]
-    @State private var hideLoadingWithDelay = false
+
+    /// V2-only overlay orchestration
+    @State private var v2OverlayVisible: Bool = false
+    @State private var v2ScrolledToCurrent: Bool = false
+    @State private var v2BottomAppeared: Bool = false
 
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
@@ -28,31 +31,37 @@ public struct WMFArticleTabsView: View {
 
     public var body: some View {
         GeometryReader { geometry in
-            ZStack {
-                VStack(spacing: 0) {
-                    Group {
-                        if !isReady {
-                            loadingView
-                        } else if isEmptyState {
-                            emptyStateContainer
+            VStack(spacing: 0) {
+                Group {
+                    if !isReady {
+                        loadingView
+                    } else if isEmptyState {
+                        emptyStateContainer
+                    } else {
+                        if viewModel.shouldShowTabsV2 {
+                            tabsV2Grid(geometry)
                         } else {
-                            if viewModel.shouldShowTabsV2 {
-                                tabsV2Grid(geometry)
-                            } else {
-                                tabsGrid(geometry)
-                            }
+                            tabsGrid(geometry)
                         }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(theme.midBackground))
-
-                    if viewModel.shouldShowSuggestions {
-                        bottomSection
-                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(theme.midBackground))
 
-                if !hideLoadingWithDelay {
-                    loadingOverlay
+                if viewModel.shouldShowSuggestions {
+                    bottomSection
+                } else {
+                    Color.clear
+                        .frame(height: 0)
+                        .onAppear {
+                            if viewModel.shouldShowTabsV2 {
+                                v2BottomAppeared = true
+                                maybeHideV2Overlay()
+                            }
+                        }
+                        .onDisappear {
+                            if viewModel.shouldShowTabsV2 { v2BottomAppeared = false }
+                        }
                 }
             }
         }
@@ -70,15 +79,6 @@ public struct WMFArticleTabsView: View {
                 viewModel.maybeStartSecondaryLoads()
             }
         }
-        .onChange(of: shouldHideLoading) { ready in
-            guard ready else { return }
-            Task {
-                try? await Task.sleep(nanoseconds: 250_000_000)
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    hideLoadingWithDelay = true
-                }
-            }
-        }
         .background(Color(theme.midBackground))
         .onAppear {
             if viewModel.shouldShowTabsV2 {
@@ -88,18 +88,6 @@ public struct WMFArticleTabsView: View {
     }
 
     // MARK: - Bottom Section
-
-    private var expectingBottom: Bool {
-        viewModel.shouldShowTabsV2 && viewModel.shouldShowSuggestions
-    }
-
-    private var bottomDataReady: Bool {
-        let recReady = (viewModel.recommendedArticlesViewModel != nil)
-        let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
-        let showRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs
-        let showDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs
-        return (showRecs && recReady) || (showDYK && dykReady)
-    }
 
     @ViewBuilder
     private var bottomSection: some View {
@@ -114,19 +102,36 @@ public struct WMFArticleTabsView: View {
                     .fill(Color(theme.secondaryText).opacity(0.5))
                     .frame(height: 1 / UIScreen.main.scale)
                     .frame(maxWidth: .infinity)
-                
+
                 if shouldShowRecs, let recVM = viewModel.recommendedArticlesViewModel {
                     WMFTabsOverviewRecommendationsView(viewModel: recVM)
                         .frame(maxHeight: viewHeight)
                         .clipped()
                         .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .onAppear {
+                            if viewModel.shouldShowTabsV2 {
+                                v2BottomAppeared = true
+                                Task { @MainActor in maybeHideV2Overlay() }
+                            }
+                        }
+                        .onDisappear {
+                            if viewModel.shouldShowTabsV2 { v2BottomAppeared = false }
+                        }
+
                 } else if shouldShowDYK, let dykVM = viewModel.didYouKnowViewModel {
-                    WMFTabsOverviewDidYouKnowView(
-                        viewModel: dykVM
-                    )
-                    .fixedSize(horizontal: false, vertical: true)
-                    .clipped()
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    WMFTabsOverviewDidYouKnowView(viewModel: dykVM)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .clipped()
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .onAppear {
+                            if viewModel.shouldShowTabsV2 {
+                                v2BottomAppeared = true
+                                Task { @MainActor in maybeHideV2Overlay() }
+                            }
+                        }
+                        .onDisappear {
+                            if viewModel.shouldShowTabsV2 { v2BottomAppeared = false }
+                        }
                 }
             }
             .frame(maxWidth: .infinity)
@@ -134,30 +139,20 @@ public struct WMFArticleTabsView: View {
             .animation(.default, value: shouldShowRecs || shouldShowDYK)
         }
     }
-    
-    // MARK: - Loading / Empty
 
-    private var shouldHideLoading: Bool {
-        guard isReady else { return false }
-        if isEmptyState { return true }
-        if !expectingBottom { return true }
-        return bottomDataReady
+    // MARK: - Loading / Empty
+    @MainActor
+    private func maybeHideV2Overlay() {
+        guard v2OverlayVisible, v2ScrolledToCurrent, v2BottomAppeared else { return }
+        withAnimation(.easeInOut(duration: 0.2)) {
+            v2OverlayVisible = false
+        }
     }
 
     private var loadingView: some View {
         ProgressView()
             .progressViewStyle(CircularProgressViewStyle())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-
-    private var loadingOverlay: some View {
-        ZStack {
-            Color(theme.midBackground).ignoresSafeArea()
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle())
-        }
-        .transition(.opacity)
-        .animation(.easeInOut(duration: 0.2), value: shouldHideLoading)
     }
 
     private var isEmptyState: Bool {
@@ -231,78 +226,96 @@ public struct WMFArticleTabsView: View {
     private func tabsV2Grid(_ geometry: GeometryProxy) -> some View {
         ScrollViewReader { proxy in
             ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: viewModel.calculateColumns(for: geometry.size))) {
-                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
-                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
-                            .id(tab.id)
-                            .background(
-                                GeometryReader { geo in
-                                    Color.clear
-                                        .preference(key: TabGlobalFramePreferenceKey.self,
-                                                    value: [tab.id: geo.frame(in: .global)])
+                ZStack {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: viewModel.calculateColumns(for: geometry.size))) {
+                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
+                            WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                                .id(tab.id)
+                                .background(
+                                    GeometryReader { geo in
+                                        Color.clear
+                                            .preference(key: TabGlobalFramePreferenceKey.self,
+                                                        value: [tab.id: geo.frame(in: .global)])
+                                    }
+                                )
+                                .onAppear {
+                                    Task { await viewModel.ensureInfo(for: tab) }
                                 }
-                            )
-                            .onAppear {
-                                Task { await viewModel.ensureInfo(for: tab) }
-                            }
-                            .contextMenu(menuItems: {
-                                Button {
-                                    viewModel.didTapTab(tab.data)
-                                } label: {
-                                    Text(viewModel.localizedStrings.openTabAccessibility)
-                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
-                                }
-                                Button {
-                                    viewModel.didTapShareTab(tab.data, cellFrames[tab.id])
-                                } label: {
-                                    Text(viewModel.localizedStrings.shareTabButtonTitle)
-                                    Image(uiImage:  WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
-                                }
-                                if viewModel.shouldShowCloseButton {
-                                    Button(role: .destructive) {
-                                        viewModel.closeTab(tab: tab)
+                                .contextMenu(menuItems: {
+                                    Button {
+                                        viewModel.didTapTab(tab.data)
                                     } label: {
-                                        Text(viewModel.localizedStrings.closeTabAccessibility)
-                                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .close) ?? UIImage())
+                                        Text(viewModel.localizedStrings.openTabAccessibility)
+                                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
+                                    }
+                                    Button {
+                                        viewModel.didTapShareTab(tab.data, cellFrames[tab.id])
+                                    } label: {
+                                        Text(viewModel.localizedStrings.shareTabButtonTitle)
+                                        Image(uiImage:  WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+                                    }
+                                    if viewModel.shouldShowCloseButton {
+                                        Button(role: .destructive) {
+                                            viewModel.closeTab(tab: tab)
+                                        } label: {
+                                            Text(viewModel.localizedStrings.closeTabAccessibility)
+                                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .close) ?? UIImage())
+                                        }
+                                    }
+                                }, preview: {
+                                    ArticlePreviewContainer(
+                                        tab: tab,
+                                        viewModel: viewModel,
+                                        build: { getPreviewViewModel(from: $0) }
+                                    )
+                                })
+                                .accessibilityActions {
+                                    accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                                        viewModel.didTapTab(tab.data)
+                                    }
+                                    if viewModel.shouldShowCloseButton {
+                                        accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                            viewModel.closeTab(tab: tab)
+                                        }
                                     }
                                 }
-                            }, preview: {
-                                ArticlePreviewContainer(
-                                       tab: tab,
-                                       viewModel: viewModel,
-                                       build: { getPreviewViewModel(from: $0) }
-                                   )
-                            })
-                            .accessibilityActions {
-                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
-                                    viewModel.didTapTab(tab.data)
-                                }
-                                if viewModel.shouldShowCloseButton {
-                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
-                                        viewModel.closeTab(tab: tab)
-                                    }
-                                }
-                            }
-                    }
-                }
-                .onPreferenceChange(TabGlobalFramePreferenceKey.self) { updates in
-                    cellFrames.merge(updates, uniquingKeysWith: { _, new in new })
-                }
-                .padding(.horizontal, 8)
-                .onAppear {
-                    Task { @MainActor in
-                        if let id = viewModel.currentTabID {
-                            proxy.scrollTo(id, anchor: .center)
                         }
+                    }
+                    .onPreferenceChange(TabGlobalFramePreferenceKey.self) { updates in
+                        cellFrames.merge(updates, uniquingKeysWith: { _, new in new })
+                    }
+                    .padding(.horizontal, 8)
+                    .onAppear {
+                        Task {
+                            v2OverlayVisible = true
+                            if !viewModel.shouldShowSuggestions {
+                                v2BottomAppeared = true
+                            }
+                            if let id = viewModel.currentTabID {
+                                proxy.scrollTo(id, anchor: .center)
+                                try? await Task.sleep(nanoseconds: 120_000_000)
+                            }
+                            v2ScrolledToCurrent = true
+                            maybeHideV2Overlay()
+                        }
+                    }
+
+                    if v2OverlayVisible {
+                        OverlayDelayedSpinnerView(isVisible: v2OverlayVisible, delaySeconds: 0.6)
+                            .transition(.opacity)
+                            .allowsHitTesting(true)
                     }
                 }
             }
             .onChange(of: viewModel.recLoaded) { recLoaded in
                 guard recLoaded else { return }
-                Task {
+                Task { @MainActor in
                     if let id = viewModel.currentTabID {
                         proxy.scrollTo(id, anchor: .center)
+                        try? await Task.sleep(nanoseconds: 120_000_000)
                     }
+                    v2ScrolledToCurrent = true
+                    maybeHideV2Overlay()
                 }
             }
         }
@@ -344,9 +357,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    private var theme: WMFTheme {
-        return appEnvironment.theme
-    }
+    private var theme: WMFTheme { appEnvironment.theme }
 
     @ObservedObject var viewModel: WMFArticleTabsViewModel
     @ObservedObject var tab: ArticleTab
@@ -459,9 +470,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
         }
     }
 
-    private func loadingTabContent() -> some View {
-        Text("")
-    }
+    private func loadingTabContent() -> some View { Text("") }
 
     private func standardTabContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -589,5 +598,55 @@ private struct TabGlobalFramePreferenceKey: PreferenceKey {
     static var defaultValue: [String: CGRect] = [:]
     static func reduce(value: inout [String: CGRect], nextValue: () -> [String: CGRect]) {
         value.merge(nextValue(), uniquingKeysWith: { _, new in new })
+    }
+}
+
+@MainActor
+private struct OverlayDelayedSpinnerView: View {
+    let isVisible: Bool
+    var delaySeconds: Double = 0.6
+    @State private var showSpinner = false
+
+    var body: some View {
+        ZStack {
+            if showSpinner {
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .padding(16)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        .shadow(radius: 8)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .transition(.opacity)
+            }
+        }
+        .opacity(isVisible ? 1 : 0)
+        .animation(.easeInOut(duration: 0.2), value: isVisible)
+        .allowsHitTesting(isVisible)
+        .onChange(of: isVisible) { visible in
+            if visible {
+                showSpinner = false
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: UInt64(delaySeconds * 1_000_000_000))
+                    if isVisible {
+                        withAnimation(.easeInOut(duration: 0.2)) { showSpinner = true }
+                    }
+                }
+            } else {
+                showSpinner = false
+            }
+        }
+        .onAppear {
+            guard isVisible else { return }
+            showSpinner = false
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: UInt64(delaySeconds * 1_000_000_000))
+                if isVisible {
+                    withAnimation(.easeInOut(duration: 0.2)) { showSpinner = true }
+                }
+            }
+        }
     }
 }
