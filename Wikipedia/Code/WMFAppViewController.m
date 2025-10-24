@@ -461,7 +461,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self updatePrimaryWikiHasTempAccountsStatusIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
-    [self updateActivityTabLoginStateWithActivityTabViewController:self.activityTabViewController];
     [self assignMoreDynamicTabsV2ExperimentIfNeeded];
     [self checkAndCreateInitialArticleTab];
 }
@@ -1589,10 +1588,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _activityTabExperimentOldViewController;
 }
 
-- (void)updateActivityTabLoginStateObjC {
-    [self updateActivityTabLoginStateWithActivityTabViewController:self.activityTabViewController];
-}
-
 - (WMFPlacesViewController *)placesViewController {
     if (!_placesViewController) {
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
@@ -2243,7 +2238,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
-            [self updateActivityTabLoginStateObjC];
         }
 
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
@@ -2263,7 +2257,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
-            [self updateActivityTabLoginStateObjC];
         }
 
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
