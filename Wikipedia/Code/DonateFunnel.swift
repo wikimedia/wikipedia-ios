@@ -68,6 +68,8 @@ import WMFData
         case feedbackSubmitted = "feedback_submitted"
         case yirOnClick = "yir_on_click"
         case yirOffClick = "yir_off_click"
+        case iconActivateClick = "icon_activate_click"
+        case iconDeactivateClick = "icon_deactivate_click"
     }
     
     private struct Event: EventInterface {
@@ -461,7 +463,8 @@ import WMFData
     func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
             "slide": slideLoggingID,
-            "campaign_id": metricsID])
+            "campaign_id": metricsID,
+            "wmf_source": slideLoggingID])
     }
     
     func logYearInReviewDidTapShare(slideLoggingID: String) {
@@ -518,6 +521,14 @@ import WMFData
     }
     
     // Donate Slide
+    
+    func logYearInReviewDonateSlideDidToggleAppIcon(isOn: Bool) {
+        if isOn {
+            logEvent(activeInterface: .wikiYiR, action:.iconActivateClick, actionData: ["slide": "donoricon"])
+        } else {
+            logEvent(activeInterface: .wikiYiR, action:.iconDeactivateClick, actionData: ["slide": "donoricon"])
+        }
+    }
     
     // maybe not needed?
     func logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: String) {
