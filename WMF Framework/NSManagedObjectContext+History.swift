@@ -1,5 +1,5 @@
-import Foundation
-
+import WMFData
+import CocoaLumberjackSwift
 
 extension NSManagedObjectContext {
     public func clearReadHistory() throws {
