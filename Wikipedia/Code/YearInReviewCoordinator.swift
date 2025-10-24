@@ -984,9 +984,9 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .tappedIntroV3GetStartedWhileLoggedOut:
+        case .presentLoginPromptFromIntroGetStarted:
             showLoginPromptFromIntroV3GetStarted()
-        case .tappedIntroV3DoneWhileLoggedOut:
+        case .presentExitToastFromIntroDone:
             showExitToastFromIntroV3Done()
         case .donate(let getSourceRect):
             
@@ -1093,6 +1093,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true)
+        case .logExperimentAssignment(let assignment):
+            print("🔵🔵🔵🔵TODO: log assignment \(assignment)🔵🔵🔵🔵")
         }
     }
     

@@ -34,6 +34,8 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     }
     
     var showYiRV3: Bool { return true }
+    var enableYiRLoginExperimentControl: Bool { return false }
+    var enableYiRLoginExperimentB: Bool { return false }
 
     private let featureConfig: WMFData.WMFFeatureConfigResponse
     

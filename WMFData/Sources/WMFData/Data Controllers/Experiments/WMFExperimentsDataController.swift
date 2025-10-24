@@ -21,6 +21,7 @@ final class WMFExperimentsDataController {
         case activityTab
         case moreDynamicTabs
         case moreDynamicTabsV2
+        case yirLoginPrompt
 
         var config: ExperimentConfig {
             switch self {
@@ -30,6 +31,8 @@ final class WMFExperimentsDataController {
                 return WMFExperimentsDataController.moreDynamicTabsConfig
             case .moreDynamicTabsV2:
                 return WMFExperimentsDataController.moreDynamicTabsV2Config
+            case .yirLoginPrompt:
+                return WMFExperimentsDataController.yirLoginPromptConfig
             }
         }
     }
@@ -37,12 +40,14 @@ final class WMFExperimentsDataController {
     public enum PercentageFileName: String {
         case activityTabPercent
         case moreDynamicTabsPercent
+        case yirLoginPromptPercent
     }
     
     enum BucketFileName: String {
         case activityTabBucket
         case moreDynamicTabsBucket
         case moreDynamicTabsV2Bucket
+        case yirLoginPromptBucket
     }
     
     public enum BucketValue: String {
@@ -55,6 +60,8 @@ final class WMFExperimentsDataController {
         case moreDynamicTabsV2Control = "MoreDynamicTabsV2_Control"
         case moreDynamicTabsV2GroupB = "MoreDynamicTabsV2_GroupB"
         case moreDynamicTabsV2GroupC = "MoreDynamicTabsV2_GroupC"
+        case yirLoginPromptControl = "YirLoginPrompt_Control"
+        case yirLoginPromptGroupB = "YirLoginPrompt_GroupB"
     }
     
     // MARK: Properties
@@ -66,6 +73,8 @@ final class WMFExperimentsDataController {
     private static let moreDynamicTabsConfig = ExperimentConfig(experiment: .moreDynamicTabs, percentageFileName: .moreDynamicTabsPercent, bucketFileName: .moreDynamicTabsBucket, bucketValueControl: .moreDynamicTabsControl, bucketValueTest: .moreDynamicTabsGroupB, bucketValueTest2: .moreDynamicTabsGroupC)
     
     private static let moreDynamicTabsV2Config = ExperimentConfig(experiment: .moreDynamicTabsV2, percentageFileName: .moreDynamicTabsPercent, bucketFileName: .moreDynamicTabsV2Bucket, bucketValueControl: .moreDynamicTabsV2Control, bucketValueTest: .moreDynamicTabsV2GroupB, bucketValueTest2: .moreDynamicTabsV2GroupC)
+    
+    private static let yirLoginPromptConfig = ExperimentConfig(experiment: .yirLoginPrompt, percentageFileName: .yirLoginPromptPercent, bucketFileName: .yirLoginPromptBucket, bucketValueControl: .yirLoginPromptControl, bucketValueTest: .yirLoginPromptGroupB, bucketValueTest2: nil)
 
     private let store: WMFKeyValueStore
     
@@ -127,6 +136,12 @@ final class WMFExperimentsDataController {
                     bucket = .activityTabGroupBEdit
                 } else {
                     bucket = .activityTabGroupCSuggestedEdit
+                }
+            case .yirLoginPrompt:
+                if randomInt <= percentage {
+                    bucket = .yirLoginPromptControl
+                } else {
+                    bucket = .yirLoginPromptGroupB
                 }
             }
         }
