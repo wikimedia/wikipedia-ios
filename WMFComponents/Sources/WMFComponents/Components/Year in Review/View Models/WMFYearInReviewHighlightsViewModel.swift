@@ -24,25 +24,15 @@ public class WMFYearInReviewSlideHighlightsViewModel {
     private weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     let hashtag: String
     let plaintextURL: String
+    let tappedShare: @MainActor () -> Void
 
-    public init(infoBoxViewModel: WMFInfoboxViewModel, loggingID: String, localizedStrings: LocalizedStrings, coordinatorDelegate: YearInReviewCoordinatorDelegate? = nil, hashtag: String, plaintextURL: String) {
+    public init(infoBoxViewModel: WMFInfoboxViewModel, loggingID: String, localizedStrings: LocalizedStrings, coordinatorDelegate: YearInReviewCoordinatorDelegate? = nil, hashtag: String, plaintextURL: String, tappedShare: @escaping @MainActor () -> Void) {
         self.infoBoxViewModel = infoBoxViewModel
         self.loggingID = loggingID
         self.localizedStrings = localizedStrings
         self.coordinatorDelegate = coordinatorDelegate
         self.hashtag = hashtag
         self.plaintextURL = plaintextURL
+        self.tappedShare = tappedShare
     }
-
-    @MainActor
-    func tappedShare() {
-        let view = WMFYearInReviewSlideHighlightShareableView(viewModel: self)
-        let renderer = ImageRenderer(content: view)
-        renderer.proposedSize = .init(width: 393, height: nil)
-        renderer.scale = UIScreen.main.scale
-        if let uiImage = renderer.uiImage {
-            coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
-        }
-    }
-
 }

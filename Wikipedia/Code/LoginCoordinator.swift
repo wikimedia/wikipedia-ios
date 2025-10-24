@@ -13,18 +13,24 @@ final class LoginCoordinator: Coordinator {
     // MARK: Properties
 
     private let theme: Theme
+    private let loggingCategory: EventCategoryMEP?
 
     // MARK: Lifecycle
 
-    init(navigationController: UINavigationController, theme: Theme) {
+    init(navigationController: UINavigationController, theme: Theme, loggingCategory: EventCategoryMEP? = nil) {
         self.navigationController = navigationController
         self.theme = theme
+        self.loggingCategory = loggingCategory
     }
 
     @discardableResult
     func start() -> Bool {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return false
+        }
+        
+        if let loggingCategory {
+            loginVC.category = loggingCategory
         }
         
         loginVC.apply(theme: theme)

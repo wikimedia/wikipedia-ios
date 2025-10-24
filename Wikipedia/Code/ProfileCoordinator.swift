@@ -195,47 +195,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         yirCoordinator.start()
     }
     
-    private func presentLoginPrompt() {
-        let title = CommonStrings.yearInReviewLoginPromptProfileTitle
-        let subtitle = CommonStrings.yearInReviewLoginPromptSubtitle
-        let button1Title = CommonStrings.joinLoginTitle
-        let button2Title = CommonStrings.noThanksTitle
-        
-        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-
-        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
-                    
-            guard let self else { return }
-            
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLoginProfile()
-            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
-            loginCoordinator.loginSuccessCompletion = {
-                self.dismissProfile {
-                    self.showYearInReview()
-                }
-            }
-            
-            loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                self.dismissProfile {
-                    self.showYearInReview()
-                }
-            }
-
-            loginCoordinator.start()
-        }
-        
-        let action2 = UIAlertAction(title: button2Title, style: .default) { action in
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanksProfile()
-        }
-        
-        if let presentedViewController = navigationController.presentedViewController {
-            alert.addAction(action1)
-            alert.addAction(action2)
-            
-            presentedViewController.present(alert, animated: true)
-        }
-    }
-    
     func showDonate() {
         
         guard let viewModel else {

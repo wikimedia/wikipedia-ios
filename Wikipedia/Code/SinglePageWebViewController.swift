@@ -331,10 +331,6 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
                 return
             }
             
-            if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
-                DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: metricsID)
-            }
-            
             let getDonateButtonGlobalRect: () -> CGRect = { [weak self] in
                 return self?.overlayButtonContainer.frame ?? .zero
             }

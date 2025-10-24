@@ -85,8 +85,8 @@ final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNa
             
             return isEnabled
         }, action: { [weak self] isOn in
+            DonateFunnel.shared.logYearInReviewSettingsDidToggle(isOn: isOn)
             self?.dataController?.yearInReviewSettingsIsEnabled = isOn
-            UserDefaults.standard.wmf_yirSettingToggleIsEnabled = isOn
             if !isOn {
                 Task {
                     do {

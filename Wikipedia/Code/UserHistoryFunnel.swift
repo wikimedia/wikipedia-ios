@@ -1,3 +1,5 @@
+import WMFData
+
 private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
 
 @objc public final class UserHistoryFunnel: NSObject {
@@ -165,8 +167,8 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
         let status = authorizationStatus?.getAuthorizationStatusString()
-        let yirEnabled = userDefaults.wmf_yirSettingToggleShouldShow ? userDefaults.wmf_yirSettingToggleIsEnabled : nil
-        
+        let yirDataController = try? WMFYearInReviewDataController()
+        let yirEnabled = yirDataController?.yearInReviewSettingsIsEnabled ?? false
         let readingListListCount = try? dataStore.viewContext.allReadingListsCount()
         let readingListItemCount = dataStore.savedPageList.numberOfItems()
 
