@@ -104,14 +104,18 @@ public class WMFActivityTabViewModel: ObservableObject {
         let onWikipediaiOS: String
         let timeSpentReading: String
         let totalArticlesRead: String
+        let week: String
+        let articlesRead: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
             self.onWikipediaiOS = onWikipediaiOS
             self.timeSpentReading = timeSpentReading
             self.totalArticlesRead = totalArticlesRead
+            self.week = week
+            self.articlesRead = articlesRead
         }
     }
 }

@@ -72,6 +72,7 @@
 "activity-tab-add-images-title" = "Add images";
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
 "activity-tab-articles-read" = "Articles read this month";
+"activity-tab-articles-read-graph-label" = "Articles";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
@@ -105,6 +106,7 @@
 "activity-tab-view-editing-history" = "View editing history";
 "activity-tab-view-reading-history" = "View reading history";
 "activity-tab-view-saved-articles" = "View saved articles";
+"activity-tab-week-graph-label" = "Week";
 "activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
 "activity-tab-you-read" = "You read {{PLURAL:$1|$1 article|$1 articles}} this week.";
 "activity-tab-you-saved" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this week.";

@@ -110,8 +110,8 @@ public struct WMFActivityTabView: View {
         Chart {
             ForEach(weeklyReads.indices, id: \.self) { index in
                 BarMark(
-                    x: .value("Week", index),
-                    y: .value("Articles", weeklyReads[index] + 1),
+                    x: .value(viewModel.localizedStrings.week, index),
+                    y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
                     width: 12
                 )
                 .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.baseBackground))

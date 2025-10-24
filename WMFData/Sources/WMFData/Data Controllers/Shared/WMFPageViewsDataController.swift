@@ -297,22 +297,6 @@ public final class WMFPageViewsDataController {
         return Int(result)
     }
 
-    func fetchUniqueArticlesCount(startDate: Date, endDate: Date) async throws -> Int {
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        
-        return try await backgroundContext.perform {
-            let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
-            fetchRequest.predicate = NSPredicate(format: "timestamp >= %@ AND timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-            
-            fetchRequest.resultType = .dictionaryResultType
-            fetchRequest.propertiesToFetch = ["page"]
-            fetchRequest.returnsDistinctResults = true
-            
-            let results = try backgroundContext.fetch(fetchRequest)
-            return results.count
-        }
-    }
-
     func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) async throws -> WMFPageViewDates? {
         let backgroundContext = try coreDataStore.newBackgroundContext
         
