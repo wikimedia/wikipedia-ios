@@ -2,108 +2,122 @@ import Foundation
 import SwiftUI
 import WMFData
 
+struct ArticlesReadViewModel {
+    var username: String
+    var hoursRead: Int
+    var minutesRead: Int
+    var totalArticlesRead: Int
+    var dateTimeLastRead: String
+	var topCategories: [String]
+}
+
 @MainActor
 public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
-    @Published var username: String
-    @Published var hoursRead: Int = 0
-    @Published var minutesRead: Int = 0
-    @Published var totalArticlesRead: Int = 0
-    @Published var dateTimeLastRead: String? = nil
-    @Published var topCategories: [String]? = nil
+    @Published var articlesReadViewModel: ArticlesReadViewModel?
     var hasSeenActivityTab: () -> Void
     
-    public init(localizedStrings: LocalizedStrings, username: String, dataController: WMFActivityTabDataController, hasSeenActivityTab: @escaping () -> Void) {
+    public init(localizedStrings: LocalizedStrings,
+                dataController: WMFActivityTabDataController,
+                hasSeenActivityTab: @escaping () -> Void) {
         self.localizedStrings = localizedStrings
-        self.username = username
         self.dataController = dataController
         self.hasSeenActivityTab = hasSeenActivityTab
     }
     
-    @MainActor
     public func viewDidLoad() {
         Task {
-            if let (hours, minutes) = try? await dataController.getTimeReadPast7Days() {
-                updateHoursMinutesRead(hours: hours, minutes: minutes)
-            }
-        }
-        
-        Task {
-            if let articlesRead = try? await dataController.getArticlesRead() {
-                updateTotalArticlesRead(totalArticlesRead: articlesRead)
-            }
-        }
-        
-        Task {
-            if let dateTime = try? await dataController.getMostRecentReadDateTime() {
-                updateDateTimeRead(dateTime: dateTime)
-            }
-        }
-        
-        Task {
-            if let topCategories = try? await dataController.getTopCategories() {
-                updateTopCategories(topCategories: topCategories)
+            async let timeResult = dataController.getTimeReadPast7Days()
+            async let articlesResult = dataController.getArticlesRead()
+            async let dateResult = dataController.getMostRecentReadDateTime()
+            async let categoriesResult = dataController.getTopCategories()
+            
+            let (hours, minutes) = (try? await timeResult) ?? (0, 0)
+            let totalArticlesRead = (try? await articlesResult) ?? 0
+            let dateTime = (try? await dateResult) ?? Date()
+			let categories = (try? await categoriesResult) ?? []
+            
+            let formattedDate = self.formatDateTime(dateTime)
+            
+            await MainActor.run {
+                self.articlesReadViewModel = ArticlesReadViewModel(
+                    username: "",
+                    hoursRead: hours,
+                    minutesRead: minutes,
+                    totalArticlesRead: totalArticlesRead,
+                    dateTimeLastRead: formattedDate,
+					topCategories: categories
+                )
             }
         }
     }
     
+    // MARK: - View Strings
+    
     public var usernamesReading: String {
-        if username.isEmpty {
+        guard let model = articlesReadViewModel else { return "" }
+        if model.username.isEmpty {
             return localizedStrings.noUsernameReading
         }
-        return localizedStrings.userNamesReading(username)
+        return localizedStrings.userNamesReading(model.username)
     }
     
     public var hoursMinutesRead: String {
-        localizedStrings.totalHoursMinutesRead(hoursRead, minutesRead)
+        guard let model = articlesReadViewModel else { return "" }
+        return localizedStrings.totalHoursMinutesRead(model.hoursRead, model.minutesRead)
     }
-
-    // External updates for async
     
-    private func updateHoursMinutesRead(hours: Int, minutes: Int) {
-        self.hoursRead = hours
-        self.minutesRead = minutes
-    }
+    // MARK: - Update
     
     public func updateUsername(username: String) {
-        self.username = username
+        guard var model = articlesReadViewModel else { return }
+        model.username = username
+        articlesReadViewModel = model
+    }
+    
+    private func updateHoursMinutesRead(hours: Int, minutes: Int) {
+        guard var model = articlesReadViewModel else { return }
+        model.hoursRead = hours
+        model.minutesRead = minutes
+        articlesReadViewModel = model
     }
     
     private func updateTotalArticlesRead(totalArticlesRead: Int) {
-        self.totalArticlesRead = totalArticlesRead
+        guard var model = articlesReadViewModel else { return }
+        model.totalArticlesRead = totalArticlesRead
+        articlesReadViewModel = model
     }
     
     public func updateDateTimeRead(dateTime: Date) {
-        let calendar = Calendar.current
-        let dateFormatter = DateFormatter()
-        
-        if calendar.isDateInToday(dateTime) {
-            dateFormatter.timeStyle = .short
-            dateFormatter.dateStyle = .none
-        } else {
-            dateFormatter.dateFormat = "MMMM d"
-        }
-        
-        let formattedString = dateFormatter.string(from: dateTime)
-        dateTimeLastRead = formattedString
+        guard var model = articlesReadViewModel else { return }
+        model.dateTimeLastRead = formatDateTime(dateTime)
+        articlesReadViewModel = model
     }
     
     public func updateTopCategories(topCategories: [String]) {
-        self.topCategories = topCategories
+        guard var model = articlesReadViewModel else { return }
+        model.topCategories = topCategories
+        articlesReadViewModel = model
     }
     
-    // Localized strings
-
+    // MARK: - Helpers
+    
+    private func formatDateTime(_ dateTime: Date) -> String {
+        DateFormatter.wmfLastReadFormatter(for: dateTime)
+    }
+    
+    // MARK: - Localized Strings
+    
     public struct LocalizedStrings {
         let userNamesReading: (String) -> String
         let noUsernameReading: String
-        var totalHoursMinutesRead: (Int, Int) -> String
+        let totalHoursMinutesRead: (Int, Int) -> String
         let onWikipediaiOS: String
         let timeSpentReading: String
         let totalArticlesRead: String
         let topCategories: String
-
+        
         public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, topCategories: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading

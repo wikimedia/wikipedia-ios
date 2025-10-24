@@ -1,21 +1,21 @@
 import SwiftUI
 
 struct WMFActivityTabInfoCardView<Content: View>: View {
-    let icon: UIImage?
-    let title: String
-    let dateText: String?
-    let amount: Int
-    let onTapDateText: () -> Void
+    private let icon: UIImage?
+    private let title: String
+    private let dateText: String?
+    private let amount: Int
+    private let onTapModule: () -> Void
     // Content will eventually be graphs or images or whatever
-    let content: () -> Content
+    private let content: () -> Content
 
-    public init( icon: UIImage?, title: String, dateText: String?, amount: Int = 0, onTapDateText: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content = { EmptyView() }) {
+    init( icon: UIImage?, title: String, dateText: String?, amount: Int = 0, onTapModule: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content = { EmptyView() }) {
         self.icon = icon
         self.title = title
         self.dateText = dateText
         self.amount = amount
         self.content = content
-        self.onTapDateText = onTapDateText
+        self.onTapModule = onTapModule
     }
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -45,9 +45,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                             .foregroundStyle(Color(theme.secondaryText))
                     }
                 }
-                .onTapGesture {
-                    onTapDateText()
-                }
             }
 
             HStack {
@@ -57,6 +54,9 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                 Spacer()
                 content()
             }
+        }
+        .onTapGesture {
+            onTapModule()
         }
         .padding(16)
         .background(Color(theme.paperBackground))

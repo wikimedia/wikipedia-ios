@@ -828,7 +828,6 @@ extension WMFAppViewController {
                 timeSpentReading: timeSpentReading,
                 totalArticlesRead: articlesRead,
                 topCategories: topCategories),
-           username: dataStore.authenticationManager.authStatePermanentUsername ?? "",
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
