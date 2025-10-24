@@ -474,18 +474,26 @@ import WMFData
     // Settings
     
     @objc func logYearInReviewSettingsDidAppear() {
-        logEvent(activeInterface: .wikiYiR, action:.impression, actionData: ["slide": "setting"])
+        logEvent(activeInterface: .wikiYiR, action:.impression, actionData: ["slide": "settings"])
     }
     
     @objc func logYearInReviewSettingsDidTapItem() {
-        logEvent(activeInterface: .wikiYiR, action:.settingClick, actionData: ["slide": "setting"])
+        logEvent(activeInterface: .wikiYiR, action:.settingClick, actionData: ["slide": "settings"])
     }
     
     func logYearInReviewSettingsDidToggle(isOn: Bool) {
         if isOn {
-            logEvent(activeInterface: .wikiYiR, action:.yirOnClick, actionData: ["slide": "setting"])
+            logEvent(activeInterface: .wikiYiR, action:.yirOnClick, actionData: ["slide": "settings"])
         } else {
-            logEvent(activeInterface: .wikiYiR, action:.yirOffClick, actionData: ["slide": "setting"])
+            logEvent(activeInterface: .wikiYiR, action:.yirOffClick, actionData: ["slide": "settings"])
+        }
+    }
+    
+    func logYearInReviewSettingsAppIconDidToggle(isOn: Bool) {
+        if isOn {
+            logEvent(activeInterface: .wikiYiR, action:.iconActivateClick, actionData: ["slide": "settings"])
+        } else {
+            logEvent(activeInterface: .wikiYiR, action:.iconDeactivateClick, actionData: ["slide": "settings"])
         }
     }
     

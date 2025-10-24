@@ -122,6 +122,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                         subtitle: nil,
                         imageName: "AppIcon_Small",
                         checkmarkAction: {
+                            DonateFunnel.shared.logYearInReviewSettingsAppIconDidToggle(isOn: false)
                             AppIconUtility.shared.updateAppIcon(isNew: false)
                         }
                     ),
@@ -130,6 +131,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                         subtitle: nil,
                         imageName: "AppIconContributor_Small",
                         checkmarkAction: {
+                            DonateFunnel.shared.logYearInReviewSettingsAppIconDidToggle(isOn: true)
                             AppIconUtility.shared.updateAppIcon(isNew: true)
                         }
                     )
