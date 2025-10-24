@@ -4,7 +4,7 @@ import Charts
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
-
+    
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -51,7 +51,7 @@ public struct WMFActivityTabView: View {
         }
         .onAppear {
             viewModel.viewDidLoad()
-			viewModel.hasSeenActivityTab()
+            viewModel.hasSeenActivityTab()
         }
         .padding(.top, 16)
         .background(
@@ -60,8 +60,8 @@ public struct WMFActivityTabView: View {
                     Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
                     Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
                 ],
-            startPoint: UnitPoint(x: 0.5, y: 0),
-            endPoint: UnitPoint(x: 0.5, y: 1)
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1)
             )
         )
     }
@@ -85,25 +85,40 @@ public struct WMFActivityTabView: View {
                         .font(Font(WMFFont.for(.boldTitle1)))
                 )
             )
-
+        
     }
     
     private var articlesReadModule: some View {
-        WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .bookPages),
-            title: viewModel.localizedStrings.totalArticlesRead,
-            dateText: viewModel.dateTimeLastRead,
-            amount: viewModel.totalArticlesRead,
-            onTapDateText: {
-                print("Tapped date text")
-                // TODO: Navigate to history below
-            },
-            content: {
-                if let weeklyReads = viewModel.weeklyReads {
-                    articlesReadGraph(weeklyReads: weeklyReads)
-                }
+        Group {
+            if let model = viewModel.articlesReadViewModel {
+                WMFActivityTabInfoCardView(
+                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                    title: viewModel.localizedStrings.totalArticlesRead,
+                    dateText: model.dateTimeLastRead,
+                    amount: model.totalArticlesRead,
+                    onTapModule: {
+                        print("Tapped module")
+                        // TODO: Navigate to history below
+                    },
+                    content: {
+                        if let weeklyReads = viewModel.articlesReadViewModel?.weeklyReads {
+                            articlesReadGraph(weeklyReads: weeklyReads)
+                        }
+                    }
+                )
+            } else {
+                WMFActivityTabInfoCardView(
+                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                    title: viewModel.localizedStrings.totalArticlesRead,
+                    dateText: nil,
+                    amount: 0,
+                    onTapModule: {
+                        print("Tapped module")
+                        // TODO: Navigate to history below
+                    }
+                )
             }
-        )
+        }
     }
     
     private func articlesReadGraph(weeklyReads: [Int]) -> some View {
