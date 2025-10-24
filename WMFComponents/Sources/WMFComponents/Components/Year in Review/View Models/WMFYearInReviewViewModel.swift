@@ -935,13 +935,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     
                     self.updateSlides(isUserPermanent: isUserPermanent)
                     self.isPopulatingReport = false
-                    self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     
                     // Maybe delay a little bit to let slide changes propagate
                     try await Task.sleep(nanoseconds: 200_000_000)
                     
                     withAnimation {
                         self.isShowingIntro = false
+                        self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     }
                 }
             } catch {
@@ -951,13 +951,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     
                     self.updateSlides(isUserPermanent: isUserPermanent)
                     self.isPopulatingReport = false
-                    self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     
                     // Maybe delay a little bit to let slide changes propagate
                     try await Task.sleep(nanoseconds: 200_000_000)
                     
                     withAnimation {
                         self.isShowingIntro = false
+                        self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     }
                 }
             }

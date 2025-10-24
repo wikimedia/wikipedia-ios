@@ -986,8 +986,8 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
-            resetFromFeatureAnnouncement()
         }
+        resetFromFeatureAnnouncement()
     }
 }
 
@@ -1041,7 +1041,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
-
+                
+                self.resetFromFeatureAnnouncement()
                 guard hasSeenTwoSlides else { return }
 
                 self.presentSurveyIfNeeded()
@@ -1116,11 +1117,14 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     private func tappedIntroV3GetStartedWhileLoggedOut() {
         if dataController.needsLoginExperimentAssignment() {
             do {
-                let assignment = try dataController.assignLoginExperimentIfNeeded()
-                DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: assignment)
+                _ = try dataController.assignLoginExperimentIfNeeded()
             } catch {
-                DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
+                
             }
+        }
+        
+        if let assignment = dataController.getLoginExperimentAssignment() {
+            DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: assignment)
         } else {
             DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
         }
@@ -1191,8 +1195,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 guard let self else { return }
                 if needsExitFromIntroToast {
                     WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
-                    resetFromFeatureAnnouncement()
                 }
+                resetFromFeatureAnnouncement()
             }
         }
     }

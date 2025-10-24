@@ -312,7 +312,7 @@ import CoreData
         return false
     }
     
-    private func getLoginExperimentAssignment() -> YiRLoginExperimentAssignment? {
+    public func getLoginExperimentAssignment() -> YiRLoginExperimentAssignment? {
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return nil
         }
