@@ -1149,8 +1149,9 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             guard let self else { return }
             
             DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin(slideLoggingID: self.introSlideLoggingID)
+            LoginFunnel.shared.logLoginStartFromYearInReview()
             
-            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .yir)
             loginCoordinator.loginSuccessCompletion = { [weak self] in
                 guard let self else { return }
                 if let loginVC = self.navigationController.presentedViewController?.presentedViewController {

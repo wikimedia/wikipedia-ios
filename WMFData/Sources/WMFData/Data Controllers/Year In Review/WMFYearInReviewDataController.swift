@@ -299,6 +299,10 @@ import CoreData
             return true
         }
         
+        if developerSettingsDataController.enableYiRLoginExperimentControl {
+            return false
+        }
+        
         let assignment = getLoginExperimentAssignment()
         if let assignment {
             switch assignment {
