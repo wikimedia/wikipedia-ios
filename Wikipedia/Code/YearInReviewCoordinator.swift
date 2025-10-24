@@ -907,11 +907,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
 
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "v_satisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "satisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "neutral"),
-            WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "unsatisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "v_unsatisfied")
+            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "5")
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in

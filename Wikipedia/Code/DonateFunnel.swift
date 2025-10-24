@@ -510,7 +510,7 @@ import WMFData
         ]
 
         if let other, !other.isEmpty {
-            actionData["feedback_text"] = other
+            actionData["feedback_text"] = other.replacingOccurrences(of: ",", with: "&comma;")
         }
         
         logEvent(activeInterface: .wikiYiR, action: .feedbackSubmitClick, actionData: actionData)
