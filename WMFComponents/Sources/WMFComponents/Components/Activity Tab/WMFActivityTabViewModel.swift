@@ -2,9 +2,10 @@ import Foundation
 import SwiftUI
 import WMFData
 
-@objc public class WMFActivityTabViewModel: NSObject, ObservableObject {
-    var localizedStrings: LocalizedStrings
-    var dataController: WMFActivityTabDataController
+@MainActor
+public class WMFActivityTabViewModel: ObservableObject {
+    let localizedStrings: LocalizedStrings
+    private let dataController: WMFActivityTabDataController
     @Published var username: String
     @Published var hoursRead: Int = 0
     @Published var minutesRead: Int = 0
@@ -18,7 +19,6 @@ import WMFData
         self.username = username
         self.dataController = dataController
         self.hasSeenActivityTab = hasSeenActivityTab
-        super.init()
     }
     
     @MainActor
