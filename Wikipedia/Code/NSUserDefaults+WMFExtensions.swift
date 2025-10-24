@@ -269,6 +269,15 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
         }
     }
     
+    @objc var wmf_showActivityTab: Bool {
+        get {
+            return bool(forKey: "developer-settings-show-activity-tab")
+        }
+        set {
+            set(newValue, forKey: "developer-settings-show-activity-tab")
+        }
+    }
+    
     @objc func wmf_currentSearchContentLanguageCode() -> String? {
         self.string(forKey: WMFSearchLanguageKey)
     }

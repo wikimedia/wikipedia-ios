@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WMFActivityTabExperimentsDataController {
+public final class WMFActivityTabExperimentsOldDataController {
     public enum CustomError: Error {
         case invalidProject
         case invalidDate
@@ -16,7 +16,7 @@ public final class WMFActivityTabExperimentsDataController {
         case suggestedEdit = 2
     }
 
-    public static let shared = WMFActivityTabExperimentsDataController()
+    public static let shared = WMFActivityTabExperimentsOldDataController()
     
     private let experimentsDataController: WMFExperimentsDataController
     private let userDefaultsStore: WMFKeyValueStore?

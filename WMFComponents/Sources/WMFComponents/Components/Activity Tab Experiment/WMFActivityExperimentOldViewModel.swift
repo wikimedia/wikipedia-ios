@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import WMFData
 
-@objc public class WMFActivityViewModel: NSObject, ObservableObject {
+@objc public class WMFActivityExperimentOldViewModel: NSObject, ObservableObject {
 
     @Published var editActivityItem: ActivityItem?
     @Published var readActivityItem: ActivityItem?
@@ -141,12 +141,12 @@ import WMFData
         }
     }
 
-    func getGroupAssigment() -> WMFActivityTabExperimentsDataController.ActivityTabExperimentAssignment {
-        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+    func getGroupAssigment() -> WMFActivityTabExperimentsOldDataController.ActivityTabExperimentAssignment {
+        guard let dataController = WMFActivityTabExperimentsOldDataController.shared,
             let project else {
             return .control
         }
-        var assignment: WMFActivityTabExperimentsDataController.ActivityTabExperimentAssignment = .control
+        var assignment: WMFActivityTabExperimentsOldDataController.ActivityTabExperimentAssignment = .control
 
         do {
             let currentAssigment = try dataController.getActivityTabExperimentAssignment(project: project)
