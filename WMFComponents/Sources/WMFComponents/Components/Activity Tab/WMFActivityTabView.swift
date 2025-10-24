@@ -88,16 +88,32 @@ public struct WMFActivityTabView: View {
     }
     
     private var articlesReadModule: some View {
-        WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .bookPages),
-            title: viewModel.localizedStrings.totalArticlesRead,
-            dateText: viewModel.dateTimeLastRead,
-            amount: viewModel.totalArticlesRead,
-            onTapDateText: {
-                print("Tapped date text")
-                // TODO: Navigate to history below
+        Group {
+            if let model = viewModel.articlesReadViewModel {
+                WMFActivityTabInfoCardView(
+                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                    title: viewModel.localizedStrings.totalArticlesRead,
+                    dateText: model.dateTimeLastRead,
+                    amount: model.totalArticlesRead,
+                    onTapModule: {
+                        print("Tapped module")
+                        // TODO: Navigate to history below
+                    }
+                )
+            } else {
+                WMFActivityTabInfoCardView(
+                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                    title: viewModel.localizedStrings.totalArticlesRead,
+                    dateText: nil,
+                    amount: 0,
+                    onTapModule: {
+                        print("Tapped module")
+                        // TODO: Navigate to history below
+                    }
+                )
             }
-        )
+        }
     }
+
 
 }

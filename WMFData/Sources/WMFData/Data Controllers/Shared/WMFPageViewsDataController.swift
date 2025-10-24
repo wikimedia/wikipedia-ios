@@ -388,12 +388,9 @@ public final class WMFPageViewsDataController {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
             fetchRequest.fetchLimit = 1
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-            fetchRequest.resultType = .dictionaryResultType
-            fetchRequest.propertiesToFetch = ["timestamp"]
             
-            if let result = try backgroundContext.fetch(fetchRequest).first as? [String: Any],
-               let timestamp = result["timestamp"] as? Date {
-                return timestamp
+            if let pageView = try backgroundContext.fetch(fetchRequest).first as? CDPageView {
+               return pageView.timestamp
             }
             return nil
         }
