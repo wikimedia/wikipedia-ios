@@ -83,6 +83,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [super viewDidAppear:animated];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
     [self.dataStore.remoteNotificationsController triggerLoadNotificationsWithForce:NO];
+    
+    if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode]) {
+        [[WMFDonateFunnel shared] logYearInReviewSettingsDidAppear];
+    }
 }
 
 - (UIScrollView *_Nullable)scrollView {
@@ -491,6 +495,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Year in Review
 
 - (void)showYearInReview {
+    [[WMFDonateFunnel shared] logYearInReviewSettingsDidTapItem];
     WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
     [self.navigationController pushViewController:yearInReviewSettingsVC animated:YES];
 }
@@ -594,9 +599,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
-        [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:YES];
-    } else {
-        [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:NO];
     }
 
     BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataController shared] primaryWikiHasTempAccountsEnabled];

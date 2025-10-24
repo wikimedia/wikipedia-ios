@@ -66,6 +66,8 @@ import WMFData
         case shareClick = "share_click"
         case feedbackSubmitClick = "feedback_submit_click"
         case feedbackSubmitted = "feedback_submitted"
+        case yirOnClick = "yir_on_click"
+        case yirOffClick = "yir_off_click"
     }
     
     private struct Event: EventInterface {
@@ -464,6 +466,24 @@ import WMFData
     
     func logYearInReviewDidTapShare(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .shareClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    // Settings
+    
+    @objc func logYearInReviewSettingsDidAppear() {
+        logEvent(activeInterface: .wikiYiR, action:.impression, actionData: ["slide": "setting"])
+    }
+    
+    @objc func logYearInReviewSettingsDidTapItem() {
+        logEvent(activeInterface: .wikiYiR, action:.settingClick, actionData: ["slide": "setting"])
+    }
+    
+    func logYearInReviewSettingsDidToggle(isOn: Bool) {
+        if isOn {
+            logEvent(activeInterface: .wikiYiR, action:.yirOnClick, actionData: ["slide": "setting"])
+        } else {
+            logEvent(activeInterface: .wikiYiR, action:.yirOffClick, actionData: ["slide": "setting"])
+        }
     }
     
     // Survey
