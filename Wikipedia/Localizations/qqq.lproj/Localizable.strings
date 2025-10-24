@@ -72,6 +72,7 @@
 "activity-tab-add-images-title" = "Title for add images feature suggestion.";
 "activity-tab-additional-thoughts" = "Asking user if they have any comments";
 "activity-tab-articles-read" = "Title for module about articles read this month, displayed below the time spent reading this week";
+"activity-tab-articles-read-graph-label" = "Activity tab articles read graph axis label";
 "activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
 "activity-tab-greeting" = "$1 is opening bold, $2 is the username, $3 is closing bold.";
 "activity-tab-hours-minutes-read" = "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes.";
@@ -105,6 +106,7 @@
 "activity-tab-view-editing-history" = "Button title for users to view their editing history.";
 "activity-tab-view-reading-history" = "Button title for users to view their reading history.";
 "activity-tab-view-saved-articles" = "Button title for users to view their saved articles.";
+"activity-tab-week-graph-label" = "Activity tab week graph axis label";
 "activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-read" = "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-saved" = "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.";
