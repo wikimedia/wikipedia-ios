@@ -897,6 +897,36 @@
 			<string>keer</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Over de hele wereld waarderen lezers uw bijdragen. In de afgelopen twee maanden zijn de artikelen die u hebt bewerkt %#@v1@ bekeken. Dankzij bewerkers zoals u is Wikipedia een steeds betere, op feiten gebaseerde en betrouwbare kennisbron voor de wereld.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één keer</string>
+			<key>other</key>
+			<string>in totaal %1$d keer</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Uw bewerkingen zijn onlangs meer dan %#@v1@ bekeken</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d keer</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -916,6 +946,33 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Hiermee behoort u naar onze schatting wereldwijd tot de top **PERCENT** van Wikipedia-lezers. De gemiddelde persoon leest %1$d artikel%#@v1@ per jaar.</string>
 		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string></string>
+			<key>other</key>
+			<string>en</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>In %3$@ hebt u %1$d %#@v1@ besteed aan het lezen van %2$d artikel%#@v2@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>minuut</string>
+			<key>other</key>
+			<string>minuten</string>
+		</dict>
+		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
