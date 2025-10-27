@@ -9,10 +9,10 @@ public enum YearInReviewCoordinatorAction {
     case tappedIntroV3GetStartedWhileLoggedIn
     case tappedIntroV3GetStartedWhileLoggedOut
     case tappedIntroV3DoneWhileLoggedOut
-    case donate(getSourceRect: () -> CGRect)
+    case donate(getSourceRect: () -> CGRect, slideLoggingID: String)
     case share(image: UIImage)
     case dismiss(hasSeenTwoSlides: Bool)
     case introLearnMore
-    case learnMore(url: URL?, shouldShowDonateButton: Bool)
+    case learnMore(url: URL?, shouldShowDonateButton: Bool, slideLoggingID: String)
     case info(url: URL?)
 }

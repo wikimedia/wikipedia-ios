@@ -1066,7 +1066,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let getSourceRect: () -> CGRect = { [weak self] in
             return self?.donateButtonRect ?? .zero
         }
-        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: getSourceRect))
+        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID))
         logYearInReviewDidTapDonate()
     }
     
@@ -1113,7 +1113,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func tappedLearnMore(url: URL) {
         // TODO: audit this in https://phabricator.wikimedia.org/T406642
-        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: !shouldHideDonateButtonForCertainRegions()))
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: !shouldHideDonateButtonForCertainRegions(), slideLoggingID: slideLoggingID))
     }
 
     private func logYearInReviewSlideDidAppear() {

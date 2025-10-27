@@ -948,7 +948,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     }
 
     func logYearInReviewDidTapDonate(slideLoggingID: String) {
-        if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
+        if let metricsID = DonateCoordinator.metricsID(for: .yearInReview(slideLoggingID: slideLoggingID), languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
             DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
         }
     }
@@ -989,13 +989,13 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             tappedIntroV3GetStartedWhileLoggedIn()
         case .tappedIntroV3DoneWhileLoggedOut:
             showExitToastFromIntroV3Done()
-        case .donate(let getSourceRect):
+        case .donate(let getSourceRect, let slideLoggingID):
             
             let donateSuccessAction: () -> Void = { [weak self] in
                 self?.viewModel?.donateDidSucceed()
             }
             
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .yearInReview(slideLoggingID: slideLoggingID), dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
                     return
@@ -1052,7 +1052,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 presentedViewController.present(newNavigationVC, animated: true)
             }
 
-        case .learnMore(let url, let shouldShowDonateButton):
+        case .learnMore(let url, let shouldShowDonateButton, let slideLoggingID):
             
             guard let url else {
                 return
@@ -1064,16 +1064,13 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             }
 
             let webVC: SinglePageWebViewController
-            let slideLoggingID: String
 
             if shouldShowDonateButton {
-                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
+                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, slideLoggingID: slideLoggingID, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
-                slideLoggingID = "about_wikimedia_base"
             } else {
                 let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
                 webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
-                slideLoggingID = "about_wikimedia_custom"
             }
 
             let newNavigationVC =

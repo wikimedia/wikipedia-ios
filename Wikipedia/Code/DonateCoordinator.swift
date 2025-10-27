@@ -24,7 +24,7 @@ class DonateCoordinator: Coordinator {
         case settingsProfile
         case exploreProfile
         case articleProfile(ArticleURL)
-        case yearInReview // TODO: Do it properly T376062
+        case yearInReview(slideLoggingID: String)
         case placesProfile
         case savedProfile
         case historyProfile
@@ -211,8 +211,8 @@ class DonateCoordinator: Coordinator {
                }
                 
                 DonateFunnel.shared.logArticleDidTapCancel(project: project, metricsID: metricsID)
-            case .yearInReview:
-                DonateFunnel.shared.logYearInReviewDidTapDonateCancel(metricsID: metricsID)
+            case .yearInReview(let slideLoggingID):
+                DonateFunnel.shared.logYearInReviewDidTapDonateCancel(metricsID: metricsID, slideLoggingID: slideLoggingID)
             case .placesProfile:
                 DonateFunnel.shared.logPlacesProfileDonateCancel(metricsID: metricsID)
             case .savedProfile:
@@ -243,8 +243,8 @@ class DonateCoordinator: Coordinator {
                    return
                }
                 DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: project, metricsID: metricsID)
-            case .yearInReview:
-                DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID)
+            case .yearInReview(let slideLoggingID):
+                DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID, slideLoggingID: slideLoggingID)
             case .placesProfile:
                 DonateFunnel.shared.logPlacesProfileDonateApplePay(metricsID: metricsID)
             case .savedProfile:
@@ -277,8 +277,8 @@ class DonateCoordinator: Coordinator {
                     return
                 }
                 DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: project, metricsID: metricsID)
-            case .yearInReview:
-                DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID)
+            case .yearInReview(let slideLoggingID):
+                DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID, slideLoggingID: slideLoggingID)
             case .placesProfile:
                 DonateFunnel.shared.logPlacesProfileDonateWebPay(metricsID: metricsID)
             case .savedProfile:
@@ -713,8 +713,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
-        case .yearInReview:
-            DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+        case .yearInReview(let slideLoggingID):
+            DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID, slideLoggingID: slideLoggingID)
         case .placesProfile:
             DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .savedProfile:
@@ -828,8 +828,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-            case .yearInReview:
-                DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .yearInReview(let slideLoggingID):
+                DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID, slideLoggingID: slideLoggingID)
             case .placesProfile:
                 DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .savedProfile:
