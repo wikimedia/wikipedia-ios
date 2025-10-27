@@ -43,6 +43,7 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(theme.midBackground))
+
                 if viewModel.shouldShowSuggestions {
                     bottomSection
                 }
@@ -103,7 +104,7 @@ public struct WMFArticleTabsView: View {
             .animation(.default, value: shouldShowRecs || shouldShowDYK)
         }
     }
-
+    
     // MARK: - Loading / Empty
 
     private var loadingView: some View {
@@ -133,7 +134,7 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
-            .background(Color(theme.paperBackground))
+            .background(Color(theme.midBackground))
             .scrollBounceBehavior(.always)
         }
     }
@@ -165,15 +166,16 @@ public struct WMFArticleTabsView: View {
                 .padding(.horizontal, 8)
                 .onAppear {
                     Task {
-                        await Task.yield()
                         if let id = viewModel.currentTabID {
-                            proxy.scrollTo(id, anchor: .bottom)
+                            proxy.scrollTo(id, anchor: .center)
                         }
                     }
                 }
             }
         }
     }
+
+    // MARK: - Grid V2
 
     private func tabsV2Grid(_ geometry: GeometryProxy) -> some View {
         ScrollViewReader { proxy in
@@ -237,11 +239,18 @@ public struct WMFArticleTabsView: View {
                 }
                 .padding(.horizontal, 8)
                 .onAppear {
-                    Task {
-                        await Task.yield()
+                    Task { @MainActor in
                         if let id = viewModel.currentTabID {
-                            proxy.scrollTo(id, anchor: .bottom)
+                            proxy.scrollTo(id, anchor: .center)
                         }
+                    }
+                }
+            }
+            .onChange(of: viewModel.recLoaded) { recLoaded in
+                guard recLoaded else { return }
+                Task { @MainActor in
+                    if let id = viewModel.currentTabID {
+                        proxy.scrollTo(id, anchor: .center)
                     }
                 }
             }

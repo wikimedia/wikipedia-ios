@@ -771,14 +771,23 @@
 "main-menu-title" = "المزيد";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
 "main-page" = "الصفحة الرئيسية";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-subtitle" = "في عام 2024، أضاف المتطوعون 3,416,899,197 بايتًا إلى ويكيبيديا الإنجليزية. يُثمر عملهم المشترك عن مصدر معرفي موثوق، قائم على الحقائق، ويتطور باستمرار، يقدمونه للعالم. جميعنا لدينا معرفة نشاركها، [تعلّم كيفية المشاركة] ($1).";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "تمت إضافة 3.4 مليار بايت";
+// Fuzzy
 "microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 81,987,181 تعديلاً على أكثر من 300 نسخة لغوية مختلفة من ويكيبيديا. وتم إجراء أكثر من 31.2 مليون تعديل على ويكيبيديا الإنجليزية. في كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
+// Fuzzy
 "microsite-yir-english-edits-slide-title" = "أجرى المحررون ما يقرب من 82 مليون تغيير هذا العام";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "يُقدر أن الناس قد أمضوا ما يقرب من 2.4 مليار ساعة - أي أكثر من 275000 سنة! - في قراءة ويكيبيديا باللغة الإنجليزية في عام 2024. ويكيبيديا موجودة عندما تريد التعرف على عالمنا المتغير، أو الفوز في رهان بين الأصدقاء، أو الإجابة على سؤال طفل فضولي.";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle-short" = "يُقدر أن الناس قد أمضوا ما يقرب من 2.4 مليار ساعة - أي أكثر من 275000 سنة! - في قراءة ويكيبيديا الإنجليزية في عام 2025.";
+// Fuzzy
 "microsite-yir-english-reading-slide-title" = "لقد قضينا 2.4 مليار ساعة في القراءة";
+// Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "حفظ مستخدمو التطبيق النشطون أكثر من 37 مليون مقالة هذا العام. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إليها حتى في وضع عدم الاتصال. كما يمكنك تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
+// Fuzzy
 "microsite-yir-english-saved-reading-slide-title" = "لقد قمنا بحفظ أكثر من 37 مليون مقالة";
 "microsite-yir-english-top-read-slide-subtitle" = "عندما يرغب الناس في التعرّف على عالمنا - الخير والشر، الغريب والمتوحش على حد سواء - يلجؤون إلى ويكيبيديا. المقالات الخمس الأكثر زيارة على ويكيبيديا الإنجليزية هي:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nالمزيد في $6 مدونتنا المخصص $7";
 "microsite-yir-english-top-read-slide-title" = "المقالات الأكثر شعبية في ويكيبيديا الإنجليزية";
@@ -1498,14 +1507,21 @@
 "year-in-review-base-donate-subtitle" = "بفضل مساعدتك، ستواصل مؤسسة ويكيميديا - المؤسسة غير الربحية التي تقف وراء ويكيبيديا - ضمان خلو المعلومات التي تعتمد عليها من الإعلانات وكونها جديرة بالثقة، مع الحفاظ على تشغيل ويكيبيديا بسلاسة باستخدام أدوات وتقنيات متطورة. يرجى التفكير في التبرع اليوم. [تعرف على المزيد حول عملنا]($1).";
 "year-in-review-base-donate-title" = "0 إعلان تم تقديمه على ويكيبيديا";
 "year-in-review-base-editors-subtitle" = "إن قلب وروح ويكيبيديا هو مجتمعنا العالمي من المساهمين المتطوعين والمانحين ومليارات القراء مثلك - كلهم متحدون لمشاركة الوصول غير المحدود إلى المعلومات الموثوقة.";
+// Fuzzy
 "year-in-review-base-editors-title" = "قام المحررون في تطبيقات ويكيبيديا الرسمية بإجراء تعديلات بقيمة تزيد عن $1";
 "year-in-review-base-edits-subtitle" = "تُنشأ المقالات وتُحسّن بشكل تعاوني باستخدام مصادر موثوقة. لدينا جميعًا المعرفة لنشاركها، [تعلّم كيفية المشاركة] ( $1 ).";
 "year-in-review-base-edits-title" = "تم تعديل ويكيبيديا $1 مرة في الدقيقة";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "تحتوي ويكيبيديا على أكثر من $1 مقالة بأكثر من $2 لغة نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
+// Fuzzy
 "year-in-review-base-reading-title" = "كانت ويكيبيديا متاحة بأكثر من 300 لغة";
+// Fuzzy
 "year-in-review-base-saved-subtitle" = "وفّر مستخدمو التطبيق النشطون أكثر من $1 من المقالات هذا العام. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إليها حتى في وضع عدم الاتصال بالإنترنت. كما يمكنك تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
+// Fuzzy
 "year-in-review-base-saved-title" = "لقد قمنا بحفظ أكثر من $1 من المقالات";
+// Fuzzy
 "year-in-review-base-viewed-subtitle" = "شاهد مستخدمو التطبيق مقالات ويكيبيديا $1 مرة. بالنسبة للناس حول العالم، تُعدّ ويكيبيديا ملاذهم الأول للإجابة على سؤال، أو البحث عن معلومات للمدرسة أو العمل، أو التعرّف على معلومة جديدة.";
+// Fuzzy
 "year-in-review-base-viewed-title" = "لقد شاهدنا مقالات ويكيبيديا $1 مرة";
 "year-in-review-button-title" = "مراجعة العام";
 "year-in-review-collective-article-views" = "رسم متحرك لشاشة كمبيوتر مع متصفح ويب مفتوح، والتنقل بنشاط عبر مقالة ويكيبيديا.";
@@ -1517,9 +1533,13 @@
 "year-in-review-collective-zero-ads" = "شعار ويكيميديا";
 "year-in-review-contributor-gift-subtitle" = "إذا لم تقم بتشغيله الآن، فيمكنك الوصول إليه لاحقًا في الإعدادات ضمن السمة.";
 "year-in-review-contributor-gift-title" = "تفعيل أيقونة التطبيق الجديد";
+// Fuzzy
 "year-in-review-contributor-slide-subtitle-donor" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.!إن مساهماتك كمتبرع في عام 2025 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة.";
+// Fuzzy
 "year-in-review-contributor-slide-subtitle-editor" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.\n\nإن مساهماتك كمحرر في عام 2025 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة.";
+// Fuzzy
 "year-in-review-contributor-slide-subtitle-editor-and-donor" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.!إن مساهماتك كمتبرع ومحرر في عام 2025 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة.";
+// Fuzzy
 "year-in-review-contributor-slide-title" = "تم فتح الرمز الجديد";
 "year-in-review-day-friday" = "الجمعة";
 "year-in-review-day-monday" = "الإثنين";
@@ -1542,7 +1562,6 @@
 "year-in-review-finish" = "إنهاء";
 "year-in-review-highlights-articles-saved" = "المقالات المحفوظة";
 "year-in-review-highlights-articles-viewed" = "عدد المقالات التي تمت مشاهدتها";
-"year-in-review-highlights-articles-viewed-value" = "مليار $1";
 "year-in-review-highlights-button-title" = "مشاركة النقاط البارزة";
 "year-in-review-highlights-categories" = "الفئات التي تثير اهتمامي";
 "year-in-review-highlights-changes" = "التغييرات التي أجراها المحررون";
@@ -1559,28 +1578,26 @@
 "year-in-review-highlights-subtitle" = "نحن نتطلع إلى العام القادم!";
 "year-in-review-highlights-times-edited" = "تم تحرير الأوقات";
 "year-in-review-highlights-title" = "شكرا لك على قضاء عامك مع ويكيبيديا";
-"year-in-review-intro-exit-confirmation-subtitle" = "لا يزال بإمكانك رؤية مراجعة جماعية للعام دون تسجيل الدخول.";
-"year-in-review-intro-exit-confirmation-title" = "هل أنت متأكد أنك تريد الخروج؟";
 "year-in-review-intro-exit-toast-title" = "يمكنك الوصول إلى مراجعة العام الخاص بك لاحقًا في الملف الشخصي.";
 "year-in-review-intro-login-title" = "تسجيل الدخول للتخصيص";
-"year-in-review-login-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لتكون مؤهلاً للحصول على رؤى أكثر تخصيصا";
-"year-in-review-login-title" = "تحسين مراجعة العام الخاص بك";
+// Fuzzy
 "year-in-review-non-contributor-slide-title" = "افتح أيقونة المساهم المخصصة الخاصة بك";
+// Fuzzy
 "year-in-review-noncontributor-slide-subtitle" = "يسعدنا أن ويكيبيديا كانت جزءًا من عام ٢٠٢٥! [تعرّف على المزيد] ( $1 ) حول طرق تفعيل أيقونتك من خلال المساهمة، سواءً بتحرير ويكيبيديا أو بالتبرع لمؤسسة ويكيميديا، المؤسسة غير الربحية التي تقف وراءها. إذا كانت ويكيبيديا مفيدة لك هذا العام، فنرجو منك التبرع للمساعدة في استدامة مستقبلها والحفاظ عليها مجانية، خالية من الإعلانات، جديرة بالثقة، ومتاحة للجميع.";
 "year-in-review-personalized-date-day-footer-v3" = "اليوم المفضل للقراءة";
 "year-in-review-personalized-date-month-footer-v3" = "الشهر الذي قرأت فيه أكثر";
 "year-in-review-personalized-date-time-footer-v3" = "الوقت المفضل للقراءة";
 "year-in-review-personalized-date-title-v3" = "لديك أنماط قراءة واضحة";
-"year-in-review-personalized-day-subtitle-format" = "لقد قرأت معظم المقالات على $1 . من الواضح أن $1 هو يومك المثالي لاستكشاف محتوى جديد. شكرًا لك على الاستفادة القصوى من وقت القراءة!";
-"year-in-review-personalized-day-title-format" = "تقرأ معظمها مقابل $1.";
 "year-in-review-personalized-donate-subtitle" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية. هذا العام، قامت مؤسسة ويكيميديا بتحسين التكنولوجيا لخدمة كل قارئ ومتطوع بشكل أفضل، وتطوير أدوات تعمل على تمكين التعاون، ودعم ويكيبيديا بمزيد من اللغات. [تعرف على المزيد حول عملنا]($1).";
 "year-in-review-personalized-donate-title" = "كرمك ساعد في الحفاظ على ازدهار ويكيبيديا";
 "year-in-review-personalized-donation-thank-you" = "شعار ويكيميديا";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "يُقدّر القراء حول العالم مساهماتكم. خلال الشهرين الماضيين، حققت المقالات التي حرّرتموها $1 من إجمالي المشاهدات. بفضل محررين مثلكم، أصبحت ويكيبيديا مصدرًا معرفيًا عالميًا موثوقًا، قائمًا على الحقائق، ويتطور باستمرار.";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "لقد تمت مشاهدة تعديلاتك أكثر من $1 مرة مؤخرًا";
 "year-in-review-personalized-editing-subtitle-1" = "نشكرك لكونك أحد المحررين المتطوعين الذين يصنعون الفارق في مشاريع ويكيميديا في جميع أنحاء العالم.";
+// Fuzzy
 "year-in-review-personalized-editing-subtitle-2" = "متطوعون مثلك قاموا بإجراء 81,987,181 تغييرًا عبر أكثر من 300 إصدار لغوي مختلف من ويكيبيديا.";
-"year-in-review-personalized-editing-subtitle-non-en" = "نشكرك لكونك أحد المحررين المتطوعين الذين يصنعون الفارق في مشاريع ويكيميديا في جميع أنحاء العالم.";
 "year-in-review-personalized-editing-title-format" = "لقد قمت بتحرير ويكيبيديا {{PLURAL:$1|$1 مرة}}";
 "year-in-review-personalized-editing-title-format-500plus" = "لقد قمت بتعديل ويكيبيديا 500 مرة+";
 "year-in-review-personalized-explore" = "رسم متحرك ليد تحمل مجسم الكرة الأرضية لويكيبيديا، والذي يتحول تدريجيًا إلى قطعة صغيرة من اللغز، ترمز إلى المساهمات الفردية في المنصة.";
@@ -1589,11 +1606,11 @@
 "year-in-review-personalized-location-subtitle-format-3" = "لقد قرأت عن $4 $1 $5 $4 $2 $5 و $4 $3 $5 .";
 "year-in-review-personalized-location-title-format" = "المقالات التي تقرأها هي الأقرب إلى $1";
 "year-in-review-personalized-most-read-articles-title" = "أفضل مقالاتك";
-"year-in-review-personalized-reading-subtitle-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}. تحتوي ويكيبيديا على $2 مليون مقالة متاحة بأكثر من $3 لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
 "year-in-review-personalized-reading-subtitle-format-v3" = "نُقدّر أن هذا يضعك ضمن أعلى **نسبة** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي {{PLURAL:$1| $1 مقالة| $1 مقالات}} سنويًا.";
-"year-in-review-personalized-reading-title-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}";
+// Fuzzy
 "year-in-review-personalized-reading-title-v3-format" = "لقد قضيت {{PLURAL:$1|$1 دقيقة|$1 دقائق}} في قراءة {{PLURAL:$2|$2 مقالة|$2 مقالات}} في عام 2025";
 "year-in-review-personalized-saved-articles" = "رسم توضيحي لقطعة من اللغز ترتدي خوذة صلبة مع شاشات كمبيوتر في الخلف.";
+// Fuzzy
 "year-in-review-personalized-saved-subtitle-format-v3" = "تضمنت هذه المقالات مقالات $1 و $2 و $3 . تعكس كل مقالة محفوظة اهتماماتك وتساعد في بناء قاعدة معرفية مخصصة على ويكيبيديا.\n\nحفظ مستخدمو التطبيق النشطون أكثر من $4 ملايين مقالة هذا العام.";
 "year-in-review-personalized-saved-title-format" = "لقد قمت بحفظ {{PLURAL:$1|$1 مقالة}}";
 "year-in-review-personalized-user-edits" = "رسم متحرك يظهر بايتات متراكمة فوق بعضها البعض، ترمز إلى الخلق المستمر للمعرفة المجانية.";

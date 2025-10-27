@@ -28,7 +28,7 @@ public struct WMFTabsOverviewRecommendationsView: View {
 
         VStack(alignment: .leading, spacing: 0) {
             Text(viewModel.title)
-                .font(WMFSwiftUIFont.font(.mediumSubheadline))
+                .font(WMFSwiftUIFont.font(.boldSubheadline))
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                 .foregroundStyle(Color(theme.text))
                 .padding(.horizontal, horizontalInset)

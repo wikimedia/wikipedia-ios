@@ -680,6 +680,7 @@
 "microsite-yir-english-edits-slide-title" = "העורכים עשו השנה כמעט 98 מיליון שינויים";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "אנשים השקיעו כ־2.9 מיליארד שעות - כמעט 331,000 שנה! - בקריאה בוויקיפדיה האנגלית בשנת 2024. ויקיפדיה נמצאת שם כאשר אתם רוצים ללמוד על העולם המשתנה שלנו, לזכות בהתערבות בין חברים או לענות על שאלה של ילד סקרן.";
+// Fuzzy
 "microsite-yir-english-reading-slide-title" = "בילינו 2.9 מיליארד שעות בקריאה";
 // Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "למשתמשים הפעילים של היישום ל־iOS היו יותר מ־62.2 מיליון רשימות קריאה. הוספת ערכים לרשימות קריאה מאפשרת לך לגשת לערכים גם ללא חיבור לרשת. אפשר גם להיכנס לחשבון כדי לסנכרן רשימות קריאה בין מכשירים.";
@@ -1361,7 +1362,9 @@
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "נערכה ויקיפדיה בקצב ממוצע של $1 פעמים בדקה. ערכים נוצרים ומשתפרים באופן שיתופי תוך שימוש במקורות אמינים. לכולנו יש ידע לשתף, [ואנו מזמינים אותך לקבל מידע נוסף על השתתפות]($2).";
 "year-in-review-base-edits-title" = "ויקיפדיה נערכה $1 פעמים בדקה";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "לוויקיפדיה היו יותר מ־$1 מיליון ערכים על פני $2 שפות פעילות. הצטרפת למיליונים לטובת הרחבת ידע וחקירת נושאים מגוונים.";
+// Fuzzy
 "year-in-review-base-reading-title" = "ויקיפדיה הייתה זמינה ביותר מ־300 שפות";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "למשתמשים הפעילים של היישום ל־iOS היו יותר מ־62.2 מיליון רשימות קריאה. הוספת ערכים לרשימות קריאה מאפשרת לך לגשת לערכים גם ללא חיבור לרשת. אפשר גם להיכנס לחשבון כדי לסנכרן רשימות קריאה בין מכשירים.";
@@ -1396,21 +1399,16 @@
 "year-in-review-feature-explore-body" = "ויקיפדיה היא משאב הידע הגדול ביותר שנאסף אי־פעם בהיסטוריה של העולם, והיא זמינה באופן חופשי לכולם בכל מקום. הסתכלו אחורה על 2024 דרך העדשה של ויקיפדיה.";
 "year-in-review-feature-explore-body-personalized" = "תובנות לגבי הערכים שקראת ביישום ויקיפדיה והעריכות שעשית ב־2024. היסטוריית הקריאה שלך מוגנת. תובנות קריאה מחושבות באמצעות נתונים המאוחסנים מקומית במכשיר שלך.";
 "year-in-review-finish" = "סיום";
-"year-in-review-login-subtitle" = "יש להיכנס או ליצור חשבון כדי לקבל גישה לתובנות אישיות יותר";
-"year-in-review-login-title" = "שיפור הסקירה השנתית שלך";
-"year-in-review-personalized-day-subtitle-format" = "קראת הכי הרבה ערכים ב$1. ברור ש$1 הם הימים המועדפים עליך ללימוד חומר חדש. תודה שעשית את המרב עם זמן הקריאה שלך!";
-"year-in-review-personalized-day-title-format" = "קראת הכי הרבה ב$1.";
 "year-in-review-personalized-donate-subtitle" = "תודה על ההשקעה בעתיד של ידע חופשי. השנה, קרן ויקימדיה שיפרה את הטכנולוגיה כדי לשרת טוב יותר כל קורא וכל מתנדב, פיתחה כלים המעצימים שיתוף פעולה ותמכה בוויקיפדיה בעוד שפות. [למידע נוסף על העבודה שלנו]($1).";
 "year-in-review-personalized-donate-title" = "הנדיבות שלך עזרה לוויקיפדיה לצמוח";
 "year-in-review-personalized-donation-thank-you" = "סמל ויקיפדיה";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "קוראים ברחבי העולם מעריכים את התרומות שלך. במהלך החודשיים האחרונים, ערכים שערכת קיבלו $1 צפיות בסך הכול. הודות לעורכים כמוך, ויקיפדיה היא משאב ידע המשתפר בהתמדה, מבוסס עובדות ואמין עבור העולם";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "העריכות שלך נצפו יותר מ־$1 פעמים לאחרונה";
 "year-in-review-personalized-editing-title-format" = "ערכת את ויקיפדיה {{PLURAL:$1|פעם אחת|פעמיים|$1 פעמים}}";
 "year-in-review-personalized-editing-title-format-500plus" = "ערכת את ויקיפדיה יותר מ־500 פעמים";
 "year-in-review-personalized-explore" = "איור מונפש של יד אוחזת בגלובוס ויקיפדיה, שהופך בהדרגה לפיסת פאזל קטנה, המסמלת תרומות בודדות לפלטפורמה.";
-"year-in-review-personalized-reading-subtitle-format" = "קראת {{PLURAL:$1|ערך אחד|$1 ערכים}}. בוויקיפדיה היו $2 מיליון ערכים זמינים ביותר מ־$3 שפות פעילות. הצטרפת למיליונים בהרחבת הידע ובחקירת נושאים מגוונים.";
-"year-in-review-personalized-reading-title-format" = "קראת {{PLURAL:$1|ערך|$1 ערכים}}";
 "year-in-review-personalized-saved-articles" = "איור של חלק פאזל חובש קסדה עם מסכי מחשב מאחור.";
 "year-in-review-personalized-saved-title-format" = "שמרת {{PLURAL:$1|ערך|$1 ערכים}}";
 "year-in-review-personalized-user-edits" = "איור מונפש שמציג בתים שנערמים זה על גבי זה, שמסמל יצירה מתמשכת של ידע חופשי.";

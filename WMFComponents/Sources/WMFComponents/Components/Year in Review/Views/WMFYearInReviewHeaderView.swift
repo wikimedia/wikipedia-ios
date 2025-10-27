@@ -15,7 +15,7 @@ struct WMFYearInReviewHeaderView: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            if viewModel.shouldShowDonateButton {
+            if viewModel.shouldShowTopNavDonateButton {
                 WMFYearInReviewDonateButton(viewModel: viewModel)
                     .frame(maxWidth: .infinity, alignment: .leading)
             } else {

@@ -897,6 +897,36 @@
 			<string>keer</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Over de hele wereld waarderen lezers uw bijdragen. In de afgelopen twee maanden zijn de artikelen die u hebt bewerkt %#@v1@ bekeken. Dankzij bewerkers zoals u is Wikipedia een steeds betere, op feiten gebaseerde en betrouwbare kennisbron voor de wereld.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één keer</string>
+			<key>other</key>
+			<string>in totaal %1$d keer</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Uw bewerkingen zijn onlangs meer dan %#@v1@ bekeken</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d keer</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -909,22 +939,6 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d keer</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt %1$d artikel%#@v1@ gelezen. Wikipedia bevatte %2$@ miljoen artikelen in meer dan %3$@ actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string></string>
-			<key>other</key>
-			<string>en</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
@@ -943,10 +957,10 @@
 			<string>en</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt %#@v1@ gelezen</string>
+		<string>In %3$@ hebt u %1$d %#@v1@ besteed aan het lezen van %2$d artikel%#@v2@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -954,9 +968,20 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string>minuut</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>minuten</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string></string>
+			<key>other</key>
+			<string>en</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
