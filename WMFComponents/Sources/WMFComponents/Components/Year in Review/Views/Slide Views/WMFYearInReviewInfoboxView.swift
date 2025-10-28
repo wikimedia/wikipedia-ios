@@ -20,7 +20,15 @@ public struct WMFYearInReviewInfoboxView: View {
     private var rowFont: Font {
         Font(WMFFont.for(.helveticaBody, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
     }
-    
+
+    private var hashtagFont: Font {
+        Font(WMFFont.for(.helveticaLargeHeadline, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
+    }
+
+    private var logoFont: Font {
+        Font(WMFFont.for(.helveticaCaption1, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
+    }
+
     private var adaptiveTitleColumnWidth: CGFloat {
         // Aiming for title column width = 2/5 of infobox width
         return ((containerWidth ?? (defaultTitleColumnWidth * 5)) / 5) * 2
@@ -33,7 +41,24 @@ public struct WMFYearInReviewInfoboxView: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .center, spacing: 16) {
+            Text("#WikipediaYearInReview")
+                .font(hashtagFont)
+                .foregroundStyle(Color(uiColor: WMFColor.black))
+                .multilineTextAlignment(.center)
+            VStack(spacing: 8) {
+                Image("globe_yir", bundle: .module)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 166, height: 166)
+                    .accessibilityHidden(true)
+
+                Text(viewModel.logoCaption)
+                    .font(logoFont)
+                    .foregroundStyle(Color(WMFColor.black))
+                    .multilineTextAlignment(.center)
+
+            }
             ForEach(viewModel.tableItems.indices, id: \.self) { index in
                 let item = viewModel.tableItems[index]
                 HStack(alignment: .top, spacing: 8) {
