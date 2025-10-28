@@ -28,7 +28,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published public var hasMultipleTabs: Bool = false
 
     @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
-    @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
+    @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel? {
+        didSet {
+            recLoaded = recommendedArticlesViewModel != nil
+        }
+    }
+    @Published var recLoaded: Bool = false
 
     @Published public var loadDidYouKnowViewModel: (@MainActor () async -> WMFTabsOverviewDidYouKnowViewModel?)?
     @Published public var loadRecommendationsViewModel: (@MainActor () async -> WMFTabsOverviewRecommendationsViewModel?)?

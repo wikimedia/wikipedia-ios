@@ -653,6 +653,8 @@ public class CommonStrings: NSObject {
     
     public static let youCanAccessYIR = WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide.")
 
+    public static let logoCaption = WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
+
     // Donation history
 
     @objc public static let deleteDonationHistory = WMFLocalizedString("donate-history-delete", value: "Delete local donation history", comment: "Text for delete locally saved donation history button")

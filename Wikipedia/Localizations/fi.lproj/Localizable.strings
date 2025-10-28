@@ -1283,6 +1283,7 @@
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "Wikipediaa muokattiin keskimäärin $1 kertaa joka minuutti. Artikkeleita luodaan ja parannetaan yhteistyössä luotettavien lähteiden avulla. Meillä kaikilla on tietoa jaettavana, [näin osallistut]($2).";
 "year-in-review-base-edits-title" = "Wikipediaa muokattiin $1 kertaa joka minuutti";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipediassa oli yli $1 artikkelia yli $2 aktiivisella kielellä. Liityit miljoonien joukkoon laajentamassa tietämystä ja tutkimassa erilaisia aiheita.";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Lukulistaan lisättyä artikkelia voi käyttää myös ilman Internet-yhteyttä. Lukulistoja voi myös synkronoida laitteiden välillä.";
@@ -1303,17 +1304,12 @@
 "year-in-review-feature-announcement-body" = "Tutustu kohokohtiin miten artikkeleita luetaan ja muokataan Wikipediassa.";
 "year-in-review-feature-announcement-title-personalized" = "Tutustu Wikipedia-vuoteesi";
 "year-in-review-feature-explore-body-personalized" = "Tutustu kohokohtiin lukemastasi ja muokkaamastasi sisällöstä Wikipedia-sovelluksessa vuonna 2024. Lukuhistoria säilytetään suojattuna. Kohokohdat muodostetaan laitteellesi tallennetun tiedon perusteella.";
-"year-in-review-highlights-articles-viewed-value" = "$1 miljardi";
-"year-in-review-login-title" = "Paranna vuosikatsausta";
-"year-in-review-personalized-day-subtitle-format" = "Luit eniten artikkeleita $1sin. Selvästi $1 on paras päiväsi uuden sisällön tutkimiseen. Kiitos, että käytit lukuaikasi parhaalla mahdollisella tavalla!";
-"year-in-review-personalized-day-title-format" = "Luit eniten $1sin";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä $1 katselukertaa. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Muokkauksiasi on näytetty yli $1 kertaa";
 "year-in-review-personalized-editing-title-format" = "Muokkasit Wikipediaa {{PLURAL:$1|$1 kerran|$1 kertaa}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Muokkasit Wikipediaa yli 500 kertaa";
-"year-in-review-personalized-reading-subtitle-format" = "Luit {{PLURAL:$1|$1 artikkelin|$1 artikkelia}}. Wikipediassa oli saatavilla $2 miljoonaa artikkelia yli $3 aktiivisella kielellä. Liityit osaksi miljoonien ihmisten yhteisöä laajentamassa tietämystään ja tutkimassa moninaisia aiheita.";
-"year-in-review-personalized-reading-title-format" = "Luit {{PLURAL:$1|$1 artikkeli|$1 artikkelia}}";
 "year-in-review-share-text" = "Tämä on Wikipedia-vuosikatsaukseni, joka on luotu Wikipedian iOS-sovelluksella.";
 "year-in-review-survey-additional-thoughts" = "Muita ajatuksia?";
 "year-in-review-survey-neutral" = "Neutraali";

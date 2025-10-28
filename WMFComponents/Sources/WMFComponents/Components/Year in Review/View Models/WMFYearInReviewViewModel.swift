@@ -690,7 +690,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
 
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: itemArray),
+            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: itemArray),
             loggingID: prefixedLoggingID("summary"),
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
@@ -711,7 +711,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let hoursSpent = TableItem(title: localizedStrings.hoursSpentReadingTitle, text: localizedStrings.hoursSpentReadingValue)
         let changesMade = TableItem(title: localizedStrings.numberOfChangesMadeTitle, text: localizedStrings.numberOfChangesMadeValue)
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: [topArticles, hoursSpent, changesMade]),
+            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: [topArticles, hoursSpent, changesMade]),
             loggingID: prefixedLoggingID("summary"),
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
@@ -791,7 +791,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let edits = TableItem(title: localizedStrings.numberOfEditsTitle, text: localizedStrings.numberOfEditsValue)
         let editFrequency = TableItem(title: localizedStrings.editFrequencyTitle, text: localizedStrings.editFrequencyValue)
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: [viewedArticles, edits, editFrequency]),
+            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: [viewedArticles, edits, editFrequency]),
             loggingID: prefixedLoggingID("summary"),
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
@@ -1108,8 +1108,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         let slide = currentSlide
         switch slide {
-        case .contribution:
-            return false
         default:
             break
         }

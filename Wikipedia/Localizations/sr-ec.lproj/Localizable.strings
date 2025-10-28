@@ -165,6 +165,7 @@
 "clearing-cache-complete" = "Чишћење кеша завршено.";
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-all-tabs" = "Затвори све картице";
+"close-all-tabs-confirmation-number" = "Затвори свих $1 картица?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Желите ли да затворите {{PLURAL:$1|$1 картицу|$1 картице}}? Ово је неповратна радња.";
 "close-all-tabs-confirmation-title-with-value" = "Затвори {{PLURAL:$1|$1 картицу|$1 картица}}?";
 "close-button-accessibility-label" = "Затвори";
@@ -646,8 +647,10 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Wikipedia Zero";
 "main-page" = "Почетна";
-"microsite-yir-english-edits-bytes-slide-title" = "3.4 милијарде бајтова додато";
-"microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили скоро 82 милиона измена";
+"microsite-yir-english-edits-bytes-slide-title" = "$1 бајтова додато";
+"microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили скоро $1 измена";
+"microsite-yir-english-reading-slide-title" = "$1 сати смо читали";
+"microsite-yir-english-saved-reading-slide-title" = "Сачували само $1 чланака";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "more-menu" = "Више";
@@ -657,6 +660,7 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миља";
+"new-article-tab-from-wikipedia-default" = "са Википедије";
 "new-article-tab-settings-did-you-know" = "Да ли сте знали?";
 "new-article-tab-settings-recommendations" = "Предлози";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
@@ -1117,6 +1121,7 @@
 "talk-page-reply-button-accessibility-label" = "Одговор $1";
 "talk-page-reply-depth-accessibility-label" = "Дубина одговора: $1";
 "talk-page-reply-placeholder-format" = "Одговор $1";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Ваш одговор ће аутоматски бити потписан са Вашим корисничким именом. Чувањем измена, прихватате $1услове коришћења$2 и слажете се са објављивањем Вашег доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6.";
 "talk-page-revision-history" = "Историја измена";
 "talk-page-rply-close-button-accessibility-hint" = "Затворите преглед одговора";
 "talk-page-share-button" = "Дели страницу за разговор";
@@ -1161,9 +1166,11 @@
 "talk-pages-user-groups" = "Корисничке групе";
 "talk-pages-user-logs" = "Дневници";
 "talk-pages-view-title" = "Разговор";
+"temp-account-alert-read-more-information" = "$1Тренутно користите привремени налог.$2 Налог ће истећи за 90 дана. Након истека нови ће Вам бити направљен ако будете уређивали непријављени. $3Пријавите се или отворите налог. Тиме ће доприноси бити приписивани Вашем корисничком налогу.";
 "temp-account-edit-sheet-cta-top" = "Пријави ме / отвори налог";
 "temp-account-edit-sheet-subtitle" = "$2Тренутно користите привремени налог.$3 Измене начињене привременим налогом $1 неће бити пренете Вашем сталном налогу када се пријавите. Пријавите се или отворите налог. Тиме ће доприноси бити приписивани Вашем корисничком налогу.";
 "temp-account-toast-read-more-title" = "Детаљније";
+"temp-account-toast-title" = "$1Тренутно користите привремени налог.$2 Измене начињене привременим...";
 "temp-account-warning-title" = "Користите привремени налог";
 "temp-warning-subtitle-format" = "Ваше измене ће бити приписане $1";
 "temporary-account" = "Привремени налог";
@@ -1181,6 +1188,7 @@
 "try-now-title" = "Пробајте сад";
 "tutorial-title" = "Упутство";
 "two-factor-email-login-continue" = "Настави пријаву";
+"two-factor-email-login-instructions" = "Молимо унесите имејл верификациони код";
 "two-factor-login-continue" = "Настави пријаву";
 "two-factor-login-instructions" = "Двофакторски токен или код за опоравак";
 "two-factor-login-title" = "Пријавите се на свој налог";
@@ -1303,10 +1311,10 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
 "year-in-review-base-donate-title" = "На Википедији нема реклама";
-"year-in-review-base-editors-title" = "Преко iOS апликације је начињено преко $1 измена";
+"year-in-review-base-editors-title" = "Преко званичних апликације за Википедију је начињено $1 измена";
 "year-in-review-base-edits-title" = "Википедија се уређује $1 пута у минуту";
-"year-in-review-base-reading-title" = "Википедија је доступна на више од 300 језика";
-"year-in-review-base-viewed-subtitle" = "Корисници апликације за iOS су посетили Википедијине чланке $1 милијарду пута. За људе широм света Википедија је почетна тачка за одговор на неко питање, тражење информација за школу или посао или једноставно учење нове чињенице.";
+"year-in-review-base-reading-title" = "Википедија је доступна на више од $1 језика";
+"year-in-review-base-viewed-subtitle" = "За људе широм света Википедија је почетна тачка за одговор на неко питање, тражење информација за школу или посао или једноставно учење нове чињенице.";
 "year-in-review-collective-zero-ads" = "Логотип Викимедије";
 "year-in-review-day-friday" = "петак";
 "year-in-review-day-monday" = "понедељак";
@@ -1319,12 +1327,8 @@
 "year-in-review-donate-now" = "Донирајте сада";
 "year-in-review-finish" = "Готово";
 "year-in-review-highlights-articles-saved" = "Сачувани чланци";
-"year-in-review-highlights-articles-viewed-value" = "$1 милијарда";
 "year-in-review-highlights-share-logo-caption" = "Логотип Википедије";
-"year-in-review-intro-exit-confirmation-title" = "Сигурно желите да изађете?";
 "year-in-review-personalized-date-day-footer-v3" = "Омиљени дан за читање";
-"year-in-review-personalized-day-subtitle-format" = "Прочитали сте највише чланака у $1. Очигледно $1 је Ваш главни дан за истраживање новог садржаја. Хвала на утрошеном времену!";
-"year-in-review-personalized-day-title-format" = "Највише сте читали у $1.";
 "year-in-review-personalized-donate-title" = "Хвала вам на Вашем прилогу!";
 "year-in-review-personalized-donation-thank-you" = "Логотип Викимедије";
 "year-in-review-personalized-editing-title-format-500plus" = "Уредили сте Википедију 500+ пута";

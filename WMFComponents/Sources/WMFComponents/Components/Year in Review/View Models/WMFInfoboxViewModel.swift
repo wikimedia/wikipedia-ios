@@ -1,9 +1,11 @@
 import Foundation
 
 public class WMFInfoboxViewModel {
+    let logoCaption: String
     let tableItems: [TableItem]
 
-    public init(tableItems: [TableItem]) {
+    public init(logoCaption: String, tableItems: [TableItem]) {
+        self.logoCaption = logoCaption
         self.tableItems = tableItems
     }
 }

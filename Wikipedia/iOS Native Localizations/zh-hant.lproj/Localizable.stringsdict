@@ -861,6 +861,34 @@
 			<string>%1$d</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>全球的讀者感謝您的貢獻。在過去兩個月中，您編輯過的條目共獲得了 %#@v1@ 次瀏覽。正因為有像您這樣的編輯者，維基百科才能持續改進，成為一個以事實為基礎且值得信賴的全球知識資源。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您的編輯最近已被瀏覽超過 %#@v1@ 次。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -887,6 +915,29 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您在 %3$@ 年花了 %#@v1@ 分鐘閱讀了 %#@v2@ 篇條目</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

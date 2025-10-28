@@ -63,10 +63,12 @@ import WMFData
         
         
         let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
-        
+
         let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
         
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
+
+        let showActivityTab = WMFFormItemSelectViewModel(title: "Show Activity Tab", isSelected: WMFDeveloperSettingsDataController.shared.showActivityTab)
 
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
@@ -83,7 +85,8 @@ import WMFData
                 enableMoreDynamicTabsV2GroupC,
                 showYiRV3,
                 enableYiRVLoginExperimentControl,
-                enableYiRVLoginExperimentB
+                enableYiRVLoginExperimentB,
+                showActivityTab
             ], selectType: .multi)
         ])
 
@@ -112,6 +115,17 @@ import WMFData
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsV2GroupB = isSelected }
             .store(in: &subscribers)
         
+        showActivityTab.$isSelected
+            .sink { isSelected in
+                WMFDeveloperSettingsDataController.shared.showActivityTab = isSelected
+                NotificationCenter.default.post(
+                    name: WMFNSNotification.activityTab,
+                    object: nil,
+                    userInfo: ["isOn": isSelected]
+                )
+            }
+            .store(in: &subscribers)
+
         showYiRV3.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected }
             .store(in: &subscribers)

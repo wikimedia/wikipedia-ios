@@ -22,6 +22,7 @@
 // Author: Googology
 // Author: GuoPC
 // Author: HNordeen (WMF)
+// Author: Hehua
 // Author: Huajing
 // Author: Hudafu
 // Author: ITsu
@@ -744,18 +745,15 @@
 "main-menu-terms-of-use" = "使用条款";
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "维基百科Zero常见问题";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "在2024年，志愿者们为英文维基百科增添了4,104,852,969字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。]($1)";
-"microsite-yir-english-edits-bytes-slide-title" = "增加了 34 亿字节";
-"microsite-yir-english-edits-slide-subtitle" = "志愿者们在超过300种不同语言版本的维基百科上共完成了81,987,181次修改。其中，英文维基百科的修改次数就超过了3120万次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
-"microsite-yir-english-edits-slide-title" = "编辑者们今年做出了将近8200万次修改";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "2025年，人们花费了大约24亿小时——相当于超过27.5万年！——阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "我们花了29亿小时阅读";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "在$1年，志愿者们为英文维基百科增添了$2字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。]($3)";
+"microsite-yir-english-edits-bytes-slide-title" = "增加了$1字节";
+"microsite-yir-english-edits-slide-subtitle" = "志愿者们在超过$2种不同语言版本的维基百科上共完成了$1次修改。其中，英文维基百科的修改次数就超过了$3次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
+"microsite-yir-english-edits-slide-title" = "编辑者们今年做出了将近$1次修改";
+"microsite-yir-english-reading-slide-subtitle" = "在$3年，人们花费了大约$1小时——相当于超过$2年！——阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
+"microsite-yir-english-reading-slide-title" = "我们花了$1小时阅读";
 // Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "活跃的iOS应用用户拥有超过6220万份阅读清单。将文章加入阅读清单，就能在离线状态下随时查看。此外，登录后还能在不同设备上同步阅读清单。";
-"microsite-yir-english-saved-reading-slide-title" = "我们拥有超过3700万个已保存条目";
+"microsite-yir-english-saved-reading-slide-title" = "我们拥有$1个已保存条目";
 "microsite-yir-english-top-read-slide-subtitle" = "当人们想要了解我们的世界——无论是好的、坏的、奇怪的还是狂野的——他们都会寻求于维基百科。英语维基百科上访问量最高的5篇文章是：\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\n在我们的$6专门博客文章$7中了解更多。";
 "microsite-yir-english-top-read-slide-title" = "英语维基百科最受欢迎的文章";
 "more-languages-tooltip-description" = "在超过300种语言中搜索维基百科";
@@ -914,8 +912,7 @@
 "on-this-day-title" = "历史上的今天";
 "open-in-tab-tooltip-title" = "在新标签页中打开";
 "original-tab-button-popover-description" = "点按“W”以返回您起始的标签页";
-// Fuzzy
-"page-history-bot-edits" = "机器人编辑";
+"page-history-bot-edits" = "机器人";
 "page-history-compare-accessibility-hint" = "点击选择两个修订版本进行比较";
 "page-history-compare-title" = "比较";
 "page-history-graph-accessibility-label" = "一段时间内的编辑图";
@@ -1423,10 +1420,13 @@
 "year-in-review-base-donate-title" = "维基百科投放了 0 条广告";
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "维基百科的志愿编辑社区在 iOS 应用上进行了超过 555,647 次编辑。维基百科的核心和灵魂是我们全球的志愿贡献者、捐赠者和像您一样的数十亿读者的社区——大家团结一致，共享对可靠信息的无限访问。";
+// Fuzzy
 "year-in-review-base-editors-title" = "维基百科官方应用程序上的编辑者做出了超过 $1 次编辑";
 "year-in-review-base-edits-subtitle" = "文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($1)。";
 "year-in-review-base-edits-title" = "维基百科每分钟被编辑 $1 次";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "维基百科拥有超过$1万篇文章，涵盖超过$2种活跃语言。您与数百万人一起扩展知识，探索多样化的主题。";
+// Fuzzy
 "year-in-review-base-reading-title" = "维基百科提供 300 多种语言版本";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "活跃的 iOS 应用用户拥有超过 6220 万个阅读列表。将文章添加到阅读列表中可以让您即使在离线状态下也能访问文章。您还可以登录以在设备之间同步阅读列表。";
@@ -1434,6 +1434,7 @@
 "year-in-review-base-saved-title" = "我们有超过 $1 万个阅读列表";
 // Fuzzy
 "year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 $1 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
+// Fuzzy
 "year-in-review-base-viewed-title" = "我们已浏览了 $1 十亿次维基百科条目";
 "year-in-review-button-title" = "年度回顾";
 "year-in-review-collective-article-views" = "一个动画插图展示了一台电脑屏幕，上面打开了一个网络浏览器，正在浏览维基百科文章。";
@@ -1460,20 +1461,16 @@
 "year-in-review-feature-explore-body" = "维基百科是世界历史上最大的知识资源库，向每个地方的每个人免费开放。通过维基百科的视角回顾 2024 年。";
 "year-in-review-feature-explore-body-personalized" = "查看您在维基百科应用上阅读的文章以及您在 2024 年所做的编辑的分析。您的阅读历史将受到保护。阅读见解使用存储在您设备上的本地数据计算。";
 "year-in-review-finish" = "完成";
-"year-in-review-login-subtitle" = "登录或创建账号，以便有资格获得更多个性化分析数据";
-"year-in-review-login-title" = "改进您的年度回顾";
-"year-in-review-personalized-day-subtitle-format" = "您在 $1 阅读的文章最多。很明显，$1 是您探索新内容最重要的日子。感谢您充分利用您的阅读时间！";
-"year-in-review-personalized-day-title-format" = "您阅读最多的是$1 。";
 "year-in-review-personalized-donate-subtitle" = "感谢您对知识免费的未来投资。今年，维基媒体基金会改进了技术，从而更好地服务每一位读者和志愿者，并开发了增强协作的工具，另外还支持了维基百科的更多语言版本。[进一步了解我们的工作]($1)。";
 "year-in-review-personalized-donate-title" = "您的慷慨让维基百科兴旺";
 "year-in-review-personalized-donation-thank-you" = "维基百科标志";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑过的条目共获得了 $1 次浏览。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "您编辑的文章最近已被浏览超过 $1 次";
 "year-in-review-personalized-editing-title-format" = "您编辑了维基百科 {{PLURAL:$1|$1 次}}";
 "year-in-review-personalized-editing-title-format-500plus" = "您编辑了维基百科 500 多次";
 "year-in-review-personalized-explore" = "一幅动画插画，一只手中握着维基百科的地球仪，它逐渐变成了一块小小的拼图碎片，寓意着众人拾柴火焰高，每个人都在为这个平台添砖加瓦。";
-"year-in-review-personalized-reading-subtitle-format" = "您阅读了{{PLURAL:$1|$1 篇文章}}。维基百科有$2 百万篇文章可供使用，涵盖超过$3 种活跃语言。您与数百万人一起扩展知识，探索多样化的主题。";
-"year-in-review-personalized-reading-title-format" = "你阅读了{{PLURAL:$1|$1 篇文章}}";
 "year-in-review-personalized-saved-articles" = "插画中，一块拼图碎片戴着安全帽，后面是电脑屏幕。";
 "year-in-review-personalized-saved-title-format" = "您保存了{{PLURAL:$1|$1 篇文章}}";
 "year-in-review-personalized-user-edits" = "一幅动画插画，数据字节层层堆叠，象征着自由知识的不断积累。";
