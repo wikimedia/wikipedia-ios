@@ -27,7 +27,10 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsMoreDynamicTabsV2GroupB = "more-dynamic-tabs-group-b-v2"
     case developerSettingsMoreDynamicTabsV2GroupC = "more-dynamic-tabs-group-c-v2"
     case developerSettingsShowYiRV3 = "dev-settings-yir-show-v3"
+    case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
+    case developerSettingsYiRV3LoginExperimentB = "dev-settings-yir-login-experiment-b"
     case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
     case qualifiesForIcon2025 = "qualifies-for-icon-2025"
     case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
+    case developerSettingsShowActivityTab = "developer-settings-show-activity-tab"
 }
