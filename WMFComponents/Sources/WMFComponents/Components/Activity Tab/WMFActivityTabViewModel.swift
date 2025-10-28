@@ -9,11 +9,13 @@ public class WMFActivityTabViewModel: ObservableObject {
     @Published var username: String
     @Published var hoursRead: Int = 0
     @Published var minutesRead: Int = 0
+	var hasSeenActivityTab: () -> Void
     
-    public init(localizedStrings: LocalizedStrings, username: String, dataController: WMFActivityTabDataController) {
+    public init(localizedStrings: LocalizedStrings, username: String, dataController: WMFActivityTabDataController, hasSeenActivityTab: @escaping () -> Void) {
         self.localizedStrings = localizedStrings
         self.username = username
         self.dataController = dataController
+        self.hasSeenActivityTab = hasSeenActivityTab
     }
     
     func fetchData() {
