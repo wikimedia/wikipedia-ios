@@ -126,6 +126,9 @@ import WMFData
             }
             .store(in: &subscribers)
 
+        showYiRV3.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected }
+            .store(in: &subscribers)
         
         enableYiRVLoginExperimentControl.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl = isSelected }
