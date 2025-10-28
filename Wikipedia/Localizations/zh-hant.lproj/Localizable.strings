@@ -1511,14 +1511,10 @@
 "year-in-review-collective-zero-ads" = "維基媒體標誌";
 "year-in-review-contributor-gift-subtitle" = "如果您現在不啟用，您可以事後在主題下方的設定裡存取它。";
 "year-in-review-contributor-gift-title" = "啟動新的應用程式圖示";
-// Fuzzy
-"year-in-review-contributor-slide-subtitle-donor" = "感謝您投入自由知識的未來。\n\n您作為 $1 年捐款者的貢獻，幫助到鋪往自由資訊世界的道路，因此您解鎖了「自訂貢獻者圖示」成就。";
-// Fuzzy
-"year-in-review-contributor-slide-subtitle-editor" = "感謝您投入自由知識的未來。\n\n您作為 $1 年編輯者的貢獻，幫助到鋪往自由資訊世界的道路，因此您解鎖了「自訂貢獻者圖示」成就。";
-// Fuzzy
-"year-in-review-contributor-slide-subtitle-editor-and-donor" = "感謝您投入自由知識的未來。\n\n您作為 $1 年捐款者與編輯者的貢獻，幫助到鋪往自由資訊世界的道路，因此您解鎖了「自訂貢獻者圖示」成就。";
-// Fuzzy
-"year-in-review-contributor-slide-title" = "已解鎖新圖示";
+"year-in-review-contributor-slide-subtitle-donor" = "感謝您投入自由知識的未來。\n\n您作為 $1 年捐款者的貢獻，幫助到鋪往自由資訊世界的道路，因此您在主畫面上解鎖了維基百科的「自訂貢獻者圖示」。";
+"year-in-review-contributor-slide-subtitle-editor" = "感謝您投入自由知識的未來。\n\n您作為 $1 年編輯者的貢獻，幫助到鋪往自由資訊世界的道路，因此您在主畫面上解鎖了維基百科的「自訂貢獻者圖示」。";
+"year-in-review-contributor-slide-subtitle-editor-and-donor" = "感謝您投入自由知識的未來。\n\n您作為 $1 年捐款者與編輯者的貢獻，幫助到鋪往自由資訊世界的道路，因此您在主畫面上解鎖了維基百科的「自訂貢獻者圖示」。";
+"year-in-review-contributor-slide-title" = "已為您的主畫面解鎖新的應用程式圖示";
 "year-in-review-day-friday" = "星期五";
 "year-in-review-day-monday" = "星期一";
 "year-in-review-day-saturday" = "星期六";
@@ -1558,10 +1554,8 @@
 "year-in-review-highlights-title" = "感謝您與維基百科共度的這一年";
 "year-in-review-intro-exit-toast-title" = "您可以稍後在您的個人資料存取年度回顧";
 "year-in-review-intro-login-title" = "登入進行個人化";
-// Fuzzy
-"year-in-review-non-contributor-slide-title" = "解鎖您的自訂貢獻者圖示";
-// Fuzzy
-"year-in-review-noncontributor-slide-subtitle" = "我們很高興維基百科成為您在 $1 年參與的活動！[了解更多]（$2）關於如何透過成為貢獻者來解鎖您的圖示—無論是藉由編輯維基百科的行為，或是向其背後的非營利組織維基媒體基金會捐款。如果維基百科今年對您有所幫助，歡迎您考慮捐款，來幫助維基百科維持其未來發展，並保持免費、無廣告、值得信賴且人人皆可用的運作狀態。";
+"year-in-review-non-contributor-slide-title" = "解鎖您明年的貢獻者獎勵！";
+"year-in-review-noncontributor-slide-subtitle" = "我們很高興維基百科成為您在 $1 年參與的活動！成為貢獻者，即可在您的 $2 年度回顧解鎖特別獎勵—無論是藉由[編輯維基百科]（$3）的行為，或是向其背後的非營利組織[維基媒體基金會]（$4）捐款。如果維基百科對您有所幫助，歡迎您考慮捐款，來幫助維基百科維持其未來發展，並保持免費、無廣告、值得信賴且人人皆可用的運作狀態。";
 "year-in-review-personalized-date-day-footer-v3" = "最喜歡閱讀的日子";
 "year-in-review-personalized-date-month-footer-v3" = "您閱讀最多次的月份";
 "year-in-review-personalized-date-time-footer-v3" = "最喜歡的閱讀時間";

@@ -1470,14 +1470,10 @@
 "year-in-review-collective-zero-ads" = "Logotypo de Wikimedia";
 "year-in-review-contributor-gift-subtitle" = "Si tu non lo activa ora, tu pote acceder a illo plus tarde in Parametros sub Thema.";
 "year-in-review-contributor-gift-title" = "Activar le nove icone del application";
-// Fuzzy
-"year-in-review-contributor-slide-subtitle-donor" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como donator in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor.";
-// Fuzzy
-"year-in-review-contributor-slide-subtitle-editor" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor.";
-// Fuzzy
-"year-in-review-contributor-slide-subtitle-editor-and-donor" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como donator e redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor.";
-// Fuzzy
-"year-in-review-contributor-slide-title" = "Nove icone concedite";
+"year-in-review-contributor-slide-subtitle-donor" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como donator in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
+"year-in-review-contributor-slide-subtitle-editor" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
+"year-in-review-contributor-slide-subtitle-editor-and-donor" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como donator e redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
+"year-in-review-contributor-slide-title" = "Nove icone disvelate pro tu schermo initial";
 "year-in-review-day-friday" = "venerdis";
 "year-in-review-day-monday" = "lunedis";
 "year-in-review-day-saturday" = "sabbatos";
@@ -1517,10 +1513,8 @@
 "year-in-review-highlights-title" = "Gratias pro passar tu anno con Wikipedia";
 "year-in-review-intro-exit-toast-title" = "Tu pote acceder a tu Summario del anno plus tarde desde Profilo.";
 "year-in-review-intro-login-title" = "Aperi session pro personalisation";
-// Fuzzy
-"year-in-review-non-contributor-slide-title" = "Disvelar tu icone personal de contributor";
-// Fuzzy
-"year-in-review-noncontributor-slide-subtitle" = "Nos es felice que Wikipedia ha facite parte de tu anno $1! [Apprende como devenir contributor]($2) e disvelar un icone personal: modifica Wikipedia o dona al Fundation Wikimedia, le organisation sin scopo lucrative detra Wikipedia. Si Wikipedia te ha essite utile iste anno, per favor considera donar pro adjutar a sustener su futuro e mantener lo libere, sin publicitate, digne de fide e accessibile pro omnes.";
+"year-in-review-non-contributor-slide-title" = "Disvela tu recompensa de contributor pro le proxime anno!";
+"year-in-review-noncontributor-slide-subtitle" = "Nos es felice que Wikipedia ha facite parte de tu anno $1! Disvela un recompensa special in tu Summario del anno $2 deveniente contributor: [modifica Wikipedia]($3) o dona al [Fundation Wikimedia]($4), le organisation sin scopo lucrative detra Wikipedia. Si Wikipedia te es utile, per favor considera donar pro adjutar a sustener su futuro e mantener lo libere, sin publicitate, digne de fide e accessibile pro omnes.";
 "year-in-review-personalized-date-day-footer-v3" = "Die favorite pro leger";
 "year-in-review-personalized-date-month-footer-v3" = "Mense in le qual tu ha legite le plus";
 "year-in-review-personalized-date-time-footer-v3" = "Hora favorite pro leger";

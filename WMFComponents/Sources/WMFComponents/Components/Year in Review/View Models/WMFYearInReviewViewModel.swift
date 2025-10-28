@@ -288,6 +288,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public var populateYearInReviewReport: () async throws -> Void
     @Published public var isPopulatingReport: Bool = false
     
+    private lazy var dataController: WMFYearInReviewDataController? = {
+        return try? WMFYearInReviewDataController()
+    }()
+    
     public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool, populateYearInReviewReport: @escaping () async throws -> Void) {
 
         self.localizedStrings = localizedStrings
@@ -336,9 +340,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         var topArticlesSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadCategoriesSlide: WMFYearInReviewSlideStandardViewModel?
         var locationSlide: WMFYearInReviewSlideLocationViewModel?
-        
-        let dataController = try? WMFYearInReviewDataController()
-        
+
         // Fetch YiR report for personalized data, assign to personalized slides
         if let dataController,
            let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) {
@@ -563,13 +565,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     private func updateSlides(isUserPermanent: Bool) {
+        
+        let bypassLoginForPersonalizedFlow = dataController?.bypassLoginForPersonalizedFlow ?? false
 
         var slides: [WMFYearInReviewSlide] = []
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
         
         if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            if isUserPermanent {
+            if isUserPermanent || bypassLoginForPersonalizedFlow {
                 slides.append(.standard(personalizedSlides.readCountSlideV3 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
                 
                 if primaryAppLanguage.isEnglishWikipedia {
@@ -893,10 +897,32 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func tappedIntroV3GetStarted() {
-        if !isUserPermanent {
-            coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
+        
+        let checkLoginAndProceed: () -> Void = {
+            if !self.isUserPermanent {
+                self.coordinatorDelegate?.handleYearInReviewAction(.presentLoginPromptFromIntroGetStarted)
+            } else {
+                self.populateReportAndShowFirstSlide()
+            }
+        }
+        
+        if let dataController {
+            if dataController.needsLoginExperimentAssignment() {
+                do {
+                    let assignment = try dataController.assignLoginExperimentIfNeeded()
+                    coordinatorDelegate?.handleYearInReviewAction(.logExperimentAssignment(assignment: assignment))
+                } catch {
+                    
+                }
+            }
+            
+            if dataController.bypassLoginForPersonalizedFlow {
+                populateReportAndShowFirstSlide()
+            } else {
+                checkLoginAndProceed()
+            }
         } else {
-            populateReportAndShowFirstSlide()
+            checkLoginAndProceed()
         }
     }
     
@@ -1066,7 +1092,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             if isUserPermanent {
                 standardDismissal()
             } else {
-                coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
+                coordinatorDelegate?.handleYearInReviewAction(.presentExitToastFromIntroDone)
             }
         }
     }
@@ -1151,7 +1177,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     private func markFirstSlideAsSeen() {
-        if let dataController = try? WMFYearInReviewDataController() {
+        if let dataController {
             dataController.hasSeenYiRIntroSlide = true
             badgeDelegate?.updateYIRBadgeVisibility()
         }

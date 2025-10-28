@@ -210,9 +210,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 Abschnitt|$1 Abschnitter}}";
 "diff-paragraph-moved-format" = "Abschnitt $2 $1 geréckelt";
 "diff-revision-error-title" = "Versioun konnt net geluede ginn";
-"diff-rollback" = "Zrécksetzen";
+"diff-rollback" = "Zerécksetzen";
 "diff-rollback-alert-message" = "Sidd Dir sécher, datt Dir dës Ännerungen zrécksetze wëllt?";
-"diff-rollback-alert-title" = "Ännerungen zrécksetzen";
+"diff-rollback-alert-title" = "Ännerungen zerécksetzen";
 "diff-rollback-success" = "Ännerungen zréckgesat.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Ännerung|$1 Ännerungen}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 Byte derbäigesat}}";
@@ -428,7 +428,7 @@
 "find-replace-header" = "Sichen an Ersetzen";
 "find-replace-header-close-accessibility" = "Sichen an Ersetzen zoumaachen";
 "find-textfield-accessibility" = "Sichen";
-"forgot-password-button-title" = "Zrécksetzen";
+"forgot-password-button-title" = "Zerécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";
 "forgot-password-username-or-email-title" = "Oder";
