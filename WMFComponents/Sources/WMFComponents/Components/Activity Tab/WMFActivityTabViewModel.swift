@@ -16,7 +16,7 @@ public class WMFActivityTabViewModel: ObservableObject {
         self.dataController = dataController
     }
     
-    public func viewDidLoad() {
+    func fetchData() {
         Task {
             if let (hours, minutes) = try? await dataController.getTimeReadPast7Days() {
                 updateHoursMinutesRead(hours: hours, minutes: minutes)
@@ -24,18 +24,18 @@ public class WMFActivityTabViewModel: ObservableObject {
         }
     }
     
-    public var usernamesReading: String {
+    var usernamesReading: String {
         if username.isEmpty {
             return localizedStrings.noUsernameReading
         }
         return localizedStrings.userNamesReading(username)
     }
     
-    public var hoursMinutesRead: String {
+    var hoursMinutesRead: String {
         localizedStrings.totalHoursMinutesRead(hoursRead, minutesRead)
     }
 
-    public func updateHoursMinutesRead(hours: Int, minutes: Int) {
+    func updateHoursMinutesRead(hours: Int, minutes: Int) {
         self.hoursRead = hours
         self.minutesRead = minutes
     }

@@ -33,7 +33,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     public override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil) // < new line
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
     }
     
