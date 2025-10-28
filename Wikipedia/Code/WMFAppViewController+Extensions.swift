@@ -826,7 +826,6 @@ extension WMFAppViewController {
                 onWikipediaiOS: onWikipediaiOS,
                 timeSpentReading: timeSpentReading,
                 totalArticlesRead: articlesRead),
-           username: dataStore.authenticationManager.authStatePermanentUsername ?? "",
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
