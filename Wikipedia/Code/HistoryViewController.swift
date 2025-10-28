@@ -7,7 +7,7 @@ import Combine
 
 final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {}
 
-@objc public final class WMFHistoryViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring, HintPresenting, MEPEventsProviding {
+@objc final class WMFHistoryViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring, HintPresenting, MEPEventsProviding {
 
     // MARK: - Properties
 

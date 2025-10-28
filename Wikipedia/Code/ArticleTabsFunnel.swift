@@ -42,6 +42,7 @@ import WMF
         case tabSearch = "tab_search"
         case tabsOverflow = "tabs_overflow"
         case mainPage = "main_page"
+        case activity = "activity"
     }
 
     private struct Event: EventInterface {
