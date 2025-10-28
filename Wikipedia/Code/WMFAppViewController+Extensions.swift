@@ -1080,14 +1080,6 @@ extension WMFAppViewController {
         }
     }
     
-    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
-        if let username = dataStore.authenticationManager.authStatePermanentUsername {
-            activityTabViewController.viewModel.updateUsername(username: username)
-        } else {
-            activityTabViewController.viewModel.updateUsername(username: "")
-        }
-    }
-    
     private func surveyViewController() -> UIViewController {
         
         var wikimediaProject: WikimediaProject? = nil

@@ -26,7 +26,7 @@ public class WMFActivityTabViewModel: ObservableObject {
         self.hasSeenActivityTab = hasSeenActivityTab
     }
     
-    public func viewDidLoad() {
+    func fetchData() {
         Task {
             async let timeResult = dataController.getTimeReadPast7Days()
             async let articlesResult = dataController.getArticlesRead()

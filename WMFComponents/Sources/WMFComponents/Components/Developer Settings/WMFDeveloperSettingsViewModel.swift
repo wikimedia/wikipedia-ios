@@ -39,6 +39,7 @@ import WMFData
     private var subscribers: Set<AnyCancellable> = []
     private var activityTabGroupCoordinator: ActivityTabGroupBindingCoordinator?
     private var moreDynamicTabsV2GroupCoordinator: MoreDynamicTabsV2GroupBindingCoordinator?
+    private var yirLoginExperimentGroupCoordinator: YirLoginExperimentBindingCoordinator?
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
@@ -62,7 +63,11 @@ import WMFData
         
         
         let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
+
+        let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
         
+        let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
+
         let showActivityTab = WMFFormItemSelectViewModel(title: "Show Activity Tab", isSelected: WMFDeveloperSettingsDataController.shared.showActivityTab)
 
         // Form ViewModel
@@ -79,6 +84,8 @@ import WMFData
                 enableMoreDynamicTabsV2GroupB,
                 enableMoreDynamicTabsV2GroupC,
                 showYiRV3,
+                enableYiRVLoginExperimentControl,
+                enableYiRVLoginExperimentB,
                 showActivityTab
             ], selectType: .multi)
         ])
@@ -119,6 +126,17 @@ import WMFData
             }
             .store(in: &subscribers)
 
+        showYiRV3.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected }
+            .store(in: &subscribers)
+        
+        enableYiRVLoginExperimentControl.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl = isSelected }
+            .store(in: &subscribers)
+        
+        enableYiRVLoginExperimentB.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB = isSelected }
+            .store(in: &subscribers)
         
         moreDynamicTabsV2GroupCoordinator = MoreDynamicTabsV2GroupBindingCoordinator(groupB: enableMoreDynamicTabsV2GroupB, groupC: enableMoreDynamicTabsV2GroupC)
 
@@ -126,6 +144,11 @@ import WMFData
             groupA: setActivityTabGroupA,
             groupB: setActivityTabGroupB,
             groupC: setActivityTabGroupC
+        )
+        
+        yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(
+            control: enableYiRVLoginExperimentControl,
+            b: enableYiRVLoginExperimentB
         )
     }
 }
@@ -175,6 +198,27 @@ private final class MoreDynamicTabsV2GroupBindingCoordinator {
             WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsV2GroupC = isSelected
             if isSelected {
                 groupB.isSelected = false
+            }
+        }.store(in: &subscribers)
+
+    }
+}
+
+private final class YirLoginExperimentBindingCoordinator {
+    private var subscribers: Set<AnyCancellable> = []
+
+    init(control: WMFFormItemSelectViewModel, b: WMFFormItemSelectViewModel) {
+        control.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl = isSelected
+            if isSelected {
+                b.isSelected = false
+            }
+        }.store(in: &subscribers)
+
+        b.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB = isSelected
+            if isSelected {
+                control.isSelected = false
             }
         }.store(in: &subscribers)
 
