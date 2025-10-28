@@ -125,12 +125,12 @@ class DonateCoordinator: Coordinator {
             }
             
             return "\(languageCode)\(countryCode)_appmenu_iOS"
-        case .yearInReview:
+        case .yearInReview(let slideLoggingID):
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
                 return nil
             }
-            return "\(languageCode)\(countryCode)_appmenu_yir_iOS"
+            return "\(languageCode)\(countryCode)_appmenu_yir_\(slideLoggingID)_iOS"
         }
     }
     

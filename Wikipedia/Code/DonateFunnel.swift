@@ -463,8 +463,7 @@ import WMFData
     func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
             "slide": slideLoggingID,
-            "campaign_id": metricsID,
-            "wmf_source": slideLoggingID])
+            "campaign_id": metricsID])
     }
     
     func logYearInReviewDidTapShare(slideLoggingID: String) {
@@ -541,18 +540,18 @@ import WMFData
     // Year in Review Donate flow events
     
     func logYearInReviewDidTapDonateCancel(metricsID: String, slideLoggingID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .cancelClick, actionData: ["campaign_id": metricsID,  "wmf_source": slideLoggingID])
+        logEvent(activeInterface: .wikiYiR, action: .cancelClick, actionData: ["campaign_id": metricsID])
     }
     
     func logYearInReviewDidTapDonateApplePay(metricsID: String, slideLoggingID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .applePayClick, actionData: ["campaign_id": metricsID,  "wmf_source": slideLoggingID])
+        logEvent(activeInterface: .wikiYiR, action: .applePayClick, actionData: ["campaign_id": metricsID])
     }
     
     func logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: String, slideLoggingID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .webPayClick, actionData: ["campaign_id": metricsID, "wmf_source": slideLoggingID])
+        logEvent(activeInterface: .wikiYiR, action: .webPayClick, actionData: ["campaign_id": metricsID])
     }
     
     func logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: String, slideLoggingID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .successToastProfile, actionData: ["campaign_id": metricsID,  "wmf_source": slideLoggingID])
+        logEvent(activeInterface: .wikiYiR, action: .successToastProfile, actionData: ["campaign_id": metricsID])
     }
 }

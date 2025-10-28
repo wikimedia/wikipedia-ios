@@ -310,6 +310,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.setupIntro(isUserPermanent: isUserPermanent)
     }
     
+    private func prefixedLoggingID(_ suffix: String) -> String {
+        let loggedInOrOut = isUserPermanent ? "li" : "lo"
+        let enOrNon = primaryAppLanguage.languageCode == "en" ? "en" : "non"
+        return "\(loggedInOrOut)_\(enOrNon)_\(suffix)"
+    }
+    
     // MARK: Personalized Slides
     
     private struct PersonalizedSlides {
@@ -355,7 +361,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 subtitle: localizedStrings.personalizedYouReadSlideSubtitleV3(readData.readCount),
                                 subtitleType: .html,
                                 infoURL: aboutYiRURL,
-                                loggingID: "readcount",
+                                loggingID: prefixedLoggingID("readcount"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -372,7 +378,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 title: editCount >= 500 ? localizedStrings.personzlizedUserEditsSlideTitle500Plus : localizedStrings.personalizedUserEditsSlideTitle(editCount),
                                 subtitle: primaryAppLanguage.isEnglishWikipedia ? localizedStrings.personzlizedUserEditsSlideSubtitleEN : localizedStrings.personzlizedUserEditsSlideSubtitleNonEN,
                                 infoURL: aboutYiRURL,
-                                loggingID: "editedcount",
+                                loggingID: prefixedLoggingID("editedcount"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -390,7 +396,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     altText: "",
                                     title: localizedStrings.contributorTitle,
                                     subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
-                                    loggingID: "donoricon",
+                                    loggingID: prefixedLoggingID("donoricon"),
                                     contributionStatus: .contributor,
                                     onTappedDonateButton: { [weak self] in
                                         self?.handleDonate()
@@ -424,7 +430,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 subtitle: localizedStrings.personalizedSaveCountSlideSubtitle(count, savedSlideData.articleTitles),
                                 subtitleType: .html,
                                 infoURL: aboutYiRURL,
-                                loggingID: "savedcount",
+                                loggingID: prefixedLoggingID("savedcount"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -452,7 +458,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 month: localizedStrings.personalizedDateSlideMonthV3(mostReadMonth.month),
                                 monthFooter: localizedStrings.personalizedDateSlideMonthFooterV3,
                                 infoURL: aboutYiRURL,
-                                loggingID: "readpattern",
+                                loggingID: prefixedLoggingID("readpattern"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -469,7 +475,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 title: localizedStrings.personalizedYourEditsViewedSlideTitle(viewCount),
                                 subtitle: localizedStrings.personalizedYourEditsViewedSlideSubtitle(viewCount),
                                 infoURL: aboutYiRURL,
-                                loggingID: "editviewcount",
+                                loggingID: prefixedLoggingID("editviewcount"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -486,7 +492,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 subtitle: localizedStrings.personalizedMostReadCategoriesSlideSubtitle(mostReadCategories),
                                 subtitleType: .standard,
                                 infoURL: aboutYiRURL,
-                                loggingID: "readcategory",
+                                loggingID: prefixedLoggingID("readcategory"),
                                 tappedInfo: tappedInfo)
                         }
                     }
@@ -502,7 +508,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 title: localizedStrings.personalizedMostReadArticlesSlideTitle,
                                 subtitle: localizedStrings.personalizedMostReadArticlesSlideSubtitle(topArticles),
                                 infoURL: aboutYiRURL,
-                                loggingID: "toparticles",
+                                loggingID: prefixedLoggingID("toparticles"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -515,7 +521,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             locationSlide = WMFYearInReviewSlideLocationViewModel(
                                 localizedStrings: localizedStrings,
                                 legacyPageViews: legacyPageViews,
-                                loggingID: "readgeo",
+                                loggingID: prefixedLoggingID("readgeo"),
                                 infoURL: aboutYiRURL,
                                 tappedInfo: tappedInfo)
                         }
@@ -685,7 +691,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
         return WMFYearInReviewSlideHighlightsViewModel(
             infoBoxViewModel: WMFInfoboxViewModel(tableItems: itemArray),
-            loggingID: "summary",
+            loggingID: prefixedLoggingID("summary"),
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
             hashtag: hashtag,
@@ -706,7 +712,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let changesMade = TableItem(title: localizedStrings.numberOfChangesMadeTitle, text: localizedStrings.numberOfChangesMadeValue)
         return WMFYearInReviewSlideHighlightsViewModel(
             infoBoxViewModel: WMFInfoboxViewModel(tableItems: [topArticles, hoursSpent, changesMade]),
-            loggingID: "summary",
+            loggingID: prefixedLoggingID("summary"),
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
             hashtag: hashtag,
@@ -722,7 +728,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.englishReadingSlideTitle,
             subtitle: localizedStrings.englishReadingSlideSubtitle,
             infoURL: aboutYiRURL,
-            loggingID: "collhours",
+            loggingID: prefixedLoggingID("collhours"),
             tappedInfo: tappedInfo
         )
     }
@@ -735,7 +741,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             subtitle: localizedStrings.englishTopReadSlideSubtitle,
             subtitleType: .html,
             infoURL: aboutYiRURL,
-            loggingID: "popular",
+            loggingID: prefixedLoggingID("popular"),
             tappedInfo: tappedInfo
         )
     }
@@ -747,7 +753,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.englishSavedReadingSlideTitle,
             subtitle: localizedStrings.englishSavedReadingSlideSubtitle,
             infoURL: aboutYiRURL,
-            loggingID: "collrlists",
+            loggingID: prefixedLoggingID("collrlists"),
             tappedInfo: tappedInfo
         )
     }
@@ -759,7 +765,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.englishEditsSlideTitle,
             subtitle: localizedStrings.englishEditsSlideSubtitle,
             infoURL: aboutYiRURL,
-            loggingID: "changes",
+            loggingID: prefixedLoggingID("changes"),
             tappedInfo: tappedInfo
         )
     }
@@ -772,7 +778,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             subtitle: localizedStrings.englishEditsBytesSlideSubtitle,
             subtitleType: .markdown,
             infoURL: aboutYiRURL,
-            loggingID: "bytes",
+            loggingID: prefixedLoggingID("bytes"),
             tappedInfo: tappedInfo
         )
     }
@@ -786,7 +792,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let editFrequency = TableItem(title: localizedStrings.editFrequencyTitle, text: localizedStrings.editFrequencyValue)
         return WMFYearInReviewSlideHighlightsViewModel(
             infoBoxViewModel: WMFInfoboxViewModel(tableItems: [viewedArticles, edits, editFrequency]),
-            loggingID: "summary",
+            loggingID: prefixedLoggingID("summary"),
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
             hashtag: hashtag,
@@ -802,7 +808,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.collectiveLanguagesSlideTitle,
             subtitle: localizedStrings.collectiveLanguagesSlideSubtitle,
             infoURL: aboutYiRURL,
-            loggingID: "langs",
+            loggingID: prefixedLoggingID("langs"),
             tappedInfo: tappedInfo
         )
     }
@@ -814,7 +820,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.collectiveArticleViewsSlideTitle,
             subtitle: localizedStrings.collectiveArticleViewsSlideSubtitle,
             infoURL: aboutYiRURL,
-            loggingID: "collappread",
+            loggingID: prefixedLoggingID("collappread"),
             tappedInfo: tappedInfo
         )
     }
@@ -826,7 +832,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.collectiveSavedArticlesSlideTitle,
             subtitle: localizedStrings.collectiveSavedArticlesSlideSubtitle,
             infoURL: aboutYiRURL,
-            loggingID: "collrlists",
+            loggingID: prefixedLoggingID("collrlists"),
             tappedInfo: tappedInfo
         )
     }
@@ -838,7 +844,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.collectiveAmountEditsSlideTitle,
             subtitle: localizedStrings.collectiveAmountEditsSlideSubtitle,
             infoURL: aboutYiRURL,
-            loggingID: "appcolledits",
+            loggingID: prefixedLoggingID("appcolledits"),
             tappedInfo: tappedInfo
         )
     }
@@ -851,7 +857,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             subtitle: localizedStrings.collectiveEditsPerMinuteSlideSubtitle,
             subtitleType: .markdown,
             infoURL: aboutYiRURL,
-            loggingID: "colleditspm",
+            loggingID: prefixedLoggingID("colleditspm"),
             tappedInfo: tappedInfo
         )
     }
@@ -862,7 +868,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             altText: "",
             title: localizedStrings.noncontributorTitle,
             subtitle: localizedStrings.noncontributorSubtitle,
-            loggingID: "nondonoricon",
+            loggingID: prefixedLoggingID("nondonoricon"),
             contributionStatus: .noncontributor,
             onTappedDonateButton: { [weak self] in
                 self?.handleDonate()
