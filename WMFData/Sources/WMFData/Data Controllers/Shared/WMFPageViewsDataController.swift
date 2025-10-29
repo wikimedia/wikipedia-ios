@@ -296,7 +296,7 @@ public final class WMFPageViewsDataController {
         
         return Int(result)
     }
-    
+
     func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) async throws -> WMFPageViewDates? {
         let backgroundContext = try coreDataStore.newBackgroundContext
         

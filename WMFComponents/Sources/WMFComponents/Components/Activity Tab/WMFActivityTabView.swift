@@ -1,9 +1,10 @@
 import SwiftUI
+import Charts
 
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
-
+    
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -64,8 +65,8 @@ public struct WMFActivityTabView: View {
                     Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
                     Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
                 ],
-            startPoint: UnitPoint(x: 0.5, y: 0),
-            endPoint: UnitPoint(x: 0.5, y: 1)
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1)
             )
         )
     }
@@ -89,7 +90,7 @@ public struct WMFActivityTabView: View {
                         .font(Font(WMFFont.for(.boldTitle1)))
                 )
             )
-
+        
     }
     
     private var articlesReadModule: some View {
@@ -103,6 +104,11 @@ public struct WMFActivityTabView: View {
                     onTapModule: {
                         print("Tapped module")
                         // TODO: Navigate to history below
+                    },
+                    content: {
+                        if let weeklyReads = viewModel.articlesReadViewModel?.weeklyReads {
+                            articlesReadGraph(weeklyReads: weeklyReads)
+                        }
                     }
                 )
             } else {
@@ -120,6 +126,27 @@ public struct WMFActivityTabView: View {
         }
     }
     
+    private func articlesReadGraph(weeklyReads: [Int]) -> some View {
+        Chart {
+            ForEach(weeklyReads.indices, id: \.self) { index in
+                BarMark(
+                    x: .value(viewModel.localizedStrings.week, index),
+                    y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
+                    width: 12
+                )
+                .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.baseBackground))
+                .cornerRadius(1.5)
+            }
+        }
+        .frame(maxWidth: 65, maxHeight: 45)
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
+        .chartPlotStyle { plotArea in
+            plotArea
+                .background(Color.clear)
+        }
+    }
+
     private func topCategoriesModule(categories: [String]) -> some View {
         VStack(alignment: .leading, spacing: 24) {
             HStack {
