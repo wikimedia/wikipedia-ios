@@ -167,7 +167,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             numberOfEditsValue: numberOfEditsValue,
             editFrequencyTitle: WMFLocalizedString("year-in-review-highlights-edit-frequency", value: "How often Wikipedia was edited", comment: "Title for the frequency of edits on Wikipedia in the Year in review highlights slide"),
             editFrequencyValue: editFrequencyValue,
-            logoCaption: WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
+            logoCaption: CommonStrings.logoCaption
         )
     }
 
@@ -984,9 +984,9 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .tappedIntroV3GetStartedWhileLoggedOut:
+        case .presentLoginPromptFromIntroGetStarted:
             showLoginPromptFromIntroV3GetStarted()
-        case .tappedIntroV3DoneWhileLoggedOut:
+        case .presentExitToastFromIntroDone:
             showExitToastFromIntroV3Done()
         case .donate(let getSourceRect):
             
@@ -1093,6 +1093,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true)
+        case .logExperimentAssignment(let assignment):
+            print("🔵🔵🔵🔵TODO: log assignment \(assignment)🔵🔵🔵🔵")
         }
     }
     

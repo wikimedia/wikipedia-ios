@@ -817,8 +817,11 @@ extension WMFAppViewController {
         }
         
         let articlesRead = WMFLocalizedString("activity-tab-articles-read", value: "Articles read this month", comment: "Title for module about articles read this month, displayed below the time spent reading this week")
+
         let articlesReadGraph = WMFLocalizedString("activity-tab-articles-read-graph-label", value: "Articles", comment: "Activity tab articles read graph axis label")
         let weekGraph = WMFLocalizedString("activity-tab-week-graph-label", value: "Week", comment: "Activity tab week graph axis label")
+
+        let topCategories = WMFLocalizedString("activity-tab-top-categories", value: "Top categories this month", comment: "Title for module about top categories this month")
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
@@ -829,7 +832,8 @@ extension WMFAppViewController {
                 timeSpentReading: timeSpentReading,
                 totalArticlesRead: articlesRead,
                 week: weekGraph,
-                articlesRead: articlesReadGraph),
+                articlesRead: articlesReadGraph,
+                topCategories: topCategories),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
@@ -1079,14 +1083,6 @@ extension WMFAppViewController {
            let wikimediaProject = WikimediaProject(siteURL: siteURL),
            let wmfProject = wikimediaProject.wmfProject {
             activityTabViewController.viewModel.project = wmfProject
-        }
-    }
-    
-    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
-        if let username = dataStore.authenticationManager.authStatePermanentUsername {
-            activityTabViewController.viewModel.updateUsername(username: username)
-        } else {
-            activityTabViewController.viewModel.updateUsername(username: "")
         }
     }
     

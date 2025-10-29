@@ -288,6 +288,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public var populateYearInReviewReport: () async throws -> Void
     @Published public var isPopulatingReport: Bool = false
     
+    private lazy var dataController: WMFYearInReviewDataController? = {
+        return try? WMFYearInReviewDataController()
+    }()
+    
     public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool, populateYearInReviewReport: @escaping () async throws -> Void) {
 
         self.localizedStrings = localizedStrings
@@ -336,9 +340,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         var topArticlesSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadCategoriesSlide: WMFYearInReviewSlideStandardViewModel?
         var locationSlide: WMFYearInReviewSlideLocationViewModel?
-        
-        let dataController = try? WMFYearInReviewDataController()
-        
+
         // Fetch YiR report for personalized data, assign to personalized slides
         if let dataController,
            let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) {
@@ -563,13 +565,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     private func updateSlides(isUserPermanent: Bool) {
+        
+        let bypassLoginForPersonalizedFlow = dataController?.bypassLoginForPersonalizedFlow ?? false
 
         var slides: [WMFYearInReviewSlide] = []
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
         
         if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            if isUserPermanent {
+            if isUserPermanent || bypassLoginForPersonalizedFlow {
                 slides.append(.standard(personalizedSlides.readCountSlideV3 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
                 
                 if primaryAppLanguage.isEnglishWikipedia {
@@ -685,7 +689,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
 
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: itemArray),
+            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: itemArray),
             loggingID: "",  // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
@@ -705,7 +709,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let hoursSpent = TableItem(title: localizedStrings.hoursSpentReadingTitle, text: localizedStrings.hoursSpentReadingValue)
         let changesMade = TableItem(title: localizedStrings.numberOfChangesMadeTitle, text: localizedStrings.numberOfChangesMadeValue)
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: [topArticles, hoursSpent, changesMade]),
+            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: [topArticles, hoursSpent, changesMade]),
             loggingID: "", // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
@@ -786,7 +790,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let edits = TableItem(title: localizedStrings.numberOfEditsTitle, text: localizedStrings.numberOfEditsValue)
         let editFrequency = TableItem(title: localizedStrings.editFrequencyTitle, text: localizedStrings.editFrequencyValue)
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: [viewedArticles, edits, editFrequency]),
+            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: [viewedArticles, edits, editFrequency]),
             loggingID: "", // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
@@ -893,10 +897,32 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func tappedIntroV3GetStarted() {
-        if !isUserPermanent {
-            coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
+        
+        let checkLoginAndProceed: () -> Void = {
+            if !self.isUserPermanent {
+                self.coordinatorDelegate?.handleYearInReviewAction(.presentLoginPromptFromIntroGetStarted)
+            } else {
+                self.populateReportAndShowFirstSlide()
+            }
+        }
+        
+        if let dataController {
+            if dataController.needsLoginExperimentAssignment() {
+                do {
+                    let assignment = try dataController.assignLoginExperimentIfNeeded()
+                    coordinatorDelegate?.handleYearInReviewAction(.logExperimentAssignment(assignment: assignment))
+                } catch {
+                    
+                }
+            }
+            
+            if dataController.bypassLoginForPersonalizedFlow {
+                populateReportAndShowFirstSlide()
+            } else {
+                checkLoginAndProceed()
+            }
         } else {
-            populateReportAndShowFirstSlide()
+            checkLoginAndProceed()
         }
     }
     
@@ -1066,7 +1092,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             if isUserPermanent {
                 standardDismissal()
             } else {
-                coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
+                coordinatorDelegate?.handleYearInReviewAction(.presentExitToastFromIntroDone)
             }
         }
     }
@@ -1111,8 +1137,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         let slide = currentSlide
         switch slide {
-        case .contribution:
-            return false
         default:
             break
         }
@@ -1151,7 +1175,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     private func markFirstSlideAsSeen() {
-        if let dataController = try? WMFYearInReviewDataController() {
+        if let dataController {
             dataController.hasSeenYiRIntroSlide = true
             badgeDelegate?.updateYIRBadgeVisibility()
         }

@@ -41,6 +41,11 @@ public struct WMFActivityTabView: View {
                     .frame(maxWidth: .infinity)
                     // Start of modules on top section
                     articlesReadModule
+                    if let model = viewModel.articlesReadViewModel {
+                        if !model.topCategories.isEmpty {
+                            topCategoriesModule(categories: model.topCategories)
+                        }
+                    }
                 }
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,7 +55,7 @@ public struct WMFActivityTabView: View {
             .frame(maxWidth: .infinity)
         }
         .onAppear {
-            viewModel.viewDidLoad()
+            viewModel.fetchData()
             viewModel.hasSeenActivityTab()
         }
         .padding(.top, 16)
@@ -140,5 +145,38 @@ public struct WMFActivityTabView: View {
             plotArea
                 .background(Color.clear)
         }
+    }
+
+    private func topCategoriesModule(categories: [String]) -> some View {
+        VStack(alignment: .leading, spacing: 24) {
+            HStack {
+                if let icon = WMFSFSymbolIcon.for(symbol: .rectangle3) {
+                    Image(uiImage: icon)
+                }
+                Text(viewModel.localizedStrings.topCategories)
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                Spacer()
+            }
+            ForEach(categories.indices, id: \.self) { index in
+                let category = categories[index]
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(category)
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.callout)))
+                    
+                    if index < categories.count - 1 {
+                        Divider()
+                    }
+                }
+            }
+        }
+        .padding(16)
+        .background(Color(theme.paperBackground))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(theme.baseBackground), lineWidth: 0.5)
+        )
     }
 }
