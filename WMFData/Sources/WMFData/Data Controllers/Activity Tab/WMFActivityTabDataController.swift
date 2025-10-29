@@ -106,7 +106,6 @@ public final class WMFActivityTabDataController {
         }
 
         let endDate = now
-        let dataController = try WMFPageViewsDataController()
 
         let categories = try await fetchTopCategories(startDate: startOfMonth, endDate: endDate)
 
