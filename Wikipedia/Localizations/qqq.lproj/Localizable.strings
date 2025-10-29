@@ -98,6 +98,7 @@
 "activity-tab-survey-title" = "Satisfaction survey view title";
 "activity-tab-time-spent-reading" = "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes";
 "activity-tab-title" = "Activity title";
+"activity-tab-top-categories" = "Title for module about top categories this month";
 "activity-tab-unsatisfied" = "Satisfaction survey unsatisfied";
 "activity-tab-usernames-reading-title" = "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username.";
 "activity-tab-very-satisfied" = "Satisfaction survey very satisfied";

@@ -8,6 +8,7 @@ struct ArticlesReadViewModel {
     var minutesRead: Int
     var totalArticlesRead: Int
     var dateTimeLastRead: String
+	var topCategories: [String]
 }
 
 @MainActor
@@ -30,10 +31,12 @@ public class WMFActivityTabViewModel: ObservableObject {
             async let timeResult = dataController.getTimeReadPast7Days()
             async let articlesResult = dataController.getArticlesRead()
             async let dateResult = dataController.getMostRecentReadDateTime()
+            async let categoriesResult = dataController.getTopCategories()
             
             let (hours, minutes) = (try? await timeResult) ?? (0, 0)
             let totalArticlesRead = (try? await articlesResult) ?? 0
             let dateTime = (try? await dateResult) ?? Date()
+			let categories = (try? await categoriesResult) ?? []
             
             let formattedDate = self.formatDateTime(dateTime)
             
@@ -43,7 +46,8 @@ public class WMFActivityTabViewModel: ObservableObject {
                     hoursRead: hours,
                     minutesRead: minutes,
                     totalArticlesRead: totalArticlesRead,
-                    dateTimeLastRead: formattedDate
+                    dateTimeLastRead: formattedDate,
+					topCategories: categories
                 )
             }
         }
@@ -91,6 +95,12 @@ public class WMFActivityTabViewModel: ObservableObject {
         articlesReadViewModel = model
     }
     
+    public func updateTopCategories(topCategories: [String]) {
+        guard var model = articlesReadViewModel else { return }
+        model.topCategories = topCategories
+        articlesReadViewModel = model
+    }
+    
     // MARK: - Helpers
     
     private func formatDateTime(_ dateTime: Date) -> String {
@@ -106,21 +116,16 @@ public class WMFActivityTabViewModel: ObservableObject {
         let onWikipediaiOS: String
         let timeSpentReading: String
         let totalArticlesRead: String
+        let topCategories: String
         
-        public init(
-            userNamesReading: @escaping (String) -> String,
-            noUsernameReading: String,
-            totalHoursMinutesRead: @escaping (Int, Int) -> String,
-            onWikipediaiOS: String,
-            timeSpentReading: String,
-            totalArticlesRead: String
-        ) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, topCategories: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
             self.onWikipediaiOS = onWikipediaiOS
             self.timeSpentReading = timeSpentReading
             self.totalArticlesRead = totalArticlesRead
+            self.topCategories = topCategories
         }
     }
 }
