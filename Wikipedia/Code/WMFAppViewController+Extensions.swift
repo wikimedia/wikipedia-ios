@@ -837,7 +837,7 @@ extension WMFAppViewController {
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
-        })
+        }, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,

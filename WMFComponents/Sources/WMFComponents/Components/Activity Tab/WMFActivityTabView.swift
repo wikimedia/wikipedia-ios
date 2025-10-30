@@ -14,61 +14,65 @@ public struct WMFActivityTabView: View {
     }
     
     public var body: some View {
-        ZStack {
-            VStack(spacing: 20) {
-                VStack(alignment: .center, spacing: 8) {
-                    Text(viewModel.usernamesReading)
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .font(Font(WMFFont.for(.boldHeadline)))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    Text(viewModel.localizedStrings.onWikipediaiOS)
-                        .font(.custom("Menlo", size: 11, relativeTo: .caption2))
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
-                        .background(
-                            Capsule()
-                                .fill(Color(uiColor: WMFColor.blue100))
-                        )
-                }
-                VStack(alignment: .leading, spacing: 16) {
+        if viewModel.isLoggedIn {
+            ZStack {
+                VStack(spacing: 20) {
                     VStack(alignment: .center, spacing: 8) {
-                        hoursMinutesRead
-                        Text(viewModel.localizedStrings.timeSpentReading)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                        Text(viewModel.usernamesReading)
                             .foregroundColor(Color(uiColor: theme.text))
+                            .font(Font(WMFFont.for(.boldHeadline)))
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        Text(viewModel.localizedStrings.onWikipediaiOS)
+                            .font(.custom("Menlo", size: 11, relativeTo: .caption2))
+                            .foregroundColor(Color(uiColor: theme.text))
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 8)
+                            .background(
+                                Capsule()
+                                    .fill(Color(uiColor: WMFColor.blue100))
+                            )
                     }
-                    .frame(maxWidth: .infinity)
-                    // Start of modules on top section
-                    articlesReadModule
-                    if let model = viewModel.articlesReadViewModel {
-                        if !model.topCategories.isEmpty {
-                            topCategoriesModule(categories: model.topCategories)
+                    VStack(alignment: .leading, spacing: 16) {
+                        VStack(alignment: .center, spacing: 8) {
+                            hoursMinutesRead
+                            Text(viewModel.localizedStrings.timeSpentReading)
+                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                                .foregroundColor(Color(uiColor: theme.text))
+                        }
+                        .frame(maxWidth: .infinity)
+                        // Start of modules on top section
+                        articlesReadModule
+                        if let model = viewModel.articlesReadViewModel {
+                            if !model.topCategories.isEmpty {
+                                topCategoriesModule(categories: model.topCategories)
+                            }
                         }
                     }
+                    .padding(.horizontal, 16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    Spacer()
                 }
-                .padding(.horizontal, 16)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                Spacer()
+                .padding(.top, 16)
+                .frame(maxWidth: .infinity)
+            }
+            .onAppear {
+                viewModel.fetchData()
+                viewModel.hasSeenActivityTab()
             }
             .padding(.top, 16)
-            .frame(maxWidth: .infinity)
-        }
-        .onAppear {
-            viewModel.fetchData()
-            viewModel.hasSeenActivityTab()
-        }
-        .padding(.top, 16)
-        .background(
-            LinearGradient(
-                stops: [
-                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
-                    Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
-                ],
-                startPoint: UnitPoint(x: 0.5, y: 0),
-                endPoint: UnitPoint(x: 0.5, y: 1)
+            .background(
+                LinearGradient(
+                    stops: [
+                        Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
+                        Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
+                    ],
+                    startPoint: UnitPoint(x: 0.5, y: 0),
+                    endPoint: UnitPoint(x: 0.5, y: 1)
+                )
             )
-        )
+        } else {
+            Text("You must be logged in.")
+        }
     }
     
     private var hoursMinutesRead: some View {
