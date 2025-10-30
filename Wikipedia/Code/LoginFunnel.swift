@@ -84,4 +84,9 @@
     public func logLoginStartFromActivityTab() {
         logEvent(category: .login, label: nil, action: .loginStart)
     }
+    
+    // MARK: - Year in Review
+    public func logLoginStartFromYearInReview() {
+        logEvent(category: .yir, label: nil, action: .loginStart)
+    }
 }
