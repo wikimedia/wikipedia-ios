@@ -102,6 +102,7 @@ public enum WMFSFSymbolIcon {
     case bookmark
     case bookmarkFill
     case book
+    case bookPages
     case map
     case squareAndArrowUp
     case circleFill
@@ -120,6 +121,8 @@ public enum WMFSFSymbolIcon {
     case add
     case closeButtonFill
     case questionMarkBubble
+    case lock
+    case rectangle3
 
     public var name: String? {
         switch self {
@@ -258,6 +261,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "bookmark.fill", withConfiguration: configuration)
         case .book:
             image = UIImage(systemName: "book", withConfiguration: configuration)
+        case .bookPages:
+            image = UIImage(systemName: "book.pages", withConfiguration: configuration)
         case .map:
             image = UIImage(systemName: "map", withConfiguration: configuration)
         case .squareAndArrowUp:
@@ -297,6 +302,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "x.circle.fill", withConfiguration: configuration)
         case .questionMarkBubble:
             image = UIImage(systemName: "questionmark.bubble", withConfiguration: configuration)
+        case .lock:
+            image = UIImage(systemName: "lock", withConfiguration: configuration)
+        case .rectangle3:
+            image = UIImage(systemName: "rectangle.3.group", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

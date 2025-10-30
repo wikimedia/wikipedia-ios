@@ -71,6 +71,8 @@
 "activity-tab-add-images-subtitle" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "activity-tab-add-images-title" = "Add images";
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
+"activity-tab-articles-read" = "Articles read this month";
+"activity-tab-articles-read-graph-label" = "Articles";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
@@ -80,6 +82,16 @@
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
+"activity-tab-onboarding-first-item-subtitle" = "See how much time you've spent reading and which articles or topics you've explored over time.";
+"activity-tab-onboarding-first-item-title" = "Reading patterns";
+"activity-tab-onboarding-fourth-item-subtitle" = "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.";
+"activity-tab-onboarding-fourth-item-title" = "Stay in control";
+"activity-tab-onboarding-header" = "Introducing Activity";
+"activity-tab-onboarding-second-button-title" = "Learn more about Activity";
+"activity-tab-onboarding-second-item-subtitle" = "Discover insights about your contributions and the reach of the knowledge you've shared.";
+"activity-tab-onboarding-second-item-title" = "Impact highlights";
+"activity-tab-onboarding-third-item-subtitle" = "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.";
+"activity-tab-onboarding-third-item-title" = "More ways to engage";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-start-editing" = "Start editing";
@@ -87,6 +99,7 @@
 "activity-tab-survey-title" = "Satisfaction survey";
 "activity-tab-time-spent-reading" = "Time spent reading this week";
 "activity-tab-title" = "Activity";
+"activity-tab-top-categories" = "Top categories this month";
 "activity-tab-unsatisfied" = "Unsatisfied";
 "activity-tab-usernames-reading-title" = "$1's reading";
 "activity-tab-very-satisfied" = "Very satisfied";
@@ -94,6 +107,7 @@
 "activity-tab-view-editing-history" = "View editing history";
 "activity-tab-view-reading-history" = "View reading history";
 "activity-tab-view-saved-articles" = "View saved articles";
+"activity-tab-week-graph-label" = "Week";
 "activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
 "activity-tab-you-read" = "You read {{PLURAL:$1|$1 article|$1 articles}} this week.";
 "activity-tab-you-saved" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this week.";

@@ -81,7 +81,7 @@ public final class WMFCategoriesDataController {
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
-    
+
     public func fetchCategoryCounts(startDate: Date, endDate: Date) async throws -> [WMFCategory: Int] {
         
         let context = try coreDataStore.newBackgroundContext

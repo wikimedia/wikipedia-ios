@@ -103,24 +103,40 @@
 "activity-tab-add-images-subtitle" = "Lägg till föreslagna bilder till Wikipediaartiklar för att öka förståelsen.";
 "activity-tab-add-images-title" = "Lägg till bilder";
 "activity-tab-additional-thoughts" = "Några ytterligare kommentarer?";
+"activity-tab-articles-read" = "Artiklar som har lästs denna månad";
+"activity-tab-articles-read-graph-label" = "Artiklar";
 "activity-tab-generic-no-edits" = "Du har inte redigerat den här veckan. Börja nu för att spåra dina bidrag.";
 "activity-tab-greeting" = "$1Hej $2$3 👋 Här kommer din veckosammanfattning från Wikipedia.";
+"activity-tab-hours-minutes-read" = "$1h $2m";
+"activity-tab-hours-on-wikipedia-ios" = "PÅ WIKIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Spåra vad du läst och visa dina bidrag över tid på ett nytt sätt";
 "activity-tab-logged-out-title" = "Logga in eller skapa ett konto för att se mer redigerings- och läsaktivitet.";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "Du har inte redigerat den här veckan. Lägg till bilder för att göra artiklar lättare att förstå.";
+"activity-tab-no-username-reading-title" = "Din läsning";
+"activity-tab-onboarding-first-item-subtitle" = "Se hur mycket tid du har ägnat åt att läsa och vilka artiklar eller ämnen du har utforskat under tiden.";
+"activity-tab-onboarding-first-item-title" = "Läsmönster";
+"activity-tab-onboarding-fourth-item-subtitle" = "Välj vilka moduler som ska visas. All personlig data förblir privat på din enhet och din webbhistorik kan rensas när som helst.";
+"activity-tab-onboarding-fourth-item-title" = "Var i kontroll";
+"activity-tab-onboarding-header" = "Introduktion till aktivitet";
+"activity-tab-onboarding-second-button-title" = "Läs mer om aktivitet";
+"activity-tab-onboarding-third-item-title" = "Fler sätt att engagera dig";
 "activity-tab-read-title" = "Visa redigeringshistorik";
 "activity-tab-satisfied" = "Nöjd";
 "activity-tab-start-editing" = "Börja redigera";
 "activity-tab-survey" = "Är du nöjd med din \"Aktivitet\"-skärm? Vad mer skulle du vilja se här i framtiden?";
 "activity-tab-survey-title" = "Nöjdhetsundersökning";
+"activity-tab-time-spent-reading" = "Tid som ägnats åt att läsa denna vecka";
 "activity-tab-title" = "Aktivitet";
+"activity-tab-top-categories" = "Mest lästa kategorier denna månad";
 "activity-tab-unsatisfied" = "Inte nöjd";
+"activity-tab-usernames-reading-title" = "$1s läsning";
 "activity-tab-very-satisfied" = "Mycket nöjd";
 "activity-tab-very-unsatisfied" = "Mycket missnöjd";
 "activity-tab-view-editing-history" = "Visa redigeringshistorik";
 "activity-tab-view-reading-history" = "Visa redigeringshistorik";
 "activity-tab-view-saved-articles" = "Visa sparade artiklar";
+"activity-tab-week-graph-label" = "Vecka";
 "activity-tab-you-edited" = "Du redigerade {{PLURAL:$1|$1 gång|$1 gånger}} denna vecka.";
 "activity-tab-you-read" = "Du läste {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
 "activity-tab-you-saved" = "Du sparade {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
@@ -140,6 +156,7 @@
 "appearance-settings-image-dimming-footer" = "Minska opaciteten för bilder i det mörka och svarta temat";
 "appearance-settings-reading-themes" = "Lästeman";
 "appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
+"appearance-settings-set-icon-footer" = "Bidragsgivarikonen hyllar dina bidrag till Wikipedia i appen under 2025. Den kommer att finnas kvar tills nästa årsöversikt.";
 "appearance-settings-set-icon-header" = "Appikon";
 "appearance-settings-text-sizing-example-text" = "Dra i reglaget för att ändra textstorleken för artiklar. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
 "appearance-settings-theme-options" = "Temaalternativ";
@@ -261,11 +278,12 @@
 "developer-settings-activity-tab-group-B" = "Ändra aktivitetsfliken till grupp B";
 "developer-settings-activity-tab-group-C" = "Ändra aktivitetsfliken till grupp C";
 "developer-settings-bypass-donation" = "Hoppa över donation";
+"developer-settings-dynamic-tabs-group-B-v2" = "Aktivera flikar V2 med grupp B";
+"developer-settings-dynamic-tabs-group-C-v2" = "Aktivera flikar V2 med grupp C";
 "developer-settings-enable-year-in-review" = "Aktivera årsöversikt";
 "developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Publicera inte redigering med bildrekommendationer.";
-// Fuzzy
-"did-you-know" = "Visste du att";
+"did-you-know" = "Visste du att?";
 "diff-article-revision-history" = "Artikelns versionshistorik";
 "diff-change-added" = "Nytt innehåll, $1, slut på nytt innehåll.";
 "diff-change-paragraph-lines-moved-down" = "Stycke flyttades ned {{PLURAL:$1|0=0 rader|$1 rad|$1 rader}}. Gå till den nya platsen.";
@@ -748,22 +766,15 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "main-page" = "Huvudsida";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "Under 2024 lade volontärer till 4 104 852 969 byte på engelskspråkiga Wikipedia. Summan av deras arbete leder tillsammans till en faktabaserad och pålitlig kunskapsresurs för omvärlden som ständigt förbättras. Alla har kunskap att dela med sig, så [läs om hur man deltar]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "3,4 miljarder byte lades till";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "Volontärer gjorde 98 222 407 ändringar på över 300 olika språkversioner av Wikipedia. Över 37 miljoner ändringar gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "Redigerare gjorde 98 miljoner ändringar i år";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "Folk tillbringade uppskattningsvis 2,9 miljarder timmar (över 331 000 år!) på att läsa på engelskspråkiga Wikipedia under 2024. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "Vi spenderade 2,4 miljarder timmar på att läsa";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiva användare av iOS-appen hade över 62,2 miljoner läslistor. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "Vi hade över 37 miljoner sparade artiklar";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "Under $1 lade volontärer till $2 byte på engelskspråkiga Wikipedia. Summan av deras arbete leder tillsammans till en faktabaserad och pålitlig kunskapsresurs för omvärlden som ständigt förbättras. Alla har kunskap att dela med sig, så [läs om hur man deltar]($3).";
+"microsite-yir-english-edits-bytes-slide-title" = "$1 byte lades till";
+"microsite-yir-english-edits-slide-subtitle" = "Volontärer gjorde $1 ändringar på över $2 olika språkversioner av Wikipedia. $3 ändringar gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.";
+"microsite-yir-english-edits-slide-title" = "Redigerare gjorde $1 ändringar i år";
+"microsite-yir-english-reading-slide-subtitle" = "Folk tillbringade uppskattningsvis $1 timmar (omkring $2 år!) på att läsa på engelskspråkiga Wikipedia under $3. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.";
+"microsite-yir-english-reading-slide-subtitle-short" = "Folk spenderade uppskattningsvis $1 timmar (omkring $2 år!) på att läsa på engelskspråkiga Wikipedia under $3.";
+"microsite-yir-english-reading-slide-title" = "Vi spenderade $1 timmar på att läsa";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiva användare hade $1 sparade läslistor i år. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
+"microsite-yir-english-saved-reading-slide-title" = "Vi hade över $1 sparade artiklar";
 // Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "De 5 mest besökta artiklarna på engelskspråkiga Wikipedia var:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nLäs mer på $6vårt dedikerade blogginlägg$7.";
 "microsite-yir-english-top-read-slide-title" = "De populäraste artiklarna på engelskspråkiga Wikipedia";
@@ -1158,8 +1169,7 @@
 "serbian-variants-alert-body" = "Wikipediaappen stödjer följande serbiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nсрпски ћирилица serbiska, kyrilliska (sr-ec)\nsrpski latinica serbiska, latinska (sr-el)";
 "serbian-variants-alert-title" = "Uppdaterades till stöd för serbiska varianter";
 "settings-account" = "Konto";
-// Fuzzy
-"settings-appearance" = "Läsinställningar";
+"settings-appearance" = "Apptema";
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
 "settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";
@@ -1228,14 +1238,19 @@
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
 "table-of-contents-subheading-label" = "Underrubrik $1";
 "tabs-close-tab" = "Stäng fliken";
+"tabs-empty-view-subtitle" = "Tryck på \"+\" för att lägga till flikar i det här utrymmet eller tryck länge på en artikellänk för att öppna den i en ny flik.";
+"tabs-empty-view-title" = "Dina flikar kommer att visas här";
+"tabs-hide-suggested-articles" = "Dölj artikelförslag";
 "tabs-main-page-description" = "Upptäck utvalda artiklar, de senaste nyheterna, intressanta fakta och viktig statistik på Wikipedias huvudsida.";
 "tabs-main-page-subtitle" = "Wikipedias dagliga höjdpunkter";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 flik|$1 flikar}}";
 "tabs-open-tab" = "Öppna fliken";
+"tabs-overview-recommendations-title" = "Baserat på dina senaste flikar";
 "tabs-overview-tooltip-body" = "Växla mellan öppna artiklar i fliköversikten.";
 "tabs-overview-tooltip-title" = "Fliköversikt";
-// Fuzzy
-"tabs-survey-title" = "Hjälp till att förbättra flikfunktionen. Är du nöjd med den här funktionen?";
+"tabs-show-suggested-articles" = "Visa artikelförslag";
+"tabs-suggested-articles-hide-suggestions-confirmation" = "Förslagen är nu dolda";
+"tabs-survey-title" = "Hjälp till att förbättra flikarna. Är du nöjd med den här funktionen?";
 "tabs-thumbnail-description" = "Utforska Wikipedia, den fria encyklopedin som alla kan redigera";
 "tabs-thumbnail-subtitle" = "Börja söka här";
 "tabs-title" = "Flikar";
@@ -1484,8 +1499,7 @@
 "year-in-review-base-reading-title" = "Wikipedia gjordes tillgänglig på fler än 300 språk";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "Aktiva användare av iOS-appen hade över 62,2 miljoner läslistor. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
-// Fuzzy
-"year-in-review-base-saved-title" = "Vi hade över $1 miljon läslistor";
+"year-in-review-base-saved-title" = "Appanvändare hade $1 sparade artiklar";
 // Fuzzy
 "year-in-review-base-viewed-subtitle" = "Användare har besökt Wikipedia-artiklar i iOS-appen $1 miljarder gånger. För människor runt om i världen är Wikipedia det första anhalten för att besvara en fråga, söka information för skolan eller jobbet eller lära sig ny fakta.";
 // Fuzzy
@@ -1542,6 +1556,7 @@
 "year-in-review-personalized-date-day-footer-v3" = "Favoritdag för att läsa";
 "year-in-review-personalized-date-month-footer-v3" = "Månaden du läste mest";
 "year-in-review-personalized-date-time-footer-v3" = "Favorittidpunkt för att läsa";
+"year-in-review-personalized-date-title-v3" = "Du har ett tydligt läsmönster";
 "year-in-review-personalized-donate-subtitle" = "Tack för att du investerar i framtiden för gratis kunskap. I år förbättrade Wikimedia Foundation tekniken som alla läsare och volontärer använder, utvecklade samarbetsverktyg och lade till stöd för Wikipedia på fler språk. [Läs mer om vårt arbete]($1).";
 "year-in-review-personalized-donate-title" = "Din generositet bidrog till att låta Wikipedia blomstra";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-logotyp";

@@ -1,9 +1,10 @@
 import SwiftUI
+import Charts
 
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
-
+    
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -30,18 +31,32 @@ public struct WMFActivityTabView: View {
                                 .fill(Color(uiColor: WMFColor.blue100))
                         )
                 }
-                VStack(alignment: .center, spacing: 8) {
-                    hoursMinutesRead
-                    Text(viewModel.localizedStrings.timeSpentReading)
-                        .font(Font(WMFFont.for(.semiboldHeadline)))
-                        .foregroundColor(Color(uiColor: theme.text))
+                VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .center, spacing: 8) {
+                        hoursMinutesRead
+                        Text(viewModel.localizedStrings.timeSpentReading)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundColor(Color(uiColor: theme.text))
+                    }
+                    .frame(maxWidth: .infinity)
+                    // Start of modules on top section
+                    articlesReadModule
+                    if let model = viewModel.articlesReadViewModel {
+                        if !model.topCategories.isEmpty {
+                            topCategoriesModule(categories: model.topCategories)
+                        }
+                    }
                 }
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
             }
+            .padding(.top, 16)
             .frame(maxWidth: .infinity)
         }
         .onAppear {
             viewModel.fetchData()
+            viewModel.hasSeenActivityTab()
         }
         .padding(.top, 16)
         .background(
@@ -50,8 +65,8 @@ public struct WMFActivityTabView: View {
                     Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
                     Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
                 ],
-            startPoint: UnitPoint(x: 0.5, y: 0),
-            endPoint: UnitPoint(x: 0.5, y: 1)
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1)
             )
         )
     }
@@ -75,6 +90,93 @@ public struct WMFActivityTabView: View {
                         .font(Font(WMFFont.for(.boldTitle1)))
                 )
             )
+        
+    }
+    
+    private var articlesReadModule: some View {
+        Group {
+            if let model = viewModel.articlesReadViewModel {
+                WMFActivityTabInfoCardView(
+                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                    title: viewModel.localizedStrings.totalArticlesRead,
+                    dateText: model.dateTimeLastRead,
+                    amount: model.totalArticlesRead,
+                    onTapModule: {
+                        print("Tapped module")
+                        // TODO: Navigate to history below
+                    },
+                    content: {
+                        if let weeklyReads = viewModel.articlesReadViewModel?.weeklyReads {
+                            articlesReadGraph(weeklyReads: weeklyReads)
+                        }
+                    }
+                )
+            } else {
+                WMFActivityTabInfoCardView(
+                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                    title: viewModel.localizedStrings.totalArticlesRead,
+                    dateText: nil,
+                    amount: 0,
+                    onTapModule: {
+                        print("Tapped module")
+                        // TODO: Navigate to history below
+                    }
+                )
+            }
+        }
+    }
+    
+    private func articlesReadGraph(weeklyReads: [Int]) -> some View {
+        Chart {
+            ForEach(weeklyReads.indices, id: \.self) { index in
+                BarMark(
+                    x: .value(viewModel.localizedStrings.week, index),
+                    y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
+                    width: 12
+                )
+                .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.baseBackground))
+                .cornerRadius(1.5)
+            }
+        }
+        .frame(maxWidth: 65, maxHeight: 45)
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
+        .chartPlotStyle { plotArea in
+            plotArea
+                .background(Color.clear)
+        }
+    }
 
+    private func topCategoriesModule(categories: [String]) -> some View {
+        VStack(alignment: .leading, spacing: 24) {
+            HStack {
+                if let icon = WMFSFSymbolIcon.for(symbol: .rectangle3) {
+                    Image(uiImage: icon)
+                }
+                Text(viewModel.localizedStrings.topCategories)
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                Spacer()
+            }
+            ForEach(categories.indices, id: \.self) { index in
+                let category = categories[index]
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(category)
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.callout)))
+                    
+                    if index < categories.count - 1 {
+                        Divider()
+                    }
+                }
+            }
+        }
+        .padding(16)
+        .background(Color(theme.paperBackground))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(theme.baseBackground), lineWidth: 0.5)
+        )
     }
 }
