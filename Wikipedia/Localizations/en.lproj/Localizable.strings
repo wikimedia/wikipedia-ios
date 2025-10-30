@@ -1461,8 +1461,6 @@
 "wikitext-upload-save-sign-in" = "Log in";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
-"year-in-review-base-donate-subtitle" = "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work]($1).";
-"year-in-review-base-donate-title" = "0 ads served on Wikipedia";
 "year-in-review-base-editors-subtitle" = "The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
 "year-in-review-base-editors-title" = "Editors on the official Wikipedia apps made $1 edits";
 "year-in-review-base-edits-subtitle" = "Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate]($1).";
@@ -1480,7 +1478,6 @@
 "year-in-review-collective-explore" = "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.";
 "year-in-review-collective-languages" = "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.";
 "year-in-review-collective-saved-articles" = "A puzzle globe featuring Wikipedia's logo, representing global collaboration.";
-"year-in-review-collective-zero-ads" = "Wikimedia logo";
 "year-in-review-contributor-gift-subtitle" = "If you don’t turn it on now, you can access it later in Settings under Theme.";
 "year-in-review-contributor-gift-title" = "Activate new app icon";
 "year-in-review-contributor-slide-subtitle-donor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in $1 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.";

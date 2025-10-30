@@ -19,7 +19,7 @@ import CoreData
     private let experimentsDataController: WMFExperimentsDataController?
 
     @objc public static let targetYear = 2025
-    public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
+    public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2025_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
     private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
@@ -299,6 +299,10 @@ import CoreData
             return true
         }
         
+        if developerSettingsDataController.enableYiRLoginExperimentControl {
+            return false
+        }
+        
         let assignment = getLoginExperimentAssignment()
         if let assignment {
             switch assignment {
@@ -312,7 +316,7 @@ import CoreData
         return false
     }
     
-    private func getLoginExperimentAssignment() -> YiRLoginExperimentAssignment? {
+    public func getLoginExperimentAssignment() -> YiRLoginExperimentAssignment? {
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return nil
         }
