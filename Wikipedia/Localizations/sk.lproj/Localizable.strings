@@ -106,6 +106,7 @@
 "appearance-settings-image-dimming-footer" = "Znížiť priehľadnosť obrázkov v tmavej a čiernej téme";
 "appearance-settings-reading-themes" = "Čítacie témy";
 "appearance-settings-set-automatic-table-opening" = "Nastavenia tabuliek";
+"appearance-settings-set-icon-header" = "Ikona aplikácie";
 "appearance-settings-text-sizing-example-text" = "Posuňte posuvníkom pre zmenu veľkosti písma článku. Pre zmenu veľkosti písma v iných častiach aplikácie zmeňte veľkosť písma v systémových nastaveniach.";
 "appearance-settings-theme-options" = "Nastavenia témy vzhľadu";
 "article-about-title" = "O tomto článku";
@@ -445,6 +446,9 @@
 "icon-shortcut-random-title" = "Náhodný článok";
 "icon-shortcut-search-title" = "Hľadať";
 "image-gallery-unknown-owner" = "Neznámy autor.";
+"image-rec-survey-submit-button" = "Odoslať";
+"image-rec-survey-title" = "Dôvod";
+"image-rec-view-article" = "Zobraziť článok";
 "image-recommendations-email-fifth-line" = "[Snímky obrazovky alebo odkazy]";
 "image-recs-no-title" = "Nie";
 "image-recs-yes-title" = "Áno";
@@ -524,6 +528,7 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 míľ";
+"new-article-tab-settings-recommendations" = "Odporúčania";
 "new-password-instructions" = "Ste prihlásení s dočasným heslom. Ak chcete dokončiť prihlásenie, nastavte si tu nové heslo.";
 "new-password-title" = "Nastavte si heslo";
 "new-tab" = "Nová karta";
@@ -670,8 +675,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
-// Fuzzy
-"page-history-bot-edits" = "úpravy botov";
+"page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Ťuknite pre vybratie dvoch revízií na porovnanie";
 "page-history-compare-title" = "Porovnať";
 "page-history-graph-accessibility-label" = "Graf úprav v čase";
@@ -734,6 +738,7 @@
 "potd-widget-title" = "Obrázok dňa";
 "preference-summary-eventlogging-opt-in" = "Povoliť Nadácii Wikimedia zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu";
 "privacy-policy-title" = "Zásady ochrany súkromia";
+"profile-button-accessibility-label" = "Profil";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikiknihy";
 "project-name-wikidata" = "Wikiúdaje";
@@ -873,13 +878,13 @@
 "serbian-variants-alert-body" = "Wikipédia teraz podporuje aj varianty srbského jazyka ako primárny a sekundárny jazyk aplikácie:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Aktualizácie podpory variánt srbského jazyka";
 "settings-account" = "Účet";
-// Fuzzy
-"settings-appearance" = "Nastavenia čítania";
+"settings-appearance" = "Téma vzhľadu aplikácie";
 "settings-clear-cache" = "Vyčistiť údaje vo vyrovnávacej pamäti";
 "settings-clear-cache-are-you-sure-message" = "Vyčistenie údajov vo vyrovnávacej pamäti uvoľní $1 miesta. Vaše uložené stránky sa neodstránia.";
 "settings-clear-cache-are-you-sure-title" = "Naozaj chcete vyčistiť údaje vo vyrovnávacej pamäti?";
 "settings-clear-cache-cancel" = "Zrušiť";
 "settings-clear-cache-ok" = "Vyčistiť vyrovnávaciu pamäť";
+"settings-donate" = "Darovať";
 "settings-help-and-feedback" = "Pomoc a spätná väzba";
 "settings-language-bar" = "Zobraziť pri vyhľadávaní jazyky";
 "settings-languages-feed-customization" = "Prispôsobením kanálu Objaviť môžete nastaviť, ktoré jazyky sa v ňom zobrazia.";
@@ -937,18 +942,26 @@
 "table-of-contents-heading" = "Obsah";
 "table-of-contents-hide-button-label" = "Skryť tabuľku s obsahom";
 "table-of-contents-subheading-label" = "Podtitulok $1";
+"tabs-show-suggested-articles" = "Zobraziť návrhy článkov";
 "tachelhit-variants-alert-body" = "Wikipédia teraz podporuje aj varianty jazyka tachelhit ako primárny a sekundárny jazyk aplikácie:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Aktualizácie podpory variánt jazyka tachelhit";
 "tajik-variants-alert-body" = "Wikipédia teraz podporuje aj varianty tajik ako primárny a sekundárny jazyk aplikácie:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "Aktualizácie podpory variánt jazyka tajik";
+"talk-page-change-language" = "Zmeniť jazyk";
 "talk-page-discussion-read-accessibility-label" = "Prečítané";
 "talk-page-discussion-unread-accessibility-label" = "Neprečítané";
+"talk-page-error-alert-title" = "Neočakávaná chyba";
+"talk-page-error-loading-subtitle" = "Niečo sa pokazilo.";
+"talk-page-find-in-page-button" = "Nájsť na stránke";
 "talk-page-new-banner-subtitle" = "Pamätajte, všetci sme tu ľudia";
 "talk-page-new-banner-title" = "Buďte milí";
 "talk-page-new-reply-success-text" = "Vaša odpoveď bola úspešne zverejnená";
 "talk-page-new-topic-success-text" = "Vaša diskusia bola úspešne zverejnená";
+"talk-page-reply-button" = "Odpovedať";
 "talk-page-title-article-talk" = "Článok Diskusia";
 "talk-page-title-user-talk" = "Diskusia s redaktorom";
+"talk-pages-topic-compose-body-placeholder" = "Popis";
+"temporary-account" = "Dočasný účet";
 "terms-of-use-title" = "Podmienky používania";
 "theme-black-display-name" = "Čierna";
 "theme-dark-display-name" = "Tmavá";
@@ -956,6 +969,7 @@
 "theme-default-explanation" = "Prispôsobené vzhľadu systému";
 "theme-light-display-name" = "Svetlá";
 "theme-sepia-display-name" = "Sépia";
+"today-title" = "Dnes";
 "top-read-widget-description" = "Zistite čo svet dnes číta na Wikipédii.";
 "top-read-widget-readers-count" = "$1 čitateľov";
 "top-read-widget-title" = "Najčítanejšie články";
@@ -973,6 +987,9 @@
 "vanish-account-warning-title" = "Upozornenie";
 "variants-alert-dismiss-button" = "Nie, vďaka";
 "variants-alert-preferences-button" = "Skontrolovať Vaše nastavenia";
+"watchlist-filter-automated-contributions-options-bot" = "Bot";
+"watchlist-filter-automated-contributions-options-human" = "Človek (nie bot)";
+"welcome-data-privacy-title" = "Údaje a súkromie";
 "welcome-exploration-explore-feed-description" = "Odporúčané čítanie a denné články z našej komunity";
 "welcome-exploration-explore-feed-title" = "Objaviť";
 "welcome-exploration-on-this-day-description" = "Cestujte späť v čase, aby ste sa dozvedeli, čo sa dialo v histórii";
@@ -1013,3 +1030,16 @@
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho zariadenia. Ak $1, budete mať viac súkromia.";
 "wikitext-upload-save-sign-in" = "Prihlásiť sa";
 "wikitext-upload-save-terms-name" = "Podmienky používania";
+"year-in-review-collective-zero-ads" = "Logo Wikimédie";
+"year-in-review-donate" = "Darovať";
+"year-in-review-donate-now" = "Darovať teraz";
+"year-in-review-finish" = "Dokončiť";
+"year-in-review-highlights-articles-viewed" = "Počet zobrazených článkov";
+"year-in-review-highlights-share-logo-caption" = "Logo Wikipédie";
+"year-in-review-personalized-donation-thank-you" = "Logo Wikimédie";
+"year-in-review-time-afternoon" = "Popoludnie";
+"year-in-review-time-evening" = "Večer";
+"year-in-review-time-midday" = "Poludnie";
+"year-in-review-time-morning" = "Ráno";
+"year-in-review-time-night" = "Noc";
+"yesterday-title" = "Včera";
