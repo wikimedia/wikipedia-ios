@@ -93,6 +93,7 @@
 "activity-tab-onboarding-third-item-subtitle" = "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.";
 "activity-tab-onboarding-third-item-title" = "More ways to engage";
 "activity-tab-read-title" = "View reading history";
+"activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-saved" = "Articles saved this month";
 "activity-tab-start-editing" = "Start editing";

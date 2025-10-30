@@ -127,7 +127,6 @@ public struct WMFActivityTabView: View {
         }
     }
     
-    
     private var savedArticlesModule: some View {
         Group {
             if let model = viewModel.articlesReadViewModel {
@@ -137,14 +136,13 @@ public struct WMFActivityTabView: View {
                     dateText: model.dateTimeLastSaved,
                     amount: model.articlesSavedAmount,
                     onTapModule: {
-                        print("Tapped module")
                         viewModel.navigateToSaved?()
+                    },
+                    content: {
+                        if let savedArticleImageList = viewModel.articlesReadViewModel?.articlesSavedImages, !savedArticleImageList.isEmpty {
+                            savedArticlesImages(images: savedArticleImageList)
+                        }
                     }
-//                    ,content: {
-//                        if let weeklyReads = viewModel.articlesReadViewModel?.weeklyReads {
-//                            articlesReadGraph(weeklyReads: weeklyReads)
-//                        }
-//                    }
                 )
             } else {
                 WMFActivityTabInfoCardView(
@@ -153,14 +151,53 @@ public struct WMFActivityTabView: View {
                     dateText: nil,
                     amount: 0,
                     onTapModule: {
-                        print("Tapped module")
-                        // TODO: tap to saved
+                        viewModel.navigateToSaved?()
                     }
                 )
             }
         }
     }
     
+    private func savedArticlesImages(images: [URL]) -> some View {
+        HStack(spacing: 4) {
+            if images.count <= 4 {
+                ForEach(images.prefix(4), id: \.self) { imageURL in
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        Color.gray.opacity(0.3)
+                    }
+                    .frame(width: 38, height: 38)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                }
+            } else {
+                ForEach(images.prefix(3), id: \.self) { imageURL in
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        Color.gray.opacity(0.3)
+                    }
+                    .frame(width: 38, height: 38)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                }
+
+                let remaining = images.count - 3
+                Text(viewModel.localizedStrings.remaining(remaining))
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.white)
+                    .frame(width: 38, height: 38)
+                    .background(Circle().fill(Color.gray))
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+            }
+        }
+    }
+
     private func articlesReadGraph(weeklyReads: [Int]) -> some View {
         Chart {
             ForEach(weeklyReads.indices, id: \.self) { index in

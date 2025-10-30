@@ -12,7 +12,7 @@ struct ArticlesReadViewModel {
 	var topCategories: [String]
     var articlesSavedAmount: Int
     var dateTimeLastSaved: String
-    var articlesSavedImages: [String] // TODO: Check on type
+    var articlesSavedImages: [URL]
 }
 
 @MainActor
@@ -58,11 +58,20 @@ public class WMFActivityTabViewModel: ObservableObject {
 					topCategories: categories,
                     articlesSavedAmount: 27,
                     dateTimeLastSaved: "November 82",
-                    articlesSavedImages: []
+                    articlesSavedImages: images
                 )
             }
         }
     }
+    
+    let images: [URL] = [
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png")!,
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Baker_Harcourt_1940_2.jpg")!,
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/1/10/Arch_of_SeptimiusSeverus.jpg")!,
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/8/81/Ivan_Akimov_Saturn_.jpg")!,
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/She-wolf_suckles_Romulus_and_Remus.jpg")!
+    ]
+
     
     // MARK: - View Strings
     
@@ -137,8 +146,9 @@ public class WMFActivityTabViewModel: ObservableObject {
         let articlesRead: String
         let topCategories: String
         let articlesSavedTitle: String
+        let remaining: (Int) -> String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -149,6 +159,7 @@ public class WMFActivityTabViewModel: ObservableObject {
             self.articlesRead = articlesRead
             self.topCategories = topCategories
             self.articlesSavedTitle = articlesSavedTitle
+            self.remaining = remaining
         }
     }
 }
