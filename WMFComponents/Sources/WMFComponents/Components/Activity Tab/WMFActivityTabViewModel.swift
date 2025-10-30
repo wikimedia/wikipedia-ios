@@ -19,6 +19,7 @@ public class WMFActivityTabViewModel: ObservableObject {
     @Published var articlesReadViewModel: ArticlesReadViewModel?
     var hasSeenActivityTab: () -> Void
     @Published var isLoggedIn: Bool
+    @Published public var usernamesReading: String
     
     public init(localizedStrings: LocalizedStrings,
                 dataController: WMFActivityTabDataController,
@@ -28,6 +29,7 @@ public class WMFActivityTabViewModel: ObservableObject {
         self.dataController = dataController
         self.hasSeenActivityTab = hasSeenActivityTab
         self.isLoggedIn = isLoggedIn
+        self.usernamesReading = localizedStrings.noUsernameReading
     }
     
     func fetchData() {
@@ -62,14 +64,6 @@ public class WMFActivityTabViewModel: ObservableObject {
     
     // MARK: - View Strings
     
-    public var usernamesReading: String {
-        guard let model = articlesReadViewModel else { return "" }
-        if model.username.isEmpty {
-            return localizedStrings.noUsernameReading
-        }
-        return localizedStrings.userNamesReading(model.username)
-    }
-    
     public var hoursMinutesRead: String {
         guard let model = articlesReadViewModel else { return "" }
         return localizedStrings.totalHoursMinutesRead(model.hoursRead, model.minutesRead)
@@ -78,12 +72,17 @@ public class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Update
     
     public func updateUsername(username: String) {
+        updateUsernamesReading(username: username)
         guard var model = articlesReadViewModel else { return }
         model.username = username
         if !username.isEmpty {
             updateIsLoggedIn(isLoggedIn: true)
         }
         articlesReadViewModel = model
+    }
+    
+    private func updateUsernamesReading(username: String) {
+       usernamesReading = localizedStrings.userNamesReading(username)
     }
     
     public func updateIsLoggedIn(isLoggedIn: Bool) {

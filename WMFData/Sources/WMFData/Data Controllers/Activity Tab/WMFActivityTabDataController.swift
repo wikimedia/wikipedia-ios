@@ -58,7 +58,7 @@ public final class WMFActivityTabDataController {
             weeklyCounts.append(count)
         }
         
-        return weeklyCounts
+        return Array(weeklyCounts.reversed())
     }
 
     @objc public func getActivityAssignment() -> Int {

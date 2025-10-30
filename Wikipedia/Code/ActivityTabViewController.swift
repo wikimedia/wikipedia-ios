@@ -43,6 +43,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
+        
+        updateLoginState()
     }
     
     @objc private func updateLoginState() {
@@ -53,8 +55,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
-        } else {
-            viewModel.updateUsername(username: "")
         }
     }
     
@@ -173,8 +173,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
-        } else {
-            viewModel.updateUsername(username: "")
         }
     }
     
