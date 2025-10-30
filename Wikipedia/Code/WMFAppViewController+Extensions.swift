@@ -823,6 +823,8 @@ extension WMFAppViewController {
 
         let topCategories = WMFLocalizedString("activity-tab-top-categories", value: "Top categories this month", comment: "Title for module about top categories this month")
         
+        let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out", value: "You must be logged in to access activity tab", comment: "Title to let logged out users know they must log in")
+        
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
@@ -833,7 +835,8 @@ extension WMFAppViewController {
                 totalArticlesRead: articlesRead,
                 week: weekGraph,
                 articlesRead: articlesReadGraph,
-                topCategories: topCategories),
+                topCategories: topCategories,
+                loggedOutTitle: loggedOutTitle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true

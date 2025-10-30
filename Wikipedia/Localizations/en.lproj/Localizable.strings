@@ -77,6 +77,7 @@
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
+"activity-tab-logged-out" = "You must be logged in to access activity tab";
 "activity-tab-logged-out-subtitle" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-logged-out-title" = "Log in or create an account to see more editing and reading activity.";
 "activity-tab-neutral" = "Neutral";

@@ -14,8 +14,8 @@ public struct WMFActivityTabView: View {
     }
     
     public var body: some View {
-        if viewModel.isLoggedIn {
-            ZStack {
+        ZStack {
+            if viewModel.isLoggedIn {
                 VStack(spacing: 20) {
                     VStack(alignment: .center, spacing: 8) {
                         Text(viewModel.usernamesReading)
@@ -54,25 +54,32 @@ public struct WMFActivityTabView: View {
                 }
                 .padding(.top, 16)
                 .frame(maxWidth: .infinity)
+            } else {
+                VStack(alignment: .center) {
+                    Spacer()
+                    Image("activity-tab-page", bundle: .module)
+                    Text(viewModel.localizedStrings.loggedOutTitle)
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .onAppear {
-                viewModel.fetchData()
-                viewModel.hasSeenActivityTab()
-            }
-            .padding(.top, 16)
-            .background(
-                LinearGradient(
-                    stops: [
-                        Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
-                        Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
-                    ],
-                    startPoint: UnitPoint(x: 0.5, y: 0),
-                    endPoint: UnitPoint(x: 0.5, y: 1)
-                )
-            )
-        } else {
-            Text("You must be logged in.")
         }
+        .onAppear {
+            viewModel.fetchData()
+            viewModel.hasSeenActivityTab()
+        }
+        .padding(.top, 16)
+        .background(
+            LinearGradient(
+                stops: [
+                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
+                    Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
+                ],
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1)
+            )
+        )
     }
     
     private var hoursMinutesRead: some View {
