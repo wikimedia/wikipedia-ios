@@ -41,6 +41,7 @@ public struct WMFActivityTabView: View {
                     .frame(maxWidth: .infinity)
                     // Start of modules on top section
                     articlesReadModule
+                    savedArticlesModule
                     if let model = viewModel.articlesReadViewModel {
                         if !model.topCategories.isEmpty {
                             topCategoriesModule(categories: model.topCategories)
@@ -120,6 +121,40 @@ public struct WMFActivityTabView: View {
                     onTapModule: {
                         print("Tapped module")
                         // TODO: Navigate to history below
+                    }
+                )
+            }
+        }
+    }
+    
+    
+    private var savedArticlesModule: some View {
+        Group {
+            if let model = viewModel.articlesReadViewModel {
+                WMFActivityTabInfoCardView(
+                    icon: WMFSFSymbolIcon.for(symbol: .bookmark),
+                    title: viewModel.localizedStrings.articlesSavedTitle,
+                    dateText: model.dateTimeLastSaved,
+                    amount: model.articlesSavedAmount,
+                    onTapModule: {
+                        print("Tapped module")
+                        viewModel.navigateToSaved?()
+                    }
+//                    ,content: {
+//                        if let weeklyReads = viewModel.articlesReadViewModel?.weeklyReads {
+//                            articlesReadGraph(weeklyReads: weeklyReads)
+//                        }
+//                    }
+                )
+            } else {
+                WMFActivityTabInfoCardView(
+                    icon: WMFSFSymbolIcon.for(symbol: .bookmark),
+                    title: viewModel.localizedStrings.articlesSavedTitle,
+                    dateText: nil,
+                    amount: 0,
+                    onTapModule: {
+                        print("Tapped module")
+                        // TODO: tap to saved
                     }
                 )
             }

@@ -822,6 +822,7 @@ extension WMFAppViewController {
         let weekGraph = WMFLocalizedString("activity-tab-week-graph-label", value: "Week", comment: "Activity tab week graph axis label")
 
         let topCategories = WMFLocalizedString("activity-tab-top-categories", value: "Top categories this month", comment: "Title for module about top categories this month")
+        let saved = WMFLocalizedString("activity-tab-saved", value: "Articles saved this month", comment: "Title for module about saved articles")
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
@@ -833,7 +834,8 @@ extension WMFAppViewController {
                 totalArticlesRead: articlesRead,
                 week: weekGraph,
                 articlesRead: articlesReadGraph,
-                topCategories: topCategories),
+                topCategories: topCategories,
+                articlesSavedTitle: saved),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true

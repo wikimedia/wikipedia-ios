@@ -10,6 +10,9 @@ struct ArticlesReadViewModel {
     var dateTimeLastRead: String
 	var weeklyReads: [Int]
 	var topCategories: [String]
+    var articlesSavedAmount: Int
+    var dateTimeLastSaved: String
+    var articlesSavedImages: [String] // TODO: Check on type
 }
 
 @MainActor
@@ -18,6 +21,7 @@ public class WMFActivityTabViewModel: ObservableObject {
     private let dataController: WMFActivityTabDataController
     @Published var articlesReadViewModel: ArticlesReadViewModel?
     var hasSeenActivityTab: () -> Void
+    public var navigateToSaved: (() -> Void)?
     
     public init(localizedStrings: LocalizedStrings,
                 dataController: WMFActivityTabDataController,
@@ -51,7 +55,10 @@ public class WMFActivityTabViewModel: ObservableObject {
                     totalArticlesRead: totalArticlesRead,
                     dateTimeLastRead: formattedDate,
 					weeklyReads: weeklyReads,
-					topCategories: categories
+					topCategories: categories,
+                    articlesSavedAmount: 27,
+                    dateTimeLastSaved: "November 82",
+                    articlesSavedImages: []
                 )
             }
         }
@@ -105,7 +112,7 @@ public class WMFActivityTabViewModel: ObservableObject {
         articlesReadViewModel = model
     }
     
-    public func updateTopCategories(topCategories: [String]) {
+    private func updateTopCategories(topCategories: [String]) {
         guard var model = articlesReadViewModel else { return }
         model.topCategories = topCategories
         articlesReadViewModel = model
@@ -129,8 +136,9 @@ public class WMFActivityTabViewModel: ObservableObject {
         let week: String
         let articlesRead: String
         let topCategories: String
+        let articlesSavedTitle: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -140,6 +148,7 @@ public class WMFActivityTabViewModel: ObservableObject {
             self.week = week
             self.articlesRead = articlesRead
             self.topCategories = topCategories
+            self.articlesSavedTitle = articlesSavedTitle
         }
     }
 }
