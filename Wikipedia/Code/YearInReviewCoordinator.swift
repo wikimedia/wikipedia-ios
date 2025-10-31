@@ -681,7 +681,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func personzlizedUserEditsSlideTitle(editCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
+        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
         return String.localizedStringWithFormat(format, editCount)
     }
     

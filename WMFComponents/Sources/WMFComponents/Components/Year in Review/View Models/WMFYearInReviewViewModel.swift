@@ -388,7 +388,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             let donateCount = donateSlideData.donateCount ?? 0
                             let editCount = donateSlideData.editCount ?? 0
                             
-                            if donateCount > 0 || editCount > 0 {
+                            if donateCount > 0 || editCount > 1 {
                                 donateCountSlideV3 = WMFYearInReviewContributorSlideViewModel(
                                     gifName: "contribution-slide",
                                     altText: "",
