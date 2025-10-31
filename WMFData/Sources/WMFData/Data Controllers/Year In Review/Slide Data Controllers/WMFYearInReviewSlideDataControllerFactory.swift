@@ -10,14 +10,16 @@ final class YearInReviewSlideDataControllerFactory {
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
     private let username: String?
-    private let userID: String?
+    private let userID: Int?
+    private let globalUserID: Int?
     private let project: WMFProject?
     
     init(
         year: Int,
         config: WMFFeatureConfigResponse.Common.YearInReview,
         username: String?,
-        userID: String?,
+        userID: Int?,
+        globalUserID: Int?,
         project: WMFProject?,
         savedSlideDataDelegate: SavedArticleSlideDataDelegate,
         legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate
@@ -26,6 +28,7 @@ final class YearInReviewSlideDataControllerFactory {
         self.config = config
         self.username = username
         self.userID = userID
+        self.globalUserID = globalUserID
         self.project = project
         
         self.savedSlideDataDelegate = savedSlideDataDelegate
@@ -37,6 +40,7 @@ final class YearInReviewSlideDataControllerFactory {
         let userInfo = YearInReviewUserInfo(
             username: username,
             userID: userID,
+            globalUserID: globalUserID,
             project: project
         )
         
@@ -52,7 +56,7 @@ final class YearInReviewSlideDataControllerFactory {
             .topArticles
         ]
         
-        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, languageCode: project?.languageCode)
+        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode)
         
         var dataControllers: [YearInReviewSlideDataControllerProtocol] = []
         

@@ -408,7 +408,7 @@ import CoreData
     }
     
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String,  primaryAppLanguageProject: WMFProject?, username: String?, userID: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String,  primaryAppLanguageProject: WMFProject?, username: String?, userID: Int?, globalUserID: Int?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
 
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode) else {
             return nil
@@ -431,6 +431,7 @@ import CoreData
             config: config,
             username: username,
             userID: userID,
+            globalUserID: globalUserID,
             project: primaryAppLanguageProject,
             savedSlideDataDelegate: savedSlideDataDelegate,
             legacyPageViewsDataDelegate: legacyPageViewsDataDelegate

@@ -75,6 +75,15 @@ extension URL {
         return components.url
     }
     
+    static func metricsAPIURL() -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.path = baseWikimediaRestAPIPathComponents + "metrics"
+        components.host = "wikimedia.org"
+
+        return components.url
+    }
+    
     static func donatePaymentSubmissionURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
         
         var components = URLComponents()
