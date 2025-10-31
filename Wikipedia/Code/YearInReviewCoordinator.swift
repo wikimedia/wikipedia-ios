@@ -22,6 +22,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     // When true, presents a toast when they exit the Intro slide. Toast explains that they can access later via Profile menu.
     public var needsExitFromIntroToast: Bool = false
+    
+    /// Used as a slide ID when performing actions on the intro slide
+    public var introSlideLoggingID: String = "profile"
 
     private var languageCode: String? {
         return dataStore.languageLinkController.appLanguage?.languageCode
@@ -90,7 +93,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.", comment: "Accessibility description for the collective edits slide."),
             englishEditsAccessibilityLabel: WMFLocalizedString("year-in-review-english-edits", value: "A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
             collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
-            collectiveZeroAdsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-zero-ads", value: "Wikimedia logo", comment: "Accessibility description for the collective zero ads slide."),
             englishReadingSlideTitle: englishReadingSlideTitle,
             englishReadingSlideSubtitle: englishReadingSlideSubtitle,
             englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "English Wikipedia’s most popular articles", comment: "Top read slide title for English Year in Review."),
@@ -111,8 +113,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveAmountEditsSlideSubtitle: WMFLocalizedString("year-in-review-base-editors-subtitle", value: "The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.", comment: "Year in review, collective edits count slide subtitle."),
             collectiveEditsPerMinuteSlideTitle: collectiveEditsPerMinuteSlideTitle,
             collectiveEditsPerMinuteSlideSubtitle: collectiveEditsPerMinuteSlideSubtitle,
-            collectiveZeroAdsSlideTitle: WMFLocalizedString("year-in-review-base-donate-title", value: "0 ads served on Wikipedia", comment: "Year in review, donate slide title when user has not made any donations that year."),
-            collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
             personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount: minutesRead:),
             personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
             personalizedDateSlideTitleV3: WMFLocalizedString("year-in-review-personalized-date-title-v3", value: "You have clear reading patterns", comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most."),
@@ -274,11 +274,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var collectiveEditsPerMinuteSlideSubtitle: String {
         let format = WMFLocalizedString("year-in-review-base-edits-subtitle", value: "Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate](%1$@).", comment: "Year in review, collective edits per minute slide subtitle, %1$@ is replaced with a link to the Mediawiki Apps team FAQ about editing.")
         return String.localizedStringWithFormat(format, editingFAQURLString)
-    }
-
-    func collectiveZeroAdsSlideSubtitle() -> String {
-        let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
-        return String.localizedStringWithFormat(format, aboutWikimediaURLString)
     }
     
     var enWikiTopArticlesValue: [String] {
@@ -812,6 +807,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             shareLink: appShareLink,
             hashtag: hashtag,
             plaintextURL: plaintextURL,
+            introSlideLoggingID: self.introSlideLoggingID,
             coordinatorDelegate: self,
             loggingDelegate: self,
             badgeDelegate: badgeDelegate,
@@ -820,6 +816,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             primaryAppLanguage: primaryAppLanguage,
             toggleAppIcon: { isNew in
                 AppIconUtility.shared.updateAppIcon(isNew: isNew)
+                DonateFunnel.shared.logYearInReviewDonateSlideDidToggleAppIcon(isOn: isNew)
             },
             isIconOn: AppIconUtility.shared.isNewIconOn,
             populateYearInReviewReport: populateYearInReviewReport
@@ -842,6 +839,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
         navigationController.present(hostingController, animated: true, completion: nil)
         return true
+    }
+    
+    func setupForFeatureAnnouncement(introSlideLoggingID: String) {
+        needsExitFromIntroToast = true
+        self.introSlideLoggingID = introSlideLoggingID
+    }
+    
+    func resetFromFeatureAnnouncement() {
+        needsExitFromIntroToast = false
+        introSlideLoggingID = "profile"
     }
     
     func populateYearInReviewReport() async throws {
@@ -900,11 +907,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
 
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "v_satisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "satisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "neutral"),
-            WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "unsatisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "v_unsatisfied")
+            WMFSurveyViewModel.OptionViewModel(text: verySatisfied, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: satisfied, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: neutral, apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: unsatisfied, apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: veryUnsatisfied, apiIdentifer: "5")
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
@@ -941,21 +948,13 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     }
 
     func logYearInReviewDidTapDonate(slideLoggingID: String) {
-        if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
+        if let metricsID = DonateCoordinator.metricsID(for: .yearInReview(slideLoggingID: slideLoggingID), languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
             DonateFunnel.shared.logYearInReviewDidTapDonate(slideLoggingID: slideLoggingID, metricsID: metricsID)
         }
     }
 
-    func logYearInReviewIntroDidTapContinue() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroContinue(isEntryC: dataStore.authenticationManager.authStateIsPermanent)
-    }
-
     func logYearInReviewIntroDidTapLearnMore() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(isEntryC: dataStore.authenticationManager.authStateIsPermanent)
-    }
-
-    func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String) {
-        DonateFunnel.shared.logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: slideLoggingID)
+        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(slideLoggingID: introSlideLoggingID)
     }
 
     func logYearInReviewDidTapNext(slideLoggingID: String) {
@@ -976,25 +975,27 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
-            needsExitFromIntroToast = false
         }
+        resetFromFeatureAnnouncement()
     }
 }
 
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
-        case .presentLoginPromptFromIntroGetStarted:
-            showLoginPromptFromIntroV3GetStarted()
-        case .presentExitToastFromIntroDone:
+        case .tappedIntroV3GetStartedWhileLoggedOut:
+            tappedIntroV3GetStartedWhileLoggedOut()
+        case .tappedIntroV3GetStartedWhileLoggedIn:
+            tappedIntroV3GetStartedWhileLoggedIn()
+        case .tappedIntroV3DoneWhileLoggedOut:
             showExitToastFromIntroV3Done()
-        case .donate(let getSourceRect):
+        case .donate(let getSourceRect, let slideLoggingID):
             
             let donateSuccessAction: () -> Void = { [weak self] in
                 self?.viewModel?.donateDidSucceed()
             }
             
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .yearInReview(slideLoggingID: slideLoggingID), dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
                     return
@@ -1029,7 +1030,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
-
+                
+                self.resetFromFeatureAnnouncement()
                 guard hasSeenTwoSlides else { return }
 
                 self.presentSurveyIfNeeded()
@@ -1050,7 +1052,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 presentedViewController.present(newNavigationVC, animated: true)
             }
 
-        case .learnMore(let url, let shouldShowDonateButton):
+        case .learnMore(let url, let shouldShowDonateButton, let slideLoggingID):
             
             guard let url else {
                 return
@@ -1062,21 +1064,18 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             }
 
             let webVC: SinglePageWebViewController
-            let slideLoggingID: String
 
             if shouldShowDonateButton {
-                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
+                let config = SinglePageWebViewController.YiRLearnMoreConfig(url: url, slideLoggingID: slideLoggingID, donateButtonTitle:  WMFLocalizedString("year-in-review-donate-now", value: "Donate now", comment: "Year in review donate now button title. Displayed on top of Learn more in-app web view."))
                 webVC = SinglePageWebViewController(configType: .yirLearnMore(config), theme: theme)
-                slideLoggingID = "about_wikimedia_base"
             } else {
                 let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
                 webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
-                slideLoggingID = "about_wikimedia_custom"
             }
 
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
-            presentedViewController.present(newNavigationVC, animated: true, completion: { DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: slideLoggingID)})
+            presentedViewController.present(newNavigationVC, animated: true)
         case .info(let url):
             
             guard let url else {
@@ -1093,8 +1092,33 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true)
-        case .logExperimentAssignment(let assignment):
-            print("🔵🔵🔵🔵TODO: log assignment \(assignment)🔵🔵🔵🔵")
+        }
+    }
+    
+    private func tappedIntroV3GetStartedWhileLoggedIn() {
+        DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
+        viewModel?.populateReportAndShowFirstSlide()
+    }
+    
+    private func tappedIntroV3GetStartedWhileLoggedOut() {
+        if dataController.needsLoginExperimentAssignment() {
+            do {
+                _ = try dataController.assignLoginExperimentIfNeeded()
+            } catch {
+                
+            }
+        }
+        
+        if let assignment = dataController.getLoginExperimentAssignment() {
+            DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: assignment)
+        } else {
+            DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
+        }
+        
+        if dataController.bypassLoginForPersonalizedFlow {
+            viewModel?.populateReportAndShowFirstSlide()
+        } else {
+            showLoginPromptFromIntroV3GetStarted()
         }
     }
     
@@ -1110,7 +1134,10 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                     
             guard let self else { return }
             
-            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin(slideLoggingID: self.introSlideLoggingID)
+            LoginFunnel.shared.logLoginStartFromYearInReview()
+            
+            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .yir)
             loginCoordinator.loginSuccessCompletion = { [weak self] in
                 guard let self else { return }
                 if let loginVC = self.navigationController.presentedViewController?.presentedViewController {
@@ -1134,7 +1161,10 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         }
         
         let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
-            guard let viewModel = self?.viewModel else { return }
+            guard let self else { return }
+            guard let viewModel = self.viewModel else { return }
+            
+            DonateFunnel.shared.logYearInReviewLoginPromptDidTapContinue(slideLoggingID: self.introSlideLoggingID)
             viewModel.tappedIntroV3LoginPromptNoThanks()
         }
         
@@ -1152,8 +1182,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 guard let self else { return }
                 if needsExitFromIntroToast {
                     WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
-                    needsExitFromIntroToast = false
                 }
+                resetFromFeatureAnnouncement()
             }
         }
     }
