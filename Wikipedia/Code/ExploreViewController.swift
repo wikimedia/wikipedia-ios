@@ -18,13 +18,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return try? WMFYearInReviewDataController()
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
-    
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: self.dataStore
+        )
+    }()
+
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -231,10 +233,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .feed, project: nil)
     }
-    
+
     @objc func scrollToTop() {
         navigationController?.setNavigationBarHidden(false, animated: true)
         collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
@@ -1050,18 +1052,16 @@ extension ExploreViewController {
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
+
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
         
-        guard let yirDataController,
-              let appLanguage = dataStore.languageLinkController.appLanguage else {
+        guard let yirDataController else {
                   return false
         }
         
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
+        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
             return false
         }
 
@@ -1098,31 +1098,10 @@ extension ExploreViewController {
             return
         }
 
-        if WMFDeveloperSettingsDataController.shared.showYiRV2 {
-            let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
-            let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
-            let primaryButtonTitle = CommonStrings.continueButton
-            let image = UIImage(named: "wikipedia-globe")
-            let backgroundImage = UIImage(named: "Announcement")
-            let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
-            let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
-
-            let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
-                guard let self else { return }
-                yirCoordinator?.start()
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-            }, closeButtonAction: {
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
-            })
-
-            if let profileBarButtonItem = navigationItem.rightBarButtonItem {
-                announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-                yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-            }
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
+        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             // A change in V3 is that we just show the feature itself with a modified intro slide.
             // No feature announcement component
+            yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
             self.yirCoordinator?.start()
             yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
         }

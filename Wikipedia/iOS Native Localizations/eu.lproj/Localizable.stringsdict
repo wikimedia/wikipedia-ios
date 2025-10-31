@@ -21,7 +21,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ezabatuta</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikulu %1$d</string>
+			<string>Artikulu bat ezabatu da</string>
 			<key>other</key>
-			<string>%1$d artikulu</string>
+			<string>%1$d artikulu ezabatu dira</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d gertakizun historikoa</string>
+			<string>Gertakizun historiko bat</string>
 			<key>other</key>
-			<string>%1$d gertakizun historikoak</string>
+			<string>%1$d gertakizun historiko</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -77,7 +77,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikulu %1$d</string>
+			<string>artikulu bat</string>
 			<key>other</key>
 			<string>%1$d artikulu</string>
 		</dict>
@@ -141,7 +141,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>irakurketa zerrenda %1$d</string>
+			<string>irakurketa zerrenda bat</string>
 			<key>other</key>
 			<string>%1$d irakurketa zerrenda</string>
 		</dict>
@@ -173,9 +173,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>zerrenda %1$d</string>
+			<string>zerrenda bat</string>
 			<key>other</key>
-			<string>%1$d zerrendak</string>
+			<string>%1$d zerrenda</string>
 		</dict>
 	</dict>
 	<key>reading-lists-large-sync-completed</key>
@@ -296,7 +296,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ezabatu?</string>
+		<string>%#@v1@ gordetzeari utzi?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -304,9 +304,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikulu %1$d</string>
+			<string>Artikulu bat</string>
 			<key>other</key>
-			<string>%1$d artikuluak</string>
+			<string>%1$d artikulu</string>
 		</dict>
 	</dict>
 </dict>

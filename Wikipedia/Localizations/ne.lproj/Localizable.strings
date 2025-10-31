@@ -69,6 +69,14 @@
 "action-unsave" = "संग्रहबाट हटाउनुहोस्";
 "action-unsaved-accessibility-notification" = "लेख सङ्ग्रहबाट हटाइयो";
 "action-update" = "अद्यावधिक गर्नुहोस्";
+"activity-tab-articles-read" = "यस महिना पढिएका लेखहरू";
+"activity-tab-articles-read-graph-label" = "लेखहरू";
+"activity-tab-onboarding-first-item-subtitle" = "तपाईंले कति समय पढ्नुभएको छ र कुन लेख वा विषयहरू समयसँगै अन्वेषण गर्नुभएको छ हेर्नुहोस्।";
+"activity-tab-onboarding-first-item-title" = "पढ्ने ढाँचाहरू";
+"activity-tab-onboarding-fourth-item-subtitle" = "कुन मोड्युलहरू प्रदर्शन गर्ने छनौट गर्नुहोस्। सबै व्यक्तिगत डेटा तपाईंको उपकरणमा निजी रहन्छ र ब्राउजिङ इतिहास जुनसुकै बेला खाली गर्न सकिन्छ।";
+"activity-tab-onboarding-third-item-title" = "संलग्न हुने थप तरिकाहरू";
+"activity-tab-top-categories" = "यस महिनाका शीर्ष श्रेणीहरू";
+"activity-tab-week-graph-label" = "हप्ता";
 "add-articles-to-reading-list" = "पठन सूचीमा {{PLURAL:$1|$1 लेख|$1 लेखहरू}} थप्नुहाेस्";
 "announcements-dismiss" = "खारेज गर्नुहोस्";
 "app-store-keywords" = "विकिपिडिया, सन्दर्भ, विकि, विश्वकाेश, जानकारी, ज्ञान, अनुसन्धान, जानकारी, अन्वेषण, सिक्नुहाेस्";
@@ -372,6 +380,7 @@
 "search-result-redirected-from" = "$1: बाट अनुप्रेषित";
 "search-title" = "खोज्नुहोस्";
 "settings-account" = "खाता";
+// Fuzzy
 "settings-appearance" = "अध्ययन अभिरूचिहरू";
 "settings-clear-cache-cancel" = "रद्द गर्नुहोस्";
 "settings-my-languages" = "मेरा भाषाहरू";

@@ -16,6 +16,7 @@
 // Author: McDutchie
 // Author: McSalama
 // Author: Mediawikitranslator
+// Author: Minilammas
 // Author: Moottori
 // Author: Nemo bis
 // Author: Nike
@@ -220,6 +221,7 @@
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "developer-settings" = "Kehittäjien asetukset";
 "developer-settings-enable-year-in-review" = "Ota vuosikatsaus käyttöön";
+"did-you-know" = "Tiesitkö?";
 "diff-article-revision-history" = "Artikkelin versiohistoria";
 "diff-change-added" = "Lisäys, $1, lisäyksen loppu.";
 "diff-change-paragraph-lines-moved-down" = "Kappaletta siirretty {{PLURAL:$1|0=0 riviä|$1 rivi|$1 riviä}} alaspäin. Siirry uuteen sijaintiin.";
@@ -649,11 +651,15 @@
 "main-menu-terms-of-use" = "Käyttöehdot";
 "main-menu-title" = "Lisää";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "4 miljardia tavua lisätty";
+// Fuzzy
 "microsite-yir-english-edits-slide-subtitle" = "Vapaaehtoiset tekivät 98 222 407 muutosta yli 300 eri kieliversioon Wikipediassa. Englanninkieliseen Wikipediaan tehtiin yli 37 miljoonaa muutosta. Joka päivä, joka tunti, vapaaehtoiset työskentelevät parantaakseen Wikipediaa.";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "Ihmiset viettivät arviolta 2,9 miljardia tuntia – yli 331 000 vuotta! – englanninkielisen Wikipedian lukemiseen vuonna 2024. Wikipedia on palveluksessasi, kun haluat oppia lisää muuttuvasta maailmasta, voittaa vedon ystävien kesken tai vastata uteliaan lapsen kysymykseen.";
+// Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Artikkelien lisääminen lukulistoihin mahdollistaa artikkelien käytön myös ilman Internet-yhteyttä. Voit myös synkronoida lukulistoja eri laitteiden välillä.";
+// Fuzzy
 "microsite-yir-english-saved-reading-slide-title" = "Yli 62,2 miljoonaa lukulistaa";
 "more-languages-tooltip-description" = "Hae Wikipediasta yli 300 kielellä";
 "more-languages-tooltip-title" = "Lisää kieliä";
@@ -860,6 +866,7 @@
 "profile-page-join-subtext" = "Kirjautuneena voit seurata muokkauksia, tallentaa artikkeleita laitteeseen ja synkronoida tietoja eri laitteiden välillä.";
 "profile-page-join-title" = "Kirjaudu sisään / Liity Wikipediaan";
 "profile-page-logged-out-year-in-review-subtext" = "Kirjautumalla sisään tai luomalla käyttäjätunnuksen saat paremman vuosikatsauksen vuoden päästä";
+// Fuzzy
 "profile-year-in-review-login-subtitle" = "Kirjautumalla sisään tai luomalla käyttäjätunnuksen pääset tutustumaan vuosikatsaukseen ja muuhun yksilöityyn sisältöön.";
 "profile-year-in-review-login-title" = "Näytä vuosikatsaus kirjautumalla sisään";
 "project-name-mediawiki" = "MediaWiki";
@@ -1004,6 +1011,7 @@
 "search-title" = "Haku";
 "serbian-variants-alert-title" = "Päivityksiä serbian kieliversiotukeen";
 "settings-account" = "Käyttäjätunnus";
+// Fuzzy
 "settings-appearance" = "Lukuasetukset";
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
@@ -1272,10 +1280,14 @@
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "year-in-review-base-donate-subtitle" = "Wikipedian taustalla on voittoa tavoittelematon Wikimedia-säätiö. Avullasi säätiö voi jatkossakin tarjota huippuluokan Wikipedia-kokemuksen, jossa luotettavaa tietoa on saatavilla ilman mainoksia sekä käyttö ja muokkaus on sujuvaa korkeatasoisen teknologian ansiosta. Arvostamme lahjoitustasi jo tänään. [Lue lisää työstämme]($1).";
 "year-in-review-base-donate-title" = "0 Wikipediassa näytettyä mainosta";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "Wikipediaa muokattiin keskimäärin $1 kertaa joka minuutti. Artikkeleita luodaan ja parannetaan yhteistyössä luotettavien lähteiden avulla. Meillä kaikilla on tietoa jaettavana, [näin osallistut]($2).";
 "year-in-review-base-edits-title" = "Wikipediaa muokattiin $1 kertaa joka minuutti";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipediassa oli yli $1 artikkelia yli $2 aktiivisella kielellä. Liityit miljoonien joukkoon laajentamassa tietämystä ja tutkimassa erilaisia aiheita.";
+// Fuzzy
 "year-in-review-base-saved-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Lukulistaan lisättyä artikkelia voi käyttää myös ilman Internet-yhteyttä. Lukulistoja voi myös synkronoida laitteiden välillä.";
+// Fuzzy
 "year-in-review-base-saved-title" = "Yli $1 miljoonaa lukulistaa";
 "year-in-review-button-title" = "Vuosikatsaus";
 "year-in-review-collective-zero-ads" = "Wikimedia-logo";
@@ -1292,17 +1304,12 @@
 "year-in-review-feature-announcement-body" = "Tutustu kohokohtiin miten artikkeleita luetaan ja muokataan Wikipediassa.";
 "year-in-review-feature-announcement-title-personalized" = "Tutustu Wikipedia-vuoteesi";
 "year-in-review-feature-explore-body-personalized" = "Tutustu kohokohtiin lukemastasi ja muokkaamastasi sisällöstä Wikipedia-sovelluksessa vuonna 2024. Lukuhistoria säilytetään suojattuna. Kohokohdat muodostetaan laitteellesi tallennetun tiedon perusteella.";
-"year-in-review-login-title" = "Paranna vuosikatsausta";
-"year-in-review-personalized-day-subtitle-format" = "Luit eniten artikkeleita $1sin. Selvästi $1 on paras päiväsi uuden sisällön tutkimiseen. Kiitos, että käytit lukuaikasi parhaalla mahdollisella tavalla!";
-"year-in-review-personalized-day-title-format" = "Luit eniten $1sin";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä $1 katselukertaa. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Muokkauksiasi on näytetty yli $1 kertaa";
-"year-in-review-personalized-editing-subtitle-format" = "Muokkasit Wikipediaa {{PLURAL:$1|$1 kerran|$1 kertaa}}. Kiitos, että olet yksi vapaaehtoisista, jotka kehittävät Wikimedia-projekteja ympäri maailmaa.";
-"year-in-review-personalized-editing-subtitle-format-500plus" = "Muokkasit Wikipediaa yli 500 kertaa. Kiitos, että olet yksi vapaaehtoisista, jotka kehittävät Wikimedia-projekteja ympäri maailmaa.";
 "year-in-review-personalized-editing-title-format" = "Muokkasit Wikipediaa {{PLURAL:$1|$1 kerran|$1 kertaa}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Muokkasit Wikipediaa yli 500 kertaa";
-"year-in-review-personalized-reading-subtitle-format" = "Luit {{PLURAL:$1|$1 artikkelin|$1 artikkelia}}. Wikipediassa oli saatavilla $2 miljoonaa artikkelia yli $3 aktiivisella kielellä. Liityit osaksi miljoonien ihmisten yhteisöä laajentamassa tietämystään ja tutkimassa moninaisia aiheita.";
-"year-in-review-personalized-reading-title-format" = "Luit {{PLURAL:$1|$1 artikkeli|$1 artikkelia}}";
 "year-in-review-share-text" = "Tämä on Wikipedia-vuosikatsaukseni, joka on luotu Wikipedian iOS-sovelluksella.";
 "year-in-review-survey-additional-thoughts" = "Muita ajatuksia?";
 "year-in-review-survey-neutral" = "Neutraali";

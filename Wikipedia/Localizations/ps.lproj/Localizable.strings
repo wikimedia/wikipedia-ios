@@ -110,6 +110,7 @@
 "appearance-settings-expand-tables" = "لښتيالونه غځول";
 "appearance-settings-reading-themes" = "لوست پوښۍ";
 "appearance-settings-set-automatic-table-opening" = "لښتيال اوڼنې";
+"appearance-settings-set-icon-header" = "کاريال نښه";
 "appearance-settings-theme-options" = "پوښۍ خوښنې";
 "article-about-title" = "د دې ليکنې په اړه";
 "article-delete" = "ړنگول";
@@ -157,7 +158,10 @@
 "clearing-cache-in-progress" = "نيونگه سپاکول دوام لري.";
 "close-all-tabs" = "ټولې کړکۍ وتړئ";
 "close-button-accessibility-label" = "تړل";
+"close-other-tabs" = "نورې ريښکې تړل";
 "close-tab-confirmation" = "کړکۍ وتړي؟";
+"close-tabs" = "ريښکې تړل";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 ريښکه تړل‌شوې ده|$1 ريښکې تړل‌شوې دي}}.";
 "compass-direction" = "په $1 بجو";
 "confirm-donation-history-deletion-title" = "ړنگول تایید کړئ";
 "confirmed-donation-history-deletion" = "سيمه‌ييز پېښليک ړنگ‌شو";
@@ -184,8 +188,8 @@
 "description-welcome-start-editing-button" = "سمون پيلول";
 "developer-force-email-auth" = "اجباري برېښليک تاييد";
 "developer-settings" = "پراختياگر اوڼنې";
-"developer-settings-dynamic-tabs-DYK" = "د ايا پوهېدې سره ريښکې چارنول";
 "developer-settings-enable-year-in-review" = "کال بياکتنه چارنول";
+// Fuzzy
 "did-you-know" = "ايا پوهېدې";
 "diff-article-revision-history" = "مخ بياکتنې پېښليک";
 "diff-change-added" = "زياتي، $1، زياتي پای.";
@@ -266,8 +270,21 @@
 "explore-potd-heading" = "د نن ورځې انځور";
 "explore-random-article-heading" = "ناټاکلې ليکنه";
 "field-backup-token-title-email" = "برېښليک کوډ";
+"field-email-title" = "برېښليک";
+"field-email-title-optional" = "برېښليک (اختياري)";
+"field-new-password-confirm-placeholder" = "نوی پټنوم بيا دننه کړئ";
+"field-new-password-confirm-title" = "نوی پټنوم تاييدول";
+"field-new-password-placeholder" = "نوی پټنوم دننه‌کول";
+"field-new-password-title" = "نوی پټنوم";
+"field-password-confirm-placeholder" = "پټنوم بيا دننه کړئ";
+"field-password-confirm-title" = "پټنوم تاييدول";
+"field-password-placeholder" = "پټنوم دننه‌کول";
 "field-password-title" = "پټنوم";
+"field-token-title" = "تاييد کوډ";
+"field-username-placeholder" = "کارن‌نوم دننه‌کول";
 "field-username-title" = "کارن‌نوم";
+"filter-options-all" = "ټول";
+"find-clear-button-accessibility" = "موندل پاکول";
 "history-clear-all" = "سپينول";
 "history-clear-confirmation-heading" = "آيا ډاډمن يې چې خپل ټول وروستني توکي ړنگول غواړې؟";
 "history-clear-delete-all" = "هو، ټول ړنگول";

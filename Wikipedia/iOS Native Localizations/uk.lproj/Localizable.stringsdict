@@ -82,6 +82,54 @@
 			<string>статей</string>
 		</dict>
 	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Бажаєте закрити %#@v1@? Цю дію не можна скасувати.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d вкладку</string>
+			<key>other</key>
+			<string>%1$d вкладок</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Закрити %#@v1@?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d вкладку</string>
+			<key>other</key>
+			<string>%1$d вкладок</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Закрито %#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d вкладку</string>
+			<key>other</key>
+			<string>%1$d вкладок</string>
+		</dict>
+	</dict>
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -847,6 +895,54 @@
 			<string>%1$d фільтрів</string>
 		</dict>
 	</dict>
+	<key>year-in-review-highlights-edit-frequency-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ на хвилину</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d раз</string>
+			<key>other</key>
+			<string>%1$d разів</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Читачі в усьому світі цінують ваш внесок. За минулі два місяці редаговані вами статті разом переглянули %#@v1@. Завдяки таким редакторам, як ви, Вікіпедія є постійно вдосконалюваним, заснованим на фактах і надійним ресурсом знань для світу.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d раз</string>
+			<key>other</key>
+			<string>%1$d разів</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Останнім часом ваші зміни переглянули понад %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d раз</string>
+			<key>other</key>
+			<string>%1$d разів</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -863,10 +959,10 @@
 			<string>%1$d разів</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ви прочитали %#@v1@. У Вікіпедії було доступно %2$@ мільйона статей понад %3$@ активними мовами. Ви приєдналися до мільйонів у розширенні знань і дослідженні різноманітних тем.</string>
+		<string>Ми підрахували, що ви належите до **PERCENT** найактивніших читачів Вікіпедії у світі. Середньостатистична людина читає %#@v1@ на рік.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -879,10 +975,10 @@
 			<string>%1$d статей</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ви прочитали %1$d %#@v1@</string>
+		<string>Ви витратили %#@v1@ на читання %#@v2@ у %3$@ році</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -890,9 +986,20 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>статтю</string>
+			<string>%1$d хвилину</string>
 			<key>other</key>
-			<string>статей</string>
+			<string>%1$d хвилин</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d статті</string>
+			<key>other</key>
+			<string>%2$d статей</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

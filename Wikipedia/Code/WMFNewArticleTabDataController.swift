@@ -3,11 +3,7 @@ import WMFData
 import WMF
 import WMFComponents
 
-protocol NewArticleTabDataControlling {
-    func loadDidYouKnow() async throws -> WMFNewArticleTabDidYouKnowViewModel?
-}
-
-final class NewArticleTabDataController: NewArticleTabDataControlling {
+final class NewArticleTabDataController {
     private let dataStore: MWKDataStore
     private let relatedFetcher = RelatedSearchFetcher()
     private let dykFetcher = WMFFeedDidYouKnowFetcher()
@@ -20,57 +16,39 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
         self.dataStore = dataStore
     }
 
-    // MARK: - DYK
-
-    func loadDidYouKnow() async throws -> WMFNewArticleTabDidYouKnowViewModel? {
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
-        else { return nil }
-
-        let facts = try await didYouKnowFacts(siteURL: siteURL)
-        guard let facts, !facts.isEmpty else { return nil }
-
-        let localized = WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings(
-            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK"),
-            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
-        )
-
-        let vm = WMFNewArticleTabDidYouKnowViewModel(
-            facts: facts.map { $0.html },
-            languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
-            dykLocalizedStrings: localized
-        )
-        return vm
-    }
-
-    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
-    ) -> String {
-        guard let code = self.dataStore.languageLinkController.appLanguage?.languageCode else {
-            return genericString
-        }
-
-        if let language = Locale.current.localizedString(forLanguageCode: code) {
-            return String.localizedStringWithFormat(format, language)
-        } else {
-            if code == "test" {
-                return String.localizedStringWithFormat(format, "Test")
-            } else if code == "test2" {
-                return String.localizedStringWithFormat(format, "Test 2")
-            } else {
-                return genericString
-            }
-        }
-    }
-
-    // MARK: - Async helpers
-
     @MainActor
     private func obtainFeedImportContext() -> NSManagedObjectContext {
         dataStore.feedImportContext
     }
 
-    private func relatedArticles(for url: URL?) async throws -> [HistoryRecord] {
+    public func getRelatedArticles(for recordURLs: [URL?],maxTotal: Int) async throws -> [HistoryRecord] {
+
+        let batches: [[HistoryRecord]] = try await withThrowingTaskGroup(of: [HistoryRecord].self) { group in
+            for url in recordURLs {
+                group.addTask { [weak self] in
+                    guard let self else { return [] }
+                    return try await self.relatedArticles(for: url, maxTotal: maxTotal)
+                }
+            }
+            var out: [[HistoryRecord]] = []
+            for try await batch in group { out.append(batch) }
+            return out
+        }
+
+        var joinedResults = batches.flatMap { $0 }
+
+        joinedResults.shuffle()
+
+        if joinedResults.count > maxTotal {
+            joinedResults.removeSubrange(maxTotal..<joinedResults.count)
+        }
+
+        return joinedResults
+    }
+
+    private func relatedArticles(for url: URL?, maxTotal: Int) async throws -> [HistoryRecord] {
         try await withCheckedThrowingContinuation { cont in
-            relatedFetcher.fetchRelatedArticles(forArticleWithURL: url) { error, summariesByKey in
+            relatedFetcher.fetchRelatedArticles(forArticleWithURL: url, limit: maxTotal) { error, summariesByKey in
                 if let error {
                     cont.resume(throwing: error)
                     return
@@ -109,53 +87,11 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
         }
     }
 
-    private func didYouKnowFacts(siteURL: URL) async throws -> [WMFFeedDidYouKnow]? {
+    public func fetchDidYouKnowFacts(siteURL: URL) async throws -> [WMFDidYouKnow]? {
         try await withCheckedThrowingContinuation { cont in
             dykFetcher.fetchDidYouKnow(withSiteURL: siteURL) { error, facts in
                 if let error { cont.resume(throwing: error) } else { cont.resume(returning: facts) }
             }
-        }
-    }
-
-    private func mostRecentHistoryRecordWithURL() async throws -> HistoryRecord? {
-
-        let moc = await self.obtainFeedImportContext()
-        var pickedSeed: WMFArticle?
-        return await moc.perform {
-            let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-
-            let mainTitle = "Main Page"
-            let mainKey   = "Main_Page"
-            let excludeMain = NSPredicate(format: "NOT (displayTitle ==[cd] %@ OR key == %@)", mainTitle, mainKey)
-
-            let base = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                        NSPredicate(format:"isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)"),
-                        excludeMain
-                    ])
-            // Remember used articles
-            if !self.seenSeedKeys.isEmpty {
-                let exclude = NSPredicate(format: "NOT (key IN %@)", self.seenSeedKeys)
-                req.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [base, exclude])
-            } else {
-                req.predicate = base
-            }
-            // If we went through all articles, start again
-            let total = (try? moc.count(for: req)) ?? 0
-            if total == 0 {
-                self.seenSeedKeys.removeAll()
-            }
-            req.fetchOffset = Int.random(in: 0..<max(total,1))
-            req.fetchLimit  = 1
-
-            if let seed = (try? moc.fetch(req))?.first {
-                pickedSeed = seed
-                if let key = seed.key {
-                    self.seenSeedKeys.insert(key)
-                }
-            }
-            self.seed = pickedSeed
-
-            return self.seed?.toHistoryRecord()
         }
     }
 }

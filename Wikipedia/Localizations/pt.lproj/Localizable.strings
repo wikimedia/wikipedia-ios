@@ -1,5 +1,6 @@
 // Messages for Portuguese (português)
 // Exported from translatewiki.net
+// Author: Albertoleoncio
 // Author: Athena in Wonderland
 // Author: B3rnas
 // Author: Diniscoelho
@@ -195,6 +196,7 @@
 "description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao começar, prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
+// Fuzzy
 "did-you-know" = "Sabia que";
 "diff-article-revision-history" = "Historial de revisões do artigo";
 "diff-compare-header-from-info-heading" = "Edição anterior";
@@ -604,6 +606,8 @@
 "main-menu-terms-of-use" = "Condições de utilização";
 "main-menu-title" = "Mais";
 "main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
+"microsite-yir-english-edits-bytes-slide-title" = "$1 bytes adicionados";
+"microsite-yir-english-reading-slide-title" = "Nós passamos $1 hora(s) a ler";
 "more-languages-tooltip-description" = "Pesquise a Wikipédia em mais de 300 línguas";
 "more-languages-tooltip-title" = "Adicionar línguas";
 "more-menu" = "Mais";
@@ -643,7 +647,7 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtro|$1 filtros}}";
 "notifications-center-feed-card-title" = "As notificações de edições já estão disponíveis";
 "notifications-center-feed-news-notification-button-text" = "Ativar as notificações imediatas";
-"notifications-center-feed-news-notification-text" = "As notificações de edições para todos os projetos da Wikimédia estão agora disponíveis através da aplicação. Opte por notificações imediatas para se manter atualizado sobre as suas mensagens na Wikipédia quando estiver ausente.";
+"notifications-center-feed-news-notification-text" = "As notificações de edições para todos os projetos da Wikimedia estão agora disponíveis através da aplicação. Opte por notificações imediatas para se manter atualizado sobre as suas mensagens na Wikipédia quando estiver ausente.";
 "notifications-center-filters-accessibility-label" = "Filtro de notificações";
 "notifications-center-filters-read-status-item-title-all" = "Todas";
 "notifications-center-filters-read-status-item-title-read" = "Lidas";
@@ -968,6 +972,7 @@
 "serbian-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua sérvia como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nсрпски ћирилица - Sérvio cirílico (sr-ec)\nsrpski latinica - Sérvio latino (sr-el)";
 "serbian-variants-alert-title" = "Atualizações ao suporte de variantes do sérvio";
 "settings-account" = "Conta";
+// Fuzzy
 "settings-appearance" = "Leitura";
 "settings-clear-cache" = "Limpar dados da cache";
 "settings-clear-cache-are-you-sure-message" = "Limpar os dados da cache libertará cerca de $1 de espaço. Não apaga as suas páginas guardadas.";
@@ -1030,8 +1035,6 @@
 "table-of-contents-hide-button-label" = "Ocultar índice";
 "table-of-contents-subheading-label" = "Subtítulo $1";
 "tabs-title" = "Separadores";
-// Fuzzy
-"tabs-title-preferences" = "Preferências dos separadores";
 "tachelhit-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tachelhit como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ - Tachelhit tifinagh (shi-tfng)\nTaclḥit - Tachelhit latino (shi-latn)";
 "tachelhit-variants-alert-title" = "Atualizações ao suporte de variantes do tachelhit";
 "tajik-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tajique como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nтоҷикӣ кирилликӣ - Tajique cirílico (tg-cyrl)\ntojikī lotinī - Tajique latino (tg-latn)";
@@ -1244,3 +1247,4 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar as alterações, concorda com as $1Condições de Utilização$2 e concorda irrevogavelmente em publicar o seu contributo com a licença $3CC BY-SA 4.0$4 e a $5GFDL$6. Concorda que uma hiperligação ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condições de utilização";
 "year-in-review-contributor-gift-title" = "Ativar novo ícone da aplicação";
+"year-in-review-personalized-edit-views-title-format" = "Recentemente, as suas edições foram visualizadas mais de {{PLURAL:$1|$1 vez|$1 vezes}}";

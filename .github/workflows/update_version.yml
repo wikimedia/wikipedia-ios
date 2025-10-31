@@ -76,7 +76,7 @@ jobs:
 
       - name: Create Pull Request
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.APPS_BOT_TOKEN }}
         run: |
           gh pr create --title "Update app version to ${NEW_VALUE}" \
                        --body "Automated update of Info.plist values to ${NEW_VALUE}" \

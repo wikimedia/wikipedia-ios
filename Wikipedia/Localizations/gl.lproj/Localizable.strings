@@ -167,7 +167,7 @@
 "edit-link-display-text-title" = "Texto para mostrar";
 "edit-link-link-target-title" = "Destino da ligazón";
 "edit-link-remove-link-title" = "Eliminar ligazón";
-"edit-link-title" = "Editar ligazón";
+"edit-link-title" = "Editar a ligazón";
 "edit-menu-item" = "Editar";
 "edit-menu-item-could-not-find-selection-alert-message" = "Isto pode ocorrer porque o texto que seleccionou non é editable (por exemplo, o título do artigo ou títulos de caixas informativas) ou debido á lonxitude do texto destacado";
 "edit-menu-item-could-not-find-selection-alert-title" = "O texto que seleccionou non pode ser localizado";
@@ -581,7 +581,7 @@
 "search-result-redirected-from" = "Redirección desde: $1";
 "search-title" = "Procurar";
 "settings-account" = "Conta";
-"settings-appearance" = "Preferencias de lectura";
+"settings-appearance" = "Tema da aplicación";
 "settings-clear-cache" = "Borrar os datos da caché";
 "settings-clear-cache-are-you-sure-message" = "Se se borran os datos da caché liberaranse preto de $1 de espazo. Non borrará as súas páxinas gardadas.";
 "settings-clear-cache-are-you-sure-title" = "Borrar os datos da caché?";

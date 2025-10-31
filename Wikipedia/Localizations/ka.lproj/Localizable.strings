@@ -149,6 +149,7 @@
 "search-recent-title" = "ბოლოს მოძიებული";
 "search-result-redirected-from" = "გადამისამართებულია $1-დან";
 "search-title" = "ძიება";
+// Fuzzy
 "settings-appearance" = "წაკითხვის დაყენება";
 "settings-help-and-feedback" = "დახმარება და უკუკავშირი";
 "settings-language-bar" = "ენების ჩვენება ძიებისას";

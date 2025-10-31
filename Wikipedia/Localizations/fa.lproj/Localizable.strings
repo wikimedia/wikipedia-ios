@@ -26,6 +26,7 @@
 // Author: Jeeputer
 // Author: Ladsgroup
 // Author: Leyth
+// Author: LordProfo
 // Author: Macofe
 // Author: Mahdiz
 // Author: Mardetanha
@@ -219,6 +220,7 @@
 "developer-settings-enable-year-in-review" = "فعال‌سازی سال در یک نگاه";
 "developer-settings-send-analytics-to-wmflabs" = "ارسال تحلیل‌ها به wmflabs.";
 "developer-settings-suppress-image-rec-post" = "ویرایش پیشنهادهای تصویر را ارسال نکن.";
+// Fuzzy
 "did-you-know" = "آیا می‌دانستید";
 "diff-article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "diff-change-added" = "اضافه، $1، پایان اضافه.";
@@ -261,9 +263,9 @@
 "diff-thanks-anonymous-no-thanks" = "از کاربران ناشناس نمی‌توان تشکر کرد";
 "diff-thanks-login-subtitle" = "«تشکر» راه ساده‌ای برای نشان دادن قدردانی از کار یک ویرایشگر در ویکی‌پدیا است. برای ارسال «تشکر» باید به سامانه وارد شوید.";
 "diff-thanks-login-title" = "برای ارسال «تشکر» وارد شوید";
-"diff-thanks-send-button-title" = "ارسال تشکر";
+"diff-thanks-send-button-title" = "فرستادن «تشکر»";
 "diff-thanks-send-subtitle" = "«تشکر» راه ساده‌ای برای نشان دادن قدردانی از کار یک ویرایشگر در ویکی‌پدیا است. «تشکرها» به‌طور عمومی قابل مشاهده هستند و نمی‌توان آن‌ها را برگرداند.";
-"diff-thanks-send-title" = "ارسال «تشکر» به‌صورت عمومی";
+"diff-thanks-send-title" = "فرستادن «تشکر» به‌صورت عمومی";
 "diff-thanks-sent" = "«تشکر» شما برای $1 فرستاده شد";
 "diff-thanks-sent-already" = "شما برای این ویرایش «تشکر» ارسال کرده‌اید";
 "diff-thanks-sent-cannot-unsend" = "تشکر را نمی‌توان پس گرفت";
@@ -540,7 +542,7 @@
 "field-password-confirm-placeholder" = "رمز عبور را دوباره وارد کنید";
 "field-password-confirm-title" = "تأیید رمز عبور";
 "field-password-placeholder" = "رمز عبور را وارد کنید";
-"field-password-title" = "رمز عبور";
+"field-password-title" = "گذرواژه";
 "field-token-title" = "کد تائید";
 "field-username-placeholder" = "نام کاربریتان را وارد کنید";
 "field-username-title" = "نام کاربری";
@@ -692,15 +694,23 @@
 "main-menu-terms-of-use" = "شرایط استفاده";
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-subtitle" = "در سال ۲۰۲۴، داوطلبان ۴٬۱۰۴٬۸۵۲٬۹۶۹ بایت محتوا به ویکی‌پدیای انگلیسی افزوده‌اند. مجموع تمام کارهای آنان به تولید یک منبع دانش رو به بهبود، حقیقت‌محور و قابل اعتماد منجر شده است که آن را به جهان بخشیده‌اند. همهٔ ما دانشی برای به اشتراک گذاشتن داریم، [نحوهٔ مشارکت را بیاموزید]($1).";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "۴ میلیارد بایت محتوا افزوده شد";
+// Fuzzy
 "microsite-yir-english-edits-slide-subtitle" = "داوطلبان ۹۸٬۲۲۲٬۴۰۷ تغییر در سرتاسر ۳۰۰ نسخهٔ زبانی مختلف ویکی‌پدیا اعمال کرده‌اند. بیش از ۳۷ میلیون تغییر در ویکی‌پدیای انگلیسی اعمال شده است. در هر ساعت از هر روز، داوطلبان در حال کار بر روی بهبود ویکی‌پدیا هستند.";
+// Fuzzy
 "microsite-yir-english-edits-slide-title" = "ویرایشگران امسال ۹۸ میلیون تغییر اعمال کردند";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "در سال ۲۰۲۴، افراد حدود ۲٫۹ میلیارد ساعت—۳۳۱٬۰۰۰ سال!— را صرف مطالعهٔ ویکی‌پدیای انگلیسی کرده‌اند. هرگاه بخواهید دربارهٔ دنیای رو به تغییرمان چیزی بدانید، در یک شرط‌بندی بین دوستانتان پیروز شوید، یا پاسخ سؤال یک کودک را پیدا کنید، ویکی‌پدیا در کنار شماست.";
+// Fuzzy
 "microsite-yir-english-reading-slide-title" = "ما ۲٫۹ میلیارد ساعت را صرف مطالعه کرده‌ایم";
+// Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "کاربران فعال نرم‌افزار iOS بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌اند. افزودن مقاله‌ها به فهرست‌های مطالعه این امکان را به شما می‌دهد که حتی در صورت برخط نبودن به مقاله‌ها دسترسی داشته باشید. همچنین می‌توانید برای همگام‌سازی فهرست‌های مطالعه در تمام دستگاه‌های خود، به سامانه وارد شوید.";
+// Fuzzy
 "microsite-yir-english-saved-reading-slide-title" = "ما بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌ایم";
+// Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "۵ مقالهٔ زیر، مقاله‌های پربازدید ویکی‌پدیای انگلیسی بوده‌اند:\n\n۱. $1\n۲. $2\n۳. $3\n۴. $4\n۵. $5\nدر $6پست وبلاگی اختصاصی ما$7 در این مورد بیشتر بخوانید.";
 "microsite-yir-english-top-read-slide-title" = "محبوب‌ترین مقاله‌های ویکی‌پدیای انگلیسی";
 "more-languages-tooltip-description" = "جستجو در ویکی‌پدیا به بیش از ۳۰۰ زبان";
@@ -936,6 +946,7 @@
 "profile-page-join-subtext" = "یک حساب کاربری ویکی‌پدیایی بسازید تا بتوانید مشارکت‌های خود را رهگیری کنید، مقاله‌ها را به‌صورت غیر برخط ذخیره کنید و تمام دستگاه‌های خود را همگام‌سازی کنید.";
 "profile-page-join-title" = "ورود / پیوستن به ویکی‌پدیا";
 "profile-page-logged-out-year-in-review-subtext" = "برای دریافت یک «سال در یک نگاه» در سال بعد، به سامانه وارد شوید یا حساب کاربری بسازید";
+// Fuzzy
 "profile-year-in-review-login-subtitle" = "برای مشاهدهٔ مجدد سال در یک نگاه و واجد شرایط بودن برای مشاهدهٔ اطلاعات آماری بیشتر، به سامانه وارد شوید یا یک حساب کاربری ایجاد کنید.";
 "profile-year-in-review-login-title" = "برای دسترسی به سال در یک نگاه به سامانه وارد شوید";
 "project-name-mediawiki" = "مدیاویکی";
@@ -1081,6 +1092,7 @@
 "serbian-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان صربی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان صربی";
 "settings-account" = "حساب";
+// Fuzzy
 "settings-appearance" = "تنظیمات مطالعه";
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
 "settings-clear-cache-are-you-sure-message" = "پاک کردن داده‌‌های گرفته‌شده حدود $1 از فضای حافظه را خالی می‌کند. صفحات ذخیره شدهٔ شما حذف نخواهند شد.";
@@ -1148,7 +1160,6 @@
 "table-of-contents-hide-button-label" = "نهفتن جعبهٔ محتویات";
 "table-of-contents-subheading-label" = "زیربخش $1";
 "tabs-title" = "زبانه‌ها";
-"tabs-title-preferences" = "ترجیحات زبانه";
 "tachelhit-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تشلیحت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان تشلیحت";
 "tajik-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاجیکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
@@ -1368,5 +1379,6 @@
 "wikitext-upload-save-sign-in" = "ورود";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "با انتشار تغییرات، $1شرایط استفاده$2 را می‌پذیرید و قبول می‌کنید که به‌طور برگشت‌ناپذیری مشارکت‌های خود را تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 منتشر کنید. همچنین می‌پذیرید که تحت اجازه‌نامهٔ کریتیو کامنز، تنها یک ابرپیوند یا نشانی وب برای انتشاب به مشارکت‌های شما کفایت می‌کند.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
+// Fuzzy
 "year-in-review-base-reading-title" = "ویکی‌پدیا در بیش از ۳۰۰ زبان در دسترس بوده است";
 "year-in-review-collective-zero-ads" = "لوگوی ویکی‌مدیا";

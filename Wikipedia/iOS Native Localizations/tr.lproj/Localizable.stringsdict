@@ -814,6 +814,52 @@
 			<string>%1$d süzgeci</string>
 		</dict>
 	</dict>
+	<key>year-in-review-highlights-edit-frequency-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dakikada %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d kez</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dünya çapındaki okuyucular katkılarınızı takdir ediyor. Son 2 ayda düzenlediğiniz maddeler %#@v1@ aldı. Sizin gibi düzenleyiciler sayesinde Vikipedi; dünya için sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağıdır.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d görüntüleme</string>
+			<key>other</key>
+			<string>toplam %1$d görüntüleme</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Düzenlemeleriniz son zamanlarda %#@v1@ görüntülendi</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d kez</string>
+			<key>other</key>
+			<string>%1$d ve daha fazla kez</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -828,38 +874,10 @@
 			<string>%1$d kez</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ okudunuz. Vikipedi'de %3$@ ve daha fazla etkin dilde %2$@ milyon madde var. Bilgiyi yayma ve çeşitli konuları keşfetme konusunda milyonlara katıldınız.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d madde</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Bu, sizi küresel Vikipedi okuyucularının en üst **PERCENT** arasına sokar. Ortalama bir kişi yılda %#@v1@ okur.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d madde</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ okudunuz</string>
+		<string>Bunun, sizi küresel Vikipedi okuyucularının en üst **PERCENT** arasına soktuğunu tahmin ediyoruz. Ortalama bir kişi yılda %#@v1@ okur.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -873,7 +891,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>2025 yılında %#@v2@ okuyarak %#@v1@ geçirdiniz</string>
+		<string>%3$@ yılında %#@v2@ okuyarak %#@v1@ geçirdiniz</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

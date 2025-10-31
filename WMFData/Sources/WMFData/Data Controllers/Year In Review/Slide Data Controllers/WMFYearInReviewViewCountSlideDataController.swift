@@ -5,6 +5,7 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = true
+    static var shouldFreeze = false
     
     private var viewCount: Int?
     
@@ -14,7 +15,7 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     
     private let service = WMFDataEnvironment.current.mediaWikiService
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.userID = dependencies.userID
         self.languageCode = dependencies.languageCode
@@ -35,8 +36,8 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        config.isEnabled && config.slideConfig.viewCountIsEnabled && userInfo.userID != nil
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date()) && userInfo.userID != nil
     }
     
     private func fetchEditViews(project: WMFProject?, userId: String, language: String) async throws -> (Int) {

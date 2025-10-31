@@ -13,6 +13,7 @@ enum ProfileCoordinatorSource: Int {
     case saved
     case history
     case search
+    case activity
 }
 
 @objc(WMFProfileCoordinator)
@@ -159,12 +160,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .logDonateTap:
             self.logDonateTap()
         case .showYearInReview:
-            if let viewModel, !viewModel.isUserLoggedIn(), WMFDeveloperSettingsDataController.shared.showYiRV2 {
-                presentLoginPrompt()
-            } else {
-                dismissProfile {
-                    self.showYearInReview()
-                }
+            dismissProfile {
+                self.showYearInReview()
             }
         case .logYearInReviewTap:
             self.logYearInReviewTap()
@@ -199,56 +196,20 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         yirCoordinator.start()
     }
     
-    private func presentLoginPrompt() {
-        let title = CommonStrings.yearInReviewLoginPromptProfileTitle
-        let subtitle = CommonStrings.yearInReviewLoginPromptSubtitle
-        let button1Title = CommonStrings.joinLoginTitle
-        let button2Title = CommonStrings.noThanksTitle
-        
-        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-
-        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
-                    
-            guard let self else { return }
-            
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLoginProfile()
-            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
-            loginCoordinator.loginSuccessCompletion = {
-                self.dismissProfile {
-                    self.showYearInReview()
-                }
-            }
-            
-            loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                self.dismissProfile {
-                    self.showYearInReview()
-                }
-            }
-
-            loginCoordinator.start()
-        }
-        
-        let action2 = UIAlertAction(title: button2Title, style: .default) { action in
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanksProfile()
-        }
-        
-        if let presentedViewController = navigationController.presentedViewController {
-            alert.addAction(action1)
-            alert.addAction(action2)
-            
-            presentedViewController.present(alert, animated: true)
-        }
-    }
-    
     func showDonate() {
         
         guard let viewModel else {
             return
         }
         
-        let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: targetRects.donateButtonFrame, source: donateSouce, dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
+        let getDonateButtonGlobalRect: () -> CGRect = { [weak self] in
+            
+            self?.targetRects.donateButtonFrame ?? .zero
+        }
+        
+        let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: donateSouce, dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
             viewModel.isLoadingDonateConfigs = isLoading
-        })
+        }, getDonateButtonGlobalRect: getDonateButtonGlobalRect)
         
         donateCoordinator.start()
         
@@ -350,6 +311,9 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             DonateFunnel.shared.logHistoryProfileDonate(metricsID: metricsID)
         case .search:
             DonateFunnel.shared.logSearchProfileDonate(metricsID: metricsID)
+        case .activity:
+            // TODO: Logging
+            return
         }
     }
     

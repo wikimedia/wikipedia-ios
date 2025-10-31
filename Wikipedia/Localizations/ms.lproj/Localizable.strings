@@ -79,6 +79,11 @@
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana ternyahsimpan";
 "action-update" = "Kemaskini";
+"activity-tab-start-editing" = "Mula menyunting";
+"activity-tab-title" = "Kegiatan";
+"activity-tab-unsatisfied" = "Tidak puas hati";
+"activity-tab-very-satisfied" = "Sangat berpuas hati";
+"activity-tab-very-unsatisfied" = "Sangat tidak berpuas hati";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke senarai bacaan";
 "announcements-dismiss" = "Abaikan";
 "app-store-keywords" = "Wikipedia, rujukan, wiki, ensiklopedia, info, pengetahuan, penyelidikan, maklumat, meneroka, belajar";
@@ -676,6 +681,7 @@
 "search-result-redirected-from" = "Dilencongkan dari: $1";
 "search-title" = "Cari";
 "settings-account" = "Akaun";
+// Fuzzy
 "settings-appearance" = "Keutamaan membaca";
 "settings-clear-cache" = "Padamkan data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Mengosongkan data cache akan membebaskan kira-kira $1 ruang. Ia tidak akan memadamkan halaman anda disimpan.";

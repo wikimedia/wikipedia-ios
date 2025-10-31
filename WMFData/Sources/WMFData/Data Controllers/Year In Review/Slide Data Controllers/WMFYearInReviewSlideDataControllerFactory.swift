@@ -4,7 +4,7 @@ import CoreData
 final class YearInReviewSlideDataControllerFactory {
     
     private let year: Int
-    private let config: YearInReviewFeatureConfig
+    private let config: WMFFeatureConfigResponse.Common.YearInReview
     
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
@@ -15,7 +15,7 @@ final class YearInReviewSlideDataControllerFactory {
     
     init(
         year: Int,
-        config: YearInReviewFeatureConfig,
+        config: WMFFeatureConfigResponse.Common.YearInReview,
         username: String?,
         userID: String?,
         project: WMFProject?,
@@ -69,6 +69,12 @@ final class YearInReviewSlideDataControllerFactory {
     }
     
     private func shouldAddSlideDataController(existingSlideIDs: Set<String>, id: WMFYearInReviewPersonalizedSlideID) -> Bool {
-        !existingSlideIDs.contains(id.rawValue)
+        
+        // If slide should not freeze its data, always return true, which will trigger calculation each time.
+        if !id.dataController().shouldFreeze {
+            return true
+        }
+        
+        return !existingSlideIDs.contains(id.rawValue)
     }
 }

@@ -104,6 +104,7 @@
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "appearance-settings-expand-tables" = "Tabellen opklappen";
 "appearance-settings-set-automatic-table-opening" = "Tabellenastellungen";
+"appearance-settings-set-icon-header" = "App-Symbol";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikel|Artikele}} geläscht";
@@ -190,7 +191,7 @@
 "description-welcome-start-editing-button" = "Ufänke mat Änneren";
 "developer-settings" = "Entwécklerastellungen";
 "developer-settings-enable-year-in-review" = "Joresréckbléck aktivéieren";
-"did-you-know" = "Wousst Dir";
+"did-you-know" = "Wousst Dir schonn?";
 "diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
 "diff-compare-header-to-info-heading" = "Gewisen Ännerung";
@@ -209,9 +210,9 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 Abschnitt|$1 Abschnitter}}";
 "diff-paragraph-moved-format" = "Abschnitt $2 $1 geréckelt";
 "diff-revision-error-title" = "Versioun konnt net geluede ginn";
-"diff-rollback" = "Zrécksetzen";
+"diff-rollback" = "Zerécksetzen";
 "diff-rollback-alert-message" = "Sidd Dir sécher, datt Dir dës Ännerungen zrécksetze wëllt?";
-"diff-rollback-alert-title" = "Ännerungen zrécksetzen";
+"diff-rollback-alert-title" = "Ännerungen zerécksetzen";
 "diff-rollback-success" = "Ännerungen zréckgesat.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Ännerung|$1 Ännerungen}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 Byte derbäigesat}}";
@@ -427,7 +428,7 @@
 "find-replace-header" = "Sichen an Ersetzen";
 "find-replace-header-close-accessibility" = "Sichen an Ersetzen zoumaachen";
 "find-textfield-accessibility" = "Sichen";
-"forgot-password-button-title" = "Zrécksetzen";
+"forgot-password-button-title" = "Zerécksetzen";
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";
 "forgot-password-username-or-email-title" = "Oder";
@@ -542,7 +543,7 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-page" = "Haaptsäit";
-"microsite-yir-english-edits-bytes-slide-title" = "4 Milliarde Byte derbäigesat";
+"microsite-yir-english-edits-bytes-slide-title" = "$1 Byte derbäigesat";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "more-menu" = "Méi";
@@ -676,6 +677,14 @@
 "panel-compare-revisions-title" = "Versioune vergläichen";
 "panel-not-logged-in-continue-edit-action-title" = "Änneren ouni anzeloggen";
 "panel-not-logged-in-title" = "Dir sidd net ageloggt";
+"percentile-0.01" = "0,01";
+"percentile-1" = "1";
+"percentile-10" = "10";
+"percentile-20" = "20";
+"percentile-30" = "30";
+"percentile-40" = "40";
+"percentile-5" = "5";
+"percentile-50" = "50";
 "pictured" = "als Bild";
 "places-accessibility-clear-saved-searches" = "Gespäichert Ufroe, fir ze sichen, läschen";
 "places-accessibility-group" = "$1 Artikelen";
@@ -820,6 +829,7 @@
 "search-widget-description" = "Schnellzougrëff fir op Wikipedia ze sichen.";
 "search-widget-wikipedia-title" = "Wikipedia";
 "settings-account" = "Benotzerkont";
+// Fuzzy
 "settings-appearance" = "Lies-Astellungen";
 "settings-clear-cache" = "Tëschegespäichert Date läschen";
 "settings-clear-cache-are-you-sure-message" = "D'Läsche vun tëschegespäicherten Donnéeën mécht ongeféier $1 Plaz fräi. Är gespäichert Säite ginn net geläscht.";
@@ -872,12 +882,13 @@
 "table-of-contents-hide-button-label" = "Inhaltsverzeechnes verstoppen";
 "table-of-contents-subheading-label" = "Ënneriwwerschrëft $1";
 "tabs-close-tab" = "Tab zoumaachen";
+"tabs-hide-suggested-articles" = "Artikelvirschléi verstoppen";
 "tabs-open-tab" = "Tab opmaachen";
 "tabs-overview-tooltip-body" = "Tëscht oppenen Artikelen an der Tabiwwersiicht wiesselen.";
 "tabs-overview-tooltip-title" = "Tabiwwersiicht";
+"tabs-show-suggested-articles" = "Artikelvirschléi weisen";
 "tabs-thumbnail-subtitle" = "Fänkt Är Sich hei un";
 "tabs-title" = "Tabs";
-"tabs-title-preferences" = "Tab-Astellungen";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktive Benotzer|$1 aktiv Benotzer}}";
 "talk-page-add-topic-button" = "Sujet derbäisetzen";
 "talk-page-archives" = "Archiven";
@@ -1042,22 +1053,31 @@
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "year-in-review-base-edits-title" = "D'Wikipedia gouf $1 Mol pro Minutt geännert";
+// Fuzzy
 "year-in-review-base-reading-title" = "Wikipedia war a méi wéi 300 Sproochen disponibel";
 "year-in-review-button-title" = "Joresréckbléck";
 "year-in-review-collective-edits" = "Eng Illustratioun vun zwee Wikipedia-Puzzelstécker, allebéid mat engem Deel vun Informatiounen.";
 "year-in-review-collective-edits-per-minute" = "Eng Auer déi tickt, fir d'Zäit ze symboliséieren, déi d'Leit mat Liesen op der Wikipedia verbréngen.";
 "year-in-review-collective-zero-ads" = "Wikimedia-Logo";
 "year-in-review-contributor-gift-title" = "Neit Symbol vun der App aktivéieren";
-"year-in-review-contributor-slide-status-both" = "Donateur an Editeur";
-"year-in-review-contributor-slide-status-donor" = "en Donateur";
-"year-in-review-contributor-slide-status-editor" = "Editeur";
+// Fuzzy
 "year-in-review-contributor-slide-title" = "Neit Symbol fräigeschalt";
 "year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-feature-announcement-title" = "Entdeckt de Wikipedia-Réckbléck";
 "year-in-review-feature-announcement-title-personalized" = "Entdeckt Äre Wikipedia-Joresréckbléck";
-"year-in-review-intro-exit-confirmation-title" = "Sidd Dir sécher, datt Dir erausgoe wëllt?";
-"year-in-review-login-title" = "Verbessert Äre Joresréckbléck";
-"year-in-review-non-contributor-slide-title" = "Personaliséiert Symboler fräischalten";
+"year-in-review-highlights-articles-saved" = "Gespäichert Artikelen";
+"year-in-review-highlights-articles-viewed" = "Zuel vun de gekuckten Artikelen";
+"year-in-review-highlights-button-title" = "Highlights deelen";
+"year-in-review-highlights-categories" = "Kategorien, déi mech interesséiert hunn";
+"year-in-review-highlights-created-lists" = "Zuel vun de Lieslëschten, déi ugeluecht goufen";
+"year-in-review-highlights-edit-frequency-value" = "{{PLURAL:$1|$1 Mol}} pro Minutt";
+"year-in-review-highlights-favorite-day" = "Liblingsdag fir ze liesen";
+"year-in-review-highlights-personalized-articles" = "Artikelen, déi ech am längste gelies hunn";
+"year-in-review-highlights-reading-time" = "Minutte gelies";
+"year-in-review-highlights-share-logo-caption" = "Wikipedia-Logo";
+"year-in-review-highlights-subtitle" = "Mir freeën eis op d'nächst Joer!";
+// Fuzzy
+"year-in-review-non-contributor-slide-title" = "Äert personaliséiert Contributeur-Symbol fräischalten";
 "year-in-review-personalized-date-day-footer-v3" = "Liblingsdag fir ze liesen";
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
 // Fuzzy
@@ -1065,7 +1085,7 @@
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-Logo";
 "year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-editing-title-format-500plus" = "Dir hutt d'Wikipedia méi wéi 500 Mol geännert";
-"year-in-review-personalized-reading-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
+"year-in-review-personalized-reading-subtitle-format-v3" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
 "year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
 "year-in-review-share-text" = "Hei ass mäi Wikipedia-Joresréckbléck. Mat der Wikipedia-iOS-App erstallt";
 "year-in-review-survey-additional-thoughts" = "Wëllt Dir nach eppes soen?";

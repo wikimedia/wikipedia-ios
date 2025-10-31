@@ -494,6 +494,7 @@
 "search-recent-title" = "Guetao de recién";
 "search-result-redirected-from" = "Redirixío dende: $1";
 "search-title" = "Guetar";
+// Fuzzy
 "settings-appearance" = "Preferencies de llectura";
 "settings-clear-cache" = "Borrar los datos de la caché";
 "settings-clear-cache-are-you-sure-message" = "Si se borren los datos de la caché lliberaránse cerca de $1 d'espaciu. Nun se borrarán les páxines guardaes.";

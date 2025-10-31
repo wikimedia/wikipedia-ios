@@ -869,6 +869,54 @@
 			<string>%1$d مرشح</string>
 		</dict>
 	</dict>
+	<key>year-in-review-highlights-edit-frequency-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ في الدقيقة</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d مرة</string>
+			<key>other</key>
+			<string>%1$d مرات</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>يُقدّر القراء حول العالم مساهماتكم. خلال الشهرين الماضيين، حصدت المقالات التي حرّرتموها %#@v1@. بفضل محررين مثلكم، تُعدّ ويكيبيديا مصدرًا معرفيًا عالميًا موثوقًا، قائمًا على الحقائق، ويتطور باستمرار.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> مشاهدة %1$d </string>
+			<key>other</key>
+			<string> مشاهدة %1$d إجمالية</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>لقد تمت مشاهدة تعديلاتك أكثر من %#@v1@ مؤخرًا</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d مرة</string>
+			<key>other</key>
+			<string>%1$d مرات</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -883,26 +931,10 @@
 			<string>%1$d مرة</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>لقد قرأت %#@v1@. تحتوي ويكيبيديا على %2$@ مليون مقالة متاحة بأكثر من %3$@ لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d مقال</string>
-			<key>other</key>
-			<string>%1$d مقالة</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>هذا يضعك ضمن أعلى **PERCENT** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي %#@v1@ سنويا.</string>
+		<string>نُقدّر أن هذا يضعك ضمن أعلى **نسبة** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي %#@v1@ سنويًا.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -910,31 +942,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d مقالة</string>
+			<string> %1$d مقالة</string>
 			<key>other</key>
-			<string>%1$d مقالات</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>لقد قرأت %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d مقال</string>
-			<key>other</key>
-			<string>%1$d مقالة</string>
+			<string> %1$d مقالات</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-title-v3-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>لقد قضيت %#@v1@ في قراءة %#@v2@ في عام 2025</string>
+		<string>لقد قضيت %#@v1@ في قراءة %#@v2@ في %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -942,7 +958,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d دقيقة</string>
+			<string> %1$d دقيقة</string>
 			<key>other</key>
 			<string>%1$d دقائق</string>
 		</dict>
@@ -953,7 +969,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$d مقالة</string>
+			<string> %2$d مقالة</string>
 			<key>other</key>
 			<string>%2$d مقالات</string>
 		</dict>

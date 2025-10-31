@@ -120,7 +120,7 @@ extension WMFAppViewController {
     }
     
     @objc func assignAndLogActivityTabExperiment() {
-        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+        guard let dataController = WMFActivityTabExperimentsOldDataController.shared,
               let primaryLanguage = dataStore.languageLinkController.appLanguage,
               let project = WikimediaProject(siteURL: primaryLanguage.siteURL),
                 let wmfProject = project.wmfProject else {
@@ -140,7 +140,7 @@ extension WMFAppViewController {
     }
 
     @objc func getAssignmentForActivityTabExperiment() -> Int {
-        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+        guard let dataController = WMFActivityTabExperimentsOldDataController.shared,
               let primaryLanguage = dataStore.languageLinkController.appLanguage,
               let project = WikimediaProject(siteURL: primaryLanguage.siteURL),
               let wmfProject = project.wmfProject else {
@@ -156,6 +156,11 @@ extension WMFAppViewController {
         }
 
         return assignment
+    }
+    
+    @objc func getAssignmentForActivityTab() -> Int {
+        let dataController = WMFActivityTabDataController.shared
+        return dataController.getActivityAssignment()
     }
 
 }
@@ -264,6 +269,7 @@ extension WMFAppViewController {
         let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: animated)
         coordinator.start()
     }
+
 }
 
 fileprivate extension UIViewController {
@@ -772,8 +778,90 @@ extension WMFAppViewController {
         let viewController = WMFHistoryViewController(viewModel: viewModel, dataController: historyDataController, theme: theme, dataStore: dataStore)
         return viewController
     }
+    
+    @objc func generateActivityTab() -> WMFActivityTabViewController {
+        let onWikipediaiOS = WMFLocalizedString(
+            "activity-tab-hours-on-wikipedia-ios",
+            value: "ON WIKIPEDIA iOS",
+            comment: "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization"
+        )
+        
+        let timeSpentReading = WMFLocalizedString(
+            "activity-tab-time-spent-reading",
+            value: "Time spent reading this week",
+            comment: "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes"
+        )
 
-    @objc func generateActivityTab(exploreViewController: ExploreViewController) -> WMFActivityTabViewController {
+        let activityTabDataController = WMFActivityTabDataController()
+
+        func usernamesReading(username: String) -> String {
+            let format = WMFLocalizedString(
+                "activity-tab-usernames-reading-title",
+                value: "%1$@'s reading",
+                comment: "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username."
+            )
+            return String.localizedStringWithFormat(format, username)
+        }
+        
+        let noUsernameReading = WMFLocalizedString("activity-tab-no-username-reading-title", value: "Your reading", comment: "Activity tab header, for when there is no username.")
+
+        func hoursMinutesRead(hours: Int, minutes: Int) -> String {
+            let hoursString = hours.description
+            let minutesString = minutes.description
+            let format = WMFLocalizedString(
+                "activity-tab-hours-minutes-read",
+                value: "%1$@h %2$@m",
+                comment: "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes."
+            )
+            return String.localizedStringWithFormat(format, hoursString, minutesString)
+        }
+        
+        let articlesRead = WMFLocalizedString("activity-tab-articles-read", value: "Articles read this month", comment: "Title for module about articles read this month, displayed below the time spent reading this week")
+
+        let articlesReadGraph = WMFLocalizedString("activity-tab-articles-read-graph-label", value: "Articles", comment: "Activity tab articles read graph axis label")
+        let weekGraph = WMFLocalizedString("activity-tab-week-graph-label", value: "Week", comment: "Activity tab week graph axis label")
+
+        let topCategories = WMFLocalizedString("activity-tab-top-categories", value: "Top categories this month", comment: "Title for module about top categories this month")
+        let saved = WMFLocalizedString("activity-tab-saved", value: "Articles saved this month", comment: "Title for module about saved articles")
+        
+        func remaining(amount: Int) -> String {
+            let format = WMFLocalizedString(
+                "activity-tab-remaining-articles",
+                value: "+%1$@",
+                comment: "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3."
+            )
+            return String.localizedStringWithFormat(format, String(amount))
+        }
+        
+        let viewModel = WMFActivityTabViewModel(localizedStrings:
+            WMFActivityTabViewModel.LocalizedStrings(
+                userNamesReading: usernamesReading(username:),
+                noUsernameReading: noUsernameReading,
+                totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
+                onWikipediaiOS: onWikipediaiOS,
+                timeSpentReading: timeSpentReading,
+                totalArticlesRead: articlesRead,
+                week: weekGraph,
+                articlesRead: articlesReadGraph,
+                topCategories: topCategories,
+                articlesSavedTitle: saved,
+                remaining: remaining(amount:)),
+            dataController: activityTabDataController,
+            hasSeenActivityTab: {
+            activityTabDataController.hasSeenActivityTab = true
+        })
+
+        let controller = WMFActivityTabViewController(
+            dataStore: dataStore,
+            theme: theme,
+            viewModel: viewModel,
+            dataController: activityTabDataController
+        )
+
+        return controller
+    }
+
+    @objc func generateActivityTabExperiment(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentOldViewController {
         
         var wikimediaProject: WikimediaProject? = nil
         var wmfProject: WMFProject? = nil
@@ -912,7 +1000,7 @@ extension WMFAppViewController {
         }
 
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        let localizedStrings = WMFActivityViewModel.LocalizedStrings(
+        let localizedStrings = WMFActivityExperimentOldViewModel.LocalizedStrings(
             activityTabNoEditsAddImagesTitle: CommonStrings.activityTabNoEditsAddImagesTitle,
             activityTabNoEditsGenericTitle: CommonStrings.activityTabNoEditsGenericTitle,
             getActivityTabSaveTitle: activityTabSaveTitle,
@@ -928,7 +1016,7 @@ extension WMFAppViewController {
             loggedOutSubtitle: CommonStrings.actitvityTabLoggedOutSubtitle
         )
         
-        let viewModel = WMFActivityViewModel(
+        let viewModel = WMFActivityExperimentOldViewModel(
             localizedStrings: localizedStrings,
             openHistory: openHistoryClosure,
             openHistoryLoggedOut: openHistoryLoggedOutClosure,
@@ -954,7 +1042,7 @@ extension WMFAppViewController {
             })
         }
 
-        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, theme: theme, showSurvey: showSurveyClosure, dataStore: dataStore)
+        let activityTabViewController = WMFActivityTabExperimentOldViewController(viewModel: viewModel, theme: theme, showSurvey: showSurveyClosure, dataStore: dataStore)
         
         let loginAction = { [weak self] in
             
@@ -976,14 +1064,14 @@ extension WMFAppViewController {
                 
                 guard let self else { return }
                 
-                self.updateActivityTabLoginState(activityTabViewController: activityTabViewController)
+                self.updateActivityTabExperimentProject(activityTabViewController: activityTabViewController)
             }
             
             loginCoordinator.loginSuccessCompletion = { [weak self] in
                 
                 guard let self else { return }
                 
-                self.updateActivityTabLoginState(activityTabViewController: activityTabViewController)
+                self.updateActivityTabExperimentProject(activityTabViewController: activityTabViewController)
             }
 
             loginCoordinator.start()
@@ -1002,20 +1090,11 @@ extension WMFAppViewController {
         return activityTabViewController
     }
     
-    @objc func updateActivityTabProject(activityTabViewController: WMFActivityTabViewController) {
+    @objc func updateActivityTabExperimentProject(activityTabViewController: WMFActivityTabExperimentOldViewController) {
         if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
            let wikimediaProject = WikimediaProject(siteURL: siteURL),
            let wmfProject = wikimediaProject.wmfProject {
             activityTabViewController.viewModel.project = wmfProject
-        }
-    }
-    
-    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        activityTabViewController.viewModel.isLoggedIn = isLoggedIn
-        
-        if let username = dataStore.authenticationManager.authStatePermanentUsername {
-            activityTabViewController.viewModel.username = username
         }
     }
     
@@ -1478,6 +1557,24 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
 // MARK: - Tabs
 
  extension WMFAppViewController {
+     
+     @objc func assignMoreDynamicTabsV2ExperimentIfNeeded() {
+         do {
+             let assignment = try WMFArticleTabsDataController.shared.assignExperimentV2IfNeeded()
+             
+             let groupName: String
+             switch assignment {
+             case .control: groupName = "dynamic_a"
+             case .groupB: groupName = "dynamic_b"
+             case .groupC: groupName = "dynamic_c"
+             }
+             
+             ArticleTabsFunnel.shared.logGroupAssignment(group: groupName)
+         } catch {
+             DDLogError("Failed to assign more dynamic tabs v2 experiment: \(error)")
+         }
+     }
+     
      @objc func checkAndCreateInitialArticleTab() {
         let dataController = WMFArticleTabsDataController.shared
          Task {

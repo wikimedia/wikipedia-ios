@@ -57,6 +57,7 @@
 "activity-tab-very-satisfied" = "ݙاڈھا تسلی بخش";
 "activity-tab-very-unsatisfied" = "ݙاڈھا تسلی بخش";
 "activity-tab-view-editing-history" = " تبدیلی دا تاریخچہ ݙیکھو";
+"activity-tab-week-graph-label" = "ہفتہ";
 // Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "alt-text-feedback-survey-toast-title" = "فیڈبیک جمع تھی ڳئی";
@@ -111,6 +112,7 @@
 "description-published-title" = "تفصیل شائع تھی ڳئی!";
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
+// Fuzzy
 "did-you-know" = "بھلا تساں ڄاݨدے ہو";
 "diff-compare-header-from-info-heading" = "پچھلی تبدیلی";
 // Fuzzy
@@ -399,6 +401,7 @@
 "search-title" = "ڳولو";
 "search-widget-wikipedia-title" = "وکیپیڈیا";
 "settings-account" = "کھاتہ";
+// Fuzzy
 "settings-appearance" = "پڑھݨ ترجیحاں";
 "settings-clear-cache-cancel" = "منسوخ";
 "settings-clear-cache-ok" = "کیشی صاف کرو";
@@ -511,6 +514,7 @@
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
 "year-in-review-donate" = "عطیہ";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "دنیا بھر دے پڑھݨ ہار تہاݙی ہتھ بھرائی کوں سُلاہیندن۔  پچھلے 2 مہیناں وچ، تُہاݙے وٹا پھیر کردہ مضامین کوں $1 کل ملاحظات ملے ہِن۔  تہاݙے سویں ایڈیٹرز دا شکریہ، ویکیپیڈیا دنیا کیتے ہک پکا بہتر کرݨ آالا، حقائق تے مبنی، اَتے قابلِ اعتماد علمی وسیلہ ہے۔";
 "year-in-review-survey-neutral" = "غیر جانبدار";
 "year-in-review-survey-satisfied" = "مطمئن";

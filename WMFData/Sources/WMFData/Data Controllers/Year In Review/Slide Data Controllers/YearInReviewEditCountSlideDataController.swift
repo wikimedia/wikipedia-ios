@@ -6,16 +6,17 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = true
+    static var shouldFreeze = false
     
     private var editCount: Int?
 
     private let username: String?
     private let project: WMFProject?
     
-    private let yirConfig: YearInReviewFeatureConfig
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     private let service = WMFDataEnvironment.current.mediaWikiService
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.username = dependencies.username
@@ -25,10 +26,8 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         guard let username, let project else { return }
         
-        guard let startDate = yirConfig.dataPopulationStartDateString,
-              let endDate = yirConfig.dataPopulationEndDateString else {
-            return
-        }
+        let startDate = yirConfig.dataStartDateString
+        let endDate = yirConfig.dataEndDateString
         
         let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: startDate, endDate: endDate)
         
@@ -48,8 +47,8 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isEnabled && config.slideConfig.editCountIsEnabled && userInfo.username != nil
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date()) && userInfo.username != nil
     }
     
     func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String) async throws -> (Int, Bool) {

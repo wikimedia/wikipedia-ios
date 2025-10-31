@@ -264,9 +264,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
         return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem)
     }
-    
+
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .places, project: nil)
     }
 
@@ -419,12 +419,14 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         return existingYirCoordinator
     }
     
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: self.dataStore
+        )
+    }()
 
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
