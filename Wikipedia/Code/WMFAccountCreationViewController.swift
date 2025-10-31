@@ -190,7 +190,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         hcaptchaVC.successAction = { token in
             hcaptchaVC.dismiss(animated: true) { [weak self] in
                 self?.hCaptchaToken = token
-                self?.createAccount()
+                self?.createAccount(fakeSuccess: true)
             }
         }
         
@@ -403,7 +403,17 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         })
     }
 
-    fileprivate func createAccount() {
+    fileprivate func createAccount(fakeSuccess: Bool = false) {
+        
+        // Fake creation
+        if fakeSuccess {
+            let presenter = self.presentingViewController
+            self.dismiss(animated: true, completion: {
+                presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
+            })
+            return
+        }
+
         
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
