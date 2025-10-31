@@ -153,18 +153,6 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                         return
                     }
                     
-                    if let OATHTokenRequest = requests.first(where: { request in
-                        guard let id = request["id"] as? String else {
-                            return false
-                        }
-                        return id.hasSuffix("TOTPAuthenticationRequest")
-                    }),
-                        let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
-                        fields["OATHToken"] is [String : AnyObject] {
-                        failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
-                        return
-                    }
-                    
                     if let twoFactorModuleSelectRequest = requests.first(where: { request in
                         guard let id = request["id"] as? String else {
                             return false
@@ -177,6 +165,18 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                        attempt == 1 {
                         // repeat call once, passing in "newModule=totp" https://phabricator.wikimedia.org/T399654#11133473
                         login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, emailAuthCode: emailAuthCode, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, attempt: attempt, newModule: "totp", success: success, failure: failure)
+                        return
+                    }
+                    
+                    if let OATHTokenRequest = requests.first(where: { request in
+                        guard let id = request["id"] as? String else {
+                            return false
+                        }
+                        return id.hasSuffix("TOTPAuthenticationRequest")
+                    }),
+                        let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
+                        fields["OATHToken"] is [String : AnyObject] {
+                        failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
                         return
                     }
 
