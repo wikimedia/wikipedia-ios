@@ -4,18 +4,6 @@ public struct WMFFeatureConfigResponse: Codable {
     
     public struct Common: Codable {
         public let yir: [YearInReview]
-        public let hCaptcha: HCaptcha?
-        
-        public struct HCaptcha: Codable {
-            public let baseURL: String
-            public let jsSrc: String
-            public let endpoint: String
-            public let assethost: String
-            public let imghost: String
-            public let reportapi: String
-            public let sentry: Bool
-            public let apiKey: String
-        }
         
         public struct YearInReview: Codable {
             
@@ -110,14 +98,24 @@ public struct WMFFeatureConfigResponse: Codable {
             return yir.first { $0.year == year }
         }
         
-        public init(yir: [YearInReview], hCaptcha: HCaptcha? = nil) {
+        public init(yir: [YearInReview]) {
             self.yir = yir
-            self.hCaptcha = hCaptcha
         }
     }
     
     public struct IOS: Codable {
+        public let hCaptcha: HCaptcha?
         
+        public struct HCaptcha: Codable {
+            public let baseURL: String
+            public let jsSrc: String
+            public let endpoint: String
+            public let assethost: String
+            public let imghost: String
+            public let reportapi: String
+            public let sentry: Bool
+            public let apiKey: String
+        }
     }
     
     public let common: Common

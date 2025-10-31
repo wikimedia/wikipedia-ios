@@ -107,7 +107,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
                       return
                   }
             
-            hCaptcha = try HCaptcha(apiKey: "45205f58-be1c-40f0-b286-07a4498ea3da",
+            hCaptcha = try HCaptcha(apiKey: config.apiKey,
                                      baseURL: baseURL,
                                      jsSrc: jsSrc,
                                      sentry: config.sentry,
