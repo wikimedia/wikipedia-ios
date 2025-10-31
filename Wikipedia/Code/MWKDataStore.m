@@ -15,7 +15,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 19;
+static const NSInteger WMFCurrentLibraryVersion = 20;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -518,6 +518,18 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             return;
         }
     }
+
+    if (currentLibraryVersion < 20) {
+        [[SavedStateMigrationManager shared] migrateAllIfNeeded];
+        [moc wmf_setValue:@(20) forKey:WMFLibraryVersionKey];
+
+        NSError *migrationError = nil;
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during WMF 20 migration: %@", migrationError);
+            return;
+        }
+    }
+
 
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }

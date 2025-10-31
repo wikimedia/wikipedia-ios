@@ -67,7 +67,7 @@ public final class WMFCoreDataStore {
         
     }
     
-    var newBackgroundContext: NSManagedObjectContext {
+    public var newBackgroundContext: NSManagedObjectContext {
         get throws {
             guard let persistentContainer else {
                 throw WMFCoreDataStoreError.setupMissingPersistentContainer
@@ -214,7 +214,7 @@ public final class WMFCoreDataStore {
 }
 
 extension WMFProject {
-    var coreDataIdentifier: String {
+    public var coreDataIdentifier: String {
         switch self {
         case .commons:
             return "commons"
@@ -251,7 +251,7 @@ extension WMFProject {
 }
 
 extension String {
-    var normalizedForCoreData: String {
+    public var normalizedForCoreData: String {
         return self.spacesToUnderscores.precomposedStringWithCanonicalMapping
     }
 }
