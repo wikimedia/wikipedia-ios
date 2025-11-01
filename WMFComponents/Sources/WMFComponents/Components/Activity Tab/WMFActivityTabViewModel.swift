@@ -158,8 +158,11 @@ public class WMFActivityTabViewModel: ObservableObject {
         let articlesSavedTitle: String
         let remaining: (Int) -> String
 		let loggedOutTitle: String
+        let loggedOutSubtitle: String
+        let loggedOutPrimaryCTA: String
+        let loggedOutSecondaryCTA: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, loggedOutSecondaryCTA: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -172,6 +175,9 @@ public class WMFActivityTabViewModel: ObservableObject {
             self.articlesSavedTitle = articlesSavedTitle
             self.remaining = remaining
             self.loggedOutTitle = loggedOutTitle
+            self.loggedOutSubtitle = loggedOutSubtitle
+            self.loggedOutPrimaryCTA = loggedOutPrimaryCTA
+            self.loggedOutSecondaryCTA = loggedOutSecondaryCTA
         }
     }
 }

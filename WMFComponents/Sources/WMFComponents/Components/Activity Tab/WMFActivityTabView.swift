@@ -18,28 +18,7 @@ public struct WMFActivityTabView: View {
             ZStack {
                 if viewModel.isLoggedIn {
                     VStack(spacing: 20) {
-                        VStack(alignment: .center, spacing: 8) {
-                            if let model = viewModel.articlesReadViewModel {
-                                Text(model.usernamesReading)
-                                    .foregroundColor(Color(uiColor: theme.text))
-                                    .font(Font(WMFFont.for(.boldHeadline)))
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                            } else {
-                                Text(viewModel.localizedStrings.noUsernameReading)
-                                    .foregroundColor(Color(uiColor: theme.text))
-                                    .font(Font(WMFFont.for(.boldHeadline)))
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                            }
-                            Text(viewModel.localizedStrings.onWikipediaiOS)
-                                .font(.custom("Menlo", size: 11, relativeTo: .caption2))
-                                .foregroundColor(Color(uiColor: theme.text))
-                                .padding(.vertical, 4)
-                                .padding(.horizontal, 8)
-                                .background(
-                                    Capsule()
-                                        .fill(Color(uiColor: theme.softEditorBlue))
-                                )
-                        }
+                        headerView
 
                         VStack(alignment: .leading, spacing: 16) {
                             VStack(alignment: .center, spacing: 8) {
@@ -63,33 +42,25 @@ public struct WMFActivityTabView: View {
                         .padding(.horizontal, 16)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .background(
+                        LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
+                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1.00)
+                            ],
+                            startPoint: UnitPoint(x: 0.5, y: 0),
+                            endPoint: UnitPoint(x: 0.5, y: 1)
+                        )
+                    )
                     .frame(maxWidth: .infinity)
                 } else {
-                    VStack(alignment: .center) {
-                        Spacer()
-                        Image("activity-tab-page", bundle: .module)
-                        Text(viewModel.localizedStrings.loggedOutTitle)
-                            .font(Font(WMFFont.for(.semiboldSubheadline)))
-                        Spacer()
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    loggedOutView
                 }
                 
                 Spacer()
             }
             .padding(.top, 16)
-            .background(
-                LinearGradient(
-                    stops: [
-                        Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
-                        Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1.00)
-                    ],
-                    startPoint: UnitPoint(x: 0.5, y: 0),
-                    endPoint: UnitPoint(x: 0.5, y: 1)
-                )
-            )
 
-            // Start of modules on bottom section - they will go here
             Spacer()
         }
         .frame(maxWidth: .infinity)
@@ -97,6 +68,88 @@ public struct WMFActivityTabView: View {
             viewModel.fetchData()
             viewModel.hasSeenActivityTab()
         }
+    }
+    
+    private var headerView: some View {
+        VStack(alignment: .center, spacing: 8) {
+            if let model = viewModel.articlesReadViewModel {
+                Text(model.usernamesReading)
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .frame(maxWidth: .infinity, alignment: .center)
+            } else {
+                Text(viewModel.localizedStrings.noUsernameReading)
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .frame(maxWidth: .infinity, alignment: .center)
+            }
+            Text(viewModel.localizedStrings.onWikipediaiOS)
+                .font(.custom("Menlo", size: 11, relativeTo: .caption2))
+                .foregroundColor(Color(uiColor: theme.text))
+                .padding(.vertical, 4)
+                .padding(.horizontal, 8)
+                .background(
+                    Capsule()
+                        .fill(Color(uiColor: theme.softEditorBlue))
+                )
+        }
+    }
+    
+    private var loggedOutView: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(viewModel.localizedStrings.loggedOutTitle)
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .foregroundColor(Color(uiColor: theme.text))
+                Spacer()
+                WMFCloseButton(action: {
+                    // todo close
+                })
+            }
+            Text(viewModel.localizedStrings.loggedOutSubtitle)
+                .font(Font(WMFFont.for(.callout)))
+                .foregroundColor(Color(uiColor: theme.text))
+            HStack(spacing: 12) {
+                Button(action: {
+                    // todo navigate
+                }) {
+                    HStack(spacing: 3) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .personFilled) {
+                            Image(uiImage: icon)
+                        }
+                        Text(viewModel.localizedStrings.loggedOutPrimaryCTA)
+                    }
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(uiColor: theme.paperBackground))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(Color(uiColor: theme.link))
+                    .cornerRadius(40)
+                }
+                Button(action: {
+                    // todo navigate
+                }) {
+                    Text(viewModel.localizedStrings.loggedOutSecondaryCTA)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundColor(Color(uiColor: theme.text))
+                        .padding(.horizontal, 10)
+                }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 8)
+        }
+        .multilineTextAlignment(.leading)
+        .padding(16) // interior padding
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(uiColor: theme.paperBackground))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(uiColor: theme.baseBackground), lineWidth: 0.5)
+                )
+        )
+        .padding(16) // exterior padding
     }
 
     
