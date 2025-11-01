@@ -241,6 +241,10 @@ public final class WMFBasicService: WMFService {
             }
         }
     }
+    
+    public func clearCachedData() {
+        urlSession.clearCachedData()
+    }
 }
 
 private extension URLRequest {

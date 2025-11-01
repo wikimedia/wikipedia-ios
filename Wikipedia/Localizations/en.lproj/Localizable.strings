@@ -1539,8 +1539,7 @@
 "year-in-review-personalized-edit-views-title-format" = "Your edits have been viewed more than {{PLURAL:$1|$1 time|$1 times}} recently";
 "year-in-review-personalized-editing-subtitle-1" = "Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
 "year-in-review-personalized-editing-subtitle-2" = "Volunteers like you made $1 changes across $2 different language editions of Wikipedia.";
-"year-in-review-personalized-editing-title-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}";
-"year-in-review-personalized-editing-title-format-500plus" = "You edited Wikipedia 500+ times";
+"year-in-review-personalized-editing-title-format" = "You edited {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-personalized-explore" = "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.";
 "year-in-review-personalized-location-subtitle-format-1" = "You read about $2$1$3.";
 "year-in-review-personalized-location-subtitle-format-2" = "You read about $3$1$4 and $3$2$4.";

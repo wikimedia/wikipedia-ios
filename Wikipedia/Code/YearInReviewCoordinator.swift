@@ -125,7 +125,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedSaveCountSlideTitle: personalizedSaveCountSlideTitle(saveCount:),
             personalizedSaveCountSlideSubtitle: personalizedSaveCountSlideSubtitle(saveCount:articleNames:),
             personalizedUserEditsSlideTitle: personzlizedUserEditsSlideTitle(editCount:),
-            personzlizedUserEditsSlideTitle500Plus: WMFLocalizedString("year-in-review-personalized-editing-title-format-500plus", value: "You edited Wikipedia 500+ times", comment: "Year in review, personalized editing article count slide title for users that edited articles 500+ times."),
             personzlizedUserEditsSlideSubtitleEN: personzlizedUserEditsSlideSubtitle(),
             personzlizedUserEditsSlideSubtitleNonEN: personzlizedUserEditsSlideSubtitle(),
             personalizedYourEditsViewedSlideTitle: personalizedYourEditsViewedSlideTitle(views:),
@@ -682,7 +681,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func personzlizedUserEditsSlideTitle(editCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
+        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
         return String.localizedStringWithFormat(format, editCount)
     }
     
@@ -857,21 +856,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        else { return }
        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
        let project = WMFProject.wikipedia(wmfLanguage)
+       
        var userId: Int?
+       var globalUserId: Int?
 
        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-          let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-           userId = userID
+          let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL) {
+           userId = permanentUser.userID
+           globalUserId = permanentUser.globalUserID
        }
        
-       let userIdString: String? = userId.map { String($0) }
         let yirDataController = try WMFYearInReviewDataController()
         try await yirDataController.populateYearInReviewReportData(
             for: WMFYearInReviewDataController.targetYear,
             countryCode: countryCode,
             primaryAppLanguageProject: project,
             username: dataStore.authenticationManager.authStatePermanentUsername,
-            userID: userIdString,
+            userID: userId,
+            globalUserID: globalUserId,
             savedSlideDataDelegate: dataStore.savedPageList,
             legacyPageViewsDataDelegate: dataStore)
    }
