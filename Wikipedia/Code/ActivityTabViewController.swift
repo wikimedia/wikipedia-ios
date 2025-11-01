@@ -165,17 +165,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
     
-    @objc private func didLogIn() {
-        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
-            viewModel.updateIsLoggedIn(isLoggedIn: true)
-        } else {
-            viewModel.updateIsLoggedIn(isLoggedIn: false)
-        }
-        if let username = dataStore?.authenticationManager.authStatePermanentUsername {
-            viewModel.updateUsername(username: username)
-        }
-    }
-    
     private lazy var moreBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton

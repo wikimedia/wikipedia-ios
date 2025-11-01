@@ -49,8 +49,12 @@ public final class WMFActivityTabDataController {
         var weeklyCounts: [Int] = []
         
         for week in 0..<4 {
-            let endDate = calendar.date(byAdding: .day, value: -(7 * week), to: now)!
-            let startDate = calendar.date(byAdding: .day, value: -(7 * (week + 1)) + 1, to: now)!
+            guard
+                let endDate = calendar.date(byAdding: .day, value: -(7 * week), to: now),
+                let startDate = calendar.date(byAdding: .day, value: -(7 * (week + 1)) + 1, to: now)
+            else {
+                continue
+            }
             
             let pageCounts = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate)
             let count = pageCounts.reduce(0) { $0 + $1.count }
@@ -60,6 +64,7 @@ public final class WMFActivityTabDataController {
         
         return Array(weeklyCounts.reversed())
     }
+
 
     @objc public func getActivityAssignment() -> Int {
         // TODO: More thoroughly assign experiment

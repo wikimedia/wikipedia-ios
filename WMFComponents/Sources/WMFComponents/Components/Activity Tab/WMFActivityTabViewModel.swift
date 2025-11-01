@@ -10,6 +10,7 @@ struct ArticlesReadViewModel {
     var dateTimeLastRead: String
 	var weeklyReads: [Int]
 	var topCategories: [String]
+    var usernamesReading: String
 }
 
 @MainActor
@@ -19,7 +20,6 @@ public class WMFActivityTabViewModel: ObservableObject {
     @Published var articlesReadViewModel: ArticlesReadViewModel?
     var hasSeenActivityTab: () -> Void
     @Published var isLoggedIn: Bool
-    @Published public var usernamesReading: String
     
     public init(localizedStrings: LocalizedStrings,
                 dataController: WMFActivityTabDataController,
@@ -29,7 +29,6 @@ public class WMFActivityTabViewModel: ObservableObject {
         self.dataController = dataController
         self.hasSeenActivityTab = hasSeenActivityTab
         self.isLoggedIn = isLoggedIn
-        self.usernamesReading = localizedStrings.noUsernameReading
     }
     
     func fetchData() {
@@ -56,7 +55,8 @@ public class WMFActivityTabViewModel: ObservableObject {
                     totalArticlesRead: totalArticlesRead,
                     dateTimeLastRead: formattedDate,
 					weeklyReads: weeklyReads,
-					topCategories: categories
+					topCategories: categories,
+                    usernamesReading: localizedStrings.noUsernameReading
                 )
             }
         }
@@ -82,7 +82,8 @@ public class WMFActivityTabViewModel: ObservableObject {
     }
     
     private func updateUsernamesReading(username: String) {
-       usernamesReading = localizedStrings.userNamesReading(username)
+        guard var model = articlesReadViewModel else { return }
+        model.usernamesReading = localizedStrings.userNamesReading(username)
     }
     
     public func updateIsLoggedIn(isLoggedIn: Bool) {

@@ -14,73 +14,90 @@ public struct WMFActivityTabView: View {
     }
     
     public var body: some View {
-        ZStack {
-            if viewModel.isLoggedIn {
-                VStack(spacing: 20) {
-                    VStack(alignment: .center, spacing: 8) {
-                        Text(viewModel.usernamesReading)
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .font(Font(WMFFont.for(.boldHeadline)))
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        Text(viewModel.localizedStrings.onWikipediaiOS)
-                            .font(.custom("Menlo", size: 11, relativeTo: .caption2))
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 8)
-                            .background(
-                                Capsule()
-                                    .fill(Color(uiColor: WMFColor.blue100))
-                            )
-                    }
-                    VStack(alignment: .leading, spacing: 16) {
+        VStack(spacing: 20) {
+            ZStack {
+                if viewModel.isLoggedIn {
+                    VStack(spacing: 20) {
                         VStack(alignment: .center, spacing: 8) {
-                            hoursMinutesRead
-                            Text(viewModel.localizedStrings.timeSpentReading)
-                                .font(Font(WMFFont.for(.semiboldHeadline)))
-                                .foregroundColor(Color(uiColor: theme.text))
-                        }
-                        .frame(maxWidth: .infinity)
-                        // Start of modules on top section
-                        articlesReadModule
-                        if let model = viewModel.articlesReadViewModel {
-                            if !model.topCategories.isEmpty {
-                                topCategoriesModule(categories: model.topCategories)
+                            if let model = viewModel.articlesReadViewModel {
+                                Text(model.usernamesReading)
+                                    .foregroundColor(Color(uiColor: theme.text))
+                                    .font(Font(WMFFont.for(.boldHeadline)))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                            } else {
+                                Text(viewModel.localizedStrings.noUsernameReading)
+                                    .foregroundColor(Color(uiColor: theme.text))
+                                    .font(Font(WMFFont.for(.boldHeadline)))
+                                    .frame(maxWidth: .infinity, alignment: .center)
                             }
+                            Text(viewModel.localizedStrings.onWikipediaiOS)
+                                .font(.custom("Menlo", size: 11, relativeTo: .caption2))
+                                .foregroundColor(Color(uiColor: theme.text))
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 8)
+                                .background(
+                                    Capsule()
+                                        .fill(Color(uiColor: theme.softEditorBlue))
+                                )
                         }
+
+                        VStack(alignment: .leading, spacing: 16) {
+                            VStack(alignment: .center, spacing: 8) {
+                                hoursMinutesRead
+                                Text(viewModel.localizedStrings.timeSpentReading)
+                                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                                    .foregroundColor(Color(uiColor: theme.text))
+                            }
+                            .frame(maxWidth: .infinity)
+
+                            // Start of modules on top section
+                            articlesReadModule
+                            if let model = viewModel.articlesReadViewModel {
+                                if !model.topCategories.isEmpty {
+                                    topCategoriesModule(categories: model.topCategories)
+                                }
+                            }
+                            Spacer()
+                        }
+                        .padding(.horizontal, 16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding(.horizontal, 16)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    Spacer()
+                    .frame(maxWidth: .infinity)
+                } else {
+                    VStack(alignment: .center) {
+                        Spacer()
+                        Image("activity-tab-page", bundle: .module)
+                        Text(viewModel.localizedStrings.loggedOutTitle)
+                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .padding(.top, 16)
-                .frame(maxWidth: .infinity)
-            } else {
-                VStack(alignment: .center) {
-                    Spacer()
-                    Image("activity-tab-page", bundle: .module)
-                    Text(viewModel.localizedStrings.loggedOutTitle)
-                        .font(Font(WMFFont.for(.semiboldSubheadline)))
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                Spacer()
             }
+            .padding(.top, 16)
+            .background(
+                LinearGradient(
+                    stops: [
+                        Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
+                        Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1.00)
+                    ],
+                    startPoint: UnitPoint(x: 0.5, y: 0),
+                    endPoint: UnitPoint(x: 0.5, y: 1)
+                )
+            )
+
+            // Start of modules on bottom section - they will go here
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
         .onAppear {
             viewModel.fetchData()
             viewModel.hasSeenActivityTab()
         }
-        .padding(.top, 16)
-        .background(
-            LinearGradient(
-                stops: [
-                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
-                    Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
-                ],
-                startPoint: UnitPoint(x: 0.5, y: 0),
-                endPoint: UnitPoint(x: 0.5, y: 1)
-            )
-        )
     }
+
     
     private var hoursMinutesRead: some View {
         Text(viewModel.hoursMinutesRead)
