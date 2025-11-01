@@ -11,6 +11,9 @@ struct ArticlesReadViewModel {
 	var weeklyReads: [Int]
 	var topCategories: [String]
     var usernamesReading: String
+    var articlesSavedAmount: Int
+    var dateTimeLastSaved: String
+    var articlesSavedImages: [URL]
 }
 
 @MainActor
@@ -20,6 +23,7 @@ public class WMFActivityTabViewModel: ObservableObject {
     @Published var articlesReadViewModel: ArticlesReadViewModel?
     var hasSeenActivityTab: () -> Void
     @Published var isLoggedIn: Bool
+    public var navigateToSaved: (() -> Void)?
     
     public init(localizedStrings: LocalizedStrings,
                 dataController: WMFActivityTabDataController,
@@ -56,11 +60,23 @@ public class WMFActivityTabViewModel: ObservableObject {
                     dateTimeLastRead: formattedDate,
 					weeklyReads: weeklyReads,
 					topCategories: categories,
-                    usernamesReading: localizedStrings.noUsernameReading
+                    usernamesReading: localizedStrings.noUsernameReading,
+                    articlesSavedAmount: 27,
+                    dateTimeLastSaved: "November 82",
+                    articlesSavedImages: images
                 )
             }
         }
     }
+    
+    let images: [URL] = [
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png")!,
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Baker_Harcourt_1940_2.jpg")!,
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/1/10/Arch_of_SeptimiusSeverus.jpg")!,
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/8/81/Ivan_Akimov_Saturn_.jpg")!,
+        URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/She-wolf_suckles_Romulus_and_Remus.jpg")!
+    ]
+
     
     // MARK: - View Strings
     
@@ -115,7 +131,7 @@ public class WMFActivityTabViewModel: ObservableObject {
         articlesReadViewModel = model
     }
     
-    public func updateTopCategories(topCategories: [String]) {
+    private func updateTopCategories(topCategories: [String]) {
         guard var model = articlesReadViewModel else { return }
         model.topCategories = topCategories
         articlesReadViewModel = model
@@ -139,9 +155,11 @@ public class WMFActivityTabViewModel: ObservableObject {
         let week: String
         let articlesRead: String
         let topCategories: String
-        let loggedOutTitle: String
+        let articlesSavedTitle: String
+        let remaining: (Int) -> String
+		let loggedOutTitle: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, loggedOutTitle: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -151,6 +169,8 @@ public class WMFActivityTabViewModel: ObservableObject {
             self.week = week
             self.articlesRead = articlesRead
             self.topCategories = topCategories
+            self.articlesSavedTitle = articlesSavedTitle
+            self.remaining = remaining
             self.loggedOutTitle = loggedOutTitle
         }
     }

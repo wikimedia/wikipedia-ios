@@ -57,9 +57,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                 content()
             }
         }
-        .onTapGesture {
-            onTapModule()
-        }
         .padding(16)
         .background(Color(theme.paperBackground))
         .cornerRadius(10)
@@ -67,5 +64,9 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color(theme.baseBackground), lineWidth: 0.5)
         )
+        .contentShape(Rectangle())
+        .onTapGesture {
+            onTapModule()
+        }
     }
 }

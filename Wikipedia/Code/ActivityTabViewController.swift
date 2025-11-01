@@ -112,6 +112,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
         
+        viewModel.navigateToSaved = goToSaved
+        
         if !dataController.hasSeenActivityTab {
             presentOnboarding()
         }
@@ -228,6 +230,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
+    
+    @objc func goToSaved() {
+        navigationController?.popToRootViewController(animated: false)
+
+        if let tabBar = self.tabBarController {
+            tabBar.selectedIndex = 2
+        }
     }
 }
 

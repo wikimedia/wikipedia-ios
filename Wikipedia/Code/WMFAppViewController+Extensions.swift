@@ -822,6 +822,16 @@ extension WMFAppViewController {
         let weekGraph = WMFLocalizedString("activity-tab-week-graph-label", value: "Week", comment: "Activity tab week graph axis label")
 
         let topCategories = WMFLocalizedString("activity-tab-top-categories", value: "Top categories this month", comment: "Title for module about top categories this month")
+        let saved = WMFLocalizedString("activity-tab-saved", value: "Articles saved this month", comment: "Title for module about saved articles")
+        
+        func remaining(amount: Int) -> String {
+            let format = WMFLocalizedString(
+                "activity-tab-remaining-articles",
+                value: "+%1$@",
+                comment: "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3."
+            )
+            return String.localizedStringWithFormat(format, String(amount))
+        }
         
         let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out", value: "You must be logged in to access activity tab", comment: "Title to let logged out users know they must log in")
         
@@ -836,7 +846,9 @@ extension WMFAppViewController {
                 week: weekGraph,
                 articlesRead: articlesReadGraph,
                 topCategories: topCategories,
-                loggedOutTitle: loggedOutTitle),
+                articlesSavedTitle: saved,
+                remaining: remaining(amount:),
+				loggedOutTitle: loggedOutTitle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
