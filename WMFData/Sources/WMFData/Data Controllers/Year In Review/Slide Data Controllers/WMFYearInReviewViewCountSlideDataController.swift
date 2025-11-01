@@ -9,7 +9,8 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     
     private var viewCount: Int?
     
-    private let userID: String?
+    private let userID: Int?
+    
     private let languageCode: String?
     private let project: WMFProject?
     
@@ -40,7 +41,7 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
         return config.isActive(for: Date()) && userInfo.userID != nil
     }
     
-    private func fetchEditViews(project: WMFProject?, userId: String, language: String) async throws -> (Int) {
+    private func fetchEditViews(project: WMFProject?, userId: Int, language: String) async throws -> (Int) {
         return try await withCheckedThrowingContinuation { continuation in
             fetchEditViews(project: project, userId: userId, language: language) { result in
                 switch result {
@@ -53,7 +54,7 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
         }
     }
 
-    private func fetchEditViews(project: WMFProject?, userId: String, language: String, completion: @escaping (Result<Int, Error>) -> Void) {
+    private func fetchEditViews(project: WMFProject?, userId: Int, language: String, completion: @escaping (Result<Int, Error>) -> Void) {
 
         guard let service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -65,7 +66,7 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
             return
         }
         
-        let prefixedUserID = "#" + userId
+        let prefixedUserID = "#" + String(userId)
         
         guard let baseUrl = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments", "v0", "user-impact", prefixedUserID]) else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))

@@ -294,6 +294,10 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         
         return nil
     }
+    
+    public func clearCachedData() {
+        // no-op
+    }
 }
 
 #endif
