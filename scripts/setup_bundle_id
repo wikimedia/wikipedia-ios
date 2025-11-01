@@ -12,6 +12,7 @@ DEFAULT_TEAM_ID="AKK7J2GV64"
 if [ -f "$TEAM_ID_FILE" ]; then
     rm "$TEAM_ID_FILE"
 fi
+mkdir -p "$(dirname "$TEAM_ID_FILE")"
 echo "// This file was automatically generated, do not edit directly." > "$TEAM_ID_FILE"
 echo "" >> "$TEAM_ID_FILE"
 echo "DEVELOPMENT_TEAM=$DEFAULT_TEAM_ID" >> "$TEAM_ID_FILE"
@@ -27,9 +28,8 @@ TEAM_INFO_RESULT=""
 
 function get_team_info_array() {
     local XCODEPREFS="$HOME/Library/Preferences/com.apple.dt.Xcode.plist"
-    local team_info    
     
-    # Get all team infos and format as key-value pairs
+    # Get all team infos from IDEProvisioningTeamByIdentifier, for Xcode versions after 16.0
     local all_keys=($(/usr/libexec/PlistBuddy -c "Print :IDEProvisioningTeamByIdentifier" "$XCODEPREFS" | grep ' = Array' | awk '{print $1}'))
     local result=""
     for key in "${all_keys[@]}"; do
@@ -44,9 +44,15 @@ function get_team_info_array() {
         return 0
     fi
     
-    # Fallback to old method: IDEProvisioningTeams
+    # Get all team infos from IDEProvisioningTeams, for Xcode versions prior to 16.0
+    # More info: https://support.apple.com/en-us/121239#:~:text=CVE%2D2024%2D40862:%20Guilherme%20Rambo%20of%20Best%20Buddy%20Apps%20(rambo.codes)
     local found=false
-    TEAM_KEYS=(`/usr/libexec/PlistBuddy -c "Print :IDEProvisioningTeams" "$XCODEPREFS" | perl -lne 'print $1 if /^    (\S*) =/'`)
+    # Check if IDEProvisioningTeams exists before trying to read it
+    if /usr/libexec/PlistBuddy -c "Print :IDEProvisioningTeams" "$XCODEPREFS" > /dev/null 2>&1; then
+        TEAM_KEYS=(`/usr/libexec/PlistBuddy -c "Print :IDEProvisioningTeams" "$XCODEPREFS" | perl -lne 'print $1 if /^    (\S*) =/'`)
+    else
+        TEAM_KEYS=()
+    fi
     for KEY in ${TEAM_KEYS[@]}; do
         i=0
         while true ; do
