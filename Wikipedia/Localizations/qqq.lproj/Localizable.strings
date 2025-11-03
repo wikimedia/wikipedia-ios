@@ -1471,7 +1471,7 @@
 "year-in-review-base-reading-subtitle" = "Year in review, collective reading count slide subtitle. $1 is replaced with a formatted number of articles available across Wikipedia, shown in numeric form (e.g. 10,000,000). $2 is replaced with the number of active languages available on Wikipedia (e.g. 300)";
 "year-in-review-base-reading-title" = "Year in review, collective reading article count slide title, $1 is replaced with the number of languages available on Wikipedia, e.g. \"300\"";
 "year-in-review-base-saved-subtitle" = "Year in review, collective saved articles count slide subtitle.";
-"year-in-review-base-saved-title" = "Year in review, collective saved articles count slide title, %1$ll is replaced with the total number of saved articles on apps, shown in numeric form (e.g. 37,574,993).";
+"year-in-review-base-saved-title" = "Year in review, collective saved articles count slide title, $1 is replaced with the total number of saved articles on apps, shown in numeric form (e.g. 37,574,993).";
 "year-in-review-base-viewed-subtitle" = "Year in review, collective article view count subtitle.";
 "year-in-review-base-viewed-title" = "Year in review, collective article view count slide title. $1 is replaced with the text representing the number of article views across Wikipedia on apps, shown in numeric form (e.g. 1,000,000,000).";
 "year-in-review-button-title" = "Year in review title. Appears on buttons in the profile and settings menu.";

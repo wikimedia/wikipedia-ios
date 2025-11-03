@@ -228,7 +228,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return ""
         }
         
-        let format = WMFLocalizedString("year-in-review-base-saved-title", value: "App users had {{PLURAL:%1$lld|%1$lld saved article|%1$lld saved articles}}", comment: "Year in review, collective saved articles count slide title, %1$ll is replaced with the total number of saved articles on apps, shown in numeric form (e.g. 37,574,993).")
+        let format = WMFLocalizedString("year-in-review-base-saved-title", value: "App users had {{PLURAL:%1$lld|%1$lld saved article|%1$lld saved articles}}", comment: "Year in review, collective saved articles count slide title, %1$lld is replaced with the total number of saved articles on apps, shown in numeric form (e.g. 37,574,993).")
 
         return String.localizedStringWithFormat(format, config.savedArticlesApps)
     }
