@@ -1278,8 +1278,6 @@
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Julkaisemalla hyväksyt $1käyttöehdot$2 ja peruuttomattomasti muokkaustesi lisensoinnin $3CC BY-SA 4.0$4 ja $5GFDL$6 lisensseillä. Hyväksyt, että hyperlinkki tai URL on riittää nimeämiseen Creative Commons -lisenssin mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
-"year-in-review-base-donate-subtitle" = "Wikipedian taustalla on voittoa tavoittelematon Wikimedia-säätiö. Avullasi säätiö voi jatkossakin tarjota huippuluokan Wikipedia-kokemuksen, jossa luotettavaa tietoa on saatavilla ilman mainoksia sekä käyttö ja muokkaus on sujuvaa korkeatasoisen teknologian ansiosta. Arvostamme lahjoitustasi jo tänään. [Lue lisää työstämme]($1).";
-"year-in-review-base-donate-title" = "0 Wikipediassa näytettyä mainosta";
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "Wikipediaa muokattiin keskimäärin $1 kertaa joka minuutti. Artikkeleita luodaan ja parannetaan yhteistyössä luotettavien lähteiden avulla. Meillä kaikilla on tietoa jaettavana, [näin osallistut]($2).";
 "year-in-review-base-edits-title" = "Wikipediaa muokattiin $1 kertaa joka minuutti";
@@ -1290,7 +1288,6 @@
 // Fuzzy
 "year-in-review-base-saved-title" = "Yli $1 miljoonaa lukulistaa";
 "year-in-review-button-title" = "Vuosikatsaus";
-"year-in-review-collective-zero-ads" = "Wikimedia-logo";
 "year-in-review-day-friday" = "perjantai";
 "year-in-review-day-monday" = "maanantai";
 "year-in-review-day-saturday" = "lauantai";
@@ -1308,8 +1305,8 @@
 "year-in-review-personalized-edit-views-subtitle-format" = "Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä $1 katselukertaa. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.";
 // Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Muokkauksiasi on näytetty yli $1 kertaa";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "Muokkasit Wikipediaa {{PLURAL:$1|$1 kerran|$1 kertaa}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Muokkasit Wikipediaa yli 500 kertaa";
 "year-in-review-share-text" = "Tämä on Wikipedia-vuosikatsaukseni, joka on luotu Wikipedian iOS-sovelluksella.";
 "year-in-review-survey-additional-thoughts" = "Muita ajatuksia?";
 "year-in-review-survey-neutral" = "Neutraali";
