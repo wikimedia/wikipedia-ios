@@ -43,13 +43,18 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
+        
+        updateLoginState()
     }
     
     @objc private func updateLoginState() {
+        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
+            viewModel.updateIsLoggedIn(isLoggedIn: true)
+        } else {
+            viewModel.updateIsLoggedIn(isLoggedIn: false)
+        }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
-        } else {
-            viewModel.updateUsername(username: "")
         }
     }
     
@@ -107,6 +112,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
         
+        viewModel.navigateToSaved = goToSaved
+        
         if !dataController.hasSeenActivityTab {
             presentOnboarding()
         }
@@ -157,14 +164,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                     configureNavigationBar()
                 }
             }
-        }
-    }
-    
-    @objc private func didLogIn() {
-        if let username = dataStore?.authenticationManager.authStatePermanentUsername {
-            viewModel.updateUsername(username: username)
-        } else {
-            viewModel.updateUsername(username: "")
         }
     }
     
@@ -231,6 +230,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
+    
+    @objc func goToSaved() {
+        navigationController?.popToRootViewController(animated: false)
+
+        if let tabBar = self.tabBarController {
+            tabBar.selectedIndex = 2
+        }
     }
 }
 

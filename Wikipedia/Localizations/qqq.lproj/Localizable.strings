@@ -93,7 +93,9 @@
 "activity-tab-onboarding-third-item-subtitle" = "Activity tabs third item subtitle";
 "activity-tab-onboarding-third-item-title" = "Title for activity tabs third item";
 "activity-tab-read-title" = "Title for the reading history activity tab";
+"activity-tab-remaining-articles" = "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3.";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
+"activity-tab-saved" = "Title for module about saved articles";
 "activity-tab-start-editing" = "Button title for users to begin editing.";
 "activity-tab-survey" = "Survey title for the activity tab";
 "activity-tab-survey-title" = "Satisfaction survey view title";
@@ -203,6 +205,7 @@
 "continue-button-title" = "Continue button title";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"create-account" = "Create account title";
 "crimean-tatar-variants-alert-body" = "Body text of alert used to inform users about Crimean Tatar variant support. Please do not translate the newlines (\n) or Crimean Tatar characters (къырымтатарджа, etc.).";
 "crimean-tatar-variants-alert-title" = "Title of alert used to inform users about Crimean Tatar variant support.";
 "data-migration-status" = "Message displayed during a long running data migration.";
@@ -1537,7 +1540,6 @@
 "year-in-review-personalized-editing-subtitle-1" = "Year in review, personalized editing article count slide subtitle for users that edited articles.";
 "year-in-review-personalized-editing-subtitle-2" = "Year in review, personalized editing article count slide subtitle for users that edited articles. $1 is replaced with the number of edits made by volunteers. $2 is replaced with the number of Wikipedia languages.";
 "year-in-review-personalized-editing-title-format" = "Year in review, personalized editing article count slide title for users that edited articles. $1 is replaced with the number of edits the user made.";
-"year-in-review-personalized-editing-title-format-500plus" = "Year in review, personalized editing article count slide title for users that edited articles 500+ times.";
 "year-in-review-personalized-explore" = "Accessibility description for the personalized explore slide.";
 "year-in-review-personalized-location-subtitle-format-1" = "Year in review, personalized location slide subtitle. $1 is replaced with an article name in the area they most read about. $2 and $3 are enclosing tags to make the name bold.";
 "year-in-review-personalized-location-subtitle-format-2" = "Year in review, personalized location slide subtitle. $1 and $2 are replaced with article names in the area they most read about, $3 and $4 are enclosing tags to make the names bold.";

@@ -153,6 +153,7 @@ public class Session: NSObject {
     
     @objc public func clearTemporaryCache() {
         defaultURLSession.configuration.urlCache?.removeAllCachedResponses()
+        WMFDataEnvironment.current.basicService?.clearCachedData()
     }
     
     /// The permanent cache to utilize for this session

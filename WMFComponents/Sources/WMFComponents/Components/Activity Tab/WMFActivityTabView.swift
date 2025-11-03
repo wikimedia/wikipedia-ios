@@ -14,62 +14,135 @@ public struct WMFActivityTabView: View {
     }
     
     public var body: some View {
-        ZStack {
-            VStack(spacing: 20) {
-                VStack(alignment: .center, spacing: 8) {
-                    Text(viewModel.usernamesReading)
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .font(Font(WMFFont.for(.boldHeadline)))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    Text(viewModel.localizedStrings.onWikipediaiOS)
-                        .font(.custom("Menlo", size: 11, relativeTo: .caption2))
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
-                        .background(
-                            Capsule()
-                                .fill(Color(uiColor: WMFColor.blue100))
-                        )
-                }
-                VStack(alignment: .leading, spacing: 16) {
-                    VStack(alignment: .center, spacing: 8) {
-                        hoursMinutesRead
-                        Text(viewModel.localizedStrings.timeSpentReading)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundColor(Color(uiColor: theme.text))
-                    }
-                    .frame(maxWidth: .infinity)
-                    // Start of modules on top section
-                    articlesReadModule
-                    if let model = viewModel.articlesReadViewModel {
-                        if !model.topCategories.isEmpty {
-                            topCategoriesModule(categories: model.topCategories)
+        VStack(spacing: 20) {
+            ZStack {
+                if viewModel.isLoggedIn {
+                    VStack(spacing: 20) {
+                        headerView
+
+                        VStack(alignment: .leading, spacing: 16) {
+                            VStack(alignment: .center, spacing: 8) {
+                                hoursMinutesRead
+                                Text(viewModel.localizedStrings.timeSpentReading)
+                                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                                    .foregroundColor(Color(uiColor: theme.text))
+                            }
+                            .frame(maxWidth: .infinity)
+
+                            // Start of modules on top section
+                            articlesReadModule
+                            savedArticlesModule
+                            if viewModel.model.topCategories.isEmpty {
+                                topCategoriesModule(categories: viewModel.model.topCategories)
+                            }
+                            Spacer()
                         }
+                        .padding(.horizontal, 16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .background(
+                        LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
+                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1.00)
+                            ],
+                            startPoint: UnitPoint(x: 0.5, y: 0),
+                            endPoint: UnitPoint(x: 0.5, y: 1)
+                        )
+                    )
+                    .frame(maxWidth: .infinity)
+                } else {
+                    loggedOutView
                 }
-                .padding(.horizontal, 16)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                
                 Spacer()
             }
             .padding(.top, 16)
-            .frame(maxWidth: .infinity)
+
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
         .onAppear {
             viewModel.fetchData()
             viewModel.hasSeenActivityTab()
         }
-        .padding(.top, 16)
-        .background(
-            LinearGradient(
-                stops: [
-                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
-                    Gradient.Stop(color: Color(uiColor: WMFColor.blue100), location: 1.00)
-                ],
-                startPoint: UnitPoint(x: 0.5, y: 0),
-                endPoint: UnitPoint(x: 0.5, y: 1)
-            )
-        )
     }
+    
+    private var headerView: some View {
+        VStack(alignment: .center, spacing: 8) {
+            Text(viewModel.model.usernamesReading)
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .frame(maxWidth: .infinity, alignment: .center)
+            Text(viewModel.localizedStrings.onWikipediaiOS)
+                .font(.custom("Menlo", size: 11, relativeTo: .caption2))
+                .foregroundColor(Color(uiColor: theme.text))
+                .padding(.vertical, 4)
+                .padding(.horizontal, 8)
+                .background(
+                    Capsule()
+                        .fill(Color(uiColor: theme.softEditorBlue))
+                )
+        }
+    }
+    
+    private var loggedOutView: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(viewModel.localizedStrings.loggedOutTitle)
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .foregroundColor(Color(uiColor: theme.text))
+                Spacer()
+                WMFCloseButton(action: {
+                    // todo close
+                })
+            }
+            Text(viewModel.localizedStrings.loggedOutSubtitle)
+                .font(Font(WMFFont.for(.callout)))
+                .foregroundColor(Color(uiColor: theme.text))
+            HStack(spacing: 12) {
+                Button(action: {
+                    // todo navigate
+                }) {
+                    HStack(spacing: 3) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .personFilled) {
+                            Image(uiImage: icon)
+                        }
+                        Text(viewModel.localizedStrings.loggedOutPrimaryCTA)
+                    }
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(uiColor: theme.paperBackground))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(Color(uiColor: theme.link))
+                    .cornerRadius(40)
+                }
+                Button(action: {
+                    // todo navigate
+                }) {
+                    Text(viewModel.localizedStrings.loggedOutSecondaryCTA)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundColor(Color(uiColor: theme.text))
+                        .padding(.horizontal, 10)
+                }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 8)
+        }
+        .multilineTextAlignment(.leading)
+        .padding(16) // interior padding
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(uiColor: theme.paperBackground))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(uiColor: theme.baseBackground), lineWidth: 0.5)
+                )
+        )
+        .padding(16) // exterior padding
+    }
+
     
     private var hoursMinutesRead: some View {
         Text(viewModel.hoursMinutesRead)
@@ -95,37 +168,81 @@ public struct WMFActivityTabView: View {
     
     private var articlesReadModule: some View {
         Group {
-            if let model = viewModel.articlesReadViewModel {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
-                    title: viewModel.localizedStrings.totalArticlesRead,
-                    dateText: model.dateTimeLastRead,
-                    amount: model.totalArticlesRead,
-                    onTapModule: {
-                        print("Tapped module")
-                        // TODO: Navigate to history below
-                    },
-                    content: {
-                        if let weeklyReads = viewModel.articlesReadViewModel?.weeklyReads {
-                            articlesReadGraph(weeklyReads: weeklyReads)
-                        }
-                    }
-                )
-            } else {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
-                    title: viewModel.localizedStrings.totalArticlesRead,
-                    dateText: nil,
-                    amount: 0,
-                    onTapModule: {
-                        print("Tapped module")
-                        // TODO: Navigate to history below
-                    }
-                )
-            }
+            WMFActivityTabInfoCardView(
+                icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                title: viewModel.localizedStrings.totalArticlesRead,
+                dateText: viewModel.model.dateTimeLastRead,
+                amount: viewModel.model.totalArticlesRead,
+                onTapModule: {
+                    print("Tapped module")
+                    // TODO: Navigate to history below
+                },
+                content: {
+                    articlesReadGraph(weeklyReads: viewModel.model.weeklyReads)
+                }
+            )
         }
     }
     
+    private var savedArticlesModule: some View {
+        Group {
+            WMFActivityTabInfoCardView(
+                icon: WMFSFSymbolIcon.for(symbol: .bookmark),
+                title: viewModel.localizedStrings.articlesSavedTitle,
+                dateText: viewModel.model.dateTimeLastSaved,
+                amount: viewModel.model.articlesSavedAmount,
+                onTapModule: {
+                    viewModel.navigateToSaved?()
+                },
+                content: {
+                    if !viewModel.model.articlesSavedImages.isEmpty {
+                        savedArticlesImages(images: viewModel.model.articlesSavedImages)
+                    }
+                }
+            )
+        }
+    }
+    
+    private func savedArticlesImages(images: [URL]) -> some View {
+        HStack(spacing: 4) {
+            if images.count <= 4 {
+                ForEach(images.prefix(4), id: \.self) { imageURL in
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        Color.gray.opacity(0.3)
+                    }
+                    .frame(width: 38, height: 38)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                }
+            } else {
+                ForEach(images.prefix(3), id: \.self) { imageURL in
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        Color.gray.opacity(0.3)
+                    }
+                    .frame(width: 38, height: 38)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                }
+
+                let remaining = images.count - 3
+                Text(viewModel.localizedStrings.remaining(remaining))
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.white)
+                    .frame(width: 38, height: 38)
+                    .background(Circle().fill(Color.gray))
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+            }
+        }
+    }
+
     private func articlesReadGraph(weeklyReads: [Int]) -> some View {
         Chart {
             ForEach(weeklyReads.indices, id: \.self) { index in

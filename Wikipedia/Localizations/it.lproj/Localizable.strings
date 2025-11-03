@@ -142,6 +142,7 @@
 "activity-tab-onboarding-third-item-title" = "Altri modi per interagire";
 "activity-tab-read-title" = "Vedi cronologia delle letture";
 "activity-tab-satisfied" = "Soddisfatto";
+"activity-tab-saved" = "Voci salvate questo mese";
 "activity-tab-start-editing" = "Inizia a modificare";
 "activity-tab-survey-title" = "Sondaggio di soddisfazione";
 "activity-tab-time-spent-reading" = "Tempo trascorso a leggere questa settimana";
@@ -1066,8 +1067,6 @@
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
-"year-in-review-base-donate-subtitle" = "Con il tuo aiuto Wikimedia Foundation, l'ente senza scopo di lucro dietro a Wikipedia, continuerà ad assicurare che le informazioni su cui fai affidamento siano senza pubblicità e affidabili, facendo funzionare al contempo Wikipedia senza interruzioni con strumenti e tecnologie innovative. Per favore, considera di fare una donazione oggi. [Scopri di più sul nostro lavoro]($1).";
-"year-in-review-base-donate-title" = "0 inserzioni pubblicitarie servite su Wikipedia";
 "year-in-review-base-editors-subtitle" = "Il cuore e l'anima di Wikipedia sono la nostra comunità globale di collaboratori volontari, donatori e miliardi di lettori come te, tutti uniti per condividere un accesso illimitato a informazioni affidabili.";
 "year-in-review-base-editors-title" = "Gli editor hanno effettuato $1 modifiche sulle applicazioni ufficiali di Wikipedia";
 "year-in-review-base-edits-subtitle" = "Le voci vengono create in maniera collaborativa e migliorate usando fonti affidabili. Tutti noi abbiamo conoscenza da condividere, [scopri come partecipare]($1).";
@@ -1079,7 +1078,6 @@
 "year-in-review-base-viewed-subtitle" = "Per le persone di tutto il mondo, Wikipedia è il punto di riferimento quando si risponde a una domanda, si cercano informazioni per scuola o lavoro o per imparare un nuovo fatto.";
 "year-in-review-base-viewed-title" = "Gli utenti delle applicazioni hanno visualizzato le voci di Wikipedia $1 volte";
 "year-in-review-button-title" = "Anno in Rassegna";
-"year-in-review-collective-zero-ads" = "Logo di Wikimedia";
 "year-in-review-contributor-slide-title" = "Nuova icona dell'applicazione sbloccata per la schermata iniziale";
 "year-in-review-day-friday" = "Venerdì";
 "year-in-review-day-monday" = "Lunedì";
@@ -1110,8 +1108,7 @@
 "year-in-review-personalized-donation-thank-you" = "Logo di Wikimedia";
 "year-in-review-personalized-edit-views-subtitle-format" = "I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, le voci che hai modificato hanno ricevuto $1 {{PLURAL:$1|visualizzazione|visualizzazioni totali}}. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti.";
 "year-in-review-personalized-edit-views-title-format" = "Recentemente le tue modifiche sono state visualizzate più di $1 {{PLURAL:$1|volta|volte}}";
-"year-in-review-personalized-editing-title-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia oltre 500 volte.";
+"year-in-review-personalized-editing-title-format" = "Hai modificato {{PLURAL:$1|$1 volta|$1 volte}}";
 "year-in-review-personalized-location-subtitle-format-1" = "Hai letto riguardo $2$1$3";
 "year-in-review-personalized-most-read-articles-title" = "Le tue migliori voci";
 "year-in-review-personalized-saved-title-format" = "Hai salvato {{PLURAL:$1|$1 voce|$1 voci}}";

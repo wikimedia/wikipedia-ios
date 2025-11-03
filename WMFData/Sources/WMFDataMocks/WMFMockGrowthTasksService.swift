@@ -125,6 +125,10 @@ public final class WMFMockGrowthTasksService: WMFService {
     public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
 
     }
+    
+    public func clearCachedData() {
+        // no-op
+    }
 
 }
 

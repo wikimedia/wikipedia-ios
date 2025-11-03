@@ -34,6 +34,7 @@ struct YearInReviewSlideDataControllerDependencies {
     let savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     let username: String?
     let project: WMFProject?
-    let userID: String?
+    let userID: Int?
+    let globalUserID: Int?
     let languageCode: String?
 }
