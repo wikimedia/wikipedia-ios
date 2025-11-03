@@ -537,7 +537,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         }
     }
 
-
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 

@@ -1,31 +1,29 @@
 import Foundation
 import CoreData
 import WMFData
+import CocoaLumberjackSwift
 
 @objc final class SavedStateMigrationManager: NSObject {
     @objc static let shared = SavedStateMigrationManager()
 
-    private let queue = OperationQueue()
+    let dataStore = MWKDataStore.shared()
 
     override private init() {
         super.init()
-        queue.name = "org.wikimedia.saved-state-migration"
-        queue.maxConcurrentOperationCount = 1
-        queue.qualityOfService = .utility
     }
 
     // MARK: - Public API
 
     /// Migrate all unmigrated WMFArticle entries
     @objc func migrateAllIfNeeded() {
-        queue.addOperation {
+        DispatchQueue.main.async {
             self.runMigration(limit: nil)
         }
     }
 
     /// Migrate only recent saves
     @objc func migrateIncremental() {
-        queue.addOperation {
+        DispatchQueue.main.async {
             self.runMigration(limit: 20)
         }
     }
@@ -33,28 +31,28 @@ import WMFData
     // MARK: - Private
 
     private func runMigration(limit: Int?) {
-        guard
-            let wikipediaContainer = MWKDataStore.shared().value(forKey: "persistentContainer") as? NSPersistentContainer, // TODO: check if there's a better way to retrieve the persistemnt container
-            let wmfDataStore = WMFDataEnvironment.current.coreDataStore
-        else {
+        guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
+            print("Missing WMFData store")
             return
         }
 
-        let wikipediaContext = wikipediaContainer.newBackgroundContext()
-        wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        dataStore.performBackgroundCoreDataOperation { wikipediaContext in
+            wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-        guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-            return
-        }
-        wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+                print(" Could not create WMFData background context")
+                return
+            }
+            wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-        wikipediaContext.performAndWait {
             do {
                 let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-                request.predicate = NSPredicate(format: "isSavedMigrated == NO AND savedDate != nil")
+                request.predicate = NSPredicate(format: "savedDate != NULL AND (isSavedMigrated == NO OR isSavedMigrated == nil)")
                 if let limit { request.fetchLimit = limit }
 
                 let articles = try wikipediaContext.fetch(request)
+                print("🔎 Fetched \(articles.count)")
+
                 guard !articles.isEmpty else { return }
 
                 for article in articles {
@@ -64,8 +62,9 @@ import WMFData
 
                 try wikipediaContext.save()
                 try wmfContext.save()
+                print("✅✅✅✅✅✅✅ Migration done")
             } catch {
-                debugPrint("SavedStateMigration: \(error)") // TODO: handle error
+                print("❌ Migration error", error)
             }
         }
     }
@@ -89,6 +88,7 @@ import WMFData
         page.title = title
         page.namespaceID = namespaceID
         page.projectID = projectID
+        page.timestamp = article.savedDate ?? Date()
 
         // Update or create related CDSavedPage
         if let existing = page.savedDate {
