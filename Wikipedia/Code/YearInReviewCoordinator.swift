@@ -799,8 +799,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let appShareLink = WMFYearInReviewDataController.appShareLink
         let hashtag = "#WikipediaYearInReview"
-        let plaintextURL = "wikipedia.org/year-in-review"
-
+        let plaintextURL = primaryAppLanguage.isEnglishWikipedia ? "wikimediafoundation.org/2025articles" : "wikimediafoundation.org/yir25"
         let viewModel = WMFYearInReviewViewModel(
             localizedStrings: localizedStrings,
             shareLink: appShareLink,
