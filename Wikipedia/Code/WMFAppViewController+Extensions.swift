@@ -857,7 +857,7 @@ extension WMFAppViewController {
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
-        }, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+        }, isLoggedIn: isLoggedIn)
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
@@ -867,6 +867,18 @@ extension WMFAppViewController {
         )
 
         return controller
+    }
+    
+    private var isLoggedIn: Int {
+        // 0 logged out
+        // 1 temp
+        // 2 logged in
+        if dataStore.authenticationManager.authStateIsTemporary {
+            return 1
+        } else if dataStore.authenticationManager.authStateIsPermanent {
+            return 2
+        }
+        return 0
     }
 
     @objc func generateActivityTabExperiment(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentOldViewController {

@@ -16,7 +16,7 @@ public struct WMFActivityTabView: View {
     public var body: some View {
         VStack(spacing: 20) {
             ZStack {
-                if viewModel.isLoggedIn {
+                if viewModel.isLoggedIn == 2 {
                     VStack(spacing: 20) {
                         headerView
 
@@ -54,7 +54,11 @@ public struct WMFActivityTabView: View {
                     )
                     .frame(maxWidth: .infinity)
                 } else {
-                    loggedOutView
+                    if viewModel.shouldShowLoginPrompt() {
+                        loggedOutView
+                    } else {
+                        Text("")
+                    }
                 }
                 
                 Spacer()

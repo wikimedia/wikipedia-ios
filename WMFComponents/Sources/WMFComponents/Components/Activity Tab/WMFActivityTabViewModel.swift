@@ -20,15 +20,17 @@ struct ArticlesReadViewModel {
 public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
+    
     @Published var articlesReadViewModel: ArticlesReadViewModel?
+    @Published var isLoggedIn: Int
+    
     var hasSeenActivityTab: () -> Void
-    @Published var isLoggedIn: Bool
     public var navigateToSaved: (() -> Void)?
     
     public init(localizedStrings: LocalizedStrings,
                 dataController: WMFActivityTabDataController,
                 hasSeenActivityTab: @escaping () -> Void,
-                isLoggedIn: Bool) {
+                isLoggedIn: Int) {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
         self.hasSeenActivityTab = hasSeenActivityTab
@@ -77,6 +79,25 @@ public class WMFActivityTabViewModel: ObservableObject {
         URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/She-wolf_suckles_Romulus_and_Remus.jpg")!
     ]
 
+    // MARK: - View funcs
+    
+    public func dismissLoginPrompt() {
+        if isLoggedIn == 0 {
+            dataController.dismissLoginIPUser = true
+        } else if isLoggedIn == 1 {
+            dataController.dismissLoginTempUser = true
+        }
+    }
+    
+    public func shouldShowLoginPrompt() -> Bool {
+        if isLoggedIn == 0 && !dataController.dismissLoginIPUser {
+            return true
+        } else if isLoggedIn == 1 && !dataController.dismissLoginTempUser {
+            return true
+        } else {
+            return false
+        }
+    }
     
     // MARK: - View Strings
     
@@ -91,9 +112,6 @@ public class WMFActivityTabViewModel: ObservableObject {
         updateUsernamesReading(username: username)
         guard var model = articlesReadViewModel else { return }
         model.username = username
-        if !username.isEmpty {
-            updateIsLoggedIn(isLoggedIn: true)
-        }
         articlesReadViewModel = model
     }
     
@@ -102,7 +120,7 @@ public class WMFActivityTabViewModel: ObservableObject {
         model.usernamesReading = localizedStrings.userNamesReading(username)
     }
     
-    public func updateIsLoggedIn(isLoggedIn: Bool) {
+    public func updateIsLoggedIn(isLoggedIn: Int) {
         self.isLoggedIn = isLoggedIn
     }
     

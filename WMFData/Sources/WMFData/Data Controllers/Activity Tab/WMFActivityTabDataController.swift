@@ -65,20 +65,35 @@ public final class WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-
     @objc public func getActivityAssignment() -> Int {
         // TODO: More thoroughly assign experiment
         if shouldShowActivityTab { return 1 }
         return 0
     }
 
-     public var shouldShowActivityTab: Bool {
-         get {
-             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
-         } set {
-             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
-         }
-     }
+    public var shouldShowActivityTab: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
+        }
+    }
+
+    public var dismissLoginIPUser: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabIPUserDismissLogin.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabIPUserDismissLogin.rawValue, value: newValue)
+        }
+    }
+    
+    public var dismissLoginTempUser: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue, value: newValue)
+        }
+    }
     
     public var hasSeenActivityTab: Bool {
         get {
