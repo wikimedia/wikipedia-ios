@@ -32,7 +32,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
             let page = try store.create(entityType: CDPage.self, in: backgroundContext)
             page.title = "Cat"
             page.namespaceID = 0
-            page.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
+            page.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
             page.timestamp = Date()
             
             try store.saveIfNeeded(moc: backgroundContext)
@@ -73,7 +73,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
 
             savedPage.title = "Dog"
             savedPage.namespaceID = 0
-            savedPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
+            savedPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
             savedPage.timestamp = Date()
             
             try store.saveIfNeeded(moc: backgroundContext)
@@ -92,7 +92,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
 
             anotherSavedPage.title = "Dog"
             anotherSavedPage.namespaceID = 0
-            anotherSavedPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
+            anotherSavedPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
             anotherSavedPage.timestamp = Date()
             
             try store.saveIfNeeded(moc: backgroundContext)
@@ -118,7 +118,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
             let page = try store.create(entityType: CDPage.self, in: backgroundContext)
             page.title = "Cat"
             page.namespaceID = 0
-            page.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
+            page.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
             page.timestamp = Date()
             
             let pageView1 = try store.create(entityType: CDPageView.self, in: backgroundContext)
@@ -154,7 +154,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
             let catPage = try store.create(entityType: CDPage.self, in: backgroundContext)
             catPage.title = "Cat"
             catPage.namespaceID = 0
-            catPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
+            catPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
             catPage.timestamp = Date(timeIntervalSinceNow: -(60*60))
             
             let catPageView1 = try store.create(entityType: CDPageView.self, in: backgroundContext)
@@ -168,7 +168,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
             let dogPage = try store.create(entityType: CDPage.self, in: backgroundContext)
             dogPage.title = "Dog"
             dogPage.namespaceID = 0
-            dogPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
+            dogPage.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).id
             dogPage.timestamp = Date(timeIntervalSinceNow: -(overTwoYearsAgoInSeconds + 20))
             
             let dogPageView1 = try store.create(entityType: CDPageView.self, in: backgroundContext)
