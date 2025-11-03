@@ -24,6 +24,8 @@ extension URL {
             components.host = "commons.wikimedia.org"
         case .wikidata:
             components.host = "www.wikidata.org"
+        case .mediawiki:
+            components.host = "www.mediawiki.org"
         }
         
         return components.url
@@ -40,6 +42,8 @@ extension URL {
             components.host = "commons.wikimedia.org"
         case .wikidata:
             components.host = "www.wikidata.org"
+        case .mediawiki:
+            components.host = "www.mediawiki.org"
         }
         
         components.path = baseWikimediaRestAPIPathComponents + additionalPathComponents.joined(separator: "/")
@@ -58,6 +62,8 @@ extension URL {
             components.host = "commons.wikimedia.org"
         case .wikidata:
             components.host = "www.wikidata.org"
+        case .mediawiki:
+            components.host = "www.mediawiki.org"
         }
         
         components.path = baseMediaWikiRestAPIPathComponents + additionalPathComponents.joined(separator: "/")

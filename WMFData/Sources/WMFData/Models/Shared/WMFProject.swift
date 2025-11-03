@@ -7,6 +7,8 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
             return "commons"
         case .wikidata:
             return "wikidata"
+        case .mediawiki:
+            return "mediawiki"
         case .wikipedia(let language):
             if let languageVariantCode = language.languageVariantCode {
                 return "wikipedia-" + language.languageCode + "-" + languageVariantCode
@@ -30,12 +32,15 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
             hasher.combine("wikidata")
         case .commons:
             hasher.combine("commons")
+        case .mediawiki:
+            hasher.combine("mediawiki")
         }
     }
     
     case wikipedia(WMFLanguage)
     case wikidata
     case commons
+    case mediawiki
     
     static func projectsFromLanguages(languages: [WMFLanguage]) -> [WMFProject] {
         return languages.map { .wikipedia($0) }

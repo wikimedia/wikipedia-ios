@@ -1024,6 +1024,8 @@ private extension WMFProject {
             return false
         case .commons:
             return false
+        case .mediawiki:
+            return false
         }
     }
 }

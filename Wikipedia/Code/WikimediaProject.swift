@@ -150,6 +150,8 @@ public enum WikimediaProject: Hashable {
             self = .wikidata
         case .commons:
             self = .commons
+        case .mediawiki:
+            self = .mediawiki
         }
     }
 

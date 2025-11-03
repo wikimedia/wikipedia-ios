@@ -220,6 +220,8 @@ extension WMFProject {
             return "commons"
         case .wikidata:
             return "wikidata"
+        case .mediawiki:
+            return "mediawiki"
         case .wikipedia(let language):
             var identifier = "wikipedia~\(language.languageCode)"
             if let variantCode = language.languageVariantCode {
