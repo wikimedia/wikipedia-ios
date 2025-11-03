@@ -35,7 +35,7 @@ public struct WMFYearInReviewView: View {
         .environment(\.colorScheme, theme.preferredColorScheme)
         .frame(maxHeight: .infinity)
         .environment(\.openURL, OpenURLAction { url in
-            viewModel.tappedLearnMore(url: url)
+            viewModel.tappedLearnMoreAttributedText(url: url)
             return .handled
         })
     }

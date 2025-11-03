@@ -105,10 +105,41 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
         switch self {
         case .wikipedia(let language):
             components.host = "\(language.languageCode).wikipedia.org"
-        default:
-            return nil
+        case .commons:
+            components.host = "commons.wikimedia.org"
+        case .wikidata:
+            components.host = "www.wikidata.org"
+        case .mediawiki:
+            components.host = "www.mediawiki.org"
         }
 
+        return components.url
+    }
+    
+    
+    /// Helper method to generate help or FAQ URLs for in-app web views.
+    /// - Parameters:
+    ///   - pathComponents: path components, starting wtih page title. Include namespace in page title if non-main. E.g.  ["Wikimedia Apps","Team","iOS","Personalized Wikipedia Year in Review", "How your data is used"]
+    ///   - section: anchor tag to scroll to upon load (generally section name) e.g. "Editing". # will be added automatically.
+    ///   - language: Language translation to request, will be added as ?uselang={languageCode} query item
+    /// - Returns: Url to load in web view.
+    public func translatedHelpURL(pathComponents: [String], section: String?, language: WMFLanguage) -> URL? {
+        
+        guard let siteURL = self.siteURL else {
+            return nil
+        }
+        
+        guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        
+        let normalizedPathComponents = pathComponents.map { $0.replacingOccurrences(of: " ", with: "_") }
+        let normalizedSection = section?.replacingOccurrences(of: " ", with: "_")
+        
+        components.path = "/" + (["wiki", "Special:MyLanguage"] + normalizedPathComponents).joined(separator: "/")
+        components.fragment = normalizedSection
+        components.queryItems = [URLQueryItem(name: "uselang", value: language.languageCode)]
+        
         return components.url
     }
 }
