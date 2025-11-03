@@ -77,8 +77,8 @@
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
-"activity-tab-logged-out-subtitle" = "Track what you’ve read and view your contributions over time in a new way";
-"activity-tab-logged-out-title" = "Log in or create an account to see more editing and reading activity.";
+"activity-tab-logged-out-subtitle" = "Log in or create an account to view your activity on the Wikipedia app.";
+"activity-tab-logged-out-title" = "See more reading and editing insights";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
@@ -205,6 +205,7 @@
 "continue-button-title" = "Continue";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"create-account" = "Create account";
 "crimean-tatar-variants-alert-body" = "The Wikipedia app now supports the following Crimean Tatar variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Updates to Crimean Tatar variant support";
 "data-migration-status" = "Updating...";
