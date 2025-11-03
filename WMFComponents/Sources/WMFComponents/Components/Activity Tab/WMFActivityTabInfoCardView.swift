@@ -33,6 +33,8 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                 Text(title)
                     .foregroundStyle(Color(theme.text))
                     .font(Font(WMFFont.for(.boldCaption1)))
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
                 Spacer()
                 HStack(spacing: 8) {
                     if let dateText = dateText {
