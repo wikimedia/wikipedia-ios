@@ -54,7 +54,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used?uselang=\(languageCodeSuffix)")
     }
     
-    var topReadBlogPost: String { "https://wikimediafoundation.org/news/2024/12/03/announcing-english-wikipedias-most-popular-articles-of-2024/" }
+    var topReadBlogPost: String { "https://wikimediafoundation.org/news/2025/12/01/announcing-english-wikipedias-most-popular-articles-of-2025" }
     
     var editingFAQURLString: String {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ?uselang=\(languageCode ?? "en")#Editing"
@@ -95,7 +95,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
             englishReadingSlideTitle: englishReadingSlideTitle,
             englishReadingSlideSubtitle: englishReadingSlideSubtitle,
-            englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "English Wikipedia’s most popular articles", comment: "Top read slide title for English Year in Review."),
+            englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "Most read articles on English Wikipedia", comment: "Top read slide title for English Year in Review."),
             englishTopReadSlideSubtitle: englishTopReadSlideSubtitle,
             englishSavedReadingSlideTitle: englishSavedReadingSlideTitle,
             englishSavedReadingSlideSubtitle: englishSavedReadingSlideSubtitle,
@@ -153,7 +153,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             savedArticlesTitle: WMFLocalizedString("year-in-review-highlights-articles-saved", value: "Articles saved", comment: "Title for the articles saved by an user in the Year in review highlights slide"),
             favoriteCategoriesTitle: WMFLocalizedString("year-in-review-highlights-categories", value: "Categories that interested me", comment: "Title for the top categories for an user in the Year in review highlights slide"),
             editedArticlesTitle: WMFLocalizedString("year-in-review-highlights-times-edited", value: "Times edited", comment: "Title for the number of articles edited by an user in the Year in review highlights slide"),
-            enWikiTopArticlesTitle: WMFLocalizedString("year-in-review-highlights-english-articles", value: "Most popular articles on English Wikipedia", comment: "Title for the list of most popular articles on English Wikipedia in the Year in review slide"),
+            enWikiTopArticlesTitle: WMFLocalizedString("year-in-review-highlights-english-articles", value: "Most read articles on English Wikipedia", comment: "Title for the list of most popular articles on English Wikipedia in the Year in review slide"),
             enWikiTopArticlesValue: enWikiTopArticlesValue,
             hoursSpentReadingTitle: WMFLocalizedString("year-in-review-highlights-collective-time-spent", value: "Hours spent reading", comment: "Title for the estimation collective hours spent reading Wikipedia in the Year in review highlights slide"),
             hoursSpentReadingValue: hoursSpentReadingValue,
@@ -799,8 +799,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let appShareLink = WMFYearInReviewDataController.appShareLink
         let hashtag = "#WikipediaYearInReview"
-        let plaintextURL = "wikipedia.org/year-in-review"
-
+        let plaintextURL = primaryAppLanguage.isEnglishWikipedia ? "wikimediafoundation.org/2025articles" : "wikimediafoundation.org/yir25"
         let viewModel = WMFYearInReviewViewModel(
             localizedStrings: localizedStrings,
             shareLink: appShareLink,
