@@ -32,10 +32,8 @@ public struct WMFActivityTabView: View {
                             // Start of modules on top section
                             articlesReadModule
                             savedArticlesModule
-                            if let model = viewModel.articlesReadViewModel {
-                                if !model.topCategories.isEmpty {
-                                    topCategoriesModule(categories: model.topCategories)
-                                }
+                            if viewModel.model.topCategories.isEmpty {
+                                topCategoriesModule(categories: viewModel.model.topCategories)
                             }
                             Spacer()
                         }
@@ -72,17 +70,10 @@ public struct WMFActivityTabView: View {
     
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
-            if let model = viewModel.articlesReadViewModel {
-                Text(model.usernamesReading)
+            Text(viewModel.model.usernamesReading)
                     .foregroundColor(Color(uiColor: theme.text))
                     .font(Font(WMFFont.for(.boldHeadline)))
                     .frame(maxWidth: .infinity, alignment: .center)
-            } else {
-                Text(viewModel.localizedStrings.noUsernameReading)
-                    .foregroundColor(Color(uiColor: theme.text))
-                    .font(Font(WMFFont.for(.boldHeadline)))
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
             Text(viewModel.localizedStrings.onWikipediaiOS)
                 .font(.custom("Menlo", size: 11, relativeTo: .caption2))
                 .foregroundColor(Color(uiColor: theme.text))
@@ -177,65 +168,38 @@ public struct WMFActivityTabView: View {
     
     private var articlesReadModule: some View {
         Group {
-            if let model = viewModel.articlesReadViewModel {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
-                    title: viewModel.localizedStrings.totalArticlesRead,
-                    dateText: model.dateTimeLastRead,
-                    amount: model.totalArticlesRead,
-                    onTapModule: {
-                        print("Tapped module")
-                        // TODO: Navigate to history below
-                    },
-                    content: {
-                        if let weeklyReads = viewModel.articlesReadViewModel?.weeklyReads {
-                            articlesReadGraph(weeklyReads: weeklyReads)
-                        }
-                    }
-                )
-            } else {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
-                    title: viewModel.localizedStrings.totalArticlesRead,
-                    dateText: nil,
-                    amount: 0,
-                    onTapModule: {
-                        print("Tapped module")
-                        // TODO: Navigate to history below
-                    }
-                )
-            }
+            WMFActivityTabInfoCardView(
+                icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                title: viewModel.localizedStrings.totalArticlesRead,
+                dateText: viewModel.model.dateTimeLastRead,
+                amount: viewModel.model.totalArticlesRead,
+                onTapModule: {
+                    print("Tapped module")
+                    // TODO: Navigate to history below
+                },
+                content: {
+                    articlesReadGraph(weeklyReads: viewModel.model.weeklyReads)
+                }
+            )
         }
     }
     
     private var savedArticlesModule: some View {
         Group {
-            if let model = viewModel.articlesReadViewModel {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookmark),
-                    title: viewModel.localizedStrings.articlesSavedTitle,
-                    dateText: model.dateTimeLastSaved,
-                    amount: model.articlesSavedAmount,
-                    onTapModule: {
-                        viewModel.navigateToSaved?()
-                    },
-                    content: {
-                        if let savedArticleImageList = viewModel.articlesReadViewModel?.articlesSavedImages, !savedArticleImageList.isEmpty {
-                            savedArticlesImages(images: savedArticleImageList)
-                        }
+            WMFActivityTabInfoCardView(
+                icon: WMFSFSymbolIcon.for(symbol: .bookmark),
+                title: viewModel.localizedStrings.articlesSavedTitle,
+                dateText: viewModel.model.dateTimeLastSaved,
+                amount: viewModel.model.articlesSavedAmount,
+                onTapModule: {
+                    viewModel.navigateToSaved?()
+                },
+                content: {
+                    if !viewModel.model.articlesSavedImages.isEmpty {
+                        savedArticlesImages(images: viewModel.model.articlesSavedImages)
                     }
-                )
-            } else {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookmark),
-                    title: viewModel.localizedStrings.articlesSavedTitle,
-                    dateText: nil,
-                    amount: 0,
-                    onTapModule: {
-                        viewModel.navigateToSaved?()
-                    }
-                )
-            }
+                }
+            )
         }
     }
     

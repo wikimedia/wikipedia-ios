@@ -20,7 +20,19 @@ struct ArticlesReadViewModel {
 public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
-    @Published var articlesReadViewModel: ArticlesReadViewModel?
+    @Published var model: ArticlesReadViewModel = ArticlesReadViewModel(
+        username: "",
+        hoursRead: 0,
+        minutesRead: 0,
+        totalArticlesRead: 0,
+        dateTimeLastRead: "",
+        weeklyReads: [],
+        topCategories: [],
+        usernamesReading: "",
+        articlesSavedAmount: 0,
+        dateTimeLastSaved: "",
+        articlesSavedImages: []
+    )
     var hasSeenActivityTab: () -> Void
     @Published var isLoggedIn: Bool
     public var navigateToSaved: (() -> Void)?
@@ -52,19 +64,17 @@ public class WMFActivityTabViewModel: ObservableObject {
             let formattedDate = self.formatDateTime(dateTime)
             
             await MainActor.run {
-                self.articlesReadViewModel = ArticlesReadViewModel(
-                    username: "",
-                    hoursRead: hours,
-                    minutesRead: minutes,
-                    totalArticlesRead: totalArticlesRead,
-                    dateTimeLastRead: formattedDate,
-					weeklyReads: weeklyReads,
-					topCategories: categories,
-                    usernamesReading: localizedStrings.noUsernameReading,
-                    articlesSavedAmount: 27,
-                    dateTimeLastSaved: "November 82",
-                    articlesSavedImages: images
-                )
+                var model = self.model
+                model.hoursRead = hours
+                model.minutesRead = minutes
+                model.totalArticlesRead = totalArticlesRead
+                model.dateTimeLastRead = formattedDate
+                model.weeklyReads = weeklyReads
+                model.topCategories = categories
+                model.articlesSavedAmount = 27
+                model.dateTimeLastSaved = "November 82"
+                model.articlesSavedImages = images
+                self.model = model
             }
         }
     }
@@ -81,60 +91,43 @@ public class WMFActivityTabViewModel: ObservableObject {
     // MARK: - View Strings
     
     public var hoursMinutesRead: String {
-        guard let model = articlesReadViewModel else { return "" }
         return localizedStrings.totalHoursMinutesRead(model.hoursRead, model.minutesRead)
     }
     
     // MARK: - Update
     
     public func updateUsername(username: String) {
-        updateUsernamesReading(username: username)
-        guard var model = articlesReadViewModel else { return }
         model.username = username
-        if !username.isEmpty {
-            updateIsLoggedIn(isLoggedIn: true)
-        }
-        articlesReadViewModel = model
+        model.usernamesReading = username.isEmpty
+            ? localizedStrings.noUsernameReading
+            : localizedStrings.userNamesReading(username)
+
+        self.model = model
     }
-    
-    private func updateUsernamesReading(username: String) {
-        guard var model = articlesReadViewModel else { return }
-        model.usernamesReading = localizedStrings.userNamesReading(username)
-    }
-    
+
     public func updateIsLoggedIn(isLoggedIn: Bool) {
         self.isLoggedIn = isLoggedIn
     }
     
     private func updateHoursMinutesRead(hours: Int, minutes: Int) {
-        guard var model = articlesReadViewModel else { return }
         model.hoursRead = hours
         model.minutesRead = minutes
-        articlesReadViewModel = model
     }
     
     private func updateTotalArticlesRead(totalArticlesRead: Int) {
-        guard var model = articlesReadViewModel else { return }
         model.totalArticlesRead = totalArticlesRead
-        articlesReadViewModel = model
     }
     
     private func updateDateTimeRead(dateTime: Date) {
-        guard var model = articlesReadViewModel else { return }
         model.dateTimeLastRead = formatDateTime(dateTime)
-        articlesReadViewModel = model
     }
 
  	private func updateWeeklyReads(weeklyReads: [Int]) {
-        guard var model = articlesReadViewModel else { return }
         model.weeklyReads = weeklyReads
-        articlesReadViewModel = model
     }
     
     private func updateTopCategories(topCategories: [String]) {
-        guard var model = articlesReadViewModel else { return }
         model.topCategories = topCategories
-        articlesReadViewModel = model
     }
     
     // MARK: - Helpers
