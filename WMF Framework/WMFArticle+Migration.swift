@@ -51,7 +51,7 @@ import CocoaLumberjackSwift
                 if let limit { request.fetchLimit = limit }
 
                 let articles = try wikipediaContext.fetch(request)
-                print("🔎 Fetched \(articles.count)")
+                print("Fetched \(articles.count)")
 
                 guard !articles.isEmpty else { return }
 

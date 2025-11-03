@@ -267,9 +267,9 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                     article.hasChangedValuesForCurrentEventThatAffectSavedState &&
                     article.savedDate != nil &&
                     !article.isSavedMigrated) {
+                    DDLogInfo(@"[SavedMigration] Incremental hook firing for key=%@  savedDate=%@", article.key, article.savedDate);
                     [SavedStateMigrationManager.shared migrateIncremental];
                 }
-
             }
         }
     }
@@ -527,6 +527,12 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     }
 
     if (currentLibraryVersion < 20) {
+
+        if (![WMFDataBridge ensureDataStoreReadySynchronouslyWithTimeout:15]) {
+            DDLogError(@"WMFData store not ready; aborting migrations");
+            return;
+        }
+
         [[SavedStateMigrationManager shared] migrateAllIfNeeded];
         [moc wmf_setValue:@(20) forKey:WMFLibraryVersionKey];
 
@@ -908,16 +914,16 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                          }];
     // Remote Feature config
     [taskGroup enter];
-    [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (error) {
-                    updateError = error;
-                    [taskGroup leave];
-                    return;
-                }
-                
+    [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError *_Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                updateError = error;
                 [taskGroup leave];
-            });
+                return;
+            }
+
+            [taskGroup leave];
+        });
     }];
 
     [taskGroup waitInBackgroundWithCompletion:^{

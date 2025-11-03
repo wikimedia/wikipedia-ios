@@ -1378,6 +1378,7 @@
 		8368BB8524129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */; };
 		8368BB8624129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */; };
 		836944DC1F572452007BD6DA /* ThemeableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E954B1F15397D007BD960 /* ThemeableTextField.swift */; };
+		83695CF42EB93604006CE585 /* WMFDataBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83695CF32EB935FB006CE585 /* WMFDataBridge.swift */; };
 		836BF56E2869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836BF56F2869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
 		836BF5702869F9C200B98321 /* TalkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56D2869F9C200B98321 /* TalkPageViewController.swift */; };
@@ -3674,6 +3675,7 @@
 		8361AEC721949670006B00B0 /* ga */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ga; path = ga.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutManager.swift; sourceTree = "<group>"; };
 		8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ArticleErrorHandling.swift"; sourceTree = "<group>"; };
+		83695CF32EB935FB006CE585 /* WMFDataBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFDataBridge.swift; sourceTree = "<group>"; };
 		836BF56D2869F9C200B98321 /* TalkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageViewController.swift; sourceTree = "<group>"; };
 		836CB7A129DF45F10058A454 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		83703A7724DC44C600EE98EA /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -5703,6 +5705,7 @@
 		0E28C4641D74AAB0000C5919 /* User DataStore */ = {
 			isa = PBXGroup;
 			children = (
+				83695CF32EB935FB006CE585 /* WMFDataBridge.swift */,
 				7A06020D20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift */,
 				B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */,
 				B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */,
@@ -10564,6 +10567,7 @@
 				D8FA18B81E1BD891009675C3 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				BA7FF0B61F618F5A0054CF02 /* CollectionViewEditController.swift in Sources */,
 				672034E527A2600C007DC24F /* RemoteNotificationsProjectOperation.swift in Sources */,
+				83695CF42EB93604006CE585 /* WMFDataBridge.swift in Sources */,
 				6761AEDF2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift in Sources */,
 				D84C361F1F32404700895FA1 /* OnThisDayCollectionViewCell.swift in Sources */,
 				702096B9256C3D5700E27041 /* SamplingController.swift in Sources */,
