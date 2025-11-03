@@ -740,11 +740,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string>%1$d vez</string>
+			<string>%1$lld vez</string>
 			<key>other</key>
-			<string>%1$d vezes</string>
+			<string>%1$lld vezes</string>
 		</dict>
 	</dict>
 </dict>

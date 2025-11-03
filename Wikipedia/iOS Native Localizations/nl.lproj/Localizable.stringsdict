@@ -906,11 +906,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
 			<string>één keer</string>
 			<key>other</key>
-			<string>in totaal %1$d keer</string>
+			<string>in totaal %1$lld keer</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-edit-views-title-format</key>
@@ -922,9 +922,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>other</key>
-			<string>%1$d keer</string>
+			<string>%1$lld keer</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>

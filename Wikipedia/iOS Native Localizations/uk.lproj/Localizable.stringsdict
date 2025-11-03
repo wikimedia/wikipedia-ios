@@ -920,11 +920,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string>%1$d раз</string>
+			<string>%1$lld раз</string>
 			<key>other</key>
-			<string>%1$d разів</string>
+			<string>%1$lld разів</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-edit-views-title-format</key>
@@ -936,11 +936,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string>%1$d раз</string>
+			<string>%1$lld раз</string>
 			<key>other</key>
-			<string>%1$d разів</string>
+			<string>%1$lld разів</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>

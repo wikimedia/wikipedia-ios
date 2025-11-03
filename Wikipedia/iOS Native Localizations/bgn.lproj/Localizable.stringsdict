@@ -350,11 +350,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
+			<string>d</string>
 			<key>one</key>
-			<string>%2$lld different language edition</string>
+			<string>%2$d different language edition</string>
 			<key>other</key>
-			<string>%2$lld different language editions</string>
+			<string>%2$d different language editions</string>
 		</dict>
 		<key>v3</key>
 		<dict>
@@ -1112,11 +1112,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string>%1$d view</string>
+			<string>%1$lld view</string>
 			<key>other</key>
-			<string>%1$d total views</string>
+			<string>%1$lld total views</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-edit-views-title-format</key>
@@ -1128,11 +1128,38 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld time</string>
+			<key>other</key>
+			<string>%1$lld times</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Volunteers like you made %#@v1@ across %#@v2@ of Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld change</string>
+			<key>other</key>
+			<string>%1$lld changes</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d time</string>
+			<string>%2$d different language edition</string>
 			<key>other</key>
-			<string>%1$d times</string>
+			<string>%2$d different language editions</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
@@ -1192,6 +1219,24 @@
 			<string>%2$d article</string>
 			<key>other</key>
 			<string>%2$d articles</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>These articles included %1$@, %2$@, and %3$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.
+
+Active app users had %#@v4@ this year.</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%4$lld saved article</string>
+			<key>other</key>
+			<string>%4$lld saved articles</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

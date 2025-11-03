@@ -1538,7 +1538,7 @@
 "year-in-review-personalized-edit-views-subtitle-format" = "Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received {{PLURAL:$1|$1 view|$1 total views}}. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for the world.";
 "year-in-review-personalized-edit-views-title-format" = "Your edits have been viewed more than {{PLURAL:$1|$1 time|$1 times}} recently";
 "year-in-review-personalized-editing-subtitle-1" = "Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
-"year-in-review-personalized-editing-subtitle-2" = "Volunteers like you made $1 changes across $2 different language editions of Wikipedia.";
+"year-in-review-personalized-editing-subtitle-2" = "Volunteers like you made {{PLURAL:$1|$1 change|$1 changes}} across {{PLURAL:$2|$2 different language edition|$2 different language editions}} of Wikipedia.";
 "year-in-review-personalized-editing-title-format" = "You edited {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-personalized-explore" = "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.";
 "year-in-review-personalized-location-subtitle-format-1" = "You read about $2$1$3.";
@@ -1549,7 +1549,7 @@
 "year-in-review-personalized-reading-subtitle-format-v3" = "We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
 "year-in-review-personalized-reading-title-v3-format" = "You spent {{PLURAL:$1|$1 minute|$1 minutes}} reading {{PLURAL:$2|$2 article|$2 articles}} in $3";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";
-"year-in-review-personalized-saved-subtitle-format-v3" = "These articles included $1, $2, and $3. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had $4 saved articles this year.";
+"year-in-review-personalized-saved-subtitle-format-v3" = "These articles included $1, $2, and $3. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had {{PLURAL:$4|$4 saved article|$4 saved articles}} this year.";
 "year-in-review-personalized-saved-title-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-user-edits" = "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.";
 "year-in-review-personalized-weekday" = "A clock ticking, symbolizing the time spent by people reading Wikipedia.";

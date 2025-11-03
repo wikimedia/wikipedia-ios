@@ -894,11 +894,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string> مشاهدة %1$d </string>
+			<string> مشاهدة %1$lld </string>
 			<key>other</key>
-			<string> مشاهدة %1$d إجمالية</string>
+			<string> مشاهدة %1$lld إجمالية</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-edit-views-title-format</key>
@@ -910,11 +910,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string> %1$d مرة</string>
+			<string> %1$lld مرة</string>
 			<key>other</key>
-			<string>%1$d مرات</string>
+			<string>%1$lld مرات</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>

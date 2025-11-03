@@ -837,11 +837,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string>%1$d görüntüleme</string>
+			<string>%1$lld görüntüleme</string>
 			<key>other</key>
-			<string>toplam %1$d görüntüleme</string>
+			<string>toplam %1$lld görüntüleme</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-edit-views-title-format</key>
@@ -853,11 +853,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string>%1$d kez</string>
+			<string>%1$lld kez</string>
 			<key>other</key>
-			<string>%1$d ve daha fazla kez</string>
+			<string>%1$lld ve daha fazla kez</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
