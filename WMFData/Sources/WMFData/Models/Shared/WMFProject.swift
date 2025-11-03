@@ -1,6 +1,12 @@
 import Foundation
 
 public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
+    
+    case wikipedia(WMFLanguage)
+    case wikidata
+    case commons
+    case mediawiki
+    
     public var id: String {
         switch self {
         case .commons:
@@ -10,11 +16,11 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
         case .mediawiki:
             return "mediawiki"
         case .wikipedia(let language):
-            if let languageVariantCode = language.languageVariantCode {
-                return "wikipedia-" + language.languageCode + "-" + languageVariantCode
-            } else {
-                return "wikipedia-" + language.languageCode
+            var identifier = "wikipedia~\(language.languageCode)"
+            if let variantCode = language.languageVariantCode {
+                identifier.append("~\(variantCode)")
             }
+            return identifier
         }
     }
     
@@ -37,13 +43,24 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
         }
     }
     
-    case wikipedia(WMFLanguage)
-    case wikidata
-    case commons
-    case mediawiki
-    
-    static func projectsFromLanguages(languages: [WMFLanguage]) -> [WMFProject] {
-        return languages.map { .wikipedia($0) }
+    init?(id: String) {
+        switch id {
+        case "commons":
+            self = .commons
+        case "wikidata":
+            self = .wikidata
+        default:
+            // Expected format: wikipedia~languageCode or wikipedia~languageCode~variant
+            let components = id.components(separatedBy: "~")
+            guard components.count >= 2, components[0] == "wikipedia" else {
+                return nil
+            }
+            
+            let languageCode = components[1]
+            let variantCode = components.count > 2 ? components[2] : nil
+            let language = WMFLanguage(languageCode: languageCode, languageVariantCode: variantCode)
+            self = .wikipedia(language)
+        }
     }
     
     var languageVariantCode: String? {
@@ -67,10 +84,12 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
         
         return nil
     }
-}
-
-public extension WMFProject {
-    var isEnglishWikipedia: Bool {
+    
+    static func projectsFromLanguages(languages: [WMFLanguage]) -> [WMFProject] {
+        return languages.map { .wikipedia($0) }
+    }
+    
+    public var isEnglishWikipedia: Bool {
         switch self {
         case .wikipedia(let language):
             return language.languageCode.lowercased() == "en"
@@ -78,10 +97,8 @@ public extension WMFProject {
             return false
         }
     }
-}
-
-public extension WMFProject {
-    var siteURL: URL? {
+    
+    public var siteURL: URL? {
         var components = URLComponents()
         components.scheme = "https"
 
