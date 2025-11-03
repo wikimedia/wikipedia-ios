@@ -40,6 +40,7 @@
 "account-creation-passwords-mismatched" = "கடவுச்சொல் களங்கள் பொருந்தவில்லை.";
 "account-creation-saving" = "சேமிக்கிறது...";
 "account-creation-title" = "புதிய கணக்கு ஒன்றை உருவாக்கு";
+"action-add-to-reading-list-short" = "பட்டியலில் சேர்";
 "action-cancel" = "ரத்து செய்";
 "action-find-in-page" = "பக்கத்திற்குள் கண்டுபிடி";
 "action-read" = "படி";
@@ -82,9 +83,12 @@
 // Fuzzy
 "did-you-know" = "உங்களுக்கு தெரியுமா";
 "dim-images" = "படங்களை மந்தப்படுத்து";
+"donate-success-title" = "நன்றி!";
+"edit-sheet-temp-account-notice" = "தற்காலிகக் கணக்கு அறிவிப்பு";
 "edit-summary-choice-fixed-grammar" = "நிலையான இலக்கணம்";
 "edit-summary-choice-fixed-typos" = "தட்டுப்பிழைத்திருத்தம்";
 "edit-summary-choice-linked-words" = "இணைக்கப்பட்ட சுட்டிகள்";
+"editor-find-textfield-accessibility" = "கண்டுபிடி";
 "empty-no-article-message" = "மன்னிக்கவும், கட்டுரையை ஏற்றமுடியவில்லை";
 "empty-no-feed-action-message" = "நீங்கள் சேமிக்கப்பட்ட பக்கங்களை தொடர்ந்து படிக்கலாம்";
 "empty-no-history-title" = "காட்டுவதற்கு வரலாறு ஏதுமில்லை";
@@ -167,6 +171,7 @@
 "main-menu-terms-of-use" = "பயன்பாட்டு விதிமுறைகள்";
 "main-menu-title" = "மேலும்";
 "main-menu-zero-faq" = "விக்கிப்பீடியா சுழி அடிக்கடிக் கேட்கப்படும் கேள்விகள்";
+"microsite-yir-english-edits-bytes-slide-title" = "$1 வகைகள் சேர்க்கப்பட்டன";
 "more-languages-tooltip-title" = "மொழிகளைச் சேர்க்கவும்";
 "navbar-title-mode-edit-wikitext-preview" = "முன்தோற்றம்";
 "nearby-distance-label-feet" = "$1 அடி";

@@ -1396,7 +1396,6 @@
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
-"year-in-review-base-donate-title" = "위키백과에 게재된 광고는 0개입니다";
 // Fuzzy
 "year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
 "year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
@@ -1404,7 +1403,6 @@
 "year-in-review-base-saved-title" = "$1백만 개가 넘는 읽기 목록이 있습니다";
 // Fuzzy
 "year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
-"year-in-review-collective-zero-ads" = "위키미디어 로고";
 "year-in-review-day-friday" = "금요일";
 "year-in-review-day-monday" = "월요일";
 "year-in-review-day-saturday" = "토요일";
@@ -1419,8 +1417,8 @@
 "year-in-review-personalized-date-month-footer-v3" = "가장 많이 읽은 달";
 "year-in-review-personalized-donate-title" = "귀하의 기부 덕분에 위키백과의 번영 유지에 도움이 되었습니다";
 "year-in-review-personalized-donation-thank-you" = "위키미디어 로고";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
-"year-in-review-personalized-editing-title-format-500plus" = "당신은 위키백과를 500회 이상 편집했습니다";
 "year-in-review-personalized-most-read-articles-title" = "인기 기사";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|문서 $1개}}를 저장했습니다";
 "year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";
