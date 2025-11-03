@@ -900,7 +900,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Over de hele wereld waarderen lezers uw bijdragen. In de afgelopen twee maanden zijn de artikelen die u hebt bewerkt %#@v1@ bekeken. Dankzij bewerkers zoals u is Wikipedia een steeds betere, op feiten gebaseerde en betrouwbare kennisbron voor de wereld.</string>
+		<string>Over de hele wereld waarderen lezers uw bijdragen. In de afgelopen twee maanden zijn de pagina's die u hebt bewerkt %#@v1@ bekeken. Dankzij bewerkers zoals u is Wikipedia een steeds betere, op feiten gebaseerde en betrouwbare kennisbron voor de wereld.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -930,7 +930,7 @@
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt Wikipedia %#@v1@ bewerkt</string>
+		<string>U hebt %#@v1@ bewerkt</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -960,7 +960,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>In %3$@ hebt u %1$d %#@v1@ besteed aan het lezen van %2$d artikel%#@v2@</string>
+		<string>In %3$@ hebt u %1$d %#@v1@ besteed aan het lezen van %2$d %#@v2@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -979,9 +979,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>pagina</string>
 			<key>other</key>
-			<string>en</string>
+			<string>pagina's</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
