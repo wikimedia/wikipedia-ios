@@ -34,8 +34,8 @@ import WMFData
 
     private func runMigration(limit: Int?) {
         guard
-            let wikipediaContainer = MWKDataStore.shared().value(forKey: "persistentContainer") as? NSPersistentContainer,
-            let wkDataStore = WMFDataEnvironment.current.coreDataStore
+            let wikipediaContainer = MWKDataStore.shared().value(forKey: "persistentContainer") as? NSPersistentContainer, // TODO: check if there's a better way to retrieve the persistemnt container
+            let wmfDataStore = WMFDataEnvironment.current.coreDataStore
         else {
             return
         }
@@ -43,10 +43,10 @@ import WMFData
         let wikipediaContext = wikipediaContainer.newBackgroundContext()
         wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-        guard let wkContext = try? wkDataStore.newBackgroundContext else {
+        guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
             return
         }
-        wkContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         wikipediaContext.performAndWait {
             do {
@@ -58,19 +58,19 @@ import WMFData
                 guard !articles.isEmpty else { return }
 
                 for article in articles {
-                    try self.copySavedState(from: article, to: wkContext)
+                    try self.copySavedState(from: article, to: wmfContext)
                     article.isSavedMigrated = true
                 }
 
                 try wikipediaContext.save()
-                try wkContext.save()
+                try wmfContext.save()
             } catch {
                 debugPrint("SavedStateMigration: \(error)") // TODO: handle error
             }
         }
     }
 
-    private func copySavedState(from article: WMFArticle, to wkContext: NSManagedObjectContext) throws {
+    private func copySavedState(from article: WMFArticle, to wmfDataContext: NSManagedObjectContext) throws {
         guard
             let savedDate = article.savedDate,
             let articleURL = article.url,
@@ -85,7 +85,7 @@ import WMFData
 
         // Fetch or create CDPage
         let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", projectID, namespaceID, title)
-        let page = try fetchOrCreate(CDPage.self, predicate: predicate, in: wkContext)
+        let page = try fetchOrCreate(CDPage.self, predicate: predicate, in: wmfDataContext)
         page.title = title
         page.namespaceID = namespaceID
         page.projectID = projectID
@@ -94,7 +94,7 @@ import WMFData
         if let existing = page.savedDate {
             existing.savedDate = savedDate
         } else {
-            let saved = CDSavedPage(context: wkContext)
+            let saved = CDSavedPage(context: wmfDataContext)
             saved.savedDate = savedDate
             page.savedDate = saved
         }
