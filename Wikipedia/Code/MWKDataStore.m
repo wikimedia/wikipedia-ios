@@ -263,6 +263,13 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                 } else {
                     [nc postNotificationName:WMFArticleUpdatedNotification object:article];
                 }
+                if ([key isEqualToString:NSUpdatedObjectsKey] &&
+                    article.hasChangedValuesForCurrentEventThatAffectSavedState &&
+                    article.savedDate != nil &&
+                    !article.isSavedMigrated) {
+                    [SavedStateMigrationManager.shared migrateIncremental];
+                }
+
             }
         }
     }
