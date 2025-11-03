@@ -54,7 +54,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used?uselang=\(languageCodeSuffix)")
     }
     
-    var topReadBlogPost: String { "https://wikimediafoundation.org/news/2024/12/03/announcing-english-wikipedias-most-popular-articles-of-2024/" }
+    var topReadBlogPost: String { "https://wikimediafoundation.org/news/2025/12/01/announcing-english-wikipedias-most-popular-articles-of-2025" }
     
     var editingFAQURLString: String {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ?uselang=\(languageCode ?? "en")#Editing"
