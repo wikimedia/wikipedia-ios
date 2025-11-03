@@ -298,6 +298,194 @@
 			<string>%1$d lines unedited</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>In %1$@, volunteers added %#@v2@ to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld byte</string>
+			<key>other</key>
+			<string>%2$lld bytes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ added</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld byte</string>
+			<key>other</key>
+			<string>%1$lld bytes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Volunteers made %#@v1@ across over %#@v2@ of Wikipedia. %#@v3@ were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld change</string>
+			<key>other</key>
+			<string>%1$lld changes</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld different language edition</string>
+			<key>other</key>
+			<string>%2$lld different language editions</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%3$lld change</string>
+			<key>other</key>
+			<string>%3$lld changes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Editors made %#@v1@ this year</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld change</string>
+			<key>other</key>
+			<string>%1$lld changes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>People spent an estimated %#@v1@—around %#@v2@!—reading English Wikipedia in %3$@. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld hour</string>
+			<key>other</key>
+			<string>%1$lld hours</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld year</string>
+			<key>other</key>
+			<string>%2$lld years</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>People spent an estimated %#@v1@—around %#@v2@!—reading English Wikipedia in %3$@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld hour</string>
+			<key>other</key>
+			<string>%1$lld hours</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld year</string>
+			<key>other</key>
+			<string>%2$lld years</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>We spent %#@v1@ reading</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld hour</string>
+			<key>other</key>
+			<string>%1$lld hours</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Active app users had %#@v1@ this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld saved article</string>
+			<key>other</key>
+			<string>%1$lld saved articles</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>We had %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld saved article</string>
+			<key>other</key>
+			<string>%1$lld saved articles</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
