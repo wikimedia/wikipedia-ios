@@ -196,14 +196,14 @@ public struct WMFActivityTabView: View {
                 },
                 content: {
                     if !viewModel.model.articlesSavedImages.isEmpty {
-                        savedArticlesImages(images: viewModel.model.articlesSavedImages)
+                        savedArticlesImages(images: viewModel.model.articlesSavedImages, totalSavedCount: viewModel.model.articlesSavedAmount)
                     }
                 }
             )
         }
     }
     
-    private func savedArticlesImages(images: [URL]) -> some View {
+    private func savedArticlesImages(images: [URL], totalSavedCount: Int) -> some View {
         HStack(spacing: 4) {
             if images.count <= 4 {
                 ForEach(images.prefix(4), id: \.self) { imageURL in
@@ -232,7 +232,7 @@ public struct WMFActivityTabView: View {
                     .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 }
 
-                let remaining = images.count - 3
+                let remaining = totalSavedCount - 3
                 Text(viewModel.localizedStrings.remaining(remaining))
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.white)

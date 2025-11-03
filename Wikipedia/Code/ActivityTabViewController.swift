@@ -114,6 +114,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         viewModel.navigateToSaved = goToSaved
         
+        viewModel.savedArticlesModuleDataDelegate = dataStore?.savedPageList
+        
         if !dataController.hasSeenActivityTab {
             presentOnboarding()
         }

@@ -122,3 +122,19 @@ public final class WMFActivityTabDataController {
             .map { $0.key.categoryName }
     }
 }
+
+public class SavedArticleModuleData: NSObject, Codable {
+    public let savedArticlesCount: Int
+    public let articleUrlStrings: [String]
+    public let dateLastSaved: Date?
+
+    public init(savedArticlesCount: Int, articleUrlStrings: [String], dateLastSaved: Date?) {
+        self.savedArticlesCount = savedArticlesCount
+        self.articleUrlStrings = articleUrlStrings
+        self.dateLastSaved = dateLastSaved
+    }
+}
+
+public protocol SavedArticleModuleDataDelegate: AnyObject {
+    func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
+}
