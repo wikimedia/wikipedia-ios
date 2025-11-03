@@ -212,7 +212,7 @@
 
     for (NSUInteger i = 0; i < allArticles.count; i++) {
         if (mutableArticles[i].thumbnailURLString != nil) {
-            [randomArticleImages addObject:mutableArticles[i].imageURLString];
+            [randomArticleImages addObject:mutableArticles[i].thumbnailURLString];
         } else {
             continue;
         }
@@ -226,12 +226,12 @@
     fetchRequest.fetchLimit = 1;
     NSError *error = nil;
     NSArray<WMFArticle *> *articles = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&error];
-    
+
     if (error) {
         NSLog(@"Error fetching articles: %@", error);
         return nil;
     }
-    
+
     if (!articles) {
         return nil;
     }
@@ -239,13 +239,13 @@
     if (articles.count == 0) {
         return nil;
     }
-    
+
     NSDate *savedDate = articles[0].savedDate;
-    
+
     if (!savedDate) {
         return nil;
     }
-    
+
     return savedDate;
 }
 
