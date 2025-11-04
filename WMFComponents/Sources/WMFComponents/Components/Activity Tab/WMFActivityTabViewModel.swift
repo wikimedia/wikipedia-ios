@@ -36,6 +36,7 @@ public class WMFActivityTabViewModel: ObservableObject {
     var hasSeenActivityTab: () -> Void
     @Published var isLoggedIn: Bool
     public var navigateToSaved: (() -> Void)?
+    public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
     
     public init(localizedStrings: LocalizedStrings,
                 dataController: WMFActivityTabDataController,
@@ -63,6 +64,20 @@ public class WMFActivityTabViewModel: ObservableObject {
             
             let formattedDate = self.formatDateTime(dateTime)
             
+            // BEGIN: TEMP SAVED ARTICLES STUFF
+            let calendar = Calendar.current
+            var savedArticleCount: Int = 0
+            var savedArticleDate: Date? = nil
+            var savedArticleImages: [String] = []
+            let endDate = Date()
+            if let startDate = calendar.date(byAdding: .day, value: -30, to: endDate),
+               let tempSavedArticlesStuff = await savedArticlesModuleDataDelegate?.getSavedArticleModuleData(from: startDate, to: endDate) {
+                savedArticleCount = tempSavedArticlesStuff.savedArticlesCount
+                savedArticleDate = tempSavedArticlesStuff.dateLastSaved
+                savedArticleImages = tempSavedArticlesStuff.articleUrlStrings
+            }
+            // END: TEMP SAVED ARTICLES STUFF
+            
             await MainActor.run {
                 var model = self.model
                 model.hoursRead = hours
@@ -71,22 +86,17 @@ public class WMFActivityTabViewModel: ObservableObject {
                 model.dateTimeLastRead = formattedDate
                 model.weeklyReads = weeklyReads
                 model.topCategories = categories
-                model.articlesSavedAmount = 27
-                model.dateTimeLastSaved = "November 82"
-                model.articlesSavedImages = images
+
+                // BEGIN: TEMP SAVED ARTICLES STUFF
+                model.articlesSavedAmount = savedArticleCount
+                model.dateTimeLastSaved = savedArticleDate != nil ? self.formatDateTime(savedArticleDate!) : ""
+                model.articlesSavedImages = savedArticleImages.compactMap { URL(string: $0) }
+                // END: TEMP SAVED ARTICLES STUFF
+                
                 self.model = model
             }
         }
     }
-    
-    let images: [URL] = [
-        URL(string: "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png")!,
-        URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Baker_Harcourt_1940_2.jpg")!,
-        URL(string: "https://upload.wikimedia.org/wikipedia/commons/1/10/Arch_of_SeptimiusSeverus.jpg")!,
-        URL(string: "https://upload.wikimedia.org/wikipedia/commons/8/81/Ivan_Akimov_Saturn_.jpg")!,
-        URL(string: "https://upload.wikimedia.org/wikipedia/commons/6/6a/She-wolf_suckles_Romulus_and_Remus.jpg")!
-    ]
-
     
     // MARK: - View Strings
     
