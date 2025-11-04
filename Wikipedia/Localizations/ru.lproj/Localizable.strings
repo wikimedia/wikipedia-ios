@@ -1451,7 +1451,6 @@
 "year-in-review-button-title" = "Обзор года";
 "year-in-review-collective-edits" = "Иллюстрация двух объединённых фрагментов пазла с логотипом Википедии, каждый из которых несёт информацию.";
 "year-in-review-collective-edits-per-minute" = "Тиканье часов, которое символизирует время, потраченное людьми за чтением Википедии.";
-"year-in-review-collective-zero-ads" = "Логотип Викимедиа";
 "year-in-review-day-friday" = "Пятницы";
 "year-in-review-day-monday" = "Понедельники";
 "year-in-review-day-saturday" = "Субботы";
@@ -1464,8 +1463,8 @@
 "year-in-review-finish" = "Завершить";
 "year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
 "year-in-review-personalized-donation-thank-you" = "Логотип Викимедиа";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Вы редактировали Википедию более 500 раз";
 "year-in-review-survey-additional-thoughts" = "Есть ли у вас какие-нибудь дополнительные мысли?";
 "year-in-review-survey-neutral" = "Воздержусь";
 "year-in-review-survey-satisfied" = "Доволен";

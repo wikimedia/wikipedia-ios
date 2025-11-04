@@ -833,6 +833,10 @@ extension WMFAppViewController {
             return String.localizedStringWithFormat(format, String(amount))
         }
         
+        let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "See more reading and editing insights", comment: "Title for logged out users")
+        let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
+        let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
+        
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
@@ -845,11 +849,15 @@ extension WMFAppViewController {
                 articlesRead: articlesReadGraph,
                 topCategories: topCategories,
                 articlesSavedTitle: saved,
-                remaining: remaining(amount:)),
+                remaining: remaining(amount:),
+				loggedOutTitle: loggedOutTitle,
+                loggedOutSubtitle: loggedOutSubtitle,
+                loggedOutPrimaryCTA: createAccount,
+                loggedOutSecondaryCTA: CommonStrings.editSignIn),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true
-        })
+        }, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,

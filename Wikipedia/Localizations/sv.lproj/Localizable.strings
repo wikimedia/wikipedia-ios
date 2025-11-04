@@ -1484,8 +1484,6 @@
 "wikitext-upload-save-sign-in" = "logga in";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Genom att publicera ändringarna samtycker du till $1användaravtalet$2 och du oåterkalleligen går med på att släppa ditt bidrag under licensen $3CC BY-SA 4.0$4 och $5GFDL$6. Du samtycker till att en hyperlänk eller webbadress är tillräckligt tillskrivande under licensen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
-"year-in-review-base-donate-subtitle" = "Med din hjälp kommer Wikimedia Foundation (den ideella organisationen bakom Wikipedia) att fortsätta säkerställa att informationen du litar på är annonsfri och pålitlig, samtidigt som Wikipedia fortsätter att fungera smidigt med avancerade verktyg och teknologier. Överväg att donera idag. [Läs mer om vårt arbete]($1).";
-"year-in-review-base-donate-title" = "0 annonser visas på Wikipedia";
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "Wikipedias gemenskap av frivilliga redigerare har gjort fler än 555 647 redigeringar på iOS-appen. Wikipedias viktigaste del är vår globala gemenskap av frivilliga bidragsgivare, donerare och miljarder läsare som du själv – alla som har förenats för att dela obegränsad tillgång till pålitlig information.";
 // Fuzzy
@@ -1511,7 +1509,6 @@
 "year-in-review-collective-explore" = "En animerad illustration som föreställer den ikoniska Wikipedia-globen, omgiven av byggnadsställningar som symboliserar människornas ansträngning till att bygga projektet tillsammans. Scenen omgivas av en stadsbild som betonar dess koppling till mänskligheten och global kultur.";
 "year-in-review-collective-languages" = "En animerad illustration av en sten med ingraverade inskriptioner som representerar olika språk, vilket symboliserar hur Wikipedia med samarbete bygger kunskap från olika kulturer och regioner.";
 "year-in-review-collective-saved-articles" = "En pusselglob med Wikipedias logotyp som representerar ett globalt samarbete.";
-"year-in-review-collective-zero-ads" = "Wikimedia-logotyp";
 "year-in-review-contributor-gift-title" = "Aktivera ny appikon";
 // Fuzzy
 "year-in-review-contributor-slide-title" = "Ny ikon låstes upp";
@@ -1564,8 +1561,8 @@
 "year-in-review-personalized-edit-views-subtitle-format" = "Läsare runt om i världen uppskattar dina bidrag. Under de senaste två månaderna har artiklarna som du redigerade fått totalt $1 visningar. Tack vare redigerare som dig är Wikipedia en faktabaserad och pålitlig kunskapsresurs för hela världen som ständigt förbättras";
 // Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Dina redigeringar har nyligen visats mer än $1 gånger";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "Du har redigerat Wikipedia {{PLURAL:$1|$1 gång|$1 gånger}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Du har redigerat Wikipedia 500+ gånger";
 "year-in-review-personalized-explore" = "En animerad illustration av en hand som håller i Wikipedia-globen som gradvis förvandlas till en liten pusselbit, som symboliserar individuella bidrag till plattformen.";
 "year-in-review-personalized-location-subtitle-format-1" = "Du läste om $2$1$3.";
 "year-in-review-personalized-location-subtitle-format-2" = "Du läste om $3$1$4 och $3$2$4.";

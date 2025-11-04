@@ -962,7 +962,6 @@
 "wikitext-upload-save-anonymously-warning" = "ਸੋਧਾਂ ਦਾ ਸਿਹਰਾ ਤੁਹਾਡੇ ਆਈ.ਪੀ. ਪਤੇ ਸਿਰ ਦਿੱਤਾ ਜਾਵੇਗਾ। ਜੇਕਰ ਤੁਸੀਂ $1 ਹੋ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ਼ ਵਧੇਰੇ ਪਰਦੇਦਾਰੀ ਹੋਵੇਗੀ।";
 "wikitext-upload-save-sign-in" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "wikitext-upload-save-terms-name" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
-"year-in-review-base-donate-title" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ 0 ਮਸ਼ਹੂਰੀਆ ਦਿੱਤੀ ਗਇਆਂ";
 // Fuzzy
 "year-in-review-base-editors-title" = "iOS ਐਪ ਦੇ ਸੋਧਕਾਂ ਨੇ $1 ਤੋਂ ਵੱਧ ਸੋਧ ਕੀਤੇ ਹਨ";
 "year-in-review-base-edits-title" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ $1 ਵਾਰ ਪ੍ਰਤੀ ਮਿੰਟ ਸੋਧਿਆ ਗਿਆ ਸੀ";
@@ -993,8 +992,8 @@
 "year-in-review-personalized-edit-views-subtitle-format" = "ਦੁਨੀਆ ਭਰ ਦੇ ਪਾਠਕ ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਦੀ ਸ਼ਲਾਘਾ ਕਰਦੇ ਹਨ। ਪਿਛਲੇ 2 ਮਹੀਨਿਆਂ ਵਿੱਚ, ਤੁਹਾਡੇ ਵੱਲੋਂ ਸੋਧੇ ਲੇਖਾਂ ਨੂੰ ਕੁੱਲ $1 ਵਾਰ ਵੇਖੇ ਗਏ ਹਨ। ਤੁਹਾਡੇ ਵਰਗੇ ਸੋਧਕਾਂ ਦਾ ਧੰਨਵਾਦ, ਵਿਕੀਪੀਡੀਆ ਦੁਨੀਆ ਲਈ ਇੱਕ ਨਿਰੰਤਰ ਸੁਧਾਰ, ਤੱਥ-ਅਧਾਰਤ ਅਤੇ ਭਰੋਸੇਯੋਗ ਗਿਆਨ ਸਰੋਤ ਹੈ।";
 // Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "ਤੁਹਾਡੇ ਸੋਧਾਂ ਨੂੰ ਹਾਲ ਹੀ ਵਿੱਚ $1 ਤੋਂ ਵੱਧ ਵਾਰ ਵੇਖਿਆ ਗਿਆ ਸੀ";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ {{PLURAL:$1| $1 ਵਾਰ}} ਸੋਧਿਆ";
-"year-in-review-personalized-editing-title-format-500plus" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ ਨੂੰ 500 + ਵਾਰ ਸੋਧਿਆ ਹੈ।";
 "year-in-review-personalized-saved-title-format" = "ਤੁਸੀਂ {{PLURAL:$1| $1 ਲੇਖ ਸਾੰਭਿਆ|$1 ਲੇਖ ਸਾਂਭੇ}}";
 "year-in-review-share-text" = "ਇਹ ਮੇਰੀ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਸਮੀਖਿਆ ਹੈ। ਵਿਕੀਪੀਡੀਆ iOS ਐਪ ਨਾਲ ਬਣਾਇਆ ਗਿਆ";
 "year-in-review-survey-additional-thoughts" = "ਕੋਈ ਹੋਰ ਵਿਚਾਰ?";

@@ -192,4 +192,61 @@
     return [randomArticles copy];
 }
 
+- (NSArray<NSString *> *)randomSavedArticleImagesFor:(NSDate *)startDate endDate:(NSDate *)endDate {
+    NSFetchRequest *fetchRequest = [self savedPageListFetchRequestForStartDate:startDate endDate:endDate filterNilDisplayTitles:YES];
+
+    NSError *error = nil;
+    NSArray<WMFArticle *> *allArticles = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&error];
+
+    if (error) {
+        NSLog(@"Error fetching articles: %@", error);
+        return @[];
+    }
+
+    if (allArticles.count == 0) {
+        return @[];
+    }
+
+    NSMutableArray<NSString *> *randomArticleImages = [NSMutableArray arrayWithCapacity:allArticles.count];
+    NSMutableArray<WMFArticle *> *mutableArticles = [allArticles mutableCopy];
+
+    for (NSUInteger i = 0; i < allArticles.count; i++) {
+        if (mutableArticles[i].thumbnailURLString != nil) {
+            [randomArticleImages addObject:mutableArticles[i].thumbnailURLString];
+        } else {
+            continue;
+        }
+    }
+
+    return [randomArticleImages copy];
+}
+
+- (nullable NSDate *)lastSavedArticleDate {
+    NSFetchRequest *fetchRequest = [self savedPageListFetchRequest];
+    fetchRequest.fetchLimit = 1;
+    NSError *error = nil;
+    NSArray<WMFArticle *> *articles = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&error];
+
+    if (error) {
+        NSLog(@"Error fetching articles: %@", error);
+        return nil;
+    }
+
+    if (!articles) {
+        return nil;
+    }
+
+    if (articles.count == 0) {
+        return nil;
+    }
+
+    NSDate *savedDate = articles[0].savedDate;
+
+    if (!savedDate) {
+        return nil;
+    }
+
+    return savedDate;
+}
+
 @end

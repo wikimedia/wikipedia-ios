@@ -77,8 +77,8 @@
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
-"activity-tab-logged-out-subtitle" = "Track what you’ve read and view your contributions over time in a new way";
-"activity-tab-logged-out-title" = "Log in or create an account to see more editing and reading activity.";
+"activity-tab-logged-out-subtitle" = "Log in or create an account to view your activity on the Wikipedia app.";
+"activity-tab-logged-out-title" = "See more reading and editing insights";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
@@ -205,6 +205,7 @@
 "continue-button-title" = "Continue";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"create-account" = "Create account";
 "crimean-tatar-variants-alert-body" = "The Wikipedia app now supports the following Crimean Tatar variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Updates to Crimean Tatar variant support";
 "data-migration-status" = "Updating...";
@@ -749,7 +750,7 @@
 "microsite-yir-english-saved-reading-slide-subtitle" = "Active app users had $1 saved articles this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.";
 "microsite-yir-english-saved-reading-slide-title" = "We had $1 saved articles";
 "microsite-yir-english-top-read-slide-subtitle" = "When people want to learn about our world - the good, bad, weird, and wild alike - they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nRead more in $6our dedicated blog post$7.";
-"microsite-yir-english-top-read-slide-title" = "English Wikipedia’s most popular articles";
+"microsite-yir-english-top-read-slide-title" = "Most read articles on English Wikipedia";
 "more-languages-tooltip-description" = "Search Wikipedia in over 300 languages";
 "more-languages-tooltip-title" = "Add languages";
 "more-menu" = "More";
@@ -1514,7 +1515,7 @@
 "year-in-review-highlights-created-lists" = "Number of reading lists created";
 "year-in-review-highlights-edit-frequency" = "How often Wikipedia was edited";
 "year-in-review-highlights-edit-frequency-value" = "{{PLURAL:$1|$1 time|$1 times}} per minute";
-"year-in-review-highlights-english-articles" = "Most popular articles on English Wikipedia";
+"year-in-review-highlights-english-articles" = "Most read articles on English Wikipedia";
 "year-in-review-highlights-favorite-day" = "Favorite day to read";
 "year-in-review-highlights-number-app-editors" = "Edits on-app";
 "year-in-review-highlights-personalized-articles" = "Articles I read the longest";
