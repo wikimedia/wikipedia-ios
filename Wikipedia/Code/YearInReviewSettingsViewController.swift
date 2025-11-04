@@ -85,8 +85,8 @@ final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNa
             
             return isEnabled
         }, action: { [weak self] isOn in
+            DonateFunnel.shared.logYearInReviewSettingsDidToggle(isOn: isOn)
             self?.dataController?.yearInReviewSettingsIsEnabled = isOn
-            UserDefaults.standard.wmf_yirSettingToggleIsEnabled = isOn
             if !isOn {
                 Task {
                     do {
@@ -117,13 +117,13 @@ final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNa
             do {
                 
                 var userId: Int?
-
-                if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-                   let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-                    userId = userID
-                }
+                var globalUserId: Int?
                 
-                let userIdString: String? = userId.map { String($0) }
+                if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                   let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL) {
+                    userId = permanentUser.userID
+                    globalUserId = permanentUser.globalUserID
+                }
 
                 let yirDataController = try WMFYearInReviewDataController()
                 try await yirDataController.populateYearInReviewReportData(
@@ -131,7 +131,8 @@ final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNa
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
                     username: dataStore.authenticationManager.authStatePermanentUsername,
-                    userID: userIdString,
+                    userID: userId,
+                    globalUserID: globalUserId,
                     savedSlideDataDelegate: dataStore.savedPageList,
                     legacyPageViewsDataDelegate: dataStore)
             } catch {

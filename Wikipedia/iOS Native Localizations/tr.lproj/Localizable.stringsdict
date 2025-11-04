@@ -828,10 +828,42 @@
 			<string>%1$d kez</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dünya çapındaki okuyucular katkılarınızı takdir ediyor. Son 2 ayda düzenlediğiniz maddeler %#@v1@ aldı. Sizin gibi düzenleyiciler sayesinde Vikipedi; dünya için sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağıdır.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld görüntüleme</string>
+			<key>other</key>
+			<string>toplam %1$lld görüntüleme</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Düzenlemeleriniz son zamanlarda %#@v1@ görüntülendi</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld kez</string>
+			<key>other</key>
+			<string>%1$lld ve daha fazla kez</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vikipedi'de %#@v1@ değişiklik yaptınız</string>
+		<string>%#@v1@ değişiklik yaptınız</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -854,6 +886,29 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d madde</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%3$@ yılında %#@v2@ okuyarak %#@v1@ geçirdiniz</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d dakika</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d madde</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

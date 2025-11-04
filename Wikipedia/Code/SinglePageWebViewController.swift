@@ -26,11 +26,13 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     
     final class YiRLearnMoreConfig {
         let url: URL
+        let slideLoggingID: String
         let donateButtonTitle: String
         var donateCoordinator: DonateCoordinator?
         
-        internal init(url: URL, donateButtonTitle: String) {
+        internal init(url: URL, slideLoggingID: String, donateButtonTitle: String) {
             self.url = url
+            self.slideLoggingID = slideLoggingID
             self.donateButtonTitle = donateButtonTitle
         }
     }
@@ -331,17 +333,13 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
                 return
             }
             
-            if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
-                DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: metricsID)
-            }
-            
             let getDonateButtonGlobalRect: () -> CGRect = { [weak self] in
                 return self?.overlayButtonContainer.frame ?? .zero
             }
             
             let coordinator = DonateCoordinator(
                 navigationController: navigationController,
-                source: .yearInReview,
+                source: .yearInReview(slideLoggingID: config.slideLoggingID),
                 dataStore: dataStore,
                 theme: theme,
                 navigationStyle: .push,

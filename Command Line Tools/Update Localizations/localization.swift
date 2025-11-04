@@ -32,7 +32,7 @@ fileprivate var twnTokenRegex: NSRegularExpression? = {
 
 fileprivate var iOSTokenRegex: NSRegularExpression? = {
     do {
-        return try NSRegularExpression(pattern: "%([0-9]*)\\$?([@dDuUxXoOfeEgGcCsSpaAF])", options: [])
+        return try NSRegularExpression(pattern: "%([0-9]*)\\$?([@dDuUxXoOfeEgGcCsSpaAF]|ll?d)", options: [])
     } catch {
         assertionFailure("Localization token regex failed to compile")
     }

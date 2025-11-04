@@ -918,13 +918,13 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Lectores in tote le mundo apprecia tu contributiones. In le ultime 2 menses, le articulos que tu ha modificate ha recipite un total de %1$d visita%#@v1@. Gratias a redactores como tu, Wikipedia es un ressource de cognoscentia mundial, solide, basate in factos e digne de fide, que se meliora constantemente.</string>
+		<string>Lectores in tote le mundo apprecia tu contributiones. In le ultime 2 menses, le articulos que tu ha modificate ha recipite un total de %1$lld visita%#@v1@. Gratias a redactores como tu, Wikipedia es un ressource de cognoscentia mundial, solide, basate in factos e digne de fide, que se meliora constantemente.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
 			<string></string>
 			<key>other</key>
@@ -934,13 +934,13 @@
 	<key>year-in-review-personalized-edit-views-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu modificationes ha essite vidite plus de %1$d vice%#@v1@ recentemente</string>
+		<string>Tu modificationes ha essite vidite plus de %1$lld vice%#@v1@ recentemente</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
 			<string></string>
 			<key>other</key>

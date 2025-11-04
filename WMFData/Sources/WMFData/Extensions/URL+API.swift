@@ -13,33 +13,21 @@ extension URL {
     private static let baseMediaWikiRestAPIPathComponents = "/w/rest.php/"
     
     static func mediaWikiAPIURL(project: WMFProject) -> URL? {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.path = baseMediaWikiAPIPathComponents
         
-        switch project {
-        case .wikipedia(let language):
-            components.host = "\(language.languageCode).wikipedia.org"
-        case .commons:
-            components.host = "commons.wikimedia.org"
-        case .wikidata:
-            components.host = "www.wikidata.org"
+        guard let siteURL = project.siteURL,
+        var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
+            return nil
         }
+        
+        components.path = baseMediaWikiAPIPathComponents
         
         return components.url
     }
     
     static func wikimediaRestAPIURL(project: WMFProject, additionalPathComponents: [String]) -> URL? {
-        var components = URLComponents()
-        components.scheme = "https"
-        
-        switch project {
-        case .wikipedia(let language):
-            components.host = "\(language.languageCode).wikipedia.org"
-        case .commons:
-            components.host = "commons.wikimedia.org"
-        case .wikidata:
-            components.host = "www.wikidata.org"
+        guard let siteURL = project.siteURL,
+        var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
+            return nil
         }
         
         components.path = baseWikimediaRestAPIPathComponents + additionalPathComponents.joined(separator: "/")
@@ -48,16 +36,9 @@ extension URL {
     }
     
     static func mediaWikiRestAPIURL(project: WMFProject, additionalPathComponents: [String]) -> URL? {
-        var components = URLComponents()
-        components.scheme = "https"
-        
-        switch project {
-        case .wikipedia(let language):
-            components.host = "\(language.languageCode).wikipedia.org"
-        case .commons:
-            components.host = "commons.wikimedia.org"
-        case .wikidata:
-            components.host = "www.wikidata.org"
+        guard let siteURL = project.siteURL,
+        var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
+            return nil
         }
         
         components.path = baseMediaWikiRestAPIPathComponents + additionalPathComponents.joined(separator: "/")
@@ -71,6 +52,15 @@ extension URL {
         components.scheme = "https"
         components.path = basePaymentWikiAPIPathComponents
         components.host = "payments.wikimedia.org"
+
+        return components.url
+    }
+    
+    static func metricsAPIURL() -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.path = baseWikimediaRestAPIPathComponents + "metrics"
+        components.host = "wikimedia.org"
 
         return components.url
     }

@@ -29,6 +29,10 @@ public class WMFMockServiceNoInternetConnection: WMFService {
         completion(.failure(error))
     }
     
+    public func clearCachedData() {
+        // no-op
+    }
+    
 }
 
 #endif

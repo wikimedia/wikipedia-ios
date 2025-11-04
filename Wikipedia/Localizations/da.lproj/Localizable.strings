@@ -1245,7 +1245,6 @@
 "year-in-review-base-viewed-subtitle" = "iOS-appbrugere har set Wikipedia-artikler $1 milliarder gange. For mange mennesker verden over, er Wikipedia det første stop, når de besvarer et spørgsmål, finder informationer til skole eller arbejde eller får ny viden.";
 // Fuzzy
 "year-in-review-base-viewed-title" = "Vi har set Wikipedia-artikler $1 milliarder gange";
-"year-in-review-collective-zero-ads" = "Wikimedia logo";
 "year-in-review-day-friday" = "Fredage";
 "year-in-review-day-monday" = "Mandage";
 "year-in-review-day-saturday" = "Lørdage";
@@ -1265,8 +1264,8 @@
 "year-in-review-personalized-edit-views-subtitle-format" = "Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, fået $1 visninger i alt. Takket være bidragere som dig, er Wikipedia en konstant forbedret, faktabaseret og pålidelig videnressource for verden";
 // Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Dine redigeringer er blevet set mere end $1 gange for nylig";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "Du har redigeret Wikipedia {{PLURAL:$1|$1 gang|$1 gange}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Du har redigeret Wikipedia mere end 500 gange";
 "year-in-review-personalized-explore" = "En animeret illustration af en hånd, der holder Wikipedia-kloden, som gradvist forvandles til en lille puslespilsbrik, der symboliserer individuelle bidrag til platformen.";
 "year-in-review-personalized-saved-articles" = "Illustration af en puslespilsbrik iført en sikkerhedshjelm med computerskærme i ryggen.";
 "year-in-review-personalized-saved-title-format" = "Du har gemt {{PLURAL:$1| $1 artikel| $1 artikler}}";

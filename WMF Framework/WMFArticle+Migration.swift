@@ -66,7 +66,7 @@ import CocoaLumberjackSwift
 
     // MARK: - Revert / Unsave
 
-    @objc private func revertSavedState(forArticleObjectID objectID: NSManagedObjectID) {
+    @objc func revertSavedState(forArticleObjectID objectID: NSManagedObjectID) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
 
         dataStore.performBackgroundCoreDataOperation { wikipediaContext in
@@ -80,7 +80,6 @@ import CocoaLumberjackSwift
                     DDLogError("Revert failed: article not found for objectID \(objectID)")
                     return
                 }
-
 
                 article.isSavedMigrated = false
                 article.savedDate = nil
@@ -102,9 +101,9 @@ import CocoaLumberjackSwift
         guard let ids = getIdFromLegacyArticleURL(article) else {
             return
         }
-            let projectID = ids.projectID
-            let namespaceID = ids.namespaceID
-            let title = ids.title
+        let projectID = ids.projectID
+        let namespaceID = ids.namespaceID
+        let title = ids.title
 
         let predicate = NSPredicate(format: "projectID == %@ AND namespaceID == %d AND title == %@",
                                     projectID, namespaceID, title)
@@ -151,6 +150,7 @@ import CocoaLumberjackSwift
 
             if page.timestamp == nil {
                 DDLogInfo("[SavedPagesMigration] Deleting CDPage for \(title) — timestamp nil after unsave")
+                // TODO: should delete the CDPage????????
             }
         }
     }
@@ -178,7 +178,7 @@ import CocoaLumberjackSwift
 
         let title = (url.wmf_title ?? "").normalizedForCoreData
         let namespaceID = Int16(url.namespace?.rawValue ?? 0)
-        let projectID = wmfProject.coreDataIdentifier
+        let projectID = wmfProject.id
 
         return PageIDs(projectID: projectID, namespaceID: namespaceID, title: title)
     }

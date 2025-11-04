@@ -789,8 +789,7 @@
 "main-page" = "Página principal";
 // Fuzzy
 "microsite-yir-english-edits-bytes-slide-subtitle" = "En 2024, los voluntarios añadieron 4.104.852.969 bytes a la Wikipedia en inglés. La suma de todo su trabajo conjunto da como resultado una fuente de conocimiento en constante mejora, basada en hechos y fiable que comparten con el mundo. Todos tenemos conocimiento para compartir. [Aprende a participar]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "4 mil millones de bytes añadidos";
+"microsite-yir-english-edits-bytes-slide-title" = "$1 bytes añadidos";
 // Fuzzy
 "microsite-yir-english-edits-slide-subtitle" = "Los voluntarios realizaron 98.222.407 cambios en más de 300 ediciones de Wikipedia en diferentes idiomas. Se realizaron más de 37 millones de cambios en la Wikipedia en inglés. Cada hora, los voluntarios trabajan para mejorar Wikipedia.";
 // Fuzzy
@@ -1504,8 +1503,6 @@
 "wikitext-upload-save-sign-in" = "Acceder";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Al publicar los cambios, aceptas los $1Términos de Uso$2 y aceptas irrevocablemente publicar tu contribución bajo la Licencia $3CC BY-SA 3.0$4 y la $5GFDL$6. Aceptas que un hipervínculo o una URL son atribución suficiente bajo la licencia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
-"year-in-review-base-donate-subtitle" = "Con tu ayuda, la Fundación Wikimedia, la organización sin fines de lucro detrás de Wikipedia, seguirá garantizando que la información en la que confías esté libre de publicidad y sea confiable, al tiempo que mantendrá Wikipedia funcionando sin problemas con herramientas y tecnologías de vanguardia. Por favor, considera hacer una donación hoy. [Más información sobre nuestra labor]($1).";
-"year-in-review-base-donate-title" = "0 anuncios en Wikipedia";
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "La comunidad de editores voluntarios de Wikipedia ha realizado más de 555 647 ediciones en la aplicación para iOS. El corazón y el alma de Wikipedia es nuestra comunidad global de colaboradores voluntarios, donadores y miles de millones de lectores como tú, todos unidos para compartir acceso ilimitado a información confiable.";
 // Fuzzy
@@ -1532,7 +1529,6 @@
 "year-in-review-collective-explore" = "Una ilustración animada que representa el icónico globo terráqueo de Wikipedia rodeado de andamios, simbolizando el esfuerzo colaborativo de personas de todo el mundo en la construcción del proyecto. La escena está rodeada por un paisaje urbano, lo que enfatiza su conexión con la humanidad y la cultura global.";
 "year-in-review-collective-languages" = "Una ilustración animada de una piedra grabada con inscripciones que representan varios idiomas, simbolizando cómo Wikipedia construye de forma colaborativa conocimiento de diversas culturas y regiones.";
 "year-in-review-collective-saved-articles" = "Un globo terráqueo con forma de rompecabezas que presenta el logotipo de Wikipedia, que representa la colaboración global.";
-"year-in-review-collective-zero-ads" = "Logotipo de Wikimedia";
 "year-in-review-day-friday" = "Viernes";
 "year-in-review-day-monday" = "Lunes";
 "year-in-review-day-saturday" = "Sábados";
@@ -1557,8 +1553,7 @@
 "year-in-review-personalized-edit-views-subtitle-format" = "Los lectores de todo el mundo agradecen tus aportaciones. En los últimos 2 meses, los artículos que has editado han recibido $1 visitas en total. Gracias a editores como tú, Wikipedia es un recurso de información confiable, basado en hechos y en constante mejora para el mundo.";
 // Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Tus ediciones han sido vistas más de $1 veces recientemente";
-"year-in-review-personalized-editing-title-format" = "Editaste Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Has editado Wikipedia 500+ veces";
+"year-in-review-personalized-editing-title-format" = "Editaste {{PLURAL:$1|$1 vez|$1 veces}}";
 "year-in-review-personalized-explore" = "Una ilustración animada de una mano que sostiene el globo terráqueo de Wikipedia, que gradualmente se transforma en una pequeña pieza de rompecabezas, que simboliza las contribuciones individuales a la plataforma.";
 "year-in-review-personalized-saved-articles" = "Ilustración de una pieza de rompecabezas que lleva un casco con pantallas de computadora en la parte posterior.";
 "year-in-review-personalized-saved-title-format" = "Guardaste {{PLURAL:$1|$1 artículo|$1 artículos}}";

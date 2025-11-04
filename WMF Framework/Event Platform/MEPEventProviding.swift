@@ -16,6 +16,7 @@ public enum EventCategoryMEP: String, Codable {
     case loginToSyncPopover = "login_to_sync_popover"
     case diff
     case unknown
+    case yir
 }
 
 public enum EventLabelMEP: String, Codable {

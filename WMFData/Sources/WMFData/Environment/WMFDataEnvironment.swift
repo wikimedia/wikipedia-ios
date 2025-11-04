@@ -17,7 +17,7 @@ public final class WMFDataEnvironment: ObservableObject {
 
     @Published public var appData = WMFAppData(appLanguages: [])
     
-    var primaryAppLanguage: WMFLanguage? {
+    public var primaryAppLanguage: WMFLanguage? {
         return appData.appLanguages.first
     }
     

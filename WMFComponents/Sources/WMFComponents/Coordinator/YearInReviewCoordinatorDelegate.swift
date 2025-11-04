@@ -6,13 +6,13 @@ public protocol YearInReviewCoordinatorDelegate: AnyObject {
 }
 
 public enum YearInReviewCoordinatorAction {
-    case presentLoginPromptFromIntroGetStarted
-    case presentExitToastFromIntroDone
-    case donate(getSourceRect: () -> CGRect)
+    case tappedIntroV3GetStartedWhileLoggedIn
+    case tappedIntroV3GetStartedWhileLoggedOut
+    case tappedIntroV3DoneWhileLoggedOut
+    case donate(getSourceRect: () -> CGRect, slideLoggingID: String)
     case share(image: UIImage)
     case dismiss(hasSeenTwoSlides: Bool)
     case introLearnMore
-    case learnMore(url: URL?, shouldShowDonateButton: Bool)
-    case info(url: URL?)
-    case logExperimentAssignment(assignment: WMFYearInReviewDataController.YiRLoginExperimentAssignment)
+    case learnMoreAttributedText(url: URL?, shouldShowDonateButton: Bool, slideLoggingID: String)
+    case info
 }

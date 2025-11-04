@@ -740,13 +740,13 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, le voci che hai modificato hanno ricevuto %1$d %#@v1@. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti.</string>
+		<string>I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, le voci che hai modificato hanno ricevuto %1$lld %#@v1@. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
 			<string>visualizzazione</string>
 			<key>other</key>
@@ -756,13 +756,13 @@
 	<key>year-in-review-personalized-edit-views-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Recentemente le tue modifiche sono state visualizzate più di %1$d %#@v1@</string>
+		<string>Recentemente le tue modifiche sono state visualizzate più di %1$lld %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
 			<string>volta</string>
 			<key>other</key>
@@ -772,7 +772,7 @@
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Hai modificato Wikipedia %#@v1@</string>
+		<string>Hai modificato %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
