@@ -38,26 +38,42 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
     }
 
-    var aboutWikimediaURLString: String {
-        var languageCodeSuffix = ""
-        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
-            languageCodeSuffix = "\(primaryAppLanguageCode)"
+    var featureURL: URL? {
+        
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return nil
         }
-        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/About_the_Wikimedia_Foundation?uselang=\(languageCodeSuffix)"
+        
+        return WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "Wikipedia Year in Review"], section: nil, language: appLanguage)
     }
-
-    var aboutYIRURL: URL? {
-        var languageCodeSuffix = ""
-        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
-            languageCodeSuffix = "\(primaryAppLanguageCode)"
+    
+    var featureFAQURL: URL? {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return nil
         }
-        return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used?uselang=\(languageCodeSuffix)")
+        
+        return WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "Wikipedia Year in Review", "Frequently Asked Questions"], section: "Frequently asked questions", language: appLanguage)
     }
     
     var topReadBlogPost: String { "https://wikimediafoundation.org/news/2025/12/01/announcing-english-wikipedias-most-popular-articles-of-2025" }
     
+    var aboutWikimediaURLString: String {
+        
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return ""
+        }
+        
+        let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "About the Wikimedia Foundation"], section: nil, language: appLanguage)
+        return url?.absoluteString ?? ""
+    }
+    
     var editingFAQURLString: String {
-        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ?uselang=\(languageCode ?? "en")#Editing"
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return ""
+        }
+        
+        let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
+        return url?.absoluteString ?? ""
     }
     
     private func noncontributorTitle() -> String {
@@ -810,7 +826,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingDelegate: self,
             badgeDelegate: badgeDelegate,
             isUserPermanent: dataStore.authenticationManager.authStateIsPermanent,
-            aboutYiRURL: aboutYIRURL,
             primaryAppLanguage: primaryAppLanguage,
             toggleAppIcon: { isNew in
                 AppIconUtility.shared.updateAppIcon(isNew: isNew)
@@ -1045,7 +1060,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 return
             }
 
-            if let url = aboutYIRURL {
+            if let url = featureURL {
                 let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
                 let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
                 let newNavigationVC =
@@ -1053,7 +1068,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 presentedViewController.present(newNavigationVC, animated: true)
             }
 
-        case .learnMore(let url, let shouldShowDonateButton, let slideLoggingID):
+        case .learnMoreAttributedText(let url, let shouldShowDonateButton, let slideLoggingID):
             
             guard let url else {
                 return
@@ -1077,18 +1092,18 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true)
-        case .info(let url):
-            
-            guard let url else {
-                return
-            }
+        case .info:
             
             guard let presentedViewController = navigationController.presentedViewController else {
                 DDLogError("Unexpected navigation controller state. Skipping Info presentation.")
                 return
             }
+            
+            guard let featureFAQURL = self.featureFAQURL else {
+                return
+            }
 
-            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let config = SinglePageWebViewController.StandardConfig(url: featureFAQURL, useSimpleNavigationBar: true)
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
