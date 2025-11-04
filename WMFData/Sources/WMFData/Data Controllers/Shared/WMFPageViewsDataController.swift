@@ -112,11 +112,11 @@ public final class WMFPageViewsDataController {
             guard let self else { return nil }
             
             let currentDate = Date()
-            let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
+            let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
             let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
             page?.title = coreDataTitle
             page?.namespaceID = namespaceID
-            page?.projectID = project.coreDataIdentifier
+            page?.projectID = project.id
             page?.timestamp = currentDate
             
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
@@ -166,7 +166,7 @@ public final class WMFPageViewsDataController {
             
             guard let self else { return }
             
-            let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
+            let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
             guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else {
                 return
             }
@@ -219,12 +219,12 @@ public final class WMFPageViewsDataController {
             for request in requests {
                 
                 let coreDataTitle = request.title.normalizedForCoreData
-                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.coreDataIdentifier, 0, coreDataTitle])
+                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.id, 0, coreDataTitle])
                 
                 let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
                 page?.title = coreDataTitle
                 page?.namespaceID = 0
-                page?.projectID = request.project.coreDataIdentifier
+                page?.projectID = request.project.id
                 page?.timestamp = request.viewedDate
                 
                 let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)

@@ -213,43 +213,6 @@ public final class WMFCoreDataStore {
     }
 }
 
-extension WMFProject {
-    var coreDataIdentifier: String {
-        switch self {
-        case .commons:
-            return "commons"
-        case .wikidata:
-            return "wikidata"
-        case .wikipedia(let language):
-            var identifier = "wikipedia~\(language.languageCode)"
-            if let variantCode = language.languageVariantCode {
-                identifier.append("~\(variantCode)")
-            }
-            return identifier
-        }
-    }
-    
-    init?(coreDataIdentifier: String) {
-        switch coreDataIdentifier {
-        case "commons":
-            self = .commons
-        case "wikidata":
-            self = .wikidata
-        default:
-            // Expected format: wikipedia~languageCode or wikipedia~languageCode~variant
-            let components = coreDataIdentifier.components(separatedBy: "~")
-            guard components.count >= 2, components[0] == "wikipedia" else {
-                return nil
-            }
-            
-            let languageCode = components[1]
-            let variantCode = components.count > 2 ? components[2] : nil
-            let language = WMFLanguage(languageCode: languageCode, languageVariantCode: variantCode)
-            self = .wikipedia(language)
-        }
-    }
-}
-
 extension String {
     var normalizedForCoreData: String {
         return self.spacesToUnderscores.precomposedStringWithCanonicalMapping

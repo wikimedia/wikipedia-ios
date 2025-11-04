@@ -39,7 +39,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-                Text("wikipedia.org/year-in-review")
+                Text(viewModel.plaintextURL)
                     .font(footerFont)
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)

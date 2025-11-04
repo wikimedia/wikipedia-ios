@@ -86,7 +86,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             }
             
             XCTAssertEqual(page.title, "Cat")
-            XCTAssertEqual(page.projectID, self.enProject.coreDataIdentifier)
+            XCTAssertEqual(page.projectID, self.enProject.id)
         }
     }
     
@@ -147,7 +147,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             }
             
             XCTAssertEqual(page.title, "Dog")
-            XCTAssertEqual(page.projectID, self.enProject.coreDataIdentifier)
+            XCTAssertEqual(page.projectID, self.enProject.id)
         }
     }
     

@@ -44,6 +44,14 @@ public struct WMFProjectIconView: View {
                     .foregroundColor(Color(appEnvironment.theme.secondaryText))
                     .padding(6)
             }
+        case .mediawiki:
+            if let image = UIImage(named: "project-mediawiki", in: Bundle.module, compatibleWith: nil) {
+                Image(uiImage: image)
+                    .scaledToFit()
+                    .background(Color(appEnvironment.theme.paperBackground))
+                    .foregroundColor(Color(appEnvironment.theme.secondaryText))
+                    .padding(6)
+            }
         }
     }
 }
