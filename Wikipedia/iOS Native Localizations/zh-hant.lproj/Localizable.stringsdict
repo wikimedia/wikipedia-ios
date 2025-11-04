@@ -870,9 +870,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>other</key>
-			<string>%1$d</string>
+			<string>%1$lld</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-edit-views-title-format</key>
@@ -884,9 +884,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>other</key>
-			<string>%1$d</string>
+			<string>%1$lld</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
