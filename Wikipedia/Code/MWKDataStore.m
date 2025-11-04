@@ -263,13 +263,24 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                 } else {
                     [nc postNotificationName:WMFArticleUpdatedNotification object:article];
                 }
+
                 if ([key isEqualToString:NSUpdatedObjectsKey] &&
-                    article.hasChangedValuesForCurrentEventThatAffectSavedState &&
-                    article.savedDate != nil &&
-                    !article.isSavedMigrated) {
-                    DDLogInfo(@"[SavedMigration] Incremental hook firing for key=%@  savedDate=%@", article.key, article.savedDate);
-                    [SavedStateMigrationManager.shared migrateIncremental];
+                    article.hasChangedValuesForCurrentEventThatAffectSavedState) {
+
+                    if (article.savedDate != nil && !article.isSavedMigrated) {
+                        DDLogInfo(@"[SavedMigration] Incremental hook firing for key=%@ savedDate=%@", article.key, article.savedDate);
+                        [WMFArticleSavedStateMigrationManager.shared migrateIncremental];
+                    }
+
+                    if (article.savedDate == nil && article.isSavedMigrated) {
+                        NSURL *url = article.URL;
+                        if (url != nil) {
+                            DDLogInfo(@"[SavedMigration] Revert hook firing for key=%@ (unsave)", article.key);
+                            [WMFArticleSavedStateMigrationManager.shared revertSavedStateForArticleObjectID:article.objectID];
+                        }
+                    }
                 }
+
             }
         }
     }
@@ -527,13 +538,13 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     }
 
     if (currentLibraryVersion < 20) {
-
+        // Ensures we have a instance o WMFData.coreDataStore
         if (![WMFDataBridge ensureDataStoreReadySynchronouslyWithTimeout:15]) {
             DDLogError(@"WMFData store not ready; aborting migrations");
             return;
         }
 
-        [[SavedStateMigrationManager shared] migrateAllIfNeeded];
+        [[WMFArticleSavedStateMigrationManager shared] migrateAllIfNeeded];
         [moc wmf_setValue:@(20) forKey:WMFLibraryVersionKey];
 
         NSError *migrationError = nil;
