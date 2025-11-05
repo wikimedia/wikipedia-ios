@@ -159,8 +159,7 @@ extension WMFAppViewController {
     }
     
     @objc func getAssignmentForActivityTab() -> Int {
-        let dataController = WMFActivityTabDataController.shared
-        return dataController.getActivityAssignment()
+        return WMFActivityTabDataController.activityAssignmentForObjC()
     }
 
 }

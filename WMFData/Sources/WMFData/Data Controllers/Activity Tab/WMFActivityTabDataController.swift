@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WMFActivityTabDataController {
+public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     
@@ -65,11 +65,8 @@ public final class WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-
-    @objc public func getActivityAssignment() -> Int {
-        // TODO: More thoroughly assign experiment
-        if shouldShowActivityTab { return 1 }
-        return 0
+    public func getActivityAssignment() -> Int {
+        shouldShowActivityTab ? 1 : 0
     }
 
      public var shouldShowActivityTab: Bool {
@@ -120,6 +117,14 @@ public final class WMFActivityTabDataController {
         return categoryCounts
             .sorted { $0.value > $1.value }
             .map { $0.key.categoryName }
+    }
+}
+
+extension WMFActivityTabDataController {
+    @objc public nonisolated static func activityAssignmentForObjC() -> Int {
+        let key = WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue
+        let value = (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: key)) ?? false
+        return value ? 1 : 0
     }
 }
 
