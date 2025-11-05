@@ -114,7 +114,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         viewModel.navigateToSaved = goToSaved
         
-        viewModel.savedArticlesModuleDataDelegate = dataStore?.savedPageList
+//        viewModel.savedArticlesModuleDataDelegate = dataStore?.savedPageList
         
         if !dataController.hasSeenActivityTab {
             presentOnboarding()
@@ -270,7 +270,9 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewDidClickPrimaryButton() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            self?.dataController.hasSeenActivityTab = true
+            Task {
+                await self?.dataController.setHasSeenActivityTab(true)
+            }
         })
 
         // TODO: Log
@@ -288,7 +290,9 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewWillSwipeToDismiss() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            self?.dataController.hasSeenActivityTab = true
+            Task {
+                await self?.dataController.setHasSeenActivityTab(true)
+            }
         })
     }
 }

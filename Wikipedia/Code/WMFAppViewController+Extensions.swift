@@ -853,9 +853,12 @@ extension WMFAppViewController {
                 loggedOutSubtitle: loggedOutSubtitle,
                 loggedOutPrimaryCTA: createAccount,
                 loggedOutSecondaryCTA: CommonStrings.editSignIn),
-            dataController: activityTabDataController,
+                dataController: activityTabDataController,
+                savedArticlesDelegate: nil,
             hasSeenActivityTab: {
-            activityTabDataController.hasSeenActivityTab = true
+            Task {
+                await activityTabDataController.setHasSeenActivityTab(true)
+            }
         }, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
 
         let controller = WMFActivityTabViewController(

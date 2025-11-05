@@ -4,9 +4,7 @@ public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     
-    public init() {
-        
-    }
+    public init() {}
     
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current
@@ -77,14 +75,18 @@ public actor WMFActivityTabDataController {
          }
      }
     
-    public var hasSeenActivityTab: Bool {
+    private(set) public var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue, value: newValue)
         }
     }
-    
+
+    public func setHasSeenActivityTab(_ value: Bool) {
+            self.hasSeenActivityTab = value
+        }
+
     public func getMostRecentReadDateTime() async throws -> Date? {
         let dataController = try WMFPageViewsDataController()
         return try await dataController.fetchMostRecentTime()

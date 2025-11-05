@@ -1,178 +1,44 @@
-import Foundation
-import SwiftUI
 import WMFData
-
-struct ArticlesSavedViewModel {
-    var articlesSavedAmount: Int
-    var dateTimeLastSaved: String
-    var articlesSavedImages: [URL]
-}
-
-struct ArticlesReadViewModel {
-    var username: String
-    var hoursRead: Int
-    var minutesRead: Int
-    var totalArticlesRead: Int
-    var dateTimeLastRead: String
-	var weeklyReads: [Int]
-	var topCategories: [String]
-    var usernamesReading: String
-}
+import SwiftUI
+import Combine
 
 @MainActor
-public class WMFActivityTabViewModel: ObservableObject {
-    let localizedStrings: LocalizedStrings
-    private let dataController: WMFActivityTabDataController
-    @Published var articlesSavedViewModel: ArticlesSavedViewModel = ArticlesSavedViewModel(
-        articlesSavedAmount: 0,
-        dateTimeLastSaved: "",
-        articlesSavedImages: []
-    )
-    @Published var articlesReadViewModel: ArticlesReadViewModel = ArticlesReadViewModel(
-        username: "",
-        hoursRead: 0,
-        minutesRead: 0,
-        totalArticlesRead: 0,
-        dateTimeLastRead: "",
-        weeklyReads: [],
-        topCategories: [],
-        usernamesReading: ""
-    )
-    var hasSeenActivityTab: () -> Void
-    @Published var isLoggedIn: Bool
-    public var navigateToSaved: (() -> Void)?
-    public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
+public final class WMFActivityTabViewModel: ObservableObject {
 
-    public init(localizedStrings: LocalizedStrings,
-                dataController: WMFActivityTabDataController,
-                hasSeenActivityTab: @escaping () -> Void,
-                isLoggedIn: Bool) {
-        self.localizedStrings = localizedStrings
-        self.dataController = dataController
-        self.hasSeenActivityTab = hasSeenActivityTab
-        self.isLoggedIn = isLoggedIn
-    }
-    
-    func fetchData() {
-        Task {
-            async let timeResult = dataController.getTimeReadPast7Days()
-            async let articlesResult = dataController.getArticlesRead()
-            async let dateResult = dataController.getMostRecentReadDateTime()
-            async let weeklyResults = dataController.getWeeklyReadsThisMonth()
-            async let categoriesResult = dataController.getTopCategories()
-            
-            let (hours, minutes) = (try? await timeResult) ?? (0, 0)
-            let totalArticlesRead = (try? await articlesResult) ?? 0
-            let dateTime = (try? await dateResult) ?? Date()
-			let weeklyReads = (try? await weeklyResults) ?? []
-			let categories = (try? await categoriesResult) ?? []
-            
-            let formattedDate = self.formatDateTime(dateTime)
-            
-            // BEGIN: TEMP SAVED ARTICLES STUFF
-            let calendar = Calendar.current
-            var savedArticleCount: Int = 0
-            var savedArticleDate: Date? = nil
-            var savedArticleImages: [String] = []
-            let endDate = Date()
-            if let startDate = calendar.date(byAdding: .day, value: -30, to: endDate),
-               let tempSavedArticlesStuff = await savedArticlesModuleDataDelegate?.getSavedArticleModuleData(from: startDate, to: endDate) {
-                savedArticleCount = tempSavedArticlesStuff.savedArticlesCount
-                savedArticleDate = tempSavedArticlesStuff.dateLastSaved
-                savedArticleImages = tempSavedArticlesStuff.articleUrlStrings
-            }
-            // END: TEMP SAVED ARTICLES STUFF
-            
-            await MainActor.run {
-                var readViewModel = self.articlesReadViewModel
-                readViewModel.hoursRead = hours
-                readViewModel.minutesRead = minutes
-                readViewModel.totalArticlesRead = totalArticlesRead
-                readViewModel.dateTimeLastRead = formattedDate
-                readViewModel.weeklyReads = weeklyReads
-                readViewModel.topCategories = categories
-
-                var savedViewModel = self.articlesSavedViewModel
-                // BEGIN: TEMP SAVED ARTICLES STUFF
-                savedViewModel.articlesSavedAmount = savedArticleCount
-                savedViewModel.dateTimeLastSaved = savedArticleDate != nil ? self.formatDateTime(savedArticleDate!) : ""
-                savedViewModel.articlesSavedImages = savedArticleImages.compactMap { URL(string: $0) }
-                // END: TEMP SAVED ARTICLES STUFF
-
-                self.articlesSavedViewModel = savedViewModel
-                self.articlesReadViewModel = readViewModel
-            }
-        }
-    }
-    
-    // MARK: - View Strings
-    
-    public var hoursMinutesRead: String {
-        return localizedStrings.totalHoursMinutesRead(articlesReadViewModel.hoursRead, articlesReadViewModel.minutesRead)
-    }
-    
-    // MARK: - Update
-    
-    public func updateUsername(username: String) {
-        articlesReadViewModel.username = username
-        articlesReadViewModel.usernamesReading = username.isEmpty
-            ? localizedStrings.noUsernameReading
-            : localizedStrings.userNamesReading(username)
-
-        self.articlesReadViewModel = articlesReadViewModel
-    }
-
-    public func updateIsLoggedIn(isLoggedIn: Bool) {
-        self.isLoggedIn = isLoggedIn
-    }
-    
-    private func updateHoursMinutesRead(hours: Int, minutes: Int) {
-        articlesReadViewModel.hoursRead = hours
-        articlesReadViewModel.minutesRead = minutes
-    }
-    
-    private func updateTotalArticlesRead(totalArticlesRead: Int) {
-        articlesReadViewModel.totalArticlesRead = totalArticlesRead
-    }
-    
-    private func updateDateTimeRead(dateTime: Date) {
-        articlesReadViewModel.dateTimeLastRead = formatDateTime(dateTime)
-    }
-
- 	private func updateWeeklyReads(weeklyReads: [Int]) {
-        articlesReadViewModel.weeklyReads = weeklyReads
-    }
-    
-    private func updateTopCategories(topCategories: [String]) {
-        articlesReadViewModel.topCategories = topCategories
-    }
-    
-    // MARK: - Helpers
-    
-    private func formatDateTime(_ dateTime: Date) -> String {
-        DateFormatter.wmfLastReadFormatter(for: dateTime)
-    }
-    
-    // MARK: - Localized Strings
-    
     public struct LocalizedStrings {
-        let userNamesReading: (String) -> String
-        let noUsernameReading: String
-        let totalHoursMinutesRead: (Int, Int) -> String
-        let onWikipediaiOS: String
-        let timeSpentReading: String
-        let totalArticlesRead: String
-        let week: String
-        let articlesRead: String
-        let topCategories: String
-        let articlesSavedTitle: String
-        let remaining: (Int) -> String
-		let loggedOutTitle: String
-        let loggedOutSubtitle: String
-        let loggedOutPrimaryCTA: String
-        let loggedOutSecondaryCTA: String
-        
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, loggedOutSecondaryCTA: String) {
+        public let userNamesReading: (String) -> String
+        public let noUsernameReading: String
+        public let totalHoursMinutesRead:  (Int, Int) -> String
+        public let onWikipediaiOS: String
+        public let timeSpentReading: String
+        public let totalArticlesRead: String
+        public let week: String
+        public let articlesRead: String
+        public let topCategories: String
+        public let articlesSavedTitle: String
+        public let remaining: (Int) -> String
+        public let loggedOutTitle: String
+        public let loggedOutSubtitle: String
+        public let loggedOutPrimaryCTA: String
+        public let loggedOutSecondaryCTA: String
+
+        public init(
+            userNamesReading: @escaping (String) -> String,
+            noUsernameReading: String,
+            totalHoursMinutesRead: @escaping (Int, Int) -> String,
+            onWikipediaiOS: String,
+            timeSpentReading: String,
+            totalArticlesRead: String,
+            week: String,
+            articlesRead: String,
+            topCategories: String,
+            articlesSavedTitle: String,
+            remaining: @escaping (Int) -> String,
+            loggedOutTitle: String,
+            loggedOutSubtitle: String,
+            loggedOutPrimaryCTA: String,
+            loggedOutSecondaryCTA: String
+        ) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -189,5 +55,80 @@ public class WMFActivityTabViewModel: ObservableObject {
             self.loggedOutPrimaryCTA = loggedOutPrimaryCTA
             self.loggedOutSecondaryCTA = loggedOutSecondaryCTA
         }
+    }
+
+    public let localizedStrings: LocalizedStrings
+    @Published public var isLoggedIn: Bool
+
+    @Published public var articlesReadViewModel: ArticlesReadViewModel {
+        didSet { bindChildPublishers() }
+    }
+    @Published public var articlesSavedViewModel: ArticlesSavedViewModel {
+        didSet { bindChildPublishers() }
+    }
+
+    public var navigateToSaved: (() -> Void)?
+    public var hasSeenActivityTab: () -> Void
+
+    private var readCancellable: AnyCancellable?
+    private var savedCancellable: AnyCancellable?
+
+    public init(
+        localizedStrings: LocalizedStrings,
+        dataController: WMFActivityTabDataController = .shared,
+        savedArticlesDelegate: SavedArticleModuleDataDelegate?,
+        hasSeenActivityTab: @escaping () -> Void,
+        isLoggedIn: Bool
+    ) {
+        self.localizedStrings = localizedStrings
+        self.isLoggedIn = isLoggedIn
+        self.hasSeenActivityTab = hasSeenActivityTab
+
+        let df: (Date) -> String = { DateFormatter.wmfLastReadFormatter(for: $0) }
+
+        self.articlesReadViewModel = ArticlesReadViewModel(
+            dataController: dataController,
+            formatDateTime: df,
+            makeUsernamesReading: localizedStrings.userNamesReading,
+            noUsernameReading: localizedStrings.noUsernameReading
+        )
+
+        self.articlesSavedViewModel = ArticlesSavedViewModel(
+            delegate: savedArticlesDelegate,
+            formatDateTime: df
+        )
+
+        bindChildPublishers()
+    }
+
+    private func bindChildPublishers() {
+        readCancellable = articlesReadViewModel.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+
+        savedCancellable = articlesSavedViewModel.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+    }
+
+    public func fetchData() {
+        Task {
+            async let readVM: Void = articlesReadViewModel.fetch()
+            async let savedVM: Void = articlesSavedViewModel.fetch()
+            _ = await (readVM, savedVM)
+        }
+    }
+
+    public func updateUsername(username: String) {
+        articlesReadViewModel.updateUsername(username)
+    }
+
+    public func updateIsLoggedIn(isLoggedIn: Bool) {
+        self.isLoggedIn = isLoggedIn
+    }
+
+    public var hoursMinutesRead: String {
+        localizedStrings.totalHoursMinutesRead(
+            articlesReadViewModel.hoursRead,
+            articlesReadViewModel.minutesRead
+        )
     }
 }
