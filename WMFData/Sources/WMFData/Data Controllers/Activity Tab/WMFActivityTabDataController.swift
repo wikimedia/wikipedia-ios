@@ -123,6 +123,8 @@ public final class WMFActivityTabDataController {
     }
 }
 
+extension WMFActivityTabDataController: WMFActivityTabDataControlling {}
+
 public class SavedArticleModuleData: NSObject, Codable {
     public let savedArticlesCount: Int
     public let articleUrlStrings: [String]
@@ -137,4 +139,17 @@ public class SavedArticleModuleData: NSObject, Codable {
 
 public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
+}
+
+public protocol WMFActivityTabDataControlling: AnyObject {
+    func getTimeReadPast7Days() async throws -> (Int, Int)?
+    func getArticlesRead() async throws -> Int
+    func getWeeklyReadsThisMonth() async throws -> [Int]
+    func getMostRecentReadDateTime() async throws -> Date?
+    func getTopCategories() async throws -> [String]?
+    
+    var shouldShowActivityTab: Bool { get set }
+    var hasSeenActivityTab: Bool { get set }
+    
+    func getActivityAssignment() -> Int
 }

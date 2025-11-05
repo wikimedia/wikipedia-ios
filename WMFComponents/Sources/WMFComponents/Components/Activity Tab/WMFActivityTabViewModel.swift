@@ -19,7 +19,7 @@ struct ArticlesReadViewModel {
 @MainActor
 public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
-    private let dataController: WMFActivityTabDataController
+    private let dataController: WMFActivityTabDataControlling
     @Published var model: ArticlesReadViewModel = ArticlesReadViewModel(
         username: "",
         hoursRead: 0,
@@ -39,7 +39,7 @@ public class WMFActivityTabViewModel: ObservableObject {
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
     
     public init(localizedStrings: LocalizedStrings,
-                dataController: WMFActivityTabDataController,
+                dataController: WMFActivityTabDataControlling,
                 hasSeenActivityTab: @escaping () -> Void,
                 isLoggedIn: Bool) {
         self.localizedStrings = localizedStrings
