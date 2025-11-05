@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import AppAuth
 
 // MARK: WMFAuthenticationManagerDelegate
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {
@@ -66,6 +67,8 @@ import CocoaLumberjackSwift
             return nil
         }
     }
+    
+    public var authState: OIDAuthState?
 
     @objc public required init(session: Session, configuration: Configuration) {
         accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)

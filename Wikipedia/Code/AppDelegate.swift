@@ -1,6 +1,7 @@
 import UIKit
 import BackgroundTasks
 import CocoaLumberjackSwift
+import AppAuth
 
 #if TEST
 // Avoids loading needless dependencies during unit tests
@@ -19,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private static let backgroundFetchInterval = TimeInterval(10800) // 3 Hours
     private static let backgroundAppRefreshTaskIdentifier = "org.wikimedia.wikipedia.appRefresh"
     private static let backgroundDatabaseHousekeeperTaskIdentifier = "org.wikimedia.wikipedia.databaseHousekeeper"
+    
+    var currentAuthorizationFlow: OIDExternalUserAgentSession?
     
     // TODO: Refactor background task refresh and notification token registration logic out of WMFAppViewController. Then we can then move tab bar instantiation into SceneDelegate.
     let appViewController = WMFAppViewController()
@@ -55,6 +58,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: Public
+    
+    func loginWithOAuth() {
+        // builds authentication request
+        
+        let authorizationEndpoint = URL(string: "https://test.wikipedia.org/w/rest.php/oauth2/authorize")!
+        let tokenEndpoint = URL(string: "https://test.wikipedia.org/w/rest.php/oauth2/access_token")!
+        let configuration = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpoint,
+                                                    tokenEndpoint: tokenEndpoint)
+        
+        let request = OIDAuthorizationRequest(configuration: configuration,
+                                              clientId: "50ad79ffa34f64853c96b729e4aa5d8c",
+                                              clientSecret: nil,
+                                              scopes: nil,
+                                              redirectURL: URL(string: "wikipedia://oauth/callback")!,
+                                              responseType: OIDResponseTypeCode,
+                                              additionalParameters: nil)
+
+        // performs authentication request
+        print("Initiating authorization request with scope: \(request.scope ?? "nil")")
+
+        currentAuthorizationFlow =
+            OIDAuthState.authState(byPresenting: request, presenting: appViewController) { authState, error in
+          if let authState = authState {
+            self.appViewController.dataStore.authenticationManager.authState = authState
+            print("Got authorization tokens. Access token: " +
+                  "\(authState.lastTokenResponse?.accessToken ?? "nil")")
+          } else {
+            print("Authorization error: \(error?.localizedDescription ?? "Unknown error")")
+              self.appViewController.dataStore.authenticationManager.authState = nil
+          }
+        }
+    }
+    
+    func processOAuthCallback(url: URL) {
+        if let authorizationFlow = self.currentAuthorizationFlow,
+                                    authorizationFlow.resumeExternalUserAgentFlow(with: url) {
+           self.currentAuthorizationFlow = nil
+         }
+
+         // Your additional URL handling (if any)
+        // dismiss? dunno.
+    }
     
     func updateDynamicIconShortcutItems() {
         UIApplication.shared.shortcutItems = [UIApplicationShortcutItem.wmf_random(), UIApplicationShortcutItem.wmf_nearby(), UIApplicationShortcutItem.wmf_search()]

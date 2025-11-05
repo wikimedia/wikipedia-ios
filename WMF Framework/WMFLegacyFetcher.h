@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cancelAllFetches; // only cancels tasks started with the methods provided by WMFLegacyFetcher - tasks started directly on the session are not canceled
 - (void)cancelTaskWithCancellationKey:(NSString *)cancellationKey;
 
+- (void)performMediaWikiAPIPOSTWithOAuthForURL:(NSURL *)URL withBodyParameters:(NSDictionary<NSString *, NSString *> *)bodyParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error))completionHandler;
+
 @end
 
 NS_ASSUME_NONNULL_END

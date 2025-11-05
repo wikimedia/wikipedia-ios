@@ -161,8 +161,7 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
 
 - (void)updateWithArticleURL: (NSURL *)articleURL parameters: (NSDictionary<NSString *, NSString *> *)parameters captchaWord: (nullable NSString *)captchaWord completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
     
-    [self performMediaWikiAPIPOSTWithCSRFTokenForURL:articleURL withBodyParameters:parameters completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
-
+    [self performMediaWikiAPIPOSTWithOAuthForURL:articleURL withBodyParameters:parameters completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable networkError) {
         if (networkError) {
             completion(nil, networkError);
             return;
@@ -206,7 +205,6 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
             completion(responseObject, error);
         }];
     }];
-    
 }
 
 - (void)handleErrorCodeLegacyWithResponseObject: (NSDictionary<NSString *,id> *)responseObject captchaWord: (nullable NSString *)captchaWord completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {

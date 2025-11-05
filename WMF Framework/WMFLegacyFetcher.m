@@ -44,6 +44,10 @@
     return [self.fetcher performTokenizedMediaWikiAPIPOSTWithTokenType:WMFTokenTypeCsrf toURL:URL withBodyParameters:bodyParameters cancellationKey:nil reattemptLoginOn401Response:true completionHandler:completionHandler];
 }
 
+- (void)performMediaWikiAPIPOSTWithOAuthForURL:(NSURL *)URL withBodyParameters:(NSDictionary<NSString *, NSString *> *)bodyParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
+    return [self.fetcher performOAuthPOSTWithTokenType:WMFTokenTypeCsrf url:URL bodyParameters:bodyParameters completionHandler:completionHandler];
+}
+
 - (NSURLSessionTask *)performMediaWikiAPIGETForURL:(NSURL *)URL withQueryParameters:(NSDictionary<NSString *, id> *)queryParameters completionHandler:(void (^)(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler {
     return [self performCancelableMediaWikiAPIGETForURL:URL cancellationKey:NSUUID.UUID.UUIDString withQueryParameters:queryParameters completionHandler:completionHandler];
 }

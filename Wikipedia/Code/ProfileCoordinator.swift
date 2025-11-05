@@ -260,8 +260,11 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func login() {
-        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
-        loginCoordinator.start()
+        
+        (UIApplication.shared.delegate as? AppDelegate)?.loginWithOAuth()
+        
+        // let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+        // loginCoordinator.start()
     }
     
     private func logout() {

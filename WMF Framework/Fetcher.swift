@@ -88,6 +88,87 @@ open class Fetcher: NSObject {
         return key
     }
     
+    private func requestMediaWikiAPIAuthToken(for URL: URL?, type: TokenType, oAuthToken: String, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (Result<Token, Error>) -> Swift.Void) {
+        let parameters = [
+            "action": "query",
+            "meta": "tokens",
+            "type": type.stringValue,
+            "format": "json"
+        ]
+        
+        let url = configuration.mediaWikiAPIURLForURL(URL, with: nil)
+
+        guard let url = url else {
+            completionHandler(.failure(RequestError.invalidParameters))
+            return
+        }
+        
+        let postRequest = self.session.request(with: url, method: .post, bodyParameters: parameters, bodyEncoding: .form, headers: ["Authorization": "Bearer \(oAuthToken)"])
+
+        let task = session.jsonDictionaryTask(with: postRequest) { result, response, error in
+            if let error = error {
+                completionHandler(Result.failure(error))
+                return
+            }
+            guard
+                let query = result?["query"] as? [String: Any],
+                let tokens = query["tokens"] as? [String: Any],
+                let tokenValue = tokens[type.stringValue + "token"] as? String
+                else {
+                    completionHandler(Result.failure(RequestError.unexpectedResponse))
+                    return
+            }
+            guard !tokenValue.isEmpty else {
+                completionHandler(Result.failure(RequestError.unexpectedResponse))
+                return
+            }
+            completionHandler(Result.success(Token(value: tokenValue, type: type)))
+        }
+        task.resume()
+    }
+    
+    @objc public func performOAuthPOST(tokenType: TokenType = .csrf, url: URL, bodyParameters: [String: String]?, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
+        
+        // new bit
+        let authState = MWKDataStore.shared().authenticationManager.authState
+        authState?.performAction { (accessToken, idToken, error) in
+            
+            if error != nil {
+                print("Error fetching fresh tokens: \(error?.localizedDescription ?? "Unknown error")")
+                completionHandler(nil, nil, error)
+            }
+            
+            guard let accessToken = accessToken else {
+                // todo: error
+                return
+            }
+            
+            // API still requires this weirdly, seems like.
+            self.requestMediaWikiAPIAuthToken(for: url, type: tokenType, oAuthToken: accessToken, cancellationKey: nil) { (result) in
+                switch result {
+                case .failure(let error):
+                    completionHandler(nil, nil, error)
+                case .success(let token):
+                    var mutableBodyParameters = bodyParameters ?? [:]
+                    mutableBodyParameters[tokenType.parameterName] = token.value
+                        
+                        // old bit
+                        guard let url = self.configuration.mediaWikiAPIURLForURL(url, with: nil) else {
+                            // todo: error
+                            return
+                        }
+                        
+                        let postRequest = self.session.request(with: url, method: .post, bodyParameters: mutableBodyParameters, bodyEncoding: .form, headers: ["Authorization": "Bearer \(accessToken)"])
+                        
+                        let task = self.session.jsonDictionaryTask(with: postRequest, reattemptLoginOn401Response: false, completionHandler: completionHandler)
+                        task.resume()
+                }
+                
+            }
+            
+        }
+    }
+    
     @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:reattemptLoginOn401Response:completionHandler:)
     @discardableResult public func performMediaWikiAPIPOST(for URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         let url = configuration.mediaWikiAPIURLForURL(URL, with: nil)

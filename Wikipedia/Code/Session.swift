@@ -489,7 +489,7 @@ public class Session: NSObject {
         return task
     }
     
-    @discardableResult private func jsonDictionaryTask(with request: URLRequest, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+    @discardableResult public func jsonDictionaryTask(with request: URLRequest, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         
         let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
         
@@ -570,6 +570,7 @@ public class Session: NSObject {
             return nil
         }
         let postRequest = request(with: url, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form)
+
         let task = jsonDictionaryTask(with: postRequest, reattemptLoginOn401Response: reattemptLoginOn401Response, completionHandler: completionHandler)
         task.resume()
         return task
