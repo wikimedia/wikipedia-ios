@@ -3,9 +3,15 @@ import Foundation
 public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-    
-    public init() {}
-    
+    private var _coreDataStore: WMFCoreDataStore?
+    private var coreDataStore: WMFCoreDataStore? {
+        return _coreDataStore ?? WMFDataEnvironment.current.coreDataStore
+    }
+
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore) {
+        self._coreDataStore = coreDataStore
+    }
+
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current
         let now = Date()
@@ -120,6 +126,43 @@ public actor WMFActivityTabDataController {
             .sorted { $0.value > $1.value }
             .map { $0.key.categoryName }
     }
+
+    // MARK: - Saved articles
+
+    public func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData? {
+
+        guard let count = try? await fetchSavedCounts(startDate: startDate, endDate: endDate) else {return nil}
+
+        return SavedArticleModuleData(savedArticlesCount: count, articleUrlStrings: [], dateLastSaved: Date())
+
+    }
+
+    func fetchSavedCounts(startDate: Date, endDate: Date) async throws -> Int {
+        guard let coreDataStore = self.coreDataStore else {
+            throw WMFServiceError.missingData
+        }
+        let context = try coreDataStore.newBackgroundContext
+
+        let startNSDate = startDate as NSDate
+        let endNSDate = endDate as NSDate
+
+        return try await context.perform {
+            let predicate = NSPredicate(
+                format: "savedDate != nil AND savedDate.savedDate >= %@ AND savedDate.savedDate <= %@",
+                startNSDate, endNSDate
+            )
+
+            let pages: [CDPage]? = try coreDataStore.fetch(
+                entityType: CDPage.self,
+                predicate: predicate,
+                fetchLimit: nil,
+                in: context
+            )
+
+            return pages?.count ?? 0
+        }
+    }
+
 }
 
 extension WMFActivityTabDataController {
@@ -130,7 +173,7 @@ extension WMFActivityTabDataController {
     }
 }
 
-public class SavedArticleModuleData: NSObject, Codable {
+public struct SavedArticleModuleData: Codable {
     public let savedArticlesCount: Int
     public let articleUrlStrings: [String]
     public let dateLastSaved: Date?
@@ -140,8 +183,4 @@ public class SavedArticleModuleData: NSObject, Codable {
         self.articleUrlStrings = articleUrlStrings
         self.dateLastSaved = dateLastSaved
     }
-}
-
-public protocol SavedArticleModuleDataDelegate: AnyObject {
-    func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
 }

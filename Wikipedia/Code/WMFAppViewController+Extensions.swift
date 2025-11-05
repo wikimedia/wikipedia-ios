@@ -854,7 +854,6 @@ extension WMFAppViewController {
                 loggedOutPrimaryCTA: createAccount,
                 loggedOutSecondaryCTA: CommonStrings.editSignIn),
                 dataController: activityTabDataController,
-                savedArticlesDelegate: nil,
             hasSeenActivityTab: {
             Task {
                 await activityTabDataController.setHasSeenActivityTab(true)

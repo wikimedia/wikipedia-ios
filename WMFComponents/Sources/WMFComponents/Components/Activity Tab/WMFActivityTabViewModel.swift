@@ -76,7 +76,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public init(
         localizedStrings: LocalizedStrings,
         dataController: WMFActivityTabDataController = .shared,
-        savedArticlesDelegate: SavedArticleModuleDataDelegate?,
         hasSeenActivityTab: @escaping () -> Void,
         isLoggedIn: Bool
     ) {
@@ -94,7 +93,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         )
 
         self.articlesSavedViewModel = ArticlesSavedViewModel(
-            delegate: savedArticlesDelegate,
+            dataController: dataController,
             formatDateTime: df
         )
 
