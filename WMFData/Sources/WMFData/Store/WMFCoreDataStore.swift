@@ -88,7 +88,7 @@ public final class WMFCoreDataStore {
     }
     
     public func fetchOrCreate<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, in moc: NSManagedObjectContext) throws -> T? {
-        
+
         guard let existing: [T] = try fetch(entityType: entityType, predicate: predicate, fetchLimit: 1, in: moc),
               !existing.isEmpty else {
             return try create(entityType: entityType, in: moc)
@@ -96,21 +96,24 @@ public final class WMFCoreDataStore {
 
         return existing.first
     }
-    
-    private func fetchRequest<T>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) -> NSFetchRequest<T> {
-        
+
+    private func fetchRequest<T>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, sortDescriptors: [NSSortDescriptor]? = nil, in moc: NSManagedObjectContext) -> NSFetchRequest<T> {
+
         let entityName = NSStringFromClass(entityType)
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = predicate
         if let fetchLimit {
             fetchRequest.fetchLimit = fetchLimit
         }
+        if let sortDescriptors {
+            fetchRequest.sortDescriptors = sortDescriptors
+        }
         return fetchRequest
     }
-    
-    public func fetch<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) throws -> [T]? {
-        
-        let fetchRequest = fetchRequest(entityType: entityType, predicate: predicate, fetchLimit: fetchLimit, in: moc)
+
+    public func fetch<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, sortDescriptors: [NSSortDescriptor]? = nil, in moc: NSManagedObjectContext) throws -> [T]? {
+
+        let fetchRequest = fetchRequest(entityType: entityType, predicate: predicate, fetchLimit: fetchLimit, sortDescriptors: sortDescriptors, in: moc)
         return try moc.fetch(fetchRequest)
     }
     

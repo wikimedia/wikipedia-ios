@@ -133,9 +133,39 @@ public actor WMFActivityTabDataController {
 
         guard let count = try? await fetchSavedCounts(startDate: startDate, endDate: endDate) else {return nil}
 
+        if let lasdateSaved = try? await self.fetchMostRecentSavedDate() {
+            return SavedArticleModuleData(savedArticlesCount: count, articleUrlStrings: [], dateLastSaved: lasdateSaved)
+        }
+
         return SavedArticleModuleData(savedArticlesCount: count, articleUrlStrings: [], dateLastSaved: Date())
 
     }
+
+    func fetchMostRecentSavedDate() async throws -> Date? {
+        guard let coreDataStore = self.coreDataStore else {
+            throw WMFServiceError.missingData
+        }
+        let context = try coreDataStore.newBackgroundContext
+
+        return try await context.perform {
+            // Sort by the nested date descending
+            let sortDescriptor = NSSortDescriptor(key: "savedDate.savedDate", ascending: false)
+            let predicate = NSPredicate(format: "savedDate != nil")
+
+            // Fetch only one record (the most recent)
+            let pages: [CDPage]? = try coreDataStore.fetch(
+                entityType: CDPage.self,
+                predicate: predicate,
+                fetchLimit: 1,
+                sortDescriptors: [sortDescriptor],
+                in: context
+            )
+
+            // Extract the date from the relationship
+            return pages?.first?.savedDate?.savedDate
+        }
+    }
+
 
     func fetchSavedCounts(startDate: Date, endDate: Date) async throws -> Int {
         guard let coreDataStore = self.coreDataStore else {

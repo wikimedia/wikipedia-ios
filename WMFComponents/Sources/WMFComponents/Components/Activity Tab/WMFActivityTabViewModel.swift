@@ -83,18 +83,18 @@ public final class WMFActivityTabViewModel: ObservableObject {
         self.isLoggedIn = isLoggedIn
         self.hasSeenActivityTab = hasSeenActivityTab
 
-        let df: (Date) -> String = { DateFormatter.wmfLastReadFormatter(for: $0) }
+        let dateFormatter: (Date) -> String = { DateFormatter.wmfLastReadFormatter(for: $0) }
 
         self.articlesReadViewModel = ArticlesReadViewModel(
             dataController: dataController,
-            formatDateTime: df,
+            dateFormatter: dateFormatter,
             makeUsernamesReading: localizedStrings.userNamesReading,
             noUsernameReading: localizedStrings.noUsernameReading
         )
 
         self.articlesSavedViewModel = ArticlesSavedViewModel(
             dataController: dataController,
-            formatDateTime: df
+            dateFormatter: dateFormatter
         )
 
         bindChildPublishers()

@@ -9,16 +9,16 @@ public final class ArticlesSavedViewModel: ObservableObject {
     @Published public var articlesSavedImages: [URL] = []
 
     private var dataController: WMFActivityTabDataController
-    private let formatDateTime: (Date) -> String
+    private let dateFormatter: (Date) -> String
     private let calendar: Calendar
 
     public init(
         dataController: WMFActivityTabDataController = .shared,
-        formatDateTime: @escaping (Date) -> String,
+        dateFormatter: @escaping (Date) -> String,
         calendar: Calendar = .current
     ) {
         self.dataController = dataController
-        self.formatDateTime = formatDateTime
+        self.dateFormatter = dateFormatter
         self.calendar = calendar
     }
 
@@ -31,7 +31,7 @@ public final class ArticlesSavedViewModel: ObservableObject {
             if let data = await dataController.getSavedArticleModuleData(from: start, to: end) {
                 
                 self.articlesSavedAmount = data.savedArticlesCount
-                self.dateTimeLastSaved = data.dateLastSaved.map(self.formatDateTime) ?? ""
+                self.dateTimeLastSaved = data.dateLastSaved.map(self.dateFormatter) ?? ""
                 self.articlesSavedImages = data.articleUrlStrings.compactMap(URL.init(string:))
             }
         }

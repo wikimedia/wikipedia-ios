@@ -13,18 +13,18 @@ public final class ArticlesReadViewModel: ObservableObject {
     @Published public var usernamesReading: String = ""
 
     private let dataController: WMFActivityTabDataController
-    private let formatDateTime: (Date) -> String
+    private let dateFormatter: (Date) -> String
     private let makeUsernamesReading: (String) -> String
     private let noUsernameReading: String
 
     public init(
         dataController: WMFActivityTabDataController = .shared,
-        formatDateTime: @escaping (Date) -> String,
+        dateFormatter: @escaping (Date) -> String,
         makeUsernamesReading: @escaping (String) -> String,
         noUsernameReading: String
     ) {
         self.dataController = dataController
-        self.formatDateTime = formatDateTime
+        self.dateFormatter = dateFormatter
         self.makeUsernamesReading = makeUsernamesReading
         self.noUsernameReading = noUsernameReading
     }
@@ -50,7 +50,7 @@ public final class ArticlesReadViewModel: ObservableObject {
             self.hoursRead = h
             self.minutesRead = m
             self.totalArticlesRead = totalRead
-            self.dateTimeLastRead = self.formatDateTime(lastDate)
+            self.dateTimeLastRead = self.dateFormatter(lastDate)
             self.weeklyReads = weeklyReads
             self.topCategories = categories
     }
