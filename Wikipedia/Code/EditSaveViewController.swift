@@ -409,6 +409,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     @IBAction public func licenseLoginLabelTapped(_ recognizer: UIGestureRecognizer?) {
         if recognizer?.state == .ended {
+            
+            (UIApplication.shared.delegate as? AppDelegate)?.loginWithOAuth()
+            return
+            
             guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
                 assertionFailure("Expected view controller")
                 return

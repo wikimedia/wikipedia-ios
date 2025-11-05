@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: Public
     
-    func loginWithOAuth() {
+    @objc func loginWithOAuth() {
         // builds authentication request
         
         let authorizationEndpoint = URL(string: "https://test.wikipedia.org/w/rest.php/oauth2/authorize")!

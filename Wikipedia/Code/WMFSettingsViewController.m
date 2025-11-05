@@ -333,6 +333,16 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [accountVC applyTheme:self.theme];
         [self.navigationController pushViewController:accountVC animated:YES];
     } else {
+        
+        //(UIApplication.shared.delegate as? AppDelegate)?.loginWithOAuth()
+        //return
+        
+        if ([[UIApplication sharedApplication].delegate isKindOfClass:[AppDelegate class]]) {
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            [appDelegate loginWithOAuth];
+        }
+        return;
+        
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         [loginVC applyTheme:self.theme];
         [self presentViewControllerWrappedInNavigationController:loginVC];

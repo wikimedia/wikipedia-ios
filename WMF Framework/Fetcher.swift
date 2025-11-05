@@ -88,7 +88,7 @@ open class Fetcher: NSObject {
         return key
     }
     
-    private func requestMediaWikiAPIAuthToken(for URL: URL?, type: TokenType, oAuthToken: String, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (Result<Token, Error>) -> Swift.Void) {
+    public func requestMediaWikiAPIAuthToken(for URL: URL?, type: TokenType, oAuthToken: String, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (Result<Token, Error>) -> Swift.Void) {
         let parameters = [
             "action": "query",
             "meta": "tokens",
