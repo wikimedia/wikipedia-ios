@@ -133,6 +133,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
+        // todo: I don't think this is ever called
         if firstURL.absoluteString == "wikipedia://oauth/callback" {
             appDelegate?.processOAuthCallback(url: firstURL)
         }
