@@ -52,7 +52,7 @@ public class WMFCurrentUserFetcher: Fetcher {
             "format": "json"
         ]
         
-        performMediaWikiAPIPOST(for: siteURL, with: parameters) { (result, response, error) in
+        performOAuthPOST(url: siteURL, bodyParameters: parameters) { result, response, error in
             if let error = error {
                 failure(error)
                 return

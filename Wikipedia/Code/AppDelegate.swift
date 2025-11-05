@@ -81,12 +81,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         currentAuthorizationFlow =
             OIDAuthState.authState(byPresenting: request, presenting: appViewController) { authState, error in
           if let authState = authState {
-            self.appViewController.dataStore.authenticationManager.authState = authState
+            self.appViewController.dataStore.authenticationManager.oAuthState = authState
             print("Got authorization tokens. Access token: " +
                   "\(authState.lastTokenResponse?.accessToken ?? "nil")")
           } else {
             print("Authorization error: \(error?.localizedDescription ?? "Unknown error")")
-              self.appViewController.dataStore.authenticationManager.authState = nil
+              self.appViewController.dataStore.authenticationManager.oAuthState = nil
           }
         }
     }

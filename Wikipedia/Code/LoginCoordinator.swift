@@ -25,6 +25,11 @@ final class LoginCoordinator: Coordinator {
 
     @discardableResult
     func start() -> Bool {
+        
+        (UIApplication.shared.delegate as? AppDelegate)?.loginWithOAuth()
+        
+        return true
+        
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return false
         }

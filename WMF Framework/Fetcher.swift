@@ -130,7 +130,7 @@ open class Fetcher: NSObject {
     @objc public func performOAuthPOST(tokenType: TokenType = .csrf, url: URL, bodyParameters: [String: String]?, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
         
         // new bit
-        let authState = MWKDataStore.shared().authenticationManager.authState
+        let authState = MWKDataStore.shared().authenticationManager.oAuthState
         authState?.performAction { (accessToken, idToken, error) in
             
             if error != nil {

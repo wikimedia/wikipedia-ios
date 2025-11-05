@@ -68,7 +68,13 @@ import AppAuth
         }
     }
     
-    public var authState: OIDAuthState?
+    public var oAuthState: OIDAuthState? {
+        didSet {
+            if oAuthState != nil {
+                populateCurrentUserCacheAfterOAuthLogin()
+            }
+        }
+    }
 
     @objc public required init(session: Session, configuration: Configuration) {
         accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)
@@ -449,5 +455,27 @@ import AppAuth
         // Reset so can show for next logged in user.
         UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(false)
         UserDefaults.standard.wmf_setDidShowSyncEnabledPanel(false)
+        
+        self.oAuthState = nil
+    }
+    
+    private func populateCurrentUserCacheAfterOAuthLogin() {
+        
+        guard let siteURL = loginSiteURL else { return }
+        
+        self.currentUserFetcher.fetch(siteURL: siteURL, success: { user in
+            DispatchQueue.main.async {
+                if let host = siteURL.host {
+                    self.currentUserCache[host] = user
+                }
+                
+                self.session.cloneCentralAuthCookies()
+                self.delegate?.authenticationManagerDidLogin()
+                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
+            }
+        }, failure: { error in
+            // no-op
+            // logout?
+        })
     }
 }

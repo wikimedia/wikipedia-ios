@@ -2228,6 +2228,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - User was logged out
 
 - (void)userWasLoggedOut:(NSNotification *)note {
+    [self swiftUserWasLoggedOut];
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];

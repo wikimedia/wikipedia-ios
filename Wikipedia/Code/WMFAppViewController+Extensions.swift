@@ -1675,4 +1675,9 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
          tabIdentifiersToDelete.removeAllObjects()
          tabItemIdentifiersToDelete.removeAllObjects()
       }
+     
+     @objc func swiftUserWasLoggedOut() {
+         dataStore.authenticationManager.oAuthState = nil
+         (UIApplication.shared.delegate as? AppDelegate)?.currentAuthorizationFlow = nil
+     }
  }
