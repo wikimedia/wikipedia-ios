@@ -32,7 +32,7 @@ public struct WMFActivityTabView: View {
                             // Start of modules on top section
                             articlesReadModule
                             savedArticlesModule
-                            if viewModel.model.topCategories.isEmpty {
+                            if !viewModel.model.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.model.topCategories)
                             }
                             Spacer()
