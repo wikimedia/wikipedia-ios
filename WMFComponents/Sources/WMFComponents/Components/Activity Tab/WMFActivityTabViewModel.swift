@@ -2,6 +2,12 @@ import Foundation
 import SwiftUI
 import WMFData
 
+struct ArticlesSavedViewModel {
+    var articlesSavedAmount: Int
+    var dateTimeLastSaved: String
+    var articlesSavedImages: [URL]
+}
+
 struct ArticlesReadViewModel {
     var username: String
     var hoursRead: Int
@@ -11,16 +17,18 @@ struct ArticlesReadViewModel {
 	var weeklyReads: [Int]
 	var topCategories: [String]
     var usernamesReading: String
-    var articlesSavedAmount: Int
-    var dateTimeLastSaved: String
-    var articlesSavedImages: [URL]
 }
 
 @MainActor
 public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
-    @Published var model: ArticlesReadViewModel = ArticlesReadViewModel(
+    @Published var articlesSavedViewModel: ArticlesSavedViewModel = ArticlesSavedViewModel(
+        articlesSavedAmount: 0,
+        dateTimeLastSaved: "",
+        articlesSavedImages: []
+    )
+    @Published var articlesReadViewModel: ArticlesReadViewModel = ArticlesReadViewModel(
         username: "",
         hoursRead: 0,
         minutesRead: 0,
@@ -28,16 +36,13 @@ public class WMFActivityTabViewModel: ObservableObject {
         dateTimeLastRead: "",
         weeklyReads: [],
         topCategories: [],
-        usernamesReading: "",
-        articlesSavedAmount: 0,
-        dateTimeLastSaved: "",
-        articlesSavedImages: []
+        usernamesReading: ""
     )
     var hasSeenActivityTab: () -> Void
     @Published var isLoggedIn: Bool
     public var navigateToSaved: (() -> Void)?
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
-    
+
     public init(localizedStrings: LocalizedStrings,
                 dataController: WMFActivityTabDataController,
                 hasSeenActivityTab: @escaping () -> Void,
@@ -79,21 +84,23 @@ public class WMFActivityTabViewModel: ObservableObject {
             // END: TEMP SAVED ARTICLES STUFF
             
             await MainActor.run {
-                var model = self.model
-                model.hoursRead = hours
-                model.minutesRead = minutes
-                model.totalArticlesRead = totalArticlesRead
-                model.dateTimeLastRead = formattedDate
-                model.weeklyReads = weeklyReads
-                model.topCategories = categories
+                var readViewModel = self.articlesReadViewModel
+                readViewModel.hoursRead = hours
+                readViewModel.minutesRead = minutes
+                readViewModel.totalArticlesRead = totalArticlesRead
+                readViewModel.dateTimeLastRead = formattedDate
+                readViewModel.weeklyReads = weeklyReads
+                readViewModel.topCategories = categories
 
+                var savedViewModel = self.articlesSavedViewModel
                 // BEGIN: TEMP SAVED ARTICLES STUFF
-                model.articlesSavedAmount = savedArticleCount
-                model.dateTimeLastSaved = savedArticleDate != nil ? self.formatDateTime(savedArticleDate!) : ""
-                model.articlesSavedImages = savedArticleImages.compactMap { URL(string: $0) }
+                savedViewModel.articlesSavedAmount = savedArticleCount
+                savedViewModel.dateTimeLastSaved = savedArticleDate != nil ? self.formatDateTime(savedArticleDate!) : ""
+                savedViewModel.articlesSavedImages = savedArticleImages.compactMap { URL(string: $0) }
                 // END: TEMP SAVED ARTICLES STUFF
-                
-                self.model = model
+
+                self.articlesSavedViewModel = savedViewModel
+                self.articlesReadViewModel = readViewModel
             }
         }
     }
@@ -101,18 +108,18 @@ public class WMFActivityTabViewModel: ObservableObject {
     // MARK: - View Strings
     
     public var hoursMinutesRead: String {
-        return localizedStrings.totalHoursMinutesRead(model.hoursRead, model.minutesRead)
+        return localizedStrings.totalHoursMinutesRead(articlesReadViewModel.hoursRead, articlesReadViewModel.minutesRead)
     }
     
     // MARK: - Update
     
     public func updateUsername(username: String) {
-        model.username = username
-        model.usernamesReading = username.isEmpty
+        articlesReadViewModel.username = username
+        articlesReadViewModel.usernamesReading = username.isEmpty
             ? localizedStrings.noUsernameReading
             : localizedStrings.userNamesReading(username)
 
-        self.model = model
+        self.articlesReadViewModel = articlesReadViewModel
     }
 
     public func updateIsLoggedIn(isLoggedIn: Bool) {
@@ -120,24 +127,24 @@ public class WMFActivityTabViewModel: ObservableObject {
     }
     
     private func updateHoursMinutesRead(hours: Int, minutes: Int) {
-        model.hoursRead = hours
-        model.minutesRead = minutes
+        articlesReadViewModel.hoursRead = hours
+        articlesReadViewModel.minutesRead = minutes
     }
     
     private func updateTotalArticlesRead(totalArticlesRead: Int) {
-        model.totalArticlesRead = totalArticlesRead
+        articlesReadViewModel.totalArticlesRead = totalArticlesRead
     }
     
     private func updateDateTimeRead(dateTime: Date) {
-        model.dateTimeLastRead = formatDateTime(dateTime)
+        articlesReadViewModel.dateTimeLastRead = formatDateTime(dateTime)
     }
 
  	private func updateWeeklyReads(weeklyReads: [Int]) {
-        model.weeklyReads = weeklyReads
+        articlesReadViewModel.weeklyReads = weeklyReads
     }
     
     private func updateTopCategories(topCategories: [String]) {
-        model.topCategories = topCategories
+        articlesReadViewModel.topCategories = topCategories
     }
     
     // MARK: - Helpers

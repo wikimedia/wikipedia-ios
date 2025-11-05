@@ -32,8 +32,8 @@ public struct WMFActivityTabView: View {
                             // Start of modules on top section
                             articlesReadModule
                             savedArticlesModule
-                            if viewModel.model.topCategories.isEmpty {
-                                topCategoriesModule(categories: viewModel.model.topCategories)
+                            if viewModel.articlesReadViewModel.topCategories.isEmpty {
+                                topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
                             }
                             Spacer()
                         }
@@ -70,7 +70,7 @@ public struct WMFActivityTabView: View {
     
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
-            Text(viewModel.model.usernamesReading)
+            Text(viewModel.articlesReadViewModel.usernamesReading)
                     .foregroundColor(Color(uiColor: theme.text))
                     .font(Font(WMFFont.for(.boldHeadline)))
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -171,14 +171,14 @@ public struct WMFActivityTabView: View {
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookPages),
                 title: viewModel.localizedStrings.totalArticlesRead,
-                dateText: viewModel.model.dateTimeLastRead,
-                amount: viewModel.model.totalArticlesRead,
+                dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
+                amount: viewModel.articlesReadViewModel.totalArticlesRead,
                 onTapModule: {
                     print("Tapped module")
                     // TODO: Navigate to history below
                 },
                 content: {
-                    articlesReadGraph(weeklyReads: viewModel.model.weeklyReads)
+                    articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
                 }
             )
         }
@@ -189,14 +189,14 @@ public struct WMFActivityTabView: View {
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookmark),
                 title: viewModel.localizedStrings.articlesSavedTitle,
-                dateText: viewModel.model.dateTimeLastSaved,
-                amount: viewModel.model.articlesSavedAmount,
+                dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
+                amount: viewModel.articlesSavedViewModel.articlesSavedAmount,
                 onTapModule: {
                     viewModel.navigateToSaved?()
                 },
                 content: {
-                    if !viewModel.model.articlesSavedImages.isEmpty {
-                        savedArticlesImages(images: viewModel.model.articlesSavedImages, totalSavedCount: viewModel.model.articlesSavedAmount)
+                    if !viewModel.articlesSavedViewModel.articlesSavedImages.isEmpty {
+                        savedArticlesImages(images: viewModel.articlesSavedViewModel.articlesSavedImages, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount)
                     }
                 }
             )
