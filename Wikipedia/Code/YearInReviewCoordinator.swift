@@ -160,7 +160,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             contributorSubtitle: contributorSlideSubtitle(isEditor:isDonator:),
             contributorGiftTitle: WMFLocalizedString("year-in-review-contributor-gift-title", value: "Activate new app icon", comment: "Year in review title for the new icon"),
             contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon"),
-            highlightsSlideTitle: WMFLocalizedString("year-in-review-highlights-title", value: "Thank you for spending your year with Wikipedia", comment: "Title for year in review highlights slide"),
+            highlightsSlideTitle: WMFLocalizedString("year-in-review-highlights-title", value: "Thank you for spending your year with Wikipedia.", comment: "Title for year in review highlights slide"),
             highlightsSlideSubtitle: WMFLocalizedString("year-in-review-highlights-subtitle", value: "We look forward to next year!", comment: "Subtitle for year in review highlights slide"),
             highlightsSlideButtonTitle: WMFLocalizedString("year-in-review-highlights-button-title", value: "Share highlights", comment: "Title for the share button on Year in Review Highlights slide"),
             longestReadArticlesTitle: WMFLocalizedString("year-in-review-highlights-personalized-articles", value: "Articles I read the longest", comment: "Title for the list of articles read the longest in the year in review slide"),

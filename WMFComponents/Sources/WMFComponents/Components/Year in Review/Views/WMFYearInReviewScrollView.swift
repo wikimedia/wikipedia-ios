@@ -9,11 +9,14 @@ struct WMFYearInReviewScrollView: View {
     @State private var flashScrollIndicators: Bool = false
     
     private let scrollViewContents: AnyView
+    private let needsClearBackground: Bool
     
     init<ScrollViewContent: View>(
-        scrollViewContents: ScrollViewContent
+        scrollViewContents: ScrollViewContent,
+        needsClearBackground: Bool = false
     ) {
         self.scrollViewContents = AnyView(scrollViewContents)
+        self.needsClearBackground = needsClearBackground
     }
 
     // MARK: - Lifecycle
@@ -47,7 +50,7 @@ struct WMFYearInReviewScrollView: View {
     var body: some View {
         content
             .background {
-                Color(appEnvironment.theme.midBackground).ignoresSafeArea()
+                Color(needsClearBackground ? .clear : appEnvironment.theme.midBackground).ignoresSafeArea()
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
