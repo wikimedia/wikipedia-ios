@@ -1506,7 +1506,7 @@
 "year-in-review-feature-explore-body-v3" = "See insights about which articles you read on the Wikipedia app and the edits you made.";
 "year-in-review-feature-explore-footer-v3" = "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-finish" = "Finish";
-"year-in-review-highlights-articles-saved" = "Articles saved";
+"year-in-review-highlights-articles-read" = "Articles read";
 "year-in-review-highlights-articles-viewed" = "Number of viewed articles";
 "year-in-review-highlights-button-title" = "Share highlights";
 "year-in-review-highlights-categories" = "Categories that interested me";
@@ -1518,7 +1518,7 @@
 "year-in-review-highlights-english-articles" = "Most read articles on English Wikipedia";
 "year-in-review-highlights-favorite-day" = "Favorite day to read";
 "year-in-review-highlights-number-app-editors" = "Edits on-app";
-"year-in-review-highlights-personalized-articles" = "Articles I read the longest";
+"year-in-review-highlights-personalized-articles" = "Articles I read the most";
 "year-in-review-highlights-reading-time" = "Minutes read";
 "year-in-review-highlights-share-logo-caption" = "Wikipedia logo";
 "year-in-review-highlights-subtitle" = "We look forward to next year!";
