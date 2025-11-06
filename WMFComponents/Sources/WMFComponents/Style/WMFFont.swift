@@ -69,10 +69,9 @@ public enum WMFFont {
             return UIFont(descriptor: descriptor, size: 0)
 
         case .boldCaption1:
-            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .caption1, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
-                fatalError()
-            }
-            return UIFont(descriptor: descriptor, size: 0)
+            let base = UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
+            let bold = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
+            return UIFontMetrics(forTextStyle: .caption1).scaledFont(for: bold)
 
         case .boldFootnote:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .footnote, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {

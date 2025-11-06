@@ -14,65 +14,68 @@ public struct WMFActivityTabView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 20) {
-            ZStack {
-                if viewModel.isLoggedIn {
-                    VStack(spacing: 20) {
-                        headerView
-
-                        VStack(alignment: .leading, spacing: 16) {
-                            VStack(alignment: .center, spacing: 8) {
-                                hoursMinutesRead
-                                Text(viewModel.localizedStrings.timeSpentReading)
-                                    .font(Font(WMFFont.for(.semiboldHeadline)))
-                                    .foregroundColor(Color(uiColor: theme.text))
+        ScrollView {
+            VStack(spacing: 20) {
+                ZStack {
+                    if viewModel.isLoggedIn {
+                        VStack(spacing: 20) {
+                            headerView
+                            
+                            VStack(alignment: .leading, spacing: 16) {
+                                VStack(alignment: .center, spacing: 8) {
+                                    hoursMinutesRead
+                                    Text(viewModel.localizedStrings.timeSpentReading)
+                                        .font(Font(WMFFont.for(.semiboldHeadline)))
+                                        .foregroundColor(Color(uiColor: theme.text))
+                                }
+                                .frame(maxWidth: .infinity)
+                                
+                                // Start of modules on top section
+                                articlesReadModule
+                                savedArticlesModule
+                                if !viewModel.model.topCategories.isEmpty {
+                                    topCategoriesModule(categories: viewModel.model.topCategories)
+                                }
+                                Spacer()
                             }
-                            .frame(maxWidth: .infinity)
-
-                            // Start of modules on top section
-                            articlesReadModule
-                            savedArticlesModule
-                            if !viewModel.model.topCategories.isEmpty {
-                                topCategoriesModule(categories: viewModel.model.topCategories)
-                            }
-                            Spacer()
+                            .padding(.horizontal, 16)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .padding(.horizontal, 16)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .background(
-                        LinearGradient(
-                            stops: [
-                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
-                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1.00)
-                            ],
-                            startPoint: UnitPoint(x: 0.5, y: 0),
-                            endPoint: UnitPoint(x: 0.5, y: 1)
+                        .background(
+                            LinearGradient(
+                                stops: [
+                                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
+                                    Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1.00)
+                                ],
+                                startPoint: UnitPoint(x: 0.5, y: 0),
+                                endPoint: UnitPoint(x: 0.5, y: 1)
+                            )
                         )
-                    )
-                    .frame(maxWidth: .infinity)
-                } else {
-                    loggedOutView
+                        .frame(maxWidth: .infinity)
+                    } else {
+                        loggedOutView
+                    }
+                    
+                    Spacer()
                 }
+                .padding(.top, 16)
                 
                 Spacer()
             }
-            .padding(.top, 16)
-
-            Spacer()
+            .frame(maxWidth: .infinity)
+            .onAppear {
+                viewModel.fetchData()
+                viewModel.hasSeenActivityTab()
+            }
         }
-        .frame(maxWidth: .infinity)
-        .onAppear {
-            viewModel.fetchData()
-            viewModel.hasSeenActivityTab()
-        }
+        .background((Color(uiColor: theme.paperBackground)))
     }
     
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
             Text(viewModel.model.usernamesReading)
                     .foregroundColor(Color(uiColor: theme.text))
-                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .font(Font(WMFFont.for(.boldBody)))
                     .frame(maxWidth: .infinity, alignment: .center)
             Text(viewModel.localizedStrings.onWikipediaiOS)
                 .font(.custom("Menlo", size: 11, relativeTo: .caption2))
@@ -169,7 +172,7 @@ public struct WMFActivityTabView: View {
     private var articlesReadModule: some View {
         Group {
             WMFActivityTabInfoCardView(
-                icon: WMFSFSymbolIcon.for(symbol: .bookPages),
+                icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.totalArticlesRead,
                 dateText: viewModel.model.dateTimeLastRead,
                 amount: viewModel.model.totalArticlesRead,
@@ -187,7 +190,7 @@ public struct WMFActivityTabView: View {
     private var savedArticlesModule: some View {
         Group {
             WMFActivityTabInfoCardView(
-                icon: WMFSFSymbolIcon.for(symbol: .bookmark),
+                icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.articlesSavedTitle,
                 dateText: viewModel.model.dateTimeLastSaved,
                 amount: viewModel.model.articlesSavedAmount,
@@ -216,7 +219,6 @@ public struct WMFActivityTabView: View {
                     }
                     .frame(width: 38, height: 38)
                     .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 }
             } else {
                 ForEach(images.prefix(3), id: \.self) { imageURL in
@@ -229,38 +231,37 @@ public struct WMFActivityTabView: View {
                     }
                     .frame(width: 38, height: 38)
                     .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 }
 
                 let remaining = totalSavedCount - 3
                 Text(viewModel.localizedStrings.remaining(remaining))
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Font(WMFFont.for(.caption2)))
                     .foregroundColor(.white)
                     .frame(width: 38, height: 38)
-                    .background(Circle().fill(Color.gray))
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
             }
         }
     }
 
     private func articlesReadGraph(weeklyReads: [Int]) -> some View {
-        Chart {
-            ForEach(weeklyReads.indices, id: \.self) { index in
-                BarMark(
-                    x: .value(viewModel.localizedStrings.week, index),
-                    y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
-                    width: 12
-                )
-                .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.baseBackground))
-                .cornerRadius(1.5)
+        Group {
+            Chart {
+                ForEach(weeklyReads.indices, id: \.self) { index in
+                    BarMark(
+                        x: .value(viewModel.localizedStrings.week, index),
+                        y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
+                        width: 12
+                    )
+                    .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.newBorder))
+                    .cornerRadius(1.5)
+                }
             }
-        }
-        .frame(maxWidth: 65, maxHeight: 45)
-        .chartXAxis(.hidden)
-        .chartYAxis(.hidden)
-        .chartPlotStyle { plotArea in
-            plotArea
-                .background(Color.clear)
+            .frame(maxWidth: 54, maxHeight: 45)
+            .chartXAxis(.hidden)
+            .chartYAxis(.hidden)
+            .chartPlotStyle { plotArea in
+                plotArea
+                    .background(Color.clear)
+            }
         }
     }
 
@@ -273,14 +274,16 @@ public struct WMFActivityTabView: View {
                 Text(viewModel.localizedStrings.topCategories)
                     .foregroundStyle(Color(theme.text))
                     .font(Font(WMFFont.for(.boldCaption1)))
-                Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
             ForEach(categories.indices, id: \.self) { index in
                 let category = categories[index]
                 VStack(alignment: .leading, spacing: 16) {
                     Text(category)
                         .foregroundStyle(Color(theme.text))
                         .font(Font(WMFFont.for(.callout)))
+                        .lineLimit(2)
                     
                     if index < categories.count - 1 {
                         Divider()
