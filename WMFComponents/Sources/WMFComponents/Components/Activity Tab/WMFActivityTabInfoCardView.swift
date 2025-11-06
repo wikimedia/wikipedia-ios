@@ -49,15 +49,18 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                 }
             }
 
-            HStack(alignment: .center) {
+            HStack(alignment: .bottom) {
                 Text("\(amount)")
                     .foregroundStyle(Color(theme.text))
                     .font(Font(WMFFont.for(.boldTitle1)))
                 Spacer()
                 content()
             }
+            .frame(maxWidth: .infinity)
+            .padding(.bottom, 16)
         }
-        .padding(16)
+        .padding(.horizontal, 16)
+        .padding(.top, 16)
         .background(Color(theme.paperBackground))
         .cornerRadius(10)
         .overlay(
