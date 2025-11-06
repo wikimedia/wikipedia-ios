@@ -615,7 +615,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     slides.append(.contribution(nonContributorSlide))
                 }
                 
-                slides.append(.highlights(getPersonalizedHighlights()))
+                if let personalHighlights = getPersonalizedHighlights() {
+                    slides.append(.highlights(personalHighlights))
+                }
+                
             } else {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
@@ -638,7 +641,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.slides = slides
     }
 
-    func getPersonalizedHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
+    func getPersonalizedHighlights() -> WMFYearInReviewSlideHighlightsViewModel? {
         var itemArray: [TableItem] = []
 
         if let topReadArticles {
@@ -675,16 +678,20 @@ public class WMFYearInReviewViewModel: ObservableObject {
             let editCountItem = TableItem(title: localizedStrings.editedArticlesTitle, text: String(editNumber))
             itemArray.append(editCountItem)
         }
-
-        return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: itemArray),
-            loggingID: prefixedLoggingID("summary"),
-            localizedStrings: getHighlightsStrings(),
-            coordinatorDelegate: coordinatorDelegate,
-            hashtag: hashtag,
-            plaintextURL: plaintextURL,
-            tappedShare: tappedShare
-        )
+        
+        if itemArray.count >= 2 {
+            return WMFYearInReviewSlideHighlightsViewModel(
+                infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: itemArray),
+                loggingID: prefixedLoggingID("summary"),
+                localizedStrings: getHighlightsStrings(),
+                coordinatorDelegate: coordinatorDelegate,
+                hashtag: hashtag,
+                plaintextURL: plaintextURL,
+                tappedShare: tappedShare
+            )
+        } else {
+            return nil
+        }
     }
 
     // MARK: - English Slides
