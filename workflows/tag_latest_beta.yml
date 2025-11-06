@@ -1,0 +1,12 @@
+- name: Fetch all tags
+  run: git fetch --tags
+
+- name: Check if the tag exists
+  run: |
+    if git rev-parse latest_beta >/dev/null 2>&1; then
+      echo "Tag exists"
+    else
+      echo "Creating the tag"
+      git tag latest_beta
+      git push origin latest_beta
+    fi
