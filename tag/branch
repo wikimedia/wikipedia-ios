@@ -1,0 +1,2 @@
+git tag latest_beta
+git push origin latest_beta
