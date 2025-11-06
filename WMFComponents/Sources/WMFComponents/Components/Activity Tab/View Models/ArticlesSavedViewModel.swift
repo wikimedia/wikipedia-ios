@@ -6,7 +6,7 @@ import SwiftUI
 public final class ArticlesSavedViewModel: ObservableObject {
     @Published public var articlesSavedAmount: Int = 0
     @Published public var dateTimeLastSaved: String = ""
-    @Published public var articlesSavedImages: [URL] = []
+    @Published public var articlesSavedThumbURLs: [URL?] = []
 
     private var dataController: WMFActivityTabDataController
     private let dateFormatter: (Date) -> String
@@ -32,7 +32,7 @@ public final class ArticlesSavedViewModel: ObservableObject {
                 
                 self.articlesSavedAmount = data.savedArticlesCount
                 self.dateTimeLastSaved = data.dateLastSaved.map(self.dateFormatter) ?? ""
-                self.articlesSavedImages = data.articleUrlStrings.compactMap(URL.init(string:))
+                self.articlesSavedThumbURLs = data.articleThumbURLs
             }
         }
     }

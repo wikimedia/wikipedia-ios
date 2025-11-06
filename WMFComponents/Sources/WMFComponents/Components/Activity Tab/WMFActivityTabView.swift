@@ -195,18 +195,18 @@ public struct WMFActivityTabView: View {
                     viewModel.navigateToSaved?()
                 },
                 content: {
-                    if !viewModel.articlesSavedViewModel.articlesSavedImages.isEmpty {
-                        savedArticlesImages(images: viewModel.articlesSavedViewModel.articlesSavedImages, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount)
+                    if !viewModel.articlesSavedViewModel.articlesSavedThumbURLs.isEmpty {
+                        savedArticlesImages(thumbURLs: viewModel.articlesSavedViewModel.articlesSavedThumbURLs, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount)
                     }
                 }
             )
         }
     }
     
-    private func savedArticlesImages(images: [URL], totalSavedCount: Int) -> some View {
+    private func savedArticlesImages(thumbURLs: [URL?], totalSavedCount: Int) -> some View {
         HStack(spacing: 4) {
-            if images.count <= 4 {
-                ForEach(images.prefix(4), id: \.self) { imageURL in
+            if thumbURLs.count <= 4 {
+                ForEach(thumbURLs.prefix(4), id: \.self) { imageURL in
                     AsyncImage(url: imageURL) { image in
                         image
                             .resizable()
@@ -219,7 +219,7 @@ public struct WMFActivityTabView: View {
                     .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 }
             } else {
-                ForEach(images.prefix(3), id: \.self) { imageURL in
+                ForEach(thumbURLs.prefix(3), id: \.self) { imageURL in
                     AsyncImage(url: imageURL) { image in
                         image
                             .resizable()
