@@ -359,18 +359,34 @@ public class RemoteNotificationsAPIController: Fetcher {
             return
         }
         
-        if method == .get {
-            session.jsonDecodableTask(with: url, method: .get, completionHandler: completion)
-        } else {
-            requestMediaWikiAPIAuthToken(for:url, type: .csrf) { (result) in
-                switch result {
-                case .failure(let error):
-                    completion(nil, nil, error)
-                case .success(let token):
-                    self.session.jsonDecodableTask(with: url, method: method, bodyParameters: ["token": token.value], bodyEncoding: .form, completionHandler: completion)
+        let authState = MWKDataStore.shared().authenticationManager.oAuthState
+        authState?.performAction { [self] (accessToken, idToken, error) in
+            
+            if error != nil {
+                print("Error fetching fresh tokens: \(error?.localizedDescription ?? "Unknown error")")
+                completion(nil, nil, error)
+            }
+            
+            guard let accessToken = accessToken else {
+                // todo: error
+                return
+            }
+            
+            if method == .get {
+                session.jsonDecodableTask(with: url, method: .get, headers: ["Authorization": "Bearer \(accessToken)"], completionHandler: completion)
+            } else {
+                requestMediaWikiAPIAuthToken(for:url, type: .csrf, oAuthToken: accessToken) { (result) in
+                    switch result {
+                    case .failure(let error):
+                        completion(nil, nil, error)
+                    case .success(let token):
+                        self.session.jsonDecodableTask(with: url, method: method, bodyParameters: ["token": token.value], bodyEncoding: .form, headers: ["Authorization": "Bearer \(accessToken)"], completionHandler: completion)
+                    }
                 }
             }
         }
+        
+        
     }
 
     // MARK: Query parameters

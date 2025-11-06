@@ -386,8 +386,12 @@ public class Session: NSObject {
          - response: The URLResponse
          - error: Any network or parsing error
      */
-    @discardableResult public func jsonDecodableTaskWithDecodableError<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, cachePolicy: URLRequest.CachePolicy? = nil, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, cachePolicy: cachePolicy, completionHandler: { (data, response, error) in
+    @discardableResult public func jsonDecodableTaskWithDecodableError<T: Decodable, E: Decodable>(with url: URL?, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, cachePolicy: URLRequest.CachePolicy? = nil, oAuthToken: String? = nil, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+        var headers: [String:String] = [:]
+        if let oAuthToken {
+            headers = ["Authorization": "Bearer \(oAuthToken)"]
+        }
+        guard let task = dataTask(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, headers: headers, cachePolicy: cachePolicy, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, nil, response, error)

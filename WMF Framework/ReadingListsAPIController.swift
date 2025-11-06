@@ -135,55 +135,129 @@ public class ReadingListsAPIController: Fetcher {
     var lastRequestType: APIReadingListRequestType?
 
     fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
-        let key = UUID().uuidString
-        let components = builder.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
-        guard
-            let task = session.jsonDecodableTaskWithDecodableError(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
-            if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
+        
+        // new bit
+        let authState = MWKDataStore.shared().authenticationManager.oAuthState
+        authState?.performAction { [self] (accessToken, idToken, error) in
+            
+            if error != nil {
+                print("Error fetching fresh tokens: \(error?.localizedDescription ?? "Unknown error")")
                 completionHandler(nil, nil, error)
-            } else {
-                completionHandler(result, response, error)
             }
-            self.untrack(taskFor: key)
-        }) else {
-            return
+            
+            guard let accessToken = accessToken else {
+                // todo: error
+                return
+            }
+            
+            let key = UUID().uuidString
+            let components = builder.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
+            guard
+                let task = session.jsonDecodableTaskWithDecodableError(with: components.url, method: .get, oAuthToken: accessToken, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+                if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
+                    completionHandler(nil, nil, error)
+                } else {
+                    completionHandler(result, response, error)
+                }
+                self.untrack(taskFor: key)
+            }) else {
+                return
+            }
+            track(task: task, for: key)
+            task.resume()
+            
         }
-        track(task: task, for: key)
-        task.resume()
     }
     
     fileprivate func requestWithCSRF(path: [String], method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        let components = builder.components(byAppending: basePathComponents + path)
-        requestMediaWikiAPIAuthToken(for: components.url, type: .csrf) { (result) in
-            switch result {
-            case .failure(let error):
+        
+        // new bit
+        let authState = MWKDataStore.shared().authenticationManager.oAuthState
+        authState?.performAction { [self] (accessToken, idToken, error) in
+            
+            if error != nil {
+                print("Error fetching fresh tokens: \(error?.localizedDescription ?? "Unknown error")")
                 completion(nil, nil, error)
-            case .success(let token):
-                let tokenQueryParameters = ["csrf_token": token.value]
-                var componentsWithToken = components
-                componentsWithToken.appendQueryParametersToPercentEncodedQuery(tokenQueryParameters)
-                let identifier =  UUID().uuidString
-                let task = self.session.jsonDictionaryTask(with: componentsWithToken.url, method: method, bodyParameters: bodyParameters, completionHandler: { (result, response, error) in
-                    defer {
-                        self.untrack(taskFor: identifier)
+            }
+            
+            guard let accessToken = accessToken else {
+                // todo: error
+                return
+            }
+            
+            // API still requires this weirdly, seems like.
+            let components = builder.components(byAppending: self.basePathComponents + path)
+            self.requestMediaWikiAPIAuthToken(for: components.url, type: .csrf, oAuthToken: accessToken, cancellationKey: nil) { (result) in
+                switch result {
+                case .failure(let error):
+                    completion(nil, nil, error)
+                case .success(let token):
+                    let tokenQueryParameters = ["csrf_token": token.value]
+                    var componentsWithToken = components
+                    componentsWithToken.appendQueryParametersToPercentEncodedQuery(tokenQueryParameters)
+                    let identifier =  UUID().uuidString
+                    
+                    guard let url = componentsWithToken.url else {
+                        completion(nil, nil, nil)
+                        return
                     }
-                    if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
-                        DDLogError("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
-                    } else {
-                        #if DEBUG
-                        if let error = error {
-                            DDLogError("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
-                        } else {
-                            DDLogDebug("RLAPI: \(method.stringValue) \(path)")
-                        }
-                        #endif
-                    }
-                    completion(result, response, error)
-                })
-                self.track(task: task, for: identifier)
-                task?.resume()
+                    
+                    let dictionaryRequest = self.session.request(with: url, method: method, bodyParameters: bodyParameters, bodyEncoding: .json, headers: ["Authorization": "Bearer \(accessToken)"])
+                    let task = self.session.jsonDictionaryTask(with: dictionaryRequest, completionHandler: { (result, response, error) in
+                            defer {
+                                self.untrack(taskFor: identifier)
+                            }
+                            if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
+                                DDLogError("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
+                            } else {
+    #if DEBUG
+                                if let error = error {
+                                    DDLogError("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
+                                } else {
+                                    DDLogDebug("RLAPI: \(method.stringValue) \(path)")
+                                }
+    #endif
+                            }
+                            completion(result, response, error)
+                    })
+                    self.track(task: task, for: identifier)
+                    task.resume()
+                }
             }
         }
+        
+        
+//        let components = builder.components(byAppending: basePathComponents + path)
+//        requestMediaWikiAPIAuthToken(for: components.url, type: .csrf) { (result) in
+//            switch result {
+//            case .failure(let error):
+//                completion(nil, nil, error)
+//            case .success(let token):
+//                let tokenQueryParameters = ["csrf_token": token.value]
+//                var componentsWithToken = components
+//                componentsWithToken.appendQueryParametersToPercentEncodedQuery(tokenQueryParameters)
+//                let identifier =  UUID().uuidString
+//                let task = self.session.jsonDictionaryTask(with: componentsWithToken.url, method: method, bodyParameters: bodyParameters, completionHandler: { (result, response, error) in
+//                    defer {
+//                        self.untrack(taskFor: identifier)
+//                    }
+//                    if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
+//                        DDLogError("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
+//                    } else {
+//                        #if DEBUG
+//                        if let error = error {
+//                            DDLogError("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
+//                        } else {
+//                            DDLogDebug("RLAPI: \(method.stringValue) \(path)")
+//                        }
+//                        #endif
+//                    }
+//                    completion(result, response, error)
+//                })
+//                self.track(task: task, for: identifier)
+//                task?.resume()
+//            }
+//        }
     }
     
     fileprivate func post(path: [String], bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
