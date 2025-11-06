@@ -251,7 +251,7 @@ public struct WMFActivityTabView: View {
                         y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
                         width: 12
                     )
-                    .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.border))
+                    .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.newBorder))
                     .cornerRadius(1.5)
                 }
             }
