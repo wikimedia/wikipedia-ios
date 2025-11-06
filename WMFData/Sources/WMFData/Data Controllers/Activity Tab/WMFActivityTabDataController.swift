@@ -85,7 +85,7 @@ public actor WMFActivityTabDataController {
          }
      }
     
-    private(set) public var hasSeenActivityTab: Bool {
+    private var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
         } set {
@@ -94,8 +94,12 @@ public actor WMFActivityTabDataController {
     }
 
     public func setHasSeenActivityTab(_ value: Bool) {
-            self.hasSeenActivityTab = value
-        }
+        self.hasSeenActivityTab = value
+    }
+
+    public func getHasSeenActivityTab() -> Bool {
+        return hasSeenActivityTab
+    }
 
     public func getMostRecentReadDateTime() async throws -> Date? {
         let dataController = try WMFPageViewsDataController()
