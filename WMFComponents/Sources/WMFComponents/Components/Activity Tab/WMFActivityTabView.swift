@@ -283,7 +283,7 @@ public struct WMFActivityTabView: View {
                     Text(category)
                         .foregroundStyle(Color(theme.text))
                         .font(Font(WMFFont.for(.callout)))
-                        .lineLimit(1)
+                        .lineLimit(2)
                     
                     if index < categories.count - 1 {
                         Divider()
