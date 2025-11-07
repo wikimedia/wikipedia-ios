@@ -147,10 +147,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedYourEditsViewedSlideSubtitle: personalizedYourEditsViewedSlideSubtitle(views:),
             personalizedThankYouTitle: WMFLocalizedString("year-in-review-personalized-donate-title", value: "Your generosity helped keep Wikipedia thriving", comment: "Year in review, personalized donate slide title for users that donated at least once that year. "),
             personalizedThankYouSubtitle: personalizedThankYouSubtitle(languageCode:),
-            personalizedMostReadCategoriesSlideTitle: "Your most interesting categories", // TODO: Localize when we have final product requirements,
-            personalizedMostReadCategoriesSlideSubtitle: personalizedListSlideSubtitle(items:),
+            personalizedMostReadCategoriesSlideTitle: WMFLocalizedString("year-in-review-most-read-categories-title", value: "Your most interesting categories", comment: "Year in review, personalized categories slide title"),
+            personalizedMostReadCategoriesSlideSubtitle: personalizedMostReadCategoriesSlideSubtitle(items:),
             personalizedMostReadArticlesSlideTitle: WMFLocalizedString("year-in-review-personalized-most-read-articles-title", value: "Your top articles", comment: "Year in review, personalized most read articles slide title"),
-            personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
+            personalizedMostReadArticlesSlideSubtitle: personalizedMostReadArticlesSlideSubtitle(items:),
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
             personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:),
             noncontributorTitle: noncontributorTitle(),
@@ -742,6 +742,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         return "\(listItems)"
+    }
+    
+    func personalizedMostReadCategoriesSlideSubtitle(items: [String]) -> String {
+        let format = WMFLocalizedString("year-in-review-categories-slide-subtitle", value: "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times\n%1$@", comment: "Year in review categories slide subtitle, $1 is the list of top categories.")
+        return String.localizedStringWithFormat(format, personalizedListSlideSubtitle(items: items))
+    }
+    
+    func personalizedMostReadArticlesSlideSubtitle(items: [String]) -> String {
+        let format = WMFLocalizedString("year-in-review-articles-slide-subtitle", value: "Here were the articles you visited the most in 2025:\n%1$@", comment: "Year in review articles slide subtitle, $1 is the list of top articles.")
+        return String.localizedStringWithFormat(format, personalizedListSlideSubtitle(items: items))
     }
     
     func personalizedLocationSlideTitle(countryOrOcean: String) -> String {
