@@ -112,7 +112,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             self.tappedShareTab(tab, sourceFrameInWindow: frame)
         }
 
-        let displayDeleteAllTabsToast: (Int) -> Void = { [weak self] articleTabsCount in
+        let _: (Int) -> Void = { [weak self] articleTabsCount in
             guard let self else { return }
             Task {
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(

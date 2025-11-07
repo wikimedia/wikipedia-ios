@@ -1141,13 +1141,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     func tappedInfo() {
         switch currentSlide {
-        case .standard(let vm):
+        case .standard:
             coordinatorDelegate?.handleYearInReviewAction(.info)
-        case .mostReadDateV3(let vm):
+        case .mostReadDateV3:
             coordinatorDelegate?.handleYearInReviewAction(.info)
-        case .location(let vm):
+        case .location:
             coordinatorDelegate?.handleYearInReviewAction(.info)
-        case .contribution(let vm):
+        case .contribution:
             coordinatorDelegate?.handleYearInReviewAction(.info)
         case .highlights:
             break

@@ -902,14 +902,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
 
             self?.navigationController.dismiss(animated: true, completion: { [weak self] in
-                guard let self else { return }
+                guard self != nil else { return }
             })
             DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
         }, submitAction: { [weak self] options, otherText in
             DonateFunnel.shared.logYearInReviewSurveyDidSubmit(selected: options, other: otherText)
             self?.navigationController.dismiss(animated: true, completion: { [weak self] in
 
-                guard let self else { return }
+                guard self != nil else { return }
 
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)

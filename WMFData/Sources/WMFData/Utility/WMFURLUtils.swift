@@ -1,7 +1,7 @@
 import Foundation
 
-///  Provides a small utility for building canonical Wikipedia article URLs
-///  mirroring the behavior of legacy Obj-C helpers  and extensions that live in the client app
+//  Provides a small utility for building canonical Wikipedia article URLs)
+//  mirroring the behavior of legacy Obj-C helpers  and extensions that live in the client app
 
 // MARK: - String helper
 extension String {
