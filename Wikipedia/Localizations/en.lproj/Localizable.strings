@@ -1464,6 +1464,7 @@
 "wikitext-upload-save-sign-in" = "Log in";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
+"year-in-review-articles-slide-subtitle" = "Here were the articles you visited the most in 2025:\n$1";
 "year-in-review-base-editors-subtitle" = "The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
 "year-in-review-base-editors-title" = "Editors on the official Wikipedia apps made {{PLURAL:$1|$1 edit|$1 edits}}";
 "year-in-review-base-edits-subtitle" = "Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate]($1).";
@@ -1475,6 +1476,7 @@
 "year-in-review-base-viewed-subtitle" = "For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.";
 "year-in-review-base-viewed-title" = "App users viewed Wikipedia articles {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-button-title" = "Year in Review";
+"year-in-review-categories-slide-subtitle" = "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times\n$1";
 "year-in-review-collective-article-views" = "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.";
 "year-in-review-collective-edits" = "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.";
 "year-in-review-collective-edits-per-minute" = "A clock ticking, symbolizing the time spent by people reading Wikipedia.";
@@ -1526,6 +1528,7 @@
 "year-in-review-highlights-title" = "Thank you for spending your year with Wikipedia";
 "year-in-review-intro-exit-toast-title" = "You can access your Year in Review later in Profile.";
 "year-in-review-intro-login-title" = "Log in for personalization";
+"year-in-review-most-read-categories-title" = "Your most interesting categories";
 "year-in-review-non-contributor-slide-title" = "Unlock your contributor reward for next year!";
 "year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your $1! Unlock a special reward in your $2 Year in Review by becoming a contributor—whether by [editing Wikipedia]($3) or by donating to the [Wikimedia Foundation]($4), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.";
 "year-in-review-personalized-date-day-footer-v3" = "Favorite day to read";

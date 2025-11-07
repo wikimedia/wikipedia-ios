@@ -1084,6 +1084,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         let slide = currentSlide
         switch slide {
+        case .contribution(let viewModel):
+            if viewModel.contributionStatus == .noncontributor {
+                return false
+            }
+            break
         default:
             break
         }
