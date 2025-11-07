@@ -352,7 +352,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             highlightsReadCount = readData.readCount
 
                             readCountSlideV3 = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-01",
+                                gifName: "puzzle-walk",
                                 altText: localizedStrings.personalizedYouReadAccessibilityLabel,
                                 title: localizedStrings.personalizedYouReadSlideTitleV3(readData.readCount, readData.minutesRead),
                                 subtitle: localizedStrings.personalizedYouReadSlideSubtitleV3(readData.readCount),
@@ -369,7 +369,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            editCount > 0 {
                             highlightsEditNumber = editCount
                             editCountSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-04",
+                                gifName: "duo",
                                 altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
                                 title: localizedStrings.personalizedUserEditsSlideTitle(editCount),
                                 subtitle: primaryAppLanguage.isEnglishWikipedia ? localizedStrings.personzlizedUserEditsSlideSubtitleEN : localizedStrings.personzlizedUserEditsSlideSubtitleNonEN,
@@ -417,7 +417,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            savedSlideData.articleTitles.count >= 3 {
                             let count = savedSlideData.savedArticlesCount
                             saveCountSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "english-slide-03",
+                                gifName: "sky",
                                 altText: localizedStrings.personalizedSavedArticlesAccessibilityLabel,
                                 title: localizedStrings.personalizedSaveCountSlideTitle(count),
                                 subtitle: localizedStrings.personalizedSaveCountSlideSubtitle(count, savedSlideData.articleTitles),
@@ -440,7 +440,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             highlightsFavoriteReadingDay = mostReadDay
                             
                             mostReadDateSlideV3 = WMFYearInReviewSlideMostReadDateV3ViewModel(
-                                gifName: "english-slide-01",
+                                gifName: "clock",
                                 altText: localizedStrings.personalizedWeekdayAccessibilityLabel,
                                 title: localizedStrings.personalizedDateSlideTitleV3,
                                 time: localizedStrings.personalizedDateSlideTimeV3(mostReadTime.hour),
@@ -461,7 +461,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            viewCount > 0 {
                             
                             viewCountSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-05",
+                                gifName: "penball",
                                 altText: localizedStrings.personalizedYourEditsViewsAccessibilityLabel,
                                 title: localizedStrings.personalizedYourEditsViewedSlideTitle(viewCount),
                                 subtitle: localizedStrings.personalizedYourEditsViewedSlideSubtitle(viewCount),
@@ -476,7 +476,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         if let mostReadCategories = try? decoder.decode([String].self, from: data), mostReadCategories.count >= 3 {
                             highlightsFrequentCategories = mostReadCategories
                             mostReadCategoriesSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-07",
+                                gifName: "farms",
                                 altText: "", // TODO: alt text
                                 title: localizedStrings.personalizedMostReadCategoriesSlideTitle,
                                 subtitle: localizedStrings.personalizedMostReadCategoriesSlideSubtitle(mostReadCategories),
@@ -492,7 +492,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            topArticles.count > 0 {
                             highlightsTopReadArticles = topArticles
                             topArticlesSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-06", // TODO: modify gif name
+                                gifName: "sundial",
                                 altText: "", // TODO: alt text
                                 title: localizedStrings.personalizedMostReadArticlesSlideTitle,
                                 subtitle: localizedStrings.personalizedMostReadArticlesSlideSubtitle(topArticles),
@@ -527,7 +527,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         // Intro slide
         if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             let introV3ViewModel = WMFYearInReviewIntroV3ViewModel(
-                gifName: "personal-slide-00",
+                gifName: "puzzle-globe-hand",
                 altText: localizedStrings.personalizedExploreAccessibilityLabel,
                 title: localizedStrings.introV3Title,
                 subtitle: localizedStrings.introV3Subtitle,
@@ -717,7 +717,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     private var englishHoursReadingSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-01",
+            gifName: "clock",
             altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
             title: localizedStrings.englishReadingSlideTitle,
             subtitle: localizedStrings.englishReadingSlideSubtitle,
@@ -728,7 +728,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var englishTopReadSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-02",
+            gifName: "comp",
             altText: localizedStrings.collectiveArticleViewsAccessibilityLabel,
             title: localizedStrings.englishTopReadSlideTitle,
             subtitle: localizedStrings.englishTopReadSlideSubtitle,
@@ -740,7 +740,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var englishReadingListSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-03",
+            gifName: "sky",
             altText: localizedStrings.collectiveSavedArticlesAccessibilityLabel,
             title: localizedStrings.englishSavedReadingSlideTitle,
             subtitle: localizedStrings.englishSavedReadingSlideSubtitle,
@@ -751,7 +751,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var englishEditsSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "personal-slide-04",
+            gifName: "duo",
             altText: localizedStrings.englishEditsAccessibilityLabel,
             title: localizedStrings.englishEditsSlideTitle,
             subtitle: localizedStrings.englishEditsSlideSubtitle,
@@ -762,7 +762,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var englishEditsBytesSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-05",
+            gifName: "bytes",
             altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
             title: localizedStrings.englishEditsBytesSlideTitle,
             subtitle: localizedStrings.englishEditsBytesSlideSubtitle,
@@ -792,7 +792,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     private var collectiveLanguagesSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "non-english-slide-01",
+            gifName: "stone",
             altText: localizedStrings.collectiveLanguagesAccessibilityLabel,
             title: localizedStrings.collectiveLanguagesSlideTitle,
             subtitle: localizedStrings.collectiveLanguagesSlideSubtitle,
@@ -803,7 +803,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var collectiveArticleViewsSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-02",
+            gifName: "comp",
             altText: localizedStrings.collectiveArticleViewsAccessibilityLabel,
             title: localizedStrings.collectiveArticleViewsSlideTitle,
             subtitle: localizedStrings.collectiveArticleViewsSlideSubtitle,
@@ -814,7 +814,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     private var collectiveSavedArticlesSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-03",
+            gifName: "sky",
             altText: localizedStrings.collectiveSavedArticlesAccessibilityLabel,
             title: localizedStrings.collectiveSavedArticlesSlideTitle,
             subtitle: localizedStrings.collectiveSavedArticlesSlideSubtitle,
@@ -825,7 +825,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     private var collectiveAmountEditsSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "personal-slide-04",
+            gifName: "duo",
             altText: localizedStrings.collectiveAmountEditsAccessibilityLabel,
             title: localizedStrings.collectiveAmountEditsSlideTitle,
             subtitle: localizedStrings.collectiveAmountEditsSlideSubtitle,
@@ -836,7 +836,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var collectiveEditsPerMinuteSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-01",
+            gifName: "bytes",
             altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
             title: localizedStrings.collectiveEditsPerMinuteSlideTitle,
             subtitle: localizedStrings.collectiveEditsPerMinuteSlideSubtitle,
