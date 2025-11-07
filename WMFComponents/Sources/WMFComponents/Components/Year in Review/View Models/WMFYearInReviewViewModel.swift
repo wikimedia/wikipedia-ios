@@ -417,7 +417,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            savedSlideData.articleTitles.count >= 3 {
                             let count = savedSlideData.savedArticlesCount
                             saveCountSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-03",
+                                gifName: "english-slide-03",
                                 altText: localizedStrings.personalizedSavedArticlesAccessibilityLabel,
                                 title: localizedStrings.personalizedSaveCountSlideTitle(count),
                                 subtitle: localizedStrings.personalizedSaveCountSlideSubtitle(count, savedSlideData.articleTitles),
@@ -440,7 +440,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             highlightsFavoriteReadingDay = mostReadDay
                             
                             mostReadDateSlideV3 = WMFYearInReviewSlideMostReadDateV3ViewModel(
-                                gifName: "personal-slide-02",
+                                gifName: "english-slide-01",
                                 altText: localizedStrings.personalizedWeekdayAccessibilityLabel,
                                 title: localizedStrings.personalizedDateSlideTitleV3,
                                 time: localizedStrings.personalizedDateSlideTimeV3(mostReadTime.hour),
@@ -476,7 +476,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         if let mostReadCategories = try? decoder.decode([String].self, from: data), mostReadCategories.count >= 3 {
                             highlightsFrequentCategories = mostReadCategories
                             mostReadCategoriesSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-05", // TODO: modify gif name
+                                gifName: "personal-slide-07",
                                 altText: "", // TODO: alt text
                                 title: localizedStrings.personalizedMostReadCategoriesSlideTitle,
                                 subtitle: localizedStrings.personalizedMostReadCategoriesSlideSubtitle(mostReadCategories),
@@ -492,7 +492,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            topArticles.count > 0 {
                             highlightsTopReadArticles = topArticles
                             topArticlesSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "english-slide-02", // TODO: modify gif name
+                                gifName: "personal-slide-06", // TODO: modify gif name
                                 altText: "", // TODO: alt text
                                 title: localizedStrings.personalizedMostReadArticlesSlideTitle,
                                 subtitle: localizedStrings.personalizedMostReadArticlesSlideSubtitle(topArticles),
@@ -751,7 +751,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var englishEditsSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-04",
+            gifName: "personal-slide-04",
             altText: localizedStrings.englishEditsAccessibilityLabel,
             title: localizedStrings.englishEditsSlideTitle,
             subtitle: localizedStrings.englishEditsSlideSubtitle,
@@ -825,7 +825,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     private var collectiveAmountEditsSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "non-english-slide-04",
+            gifName: "personal-slide-04",
             altText: localizedStrings.collectiveAmountEditsAccessibilityLabel,
             title: localizedStrings.collectiveAmountEditsSlideTitle,
             subtitle: localizedStrings.collectiveAmountEditsSlideSubtitle,
