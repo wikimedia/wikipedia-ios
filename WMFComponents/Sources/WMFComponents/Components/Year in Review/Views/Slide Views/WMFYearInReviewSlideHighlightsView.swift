@@ -107,11 +107,12 @@ struct GradientBackgroundView: View {
             // Base vertical gradient
             LinearGradient(
                 gradient: Gradient(stops: [
-                    .init(color: .black, location: 0.00),
-                    .init(color: Color(red: 9/255,  green: 45/255,  blue: 96/255),location: 0.35),
-                    .init(color: Color(red: 17/255, green: 113/255,  blue: 200/255),location: 0.50),
-                    .init(color: Color(red: 61/255, green: 178/255, blue: 255/255),location: 0.65),
-                    .init(color: Color(red: 211/255, green: 241/255, blue: 243/255),location: 0.80)
+                    .init(color: Color(red: 23/255,  green: 23/255,  blue: 23/255), location: 0.00),
+                    .init(color: Color(red: 0/255,  green: 63/255,  blue: 69/255),location: 0.20),
+                    .init(color: Color(red: 0/255, green: 128/255,  blue: 122/255),location: 0.40),
+                    .init(color: Color(red: 42/255, green: 236/255, blue: 166/255),location: 0.60),
+                    .init(color: Color(red: 134/255, green: 255/255, blue: 172/255),location: 0.80),
+                    .init(color: .white, location: 1.0)
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
