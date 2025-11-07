@@ -1508,7 +1508,7 @@
 "year-in-review-feature-explore-body-v3" = "Body for year in review feature announcement - version 3";
 "year-in-review-feature-explore-footer-v3" = "Footer text in the year in review intro view.";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
-"year-in-review-highlights-articles-saved" = "Title for the articles saved by an user in the Year in review highlights slide";
+"year-in-review-highlights-articles-read" = "Title for the articles read by a user in the Year in review highlights slide";
 "year-in-review-highlights-articles-viewed" = "Title for the number of viewed articles in Wikipedia in the Year in review highlights slide";
 "year-in-review-highlights-button-title" = "Title for the share button on Year in Review Highlights slide";
 "year-in-review-highlights-categories" = "Title for the top categories for an user in the Year in review highlights slide";
@@ -1520,7 +1520,7 @@
 "year-in-review-highlights-english-articles" = "Title for the list of most popular articles on English Wikipedia in the Year in review slide";
 "year-in-review-highlights-favorite-day" = "Title for the favorite day to read in the Year in review highlights slide";
 "year-in-review-highlights-number-app-editors" = "Title for the number of edits using the Wikipedia app in the Year in review highlights slide";
-"year-in-review-highlights-personalized-articles" = "Title for the list of articles read the longest in the year in review slide";
+"year-in-review-highlights-personalized-articles" = "Title for the list of articles read the most in the year in review slide";
 "year-in-review-highlights-reading-time" = "Title for the minutes read in the Year in review highlights slide";
 "year-in-review-highlights-share-logo-caption" = "Caption for Wikipedia logo on sharable version of the highlights year in review slide";
 "year-in-review-highlights-subtitle" = "Subtitle for year in review highlights slide";
