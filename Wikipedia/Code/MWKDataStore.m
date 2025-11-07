@@ -538,7 +538,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     }
 
     if (currentLibraryVersion < 20) {
-        // Ensures we have a instance o WMFData.coreDataStore
+        // Ensures we have a instance of WMFData.coreDataStore
         if (![WMFDataBridge ensureDataStoreReadySynchronouslyWithTimeout:15]) {
             DDLogError(@"WMFData store not ready; aborting migrations");
             return;

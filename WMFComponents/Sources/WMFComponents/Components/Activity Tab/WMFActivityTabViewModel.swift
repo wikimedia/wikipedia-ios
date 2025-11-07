@@ -93,7 +93,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         )
 
         self.articlesSavedViewModel = ArticlesSavedViewModel(
-            dataController: dataController,
             dateFormatter: dateFormatter
         )
 

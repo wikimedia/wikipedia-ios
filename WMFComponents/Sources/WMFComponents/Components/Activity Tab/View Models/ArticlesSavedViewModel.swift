@@ -1,19 +1,18 @@
 import WMFData
 import SwiftUI
 
-
 @MainActor
 public final class ArticlesSavedViewModel: ObservableObject {
     @Published public var articlesSavedAmount: Int = 0
     @Published public var dateTimeLastSaved: String = ""
     @Published public var articlesSavedThumbURLs: [URL?] = []
 
-    private var dataController: WMFActivityTabDataController
+    private var dataController: WMFSavedArticlesDataController
     private let dateFormatter: (Date) -> String
     private let calendar: Calendar
 
     public init(
-        dataController: WMFActivityTabDataController = .shared,
+        dataController: WMFSavedArticlesDataController = .shared,
         dateFormatter: @escaping (Date) -> String,
         calendar: Calendar = .current
     ) {
