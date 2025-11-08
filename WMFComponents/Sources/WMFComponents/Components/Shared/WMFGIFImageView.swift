@@ -18,7 +18,34 @@ struct WMFGIFImageView: UIViewRepresentable {
         
         if let url = Bundle.module.url(forResource: name, withExtension: "gif"),
            let gifData = try? Data(contentsOf: url) {
-            webview.load(gifData, mimeType: "image/gif", characterEncodingName: "UTF-8", baseURL: url.deletingLastPathComponent())
+            
+            // Encode GIF as base64 to safely embed it in HTML
+            let base64String = gifData.base64EncodedString()
+            
+            let html = """
+            <html>
+              <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+                <style>
+                  html, body {
+                    margin: 0;
+                    padding: 0;
+                    background: transparent;
+                  }
+                  img {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                  }
+                </style>
+              </head>
+              <body>
+                <img src="data:image/gif;base64,\(base64String)" />
+              </body>
+            </html>
+            """
+            
+            webview.loadHTMLString(html, baseURL: nil)
         } else {
             debugPrint("Error: Could not find or load gif: \(name).")
         }
@@ -27,6 +54,6 @@ struct WMFGIFImageView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        uiView.reload()
+        
     }
 }
