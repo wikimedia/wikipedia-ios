@@ -13,7 +13,8 @@ let package = Package(
             targets: ["WMFComponents"])
     ],
     dependencies: [
-        .package(name: "WMFData", path: "../WMFData/")
+        .package(name: "WMFData", path: "../WMFData/"),
+        .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.19.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -27,7 +28,8 @@ let package = Package(
             dependencies: [
                 "WMFComponentsObjC",
                 .product(name: "WMFData", package: "WMFData"),
-                .product(name: "WMFDataMocks", package: "WMFData")
+                .product(name: "WMFDataMocks", package: "WMFData"),
+                .product(name: "SDWebImage", package: "SDWebImage")
             ],
             path: "Sources/WMFComponents",
             resources: [
