@@ -26,6 +26,14 @@ import CocoaLumberjackSwift
         }
     }
 
+    @objc public func removeFromSaved(forArticleObjectID objectID: NSManagedObjectID) {
+        unsave(forArticleObjectID: objectID)
+    }
+
+    @objc public func clearAll() {
+        clearAllSavedData()
+    }
+
     // MARK: - Migration
 
     private func runMigration(limit: Int?) {
@@ -95,7 +103,9 @@ import CocoaLumberjackSwift
         }
     }
 
-    @objc func revertSavedState(forArticleObjectID objectID: NSManagedObjectID) {
+    // MARK: - Update Saved State
+
+    @objc func unsave(forArticleObjectID objectID: NSManagedObjectID) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
 
         dataStore.performBackgroundCoreDataOperation { wikipediaContext in
@@ -130,8 +140,6 @@ import CocoaLumberjackSwift
             }
         }
     }
-
-    // MARK: - Update Saved State
 
     private func syncSavedState(from article: WMFArticle,
                                 to wmfDataContext: NSManagedObjectContext,
@@ -207,6 +215,51 @@ import CocoaLumberjackSwift
             let saved = CDPageSavedInfo(context: wmfContext)
             saved.savedDate = snapshot.savedDate
             page.savedInfo = saved
+        }
+    }
+
+    // MARK: - Delete all
+
+    @objc func clearAllSavedData() {
+        guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
+            DDLogError("[SavedPagesMigration] Missing WMFData store")
+            return
+        }
+
+        guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+            DDLogError("[SavedPagesMigration] Could not create WMFData background context")
+            return
+        }
+        wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+        let batchSize = 1000
+
+        wmfContext.performAndWait {
+            do {
+                var deletedCount = 0
+                repeat {
+                    let infos: [CDPageSavedInfo]? = try wmfDataStore.fetch(
+                        entityType: CDPageSavedInfo.self,
+                        predicate: nil,
+                        fetchLimit: batchSize,
+                        sortDescriptors: nil,
+                        in: wmfContext
+                    )
+
+                    guard let infos, !infos.isEmpty else { break }
+
+                    for info in infos {
+                        wmfContext.delete(info)
+                        deletedCount += 1
+                    }
+
+                    try wmfContext.save()
+                } while deletedCount % batchSize == 0
+
+            } catch {
+                DDLogError("[SavedPagesMigration] Bulk clear in WMFData failed: \(error)")
+            }
+
         }
     }
 

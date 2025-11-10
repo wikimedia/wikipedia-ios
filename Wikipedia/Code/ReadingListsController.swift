@@ -491,6 +491,7 @@ public typealias ReadingListsController = WMFReadingListsController
         }
 
         newSyncState.remove(.needsUpdate)
+        WMFArticleSavedStateMigrationManager.shared.clearAll()
 
         guard newSyncState != oldSyncState else {
             return
