@@ -4,6 +4,7 @@ import WMFData
 import CocoaLumberjackSwift
 
 @objc final class WMFArticleSavedStateMigrationManager: NSObject {
+
     @objc static let shared = WMFArticleSavedStateMigrationManager()
     let dataStore = MWKDataStore.shared()
 
@@ -25,7 +26,7 @@ import CocoaLumberjackSwift
         }
     }
 
-    // MARK: - Private
+    // MARK: - Migration
 
     private func runMigration(limit: Int?) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
@@ -50,23 +51,53 @@ import CocoaLumberjackSwift
                 let articles = try wikipediaContext.fetch(request)
                 guard !articles.isEmpty else { return }
 
+                var snapshots: [SavedArticleSnapshot] = []
+                snapshots.reserveCapacity(articles.count)
+
                 for article in articles {
-                    guard let savedDate = article.savedDate else { continue }
-                    try self.syncSavedState(from: article, to: wmfContext, action: .save(date: savedDate), wmfDataStore: wmfDataStore)
-                    article.isSavedMigrated = true
+                    guard
+                        let savedDate = article.savedDate,
+                        let ids = self.getIdFromLegacyArticleURL(article)
+                    else { continue }
+
+                    snapshots.append(
+                        SavedArticleSnapshot(
+                            ids: ids,
+                            savedDate: savedDate,
+                            viewedDate: article.viewedDate
+                        )
+                    )
                 }
 
-                try wikipediaContext.save()
-                try wmfContext.save()
+                guard !snapshots.isEmpty else { return }
+
+                var applyError: Error?
+                wmfContext.performAndWait {
+                    do {
+                        for snap in snapshots {
+                            try self.applySavedStateOnWMFContext(snapshot: snap, in: wmfContext, wmfDataStore: wmfDataStore)
+                        }
+                        if wmfContext.hasChanges { try wmfContext.save() }
+                    } catch {
+                        applyError = error
+                    }
+                }
+                if let applyError { throw applyError }
+
+                for article in articles {
+                    article.isSavedMigrated = true
+                }
+                if wikipediaContext.hasChanges { try wikipediaContext.save() }
+
             } catch {
                 DDLogError("WMFArticle isSavedMigrated migration error: \(error)")
             }
         }
     }
 
-    // MARK: - Revert / Unsave
+    // MARK: - Update Saved State
 
-    @objc func revertSavedState(forArticleObjectID objectID: NSManagedObjectID) {
+    @objc private func revertSavedState(forArticleObjectID objectID: NSManagedObjectID) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
 
         dataStore.performBackgroundCoreDataOperation { wikipediaContext in
@@ -84,10 +115,18 @@ import CocoaLumberjackSwift
                 article.isSavedMigrated = false
                 article.savedDate = nil
 
-                try self.syncSavedState(from: article, to: wmfContext, action: .unsave, wmfDataStore: wmfDataStore)
+                var applyError: Error?
+                wmfContext.performAndWait {
+                    do {
+                        try self.syncSavedState(from: article, to: wmfContext, action: .unsave, wmfDataStore: wmfDataStore)
+                        if wmfContext.hasChanges { try wmfContext.save() }
+                    } catch {
+                        applyError = error
+                    }
+                }
+                if let applyError { throw applyError }
 
                 if wikipediaContext.hasChanges { try wikipediaContext.save() }
-                if wmfContext.hasChanges { try wmfContext.save() }
             } catch {
                 DDLogError("Unsave revert failed for objectID \(objectID): \(error)")
             }
@@ -95,9 +134,10 @@ import CocoaLumberjackSwift
     }
 
 
-    // MARK: - Save/Unsave
-
-    private func syncSavedState(from article: WMFArticle, to wmfDataContext: NSManagedObjectContext, action: SavedSyncAction, wmfDataStore: WMFCoreDataStore) throws {
+    private func syncSavedState(from article: WMFArticle,
+                                to wmfDataContext: NSManagedObjectContext,
+                                action: SavedSyncAction,
+                                wmfDataStore: WMFCoreDataStore) throws {
         guard let ids = getIdFromLegacyArticleURL(article) else {
             return
         }
@@ -105,53 +145,69 @@ import CocoaLumberjackSwift
         let namespaceID = ids.namespaceID
         let title = ids.title
 
-        let predicate = NSPredicate(format: "projectID == %@ AND namespaceID == %d AND title == %@",
-                                    projectID, namespaceID, title)
+        let predicate = NSPredicate(
+            format: "projectID == %@ AND namespaceID == %d AND title == %@",
+            projectID, namespaceID, title
+        )
 
         switch action {
         case .save(let date):
-            guard let page = try wmfDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: wmfDataContext) else {
-                DDLogError("Unsave from CDSavedPage: no CDPage found for PID\(projectID) nsID\(namespaceID) title\(title)")
-                return
-            }
-
-            page.title = title
-            page.namespaceID = namespaceID
-            page.projectID = projectID
-
-            page.timestamp = article.viewedDate ?? date
-
-            if let existing = page.savedInfo {
-                existing.savedDate = date
-            } else {
-                let saved = CDPageSavedInfo(context: wmfDataContext)
-                saved.savedDate = date
-                page.savedInfo = saved
-            }
+            // Use snapshot-based writer; caller must already be on WMF context queue
+            let snap = SavedArticleSnapshot(ids: ids, savedDate: date, viewedDate: article.viewedDate)
+            try applySavedStateOnWMFContext(snapshot: snap, in: wmfDataContext, wmfDataStore: wmfDataStore)
 
         case .unsave:
-            guard let page = try wmfDataStore.fetch(entityType: CDPage.self, predicate: predicate, fetchLimit: 1, in: wmfDataContext) else {
-
-                DDLogError("[SavedPagesMigration] Unsave: no CDPage found for PID\(projectID) nsID\(namespaceID) title\(title)")
-                return
-            }
-
-            guard let page = page.first else {
-                DDLogError("[SavedPagesMigration] Unsave: no CDPage found for PID\(projectID) nsID\(namespaceID) title\(title)")
+            guard let pages: [CDPage] = try wmfDataStore.fetch(
+                entityType: CDPage.self,
+                predicate: predicate,
+                fetchLimit: 1,
+                in: wmfDataContext
+            ), let page = pages.first else {
+                DDLogError("[SavedPagesMigration] Unsave: no CDPage for PID \(projectID) nsID \(namespaceID) title \(title)")
                 return
             }
 
             if let saved = page.savedInfo {
                 wmfDataContext.delete(saved)
             } else {
-                DDLogError("[SavedPagesMigration] Error deleting page\(page), title\(title)")
+                DDLogError("[SavedPagesMigration] Error deleting savedInfo for title \(title)")
             }
             page.savedInfo = nil
 
             if page.timestamp == nil {
                 DDLogInfo("[SavedPagesMigration] Deleting CDPage for \(title) — timestamp nil after unsave")
             }
+        }
+    }
 
+    private func applySavedStateOnWMFContext(snapshot: SavedArticleSnapshot, in wmfContext: NSManagedObjectContext, wmfDataStore: WMFCoreDataStore) throws {
+        let projectID = snapshot.ids.projectID
+        let namespaceID = snapshot.ids.namespaceID
+        let title = snapshot.ids.title
+
+        let predicate = NSPredicate(
+            format: "projectID == %@ AND namespaceID == %d AND title == %@",
+            projectID, namespaceID, title
+        )
+
+        guard let page = try wmfDataStore.fetchOrCreate(entityType: CDPage.self,
+                                                        predicate: predicate,
+                                                        in: wmfContext) else {
+            DDLogError("[SavedPagesMigration] save: no CDPage for PID \(projectID) nsID \(namespaceID) title \(title)")
+            return
+        }
+
+        page.title = title
+        page.namespaceID = namespaceID
+        page.projectID = projectID
+        page.timestamp = snapshot.viewedDate ?? snapshot.savedDate
+
+        if let existing = page.savedInfo {
+            existing.savedDate = snapshot.savedDate
+        } else {
+            let saved = CDPageSavedInfo(context: wmfContext)
+            saved.savedDate = snapshot.savedDate
+            page.savedInfo = saved
         }
     }
 
@@ -168,6 +224,12 @@ import CocoaLumberjackSwift
         let title: String
     }
 
+    private struct SavedArticleSnapshot {
+        let ids: PageIDs
+        let savedDate: Date
+        let viewedDate: Date?
+    }
+
     private func getIdFromLegacyArticleURL(_ article: WMFArticle) -> PageIDs? {
         guard
             let url = article.url,
@@ -182,5 +244,4 @@ import CocoaLumberjackSwift
 
         return PageIDs(projectID: projectID, namespaceID: namespaceID, title: title)
     }
-
 }
