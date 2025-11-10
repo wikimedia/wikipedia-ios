@@ -25,7 +25,7 @@
         <relationship name="articleTabItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDArticleTabItem" inverseName="page" inverseEntity="CDArticleTabItem"/>
         <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCategory" inverseName="pages" inverseEntity="CDCategory"/>
         <relationship name="pageViews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="page" inverseEntity="CDPageView"/>
-        <relationship name="savedDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSavedPage" inverseName="page" inverseEntity="CDSavedPage"/>
+        <relationship name="savedInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPageSavedInfo" inverseName="page" inverseEntity="CDPageSavedInfo"/>
         <fetchIndex name="byProjectNamespace">
             <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
             <fetchIndexElement property="namespaceID" type="Binary" order="ascending"/>
@@ -36,16 +36,16 @@
             <fetchIndexElement property="title" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
+    <entity name="CDPageSavedInfo" representedClassName="CDPageSavedInfo" syncable="YES" codeGenerationType="class">
+        <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPage" inverseName="savedInfo" inverseEntity="CDPage"/>
+    </entity>
     <entity name="CDPageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
         <attribute name="numberOfSeconds" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="nextPageViews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="previousPageView" inverseEntity="CDPageView"/>
         <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPage" inverseName="pageViews" inverseEntity="CDPage"/>
         <relationship name="previousPageView" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="nextPageViews" inverseEntity="CDPageView"/>
-    </entity>
-    <entity name="CDSavedPage" representedClassName="CDSavedPage" syncable="YES" codeGenerationType="class">
-        <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPage" inverseName="savedDate" inverseEntity="CDPage"/>
     </entity>
     <entity name="CDYearInReviewReport" representedClassName="CDYearInReviewReport" syncable="YES" codeGenerationType="class">
         <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
