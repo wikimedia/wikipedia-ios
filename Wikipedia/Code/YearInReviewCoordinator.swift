@@ -147,10 +147,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedYourEditsViewedSlideSubtitle: personalizedYourEditsViewedSlideSubtitle(views:),
             personalizedThankYouTitle: WMFLocalizedString("year-in-review-personalized-donate-title", value: "Your generosity helped keep Wikipedia thriving", comment: "Year in review, personalized donate slide title for users that donated at least once that year. "),
             personalizedThankYouSubtitle: personalizedThankYouSubtitle(languageCode:),
-            personalizedMostReadCategoriesSlideTitle: "Your most interesting categories", // TODO: Localize when we have final product requirements,
-            personalizedMostReadCategoriesSlideSubtitle: personalizedListSlideSubtitle(items:),
+            personalizedMostReadCategoriesSlideTitle: WMFLocalizedString("year-in-review-most-read-categories-title", value: "Your most interesting categories", comment: "Year in review, personalized categories slide title"),
+            personalizedMostReadCategoriesSlideSubtitle: personalizedMostReadCategoriesSlideSubtitle(items:),
             personalizedMostReadArticlesSlideTitle: WMFLocalizedString("year-in-review-personalized-most-read-articles-title", value: "Your top articles", comment: "Year in review, personalized most read articles slide title"),
-            personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
+            personalizedMostReadArticlesSlideSubtitle: personalizedMostReadArticlesSlideSubtitle(items:),
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
             personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:),
             noncontributorTitle: noncontributorTitle(),
@@ -160,13 +160,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             contributorSubtitle: contributorSlideSubtitle(isEditor:isDonator:),
             contributorGiftTitle: WMFLocalizedString("year-in-review-contributor-gift-title", value: "Activate new app icon", comment: "Year in review title for the new icon"),
             contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon"),
-            highlightsSlideTitle: WMFLocalizedString("year-in-review-highlights-title", value: "Thank you for spending your year with Wikipedia", comment: "Title for year in review highlights slide"),
+            highlightsSlideTitle: WMFLocalizedString("year-in-review-highlights-title", value: "Thank you for spending your year with Wikipedia.", comment: "Title for year in review highlights slide"),
             highlightsSlideSubtitle: WMFLocalizedString("year-in-review-highlights-subtitle", value: "We look forward to next year!", comment: "Subtitle for year in review highlights slide"),
             highlightsSlideButtonTitle: WMFLocalizedString("year-in-review-highlights-button-title", value: "Share highlights", comment: "Title for the share button on Year in Review Highlights slide"),
-            longestReadArticlesTitle: WMFLocalizedString("year-in-review-highlights-personalized-articles", value: "Articles I read the longest", comment: "Title for the list of articles read the longest in the year in review slide"),
+            mostReadArticlesTitle: WMFLocalizedString("year-in-review-highlights-personalized-articles", value: "Articles I read the most", comment: "Title for the list of articles read the most in the year in review slide"),
             minutesReadTitle: WMFLocalizedString("year-in-review-highlights-reading-time", value: "Minutes read", comment: "Title for the minutes read in the Year in review highlights slide"),
             favoriteReadingDayTitle: WMFLocalizedString("year-in-review-highlights-favorite-day", value: "Favorite day to read", comment: "Title for the favorite day to read in the Year in review highlights slide"),
-            savedArticlesTitle: WMFLocalizedString("year-in-review-highlights-articles-saved", value: "Articles saved", comment: "Title for the articles saved by an user in the Year in review highlights slide"),
+            articlesReadTitle: WMFLocalizedString("year-in-review-highlights-articles-read", value: "Articles read", comment: "Title for the articles read by a user in the Year in review highlights slide"),
             favoriteCategoriesTitle: WMFLocalizedString("year-in-review-highlights-categories", value: "Categories that interested me", comment: "Title for the top categories for an user in the Year in review highlights slide"),
             editedArticlesTitle: WMFLocalizedString("year-in-review-highlights-times-edited", value: "Times edited", comment: "Title for the number of articles edited by an user in the Year in review highlights slide"),
             enWikiTopArticlesTitle: WMFLocalizedString("year-in-review-highlights-english-articles", value: "Most read articles on English Wikipedia", comment: "Title for the list of most popular articles on English Wikipedia in the Year in review slide"),
@@ -742,6 +742,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         return "\(listItems)"
+    }
+    
+    func personalizedMostReadCategoriesSlideSubtitle(items: [String]) -> String {
+        let format = WMFLocalizedString("year-in-review-categories-slide-subtitle", value: "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times\n%1$@", comment: "Year in review categories slide subtitle, $1 is the list of top categories.")
+        return String.localizedStringWithFormat(format, personalizedListSlideSubtitle(items: items))
+    }
+    
+    func personalizedMostReadArticlesSlideSubtitle(items: [String]) -> String {
+        let format = WMFLocalizedString("year-in-review-articles-slide-subtitle", value: "Here were the articles you visited the most in 2025:\n%1$@", comment: "Year in review articles slide subtitle, $1 is the list of top articles.")
+        return String.localizedStringWithFormat(format, personalizedListSlideSubtitle(items: items))
     }
     
     func personalizedLocationSlideTitle(countryOrOcean: String) -> String {

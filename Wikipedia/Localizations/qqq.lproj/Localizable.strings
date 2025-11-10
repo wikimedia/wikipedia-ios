@@ -1464,6 +1464,7 @@
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
+"year-in-review-articles-slide-subtitle" = "Year in review articles slide subtitle, $1 is the list of top articles.";
 "year-in-review-base-editors-subtitle" = "Year in review, collective edits count slide subtitle.";
 "year-in-review-base-editors-title" = "Year in review, collective edits count slide title, $1 is replaced with the number of edits made on apps, shown in numeric form (e.g. 124,356).";
 "year-in-review-base-edits-subtitle" = "Year in review, collective edits per minute slide subtitle, $1 is replaced with a link to the Mediawiki Apps team FAQ about editing.";
@@ -1475,6 +1476,7 @@
 "year-in-review-base-viewed-subtitle" = "Year in review, collective article view count subtitle.";
 "year-in-review-base-viewed-title" = "Year in review, collective article view count slide title. $1 is replaced with the text representing the number of article views across Wikipedia on apps, shown in numeric form (e.g. 1,000,000,000).";
 "year-in-review-button-title" = "Year in review title. Appears on buttons in the profile and settings menu.";
+"year-in-review-categories-slide-subtitle" = "Year in review categories slide subtitle, $1 is the list of top categories.";
 "year-in-review-collective-article-views" = "Accessibility description for the collective article views slide.";
 "year-in-review-collective-edits" = "Accessibility description for the collective edits slide.";
 "year-in-review-collective-edits-per-minute" = "Accessibility description for the collective edits per minute slide.";
@@ -1506,7 +1508,7 @@
 "year-in-review-feature-explore-body-v3" = "Body for year in review feature announcement - version 3";
 "year-in-review-feature-explore-footer-v3" = "Footer text in the year in review intro view.";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
-"year-in-review-highlights-articles-saved" = "Title for the articles saved by an user in the Year in review highlights slide";
+"year-in-review-highlights-articles-read" = "Title for the articles read by a user in the Year in review highlights slide";
 "year-in-review-highlights-articles-viewed" = "Title for the number of viewed articles in Wikipedia in the Year in review highlights slide";
 "year-in-review-highlights-button-title" = "Title for the share button on Year in Review Highlights slide";
 "year-in-review-highlights-categories" = "Title for the top categories for an user in the Year in review highlights slide";
@@ -1518,7 +1520,7 @@
 "year-in-review-highlights-english-articles" = "Title for the list of most popular articles on English Wikipedia in the Year in review slide";
 "year-in-review-highlights-favorite-day" = "Title for the favorite day to read in the Year in review highlights slide";
 "year-in-review-highlights-number-app-editors" = "Title for the number of edits using the Wikipedia app in the Year in review highlights slide";
-"year-in-review-highlights-personalized-articles" = "Title for the list of articles read the longest in the year in review slide";
+"year-in-review-highlights-personalized-articles" = "Title for the list of articles read the most in the year in review slide";
 "year-in-review-highlights-reading-time" = "Title for the minutes read in the Year in review highlights slide";
 "year-in-review-highlights-share-logo-caption" = "Caption for Wikipedia logo on sharable version of the highlights year in review slide";
 "year-in-review-highlights-subtitle" = "Subtitle for year in review highlights slide";
@@ -1526,6 +1528,7 @@
 "year-in-review-highlights-title" = "Title for year in review highlights slide";
 "year-in-review-intro-exit-toast-title" = "Toast displayed to user after the exit Year in Review on the intro slide.";
 "year-in-review-intro-login-title" = "Title of alert that asks user to login if they want to view the personalized feature.";
+"year-in-review-most-read-categories-title" = "Year in review, personalized categories slide title";
 "year-in-review-non-contributor-slide-title" = "Year in review, non contributor slide title";
 "year-in-review-noncontributor-slide-subtitle" = "Year in review, noncontributor slide subtitle. $1 is replaced with the Year in Review target year (e.g. 2025). $2 is replaced with the Year in Review target year + 1 (e.g. 2026). $3 is replaced with a MediaWiki url with more information about editing. $4 is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.";
 "year-in-review-personalized-date-day-footer-v3" = "Year in review, personalized slide footer text below the day-of-week that users read the most.";
