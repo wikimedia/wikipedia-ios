@@ -3,9 +3,9 @@ import CoreData
 import WMFData
 import CocoaLumberjackSwift
 
-@objc final class WMFArticleSavedStateMigrationManager: NSObject {
+@objc public final class WMFArticleSavedStateMigrationManager: NSObject {
 
-    @objc static let shared = WMFArticleSavedStateMigrationManager()
+    @objc public static let shared = WMFArticleSavedStateMigrationManager()
     let dataStore = MWKDataStore.shared()
 
     override private init() {
@@ -14,7 +14,7 @@ import CocoaLumberjackSwift
 
     // MARK: - Public API
 
-    @objc func migrateAllIfNeeded() {
+    @objc public func migrateAllIfNeeded() {
         DispatchQueue.main.async {
             self.runMigration(limit: nil)
         }

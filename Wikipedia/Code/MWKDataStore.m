@@ -15,7 +15,7 @@ NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 NSString *const WMFViewContextDidResetNotification = @"WMFViewContextDidResetNotification";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 20;
+static const NSInteger WMFCurrentLibraryVersion = 19;
 
 NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
 
@@ -533,23 +533,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
         [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:nil]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
-            return;
-        }
-    }
-
-    if (currentLibraryVersion < 20) {
-        // Ensures we have a instance of WMFData.coreDataStore
-        if (![WMFDataBridge ensureDataStoreReadySynchronouslyWithTimeout:15]) {
-            DDLogError(@"WMFData store not ready; aborting migrations");
-            return;
-        }
-
-        [[WMFArticleSavedStateMigrationManager shared] migrateAllIfNeeded];
-        [moc wmf_setValue:@(20) forKey:WMFLibraryVersionKey];
-
-        NSError *migrationError = nil;
-        if ([moc hasChanges] && ![moc save:&migrationError]) {
-            DDLogError(@"Error saving during WMF 20 migration: %@", migrationError);
             return;
         }
     }

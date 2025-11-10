@@ -637,6 +637,8 @@ extension WMFAppViewController {
         Task {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
+                WMFArticleSavedStateMigrationManager.shared.migrateAllIfNeeded()
+
             } catch let error {
                 DDLogError("Error setting up WMFCoreDataStore: \(error)")
             }
