@@ -95,9 +95,7 @@ import CocoaLumberjackSwift
         }
     }
 
-    // MARK: - Update Saved State
-
-    @objc private func revertSavedState(forArticleObjectID objectID: NSManagedObjectID) {
+    @objc func revertSavedState(forArticleObjectID objectID: NSManagedObjectID) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
 
         dataStore.performBackgroundCoreDataOperation { wikipediaContext in
@@ -133,6 +131,7 @@ import CocoaLumberjackSwift
         }
     }
 
+    // MARK: - Update Saved State
 
     private func syncSavedState(from article: WMFArticle,
                                 to wmfDataContext: NSManagedObjectContext,
