@@ -43,11 +43,11 @@ public actor WMFSavedArticlesDataController {
     // MARK: - Private functions
 
     private func fetchSavedArticleSnapshots(startDate: Date, endDate: Date) async throws -> [SavedArticleSnapshot] {
-        guard let coreDataStore else { throw WMFServiceError.missingData }
+        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
         let context = try coreDataStore.newBackgroundContext
 
         let startNSDate = startDate as NSDate
-        let endNSDate   = endDate as NSDate
+        let endNSDate = endDate as NSDate
 
         return try await context.perform {
             let sortDescriptor = NSSortDescriptor(key: "savedDate.savedDate", ascending: false)

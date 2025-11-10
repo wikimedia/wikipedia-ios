@@ -121,12 +121,12 @@ import CocoaLumberjackSwift
 
             page.timestamp = article.viewedDate ?? date
 
-            if let existing = page.savedDate {
+            if let existing = page.savedInfo {
                 existing.savedDate = date
             } else {
-                let saved = CDSavedPage(context: wmfDataContext)
+                let saved = CDPageSavedInfo(context: wmfDataContext)
                 saved.savedDate = date
-                page.savedDate = saved
+                page.savedInfo = saved
             }
 
         case .unsave:
@@ -141,17 +141,17 @@ import CocoaLumberjackSwift
                 return
             }
 
-            if let saved = page.savedDate {
+            if let saved = page.savedInfo {
                 wmfDataContext.delete(saved)
             } else {
                 DDLogError("[SavedPagesMigration] Error deleting page\(page), title\(title)")
             }
-            page.savedDate = nil
+            page.savedInfo = nil
 
             if page.timestamp == nil {
                 DDLogInfo("[SavedPagesMigration] Deleting CDPage for \(title) — timestamp nil after unsave")
-                // TODO: should delete the CDPage????????
             }
+
         }
     }
 
