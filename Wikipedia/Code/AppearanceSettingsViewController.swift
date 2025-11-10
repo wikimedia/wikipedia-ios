@@ -112,6 +112,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: TextSizeChangeExampleViewController(nibName: "TextSizeChangeExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, subtitle: nil, spacing: 15.0), AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: FontSizeSliderViewController(nibName: "FontSizeSliderViewController", bundle: nil))])
         
         let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        AppIconUtility.shared.checkAndRevertIfExpired()
         if (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue)) ?? false {
             let appIconSection = AppearanceSettingsSection(
                 headerTitle: WMFLocalizedString("appearance-settings-set-icon-header", value: "App Icon", comment: "Header text for changing app icon"),
