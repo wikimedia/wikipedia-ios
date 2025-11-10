@@ -49,10 +49,10 @@ public actor WMFSavedArticlesDataController {
         let startNSDate = startDate as NSDate
         let endNSDate = endDate as NSDate
 
-        return try await context.perform {
-            let sortDescriptor = NSSortDescriptor(key: "savedDate.savedDate", ascending: false)
+        return try await context.perform { () throws -> [SavedArticleSnapshot] in
+            let sortDescriptor = NSSortDescriptor(key: "savedInfo.savedDate", ascending: false)
             let predicate = NSPredicate(
-                format: "savedDate != nil AND savedDate.savedDate >= %@ AND savedDate.savedDate <= %@",
+                format: "savedInfo != nil AND savedInfo.savedDate >= %@ AND savedInfo.savedDate <= %@",
                 startNSDate, endNSDate
             )
 
@@ -77,7 +77,8 @@ public actor WMFSavedArticlesDataController {
 
                 let project = WMFProject(id: projectID)
                 let url = project?.siteURL?.wmfURL(withTitle: title, languageVariantCode: nil)
-                let date = page.savedDate?.savedDate
+
+                let date = page.savedInfo?.savedDate
 
                 snapshots.append(
                     SavedArticleSnapshot(
