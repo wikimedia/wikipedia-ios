@@ -67,12 +67,13 @@ import CocoaLumberjackSwift
                         let savedDate = article.savedDate,
                         let ids = self.getIdFromLegacyArticleURL(article)
                     else { continue }
+                    let viewedDate = article.viewedDate
 
                     snapshots.append(
                         SavedArticleSnapshot(
                             ids: ids,
                             savedDate: savedDate,
-                            viewedDate: article.viewedDate
+                            viewedDate: viewedDate
                         )
                     )
                 }
@@ -108,46 +109,76 @@ import CocoaLumberjackSwift
     @objc func unsave(forArticleObjectID objectID: NSManagedObjectID) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
 
+        // Value-only data to carry across contexts
+        var ids: PageIDs?
+        var viewedDate: Date?
+        var legacyError: Error?
+
+        let group = DispatchGroup()
+        group.enter()
+
+        // ---------- Phase 1: legacy (Wikipedia) context ----------
         dataStore.performBackgroundCoreDataOperation { wikipediaContext in
             wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            guard let wmfContext = try? wmfDataStore.newBackgroundContext else { return }
-            wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
             do {
-                guard let article = try? wikipediaContext.existingObject(with: objectID) as? WMFArticle else {
-                    DDLogError("Revert failed: article not found for objectID \(objectID)")
+                guard let article = try wikipediaContext.existingObject(with: objectID) as? WMFArticle else {
+                    DDLogError("Unsave failed: article not found for objectID \(objectID)")
+                    group.leave()
                     return
                 }
 
-                article.isSavedMigrated = false
-                article.savedDate = nil
+                ids = self.getIdFromLegacyArticleURL(article)
+                viewedDate = article.viewedDate
 
-                var applyError: Error?
-                wmfContext.performAndWait {
-                    do {
-                        try self.syncSavedState(from: article, to: wmfContext, action: .unsave, wmfDataStore: wmfDataStore)
-                        if wmfContext.hasChanges { try wmfContext.save() }
-                    } catch {
-                        applyError = error
-                    }
-                }
-                if let applyError { throw applyError }
-
-                if wikipediaContext.hasChanges { try wikipediaContext.save() }
             } catch {
-                DDLogError("Unsave revert failed for objectID \(objectID): \(error)")
+                legacyError = error
+            }
+
+            group.leave()
+        }
+
+        group.notify(queue: .global(qos: .userInitiated)) {
+            if let err = legacyError {
+                DDLogError("Unsave (legacy) failed for objectID \(objectID): \(err)")
+                return
+            }
+            guard let ids else {
+                DDLogError("Unsave aborted: missing PageIDs for objectID \(objectID)")
+                return
+            }
+
+            guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+                DDLogError("[SavedPagesMigration] WMF background context unavailable")
+                return
+            }
+            wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+            wmfContext.perform {
+                do {
+                    try self.syncSavedState(
+                        fromArticleWith: ids,
+                        viewedDate: viewedDate,
+                        to: wmfContext,
+                        action: .unsave,
+                        wmfDataStore: wmfDataStore
+                    )
+                    if wmfContext.hasChanges {
+                        try wmfContext.save()
+                    }
+                } catch {
+                    DDLogError("[SavedPagesMigration] WMF unsave apply failed: \(error)")
+                }
             }
         }
     }
 
-    private func syncSavedState(from article: WMFArticle,
+    private func syncSavedState(fromArticleWith ids: PageIDs,
+                                viewedDate: Date?,
                                 to wmfDataContext: NSManagedObjectContext,
                                 action: SavedSyncAction,
                                 wmfDataStore: WMFCoreDataStore) throws {
-        guard let ids = getIdFromLegacyArticleURL(article) else {
-            return
-        }
+
         let projectID = ids.projectID
         let namespaceID = ids.namespaceID
         let title = ids.title
@@ -159,8 +190,7 @@ import CocoaLumberjackSwift
 
         switch action {
         case .save(let date):
-            // Use snapshot-based writer; caller must already be on WMF context queue
-            let snap = SavedArticleSnapshot(ids: ids, savedDate: date, viewedDate: article.viewedDate)
+            let snap = SavedArticleSnapshot(ids: ids, savedDate: date, viewedDate: viewedDate)
             try applySavedStateOnWMFContext(snapshot: snap, in: wmfDataContext, wmfDataStore: wmfDataStore)
 
         case .unsave:
@@ -176,10 +206,10 @@ import CocoaLumberjackSwift
 
             if let saved = page.savedInfo {
                 wmfDataContext.delete(saved)
+                page.savedInfo = nil
             } else {
-                DDLogError("[SavedPagesMigration] Error deleting savedInfo for title \(title)")
+                DDLogInfo("[SavedPagesMigration] Unsave no-op: savedInfo already nil for title \(title)")
             }
-            page.savedInfo = nil
 
             if page.timestamp == nil {
                 DDLogInfo("[SavedPagesMigration] Deleting CDPage for \(title) — timestamp nil after unsave")
