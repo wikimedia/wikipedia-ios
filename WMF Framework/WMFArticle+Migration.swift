@@ -117,7 +117,6 @@ import CocoaLumberjackSwift
         let group = DispatchGroup()
         group.enter()
 
-        // ---------- Phase 1: legacy (Wikipedia) context ----------
         dataStore.performBackgroundCoreDataOperation { wikipediaContext in
             wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
@@ -262,34 +261,23 @@ import CocoaLumberjackSwift
         }
         wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-        let batchSize = 1000
-
-        wmfContext.performAndWait {
+        wmfContext.perform {
             do {
-                var deletedCount = 0
-                repeat {
-                    let infos: [CDPageSavedInfo]? = try wmfDataStore.fetch(
-                        entityType: CDPageSavedInfo.self,
-                        predicate: nil,
-                        fetchLimit: batchSize,
-                        sortDescriptors: nil,
-                        in: wmfContext
+                let savedInfoFR = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageSavedInfo")
+                let deleteSavedInfo = NSBatchDeleteRequest(fetchRequest: savedInfoFR)
+                deleteSavedInfo.resultType = .resultTypeObjectIDs
+
+                if let result = try wmfContext.execute(deleteSavedInfo) as? NSBatchDeleteResult,
+                   let deletedIDs = result.result as? [NSManagedObjectID],
+                   !deletedIDs.isEmpty {
+                    NSManagedObjectContext.mergeChanges(
+                        fromRemoteContextSave: [NSDeletedObjectsKey: deletedIDs],
+                        into: [wmfContext, (try? wmfDataStore.viewContext)].compactMap { $0 }
                     )
-
-                    guard let infos, !infos.isEmpty else { break }
-
-                    for info in infos {
-                        wmfContext.delete(info)
-                        deletedCount += 1
-                    }
-
-                    try wmfContext.save()
-                } while deletedCount % batchSize == 0
-
+                }
             } catch {
-                DDLogError("[SavedPagesMigration] Bulk clear in WMFData failed: \(error)")
+                DDLogError("[SavedPagesMigration] Batch clear in WMFData failed: \(error)")
             }
-
         }
     }
 
