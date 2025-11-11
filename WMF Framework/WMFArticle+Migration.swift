@@ -16,7 +16,7 @@ import CocoaLumberjackSwift
 
     @objc public func migrateAllIfNeeded() {
         DispatchQueue.main.async {
-            self.runMigration(limit: nil)
+            self.runMigration(limit: 500)
         }
     }
 
@@ -54,6 +54,7 @@ import CocoaLumberjackSwift
             do {
                 let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
                 request.predicate = NSPredicate(format: "savedDate != NULL AND (isSavedMigrated == NO OR isSavedMigrated == nil)")
+                request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
                 if let limit { request.fetchLimit = limit }
 
                 let articles = try wikipediaContext.fetch(request)
