@@ -269,7 +269,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
                     if (article.savedDate != nil && !article.isSavedMigrated) {
                         DDLogInfo(@"[SavedMigration] Incremental hook firing for key=%@ savedDate=%@", article.key, article.savedDate);
-                        [WMFArticleSavedStateMigrationManager.shared migrateIncremental];
+                        [WMFArticleSavedStateMigrationManager.shared migrateIncrementalObjC];
                     }
 
                     if (article.savedDate == nil && article.isSavedMigrated) {

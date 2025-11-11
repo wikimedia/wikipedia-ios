@@ -14,46 +14,49 @@ import CocoaLumberjackSwift
 
     // MARK: - Public API
 
-    @objc public func migrateAllIfNeeded() {
-        DispatchQueue.main.async {
-            self.runMigration(limit: 500)
-        }
+    public func migrateAllIfNeeded() async {
+        await runMigration(limit: 500)
     }
 
-    @objc func migrateIncremental() {
-        DispatchQueue.main.async {
-            self.runMigration(limit: 20)
-        }
+    public func migrateIncremental() async {
+        await runMigration(limit: 20)
     }
 
     @objc public func removeFromSaved(forArticleObjectID objectID: NSManagedObjectID) {
         unsave(forArticleObjectID: objectID)
     }
 
-    @objc public func clearAll() {
+    public func clearAll() {
         clearAllSavedData()
     }
 
+    @objc public func migrateIncrementalObjC() {
+        Task { await migrateIncremental() }
+    }
+
+
     // MARK: - Migration
 
-    private func runMigration(limit: Int?) {
+    private func runMigration(limit: Int?) async {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
             DDLogError("Missing WMFData store")
             return
         }
 
-        dataStore.performBackgroundCoreDataOperation { wikipediaContext in
-            wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        do {
+            try await dataStore.performBackgroundCoreDataOperationAsync { wikipediaContext in
+                wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-                DDLogError("Could not create WMFData background context")
-                return
-            }
-            wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+                    DDLogError("Could not create WMFData background context")
+                    return
+                }
+                wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            do {
                 let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-                request.predicate = NSPredicate(format: "savedDate != NULL AND (isSavedMigrated == NO OR isSavedMigrated == nil)")
+                request.predicate = NSPredicate(
+                    format: "savedDate != NULL AND (isSavedMigrated == NO OR isSavedMigrated == nil)"
+                )
                 request.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
                 if let limit { request.fetchLimit = limit }
 
@@ -68,41 +71,35 @@ import CocoaLumberjackSwift
                         let savedDate = article.savedDate,
                         let ids = self.getIdFromLegacyArticleURL(article)
                     else { continue }
-                    let viewedDate = article.viewedDate
 
                     snapshots.append(
                         SavedArticleSnapshot(
                             ids: ids,
                             savedDate: savedDate,
-                            viewedDate: viewedDate
+                            viewedDate: article.viewedDate
                         )
                     )
                 }
 
                 guard !snapshots.isEmpty else { return }
 
-                var applyError: Error?
-                wmfContext.performAndWait {
-                    do {
-                        for snap in snapshots {
-                            try self.applySavedStateOnWMFContext(snapshot: snap, in: wmfContext, wmfDataStore: wmfDataStore)
-                        }
-                        if wmfContext.hasChanges { try wmfContext.save() }
-                    } catch {
-                        applyError = error
+                try await wmfContext.perform {
+                    for snap in snapshots {
+                        try self.applySavedStateOnWMFContext(snapshot: snap, in: wmfContext, wmfDataStore: wmfDataStore)
                     }
+                    if wmfContext.hasChanges { try wmfContext.save() }
                 }
-                if let applyError { throw applyError }
 
                 for article in articles {
                     article.isSavedMigrated = true
                 }
                 if wikipediaContext.hasChanges { try wikipediaContext.save() }
-
-            } catch {
-                DDLogError("WMFArticle isSavedMigrated migration error: \(error)")
             }
+
+        } catch {
+            DDLogError("WMFArticle migration error: \(error)")
         }
+
     }
 
     // MARK: - Update Saved State
@@ -316,3 +313,26 @@ import CocoaLumberjackSwift
         return PageIDs(projectID: projectID, namespaceID: namespaceID, title: title)
     }
 }
+
+// MARK: - Private extensions
+
+private extension MWKDataStore {
+    func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) async throws -> T) async throws -> T {
+        try await withCheckedThrowingContinuation { continuation in
+            // Background ops should start on the main thread
+            Task { @MainActor in
+                self.performBackgroundCoreDataOperation { context in
+                    Task {
+                        do {
+                            let value = try await block(context)
+                            continuation.resume(returning: value)
+                        } catch {
+                            continuation.resume(throwing: error)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
