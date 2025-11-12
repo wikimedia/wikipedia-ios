@@ -118,10 +118,6 @@ import CocoaLumberjackSwift
 
     @objc public func migrateSyncedArticles(withURLs urls: [URL]) {
         guard !urls.isEmpty else { return }
-        guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
-            DDLogError("[SavedPagesMirror] Missing WMFData store")
-            return
-        }
 
         if !Thread.isMainThread {
             DispatchQueue.main.async { [weak self] in
@@ -130,42 +126,57 @@ import CocoaLumberjackSwift
             return
         }
 
-        dataStore.performBackgroundCoreDataOperation { wikipediaContext in
-            wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
+            DDLogError("[SavedPagesMirror] Missing WMFData store")
+            return
+        }
 
-            var snaps: [SavedArticleSnapshot] = []
-            snaps.reserveCapacity(urls.count)
+        Task {
+            let snapshots: [SavedArticleSnapshot]
+            do {
+                snapshots = try await dataStore.performBackgroundCoreDataOperationAsync { wikipediaContext in
+                    wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            for url in urls {
-                autoreleasepool {
-                    guard let ids = self.pageIDs(from: url) else {
-                        DDLogWarn("[Mirror] Skipping URL (cannot derive PageIDs): \(url.absoluteString)")
-                        return
+                    var localSnaps: [SavedArticleSnapshot] = []
+                    localSnaps.reserveCapacity(urls.count)
+
+                    for url in urls {
+                        autoreleasepool {
+                            guard let ids = self.pageIDs(from: url) else {
+                                DDLogWarn("[Mirror] Skipping URL (cannot derive PageIDs): \(url.absoluteString)")
+                                return
+                            }
+
+                            let article = self.dataStore.fetchArticle(with: url, in: wikipediaContext)
+                            let savedDate: Date = {
+                                if let sd = article?.savedDate { return sd }
+                                if let entryDate = self.getSavedDateFromReadingLists(for: url, in: wikipediaContext) {
+                                    return entryDate
+                                }
+                                DDLogInfo("[Mirror] Using fallback savedDate for \(url.absoluteString)")
+                                return Date()
+                            }()
+
+                            let viewedDate = article?.viewedDate
+
+                            localSnaps.append(
+                                SavedArticleSnapshot(
+                                    ids: ids,
+                                    savedDate: savedDate,
+                                    viewedDate: viewedDate
+                                )
+                            )
+                        }
                     }
 
-                    let article: WMFArticle? = self.dataStore.fetchArticle(with: url, in: wikipediaContext)
-                    let savedDate: Date = {
-                        if let sd = article?.savedDate { return sd }
-                        if let entryDate = self.getSavedDateFromReadingLists(for: url, in: wikipediaContext) {
-                            return entryDate
-                        }
-                        DDLogInfo("[Mirror] Using fallback savedDate for \(url.absoluteString)")
-                        return Date()
-                    }()
-
-                    let viewedDate = article?.viewedDate
-
-                    snaps.append(
-                        SavedArticleSnapshot(
-                            ids: ids,
-                            savedDate: savedDate,
-                            viewedDate: viewedDate
-                        )
-                    )
+                    return localSnaps
                 }
+            } catch {
+                DDLogError("[SavedPagesMirror] Legacy snapshot build failed: \(error)")
+                return
             }
 
-            guard !snaps.isEmpty else { return }
+            guard !snapshots.isEmpty else { return }
 
             guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
                 DDLogError("[SavedPagesMirror] Could not create WMFData background context")
@@ -173,17 +184,19 @@ import CocoaLumberjackSwift
             }
             wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            wmfContext.performAndWait {
-                do {
-                    for snap in snaps {
-                        try self.applySavedStateOnWMFContext(snapshot: snap,
-                                                             in: wmfContext,
-                                                             wmfDataStore: wmfDataStore)
+            do {
+                try await wmfContext.perform {
+                    for snap in snapshots {
+                        try self.applySavedStateOnWMFContext(
+                            snapshot: snap,
+                            in: wmfContext,
+                            wmfDataStore: wmfDataStore
+                        )
                     }
                     if wmfContext.hasChanges { try wmfContext.save() }
-                } catch {
-                    DDLogError("[SavedPagesMirror] Failed mirroring to WMFData: \(error)")
                 }
+            } catch {
+                DDLogError("[SavedPagesMirror] Failed mirroring to WMFData: \(error)")
             }
         }
     }
