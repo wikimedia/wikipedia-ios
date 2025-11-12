@@ -35,8 +35,8 @@ import CocoaLumberjackSwift
     }
 
     // rethink name
-    public func migrateNewlySyncedArticles(withObjectIDs objectIDs: [NSManagedObjectID]) {
-        migrateSyncedArticles(withObjectIDs: objectIDs)
+    public func migrateNewlySyncedArticles(withURLs urls: [URL]) {
+        migrateSyncedArticles(withURLs: urls)
     }
 
 
@@ -106,61 +106,77 @@ import CocoaLumberjackSwift
         }
     }
 
-    private func migrateSyncedArticles(withObjectIDs objectIDs: [NSManagedObjectID]) {
-         guard !objectIDs.isEmpty else { return }
+    @objc public func migrateSyncedArticles(withURLs urls: [URL]) {
+        guard !urls.isEmpty else { return }
+        guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
+            DDLogError("[SavedPagesMirror] Missing WMFData store")
+            return
+        }
+
         if !Thread.isMainThread {
             DispatchQueue.main.async { [weak self] in
-                self?.migrateSyncedArticles(withObjectIDs: objectIDs)
+                self?.migrateSyncedArticles(withURLs: urls)
             }
             return
         }
-         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
-             DDLogError("[SavedPagesMirror] Missing WMFData store")
-             return
-         }
 
-         dataStore.performBackgroundCoreDataOperation { wikipediaContext in
-             wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        dataStore.performBackgroundCoreDataOperation { wikipediaContext in
+            wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-             var snaps: [SavedArticleSnapshot] = []
-             snaps.reserveCapacity(objectIDs.count)
+            var snaps: [SavedArticleSnapshot] = []
+            snaps.reserveCapacity(urls.count)
 
-             for oid in objectIDs {
-                 autoreleasepool {
-                     guard
-                         let article = try? wikipediaContext.existingObject(with: oid) as? WMFArticle,
-                         let ids = self.getIdFromLegacyArticleURL(article),
-                         let savedDate = article.savedDate
-                     else { return }
+            for url in urls {
+                autoreleasepool {
+                    guard let ids = self.pageIDs(from: url) else {
+                        DDLogWarn("[Mirror] Skipping URL (cannot derive PageIDs): \(url.absoluteString)")
+                        return
+                    }
 
-                     snaps.append(
-                         SavedArticleSnapshot(ids: ids,
-                                              savedDate: savedDate,
-                                              viewedDate: article.viewedDate)
-                     )
-                 }
-             }
+                    let article: WMFArticle? = self.dataStore.fetchArticle(with: url, in: wikipediaContext)
+                    let savedDate: Date = {
+                        if let sd = article?.savedDate { return sd }
+                        if let entryDate = self.getSavedDateFromReadingLists(for: url, in: wikipediaContext) {
+                            return entryDate
+                        }
+                        DDLogInfo("[Mirror] Using fallback savedDate for \(url.absoluteString)")
+                        return Date()
+                    }()
 
-             guard !snaps.isEmpty else { return }
+                    let viewedDate = article?.viewedDate
 
-             guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-                 DDLogError("[SavedPagesMirror] Could not create WMFData background context")
-                 return
-             }
-             wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                    snaps.append(
+                        SavedArticleSnapshot(
+                            ids: ids,
+                            savedDate: savedDate,
+                            viewedDate: viewedDate
+                        )
+                    )
+                }
+            }
 
-             wmfContext.performAndWait {
-                 do {
-                     for snap in snaps {
-                         try self.applySavedStateOnWMFContext(snapshot: snap, in: wmfContext, wmfDataStore: wmfDataStore)
-                     }
-                     if wmfContext.hasChanges { try wmfContext.save() }
-                 } catch {
-                     DDLogError("[SavedPagesMirror] Failed mirroring to WMFData: \(error)")
-                 }
-             }
-         }
-     }
+            guard !snaps.isEmpty else { return }
+
+            guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+                DDLogError("[SavedPagesMirror] Could not create WMFData background context")
+                return
+            }
+            wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+            wmfContext.performAndWait {
+                do {
+                    for snap in snaps {
+                        try self.applySavedStateOnWMFContext(snapshot: snap,
+                                                             in: wmfContext,
+                                                             wmfDataStore: wmfDataStore)
+                    }
+                    if wmfContext.hasChanges { try wmfContext.save() }
+                } catch {
+                    DDLogError("[SavedPagesMirror] Failed mirroring to WMFData: \(error)")
+                }
+            }
+        }
+    }
 
     // MARK: - Update Saved State
 
@@ -358,6 +374,18 @@ import CocoaLumberjackSwift
         let viewedDate: Date?
     }
 
+    private func pageIDs(from articleURL: URL) -> PageIDs? {
+        guard
+            let siteURL = articleURL.wmf_site,
+            let project = WikimediaProject(siteURL: siteURL),
+            let wmfProject = project.wmfProject
+        else { return nil }
+
+        let title = (articleURL.wmf_title ?? "").normalizedForCoreData
+        let namespaceID = Int16(articleURL.namespace?.rawValue ?? 0)
+        return PageIDs(projectID: wmfProject.id, namespaceID: namespaceID, title: title)
+    }
+
     private func getIdFromLegacyArticleURL(_ article: WMFArticle) -> PageIDs? {
         guard
             let url = article.url,
@@ -371,6 +399,25 @@ import CocoaLumberjackSwift
         let projectID = wmfProject.id
 
         return PageIDs(projectID: projectID, namespaceID: namespaceID, title: title)
+    }
+
+    private func getSavedDateFromReadingLists(for url: URL, in moc: NSManagedObjectContext) -> Date? {
+        guard let key = url.wmf_inMemoryKey?.databaseKey ?? url.wmf_inMemoryKey?.databaseKey else {
+            return nil
+        }
+
+        let req: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        req.predicate = NSPredicate(format: "articleKey == %@ AND isDeletedLocally == NO", key)
+        req.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: true)]
+        req.fetchLimit = 1
+
+        do {
+            let entries = try moc.fetch(req)
+            return entries.first?.createdDate as Date?
+        } catch {
+            DDLogError("[Mirror] ReadingListEntry fetch failed for key=\(key): \(error)")
+            return nil
+        }
     }
 }
 

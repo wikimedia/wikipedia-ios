@@ -754,7 +754,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
             return
         }
 
-        var newlySavedArticleIDs = Set<NSManagedObjectID>()
+        var newlySavedArticleIDs = Set<URL>()
 
         let summaryFetcher = ArticleFetcher(session: apiController.session, configuration: Configuration.current)
         let group = WMFTaskGroup()
@@ -887,8 +887,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                     article.savedDate = entry.createdDate as Date?
                 }
 
-                if wasUnsaved, let oid = article.objectID as NSManagedObjectID? {
-                    newlySavedArticleIDs.insert(oid)
+                if wasUnsaved, let url = article.url {
+                    newlySavedArticleIDs.insert(url)
                 }
 
                 updatedLists.insert(readingList)
@@ -903,7 +903,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         // Registered newly synced saved articles to WMFData
         if !newlySavedArticleIDs.isEmpty {
             WMFArticleSavedStateMigrationManager.shared
-                .migrateNewlySyncedArticles(withObjectIDs: Array(newlySavedArticleIDs))
+                .migrateNewlySyncedArticles(withURLs: Array(newlySavedArticleIDs))
         }
     }
 
