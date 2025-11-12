@@ -36,7 +36,9 @@ import CocoaLumberjackSwift
     }
 
     public func migrateNewlySyncedArticles(withURLs urls: [URL]) {
-        migrateSyncedArticles(withURLs: urls)
+        Task { @MainActor in
+            migrateSyncedArticles(withURLs: urls)
+        }
     }
 
     // MARK: - Migration
@@ -116,25 +118,19 @@ import CocoaLumberjackSwift
         }
     }
 
+    @MainActor
     @objc public func migrateSyncedArticles(withURLs urls: [URL]) {
         guard !urls.isEmpty else { return }
-
-        if !Thread.isMainThread {
-            DispatchQueue.main.async { [weak self] in
-                self?.migrateSyncedArticles(withURLs: urls)
-            }
-            return
-        }
 
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
             DDLogError("[SavedPagesMirror] Missing WMFData store")
             return
         }
 
-        Task {
+        Task.detached(priority: .userInitiated) {
             let snapshots: [SavedArticleSnapshot]
             do {
-                snapshots = try await dataStore.performBackgroundCoreDataOperationAsync { wikipediaContext in
+                snapshots = try await self.dataStore.performBackgroundCoreDataOperationAsync { wikipediaContext in
                     wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
                     var localSnaps: [SavedArticleSnapshot] = []
