@@ -22,8 +22,9 @@ import CocoaLumberjackSwift
         await runMigration(limit: 20)
     }
 
-    @objc public func removeFromSaved(forArticleObjectID objectID: NSManagedObjectID) {
-        unsave(forArticleObjectID: objectID)
+    @objc(removeFromSavedWithURL:)
+    public func removeFromSaved(withUrl url: URL) {
+        unsave(url: url)
     }
 
     public func clearAll() {
@@ -34,11 +35,9 @@ import CocoaLumberjackSwift
         Task { await migrateIncremental() }
     }
 
-    // rethink name
     public func migrateNewlySyncedArticles(withURLs urls: [URL]) {
         migrateSyncedArticles(withURLs: urls)
     }
-
 
     // MARK: - Migration
 
@@ -88,6 +87,7 @@ import CocoaLumberjackSwift
 
                 guard !snapshots.isEmpty else { return }
 
+                // TODO: - decouple context
                 try await wmfContext.perform {
                     for snap in snapshots {
                         try self.applySavedStateOnWMFContext(snapshot: snap, in: wmfContext, wmfDataStore: wmfDataStore)
@@ -178,138 +178,70 @@ import CocoaLumberjackSwift
         }
     }
 
-    // MARK: - Update Saved State
-
-    @objc func unsave(forArticleObjectID objectID: NSManagedObjectID) {
+    private func unsave(url: URL) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
-
-        // Value-only data to carry across contexts
-        var ids: PageIDs?
-        var viewedDate: Date?
-        var legacyError: Error?
-
-        let group = DispatchGroup()
-        group.enter()
-
-        dataStore.performBackgroundCoreDataOperation { wikipediaContext in
-            wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
-            do {
-                guard let article = try wikipediaContext.existingObject(with: objectID) as? WMFArticle else {
-                    DDLogError("Unsave failed: article not found for objectID \(objectID)")
-                    group.leave()
-                    return
-                }
-
-                ids = self.getIdFromLegacyArticleURL(article)
-                viewedDate = article.viewedDate
-
-            } catch {
-                legacyError = error
-            }
-
-            group.leave()
+        guard let ids = pageIDs(from: url) else {
+            DDLogError("[SavedPagesMigration] Unsave aborted: could not derive PageIDs from URL \(url.absoluteString)")
+            return
         }
 
-        group.notify(queue: .global(qos: .userInitiated)) {
-            if let err = legacyError {
-                DDLogError("Unsave (legacy) failed for objectID \(objectID): \(err)")
-                return
-            }
-            guard let ids else {
-                DDLogError("Unsave aborted: missing PageIDs for objectID \(objectID)")
-                return
-            }
+        guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+            DDLogError("[SavedPagesMigration] WMF background context unavailable")
+            return
+        }
+        wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-                DDLogError("[SavedPagesMigration] WMF background context unavailable")
-                return
-            }
-            wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
-            wmfContext.perform {
-                do {
-                    try self.syncSavedState(
-                        fromArticleWith: ids,
-                        viewedDate: viewedDate,
-                        to: wmfContext,
-                        action: .unsave,
-                        wmfDataStore: wmfDataStore
-                    )
-                    if wmfContext.hasChanges {
-                        try wmfContext.save()
-                    }
-                } catch {
-                    DDLogError("[SavedPagesMigration] WMF unsave apply failed: \(error)")
-                }
+        wmfContext.perform {
+            do {
+                try self.unsaveInWMFData(pageIDs: ids, in: wmfContext, store: wmfDataStore)
+                if wmfContext.hasChanges { try wmfContext.save() }
+            } catch {
+                DDLogError("[SavedPagesMigration] WMF unsave (URL) failed: \(error)")
             }
         }
     }
 
-    private func syncSavedState(fromArticleWith ids: PageIDs,
-                                viewedDate: Date?,
-                                to wmfDataContext: NSManagedObjectContext,
-                                action: SavedSyncAction,
-                                wmfDataStore: WMFCoreDataStore) throws {
+    private func unsaveInWMFData(pageIDs: PageIDs, in wmfContext: NSManagedObjectContext, store wmfDataStore: WMFCoreDataStore) throws {
+        let predicate = NSPredicate(format: "projectID == %@ AND namespaceID == %d AND title == %@", pageIDs.projectID, pageIDs.namespaceID, pageIDs.title)
 
-        let projectID = ids.projectID
-        let namespaceID = ids.namespaceID
-        let title = ids.title
+        guard let pages: [CDPage] = try wmfDataStore.fetch(
+            entityType: CDPage.self,
+            predicate: predicate,
+            fetchLimit: 1,
+            in: wmfContext
+        ), let page = pages.first else {
+            DDLogError("[SavedPagesMigration] Unsave: no CDPage for PID \(pageIDs.projectID) nsID \(pageIDs.namespaceID) title \(pageIDs.title)")
+            return
+        }
 
-        let predicate = NSPredicate(
-            format: "projectID == %@ AND namespaceID == %d AND title == %@",
-            projectID, namespaceID, title
-        )
+        if let saved = page.savedInfo {
+            wmfContext.delete(saved)
+            page.savedInfo = nil
+        } else {
+            DDLogInfo("[SavedPagesMigration] Unsave no-op: savedInfo already nil for title \(pageIDs.title)")
+        }
 
-        switch action {
-        case .save(let date):
-            let snap = SavedArticleSnapshot(ids: ids, savedDate: date, viewedDate: viewedDate)
-            try applySavedStateOnWMFContext(snapshot: snap, in: wmfDataContext, wmfDataStore: wmfDataStore)
-
-        case .unsave:
-            guard let pages: [CDPage] = try wmfDataStore.fetch(
-                entityType: CDPage.self,
-                predicate: predicate,
-                fetchLimit: 1,
-                in: wmfDataContext
-            ), let page = pages.first else {
-                DDLogError("[SavedPagesMigration] Unsave: no CDPage for PID \(projectID) nsID \(namespaceID) title \(title)")
-                return
-            }
-
-            if let saved = page.savedInfo {
-                wmfDataContext.delete(saved)
-                page.savedInfo = nil
-            } else {
-                DDLogInfo("[SavedPagesMigration] Unsave no-op: savedInfo already nil for title \(title)")
-            }
-
-            if page.timestamp == nil {
-                DDLogInfo("[SavedPagesMigration] Deleting CDPage for \(title) — timestamp nil after unsave")
-            }
+        if page.timestamp == nil {
+            DDLogInfo("[SavedPagesMigration] Deleting CDPage for \(pageIDs.title) — timestamp nil after unsave")
         }
     }
 
     private func applySavedStateOnWMFContext(snapshot: SavedArticleSnapshot, in wmfContext: NSManagedObjectContext, wmfDataStore: WMFCoreDataStore) throws {
-        let projectID = snapshot.ids.projectID
-        let namespaceID = snapshot.ids.namespaceID
-        let title = snapshot.ids.title
-
         let predicate = NSPredicate(
             format: "projectID == %@ AND namespaceID == %d AND title == %@",
-            projectID, namespaceID, title
+            snapshot.ids.projectID, snapshot.ids.namespaceID, snapshot.ids.title
         )
 
         guard let page = try wmfDataStore.fetchOrCreate(entityType: CDPage.self,
                                                         predicate: predicate,
                                                         in: wmfContext) else {
-            DDLogError("[SavedPagesMigration] save: no CDPage for PID \(projectID) nsID \(namespaceID) title \(title)")
+            DDLogError("[SavedPagesMigration] save: no CDPage for PID \(snapshot.ids.projectID) nsID \(snapshot.ids.namespaceID) title \(snapshot.ids.title)")
             return
         }
 
-        page.title = title
-        page.namespaceID = namespaceID
-        page.projectID = projectID
+        page.title = snapshot.ids.title
+        page.namespaceID = snapshot.ids.namespaceID
+        page.projectID = snapshot.ids.projectID
         page.timestamp = snapshot.viewedDate ?? snapshot.savedDate
 
         if let existing = page.savedInfo {
@@ -321,7 +253,7 @@ import CocoaLumberjackSwift
         }
     }
 
-    // MARK: - Delete all
+    // MARK: - Delete all (WMFData)
 
     @objc func clearAllSavedData() {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
@@ -355,12 +287,7 @@ import CocoaLumberjackSwift
         }
     }
 
-    // MARK: - Helpers
-
-    private enum SavedSyncAction {
-        case save(date: Date)
-        case unsave
-    }
+    // MARK: - Helpers / Models
 
     private struct PageIDs {
         let projectID: String
@@ -424,6 +351,7 @@ import CocoaLumberjackSwift
 // MARK: - Private extensions
 
 private extension MWKDataStore {
+    /// Async wrapper that begins the background op from the main thread
     func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) async throws -> T) async throws -> T {
         try await withCheckedThrowingContinuation { continuation in
             // Background ops should start on the main thread
@@ -442,4 +370,3 @@ private extension MWKDataStore {
         }
     }
 }
-
