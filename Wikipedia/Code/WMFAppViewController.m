@@ -697,7 +697,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         }
 
         [self.backgroundFetcherController performBackgroundFetch:completion];
-        [AppIconUtility.shared checkAndRevertIfExpired];
     });
 }
 
