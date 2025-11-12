@@ -463,6 +463,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.savedArticlesFetcher start];
     [self assignMoreDynamicTabsV2ExperimentIfNeeded];
     [self checkAndCreateInitialArticleTab];
+    [AppIconUtility.shared checkAndRevertIfExpired];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -696,6 +697,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         }
 
         [self.backgroundFetcherController performBackgroundFetch:completion];
+        [AppIconUtility.shared checkAndRevertIfExpired];
     });
 }
 

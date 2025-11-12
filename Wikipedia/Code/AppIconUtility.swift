@@ -1,9 +1,8 @@
 import UIKit
 
-public final class AppIconUtility {
+@objc public final class AppIconUtility: NSObject {
     
-    static let shared = AppIconUtility()
-    private init() {}
+    @objc static let shared = AppIconUtility()
     
     private let iconKey = "yearInReviewNewIcon2025"
     private let endDate: Date = {
@@ -17,6 +16,13 @@ public final class AppIconUtility {
         return Calendar.current.date(from: components)!
     }()
     
+    public var isPastEndDate: Bool {
+        if Date() > endDate {
+            return true
+        }
+        return false
+    }
+    
     public var isNewIconOn: Bool {
         get {
             return UserDefaults.standard.bool(forKey: iconKey)
@@ -29,7 +35,7 @@ public final class AppIconUtility {
     public func updateAppIcon(isNew: Bool) {
         guard UIApplication.shared.supportsAlternateIcons else { return }
 
-        if Date() > endDate {
+        if isPastEndDate {
             resetToDefaultIcon()
             return
         }
@@ -39,10 +45,10 @@ public final class AppIconUtility {
         UIApplication.shared.setAlternateIconName(iconName) { _ in }
     }
     
-    public func checkAndRevertIfExpired() {
+    @objc public func checkAndRevertIfExpired() {
         guard UIApplication.shared.supportsAlternateIcons else { return }
         
-        if Date() > endDate, isNewIconOn {
+        if isPastEndDate, isNewIconOn {
             resetToDefaultIcon()
         }
     }
