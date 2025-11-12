@@ -47,15 +47,10 @@ import CocoaLumberjackSwift
             return
         }
 
+        let snapshots: [SavedArticleSnapshot]
         do {
-            try await dataStore.performBackgroundCoreDataOperationAsync { wikipediaContext in
+            snapshots = try await dataStore.performBackgroundCoreDataOperationAsync { wikipediaContext in
                 wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
-                guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-                    DDLogError("Could not create WMFData background context")
-                    return
-                }
-                wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
                 let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
                 request.predicate = NSPredicate(
@@ -65,10 +60,10 @@ import CocoaLumberjackSwift
                 if let limit { request.fetchLimit = limit }
 
                 let articles = try wikipediaContext.fetch(request)
-                guard !articles.isEmpty else { return }
+                guard !articles.isEmpty else { return [] }
 
-                var snapshots: [SavedArticleSnapshot] = []
-                snapshots.reserveCapacity(articles.count)
+                var localSnaps: [SavedArticleSnapshot] = []
+                localSnaps.reserveCapacity(articles.count)
 
                 for article in articles {
                     guard
@@ -76,33 +71,48 @@ import CocoaLumberjackSwift
                         let ids = self.getIdFromLegacyArticleURL(article)
                     else { continue }
 
-                    snapshots.append(
+                    localSnaps.append(
                         SavedArticleSnapshot(
                             ids: ids,
                             savedDate: savedDate,
                             viewedDate: article.viewedDate
                         )
                     )
-                }
-
-                guard !snapshots.isEmpty else { return }
-
-                // TODO: - decouple context
-                try await wmfContext.perform {
-                    for snap in snapshots {
-                        try self.applySavedStateOnWMFContext(snapshot: snap, in: wmfContext, wmfDataStore: wmfDataStore)
-                    }
-                    if wmfContext.hasChanges { try wmfContext.save() }
-                }
-
-                for article in articles {
                     article.isSavedMigrated = true
                 }
-                if wikipediaContext.hasChanges { try wikipediaContext.save() }
-            }
 
+                if wikipediaContext.hasChanges {
+                    try wikipediaContext.save()
+                }
+
+                return localSnaps
+            }
         } catch {
-            DDLogError("WMFArticle migration error: \(error)")
+            DDLogError("WMFArticle migration error (legacy read/save): \(error)")
+            return
+        }
+
+        guard !snapshots.isEmpty else { return }
+
+        guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+            DDLogError("Could not create WMFData background context")
+            return
+        }
+        wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+        do {
+            try await wmfContext.perform {
+                for snap in snapshots {
+                    try self.applySavedStateOnWMFContext(
+                        snapshot: snap,
+                        in: wmfContext,
+                        wmfDataStore: wmfDataStore
+                    )
+                }
+                if wmfContext.hasChanges { try wmfContext.save() }
+            }
+        } catch {
+            DDLogError("WMFData saved-article migration error: \(error)")
         }
     }
 
