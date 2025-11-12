@@ -36,9 +36,6 @@ public struct WMFYearInReviewSlideHighlightsView: View {
             viewModel: viewModel.infoBoxViewModel,
             isSharing: false
         )
-        .overlay(
-            Rectangle().stroke(Color(WMFColor.gray300), lineWidth: 1)
-        )
     }
     
     func dynamicMaxInfoboxHeight(availableHeight: CGFloat) -> CGFloat {
@@ -74,9 +71,12 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                                 .lineLimit(nil)          // allows unlimited lines
                                 .fixedSize(horizontal: false, vertical: true)
 
-                            WMFYearInReviewScrollView(scrollViewContents: scrollViewContents, needsClearBackground: true)
+                            WMFYearInReviewScrollView(scrollViewContents: scrollViewContents, forceBackgroundColor: WMFColor.gray100)
                                 .frame(minHeight: 0, maxHeight: dynamicMaxInfoboxHeight(availableHeight: geometry.size.height), alignment: .top)
                             .fixedSize(horizontal: false, vertical: true)
+                            .overlay(
+                                Rectangle().stroke(Color(WMFColor.gray300), lineWidth: 1)
+                            )
                         }
                         .frame(maxWidth: 324)
                         .padding([.leading, .trailing], 35)
