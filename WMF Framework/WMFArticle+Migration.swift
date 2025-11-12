@@ -34,6 +34,11 @@ import CocoaLumberjackSwift
         Task { await migrateIncremental() }
     }
 
+    // rethink name
+    public func migrateNewlySyncedArticles(withObjectIDs objectIDs: [NSManagedObjectID]) {
+        migrateSyncedArticles(withObjectIDs: objectIDs)
+    }
+
 
     // MARK: - Migration
 
@@ -99,8 +104,63 @@ import CocoaLumberjackSwift
         } catch {
             DDLogError("WMFArticle migration error: \(error)")
         }
-
     }
+
+    private func migrateSyncedArticles(withObjectIDs objectIDs: [NSManagedObjectID]) {
+         guard !objectIDs.isEmpty else { return }
+        if !Thread.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.migrateSyncedArticles(withObjectIDs: objectIDs)
+            }
+            return
+        }
+         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
+             DDLogError("[SavedPagesMirror] Missing WMFData store")
+             return
+         }
+
+         dataStore.performBackgroundCoreDataOperation { wikipediaContext in
+             wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+             var snaps: [SavedArticleSnapshot] = []
+             snaps.reserveCapacity(objectIDs.count)
+
+             for oid in objectIDs {
+                 autoreleasepool {
+                     guard
+                         let article = try? wikipediaContext.existingObject(with: oid) as? WMFArticle,
+                         let ids = self.getIdFromLegacyArticleURL(article),
+                         let savedDate = article.savedDate
+                     else { return }
+
+                     snaps.append(
+                         SavedArticleSnapshot(ids: ids,
+                                              savedDate: savedDate,
+                                              viewedDate: article.viewedDate)
+                     )
+                 }
+             }
+
+             guard !snaps.isEmpty else { return }
+
+             guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+                 DDLogError("[SavedPagesMirror] Could not create WMFData background context")
+                 return
+             }
+             wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+             wmfContext.performAndWait {
+                 do {
+                     for snap in snaps {
+                         try self.applySavedStateOnWMFContext(snapshot: snap, in: wmfContext, wmfDataStore: wmfDataStore)
+                     }
+                     if wmfContext.hasChanges { try wmfContext.save() }
+                 } catch {
+                     DDLogError("[SavedPagesMirror] Failed mirroring to WMFData: \(error)")
+                 }
+             }
+         }
+     }
 
     // MARK: - Update Saved State
 
