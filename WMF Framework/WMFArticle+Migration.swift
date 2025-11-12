@@ -32,7 +32,7 @@ import CocoaLumberjackSwift
     }
 
     @objc public func migrateIncrementalObjC() {
-        Task { await migrateIncremental() }
+        Task { await runMigration(limit: 20) }
     }
 
     public func migrateNewlySyncedArticles(withURLs urls: [URL]) {
