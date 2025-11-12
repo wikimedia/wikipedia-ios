@@ -112,31 +112,34 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: TextSizeChangeExampleViewController(nibName: "TextSizeChangeExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, subtitle: nil, spacing: 15.0), AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: FontSizeSliderViewController(nibName: "FontSizeSliderViewController", bundle: nil))])
         
         let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-        if (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue)) ?? false {
-            let appIconSection = AppearanceSettingsSection(
-                headerTitle: WMFLocalizedString("appearance-settings-set-icon-header", value: "App Icon", comment: "Header text for changing app icon"),
-                footerText: WMFLocalizedString("appearance-settings-set-icon-footer", value: "The contributor icon celebrates your 2025 in-app contributions to Wikipedia. It will remain until the next Year in Review.", comment: "Footer information about the contributor icon and its purpose"),
-                items: [
-                    AppearanceSettingsIconItem(
-                        title: CommonStrings.defaultText,
-                        subtitle: nil,
-                        imageName: "AppIcon_Small",
-                        checkmarkAction: {
-                            DonateFunnel.shared.logYearInReviewSettingsAppIconDidToggle(isOn: false)
-                            AppIconUtility.shared.updateAppIcon(isNew: false)
-                        }
-                    ),
-                    AppearanceSettingsIconItem(
-                        title: "Contributor",
-                        subtitle: nil,
-                        imageName: "AppIconContributor_Small",
-                        checkmarkAction: {
-                            DonateFunnel.shared.logYearInReviewSettingsAppIconDidToggle(isOn: true)
-                            AppIconUtility.shared.updateAppIcon(isNew: true)
-                        }
-                    )
-                ])
-            return [readingThemesSection, appIconSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
+        AppIconUtility.shared.checkAndRevertIfExpired()
+        if !AppIconUtility.shared.isPastEndDate {
+            if (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue)) ?? false {
+                let appIconSection = AppearanceSettingsSection(
+                    headerTitle: WMFLocalizedString("appearance-settings-set-icon-header", value: "App Icon", comment: "Header text for changing app icon"),
+                    footerText: WMFLocalizedString("appearance-settings-set-icon-footer", value: "The contributor icon celebrates your 2025 in-app contributions to Wikipedia. It will remain until the next Year in Review.", comment: "Footer information about the contributor icon and its purpose"),
+                    items: [
+                        AppearanceSettingsIconItem(
+                            title: CommonStrings.defaultText,
+                            subtitle: nil,
+                            imageName: "AppIcon_Small",
+                            checkmarkAction: {
+                                DonateFunnel.shared.logYearInReviewSettingsAppIconDidToggle(isOn: false)
+                                AppIconUtility.shared.updateAppIcon(isNew: false)
+                            }
+                        ),
+                        AppearanceSettingsIconItem(
+                            title: "Contributor",
+                            subtitle: nil,
+                            imageName: "AppIconContributor_Small",
+                            checkmarkAction: {
+                                DonateFunnel.shared.logYearInReviewSettingsAppIconDidToggle(isOn: true)
+                                AppIconUtility.shared.updateAppIcon(isNew: true)
+                            }
+                        )
+                    ])
+                return [readingThemesSection, appIconSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
+            }
         }
         
         return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
