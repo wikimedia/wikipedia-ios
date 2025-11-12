@@ -68,9 +68,8 @@ import CocoaLumberjackSwift
                 localSnaps.reserveCapacity(articles.count)
 
                 for article in articles {
-                    guard
-                        let savedDate = article.savedDate,
-                        let ids = self.getIdFromLegacyArticleURL(article)
+                    guard let savedDate = article.savedDate,
+                          let ids = Self.getIdFromLegacyArticleURL(article)
                     else { continue }
 
                     localSnaps.append(
@@ -105,7 +104,7 @@ import CocoaLumberjackSwift
         do {
             try await wmfContext.perform {
                 for snap in snapshots {
-                    try self.applySavedStateOnWMFContext(
+                    try Self.applySavedStateOnWMFContext(
                         snapshot: snap,
                         in: wmfContext,
                         wmfDataStore: wmfDataStore
@@ -121,13 +120,12 @@ import CocoaLumberjackSwift
     @MainActor
     @objc public func migrateSyncedArticles(withURLs urls: [URL]) {
         guard !urls.isEmpty else { return }
-
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
             DDLogError("[SavedPagesMirror] Missing WMFData store")
             return
         }
 
-        Task.detached(priority: .userInitiated) {
+        Task {
             let snapshots: [SavedArticleSnapshot]
             do {
                 snapshots = try await self.dataStore.performBackgroundCoreDataOperationAsync { wikipediaContext in
@@ -138,7 +136,7 @@ import CocoaLumberjackSwift
 
                     for url in urls {
                         autoreleasepool {
-                            guard let ids = self.pageIDs(from: url) else {
+                            guard let ids = Self.pageIDs(from: url) else {
                                 DDLogWarn("[Mirror] Skipping URL (cannot derive PageIDs): \(url.absoluteString)")
                                 return
                             }
@@ -146,7 +144,7 @@ import CocoaLumberjackSwift
                             let article = self.dataStore.fetchArticle(with: url, in: wikipediaContext)
                             let savedDate: Date = {
                                 if let sd = article?.savedDate { return sd }
-                                if let entryDate = self.getSavedDateFromReadingLists(for: url, in: wikipediaContext) {
+                                if let entryDate = Self.getSavedDateFromReadingLists(for: url, in: wikipediaContext) {
                                     return entryDate
                                 }
                                 DDLogInfo("[Mirror] Using fallback savedDate for \(url.absoluteString)")
@@ -183,7 +181,7 @@ import CocoaLumberjackSwift
             do {
                 try await wmfContext.perform {
                     for snap in snapshots {
-                        try self.applySavedStateOnWMFContext(
+                        try Self.applySavedStateOnWMFContext(
                             snapshot: snap,
                             in: wmfContext,
                             wmfDataStore: wmfDataStore
@@ -197,9 +195,11 @@ import CocoaLumberjackSwift
         }
     }
 
+    // MARK: - Private
+
     private func unsave(url: URL) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
-        guard let ids = pageIDs(from: url) else {
+        guard let ids = Self.pageIDs(from: url) else {
             DDLogError("[SavedPagesMigration] Unsave aborted: could not derive PageIDs from URL \(url.absoluteString)")
             return
         }
@@ -212,7 +212,7 @@ import CocoaLumberjackSwift
 
         wmfContext.perform {
             do {
-                try self.unsaveInWMFData(pageIDs: ids, in: wmfContext, store: wmfDataStore)
+                try Self.unsaveInWMFData(pageIDs: ids, in: wmfContext, store: wmfDataStore)
                 if wmfContext.hasChanges { try wmfContext.save() }
             } catch {
                 DDLogError("[SavedPagesMigration] WMF unsave (URL) failed: \(error)")
@@ -220,8 +220,10 @@ import CocoaLumberjackSwift
         }
     }
 
-    private func unsaveInWMFData(pageIDs: PageIDs, in wmfContext: NSManagedObjectContext, store wmfDataStore: WMFCoreDataStore) throws {
-        let predicate = NSPredicate(format: "projectID == %@ AND namespaceID == %d AND title == %@", pageIDs.projectID, pageIDs.namespaceID, pageIDs.title)
+    // MARK: - WMFData static writers
+
+    private static func unsaveInWMFData(pageIDs: PageIDs, in wmfContext: NSManagedObjectContext, store wmfDataStore: WMFCoreDataStore) throws {
+        let predicate = makePredicate(for: pageIDs)
 
         guard let pages: [CDPage] = try wmfDataStore.fetch(
             entityType: CDPage.self,
@@ -245,11 +247,8 @@ import CocoaLumberjackSwift
         }
     }
 
-    private func applySavedStateOnWMFContext(snapshot: SavedArticleSnapshot, in wmfContext: NSManagedObjectContext, wmfDataStore: WMFCoreDataStore) throws {
-        let predicate = NSPredicate(
-            format: "projectID == %@ AND namespaceID == %d AND title == %@",
-            snapshot.ids.projectID, snapshot.ids.namespaceID, snapshot.ids.title
-        )
+    private static func applySavedStateOnWMFContext(snapshot: SavedArticleSnapshot, in wmfContext: NSManagedObjectContext, wmfDataStore: WMFCoreDataStore) throws {
+        let predicate = makePredicate(for: snapshot.ids)
 
         guard let page = try wmfDataStore.fetchOrCreate(entityType: CDPage.self,
                                                         predicate: predicate,
@@ -272,9 +271,14 @@ import CocoaLumberjackSwift
         }
     }
 
-    // MARK: - Delete all (WMFData)
+    private static func makePredicate(for ids: PageIDs) -> NSPredicate {
+        NSPredicate(format: "projectID == %@ AND namespaceID == %d AND title == %@",
+                    ids.projectID, ids.namespaceID, ids.title)
+    }
 
-    @objc func clearAllSavedData() {
+    // MARK: - Delete all
+
+    private func clearAllSavedData() {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
             DDLogError("[SavedPagesMigration] Missing WMFData store")
             return
@@ -308,19 +312,19 @@ import CocoaLumberjackSwift
 
     // MARK: - Helpers / Models
 
-    private struct PageIDs {
+    private struct PageIDs: Sendable, Equatable {
         let projectID: String
         let namespaceID: Int16
         let title: String
     }
 
-    private struct SavedArticleSnapshot {
+    private struct SavedArticleSnapshot: Sendable, Equatable {
         let ids: PageIDs
         let savedDate: Date
         let viewedDate: Date?
     }
 
-    private func pageIDs(from articleURL: URL) -> PageIDs? {
+    private static func pageIDs(from articleURL: URL) -> PageIDs? {
         guard
             let siteURL = articleURL.wmf_site,
             let project = WikimediaProject(siteURL: siteURL),
@@ -332,7 +336,7 @@ import CocoaLumberjackSwift
         return PageIDs(projectID: wmfProject.id, namespaceID: namespaceID, title: title)
     }
 
-    private func getIdFromLegacyArticleURL(_ article: WMFArticle) -> PageIDs? {
+    private static func getIdFromLegacyArticleURL(_ article: WMFArticle) -> PageIDs? {
         guard
             let url = article.url,
             let siteURL = url.wmf_site,
@@ -342,12 +346,10 @@ import CocoaLumberjackSwift
 
         let title = (url.wmf_title ?? "").normalizedForCoreData
         let namespaceID = Int16(url.namespace?.rawValue ?? 0)
-        let projectID = wmfProject.id
-
-        return PageIDs(projectID: projectID, namespaceID: namespaceID, title: title)
+        return PageIDs(projectID: wmfProject.id, namespaceID: namespaceID, title: title)
     }
 
-    private func getSavedDateFromReadingLists(for url: URL, in moc: NSManagedObjectContext) -> Date? {
+    private static func getSavedDateFromReadingLists(for url: URL, in moc: NSManagedObjectContext) -> Date? {
         guard let key = url.wmf_inMemoryKey?.databaseKey ?? url.wmf_inMemoryKey?.databaseKey else {
             return nil
         }
@@ -370,10 +372,9 @@ import CocoaLumberjackSwift
 // MARK: - Private extensions
 
 private extension MWKDataStore {
-    /// Async wrapper that begins the background op from the main thread
+    /// Async wrapper that begins the background op from the main actor
     func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) async throws -> T) async throws -> T {
         try await withCheckedThrowingContinuation { continuation in
-            // Background ops should start on the main thread
             Task { @MainActor in
                 self.performBackgroundCoreDataOperation { context in
                     Task {
