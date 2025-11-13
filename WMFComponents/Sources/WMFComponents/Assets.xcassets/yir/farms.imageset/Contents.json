@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "gradient.png",
+      "filename" : "personal-slide-07.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }
