@@ -15,7 +15,7 @@ struct ArticlesReadViewModel {
     var dateTimeLastSaved: String
     var articlesSavedImages: [URL]
     var timeline: [Date: [TimelineItem]]?
-    var pageSummaries: [String: WMFArticleSummary] = [:] // always initialized
+    var pageSummaries: [String: WMFArticleSummary] = [:]
 }
 
 @MainActor
@@ -142,8 +142,14 @@ public class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Helpers
     
-    public func formatDateTime(_ dateTime: Date) -> String {
+    func formatDateTime(_ dateTime: Date) -> String {
         DateFormatter.wmfLastReadFormatter(for: dateTime)
+    }
+    
+    func deletePages(at offsets: IndexSet, for date: Date) {
+        guard var pages = model.timeline?[date] else { return }
+        pages.remove(atOffsets: offsets)
+        model.timeline?[date] = pages
     }
     
     // MARK: - Localized Strings

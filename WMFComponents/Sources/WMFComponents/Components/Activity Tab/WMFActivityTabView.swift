@@ -96,18 +96,26 @@ public struct WMFActivityTabView: View {
     }
 
     private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
-        Section(
-            header: Text(viewModel.formatDateTime(date))
+        let sortedPages = pages.sorted(by: { $0.date > $1.date })
+        let calendar = Calendar.current
+
+        let sectionHeader: String
+        if calendar.isDateInToday(date) {
+            sectionHeader = viewModel.model.dateTimeLastRead
+        } else {
+            sectionHeader = viewModel.formatDateTime(date)
+        }
+
+        return Section(
+            header: Text(sectionHeader)
                 .font(.headline)
                 .foregroundColor(Color(uiColor: theme.text))
         ) {
-            ForEach(pages, id: \.id) { page in
+            ForEach(sortedPages, id: \.id) { page in
                 pageView(page: page)
             }
             .onDelete { indexSet in
-                var mutablePages = viewModel.model.timeline?[date] ?? []
-                mutablePages.remove(atOffsets: indexSet)
-                viewModel.model.timeline?[date] = mutablePages
+                viewModel.deletePages(at: indexSet, for: date)
             }
         }
     }

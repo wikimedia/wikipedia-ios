@@ -133,14 +133,14 @@ public final class WMFActivityTabDataController {
         for record in pageRecords {
             let page = record.page
             let timestamp = record.timestamp
-            let startOfDay = calendar.startOfDay(for: timestamp)
+            let dayBucket = calendar.startOfDay(for: timestamp)
             let articleURL = WMFProject(id: page.projectID)?.siteURL
 
             let id = "\(page.projectID)-\(page.title)-\(Int(timestamp.timeIntervalSince1970))"
 
             let item = TimelineItem(
                 id: id,
-                date: startOfDay,
+                date: timestamp,
                 titleHtml: page.title,
                 projectID: page.projectID,
                 pageTitle: page.title,
@@ -151,11 +151,16 @@ public final class WMFActivityTabDataController {
                 page: page
             )
 
-            dailyTimeline[startOfDay, default: []].append(item)
+            dailyTimeline[dayBucket, default: []].append(item)
+        }
+
+        for (key, items) in dailyTimeline {
+            dailyTimeline[key] = items.sorted(by: { $0.date < $1.date })
         }
 
         return dailyTimeline
     }
+
 
     public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
         let articleSummaryController = WMFArticleSummaryDataController()
