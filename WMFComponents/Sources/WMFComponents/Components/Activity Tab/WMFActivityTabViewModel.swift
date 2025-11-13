@@ -108,16 +108,21 @@ public class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Lazy Summary Fetching
 
     public func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
-        let pageKey = "\(item.projectID)~\(item.pageTitle)~\(item.date.ISO8601Format())"
-        if let existing = model.pageSummaries[pageKey] {
+        let key = item.id
+
+        if let existing = model.pageSummaries[key] {
             return existing
         }
+
         if let summary = try? await dataController.fetchSummary(for: item.page) {
             await MainActor.run {
-                self.model.pageSummaries[pageKey] = summary
+                var updatedModel = self.model
+                updatedModel.pageSummaries[key] = summary
+                self.model = updatedModel
             }
             return summary
         }
+
         return nil
     }
 
@@ -144,6 +149,10 @@ public class WMFActivityTabViewModel: ObservableObject {
     
     func formatDateTime(_ dateTime: Date) -> String {
         DateFormatter.wmfLastReadFormatter(for: dateTime)
+    }
+    
+    func formatDate(_ dateTime: Date) -> String {
+        DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
     }
     
     func deletePages(at offsets: IndexSet, for date: Date) {

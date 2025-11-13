@@ -50,13 +50,10 @@ public struct WMFActivityTabView: View {
                         )
                     )
                 }
-                
-                Section(header: Text("Articles")
-                    .font(.headline)
-                    .foregroundColor(Color(uiColor: theme.text))
-                ) {
-                    historyView
-                }
+                .listRowSeparator(.hidden)
+
+                historyView
+                    .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .onAppear {
@@ -70,27 +67,17 @@ public struct WMFActivityTabView: View {
     }
     
     private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        return WMFArticlePreviewViewModel(
-            url: item.url,
-            titleHtml: item.titleHtml,
-            description: item.description,
-            imageURLString: item.imageURLString,
-            isSaved: false,
-            snippet: item.snippet
-        )
+        return WMFArticlePreviewViewModel(url: item.url, titleHtml: item.titleHtml, description: item.description, imageURLString: item.imageURLString, isSaved: false, snippet: item.snippet)
     }
 
     private var historyView: some View {
-        Group {
+        return Group {
             if let timeline = viewModel.model.timeline, !timeline.isEmpty {
                 // Sort dates descending
                 ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
                     timelineSection(for: date, pages: timeline[date] ?? [])
+                        .listRowSeparator(.hidden)
                 }
-            } else {
-                Text("No history")
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-                    .padding()
             }
         }
     }
@@ -99,20 +86,37 @@ public struct WMFActivityTabView: View {
         let sortedPages = pages.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current
 
-        let sectionHeader: String
+        // todo localize
+        let title: String
+        let subtitle: String
         if calendar.isDateInToday(date) {
-            sectionHeader = viewModel.model.dateTimeLastRead
+            title = "Today"
+            subtitle = viewModel.formatDate(date)
+        } else if calendar.isDateInYesterday(date) {
+            title = "Yesterday"
+            subtitle = viewModel.formatDate(date)
         } else {
-            sectionHeader = viewModel.formatDateTime(date)
+            title = viewModel.formatDate(date)
+            subtitle = ""
         }
 
         return Section(
-            header: Text(sectionHeader)
-                .font(.headline)
-                .foregroundColor(Color(uiColor: theme.text))
+            header: VStack(alignment: .leading, spacing: 4) {
+                if !title.isEmpty {
+                    Text(title)
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundColor(Color(uiColor: theme.text))
+                }
+                if !subtitle.isEmpty {
+                    Text(subtitle)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
+                }
+            }
         ) {
             ForEach(sortedPages, id: \.id) { page in
                 pageView(page: page)
+                    .listRowSeparator(.hidden)
             }
             .onDelete { indexSet in
                 viewModel.deletePages(at: indexSet, for: date)
@@ -121,8 +125,7 @@ public struct WMFActivityTabView: View {
     }
 
     private func pageView(page: TimelineItem) -> some View {
-        let pageKey = "\(page.projectID)~\(page.pageTitle)"
-        let summary = viewModel.model.pageSummaries[pageKey]
+        let summary = viewModel.model.pageSummaries[page.id]
 
         return VStack(alignment: .leading, spacing: 4) {
             Text(page.titleHtml)
@@ -155,7 +158,6 @@ public struct WMFActivityTabView: View {
             }
         }
     }
-
     
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
