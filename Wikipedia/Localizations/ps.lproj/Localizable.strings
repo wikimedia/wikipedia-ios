@@ -83,7 +83,9 @@
 "activity-tab-additional-thoughts" = "کوم زياتي اندونه لرئ؟";
 "activity-tab-generic-no-edits" = "تاسو دا اوونۍ هېڅ ترميم نه دی کړی. د خپلو ونډو څارولو لپاره همدا اوس پيل کړئ.";
 "activity-tab-greeting" = "$1سلام $2$3 👋 دلته ستاسو د ويکيپېډيا اوونيز لنډيز دی.";
+// Fuzzy
 "activity-tab-logged-out-subtitle" = "هغه څه چې تاسو لوستي دي وڅارئ او خپلې ونډې د وخت په تېرېدو سره په نوي ډول وگورئ";
+// Fuzzy
 "activity-tab-logged-out-title" = "د نور سمون او لوست چارو کتلو لپاره غونډال ته ننوځئ يا نوی گڼون جوړ کړئ.";
 "activity-tab-neutral" = "بې‌پلو";
 "activity-tab-no-edits-title" = "تاسو دا اوونۍ هېڅ سمون نه دی کړی. د ليکنې د پوهېدو د ښه والي لپاره انځورونه ورگډ کړئ.";
