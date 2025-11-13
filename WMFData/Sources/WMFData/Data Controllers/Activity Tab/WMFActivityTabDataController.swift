@@ -134,7 +134,7 @@ public final class WMFActivityTabDataController {
             let page = record.page
             let timestamp = record.timestamp
             let dayBucket = calendar.startOfDay(for: timestamp)
-            let articleURL = WMFProject(id: page.projectID)?.siteURL
+            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
 
             let id = "\(page.projectID)-\(page.title)-\(Int(timestamp.timeIntervalSince1970))"
 
