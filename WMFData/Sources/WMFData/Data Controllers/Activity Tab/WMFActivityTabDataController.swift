@@ -121,6 +121,47 @@ public final class WMFActivityTabDataController {
             .sorted { $0.value > $1.value }
             .map { $0.key.categoryName }
     }
+    
+    public func fetchTimeline() async throws -> [Date: [TimelineItem]] {
+        let dataController = try WMFPageViewsDataController()
+        let pageRecords = try await dataController.fetchTimelinePages()
+        guard !pageRecords.isEmpty else { return [:] }
+
+        var dailyTimeline: [Date: [TimelineItem]] = [:]
+        let calendar = Calendar.current
+
+        for record in pageRecords {
+            let page = record.page
+            let timestamp = record.timestamp
+            let startOfDay = calendar.startOfDay(for: timestamp)
+            let articleURL = WMFProject(id: page.projectID)?.siteURL
+
+            let id = "\(page.projectID)-\(page.title)-\(Int(timestamp.timeIntervalSince1970))"
+
+            let item = TimelineItem(
+                id: id,
+                date: startOfDay,
+                titleHtml: page.title,
+                projectID: page.projectID,
+                pageTitle: page.title,
+                url: articleURL,
+                description: nil,
+                imageURLString: nil,
+                snippet: nil,
+                page: page
+            )
+
+            dailyTimeline[startOfDay, default: []].append(item)
+        }
+
+        return dailyTimeline
+    }
+
+    public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
+        let articleSummaryController = WMFArticleSummaryDataController()
+        guard let project = WMFProject(id: page.projectID) else { return nil }
+        return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
+    }
 }
 
 public class SavedArticleModuleData: NSObject, Codable {
@@ -137,4 +178,44 @@ public class SavedArticleModuleData: NSObject, Codable {
 
 public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
+}
+
+public final class TimelineItem: Identifiable, Equatable {
+    public let id: String
+    public let date: Date
+    public let titleHtml: String
+    public let projectID: String
+    public let pageTitle: String
+    public let url: URL?
+    public var description: String?
+    public var imageURLString: String?
+    public var snippet: String?
+    
+    public let page: WMFPage
+
+    public init(id: String,
+                date: Date,
+                titleHtml: String,
+                projectID: String,
+                pageTitle: String,
+                url: URL?,
+                description: String? = nil,
+                imageURLString: String? = nil,
+                snippet: String? = nil,
+                page: WMFPage) {
+        self.id = id
+        self.date = date
+        self.titleHtml = titleHtml
+        self.projectID = projectID
+        self.pageTitle = pageTitle
+        self.url = url
+        self.description = description
+        self.imageURLString = imageURLString
+        self.snippet = snippet
+        self.page = page
+    }
+
+    public static func == (lhs: TimelineItem, rhs: TimelineItem) -> Bool {
+        lhs.id == rhs.id
+    }
 }

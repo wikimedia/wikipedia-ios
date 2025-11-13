@@ -1,5 +1,7 @@
 import SwiftUI
+import WMFData
 import Charts
+import Foundation
 
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -14,62 +16,138 @@ public struct WMFActivityTabView: View {
     }
     
     public var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                ZStack {
-                    if viewModel.isLoggedIn {
-                        VStack(spacing: 20) {
-                            headerView
-                            
-                            VStack(alignment: .leading, spacing: 16) {
-                                VStack(alignment: .center, spacing: 8) {
-                                    hoursMinutesRead
-                                    Text(viewModel.localizedStrings.timeSpentReading)
-                                        .font(Font(WMFFont.for(.semiboldHeadline)))
-                                        .foregroundColor(Color(uiColor: theme.text))
-                                }
-                                .frame(maxWidth: .infinity)
-                                
-                                // Start of modules on top section
-                                articlesReadModule
-                                savedArticlesModule
-                                if !viewModel.model.topCategories.isEmpty {
-                                    topCategoriesModule(categories: viewModel.model.topCategories)
-                                }
-                                Spacer()
-                            }
-                            .padding(.horizontal, 16)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+        if viewModel.isLoggedIn {
+            List {
+                Section {
+                    VStack(spacing: 20) {
+                        headerView
+                        
+                        VStack(alignment: .center, spacing: 8) {
+                            hoursMinutesRead
+                            Text(viewModel.localizedStrings.timeSpentReading)
+                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                                .foregroundColor(Color(uiColor: theme.text))
                         }
-                        .background(
-                            LinearGradient(
-                                stops: [
-                                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
-                                    Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1.00)
-                                ],
-                                startPoint: UnitPoint(x: 0.5, y: 0),
-                                endPoint: UnitPoint(x: 0.5, y: 1)
-                            )
-                        )
                         .frame(maxWidth: .infinity)
-                    } else {
-                        loggedOutView
+                        
+                        articlesReadModule
+                        savedArticlesModule
+                        
+                        if !viewModel.model.topCategories.isEmpty {
+                            topCategoriesModule(categories: viewModel.model.topCategories)
+                        }
                     }
-                    
-                    Spacer()
+                    .padding(16)
+                    .listRowInsets(EdgeInsets()) // removes default List padding
+                    .background(
+                        LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
                 }
-                .padding(.top, 16)
                 
-                Spacer()
+                Section(header: Text("Articles")
+                    .font(.headline)
+                    .foregroundColor(Color(uiColor: theme.text))
+                ) {
+                    historyView
+                }
             }
-            .frame(maxWidth: .infinity)
+            .listStyle(.plain)
             .onAppear {
                 viewModel.fetchData()
                 viewModel.hasSeenActivityTab()
             }
+            .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+        } else {
+            loggedOutView
         }
-        .background((Color(uiColor: theme.paperBackground)))
     }
+    
+    private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
+        return WMFArticlePreviewViewModel(
+            url: item.url,
+            titleHtml: item.titleHtml,
+            description: item.description,
+            imageURLString: item.imageURLString,
+            isSaved: false,
+            snippet: item.snippet
+        )
+    }
+
+    private var historyView: some View {
+        Group {
+            if let timeline = viewModel.model.timeline, !timeline.isEmpty {
+                // Sort dates descending
+                ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
+                    timelineSection(for: date, pages: timeline[date] ?? [])
+                }
+            } else {
+                Text("No history")
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .padding()
+            }
+        }
+    }
+
+    private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
+        Section(
+            header: Text(date, formatter: DateFormatter.wmfShortTimeFormatter)
+                .font(.headline)
+                .foregroundColor(Color(uiColor: theme.text))
+        ) {
+            ForEach(pages, id: \.id) { page in
+                pageView(page: page)
+            }
+            .onDelete { indexSet in
+                var mutablePages = viewModel.model.timeline?[date] ?? []
+                mutablePages.remove(atOffsets: indexSet)
+                viewModel.model.timeline?[date] = mutablePages
+            }
+        }
+    }
+
+    private func pageView(page: TimelineItem) -> some View {
+        let pageKey = "\(page.projectID)~\(page.pageTitle)"
+        let summary = viewModel.model.pageSummaries[pageKey]
+
+        return VStack(alignment: .leading, spacing: 4) {
+            Text(page.titleHtml)
+                .font(.body)
+                .foregroundColor(Color(uiColor: theme.link))
+
+            if let description = summary?.description {
+                Text(description)
+                    .font(.subheadline)
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .lineLimit(2)
+            }
+        }
+        .padding(.vertical, 4)
+        .onAppear {
+            Task {
+                _ = await viewModel.fetchSummary(for: page)
+            }
+        }
+        .contextMenu {
+            Button {
+                print("Open article action")
+                // viewModel.onTap(page)
+            } label: {
+                Label("Open Article", systemImage: "chevron.forward")
+            }
+        } preview: {
+            if summary != nil {
+                WMFArticlePreviewView(viewModel: getPreviewViewModel(from: page))
+            }
+        }
+    }
+
     
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
