@@ -142,7 +142,7 @@ public class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Helpers
     
-    private func formatDateTime(_ dateTime: Date) -> String {
+    public func formatDateTime(_ dateTime: Date) -> String {
         DateFormatter.wmfLastReadFormatter(for: dateTime)
     }
     

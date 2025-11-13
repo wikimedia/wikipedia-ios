@@ -97,7 +97,7 @@ public struct WMFActivityTabView: View {
 
     private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
         Section(
-            header: Text(date, formatter: DateFormatter.wmfShortTimeFormatter)
+            header: Text(viewModel.formatDateTime(date))
                 .font(.headline)
                 .foregroundColor(Color(uiColor: theme.text))
         ) {
