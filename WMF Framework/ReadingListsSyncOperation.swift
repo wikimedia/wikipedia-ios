@@ -869,8 +869,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                     entry.isUpdatedLocally = true
                 }
 
-                // check if unsaved
-                let wasUnsaved = (article.savedDate == nil)
+                // Article is just to be synced, we ad it to the migration
+                let needsMigrationToWMFData = (article.savedDate == nil)
 
                 if entry.createdDate == nil {
                     entry.createdDate = NSDate()
@@ -887,7 +887,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                     article.savedDate = entry.createdDate as Date?
                 }
 
-                if wasUnsaved, let url = article.url {
+                if needsMigrationToWMFData, let url = article.url {
                     newlySavedArticleIDs.insert(url)
                 }
 
