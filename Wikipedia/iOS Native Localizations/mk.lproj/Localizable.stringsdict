@@ -298,6 +298,172 @@
 			<string>%1$d неуредени реда</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Во %1$@ г. доброволците додадоа %#@v2@ на Википедија на англиски. Збирот на сета нивна заедничка работа е дар за светот кој води до веродостоен и фактографски извор на знаење кој постојано се подобрува. Сите ние имаме знаење за споделување, па затоа [дознајте како да учествувате](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld бајт</string>
+			<key>other</key>
+			<string>%2$lld бајти</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>Додаден %1$lld бајт</string>
+			<key>other</key>
+			<string>Додадени %1$lld бајти</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Доброволците направија {PLURAL:%1$lld|%1$lld промена|%1$lld промени}} на преку %#@v2@ на Википедија. На англиската Википедија беа направени преку %3$lld промени. Секој час од секој ден доброволците работат на подобрување на Википедија.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d различно јазично издание</string>
+			<key>other</key>
+			<string>%2$d различни јазични изданија</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Годинава уредниците направија %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld промена</string>
+			<key>other</key>
+			<string>%1$lld промени</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Во %3$@ г. луѓето проведоа околу %#@v1@ — околу %#@v2@! — читајќи ја Википедија на англиски. Википедија ви стои на располагање кога сакате да дознавате нешта за нашиот свет што се менува, да добиете облог меѓу пријателите или да одговорите на прашање на љубипитно дете.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld час</string>
+			<key>other</key>
+			<string>%1$lld часа</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld година</string>
+			<key>other</key>
+			<string>%2$lld години</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>По нашата проценка, во %3$@ г. луѓето проведоа %#@v1@ — околу %#@v2@! — читајќи ја Википедија на англиски.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld час</string>
+			<key>other</key>
+			<string>%1$lld часа</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld година</string>
+			<key>other</key>
+			<string>%2$lld години</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Проведовме %#@v1@ читајќи</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld час</string>
+			<key>other</key>
+			<string>%1$lld часа</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Активните корисници од прилогот годинава зачуваа %#@v1@. Ставањето на статии во списоци за читање ви овозможува пристап до статии дури и кога немате линија. Можете и да се најавите за да ги усогласите списоците за читање на повеќе уреди.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld статија</string>
+			<key>other</key>
+			<string>%1$lld статии</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Имавме %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld зачувана статија</string>
+			<key>other</key>
+			<string>%1$lld зачувани статии</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -887,6 +1053,113 @@
 			<string>%1$d филтри</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-editors-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Уредниците од официјалните прилози на Википедија направија %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld уредување</string>
+			<key>other</key>
+			<string>%1$lld уредувања</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Википедија беше уредувана %#@v1@ во минута</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>еднаш</string>
+			<key>other</key>
+			<string>%1$d пати</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Википедија имаше %#@v1@ на %#@v2@. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld статија</string>
+			<key>other</key>
+			<string>%1$lld статии</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d активен јазик</string>
+			<key>other</key>
+			<string>%2$d активни јазици</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Википедија беше достапна на преку %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d јазик</string>
+			<key>other</key>
+			<string>%1$d јазици</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Корисниците на прилогот зачуваа %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld статија</string>
+			<key>other</key>
+			<string>%1$lld статии</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Корисниците на прилогот посетија статии на Википедија %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>еднаш</string>
+			<key>other</key>
+			<string>%1$lld пати</string>
+		</dict>
+	</dict>
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -933,6 +1206,33 @@
 			<string>еднаш</string>
 			<key>other</key>
 			<string>%1$lld пати</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Доброволците како вас направија %#@v1@ на %#@v2@ на Википедија.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld промена</string>
+			<key>other</key>
+			<string>%1$lld промени</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d различно јазично издание</string>
+			<key>other</key>
+			<string>%2$d различни јазични изданија</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
@@ -992,6 +1292,24 @@
 			<string>%2$d статија</string>
 			<key>other</key>
 			<string>%2$d статии</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Во тие статии спаѓаат %1$@, %2$@ и %3$@. Секоја зачувана статија ги одразува вашите интереси и гради лично прилагодена база на знаења на Википедија.
+
+Активните корисници на прилозите годинава зачуваа %#@v4@.</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%4$lld статија</string>
+			<key>other</key>
+			<string>%4$lld статии</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
