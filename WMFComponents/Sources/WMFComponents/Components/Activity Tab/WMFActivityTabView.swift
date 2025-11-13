@@ -53,6 +53,7 @@ public struct WMFActivityTabView: View {
                 .listRowSeparator(.hidden)
 
                 historyView
+                    .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
@@ -67,7 +68,16 @@ public struct WMFActivityTabView: View {
     }
     
     private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        return WMFArticlePreviewViewModel(url: item.url, titleHtml: item.titleHtml, description: item.description, imageURLString: item.imageURLString, isSaved: false, snippet: item.snippet)
+        let summary = viewModel.model.pageSummaries[item.id]
+        
+        return WMFArticlePreviewViewModel(
+            url: item.url,
+            titleHtml: item.titleHtml,
+            description: summary?.description ?? item.description,
+            imageURLString: summary?.thumbnailURL?.absoluteString ?? item.imageURLString,
+            isSaved: false,
+            snippet: summary?.extract ?? item.snippet
+        )
     }
 
     private var historyView: some View {
@@ -77,6 +87,7 @@ public struct WMFActivityTabView: View {
                 ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
                     timelineSection(for: date, pages: timeline[date] ?? [])
                         .listRowSeparator(.hidden)
+                        .padding(.horizontal, 16)
                 }
             }
         }
@@ -113,6 +124,7 @@ public struct WMFActivityTabView: View {
                         .foregroundColor(Color(uiColor: theme.secondaryText))
                 }
             }
+                .padding(.bottom, 20)
         ) {
             ForEach(sortedPages, id: \.id) { page in
                 pageView(page: page)
@@ -127,34 +139,57 @@ public struct WMFActivityTabView: View {
     private func pageView(page: TimelineItem) -> some View {
         let summary = viewModel.model.pageSummaries[page.id]
 
-        return VStack(alignment: .leading, spacing: 4) {
-            Text(page.titleHtml)
-                .font(.body)
-                .foregroundColor(Color(uiColor: theme.link))
+        let thumbnailURL: URL? = {
+            if let url = summary?.thumbnailURL {
+                return url
+            }
+            if let urlString = page.imageURLString,
+               let url = URL(string: urlString) {
+                return url
+            }
+            return nil
+        }()
 
-            if let description = summary?.description {
-                Text(description)
-                    .font(.subheadline)
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-                    .lineLimit(2)
+        return HStack(alignment: .center) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(page.pageTitle.replacingOccurrences(of: "_", with: " "))
+                    .font(.body)
+                    .foregroundColor(Color(uiColor: theme.text))
+                
+                if let description = summary?.description {
+                    Text(description)
+                        .font(.subheadline)
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
+                        .lineLimit(2)
+                }
+            }
+            Spacer()
+
+            if let url = thumbnailURL {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    EmptyView()
+                }
+                .frame(width: 41, height: 41)
+                .clipShape(RoundedRectangle(cornerRadius: 3))
             }
         }
-        .padding(.vertical, 4)
-        .onAppear {
-            Task {
-                _ = await viewModel.fetchSummary(for: page)
-            }
-        }
+        .padding(.vertical, 10)
+        .contentShape(Rectangle())
         .contextMenu {
-            Button {
-                print("Open article action")
-                // viewModel.onTap(page)
-            } label: {
-                Label("Open Article", systemImage: "chevron.forward")
-            }
+            // todo localize and add arrow?
+            Button("Open Article") { print("open") }
         } preview: {
             if summary != nil {
                 WMFArticlePreviewView(viewModel: getPreviewViewModel(from: page))
+            }
+        }
+        .onAppear {
+            Task {
+                _ = await viewModel.fetchSummary(for: page)
             }
         }
     }

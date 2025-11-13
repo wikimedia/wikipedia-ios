@@ -107,7 +107,7 @@ public class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Lazy Summary Fetching
 
-    public func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
+    func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
         let key = item.id
 
         if let existing = model.pageSummaries[key] {
@@ -128,7 +128,7 @@ public class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - View Strings
 
-    public var hoursMinutesRead: String {
+    var hoursMinutesRead: String {
         localizedStrings.totalHoursMinutesRead(model.hoursRead, model.minutesRead)
     }
 

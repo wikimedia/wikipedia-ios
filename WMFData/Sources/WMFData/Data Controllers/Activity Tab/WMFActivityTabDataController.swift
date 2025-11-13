@@ -136,7 +136,7 @@ public final class WMFActivityTabDataController {
             let dayBucket = calendar.startOfDay(for: timestamp)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
 
-            let id = "\(page.projectID)-\(page.title)-\(Int(timestamp.timeIntervalSince1970))"
+            let id = "\(page.projectID)-\(page.title)-\(dayBucket)"
 
             let item = TimelineItem(
                 id: id,
@@ -155,12 +155,20 @@ public final class WMFActivityTabDataController {
         }
 
         for (key, items) in dailyTimeline {
-            dailyTimeline[key] = items.sorted(by: { $0.date < $1.date })
+            var seenIDs = Set<String>()
+            let uniqueItems = items.filter { item in
+                if seenIDs.contains(item.pageTitle) {
+                    return false
+                } else {
+                    seenIDs.insert(item.pageTitle)
+                    return true
+                }
+            }.sorted(by: { $0.date < $1.date })
+            dailyTimeline[key] = uniqueItems
         }
 
         return dailyTimeline
     }
-
 
     public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
         let articleSummaryController = WMFArticleSummaryDataController()
