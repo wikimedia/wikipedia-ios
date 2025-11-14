@@ -106,7 +106,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             penballAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-your-edits-views", value: "An illustration featuring a Wikipedia puzzle piece alongside a pen.", comment: "Accessibility description for the personalized 'Your Edits Views' slide."),
             englishReadingSlideTitle: englishReadingSlideTitle,
             englishReadingSlideSubtitle: englishReadingSlideSubtitle,
-            englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "Most read articles on English Wikipedia", comment: "Top read slide title for English Year in Review."),
+            englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "English Wikipedia’s most read articles", comment: "Top read slide title for English Year in Review."),
             englishTopReadSlideSubtitle: englishTopReadSlideSubtitle,
             englishSavedReadingSlideTitle: englishSavedReadingSlideTitle,
             englishSavedReadingSlideSubtitle: englishSavedReadingSlideSubtitle,
@@ -360,7 +360,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let thisYear = config.year
         let nextYear = config.year + 1
 
-        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! Unlock a special reward in your %2$@ Year in Review by becoming a contributor—whether by [editing Wikipedia](%3$@) or by donating to the [Wikimedia Foundation](%4$@), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with the Year in Review target year + 1 (e.g. 2026). %3$@ is replaced with a MediaWiki url with more information about editing. %4$@ is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.")
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! Unlock a special reward in your %2$@ Year in Review by becoming a contributor—whether by [editing Wikipedia](%3$@) or by donating from the app to the [Wikimedia Foundation](%4$@), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all. If you donated elsewhere, your support is deeply appreciated.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with the Year in Review target year + 1 (e.g. 2026). %3$@ is replaced with a MediaWiki url with more information about editing. %4$@ is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.")
 
         return String.localizedStringWithFormat(format, String(thisYear), String(nextYear), editingFAQURLString, aboutWikimediaURLString)
     }
@@ -419,7 +419,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let format = WMFLocalizedString(
             "microsite-yir-english-top-read-slide-subtitle",
-            value: "When people want to learn about our world - the good, bad, weird, and wild alike - they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\n\nRead more in %6$@our dedicated blog post%7$@.",
+            value: "When people want to learn about our world, they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\n\nRead more in %6$@our dedicated blog post%7$@.",
             comment: "Top read slide subtitle for English Year in Review. %1$@ %2$@ %3$@ %4$@ %5$@ are replaced with article titles, %6$@ and %7$@ wrap the blog post link."
         )
         
@@ -740,7 +740,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func personalizedMostReadCategoriesSlideSubtitle(items: [String]) -> String {
-        let format = WMFLocalizedString("year-in-review-categories-slide-subtitle", value: "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times\n%1$@", comment: "Year in review categories slide subtitle, $1 is the list of top categories.")
+        let format = WMFLocalizedString("year-in-review-categories-slide-subtitle", value: "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times.\n\n%1$@", comment: "Year in review categories slide subtitle, $1 is the list of top categories.")
         return String.localizedStringWithFormat(format, personalizedListSlideSubtitle(items: items))
     }
     
