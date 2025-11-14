@@ -109,6 +109,7 @@ public enum WMFSFSymbolIcon {
     case bellFill
     case chatBubbleFilled
     case textBadgeStar
+    case textPage
     case leave
     case gear
     case calendar
@@ -306,6 +307,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "lock", withConfiguration: configuration)
         case .rectangle3:
             image = UIImage(systemName: "rectangle.3.group", withConfiguration: configuration)
+        case .textPage:
+            image = UIImage(systemName: "text.page", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

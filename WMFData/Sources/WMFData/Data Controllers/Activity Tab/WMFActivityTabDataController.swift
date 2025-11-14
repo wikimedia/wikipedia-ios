@@ -148,7 +148,8 @@ public final class WMFActivityTabDataController {
                 description: nil,
                 imageURLString: nil,
                 snippet: nil,
-                page: page
+                page: page,
+                itemType: .read
             )
 
             dailyTimeline[dayBucket, default: []].append(item)
@@ -169,7 +170,20 @@ public final class WMFActivityTabDataController {
 
         return dailyTimeline
     }
-
+    
+    public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
+        let dataController = try WMFPageViewsDataController()
+        try? await dataController.deletePageView(title: title, namespaceID: namespaceID, project: project)
+    }
+    
+    public func deletePageView(for item: TimelineItem) async throws {
+        try await deletePageView(
+            title: item.page.title,
+            namespaceID: Int16(item.page.namespaceID),
+            project: WMFProject(id: item.page.projectID)!
+        )
+    }
+    
     public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
         let articleSummaryController = WMFArticleSummaryDataController()
         guard let project = WMFProject(id: page.projectID) else { return nil }
@@ -205,6 +219,8 @@ public final class TimelineItem: Identifiable, Equatable {
     public var snippet: String?
     
     public let page: WMFPage
+    
+    public let itemType: TimelineItemType
 
     public init(id: String,
                 date: Date,
@@ -215,7 +231,8 @@ public final class TimelineItem: Identifiable, Equatable {
                 description: String? = nil,
                 imageURLString: String? = nil,
                 snippet: String? = nil,
-                page: WMFPage) {
+                page: WMFPage,
+                itemType: TimelineItemType = .standard) {
         self.id = id
         self.date = date
         self.titleHtml = titleHtml
@@ -226,9 +243,17 @@ public final class TimelineItem: Identifiable, Equatable {
         self.imageURLString = imageURLString
         self.snippet = snippet
         self.page = page
+        self.itemType = itemType
     }
 
     public static func == (lhs: TimelineItem, rhs: TimelineItem) -> Bool {
         lhs.id == rhs.id
     }
+}
+
+public enum TimelineItemType {
+    case standard // no icon, logged out users, etc.
+    case edit
+    case read
+    case save
 }

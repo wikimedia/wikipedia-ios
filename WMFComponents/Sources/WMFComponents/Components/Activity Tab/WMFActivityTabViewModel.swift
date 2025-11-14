@@ -155,10 +155,24 @@ public class WMFActivityTabViewModel: ObservableObject {
         DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
     }
     
-    func deletePages(at offsets: IndexSet, for date: Date) {
-        guard var pages = model.timeline?[date] else { return }
-        pages.remove(atOffsets: offsets)
-        model.timeline?[date] = pages
+    @MainActor
+    func deletePage(item: TimelineItem) {
+        Task {
+            do {
+                // Delete from Core Data
+                try await dataController.deletePageView(for: item)
+
+                // Delete from local model
+                let date = Calendar.current.startOfDay(for: item.date)
+                if var items = model.timeline?[date] {
+                    items.removeAll { $0.id == item.id }
+                    model.timeline?[date] = items
+                    self.model = model
+                }
+            } catch {
+                print("Failed to delete page: \(error)")
+            }
+        }
     }
     
     // MARK: - Localized Strings
