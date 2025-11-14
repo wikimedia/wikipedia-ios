@@ -105,7 +105,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 #if UITEST
         presentUITestHelperController()
 #endif
-        presentModalsIfNeeded()
+        // presentModalsIfNeeded()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            WMFToastPresenter.shared.presentToastView(
+                view: Text("Testing!"),
+                duration: 10.0
+            )
+        }
 
         if tabBarSnapshotImage == nil {
             if #available(iOS 18, *), UIDevice.current.userInterfaceIdiom == .pad {
