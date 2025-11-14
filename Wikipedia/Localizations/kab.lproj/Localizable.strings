@@ -63,6 +63,7 @@
 "action-unsave" = "UR yettwasekles ara";
 "action-unsaved-accessibility-notification" = "Amagrad ur yettwasekles ara";
 "activity-tab-add-images-title" = "Rnu tugniwin";
+"activity-tab-articles-read-graph-label" = "Imagraden";
 "alert-temporary-account-learn-more" = "Issin ugar.";
 "announcements-dismiss" = "Zgel";
 "app-store-subtitle" = "Tasanayt tilellit";
@@ -96,6 +97,7 @@
 "compass-direction" = "af $1 n isragen";
 "continue-reading-empty-description" = "Snirem Wikipedia i wugar n imagraden ara teɣreḍ";
 "continue-reading-empty-title" = "Ula d yiwen n umagrad ur yerrwaɣra melmi kan";
+"create-account" = "Snulfu-d amiḍan";
 "description-help-about-title" = "Ɣef";
 "diff-context-lines-collapsed-button-title" = "Sken-d";
 "diff-context-lines-expanded-button-title" = "Ffer";

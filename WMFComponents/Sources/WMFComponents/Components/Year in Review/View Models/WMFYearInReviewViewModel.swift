@@ -512,121 +512,117 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private func setupIntro(isUserPermanent: Bool) {
 
         self.isUserPermanent = isUserPermanent
-        
+
         // Intro slide
-        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            let introV3ViewModel = WMFYearInReviewIntroV3ViewModel(
-                gifName: "puzzle-globe-hand",
-                altText: localizedStrings.puzzleGlobeHandAccessibilityLabel,
-                title: localizedStrings.introV3Title,
-                subtitle: localizedStrings.introV3Subtitle,
-                footer: localizedStrings.introV3Footer,
-                primaryButtonTitle: localizedStrings.introV3PrimaryButtonTitle,
-                secondaryButtonTitle: localizedStrings.introV3SecondaryButtonTitle,
-                loggingID: self.introSlideLoggingID,
-                onAppear: { [weak self] in
-                    guard let self else { return }
-                    self.loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: self.introSlideLoggingID)
-                    self.markFirstSlideAsSeen()
-                },
-                tappedPrimaryButton: { [weak self] in
-                    self?.tappedIntroV3GetStarted()
-                },
-                tappedSecondaryButton: { [weak self] in
-                    self?.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
-                    self?.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
-                }
-            )
-            self.introV3ViewModel = introV3ViewModel
-        }
+        let introV3ViewModel = WMFYearInReviewIntroV3ViewModel(
+            gifName: "puzzle-globe-hand",
+            altText: localizedStrings.puzzleGlobeHandAccessibilityLabel,
+            title: localizedStrings.introV3Title,
+            subtitle: localizedStrings.introV3Subtitle,
+            footer: localizedStrings.introV3Footer,
+            primaryButtonTitle: localizedStrings.introV3PrimaryButtonTitle,
+            secondaryButtonTitle: localizedStrings.introV3SecondaryButtonTitle,
+            loggingID: self.introSlideLoggingID,
+            onAppear: { [weak self] in
+                guard let self else { return }
+                self.loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: self.introSlideLoggingID)
+                self.markFirstSlideAsSeen()
+            },
+            tappedPrimaryButton: { [weak self] in
+                self?.tappedIntroV3GetStarted()
+            },
+            tappedSecondaryButton: { [weak self] in
+                self?.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
+                self?.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
+            }
+        )
+        self.introV3ViewModel = introV3ViewModel
+
     }
     
     private func updateSlides(isUserPermanent: Bool) {
-        
+
         let bypassLoginForPersonalizedFlow = dataController?.bypassLoginForPersonalizedFlow ?? false
 
         var slides: [WMFYearInReviewSlide] = []
-        
+
         let personalizedSlides = getPersonalizedSlides()
-        
-        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            if isUserPermanent || bypassLoginForPersonalizedFlow {
-                slides.append(.standard(personalizedSlides.readCountSlideV3 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
-                
-                if primaryAppLanguage.isEnglishWikipedia {
-                    slides.append(.standard(englishTopReadSlide))
-                    
-                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
-                        slides.append(.standard(topArticlesSlide))
-                    }
-                    
-                    if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
-                        slides.append(.mostReadDateV3(mostReadDateSlideV3))
-                    }
-                    
-                    if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
-                        slides.append(.standard(categorySlide))
-                    }
-                    
-                    if let locationSlide = personalizedSlides.locationSlide {
-                        slides.append(.location(locationSlide))
-                    }
-                    
-                } else {
-                    slides.append(.standard(collectiveArticleViewsSlide))
-                    
-                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
-                        slides.append(.standard(topArticlesSlide))
-                    }
-                    
-                    if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
-                        slides.append(.mostReadDateV3(mostReadDateSlideV3))
-                    }
-                    
-                    if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
-                        slides.append(.standard(categorySlide))
-                    }
-                    
-                    if let locationSlide = personalizedSlides.locationSlide {
-                        slides.append(.location(locationSlide))
-                    }
+
+        if isUserPermanent || bypassLoginForPersonalizedFlow {
+            slides.append(.standard(personalizedSlides.readCountSlideV3 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
+
+            if primaryAppLanguage.isEnglishWikipedia {
+                slides.append(.standard(englishTopReadSlide))
+
+                if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                    slides.append(.standard(topArticlesSlide))
                 }
 
-                slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
-                slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
-                slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
-                
-                if let donateSlide = personalizedSlides.donateCountSlideV3 {
-                    // If donateSlide exists, user contributed in some form (donate count > 0 or edit count > 0),
-                    slides.append(.contribution(donateSlide))
-                } else if !shouldHideDonateButtonForCertainRegions() {
-                    // We want to hide slide entirely for non-donate regions, otherwise add non-contributor version of donate slide.
-                    slides.append(.contribution(nonContributorSlide))
+                if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
+                    slides.append(.mostReadDateV3(mostReadDateSlideV3))
                 }
-                
-                if let personalHighlights = getPersonalizedHighlights() {
-                    slides.append(.highlights(personalHighlights))
+
+                if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                    slides.append(.standard(categorySlide))
                 }
-                
+
+                if let locationSlide = personalizedSlides.locationSlide {
+                    slides.append(.location(locationSlide))
+                }
+
             } else {
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
-                
-                if let donateSlide = personalizedSlides.donateCountSlideV3 {
-                    // If donateSlide exists, user contributed in some form (donate count > 0 or edit count > 0),
-                    slides.append(.contribution(donateSlide))
-                } else if !shouldHideDonateButtonForCertainRegions() {
-                    // We want to hide slide entirely for non-donate regions, otherwise add non-contributor version of donate slide.
-                    slides.append(.contribution(nonContributorSlide))
+                slides.append(.standard(collectiveArticleViewsSlide))
+
+                if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                    slides.append(.standard(topArticlesSlide))
                 }
-                
-                slides.append(.highlights(primaryAppLanguage.isEnglishWikipedia ? getEnglishCollectiveHighlights() : getCollectiveHighlights()))
+
+                if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
+                    slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                }
+
+                if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                    slides.append(.standard(categorySlide))
+                }
+
+                if let locationSlide = personalizedSlides.locationSlide {
+                    slides.append(.location(locationSlide))
+                }
             }
+
+            slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
+            slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
+            slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
+
+            if let donateSlide = personalizedSlides.donateCountSlideV3 {
+                // If donateSlide exists, user contributed in some form (donate count > 0 or edit count > 0),
+                slides.append(.contribution(donateSlide))
+            } else if !shouldHideDonateButtonForCertainRegions() {
+                // We want to hide slide entirely for non-donate regions, otherwise add non-contributor version of donate slide.
+                slides.append(.contribution(nonContributorSlide))
+            }
+
+            if let personalHighlights = getPersonalizedHighlights() {
+                slides.append(.highlights(personalHighlights))
+            }
+
+        } else {
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
+
+            if let donateSlide = personalizedSlides.donateCountSlideV3 {
+                // If donateSlide exists, user contributed in some form (donate count > 0 or edit count > 0),
+                slides.append(.contribution(donateSlide))
+            } else if !shouldHideDonateButtonForCertainRegions() {
+                // We want to hide slide entirely for non-donate regions, otherwise add non-contributor version of donate slide.
+                slides.append(.contribution(nonContributorSlide))
+            }
+
+            slides.append(.highlights(primaryAppLanguage.isEnglishWikipedia ? getEnglishCollectiveHighlights() : getCollectiveHighlights()))
         }
-        
         self.slides = slides
     }
 
@@ -1027,16 +1023,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
             logYearInReviewDidTapDone()
             coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: hasSeenTwoSlides))
         }
-        
-        if !isShowingIntro {
+
+        if !isShowingIntro || isUserPermanent {
             standardDismissal()
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            if isUserPermanent {
-                standardDismissal()
-            } else {
-                logYearInReviewDidTapDone()
-                coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
-            }
+        } else {
+            logYearInReviewDidTapDone()
+            coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
         }
     }
     
