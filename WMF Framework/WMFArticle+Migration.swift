@@ -69,7 +69,8 @@ import CocoaLumberjackSwift
 
                 for article in articles {
                     guard let savedDate = article.savedDate,
-                          let ids = Self.getIdFromLegacyArticleURL(article)
+                          let url = article.url,
+                          let ids = Self.getPageIDs(from: url)
                     else { continue }
 
                     localSnaps.append(
@@ -136,7 +137,7 @@ import CocoaLumberjackSwift
 
                     for url in urls {
                         autoreleasepool {
-                            guard let ids = Self.pageIDs(from: url) else {
+                            guard let ids = Self.getPageIDs(from: url) else {
                                 DDLogWarn("[Mirror] Skipping URL (cannot derive PageIDs): \(url.absoluteString)")
                                 return
                             }
@@ -199,7 +200,7 @@ import CocoaLumberjackSwift
 
     private func unsave(url: URL) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
-        guard let ids = Self.pageIDs(from: url) else {
+        guard let ids = Self.getPageIDs(from: url) else {
             DDLogError("[SavedPagesMigration] Unsave aborted: could not derive PageIDs from URL \(url.absoluteString)")
             return
         }
@@ -324,7 +325,7 @@ import CocoaLumberjackSwift
         let viewedDate: Date?
     }
 
-    private static func pageIDs(from articleURL: URL) -> PageIDs? {
+    private static func getPageIDs(from articleURL: URL) -> PageIDs? {
         guard
             let siteURL = articleURL.wmf_site,
             let project = WikimediaProject(siteURL: siteURL),
@@ -333,19 +334,6 @@ import CocoaLumberjackSwift
 
         let title = (articleURL.wmf_title ?? "").normalizedForCoreData
         let namespaceID = Int16(articleURL.namespace?.rawValue ?? 0)
-        return PageIDs(projectID: wmfProject.id, namespaceID: namespaceID, title: title)
-    }
-
-    private static func getIdFromLegacyArticleURL(_ article: WMFArticle) -> PageIDs? {
-        guard
-            let url = article.url,
-            let siteURL = url.wmf_site,
-            let project = WikimediaProject(siteURL: siteURL),
-            let wmfProject = project.wmfProject
-        else { return nil }
-
-        let title = (url.wmf_title ?? "").normalizedForCoreData
-        let namespaceID = Int16(url.namespace?.rawValue ?? 0)
         return PageIDs(projectID: wmfProject.id, namespaceID: namespaceID, title: title)
     }
 

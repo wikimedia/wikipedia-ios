@@ -273,17 +273,12 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                     }
 
                     if (article.savedDate == nil && article.isSavedMigrated) {
-                        NSURL *url = article.URL;
-                        if (url != nil) {
+                        if (articleURL != nil) {
                             DDLogInfo(@"[SavedMigration] Revert hook firing for key=%@ (unsave)", article.key);
-                            NSURL *url = article.URL;
-                            if (url != nil) {
-                                [WMFArticleSavedStateMigrationManager.shared removeFromSavedWithURL:url];
-                            }
+                            [WMFArticleSavedStateMigrationManager.shared removeFromSavedWithURL:articleURL];
                         }
                     }
                 }
-
             }
         }
     }
@@ -530,7 +525,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 19) {
         [self importViewedArticlesIntoWMFDataWithDataStoreMOC:moc];
         [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
