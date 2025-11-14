@@ -771,6 +771,24 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "main-page" = "Huvudsida";
+// Fuzzy
+"microsite-yir-english-edits-bytes-slide-subtitle" = "Under $1 lade volontärer till $2 byte på engelskspråkiga Wikipedia. Summan av deras arbete leder tillsammans till en faktabaserad och pålitlig kunskapsresurs för omvärlden som ständigt förbättras. Alla har kunskap att dela med sig, så [läs om hur man deltar]($3).";
+// Fuzzy
+"microsite-yir-english-edits-bytes-slide-title" = "$1 byte lades till";
+// Fuzzy
+"microsite-yir-english-edits-slide-subtitle" = "Volontärer gjorde $1 ändringar på över $2 olika språkversioner av Wikipedia. $3 ändringar gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.";
+// Fuzzy
+"microsite-yir-english-edits-slide-title" = "Redigerare gjorde $1 ändringar i år";
+// Fuzzy
+"microsite-yir-english-reading-slide-subtitle" = "Folk tillbringade uppskattningsvis $1 timmar (omkring $2 år!) på att läsa på engelskspråkiga Wikipedia under $3. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.";
+// Fuzzy
+"microsite-yir-english-reading-slide-subtitle-short" = "Folk spenderade uppskattningsvis $1 timmar (omkring $2 år!) på att läsa på engelskspråkiga Wikipedia under $3.";
+// Fuzzy
+"microsite-yir-english-reading-slide-title" = "Vi spenderade $1 timmar på att läsa";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiva användare hade $1 sparade läslistor i år. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-title" = "Vi hade över $1 sparade artiklar";
 "microsite-yir-english-top-read-slide-subtitle" = "När folk vill lära sig om vår värld – det goda, det onda, det konstiga och det vilda – vänder de sig till Wikipedia. De 5 mest besökta artiklarna på engelskspråkiga Wikipedia var:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \n\nLäs mer på $6vårt dedikerade blogginlägg$7.";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "De populäraste artiklarna på engelskspråkiga Wikipedia";
@@ -1480,9 +1498,21 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Genom att publicera ändringarna samtycker du till $1användaravtalet$2 och du oåterkalleligen går med på att släppa ditt bidrag under licensen $3CC BY-SA 4.0$4 och $5GFDL$6. Du samtycker till att en hyperlänk eller webbadress är tillräckligt tillskrivande under licensen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "year-in-review-base-editors-subtitle" = "Wikipedias viktigaste del är vår globala gemenskap av frivilliga bidragsgivare, donerare och miljarder läsare som du själv – alla som har förenats för att dela obegränsad tillgång till pålitlig information.";
+// Fuzzy
+"year-in-review-base-editors-title" = "Redigerare i de officiella Wikipedia-apparna har gjort fler än $1 redigeringar";
 "year-in-review-base-edits-subtitle" = "Artiklar skapas och förbättras tillsammans med hjälp av tillförlitliga källor. Allihopa har kunskap att dela med sig, så [läs hur man deltar]($1).";
+// Fuzzy
+"year-in-review-base-edits-title" = "Wikipedia redigerades $1 gånger per minut";
+// Fuzzy
+"year-in-review-base-reading-subtitle" = "Wikipedia hade $1 artiklar på över $2 aktiva språk. Du anslöt dig till miljontals andra för att utöka kunskapen och utforska olika ämnen.";
+// Fuzzy
+"year-in-review-base-reading-title" = "Wikipedia gjordes tillgänglig på fler än $1 språk";
 "year-in-review-base-saved-subtitle" = "Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
+// Fuzzy
+"year-in-review-base-saved-title" = "Appanvändare hade $1 sparade artiklar";
 "year-in-review-base-viewed-subtitle" = "För människor runt om i världen är Wikipedia det första anhalten för att besvara en fråga, söka information för skolan eller jobbet eller lära sig ny fakta.";
+// Fuzzy
+"year-in-review-base-viewed-title" = "Appanvändare besökte Wikipedia-artiklar $1 gånger";
 "year-in-review-button-title" = "Årsöversikt";
 "year-in-review-collective-article-views" = "En animerad illustration av en datorskärm med en webbläsare öppen som aktivt navigerar genom en Wikipedia-artikel.";
 "year-in-review-collective-edits" = "En illustration av två Wikipedia-pusselbitar som bär på en varsin kub med information.";
@@ -1519,6 +1549,8 @@
 "year-in-review-highlights-english-articles" = "Mest populära artiklarna på engelskspråkiga Wikipedia";
 "year-in-review-highlights-favorite-day" = "Favoritdag för att läsa";
 "year-in-review-highlights-number-app-editors" = "Redigeringar i appen";
+// Fuzzy
+"year-in-review-highlights-personalized-articles" = "Artiklar jag läser längst";
 "year-in-review-highlights-reading-time" = "Lästa minuter";
 "year-in-review-highlights-share-logo-caption" = "Wikipedia-logotyp";
 "year-in-review-highlights-subtitle" = "Vi ser fram emot nästa år!";

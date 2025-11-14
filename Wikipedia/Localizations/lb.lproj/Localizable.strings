@@ -1079,10 +1079,14 @@
 "year-in-review-highlights-share-logo-caption" = "Wikipedia-Logo";
 "year-in-review-highlights-subtitle" = "Mir freeën eis op d'nächst Joer!";
 "year-in-review-most-read-categories-title" = "Är interessantst Kategorien";
+// Fuzzy
+"year-in-review-non-contributor-slide-title" = "Äert personaliséiert Contributeur-Symbol fräischalten";
 "year-in-review-personalized-date-day-footer-v3" = "Liblingsdag fir ze liesen";
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
+// Fuzzy
+"year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-reading-subtitle-format-v3" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
 "year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
 "year-in-review-share-text" = "Hei ass mäi Wikipedia-Joresréckbléck. Mat der Wikipedia-iOS-App erstallt";
