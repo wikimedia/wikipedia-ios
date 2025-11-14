@@ -194,11 +194,11 @@ public struct WMFActivityTabView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 3))
             }
         }
+        .padding(.vertical, 10)
+        .contentShape(Rectangle())
         .onTapGesture {
             viewModel.onTap(page)
         }
-        .padding(.vertical, 10)
-        .contentShape(Rectangle())
         .contextMenu {
             Button {
                 viewModel.onTap(page)
