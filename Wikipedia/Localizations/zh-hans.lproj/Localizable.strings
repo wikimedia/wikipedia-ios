@@ -1450,12 +1450,6 @@
 "year-in-review-finish" = "完成";
 "year-in-review-personalized-donate-subtitle" = "感谢您对知识免费的未来投资。今年，维基媒体基金会改进了技术，从而更好地服务每一位读者和志愿者，并开发了增强协作的工具，另外还支持了维基百科的更多语言版本。[进一步了解我们的工作]($1)。";
 "year-in-review-personalized-donate-title" = "您的慷慨让维基百科兴旺";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑过的条目共获得了 $1 次浏览。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
-// Fuzzy
-"year-in-review-personalized-edit-views-title-format" = "您编辑的文章最近已被浏览超过 $1 次";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "您编辑了维基百科 {{PLURAL:$1|$1 次}}";
 "year-in-review-personalized-explore" = "一幅动画插画，一只手中握着维基百科的地球仪，它逐渐变成了一块小小的拼图碎片，寓意着众人拾柴火焰高，每个人都在为这个平台添砖加瓦。";
 "year-in-review-personalized-saved-title-format" = "您保存了{{PLURAL:$1|$1 篇文章}}";
 "year-in-review-personalized-user-edits" = "一幅动画插画，数据字节层层堆叠，象征着自由知识的不断积累。";

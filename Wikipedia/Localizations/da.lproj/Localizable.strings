@@ -1248,12 +1248,6 @@
 "year-in-review-finish" = "Afslut";
 "year-in-review-personalized-donate-subtitle" = "Tak fordi du investerer i fremtiden for fri og gratis viden. I år forbedrede Wikimedia Foundation teknologien for at kunne betjene enhver læser og frivillige bedre, udviklede værktøjer, der styrker samarbejdet, og understøttede Wikipedia på flere sprog. [Få mere at vide om vores arbejde]($1).";
 "year-in-review-personalized-donate-title" = "Din generøsitet hjalp med at holde Wikipedia i gang";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, fået $1 visninger i alt. Takket være bidragere som dig, er Wikipedia en konstant forbedret, faktabaseret og pålidelig videnressource for verden";
-// Fuzzy
-"year-in-review-personalized-edit-views-title-format" = "Dine redigeringer er blevet set mere end $1 gange for nylig";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "Du har redigeret Wikipedia {{PLURAL:$1|$1 gang|$1 gange}}";
 "year-in-review-personalized-explore" = "En animeret illustration af en hånd, der holder Wikipedia-kloden, som gradvist forvandles til en lille puslespilsbrik, der symboliserer individuelle bidrag til platformen.";
 "year-in-review-personalized-saved-title-format" = "Du har gemt {{PLURAL:$1| $1 artikel| $1 artikler}}";
 "year-in-review-personalized-user-edits" = "En animeret illustration, der viser bytes, der stables oven på hinanden, hvilket symboliserer den kontinuerlige skabelse af fri viden.";

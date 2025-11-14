@@ -1377,12 +1377,6 @@
 "year-in-review-finish" = "סיום";
 "year-in-review-personalized-donate-subtitle" = "תודה על ההשקעה בעתיד של ידע חופשי. השנה, קרן ויקימדיה שיפרה את הטכנולוגיה כדי לשרת טוב יותר כל קורא וכל מתנדב, פיתחה כלים המעצימים שיתוף פעולה ותמכה בוויקיפדיה בעוד שפות. [למידע נוסף על העבודה שלנו]($1).";
 "year-in-review-personalized-donate-title" = "הנדיבות שלך עזרה לוויקיפדיה לצמוח";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "קוראים ברחבי העולם מעריכים את התרומות שלך. במהלך החודשיים האחרונים, ערכים שערכת קיבלו $1 צפיות בסך הכול. הודות לעורכים כמוך, ויקיפדיה היא משאב ידע המשתפר בהתמדה, מבוסס עובדות ואמין עבור העולם";
-// Fuzzy
-"year-in-review-personalized-edit-views-title-format" = "העריכות שלך נצפו יותר מ־$1 פעמים לאחרונה";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "ערכת את ויקיפדיה {{PLURAL:$1|פעם אחת|פעמיים|$1 פעמים}}";
 "year-in-review-personalized-explore" = "איור מונפש של יד אוחזת בגלובוס ויקיפדיה, שהופך בהדרגה לפיסת פאזל קטנה, המסמלת תרומות בודדות לפלטפורמה.";
 "year-in-review-personalized-saved-title-format" = "שמרת {{PLURAL:$1|ערך|$1 ערכים}}";
 "year-in-review-personalized-user-edits" = "איור מונפש שמציג בתים שנערמים זה על גבי זה, שמסמל יצירה מתמשכת של ידע חופשי.";

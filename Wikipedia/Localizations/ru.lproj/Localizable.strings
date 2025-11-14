@@ -1457,8 +1457,6 @@
 "year-in-review-finish" = "Завершить";
 "year-in-review-highlights-english-articles" = "Самые читаемые статьи на английской Википедии";
 "year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
 "year-in-review-survey-additional-thoughts" = "Есть ли у вас какие-нибудь дополнительные мысли?";
 "year-in-review-survey-neutral" = "Воздержусь";
 "year-in-review-survey-satisfied" = "Доволен";

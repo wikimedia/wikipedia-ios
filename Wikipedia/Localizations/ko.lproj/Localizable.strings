@@ -1410,8 +1410,6 @@
 "year-in-review-intro-login-title" = "개인화를 위해선 로그인하세요";
 "year-in-review-personalized-date-month-footer-v3" = "가장 많이 읽은 달";
 "year-in-review-personalized-donate-title" = "귀하의 기부 덕분에 위키백과의 번영 유지에 도움이 되었습니다";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
 "year-in-review-personalized-most-read-articles-title" = "인기 기사";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|문서 $1개}}를 저장했습니다";
 "year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";

@@ -1555,10 +1555,6 @@
 "year-in-review-personalized-date-month-footer-v3" = "Mês em que você mais leu";
 "year-in-review-personalized-date-time-footer-v3" = "Hora favorita para ler";
 "year-in-review-personalized-donate-title" = "Sua generosidade ajudou a manter a Wikipédia prosperando";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "Leitores de todo o mundo apreciam suas contribuições. Nos últimos dois meses, os artigos que você editou receberam um total de $1 visualizações. Graças a editores como você, a Wikipédia é um recurso de conhecimento em constante aperfeiçoamento, baseado em fatos e confiável para o mundo todo.";
-// Fuzzy
-"year-in-review-personalized-edit-views-title-format" = "Nossas edições foram visualizadas mais de $1 vezes recentemente.";
 "year-in-review-personalized-location-subtitle-format-1" = "Leu sobre $2$1$3.";
 "year-in-review-personalized-location-subtitle-format-2" = "Leu sobre $3$1$4 e $3$2$4.";
 "year-in-review-personalized-location-subtitle-format-3" = "Leu sobre $4$1$5, $4$2$5, e $4$3$5.";

@@ -1292,12 +1292,6 @@
 "year-in-review-feature-announcement-body" = "Tutustu kohokohtiin miten artikkeleita luetaan ja muokataan Wikipediassa.";
 "year-in-review-feature-announcement-title-personalized" = "Tutustu Wikipedia-vuoteesi";
 "year-in-review-feature-explore-body-personalized" = "Tutustu kohokohtiin lukemastasi ja muokkaamastasi sisällöstä Wikipedia-sovelluksessa vuonna 2024. Lukuhistoria säilytetään suojattuna. Kohokohdat muodostetaan laitteellesi tallennetun tiedon perusteella.";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä $1 katselukertaa. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.";
-// Fuzzy
-"year-in-review-personalized-edit-views-title-format" = "Muokkauksiasi on näytetty yli $1 kertaa";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "Muokkasit Wikipediaa {{PLURAL:$1|$1 kerran|$1 kertaa}}";
 "year-in-review-share-text" = "Tämä on Wikipedia-vuosikatsaukseni, joka on luotu Wikipedian iOS-sovelluksella.";
 "year-in-review-survey-additional-thoughts" = "Muita ajatuksia?";
 "year-in-review-survey-neutral" = "Neutraali";
