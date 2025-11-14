@@ -96,8 +96,7 @@ public struct WMFActivityTabView: View {
     private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
         let sortedPages = pages.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current
-        
-        // todo localize
+
         let title: String
         let subtitle: String
         if calendar.isDateInToday(date) {
@@ -110,9 +109,9 @@ public struct WMFActivityTabView: View {
             title = viewModel.formatDate(date)
             subtitle = ""
         }
-        
-        return Section(
-            header: VStack(alignment: .leading, spacing: 4) {
+
+        return VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 4) {
                 if !title.isEmpty {
                     Text(title)
                         .font(Font(WMFFont.for(.boldTitle3)))
@@ -124,19 +123,20 @@ public struct WMFActivityTabView: View {
                         .foregroundColor(Color(uiColor: theme.secondaryText))
                 }
             }
-                .padding(.bottom, 20)
-        ) {
+            .padding(.vertical, 10)
+            .listRowInsets(EdgeInsets())
+
             ForEach(sortedPages, id: \.id) { page in
                 pageView(page: page)
                     .listRowSeparator(.hidden)
             }
             .onDelete { indexSet in
                 for index in indexSet {
-                    let pageToDelete = sortedPages[index]
-                    viewModel.deletePage(item: pageToDelete)
+                    viewModel.deletePage(item: sortedPages[index])
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private func pageView(page: TimelineItem) -> some View {
