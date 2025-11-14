@@ -22,6 +22,7 @@ struct ArticlesReadViewModel {
 public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
+    public var onTapArticle: ((TimelineItem) -> Void)?
 
     @Published var model: ArticlesReadViewModel = ArticlesReadViewModel(
         username: "",
@@ -155,6 +156,10 @@ public class WMFActivityTabViewModel: ObservableObject {
         DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
     }
     
+    func onTap(_ item: TimelineItem) {
+        onTapArticle?(item)
+    }
+    
     @MainActor
     func deletePage(item: TimelineItem) {
         Task {
@@ -193,8 +198,12 @@ public class WMFActivityTabViewModel: ObservableObject {
         let loggedOutSubtitle: String
         let loggedOutPrimaryCTA: String
         let loggedOutSecondaryCTA: String
+        let todayTitle: String
+        let yesterdayTitle: String
+        let openArticle: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, loggedOutSecondaryCTA: String) {
+        
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, loggedOutSecondaryCTA: String, todayTitle: String, yesterdayTitle: String, openArticle: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -210,6 +219,9 @@ public class WMFActivityTabViewModel: ObservableObject {
             self.loggedOutSubtitle = loggedOutSubtitle
             self.loggedOutPrimaryCTA = loggedOutPrimaryCTA
             self.loggedOutSecondaryCTA = loggedOutSecondaryCTA
+            self.todayTitle = todayTitle
+            self.yesterdayTitle = yesterdayTitle
+            self.openArticle = openArticle
         }
     }
 }

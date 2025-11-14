@@ -101,10 +101,10 @@ public struct WMFActivityTabView: View {
         let title: String
         let subtitle: String
         if calendar.isDateInToday(date) {
-            title = "Today"
+            title = viewModel.localizedStrings.todayTitle
             subtitle = viewModel.formatDate(date)
         } else if calendar.isDateInYesterday(date) {
-            title = "Yesterday"
+            title = viewModel.localizedStrings.yesterdayTitle
             subtitle = viewModel.formatDate(date)
         } else {
             title = viewModel.formatDate(date)
@@ -194,11 +194,25 @@ public struct WMFActivityTabView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 3))
             }
         }
+        .onTapGesture {
+            viewModel.onTap(page)
+        }
         .padding(.vertical, 10)
         .contentShape(Rectangle())
         .contextMenu {
-            // todo localize and add arrow?
-            Button("Open Article") { print("open") }
+            Button {
+                viewModel.onTap(page)
+            } label: {
+                HStack {
+                    Text(viewModel.localizedStrings.openArticle)
+                        .font(Font(WMFFont.for(.mediumSubheadline)))
+                    Spacer()
+                    if let icon = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
+                        Image(uiImage: icon)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+            }
         } preview: {
             if summary != nil {
                 WMFArticlePreviewView(viewModel: getPreviewViewModel(from: page))
