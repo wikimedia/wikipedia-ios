@@ -777,12 +777,6 @@
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
 "main-page" = "Заглавная страница";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "В 2024 году добровольцы добавили 3 416 899 197 байт текста в англоязычную Википедию. В результате их работы создаётся постоянно совершенствующийся, основанный на фактах и ​​надёжный ресурс знаний, который они предоставляют миру. У каждого из нас есть знания, которыми можно поделиться. [Узнайте, как и вам принять участие]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "Добавлено 3,4 миллиарда байт";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "В этом году редакторы внесли около 82 миллионов правок.";
 "microsite-yir-english-top-read-slide-title" = "Наиболее читаемые статьи в английской Википедии";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";

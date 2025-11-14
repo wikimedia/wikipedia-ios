@@ -790,22 +790,6 @@
 "main-menu-zero-faq" = "Preguntas frecuentes de Wikipedia Zero";
 "main-page" = "Página principal";
 // Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "En 2024, los voluntarios añadieron 4.104.852.969 bytes a la Wikipedia en inglés. La suma de todo su trabajo conjunto da como resultado una fuente de conocimiento en constante mejora, basada en hechos y fiable que comparten con el mundo. Todos tenemos conocimiento para compartir. [Aprende a participar]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "$1 bytes añadidos";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "Los voluntarios realizaron 98.222.407 cambios en más de 300 ediciones de Wikipedia en diferentes idiomas. Se realizaron más de 37 millones de cambios en la Wikipedia en inglés. Cada hora, los voluntarios trabajan para mejorar Wikipedia.";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "Los editores realizaron 98 millones de cambios este año";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "Se estima que la gente pasó 2.900 millones de horas (¡más de 331.000 años!) leyendo Wikipedia en inglés en 2024. Wikipedia está ahí cuando quieres aprender sobre nuestro mundo cambiante, ganar una apuesta entre amigos o responder la pregunta de un niño curioso.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "Nosotros(as) pasamos 2.900 millones de horas leyendo";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Los usuarios activos de la app iOS tenían más de 62,2 millones de listas de lectura. Añadir artículos a las listas de lectura te permite acceder a ellos incluso sin conexión. También puedes iniciar sesión para sincronizar las listas de lectura en todos tus dispositivos.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "Teníamos más de 62,2 millones de listas de lectura";
-// Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "Los 5 artículos más visitados en Wikipedia en inglés fueron:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nLea más en $6nuestra entrada de blog dedicada$7.";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Los artículos más populares de Wikipedia en inglés";

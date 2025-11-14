@@ -747,22 +747,6 @@
 "main-menu-terms-of-use" = "使用条款";
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "维基百科Zero常见问题";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "在$1年，志愿者们为英文维基百科增添了$2字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。]($3)";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "增加了$1字节";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "志愿者们在超过$2种不同语言版本的维基百科上共完成了$1次修改。其中，英文维基百科的修改次数就超过了$3次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "编辑者们今年做出了将近$1次修改";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "在$3年，人们花费了大约$1小时——相当于超过$2年！——阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "我们花了$1小时阅读";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "活跃的iOS应用用户拥有超过6220万份阅读清单。将文章加入阅读清单，就能在离线状态下随时查看。此外，登录后还能在不同设备上同步阅读清单。";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "我们拥有$1个已保存条目";
 "microsite-yir-english-top-read-slide-subtitle" = "当人们想要了解我们的世界——无论是好的、坏的、奇怪的还是狂野的——他们都会寻求于维基百科。英语维基百科上访问量最高的5篇文章是：\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\n在我们的$6专门博客文章$7中了解更多。";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "英语维基百科最受欢迎的文章";

@@ -652,16 +652,6 @@
 "main-menu-terms-of-use" = "Käyttöehdot";
 "main-menu-title" = "Lisää";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "4 miljardia tavua lisätty";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "Vapaaehtoiset tekivät 98 222 407 muutosta yli 300 eri kieliversioon Wikipediassa. Englanninkieliseen Wikipediaan tehtiin yli 37 miljoonaa muutosta. Joka päivä, joka tunti, vapaaehtoiset työskentelevät parantaakseen Wikipediaa.";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "Ihmiset viettivät arviolta 2,9 miljardia tuntia – yli 331 000 vuotta! – englanninkielisen Wikipedian lukemiseen vuonna 2024. Wikipedia on palveluksessasi, kun haluat oppia lisää muuttuvasta maailmasta, voittaa vedon ystävien kesken tai vastata uteliaan lapsen kysymykseen.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Artikkelien lisääminen lukulistoihin mahdollistaa artikkelien käytön myös ilman Internet-yhteyttä. Voit myös synkronoida lukulistoja eri laitteiden välillä.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "Yli 62,2 miljoonaa lukulistaa";
 "more-languages-tooltip-description" = "Hae Wikipediasta yli 300 kielellä";
 "more-languages-tooltip-title" = "Lisää kieliä";
 "more-menu" = "Lisää";

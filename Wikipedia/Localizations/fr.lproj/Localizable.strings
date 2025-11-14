@@ -778,24 +778,6 @@
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "main-page" = "Accueil";
 // Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "En 2024, les bénévoles ont ajouté 4 104 852 969 octets à la Wikipédia anglophone. La somme de leur travail commun conduit à une ressource de connaissances en constante amélioration, fondée sur des faits existants et des ressources fiables de connaissances, qu'ils mettent à la disposition du monde. Nous avons tous des connaissances à partager, [apprenez à participer]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "4 milliards d'octets ajoutés";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "Les bénévoles ont apporté 98 222 407 modifications dans plus de 300 versions linguistiques différentes de Wikipédia. Plus de 37 millions de modifications ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l'amélioration de Wikipédia.";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "Les contributeurs ont réalisé 98 millions de modifications cette année";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "Les utilisateurs ont passé environ 2,4 milliards d'heures (près de 275 000 ans !) à lire Wikipédia en anglais en 2025. Wikipédia est là lorsque vous souhaitez en savoir plus sur l'évolution de notre monde, gagner un pari entre amis ou répondre à la question d'un enfant curieux.";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle-short" = "Les utilisateurs ont passé environ 2,4 milliards d'heures (près de 275 000 ans !) à lire Wikipédia en anglais en 2025.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "Nous avons passé 2,9 milliards d’heures à lire";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Les utilisateurs actifs de l'application iOS comptaient plus de 62,2 millions de listes de lecture. L'ajout d'articles aux listes de lecture vous permet d'accéder aux articles même hors ligne. Vous pouvez également vous connecter pour synchroniser les listes de lecture sur plusieurs appareils.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "Nous avions plus de 62,2 millions de listes de lecture";
-// Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "Les 5 articles les plus consultés sur Wikipédia en anglais ont été :\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nLisez $6notre article de blog dédié$7.";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Les articles les plus populaires de Wikipédia en anglais";

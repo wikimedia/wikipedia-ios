@@ -731,24 +731,6 @@
 "main-menu-title" = "Daha çox";
 "main-menu-zero-faq" = "Wikipedia Zero TSS";
 "main-page" = "Ana səhifə";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "$1-ci ildə könüllülər İngiliscə Vikipediyaya $2 bayt əlavə ediblər. Birgə işin cəmi onların dünyaya verdiyi davamlı təkmilləşən, fakta əsaslanan və etibarlı bilik resursuna gətirib çıxarır. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($3).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "$1 bayt əlavə edildi";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "Könüllülər Vikipediyanın $2 müxtəlif dildə nəşrlərində $1 dəyişiklik ediblər. İngiliscə Vikipediyada $3 dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "Bu il redaktorlar $1 dəyişiklik edib";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "İnsanlar $3-ci ildə İngiliscə Vikipediyanı oxumağa təqribən $1 saat sərf ediblər - $2 ildən çox! Siz dəyişən dünyamız haqqında öyrənmək, dostlar arasında mərc qazanmaq və ya maraqlı uşağın sualına cavab vermək istədiyiniz zaman Vikipediya oradadır.";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle-short" = "İnsanlar $3-ci ildə İngilis Vikipediyasını oxumaq üçün təxminən $1 saat - $2 ildən çox vaxt sərf ediblər.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "Oxumağa $1 saat sərf etmişik";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiv mobil tətbiq istifadəçiləri $1 yadda saxlanılan məqaləyə sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "$1 oxuma siyahılarımız olub.";
 "microsite-yir-english-top-read-slide-subtitle" = "İnsanlar dünyamız haqqında yaxşı, pis və ya qəribə bir şey öyrənmək istədikdə Vikipediyaya müraciət edirlər. İngiliscə Vikipediyada ən çox ziyarət edilən 5 məqalə bunlardır: \n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n$6Bizim xüsusi bloq yazımızı$7 oxuyun";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "İngiliscə Vikipediyanın ən çox oxunan məqalələri";
