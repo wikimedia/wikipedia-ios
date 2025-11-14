@@ -1476,7 +1476,7 @@
 "year-in-review-base-viewed-subtitle" = "For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.";
 "year-in-review-base-viewed-title" = "App users viewed Wikipedia articles {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-button-title" = "Year in Review";
-"year-in-review-categories-slide-subtitle" = "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times\n\n$1";
+"year-in-review-categories-slide-subtitle" = "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times.\n\n$1";
 "year-in-review-collective-article-views" = "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.";
 "year-in-review-collective-edits" = "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.";
 "year-in-review-collective-languages" = "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.";
