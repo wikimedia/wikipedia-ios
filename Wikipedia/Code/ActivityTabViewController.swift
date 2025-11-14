@@ -222,7 +222,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
         }
-        // Note - view not updating - needs merging https://github.com/wikimedia/wikipedia-ios/pull/5522
     }
 
     private func userDidTapLearnMore() {
@@ -230,7 +229,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
             let newNavigationVC =
-            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet) // confirm
+            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             navigationController?.present(newNavigationVC, animated: true)
         }
     }
