@@ -757,5 +757,33 @@
 			<string>%1$d پالایه</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-reading-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ویکی‌پدیا در بیش از %#@v1@ در دسترس بوده است</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d زبان</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>شما %#@v1@ ویرایش انجام داده‌اید</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d بار</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

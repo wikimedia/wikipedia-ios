@@ -1212,6 +1212,7 @@
 "year-in-review-base-editors-title" = "iOSアプリの編集者は$1回以上の編集を行いました";
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "ウィキペディアは1分あたり平均$1回編集されました。記事は信頼できる情報源を使用して共同で作成、改訂されています。私達は皆、共有すべき知識を持っていますから、[参加方法をご覧ください]（$2）。";
+// Fuzzy
 "year-in-review-base-edits-title" = "ウィキペディアは1分あたり$1回編集されました";
 // Fuzzy
 "year-in-review-base-reading-subtitle" = "ウィキペディアには、活発に使用されている$2以上の言語で$1百万件以上の記事が掲載されていました。あなたは何百万人もの人々に加わり、知識を広げ、多様なトピックを探求しました。";
