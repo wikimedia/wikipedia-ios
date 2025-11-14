@@ -856,7 +856,7 @@
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vikipediyanı %#@v1@ redaktə etmisiniz</string>
+		<string>%#@v1@ redaktə etmisiniz</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

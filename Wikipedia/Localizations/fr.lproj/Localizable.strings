@@ -133,7 +133,9 @@
 "activity-tab-additional-thoughts" = "Des suggestions ?";
 "activity-tab-generic-no-edits" = "Vous n’avez pas encore édité cette semaine. Commencez maintenant à suivre vos contributions.";
 "activity-tab-greeting" = "$1Bonjour $2$3👋 Voici votre résumé hebdomadaire de Wikipédia.";
+// Fuzzy
 "activity-tab-logged-out-subtitle" = "Suivez ce que vous avez lu et visualisez vos contributions au fil du temps d'une nouvelle manière";
+// Fuzzy
 "activity-tab-logged-out-title" = "Connectez-vous ou créez un compte pour voir plus d'activités de lecture et d'édition.";
 "activity-tab-neutral" = "Neutre";
 "activity-tab-no-edits-title" = "Vous n'avez pas encore effectué de modifications. Ajouter des images pour améliorer la compréhension de l'article.";
@@ -795,6 +797,7 @@
 "microsite-yir-english-saved-reading-slide-title" = "Nous avions plus de 62,2 millions de listes de lecture";
 // Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "Les 5 articles les plus consultés sur Wikipédia en anglais ont été :\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nLisez $6notre article de blog dédié$7.";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Les articles les plus populaires de Wikipédia en anglais";
 "more-languages-tooltip-description" = "Rechercher sur Wikipédia dans plus de 300 langues";
 "more-languages-tooltip-title" = "Ajustar de lengas";
@@ -1504,6 +1507,7 @@
 "year-in-review-base-editors-title" = "Plus de $1 modifications ont été faites par les contributeurs";
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "Wikipédia a été mise à jour en moyenne $1 fois par minute. Les articles sont créés et améliorés collectivement, en s’appuyant sur des sources fiables. Chacun de nous a des connaissances à partager, [apprendre comment participer]($2).";
+// Fuzzy
 "year-in-review-base-edits-title" = "Wikipédia a été modifié $1 fois par minute";
 // Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipédia comptait plus d' $1 million d'articles dans plus de $2 langues actives. Vous avez rejoint des millions de personnes pour élargir leurs connaissances et explorer des sujets variés.";
@@ -1520,8 +1524,6 @@
 "year-in-review-button-title" = "Bilan de l'Année";
 "year-in-review-collective-article-views" = "Une illustration animée d'un écran d'ordinateur avec un navigateur Internet ouvert, naviguant activement dans un article Wikipédia.";
 "year-in-review-collective-edits" = "Une illustration de deux pièces du puzzle Wikipédia, chacune contenant une information.";
-"year-in-review-collective-edits-per-minute" = "Une horloge qui tourne, symbolisant le temps passé par les utilisateurs à lire Wikipédia.";
-"year-in-review-collective-explore" = "Une illustration animée représentant le globe emblématique de Wikipédia entouré d'échafaudages, symbolisant l'effort collaboratif des personnes du monde entier pour construire le projet. Le globe est entouré d'un paysage urbain, soulignant son lien avec l'humanité et la culture mondiale.";
 "year-in-review-collective-languages" = "Une illustration animée d'une pierre gravée d'inscriptions représentant différentes langues, symbolisant la manière dont Wikipédia construit de manière collaborative des connaissances issues de diverses cultures et régions.";
 "year-in-review-collective-saved-articles" = "Un globe puzzle avec le logo de Wikipédia, représentant la collaboration mondiale.";
 "year-in-review-contributor-gift-subtitle" = "Si vous ne l'activez pas maintenant, vous pourrez toujours y accéder dans Paramètres sous Thèmes.";
@@ -1537,7 +1539,6 @@
 "year-in-review-day-wednesday" = "mercredis";
 "year-in-review-donate" = "Faire un don";
 "year-in-review-donate-now" = "Faites un don dès maintenant";
-"year-in-review-english-edits" = "Un graphique montrant les 10 éditions les plus modifiées de Wikipédia en 2024 : plus de 31 millions de modifications pour l'anglais, 5 508 570 pour l'allemand, 5 276 385 pour le français, 4 786 205 pour l'espagnol, 3 303 066 pour le russe, 3 200 398 pour l'italien, 2 973 657 pour le japonais, 2 505 032 pour le chinois, 1 383 808 pour le polonais et 1 376 980 pour l'ukrainien. Le nombre total de modifications sur l'ensemble des éditions de Wikipédia en 2024 est de 81 987 181.";
 "year-in-review-feature-announcement-body" = "Consultez des informations sur les articles lus et modifiés, et partagez les moments forts de notre année sur Wikipédia.";
 "year-in-review-feature-announcement-body-personalized" = "Consultez des informations sur les articles que vous lisez sur l'application Wikipédia, partagez votre parcours et découvrez les moments forts de votre année.";
 "year-in-review-feature-announcement-title" = "Découvrez le bilan de Wikipédia";
@@ -1559,7 +1560,6 @@
 "year-in-review-personalized-date-title-v3" = "Vous avez des schémas de lecture précis";
 "year-in-review-personalized-donate-subtitle" = "Merci d'investir dans l'avenir du savoir en accès libre. Cette année, la Fondation Wikimédia a fait progresser la technologie pour mieux servir chaque lecteur et bénévole, a développé des outils qui favorisent la collaboration et a soutenu Wikipédia dans davantage de langues. [En savoir plus sur notre travail]($1).";
 "year-in-review-personalized-donate-title" = "Votre générosité a contribué au dynamisme de Wikipédia";
-"year-in-review-personalized-donation-thank-you" = "Logo Wikimédia";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Les lecteurs du monde entier apprécient vos contributions. Au cours des deux derniers mois, les articles que vous avez édités ont reçu un total de $1 de vues. Grâce à des éditeurs comme vous, Wikipédia est une ressource de connaissances fiable, basée sur des faits et en constante amélioration pour le monde entier.";
 // Fuzzy
@@ -1577,7 +1577,6 @@
 "year-in-review-personalized-reading-subtitle-format-v3" = "Vous êtes dans les **PERCENT** des plus grands lecteurs de Wikipédia au monde. En moyenne, une personne lit {{PLURAL:$1|$1 article|$1 articles}} par an.";
 // Fuzzy
 "year-in-review-personalized-reading-title-v3-format" = "Vous avez passé {{PLURAL:$1|$1 minute|$1 minutes}} à lire un total de {{PLURAL:$2|$2 article|$2 articles}} en 2025";
-"year-in-review-personalized-saved-articles" = "Illustration d'une pièce de puzzle portant un casque de sécurité avec des écrans d'ordinateur à l'arrière.";
 "year-in-review-personalized-saved-title-format" = "Vous avez enregistré $1 article{{PLURAL:$1||s}}";
 "year-in-review-personalized-user-edits" = "Une illustration animée montrant des octets s'empilant les uns sur les autres, symbolisant la création continue de connaissances gratuites.";
 "year-in-review-personalized-weekday" = "Une horloge qui tourne, symbolisant le temps passé par les utilisateurs à lire Wikipédia.";
