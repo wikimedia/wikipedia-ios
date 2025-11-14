@@ -6,7 +6,6 @@ public actor WMFSavedArticlesDataController {
 
     public static let shared = WMFSavedArticlesDataController()
     private let articleSummaryDataController: WMFArticleSummaryDataController
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private var _coreDataStore: WMFCoreDataStore?
     private var coreDataStore: WMFCoreDataStore? {
         return _coreDataStore ?? WMFDataEnvironment.current.coreDataStore
@@ -33,7 +32,13 @@ public actor WMFSavedArticlesDataController {
             lastDate = lastDateSaved
         }
 
-        if let thumbnailURLs = try? await fetchSavedArticlesImageURLs(startDate: startDate, endDate: endDate) {
+        let random3articles = pages
+            .compactMap { $0 }
+            .shuffled()
+            .prefix(3)
+            .map { $0 }
+
+        if let thumbnailURLs = try? await fetchSavedArticlesImageURLs(for: random3articles) {
             randomURLs = thumbnailURLs
         }
 
@@ -107,8 +112,7 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
-    private func fetchSavedArticlesImageURLs(startDate: Date, endDate: Date) async throws -> [URL?] {
-        let snapshots = try await fetchSavedArticleSnapshots(startDate: startDate, endDate: endDate)
+    private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot]) async throws -> [URL?] {
         guard !snapshots.isEmpty else { return [] }
 
         return await withTaskGroup(of: URL?.self) { group in
@@ -124,15 +128,17 @@ public actor WMFSavedArticlesDataController {
                 }
             }
 
-            var urls = [URL?]()
+            var urls: [URL?] = []
+            urls.reserveCapacity(snapshots.count)
+
             for await url in group {
-                if let url { urls.append(url) }
+                if let url {
+                    urls.append(url)
+                }
             }
             return urls
         }
-
     }
-
 }
 
 // MARK: - Types
