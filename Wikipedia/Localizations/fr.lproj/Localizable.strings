@@ -1530,8 +1530,6 @@
 "year-in-review-finish" = "Terminer";
 "year-in-review-intro-exit-toast-title" = "Vous pourrez accéder à votre bilan annuel ultérieurement dans Profil.";
 "year-in-review-intro-login-title" = "Connectez-vous pour la personnalisation";
-// Fuzzy
-"year-in-review-non-contributor-slide-title" = "Débloquer une icône personnalisée";
 "year-in-review-personalized-date-day-footer-v3" = "Jour favori pour la lecture";
 "year-in-review-personalized-date-month-footer-v3" = "Mois où vous avez le plus lu";
 "year-in-review-personalized-date-time-footer-v3" = "Moment préféré pour lire";
