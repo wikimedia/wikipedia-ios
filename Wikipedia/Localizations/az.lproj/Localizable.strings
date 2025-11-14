@@ -1455,21 +1455,9 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Dəyişiklikləri dərc etməklə siz $1İstifadə Şərtləri$2 ilə razılaşırsınız və töhfələrinizin $3CC BY-SA 4.0$4 və $5GFDL$6 lisenziyaları altında geri qaytarılmadan yayımlanmasına razı olursunuz. Siz razılaşırsınız ki, hiperlink və ya URL əlavə edilməsi Creative Commons lisenziyası şərtinin ödənilməsi üçün kifayətdir.";
 "wikitext-upload-save-terms-name" = "İstifadə şərtləri";
 "year-in-review-base-editors-subtitle" = "Vikipediyanın ürəyi və ruhu bizim könüllü redaktorlar, ianəçilər və sizin kimi milyardlarla oxucudan ibarət qlobal birliyimizdir. Hamısı etibarlı məlumatı məhdudiyyətsiz əldə etmək üçün birləşib.";
-// Fuzzy
-"year-in-review-base-editors-title" = "Redaktorlar rəsmi Vikipediya mobil tətbiqlərində $1 redaktə ediblər";
 "year-in-review-base-edits-subtitle" = "Məqalələr etibarlı mənbələrdən istifadə etməklə birgə yaradılır və təkmilləşdirilir. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($1).";
-// Fuzzy
-"year-in-review-base-edits-title" = "Vikipediya dəqiqədə $1 dəfə redaktə edilib";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "Vikipediyada $2 aktiv dildə $1 məqalə var. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
-// Fuzzy
-"year-in-review-base-reading-title" = "Vikipediya $1+ dildə mövcud idi";
 "year-in-review-base-saved-subtitle" = "Oxuma siyahılarına məqalələr əlavə etmək hətta oflayn olarkən məqalələri oxumaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
-// Fuzzy
-"year-in-review-base-saved-title" = "Tətbiq istifadəçilərinin $1 yadda saxlanılan məqaləsi olub";
 "year-in-review-base-viewed-subtitle" = "Dünyanın hər yerindən insanlar üçün suala cavab verərkən, məktəb və ya iş üçün məlumat axtararkən və ya yeni fakt öyrənərkən Vikipediya ilk dayanacaqdır.";
-// Fuzzy
-"year-in-review-base-viewed-title" = "Tətbiq istifadəçiləri Vikipediya məqalələrini $1 dəfə oxuyub";
 "year-in-review-button-title" = "İlə Baxış";
 "year-in-review-collective-article-views" = "Vikipedia məqaləsində aktiv şəkildə naviqasiya edən veb-brauzeri açıq olan kompüter ekranının animasiya illüstrasiyası.";
 "year-in-review-collective-edits" = "Hər biri bir məlumat daşıyan iki Vikipediya tapmacasının təsviri.";

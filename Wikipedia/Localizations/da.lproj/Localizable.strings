@@ -1235,20 +1235,6 @@
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
 "wikitext-upload-save-sign-in" = "Log på";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
-// Fuzzy
-"year-in-review-base-editors-title" = "Redaktører på iOS-appen foretog mere end $1 redigeringer";
-// Fuzzy
-"year-in-review-base-edits-title" = "Wikipedia blev redigeret $1 gange i minuttet";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "Wikipedia havde mere end $1 millioner artikler på tværs af $2 aktive sprog. Du sluttede dig til millioner i at udvide viden og udforske forskellige emner.";
-// Fuzzy
-"year-in-review-base-reading-title" = "Wikipedia var tilgængelig på mere end 300 sprog";
-// Fuzzy
-"year-in-review-base-saved-title" = "Vi havde over $1 million læselister";
-// Fuzzy
-"year-in-review-base-viewed-subtitle" = "iOS-appbrugere har set Wikipedia-artikler $1 milliarder gange. For mange mennesker verden over, er Wikipedia det første stop, når de besvarer et spørgsmål, finder informationer til skole eller arbejde eller får ny viden.";
-// Fuzzy
-"year-in-review-base-viewed-title" = "Vi har set Wikipedia-artikler $1 milliarder gange";
 "year-in-review-day-friday" = "Fredage";
 "year-in-review-day-monday" = "Mandage";
 "year-in-review-day-saturday" = "Lørdage";

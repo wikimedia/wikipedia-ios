@@ -1426,25 +1426,7 @@
 "wikitext-upload-save-sign-in" = "登录";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "发布更改即代表您同意$1使用条款$2，并且不可撤销地同意以$3CC BY-SA 4.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接足够代表知识共享协议所规定的署名。";
 "wikitext-upload-save-terms-name" = "使用条款";
-// Fuzzy
-"year-in-review-base-editors-subtitle" = "维基百科的志愿编辑社区在 iOS 应用上进行了超过 555,647 次编辑。维基百科的核心和灵魂是我们全球的志愿贡献者、捐赠者和像您一样的数十亿读者的社区——大家团结一致，共享对可靠信息的无限访问。";
-// Fuzzy
-"year-in-review-base-editors-title" = "维基百科官方应用程序上的编辑者做出了超过 $1 次编辑";
 "year-in-review-base-edits-subtitle" = "文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($1)。";
-// Fuzzy
-"year-in-review-base-edits-title" = "维基百科每分钟被编辑 $1 次";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "维基百科拥有超过$1万篇文章，涵盖超过$2种活跃语言。您与数百万人一起扩展知识，探索多样化的主题。";
-// Fuzzy
-"year-in-review-base-reading-title" = "维基百科提供 300 多种语言版本";
-// Fuzzy
-"year-in-review-base-saved-subtitle" = "活跃的 iOS 应用用户拥有超过 6220 万个阅读列表。将文章添加到阅读列表中可以让您即使在离线状态下也能访问文章。您还可以登录以在设备之间同步阅读列表。";
-// Fuzzy
-"year-in-review-base-saved-title" = "我们有超过 $1 万个阅读列表";
-// Fuzzy
-"year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 $1 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
-// Fuzzy
-"year-in-review-base-viewed-title" = "我们已浏览了 $1 十亿次维基百科条目";
 "year-in-review-button-title" = "年度回顾";
 "year-in-review-collective-article-views" = "一个动画插图展示了一台电脑屏幕，上面打开了一个网络浏览器，正在浏览维基百科文章。";
 "year-in-review-collective-edits" = "一幅插画，两个维基百科拼图碎片各带一条信息。";

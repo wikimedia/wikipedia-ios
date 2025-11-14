@@ -1511,18 +1511,6 @@
 "wikitext-upload-save-sign-in" = "Entrar";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar as alterações, concorda com os $1termos de uso$2 e concorda irrevogavelmente em publicar a sua contribuição com a licença $3CC BY-SA 4.0$4 e a $5GFDL$6. Concorda que um hyperlink ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termo de uso";
-// Fuzzy
-"year-in-review-base-editors-subtitle" = "A comunidade de editores voluntários da Wikipédia fez mais de 555.647 edições no aplicativo iOS. O coração e a alma da Wikipédia são a nossa comunidade global de colaboradores voluntários, doadores e bilhões de leitores como você – todos unidos para compartilhar acesso ilimitado a informações confiáveis.";
-// Fuzzy
-"year-in-review-base-edits-title" = "A Wikipédia foi editada $1 vez por minuto.";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "A Wikipédia tinha mais de $1 milhão de artigos em mais de $2 idiomas ativos. Você se juntou a milhões de pessoas na expansão do conhecimento e na exploração de diversos tópicos.";
-// Fuzzy
-"year-in-review-base-reading-title" = "A Wikipédia estava disponível em mais de 300 idiomas.";
-// Fuzzy
-"year-in-review-base-saved-title" = "Tínhamos mais de $1 milhão em listas de leitura.";
-// Fuzzy
-"year-in-review-base-viewed-title" = "Visualizamos artigos da Wikipédia $1 bilhão de vezes.";
 "year-in-review-button-title" = "Resumo do ano";
 "year-in-review-collective-saved-articles" = "Um quebra-cabeça em forma de globo com o logotipo da Wikipédia, representando a colaboração global.";
 "year-in-review-contributor-gift-title" = "Ativar novo ícone do aplicativo";
