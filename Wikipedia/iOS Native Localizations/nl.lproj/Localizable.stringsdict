@@ -5,7 +5,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt deze week %#@v1@ een artikel bewerkt.</string>
+		<string>U hebt deze week %#@v1@ een pagina bewerkt.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>één artikel</string>
+			<string>één pagina</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-saved</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>één artikel</string>
+			<string>één pagina</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string>%1$d pagina</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikel</string>
+			<string>pagina</string>
 			<key>other</key>
-			<string>artikelen</string>
+			<string>pagina's</string>
 		</dict>
 	</dict>
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
@@ -298,6 +298,172 @@
 			<string>%1$d niet bewerkte regels</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>In %1$@ voegden vrijwilligers %#@v2@ toe aan de Engelstalige Wikipedia. Door al hun gezamenlijke werk krijgt de hele wereld een gestaag beter wordende, op feiten gebaseerde en betrouwbare kennisbron. We hebben allemaal kennis om te delen. [Lees hier hoe u ook kunt meedoen](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld byte</string>
+			<key>other</key>
+			<string>%2$lld bytes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ toegevoegd</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld byte</string>
+			<key>other</key>
+			<string>%1$lld bytes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vrijwilligers hebben  %#@v1@ aangebracht in  %#@v2@ van Wikipedia. Er  %#@v3@ aangebracht op de Engelstalige Wikipedia. Elk uur van elke dag werken vrijwilligers aan het verbeteren van Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld wijziging</string>
+			<key>other</key>
+			<string>%1$lld wijzigingen</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één taalversie</string>
+			<key>other</key>
+			<string>meer dan %2$d verschillende taalversies</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>is één wijziging</string>
+			<key>other</key>
+			<string>zijn %3$lld wijzigingen</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Bewerkers hebben dit jaar %#@v1@ doorgevoerd</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één wijziging</string>
+			<key>other</key>
+			<string>%1$lld wijzigingen</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Naar schatting hebben mensen in %3$@ wel {{PLURAL:%1$lld|één uur"%1$lld uur{{ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één jaar</string>
+			<key>other</key>
+			<string>%2$lld jaar</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Naar schatting hebben mensen in %3$@ wel {{PLURAL:%1$lld|één uur"%1$lld uur{{ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één jaar</string>
+			<key>other</key>
+			<string>%2$lld jaar</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>We hebben %#@v1@ lang gelezen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één uur</string>
+			<key>other</key>
+			<string>%1$lld uur</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Gebruikers van de app hebben dit jaar %#@v1@ opgeslagen. Pagina's die u aan leeslijsten hebt toegevoegd kunt u ook offline raadplegen. Daarnaast kunt u, na aanmelden, leeslijsten op verschillende apparaten synchroniseren.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één pagina</string>
+			<key>other</key>
+			<string>%1$lld pagina's</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>We hebben %#@v1@ opgeslagen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één pagina</string>
+			<key>other</key>
+			<string>%1$lld pagina's</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -309,9 +475,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string>%1$d pagina</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
@@ -517,9 +683,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string>%1$d pagina</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-exceeded-title</key>
@@ -533,15 +699,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string>%1$d pagina</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ niet meer bij deze lijst. Maximum aantal leeslijsten %2$d per leeslijst voor %3$@ bereikt.</string>
+		<string>%#@v1@ niet meer bij deze lijst. U hebt het maximum aantal van %2$d pagina's per leeslijst voor %3$@ bereikt.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -549,9 +715,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Artikel kan</string>
+			<string>Pagina kan</string>
 			<key>other</key>
-			<string>Artikelen kunnen</string>
+			<string>Pagina's kunnen</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -589,7 +755,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Deze handeling kan niet ongedaan gemaakt worden. Alle artikelen die alleen in deze lijst%#@v1@ zijn opgeslagen, worden verwijderd.</string>
+		<string>Deze handeling kan niet ongedaan gemaakt worden. Alle pagina's die alleen in deze lijst%#@v1@ zijn opgeslagen, worden verwijderd.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -629,9 +795,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string>%1$d pagina</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 		<key>v2</key>
 		<dict>
@@ -774,7 +940,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Het wissen van %#@v1@ van alle bijbehorende leeslijsten</string>
+		<string>Opslaan ongedaan maken wist deze %#@v1@ uit alle gekoppelde leeslijsten</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -782,15 +948,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>dit artikel wist dit artikel</string>
+			<string>pagina</string>
 			<key>other</key>
-			<string>deze artikelen wist deze artikelen</string>
+			<string>pagina's</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Wis opgeslagen %#@v1@?</string>
+		<string>Opslaan ongedaan maken voor %#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -798,9 +964,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikel</string>
+			<string>pagina</string>
 			<key>other</key>
-			<string>artikelen</string>
+			<string>pagina's</string>
 		</dict>
 	</dict>
 	<key>tabs-navbar-title-format</key>
@@ -883,6 +1049,109 @@
 			<string>%1$d filters</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-editors-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Redacteuren op de officiële Wikipedia-apps hebben %#@v1@ aangebracht</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één bewerking</string>
+			<key>other</key>
+			<string>%1$lld bewerkingen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia is %#@v1@ per minuut bewerkt</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d keer</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia had %#@v1@ in meer dan %#@v2@. U hebt zich aangesloten bij miljoenen anderen om kennis uit te breiden en diverse onderwerpen te verkennen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één pagina</string>
+			<key>other</key>
+			<string>%1$lld pagina's</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één actieve taal</string>
+			<key>other</key>
+			<string>%2$d actieve talen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia was beschikbaar in meer dan %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één taal</string>
+			<key>other</key>
+			<string>%1$d talen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>App-gebruikers hebben %#@v1@ opgeslagen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één pagina</string>
+			<key>other</key>
+			<string>%1$lld pagina's</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Appgebruikers hebben Wikipedia-pagina's %#@v1@ bekeken</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld keer</string>
+		</dict>
+	</dict>
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -927,6 +1196,33 @@
 			<string>%1$lld keer</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vrijwilligers zoals u hebben %#@v1@ aangebracht in %#@v2@ van Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één wijziging</string>
+			<key>other</key>
+			<string>%1$lld wijzigingen</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>één taalversie</string>
+			<key>other</key>
+			<string>%2$d verschillende taalversies</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -944,7 +1240,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Hiermee behoort u naar onze schatting wereldwijd tot de top **PERCENT** van Wikipedia-lezers. De gemiddelde persoon leest %1$d artikel%#@v1@ per jaar.</string>
+		<string>Hiermee behoort u naar onze schatting wereldwijd tot de top **PERCENT** van Wikipedia-lezers. De gemiddelde persoon leest %1$d %#@v1@ per jaar.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -952,9 +1248,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>pagina</string>
 			<key>other</key>
-			<string>en</string>
+			<string>pagina's</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-title-v3-format</key>
@@ -984,6 +1280,24 @@
 			<string>pagina's</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Deze pagina's zijn o.a. %1$@, %2$@ en %3$@. Elke opgeslagen pagina weerspiegelt uw interesses en helpt bij het opbouwen van uw eigen kennisbank op Wikipedia.
+
+Actieve appgebruikers hadden dit jaar meer dan %#@v4@ opgeslagen.</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één pagina</string>
+			<key>other</key>
+			<string>%4$lld pagina's</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -995,9 +1309,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string>%1$d pagina</string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>%1$d pagina's</string>
 		</dict>
 	</dict>
 </dict>

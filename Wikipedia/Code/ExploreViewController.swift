@@ -1097,15 +1097,9 @@ extension ExploreViewController {
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
-
-        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            // A change in V3 is that we just show the feature itself with a modified intro slide.
-            // No feature announcement component
-            yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
-            self.yirCoordinator?.start()
-            yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-        }
-        
+        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
+        self.yirCoordinator?.start()
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
     
     private func shouldShowSearchWidgetAnnouncement() -> Bool {

@@ -97,7 +97,9 @@
 "activity-tab-add-images-title" = "Legg til bilder";
 "activity-tab-generic-no-edits" = "Du har ikke redigert denne uka. Begynn nå for å spore bidragene dine.";
 "activity-tab-greeting" = "$1Hei, $2$3 👋 Her er det ukentlige Wikipedia-sammendraget ditt.";
+// Fuzzy
 "activity-tab-logged-out-subtitle" = "Spor hva du har lest, og vis bidragene dine over tid på en ny måte";
+// Fuzzy
 "activity-tab-logged-out-title" = "Logg inn eller opprett en konto for å se mer redigerings- og leseaktivitet.";
 "activity-tab-no-edits-title" = "Du har ikke redigert denne uka. Legg til bilder for å gjøre artikler enklere å forstå.";
 "activity-tab-read-title" = "Vis lesehistorikk";
