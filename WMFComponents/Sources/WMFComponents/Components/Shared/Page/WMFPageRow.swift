@@ -26,7 +26,7 @@ struct WMFPageRow: View {
     let saveOrUnsaveItemAction: (() -> Void)?
     let loadImageAction: (String?) async -> UIImage?
 
-    init(appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, needsLimitedFontSize: Bool, id: String, titleHtml: String, articleDescription: String?, imageURLString: String?, titleLineLimit: Int, isSaved: Bool = false, deleteAccessibilityLabel: String? = nil, shareAccessibilityLabel: String? = nil, saveAccessibilityLabel: String? = nil, unsaveAccessibilityLabel: String? = nil, showsSwipeActions: Bool, deleteItemAction: (() -> Void)? = nil, shareItemAction: ((CGRect?) -> Void)? = nil, saveOrUnsaveItemAction: (() -> Void)? = nil, loadImageAction: @escaping (String?) async -> UIImage?, uiImage: UIImage? = nil) {
+    init(appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, needsLimitedFontSize: Bool, id: String, titleHtml: String, articleDescription: String?, imageURLString: String?, titleLineLimit: Int, isSaved: Bool = false, deleteAccessibilityLabel: String? = nil, shareAccessibilityLabel: String? = nil, saveAccessibilityLabel: String? = nil, unsaveAccessibilityLabel: String? = nil, showsSwipeActions: Bool, deleteItemAction: (() -> Void)? = nil, shareItemAction: ((CGRect?) -> Void)? = nil, saveOrUnsaveItemAction: (() -> Void)? = nil, loadImageAction: @escaping (String?) async -> UIImage?, uiImage: UIImage? = nil, iconImage: UIImage? = nil) {
         self.appEnvironment = appEnvironment
         self.needsLimitedFontSize = needsLimitedFontSize
         self.id = id
@@ -45,13 +45,20 @@ struct WMFPageRow: View {
         self.saveOrUnsaveItemAction = saveOrUnsaveItemAction
         self.loadImageAction = loadImageAction
         self.uiImage = uiImage
+        self.iconImage = iconImage
     }
 
     @State private var globalFrame: CGRect = .zero
     @State private var uiImage: UIImage?
+    var iconImage: UIImage?
 
     var rowContent: some View {
-        HStack(spacing: 4) {
+        HStack(alignment: .top, spacing: 4) {
+            if let iconImage {
+                Image(uiImage: iconImage)
+                    .frame(width: 40, height: 40)
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+            }
             if needsLimitedFontSize {
                 textViewLimitedFontSize
             } else {
@@ -84,7 +91,6 @@ struct WMFPageRow: View {
             if let imageURLString {
                 self.uiImage = await loadImageAction(imageURLString)
             }
-
         }
     }
 

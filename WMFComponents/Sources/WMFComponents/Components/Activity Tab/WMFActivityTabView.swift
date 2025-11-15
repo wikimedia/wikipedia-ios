@@ -98,8 +98,7 @@ public struct WMFActivityTabView: View {
     private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
         let sortedPages = pages.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current
-        
-        // todo localize
+
         let title: String
         let subtitle: String
         if calendar.isDateInToday(date) {
@@ -112,26 +111,27 @@ public struct WMFActivityTabView: View {
             title = viewModel.formatDate(date)
             subtitle = ""
         }
-        
+
         return Section(
-            header: VStack(alignment: .leading, spacing: 4) {
-                if !title.isEmpty {
-                    Text(title)
-                        .font(Font(WMFFont.for(.boldTitle3)))
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .textCase(.none)
+            header:
+                VStack(alignment: .leading, spacing: 4) {
+                    if !title.isEmpty {
+                        Text(title)
+                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .foregroundColor(Color(uiColor: theme.text))
+                            .textCase(.none)
+                    }
+                    if !subtitle.isEmpty {
+                        Text(subtitle)
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundColor(Color(uiColor: theme.secondaryText))
+                            .textCase(.none)
+                    }
                 }
-                if !subtitle.isEmpty {
-                    Text(subtitle)
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundColor(Color(uiColor: theme.secondaryText))
-                        .textCase(.none)
-                }
-            }
                 .padding(.bottom, 20)
         ) {
             ForEach(sortedPages, id: \.id) { page in
-                pageView(page: page)
+                pageRow(page: page, section: date)
                     .listRowSeparator(.hidden)
             }
             .onDelete { indexSet in
@@ -143,62 +143,37 @@ public struct WMFActivityTabView: View {
         }
     }
     
-    private func pageView(page: TimelineItem) -> some View {
-        let summary = viewModel.model.pageSummaries[page.id]
-
-        let thumbnailURL: URL? = {
-            if let url = summary?.thumbnailURL {
-                return url
-            }
-            if let urlString = page.imageURLString,
-               let url = URL(string: urlString) {
-                return url
-            }
-            return nil
-        }()
-
-        return HStack(alignment: .top, spacing: 12) {
-            switch page.itemType {
-            case .standard:
-                EmptyView() // No icon
-            case .edit:
-                Image(uiImage:  WMFSFSymbolIcon.for(symbol: .pencil, font: .callout) ?? UIImage())
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-            case .read:
-                Image(uiImage:  WMFSFSymbolIcon.for(symbol: .textPage, font: .callout) ?? UIImage())
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-            case .save:
-                Image(uiImage:  WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout) ?? UIImage())
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-            }
-            VStack(alignment: .leading, spacing: 4) {
-                Text(page.pageTitle.replacingOccurrences(of: "_", with: " "))
-                    .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundColor(Color(uiColor: theme.text))
-                    .lineLimit(1)
-                
-                if let description = summary?.description {
-                    Text(description)
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundColor(Color(uiColor: theme.secondaryText))
-                        .lineLimit(1)
-                }
-            }
-            Spacer()
-
-            if let url = thumbnailURL {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                } placeholder: {
-                    EmptyView()
-                }
-                .frame(width: 41, height: 41)
-                .clipShape(RoundedRectangle(cornerRadius: 3))
-            }
+    private func pageRow(page: TimelineItem, section: Date) -> some View {
+        let iconImage: UIImage?
+        switch page.itemType {
+        case .standard:
+            iconImage = nil
+        case .edit:
+            iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
+        case .read:
+            iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
+        case .save:
+            iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
-        .padding(.vertical, 10)
+
+        let summary = viewModel.model.pageSummaries[page.id]
+        let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
+
+        return WMFPageRow(
+            needsLimitedFontSize: false,
+            id: page.id,
+            titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
+            articleDescription: summary?.description ?? page.description,
+            imageURLString: initialThumbnailURLString,
+            titleLineLimit: 1,
+            isSaved: false,
+            showsSwipeActions: true,
+            deleteItemAction: { viewModel.deletePage(item: page) },
+            loadImageAction: { imageURLString in
+                try? await viewModel.loadImage(imageURLString: imageURLString)
+            },
+            iconImage: iconImage
+        )
         .contentShape(Rectangle())
         .onTapGesture {
             viewModel.onTap(page)
@@ -215,16 +190,17 @@ public struct WMFActivityTabView: View {
                         Image(uiImage: icon)
                     }
                 }
-                .frame(maxWidth: .infinity)
             }
         } preview: {
             if summary != nil {
                 WMFArticlePreviewView(viewModel: getPreviewViewModel(from: page))
             }
         }
-        .onAppear {
-            Task {
-                _ = await viewModel.fetchSummary(for: page)
+        .task {
+            if let fetchedSummary = await viewModel.fetchSummary(for: page) {
+//                if fetchedSummary.thumbnailURL != nil {
+//                    // Automatically updates
+//                }
             }
         }
     }
