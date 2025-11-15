@@ -108,10 +108,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // presentModalsIfNeeded()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            WMFToastPresenter.shared.presentToastView(
-                view: Text("Testing!"),
-                duration: 10.0
-            )
+            
+            self.presentExploreSurveyIfNeeded()
         }
 
         if tabBarSnapshotImage == nil {
@@ -122,6 +120,45 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
         ArticleTabsFunnel.shared.logIconImpression(interface: .feed, project: nil)
+    }
+    
+    private func presentExploreSurveyIfNeeded() {
+        
+        let localizableStrings = WMFToastViewExploreSurveyViewModel.LocalizableStrings(
+            title: WMFLocalizedString("explore-survey-title", value: "Help us improve Explore", comment: "Title of one-time survey prompt displayed to users on the Explore feed."),
+            subtitle: WMFLocalizedString("explore-survey-subtitle", value: "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.", comment: "Subtitle of one-time survey prompt displayed to users on the Explore feed."),
+            noThanksButtonTitle: CommonStrings.noThanksTitle,
+            takeSurveyButtonTitle: CommonStrings.takeSurveyTitle(languageCode: nil))
+        
+        let noThanksAction: () -> Void = {
+            print("tapped no thanks")
+            WMFToastPresenter.shared.dismissCurrentToast()
+        }
+        
+        let takeSurveyAction: () -> Void = {
+            print("tapped take survey")
+        }
+        
+        let dismissAction: ((WMFToastPresenter.DismissEvent) -> Void) = { dismissEvent in
+            switch dismissEvent {
+            case .durationExpired:
+                print("duration expired")
+            case .outsideEvent:
+                print("outside event")
+            case .swipedDown:
+                print("swiped down")
+            case .tappedBackground:
+                print("tapped background")
+            }
+        }
+        
+        let viewModel = WMFToastViewExploreSurveyViewModel(localizableStrings: localizableStrings, noThanksAction: noThanksAction, takeSurveyAction: takeSurveyAction)
+        let view = WMFToastViewExploreSurveyView(viewModel: viewModel)
+        
+        WMFToastPresenter.shared.presentToastView(
+            view: view,
+            dismissAction: dismissAction
+        )
     }
 
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
