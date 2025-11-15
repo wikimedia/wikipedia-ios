@@ -53,10 +53,13 @@ public struct WMFActivityTabView: View {
                 .listRowSeparator(.hidden)
                 
                 historyView
+                    .padding(.horizontal, 16)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
             }
-            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .background(Color(uiColor: theme.paperBackground))
+            .listStyle(.grouped)
             .onAppear {
                 viewModel.fetchData()
                 viewModel.hasSeenActivityTab()
@@ -87,7 +90,6 @@ public struct WMFActivityTabView: View {
                 ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
                     timelineSection(for: date, pages: timeline[date] ?? [])
                         .listRowSeparator(.hidden)
-                        .padding(.horizontal, 16)
                 }
             }
         }
@@ -117,11 +119,13 @@ public struct WMFActivityTabView: View {
                     Text(title)
                         .font(Font(WMFFont.for(.boldTitle3)))
                         .foregroundColor(Color(uiColor: theme.text))
+                        .textCase(.none)
                 }
                 if !subtitle.isEmpty {
                     Text(subtitle)
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundColor(Color(uiColor: theme.secondaryText))
+                        .textCase(.none)
                 }
             }
                 .padding(.bottom, 20)
