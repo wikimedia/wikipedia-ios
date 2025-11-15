@@ -33,12 +33,12 @@ public struct WMFActivityTabView: View {
                         articlesReadModule
                         savedArticlesModule
                         
-                        if !viewModel.model.topCategories.isEmpty {
-                            topCategoriesModule(categories: viewModel.model.topCategories)
+                        if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                            topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
                         }
                     }
                     .padding(16)
-                    .listRowInsets(EdgeInsets()) // removes default List padding
+                    .listRowInsets(EdgeInsets())
                     .background(
                         LinearGradient(
                             stops: [
@@ -82,7 +82,7 @@ public struct WMFActivityTabView: View {
 
     private var historyView: some View {
         Group {
-            if let timeline = viewModel.model.timeline, !timeline.isEmpty {
+            if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
                 // Sort dates descending
                 ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
                     timelineSection(for: date, pages: timeline[date] ?? [])
@@ -101,7 +101,7 @@ public struct WMFActivityTabView: View {
 
         let sectionHeader: String
         if calendar.isDateInToday(date) {
-            sectionHeader = viewModel.model.dateTimeLastRead
+            sectionHeader = viewModel.articlesReadViewModel.dateTimeLastRead
         } else {
             sectionHeader = viewModel.formatDateTime(date)
         }
@@ -122,7 +122,7 @@ public struct WMFActivityTabView: View {
 
     private func pageView(page: TimelineItem) -> some View {
         let pageKey = "\(page.projectID)~\(page.pageTitle)"
-        let summary = viewModel.model.pageSummaries[pageKey]
+        let summary = viewModel.articlesReadViewModel.pageSummaries[pageKey]
 
         return VStack(alignment: .leading, spacing: 4) {
             Text(page.titleHtml)
@@ -159,7 +159,7 @@ public struct WMFActivityTabView: View {
     
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
-            Text(viewModel.model.usernamesReading)
+            Text(viewModel.articlesReadViewModel.usernamesReading)
                     .foregroundColor(Color(uiColor: theme.text))
                     .font(Font(WMFFont.for(.boldBody)))
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -260,14 +260,14 @@ public struct WMFActivityTabView: View {
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.totalArticlesRead,
-                dateText: viewModel.model.dateTimeLastRead,
-                amount: viewModel.model.totalArticlesRead,
+                dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
+                amount: viewModel.articlesReadViewModel.totalArticlesRead,
                 onTapModule: {
                     print("Tapped module")
                     // TODO: Navigate to history below
                 },
                 content: {
-                    articlesReadGraph(weeklyReads: viewModel.model.weeklyReads)
+                    articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
                 }
             )
         }
@@ -278,14 +278,14 @@ public struct WMFActivityTabView: View {
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.articlesSavedTitle,
-                dateText: viewModel.model.dateTimeLastSaved,
-                amount: viewModel.model.articlesSavedAmount,
+                dateText: viewModel.articlesReadViewModel.dateTimeLastSaved,
+                amount: viewModel.articlesReadViewModel.articlesSavedAmount,
                 onTapModule: {
                     viewModel.navigateToSaved?()
                 },
                 content: {
-                    if !viewModel.model.articlesSavedImages.isEmpty {
-                        savedArticlesImages(images: viewModel.model.articlesSavedImages, totalSavedCount: viewModel.model.articlesSavedAmount)
+                    if !viewModel.articlesReadViewModel.articlesSavedImages.isEmpty {
+                        savedArticlesImages(images: viewModel.articlesReadViewModel.articlesSavedImages, totalSavedCount: viewModel.articlesReadViewModel.articlesSavedAmount)
                     }
                 }
             )
