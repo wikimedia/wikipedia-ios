@@ -33,12 +33,12 @@ public struct WMFActivityTabView: View {
                         articlesReadModule
                         savedArticlesModule
                         
-                        if !viewModel.model.topCategories.isEmpty {
-                            topCategoriesModule(categories: viewModel.model.topCategories)
+                        if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                            topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
                         }
                     }
                     .padding(16)
-                    .listRowInsets(EdgeInsets()) // removes default List padding
+                    .listRowInsets(EdgeInsets())
                     .background(
                         LinearGradient(
                             stops: [
@@ -71,7 +71,7 @@ public struct WMFActivityTabView: View {
     }
     
     private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        let summary = viewModel.model.pageSummaries[item.id]
+        let summary = viewModel.articlesReadViewModel.pageSummaries[item.id]
         
         return WMFArticlePreviewViewModel(
             url: item.url,
@@ -84,8 +84,8 @@ public struct WMFActivityTabView: View {
     }
     
     private var historyView: some View {
-        return Group {
-            if let timeline = viewModel.model.timeline, !timeline.isEmpty {
+       return Group {
+            if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
                 // Sort dates descending
                 ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
                     timelineSection(for: date, pages: timeline[date] ?? [])
@@ -156,7 +156,7 @@ public struct WMFActivityTabView: View {
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
 
-        let summary = viewModel.model.pageSummaries[page.id]
+        let summary = viewModel.articlesReadViewModel.pageSummaries[page.id]
         let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
 
         return WMFPageRow(
@@ -198,16 +198,16 @@ public struct WMFActivityTabView: View {
         }
         .task {
             if let fetchedSummary = await viewModel.fetchSummary(for: page) {
-//                if fetchedSummary.thumbnailURL != nil {
-//                    // Automatically updates
-//                }
+                if fetchedSummary.thumbnailURL != nil {
+                    // Automatically updates
+                }
             }
         }
     }
     
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
-            Text(viewModel.model.usernamesReading)
+            Text(viewModel.articlesReadViewModel.usernamesReading)
                     .foregroundColor(Color(uiColor: theme.text))
                     .font(Font(WMFFont.for(.boldBody)))
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -308,14 +308,14 @@ public struct WMFActivityTabView: View {
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.totalArticlesRead,
-                dateText: viewModel.model.dateTimeLastRead,
-                amount: viewModel.model.totalArticlesRead,
+                dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
+                amount: viewModel.articlesReadViewModel.totalArticlesRead,
                 onTapModule: {
                     print("Tapped module")
                     // TODO: Navigate to history below
                 },
                 content: {
-                    articlesReadGraph(weeklyReads: viewModel.model.weeklyReads)
+                    articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
                 }
             )
         }
@@ -326,14 +326,14 @@ public struct WMFActivityTabView: View {
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.articlesSavedTitle,
-                dateText: viewModel.model.dateTimeLastSaved,
-                amount: viewModel.model.articlesSavedAmount,
+                dateText: viewModel.articlesReadViewModel.dateTimeLastSaved,
+                amount: viewModel.articlesReadViewModel.articlesSavedAmount,
                 onTapModule: {
                     viewModel.navigateToSaved?()
                 },
                 content: {
-                    if !viewModel.model.articlesSavedImages.isEmpty {
-                        savedArticlesImages(images: viewModel.model.articlesSavedImages, totalSavedCount: viewModel.model.articlesSavedAmount)
+                    if !viewModel.articlesReadViewModel.articlesSavedImages.isEmpty {
+                        savedArticlesImages(images: viewModel.articlesReadViewModel.articlesSavedImages, totalSavedCount: viewModel.articlesReadViewModel.articlesSavedAmount)
                     }
                 }
             )

@@ -12,7 +12,6 @@ public final class WMFArticleSummaryDataController: WMFArticleSummaryDataControl
         self.service = WMFDataEnvironment.current.basicService
     }
     
-    
     public func fetchArticleSummary(project: WMFProject, title: String, completion: @escaping (Result<WMFArticleSummary, Error>) -> Void) {
         
         guard let service else {

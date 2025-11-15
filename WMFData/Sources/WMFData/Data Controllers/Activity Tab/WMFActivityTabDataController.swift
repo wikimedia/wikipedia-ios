@@ -65,7 +65,6 @@ public final class WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-
     @objc public func getActivityAssignment() -> Int {
         // TODO: More thoroughly assign experiment
         if shouldShowActivityTab { return 1 }
@@ -136,10 +135,15 @@ public final class WMFActivityTabDataController {
             let dayBucket = calendar.startOfDay(for: timestamp)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
 
-            let id = "\(page.projectID)-\(page.title)-\(dayBucket)"
+            var todaysPages = Set<String>()
+            if let existingItems = dailyTimeline[dayBucket] {
+                todaysPages = Set(existingItems.map { $0.pageTitle })
+            }
+
+            guard !todaysPages.contains(page.title) else { continue }
 
             let item = TimelineItem(
-                id: id,
+                id: UUID().uuidString,
                 date: timestamp,
                 titleHtml: page.title,
                 projectID: page.projectID,
@@ -155,20 +159,11 @@ public final class WMFActivityTabDataController {
             dailyTimeline[dayBucket, default: []].append(item)
         }
 
-        for (key, items) in dailyTimeline {
-            var seenIDs = Set<String>()
-            let uniqueItems = items.filter { item in
-                if seenIDs.contains(item.pageTitle) {
-                    return false
-                } else {
-                    seenIDs.insert(item.pageTitle)
-                    return true
-                }
-            }.sorted(by: { $0.date < $1.date })
-            dailyTimeline[key] = uniqueItems
+        let sortedTimeline = dailyTimeline.mapValues { items in
+            items.sorted { $0.date < $1.date }
         }
 
-        return dailyTimeline
+        return sortedTimeline
     }
     
     public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
@@ -207,7 +202,7 @@ public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
 }
 
-public final class TimelineItem: Identifiable, Equatable {
+public struct TimelineItem: Identifiable, Equatable {
     public let id: String
     public let date: Date
     public let titleHtml: String

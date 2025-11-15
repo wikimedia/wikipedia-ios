@@ -24,7 +24,7 @@ public class WMFActivityTabViewModel: ObservableObject {
     private let dataController: WMFActivityTabDataController
     public var onTapArticle: ((TimelineItem) -> Void)?
 
-    @Published var model: ArticlesReadViewModel = ArticlesReadViewModel(
+    @Published var articlesReadViewModel: ArticlesReadViewModel = ArticlesReadViewModel(
         username: "",
         hoursRead: 0,
         minutesRead: 0,
@@ -90,7 +90,7 @@ public class WMFActivityTabViewModel: ObservableObject {
 
             // Update model on MainActor
             await MainActor.run {
-                var model = self.model
+                var model = self.articlesReadViewModel
                 model.hoursRead = hours
                 model.minutesRead = minutes
                 model.totalArticlesRead = totalArticlesRead
@@ -101,27 +101,28 @@ public class WMFActivityTabViewModel: ObservableObject {
                 model.articlesSavedAmount = savedArticleCount
                 model.dateTimeLastSaved = savedArticleDate.map { self.formatDateTime($0) } ?? ""
                 model.articlesSavedImages = savedArticleImages
-                self.model = model
+                self.articlesReadViewModel = model
             }
         }
     }
 
     // MARK: - Lazy Summary Fetching
 
-    func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
-        let key = item.id
+    @MainActor
+    public func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
+        let itemID = item.id
 
-        if let existing = model.pageSummaries[key] {
+        if let existing = articlesReadViewModel.pageSummaries[itemID] {
             return existing
         }
 
-        if let summary = try? await dataController.fetchSummary(for: item.page) {
-            await MainActor.run {
-                var updatedModel = self.model
-                updatedModel.pageSummaries[key] = summary
-                self.model = updatedModel
+        do {
+            if let summary = try await dataController.fetchSummary(for: item.page) {
+                articlesReadViewModel.pageSummaries[itemID] = summary
+                return summary
             }
-            return summary
+        } catch {
+            debugPrint("Failed to fetch summary for \(itemID): \(error)")
         }
 
         return nil
@@ -139,15 +140,15 @@ public class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - View Strings
 
-    var hoursMinutesRead: String {
-        localizedStrings.totalHoursMinutesRead(model.hoursRead, model.minutesRead)
+    public var hoursMinutesRead: String {
+        localizedStrings.totalHoursMinutesRead(articlesReadViewModel.hoursRead, articlesReadViewModel.minutesRead)
     }
 
     // MARK: - Updates
 
     public func updateUsername(username: String) {
-        model.username = username
-        model.usernamesReading = username.isEmpty
+        articlesReadViewModel.username = username
+        articlesReadViewModel.usernamesReading = username.isEmpty
             ? localizedStrings.noUsernameReading
             : localizedStrings.userNamesReading(username)
     }
@@ -179,10 +180,10 @@ public class WMFActivityTabViewModel: ObservableObject {
 
                 // Delete from local model
                 let date = Calendar.current.startOfDay(for: item.date)
-                if var items = model.timeline?[date] {
+                if var items = articlesReadViewModel.timeline?[date] {
                     items.removeAll { $0.id == item.id }
-                    model.timeline?[date] = items
-                    self.model = model
+                    articlesReadViewModel.timeline?[date] = items
+                    self.articlesReadViewModel = articlesReadViewModel
                 }
             } catch {
                 print("Failed to delete page: \(error)")
