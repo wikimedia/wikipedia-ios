@@ -172,7 +172,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     // MARK: - Overflow Menu
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: , primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()
@@ -180,7 +180,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private var overflowMenu: UIMenu {
         let clearTitle = WMFLocalizedString("activity-tab-menu-clear-history", value: "Clear reading history", comment: "Title for clar reading history option in the overflow menu button on activity tab")
 
-        let clearAction = UIAction(title: clearTitle, image: UIImage(systemName: "clock.badge.xmark"), handler: { _ in // get into enum
+        let clearAction = UIAction(title: clearTitle, image: WMFSFSymbolIcon.for(symbol: .clockBadgeX), handler: { _ in
             self.userDidTapClearReadingHistory()
         })
 

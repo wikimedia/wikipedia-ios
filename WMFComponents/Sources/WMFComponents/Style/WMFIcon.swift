@@ -123,6 +123,7 @@ public enum WMFSFSymbolIcon {
     case questionMarkBubble
     case lock
     case rectangle3
+    case clockBadgeX
 
     public var name: String? {
         switch self {
@@ -306,6 +307,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "lock", withConfiguration: configuration)
         case .rectangle3:
             image = UIImage(systemName: "rectangle.3.group", withConfiguration: configuration)
+        case .clockBadgeX:
+            image = UIImage(systemName: "clock.badge.xmark", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
