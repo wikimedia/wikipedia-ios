@@ -8,9 +8,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
+    @objc var checkForSurveyUponAppear: Bool = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
@@ -1041,7 +1041,10 @@ extension ExploreViewController {
     
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     fileprivate func presentModalsIfNeeded() {
-        if needsYearInReviewAnnouncement() {
+        
+        if shouldShowExploreSurvey {
+            presentExploreSurveyIfNeeded()
+        } else if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
         }
@@ -1854,3 +1857,122 @@ extension ExploreViewController: UISearchControllerDelegate {
         SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
+
+// MARK: - Explore Survey
+
+private extension ExploreViewController {
+    private var shouldShowExploreSurvey: Bool {
+        
+        guard checkForSurveyUponAppear else {
+            return false
+        }
+        
+        defer {
+            checkForSurveyUponAppear = false
+        }
+        
+        guard presentedViewController == nil else {
+            debugPrint("todo: log prompt suppressed")
+            return false
+        }
+        
+        let startDate: Date? = {
+            var components = DateComponents()
+            components.year = 2025
+            components.month = 11
+            components.day = 24
+            components.hour = 01
+            components.minute = 01
+            components.second = 01
+            return Calendar.current.date(from: components)
+        }()
+        
+        let endDate: Date? = {
+            var components = DateComponents()
+            components.year = 2025
+            components.month = 11
+            components.day = 30
+            components.hour = 23
+            components.minute = 59
+            components.second = 59
+            return Calendar.current.date(from: components)
+        }()
+        
+        guard let startDate,
+              let endDate else {
+            debugPrint("todo: log prompt suppressed")
+            return false
+        }
+        
+        let currentDate = Date()
+        guard currentDate >= startDate,
+              currentDate <= endDate else {
+            debugPrint("todo: log prompt suppressed")
+            return false
+        }
+        
+        let dataController = WMFExploreDataController()
+        
+        guard !dataController.hasSeenExploreSurvey else {
+            debugPrint("todo: log prompt suppressed")
+            return false
+        }
+        
+        return true
+              
+    }
+
+    private func presentExploreSurveyIfNeeded() {
+        
+        let localizableStrings = WMFToastViewExploreSurveyViewModel.LocalizableStrings(
+            title: WMFLocalizedString("explore-survey-title", value: "Help us improve Explore", comment: "Title of one-time survey prompt displayed to users on the Explore feed."),
+            subtitle: WMFLocalizedString("explore-survey-subtitle", value: "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.", comment: "Subtitle of one-time survey prompt displayed to users on the Explore feed."),
+            noThanksButtonTitle: CommonStrings.noThanksTitle,
+            takeSurveyButtonTitle: CommonStrings.takeSurveyTitle(languageCode: nil))
+        
+        let noThanksAction: () -> Void = {
+            debugPrint("tapped no thanks")
+            debugPrint("todo: log no thanks click")
+            WMFToastPresenter.shared.dismissCurrentToast()
+        }
+        
+        let takeSurveyAction: () -> Void = { [weak self] in
+            debugPrint("tapped take survey")
+            debugPrint("todo: log take click")
+            guard let url = URL(string: "https://wikimedia.qualtrics.com/jfe/form/SV_4V0kURVL6q5Da6y") else {
+                return
+            }
+            
+            self?.navigate(to: url, useSafari: true)
+            WMFToastPresenter.shared.dismissCurrentToast()
+        }
+        
+        let dismissAction: ((WMFToastPresenter.DismissEvent) -> Void) = { dismissEvent in
+            switch dismissEvent {
+            case .durationExpired:
+                debugPrint("duration expired")
+            case .outsideEvent:
+                debugPrint("outside event")
+            case .swipedDown:
+                debugPrint("swiped down")
+            case .tappedBackground:
+                debugPrint("tapped background")
+            }
+        }
+        
+        let viewModel = WMFToastViewExploreSurveyViewModel(localizableStrings: localizableStrings, noThanksAction: noThanksAction, takeSurveyAction: takeSurveyAction)
+        let view = WMFToastViewExploreSurveyView(viewModel: viewModel)
+        
+        WMFToastPresenter.shared.presentToastView(
+            view: view,
+            dismissAction: dismissAction
+        )
+        
+        debugPrint("todo: log prompt shown")
+        
+        let dataController = WMFExploreDataController()
+        dataController.hasSeenExploreSurvey = true
+    }
+
+}
+
