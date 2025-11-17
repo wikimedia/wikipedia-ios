@@ -145,7 +145,6 @@ public struct WMFActivityTabView: View {
         .contextMenu {
             Button {
                 print("Open article action")
-                // viewModel.onTap(page)
             } label: {
                 Label("Open Article", systemImage: "chevron.forward")
             }
