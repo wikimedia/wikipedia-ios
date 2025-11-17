@@ -87,9 +87,11 @@ struct WMFPageRow: View {
                     }
             }
         )
-        .task {
+        .task(id: imageURLString) {
             if let imageURLString {
                 self.uiImage = await loadImageAction(imageURLString)
+            } else {
+                self.uiImage = nil
             }
         }
     }

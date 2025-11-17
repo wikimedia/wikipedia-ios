@@ -117,7 +117,9 @@ public class WMFActivityTabViewModel: ObservableObject {
 
         do {
             if let summary = try await dataController.fetchSummary(for: item.page) {
-                articlesReadViewModel.pageSummaries[itemID] = summary
+                var model = articlesReadViewModel
+                model.pageSummaries[itemID] = summary
+                self.articlesReadViewModel = model
                 return summary
             }
         } catch {
