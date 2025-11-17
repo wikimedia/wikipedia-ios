@@ -275,7 +275,8 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                     if (article.savedDate == nil && article.isSavedMigrated) {
                         if (articleURL != nil) {
                             DDLogInfo(@"[SavedMigration] Revert hook firing for key=%@ (unsave)", article.key);
-                            [WMFArticleSavedStateMigrationManager.shared removeFromSavedWithURL:articleURL];
+                            NSArray<NSURL *> *urls = @[ articleURL ];
+                            [WMFArticleSavedStateMigrationManager.shared removeFromSavedWithURLs:urls];
                         }
                     }
                 }

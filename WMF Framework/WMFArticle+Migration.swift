@@ -22,9 +22,9 @@ import CocoaLumberjackSwift
         await runMigration(limit: 20)
     }
 
-    @objc(removeFromSavedWithURL:)
-    public func removeFromSaved(withUrl url: URL) {
-        unsave(url: url)
+    @objc(removeFromSavedWithURLs:)
+    public func removeFromSaved(withUrls urls: [URL]) {
+        unsave(urls: urls)
     }
 
     public func clearAll() {
@@ -198,25 +198,28 @@ import CocoaLumberjackSwift
 
     // MARK: - Private
 
-    private func unsave(url: URL) {
+    private func unsave(urls: [URL]) {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else { return }
-        guard let ids = Self.getPageIDs(from: url) else {
-            DDLogError("[SavedPagesMigration] Unsave aborted: could not derive PageIDs from URL \(url.absoluteString)")
-            return
-        }
 
-        guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-            DDLogError("[SavedPagesMigration] WMF background context unavailable")
-            return
-        }
-        wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        for url in urls {
+            guard let ids = Self.getPageIDs(from: url) else {
+                DDLogError("[SavedPagesMigration] Unsave aborted: could not derive PageIDs from URL \(url.absoluteString)")
+                return
+            }
 
-        wmfContext.perform {
-            do {
-                try Self.unsaveInWMFData(pageIDs: ids, in: wmfContext, store: wmfDataStore)
-                if wmfContext.hasChanges { try wmfContext.save() }
-            } catch {
-                DDLogError("[SavedPagesMigration] WMF unsave (URL) failed: \(error)")
+            guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
+                DDLogError("[SavedPagesMigration] WMF background context unavailable")
+                return
+            }
+            wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+            wmfContext.perform {
+                do {
+                    try Self.unsaveInWMFData(pageIDs: ids, in: wmfContext, store: wmfDataStore)
+                    if wmfContext.hasChanges { try wmfContext.save() }
+                } catch {
+                    DDLogError("[SavedPagesMigration] WMF unsave (URL) failed: \(error)")
+                }
             }
         }
     }
