@@ -318,11 +318,13 @@ public struct WMFActivityTabView: View {
                     .clipShape(Circle())
                 }
 
-                let remaining = totalSavedCount - 3
+                let remaining = images.count - 3
                 Text(viewModel.localizedStrings.remaining(remaining))
-                    .font(Font(WMFFont.for(.caption2)))
+                    .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.white)
                     .frame(width: 38, height: 38)
+                    .background(Circle()
+                        .fill(Color(uiColor: theme.secondaryText)))
             }
         }
     }
