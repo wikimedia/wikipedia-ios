@@ -75,32 +75,30 @@ public struct WMFActivityTabView: View {
     
     private var historyView: some View {
        return Group {
-           let timeline = viewModel.timelineViewModel
-            // Sort dates descending
-            let sortedSections = timeline.sections.sorted { section1, section2 in
-                section1.date > section2.date
-            }
-            ForEach(sortedSections, id: \.self) { section in
-                timelineSectionView(for: section)
-                    .listRowSeparator(.hidden)
-            }
+           if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
+               // Sort dates descending
+               ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
+                   timelineSection(for: date, pages: timeline[date] ?? [])
+                       .listRowSeparator(.hidden)
+               }
+           }
         }
     }
     
-    private func timelineSectionView(for timelineSectionViewModel: TimelineViewModel.SectionViewModel) -> some View {
-        let sortedPages = timelineSectionViewModel.timelineItems.sorted(by: { $0.date > $1.date })
+    private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
+        let sortedPages = pages.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current
 
         let title: String
         let subtitle: String
-        if calendar.isDateInToday(timelineSectionViewModel.date) {
+        if calendar.isDateInToday(date) {
             title = viewModel.localizedStrings.todayTitle
-            subtitle = viewModel.formatDate(timelineSectionViewModel.date)
-        } else if calendar.isDateInYesterday(timelineSectionViewModel.date) {
+            subtitle = viewModel.formatDate(date)
+        } else if calendar.isDateInYesterday(date) {
             title = viewModel.localizedStrings.yesterdayTitle
-            subtitle = viewModel.formatDate(timelineSectionViewModel.date)
+            subtitle = viewModel.formatDate(date)
         } else {
-            title = viewModel.formatDate(timelineSectionViewModel.date)
+            title = viewModel.formatDate(date)
             subtitle = ""
         }
 
@@ -123,12 +121,13 @@ public struct WMFActivityTabView: View {
                 .padding(.bottom, 20)
         ) {
             ForEach(sortedPages, id: \.id) { page in
-                pageRow(page: page, section: timelineSectionViewModel.date)
+                pageRow(page: page, section: date)
                     .listRowSeparator(.hidden)
             }
             .onDelete { indexSet in
                 for index in indexSet {
-                    viewModel.deletePage(section: timelineSectionViewModel, index: index)
+                    let pageToDelete = sortedPages[index]
+                    viewModel.deletePage(item: pageToDelete)
                 }
             }
         }
