@@ -293,39 +293,35 @@ public struct WMFActivityTabView: View {
     
     private func savedArticlesImages(images: [URL], totalSavedCount: Int) -> some View {
         HStack(spacing: 4) {
-            if images.count <= 4 {
-                ForEach(images.prefix(4), id: \.self) { imageURL in
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        Color.gray.opacity(0.3)
-                    }
-                    .frame(width: 38, height: 38)
-                    .clipShape(Circle())
-                }
-            } else {
-                ForEach(images.prefix(3), id: \.self) { imageURL in
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        Color.gray.opacity(0.3)
-                    }
-                    .frame(width: 38, height: 38)
-                    .clipShape(Circle())
-                }
+            let displayCount = min(images.count, 3)
+            let showPlus = totalSavedCount > 3
 
+            ForEach(Array(images.prefix(displayCount)), id: \.self) { imageURL in
+                AsyncImage(url: imageURL) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    Color.gray.opacity(0.3)
+                }
+                .frame(width: 38, height: 38)
+                .clipShape(Circle())
+            }
+
+            if showPlus {
                 let remaining = totalSavedCount - 3
-                Text(viewModel.localizedStrings.remaining(remaining))
-                    .font(Font(WMFFont.for(.caption2)))
+                Text("+\(remaining)")
+                    .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.white)
                     .frame(width: 38, height: 38)
+                    .background(
+                        Circle()
+                            .fill(Color(uiColor: theme.secondaryText))
+                    )
             }
         }
     }
+
 
     private func articlesReadGraph(weeklyReads: [Int]) -> some View {
         Group {
