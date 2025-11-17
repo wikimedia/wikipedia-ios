@@ -65,7 +65,7 @@ public class WMFActivityTabViewModel: ObservableObject {
             async let dateResult = dataController.getMostRecentReadDateTime()
             async let weeklyResults = dataController.getWeeklyReadsThisMonth()
             async let categoriesResult = dataController.getTopCategories()
-            async let timelineResult = dataController.fetchTimeline() // returns [Date: [TimelineItem]]
+            async let timelineResult = dataController.fetchTimeline()
 
             let (hours, minutes) = (try? await timeResult) ?? (0, 0)
             let totalArticlesRead = (try? await articlesResult) ?? 0
@@ -88,7 +88,6 @@ public class WMFActivityTabViewModel: ObservableObject {
                 savedArticleImages = tempData.articleUrlStrings.compactMap { URL(string: $0) }
             }
 
-            // Update model on MainActor
             await MainActor.run {
                 var model = self.articlesReadViewModel
                 model.hoursRead = hours
