@@ -13,16 +13,8 @@ public final class WMFToastPresenter {
         case outsideEvent
     }
 
-    // MARK: - Private Properties
-
-    private var cancellables = Set<AnyCancellable>()
-
-    // MARK: - Public Properties
+    // MARK: - Properties
     
-    private var currentToast: UIView?
-    private var dismissWorkItem: DispatchWorkItem?
-    private var dismissAction: ((DismissEvent) -> Void)?
-
     var appEnvironment: WMFAppEnvironment {
         return WMFAppEnvironment.current
     }
@@ -30,6 +22,12 @@ public final class WMFToastPresenter {
     var theme: WMFTheme {
         return WMFAppEnvironment.current.theme
     }
+
+    private var cancellables = Set<AnyCancellable>()
+    
+    private var currentToast: UIView?
+    private var dismissWorkItem: DispatchWorkItem?
+    private var dismissAction: ((DismissEvent) -> Void)?
     
     // MARK: - Lifecycle
     
