@@ -182,7 +182,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         guard var pages = timelineViewModel.timeline?[date] else { return }
         pages.remove(atOffsets: offsets)
         timelineViewModel.timeline?[date] = pages
-        // Again, reassign to trigger @Published
         self.timelineViewModel = timelineViewModel
     }
 }
