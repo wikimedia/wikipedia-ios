@@ -123,6 +123,7 @@ public enum WMFSFSymbolIcon {
     case questionMarkBubble
     case lock
     case rectangle3
+    case bubbleRightFill
 
     public var name: String? {
         switch self {
@@ -306,6 +307,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "lock", withConfiguration: configuration)
         case .rectangle3:
             image = UIImage(systemName: "rectangle.3.group", withConfiguration: configuration)
+        case .bubbleRightFill:
+            image = UIImage(systemName: "bubble.right.fill", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
