@@ -302,6 +302,22 @@ import CocoaLumberjackSwift
 
         wmfContext.perform {
             do {
+                let pagesFR: NSFetchRequest<CDPage> = CDPage.fetchRequest()
+                pagesFR.predicate = NSPredicate(format: "savedInfo != nil")
+                pagesFR.fetchBatchSize = 500
+
+                let pagesWithSavedInfo = try wmfContext.fetch(pagesFR)
+
+                if !pagesWithSavedInfo.isEmpty {
+                    for page in pagesWithSavedInfo {
+                        page.savedInfo = nil
+                    }
+
+                    if wmfContext.hasChanges {
+                        try wmfContext.save()
+                    }
+                }
+
                 let savedInfoFR = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageSavedInfo")
                 let deleteSavedInfo = NSBatchDeleteRequest(fetchRequest: savedInfoFR)
                 deleteSavedInfo.resultType = .resultTypeObjectIDs
@@ -309,9 +325,12 @@ import CocoaLumberjackSwift
                 if let result = try wmfContext.execute(deleteSavedInfo) as? NSBatchDeleteResult,
                    let deletedIDs = result.result as? [NSManagedObjectID],
                    !deletedIDs.isEmpty {
+
+                    let viewContext = try? wmfDataStore.viewContext
+
                     NSManagedObjectContext.mergeChanges(
                         fromRemoteContextSave: [NSDeletedObjectsKey: deletedIDs],
-                        into: [wmfContext, (try? wmfDataStore.viewContext)].compactMap { $0 }
+                        into: [viewContext].compactMap { $0 }
                     )
                 }
             } catch {

@@ -121,7 +121,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
             _ = await (readTask, savedTask, timelineTask)
 
-            // Reassign to trigger @Published for value-type view models
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
