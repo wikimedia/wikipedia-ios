@@ -143,7 +143,7 @@ public final class WMFActivityTabDataController {
             guard !todaysPages.contains(page.title) else { continue }
 
             let item = TimelineItem(
-                id: UUID().uuidString,
+                id: "\(page.projectID)-\(page.title)",
                 date: timestamp,
                 titleHtml: page.title,
                 projectID: page.projectID,
@@ -203,7 +203,7 @@ public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
 }
 
-public struct TimelineItem: Identifiable, Equatable {
+public final class TimelineItem: ObservableObject, Hashable, Equatable {
     public let id: String
     public let date: Date
     public let titleHtml: String
@@ -244,6 +244,10 @@ public struct TimelineItem: Identifiable, Equatable {
 
     public static func == (lhs: TimelineItem, rhs: TimelineItem) -> Bool {
         lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 

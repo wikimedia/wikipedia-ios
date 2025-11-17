@@ -6,7 +6,7 @@ import Foundation
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
-    
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -75,15 +75,14 @@ public struct WMFActivityTabView: View {
     
     private var historyView: some View {
        return Group {
-            if let timeline = viewModel.timelineViewModel {
-                // Sort dates descending
-                let sortedSections = timeline.sections.sorted { section1, section2 in
-                    section1.date > section2.date
-                }
-                ForEach(sortedSections, id: \.self) { section in
-                    timelineSectionView(for: section)
-                        .listRowSeparator(.hidden)
-                }
+           let timeline = viewModel.timelineViewModel
+            // Sort dates descending
+            let sortedSections = timeline.sections.sorted { section1, section2 in
+                section1.date > section2.date
+            }
+            ForEach(sortedSections, id: \.self) { section in
+                timelineSectionView(for: section)
+                    .listRowSeparator(.hidden)
             }
         }
     }
@@ -129,7 +128,6 @@ public struct WMFActivityTabView: View {
             }
             .onDelete { indexSet in
                 for index in indexSet {
-                    let pageToDelete = sortedPages[index]
                     viewModel.deletePage(section: timelineSectionViewModel, index: index)
                 }
             }
@@ -148,8 +146,6 @@ public struct WMFActivityTabView: View {
         case .save:
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
-
-        print("PAGE: \(page.pageTitle)")
 
         let pageRowViewModel = WMFNewPageRowViewModel(wmfpage: page.page, id: page.id, titleHtml:  page.pageTitle.replacingOccurrences(of: "_", with: " "), iconImage: iconImage)
 

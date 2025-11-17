@@ -51,7 +51,7 @@ public class WMFActivityTabViewModel: ObservableObject {
     private let dataController: WMFActivityTabDataController
     public var onTapArticle: ((TimelineItem) -> Void)?
     
-    @Published var timelineViewModel: TimelineViewModel?
+    @Published var timelineViewModel: TimelineViewModel = TimelineViewModel(sections: [])
 
     @Published var articlesReadViewModel: ArticlesReadViewModel = ArticlesReadViewModel(
         username: "",
@@ -87,6 +87,7 @@ public class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Fetch Main Data
 
     func fetchData() {
+
         Task {
             async let timeResult = dataController.getTimeReadPast7Days()
             async let articlesResult = dataController.getArticlesRead()
@@ -116,14 +117,14 @@ public class WMFActivityTabViewModel: ObservableObject {
                 savedArticleImages = tempData.articleUrlStrings.compactMap { URL(string: $0) }
             }
             
+            // Create new timeline sections data
             var sections: [TimelineViewModel.SectionViewModel] = []
             for (key, value) in timelineItems {
                 sections.append(TimelineViewModel.SectionViewModel(date: key, timelineItems: value))
             }
             
-            let timelineViewModel = TimelineViewModel(sections: sections)
-
             await MainActor.run {
+                
                 var model = self.articlesReadViewModel
                 model.hoursRead = hours
                 model.minutesRead = minutes
@@ -135,7 +136,7 @@ public class WMFActivityTabViewModel: ObservableObject {
                 model.dateTimeLastSaved = savedArticleDate.map { self.formatDateTime($0) } ?? ""
                 model.articlesSavedImages = savedArticleImages
                 self.articlesReadViewModel = model
-                self.timelineViewModel = timelineViewModel
+                self.timelineViewModel.sections = sections
             }
         }
     }
@@ -182,7 +183,7 @@ public class WMFActivityTabViewModel: ObservableObject {
                 try await dataController.deletePageView(for: item)
 
                 // Delete from local model
-                section.timelineItems.remove(at: index)
+                 section.timelineItems.remove(at: index)
             } catch {
                 print("Failed to delete page: \(error)")
             }
