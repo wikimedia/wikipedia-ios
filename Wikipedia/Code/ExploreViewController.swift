@@ -8,9 +8,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
+    @objc var checkForSurveyUponAppear: Bool = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
@@ -1862,6 +1862,14 @@ extension ExploreViewController: UISearchControllerDelegate {
 
 private extension ExploreViewController {
     private var shouldShowExploreSurvey: Bool {
+        
+        guard checkForSurveyUponAppear else {
+            return false
+        }
+        
+        defer {
+            checkForSurveyUponAppear = false
+        }
         
         guard presentedViewController == nil else {
             debugPrint("todo: log prompt suppressed")
