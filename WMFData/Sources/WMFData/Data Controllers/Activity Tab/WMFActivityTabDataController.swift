@@ -66,14 +66,14 @@ public actor WMFActivityTabDataController {
         shouldShowActivityTab ? 1 : 0
     }
 
-     public var shouldShowActivityTab: Bool {
-         get {
-             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
-         } set {
-             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
-         }
-     }
-    
+    public var shouldShowActivityTab: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
+        }
+    }
+
     private var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
@@ -94,7 +94,7 @@ public actor WMFActivityTabDataController {
         let dataController = try WMFPageViewsDataController()
         return try await dataController.fetchMostRecentTime()
     }
-    
+
     public func getTopCategories() async throws -> [String]? {
         let calendar = Calendar.current
         let now = Date()
@@ -114,7 +114,7 @@ public actor WMFActivityTabDataController {
 
         return Array(topThreeCategories)
     }
-    
+
     public func fetchTopCategories(startDate: Date, endDate: Date) async throws -> [String] {
         let categoryCounts = try await WMFCategoriesDataController()
             .fetchCategoryCounts(startDate: startDate, endDate: endDate)
@@ -124,7 +124,57 @@ public actor WMFActivityTabDataController {
             .map { $0.key.categoryName }
     }
 
-    
+    public func fetchTimeline() async throws -> [Date: [TimelineItem]] {
+        let dataController = try WMFPageViewsDataController()
+        let pageRecords = try await dataController.fetchTimelinePages()
+        guard !pageRecords.isEmpty else { return [:] }
+
+        var dailyTimeline: [Date: [TimelineItem]] = [:]
+        let calendar = Calendar.current
+
+        for record in pageRecords {
+            let page = record.page
+            let timestamp = record.timestamp
+            let dayBucket = calendar.startOfDay(for: timestamp)
+            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
+
+            var todaysPages = Set<String>()
+            if let existingItems = dailyTimeline[dayBucket] {
+                todaysPages = Set(existingItems.map { $0.pageTitle })
+            }
+
+            guard !todaysPages.contains(page.title) else { continue }
+
+            let item = TimelineItem(
+                id: UUID().uuidString,
+                date: timestamp,
+                titleHtml: page.title,
+                projectID: page.projectID,
+                pageTitle: page.title,
+                url: articleURL,
+                description: nil,
+                imageURLString: nil,
+                snippet: nil,
+                page: page
+            )
+
+            dailyTimeline[dayBucket, default: []].append(item)
+        }
+
+        let sortedTimeline = dailyTimeline.mapValues { items in
+            items.sorted { $0.date < $1.date }
+        }
+
+        return sortedTimeline
+
+    }
+
+    public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
+        let articleSummaryController = WMFArticleSummaryDataController()
+        guard let project = WMFProject(id: page.projectID) else { return nil }
+        return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
+    }
+
 }
 
 extension WMFActivityTabDataController {
@@ -132,5 +182,50 @@ extension WMFActivityTabDataController {
         let key = WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue
         let value = (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: key)) ?? false
         return value ? 1 : 0
+    }
+}
+
+
+public protocol SavedArticleModuleDataDelegate: AnyObject {
+    func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
+}
+
+public struct TimelineItem: Identifiable, Equatable {
+    public let id: String
+    public let date: Date
+    public let titleHtml: String
+    public let projectID: String
+    public let pageTitle: String
+    public let url: URL?
+    public var description: String?
+    public var imageURLString: String?
+    public var snippet: String?
+    
+    public let page: WMFPage
+
+    public init(id: String,
+                date: Date,
+                titleHtml: String,
+                projectID: String,
+                pageTitle: String,
+                url: URL?,
+                description: String? = nil,
+                imageURLString: String? = nil,
+                snippet: String? = nil,
+                page: WMFPage) {
+        self.id = id
+        self.date = date
+        self.titleHtml = titleHtml
+        self.projectID = projectID
+        self.pageTitle = pageTitle
+        self.url = url
+        self.description = description
+        self.imageURLString = imageURLString
+        self.snippet = snippet
+        self.page = page
+    }
+
+    public static func == (lhs: TimelineItem, rhs: TimelineItem) -> Bool {
+        lhs.id == rhs.id
     }
 }

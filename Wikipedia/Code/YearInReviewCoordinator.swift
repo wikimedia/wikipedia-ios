@@ -95,23 +95,18 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             introV3SecondaryButtonTitle: CommonStrings.learnMoreTitle(),
             wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo", comment: "Accessibility label for the Wikipedia w logo"),
             wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo", comment: "Accessibility label for the Wikimedia Foundation logo"),
-            personalizedExploreAccessibilityLabel: CommonStrings.personalizedExploreAccessibilityLabel,
-            personalizedYouReadAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-you-read", value: "A puzzle piece with the Wikimedia logo walking in from the left.", comment: "Accessibility description for the personalized 'You Read' slide."),
-            personalizedUserEditsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-user-edits", value: "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.", comment: "Accessibility description for the personalized user edits slide."),
-            personalizedDonationThankYouAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-donation-thank-you", value: "Wikimedia logo", comment: "Accessibility description for the personalized donation thank you slide."),
-            personalizedSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-saved-articles", value: "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.", comment: "Accessibility description for the personalized saved articles slide."),
-            personalizedWeekdayAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-weekday", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the personalized weekday slide."),
-            personalizedYourEditsViewsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-your-edits-views", value: "An illustration featuring a Wikipedia puzzle piece alongside a pen.", comment: "Accessibility description for the personalized 'Your Edits Views' slide."),
-            collectiveExploreAccessibilityLabel: CommonStrings.collectiveExploreAccessibilityLabel,
-            collectiveLanguagesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-languages", value: "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.", comment: "Accessibility description for the collective languages slide."),
-            collectiveArticleViewsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.", comment: "Accessibility description for the collective article views slide."),
-            collectiveSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-saved-articles", value: "A puzzle globe featuring Wikipedia's logo, representing global collaboration.", comment: "Accessibility description for the collective saved articles slide."),
-            collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.", comment: "Accessibility description for the collective edits slide."),
-            englishEditsAccessibilityLabel: WMFLocalizedString("year-in-review-english-edits", value: "A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
-            collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
+            puzzleGlobeHandAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-explore", value: "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.", comment: "Accessibility description for the personalized explore slide."),
+            puzzleWalkAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-you-read", value: "A puzzle piece with the Wikimedia logo walking in from the left.", comment: "Accessibility description for the personalized 'You Read' slide."),
+            bytesAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-user-edits", value: "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.", comment: "Accessibility description for the personalized user edits slide."),
+            clockAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-weekday", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the personalized weekday slide."),
+            stoneAccessibilityLabel: WMFLocalizedString("year-in-review-collective-languages", value: "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.", comment: "Accessibility description for the collective languages slide."),
+            compAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.", comment: "Accessibility description for the collective article views slide."),
+            skyAccessibilityLabel: WMFLocalizedString("year-in-review-collective-saved-articles", value: "A puzzle globe featuring Wikipedia's logo, representing global collaboration.", comment: "Accessibility description for the collective saved articles slide."),
+            duoAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.", comment: "Accessibility description for the collective edits slide."),
+            penballAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-your-edits-views", value: "An illustration featuring a Wikipedia puzzle piece alongside a pen.", comment: "Accessibility description for the personalized 'Your Edits Views' slide."),
             englishReadingSlideTitle: englishReadingSlideTitle,
             englishReadingSlideSubtitle: englishReadingSlideSubtitle,
-            englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "Most read articles on English Wikipedia", comment: "Top read slide title for English Year in Review."),
+            englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "English Wikipedia’s most read articles", comment: "Top read slide title for English Year in Review."),
             englishTopReadSlideSubtitle: englishTopReadSlideSubtitle,
             englishSavedReadingSlideTitle: englishSavedReadingSlideTitle,
             englishSavedReadingSlideSubtitle: englishSavedReadingSlideSubtitle,
@@ -365,7 +360,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let thisYear = config.year
         let nextYear = config.year + 1
 
-        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! Unlock a special reward in your %2$@ Year in Review by becoming a contributor—whether by [editing Wikipedia](%3$@) or by donating to the [Wikimedia Foundation](%4$@), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with the Year in Review target year + 1 (e.g. 2026). %3$@ is replaced with a MediaWiki url with more information about editing. %4$@ is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.")
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! Unlock a special reward in your %2$@ Year in Review by becoming a contributor—whether by [editing Wikipedia](%3$@) or by donating from the app to the [Wikimedia Foundation](%4$@), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all. If you donated elsewhere, your support is deeply appreciated.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with the Year in Review target year + 1 (e.g. 2026). %3$@ is replaced with a MediaWiki url with more information about editing. %4$@ is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.")
 
         return String.localizedStringWithFormat(format, String(thisYear), String(nextYear), editingFAQURLString, aboutWikimediaURLString)
     }
@@ -424,7 +419,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let format = WMFLocalizedString(
             "microsite-yir-english-top-read-slide-subtitle",
-            value: "When people want to learn about our world - the good, bad, weird, and wild alike - they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\n\nRead more in %6$@our dedicated blog post%7$@.",
+            value: "When people want to learn about our world, they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\n\nRead more in %6$@our dedicated blog post%7$@.",
             comment: "Top read slide subtitle for English Year in Review. %1$@ %2$@ %3$@ %4$@ %5$@ are replaced with article titles, %6$@ and %7$@ wrap the blog post link."
         )
         
@@ -745,7 +740,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func personalizedMostReadCategoriesSlideSubtitle(items: [String]) -> String {
-        let format = WMFLocalizedString("year-in-review-categories-slide-subtitle", value: "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times\n%1$@", comment: "Year in review categories slide subtitle, $1 is the list of top categories.")
+        let format = WMFLocalizedString("year-in-review-categories-slide-subtitle", value: "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times.\n\n%1$@", comment: "Year in review categories slide subtitle, $1 is the list of top categories.")
         return String.localizedStringWithFormat(format, personalizedListSlideSubtitle(items: items))
     }
     

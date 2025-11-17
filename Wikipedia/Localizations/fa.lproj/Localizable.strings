@@ -116,6 +116,7 @@
 "action-unsave" = "عدم ذخیره";
 "action-unsaved-accessibility-notification" = "مقاله از ذخیره خارج شد";
 "action-update" = "روزآمدسازی";
+"activity-tab-saved" = "مقاله‌های ذخیره‌شده در این ماه";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "advanced-settings-title" = "تنظیمات پیشرفته";
 "alt-text-feedback-survey-toast-title" = "بازخورد ثبت شد";
@@ -694,25 +695,7 @@
 "main-menu-terms-of-use" = "شرایط استفاده";
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "در سال ۲۰۲۴، داوطلبان ۴٬۱۰۴٬۸۵۲٬۹۶۹ بایت محتوا به ویکی‌پدیای انگلیسی افزوده‌اند. مجموع تمام کارهای آنان به تولید یک منبع دانش رو به بهبود، حقیقت‌محور و قابل اعتماد منجر شده است که آن را به جهان بخشیده‌اند. همهٔ ما دانشی برای به اشتراک گذاشتن داریم، [نحوهٔ مشارکت را بیاموزید]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "۴ میلیارد بایت محتوا افزوده شد";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "داوطلبان ۹۸٬۲۲۲٬۴۰۷ تغییر در سرتاسر ۳۰۰ نسخهٔ زبانی مختلف ویکی‌پدیا اعمال کرده‌اند. بیش از ۳۷ میلیون تغییر در ویکی‌پدیای انگلیسی اعمال شده است. در هر ساعت از هر روز، داوطلبان در حال کار بر روی بهبود ویکی‌پدیا هستند.";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "ویرایشگران امسال ۹۸ میلیون تغییر اعمال کردند";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "در سال ۲۰۲۴، افراد حدود ۲٫۹ میلیارد ساعت—۳۳۱٬۰۰۰ سال!— را صرف مطالعهٔ ویکی‌پدیای انگلیسی کرده‌اند. هرگاه بخواهید دربارهٔ دنیای رو به تغییرمان چیزی بدانید، در یک شرط‌بندی بین دوستانتان پیروز شوید، یا پاسخ سؤال یک کودک را پیدا کنید، ویکی‌پدیا در کنار شماست.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "ما ۲٫۹ میلیارد ساعت را صرف مطالعه کرده‌ایم";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "کاربران فعال نرم‌افزار iOS بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌اند. افزودن مقاله‌ها به فهرست‌های مطالعه این امکان را به شما می‌دهد که حتی در صورت برخط نبودن به مقاله‌ها دسترسی داشته باشید. همچنین می‌توانید برای همگام‌سازی فهرست‌های مطالعه در تمام دستگاه‌های خود، به سامانه وارد شوید.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "ما بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌ایم";
-// Fuzzy
-"microsite-yir-english-top-read-slide-subtitle" = "۵ مقالهٔ زیر، مقاله‌های پربازدید ویکی‌پدیای انگلیسی بوده‌اند:\n\n۱. $1\n۲. $2\n۳. $3\n۴. $4\n۵. $5\nدر $6پست وبلاگی اختصاصی ما$7 در این مورد بیشتر بخوانید.";
-"microsite-yir-english-top-read-slide-title" = "محبوب‌ترین مقاله‌های ویکی‌پدیای انگلیسی";
+"microsite-yir-english-top-read-slide-title" = "پربازدیدترین مقاله‌های ویکی‌پدیای انگلیسی";
 "more-languages-tooltip-description" = "جستجو در ویکی‌پدیا به بیش از ۳۰۰ زبان";
 "more-languages-tooltip-title" = "افزودن زبان";
 "more-menu" = "بیشتر";
@@ -1379,5 +1362,6 @@
 "wikitext-upload-save-sign-in" = "ورود";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "با انتشار تغییرات، $1شرایط استفاده$2 را می‌پذیرید و قبول می‌کنید که به‌طور برگشت‌ناپذیری مشارکت‌های خود را تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 منتشر کنید. همچنین می‌پذیرید که تحت اجازه‌نامهٔ کریتیو کامنز، تنها یک ابرپیوند یا نشانی وب برای انتشاب به مشارکت‌های شما کفایت می‌کند.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
-// Fuzzy
-"year-in-review-base-reading-title" = "ویکی‌پدیا در بیش از ۳۰۰ زبان در دسترس بوده است";
+"year-in-review-base-reading-title" = "ویکی‌پدیا در بیش از {{PLURAL:$1|$1 زبان}} در دسترس بوده است";
+"year-in-review-highlights-english-articles" = "پربازدیدترین مقاله‌های ویکی‌پدیای انگلیسی";
+"year-in-review-personalized-editing-title-format" = "شما {{PLURAL:$1|$1 بار}} ویرایش انجام داده‌اید";

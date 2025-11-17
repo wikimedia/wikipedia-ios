@@ -70,6 +70,11 @@ public final class WMFPageViewTime: Codable {
     }
 }
 
+public struct WMFPageWithTimestamp {
+    public let page: WMFPage
+    public let timestamp: Date
+}
+
 public final class WMFLegacyPageView: Codable {
     public let title: String
     let project: WMFProject
@@ -396,5 +401,40 @@ public final class WMFPageViewsDataController {
         }
 
         return result
+    }
+    
+    public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+        let results: [WMFPageWithTimestamp] = try await backgroundContext.perform {
+            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            fetchRequest.fetchLimit = 1000
+
+            let pageViews = try backgroundContext.fetch(fetchRequest)
+            var result: [WMFPageWithTimestamp] = []
+
+            for pageView in pageViews {
+                guard
+                    let page = pageView.page,
+                    let projectID = page.projectID,
+                    let title = page.title,
+                    let timestamp = pageView.timestamp
+                else { continue }
+
+                let wmfPage = WMFPage(
+                    namespaceID: Int(page.namespaceID),
+                    projectID: projectID,
+                    title: title
+                )
+
+                result.append(WMFPageWithTimestamp(page: wmfPage, timestamp: timestamp))
+            }
+
+            return result
+        }
+
+        return results
     }
 }

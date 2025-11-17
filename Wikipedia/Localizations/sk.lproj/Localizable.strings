@@ -528,6 +528,7 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 míľ";
+"new-article-tab-settings-did-you-know" = "Vedeli ste, že...";
 "new-article-tab-settings-recommendations" = "Odporúčania";
 "new-password-instructions" = "Ste prihlásení s dočasným heslom. Ak chcete dokončiť prihlásenie, nastavte si tu nové heslo.";
 "new-password-title" = "Nastavte si heslo";
@@ -674,6 +675,7 @@
 "on-this-day-no-internet-error" = "Žiadne dostupné údaje";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
+"open-in-tab-tooltip-title" = "Otvorí článok na novej karte";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Ťuknite pre vybratie dvoch revízií na porovnanie";
@@ -943,6 +945,7 @@
 "table-of-contents-hide-button-label" = "Skryť tabuľku s obsahom";
 "table-of-contents-subheading-label" = "Podtitulok $1";
 "tabs-show-suggested-articles" = "Zobraziť návrhy článkov";
+"tabs-title" = "Karty";
 "tachelhit-variants-alert-body" = "Wikipédia teraz podporuje aj varianty jazyka tachelhit ako primárny a sekundárny jazyk aplikácie:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Aktualizácie podpory variánt jazyka tachelhit";
 "tajik-variants-alert-body" = "Wikipédia teraz podporuje aj varianty tajik ako primárny a sekundárny jazyk aplikácie:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
@@ -973,8 +976,9 @@
 "top-read-widget-description" = "Zistite čo svet dnes číta na Wikipédii.";
 "top-read-widget-readers-count" = "$1 čitateľov";
 "top-read-widget-title" = "Najčítanejšie články";
-"two-factor-login-continue" = "Pokračovať prihlásiť";
-"two-factor-login-instructions" = "Prosím zadajte dvoufaktorizačný overovací kód";
+"two-factor-email-login-instructions" = "Prosím, zadajte overovací kód z emailu";
+"two-factor-login-continue" = "Pokračovať v prihlasovaní";
+"two-factor-login-instructions" = "Zadajte dvojfaktorový overovací kód";
 "two-factor-login-title" = "Prihláste sa do svojho účtu";
 "two-factor-login-with-backup-code" = "Použite jeden z vašich záložných kódov";
 "two-factor-login-with-regular-code" = "Použite overovací kód";
@@ -1011,6 +1015,7 @@
 "welcome-notifications-tell-me-more-creation" = "Upozornenia sú vytvárané a doručované na vaše zariadenie aplikáciou, nie našimi servermi (alebo servermi tretích strán).";
 "welcome-notifications-tell-me-more-storage" = "Nastavenia upozornení sú uložené na vašom zariadení a nie sú založené na osobných údajoch alebo aktivite.";
 "welcome-notifications-tell-me-more-title" = "Ďalšie informácie o upozorneniach";
+"welcome-privacy-terms-button-text" = "Ďalšie informácie o ochrane súkromia a podmienkach používania";
 "widget-onthisday-description" = "Objavte čo sa v histórii stalo v tento deň.";
 "widget-onthisday-placeholder-article-snippet" = "Voľná online encyklopédia, ktorú môže upravovať každý";
 "widget-onthisday-placeholder-event-snippet" = "Wikipédia ide online.";
@@ -1035,10 +1040,12 @@
 "year-in-review-finish" = "Dokončiť";
 "year-in-review-highlights-articles-viewed" = "Počet zobrazených článkov";
 "year-in-review-highlights-share-logo-caption" = "Logo Wikipédie";
-"year-in-review-personalized-donation-thank-you" = "Logo Wikimédie";
 "year-in-review-time-afternoon" = "Popoludnie";
 "year-in-review-time-evening" = "Večer";
+"year-in-review-time-late-night" = "Neskorá noc";
 "year-in-review-time-midday" = "Poludnie";
 "year-in-review-time-morning" = "Ráno";
 "year-in-review-time-night" = "Noc";
+"year-in-review-wikipedia-w-accessibility-label" = "Logo Wikipédie w";
+"year-in-review-wmf-logo-accessibility-label" = "Logo Nadácie Wikimédia";
 "yesterday-title" = "Včera";

@@ -749,8 +749,8 @@
 "microsite-yir-english-reading-slide-title" = "We spent {{PLURAL:$1|$1 hour|$1 hours}} reading";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Active app users had {{PLURAL:$1|$1 saved article|$1 saved articles}} this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.";
 "microsite-yir-english-saved-reading-slide-title" = "We had {{PLURAL:$1|$1 saved article|$1 saved articles}}";
-"microsite-yir-english-top-read-slide-subtitle" = "When people want to learn about our world - the good, bad, weird, and wild alike - they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nRead more in $6our dedicated blog post$7.";
-"microsite-yir-english-top-read-slide-title" = "Most read articles on English Wikipedia";
+"microsite-yir-english-top-read-slide-subtitle" = "When people want to learn about our world, they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nRead more in $6our dedicated blog post$7.";
+"microsite-yir-english-top-read-slide-title" = "English Wikipedia’s most read articles";
 "more-languages-tooltip-description" = "Search Wikipedia in over 300 languages";
 "more-languages-tooltip-title" = "Add languages";
 "more-menu" = "More";
@@ -1476,11 +1476,9 @@
 "year-in-review-base-viewed-subtitle" = "For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.";
 "year-in-review-base-viewed-title" = "App users viewed Wikipedia articles {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-button-title" = "Year in Review";
-"year-in-review-categories-slide-subtitle" = "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times\n$1";
+"year-in-review-categories-slide-subtitle" = "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times.\n\n$1";
 "year-in-review-collective-article-views" = "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.";
 "year-in-review-collective-edits" = "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.";
-"year-in-review-collective-edits-per-minute" = "A clock ticking, symbolizing the time spent by people reading Wikipedia.";
-"year-in-review-collective-explore" = "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.";
 "year-in-review-collective-languages" = "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.";
 "year-in-review-collective-saved-articles" = "A puzzle globe featuring Wikipedia's logo, representing global collaboration.";
 "year-in-review-contributor-gift-subtitle" = "If you don’t turn it on now, you can access it later in Settings under Theme.";
@@ -1498,7 +1496,6 @@
 "year-in-review-day-wednesday" = "Wednesdays";
 "year-in-review-donate" = "Donate";
 "year-in-review-donate-now" = "Donate now";
-"year-in-review-english-edits" = "A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.";
 "year-in-review-feature-announcement-body" = "See insights about what articles we read and edited, and share highlights from our year on Wikipedia.";
 "year-in-review-feature-announcement-body-personalized" = "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.";
 "year-in-review-feature-announcement-title" = "Explore Wikipedia in Review";
@@ -1530,14 +1527,13 @@
 "year-in-review-intro-login-title" = "Log in for personalization";
 "year-in-review-most-read-categories-title" = "Your most interesting categories";
 "year-in-review-non-contributor-slide-title" = "Unlock your contributor reward for next year!";
-"year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your $1! Unlock a special reward in your $2 Year in Review by becoming a contributor—whether by [editing Wikipedia]($3) or by donating to the [Wikimedia Foundation]($4), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.";
+"year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your $1! Unlock a special reward in your $2 Year in Review by becoming a contributor—whether by [editing Wikipedia]($3) or by donating from the app to the [Wikimedia Foundation]($4), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all. If you donated elsewhere, your support is deeply appreciated.";
 "year-in-review-personalized-date-day-footer-v3" = "Favorite day to read";
 "year-in-review-personalized-date-month-footer-v3" = "Month you did the most reading";
 "year-in-review-personalized-date-time-footer-v3" = "Favorite time to read";
 "year-in-review-personalized-date-title-v3" = "You have clear reading patterns";
 "year-in-review-personalized-donate-subtitle" = "Thank you for investing in the future of free knowledge. This year, the Wikimedia Foundation improved the technology to serve every reader and volunteer better, developed tools that empower collaboration, and supported Wikipedia in more languages. [Learn more about our work]($1).";
 "year-in-review-personalized-donate-title" = "Your generosity helped keep Wikipedia thriving";
-"year-in-review-personalized-donation-thank-you" = "Wikimedia logo";
 "year-in-review-personalized-edit-views-subtitle-format" = "Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received {{PLURAL:$1|$1 view|$1 total views}}. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for the world.";
 "year-in-review-personalized-edit-views-title-format" = "Your edits have been viewed more than {{PLURAL:$1|$1 time|$1 times}} recently";
 "year-in-review-personalized-editing-subtitle-1" = "Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.";
@@ -1551,7 +1547,6 @@
 "year-in-review-personalized-most-read-articles-title" = "Your top articles";
 "year-in-review-personalized-reading-subtitle-format-v3" = "We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
 "year-in-review-personalized-reading-title-v3-format" = "You spent {{PLURAL:$1|$1 minute|$1 minutes}} reading {{PLURAL:$2|$2 article|$2 articles}} in $3";
-"year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";
 "year-in-review-personalized-saved-subtitle-format-v3" = "These articles included $1, $2, and $3. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had {{PLURAL:$4|$4 saved article|$4 saved articles}} this year.";
 "year-in-review-personalized-saved-title-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-user-edits" = "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.";

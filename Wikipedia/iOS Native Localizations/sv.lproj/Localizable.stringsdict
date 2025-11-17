@@ -877,6 +877,38 @@
 			<string>%1$d gånger</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Läsare runt om i världen uppskattar dina bidrag. Under de senaste två månaderna har artiklarna som du redigerade fått totalt %#@v1@. Tack vare redigerare som dig är Wikipedia en faktabaserad och pålitlig kunskapsresurs för hela världen som ständigt förbättras.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld visning</string>
+			<key>other</key>
+			<string>%1$lld visningar</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dina redigeringar har nyligen visats mer än %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld gång</string>
+			<key>other</key>
+			<string>%1$lld gånger</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -891,6 +923,33 @@
 			<string>%1$d gång</string>
 			<key>other</key>
 			<string>%1$d gånger</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du har tillbringat %#@v1@ med att läsa %#@v2@ under %3$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d minut</string>
+			<key>other</key>
+			<string>%1$d minuter</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d artikel</string>
+			<key>other</key>
+			<string>%2$d artiklar</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

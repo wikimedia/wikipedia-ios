@@ -5,6 +5,18 @@ import Combine
 @MainActor
 public final class WMFActivityTabViewModel: ObservableObject {
 
+    // MARK: - Dependencies
+
+    private let dataController: WMFActivityTabDataController
+    private let hasSeenActivityTab: () -> Void
+
+    // MARK: - Navigation / Delegates
+
+    public var navigateToSaved: (() -> Void)?
+    public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
+
+    // MARK: - Localization
+
     public struct LocalizedStrings {
         public let userNamesReading: (String) -> String
         public let noUsernameReading: String
@@ -58,13 +70,15 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     public let localizedStrings: LocalizedStrings
-    @Published public var isLoggedIn: Bool
 
+    // MARK: - Published State
+
+    @Published public var isLoggedIn: Bool
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
+    @Published public var timelineViewModel: TimelineViewModel
 
-    public var navigateToSaved: (() -> Void)?
-    public var hasSeenActivityTab: () -> Void
+    // MARK: - Init
 
     public init(
         localizedStrings: LocalizedStrings,
@@ -73,10 +87,13 @@ public final class WMFActivityTabViewModel: ObservableObject {
         isLoggedIn: Bool
     ) {
         self.localizedStrings = localizedStrings
-        self.isLoggedIn = isLoggedIn
+        self.dataController = dataController
         self.hasSeenActivityTab = hasSeenActivityTab
+        self.isLoggedIn = isLoggedIn
 
-        let dateFormatter: (Date) -> String = { DateFormatter.wmfLastReadFormatter(for: $0) }
+        let dateFormatter: (Date) -> String = { date in
+            DateFormatter.wmfLastReadFormatter(for: date)
+        }
 
         self.articlesReadViewModel = ArticlesReadViewModel(
             dataController: dataController,
@@ -88,21 +105,61 @@ public final class WMFActivityTabViewModel: ObservableObject {
         self.articlesSavedViewModel = ArticlesSavedViewModel(
             dateFormatter: dateFormatter
         )
+
+        self.timelineViewModel = TimelineViewModel(
+            dataController: dataController
+        )
     }
+
+    // MARK: - Loading
 
     public func fetchData() {
         Task {
-            async let readVM: Void = articlesReadViewModel.fetch()
-            async let savedVM: Void = articlesSavedViewModel.fetch()
-            _ = await (readVM, savedVM)
-            
+            async let readTask: Void = articlesReadViewModel.fetch()
+            async let savedTask: Void = articlesSavedViewModel.fetch()
+            async let timelineTask: Void = timelineViewModel.fetch()
+
+            _ = await (readTask, savedTask, timelineTask)
+
+            // Reassign to trigger @Published for value-type view models
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
+            self.timelineViewModel = timelineViewModel
+
+            hasSeenActivityTab()
         }
     }
 
+    // MARK: - Lazy Summary Fetching
+
+    public func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
+        let itemID = item.id
+
+        if let existing = timelineViewModel.pageSummaries[itemID] {
+            return existing
+        }
+
+        do {
+            if let summary = try await dataController.fetchSummary(for: item.page) {
+                timelineViewModel.pageSummaries[itemID] = summary
+                // Reassign to trigger @Published
+                self.timelineViewModel = timelineViewModel
+                return summary
+            }
+        } catch {
+            debugPrint("Failed to fetch summary for \(itemID): \(error)")
+        }
+
+        return nil
+    }
+
+    // MARK: - Updates
+
     public func updateUsername(username: String) {
-        articlesReadViewModel.updateUsername(username)
+        articlesReadViewModel.username = username
+        articlesReadViewModel.usernamesReading = username.isEmpty
+            ? localizedStrings.noUsernameReading
+            : localizedStrings.userNamesReading(username)
     }
 
     public func updateIsLoggedIn(isLoggedIn: Bool) {
@@ -114,5 +171,19 @@ public final class WMFActivityTabViewModel: ObservableObject {
             articlesReadViewModel.hoursRead,
             articlesReadViewModel.minutesRead
         )
+    }
+
+    // MARK: - Helpers
+
+    func formatDateTime(_ dateTime: Date) -> String {
+        DateFormatter.wmfLastReadFormatter(for: dateTime)
+    }
+
+    func deletePages(at offsets: IndexSet, for date: Date) {
+        guard var pages = timelineViewModel.timeline?[date] else { return }
+        pages.remove(atOffsets: offsets)
+        timelineViewModel.timeline?[date] = pages
+        // Again, reassign to trigger @Published
+        self.timelineViewModel = timelineViewModel
     }
 }
