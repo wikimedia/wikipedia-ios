@@ -60,18 +60,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public let localizedStrings: LocalizedStrings
     @Published public var isLoggedIn: Bool
 
-    @Published public var articlesReadViewModel: ArticlesReadViewModel {
-        didSet { bindChildPublishers() }
-    }
-    @Published public var articlesSavedViewModel: ArticlesSavedViewModel {
-        didSet { bindChildPublishers() }
-    }
+    @Published public var articlesReadViewModel: ArticlesReadViewModel
+    @Published public var articlesSavedViewModel: ArticlesSavedViewModel
 
     public var navigateToSaved: (() -> Void)?
     public var hasSeenActivityTab: () -> Void
-
-    private var readCancellable: AnyCancellable?
-    private var savedCancellable: AnyCancellable?
 
     public init(
         localizedStrings: LocalizedStrings,
@@ -95,16 +88,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         self.articlesSavedViewModel = ArticlesSavedViewModel(
             dateFormatter: dateFormatter
         )
-
-        bindChildPublishers()
-    }
-
-    private func bindChildPublishers() {
-        readCancellable = articlesReadViewModel.objectWillChange
-            .sink { [weak self] _ in self?.objectWillChange.send() }
-
-        savedCancellable = articlesSavedViewModel.objectWillChange
-            .sink { [weak self] _ in self?.objectWillChange.send() }
     }
 
     public func fetchData() {
@@ -112,6 +95,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             async let readVM: Void = articlesReadViewModel.fetch()
             async let savedVM: Void = articlesSavedViewModel.fetch()
             _ = await (readVM, savedVM)
+            
+            self.articlesReadViewModel = articlesReadViewModel
+            self.articlesSavedViewModel = articlesSavedViewModel
         }
     }
 
