@@ -14,8 +14,35 @@ struct ArticlesReadViewModel {
     var articlesSavedAmount: Int
     var dateTimeLastSaved: String
     var articlesSavedImages: [URL]
-    var timeline: [Date: [TimelineItem]]?
-    var pageSummaries: [String: WMFArticleSummary] = [:]
+}
+
+final class TimelineViewModel: ObservableObject {
+    
+    @Published var sections: [SectionViewModel]
+    
+    final class SectionViewModel: ObservableObject, Hashable, Equatable {
+        
+        let date: Date
+        @Published var timelineItems: [TimelineItem]
+        
+        internal init(date: Date, timelineItems: [TimelineItem]) {
+            self.date = date
+            self.timelineItems = timelineItems
+        }
+        
+        static func ==(lhs: SectionViewModel, rhs: SectionViewModel) -> Bool {
+            return lhs.date == rhs.date
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(date)
+        }
+    }
+    
+    internal init(sections: [TimelineViewModel.SectionViewModel]) {
+        self.sections = sections
+    }
+    
 }
 
 @MainActor
@@ -23,6 +50,8 @@ public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
     public var onTapArticle: ((TimelineItem) -> Void)?
+    
+    @Published var timelineViewModel: TimelineViewModel?
 
     @Published var articlesReadViewModel: ArticlesReadViewModel = ArticlesReadViewModel(
         username: "",
@@ -35,8 +64,7 @@ public class WMFActivityTabViewModel: ObservableObject {
         usernamesReading: "",
         articlesSavedAmount: 0,
         dateTimeLastSaved: "",
-        articlesSavedImages: [],
-        timeline: [:]
+        articlesSavedImages: []
     )
 
     var hasSeenActivityTab: () -> Void
@@ -87,6 +115,13 @@ public class WMFActivityTabViewModel: ObservableObject {
                 savedArticleDate = tempData.dateLastSaved
                 savedArticleImages = tempData.articleUrlStrings.compactMap { URL(string: $0) }
             }
+            
+            var sections: [TimelineViewModel.SectionViewModel] = []
+            for (key, value) in timelineItems {
+                sections.append(TimelineViewModel.SectionViewModel(date: key, timelineItems: value))
+            }
+            
+            let timelineViewModel = TimelineViewModel(sections: sections)
 
             await MainActor.run {
                 var model = self.articlesReadViewModel
@@ -96,47 +131,13 @@ public class WMFActivityTabViewModel: ObservableObject {
                 model.dateTimeLastRead = formattedDate
                 model.weeklyReads = weeklyReads
                 model.topCategories = categories
-                model.timeline = timelineItems
                 model.articlesSavedAmount = savedArticleCount
                 model.dateTimeLastSaved = savedArticleDate.map { self.formatDateTime($0) } ?? ""
                 model.articlesSavedImages = savedArticleImages
                 self.articlesReadViewModel = model
+                self.timelineViewModel = timelineViewModel
             }
         }
-    }
-
-    // MARK: - Lazy Summary Fetching
-
-    @MainActor
-    public func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
-        let itemID = item.id
-
-        if let existing = articlesReadViewModel.pageSummaries[itemID] {
-            return existing
-        }
-
-        do {
-            if let summary = try await dataController.fetchSummary(for: item.page) {
-                var model = articlesReadViewModel
-                model.pageSummaries[itemID] = summary
-                self.articlesReadViewModel = model
-                return summary
-            }
-        } catch {
-            debugPrint("Failed to fetch summary for \(itemID): \(error)")
-        }
-
-        return nil
-    }
-    
-    public func loadImage(imageURLString: String?) async throws -> UIImage? {
-        let imageDataController = WMFImageDataController()
-        guard let imageURLString,
-              let url = URL(string: imageURLString) else {
-            return nil
-        }
-        let data = try await imageDataController.fetchImageData(url: url)
-        return UIImage(data: data)
     }
 
     // MARK: - View Strings
@@ -173,19 +174,15 @@ public class WMFActivityTabViewModel: ObservableObject {
     }
     
     @MainActor
-    func deletePage(item: TimelineItem) {
+    func deletePage(section: TimelineViewModel.SectionViewModel, index: Int) {
         Task {
             do {
                 // Delete from Core Data
+                let item = section.timelineItems[index]
                 try await dataController.deletePageView(for: item)
 
                 // Delete from local model
-                let date = Calendar.current.startOfDay(for: item.date)
-                if var items = articlesReadViewModel.timeline?[date] {
-                    items.removeAll { $0.id == item.id }
-                    articlesReadViewModel.timeline?[date] = items
-                    self.articlesReadViewModel = articlesReadViewModel
-                }
+                section.timelineItems.remove(at: index)
             } catch {
                 print("Failed to delete page: \(error)")
             }

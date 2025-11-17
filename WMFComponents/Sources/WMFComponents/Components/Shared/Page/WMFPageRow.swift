@@ -1,4 +1,5 @@
 import SwiftUI
+import WMFData
 
 /// A reusable component for displaying a page row (typically an article) with optional swipe actions. These should be embedded inside of a List.
 struct WMFPageRow: View {
@@ -95,7 +96,7 @@ struct WMFPageRow: View {
             }
         }
     }
-
+    
     @ViewBuilder
     var textViewLimitedFontSize: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -176,3 +177,122 @@ struct WMFPageRow: View {
         }
     }
 }
+
+// MARK: - BEGIN: WMFNEWPAGEROW
+
+final class WMFNewPageRowViewModel: ObservableObject {
+    
+    let wmfPage: WMFPage
+    let id: String
+    let titleHtml: String
+    let imageURLString: String?
+    let iconImage: UIImage?
+    
+    @Published var articleDescription: String?
+    @Published var uiImage: UIImage?
+    
+    internal init(wmfpage: WMFPage, id: String, titleHtml: String, imageURLString: String? = nil, iconImage: UIImage? = nil, articleDescription: String? = nil, uiImage: UIImage? = nil) {
+        self.wmfPage = wmfpage
+        self.id = id
+        self.titleHtml = titleHtml
+        self.imageURLString = imageURLString
+        self.iconImage = iconImage
+        self.articleDescription = articleDescription
+        self.uiImage = uiImage
+    }
+    
+    @MainActor
+    public func loadDescriptionAndImage() async throws {
+        
+        let summaryDataController = WMFArticleSummaryDataController()
+        
+        guard let project = WMFProject(id: wmfPage.projectID) else {
+            return
+        }
+        
+        let summary = try? await summaryDataController.fetchArticleSummary(project: project, title: wmfPage.title)
+        
+        let imageDataController = WMFImageDataController()
+        
+        guard let thumbnailURL = summary?.thumbnailURL else {
+            return
+        }
+        let data = try await imageDataController.fetchImageData(url: thumbnailURL)
+        
+        self.articleDescription = summary?.description
+        self.uiImage = UIImage(data: data)
+        
+    }
+    
+    public func loadImage(imageURLString: String?) async throws {
+        let imageDataController = WMFImageDataController()
+        guard let imageURLString,
+              let url = URL(string: imageURLString) else {
+            return
+        }
+        let data = try await imageDataController.fetchImageData(url: url)
+        self.uiImage = UIImage(data: data)
+    }
+}
+
+/// A reusable component for displaying a page row (typically an article) with optional swipe actions. These should be embedded inside of a List.
+struct WMFNewPageRow: View {
+
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+
+    @ObservedObject var viewModel: WMFNewPageRowViewModel
+    
+    init (viewModel: WMFNewPageRowViewModel) {
+        self.viewModel = viewModel
+    }
+
+    var rowContent: some View {
+        HStack(alignment: .top, spacing: 4) {
+            if let iconImage = viewModel.iconImage {
+                Image(uiImage: iconImage)
+                    .frame(width: 40, height: 40)
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+            }
+            regularTextView
+            Spacer()
+            if let uiImage = viewModel.uiImage {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
+
+            }
+        }
+        .background(Color(theme.paperBackground))
+        .padding(.vertical, 8)
+        .task(id: viewModel.imageURLString) {
+            try? await viewModel.loadDescriptionAndImage()
+        }
+    }
+
+    @ViewBuilder
+    var regularTextView: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(viewModel.titleHtml)
+                .font(WMFSwiftUIFont.font(.callout))
+                .foregroundColor(Color(theme.text))
+            if let description = viewModel.articleDescription {
+                Text(description)
+                    .font(WMFSwiftUIFont.font(.subheadline))
+                    .foregroundColor(Color(theme.secondaryText))
+                    .lineLimit(1)
+            }
+        }
+    }
+
+    var body: some View {
+        rowContent
+    }
+}
+
+// MARK: - END: WMFNEWPAGEROW

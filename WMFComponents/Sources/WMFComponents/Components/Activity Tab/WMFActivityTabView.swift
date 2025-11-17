@@ -72,46 +72,36 @@ public struct WMFActivityTabView: View {
             }
         }
     }
-
-    private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        let summary = viewModel.articlesReadViewModel.pageSummaries[item.id]
-        
-        return WMFArticlePreviewViewModel(
-            url: item.url,
-            titleHtml: item.titleHtml,
-            description: summary?.description ?? item.description,
-            imageURLString: summary?.thumbnailURL?.absoluteString ?? item.imageURLString,
-            isSaved: false,
-            snippet: summary?.extract ?? item.snippet
-        )
-    }
     
     private var historyView: some View {
        return Group {
-            if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
+            if let timeline = viewModel.timelineViewModel {
                 // Sort dates descending
-                ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
-                    timelineSection(for: date, pages: timeline[date] ?? [])
+                let sortedSections = timeline.sections.sorted { section1, section2 in
+                    section1.date > section2.date
+                }
+                ForEach(sortedSections, id: \.self) { section in
+                    timelineSectionView(for: section)
                         .listRowSeparator(.hidden)
                 }
             }
         }
     }
     
-    private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
-        let sortedPages = pages.sorted(by: { $0.date > $1.date })
+    private func timelineSectionView(for timelineSectionViewModel: TimelineViewModel.SectionViewModel) -> some View {
+        let sortedPages = timelineSectionViewModel.timelineItems.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current
 
         let title: String
         let subtitle: String
-        if calendar.isDateInToday(date) {
+        if calendar.isDateInToday(timelineSectionViewModel.date) {
             title = viewModel.localizedStrings.todayTitle
-            subtitle = viewModel.formatDate(date)
-        } else if calendar.isDateInYesterday(date) {
+            subtitle = viewModel.formatDate(timelineSectionViewModel.date)
+        } else if calendar.isDateInYesterday(timelineSectionViewModel.date) {
             title = viewModel.localizedStrings.yesterdayTitle
-            subtitle = viewModel.formatDate(date)
+            subtitle = viewModel.formatDate(timelineSectionViewModel.date)
         } else {
-            title = viewModel.formatDate(date)
+            title = viewModel.formatDate(timelineSectionViewModel.date)
             subtitle = ""
         }
 
@@ -134,13 +124,13 @@ public struct WMFActivityTabView: View {
                 .padding(.bottom, 20)
         ) {
             ForEach(sortedPages, id: \.id) { page in
-                pageRow(page: page, section: date)
+                pageRow(page: page, section: timelineSectionViewModel.date)
                     .listRowSeparator(.hidden)
             }
             .onDelete { indexSet in
                 for index in indexSet {
                     let pageToDelete = sortedPages[index]
-                    viewModel.deletePage(item: pageToDelete)
+                    viewModel.deletePage(section: timelineSectionViewModel, index: index)
                 }
             }
         }
@@ -159,24 +149,11 @@ public struct WMFActivityTabView: View {
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
 
-        let summary = viewModel.articlesReadViewModel.pageSummaries[page.id]
-        let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
+        print("PAGE: \(page.pageTitle)")
 
-        return WMFPageRow(
-            needsLimitedFontSize: false,
-            id: page.id,
-            titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
-            articleDescription: summary?.description ?? page.description,
-            imageURLString: initialThumbnailURLString,
-            titleLineLimit: 1,
-            isSaved: false,
-            showsSwipeActions: true,
-            deleteItemAction: { viewModel.deletePage(item: page) },
-            loadImageAction: { imageURLString in
-                try? await viewModel.loadImage(imageURLString: imageURLString)
-            },
-            iconImage: iconImage
-        )
+        let pageRowViewModel = WMFNewPageRowViewModel(wmfpage: page.page, id: page.id, titleHtml:  page.pageTitle.replacingOccurrences(of: "_", with: " "), iconImage: iconImage)
+
+        return WMFNewPageRow(viewModel: pageRowViewModel)
         .contentShape(Rectangle())
         .onTapGesture {
             viewModel.onTap(page)
@@ -192,17 +169,6 @@ public struct WMFActivityTabView: View {
                     if let icon = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
                         Image(uiImage: icon)
                     }
-                }
-            }
-        } preview: {
-            if summary != nil {
-                WMFArticlePreviewView(viewModel: getPreviewViewModel(from: page))
-            }
-        }
-        .task {
-            if let fetchedSummary = await viewModel.fetchSummary(for: page) {
-                if fetchedSummary.thumbnailURL != nil {
-                    // Automatically updates
                 }
             }
         }
