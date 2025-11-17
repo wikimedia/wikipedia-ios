@@ -16,60 +16,63 @@ public struct WMFActivityTabView: View {
     }
     
     public var body: some View {
-        if viewModel.isLoggedIn {
-            List {
-                Section {
-                    VStack(spacing: 20) {
-                        headerView
-                        
-                        VStack(alignment: .center, spacing: 8) {
-                            hoursMinutesRead
-                            Text(viewModel.localizedStrings.timeSpentReading)
-                                .font(Font(WMFFont.for(.semiboldHeadline)))
-                                .foregroundColor(Color(uiColor: theme.text))
+        ScrollViewReader { proxy in
+            if viewModel.isLoggedIn {
+                List {
+                    Section {
+                        VStack(spacing: 20) {
+                            headerView
+                            
+                            VStack(alignment: .center, spacing: 8) {
+                                hoursMinutesRead
+                                Text(viewModel.localizedStrings.timeSpentReading)
+                                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                                    .foregroundColor(Color(uiColor: theme.text))
+                            }
+                            .frame(maxWidth: .infinity)
+                            
+                            articlesReadModule(proxy: proxy)
+                            savedArticlesModule
+                            
+                            if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                                topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                            }
                         }
-                        .frame(maxWidth: .infinity)
-                        
-                        articlesReadModule
-                        savedArticlesModule
-                        
-                        if !viewModel.articlesReadViewModel.topCategories.isEmpty {
-                            topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
-                        }
-                    }
-                    .padding(16)
-                    .listRowInsets(EdgeInsets())
-                    .background(
-                        LinearGradient(
-                            stops: [
-                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
-                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
+                        .padding(16)
+                        .listRowInsets(EdgeInsets())
+                        .background(
+                            LinearGradient(
+                                stops: [
+                                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                                    Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
                         )
-                    )
+                    }
+                    
+                    Section(header: Text("Articles")
+                        .font(.headline)
+                        .foregroundColor(Color(uiColor: theme.text))
+                    ) {
+                        historyView
+                            .id("timelineSection")
+                    }
                 }
-                .listRowSeparator(.hidden)
-                
-                historyView
-                    .padding(.horizontal, 16)
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
+                .scrollContentBackground(.hidden)
+                .listStyle(.grouped)
+                .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+                .onAppear {
+                    viewModel.fetchData()
+                    viewModel.hasSeenActivityTab()
+                }
+            } else {
+                loggedOutView
             }
-            .scrollContentBackground(.hidden)
-            .background(Color(uiColor: theme.paperBackground))
-            .listStyle(.grouped)
-            .onAppear {
-                viewModel.fetchData()
-                viewModel.hasSeenActivityTab()
-            }
-            .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
-        } else {
-            loggedOutView
         }
     }
-    
+
     private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
         let summary = viewModel.articlesReadViewModel.pageSummaries[item.id]
         
@@ -303,22 +306,21 @@ public struct WMFActivityTabView: View {
         
     }
     
-    private var articlesReadModule: some View {
-        Group {
-            WMFActivityTabInfoCardView(
-                icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
-                title: viewModel.localizedStrings.totalArticlesRead,
-                dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
-                amount: viewModel.articlesReadViewModel.totalArticlesRead,
-                onTapModule: {
-                    print("Tapped module")
-                    // TODO: Navigate to history below
-                },
-                content: {
-                    articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
+    private func articlesReadModule(proxy: ScrollViewProxy) -> some View {
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.totalArticlesRead,
+            dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
+            amount: viewModel.articlesReadViewModel.totalArticlesRead,
+            onTapModule: {
+                withAnimation(.easeInOut) {
+                    proxy.scrollTo("timelineSection", anchor: .top)
                 }
-            )
-        }
+            },
+            content: {
+                articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
+            }
+        )
     }
     
     private var savedArticlesModule: some View {

@@ -246,7 +246,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     
     func onTapArticle(item: TimelineItem) {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
-            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }
     }

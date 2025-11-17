@@ -172,10 +172,11 @@ public final class WMFActivityTabDataController {
     }
     
     public func deletePageView(for item: TimelineItem) async throws {
+        guard let project = WMFProject(id: item.page.projectID) else { return }
         try await deletePageView(
             title: item.page.title,
             namespaceID: Int16(item.page.namespaceID),
-            project: WMFProject(id: item.page.projectID)!
+            project: project
         )
     }
     
