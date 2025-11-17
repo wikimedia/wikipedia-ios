@@ -15,27 +15,33 @@ import CocoaLumberjackSwift
     // MARK: - Public API
 
     public func migrateAllIfNeeded() async {
+        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
         await runMigration(limit: 500)
     }
 
     public func migrateIncremental() async {
+        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
         await runMigration(limit: 20)
     }
 
     @objc(removeFromSavedWithURLs:)
     public func removeFromSaved(withUrls urls: [URL]) {
+        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
         unsave(urls: urls)
     }
 
     public func clearAll() {
+        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
         clearAllSavedData()
     }
 
     @objc public func migrateIncrementalObjC() {
+        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
         Task { await runMigration(limit: 20) }
     }
 
     public func migrateNewlySyncedArticles(withURLs urls: [URL]) {
+        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
         Task { @MainActor in
             migrateSyncedArticles(withURLs: urls)
         }
