@@ -63,7 +63,24 @@ public struct WMFActivityTabView: View {
                     viewModel.hasSeenActivityTab()
                 }
             } else {
-                loggedOutView
+                List {
+                    Section {
+                        VStack(alignment: .leading) {
+                            loggedOutView
+                            historyView
+                                .id("timelineSection")
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+                .scrollContentBackground(.hidden)
+                .listStyle(.grouped)
+                .onAppear {
+                    viewModel.fetchData()
+                    viewModel.hasSeenActivityTab()
+                }
+                .padding(.top, 0)
             }
         }
     }
