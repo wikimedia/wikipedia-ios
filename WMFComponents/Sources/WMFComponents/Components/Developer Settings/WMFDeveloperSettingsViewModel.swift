@@ -11,12 +11,9 @@ import WMFData
     let enableYearinReview: String
     let bypassDonation: String
     let forceEmailAuth: String
-    let setActivityTabGroupA: String
-    let setActivityTabGroupB: String
-    let setActivityTabGroupC: String
     let done: String
 
-    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableMoreDynamicTabsV2GroupB: String, enableMoreDynamicTabsV2GroupC: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, setActivityTabGroupA: String, setActivityTabGroupB: String, setActivityTabGroupC: String, done: String) {
+    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableMoreDynamicTabsV2GroupB: String, enableMoreDynamicTabsV2GroupC: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, done: String) {
         self.developerSettings = developerSettings
         self.doNotPostImageRecommendations = doNotPostImageRecommendations
         self.sendAnalyticsToWMFLabs = sendAnalyticsToWMFLabs
@@ -25,9 +22,6 @@ import WMFData
         self.enableYearinReview = enableYearinReview
         self.bypassDonation = bypassDonation
         self.forceEmailAuth = forceEmailAuth
-        self.setActivityTabGroupA = setActivityTabGroupA
-        self.setActivityTabGroupB = setActivityTabGroupB
-        self.setActivityTabGroupC = setActivityTabGroupC
         self.done = done
     }
 }
@@ -37,7 +31,6 @@ import WMFData
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
     let formViewModel: WMFFormViewModel
     private var subscribers: Set<AnyCancellable> = []
-    private var activityTabGroupCoordinator: ActivityTabGroupBindingCoordinator?
     private var moreDynamicTabsV2GroupCoordinator: MoreDynamicTabsV2GroupBindingCoordinator?
     private var yirLoginExperimentGroupCoordinator: YirLoginExperimentBindingCoordinator?
 
@@ -57,11 +50,6 @@ import WMFData
         let enableMoreDynamicTabsV2GroupB = WMFFormItemSelectViewModel(title: localizedStrings.enableMoreDynamicTabsV2GroupB, isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsV2GroupB)
         let enableMoreDynamicTabsV2GroupC = WMFFormItemSelectViewModel(title: localizedStrings.enableMoreDynamicTabsV2GroupC, isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsV2GroupC)
 
-        let setActivityTabGroupA = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupA, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupA)
-        let setActivityTabGroupB = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupB, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupB)
-        let setActivityTabGroupC = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupC, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupC)
-        
-        
         let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
 
         let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
@@ -77,9 +65,6 @@ import WMFData
                 sendAnalyticsToWMFLabsItem,
                 bypassDonationItem,
                 forceEmailAuth,
-                setActivityTabGroupA,
-                setActivityTabGroupB,
-                setActivityTabGroupC,
                 forceMaxArticleTabsTo5,
                 enableMoreDynamicTabsV2GroupB,
                 enableMoreDynamicTabsV2GroupC,
@@ -140,46 +125,10 @@ import WMFData
         
         moreDynamicTabsV2GroupCoordinator = MoreDynamicTabsV2GroupBindingCoordinator(groupB: enableMoreDynamicTabsV2GroupB, groupC: enableMoreDynamicTabsV2GroupC)
 
-        activityTabGroupCoordinator = ActivityTabGroupBindingCoordinator(
-            groupA: setActivityTabGroupA,
-            groupB: setActivityTabGroupB,
-            groupC: setActivityTabGroupC
-        )
-        
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(
             control: enableYiRVLoginExperimentControl,
             b: enableYiRVLoginExperimentB
         )
-    }
-}
-
-private final class ActivityTabGroupBindingCoordinator {
-    private var subscribers: Set<AnyCancellable> = []
-
-    init(groupA: WMFFormItemSelectViewModel, groupB: WMFFormItemSelectViewModel, groupC: WMFFormItemSelectViewModel) {
-        groupA.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.setActivityTabGroupA = isSelected
-            if isSelected {
-                groupB.isSelected = false
-                groupC.isSelected = false
-            }
-        }.store(in: &subscribers)
-
-        groupB.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.setActivityTabGroupB = isSelected
-            if isSelected {
-                groupA.isSelected = false
-                groupC.isSelected = false
-            }
-        }.store(in: &subscribers)
-
-        groupC.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.setActivityTabGroupC = isSelected
-            if isSelected {
-                groupA.isSelected = false
-                groupB.isSelected = false
-            }
-        }.store(in: &subscribers)
     }
 }
 
