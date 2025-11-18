@@ -211,6 +211,7 @@ final class WMFNewPageRowViewModel: ObservableObject {
         }
         
         let summary = try? await summaryDataController.fetchArticleSummary(project: project, title: wmfPage.title)
+        self.articleDescription = summary?.description
         
         let imageDataController = WMFImageDataController()
         
@@ -219,7 +220,6 @@ final class WMFNewPageRowViewModel: ObservableObject {
         }
         let data = try await imageDataController.fetchImageData(url: thumbnailURL)
         
-        self.articleDescription = summary?.description
         self.uiImage = UIImage(data: data)
         
     }
