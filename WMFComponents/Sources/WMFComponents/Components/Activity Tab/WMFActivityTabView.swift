@@ -146,9 +146,9 @@ public struct WMFActivityTabView: View {
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
 
-        let pageRowViewModel = WMFNewPageRowViewModel(wmfpage: page.page, id: page.id, titleHtml:  page.pageTitle.replacingOccurrences(of: "_", with: " "), iconImage: iconImage)
+        let pageRowViewModel = WMFAsyncPageRowViewModel(wmfpage: page.page, id: page.id, titleHtml:  page.pageTitle.replacingOccurrences(of: "_", with: " "), iconImage: iconImage)
 
-        return WMFNewPageRow(viewModel: pageRowViewModel)
+        return WMFAsyncPageRow(viewModel: pageRowViewModel)
         .contentShape(Rectangle())
         .onTapGesture {
             viewModel.onTap(page)
