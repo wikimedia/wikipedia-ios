@@ -1876,6 +1876,11 @@ private extension ExploreViewController {
             return false
         }
         
+        guard let languageCode = Locale.current.language.languageCode?.identifier.lowercased(),
+              languageCode == "en" else {
+            return false
+        }
+        
         let startDate: Date? = {
             var components = DateComponents()
             components.year = 2025
