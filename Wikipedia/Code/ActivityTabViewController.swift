@@ -112,7 +112,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
 
-        viewModel.navigateToSaved = goToSaved
+        viewModel.articlesSavedViewModel.navigateToSaved = goToSaved
+        viewModel.timelineViewModel.onTapArticle = onTapArticle
+
+        configureNavigationBar()
 
         Task {
             let hasSeen = await dataController.getHasSeenActivityTab()
@@ -120,8 +123,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 presentOnboarding()
             }
         }
-
-        configureNavigationBar()
     }
 
     private func presentOnboarding() {
@@ -240,6 +241,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         if let tabBar = self.tabBarController {
             tabBar.selectedIndex = 2
+        }
+    }
+    
+    func onTapArticle(item: TimelineItem) {
+        if let articleURL = item.url, let dataStore, let navVC = navigationController {
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
+            articleCoordinator.start()
         }
     }
 }

@@ -8,11 +8,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Dependencies
 
     private let dataController: WMFActivityTabDataController
-    private let hasSeenActivityTab: () -> Void
+    let hasSeenActivityTab: () -> Void
 
     // MARK: - Navigation / Delegates
 
-    public var navigateToSaved: (() -> Void)?
+
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
 
     // MARK: - Localization
@@ -33,6 +33,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let loggedOutSubtitle: String
         public let loggedOutPrimaryCTA: String
         public let loggedOutSecondaryCTA: String
+        public let todayTitle: String
+        public let yesterdayTitle: String
+        public let openArticle: String
 
         public init(
             userNamesReading: @escaping (String) -> String,
@@ -49,7 +52,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
             loggedOutTitle: String,
             loggedOutSubtitle: String,
             loggedOutPrimaryCTA: String,
-            loggedOutSecondaryCTA: String
+            loggedOutSecondaryCTA: String,
+            todayTitle: String,
+            yesterdayTitle: String,
+            openArticle: String
         ) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
@@ -66,6 +72,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.loggedOutSubtitle = loggedOutSubtitle
             self.loggedOutPrimaryCTA = loggedOutPrimaryCTA
             self.loggedOutSecondaryCTA = loggedOutSecondaryCTA
+            self.todayTitle = todayTitle
+            self.yesterdayTitle = yesterdayTitle
+            self.openArticle = openArticle
         }
     }
 
@@ -129,29 +138,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Lazy Summary Fetching
-
-    public func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
-        let itemID = item.id
-
-        if let existing = timelineViewModel.pageSummaries[itemID] {
-            return existing
-        }
-
-        do {
-            if let summary = try await dataController.fetchSummary(for: item.page) {
-                timelineViewModel.pageSummaries[itemID] = summary
-                // Reassign to trigger @Published
-                self.timelineViewModel = timelineViewModel
-                return summary
-            }
-        } catch {
-            debugPrint("Failed to fetch summary for \(itemID): \(error)")
-        }
-
-        return nil
-    }
-
     // MARK: - Updates
 
     public func updateUsername(username: String) {
@@ -178,10 +164,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
         DateFormatter.wmfLastReadFormatter(for: dateTime)
     }
 
-    func deletePages(at offsets: IndexSet, for date: Date) {
-        guard var pages = timelineViewModel.timeline?[date] else { return }
-        pages.remove(atOffsets: offsets)
-        timelineViewModel.timeline?[date] = pages
-        self.timelineViewModel = timelineViewModel
+    func formatDate(_ dateTime: Date) -> String {
+        DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
     }
+
 }
