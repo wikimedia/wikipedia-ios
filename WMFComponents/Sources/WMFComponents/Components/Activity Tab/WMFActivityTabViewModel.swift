@@ -48,7 +48,7 @@ public class WMFActivityTabViewModel: ObservableObject {
         self.isLoggedIn = isLoggedIn
     }
     
-    func fetchData() {
+    public func fetchData() {
         Task {
             async let timeResult = dataController.getTimeReadPast7Days()
             async let articlesResult = dataController.getArticlesRead()
