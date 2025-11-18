@@ -6,6 +6,7 @@ import Foundation
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
+    @ObservedObject private var timelineViewModel: TimelineViewModel
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -13,6 +14,7 @@ public struct WMFActivityTabView: View {
 
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
+        self.timelineViewModel = viewModel.timelineViewModel
     }
 
     public var body: some View {
@@ -74,7 +76,7 @@ public struct WMFActivityTabView: View {
     }
 
     private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        let summary = viewModel.timelineViewModel.pageSummaries[item.id]
+        let summary = timelineViewModel.pageSummaries[item.id]
 
         return WMFArticlePreviewViewModel(
             url: item.url,
@@ -88,7 +90,8 @@ public struct WMFActivityTabView: View {
 
     private var historyView: some View {
        return Group {
-            if let timeline = viewModel.timelineViewModel.timeline, !timeline.isEmpty {
+           let timeline = timelineViewModel.timeline
+            if !timeline.isEmpty {
                 // Sort dates descending
                 ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
                     timelineSection(for: date, pages: timeline[date] ?? [])
@@ -140,7 +143,7 @@ public struct WMFActivityTabView: View {
             .onDelete { indexSet in
                 for index in indexSet {
                     let pageToDelete = sortedPages[index]
-                    viewModel.timelineViewModel.deletePage(item: pageToDelete)
+                    timelineViewModel.deletePage(item: pageToDelete)
                 }
             }
         }
@@ -159,7 +162,7 @@ public struct WMFActivityTabView: View {
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
 
-        let summary = viewModel.timelineViewModel.pageSummaries[page.id]
+        let summary = timelineViewModel.pageSummaries[page.id]
         let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
 
         return WMFPageRow(
@@ -171,19 +174,19 @@ public struct WMFActivityTabView: View {
             titleLineLimit: 1,
             isSaved: false,
             showsSwipeActions: true,
-            deleteItemAction: { viewModel.timelineViewModel.deletePage(item: page) },
+            deleteItemAction: { timelineViewModel.deletePage(item: page) },
             loadImageAction: { imageURLString in
-                try? await viewModel.timelineViewModel.loadImage(imageURLString: imageURLString)
+                try? await timelineViewModel.loadImage(imageURLString: imageURLString)
             },
             iconImage: iconImage
         )
         .contentShape(Rectangle())
         .onTapGesture {
-            viewModel.timelineViewModel.onTap(page)
+            timelineViewModel.onTap(page)
         }
         .contextMenu {
             Button {
-                viewModel.timelineViewModel.onTap(page)
+                timelineViewModel.onTap(page)
             } label: {
                 HStack {
                     Text(viewModel.localizedStrings.openArticle)
@@ -200,11 +203,7 @@ public struct WMFActivityTabView: View {
             }
         }
         .task {
-            if let fetchedSummary = await viewModel.timelineViewModel.fetchSummary(for: page) {
-                if fetchedSummary.thumbnailURL != nil {
-                    // Automatically updates
-                }
-            }
+            _ = await timelineViewModel.fetchSummary(for: page)
         }
     }
 

@@ -1,11 +1,15 @@
 import WMFData
 import UIKit
+import Combine
 
 @MainActor
-public final class TimelineViewModel {
+public final class TimelineViewModel: ObservableObject {
+
     private let dataController: WMFActivityTabDataController
-    var timeline: [Date: [TimelineItem]]?
-    var pageSummaries: [String: WMFArticleSummary] = [:]
+
+    @Published var timeline: [Date: [TimelineItem]] = [:]
+    @Published var pageSummaries: [String: WMFArticleSummary] = [:]
+
     public var onTapArticle: ((TimelineItem) -> Void)?
 
     public init(dataController: WMFActivityTabDataController) {
@@ -20,7 +24,7 @@ public final class TimelineViewModel {
             debugPrint("error fetching timeline: \(error)")
         }
     }
-    @MainActor
+
     public func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
         let itemID = item.id
 
@@ -30,8 +34,7 @@ public final class TimelineViewModel {
 
         do {
             if let summary = try await dataController.fetchSummary(for: item.page) {
-                pageSummaries[itemID] = summary
-
+                pageSummaries[itemID] = summary   // triggers UI update
                 return summary
             }
         } catch {
@@ -47,22 +50,21 @@ public final class TimelineViewModel {
               let url = URL(string: imageURLString) else {
             return nil
         }
+
         let data = try await imageDataController.fetchImageData(url: url)
         return UIImage(data: data)
     }
 
-    @MainActor
-    func deletePage(item: TimelineItem) {
+    public func deletePage(item: TimelineItem) {
         Task {
             do {
-                // Delete from Core Data
                 try await dataController.deletePageView(for: item)
 
-                // Delete from local model
                 let date = Calendar.current.startOfDay(for: item.date)
-                if var items = timeline?[date] {
+
+                if var items = timeline[date] {
                     items.removeAll { $0.id == item.id }
-                    timeline?[date] = items
+                    timeline[date] = items
                 }
             } catch {
                 print("Failed to delete page: \(error)")
