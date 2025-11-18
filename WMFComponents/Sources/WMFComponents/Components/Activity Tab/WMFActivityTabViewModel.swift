@@ -58,7 +58,7 @@ public class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Fetch Main Data
 
-    func fetchData() {
+    public func fetchData() {
         Task {
             async let timeResult = dataController.getTimeReadPast7Days()
             async let articlesResult = dataController.getArticlesRead()
