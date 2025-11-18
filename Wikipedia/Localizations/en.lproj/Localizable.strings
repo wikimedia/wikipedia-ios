@@ -558,6 +558,8 @@
 "explore-suggested-edits-footer" = "Add";
 "explore-suggested-edits-image-recs-body" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "explore-suggested-edits-image-recs-title" = "Add an image";
+"explore-survey-subtitle" = "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.";
+"explore-survey-title" = "Help us improve Explore";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
 "export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
@@ -756,8 +758,8 @@
 "microsite-yir-english-reading-slide-title" = "We spent {{PLURAL:$1|$1 hour|$1 hours}} reading";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Active app users had {{PLURAL:$1|$1 saved article|$1 saved articles}} this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.";
 "microsite-yir-english-saved-reading-slide-title" = "We had {{PLURAL:$1|$1 saved article|$1 saved articles}}";
-"microsite-yir-english-top-read-slide-subtitle" = "When people want to learn about our world - the good, bad, weird, and wild alike - they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nRead more in $6our dedicated blog post$7.";
-"microsite-yir-english-top-read-slide-title" = "Most read articles on English Wikipedia";
+"microsite-yir-english-top-read-slide-subtitle" = "When people want to learn about our world, they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nRead more in $6our dedicated blog post$7.";
+"microsite-yir-english-top-read-slide-title" = "English Wikipedia’s most read articles";
 "more-languages-tooltip-description" = "Search Wikipedia in over 300 languages";
 "more-languages-tooltip-title" = "Add languages";
 "more-menu" = "More";
@@ -916,6 +918,7 @@
 "on-this-day-no-internet-error" = "No data available";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
+"open-article" = "Open article";
 "open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
 "open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
@@ -1483,7 +1486,7 @@
 "year-in-review-base-viewed-subtitle" = "For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.";
 "year-in-review-base-viewed-title" = "App users viewed Wikipedia articles {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-button-title" = "Year in Review";
-"year-in-review-categories-slide-subtitle" = "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times\n$1";
+"year-in-review-categories-slide-subtitle" = "Categories group articles on similar subjects together. In 2025, you visited articles in these interesting categories multiple times.\n\n$1";
 "year-in-review-collective-article-views" = "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.";
 "year-in-review-collective-edits" = "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.";
 "year-in-review-collective-languages" = "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.";
@@ -1534,7 +1537,7 @@
 "year-in-review-intro-login-title" = "Log in for personalization";
 "year-in-review-most-read-categories-title" = "Your most interesting categories";
 "year-in-review-non-contributor-slide-title" = "Unlock your contributor reward for next year!";
-"year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your $1! Unlock a special reward in your $2 Year in Review by becoming a contributor—whether by [editing Wikipedia]($3) or by donating to the [Wikimedia Foundation]($4), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.";
+"year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your $1! Unlock a special reward in your $2 Year in Review by becoming a contributor—whether by [editing Wikipedia]($3) or by donating from the app to the [Wikimedia Foundation]($4), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all. If you donated elsewhere, your support is deeply appreciated.";
 "year-in-review-personalized-date-day-footer-v3" = "Favorite day to read";
 "year-in-review-personalized-date-month-footer-v3" = "Month you did the most reading";
 "year-in-review-personalized-date-time-footer-v3" = "Favorite time to read";
