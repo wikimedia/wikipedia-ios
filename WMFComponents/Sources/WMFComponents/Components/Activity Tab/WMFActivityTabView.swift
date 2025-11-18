@@ -52,17 +52,12 @@ public struct WMFActivityTabView: View {
                         )
                     }
                     
-                    Section(header: Text("Articles")
-                        .font(.headline)
-                        .foregroundColor(Color(uiColor: theme.text))
-                    ) {
-                        historyView
-                            .id("timelineSection")
-                    }
+                    historyView
+                        .id("timelineSection")
                 }
+                .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
                 .scrollContentBackground(.hidden)
                 .listStyle(.grouped)
-                .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
                 .onAppear {
                     viewModel.fetchData()
                     viewModel.hasSeenActivityTab()
@@ -144,6 +139,7 @@ public struct WMFActivityTabView: View {
                 }
             }
         }
+        .listRowBackground(Color(uiColor: theme.paperBackground))
     }
     
     private func pageRow(page: TimelineItem, section: Date) -> some View {
@@ -363,7 +359,7 @@ public struct WMFActivityTabView: View {
                 let remaining = totalSavedCount - 3
                 Text("+\(remaining)")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(uiColor: theme.paperBackground))
                     .frame(width: 38, height: 38)
                     .background(
                         Circle()
