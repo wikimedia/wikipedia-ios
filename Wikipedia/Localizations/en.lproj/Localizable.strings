@@ -73,6 +73,12 @@
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
 "activity-tab-articles-read" = "Articles read this month";
 "activity-tab-articles-read-graph-label" = "Articles";
+"activity-tab-email-fifth-line" = "[Screenshots or Links]";
+"activity-tab-email-first-line" = "I have encountered a problem with Activity Tab Feature:";
+"activity-tab-email-fourth-line" = "[Describe desired behavior]";
+"activity-tab-email-second-line" = "- [Describe specific problem]";
+"activity-tab-email-third-line" = "The behavior I would like to see is:";
+"activity-tab-email-title" = "Issue Report - Activity Tab";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
@@ -81,6 +87,7 @@
 "activity-tab-logged-out-subtitle" = "Log in or create an account to view your activity on the Wikipedia app.";
 "activity-tab-logged-out-title" = "See more reading and editing insights";
 "activity-tab-logged-out-track-what-youve-read" = "Track what you’ve read and view your contributions over time in a new way";
+"activity-tab-menu-clear-history" = "Clear reading history";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
