@@ -319,5 +319,4 @@ public enum WMFSFSymbolIcon {
         
         return image
     }
-
 }

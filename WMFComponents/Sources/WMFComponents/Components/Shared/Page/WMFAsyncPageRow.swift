@@ -20,10 +20,15 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         self.iconImage = iconImage
         self.articleDescription = articleDescription
         self.uiImage = uiImage
+        
+        Task {
+            try await loadDescriptionAndImage()
+        }
+        
     }
     
     @MainActor
-    public func loadDescriptionAndImage() async throws {
+    private func loadDescriptionAndImage() async throws {
         
         let summaryDataController = WMFArticleSummaryDataController.shared
         
@@ -91,11 +96,6 @@ struct WMFAsyncPageRow: View {
         }
         .background(Color(theme.paperBackground))
         .padding(.vertical, 8)
-        .onAppear {
-            Task {
-                try? await viewModel.loadDescriptionAndImage()
-            }
-        }
     }
 
     @ViewBuilder
