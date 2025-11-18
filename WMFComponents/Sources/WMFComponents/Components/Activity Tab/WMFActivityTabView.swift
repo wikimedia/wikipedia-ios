@@ -70,6 +70,9 @@ public struct WMFActivityTabView: View {
                             historyView
                                 .id("timelineSection")
                         }
+                        .padding(16)
+                        .listRowInsets(EdgeInsets())
+                        .background(Color(uiColor: theme.paperBackground))
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -80,7 +83,6 @@ public struct WMFActivityTabView: View {
                     viewModel.fetchData()
                     viewModel.hasSeenActivityTab()
                 }
-                .padding(.top, 0)
             }
         }
     }
