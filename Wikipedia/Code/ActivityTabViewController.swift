@@ -6,8 +6,8 @@ import Combine
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}
 
-@objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
-    private let theme: Theme
+@objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
+    private var theme: Theme
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
@@ -249,6 +249,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }
+    }
+    
+    // MARK: Theming
+
+    public func apply(theme: Theme) {
+        guard viewIfLoaded != nil else {
+            return
+        }
+        updateProfileButton()
+        profileCoordinator?.theme = theme
+        self.theme = theme
     }
 }
 
