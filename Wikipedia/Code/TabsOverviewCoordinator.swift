@@ -111,21 +111,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             guard let self else { return }
             self.tappedShareTab(tab, sourceFrameInWindow: frame)
         }
-
-        let _: (Int) -> Void = { [weak self] articleTabsCount in
-            guard let self else { return }
-            Task {
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                    self.closedAlertsNotification(numberTabs: articleTabsCount),
-                    subtitle: nil,
-                    buttonTitle: nil,
-                    image: WMFSFSymbolIcon.for(symbol: .checkmark),
-                    dismissPreviousAlerts: true
-                ) {
-                    self.tappedAddTab()
-                }
-            }
-        }
         
         let showSurveyClosure = { [weak self] in
             if let shouldShowSurvey = self?.dataController.shouldShowSurvey(), shouldShowSurvey {

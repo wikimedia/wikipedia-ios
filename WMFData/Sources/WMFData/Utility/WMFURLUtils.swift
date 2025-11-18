@@ -1,7 +1,9 @@
 import Foundation
 
-//  Provides a small utility for building canonical Wikipedia article URLs)
-//  mirroring the behavior of legacy Obj-C helpers  and extensions that live in the client app
+// swiftlint:disable orphaned_doc_comment
+///  Provides a small utility for building canonical Wikipedia article URLs)
+///  mirroring the behavior of legacy Obj-C helpers  and extensions that live in the client app
+// swiftlint:enable orphaned_doc_comment
 
 // MARK: - String helper
 extension String {
