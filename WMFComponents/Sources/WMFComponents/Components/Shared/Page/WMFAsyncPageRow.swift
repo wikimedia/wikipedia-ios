@@ -91,8 +91,10 @@ struct WMFAsyncPageRow: View {
         }
         .background(Color(theme.paperBackground))
         .padding(.vertical, 8)
-        .task(id: viewModel.imageURLString) {
-            try? await viewModel.loadDescriptionAndImage()
+        .onAppear {
+            Task {
+                try? await viewModel.loadDescriptionAndImage()
+            }
         }
     }
 
