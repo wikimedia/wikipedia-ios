@@ -16,6 +16,7 @@
 // Author: Nemo bis
 // Author: Paloi Sciurala
 // Author: Rapiteanu
+// Author: SZ475
 // Author: Strainu
 // Author: Valentin JJ.
 // Author: WebSourceContentRO
@@ -825,8 +826,7 @@
 "serbian-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante sârbești ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Actualizări ale suportului pentru varianta sârbească";
 "settings-account" = "Cont";
-// Fuzzy
-"settings-appearance" = "Preferințe de citire";
+"settings-appearance" = "Tema aplicației";
 "settings-clear-cache" = "Ștergeți datele din cache";
 "settings-clear-cache-are-you-sure-message" = "Ștergerea datelor din cache va elibera aproximativ $1 din spațiul. Nu va va șterge paginile salvate.";
 "settings-clear-cache-are-you-sure-title" = "Ștergeți datele din cache?";

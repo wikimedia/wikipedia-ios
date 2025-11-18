@@ -553,6 +553,8 @@
 "explore-suggested-edits-footer" = "Footer for presenting user option to see list of suggested edits.";
 "explore-suggested-edits-image-recs-body" = "Body text shown in the image recommendations explore feed card.";
 "explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
+"explore-survey-subtitle" = "Subtitle of one-time survey prompt displayed to users on the Explore feed.";
+"explore-survey-title" = "Title of one-time survey prompt displayed to users on the Explore feed.";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
@@ -911,6 +913,7 @@
 "on-this-day-no-internet-error" = "error message shown when device is not connected to internet";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
+"open-article" = "Open article title";
 "open-in-tab-tooltip-body" = "Description for tooltip explaining the open in new tab functionality";
 "open-in-tab-tooltip-title" = "Title for tooltip explaining the open in new tab functionality";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
@@ -1481,8 +1484,6 @@
 "year-in-review-categories-slide-subtitle" = "Year in review categories slide subtitle, $1 is the list of top categories.";
 "year-in-review-collective-article-views" = "Accessibility description for the collective article views slide.";
 "year-in-review-collective-edits" = "Accessibility description for the collective edits slide.";
-"year-in-review-collective-edits-per-minute" = "Accessibility description for the collective edits per minute slide.";
-"year-in-review-collective-explore" = "Accessibility description for the collective explore slide.";
 "year-in-review-collective-languages" = "Accessibility description for the collective languages slide.";
 "year-in-review-collective-saved-articles" = "Accessibility description for the collective saved articles slide.";
 "year-in-review-contributor-gift-subtitle" = "Year in review subtitle for the new icon";
@@ -1500,7 +1501,6 @@
 "year-in-review-day-wednesday" = "Localized name for Wednesday in plural form.";
 "year-in-review-donate" = "Year in review donate button";
 "year-in-review-donate-now" = "Year in review donate now button title. Displayed on top of Learn more in-app web view.";
-"year-in-review-english-edits" = "Accessibility description for the collective edits slide.";
 "year-in-review-feature-announcement-body" = "Body for year in review feature announcement";
 "year-in-review-feature-announcement-body-personalized" = "Body for year in review feature announcement";
 "year-in-review-feature-announcement-title" = "Title for year in review feature announcement";
@@ -1539,7 +1539,6 @@
 "year-in-review-personalized-date-title-v3" = "Year in review, personalized slide title for users that displays the time / day of the week / month they read most.";
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-personalized-donate-title" = "Year in review, personalized donate slide title for users that donated at least once that year.";
-"year-in-review-personalized-donation-thank-you" = "Accessibility description for the personalized donation thank you slide.";
 "year-in-review-personalized-edit-views-subtitle-format" = "Year in review, personalized slide subtitle for users that display how many views their edits have. $1 is replaced with the amount of edit views, shown in numeric form (e.g. 124,356).";
 "year-in-review-personalized-edit-views-title-format" = "Year in review, personalized slide title for users that display how many views their edits have. $1 is replaced with the amount of edit views, shown in numeric form (e.g. 124,356).";
 "year-in-review-personalized-editing-subtitle-1" = "Year in review, personalized editing article count slide subtitle for users that edited articles.";
@@ -1553,7 +1552,6 @@
 "year-in-review-personalized-most-read-articles-title" = "Year in review, personalized most read articles slide title";
 "year-in-review-personalized-reading-subtitle-format-v3" = "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. $1 is the average number of articles read per user.";
 "year-in-review-personalized-reading-title-v3-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of minutes the user spent reading and $2 is replaced with the number of articles the user read in 2025. $3 is replaced with the Year in Review target year.";
-"year-in-review-personalized-saved-articles" = "Accessibility description for the personalized saved articles slide.";
 "year-in-review-personalized-saved-subtitle-format-v3" = "Year in review, personalized saved articles slide subtitle. $1, $2 and $3 are replaced with up to three article names the user saved (each enclosed in <b> tags). $4 is replaced with the total number of saved articles across active app users, shown in numeric form (e.g. 37,574,993).";
 "year-in-review-personalized-saved-title-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved.";
 "year-in-review-personalized-user-edits" = "Accessibility description for the personalized user edits slide.";

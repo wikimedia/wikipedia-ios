@@ -601,20 +601,6 @@
 			<string>%1$d件のフィルター</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>あなたがウィキペディアを編集した回数は%#@v1@です。</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d 回</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

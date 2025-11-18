@@ -80,6 +80,7 @@
 "activity-tab-articles-read" = "Artikelen, déi dëse Mount gelies goufen";
 "activity-tab-articles-read-graph-label" = "Artikelen";
 "activity-tab-greeting" = "$1Salut $2$3 👋 Hei ass Äre wëchentleche Wikipedia-Resümmee.";
+// Fuzzy
 "activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-read-title" = "Lies-Historique weisen";
@@ -164,6 +165,7 @@
 "continue-button-title" = "Virufueren";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
+"create-account" = "Kont uleeën";
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
@@ -547,7 +549,7 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-page" = "Haaptsäit";
-"microsite-yir-english-edits-bytes-slide-title" = "$1 Byte derbäigesat";
+"microsite-yir-english-edits-bytes-slide-title" = "{{PLURAL:$1|$1 Byte}} derbäigesat";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "more-menu" = "Méi";
@@ -1056,38 +1058,33 @@
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
-"year-in-review-base-edits-title" = "D'Wikipedia gouf $1 Mol pro Minutt geännert";
-// Fuzzy
-"year-in-review-base-reading-title" = "Wikipedia war a méi wéi 300 Sproochen disponibel";
+"year-in-review-base-edits-title" = "D'Wikipedia gouf {{PLURAL:$1|$1 Mol}} pro Minutt geännert";
+"year-in-review-base-reading-title" = "Wikipedia war a méi wéi {{PLURAL:$1|$1 Sprooch|$1 Sproochen}} disponibel";
 "year-in-review-button-title" = "Joresréckbléck";
 "year-in-review-collective-edits" = "Eng Illustratioun vun zwee Wikipedia-Puzzelstécker, allebéid mat engem Deel vun Informatiounen.";
-"year-in-review-collective-edits-per-minute" = "Eng Auer déi tickt, fir d'Zäit ze symboliséieren, déi d'Leit mat Liesen op der Wikipedia verbréngen.";
 "year-in-review-contributor-gift-title" = "Neit Symbol vun der App aktivéieren";
 // Fuzzy
 "year-in-review-contributor-slide-title" = "Neit Symbol fräigeschalt";
 "year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-feature-announcement-title" = "Entdeckt de Wikipedia-Réckbléck";
 "year-in-review-feature-announcement-title-personalized" = "Entdeckt Äre Wikipedia-Joresréckbléck";
-"year-in-review-highlights-articles-saved" = "Gespäichert Artikelen";
 "year-in-review-highlights-articles-viewed" = "Zuel vun de gekuckten Artikelen";
 "year-in-review-highlights-button-title" = "Highlights deelen";
 "year-in-review-highlights-categories" = "Kategorien, déi mech interesséiert hunn";
 "year-in-review-highlights-created-lists" = "Zuel vun de Lieslëschten, déi ugeluecht goufen";
 "year-in-review-highlights-edit-frequency-value" = "{{PLURAL:$1|$1 Mol}} pro Minutt";
 "year-in-review-highlights-favorite-day" = "Liblingsdag fir ze liesen";
-"year-in-review-highlights-personalized-articles" = "Artikelen, déi ech am längste gelies hunn";
+"year-in-review-highlights-personalized-articles" = "Artikelen, déi ech am meeschte gelies hunn";
 "year-in-review-highlights-reading-time" = "Minutte gelies";
 "year-in-review-highlights-share-logo-caption" = "Wikipedia-Logo";
 "year-in-review-highlights-subtitle" = "Mir freeën eis op d'nächst Joer!";
+"year-in-review-most-read-categories-title" = "Är interessantst Kategorien";
 // Fuzzy
 "year-in-review-non-contributor-slide-title" = "Äert personaliséiert Contributeur-Symbol fräischalten";
 "year-in-review-personalized-date-day-footer-v3" = "Liblingsdag fir ze liesen";
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
-"year-in-review-personalized-donation-thank-you" = "Wikimedia-Logo";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-reading-subtitle-format-v3" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
 "year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
 "year-in-review-share-text" = "Hei ass mäi Wikipedia-Joresréckbléck. Mat der Wikipedia-iOS-App erstallt";
