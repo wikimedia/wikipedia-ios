@@ -75,30 +75,31 @@ public struct WMFActivityTabView: View {
     
     private var historyView: some View {
        return Group {
-           if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
+           let timeline = viewModel.timelineViewModel
+           if !timeline.sections.isEmpty {
                // Sort dates descending
-               ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
-                   timelineSection(for: date, pages: timeline[date] ?? [])
+               ForEach(timeline.sections) { section in
+                   timelineSection(section: section)
                        .listRowSeparator(.hidden)
                }
            }
         }
     }
     
-    private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
-        let sortedPages = pages.sorted(by: { $0.date > $1.date })
+    private func timelineSection(section: TimelineViewModel.Section) -> some View {
+        let sortedItems = section.items.sorted(by: { $0.pageWithTimestamp.timestamp > $1.pageWithTimestamp.timestamp })
         let calendar = Calendar.current
 
         let title: String
         let subtitle: String
-        if calendar.isDateInToday(date) {
+        if calendar.isDateInToday(section.date) {
             title = viewModel.localizedStrings.todayTitle
-            subtitle = viewModel.formatDate(date)
-        } else if calendar.isDateInYesterday(date) {
+            subtitle = viewModel.formatDate(section.date)
+        } else if calendar.isDateInYesterday(section.date) {
             title = viewModel.localizedStrings.yesterdayTitle
-            subtitle = viewModel.formatDate(date)
+            subtitle = viewModel.formatDate(section.date)
         } else {
-            title = viewModel.formatDate(date)
+            title = viewModel.formatDate(section.date)
             subtitle = ""
         }
 
@@ -120,42 +121,32 @@ public struct WMFActivityTabView: View {
                 }
                 .padding(.bottom, 20)
         ) {
-            ForEach(sortedPages, id: \.id) { page in
-                pageRow(page: page, section: date)
+            ForEach(sortedItems, id: \.id) { item in
+                itemRow(item: item, sectionDate: section.date)
                     .listRowSeparator(.hidden)
             }
             .onDelete { indexSet in
                 for index in indexSet {
-                    let pageToDelete = sortedPages[index]
-                    viewModel.deletePage(item: pageToDelete)
+                    let itemToDelete = sortedItems[index]
+                    viewModel.deleteItem(item: itemToDelete, in: section)
                 }
             }
         }
     }
     
-    private func pageRow(page: TimelineItem, section: Date) -> some View {
-        let iconImage: UIImage?
-        switch page.itemType {
-        case .standard:
-            iconImage = nil
-        case .edit:
-            iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
-        case .read:
-            iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
-        case .save:
-            iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
-        }
+    private func itemRow(item: TimelineViewModel.Item, sectionDate: Date) -> some View {
+        let iconImage: UIImage? = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
 
-        let pageRowViewModel = WMFAsyncPageRowViewModel(wmfpage: page.page, id: page.id, titleHtml:  page.pageTitle.replacingOccurrences(of: "_", with: " "), iconImage: iconImage)
+        let pageRowViewModel = WMFAsyncPageRowViewModel(wmfpage: item.pageWithTimestamp.page, id: item.id, titleHtml:  item.pageWithTimestamp.page.title.replacingOccurrences(of: "_", with: " "), iconImage: iconImage)
 
         return WMFAsyncPageRow(viewModel: pageRowViewModel)
         .contentShape(Rectangle())
         .onTapGesture {
-            viewModel.onTap(page)
+            viewModel.onTap(item)
         }
         .contextMenu {
             Button {
-                viewModel.onTap(page)
+                viewModel.onTap(item)
             } label: {
                 HStack {
                     Text(viewModel.localizedStrings.openArticle)

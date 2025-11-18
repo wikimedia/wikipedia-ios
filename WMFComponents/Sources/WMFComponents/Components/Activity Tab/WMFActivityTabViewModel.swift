@@ -14,14 +14,52 @@ struct ArticlesReadViewModel {
     var articlesSavedAmount: Int
     var dateTimeLastSaved: String
     var articlesSavedImages: [URL]
-    var timeline: [Date: [TimelineItem]]?
+}
+
+public final class TimelineViewModel: ObservableObject {
+    
+    public final class Section: ObservableObject, Identifiable {
+        public let id: String
+        let date: Date
+        @Published var items: [Item] = []
+        
+        init(id: String, date: Date, items: [TimelineViewModel.Item]) {
+            self.id = id
+            self.date = date
+            self.items = items
+        }
+    }
+    
+    public enum ItemType {
+        case standard // no icon, logged out users, etc.
+        case edit
+        case read
+        case save
+    }
+    
+    public final class Item: ObservableObject, Identifiable {
+        public let id: String
+        public let pageWithTimestamp: WMFPageWithTimestamp
+
+        public init(id: String,
+                    pageWithTimestamp: WMFPageWithTimestamp) {
+            self.id = id
+            self.pageWithTimestamp = pageWithTimestamp
+        }
+
+        public static func == (lhs: Item, rhs: Item) -> Bool {
+            lhs.id == rhs.id
+        }
+    }
+    
+    @Published var sections: [Section] = []
 }
 
 @MainActor
 public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
-    public var onTapArticle: ((TimelineItem) -> Void)?
+    public var onTapArticle: ((TimelineViewModel.Item) -> Void)?
 
     @Published var articlesReadViewModel: ArticlesReadViewModel = ArticlesReadViewModel(
         username: "",
@@ -34,9 +72,10 @@ public class WMFActivityTabViewModel: ObservableObject {
         usernamesReading: "",
         articlesSavedAmount: 0,
         dateTimeLastSaved: "",
-        articlesSavedImages: [],
-        timeline: [:]
+        articlesSavedImages: []
     )
+    
+    @Published var timelineViewModel = TimelineViewModel()
 
     var hasSeenActivityTab: () -> Void
     @Published var isLoggedIn: Bool
@@ -72,7 +111,7 @@ public class WMFActivityTabViewModel: ObservableObject {
             let dateTime = (try? await dateResult) ?? Date()
             let weeklyReads = (try? await weeklyResults) ?? []
             let categories = (try? await categoriesResult) ?? []
-            let timelineItems = (try? await timelineResult) ?? [:]
+            let timeline = (try? await timelineResult) ?? [:]
             let formattedDate = self.formatDateTime(dateTime)
 
             // TEMP: Saved Articles Module
@@ -88,6 +127,17 @@ public class WMFActivityTabViewModel: ObservableObject {
                 savedArticleImages = tempData.articleUrlStrings.compactMap { URL(string: $0) }
             }
             
+            var timelineSections: [TimelineViewModel.Section] = []
+            for (date, value) in timeline {
+                var timelineItems: [TimelineViewModel.Item] = []
+                for pageWithTimestamp in value {
+                    let id = "\(pageWithTimestamp.page.projectID)-\(pageWithTimestamp.page.namespaceID)-\(pageWithTimestamp.page.title)-\(pageWithTimestamp.timestamp.timeIntervalSince1970)"
+                    let item = TimelineViewModel.Item(id: id, pageWithTimestamp: pageWithTimestamp)
+                    timelineItems.append(item)
+                }
+                timelineSections.append(TimelineViewModel.Section(id: "\(date.timeIntervalSince1970)", date: date, items: timelineItems))
+            }
+            
             await MainActor.run {
                 
                 var model = self.articlesReadViewModel
@@ -97,11 +147,13 @@ public class WMFActivityTabViewModel: ObservableObject {
                 model.dateTimeLastRead = formattedDate
                 model.weeklyReads = weeklyReads
                 model.topCategories = categories
-                model.timeline = timelineItems
                 model.articlesSavedAmount = savedArticleCount
                 model.dateTimeLastSaved = savedArticleDate.map { self.formatDateTime($0) } ?? ""
                 model.articlesSavedImages = savedArticleImages
                 self.articlesReadViewModel = model
+                
+                
+                self.timelineViewModel.sections = timelineSections
             }
         }
     }
@@ -135,23 +187,28 @@ public class WMFActivityTabViewModel: ObservableObject {
         DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
     }
     
-    func onTap(_ item: TimelineItem) {
+    func onTap(_ item: TimelineViewModel.Item) {
         onTapArticle?(item)
     }
     
     @MainActor
-    func deletePage(item: TimelineItem) {
+    func deleteItem(item: TimelineViewModel.Item, in section: TimelineViewModel.Section) {
         Task {
             do {
-                try await dataController.deletePageView(for: item)
-
-                // Delete from local model
-                let date = Calendar.current.startOfDay(for: item.date)
-                if var items = articlesReadViewModel.timeline?[date] {
-                    items.removeAll { $0.id == item.id }
-                    articlesReadViewModel.timeline?[date] = items
-                    self.articlesReadViewModel = articlesReadViewModel
+                try await dataController.deletePageView(for: item.pageWithTimestamp)
+                
+                var itemIndex: Int?
+                for (index, loopItem) in section.items.enumerated() {
+                    if item.id == loopItem.id {
+                        itemIndex = index
+                    }
                 }
+
+                if let itemIndex {
+                    section.items.remove(at: itemIndex)
+                }
+
+                
             } catch {
                 print("Failed to delete page: \(error)")
             }

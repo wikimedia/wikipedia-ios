@@ -121,62 +121,40 @@ public final class WMFActivityTabDataController {
             .map { $0.key.categoryName }
     }
     
-    public func fetchTimeline() async throws -> [Date: [TimelineItem]] {
+    public func fetchTimeline() async throws -> [Date: [WMFPageWithTimestamp]] {
         let dataController = try WMFPageViewsDataController()
         let pageRecords = try await dataController.fetchTimelinePages()
         guard !pageRecords.isEmpty else { return [:] }
 
-        var dailyTimeline: [Date: [TimelineItem]] = [:]
+        var dailyTimeline: [Date: [WMFPageWithTimestamp]] = [:]
         let calendar = Calendar.current
 
         for record in pageRecords {
-            let page = record.page
             let timestamp = record.timestamp
             let dayBucket = calendar.startOfDay(for: timestamp)
-            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
 
-            var todaysPages = Set<String>()
-            if let existingItems = dailyTimeline[dayBucket] {
-                todaysPages = Set(existingItems.map { $0.pageTitle })
-            }
-
-            guard !todaysPages.contains(page.title) else { continue }
-
-            let item = TimelineItem(
-                id: UUID().uuidString,
-                date: timestamp,
-                titleHtml: page.title,
-                projectID: page.projectID,
-                pageTitle: page.title,
-                url: articleURL,
-                description: nil,
-                imageURLString: nil,
-                snippet: nil,
-                page: page,
-                itemType: .read
-            )
-
-            dailyTimeline[dayBucket, default: []].append(item)
+            dailyTimeline[dayBucket, default: []].append(record)
         }
 
         let sortedTimeline = dailyTimeline.mapValues { items in
-            items.sorted { $0.date < $1.date }
+            items.sorted { $0.timestamp < $1.timestamp }
         }
 
         return sortedTimeline
     }
     
-    public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
+    public func deletePageView(title: String, namespaceID: Int16, project: WMFProject, timestamp: Date? = nil) async throws {
         let dataController = try WMFPageViewsDataController()
-        try? await dataController.deletePageView(title: title, namespaceID: namespaceID, project: project)
+        try? await dataController.deletePageView(title: title, namespaceID: namespaceID, project: project, timestamp: timestamp)
     }
     
-    public func deletePageView(for item: TimelineItem) async throws {
+    public func deletePageView(for item: WMFPageWithTimestamp) async throws {
         guard let project = WMFProject(id: item.page.projectID) else { return }
         try await deletePageView(
             title: item.page.title,
             namespaceID: Int16(item.page.namespaceID),
-            project: project
+            project: project,
+            timestamp: item.timestamp
         )
     }
     
@@ -201,55 +179,4 @@ public class SavedArticleModuleData: NSObject, Codable {
 
 public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
-}
-
-public struct TimelineItem: Identifiable, Equatable {
-    public let id: String
-    public let date: Date
-    public let titleHtml: String
-    public let projectID: String
-    public let pageTitle: String
-    public let url: URL?
-    public var description: String?
-    public var imageURLString: String?
-    public var snippet: String?
-    
-    public let page: WMFPage
-    
-    public let itemType: TimelineItemType
-
-    public init(id: String,
-                date: Date,
-                titleHtml: String,
-                projectID: String,
-                pageTitle: String,
-                url: URL?,
-                description: String? = nil,
-                imageURLString: String? = nil,
-                snippet: String? = nil,
-                page: WMFPage,
-                itemType: TimelineItemType = .standard) {
-        self.id = id
-        self.date = date
-        self.titleHtml = titleHtml
-        self.projectID = projectID
-        self.pageTitle = pageTitle
-        self.url = url
-        self.description = description
-        self.imageURLString = imageURLString
-        self.snippet = snippet
-        self.page = page
-        self.itemType = itemType
-    }
-
-    public static func == (lhs: TimelineItem, rhs: TimelineItem) -> Bool {
-        lhs.id == rhs.id
-    }
-}
-
-public enum TimelineItemType {
-    case standard // no icon, logged out users, etc.
-    case edit
-    case read
-    case save
 }

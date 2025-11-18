@@ -87,6 +87,11 @@ public final class WMFPageViewTime: Codable {
 public struct WMFPageWithTimestamp {
     public let page: WMFPage
     public let timestamp: Date
+    
+    public init(page: WMFPage, timestamp: Date) {
+        self.page = page
+        self.timestamp = timestamp
+    }
 }
 
 public final class WMFLegacyPageView: Codable {
@@ -174,7 +179,7 @@ public final class WMFPageViewsDataController {
         }
     }
     
-    public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
+    public func deletePageView(title: String, namespaceID: Int16, project: WMFProject, timestamp: Date? = nil) async throws {
         
         let coreDataTitle = title.normalizedForCoreData
         
@@ -190,7 +195,12 @@ public final class WMFPageViewsDataController {
                 return
             }
             
-            let pageViewsPredicate = NSPredicate(format: "page == %@", argumentArray: [page])
+            let pageViewsPredicate: NSPredicate
+            if let timestamp {
+                pageViewsPredicate = NSPredicate(format: "page == %@ && timestamp == %@", argumentArray: [page, timestamp])
+            } else {
+                pageViewsPredicate = NSPredicate(format: "page == %@", argumentArray: [page])
+            }
             
             guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: pageViewsPredicate, fetchLimit: nil, in: backgroundContext) else {
                 return
