@@ -27,11 +27,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     var learnMoreAboutActivityURL: URL? {
-        var languageCodeSuffix = ""
-        if let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode {
-            languageCodeSuffix = "\(primaryAppLanguageCode)"
+
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Activity_Tab")
         }
-        return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Activity_Tab?uselang=\(languageCodeSuffix)")
+
+        return WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "iOS", "Activity Tab"], section: nil, language: appLanguage)
     }
     
     @MainActor required init?(coder: NSCoder) {
