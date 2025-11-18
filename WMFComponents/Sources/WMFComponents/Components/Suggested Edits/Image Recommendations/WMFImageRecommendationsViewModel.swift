@@ -167,7 +167,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         self.surveyOptions = surveyOptions
         self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WMFGrowthTasksDataController(project: project)
-        self.articleSummaryDataController = WMFArticleSummaryDataController()
+        self.articleSummaryDataController = WMFArticleSummaryDataController.shared
         self.imageDataController = WMFImageDataController()
         self.imageRecommendationsDataController = WMFImageRecommendationsDataController()
         

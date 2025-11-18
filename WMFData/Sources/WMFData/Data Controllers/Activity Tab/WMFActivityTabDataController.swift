@@ -181,7 +181,7 @@ public final class WMFActivityTabDataController {
     }
     
     public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
-        let articleSummaryController = WMFArticleSummaryDataController()
+        let articleSummaryController = WMFArticleSummaryDataController.shared
         guard let project = WMFProject(id: page.projectID) else { return nil }
         return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
     }

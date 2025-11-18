@@ -8,7 +8,9 @@ public protocol WMFArticleSummaryDataControlling {
 public final class WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
     private var service: WMFService?
     
-    public init() {
+    public static var shared = WMFArticleSummaryDataController()
+    
+    private init() {
         self.service = WMFDataEnvironment.current.basicService
     }
     

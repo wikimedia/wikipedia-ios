@@ -25,7 +25,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     @MainActor
     public func loadDescriptionAndImage() async throws {
         
-        let summaryDataController = WMFArticleSummaryDataController()
+        let summaryDataController = WMFArticleSummaryDataController.shared
         
         guard let project = WMFProject(id: wmfPage.projectID) else {
             return
