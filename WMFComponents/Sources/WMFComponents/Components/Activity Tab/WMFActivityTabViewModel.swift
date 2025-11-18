@@ -22,6 +22,7 @@ struct ArticlesReadViewModel {
 public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
+    public var onTapArticle: ((TimelineItem) -> Void)?
 
     @Published var articlesReadViewModel: ArticlesReadViewModel = ArticlesReadViewModel(
         username: "",
@@ -116,7 +117,9 @@ public class WMFActivityTabViewModel: ObservableObject {
 
         do {
             if let summary = try await dataController.fetchSummary(for: item.page) {
-                articlesReadViewModel.pageSummaries[itemID] = summary
+                var model = articlesReadViewModel
+                model.pageSummaries[itemID] = summary
+                self.articlesReadViewModel = model
                 return summary
             }
         } catch {
@@ -124,6 +127,16 @@ public class WMFActivityTabViewModel: ObservableObject {
         }
 
         return nil
+    }
+    
+    public func loadImage(imageURLString: String?) async throws -> UIImage? {
+        let imageDataController = WMFImageDataController()
+        guard let imageURLString,
+              let url = URL(string: imageURLString) else {
+            return nil
+        }
+        let data = try await imageDataController.fetchImageData(url: url)
+        return UIImage(data: data)
     }
 
     // MARK: - View Strings
@@ -151,10 +164,32 @@ public class WMFActivityTabViewModel: ObservableObject {
         DateFormatter.wmfLastReadFormatter(for: dateTime)
     }
     
-    func deletePages(at offsets: IndexSet, for date: Date) {
-        guard var pages = articlesReadViewModel.timeline?[date] else { return }
-        pages.remove(atOffsets: offsets)
-        articlesReadViewModel.timeline?[date] = pages
+    func formatDate(_ dateTime: Date) -> String {
+        DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
+    }
+    
+    func onTap(_ item: TimelineItem) {
+        onTapArticle?(item)
+    }
+    
+    @MainActor
+    func deletePage(item: TimelineItem) {
+        Task {
+            do {
+                // Delete from Core Data
+                try await dataController.deletePageView(for: item)
+
+                // Delete from local model
+                let date = Calendar.current.startOfDay(for: item.date)
+                if var items = articlesReadViewModel.timeline?[date] {
+                    items.removeAll { $0.id == item.id }
+                    articlesReadViewModel.timeline?[date] = items
+                    self.articlesReadViewModel = articlesReadViewModel
+                }
+            } catch {
+                print("Failed to delete page: \(error)")
+            }
+        }
     }
     
     // MARK: - Localized Strings
@@ -175,8 +210,12 @@ public class WMFActivityTabViewModel: ObservableObject {
         let loggedOutSubtitle: String
         let loggedOutPrimaryCTA: String
         let loggedOutSecondaryCTA: String
+        let todayTitle: String
+        let yesterdayTitle: String
+        let openArticle: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, loggedOutSecondaryCTA: String) {
+        
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, loggedOutSecondaryCTA: String, todayTitle: String, yesterdayTitle: String, openArticle: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -192,6 +231,9 @@ public class WMFActivityTabViewModel: ObservableObject {
             self.loggedOutSubtitle = loggedOutSubtitle
             self.loggedOutPrimaryCTA = loggedOutPrimaryCTA
             self.loggedOutSecondaryCTA = loggedOutSecondaryCTA
+            self.todayTitle = todayTitle
+            self.yesterdayTitle = yesterdayTitle
+            self.openArticle = openArticle
         }
     }
 }

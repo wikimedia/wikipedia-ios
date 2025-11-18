@@ -911,6 +911,7 @@
 "on-this-day-no-internet-error" = "No data available";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
+"open-article" = "Open article";
 "open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
 "open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";

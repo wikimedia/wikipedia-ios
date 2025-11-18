@@ -114,6 +114,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         viewModel.navigateToSaved = goToSaved
         
+        viewModel.onTapArticle = onTapArticle
+        
         viewModel.savedArticlesModuleDataDelegate = dataStore?.savedPageList
         
         if !dataController.hasSeenActivityTab {
@@ -239,6 +241,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         if let tabBar = self.tabBarController {
             tabBar.selectedIndex = 2
+        }
+    }
+    
+    func onTapArticle(item: TimelineItem) {
+        if let articleURL = item.url, let dataStore, let navVC = navigationController {
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
+            articleCoordinator.start()
         }
     }
 }
