@@ -36,8 +36,6 @@ final class TalkPageViewModel {
     private(set) var projectLanguage: String?
     private(set) var latestRevisionID: Int?
     
-    static let leadImageSideLength = 80
-    
     var theme: Theme = .light
     private(set) var topics: [TalkPageCellViewModel] = []
     private(set) var shouldShowErrorState: Bool = false
@@ -187,7 +185,8 @@ final class TalkPageViewModel {
         headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: project.languageCode ?? "en").title
         headerDescription = articleSummary?.wikidataDescription
 
-        leadImageURL = articleSummary?.imageURL(forWidth: Self.leadImageSideLength * Int(UIScreen.main.scale))
+        let leadImageWidth = UIScreen.main.wmf_listThumbnailWidthForScale().intValue
+        leadImageURL = articleSummary?.imageURL(forWidth: leadImageWidth)
         
         if let coffeeRollResult = coffeeRollFromItems(items) {
             coffeeRollText = coffeeRollResult.0.otherContent
