@@ -120,7 +120,7 @@ class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewC
         super.viewDidLoad()
         heading = WMFLocalizedString("import-shared-reading-list-survey-prompt-title", languageCode: languageCode, value:"Could you help us improve \"Share reading lists\"?", comment:"Title of prompt to take a survey, displayed after user successfully imports a shared reading list.")
         subheading = WMFLocalizedString("import-shared-reading-list-survey-prompt-subtitle", languageCode: languageCode, value:"\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.", comment:"Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.")
-        primaryButtonTitle = WMFLocalizedString("import-shared-reading-list-survey-prompt-button-take-survey", languageCode: languageCode, value:"Take survey", comment:"Title of action button on import reading list survey prompt, which takes user to external survey.")
+        primaryButtonTitle = CommonStrings.takeSurveyTitle(languageCode: languageCode)
         secondaryButtonTitle = CommonStrings.notNowTitle
         
         // TODO: Fix footer colors

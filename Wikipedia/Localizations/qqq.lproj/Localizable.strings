@@ -73,12 +73,19 @@
 "activity-tab-additional-thoughts" = "Asking user if they have any comments";
 "activity-tab-articles-read" = "Title for module about articles read this month, displayed below the time spent reading this week";
 "activity-tab-articles-read-graph-label" = "Activity tab articles read graph axis label";
+"activity-tab-email-fifth-line" = "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.";
+"activity-tab-email-first-line" = "Text for Activity Tab pre-filled issue report email";
+"activity-tab-email-fourth-line" = "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a description of the desired behavior";
+"activity-tab-email-second-line" = "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering";
+"activity-tab-email-third-line" = "Text for Activity Tab pre-filled issue report email";
+"activity-tab-email-title" = "Title text for Activity Tab pre-filled issue report email";
 "activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
 "activity-tab-greeting" = "$1 is opening bold, $2 is the username, $3 is closing bold.";
 "activity-tab-hours-minutes-read" = "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes.";
 "activity-tab-hours-on-wikipedia-ios" = "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization";
 "activity-tab-logged-out-subtitle" = "Subtitle for activity tab when users are logged out.";
 "activity-tab-logged-out-title" = "Title for activity tab when users are logged out.";
+"activity-tab-menu-clear-history" = "Title for clar reading history option in the overflow menu button on activity tab";
 "activity-tab-neutral" = "Satisfaction survey neutral";
 "activity-tab-no-edits-title" = "Title for users that have not made any edits.";
 "activity-tab-no-username-reading-title" = "Activity tab header, for when there is no username.";
@@ -551,6 +558,8 @@
 "explore-suggested-edits-footer" = "Footer for presenting user option to see list of suggested edits.";
 "explore-suggested-edits-image-recs-body" = "Body text shown in the image recommendations explore feed card.";
 "explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
+"explore-survey-subtitle" = "Subtitle of one-time survey prompt displayed to users on the Explore feed.";
+"explore-survey-title" = "Title of one-time survey prompt displayed to users on the Explore feed.";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
@@ -909,6 +918,7 @@
 "on-this-day-no-internet-error" = "error message shown when device is not connected to internet";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
+"open-article" = "Open article title";
 "open-in-tab-tooltip-body" = "Description for tooltip explaining the open in new tab functionality";
 "open-in-tab-tooltip-title" = "Title for tooltip explaining the open in new tab functionality";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";

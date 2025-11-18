@@ -1786,6 +1786,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             return NO;
         }
     }
+    
+    // When switching to Explore via tab bar button, we want to flag Explore to show survey prompt
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)viewController;
+        if (navVC.viewControllers.count == 1 && [navVC.viewControllers[0] isKindOfClass:[ExploreViewController class]]) {
+            ExploreViewController *exploreVC = (ExploreViewController *)navVC.viewControllers[0];
+            exploreVC.checkForSurveyUponAppear = YES;
+        }
+    }
+    
     return YES;
 }
 

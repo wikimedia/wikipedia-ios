@@ -768,9 +768,9 @@ extension WMFAppViewController {
 
         // view model properties
 
-        let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
+        let todayTitle = CommonStrings.todayTitle
 
-        let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
+        let yesterdayTitle = CommonStrings.yesterdayTitle
 
         let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: CommonStrings.articleTabsOpen, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
         let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
@@ -836,6 +836,7 @@ extension WMFAppViewController {
         let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "See more reading and editing insights", comment: "Title for logged out users")
         let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
         let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
+        let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
@@ -853,7 +854,10 @@ extension WMFAppViewController {
 				loggedOutTitle: loggedOutTitle,
                 loggedOutSubtitle: loggedOutSubtitle,
                 loggedOutPrimaryCTA: createAccount,
-                loggedOutSecondaryCTA: CommonStrings.editSignIn),
+                loggedOutSecondaryCTA: CommonStrings.editSignIn,
+                todayTitle: CommonStrings.todayTitle,
+                yesterdayTitle: CommonStrings.yesterdayTitle,
+                openArticle: openArticle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             activityTabDataController.hasSeenActivityTab = true

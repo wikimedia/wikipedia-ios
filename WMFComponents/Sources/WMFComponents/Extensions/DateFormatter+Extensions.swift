@@ -33,6 +33,14 @@ public extension DateFormatter {
         dateFormatter.dateFormat = "MMMM d"
         return dateFormatter
     }()
+    
+    /// Month and Day and Year only: e.g. `August 22, 2025`
+    static var wmfMonthDayYearDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "MMMM d, YYYY"
+        return dateFormatter
+    }()
 
     /// Smart formatter for "Last Read" dates:
     /// - If the date is today → show time (e.g. `2:48 PM`)
