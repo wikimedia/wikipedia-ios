@@ -10,7 +10,7 @@ public final class WMFActivityTabExperimentsOldDataController {
         case onFirstLaunch
     }
 
-    public enum ActivityTabExperimentAssignment: Int {
+    public enum OldActivityTabExperimentAssignment: Int {
         case control = 0
         case genericCTA = 1
         case suggestedEdit = 2
@@ -23,7 +23,7 @@ public final class WMFActivityTabExperimentsOldDataController {
     
     private let activityTabExperimentPercentage: Int = 33
 
-    private var assignmentCache: ActivityTabExperimentAssignment?
+    private var assignmentCache: OldActivityTabExperimentAssignment?
 
     private init?(experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore) {
         guard let experimentStore else {
@@ -34,10 +34,10 @@ public final class WMFActivityTabExperimentsOldDataController {
     }
 
     public func shouldAssignToBucket() -> Bool {
-        return experimentsDataController.bucketForExperiment(.activityTab) == nil
+        return experimentsDataController.bucketForExperiment(.oldActivityTabExperiment) == nil
     }
 
-    public func assignActivityTabExperiment(project: WMFProject) throws -> ActivityTabExperimentAssignment {
+    public func assignActivityTabExperiment(project: WMFProject) throws -> OldActivityTabExperimentAssignment {
         guard project.qualifiesActivityTabExperiment() else {
             throw CustomError.invalidProject
         }
@@ -47,13 +47,13 @@ public final class WMFActivityTabExperimentsOldDataController {
             throw CustomError.invalidDate
         }
 
-        if experimentsDataController.bucketForExperiment(.activityTab) != nil {
+        if experimentsDataController.bucketForExperiment(.oldActivityTabExperiment) != nil {
             throw CustomError.alreadyAssignedBucket
         }
 
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.activityTab, withPercentage: activityTabExperimentPercentage)
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.oldActivityTabExperiment, withPercentage: activityTabExperimentPercentage)
 
-        let assignment: ActivityTabExperimentAssignment
+        let assignment: OldActivityTabExperimentAssignment
 
         switch bucketValue {
         case .activityTabGroupAControl:
@@ -73,7 +73,7 @@ public final class WMFActivityTabExperimentsOldDataController {
 
     private func reset() {
         assignmentCache = nil
-        try? experimentsDataController.resetExperiment(.activityTab)
+        try? experimentsDataController.resetExperiment(.oldActivityTabExperiment)
     }
 
     private var experimentEndDate: Date? {
@@ -93,7 +93,7 @@ public final class WMFActivityTabExperimentsOldDataController {
         return experimentEndDate >= Date()
     }
 
-    public func getActivityTabExperimentAssignment(project: WMFProject) throws -> ActivityTabExperimentAssignment {
+    public func getActivityTabExperimentAssignment(project: WMFProject) throws -> OldActivityTabExperimentAssignment {
 
         let devSettingsController = WMFDeveloperSettingsDataController.shared
 
@@ -117,11 +117,11 @@ public final class WMFActivityTabExperimentsOldDataController {
             return assignmentCache
         }
 
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.activityTab) else {
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.oldActivityTabExperiment) else {
             throw CustomError.missingAssignment
         }
 
-        let assignment: ActivityTabExperimentAssignment
+        let assignment: OldActivityTabExperimentAssignment
         switch bucketValue {
         case .activityTabGroupAControl:
             assignment = .control

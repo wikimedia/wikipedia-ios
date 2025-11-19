@@ -341,7 +341,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
-    [self assignAndLogActivityTabExperiment];
+    [self assignAndLogOLDActivityTabExperiment];
 
     [self configureTabController];
 
