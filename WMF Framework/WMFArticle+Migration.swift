@@ -387,20 +387,17 @@ import CocoaLumberjackSwift
 
 // MARK: - Private extensions
 
-private extension MWKDataStore {
+extension MWKDataStore {
     /// Async wrapper that begins the background op from the main actor
-    func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) async throws -> T) async throws -> T {
+    @MainActor
+    func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) throws -> T) async throws -> T {
         try await withCheckedThrowingContinuation { continuation in
-            Task { @MainActor in
-                self.performBackgroundCoreDataOperation { context in
-                    Task {
-                        do {
-                            let value = try await block(context)
-                            continuation.resume(returning: value)
-                        } catch {
-                            continuation.resume(throwing: error)
-                        }
-                    }
+            self.performBackgroundCoreDataOperation { context in
+                do {
+                    let value = try block(context)
+                    continuation.resume(returning: value)
+                } catch {
+                    continuation.resume(throwing: error)
                 }
             }
         }
