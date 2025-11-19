@@ -3,11 +3,27 @@ import Foundation
 public final class WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-    
-    public init() {
-        
+
+
+    private let experimentsDataController: WMFExperimentsDataController?
+    private var assignmentCache: ActivityTabExperimentAssignment?
+    private let activityTabExperimentPercentage: Int = 50
+
+    public enum ActivityTabExperimentAssignment: Int {
+        case control = 1
+        case activityTab = 2
     }
-    
+
+    public init(developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+        if let experimentStore {
+            self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+        } else {
+            self.experimentsDataController = nil
+        }
+
+    }
+
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current
         let now = Date()
@@ -65,19 +81,6 @@ public final class WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-    @objc public func getActivityAssignment() -> Int {
-        // TODO: More thoroughly assign experiment
-        if shouldShowActivityTab { return 1 }
-        return 0
-    }
-
-     public var shouldShowActivityTab: Bool {
-         get {
-             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
-         } set {
-             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
-         }
-     }
     
     public var hasSeenActivityTab: Bool {
         get {
@@ -184,6 +187,177 @@ public final class WMFActivityTabDataController {
         let articleSummaryController = WMFArticleSummaryDataController()
         guard let project = WMFProject(id: page.projectID) else { return nil }
         return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
+    }
+
+    // MARK: - Experiment
+
+    @objc public func assignmentIntBlocking() -> Int {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result = 0
+
+        Task.detached { [weak self] in
+            defer { semaphore.signal() }
+            guard let self else { return }
+
+            do {
+                let assignment = try await self.assignOrFetchExperimentAssignment()
+                if assignment == .activityTab {
+                    result = 1
+                } else {
+                    result = 0
+                }
+            } catch {
+                result = 0
+            }
+        }
+
+        semaphore.wait()
+        return result
+    }
+
+    public func assignOrFetchExperimentAssignment() async throws -> ActivityTabExperimentAssignment? {
+        if isForceControlDevSettingOn {
+            return .control
+        }
+        if isForceExperimentDevSettingOn {
+            return .activityTab
+        }
+
+        guard isDevSettingOn || hasExperimentStarted() else {
+            throw CustomError.beforeStartDate
+        }
+
+        guard isDevSettingOn || !hasExperimentEnded() else {
+            throw CustomError.pastAssignmentEndDate
+        }
+
+        if let assignmentCache {
+            return assignmentCache
+        }
+
+        if let bucketValue = experimentsDataController?.bucketForExperiment(.activityTab) {
+            let assignment: ActivityTabExperimentAssignment
+
+            switch bucketValue {
+            case .activityTabControl:
+                assignment = .control
+            case .activityTabExperiment:
+                assignment = .activityTab
+            default:
+                throw CustomError.unexpectedAssignment
+            }
+
+            self.assignmentCache = assignment
+            return assignment
+        }
+
+        let newAssignment = try assignExperiment()
+        self.assignmentCache = newAssignment
+        return newAssignment
+    }
+
+    private func assignExperiment() throws -> ActivityTabExperimentAssignment {
+
+        guard isDevSettingOn || hasExperimentStarted() else {
+            throw CustomError.beforeStartDate
+        }
+
+        guard isDevSettingOn || !hasExperimentEnded() else {
+            throw CustomError.pastAssignmentEndDate
+        }
+
+        guard !alreadyAssigned() else {
+            throw CustomError.alreadyAssignedExperiment
+        }
+
+        guard let experimentsDataController else {
+            throw CustomError.missingExperimentsDataController
+        }
+
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.activityTab, withPercentage: activityTabExperimentPercentage)
+
+        var assignment: ActivityTabExperimentAssignment
+
+        switch bucketValue {
+        case .activityTabControl:
+            assignment = .control
+        case .activityTabExperiment:
+            assignment = .activityTab
+        default:
+            throw CustomError.unexpectedAssignment
+        }
+        assignmentCache = assignment
+        return assignment
+    }
+
+     public var isDevSettingOn: Bool {
+         get {
+             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
+         } set {
+             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
+         }
+     }
+
+    public var isForceControlDevSettingOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue, value: newValue)
+        }
+    }
+
+    public var isForceExperimentDevSettingOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue, value: newValue)
+        }
+    }
+
+    private func alreadyAssigned() -> Bool {
+        let bleh = experimentsDataController?.bucketForExperiment(.activityTab) != nil
+        return bleh
+    }
+
+    private var experimentEndDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2026
+        dateComponents.month = 1
+        dateComponents.day = 15
+        return Calendar.current.date(from: dateComponents)
+    }
+
+    private var experimentStartDate: Date? { // TODO: check with product, otherwise remove flags later
+        var dateComponents = DateComponents()
+        dateComponents.year = 2025
+        dateComponents.month = 12
+        dateComponents.day = 1
+        return Calendar.current.date(from: dateComponents)
+    }
+
+    private func hasExperimentStarted() -> Bool {
+        guard let experimentStartDate else {
+            return false
+        }
+        return experimentStartDate <= Date()
+    }
+
+    private func hasExperimentEnded() -> Bool {
+        guard let experimentEndDate else {
+            return false
+        }
+        return experimentEndDate <= Date()
+    }
+
+    public enum CustomError: Error {
+
+        case missingExperimentsDataController
+        case unexpectedAssignment
+        case missingAssignment
+        case alreadyAssignedExperiment
+        case pastAssignmentEndDate
+        case beforeStartDate
+        case errorFetchingAssigment
     }
 }
 

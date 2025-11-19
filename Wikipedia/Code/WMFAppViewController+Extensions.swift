@@ -118,8 +118,8 @@ extension WMFAppViewController {
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
-    
-    @objc func assignAndLogActivityTabExperiment() {
+
+    @objc func assignAndLogOLDActivityTabExperiment() {
         guard let dataController = WMFActivityTabExperimentsOldDataController.shared,
               let primaryLanguage = dataStore.languageLinkController.appLanguage,
               let project = WikimediaProject(siteURL: primaryLanguage.siteURL),
@@ -160,9 +160,8 @@ extension WMFAppViewController {
     
     @objc func getAssignmentForActivityTab() -> Int {
         let dataController = WMFActivityTabDataController.shared
-        return dataController.getActivityAssignment()
+        return dataController.assignmentIntBlocking()
     }
-
 }
 
 // MARK: - Notifications

@@ -141,12 +141,12 @@ import WMFData
         }
     }
 
-    func getGroupAssigment() -> WMFActivityTabExperimentsOldDataController.ActivityTabExperimentAssignment {
+    func getGroupAssigment() -> WMFActivityTabExperimentsOldDataController.OldActivityTabExperimentAssignment {
         guard let dataController = WMFActivityTabExperimentsOldDataController.shared,
             let project else {
             return .control
         }
-        var assignment: WMFActivityTabExperimentsOldDataController.ActivityTabExperimentAssignment = .control
+        var assignment: WMFActivityTabExperimentsOldDataController.OldActivityTabExperimentAssignment = .control
 
         do {
             let currentAssigment = try dataController.getActivityTabExperimentAssignment(project: project)
