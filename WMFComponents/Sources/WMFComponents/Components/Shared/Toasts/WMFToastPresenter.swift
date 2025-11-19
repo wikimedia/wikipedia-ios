@@ -26,6 +26,7 @@ public final class WMFToastPresenter {
     private var cancellables = Set<AnyCancellable>()
     
     private var currentToast: UIView?
+    private var backgroundTapGestureRecognizer: UITapGestureRecognizer?
     private var dismissWorkItem: DispatchWorkItem?
     private var dismissAction: ((DismissEvent) -> Void)?
     
@@ -58,6 +59,7 @@ public final class WMFToastPresenter {
     public func presentToastView<Content: View>(
         view: Content,
         duration: TimeInterval? = nil,
+        allowsBackgroundTapToDismiss: Bool = false,
         dismissAction: ((DismissEvent) -> Void)? = nil
     ) {
         guard let containerView = UIApplication.shared.currentTopViewController?.view else {
@@ -143,9 +145,12 @@ public final class WMFToastPresenter {
         })
 
         // Tap outside to dismiss
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleContainerTap(_:)))
-        tapGesture.cancelsTouchesInView = false
-        containerView.addGestureRecognizer(tapGesture)
+        if allowsBackgroundTapToDismiss {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleContainerTap(_:)))
+            tapGesture.cancelsTouchesInView = false
+            containerView.addGestureRecognizer(tapGesture)
+            self.backgroundTapGestureRecognizer = tapGesture
+        }
 
         // Swipe down to dismiss
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleToastPan(_:)))
@@ -156,7 +161,6 @@ public final class WMFToastPresenter {
             let workItem = DispatchWorkItem { [weak self, weak toastContainer] in
                 guard let toastContainer = toastContainer else { return }
                 self?.dismissToast(toastContainer, dismissEvent: .durationExpired)
-                containerView.removeGestureRecognizer(tapGesture)
             }
             dismissWorkItem = workItem
             DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
@@ -221,6 +225,12 @@ public final class WMFToastPresenter {
             if self.currentToast === toast {
                 self.currentToast = nil
             }
+            
+            if let backgroundTapGestureRecognizer = self.backgroundTapGestureRecognizer {
+                backgroundTapGestureRecognizer.view?.removeGestureRecognizer(backgroundTapGestureRecognizer)
+                self.backgroundTapGestureRecognizer = nil
+            }
+            
             self.dismissAction?(dismissEvent)
             self.dismissAction = nil
         })
