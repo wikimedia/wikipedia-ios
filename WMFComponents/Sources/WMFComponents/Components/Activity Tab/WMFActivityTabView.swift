@@ -22,20 +22,37 @@ public struct WMFActivityTabView: View {
                     Section {
                         VStack(spacing: 20) {
                             headerView
-                            
+                                .accessibilityElement()
+                                .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
+                                .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
+
                             VStack(alignment: .center, spacing: 8) {
                                 hoursMinutesRead
+                                    .accessibilityLabel(viewModel.hoursMinutesRead)
                                 Text(viewModel.localizedStrings.timeSpentReading)
                                     .font(Font(WMFFont.for(.semiboldHeadline)))
                                     .foregroundColor(Color(uiColor: theme.text))
+                                    .accessibilityHidden(true)
                             }
                             .frame(maxWidth: .infinity)
-                            
+                            .accessibilityElement()
+                            .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
+
                             articlesReadModule(proxy: proxy)
+                                .accessibilityElement()
+                                .accessibilityLabel("\(viewModel.articlesReadViewModel.totalArticlesRead) \(viewModel.localizedStrings.totalArticlesRead)")
+                                .accessibilityHint(viewModel.articlesReadViewModel.dateTimeLastRead)
+
                             savedArticlesModule
-                            
+                                .accessibilityElement()
+                                .accessibilityLabel("\(viewModel.articlesReadViewModel.articlesSavedAmount) \(viewModel.localizedStrings.articlesSavedTitle)")
+                                .accessibilityHint(viewModel.articlesReadViewModel.dateTimeLastSaved)
+
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(viewModel.localizedStrings.topCategories)
+                                    .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
                             }
                         }
                         .padding(16)
@@ -52,8 +69,11 @@ public struct WMFActivityTabView: View {
                         )
                     }
                     
-                    historyView
-                        .id("timelineSection")
+                    if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
+                        historyView(timeline: timeline)
+                            .accessibilityElement()
+                            .id("timelineSection")
+                    }
                 }
                 .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
                 .scrollContentBackground(.hidden)
@@ -67,8 +87,10 @@ public struct WMFActivityTabView: View {
                     Section {
                         VStack(alignment: .leading) {
                             loggedOutView
-                            historyView
-                                .id("timelineSection")
+                            if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
+                                historyView(timeline: timeline)
+                                    .id("timelineSection")
+                            }
                         }
                         .padding(16)
                         .listRowInsets(EdgeInsets())
@@ -100,15 +122,11 @@ public struct WMFActivityTabView: View {
         )
     }
     
-    private var historyView: some View {
-       return Group {
-            if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
-                // Sort dates descending
-                ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
-                    timelineSection(for: date, pages: timeline[date] ?? [])
-                        .listRowSeparator(.hidden)
-                }
-            }
+    private func historyView(timeline: [Date: [TimelineItem]]) -> some View {
+        // Sort dates descending
+        ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
+            timelineSection(for: date, pages: timeline[date] ?? [])
+                .listRowSeparator(.hidden)
         }
     }
     
@@ -145,11 +163,16 @@ public struct WMFActivityTabView: View {
                             .textCase(.none)
                     }
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits(.isHeader)
                 .padding(.bottom, 20)
         ) {
             ForEach(sortedPages, id: \.id) { page in
                 pageRow(page: page, section: date)
                     .listRowSeparator(.hidden)
+                    .accessibilityElement()
+                    .accessibilityLabel(Text(page.pageTitle.replacingOccurrences(of: "_", with: " ")))
+                    .accessibilityAddTraits(.isButton)
             }
             .onDelete { indexSet in
                 for index in indexSet {
@@ -192,6 +215,9 @@ public struct WMFActivityTabView: View {
             },
             iconImage: iconImage
         )
+        .accessibilityElement()
+        .accessibilityLabel(page.pageTitle.replacingOccurrences(of: "_", with: " "))
+        .accessibilityAddTraits(.isButton)
         .contentShape(Rectangle())
         .onTapGesture {
             viewModel.onTap(page)
@@ -226,9 +252,11 @@ public struct WMFActivityTabView: View {
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
             Text(viewModel.articlesReadViewModel.usernamesReading)
-                    .foregroundColor(Color(uiColor: theme.text))
-                    .font(Font(WMFFont.for(.boldBody)))
-                    .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(Color(uiColor: theme.text))
+                .font(Font(WMFFont.for(.boldBody)))
+                .frame(maxWidth: .infinity, alignment: .center)
+                .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
+
             Text(viewModel.localizedStrings.onWikipediaiOS)
                 .font(.custom("Menlo", size: 11, relativeTo: .caption2))
                 .foregroundColor(Color(uiColor: theme.text))
@@ -238,6 +266,7 @@ public struct WMFActivityTabView: View {
                     Capsule()
                         .fill(Color(uiColor: theme.softEditorBlue))
                 )
+                .accessibilityHidden(true)
         }
     }
     
@@ -318,6 +347,7 @@ public struct WMFActivityTabView: View {
                         .font(Font(WMFFont.for(.boldTitle1)))
                 )
             )
+            .accessibilityLabel("\(viewModel.hoursMinutesRead)")
         
     }
     
@@ -339,22 +369,20 @@ public struct WMFActivityTabView: View {
     }
     
     private var savedArticlesModule: some View {
-        Group {
-            WMFActivityTabInfoCardView(
-                icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
-                title: viewModel.localizedStrings.articlesSavedTitle,
-                dateText: viewModel.articlesReadViewModel.dateTimeLastSaved,
-                amount: viewModel.articlesReadViewModel.articlesSavedAmount,
-                onTapModule: {
-                    viewModel.navigateToSaved?()
-                },
-                content: {
-                    if !viewModel.articlesReadViewModel.articlesSavedImages.isEmpty {
-                        savedArticlesImages(images: viewModel.articlesReadViewModel.articlesSavedImages, totalSavedCount: viewModel.articlesReadViewModel.articlesSavedAmount)
-                    }
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.articlesSavedTitle,
+            dateText: viewModel.articlesReadViewModel.dateTimeLastSaved,
+            amount: viewModel.articlesReadViewModel.articlesSavedAmount,
+            onTapModule: {
+                viewModel.navigateToSaved?()
+            },
+            content: {
+                if !viewModel.articlesReadViewModel.articlesSavedImages.isEmpty {
+                    savedArticlesImages(images: viewModel.articlesReadViewModel.articlesSavedImages, totalSavedCount: viewModel.articlesReadViewModel.articlesSavedAmount)
                 }
-            )
-        }
+            }
+        )
     }
     
     private func savedArticlesImages(images: [URL], totalSavedCount: Int) -> some View {
@@ -372,6 +400,7 @@ public struct WMFActivityTabView: View {
                 }
                 .frame(width: 38, height: 38)
                 .clipShape(Circle())
+                .accessibilityHidden(true)
             }
 
             if showPlus {
@@ -384,32 +413,37 @@ public struct WMFActivityTabView: View {
                         Circle()
                             .fill(Color(uiColor: theme.secondaryText))
                     )
+                    .accessibilityHidden(true)
             }
         }
+        .accessibilityElement()
+        .accessibilityLabel("\(totalSavedCount) \(viewModel.localizedStrings.articlesSavedTitle)")
+        .accessibilityHint(viewModel.articlesReadViewModel.dateTimeLastSaved)
     }
 
-
     private func articlesReadGraph(weeklyReads: [Int]) -> some View {
-        Group {
-            Chart {
-                ForEach(weeklyReads.indices, id: \.self) { index in
-                    BarMark(
-                        x: .value(viewModel.localizedStrings.week, index),
-                        y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
-                        width: 12
-                    )
-                    .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.newBorder))
-                    .cornerRadius(1.5)
-                }
-            }
-            .frame(maxWidth: 54, maxHeight: 45)
-            .chartXAxis(.hidden)
-            .chartYAxis(.hidden)
-            .chartPlotStyle { plotArea in
-                plotArea
-                    .background(Color.clear)
+        Chart {
+            ForEach(weeklyReads.indices, id: \.self) { index in
+                BarMark(
+                    x: .value(viewModel.localizedStrings.week, index),
+                    y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
+                    width: 12
+                )
+                .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.newBorder))
+                .cornerRadius(1.5)
             }
         }
+        .frame(maxWidth: 54, maxHeight: 45)
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
+        .chartPlotStyle { plotArea in
+            plotArea
+                .background(Color.clear)
+        }
+        .accessibilityElement()
+        .accessibilityLabel(viewModel.localizedStrings.totalArticlesRead)
+        .accessibilityValue("\(viewModel.articlesReadViewModel.totalArticlesRead) \(viewModel.localizedStrings.articlesRead)")
+        // .accessibilityHint(viewModel.localizedStrings.weeklyReadsSummary)
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
