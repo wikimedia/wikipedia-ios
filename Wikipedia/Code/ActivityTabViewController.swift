@@ -54,7 +54,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateIsLoggedIn(isLoggedIn: false)
         }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
-            viewModel.updateUsername(username: username)
+            // viewModel.updateUsername(username: username)
         }
     }
     
@@ -109,7 +109,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         super.viewWillAppear(animated)
 
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
-            viewModel.updateUsername(username: username)
+            // viewModel.updateUsername(username: username)
         }
         
         viewModel.navigateToSaved = goToSaved
@@ -244,7 +244,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
     
-    func onTapArticle(item: TimelineViewModel.Item) {
+    func onTapArticle(item: TimelineItem) {
 //        if let articleURL = item.url, let dataStore, let navVC = navigationController {
 //            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
 //            articleCoordinator.start()
