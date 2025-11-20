@@ -28,6 +28,7 @@ import CocoaLumberjackSwift
     public func removeFromSaved(withUrls urls: [URL]) {
         guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
         unsave(urls: urls)
+        resetMigrationFlagForLegacyArticles(with: urls)
     }
 
     public func clearAll() {
@@ -335,6 +336,39 @@ import CocoaLumberjackSwift
                 }
             } catch {
                 DDLogError("[SavedPagesMigration] Batch clear in WMFData failed: \(error)")
+            }
+        }
+    }
+
+    // MARK: - Legacy helpers
+
+    private func resetMigrationFlagForLegacyArticles(with urls: [URL]) {
+        guard !urls.isEmpty else { return }
+
+        dataStore.performBackgroundCoreDataOperation { context in
+            context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+            var didChange = false
+
+            for url in urls {
+                autoreleasepool {
+                    guard let article = self.dataStore.fetchArticle(with: url, in: context) else {
+                        return
+                    }
+
+                    if article.isSavedMigrated {
+                        article.isSavedMigrated = false
+                        didChange = true
+                    }
+                }
+            }
+
+            if didChange, context.hasChanges {
+                do {
+                    try context.save()
+                } catch {
+                    DDLogError("[SavedPagesMigration] Failed to reset isSavedMigrated on legacy articles: \(error)")
+                }
             }
         }
     }
