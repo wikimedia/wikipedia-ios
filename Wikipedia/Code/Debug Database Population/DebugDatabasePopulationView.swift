@@ -1,0 +1,96 @@
+import SwiftUI
+import WMFComponents
+
+struct ToggleTextFieldRow: View {
+    let title: String
+    let trailingLabel: String?
+    @Binding var isOn: Bool
+    @Binding var text: String
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Toggle("", isOn: $isOn)
+                .labelsHidden()
+                .frame(width: 40)
+
+            Text(title)
+
+            TextField("", text: $text)
+                .keyboardType(.numberPad)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color(.systemGray6))
+                .cornerRadius(6)
+                .frame(width: 55)
+                .disabled(!isOn)
+                .opacity(isOn ? 1 : 0.4)
+
+            if let trailing = trailingLabel {
+                Text(trailing)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            withAnimation { isOn.toggle() }
+        }
+    }
+}
+
+struct DatabasePopulationView: View {
+    @StateObject private var viewModel = DatabasePopulationViewModel()
+
+    var body: some View {
+        Form {
+            Section {
+                ToggleTextFieldRow(
+                    title: "Create",
+                    trailingLabel: "lists",
+                    isOn: $viewModel.createLists,
+                    text: $viewModel.listLimitString
+                )
+
+                ToggleTextFieldRow(
+                    title: "Add",
+                    trailingLabel: "random entries to every list",
+                    isOn: $viewModel.addEntries,
+                    text: $viewModel.entryLimitString
+                )
+
+                HStack {
+                    Toggle("", isOn: $viewModel.randomizeAcrossLanguages)
+                        .labelsHidden()
+                        .frame(width: 40)
+                        .disabled(!viewModel.addEntries)
+                        .opacity(viewModel.addEntries ? 1 : 0.4)
+
+                    Text("Randomize across languages")
+                    Spacer()
+                }
+            }
+
+            // MARK: - Centered Button Section
+            Section {
+                HStack {
+                    Spacer()
+
+                    Button {
+                        Task { await viewModel.doIt() }
+                    } label: {
+                        if viewModel.isLoading {
+                            ProgressView()
+                        } else {
+                            Text("Do it")
+                        }
+                    }
+                    .disabled(viewModel.isLoading)
+
+                    Spacer()
+                }
+            }
+        }
+    }
+}
+
