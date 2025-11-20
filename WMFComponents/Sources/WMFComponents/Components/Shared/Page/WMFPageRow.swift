@@ -56,15 +56,18 @@ struct WMFPageRow: View {
         HStack(alignment: .top, spacing: 4) {
             if let iconImage {
                 Image(uiImage: iconImage)
-                    .frame(width: 40, height: 40)
+                    .frame(width: 40, height: 40, alignment: .top)
                     .foregroundColor(Color(uiColor: theme.secondaryText))
             }
+
             if needsLimitedFontSize {
                 textViewLimitedFontSize
             } else {
                 regularTextView
             }
+            
             Spacer()
+            
             if let uiImage {
                 Image(uiImage: uiImage)
                     .resizable()
@@ -75,7 +78,6 @@ struct WMFPageRow: View {
             }
         }
         .background(Color(theme.paperBackground))
-        .padding(.vertical, 8)
         .overlay(
             GeometryReader { geometry in
                 Color.clear

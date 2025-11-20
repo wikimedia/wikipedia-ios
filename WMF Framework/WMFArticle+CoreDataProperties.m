@@ -42,5 +42,6 @@
 @dynamic lastModifiedDate;
 @dynamic downloadRetryDate;
 @dynamic downloadAttemptCount;
+@dynamic isSavedMigrated;
 
 @end

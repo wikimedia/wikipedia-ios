@@ -471,8 +471,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         }
         return newReadingLists
     }
-    
-    
+
     func processLocalUpdates(in moc: NSManagedObjectContext) throws {
         let taskGroup = WMFTaskGroup()
         let listsToCreateOrUpdateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -536,7 +535,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                 }
             }
         }
-        
 
         let listNamesAndDescriptionsToCreate: [(name: String, description: String?)] = listsToCreate.map {
             assert($0.canonicalName != nil)
@@ -584,33 +582,33 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         guard !isCancelled  else {
             throw ReadingListsOperationError.cancelled
         }
-        
+
         for (readingListID, localReadingList) in createdReadingLists {
             localReadingList.readingListID = NSNumber(value: readingListID)
             localReadingList.isUpdatedLocally = false
         }
-        
+
         for (_, localReadingList) in updatedReadingLists {
             localReadingList.isUpdatedLocally = false
         }
-        
+
         for (_, localReadingList) in deletedReadingLists {
             moc.delete(localReadingList)
         }
-        
+
         for failed in failedReadingLists {
             failed.0.errorCode = failed.1.rawValue
         }
-        
+
         let entriesToCreateOrUpdateFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
         entriesToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)]
         let localReadingListEntriesToUpdate =  try moc.fetch(entriesToCreateOrUpdateFetch)
-        
-       
+
+
         var deletedReadingListEntries: [Int64: ReadingListEntry] = [:]
         var entriesToAddByListID: [Int64: [(project: String, title: String, entry: ReadingListEntry)]] = [:]
-        
+
         for localReadingListEntry in localReadingListEntriesToUpdate {
             try autoreleasepool {
                 guard let articleKey = localReadingListEntry.articleKey, let articleURL = URL(string: articleKey), let project = articleURL.wmf_site?.absoluteString, let title = articleURL.wmf_title else {
@@ -755,6 +753,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         guard !readingListEntries.isEmpty else {
             return
         }
+
+        var newlySavedArticleIDs = Set<URL>()
+
         let summaryFetcher = ArticleFetcher(session: apiController.session, configuration: Configuration.current)
         let group = WMFTaskGroup()
         let semaphore = DispatchSemaphore(value: 1)
@@ -867,7 +868,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                     entry.readingListEntryID = nil
                     entry.isUpdatedLocally = true
                 }
-                
+
+                // Article is just to be synced, we ad it to the migration
+                let needsMigrationToWMFData = (article.savedDate == nil)
+
                 if entry.createdDate == nil {
                     entry.createdDate = NSDate()
                 }
@@ -878,9 +882,15 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                 entry.articleKey = article.key
                 entry.variant = article.variant
                 entry.displayTitle = article.displayTitle
+
                 if article.savedDate == nil {
                     article.savedDate = entry.createdDate as Date?
                 }
+
+                if needsMigrationToWMFData, let url = article.url {
+                    newlySavedArticleIDs.insert(url)
+                }
+
                 updatedLists.insert(readingList)
             }
         }
@@ -889,8 +899,14 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                 try readingList.updateArticlesAndEntries()
             }
         }
+
+        // Registered newly synced saved articles to WMFData
+        if !newlySavedArticleIDs.isEmpty {
+            WMFArticleSavedStateMigrationManager.shared
+                .migrateNewlySyncedArticles(withURLs: Array(newlySavedArticleIDs))
+        }
     }
-    
+
     internal func createOrUpdate(remoteReadingLists: [APIReadingList], deleteMissingLocalLists: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Int {
         guard !remoteReadingLists.isEmpty || deleteMissingLocalLists else {
             return 0

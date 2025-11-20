@@ -1872,7 +1872,6 @@ private extension ExploreViewController {
         }
         
         guard presentedViewController == nil else {
-            debugPrint("todo: log prompt suppressed")
             return false
         }
         
@@ -1905,21 +1904,18 @@ private extension ExploreViewController {
         
         guard let startDate,
               let endDate else {
-            debugPrint("todo: log prompt suppressed")
             return false
         }
         
         let currentDate = Date()
         guard currentDate >= startDate,
               currentDate <= endDate else {
-            debugPrint("todo: log prompt suppressed")
             return false
         }
         
         let dataController = WMFExploreDataController()
         
         guard !dataController.hasSeenExploreSurvey else {
-            debugPrint("todo: log prompt suppressed")
             return false
         }
         
@@ -1936,14 +1932,11 @@ private extension ExploreViewController {
             takeSurveyButtonTitle: CommonStrings.takeSurveyTitle(languageCode: nil))
         
         let noThanksAction: () -> Void = {
-            debugPrint("tapped no thanks")
-            debugPrint("todo: log no thanks click")
             WMFToastPresenter.shared.dismissCurrentToast()
         }
         
         let takeSurveyAction: () -> Void = { [weak self] in
             debugPrint("tapped take survey")
-            debugPrint("todo: log take click")
             guard let url = URL(string: "https://wikimedia.qualtrics.com/jfe/form/SV_4V0kURVL6q5Da6y") else {
                 return
             }
@@ -1952,32 +1945,15 @@ private extension ExploreViewController {
             WMFToastPresenter.shared.dismissCurrentToast()
         }
         
-        let dismissAction: ((WMFToastPresenter.DismissEvent) -> Void) = { dismissEvent in
-            switch dismissEvent {
-            case .durationExpired:
-                debugPrint("duration expired")
-            case .outsideEvent:
-                debugPrint("outside event")
-            case .swipedDown:
-                debugPrint("swiped down")
-            case .tappedBackground:
-                debugPrint("tapped background")
-            }
-        }
-        
         let viewModel = WMFToastViewExploreSurveyViewModel(localizableStrings: localizableStrings, noThanksAction: noThanksAction, takeSurveyAction: takeSurveyAction)
         let view = WMFToastViewExploreSurveyView(viewModel: viewModel)
         
         WMFToastPresenter.shared.presentToastView(
             view: view,
-            dismissAction: dismissAction
+            allowsBackgroundTapToDismiss: false
         )
-        
-        debugPrint("todo: log prompt shown")
         
         let dataController = WMFExploreDataController()
         dataController.hasSeenExploreSurvey = true
     }
-
 }
-
