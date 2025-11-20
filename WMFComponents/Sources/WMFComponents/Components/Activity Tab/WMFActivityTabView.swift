@@ -186,7 +186,17 @@ public struct WMFActivityTabView: View {
             needsLimitedFontSize: false,
             id: page.id,
             titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
-            articleDescription: summary?.description ?? page.description,
+            articleDescription: {
+                if let desc = summary?.description, !desc.isEmpty {
+                    return desc
+                } else if let pageDesc = page.description, !pageDesc.isEmpty {
+                    return pageDesc
+                } else if let extract = summary?.extract, !extract.isEmpty {
+                    return extract
+                } else {
+                    return nil
+                }
+            }(),
             imageURLString: initialThumbnailURLString,
             titleLineLimit: 1,
             isSaved: false,
