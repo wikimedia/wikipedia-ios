@@ -24,28 +24,32 @@ import CocoaLumberjackSwift
         await runMigration(limit: 20)
     }
 
-    @objc(removeFromSavedWithURLs:)
+  @objc(removeFromSavedWithURLs:)
     public func removeFromSaved(withUrls urls: [URL]) {
-        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
+        guard shouldRunMigration() else { return }
         unsave(urls: urls)
         resetMigrationFlagForLegacyArticles(with: urls)
     }
 
     public func clearAll() {
-        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
+        guard shouldRunMigration() else { return }
         clearAllSavedData()
     }
 
     @objc public func migrateIncrementalObjC() {
-        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
+        guard shouldRunMigration() else { return }
         Task { await runMigration(limit: 20) }
     }
 
     public func migrateNewlySyncedArticles(withURLs urls: [URL]) {
-        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
+        guard shouldRunMigration() else { return }
         Task { @MainActor in
             migrateSyncedArticles(withURLs: urls)
         }
+    }
+
+    public func shouldRunMigration() -> Bool {
+        return WMFActivityTabDataController.activityAssignmentForObjC() == 1
     }
 
     // MARK: - Migration
@@ -126,7 +130,7 @@ import CocoaLumberjackSwift
     }
 
     @MainActor
-    @objc public func migrateSyncedArticles(withURLs urls: [URL]) {
+    @objc private func migrateSyncedArticles(withURLs urls: [URL]) {
         guard !urls.isEmpty else { return }
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
             DDLogError("[SavedPagesMirror] Missing WMFData store")

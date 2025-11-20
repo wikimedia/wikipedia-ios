@@ -308,6 +308,10 @@ public typealias ReadingListsController = WMFReadingListsController
     }
 
     private func migrateUnsavedArticlesinWMFData(forKeys keys: [String]) {
+        let migrationManager = WMFArticleSavedStateMigrationManager.shared
+
+        guard migrationManager.shouldRunMigration() else { return }
+
         guard !keys.isEmpty else {
             return
         }
@@ -346,7 +350,7 @@ public typealias ReadingListsController = WMFReadingListsController
         group.wait()
 
         if !urlsToUnsave.isEmpty {
-            WMFArticleSavedStateMigrationManager.shared.removeFromSaved(withUrls: urlsToUnsave)
+            migrationManager.removeFromSaved(withUrls: urlsToUnsave)
         }
     }
 

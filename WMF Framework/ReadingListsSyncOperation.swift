@@ -894,7 +894,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
                 updatedLists.insert(readingList)
             }
         }
-        for readingList in updatedLists {entryCount += 1
+        for readingList in updatedLists {
             try autoreleasepool {
                 try readingList.updateArticlesAndEntries()
             }
