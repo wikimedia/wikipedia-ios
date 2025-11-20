@@ -6,8 +6,8 @@ import Combine
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}
 
-@objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
-    private let theme: Theme
+@objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
+    private var theme: Theme
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
@@ -24,14 +24,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         self.dataController = dataController
         self.theme = theme
         super.init()
-    }
-
-    var learnMoreAboutActivityURL: URL? {
-        var languageCodeSuffix = ""
-        if let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode {
-            languageCodeSuffix = "\(primaryAppLanguageCode)"
-        }
-        return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Activity_Tab?uselang=\(languageCodeSuffix)")
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -171,18 +163,96 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
+
+    // MARK: - Overflow Menu
+
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle) , primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()
 
-    var overflowMenu: UIMenu {
-        let mainMenu = UIMenu(title: String(), children: [])
+    private var overflowMenu: UIMenu {
+        let clearTitle = WMFLocalizedString("activity-tab-menu-clear-history", value: "Clear reading history", comment: "Title for clar reading history option in the overflow menu button on activity tab")
+
+        let clearAction = UIAction(title: clearTitle, image: WMFSFSymbolIcon.for(symbol: .clockBadgeX), handler: { _ in
+            self.userDidTapClearReadingHistory()
+        })
+
+        let learnMoreAction = UIAction(title: CommonStrings.learnMoreTitle(), image: WMFSFSymbolIcon.for(symbol: .infoCircle), handler: { _ in
+            self.userDidTapLearnMore()
+        })
+
+        let reportIssueAction = UIAction(title: CommonStrings.problemWithFeatureTitle, image: WMFSFSymbolIcon.for(symbol: .flag), handler: { _ in
+            self.userDidTapReportIssue()
+        })
+        let mainMenu = UIMenu(title: String(), children: [learnMoreAction, clearAction, reportIssueAction])
 
         return mainMenu
     }
 
+    var learnMoreAboutActivityURL: URL? {
+
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Activity_Tab")
+        }
+
+        return WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "iOS", "Activity Tab"], section: nil, language: appLanguage)
+    }
+
+    private func userDidTapClearReadingHistory() {
+        guard let dataStore else { return }
+        do {
+            try dataStore.viewContext.clearReadHistory()
+
+        } catch let error {
+            showError(error)
+        }
+
+        Task {
+            do {
+                let dataController = try WMFPageViewsDataController()
+                try await dataController.deleteAllPageViewsAndCategories()
+                viewModel.fetchData()
+
+            } catch {
+                DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+            }
+        }
+    }
+
+    private func userDidTapLearnMore() {
+        if let url = learnMoreAboutActivityURL {
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            let newNavigationVC =
+            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+            navigationController?.present(newNavigationVC, animated: true)
+        }
+    }
+
+    private func userDidTapReportIssue() {
+        let emailAddress = "ios-support@wikimedia.org"
+        let emailSubject = WMFLocalizedString("activity-tab-email-title", value: "Issue Report - Activity Tab", comment: "Title text for Activity Tab pre-filled issue report email")
+        let emailBodyLine1 = WMFLocalizedString("activity-tab-email-first-line", value: "I have encountered a problem with Activity Tab Feature:", comment: "Text for Activity Tab pre-filled issue report email")
+        let emailBodyLine2 = WMFLocalizedString("activity-tab-email-second-line", value: "- [Describe specific problem]", comment: "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering")
+        let emailBodyLine3 = WMFLocalizedString("activity-tab-email-third-line", value: "The behavior I would like to see is:", comment: "Text for Activity Tab pre-filled issue report email")
+        let emailBodyLine4 = WMFLocalizedString("activity-tab-email-fourth-line", value: "[Describe desired behavior]", comment: "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a description of the desired behavior")
+        let emailBodyLine5 = WMFLocalizedString("activity-tab-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
+        let emailBody = "\(emailBodyLine1)\n\n\(emailBodyLine2)\n\n\(emailBodyLine3)\n\n\(emailBodyLine4)\n\n\(emailBodyLine5)"
+        let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        guard
+            let encodedMailto = mailto,
+            let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL)
+        else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
+            return
+        }
+        UIApplication.shared.open(mailtoURL)
+    }
+
+    // MARK: - Navigation Bar
     private func configureNavigationBar() {
 
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingCompact)
@@ -249,6 +319,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }
+    }
+    
+    // MARK: Theming
+
+    public func apply(theme: Theme) {
+        guard viewIfLoaded != nil else {
+            return
+        }
+        updateProfileButton()
+        profileCoordinator?.theme = theme
+        self.theme = theme
     }
 }
 
