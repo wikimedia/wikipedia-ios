@@ -80,7 +80,6 @@
 "activity-tab-email-third-line" = "The behavior I would like to see is:";
 "activity-tab-email-title" = "Issue Report - Activity Tab";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
-"activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Log in or create an account to view your activity on the Wikipedia app.";
@@ -255,9 +254,6 @@
 "description-welcome-start-editing-button" = "Start editing";
 "developer-force-email-auth" = "Force email auth";
 "developer-settings" = "Developer Settings";
-"developer-settings-activity-tab-group-A" = "Set activity tab to group A";
-"developer-settings-activity-tab-group-B" = "Set activity tab to group B";
-"developer-settings-activity-tab-group-C" = "Set activity tab to group C";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-dynamic-tabs-group-B-v2" = "Enable tabs V2 with group B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Enable tabs V2 with group C";

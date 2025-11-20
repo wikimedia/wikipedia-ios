@@ -80,7 +80,6 @@
 "activity-tab-email-third-line" = "Text for Activity Tab pre-filled issue report email";
 "activity-tab-email-title" = "Title text for Activity Tab pre-filled issue report email";
 "activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
-"activity-tab-greeting" = "$1 is opening bold, $2 is the username, $3 is closing bold.";
 "activity-tab-hours-minutes-read" = "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes.";
 "activity-tab-hours-on-wikipedia-ios" = "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization";
 "activity-tab-logged-out-subtitle" = "Subtitle for activity tab when users are logged out.";
@@ -255,9 +254,6 @@
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "developer-force-email-auth" = "Title for option to force email auth in developer settings menu.";
 "developer-settings" = "Title for developer settings view.";
-"developer-settings-activity-tab-group-A" = "Title for option to set activity tab experiment to group A";
-"developer-settings-activity-tab-group-B" = "Title for option to set activity tab experiment to group B";
-"developer-settings-activity-tab-group-C" = "Title for option to set activity tab experiment to group C";
 "developer-settings-bypass-donation" = "Title for option to bypass a donation in developer settings menu.";
 "developer-settings-dynamic-tabs-group-B-v2" = "Title for option to enable tabs for Group B V2";
 "developer-settings-dynamic-tabs-group-C-v2" = "Title for option to enable for Group C V2";

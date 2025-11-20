@@ -68,7 +68,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
-@property (nonatomic, strong, readonly) WMFActivityTabExperimentOldViewController *activityTabExperimentOldViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
 
@@ -122,7 +121,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @synthesize savedViewController = _savedViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize activityTabViewController = _activityTabViewController;
-@synthesize activityTabExperimentOldViewController = _activityTabExperimentOldViewController;
 @synthesize placesViewController = _placesViewController;
 
 - (void)dealloc {
@@ -340,8 +338,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if ([self uiIsLoaded]) {
         return;
     }
-
-    [self assignAndLogActivityTabExperiment];
 
     [self configureTabController];
 
@@ -1578,15 +1574,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _activityTabViewController.title = [WMFCommonStrings activityTitle];
     }
     return _activityTabViewController;
-}
-
-- (WMFActivityTabExperimentOldViewController *)activityTabExperimentOldViewController {
-    if (!_activityTabExperimentOldViewController) {
-        _activityTabExperimentOldViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
-        _activityTabExperimentOldViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
-        _activityTabExperimentOldViewController.title = [WMFCommonStrings activityTitle];
-    }
-    return _activityTabExperimentOldViewController;
 }
 
 - (WMFPlacesViewController *)placesViewController {
