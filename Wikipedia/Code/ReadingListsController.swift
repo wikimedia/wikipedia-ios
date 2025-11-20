@@ -347,9 +347,8 @@ public typealias ReadingListsController = WMFReadingListsController
             DispatchQueue.main.async(execute: performLegacyFetchOnMain)
         }
 
-        group.wait()
-
-        if !urlsToUnsave.isEmpty {
+        group.notify(queue: .main) {
+            guard !urlsToUnsave.isEmpty else { return }
             migrationManager.removeFromSaved(withUrls: urlsToUnsave)
         }
     }
