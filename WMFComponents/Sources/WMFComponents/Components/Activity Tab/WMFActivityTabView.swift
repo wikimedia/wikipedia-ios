@@ -53,6 +53,7 @@ public struct WMFActivityTabView: View {
                             )
                         )
                     }
+                    .listRowSeparator(.hidden)
                     
                     historyView
                         .id("timelineSection")
@@ -76,6 +77,7 @@ public struct WMFActivityTabView: View {
                         .listRowInsets(EdgeInsets())
                         .background(Color(uiColor: theme.paperBackground))
                     }
+                    .listRowSeparator(.hidden)
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
@@ -114,7 +116,7 @@ public struct WMFActivityTabView: View {
             }
         }
     }
-
+    
     private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
         let sortedPages = pages.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current
@@ -150,19 +152,19 @@ public struct WMFActivityTabView: View {
                 }
                 .padding(.bottom, 20)
         ) {
-            ForEach(sortedPages, id: \.id) { page in
-                pageRow(page: page, section: date)
+            ForEach(sortedPages.indices, id: \.self) { index in
+                pageRow(page: sortedPages[index], section: date)
+                    .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
-            }
-            .onDelete { indexSet in
-                for index in indexSet {
-                    let pageToDelete = sortedPages[index]
-                    timelineViewModel.deletePage(item: pageToDelete)
-                }
+                    .padding(.bottom, 20)
             }
         }
+        .listRowInsets(EdgeInsets())
+        .listRowSeparator(.hidden)
         .listRowBackground(Color(uiColor: theme.paperBackground))
+        .padding(.horizontal, 16)
     }
+
 
     private func pageRow(page: TimelineItem, section: Date) -> some View {
         let iconImage: UIImage?
@@ -184,7 +186,17 @@ public struct WMFActivityTabView: View {
             needsLimitedFontSize: false,
             id: page.id,
             titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
-            articleDescription: summary?.description ?? page.description,
+            articleDescription: {
+                if let desc = summary?.description, !desc.isEmpty {
+                    return desc
+                } else if let pageDesc = page.description, !pageDesc.isEmpty {
+                    return pageDesc
+                } else if let extract = summary?.extract, !extract.isEmpty {
+                    return extract
+                } else {
+                    return nil
+                }
+            }(),
             imageURLString: initialThumbnailURLString,
             titleLineLimit: 1,
             isSaved: false,
@@ -317,7 +329,6 @@ public struct WMFActivityTabView: View {
                         .font(Font(WMFFont.for(.boldTitle1)))
                 )
             )
-
     }
 
     private func articlesReadModule(proxy: ScrollViewProxy) -> some View {
@@ -388,28 +399,29 @@ public struct WMFActivityTabView: View {
         }
     }
 
-
     private func articlesReadGraph(weeklyReads: [Int]) -> some View {
-        Group {
-            Chart {
-                ForEach(weeklyReads.indices, id: \.self) { index in
-                    BarMark(
-                        x: .value(viewModel.localizedStrings.week, index),
-                        y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
-                        width: 12
-                    )
-                    .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.newBorder))
-                    .cornerRadius(1.5)
-                }
-            }
-            .frame(maxWidth: 54, maxHeight: 45)
-            .chartXAxis(.hidden)
-            .chartYAxis(.hidden)
-            .chartPlotStyle { plotArea in
-                plotArea
-                    .background(Color.clear)
+        Chart {
+            ForEach(weeklyReads.indices, id: \.self) { index in
+                BarMark(
+                    x: .value(viewModel.localizedStrings.week, index),
+                    y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
+                    width: 12
+                )
+                .foregroundStyle(
+                    weeklyReads[index] > 0
+                    ? Color(uiColor: theme.accent)
+                    : Color(uiColor: theme.newBorder)
+                )
+                .cornerRadius(1.5)
+                .accessibilityLabel("\(viewModel.localizedStrings.week) \(index + 1)")
+                .accessibilityValue("\(weeklyReads[index]) \(viewModel.localizedStrings.articlesRead)")
             }
         }
+        .accessibilityElement(children: .contain)
+        .frame(maxWidth: 54, maxHeight: 45)
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
+        .chartPlotStyle { $0.background(.clear) }
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
