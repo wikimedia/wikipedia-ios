@@ -104,10 +104,10 @@
 "article-languages-yours" = "Vaši jezici";
 "article-read-more-title" = "Detaljnije";
 "article-reference-view-title" = "Referenca $1";
-"article-revision-history" = "Historija revizije članka";
+"article-revision-history" = "Historija izmjena";
 "article-save-error-not-enough-space" = "Nemate dovoljno prostora na uređaju da biste sačuvali članak";
 "article-share" = "Podijeli";
-"article-talk-page" = "Stranica za razgovor o članku";
+"article-talk-page" = "Stranica za razgovor";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrole tema za čitanje";
 "back-button-accessibility-label" = "Nazad";
 "back-button-popover-title" = "Dodirnite za povratak";
@@ -171,7 +171,7 @@
 "description-welcome-descriptions-title" = "Opisi članaka";
 "description-welcome-promise-title" = "Započinjanjem, obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počni uređivati";
-"diff-article-revision-history" = "Historija revizije članka";
+"diff-article-revision-history" = "Historija izmjena";
 "diff-change-added" = "Dodavanje, $1, kraj dodavanja.";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
@@ -226,7 +226,6 @@
 "edit-summary-choice-fixed-typos" = "Popravljen tipfeler";
 "edit-summary-choice-linked-words" = "Dodani linkovi";
 "edit-summary-placeholder-text" = "Kako ste poboljšali članak?";
-// Fuzzy
 "edit-watch-list-learn-more-text" = "Saznaj više o spisku praćenja";
 "edit-watch-this-page-text" = "Prati ovu stranicu";
 "editing-welcome-be-bold-subtitle" = "Budite hrabri, ali ne i nemarni u ažuriranju članaka. Ne brinite se oko pravljenja grešaka: svaka prošla verzija stranice je sačuvana, tako da naša zajednica lako može ispraviti greške.";
@@ -505,6 +504,7 @@
 "main-menu-terms-of-use" = "Uslovi korištenja";
 "main-menu-title" = "Više";
 "main-menu-zero-faq" = "ČPP o Wikipediji Zero";
+"main-page" = "Početna strana";
 "more-languages-tooltip-description" = "Pretražujte Wikipediju na preko 300 jezika";
 "more-languages-tooltip-title" = "Dodaj jezike";
 "move-articles-to-reading-list" = "Premjesti {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na spisak za čitanje";
@@ -904,7 +904,7 @@
 "talk-page-new-reply-success-text" = "Vaš odgovor je uspješno objavljen";
 "talk-page-new-topic-success-text" = "Vaša rasprava je uspješno objavljena";
 "talk-page-permanent-link" = "Trajni link";
-"talk-page-title-article-talk" = "stranica za razgovor članka";
+"talk-page-title-article-talk" = "Stranica za razgovor o članku";
 "talk-page-title-user-talk" = "Razgovor s korisnikom";
 "theme-black-display-name" = "Crna";
 "theme-dark-display-name" = "Tamna";
@@ -926,6 +926,8 @@
 "uzbek-variants-alert-title" = "Ažuriranja podrške za varijantu uzbečkog jezika";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Pregledajte svoja podešavanja";
+"watch" = "Prati";
+"watchlist" = "Spisak praćenja";
 "welcome-exploration-explore-feed-description" = "Preporučena literatura i dnevni članci iz naše zajednice";
 "welcome-exploration-explore-feed-title" = "Stranica Istraži";
 "welcome-exploration-on-this-day-description" = "Putujte u prošlost kako biste saznali šta se danas dogodilo u historiji";
