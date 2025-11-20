@@ -45,7 +45,7 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Th
         
         activityIndicator.startAnimating()
         sender?.isEnabled = false
-        readingListsController.debugSync(createLists: createListsSwitch.isOn, listCount: listLimit, addEntries: addEntriesSwitch.isOn, randomizeLanguageEntries:randomizeAcrossLanguagesSwitch.isOn, entryCount: entryLimit, deleteLists: deleteAllListsSwitch.isOn, deleteEntries: deleteAllEntriesSwitch.isOn, doFullSync: fullSyncSwitch.isOn, completion: {
+        readingListsController.debugSync(createLists: createListsSwitch.isOn, listCount: listLimit, addEntries: addEntriesSwitch.isOn, randomizeLanguageEntries:randomizeAcrossLanguagesSwitch.isOn, entryCount: entryLimit, completion: {
             DispatchQueue.main.async {
                 sender?.isEnabled = true
                 self.activityIndicator.stopAnimating()

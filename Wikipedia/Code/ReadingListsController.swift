@@ -356,7 +356,7 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
-    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, randomizeLanguageEntries: Bool, entryCount: Int64, deleteLists: Bool, deleteEntries: Bool, doFullSync: Bool, completion: @escaping () -> Void) {
+    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, randomizeLanguageEntries: Bool, entryCount: Int64, completion: @escaping () -> Void) {
         dataStore.viewContext.wmf_setValue(NSNumber(value: listCount), forKey: "WMFCountOfListsToCreate")
         dataStore.viewContext.wmf_setValue(NSNumber(value: entryCount), forKey: "WMFCountOfEntriesToCreate")
         let oldValue = syncState
@@ -375,24 +375,9 @@ public typealias ReadingListsController = WMFReadingListsController
             newValue.remove(.needsRandomEnEntries)
         }
         
-        if deleteLists {
-            newValue.insert(.needsLocalListClear)
-        } else {
-            newValue.remove(.needsLocalListClear)
-        }
-        if deleteEntries {
-            newValue.insert(.needsLocalArticleClear)
-        } else {
-            newValue.remove(.needsLocalArticleClear)
-        }
-        
         cancelSync {
             self.syncState = newValue
-            if doFullSync {
-                self.fullSync(completion)
-            } else {
-                self._sync(completion)
-            }
+            self._sync(completion)
         }
     }
     
