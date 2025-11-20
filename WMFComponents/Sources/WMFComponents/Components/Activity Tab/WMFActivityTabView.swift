@@ -39,9 +39,6 @@ public struct WMFActivityTabView: View {
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
 
                             articlesReadModule(proxy: proxy)
-                                .accessibilityElement()
-                                .accessibilityLabel("\(viewModel.articlesReadViewModel.totalArticlesRead) \(viewModel.localizedStrings.totalArticlesRead)")
-                                .accessibilityHint(viewModel.articlesReadViewModel.dateTimeLastRead)
 
                             savedArticlesModule
                                 .accessibilityElement()
@@ -429,21 +426,21 @@ public struct WMFActivityTabView: View {
                     y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
                     width: 12
                 )
-                .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.newBorder))
+                .foregroundStyle(
+                    weeklyReads[index] > 0
+                    ? Color(uiColor: theme.accent)
+                    : Color(uiColor: theme.newBorder)
+                )
                 .cornerRadius(1.5)
+                .accessibilityLabel("\(viewModel.localizedStrings.week) \(index + 1)")
+                .accessibilityValue("\(weeklyReads[index]) \(viewModel.localizedStrings.articlesRead)")
             }
         }
+        .accessibilityElement(children: .contain)
         .frame(maxWidth: 54, maxHeight: 45)
         .chartXAxis(.hidden)
         .chartYAxis(.hidden)
-        .chartPlotStyle { plotArea in
-            plotArea
-                .background(Color.clear)
-        }
-        .accessibilityElement()
-        .accessibilityLabel(viewModel.localizedStrings.totalArticlesRead)
-        .accessibilityValue("\(viewModel.articlesReadViewModel.totalArticlesRead) \(viewModel.localizedStrings.articlesRead)")
-        // .accessibilityHint(viewModel.localizedStrings.weeklyReadsSummary)
+        .chartPlotStyle { $0.background(.clear) }
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
