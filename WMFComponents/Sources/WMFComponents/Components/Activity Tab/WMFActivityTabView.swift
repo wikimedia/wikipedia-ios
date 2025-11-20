@@ -6,15 +6,17 @@ import Foundation
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
-    
+    @ObservedObject private var timelineViewModel: TimelineViewModel
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
+
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
+        self.timelineViewModel = viewModel.timelineViewModel
     }
-    
+
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.isLoggedIn {
@@ -22,7 +24,7 @@ public struct WMFActivityTabView: View {
                     Section {
                         VStack(spacing: 20) {
                             headerView
-                            
+
                             VStack(alignment: .center, spacing: 8) {
                                 hoursMinutesRead
                                 Text(viewModel.localizedStrings.timeSpentReading)
@@ -30,10 +32,10 @@ public struct WMFActivityTabView: View {
                                     .foregroundColor(Color(uiColor: theme.text))
                             }
                             .frame(maxWidth: .infinity)
-                            
+
                             articlesReadModule(proxy: proxy)
                             savedArticlesModule
-                            
+
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
                             }
@@ -88,8 +90,8 @@ public struct WMFActivityTabView: View {
     }
 
     private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        let summary = viewModel.articlesReadViewModel.pageSummaries[item.id]
-        
+        let summary = timelineViewModel.pageSummaries[item.id]
+
         return WMFArticlePreviewViewModel(
             url: item.url,
             titleHtml: item.titleHtml,
@@ -99,10 +101,11 @@ public struct WMFActivityTabView: View {
             snippet: summary?.extract ?? item.snippet
         )
     }
-    
+
     private var historyView: some View {
        return Group {
-            if let timeline = viewModel.articlesReadViewModel.timeline, !timeline.isEmpty {
+           let timeline = timelineViewModel.timeline
+            if !timeline.isEmpty {
                 // Sort dates descending
                 ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
                     timelineSection(for: date, pages: timeline[date] ?? [])
@@ -111,7 +114,7 @@ public struct WMFActivityTabView: View {
             }
         }
     }
-    
+
     private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
         let sortedPages = pages.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current
@@ -154,13 +157,13 @@ public struct WMFActivityTabView: View {
             .onDelete { indexSet in
                 for index in indexSet {
                     let pageToDelete = sortedPages[index]
-                    viewModel.deletePage(item: pageToDelete)
+                    timelineViewModel.deletePage(item: pageToDelete)
                 }
             }
         }
         .listRowBackground(Color(uiColor: theme.paperBackground))
     }
-    
+
     private func pageRow(page: TimelineItem, section: Date) -> some View {
         let iconImage: UIImage?
         switch page.itemType {
@@ -174,7 +177,7 @@ public struct WMFActivityTabView: View {
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
 
-        let summary = viewModel.articlesReadViewModel.pageSummaries[page.id]
+        let summary = timelineViewModel.pageSummaries[page.id]
         let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
 
         return WMFPageRow(
@@ -186,19 +189,19 @@ public struct WMFActivityTabView: View {
             titleLineLimit: 1,
             isSaved: false,
             showsSwipeActions: true,
-            deleteItemAction: { viewModel.deletePage(item: page) },
+            deleteItemAction: { timelineViewModel.deletePage(item: page) },
             loadImageAction: { imageURLString in
-                try? await viewModel.loadImage(imageURLString: imageURLString)
+                try? await timelineViewModel.loadImage(imageURLString: imageURLString)
             },
             iconImage: iconImage
         )
         .contentShape(Rectangle())
         .onTapGesture {
-            viewModel.onTap(page)
+            timelineViewModel.onTap(page)
         }
         .contextMenu {
             Button {
-                viewModel.onTap(page)
+                timelineViewModel.onTap(page)
             } label: {
                 HStack {
                     Text(viewModel.localizedStrings.openArticle)
@@ -215,14 +218,10 @@ public struct WMFActivityTabView: View {
             }
         }
         .task {
-            if let fetchedSummary = await viewModel.fetchSummary(for: page) {
-                if fetchedSummary.thumbnailURL != nil {
-                    // Automatically updates
-                }
-            }
+            _ = await timelineViewModel.fetchSummary(for: page)
         }
     }
-    
+
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
             Text(viewModel.articlesReadViewModel.usernamesReading)
@@ -240,7 +239,7 @@ public struct WMFActivityTabView: View {
                 )
         }
     }
-    
+
     private var loggedOutView: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -298,7 +297,7 @@ public struct WMFActivityTabView: View {
         .padding(16) // exterior padding
     }
 
-    
+
     private var hoursMinutesRead: some View {
         Text(viewModel.hoursMinutesRead)
             .font(Font(WMFFont.for(.boldTitle1)))
@@ -318,9 +317,9 @@ public struct WMFActivityTabView: View {
                         .font(Font(WMFFont.for(.boldTitle1)))
                 )
             )
-        
+
     }
-    
+
     private func articlesReadModule(proxy: ScrollViewProxy) -> some View {
         WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
@@ -337,32 +336,33 @@ public struct WMFActivityTabView: View {
             }
         )
     }
-    
+
     private var savedArticlesModule: some View {
         Group {
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.articlesSavedTitle,
-                dateText: viewModel.articlesReadViewModel.dateTimeLastSaved,
-                amount: viewModel.articlesReadViewModel.articlesSavedAmount,
+                dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
+                amount: viewModel.articlesSavedViewModel.articlesSavedAmount,
                 onTapModule: {
-                    viewModel.navigateToSaved?()
+                    viewModel.articlesSavedViewModel.navigateToSaved?()
                 },
                 content: {
-                    if !viewModel.articlesReadViewModel.articlesSavedImages.isEmpty {
-                        savedArticlesImages(images: viewModel.articlesReadViewModel.articlesSavedImages, totalSavedCount: viewModel.articlesReadViewModel.articlesSavedAmount)
+                    let thumbURLs = viewModel.articlesSavedViewModel.articlesSavedThumbURLs
+                    if !thumbURLs.isEmpty {
+                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount)
                     }
                 }
             )
         }
     }
-    
-    private func savedArticlesImages(images: [URL], totalSavedCount: Int) -> some View {
+
+    private func savedArticlesImages(thumbURLs: [URL?], totalSavedCount: Int) -> some View {
         HStack(spacing: 4) {
-            let displayCount = min(images.count, 3)
+            let displayCount = min(thumbURLs.count, 3)
             let showPlus = totalSavedCount > 3
 
-            ForEach(Array(images.prefix(displayCount)), id: \.self) { imageURL in
+            ForEach(Array(thumbURLs.prefix(displayCount)), id: \.self) { imageURL in
                 AsyncImage(url: imageURL) { image in
                     image
                         .resizable()
@@ -431,7 +431,7 @@ public struct WMFActivityTabView: View {
                         .foregroundStyle(Color(theme.text))
                         .font(Font(WMFFont.for(.callout)))
                         .lineLimit(2)
-                    
+
                     if index < categories.count - 1 {
                         Divider()
                     }
