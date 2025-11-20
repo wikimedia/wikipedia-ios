@@ -345,30 +345,33 @@ import CocoaLumberjackSwift
     private func resetMigrationFlagForLegacyArticles(with urls: [URL]) {
         guard !urls.isEmpty else { return }
 
-        dataStore.performBackgroundCoreDataOperation { context in
-            context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        Task { @MainActor in
+            do {
+                try await dataStore.performBackgroundCoreDataOperationAsync { context in
+                    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            var didChange = false
+                    var didChange = false
 
-            for url in urls {
-                autoreleasepool {
-                    guard let article = self.dataStore.fetchArticle(with: url, in: context) else {
-                        return
+                    for url in urls {
+                        autoreleasepool {
+                            guard let article = self.dataStore.fetchArticle(with: url, in: context) else {
+                                DDLogInfo("[SavedPagesMigration] No WMFArticle found to reset isSavedMigrated for URL \(url.absoluteString)")
+                                return
+                            }
+
+                            if article.isSavedMigrated {
+                                article.isSavedMigrated = false
+                                didChange = true
+                            }
+                        }
                     }
 
-                    if article.isSavedMigrated {
-                        article.isSavedMigrated = false
-                        didChange = true
+                    if didChange, context.hasChanges {
+                        try context.save()
                     }
                 }
-            }
-
-            if didChange, context.hasChanges {
-                do {
-                    try context.save()
-                } catch {
-                    DDLogError("[SavedPagesMigration] Failed to reset isSavedMigrated on legacy articles: \(error)")
-                }
+            } catch {
+                DDLogError("[SavedPagesMigration] Failed to reset isSavedMigrated on legacy articles: \(error)")
             }
         }
     }
