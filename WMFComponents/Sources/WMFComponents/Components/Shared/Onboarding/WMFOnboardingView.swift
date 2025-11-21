@@ -21,8 +21,6 @@ public struct WMFOnboardingView: View {
 
     // MARK: - Scroll Content
 
-    @State private var safeAreaBottom: CGFloat = 0
-
     var scrollViewContent: some View {
         VStack {
             Text(viewModel.title)
