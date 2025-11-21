@@ -13,10 +13,10 @@ public struct WMFOnboardingView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var sizeClassPadding: CGFloat {
-        horizontalSizeClass == .regular ? 64 : 32
+        horizontalSizeClass == .regular ? 40 : 16
     }
     
-    @ScaledMetric var scrollViewBottomInset = 125.0
+    @ScaledMetric var scrollViewBottomInset = 130.0
     
     @State private var flashScrollIndicators: Bool = false
 
