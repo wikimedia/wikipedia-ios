@@ -207,7 +207,7 @@ final class TalkPageHeaderView: UICollectionReusableView {
 
         horizontalStackView.addArrangedSubview(imageView)
 
-        let leadImageSideLength = CGFloat(TalkPageViewModel.leadImageSideLength)
+        let leadImageSideLength = CGFloat(UIScreen.main.wmf_listThumbnailWidthForScale().intValue)
         let imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: leadImageSideLength)
         let imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: leadImageSideLength)
         imageWidthConstraint.priority = .required
