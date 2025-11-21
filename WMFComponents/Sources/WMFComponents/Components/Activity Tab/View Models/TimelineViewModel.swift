@@ -1,13 +1,21 @@
 import WMFData
 import UIKit
 import Combine
+import SwiftUI
 
 @MainActor
 public final class TimelineViewModel: ObservableObject {
+    
+    public struct TimelineSection: Identifiable {
+        let date: Date
+        var items: [TimelineItem]
+        
+        public var id: Date { date }
+    }
 
     private let dataController: WMFActivityTabDataController
-
-    @Published var timeline: [Date: [TimelineItem]] = [:]
+    
+    @Published var sections: [TimelineSection] = []
 
     public var onTapArticle: ((TimelineItem) -> Void)?
 
@@ -18,7 +26,15 @@ public final class TimelineViewModel: ObservableObject {
     public func fetch() async {
         do {
             let result = try await dataController.fetchTimeline()
-            self.timeline = result
+            
+            var sections = [TimelineSection]()
+            for (key, value) in result {
+                let sortedItems = value.sorted { $0.date > $1.date }
+                sections.append(TimelineSection(date: key, items: sortedItems))
+            }
+            
+            let sortedSections = sections.sorted { $0.date > $1.date }
+            self.sections = sortedSections
         } catch {
             debugPrint("error fetching timeline: \(error)")
         }
@@ -35,21 +51,18 @@ public final class TimelineViewModel: ObservableObject {
         return UIImage(data: data)
     }
 
-    public func deletePage(item: TimelineItem) {
+    public func deletePage(item: TimelineItem, sectionID: TimelineSection.ID) {
         Task {
             do {
                 try await dataController.deletePageView(for: item)
-
-                let date = Calendar.current.startOfDay(for: item.date)
-
-                if var items = timeline[date] {
-                    items.removeAll { $0.id == item.id }
-                    timeline[date] = items
-                }
+                
             } catch {
                 print("Failed to delete page: \(error)")
             }
         }
+        
+       guard let sectionIndex = sections.firstIndex(where: { $0.id == sectionID }) else { return }
+       sections[sectionIndex].items.removeAll { $0.id == item.id }
     }
 
     func onTap(_ item: TimelineItem) {

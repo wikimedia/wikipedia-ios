@@ -92,32 +92,25 @@ public struct WMFActivityTabView: View {
     }
 
     private var historyView: some View {
-       return Group {
-           let timeline = timelineViewModel.timeline
-            if !timeline.isEmpty {
-                // Sort dates descending
-                ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
-                    timelineSection(for: date, pages: timeline[date] ?? [])
-                        .listRowSeparator(.hidden)
-                }
-            }
+        ForEach(timelineViewModel.sections) { section in
+            timelineSection(section: section)
+                .listRowSeparator(.hidden)
         }
     }
     
-    private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
-        let sortedPages = pages.sorted(by: { $0.date > $1.date })
+    private func timelineSection(section: TimelineViewModel.TimelineSection) -> some View {
         let calendar = Calendar.current
 
         let title: String
         let subtitle: String
-        if calendar.isDateInToday(date) {
+        if calendar.isDateInToday(section.date) {
             title = viewModel.localizedStrings.todayTitle
-            subtitle = viewModel.formatDate(date)
-        } else if calendar.isDateInYesterday(date) {
+            subtitle = viewModel.formatDate(section.date)
+        } else if calendar.isDateInYesterday(section.date) {
             title = viewModel.localizedStrings.yesterdayTitle
-            subtitle = viewModel.formatDate(date)
+            subtitle = viewModel.formatDate(section.date)
         } else {
-            title = viewModel.formatDate(date)
+            title = viewModel.formatDate(section.date)
             subtitle = ""
         }
 
@@ -139,8 +132,8 @@ public struct WMFActivityTabView: View {
                 }
                 .padding(.bottom, 20)
         ) {
-            ForEach(sortedPages.indices, id: \.self) { index in
-                pageRow(page: sortedPages[index], section: date)
+            ForEach(section.items) { item in
+                pageRow(page: item, sectionID: section.id)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .padding(.bottom, 20)
@@ -153,7 +146,7 @@ public struct WMFActivityTabView: View {
     }
 
 
-    private func pageRow(page: TimelineItem, section: Date) -> some View {
+    private func pageRow(page: TimelineItem, sectionID: TimelineViewModel.TimelineSection.ID) -> some View {
         let iconImage: UIImage?
         switch page.itemType {
         case .standard:
@@ -167,7 +160,7 @@ public struct WMFActivityTabView: View {
         }
         
         let deleteItemAction: () -> Void = {
-            self.timelineViewModel.deletePage(item: page)
+            self.timelineViewModel.deletePage(item: page, sectionID: sectionID)
         }
         
         let tapAction: () -> Void = {
