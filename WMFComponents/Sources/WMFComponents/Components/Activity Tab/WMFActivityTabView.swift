@@ -238,7 +238,7 @@ public struct WMFActivityTabView: View {
         VStack(alignment: .center, spacing: 8) {
             Text(viewModel.articlesReadViewModel.usernamesReading)
                     .foregroundColor(Color(uiColor: theme.text))
-                    .font(Font(WMFFont.for(.boldBody)))
+                    .font(Font(WMFFont.for(.boldHeadline)))
                     .frame(maxWidth: .infinity, alignment: .center)
             Text(viewModel.localizedStrings.onWikipediaiOS)
                 .font(.custom("Menlo", size: 11, relativeTo: .caption2))
@@ -388,7 +388,7 @@ public struct WMFActivityTabView: View {
             if showPlus {
                 let remaining = totalSavedCount - 3
                 Text("+\(remaining)")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Font(WMFFont.for(.caption2)))
                     .foregroundColor(Color(uiColor: theme.paperBackground))
                     .frame(width: 38, height: 38)
                     .background(
