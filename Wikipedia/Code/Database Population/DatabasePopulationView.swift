@@ -44,7 +44,7 @@ struct DatabasePopulationView: View {
 
     var body: some View {
         Form {
-            Section {
+            Section(header: Text("Saved Articles")) {
                 ToggleTextFieldRow(
                     title: "Create",
                     trailingLabel: "lists",
@@ -54,7 +54,7 @@ struct DatabasePopulationView: View {
 
                 ToggleTextFieldRow(
                     title: "Add",
-                    trailingLabel: "random entries to every list",
+                    trailingLabel: "saved articles to every list",
                     isOn: $viewModel.addEntries,
                     text: $viewModel.entryLimitString
                 )
@@ -72,7 +72,7 @@ struct DatabasePopulationView: View {
             }
             
             // MARK: - Add Viewed Articles Section
-            Section {
+            Section(header: Text("Viewed Articles")) {
                 ToggleTextFieldRow(
                     title: "Add",
                     trailingLabel: "viewed articles",
