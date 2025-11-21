@@ -2,46 +2,19 @@ import Foundation
 import SwiftUI
 import WMFData
 
-public final class TimelineItem: ObservableObject, Hashable {
-    public let pageWithTimestamp: WMFPageWithTimestamp
-
-    public init(pageWithTimestamp: WMFPageWithTimestamp) {
-        self.pageWithTimestamp = pageWithTimestamp
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
-    }
-
-    public static func == (lhs: TimelineItem, rhs: TimelineItem) -> Bool {
-        lhs === rhs
-    }
-}
-
-public final class TimelineSection: ObservableObject, Hashable {
-    public let date: Date
-    @Published var items: [TimelineItem] = []
-    
-    init(date: Date, items: [TimelineItem]) {
-        self.date = date
-        self.items = items
-    }
-    
-    // Hashable conformance using object identity
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
-    }
-
-    public static func == (lhs: TimelineSection, rhs: TimelineSection) -> Bool {
-        lhs === rhs
-    }
-}
-
-public enum ItemType {
-    case standard // no icon, logged out users, etc.
-    case edit
-    case read
-    case save
+struct ArticlesReadViewModel {
+    var username: String
+    var hoursRead: Int
+    var minutesRead: Int
+    var totalArticlesRead: Int
+    var dateTimeLastRead: String
+    var weeklyReads: [Int]
+    var topCategories: [String]
+    var usernamesReading: String
+    var articlesSavedAmount: Int
+    var dateTimeLastSaved: String
+    var articlesSavedImages: [URL]
+    var timeline: [Date: [TimelineItem]]?
 }
 
 @MainActor
@@ -49,8 +22,21 @@ public class WMFActivityTabViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     private let dataController: WMFActivityTabDataController
     public var onTapArticle: ((TimelineItem) -> Void)?
-    
-    @Published var timelineSections: [TimelineSection] = []
+
+    @Published var articlesReadViewModel: ArticlesReadViewModel = ArticlesReadViewModel(
+        username: "",
+        hoursRead: 0,
+        minutesRead: 0,
+        totalArticlesRead: 0,
+        dateTimeLastRead: "",
+        weeklyReads: [],
+        topCategories: [],
+        usernamesReading: "",
+        articlesSavedAmount: 0,
+        dateTimeLastSaved: "",
+        articlesSavedImages: [],
+        timeline: [:]
+    )
 
     var hasSeenActivityTab: () -> Void
     @Published var isLoggedIn: Bool
@@ -71,50 +57,69 @@ public class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Fetch Main Data
 
-    @MainActor
-        func initialFetch() async {
-            let timeline = (try? await dataController.fetchTimeline()) ?? [:]
+    func fetchData() {
 
-            var sections: [TimelineSection] = []
+        Task {
+            async let timeResult = dataController.getTimeReadPast7Days()
+            async let articlesResult = dataController.getArticlesRead()
+            async let dateResult = dataController.getMostRecentReadDateTime()
+            async let weeklyResults = dataController.getWeeklyReadsThisMonth()
+            async let categoriesResult = dataController.getTopCategories()
+            async let timelineResult = dataController.fetchTimeline()
 
-            for (date, value) in timeline {
-                let items = value.map { pageWithTimestamp in
-                    TimelineItem(pageWithTimestamp: pageWithTimestamp)
-                }
-                let sortedItems = items.sorted { $0.pageWithTimestamp.timestamp > $1.pageWithTimestamp.timestamp }
-                sections.append(TimelineSection(date: date, items: sortedItems))
+            let (hours, minutes) = (try? await timeResult) ?? (0, 0)
+            let totalArticlesRead = (try? await articlesResult) ?? 0
+            let dateTime = (try? await dateResult) ?? Date()
+            let weeklyReads = (try? await weeklyResults) ?? []
+            let categories = (try? await categoriesResult) ?? []
+            let timelineItems = (try? await timelineResult) ?? [:]
+            let formattedDate = self.formatDateTime(dateTime)
+
+            // TEMP: Saved Articles Module
+            let calendar = Calendar.current
+            var savedArticleCount: Int = 0
+            var savedArticleDate: Date? = nil
+            var savedArticleImages: [URL] = []
+            let endDate = Date()
+            if let startDate = calendar.date(byAdding: .day, value: -30, to: endDate),
+               let tempData = await savedArticlesModuleDataDelegate?.getSavedArticleModuleData(from: startDate, to: endDate) {
+                savedArticleCount = tempData.savedArticlesCount
+                savedArticleDate = tempData.dateLastSaved
+                savedArticleImages = tempData.articleUrlStrings.compactMap { URL(string: $0) }
             }
-
-            timelineSections = sections
+            
+            await MainActor.run {
+                
+                var model = self.articlesReadViewModel
+                model.hoursRead = hours
+                model.minutesRead = minutes
+                model.totalArticlesRead = totalArticlesRead
+                model.dateTimeLastRead = formattedDate
+                model.weeklyReads = weeklyReads
+                model.topCategories = categories
+                model.timeline = timelineItems
+                model.articlesSavedAmount = savedArticleCount
+                model.dateTimeLastSaved = savedArticleDate.map { self.formatDateTime($0) } ?? ""
+                model.articlesSavedImages = savedArticleImages
+                self.articlesReadViewModel = model
+            }
         }
-    
-    @MainActor
-        func refreshData() async {
-            let timeline = (try? await dataController.fetchTimeline()) ?? [:]
-
-            for (date, value) in timeline {
-                let items = value.map { pageWithTimestamp in
-                    TimelineItem(pageWithTimestamp: pageWithTimestamp)
-                }
-                let sortedItems = items.sorted { $0.pageWithTimestamp.timestamp > $1.pageWithTimestamp.timestamp }
-
-                // Update existing section if present
-                if let existingSection = timelineSections.first(where: { Calendar.current.isDate($0.date, inSameDayAs: date) }) {
-                    existingSection.items = sortedItems
-                } else {
-                    // Create new section if missing
-                    let newSection = TimelineSection(date: date, items: sortedItems)
-                    timelineSections.append(newSection)
-                }
-            }
-
-            // Remove sections that no longer exist in the latest fetch
-            timelineSections.removeAll { section in
-                !timeline.keys.contains { Calendar.current.isDate($0, inSameDayAs: section.date) }
-            }
-        }
+    }
 
     // MARK: - View Strings
+
+    public var hoursMinutesRead: String {
+        localizedStrings.totalHoursMinutesRead(articlesReadViewModel.hoursRead, articlesReadViewModel.minutesRead)
+    }
+
+    // MARK: - Updates
+
+    public func updateUsername(username: String) {
+        articlesReadViewModel.username = username
+        articlesReadViewModel.usernamesReading = username.isEmpty
+            ? localizedStrings.noUsernameReading
+            : localizedStrings.userNamesReading(username)
+    }
 
     public func updateIsLoggedIn(isLoggedIn: Bool) {
         self.isLoggedIn = isLoggedIn
@@ -135,22 +140,23 @@ public class WMFActivityTabViewModel: ObservableObject {
     }
     
     @MainActor
-        func deleteItem(item: TimelineItem, in section: TimelineSection) async {
-            
-            // Tell SwiftUI we're about to change something
-            //    objectWillChange.send()
-            
-            withAnimation {
-                section.items.removeAll { $0 === item }
-                timelineSections = timelineSections // hack, maybe updates some sort of snapshot
-            }
-            
+    func deletePage(item: TimelineItem) {
+        Task {
             do {
-                try await dataController.deletePageView(for: item.pageWithTimestamp)
+                try await dataController.deletePageView(for: item)
+
+                // Delete from local model
+                let date = Calendar.current.startOfDay(for: item.date)
+                if var items = articlesReadViewModel.timeline?[date] {
+                    items.removeAll { $0.id == item.id }
+                    articlesReadViewModel.timeline?[date] = items
+                    self.articlesReadViewModel = articlesReadViewModel
+                }
             } catch {
                 print("Failed to delete page: \(error)")
             }
         }
+    }
     
     // MARK: - Localized Strings
     

@@ -4,6 +4,7 @@ import WMFData
 final class WMFAsyncPageRowViewModel: ObservableObject {
     
     let wmfPage: WMFPage
+    let id: String
     let titleHtml: String
     let imageURLString: String?
     let iconImage: UIImage?
@@ -11,8 +12,9 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     @Published var articleDescription: String?
     @Published var uiImage: UIImage?
     
-    internal init(wmfpage: WMFPage, titleHtml: String, imageURLString: String? = nil, iconImage: UIImage? = nil, articleDescription: String? = nil, uiImage: UIImage? = nil) {
+    internal init(wmfpage: WMFPage, id: String, titleHtml: String, imageURLString: String? = nil, iconImage: UIImage? = nil, articleDescription: String? = nil, uiImage: UIImage? = nil) {
         self.wmfPage = wmfpage
+        self.id = id
         self.titleHtml = titleHtml
         self.imageURLString = imageURLString
         self.iconImage = iconImage
