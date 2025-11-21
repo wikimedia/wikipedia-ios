@@ -88,14 +88,14 @@ class DatabasePopulationViewModel: ObservableObject {
                 .wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
 
             for (_, article) in articlesByKey {
+                guard let siteURL = article.url?.wmf_site else { continue }
                 let randomDateInPastYear = Date.randomInPastYear()
                 article.viewedDate = randomDateInPastYear
 
                 if let title = article.displayTitle,
-                   let currentSiteURL,
-                   let languageCode = currentSiteURL.wmf_languageCode {
+                   let languageCode = siteURL.wmf_languageCode {
 
-                    let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: currentSiteURL.wmf_languageVariantCode))
+                    let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: siteURL.wmf_languageVariantCode))
 
                     _ = try await pageViewsDataController.addPageView(
                         title: title,
