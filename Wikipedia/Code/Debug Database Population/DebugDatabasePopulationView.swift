@@ -70,6 +70,27 @@ struct DatabasePopulationView: View {
                     Spacer()
                 }
             }
+            
+            // MARK: - Add Viewed Articles Section
+            Section {
+                ToggleTextFieldRow(
+                    title: "Add",
+                    trailingLabel: "viewed articles",
+                    isOn: $viewModel.addViewedArticles,
+                    text: $viewModel.viewedArticlesCountString
+                )
+
+                HStack {
+                    Toggle("", isOn: $viewModel.randomizeViewedAcrossLanguages)
+                        .labelsHidden()
+                        .frame(width: 40)
+                        .disabled(!viewModel.addViewedArticles)
+                        .opacity(viewModel.addViewedArticles ? 1 : 0.4)
+
+                    Text("Randomize across languages")
+                    Spacer()
+                }
+            }
 
             // MARK: - Centered Button Section
             Section {
