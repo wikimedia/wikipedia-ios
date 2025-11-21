@@ -91,19 +91,6 @@ public struct WMFActivityTabView: View {
         }
     }
 
-    private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        let summary = timelineViewModel.pageSummaries[item.id]
-
-        return WMFArticlePreviewViewModel(
-            url: item.url,
-            titleHtml: item.titleHtml,
-            description: summary?.description ?? item.description,
-            imageURLString: summary?.thumbnailURL?.absoluteString ?? item.imageURLString,
-            isSaved: false,
-            snippet: summary?.extract ?? item.snippet
-        )
-    }
-
     private var historyView: some View {
        return Group {
            let timeline = timelineViewModel.timeline
