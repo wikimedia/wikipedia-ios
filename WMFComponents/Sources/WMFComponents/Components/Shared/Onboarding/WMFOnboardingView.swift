@@ -15,27 +15,14 @@ public struct WMFOnboardingView: View {
     var sizeClassPadding: CGFloat {
         horizontalSizeClass == .regular ? 40 : 16
     }
-    
-    @ScaledMetric var scrollViewBottomInset = 130.0
-    
-    @State private var flashScrollIndicators: Bool = false
 
-    // MARK: - Lifecycle
-    
-    @available(iOS 17.0, *)
-    var flashingScrollView: some View {
-        ScrollView(showsIndicators: true) {
-            scrollViewContent
-        }
-        .scrollIndicatorsFlash(trigger: flashScrollIndicators)
-    }
-    
-    var scrollView: some View {
-        ScrollView(showsIndicators: true) {
-            scrollViewContent
-        }
-    }
-    
+    @State private var flashScrollIndicators: Bool = false
+    @State private var buttonAreaHeight: CGFloat = 0
+
+    // MARK: - Scroll Content
+
+    @State private var safeAreaBottom: CGFloat = 0
+
     var scrollViewContent: some View {
         VStack {
             Text(viewModel.title)
@@ -44,7 +31,8 @@ public struct WMFOnboardingView: View {
                 .padding(.bottom, 44)
                 .padding(.top, 44 + sizeClassPadding)
                 .multilineTextAlignment(.center)
-            ForEach(1...viewModel.cells.count, id:\.self) { cell in
+
+            ForEach(1...viewModel.cells.count, id: \.self) { cell in
                 VStack {
                     WMFOnboardingCell(viewModel: viewModel.cells[cell - 1])
                         .padding(.bottom, 24)
@@ -52,46 +40,67 @@ public struct WMFOnboardingView: View {
                 }
             }
         }
-        .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
+        .padding(.horizontal, sizeClassPadding)
     }
 
-	var content: some View {
-        ZStack(alignment: .bottom, content: {
-            if #available(iOS 17.0, *) {
-                flashingScrollView
-            } else {
-                scrollView
-            }
-            VStack(spacing: 20) {
-                WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: ( viewModel.primaryButtonAction != nil ? viewModel.primaryButtonAction : primaryButtonAction))
-                    .padding([.top], 16)
+    // MARK: - Buttons
 
-                if let secondaryTitle = viewModel.secondaryButtonTitle {
-                    let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: viewModel.secondaryButtonTrailingIcon)
-                    WMFSmallButton(configuration: configuration, title: secondaryTitle, action: ( viewModel.secondaryButtonAction != nil ? viewModel.secondaryButtonAction : secondaryButtonAction))
-                }
+    var buttonArea: some View {
+        VStack(spacing: 20) {
+            WMFLargeButton(
+                configuration: .primary,
+                title: viewModel.primaryButtonTitle,
+                action: (viewModel.primaryButtonAction ?? primaryButtonAction)
+            )
+            .padding(.top, 16)
+
+            if let secondaryTitle = viewModel.secondaryButtonTitle {
+                let configuration = WMFSmallButton.Configuration(
+                    style: .quiet,
+                    trailingIcon: viewModel.secondaryButtonTrailingIcon
+                )
+                WMFSmallButton(configuration: configuration,
+                               title: secondaryTitle,
+                               action: (viewModel.secondaryButtonAction ?? secondaryButtonAction))
             }
-            .padding(EdgeInsets(top: 12, leading: sizeClassPadding, bottom: 24, trailing: sizeClassPadding))
-            .background {
-                Color(appEnvironment.theme.paperBackground).ignoresSafeArea()
+        }
+        .padding(EdgeInsets(top: 12,
+                            leading: sizeClassPadding,
+                            bottom: 24,
+                            trailing: sizeClassPadding))
+        .background(Color(appEnvironment.theme.paperBackground).ignoresSafeArea())
+        .background(
+            GeometryReader { proxy in
+                Color.clear
+                    .onAppear { buttonAreaHeight = proxy.size.height }
+                    .onChange(of: proxy.size.height) { buttonAreaHeight = $0 }
             }
-        })
-	}
+        )
+    }
+
+    // MARK: - Body
 
     public var body: some View {
-        content
-            .background {
-                Color(appEnvironment.theme.paperBackground).ignoresSafeArea()
-            }
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    flashScrollIndicators.toggle()
+        VStack(spacing: 0) {
+
+            if #available(iOS 17.0, *) {
+                ScrollView(showsIndicators: true) {
+                    scrollViewContent
+                }
+                .scrollIndicatorsFlash(trigger: flashScrollIndicators)
+            } else {
+                ScrollView(showsIndicators: true) {
+                    scrollViewContent
                 }
             }
+
+            buttonArea
+        }
+        .background(Color(appEnvironment.theme.paperBackground).ignoresSafeArea())
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                flashScrollIndicators.toggle()
+            }
+        }
     }
-
-}
-
-#Preview {
-	WMFOnboardingView(viewModel: .init(title: "Onboarding View", cells: [.init(icon: .add, title: "Title 1", subtitle: "Subtitle 1"), .init(icon: .checkmark, title: "Title 2", subtitle: "Subtitle 2")], primaryButtonTitle: "Primary Button", secondaryButtonTitle: "Secondary Button"))
 }
