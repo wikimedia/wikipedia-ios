@@ -5,6 +5,39 @@ import CocoaLumberjackSwift
 
 @MainActor
 class DatabasePopulationViewModel: ObservableObject {
+    
+    enum ViewedDateRange: String, CaseIterable, Identifiable {
+        case pastYear = "Past Year"
+        case pastMonth = "Past Month"
+        case pastWeek = "Past Week"
+        case past3Days = "Past 3 Days"
+
+        var id: String { rawValue }
+
+        func randomDate() -> Date {
+            let now = Date()
+            let calendar = Calendar.current
+
+            let startDate: Date
+
+            switch self {
+            case .pastYear:
+                startDate = calendar.date(byAdding: .year, value: -1, to: now)!
+            case .pastMonth:
+                startDate = calendar.date(byAdding: .month, value: -1, to: now)!
+            case .pastWeek:
+                startDate = calendar.date(byAdding: .day, value: -7, to: now)!
+            case .past3Days:
+                startDate = calendar.date(byAdding: .day, value: -3, to: now)!
+            }
+
+            let interval = now.timeIntervalSince(startDate)
+            let offset = TimeInterval.random(in: 0...interval)
+            return startDate.addingTimeInterval(offset)
+        }
+    }
+
+    
     @Published var createLists: Bool = false
     @Published var addEntries: Bool = false
     @Published var randomizeAcrossLanguages: Bool = false
@@ -17,6 +50,7 @@ class DatabasePopulationViewModel: ObservableObject {
     @Published var addViewedArticles = false
     @Published var viewedArticlesCountString = "10"
     @Published var randomizeViewedAcrossLanguages = false
+    @Published var viewedDateRange: ViewedDateRange = .pastYear
     
     private let dataStore = MWKDataStore.shared()
     private var legacyContext: NSManagedObjectContext {
@@ -89,8 +123,8 @@ class DatabasePopulationViewModel: ObservableObject {
 
             for (_, article) in articlesByKey {
                 guard let siteURL = article.url?.wmf_site else { continue }
-                let randomDateInPastYear = Date.randomInPastYear()
-                article.viewedDate = randomDateInPastYear
+                let randomDate = viewedDateRange.randomDate()
+                article.viewedDate = randomDate
 
                 if let title = article.displayTitle,
                    let languageCode = siteURL.wmf_languageCode {
@@ -102,7 +136,7 @@ class DatabasePopulationViewModel: ObservableObject {
                         namespaceID: 0,
                         project: project,
                         previousPageViewObjectID: nil,
-                        timestamp: randomDateInPastYear
+                        timestamp: randomDate
                     )
                 }
             }
@@ -138,17 +172,5 @@ class DatabasePopulationViewModel: ObservableObject {
                 }
             }
         }
-    }
-}
-
-private extension Date {
-    static func randomInPastYear() -> Date {
-        let now = Date()
-        let oneYearAgo = Calendar.current.date(byAdding: .year, value: -1, to: now)!
-
-        let interval = now.timeIntervalSince(oneYearAgo)
-        let randomOffset = TimeInterval.random(in: 0...interval)
-
-        return oneYearAgo.addingTimeInterval(randomOffset)
     }
 }

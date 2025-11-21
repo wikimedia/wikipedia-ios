@@ -91,6 +91,18 @@ struct DatabasePopulationView: View {
                     Spacer()
                 }
             }
+            
+            // MARK: - Viewed Article Date Range
+            if viewModel.addViewedArticles {
+                Section(header: Text("Viewed Article Dates")) {
+                    Picker("", selection: $viewModel.viewedDateRange) {
+                        ForEach(DatabasePopulationViewModel.ViewedDateRange.allCases) { range in
+                            Text(range.rawValue).tag(range)
+                        }
+                    }
+                    .pickerStyle(.automatic)
+                }
+            }
 
             // MARK: - Centered Button Section
             Section {
