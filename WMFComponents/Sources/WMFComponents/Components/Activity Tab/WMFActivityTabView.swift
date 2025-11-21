@@ -178,15 +178,31 @@ public struct WMFActivityTabView: View {
         case .save:
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
-
-        let pageRowViewModel = WMFAsyncPageRowViewModel(wmfpage: page.page, id: page.id, titleHtml:  page.pageTitle.replacingOccurrences(of: "_", with: " "), iconImage: iconImage)
-
-        // todo: bring back context menu, preview
-        return WMFAsyncPageRow(viewModel: pageRowViewModel)
-        .contentShape(Rectangle())
-        .onTapGesture {
-            timelineViewModel.onTap(page)
+        
+        let deleteItemAction: () -> Void = {
+            self.timelineViewModel.deletePage(item: page)
         }
+        
+        let tapAction: () -> Void = {
+            self.timelineViewModel.onTap(page)
+        }
+        
+        let contextMenuOpenAction: () -> Void = {
+            self.timelineViewModel.onTap(page)
+        }
+
+        let pageRowViewModel = WMFAsyncPageRowViewModel(
+            wmfpage: page.page,
+            id: page.id,
+            title: page.pageTitle.replacingOccurrences(of: "_", with: " "),
+            iconImage: iconImage,
+            tapAction: tapAction,
+            contextMenuOpenAction: contextMenuOpenAction,
+            contextMenuOpenText: viewModel.localizedStrings.openArticle,
+            deleteItemAction: deleteItemAction,
+            deleteAccessibilityLabel: viewModel.localizedStrings.deleteAccessibilityLabel)
+
+        return WMFAsyncPageRow(viewModel: pageRowViewModel)
     }
 
     private var headerView: some View {
