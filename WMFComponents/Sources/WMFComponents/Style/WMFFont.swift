@@ -94,10 +94,9 @@ public enum WMFFont {
             return baseFont
 
         case .boldHeadline:
-            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .headline, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
-                fatalError()
-            }
-            return UIFont(descriptor: descriptor, size: 0)
+            let base = UIFont.preferredFont(forTextStyle: .headline, compatibleWith: traitCollection)
+            let bold = UIFont.systemFont(ofSize: base.pointSize, weight: .bold)
+            return UIFontMetrics(forTextStyle: .headline).scaledFont(for: bold)
 
         case .boldItalicCallout:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .callout, compatibleWith: traitCollection).withSymbolicTraits([.traitBold, .traitItalic]) else {
