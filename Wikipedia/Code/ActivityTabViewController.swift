@@ -15,7 +15,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
-    
+
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
         self.dataStore = dataStore
         self.viewModel = viewModel
@@ -25,29 +25,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         self.theme = theme
         super.init()
     }
-    
-    var learnMoreAboutActivityURL: URL? {
 
-        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
-            return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Activity_Tab")
-        }
-
-        return WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "iOS", "Activity Tab"], section: nil, language: appLanguage)
-    }
-    
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
-        
+
         updateLoginState()
     }
-    
+
     @objc private func updateLoginState() {
         if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
             viewModel.updateIsLoggedIn(isLoggedIn: true)
@@ -58,7 +49,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
     }
-    
+
     // MARK: - Profile button dependencies
 
     private var _yirCoordinator: YearInReviewCoordinator?
@@ -105,27 +96,27 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         return existingProfileCoordinator
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
         }
-        
-        viewModel.navigateToSaved = goToSaved
-        
-        viewModel.onTapArticle = onTapArticle
-        
-        viewModel.savedArticlesModuleDataDelegate = dataStore?.savedPageList
-        
-        if !dataController.hasSeenActivityTab {
-            presentOnboarding()
-        }
-        
+
+        viewModel.articlesSavedViewModel.navigateToSaved = goToSaved
+        viewModel.timelineViewModel.onTapArticle = onTapArticle
+
         configureNavigationBar()
+
+        Task {
+            let hasSeen = await dataController.getHasSeenActivityTab()
+            if !hasSeen {
+                presentOnboarding()
+            }
+        }
     }
-    
+
     private func presentOnboarding() {
         let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .bookPages), title: firstItemTitle, subtitle: firstItemSubtitle, fillIconBackground: false)
         let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .pencil), title: secondItemTitle, subtitle: secondItemSubtitle, fillIconBackground: false)
@@ -144,25 +135,25 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
     }
-    
+
     private let firstItemTitle = WMFLocalizedString("activity-tab-onboarding-first-item-title", value: "Reading patterns", comment: "Title for activity tabs first item")
     private let firstItemSubtitle = WMFLocalizedString("activity-tab-onboarding-first-item-subtitle", value: "See how much time you've spent reading and which articles or topics you've explored over time.", comment: "Activity tabs first item subtitle")
-    
+
     private let secondItemTitle = WMFLocalizedString("activity-tab-onboarding-second-item-title", value: "Impact highlights", comment: "Title for activity tabs second item")
     private let secondItemSubtitle = WMFLocalizedString("activity-tab-onboarding-second-item-subtitle", value: "Discover insights about your contributions and the reach of the knowledge you've shared.", comment: "Activity tabs second item subtitle")
-    
+
     private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title", value: "More ways to engage", comment: "Title for activity tabs third item")
     private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle", value: "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.", comment: "Activity tabs third item subtitle")
 
     private let fourthItemTitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-title", value: "Stay in control", comment: "Title for activity tabs fourth item")
     private let fourthItemSubtitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-subtitle", value: "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.", comment: "Activity tabs fourth item subtitle")
-    
+
     private let activityOnboardingHeader = WMFLocalizedString("activity-tab-onboarding-header", value: "Introducing Activity", comment: "Activity tabs onboarding header")
     private let learnMoreAboutActivity = WMFLocalizedString("activity-tab-onboarding-second-button-title", value: "Learn more about Activity", comment: "Activity tabs secondary button to learn more")
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
@@ -171,6 +162,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
     }
+
 
     // MARK: - Overflow Menu
 
@@ -199,12 +191,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         return mainMenu
     }
 
-    private var learnMoreURL: String {
-        var languageCodeSuffix = ""
-        if let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode {
-            languageCodeSuffix = "\(primaryAppLanguageCode)"
+    var learnMoreAboutActivityURL: URL? {
+
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Activity_Tab")
         }
-        return "https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/Activity_Tab?uselang=\(languageCodeSuffix)"
+
+        return WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "iOS", "Activity Tab"], section: nil, language: appLanguage)
     }
 
     private func userDidTapClearReadingHistory() {
@@ -229,7 +222,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     private func userDidTapLearnMore() {
-        if let url = URL(string: learnMoreURL) {
+        if let url = learnMoreAboutActivityURL {
             let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
             let newNavigationVC =
@@ -260,9 +253,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     // MARK: - Navigation Bar
-
     private func configureNavigationBar() {
-        
+
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingCompact)
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
@@ -271,7 +263,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
-        
+
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
@@ -291,29 +283,29 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     @objc func userDidTapProfile() {
-        
+
         guard let dataStore else {
             return
         }
-        
+
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
               DonateCoordinator.metricsID(for: .activityTabProfile, languageCode: languageCode) != nil else {
             return
         }
-              
+
         profileCoordinator?.start()
     }
-    
+
     private func updateProfileButton() {
-        
+
         guard let dataStore else {
             return
         }
-        
+
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
-    
+
     @objc func goToSaved() {
         navigationController?.popToRootViewController(animated: false)
 
@@ -368,7 +360,9 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewDidClickPrimaryButton() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            self?.dataController.hasSeenActivityTab = true
+            Task {
+                await self?.dataController.setHasSeenActivityTab(true)
+            }
         })
 
         // TODO: Log
@@ -386,7 +380,9 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewWillSwipeToDismiss() {
         presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            self?.dataController.hasSeenActivityTab = true
+            Task {
+                await self?.dataController.setHasSeenActivityTab(true)
+            }
         })
     }
 }
