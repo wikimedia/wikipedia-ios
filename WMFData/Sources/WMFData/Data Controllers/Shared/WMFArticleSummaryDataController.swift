@@ -12,7 +12,7 @@ public actor WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
     
     private var cache: [WMFPage: WMFArticleSummary] = [:]
     
-    private init() {
+    public init() {
         self.service = WMFDataEnvironment.current.basicService
     }
     

@@ -37,7 +37,14 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         }
         
         let summary = try? await summaryDataController.fetchArticleSummary(project: project, title: wmfPage.title)
-        self.articleDescription = summary?.description
+        
+        if let desc = summary?.description, !desc.isEmpty {
+            self.articleDescription = desc
+        } else if let extract = summary?.extract, !extract.isEmpty {
+            self.articleDescription = extract
+        } else {
+            self.articleDescription = nil
+        }
         
         let imageDataController = WMFImageDataController()
         
