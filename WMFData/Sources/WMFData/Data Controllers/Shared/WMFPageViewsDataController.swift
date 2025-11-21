@@ -119,7 +119,7 @@ public final class WMFPageViewsDataController {
         self.coreDataStore = coreDataStore
     }
     
-    public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?) async throws -> NSManagedObjectID? {
+    public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?, timestamp: Date? = nil) async throws -> NSManagedObjectID? {
         
         let coreDataTitle = title.normalizedForCoreData
         
@@ -130,17 +130,17 @@ public final class WMFPageViewsDataController {
             
             guard let self else { return nil }
             
-            let currentDate = Date()
+            let timestamp = timestamp ?? Date()
             let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
             let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
             page?.title = coreDataTitle
             page?.namespaceID = namespaceID
             page?.projectID = project.id
-            page?.timestamp = currentDate
+            page?.timestamp = timestamp
             
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
             viewedPage.page = page
-            viewedPage.timestamp = currentDate
+            viewedPage.timestamp = timestamp
             
             if let previousPageViewObjectID,
                let previousPageView = backgroundContext.object(with: previousPageViewObjectID) as? CDPageView {
