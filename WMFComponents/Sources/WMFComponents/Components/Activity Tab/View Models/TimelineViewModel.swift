@@ -6,11 +6,17 @@ import SwiftUI
 @MainActor
 public final class TimelineViewModel: ObservableObject {
     
-    public struct TimelineSection: Identifiable {
+    public final class TimelineSection: ObservableObject, Identifiable {
+        internal init(date: Date, items: [TimelineItem]) {
+            self.date = date
+            self.items = items
+        }
+        
         let date: Date
-        var items: [TimelineItem]
+        @Published public var items: [TimelineItem]
         
         public var id: Date { date }
+        
     }
 
     private let dataController: WMFActivityTabDataController
@@ -51,7 +57,7 @@ public final class TimelineViewModel: ObservableObject {
         return UIImage(data: data)
     }
 
-    public func deletePage(item: TimelineItem, sectionID: TimelineSection.ID) {
+    public func deletePage(item: TimelineItem, section: TimelineSection) {
         Task {
             do {
                 try await dataController.deletePageView(for: item)
@@ -60,9 +66,12 @@ public final class TimelineViewModel: ObservableObject {
                 print("Failed to delete page: \(error)")
             }
         }
+
+        section.items.removeAll { $0.id == item.id }
         
-       guard let sectionIndex = sections.firstIndex(where: { $0.id == sectionID }) else { return }
-       sections[sectionIndex].items.removeAll { $0.id == item.id }
+        if section.items.isEmpty {
+            sections.removeAll { $0.id == section.id }
+        }
     }
 
     func onTap(_ item: TimelineItem) {
