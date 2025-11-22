@@ -792,8 +792,6 @@
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktive App-Nutzer hatten in diesem Jahr {{PLURAL:$1|$1 gespeicherten Artikel|$1 gespeicherte Artikel}}. Das Hinzufügen von Artikeln zu Leselisten ermöglicht es dir, auf Artikel auch offline zuzugreifen. Du kannst dich auch anmelden, um Leselisten zwischen Geräten zu synchronisieren.";
 "microsite-yir-english-saved-reading-slide-title" = "Wir hatten {{PLURAL:$1|$1 gespeicherten Artikel|$1 gespeicherte Artikel}}";
 // Fuzzy
-"microsite-yir-english-top-read-slide-subtitle" = "Wenn Menschen über unsere Welt lernen wollen – das Gute, Schlechte, Seltsame und Wilde gleichermaßen –, wenden sie sich an Wikipedia. Die Top 5 der meistbesuchten Artikel der englischen Wikipedia waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nErfahre mehr in $6unserem Blogpost$7.";
-// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Am häufigsten gelesene Artikel in der englischsprachigen Wikipedia";
 "more-languages-tooltip-description" = "Wikipedia in über 300 Sprachen durchsuchen";
 "more-languages-tooltip-title" = "Sprachen hinzufügen";
@@ -1565,8 +1563,6 @@
 "year-in-review-intro-login-title" = "Für Personalisierung anmelden";
 "year-in-review-most-read-categories-title" = "Deine interessantesten Kategorien";
 "year-in-review-non-contributor-slide-title" = "Sichere dir deine Mitwirkendenprämie für das nächste Jahr!";
-// Fuzzy
-"year-in-review-noncontributor-slide-subtitle" = "Wir freuen uns, dass Wikipedia Teil deines $1 war! Schalte eine besondere Belohnung in deinem $2 frei, indem du selbst aktiv wirst – entweder durch [Bearbeiten von Wikipedia]($3) oder durch eine Spende an die [Wikimedia Foundation]($4), die dahinterstehende gemeinnützige Organisation. Wenn Wikipedia für Dich nützlich ist, erwäge bitte eine Spende, um ihre Zukunft zu sichern und es kostenlos, werbefrei, vertrauenswürdig und für alle zugänglich zu halten.";
 "year-in-review-personalized-date-day-footer-v3" = "Lieblings-Lesetag";
 "year-in-review-personalized-date-month-footer-v3" = "Monat, in dem du am meisten gelesen hast";
 "year-in-review-personalized-date-time-footer-v3" = "Lieblings-Lesezeit";
