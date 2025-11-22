@@ -389,7 +389,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             for input in inputs {
                 group.addTask {
                     do {
-                        let dc = WMFArticleSummaryDataController()
+                        let dc = WMFArticleSummaryDataController.shared
                         let summary = try await dc.fetchArticleSummary(project: input.project, title: input.title)
 
                         let subtitle = input.isMain ? mainSubtitle     : summary.description
@@ -435,7 +435,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             guard let self else { return }
             defer { Task { @MainActor in self.incomingTabIDs.remove(tab.id) } }
             do {
-                let dc = WMFArticleSummaryDataController()
+                let dc = WMFArticleSummaryDataController.shared
                 let summary = try await dc.fetchArticleSummary(project: last.project, title: last.title)
                 let subtitle = last.isMain ? self.localizedStrings.mainPageSubtitle : summary.description
                 let snippet = last.isMain ? self.localizedStrings.mainPageDescription : summary.extract

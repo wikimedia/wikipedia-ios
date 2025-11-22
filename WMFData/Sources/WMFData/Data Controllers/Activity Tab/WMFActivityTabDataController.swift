@@ -142,11 +142,13 @@ public actor WMFActivityTabDataController {
             if let existingItems = dailyTimeline[dayBucket] {
                 todaysPages = Set(existingItems.map { $0.pageTitle })
             }
+            
+            let identifier = String(record.timestamp.timeIntervalSince1970)
 
             guard !todaysPages.contains(page.title) else { continue }
 
             let item = TimelineItem(
-                id: UUID().uuidString,
+                id: identifier,
                 date: timestamp,
                 titleHtml: page.title,
                 projectID: page.projectID,
@@ -185,7 +187,7 @@ public actor WMFActivityTabDataController {
     }
     
     public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
-        let articleSummaryController = WMFArticleSummaryDataController()
+        let articleSummaryController = WMFArticleSummaryDataController.shared
         guard let project = WMFProject(id: page.projectID) else { return nil }
         return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
     }

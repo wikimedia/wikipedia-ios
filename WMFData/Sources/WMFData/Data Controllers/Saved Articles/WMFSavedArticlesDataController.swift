@@ -100,16 +100,7 @@ public actor WMFSavedArticlesDataController {
     }
 
     private func fetchSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary {
-        try await withCheckedThrowingContinuation { continuation in
-            articleSummaryDataController.fetchArticleSummary(project: project, title: title) { result in
-                switch result {
-                case .success(let summary):
-                    continuation.resume(returning: summary)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+        try await articleSummaryDataController.fetchArticleSummary(project: project, title: title)
     }
 
     private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot]) async throws -> [URL?] {

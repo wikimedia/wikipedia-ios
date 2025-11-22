@@ -1,14 +1,27 @@
 import WMFData
 import UIKit
 import Combine
+import SwiftUI
 
 @MainActor
 public final class TimelineViewModel: ObservableObject {
+    
+    public final class TimelineSection: ObservableObject, Identifiable {
+        internal init(date: Date, items: [TimelineItem]) {
+            self.date = date
+            self.items = items
+        }
+        
+        let date: Date
+        @Published public var items: [TimelineItem]
+        
+        public var id: Date { date }
+        
+    }
 
     private let dataController: WMFActivityTabDataController
-
-    @Published var timeline: [Date: [TimelineItem]] = [:]
-    @Published var pageSummaries: [String: WMFArticleSummary] = [:]
+    
+    @Published var sections: [TimelineSection] = []
 
     public var onTapArticle: ((TimelineItem) -> Void)?
 
@@ -19,29 +32,18 @@ public final class TimelineViewModel: ObservableObject {
     public func fetch() async {
         do {
             let result = try await dataController.fetchTimeline()
-            self.timeline = result
+            
+            var sections = [TimelineSection]()
+            for (key, value) in result {
+                let sortedItems = value.sorted { $0.date > $1.date }
+                sections.append(TimelineSection(date: key, items: sortedItems))
+            }
+            
+            let sortedSections = sections.sorted { $0.date > $1.date }
+            self.sections = sortedSections
         } catch {
             debugPrint("error fetching timeline: \(error)")
         }
-    }
-
-    public func fetchSummary(for item: TimelineItem) async -> WMFArticleSummary? {
-        let itemID = item.id
-
-        if let existing = pageSummaries[itemID] {
-            return existing
-        }
-
-        do {
-            if let summary = try await dataController.fetchSummary(for: item.page) {
-                pageSummaries[itemID] = summary   // triggers UI update
-                return summary
-            }
-        } catch {
-            debugPrint("Failed to fetch summary for \(itemID): \(error)")
-        }
-
-        return nil
     }
 
     public func loadImage(imageURLString: String?) async throws -> UIImage? {
@@ -55,20 +57,20 @@ public final class TimelineViewModel: ObservableObject {
         return UIImage(data: data)
     }
 
-    public func deletePage(item: TimelineItem) {
+    public func deletePage(item: TimelineItem, section: TimelineSection) {
         Task {
             do {
                 try await dataController.deletePageView(for: item)
-
-                let date = Calendar.current.startOfDay(for: item.date)
-
-                if var items = timeline[date] {
-                    items.removeAll { $0.id == item.id }
-                    timeline[date] = items
-                }
+                
             } catch {
                 print("Failed to delete page: \(error)")
             }
+        }
+
+        section.items.removeAll { $0.id == item.id }
+        
+        if section.items.isEmpty {
+            sections.removeAll { $0.id == section.id }
         }
     }
 

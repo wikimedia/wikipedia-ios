@@ -876,7 +876,8 @@ extension WMFAppViewController {
                 loggedOutSecondaryCTA: CommonStrings.editSignIn,
                 todayTitle: CommonStrings.todayTitle,
                 yesterdayTitle: CommonStrings.yesterdayTitle,
-                openArticle: openArticle),
+                openArticle: openArticle,
+                deleteAccessibilityLabel: CommonStrings.deleteActionTitle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             Task {

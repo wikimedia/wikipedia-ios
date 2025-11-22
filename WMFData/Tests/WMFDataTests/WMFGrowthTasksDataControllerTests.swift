@@ -87,32 +87,11 @@ final class WMFGrowthTasksDataControllerTests: XCTestCase {
         XCTAssertEqual(imageMetadata?.contentLanguageName, "English", "Incorrect content language name")
     }
     
-    func testFetchArticleSummary() {
-        
-        let expectation = XCTestExpectation(description: "Fetch Article Summary")
+    func testFetchArticleSummary() async throws {
         
         let controller = WMFArticleSummaryDataController()
         
-        var articleSummaryToTest: WMFArticleSummary?
-        controller.fetchArticleSummary(project: csProject, title: "Novela (právo)") { result in
-            switch result {
-            case .success(let articleSummary):
-                
-                articleSummaryToTest = articleSummary
-                
-            case .failure(let error):
-                XCTFail("Failure getting article summary: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 3.0)
-        
-        guard let articleSummaryToTest else {
-            XCTFail("Missing articleSummaryToTest")
-            return
-        }
+        let articleSummaryToTest = try await controller.fetchArticleSummary(project: csProject, title: "Novela (právo)")
         
         XCTAssertEqual(articleSummaryToTest.displayTitle, "<span class=\"mw-page-title-main\">Novela (právo)</span>", "Incorrect displayTitle")
         XCTAssertEqual(articleSummaryToTest.description, "změna zákona", "Incorrect description")

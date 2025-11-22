@@ -12,7 +12,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Navigation / Delegates
 
-
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
 
     // MARK: - Localization
@@ -36,6 +35,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let todayTitle: String
         public let yesterdayTitle: String
         public let openArticle: String
+        public let deleteAccessibilityLabel: String
 
         public init(
             userNamesReading: @escaping (String) -> String,
@@ -55,7 +55,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
             loggedOutSecondaryCTA: String,
             todayTitle: String,
             yesterdayTitle: String,
-            openArticle: String
+            openArticle: String,
+            deleteAccessibilityLabel: String
         ) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
@@ -75,6 +76,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.todayTitle = todayTitle
             self.yesterdayTitle = yesterdayTitle
             self.openArticle = openArticle
+            self.deleteAccessibilityLabel = deleteAccessibilityLabel
         }
     }
 

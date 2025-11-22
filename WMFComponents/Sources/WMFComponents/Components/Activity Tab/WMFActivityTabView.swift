@@ -6,7 +6,6 @@ import Foundation
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
-    @ObservedObject private var timelineViewModel: TimelineViewModel
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -14,13 +13,13 @@ public struct WMFActivityTabView: View {
 
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
-        self.timelineViewModel = viewModel.timelineViewModel
     }
 
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.isLoggedIn {
                 List {
+                    
                     Section {
                         VStack(spacing: 20) {
                             headerView
@@ -91,149 +90,12 @@ public struct WMFActivityTabView: View {
         }
     }
 
-    private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        let summary = timelineViewModel.pageSummaries[item.id]
-
-        return WMFArticlePreviewViewModel(
-            url: item.url,
-            titleHtml: item.titleHtml,
-            description: summary?.description ?? item.description,
-            imageURLString: summary?.thumbnailURL?.absoluteString ?? item.imageURLString,
-            isSaved: false,
-            snippet: summary?.extract ?? item.snippet
-        )
-    }
-
     private var historyView: some View {
-       return Group {
-           let timeline = timelineViewModel.timeline
-            if !timeline.isEmpty {
-                // Sort dates descending
-                ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
-                    timelineSection(for: date, pages: timeline[date] ?? [])
-                        .listRowSeparator(.hidden)
-                }
-            }
+        ForEach(viewModel.timelineViewModel.sections) { section in
+            TimelineSectionView(activityViewModel: viewModel, section: section)
         }
     }
     
-    private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
-        let sortedPages = pages.sorted(by: { $0.date > $1.date })
-        let calendar = Calendar.current
-
-        let title: String
-        let subtitle: String
-        if calendar.isDateInToday(date) {
-            title = viewModel.localizedStrings.todayTitle
-            subtitle = viewModel.formatDate(date)
-        } else if calendar.isDateInYesterday(date) {
-            title = viewModel.localizedStrings.yesterdayTitle
-            subtitle = viewModel.formatDate(date)
-        } else {
-            title = viewModel.formatDate(date)
-            subtitle = ""
-        }
-
-        return Section(
-            header:
-                VStack(alignment: .leading, spacing: 4) {
-                    if !title.isEmpty {
-                        Text(title)
-                            .font(Font(WMFFont.for(.boldTitle3)))
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .textCase(.none)
-                    }
-                    if !subtitle.isEmpty {
-                        Text(subtitle)
-                            .font(Font(WMFFont.for(.subheadline)))
-                            .foregroundColor(Color(uiColor: theme.secondaryText))
-                            .textCase(.none)
-                    }
-                }
-                .padding(.bottom, 20)
-        ) {
-            ForEach(sortedPages.indices, id: \.self) { index in
-                pageRow(page: sortedPages[index], section: date)
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .padding(.bottom, 20)
-            }
-        }
-        .listRowInsets(EdgeInsets())
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color(uiColor: theme.paperBackground))
-        .padding(.horizontal, 16)
-    }
-
-
-    private func pageRow(page: TimelineItem, section: Date) -> some View {
-        let iconImage: UIImage?
-        switch page.itemType {
-        case .standard:
-            iconImage = nil
-        case .edit:
-            iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
-        case .read:
-            iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
-        case .save:
-            iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
-        }
-
-        let summary = timelineViewModel.pageSummaries[page.id]
-        let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
-
-        return WMFPageRow(
-            needsLimitedFontSize: false,
-            id: page.id,
-            titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
-            articleDescription: {
-                if let desc = summary?.description, !desc.isEmpty {
-                    return desc
-                } else if let pageDesc = page.description, !pageDesc.isEmpty {
-                    return pageDesc
-                } else if let extract = summary?.extract, !extract.isEmpty {
-                    return extract
-                } else {
-                    return nil
-                }
-            }(),
-            imageURLString: initialThumbnailURLString,
-            titleLineLimit: 1,
-            isSaved: false,
-            showsSwipeActions: true,
-            deleteItemAction: { timelineViewModel.deletePage(item: page) },
-            loadImageAction: { imageURLString in
-                try? await timelineViewModel.loadImage(imageURLString: imageURLString)
-            },
-            iconImage: iconImage
-        )
-        .contentShape(Rectangle())
-        .onTapGesture {
-            timelineViewModel.onTap(page)
-        }
-        .contextMenu {
-            Button {
-                timelineViewModel.onTap(page)
-            } label: {
-                HStack {
-                    Text(viewModel.localizedStrings.openArticle)
-                        .font(Font(WMFFont.for(.mediumSubheadline)))
-                    Spacer()
-                    if let icon = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
-                        Image(uiImage: icon)
-                    }
-                }
-            }
-        } preview: {
-            if summary != nil {
-                WMFArticlePreviewView(viewModel: getPreviewViewModel(from: page))
-            }
-        }
-        .task {
-            _ = await timelineViewModel.fetchSummary(for: page)
-        }
-    }
-
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
             Text(viewModel.articlesReadViewModel.usernamesReading)
@@ -457,5 +319,132 @@ public struct WMFActivityTabView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color(theme.baseBackground), lineWidth: 0.5)
         )
+    }
+}
+
+struct TimelineSectionView: View {
+    
+    let activityViewModel: WMFActivityTabViewModel
+    @ObservedObject var section: TimelineViewModel.TimelineSection
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    var title: String {
+        let calendar = Calendar.current
+
+        let title: String
+        if calendar.isDateInToday(section.date) {
+            title = activityViewModel.localizedStrings.todayTitle
+        } else if calendar.isDateInYesterday(section.date) {
+            title = activityViewModel.localizedStrings.yesterdayTitle
+        } else {
+            title = activityViewModel.formatDate(section.date)
+        }
+        
+        return title
+    }
+    
+    var subtitle: String {
+        let calendar = Calendar.current
+
+        let subtitle: String
+        if calendar.isDateInToday(section.date) {
+            subtitle = activityViewModel.formatDate(section.date)
+        } else if calendar.isDateInYesterday(section.date) {
+            subtitle = activityViewModel.formatDate(section.date)
+        } else {
+            subtitle = ""
+        }
+        
+        return subtitle
+    }
+    
+    public var body: some View {
+        return Section(
+            header:
+                VStack(alignment: .leading, spacing: 4) {
+                    if !title.isEmpty {
+                        Text(title)
+                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .foregroundColor(Color(uiColor: theme.text))
+                            .textCase(.none)
+                    }
+                    if !subtitle.isEmpty {
+                        Text(subtitle)
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundColor(Color(uiColor: theme.secondaryText))
+                            .textCase(.none)
+                    }
+                }
+                .padding(.bottom, 20)
+        ) {
+            ForEach(section.items) { item in
+                TimelineRowView(activityViewModel: activityViewModel, section: section, item: item)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .padding(.bottom, 20)
+            }
+        }
+        .listRowInsets(EdgeInsets())
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color(uiColor: theme.paperBackground))
+        .padding(.horizontal, 16)
+    }
+}
+
+struct TimelineRowView: View {
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    let activityViewModel: WMFActivityTabViewModel
+    let section: TimelineViewModel.TimelineSection
+    let item: TimelineItem
+    
+    var pageRowViewModel: WMFAsyncPageRowViewModel {
+        let iconImage: UIImage?
+        switch item.itemType {
+        case .standard:
+            iconImage = nil
+        case .edit:
+            iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
+        case .read:
+            iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
+        case .save:
+            iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
+        }
+        
+        let deleteItemAction: () -> Void = {
+            self.activityViewModel.timelineViewModel.deletePage(item: item, section: section)
+        }
+        
+        let tapAction: () -> Void = {
+            self.activityViewModel.timelineViewModel.onTap(item)
+        }
+        
+        let contextMenuOpenAction: () -> Void = {
+            self.activityViewModel.timelineViewModel.onTap(item)
+        }
+
+        return WMFAsyncPageRowViewModel(
+            wmfpage: item.page,
+            id: item.id,
+            title: item.pageTitle.replacingOccurrences(of: "_", with: " "),
+            iconImage: iconImage,
+            tapAction: tapAction,
+            contextMenuOpenAction: contextMenuOpenAction,
+            contextMenuOpenText: activityViewModel.localizedStrings.openArticle,
+            deleteItemAction: deleteItemAction,
+            deleteAccessibilityLabel: activityViewModel.localizedStrings.deleteAccessibilityLabel)
+    }
+    
+    public var body: some View {
+        return WMFAsyncPageRow(viewModel: pageRowViewModel)
     }
 }
