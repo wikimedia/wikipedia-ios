@@ -266,20 +266,33 @@ public typealias ReadingListsController = WMFReadingListsController
         guard !readingListEntries.isEmpty else {
             return
         }
-        var lists: Set<ReadingList> = []
+
+        var lists = Set<ReadingList>()
+        var affectedArticleKeys = Set<String>()
+
         for entry in readingListEntries {
             entry.isDeletedLocally = true
             entry.isUpdatedLocally = true
-            guard let list = entry.list else {
-                continue
+
+            if let list = entry.list {
+                lists.insert(list)
             }
-            lists.insert(list)
+
+            if let key = entry.articleKey {
+                affectedArticleKeys.insert(key)
+            }
         }
+
         for list in lists {
             try list.updateArticlesAndEntries()
         }
+
+        let keys = Array(affectedArticleKeys)
+        guard !keys.isEmpty else { return }
+
+        migrateUnsavedArticlesinWMFData(forKeys: keys)
     }
-    
+
     public func delete(readingLists: [ReadingList]) throws {
         assert(Thread.isMainThread)
         
@@ -293,7 +306,53 @@ public typealias ReadingListsController = WMFReadingListsController
         
         sync()
     }
-    
+
+    private func migrateUnsavedArticlesinWMFData(forKeys keys: [String]) {
+        let migrationManager = WMFArticleSavedStateMigrationManager.shared
+
+        guard migrationManager.shouldRunMigration() else { return }
+
+        guard !keys.isEmpty else {
+            return
+        }
+
+        var urlsToUnsave: [URL] = []
+        let group = DispatchGroup()
+        group.enter()
+
+        let performLegacyFetchOnMain: () -> Void = { [weak self] in
+            guard let self = self else {
+                group.leave()
+                return
+            }
+
+            self.dataStore.performBackgroundCoreDataOperation { context in
+                defer { group.leave() }
+
+                let fetch: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+                fetch.predicate = NSPredicate(format: "key IN %@", keys)
+
+                do {
+                    let articles = try context.fetch(fetch)
+                    urlsToUnsave = articles.compactMap { $0.url }
+                } catch {
+                    DDLogError("[SavedMigration] Error fetching articles for unsave: \(error)")
+                }
+            }
+        }
+
+        if Thread.isMainThread {
+            performLegacyFetchOnMain()
+        } else {
+            DispatchQueue.main.async(execute: performLegacyFetchOnMain)
+        }
+
+        group.notify(queue: .main) {
+            guard !urlsToUnsave.isEmpty else { return }
+            migrationManager.removeFromSaved(withUrls: urlsToUnsave)
+        }
+    }
+
     internal func add(articles: [WMFArticle], to readingList: ReadingList, in moc: NSManagedObjectContext) throws {
         guard !articles.isEmpty else {
             return
@@ -356,7 +415,7 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
-    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, randomizeLanguageEntries: Bool, entryCount: Int64, deleteLists: Bool, deleteEntries: Bool, doFullSync: Bool, completion: @escaping () -> Void) {
+    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, randomizeLanguageEntries: Bool, entryCount: Int64, completion: @escaping () -> Void) {
         dataStore.viewContext.wmf_setValue(NSNumber(value: listCount), forKey: "WMFCountOfListsToCreate")
         dataStore.viewContext.wmf_setValue(NSNumber(value: entryCount), forKey: "WMFCountOfEntriesToCreate")
         let oldValue = syncState
@@ -375,24 +434,9 @@ public typealias ReadingListsController = WMFReadingListsController
             newValue.remove(.needsRandomEnEntries)
         }
         
-        if deleteLists {
-            newValue.insert(.needsLocalListClear)
-        } else {
-            newValue.remove(.needsLocalListClear)
-        }
-        if deleteEntries {
-            newValue.insert(.needsLocalArticleClear)
-        } else {
-            newValue.remove(.needsLocalArticleClear)
-        }
-        
         cancelSync {
             self.syncState = newValue
-            if doFullSync {
-                self.fullSync(completion)
-            } else {
-                self._sync(completion)
-            }
+            self._sync(completion)
         }
     }
     
@@ -491,6 +535,7 @@ public typealias ReadingListsController = WMFReadingListsController
         }
 
         newSyncState.remove(.needsUpdate)
+        WMFArticleSavedStateMigrationManager.shared.clearAll()
 
         guard newSyncState != oldSyncState else {
             return

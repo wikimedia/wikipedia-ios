@@ -159,8 +159,7 @@ extension WMFAppViewController {
     }
     
     @objc func getAssignmentForActivityTab() -> Int {
-        let dataController = WMFActivityTabDataController.shared
-        return dataController.getActivityAssignment()
+        return WMFActivityTabDataController.activityAssignmentForObjC()
     }
 
 }
@@ -638,12 +637,32 @@ extension WMFAppViewController {
         Task {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
+                await migrateSavedArticleInfoWithBackgroundTask()
+
             } catch let error {
                 DDLogError("Error setting up WMFCoreDataStore: \(error)")
             }
         }
     }
-    
+
+    private func migrateSavedArticleInfoWithBackgroundTask() async {
+
+        var bgTask: UIBackgroundTaskIdentifier = .invalid
+        bgTask = UIApplication.shared.beginBackgroundTask(withName: "WMFDataMigration") {
+            if bgTask != .invalid {
+                UIApplication.shared.endBackgroundTask(bgTask)
+                bgTask = .invalid
+            }
+        }
+
+        await WMFArticleSavedStateMigrationManager.shared.migrateAllIfNeeded()
+
+        if bgTask != .invalid {
+            UIApplication.shared.endBackgroundTask(bgTask)
+            bgTask = .invalid
+        }
+    }
+
     @objc func setupWMFDataEnvironment() {
         WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
@@ -860,7 +879,9 @@ extension WMFAppViewController {
                 openArticle: openArticle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
-            activityTabDataController.hasSeenActivityTab = true
+            Task {
+                await activityTabDataController.setHasSeenActivityTab(true)
+            }
         }, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
 
         let controller = WMFActivityTabViewController(

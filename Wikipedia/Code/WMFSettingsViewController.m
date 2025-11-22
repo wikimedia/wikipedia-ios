@@ -188,7 +188,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_StorageAndSyncing:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsArticleStorageAndSyncing];
             break;
-        case WMFSettingsMenuItemType_StorageAndSyncingDebug:
+        case WMFSettingsMenuItemType_DatabasePopulation:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsReadingListDangerZone];
             break;
         case WMFSettingsMenuItemType_Support:
@@ -248,8 +248,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self showStorageAndSyncing];
             break;
         }
-        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
-            [self showStorageAndSyncingDebug];
+        case WMFSettingsMenuItemType_DatabasePopulation: {
+            [self showDatabasePopulation];
             break;
         }
         case WMFSettingsMenuItemType_Support: {
@@ -523,10 +523,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
 }
 
-- (void)showStorageAndSyncingDebug {
+- (void)showDatabasePopulation {
 #if DEBUG
-    DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-    [self presentViewControllerWrappedInNavigationController:vc];
+    [self tappedDatabasePopulation];
 #endif
 }
 
@@ -609,7 +608,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];
 #if DEBUG
-    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]];
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DatabasePopulation]];
 #endif
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items headerTitle:nil footerText:nil];

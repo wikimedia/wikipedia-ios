@@ -59,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double longitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
 @property (nullable, nonatomic, copy) NSNumber *ns __attribute__((deprecated)); // Use namespace extension instead
 @property (nullable, nonatomic, copy) NSString *thumbnailURLString; // deprecated
+@property (nonatomic) BOOL isSavedMigrated;
 
 @end
 

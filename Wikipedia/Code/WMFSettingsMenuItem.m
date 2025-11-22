@@ -140,10 +140,10 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
-        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
+        case WMFSettingsMenuItemType_DatabasePopulation: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:@"Reading list danger zone"
+                                                    title:@"Database Population"
                                                  iconName:@"settings-zero"
                                                 iconColor:[UIColor wmf_blue_700]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
