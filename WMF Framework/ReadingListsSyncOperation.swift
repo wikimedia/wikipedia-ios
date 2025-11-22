@@ -95,12 +95,16 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         }
         
         if syncState.contains(.needsRandomEntries) {
-            try executeRandomArticlePopulation(in: moc, englishOnly: false)
+            DispatchQueue.main.async {
+                try? self.executeRandomArticlePopulation(in: self.dataStore.viewContext, englishOnly: false)
+            }
             syncState.remove(.needsRandomEntries)
             moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
             try moc.save()
         } else if syncState.contains(.needsRandomEnEntries) {
-            try executeRandomArticlePopulation(in: moc, englishOnly: true)
+            DispatchQueue.main.async {
+                try? self.executeRandomArticlePopulation(in: self.dataStore.viewContext, englishOnly: true)
+            }
             syncState.remove(.needsRandomEnEntries)
             moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
             try moc.save()

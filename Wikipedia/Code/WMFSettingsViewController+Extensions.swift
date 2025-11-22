@@ -91,6 +91,12 @@ import WMFData
     @objc func calculateNavigationBarHiddenStateFromObjC(scrollView: UIScrollView) {
         calculateNavigationBarHiddenState(scrollView: scrollView)
     }
+    
+    @objc func tappedDatabasePopulation() {
+        let vc = DatabasePopulationHostingController()
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
+        present(navVC, animated: true)
+    }
 }
 
 extension WMFSettingsViewController: LogoutCoordinatorDelegate {
