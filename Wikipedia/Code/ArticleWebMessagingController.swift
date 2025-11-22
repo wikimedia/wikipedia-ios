@@ -2,7 +2,7 @@ import Foundation
 import CocoaLumberjackSwift
 
 protocol ArticleWebMessageHandling: AnyObject {
-    func didRecieve(action: ArticleWebMessagingController.Action)
+    func didReceive(action: ArticleWebMessagingController.Action)
 }
 
 class ArticleWebMessagingController: NSObject {
@@ -396,10 +396,10 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             // Fallback on href for future unknown event types
             if let href = data?["href"] as? String {
                 let action = ArticleWebMessagingController.Action.unknown(href: href)
-                delegate?.didRecieve(action: action)
+                delegate?.didReceive(action: action)
             }
             return
         }
-        delegate?.didRecieve(action: action)
+        delegate?.didReceive(action: action)
     }
 }

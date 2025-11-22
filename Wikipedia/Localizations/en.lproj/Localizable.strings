@@ -1256,7 +1256,7 @@
 "talk-page-collapse-thread-button" = "Collapse thread";
 "talk-page-discussion-read-accessibility-label" = "Read";
 "talk-page-discussion-unread-accessibility-label" = "Unread";
-"talk-page-error-alert-subtitle" = "The app recieved an unexpected response from the server. Please try again later.";
+"talk-page-error-alert-subtitle" = "The app received an unexpected response from the server. Please try again later.";
 "talk-page-error-alert-title" = "Unexpected error";
 "talk-page-error-loading-subtitle" = "Something went wrong.";
 "talk-page-error-loading-title" = "Unable to load talk page";
