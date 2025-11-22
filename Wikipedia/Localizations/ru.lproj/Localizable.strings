@@ -777,6 +777,7 @@
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
 "main-page" = "Заглавная страница";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Наиболее читаемые статьи в английской Википедии";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";

@@ -731,7 +731,6 @@
 "main-menu-title" = "Daha çox";
 "main-menu-zero-faq" = "Wikipedia Zero TSS";
 "main-page" = "Ana səhifə";
-"microsite-yir-english-top-read-slide-subtitle" = "İnsanlar dünyamız haqqında yaxşı, pis və ya qəribə bir şey öyrənmək istədikdə Vikipediyaya müraciət edirlər. İngiliscə Vikipediyada ən çox ziyarət edilən 5 məqalə bunlardır: \n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n$6Bizim xüsusi bloq yazımızı$7 oxuyun";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "İngiliscə Vikipediyanın ən çox oxunan məqalələri";
 "more-languages-tooltip-description" = "300-dən çox dildə Vikipediyada axtarış edin";
