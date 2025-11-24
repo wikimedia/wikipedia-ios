@@ -2,6 +2,48 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>activity-tab-you-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>คุณได้แก้ไข %#@v1@ในสัปดาห์นี้</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ครั้ง</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-read</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>คุณอ่านไป %#@v1@ในสัปดาห์นี้</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d บทความ</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-saved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>คุณบันทึก %#@v1@ไว้ในสัปดาห์นี้</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d บทความ</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -28,6 +70,48 @@
 			<string>d</string>
 			<key>other</key>
 			<string>บทความ</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>คุณต้องการปิด %#@v1@หรือไม่? การดำเนินการนี้ไม่สามารถย้อนกลับได้</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d แท็บ</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ปิด %#@v1@หรือไม่?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d แท็บ</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ปิด %#@v1@แล้ว</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d แท็บ</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -569,6 +653,20 @@
 			<string>บทความ</string>
 		</dict>
 	</dict>
+	<key>tabs-navbar-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d แท็บ</string>
+		</dict>
+	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -609,6 +707,245 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d ไบต์</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-editors-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ผู้แก้ไขบทแอปอย่างเป็นทางการของวิกิพีเดียแก้ไขรวมทั้งสิ้น %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld ครั้ง</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>วิกิพีเดียถูกแก้ไข %#@v1@ต่อนาที</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ครั้ง</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>วิกิพีเดียมี %#@v1@ในกว่า %#@v2@ที่ยังเปิดให้บริการอยู่ คุณได้ร่วมกับคนอีกนับล้านเพื่อเพิ่มพูนและสำรวจหัวข้อที่หลากหลาย</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld บทความ</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d ภาษา</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>วิกิพีเดียมีมากกว่า %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ภาษา</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ผู้ใช้แอปได้บันทึกบทความไว้กว่า %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld รายการ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ผู้ใช้แอปอ่านบทความวิกิพีเดีย %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld ครั้ง</string>
+		</dict>
+	</dict>
+	<key>year-in-review-highlights-edit-frequency-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ต่อนาที</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ครั้ง</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ผู้อ่านทั่วโลกต่างซาบซึ้งในผลงานของคุณ ในช่วง 2 เดือนที่ผ่านมา บทความที่คุณแก้ไขถูกอ่านไป %#@v1@ ผู้แก้ไขเช่นคุณช่วยให้วิกิพีเดียมีการปรับปรุง ตรวจสอบความถูกต้อง และเป็นแหล่งความรู้ที่เชื่อถือได้ ต้องขอบคุณคุณจริง ๆ</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string> %1$lld ครั้ง</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ไม่นานมานี้การแก้ไขของคุณถูกเห็นแล้ว %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld ครั้ง</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>อาสาสมัครเช่นคุณได้แก้ไข %#@v1@ในกว่า %#@v2@ของวิกิพีเดีย</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld ครั้ง</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d ภาษา</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>คุณแก้ไขไปทั้งสิ้น %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ครั้ง</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>เราประมาณได้ว่าคุณใช้เวลาอ่านวิกิพีเดียใน **PERCENT** แรกของผู้อ่านทั่วโลก โดยประมาณแล้วแต่ละคนมักอ่านราว %#@v1@ต่อปี</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d บทความ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>คุณใช้เวลาไป%#@v1@ เพื่ออ่าน %#@v2@ในปี %3$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d นาที</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d บทความ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ซึ่งรวมถึงบทความ %1$@, %2$@, และ %3$@ บทความที่คุณบันทึกไว้แสดงถึงความสนใจและช่วยสร้างฐานความรู้ส่วนตัวบนวิกิพีเดีย
+
+ผู้ที่ใช้แอปในปีนี้บันทึกบทความไว้กว่า %#@v4@</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%4$lld รายการ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>คุณได้บันทึก %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d บทความ</string>
 		</dict>
 	</dict>
 </dict>
