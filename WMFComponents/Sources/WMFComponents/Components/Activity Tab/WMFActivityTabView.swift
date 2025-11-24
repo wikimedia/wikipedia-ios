@@ -388,7 +388,7 @@ public struct WMFActivityTabView: View {
             if showPlus {
                 let remaining = totalSavedCount - 3
                 Text("+\(remaining)")
-                    .font(Font(WMFFont.for(.caption2)))
+                    .font(Font(WMFFont.for(.caption2Semibold)))
                     .foregroundColor(Color(uiColor: theme.paperBackground))
                     .frame(width: 38, height: 38)
                     .background(
@@ -422,12 +422,14 @@ public struct WMFActivityTabView: View {
         .chartXAxis(.hidden)
         .chartYAxis(.hidden)
         .chartPlotStyle { $0.background(.clear) }
+        .padding(.trailing, 6)
+        .padding(.bottom, 0)
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
         VStack(alignment: .leading, spacing: 24) {
             HStack {
-                if let icon = WMFSFSymbolIcon.for(symbol: .rectangle3) {
+                if let icon = WMFSFSymbolIcon.for(symbol: .rectangle3, font: WMFFont.boldCaption1) {
                     Image(uiImage: icon)
                 }
                 Text(viewModel.localizedStrings.topCategories)
@@ -443,9 +445,11 @@ public struct WMFActivityTabView: View {
                         .foregroundStyle(Color(theme.text))
                         .font(Font(WMFFont.for(.callout)))
                         .lineLimit(2)
+                        .padding(0)
 
                     if index < categories.count - 1 {
                         Divider()
+                            .padding(0)
                     }
                 }
             }
