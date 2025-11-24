@@ -695,6 +695,20 @@
 "main-menu-title" = "Mere";
 "main-menu-zero-faq" = "Ofte stillede spørgsmål om Wikipedia Zero";
 // Fuzzy
+"microsite-yir-english-edits-bytes-slide-title" = "4 milliarder bytes tilføjet";
+// Fuzzy
+"microsite-yir-english-edits-slide-title" = "Bidragere lavede 98 millioner ændringer dette år";
+// Fuzzy
+"microsite-yir-english-reading-slide-subtitle" = "Det anslås at folk har brugt 2,9 milliarder timer – over 331.000 år! – på at læse engelsk Wikipedia i 2024. Wikipedia er der, når du vil lære om vores foranderlige verden, vinde et væddemål blandt venner eller besvare et nysgerrigt barns spørgsmål.";
+// Fuzzy
+"microsite-yir-english-reading-slide-title" = "Vi brugte 2,9 milliarder timer på at læse";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-subtitle" = "Aktive iOS App-brugere havde over 62,2 millioner læselister. Tilføjelse af artikler til læselister giver dig adgang til artikler, selv når du er offline. Du kan også logge ind for at synkronisere læselister på tværs af enheder.";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-title" = "Vi havde over 62,2 millioner læselister";
+// Fuzzy
+"microsite-yir-english-top-read-slide-subtitle" = "De 5 mest besøgte artikler på engelsk Wikipedia var:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nLæs mere i $6 vores dedikerede blogindlæg $7 .";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Engelsk Wikipedias mest populære artikler";
 "more-languages-tooltip-description" = "Søg Wikipedia på mere end 300 sprog";
 "more-languages-tooltip-title" = "Tilføj sprog";
@@ -1222,7 +1236,19 @@
 "wikitext-upload-save-sign-in" = "Log på";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
 // Fuzzy
+"year-in-review-base-editors-title" = "Redaktører på iOS-appen foretog mere end $1 redigeringer";
+// Fuzzy
+"year-in-review-base-edits-title" = "Wikipedia blev redigeret $1 gange i minuttet";
+// Fuzzy
+"year-in-review-base-reading-subtitle" = "Wikipedia havde mere end $1 millioner artikler på tværs af $2 aktive sprog. Du sluttede dig til millioner i at udvide viden og udforske forskellige emner.";
+// Fuzzy
+"year-in-review-base-reading-title" = "Wikipedia var tilgængelig på mere end 300 sprog";
+// Fuzzy
+"year-in-review-base-saved-title" = "Vi havde over $1 million læselister";
+// Fuzzy
 "year-in-review-base-viewed-subtitle" = "iOS-appbrugere har set Wikipedia-artikler $1 milliarder gange. For mange mennesker verden over, er Wikipedia det første stop, når de besvarer et spørgsmål, finder informationer til skole eller arbejde eller får ny viden.";
+// Fuzzy
+"year-in-review-base-viewed-title" = "Vi har set Wikipedia-artikler $1 milliarder gange";
 "year-in-review-day-friday" = "Fredage";
 "year-in-review-day-monday" = "Mandage";
 "year-in-review-day-saturday" = "Lørdage";
@@ -1236,6 +1262,12 @@
 "year-in-review-finish" = "Afslut";
 "year-in-review-personalized-donate-subtitle" = "Tak fordi du investerer i fremtiden for fri og gratis viden. I år forbedrede Wikimedia Foundation teknologien for at kunne betjene enhver læser og frivillige bedre, udviklede værktøjer, der styrker samarbejdet, og understøttede Wikipedia på flere sprog. [Få mere at vide om vores arbejde]($1).";
 "year-in-review-personalized-donate-title" = "Din generøsitet hjalp med at holde Wikipedia i gang";
+// Fuzzy
+"year-in-review-personalized-edit-views-subtitle-format" = "Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, fået $1 visninger i alt. Takket være bidragere som dig, er Wikipedia en konstant forbedret, faktabaseret og pålidelig videnressource for verden";
+// Fuzzy
+"year-in-review-personalized-edit-views-title-format" = "Dine redigeringer er blevet set mere end $1 gange for nylig";
+// Fuzzy
+"year-in-review-personalized-editing-title-format" = "Du har redigeret Wikipedia {{PLURAL:$1|$1 gang|$1 gange}}";
 "year-in-review-personalized-explore" = "En animeret illustration af en hånd, der holder Wikipedia-kloden, som gradvist forvandles til en lille puslespilsbrik, der symboliserer individuelle bidrag til platformen.";
 "year-in-review-personalized-saved-title-format" = "Du har gemt {{PLURAL:$1| $1 artikel| $1 artikler}}";
 "year-in-review-personalized-user-edits" = "En animeret illustration, der viser bytes, der stables oven på hinanden, hvilket symboliserer den kontinuerlige skabelse af fri viden.";
