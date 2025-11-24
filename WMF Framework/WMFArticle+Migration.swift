@@ -15,12 +15,12 @@ import CocoaLumberjackSwift
     // MARK: - Public API
 
     public func migrateAllIfNeeded() async {
-        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
+        guard shouldRunMigration() else { return }
         await runMigration(limit: 500)
     }
 
     public func migrateIncremental() async {
-        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
+        guard shouldRunMigration() else { return }
         await runMigration(limit: 20)
     }
 
@@ -48,7 +48,7 @@ import CocoaLumberjackSwift
         }
     }
 
-    public func shouldRunMigration() -> Bool {
+    private func shouldRunMigration() -> Bool {
         return WMFActivityTabDataController.activityAssignmentForObjC() == 1
     }
 

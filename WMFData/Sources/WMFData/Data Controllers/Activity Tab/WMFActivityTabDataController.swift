@@ -198,6 +198,10 @@ public actor WMFActivityTabDataController {
 
     // MARK: - Experiment
 
+    public var needsGroupAssignment: Bool {
+        return assignmentCache == nil
+    }
+
     public func assignOrFetchExperimentAssignment() throws -> ActivityTabExperimentAssignment? {
         if isForceControlDevSettingOn {
             return .control
