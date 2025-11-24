@@ -1006,13 +1006,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         toolbarContainerView.backgroundColor = theme.colors.paperBackground
-        // CHANGE: Align article toolbar with home tab bar flush style (paper background, no chrome image, no shadow).
-        // Previous: toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
-        toolbar.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default) // transparent image suppresses chrome background
-        toolbar.backgroundColor = theme.colors.paperBackground
-        toolbar.barTintColor = theme.colors.paperBackground
-        toolbar.setShadowImage(UIImage(), forToolbarPosition: .any) // remove top hairline
-        toolbar.isTranslucent = false // keep layout stable (could set true if future design prefers)
+        if #available(iOS 26.0, *) {
+            // Align article toolbar with Liquid Glass tab bar styling on iOS 26+ (no chrome background or shadow).
+            toolbar.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+            toolbar.backgroundColor = theme.colors.paperBackground
+            toolbar.barTintColor = theme.colors.paperBackground
+            toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
+            toolbar.isTranslucent = false
+        } else {
+            // Preserve the opaque toolbar background for older OS versions to keep contrast.
+            toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+            toolbar.isTranslucent = false
+        }
         
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
