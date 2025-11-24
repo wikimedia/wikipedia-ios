@@ -857,6 +857,8 @@ extension WMFAppViewController {
         let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         
+        let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
+        
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
@@ -876,7 +878,10 @@ extension WMFAppViewController {
                 loggedOutSecondaryCTA: CommonStrings.editSignIn,
                 todayTitle: CommonStrings.todayTitle,
                 yesterdayTitle: CommonStrings.yesterdayTitle,
-                openArticle: openArticle),
+                openArticle: openArticle,
+                read: CommonStrings.readString,
+                edited: edited,
+                saved: CommonStrings.shortSavedTitle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             Task {

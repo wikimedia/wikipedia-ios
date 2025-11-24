@@ -69,6 +69,7 @@ public struct WMFActivityTabView: View {
                     if !viewModel.timelineViewModel.timeline.isEmpty {
                         historyView
                             .id("timelineSection")
+                            .padding(.top, 28)
                     }
                 }
                 .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
@@ -171,9 +172,6 @@ public struct WMFActivityTabView: View {
         ) {
             ForEach(sortedPages.indices, id: \.self) { index in
                 pageRow(page: sortedPages[index], section: date)
-					.accessibilityElement()
-                    // .accessibilityLabel(Text(page.pageTitle.replacingOccurrences(of: "_", with: " ")))
-                    .accessibilityAddTraits(.isButton)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .padding(.bottom, 20)
@@ -185,39 +183,49 @@ public struct WMFActivityTabView: View {
         .padding(.horizontal, 16)
     }
 
-
     private func pageRow(page: TimelineItem, section: Date) -> some View {
         let iconImage: UIImage?
+        let actionString: String
         switch page.itemType {
         case .standard:
             iconImage = nil
+            actionString = ""
         case .edit:
             iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
+            actionString = viewModel.localizedStrings.edited
         case .read:
             iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
+            actionString = viewModel.localizedStrings.read
         case .save:
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
+            actionString = viewModel.localizedStrings.saved
         }
 
         let summary = timelineViewModel.pageSummaries[page.id]
-        let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
+        let description: String? = {
+            if let desc = summary?.description, !desc.isEmpty {
+                return desc
+            } else if let pageDesc = page.description, !pageDesc.isEmpty {
+                return pageDesc
+            } else if let extract = summary?.extract, !extract.isEmpty {
+                return extract
+            } else {
+                return nil
+            }
+        }()
+
+        let accessibilityLabelParts = [
+            actionString,
+            page.pageTitle.replacingOccurrences(of: "_", with: " "),
+            description
+        ].compactMap { $0 }
 
         return WMFPageRow(
             needsLimitedFontSize: false,
             id: page.id,
             titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
-            articleDescription: {
-                if let desc = summary?.description, !desc.isEmpty {
-                    return desc
-                } else if let pageDesc = page.description, !pageDesc.isEmpty {
-                    return pageDesc
-                } else if let extract = summary?.extract, !extract.isEmpty {
-                    return extract
-                } else {
-                    return nil
-                }
-            }(),
-            imageURLString: initialThumbnailURLString,
+            articleDescription: description,
+            imageURLString: summary?.thumbnailURL?.absoluteString ?? page.imageURLString,
             titleLineLimit: 1,
             isSaved: false,
             showsSwipeActions: true,
@@ -228,7 +236,7 @@ public struct WMFActivityTabView: View {
             iconImage: iconImage
         )
         .accessibilityElement()
-        .accessibilityLabel(page.pageTitle.replacingOccurrences(of: "_", with: " "))
+        .accessibilityLabel(accessibilityLabelParts.joined(separator: " - "))
         .accessibilityAddTraits(.isButton)
         .contentShape(Rectangle())
         .onTapGesture {
@@ -256,6 +264,7 @@ public struct WMFActivityTabView: View {
             _ = await timelineViewModel.fetchSummary(for: page)
         }
     }
+
 
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
