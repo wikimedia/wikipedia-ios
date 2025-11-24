@@ -1,9 +1,8 @@
 import Foundation
 
-public final class WMFActivityTabDataController {
+public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-
 
     private let experimentsDataController: WMFExperimentsDataController?
     private var assignmentCache: ActivityTabExperimentAssignment?
@@ -81,20 +80,27 @@ public final class WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-    
-    public var hasSeenActivityTab: Bool {
+    private var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue, value: newValue)
         }
     }
-    
+
+    public func setHasSeenActivityTab(_ value: Bool) {
+        self.hasSeenActivityTab = value
+    }
+
+    public func getHasSeenActivityTab() -> Bool {
+        return hasSeenActivityTab
+    }
+
     public func getMostRecentReadDateTime() async throws -> Date? {
         let dataController = try WMFPageViewsDataController()
         return try await dataController.fetchMostRecentTime()
     }
-    
+
     public func getTopCategories() async throws -> [String]? {
         let calendar = Calendar.current
         let now = Date()
@@ -114,7 +120,7 @@ public final class WMFActivityTabDataController {
 
         return Array(topThreeCategories)
     }
-    
+
     public func fetchTopCategories(startDate: Date, endDate: Date) async throws -> [String] {
         let categoryCounts = try await WMFCategoriesDataController()
             .fetchCategoryCounts(startDate: startDate, endDate: endDate)
@@ -123,7 +129,7 @@ public final class WMFActivityTabDataController {
             .sorted { $0.value > $1.value }
             .map { $0.key.categoryName }
     }
-    
+
     public func fetchTimeline() async throws -> [Date: [TimelineItem]] {
         let dataController = try WMFPageViewsDataController()
         let pageRecords = try await dataController.fetchTimelinePages()
@@ -167,6 +173,7 @@ public final class WMFActivityTabDataController {
         }
 
         return sortedTimeline
+
     }
     
     public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
@@ -191,31 +198,7 @@ public final class WMFActivityTabDataController {
 
     // MARK: - Experiment
 
-    @objc public func assignmentIntBlocking() -> Int {
-        let semaphore = DispatchSemaphore(value: 0)
-        var result = 0
-
-        Task.detached { [weak self] in
-            defer { semaphore.signal() }
-            guard let self else { return }
-
-            do {
-                let assignment = try await self.assignOrFetchExperimentAssignment()
-                if assignment == .activityTab {
-                    result = 1
-                } else {
-                    result = 0
-                }
-            } catch {
-                result = 0
-            }
-        }
-
-        semaphore.wait()
-        return result
-    }
-
-    public func assignOrFetchExperimentAssignment() async throws -> ActivityTabExperimentAssignment? {
+    public func assignOrFetchExperimentAssignment() throws -> ActivityTabExperimentAssignment? {
         if isForceControlDevSettingOn {
             return .control
         }
@@ -359,19 +342,17 @@ public final class WMFActivityTabDataController {
         case beforeStartDate
         case errorFetchingAssigment
     }
+
 }
 
-public class SavedArticleModuleData: NSObject, Codable {
-    public let savedArticlesCount: Int
-    public let articleUrlStrings: [String]
-    public let dateLastSaved: Date?
-
-    public init(savedArticlesCount: Int, articleUrlStrings: [String], dateLastSaved: Date?) {
-        self.savedArticlesCount = savedArticlesCount
-        self.articleUrlStrings = articleUrlStrings
-        self.dateLastSaved = dateLastSaved
+extension WMFActivityTabDataController {
+    @objc public nonisolated static func activityAssignmentForObjC() -> Int {
+        let key = WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue
+        let value = (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: key)) ?? false
+        return value ? 1 : 0
     }
 }
+
 
 public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
