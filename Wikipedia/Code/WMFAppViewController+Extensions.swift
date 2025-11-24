@@ -160,7 +160,7 @@ extension WMFAppViewController {
     
     @objc func getAssignmentForActivityTab() -> Int {
         Task {
-            if await WMFActivityTabDataController.shared.needsGroupAssignment {
+            if await !WMFActivityTabDataController.shared.alreadyAssigned {
                 // TODO: Log assignment
             }
         }

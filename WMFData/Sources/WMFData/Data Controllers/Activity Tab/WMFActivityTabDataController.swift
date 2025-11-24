@@ -198,10 +198,6 @@ public actor WMFActivityTabDataController {
 
     // MARK: - Experiment
 
-    public var needsGroupAssignment: Bool {
-        return assignmentCache == nil
-    }
-
     public func assignOrFetchExperimentAssignment() throws -> ActivityTabExperimentAssignment? {
         if isForceControlDevSettingOn {
             return .control
@@ -253,7 +249,7 @@ public actor WMFActivityTabDataController {
             throw CustomError.pastAssignmentEndDate
         }
 
-        guard !alreadyAssigned() else {
+        guard !alreadyAssigned else {
             throw CustomError.alreadyAssignedExperiment
         }
 
@@ -301,9 +297,8 @@ public actor WMFActivityTabDataController {
         }
     }
 
-    private func alreadyAssigned() -> Bool {
-        let bleh = experimentsDataController?.bucketForExperiment(.activityTab) != nil
-        return bleh
+    public var alreadyAssigned: Bool {
+       return experimentsDataController?.bucketForExperiment(.activityTab) != nil
     }
 
     private var experimentEndDate: Date? {
