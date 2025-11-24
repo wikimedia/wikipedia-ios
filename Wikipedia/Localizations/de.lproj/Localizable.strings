@@ -283,7 +283,7 @@
 "description-published-subtitle" = "Du hast soeben Wikipedia für jeden besser gemacht";
 "description-published-title" = "Beschreibung veröffentlicht!";
 "description-welcome-concise-sub-title" = "Idealerweise eine Zeile, zwischen zwei und zwölf Wörtern";
-"description-welcome-concise-title" = "Halte sie kurz";
+"description-welcome-concise-title" = "Kurz halten";
 "description-welcome-descriptions-sub-title" = "Fasst einen Artikel zusammen, um Lesern beim Verstehen des Themas im Überblick zu helfen.";
 "description-welcome-descriptions-title" = "Artikelbeschreibungen";
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
@@ -664,13 +664,13 @@
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
 "image-rec-add-image-title" = "Dieses Bild hinzufügen?";
-"image-rec-empty-subtitle" = "Versuchen Sie es später noch einmal.";
-"image-rec-empty-title" = "Sie haben derzeit keine weiteren vorgeschlagenen Bilder verfügbar.";
+"image-rec-empty-subtitle" = "Versuche es später noch einmal.";
+"image-rec-empty-title" = "Für dich sind derzeit keine weiteren Bildvorschläge verfügbar.";
 "image-rec-error-subtitle" = "Etwas ist schiefgelaufen.";
 "image-rec-error-title" = "Seite kann nicht geladen werden";
 "image-rec-onboarding-item-1-body" = "Entscheiden Sie, ob ein vorgeschlagenes Bild in einen Wikipedia-Artikel eingefügt werden soll.";
 "image-rec-onboarding-item-1-title" = "Einen Vorschlag ansehen";
-"image-rec-onboarding-item-2-body" = "Vorschläge werden maschinell generiert und Sie verwenden Ihr Urteilsvermögen, um zu entscheiden, ob Sie sie annehmen oder ablehnen.";
+"image-rec-onboarding-item-2-body" = "Vorschläge werden maschinell generiert und du verwendest dein Urteilsvermögen, um zu entscheiden, ob du sie annimmst oder ablehnst.";
 "image-rec-onboarding-item-2-title" = "Ein Bild annehmen oder ablehnen";
 "image-rec-onboarding-item-3-body" = "Bilder stammen aus Wikimedia Commons, einer Sammlung frei lizenzierter Bilder, die von Wikipedia verwendet werden.";
 "image-rec-onboarding-item-3-title" = "Lizenzierte Bilder";
@@ -702,7 +702,7 @@
 "image-recommendations-email-title" = "Problembericht - Bild hinzufügen Funktion";
 "image-recs-no-title" = "Nein";
 "image-recs-not-sure-title" = "Nicht sicher";
-"image-recs-time-warning-message" = "Bitte überprüfen Sie den Artikel, um das Thema zu verstehen und das Bild zu prüfen";
+"image-recs-time-warning-message" = "Bitte überprüfe den Artikel, um das Thema zu verstehen und das Bild zu prüfen";
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Meine Leseliste";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage durchführen";
@@ -750,7 +750,7 @@
 "ip-account-cta-top" = "Anmelden oder Konto erstellen";
 "ip-account-edit-sheet-subtitle" = "Sobald Sie eine Bearbeitung vornehmen, wird ein $1temporäres Konto$2 für Sie erstellt, um Ihre Privatsphäre zu schützen. $3Mehr erfahren.$4$5Melden Sie sich an oder erstellen Sie ein Konto, um Anerkennung für zukünftige Bearbeitungen zu erhalten und auf andere Funktionen zuzugreifen.";
 "ip-account-warning-subtitle" = "Bei der Veröffentlichung wird ein temporäres Konto für Sie erstellt.";
-"ip-account-warning-title" = "Sie sind nicht angemeldet";
+"ip-account-warning-title" = "Du bist nicht angemeldet";
 "kazakh-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Kasachisch-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\nҚазақша Kasachisch (kk)\nҚазақша Кирил Kasachisch, Kyrillisch (kk-cyrl)\nqazaqşa latin Kasachisch, Lateinisch (kk-latn)\nتوتە قازاقشا Kasachisch, Arabisch (kk-arab)";
 "kazakh-variants-alert-title" = "Updates zur Kasachisch-Varianten-Unterstützung";
 "kurdish-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Kurdisch-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\nKurdî Latînî Kurdisch, Lateinisch (ku-latn)\nكوردی Kurdisch, Arabisch (kk-arab)";
@@ -772,7 +772,7 @@
 "main-menu-account-login" = "Anmelden";
 "main-menu-account-logout" = "Abmelden";
 "main-menu-account-logout-are-you-sure" = "Bist du sicher, dass du dich abmelden möchtest?";
-"main-menu-account-logout-are-you-sure-message" = "Das Abmelden löscht Ihre lokal gespeicherten Kontodaten (Benachrichtigungen und Nachrichten), aber Ihre Kontodaten bleiben im Web verfügbar und werden erneut heruntergeladen, wenn Sie sich wieder anmelden.";
+"main-menu-account-logout-are-you-sure-message" = "Wenn du dich abmeldest, werden deine lokal gespeicherten Kontodaten (Benachrichtigungen und Nachrichten) gelöscht, aber deine Kontodaten bleiben im Web verfügbar und werden erneut heruntergeladen, wenn du dich wieder anmeldest.";
 "main-menu-account-title-logged-in" = "Angemeldet als $1";
 "main-menu-heading-legal" = "Datenschutz und Bedingungen";
 "main-menu-nearby" = "In der Nähe";
@@ -791,7 +791,9 @@
 "microsite-yir-english-reading-slide-title" = "Wir verbrachten {{PLURAL:$1|$1 Stunde|$1 Stunden}} mit Lesen";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktive App-Nutzer hatten in diesem Jahr {{PLURAL:$1|$1 gespeicherten Artikel|$1 gespeicherte Artikel}}. Das Hinzufügen von Artikeln zu Leselisten ermöglicht es dir, auf Artikel auch offline zuzugreifen. Du kannst dich auch anmelden, um Leselisten zwischen Geräten zu synchronisieren.";
 "microsite-yir-english-saved-reading-slide-title" = "Wir hatten {{PLURAL:$1|$1 gespeicherten Artikel|$1 gespeicherte Artikel}}";
+// Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "Wenn Menschen über unsere Welt lernen wollen – das Gute, Schlechte, Seltsame und Wilde gleichermaßen –, wenden sie sich an Wikipedia. Die Top 5 der meistbesuchten Artikel der englischen Wikipedia waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nErfahre mehr in $6unserem Blogpost$7.";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Am häufigsten gelesene Artikel in der englischsprachigen Wikipedia";
 "more-languages-tooltip-description" = "Wikipedia in über 300 Sprachen durchsuchen";
 "more-languages-tooltip-title" = "Sprachen hinzufügen";
@@ -1152,8 +1154,8 @@
 "return-to-article" = "Zum Artikel zurückkehren";
 "reverted-edit-title" = "Zurückgesetzte Bearbeitung";
 "save-all-tabs" = "Alle Tabs speichern";
-"save-view-temp-account-notice" = "Sie verwenden ein temporäres Konto. Bearbeitungen werden $1... zugeordnet.";
-"save-view-temp-account-warning" = "Sie sind nicht angemeldet. Sobald Sie eine Bearbeitung vornehmen, wird ein temporäres Konto für Sie erstellt, um Ihre Privatsphäre zu schützen.";
+"save-view-temp-account-notice" = "Du verwendest ein temporäres Konto. Bearbeitungen werden $1... zugeordnet.";
+"save-view-temp-account-warning" = "Du bist nicht angemeldet. Sobald du eine Bearbeitung vornimmst, wird ein temporäres Konto für dich erstellt, um deine Privatsphäre zu schützen.";
 "saved-all-articles-title" = "Alle Artikel";
 "saved-all-tabs" = "Alle Tabs gespeichert.";
 "saved-all-tabs-view-reading-list" = "Alle Tabs gespeichert. Leseliste anzeigen.";
@@ -1177,7 +1179,7 @@
 "search-recent-title" = "Zuletzt gesucht";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
 "search-title" = "Suchen";
-"search-widget-announcement-body" = "Fügen Sie das Wikipedia-Such-Widget zu Ihrem Home- oder Sperrbildschirm hinzu, um schnellere Antworten direkt zur Hand zu haben.";
+"search-widget-announcement-body" = "Füge das Wikipedia-Suche-Widget zu deinem Home- oder Sperrbildschirm hinzu, um schneller Antworten direkt zur Hand zu haben.";
 "search-widget-announcement-title" = "Neues Such-Widget verfügbar";
 "search-widget-description" = "Schneller Zugriff auf die Suche in Wikipedia.";
 "search-widget-wikipedia-title" = "Wikipedia";
@@ -1200,7 +1202,7 @@
 "settings-notifications-echo-failure-message" = "Ein Fehler ist beim Prüfen der Benachrichtigungsabonnements für Ihr Konto aufgetreten.";
 "settings-notifications-echo-failure-title" = "Nicht möglich, Echo-Benachrichtigungsabonnements zu prüfen";
 "settings-notifications-echo-failure-try-again" = "Erneut versuchen";
-"settings-notifications-header" = "Seien Sie über Aktivitäten im Zusammenhang mit Ihrem Konto benachrichtigt, wie Nachrichten von anderen Mitwirkenden, Warnungen und Hinweise. Alles unter Wahrung der Privatsphäre und mit aktuellen Daten.";
+"settings-notifications-header" = "Werde über Aktivitäten im Zusammenhang mit deinem Konto benachrichtigt, wie z. B. Nachrichten von anderen Mitwirkenden, Meldungen und Hinweise. Alles unter Berücksichtigung deiner Privatsphäre und mit aktuellen Daten.";
 "settings-notifications-info" = "Werde über beliebte Artikel auf Wikipedia benachrichtigt mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
 "settings-notifications-learn-more" = "Mehr über Benachrichtigungen erfahren";
 "settings-notifications-push-notifications" = "Push-Benachrichtigungen";
@@ -1267,7 +1269,7 @@
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Vorschläge sind jetzt ausgeblendet";
 "tabs-survey-title" = "Hilf bei der Verbesserung der Tab-Funktion. Bist du mit dieser Funktion zufrieden?";
 "tabs-thumbnail-description" = "Erkunden Sie Wikipedia, die freie Enzyklopädie, die jeder bearbeiten kann";
-"tabs-thumbnail-subtitle" = "Beginnen Sie hier Ihre Suche";
+"tabs-thumbnail-subtitle" = "Beginne hier mit deiner Suche";
 "tabs-title" = "Tabs";
 "tachelhit-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Taschelhit-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\nⵜⴰⵛⵍⵃⵉⵜ Taschelhit, Tifinagh (shi-tfng)\nTaclḥit Taschelhit, Lateinisch (shi-latn)";
 "tachelhit-variants-alert-title" = "Updates zur Taschelhit-Varianten-Unterstützung";
@@ -1281,7 +1283,7 @@
 "talk-page-collapse-thread-button" = "Thread zuklappen";
 "talk-page-discussion-read-accessibility-label" = "Gelesen";
 "talk-page-discussion-unread-accessibility-label" = "Ungelesen";
-"talk-page-error-alert-subtitle" = "Die App erhielt eine unerwartete Antwort vom Server. Bitte versuchen Sie es später erneut.";
+"talk-page-error-alert-subtitle" = "Die App erhielt eine unerwartete Antwort vom Server. Bitte versuche es später erneut.";
 "talk-page-error-alert-title" = "Unerwarteter Fehler";
 "talk-page-error-loading-subtitle" = "Etwas ist schiefgelaufen.";
 "talk-page-error-loading-title" = "Diskussionsseite kann nicht geladen werden";
@@ -1356,7 +1358,7 @@
 "temp-account-edit-sheet-subtitle" = "$2Sie verwenden derzeit ein temporäres Konto.$3 Mit dem temporären Konto $1 vorgenommene Bearbeitungen werden nicht auf Ihr permanentes Konto übertragen, wenn Sie sich anmelden. Melden Sie sich an oder erstellen Sie ein Konto, um Anerkennung für Ihren Benutzernamen zu erhalten, neben anderen Vorteilen.";
 "temp-account-toast-read-more-title" = "Mehr lesen";
 "temp-account-toast-title" = "$1Sie verwenden derzeit ein temporäres Konto.$2 Mit dem temporären Konto vorgenommene Bearbeitungen...";
-"temp-account-warning-title" = "Sie verwenden ein temporäres Konto";
+"temp-account-warning-title" = "Du verwendest ein temporäres Konto";
 "temp-warning-subtitle-format" = "Ihre Bearbeitung wird $1 zugeordnet";
 "temporary-account" = "Temporäres Konto";
 "terms-of-use-title" = "Nutzungsbedingungen";
@@ -1373,7 +1375,7 @@
 "try-now-title" = "Jetzt ausprobieren";
 "tutorial-title" = "Tutorial";
 "two-factor-email-login-continue" = "Anmeldung fortsetzen";
-"two-factor-email-login-instructions" = "Bitte geben Sie den E-Mail-Bestätigungscode ein";
+"two-factor-email-login-instructions" = "Bitte gib den E-Mail-Bestätigungscode ein";
 "two-factor-login-continue" = "Mit der Anmeldung fortfahren";
 "two-factor-login-instructions" = "Bitte gib einen Zwei-Faktor-Verifikationscode ein";
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
@@ -1412,9 +1414,9 @@
 "watchlist-diff-action-button-title" = "Zum Diff gehen";
 "watchlist-edit-summary-accessibility" = "Bearbeitungszusammenfassung";
 "watchlist-empty-view-button-title" = "Artikel suchen";
-"watchlist-empty-view-filter-title" = "Sie haben keine Beobachtungslistenelemente";
-"watchlist-empty-view-subtitle" = "Behalten Sie im Auge, was mit Artikeln passiert, die Sie interessieren. Tippen Sie auf das Menü im Artikel und wählen Sie \"Beobachten\", um Änderungen an einem Artikel zu sehen.";
-"watchlist-empty-view-title" = "Artikel, die Sie zur Beobachtungsliste hinzugefügt haben, erscheinen hier";
+"watchlist-empty-view-filter-title" = "Du hast keine Beobachtungslisteneinträge";
+"watchlist-empty-view-subtitle" = "Behalte im Blick, was mit Artikeln passiert, die dich interessieren. Tippe auf das Menü im Artikel und wähle „Beobachten“, um Änderungen an einem Artikel zu sehen.";
+"watchlist-empty-view-title" = "Artikel, die du zur Beobachtungsliste hinzugefügt hast, erscheinen hier";
 "watchlist-expiration-subtitle" = "Seiten bleiben standardmäßig, aber es gibt Optionen für temporäre Beobachtung von einer Woche bis zu einem Jahr.";
 "watchlist-expiration-title" = "Ablauf festlegen";
 "watchlist-filter" = "Filter";
@@ -1445,9 +1447,9 @@
 "watchlist-onboarding-title" = "Einführung Ihrer Beobachtungsliste";
 "watchlist-removed" = "Aus Ihrer Beobachtungsliste entfernt";
 "watchlist-thanks-success" = "Ihr \"Danke\" wurde an $1 gesendet";
-"watchlist-track-subtitle" = "Die Beobachtungsliste ist ein Tool, mit dem Sie Änderungen an Seiten oder Artikeln verfolgen können, die Sie interessieren.";
+"watchlist-track-subtitle" = "Die Beobachtungsliste ist ein Tool, mit dem du Änderungen an Seiten oder Artikeln verfolgen kannst, die dich interessieren.";
 "watchlist-track-title" = "Änderungen verfolgen";
-"watchlist-updates-subtitle" = "Die Beobachtungsliste der Seiten, die Sie hinzugefügt haben, wie Bearbeitungen oder Diskussionen, kann über Einstellungen → Konto aufgerufen werden.";
+"watchlist-updates-subtitle" = "Die Beobachtungsliste der Seiten, die du hinzugefügt hast, wie Bearbeitungen oder Diskussionen, kann über Einstellungen → Konto aufgerufen werden.";
 "watchlist-updates-title" = "Updates anzeigen";
 "watchlist-user-button-thank" = "Danken";
 "watchlist-user-button-user-contributions" = "Benutzerbeiträge";
@@ -1511,12 +1513,13 @@
 "year-in-review-base-viewed-subtitle" = "Für Menschen auf der ganzen Welt ist Wikipedia die erste Anlaufstelle, wenn es darum geht, eine Frage zu beantworten, Informationen für Schule oder Arbeit nachzuschlagen oder sich neues Wissen anzueignen.";
 "year-in-review-base-viewed-title" = "App-Nutzer haben Wikipedia-Artikel {{PLURAL:$1|einmal|$1 Mal}} angesehen";
 "year-in-review-button-title" = "Jahresrückblick";
+// Fuzzy
 "year-in-review-categories-slide-subtitle" = "Kategorien gruppieren Artikel zu ähnlichen Themen. 2025 hast du mehrfach Artikel in diesen interessanten Kategorien besucht $1";
 "year-in-review-collective-article-views" = "Eine animierte Illustration eines Computerbildschirms mit einem geöffneten Webbrowser, der aktiv durch einen Wikipedia-Artikel navigiert.";
 "year-in-review-collective-edits" = "Eine Illustration von zwei Wikipedia-Puzzleteilen, jedes trägt eine Information.";
 "year-in-review-collective-languages" = "Eine animierte Illustration eines Steins mit Inschriften in verschiedenen Sprachen, die symbolisiert, wie Wikipedia gemeinsam Wissen aus verschiedenen Kulturen und Regionen aufbaut.";
 "year-in-review-collective-saved-articles" = "Ein Puzzle-Globus mit Wikipedias Logo, der globale Zusammenarbeit repräsentiert.";
-"year-in-review-contributor-gift-subtitle" = "Wenn Sie es jetzt nicht aktivieren, können Sie später in den Einstellungen unter Design darauf zugreifen.";
+"year-in-review-contributor-gift-subtitle" = "Wenn du es jetzt nicht aktivierst, kannst du später in den Einstellungen unter Design darauf zugreifen.";
 "year-in-review-contributor-gift-title" = "Neues App-Symbol aktivieren";
 "year-in-review-contributor-slide-subtitle-donor" = "Vielen Dank für deine Investition in die Zukunft freien Wissens.\n\nDeine Beiträge als Spender im Jahr $1 helfen dabei, den Weg zu einer Welt freier Informationen zu ebnen, und als Ergebnis hast du ein individuelles Mitwirkenden-Symbol für Wikipedia auf deinem Startbildschirm freigeschaltet.";
 "year-in-review-contributor-slide-subtitle-editor" = "Vielen Dank für deine Investition in die Zukunft freien Wissens.\n\nDeine Beiträge als Editor im Jahr $1 helfen dabei, den Weg zu einer Welt freier Informationen zu ebnen, und als Ergebnis hast du ein individuelles Mitwirkenden-Symbol für Wikipedia auf deinem Startbildschirm freigeschaltet.";
@@ -1537,7 +1540,7 @@
 "year-in-review-feature-announcement-title-personalized" = "Entdecke dein Wikipedia-Jahr im Rückblick";
 "year-in-review-feature-explore-body" = "Wikipedia ist die größte Wissensressource aller Zeiten – und sie ist für jeden frei zugänglich. Blicke durch die Linse von Wikipedia auf das Jahr 2024 zurück.";
 "year-in-review-feature-explore-body-personalized" = "Erfahre, welche Artikel du in der Wikipedia-App gelesen und welche Änderungen du in 2024 vorgenommen hast. Dein Leseverlauf wird geschützt aufbewahrt. Die Leseeinblicke werden anhand der lokal gespeicherten Daten auf deinem Gerät erstellt.";
-"year-in-review-feature-explore-body-v3" = "Sehen Sie Einblicke darüber, welche Artikel Sie in der Wikipedia-App gelesen haben und welche Bearbeitungen Sie vorgenommen haben.";
+"year-in-review-feature-explore-body-v3" = "Sieh dir Einblicke darüber an, welche Artikel du in der Wikipedia-App gelesen hast und welche Bearbeitungen du vorgenommen hast.";
 "year-in-review-feature-explore-footer-v3" = "Ihre Lesehistorie wird geschützt aufbewahrt. Lese-Einblicke werden mit lokal gespeicherten Daten auf Ihrem Gerät berechnet.";
 "year-in-review-finish" = "Fertig";
 "year-in-review-highlights-articles-read" = "Gelesene Artikel";
@@ -1558,10 +1561,11 @@
 "year-in-review-highlights-subtitle" = "Wir freuen uns auf das nächste Jahr!";
 "year-in-review-highlights-times-edited" = "Bearbeitungen";
 "year-in-review-highlights-title" = "Vielen Dank, dass du dein Jahr mit Wikipedia verbracht hast.";
-"year-in-review-intro-exit-toast-title" = "Sie können später in Ihrem Profil auf Ihren Jahresrückblick zugreifen.";
+"year-in-review-intro-exit-toast-title" = "Du kannst später im Profil auf deinen Jahresrückblick zugreifen.";
 "year-in-review-intro-login-title" = "Für Personalisierung anmelden";
 "year-in-review-most-read-categories-title" = "Deine interessantesten Kategorien";
 "year-in-review-non-contributor-slide-title" = "Sichere dir deine Mitwirkendenprämie für das nächste Jahr!";
+// Fuzzy
 "year-in-review-noncontributor-slide-subtitle" = "Wir freuen uns, dass Wikipedia Teil deines $1 war! Schalte eine besondere Belohnung in deinem $2 frei, indem du selbst aktiv wirst – entweder durch [Bearbeiten von Wikipedia]($3) oder durch eine Spende an die [Wikimedia Foundation]($4), die dahinterstehende gemeinnützige Organisation. Wenn Wikipedia für Dich nützlich ist, erwäge bitte eine Spende, um ihre Zukunft zu sichern und es kostenlos, werbefrei, vertrauenswürdig und für alle zugänglich zu halten.";
 "year-in-review-personalized-date-day-footer-v3" = "Lieblings-Lesetag";
 "year-in-review-personalized-date-month-footer-v3" = "Monat, in dem du am meisten gelesen hast";
