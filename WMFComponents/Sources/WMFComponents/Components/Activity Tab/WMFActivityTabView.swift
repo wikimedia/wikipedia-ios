@@ -168,13 +168,12 @@ public struct WMFActivityTabView: View {
                 }
                 .accessibilityElement(children: .combine)
                 .accessibilityAddTraits(.isHeader)
-                .padding(.bottom, 20)
         ) {
             ForEach(sortedPages.indices, id: \.self) { index in
                 pageRow(page: sortedPages[index], section: date)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
-                    .padding(.bottom, 20)
+                    .padding(0)
             }
         }
         .listRowInsets(EdgeInsets())
@@ -235,6 +234,8 @@ public struct WMFActivityTabView: View {
             },
             iconImage: iconImage
         )
+        .listRowInsets(EdgeInsets())
+        .listRowSeparator(.hidden)
         .accessibilityElement()
         .accessibilityLabel(accessibilityLabelParts.joined(separator: " - "))
         .accessibilityAddTraits(.isButton)
@@ -264,7 +265,6 @@ public struct WMFActivityTabView: View {
             _ = await timelineViewModel.fetchSummary(for: page)
         }
     }
-
 
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
