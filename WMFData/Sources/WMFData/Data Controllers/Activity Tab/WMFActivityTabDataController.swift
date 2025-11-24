@@ -346,13 +346,35 @@ public actor WMFActivityTabDataController {
 }
 
 extension WMFActivityTabDataController {
-    @objc public nonisolated static func activityAssignmentForObjC() -> Int {
-        let key = WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue
-        let value = (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: key)) ?? false
-        return value ? 1 : 0
-    }
-}
 
+    @objc public nonisolated static func activityAssignmentForObjC() -> Int {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: Int = 0
+
+        Task {
+            let controller = WMFActivityTabDataController.shared
+
+            let assignment: ActivityTabExperimentAssignment?
+            do {
+                assignment = try await controller.assignOrFetchExperimentAssignment()
+            } catch {
+                debugPrint("Error in activityAssignmentForObjC: \(error)")
+                assignment = nil
+            }
+
+            if let assignment, assignment == .activityTab {
+                result = 1
+            } else {
+                result = 0
+            }
+            semaphore.signal()
+        }
+
+        semaphore.wait()
+        return result
+    }
+
+}
 
 public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
