@@ -222,6 +222,20 @@
 			<string>%1$d Zeilen net geännert</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ derbäigesat</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld Byte</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -709,6 +723,50 @@
 			<string>%1$d Byte</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-edits-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>D'Wikipedia gouf %#@v1@ pro Minutt geännert</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Mol</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia war a méi wéi %#@v1@ disponibel</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Sprooch</string>
+			<key>other</key>
+			<string>%1$d Sproochen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-highlights-edit-frequency-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ pro Minutt</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Mol</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -723,10 +781,10 @@
 			<string>%1$d Mol</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt %#@v1@ gelies</string>
+		<string>Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest %#@v1@ am Joer.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -736,7 +794,7 @@
 			<key>one</key>
 			<string>%1$d Artikel</string>
 			<key>other</key>
-			<string>%1$d Artikele</string>
+			<string>%1$d Artikelen</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

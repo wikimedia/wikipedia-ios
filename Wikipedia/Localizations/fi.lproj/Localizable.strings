@@ -16,6 +16,7 @@
 // Author: McDutchie
 // Author: McSalama
 // Author: Mediawikitranslator
+// Author: Minilammas
 // Author: Moottori
 // Author: Nemo bis
 // Author: Nike
@@ -107,6 +108,7 @@
 "activity-tab-add-images-subtitle" = "Paranna Wikipedia-artikkelin ymmärrettävyyttä hyväksymällä niihin ehdotettavia kuvia.";
 "activity-tab-add-images-title" = "Lisää kuvia";
 "activity-tab-additional-thoughts" = "Muuta sanottavaa?";
+// Fuzzy
 "activity-tab-logged-out-subtitle" = "Tarkastele uudella tavalla lukemaasi ja lisäämääsi sisältöä";
 "activity-tab-neutral" = "Neutraali";
 "activity-tab-satisfied" = "Tyytyväinen";
@@ -220,6 +222,7 @@
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "developer-settings" = "Kehittäjien asetukset";
 "developer-settings-enable-year-in-review" = "Ota vuosikatsaus käyttöön";
+"did-you-know" = "Tiesitkö?";
 "diff-article-revision-history" = "Artikkelin versiohistoria";
 "diff-change-added" = "Lisäys, $1, lisäyksen loppu.";
 "diff-change-paragraph-lines-moved-down" = "Kappaletta siirretty {{PLURAL:$1|0=0 riviä|$1 rivi|$1 riviä}} alaspäin. Siirry uuteen sijaintiin.";
@@ -316,7 +319,7 @@
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-placeholder-text" = "Miten paransit artikkelia?";
 "edit-summary-short-description-added" = "Lyhyt kuvaus lisätty";
-"edit-summary-short-description-updated" = "Lyhyttä kuvausta päivitetty";
+"edit-summary-short-description-updated" = "Päivitetty lyhyt kuvaus";
 "edit-watch-list-learn-more-text" = "Lue lisää omista tarkkailulistoista";
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-subtitle" = "Muokkaa rohkeasti, mutta älä holtittomasti. Älä epäröi virheiden tekemistä, sillä yhteisömme voi tarvittaessa helposti palauttaa edellisen version.";
@@ -1276,18 +1279,17 @@
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Julkaisemalla hyväksyt $1käyttöehdot$2 ja peruuttomattomasti muokkaustesi lisensoinnin $3CC BY-SA 4.0$4 ja $5GFDL$6 lisensseillä. Hyväksyt, että hyperlinkki tai URL on riittää nimeämiseen Creative Commons -lisenssin mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
-"year-in-review-base-donate-subtitle" = "Wikipedian taustalla on voittoa tavoittelematon Wikimedia-säätiö. Avullasi säätiö voi jatkossakin tarjota huippuluokan Wikipedia-kokemuksen, jossa luotettavaa tietoa on saatavilla ilman mainoksia sekä käyttö ja muokkaus on sujuvaa korkeatasoisen teknologian ansiosta. Arvostamme lahjoitustasi jo tänään. [Lue lisää työstämme]($1).";
-"year-in-review-base-donate-title" = "0 Wikipediassa näytettyä mainosta";
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "Wikipediaa muokattiin keskimäärin $1 kertaa joka minuutti. Artikkeleita luodaan ja parannetaan yhteistyössä luotettavien lähteiden avulla. Meillä kaikilla on tietoa jaettavana, [näin osallistut]($2).";
+// Fuzzy
 "year-in-review-base-edits-title" = "Wikipediaa muokattiin $1 kertaa joka minuutti";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipediassa oli yli $1 artikkelia yli $2 aktiivisella kielellä. Liityit miljoonien joukkoon laajentamassa tietämystä ja tutkimassa erilaisia aiheita.";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Lukulistaan lisättyä artikkelia voi käyttää myös ilman Internet-yhteyttä. Lukulistoja voi myös synkronoida laitteiden välillä.";
 // Fuzzy
 "year-in-review-base-saved-title" = "Yli $1 miljoonaa lukulistaa";
 "year-in-review-button-title" = "Vuosikatsaus";
-"year-in-review-collective-zero-ads" = "Wikimedia-logo";
 "year-in-review-day-friday" = "perjantai";
 "year-in-review-day-monday" = "maanantai";
 "year-in-review-day-saturday" = "lauantai";
@@ -1297,20 +1299,15 @@
 "year-in-review-day-wednesday" = "keskiviikko";
 "year-in-review-donate" = "Lahjoita";
 "year-in-review-donate-now" = "Lahjoita nyt";
-"year-in-review-english-edits" = "Kaavio näyttää kymmenen muokatuinta Wikipedian kieliversiota vuonna 2024: englanti (yli 31 miljoonaa muokkausta), saksa (5 508 570), ranska (5 276 385), espanja (4 786 205), venäjä (3 303 066), italia (3 200 398), japani (2 973 657), kiina (2 505 032), puola (1 383 808) ja ukraina (1 376 980). Kaikissa Wikipedian kieliversioissa tehtiin yhteensä 81 987 181 muokkausta vuonna 2024.";
 "year-in-review-feature-announcement-body" = "Tutustu kohokohtiin miten artikkeleita luetaan ja muokataan Wikipediassa.";
 "year-in-review-feature-announcement-title-personalized" = "Tutustu Wikipedia-vuoteesi";
 "year-in-review-feature-explore-body-personalized" = "Tutustu kohokohtiin lukemastasi ja muokkaamastasi sisällöstä Wikipedia-sovelluksessa vuonna 2024. Lukuhistoria säilytetään suojattuna. Kohokohdat muodostetaan laitteellesi tallennetun tiedon perusteella.";
-"year-in-review-login-title" = "Paranna vuosikatsausta";
-"year-in-review-personalized-day-subtitle-format" = "Luit eniten artikkeleita $1sin. Selvästi $1 on paras päiväsi uuden sisällön tutkimiseen. Kiitos, että käytit lukuaikasi parhaalla mahdollisella tavalla!";
-"year-in-review-personalized-day-title-format" = "Luit eniten $1sin";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä $1 katselukertaa. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Muokkauksiasi on näytetty yli $1 kertaa";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "Muokkasit Wikipediaa {{PLURAL:$1|$1 kerran|$1 kertaa}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Muokkasit Wikipediaa yli 500 kertaa";
-"year-in-review-personalized-reading-subtitle-format" = "Luit {{PLURAL:$1|$1 artikkelin|$1 artikkelia}}. Wikipediassa oli saatavilla $2 miljoonaa artikkelia yli $3 aktiivisella kielellä. Liityit osaksi miljoonien ihmisten yhteisöä laajentamassa tietämystään ja tutkimassa moninaisia aiheita.";
-"year-in-review-personalized-reading-title-format" = "Luit {{PLURAL:$1|$1 artikkeli|$1 artikkelia}}";
 "year-in-review-share-text" = "Tämä on Wikipedia-vuosikatsaukseni, joka on luotu Wikipedian iOS-sovelluksella.";
 "year-in-review-survey-additional-thoughts" = "Muita ajatuksia?";
 "year-in-review-survey-neutral" = "Neutraali";

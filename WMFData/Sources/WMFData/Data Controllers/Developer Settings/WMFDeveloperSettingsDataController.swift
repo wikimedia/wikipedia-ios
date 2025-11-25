@@ -2,11 +2,13 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableMoreDynamicTabsGroupB: Bool { get }
-    var enableMoreDynamicTabsGroupC: Bool { get }
+    var enableMoreDynamicTabsV2GroupB: Bool { get }
+    var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
-    var showYiRV2: Bool { get }
     var showYiRV3: Bool { get }
+    var enableYiRLoginExperimentControl: Bool { get }
+    var enableYiRLoginExperimentB: Bool { get }
+    var showActivityTab: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -111,33 +113,65 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     public var enableMoreDynamicTabsGroupB: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupB.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupB.rawValue, value: newValue)
         }
     }
 
     public var enableMoreDynamicTabsGroupC: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue)
         }
     }
     
-    public var showYiRV2: Bool {
+    public var enableMoreDynamicTabsV2GroupB: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupB.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupB.rawValue, value: newValue)
         }
     }
-    
+
+    public var enableMoreDynamicTabsV2GroupC: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue)
+        }
+    }
+
     public var showYiRV3: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue)
+        }
+    }
+    
+    public var enableYiRLoginExperimentControl: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue)
+        }
+    }
+    
+    public var enableYiRLoginExperimentB: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue)
+        }
+    }
+    
+    @objc public var showActivityTab: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
         }
     }
 

@@ -30,6 +30,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
+    
     // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
     var populateSearchBarWithTextAction: ((String) -> Void)?
 
@@ -81,12 +82,15 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return existingProfileCoordinator
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController, let dataStore else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController, let dataStore else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: dataStore
+        )
+    }()
+
     var customTabConfigUponArticleNavigation: ArticleTabConfig?
 
     private var yirDataController: WMFYearInReviewDataController? {
@@ -95,7 +99,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private let source: EventLoggingSource
 
-    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController.
+    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController (i.e. Explore and Article).
     private var customArticleCoordinatorNavigationController: UINavigationController?
 
     private var presentingSearchResults: Bool = false
@@ -142,7 +146,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
+        if isMainRootView {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -246,7 +252,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .search, project: nil)
     }
 
@@ -450,8 +456,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
+                
+                let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
 
-                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: .appendArticleAndAssignCurrentTab)
+                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
                 let success = linkCoordinator.start()
 
                 if !success {
@@ -459,8 +467,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 }
 
             } else if let navigationController {
+                
+                let tabConfig = self.customTabConfigUponArticleNavigation
 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
                 let success = linkCoordinator.start()
 
                 if !success {

@@ -270,6 +270,168 @@
 			<string>共%1$d行尚未編輯</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>在 %1$@ 年，志工們為英文維基百科添加了多達 %#@v2@ 位元組內容。他們共同的努力，為世界帶來了不斷改進、基於事實、可靠的知識資源。我們每一個人，都有可分享的知識，[了解如何參與]（%3$@）。</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>增加了 %#@v1@ 位元組</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>志工們對維基百科的 %#@v2@ 多種不同語言版本做出了 %#@v1@ 次修改。英文維基百科則進行了 %#@v3@ 次修改。每一天、每一刻、每一秒，志工們都在努力改進維基百科。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%3$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>編輯者今年做出了 %#@v1@ 次修改</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>在 %3$@ 年，人們花了 %#@v1@ 小時（約 %#@v2@ 年！）閱讀英文維基百科。當您想了解我們不斷變化的世界、在朋友之間贏得對事物了解的賭注、或是回答孩子好奇的問題時，維基百科都在您身邊。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>在 %3$@ 年，人們花了 %#@v1@ 小時（約 %#@v2@ 年！）閱讀英文維基百科。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>大家花了 %#@v1@ 小時閱讀維基百科</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>應用程式的活躍使用者今年儲存了 %#@v1@ 篇條目。將條目增加到閱讀清單可讓您即使在離線時也能查看條目。此外，您還可以透過登入將閱讀清單同步到不同裝置裡。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>我們擁有 %#@v1@ 篇已存條目</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -847,10 +1009,24 @@
 			<string>%1$d 篩選功能</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-base-editors-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您在維基百科上進行了 %#@v1@ 次編輯</string>
+		<string>維基百科官方應用程式上的編輯者進行了 %#@v1@ 次編輯。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>維基百科每分鐘被編輯 %#@v1@ 次</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -861,10 +1037,33 @@
 			<string>%1$d</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<key>year-in-review-base-reading-subtitle</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您閱讀了%#@v1@文章。維基百科提供超過%2$@百萬篇文章，涵蓋超過%3$@種活躍的語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。</string>
+		<string>維基百科在今年擁有超過 %#@v1@ 篇條目，涵蓋超過 %#@v2@ 種活躍的語言版本。您與數百萬人一起擴展知識，探索多元主題。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>維基百科提供超過 %#@v1@ 種語言版本</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -872,27 +1071,120 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%1$d篇</string>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>應用程式使用者擁有 %#@v1@ 篇已存條目</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>應用程式使用者瀏覽了 %#@v1@ 次維基百科條目</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>year-in-review-highlights-edit-frequency-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>每分鐘 %#@v1@ 次</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>全球的讀者感謝您的貢獻。在過去兩個月中，您編輯過的條目被瀏覽了 %#@v1@ 次。正因為有像您這樣的編輯者，維基百科才能持續改進，成為一個以事實為基礎且值得信賴的全球知識資源。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您的編輯最近已被瀏覽超過 %#@v1@ 次。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>像您一樣的志工對維基百科的 %#@v2@ 多個不同語言版本進行了 %#@v1@ 次修改。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您作出了 %#@v1@ 次編輯</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>這使您列入維基百科全球讀者的前 **PERCENT**。平均每人每年閱讀 %#@v1@ 篇條目。</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>您閱讀了 %#@v1@ 篇條目</string>
+		<string>我們估計您已列入維基百科全球讀者的前 **PERCENT**。平均每人每年閱讀 %#@v1@ 篇條目。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -906,7 +1198,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您在 2025 年花了 %#@v1@ 分鐘閱讀了 %#@v2@ 篇條目</string>
+		<string>您在 %3$@ 年花了 %#@v1@ 分鐘閱讀了 %#@v2@ 篇條目</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -924,6 +1216,22 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%2$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>這些條目包括%1$@、%2$@和%3$@。每篇儲存的條目都反應了您的興趣，並有助於在維基百科上建立個人化的知識庫。 
+
+今年，活躍的應用程式使用者已儲存了 %#@v4@ 篇條目。</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%4$lld</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

@@ -8,9 +8,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
+    @objc var checkForSurveyUponAppear: Bool = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
@@ -18,13 +18,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return try? WMFYearInReviewDataController()
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
-    
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: self.dataStore
+        )
+    }()
+
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -231,10 +233,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .feed, project: nil)
     }
-    
+
     @objc func scrollToTop() {
         navigationController?.setNavigationBarHidden(false, animated: true)
         collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
@@ -1039,9 +1041,12 @@ extension ExploreViewController {
     
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     fileprivate func presentModalsIfNeeded() {
+        
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
+        } else if shouldShowExploreSurvey {
+            presentExploreSurveyIfNeeded()
         }
         
         #if DEBUG
@@ -1050,18 +1055,16 @@ extension ExploreViewController {
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
+
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
         
-        guard let yirDataController,
-              let appLanguage = dataStore.languageLinkController.appLanguage else {
+        guard let yirDataController else {
                   return false
         }
         
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
+        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
             return false
         }
 
@@ -1097,36 +1100,9 @@ extension ExploreViewController {
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
-
-        if WMFDeveloperSettingsDataController.shared.showYiRV2 {
-            let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
-            let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
-            let primaryButtonTitle = CommonStrings.continueButton
-            let image = UIImage(named: "wikipedia-globe")
-            let backgroundImage = UIImage(named: "Announcement")
-            let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
-            let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
-
-            let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
-                guard let self else { return }
-                yirCoordinator?.start()
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-            }, closeButtonAction: {
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
-            })
-
-            if let profileBarButtonItem = navigationItem.rightBarButtonItem {
-                announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-                yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-            }
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            // A change in V3 is that we just show the feature itself with a modified intro slide.
-            // No feature announcement component
-            self.yirCoordinator?.start()
-            yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-        }
-        
+        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "explore_prompt")
+        self.yirCoordinator?.start()
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
     
     private func shouldShowSearchWidgetAnnouncement() -> Bool {
@@ -1879,5 +1855,105 @@ extension ExploreViewController: UISearchControllerDelegate {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
         SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
+    }
+}
+
+// MARK: - Explore Survey
+
+private extension ExploreViewController {
+    private var shouldShowExploreSurvey: Bool {
+        
+        guard checkForSurveyUponAppear else {
+            return false
+        }
+        
+        defer {
+            checkForSurveyUponAppear = false
+        }
+        
+        guard presentedViewController == nil else {
+            return false
+        }
+        
+        guard let languageCode = Locale.current.language.languageCode?.identifier.lowercased(),
+              languageCode == "en" else {
+            return false
+        }
+        
+        let startDate: Date? = {
+            var components = DateComponents()
+            components.year = 2025
+            components.month = 11
+            components.day = 24
+            components.hour = 01
+            components.minute = 01
+            components.second = 01
+            return Calendar.current.date(from: components)
+        }()
+        
+        let endDate: Date? = {
+            var components = DateComponents()
+            components.year = 2025
+            components.month = 11
+            components.day = 30
+            components.hour = 23
+            components.minute = 59
+            components.second = 59
+            return Calendar.current.date(from: components)
+        }()
+        
+        guard let startDate,
+              let endDate else {
+            return false
+        }
+        
+        let currentDate = Date()
+        guard currentDate >= startDate,
+              currentDate <= endDate else {
+            return false
+        }
+        
+        let dataController = WMFExploreDataController()
+        
+        guard !dataController.hasSeenExploreSurvey else {
+            return false
+        }
+        
+        return true
+              
+    }
+
+    private func presentExploreSurveyIfNeeded() {
+        
+        let localizableStrings = WMFToastViewExploreSurveyViewModel.LocalizableStrings(
+            title: WMFLocalizedString("explore-survey-title", value: "Help us improve Explore", comment: "Title of one-time survey prompt displayed to users on the Explore feed."),
+            subtitle: WMFLocalizedString("explore-survey-subtitle", value: "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.", comment: "Subtitle of one-time survey prompt displayed to users on the Explore feed."),
+            noThanksButtonTitle: CommonStrings.noThanksTitle,
+            takeSurveyButtonTitle: CommonStrings.takeSurveyTitle(languageCode: nil))
+        
+        let noThanksAction: () -> Void = {
+            WMFToastPresenter.shared.dismissCurrentToast()
+        }
+        
+        let takeSurveyAction: () -> Void = { [weak self] in
+            debugPrint("tapped take survey")
+            guard let url = URL(string: "https://wikimedia.qualtrics.com/jfe/form/SV_4V0kURVL6q5Da6y") else {
+                return
+            }
+            
+            self?.navigate(to: url, useSafari: true)
+            WMFToastPresenter.shared.dismissCurrentToast()
+        }
+        
+        let viewModel = WMFToastViewExploreSurveyViewModel(localizableStrings: localizableStrings, noThanksAction: noThanksAction, takeSurveyAction: takeSurveyAction)
+        let view = WMFToastViewExploreSurveyView(viewModel: viewModel)
+        
+        WMFToastPresenter.shared.presentToastView(
+            view: view,
+            allowsBackgroundTapToDismiss: false
+        )
+        
+        let dataController = WMFExploreDataController()
+        dataController.hasSeenExploreSurvey = true
     }
 }

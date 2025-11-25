@@ -46,6 +46,7 @@ public enum ArticleSource: Int {
     case internal_link = 2
     case external_link = 3
     case history = 4
+    case activity = 45 
     case places = 9
 }
 

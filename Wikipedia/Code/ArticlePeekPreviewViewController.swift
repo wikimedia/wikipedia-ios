@@ -118,6 +118,7 @@ class ArticlePeekPreviewViewController: UIViewController {
         
         // Open action
         let readAction = UIAction(title: CommonStrings.articleTabsOpen, image: WMFSFSymbolIcon.for(symbol: .chevronForward), handler: { (action) in
+            ArticleTabsFunnel.shared.logLongPressOpen()
             self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
         })
 
@@ -133,7 +134,7 @@ class ArticlePeekPreviewViewController: UIViewController {
             let openInNewTabAction = UIAction(title: CommonStrings.articleTabsOpenInNewTab, image: WMFSFSymbolIcon.for(symbol: .tabsIcon), handler: { [weak self] _ in
                 guard let self = self else { return }
                 articleTabsDataController.didTapOpenNewTab()
-                ArticleTabsFunnel.shared.logOpenArticleInNewTab()
+                ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
                 self.articlePreviewingDelegate?.openInNewTabArticlePreviewActionSelected(with: self)
             })
             
@@ -152,18 +153,22 @@ class ArticlePeekPreviewViewController: UIViewController {
                         
                         let tabsCount = try await articleTabsDataController.tabsCount()
                         let tabsMax = articleTabsDataController.tabsMax
-                        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project)
+                        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project, articleURL: article.url)
                         if tabsCount >= tabsMax {
                             
-                            let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier()
-                            _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                            if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {
+                                _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                            } else {
+                                _ = try await articleTabsDataController.createArticleTab(initialArticle: article)
+                            }
+                            
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                 WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
                             }
                         } else {
                             _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
-                            ArticleTabsFunnel.shared.logOpenArticleInBackgroundTab()
+                            ArticleTabsFunnel.shared.logLongPressOpenInBackgroundTab()
                         }
                         
                     } catch {
@@ -187,6 +192,7 @@ class ArticlePeekPreviewViewController: UIViewController {
         let article {
             let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
             let saveAction = UIAction(title: saveActionTitle, image: WMFSFSymbolIcon.for(symbol: article.isAnyVariantSaved ? .bookmarkFill : .bookmark), handler: { (action) in
+                ArticleTabsFunnel.shared.logLongPressSave()
                 let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
                 let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
                 UIAccessibility.post(notification: .announcement, argument: notification)
@@ -211,6 +217,7 @@ class ArticlePeekPreviewViewController: UIViewController {
             guard let presenter = self.articlePreviewingDelegate as? UIViewController else {
                 return
             }
+            ArticleTabsFunnel.shared.logLongPressShare()
             let customActivity = self.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
             guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: nil, customActivities: [customActivity]) else {
                 return

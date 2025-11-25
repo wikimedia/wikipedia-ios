@@ -20,18 +20,23 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var forceMaxArticleTabsTo5: Bool {
         return false
     }
-
-    var enableMoreDynamicTabsGroupB: Bool {
-        return true
-    }
-
-    var enableMoreDynamicTabsGroupC: Bool {
-        return false
-    }
     
-    var showYiRV2: Bool { return false }
+    var enableMoreDynamicTabsV2GroupB: Bool {
+        get {
+            return true
+        }
+    }
+
+    var enableMoreDynamicTabsV2GroupC: Bool {
+        get {
+            return false
+        }
+    }
     
     var showYiRV3: Bool { return true }
+    var enableYiRLoginExperimentControl: Bool { return false }
+    var enableYiRLoginExperimentB: Bool { return false }
+    var showActivityTab: Bool { return true }
 
     private let featureConfig: WMFData.WMFFeatureConfigResponse
     

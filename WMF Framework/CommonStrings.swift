@@ -647,8 +647,21 @@ public class CommonStrings: NSObject {
     public static let joinLoginTitle = WMFLocalizedString("profile-page-join-title", value: "Log in / Join Wikipedia", comment: "Link to sign up or sign in")
     
     public static let noThanksTitle = WMFLocalizedString("variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about variant support.")
+    public static let continueWithoutLoggingIn = WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title")
+    
+    public static func takeSurveyTitle(languageCode: String?) -> String {
+        WMFLocalizedString("import-shared-reading-list-survey-prompt-button-take-survey", languageCode: languageCode, value:"Take survey", comment:"Title of action button on import reading list survey prompt, which takes user to external survey.")
+    }
     
     public static let notNowTitle = WMFLocalizedString("not-now-title", value: "Not now", comment: "Text for the dismiss button across various features.")
+    
+    public static let youCanAccessYIR = WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide.")
+
+    public static let logoCaption = WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
+    
+    public static let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
+    
+    public static let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
 
     // Donation history
 
@@ -676,9 +689,6 @@ public class CommonStrings: NSObject {
     
     public static let yirFeatureAnnoucementBody =  WMFLocalizedString("year-in-review-feature-announcement-body", value: "See insights about what articles we read and edited, and share highlights from our year on Wikipedia.", comment: "Body for year in review feature announcement")
     public static let yirFeatureAnnoucementBodyPersonalized =  WMFLocalizedString("year-in-review-feature-announcement-body-personalized", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
-    
-    public static let personalizedExploreAccessibilityLabel = WMFLocalizedString("year-in-review-personalized-explore", value: "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.", comment: "Accessibility description for the personalized explore slide.")
-    public static let collectiveExploreAccessibilityLabel = WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide.")
     
     public static let searchButtonAccessibilityLabel = WMFLocalizedString("search-button-accessibility-label", value: "Search Wikipedia", comment: "Accessibility label for a button that opens a search box to search Wikipedia.")
 

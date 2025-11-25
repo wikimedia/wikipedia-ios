@@ -35,6 +35,7 @@
 "action-sort" = "Տեսակավորել";
 "action-undo" = "Հետ շրջել";
 "action-update" = "Թարմացնել";
+"activity-tab-articles-read-graph-label" = "Հոդվածներ";
 "activity-tab-title" = "Ակտիվություն";
 "announcements-dismiss" = "Փակել";
 "article-delete" = "Ջնջել";
@@ -207,5 +208,4 @@
 "wikitext-upload-save-terms-name" = "Օգտագործման պայմաններ";
 "year-in-review-donate" = "Նվիրաբերել";
 "year-in-review-finish" = "Վերջացնել";
-"year-in-review-personalized-editing-title-format-500plus" = "Դուք Վիքիպեդիան խմբագրել եք 500+ անգամ";
 "yesterday-title" = "Երեկ";

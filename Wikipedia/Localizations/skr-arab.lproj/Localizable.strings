@@ -57,6 +57,7 @@
 "activity-tab-very-satisfied" = "ݙاڈھا تسلی بخش";
 "activity-tab-very-unsatisfied" = "ݙاڈھا تسلی بخش";
 "activity-tab-view-editing-history" = " تبدیلی دا تاریخچہ ݙیکھو";
+"activity-tab-week-graph-label" = "ہفتہ";
 // Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "alt-text-feedback-survey-toast-title" = "فیڈبیک جمع تھی ڳئی";
@@ -111,6 +112,7 @@
 "description-published-title" = "تفصیل شائع تھی ڳئی!";
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
+// Fuzzy
 "did-you-know" = "بھلا تساں ڄاݨدے ہو";
 "diff-compare-header-from-info-heading" = "پچھلی تبدیلی";
 // Fuzzy

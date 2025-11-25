@@ -9,11 +9,14 @@ struct WMFYearInReviewScrollView: View {
     @State private var flashScrollIndicators: Bool = false
     
     private let scrollViewContents: AnyView
+    private let forceBackgroundColor: UIColor?
     
     init<ScrollViewContent: View>(
-        scrollViewContents: ScrollViewContent
+        scrollViewContents: ScrollViewContent,
+        forceBackgroundColor: UIColor? = nil
     ) {
         self.scrollViewContents = AnyView(scrollViewContents)
+        self.forceBackgroundColor = forceBackgroundColor
     }
 
     // MARK: - Lifecycle
@@ -28,6 +31,7 @@ struct WMFYearInReviewScrollView: View {
     private var flashingScrollView: some View {
         scrollView
         .scrollIndicatorsFlash(trigger: flashScrollIndicators)
+        .scrollBounceBehavior(.basedOnSize, axes: .vertical)
     }
     
     private var nonFlashingScrollView: some View {
@@ -47,7 +51,11 @@ struct WMFYearInReviewScrollView: View {
     var body: some View {
         content
             .background {
-                Color(appEnvironment.theme.midBackground).ignoresSafeArea()
+                if let forceBackgroundColor {
+                    Color(forceBackgroundColor).ignoresSafeArea()
+                } else {
+                    Color(appEnvironment.theme.midBackground).ignoresSafeArea()
+                }
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

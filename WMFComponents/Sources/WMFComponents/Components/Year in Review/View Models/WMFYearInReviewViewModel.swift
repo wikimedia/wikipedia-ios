@@ -3,9 +3,7 @@ import SwiftUI
 import WMFData
 
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
-    func logYearInReviewIntroDidTapContinue()
     func logYearInReviewIntroDidTapLearnMore()
-    func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String)
     func logYearInReviewSlideDidAppear(slideLoggingID: String)
     func logYearInReviewDidTapDone(slideLoggingID: String)
     func logYearInReviewDidTapNext(slideLoggingID: String)
@@ -16,19 +14,13 @@ public protocol WMFYearInReviewLoggingDelegate: AnyObject {
 public class WMFYearInReviewViewModel: ObservableObject {
     
     public struct LocalizedStrings {
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, shareText: String, introV2Title: String, introV2TitlePersonalized: String, introV2Subtitle: String, introV2SubtitlePersonzalized: String, introV2PrimaryButtonTitle: String, introV2SecondaryButtonTitle: String, introV3Title: String, introV3Subtitle: String, introV3Footer: String, introV3PrimaryButtonTitle: String, introV3SecondaryButtonTitle: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String, englishReadingSlideTitle: String, englishReadingSlideSubtitle: String, englishTopReadSlideTitle: String, englishTopReadSlideSubtitle: String, englishSavedReadingSlideTitle: String, englishSavedReadingSlideSubtitle: String, englishEditsSlideTitle: String, englishEditsSlideSubtitle: String, englishEditsBytesSlideTitle: String, englishEditsBytesSlideSubtitle: String, collectiveLanguagesSlideTitle: String, collectiveLanguagesSlideSubtitle: String, collectiveArticleViewsSlideTitle: String, collectiveArticleViewsSlideSubtitle: String, collectiveSavedArticlesSlideTitle: String, collectiveSavedArticlesSlideSubtitle: String, collectiveAmountEditsSlideTitle: String, collectiveAmountEditsSlideSubtitle: String, collectiveEditsPerMinuteSlideTitle: String, collectiveEditsPerMinuteSlideSubtitle: String, collectiveZeroAdsSlideTitle: String, collectiveZeroAdsSlideSubtitle: @escaping () -> String, personalizedYouReadSlideTitleV2: @escaping (Int) -> String, personalizedYouReadSlideSubtitleV2: @escaping (Int) -> String, personalizedYouReadSlideTitleV3: @escaping (Int, Int) -> String, personalizedYouReadSlideSubtitleV3: @escaping (Int) -> String, personalizedDateSlideTitleV2: @escaping (Int) -> String, personalizedDateSlideSubtitleV2: @escaping (Int) -> String, personalizedDateSlideTitleV3: String, personalizedDateSlideTimeV3: @escaping (Int) -> String, personalizedDateSlideTimeFooterV3: String, personalizedDateSlideDayV3: @escaping (Int) -> String, personalizedDateSlideDayFooterV3: String, personalizedDateSlideMonthV3: @escaping (Int) -> String, personalizedDateSlideMonthFooterV3: String, personalizedSaveCountSlideTitle: @escaping (Int) -> String, personalizedSaveCountSlideSubtitle: @escaping (Int, [String]) -> String, personalizedUserEditsSlideTitle: @escaping (Int) -> String, personzlizedUserEditsSlideTitle500Plus: String, personzlizedUserEditsSlideSubtitleEN: String, personzlizedUserEditsSlideSubtitleNonEN: String, personalizedYourEditsViewedSlideTitle: @escaping (Int) -> String, personalizedYourEditsViewedSlideSubtitle: @escaping (Int) -> String, personalizedThankYouTitle: String, personalizedThankYouSubtitle: @escaping (String) -> String, personalizedMostReadCategoriesSlideTitle: String, personalizedMostReadCategoriesSlideSubtitle: @escaping ([String]) -> String, personalizedMostReadArticlesSlideTitle: String, personalizedMostReadArticlesSlideSubtitle: @escaping ([String]) -> String, personalizedLocationSlideTitle: @escaping (String) -> String, personalizedLocationSlideSubtitle: @escaping ([String]) -> String, noncontributorTitle: String, noncontributorSubtitle: String, noncontributorButtonText: String, contributorTitle: String, contributorSubtitle: @escaping (Bool, Bool) -> String, contributorGiftTitle: String, contributorGiftSubtitle: String, highlightsSlideTitle: String, highlightsSlideSubtitle: String, highlightsSlideButtonTitle: String, longestReadArticlesTitle: String, minutesReadTitle: String, favoriteReadingDayTitle: String, savedArticlesTitle: String, favoriteCategoriesTitle: String, editedArticlesTitle: String, enWikiTopArticlesTitle: String, hoursSpentReadingTitle: String, numberOfChangesMadeTitle: String, numberOfViewedArticlesTitle: String, numberOfViewedArticlesValue: String, numberOfReadingListsTitle: String, numberOfEditsTitle: String, numberOfEditsValue: String, editFrequencyTitle: String, editFrequencyValue: String, logoCaption: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, shareText: String, introV3Title: String, introV3Subtitle: String, introV3Footer: String, introV3PrimaryButtonTitle: String, introV3SecondaryButtonTitle: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, puzzleGlobeHandAccessibilityLabel: String, puzzleWalkAccessibilityLabel: String, bytesAccessibilityLabel: String, clockAccessibilityLabel: String, stoneAccessibilityLabel: String, compAccessibilityLabel: String, skyAccessibilityLabel: String, duoAccessibilityLabel: String, penballAccessibilityLabel: String, englishReadingSlideTitle: String, englishReadingSlideSubtitle: String, englishTopReadSlideTitle: String, englishTopReadSlideSubtitle: String, englishSavedReadingSlideTitle: String, englishSavedReadingSlideSubtitle: String, englishEditsSlideTitle: String, englishEditsSlideSubtitle: String, englishEditsBytesSlideTitle: String, englishEditsBytesSlideSubtitle: String, collectiveLanguagesSlideTitle: String, collectiveLanguagesSlideSubtitle: String, collectiveArticleViewsSlideTitle: String, collectiveArticleViewsSlideSubtitle: String, collectiveSavedArticlesSlideTitle: String, collectiveSavedArticlesSlideSubtitle: String, collectiveAmountEditsSlideTitle: String, collectiveAmountEditsSlideSubtitle: String, collectiveEditsPerMinuteSlideTitle: String, collectiveEditsPerMinuteSlideSubtitle: String, personalizedYouReadSlideTitleV3: @escaping (Int, Int) -> String, personalizedYouReadSlideSubtitleV3: @escaping (Int) -> String, personalizedDateSlideTitleV3: String, personalizedDateSlideTimeV3: @escaping (Int) -> String, personalizedDateSlideTimeFooterV3: String, personalizedDateSlideDayV3: @escaping (Int) -> String, personalizedDateSlideDayFooterV3: String, personalizedDateSlideMonthV3: @escaping (Int) -> String, personalizedDateSlideMonthFooterV3: String, personalizedSaveCountSlideTitle: @escaping (Int) -> String, personalizedSaveCountSlideSubtitle: @escaping (Int, [String]) -> String, personalizedUserEditsSlideTitle: @escaping (Int) -> String, personzlizedUserEditsSlideSubtitleEN: String, personzlizedUserEditsSlideSubtitleNonEN: String, personalizedYourEditsViewedSlideTitle: @escaping (Int) -> String, personalizedYourEditsViewedSlideSubtitle: @escaping (Int) -> String, personalizedThankYouTitle: String, personalizedThankYouSubtitle: @escaping (String) -> String, personalizedMostReadCategoriesSlideTitle: String, personalizedMostReadCategoriesSlideSubtitle: @escaping ([String]) -> String, personalizedMostReadArticlesSlideTitle: String, personalizedMostReadArticlesSlideSubtitle: @escaping ([String]) -> String, personalizedLocationSlideTitle: @escaping (String) -> String, personalizedLocationSlideSubtitle: @escaping ([String]) -> String, noncontributorTitle: String, noncontributorSubtitle: String, noncontributorButtonText: String, contributorTitle: String, contributorSubtitle: @escaping (Bool, Bool) -> String, contributorGiftTitle: String, contributorGiftSubtitle: String, highlightsSlideTitle: String, highlightsSlideSubtitle: String, highlightsSlideButtonTitle: String, mostReadArticlesTitle: String, minutesReadTitle: String, favoriteReadingDayTitle: String, articlesReadTitle: String, favoriteCategoriesTitle: String, editedArticlesTitle: String, enWikiTopArticlesTitle: String, enWikiTopArticlesValue: [String], hoursSpentReadingTitle: String, hoursSpentReadingValue: String, numberOfChangesMadeTitle: String, numberOfChangesMadeValue: String, numberOfViewedArticlesTitle: String, numberOfViewedArticlesValue: String, numberOfReadingListsTitle: String, numberOfEditsTitle: String, numberOfEditsValue: String, editFrequencyTitle: String, editFrequencyValue: String, logoCaption: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
             self.nextButtonTitle = nextButtonTitle
             self.finishButtonTitle = finishButtonTitle
             self.shareText = shareText
-            self.introV2Title = introV2Title
-            self.introV2TitlePersonalized = introV2TitlePersonalized
-            self.introV2Subtitle = introV2Subtitle
-            self.introV2SubtitlePersonzalized = introV2SubtitlePersonzalized
-            self.introV2PrimaryButtonTitle = introV2PrimaryButtonTitle
-            self.introV2SecondaryButtonTitle = introV2SecondaryButtonTitle
             self.introV3Title = introV3Title
             self.introV3Subtitle = introV3Subtitle
             self.introV3Footer = introV3Footer
@@ -36,21 +28,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.introV3SecondaryButtonTitle = introV3SecondaryButtonTitle
             self.wIconAccessibilityLabel = wIconAccessibilityLabel
             self.wmfLogoImageAccessibilityLabel = wmfLogoImageAccessibilityLabel
-            self.personalizedExploreAccessibilityLabel = personalizedExploreAccessibilityLabel
-            self.personalizedYouReadAccessibilityLabel = personalizedYouReadAccessibilityLabel
-            self.personalizedUserEditsAccessibilityLabel = personalizedUserEditsAccessibilityLabel
-            self.personalizedDonationThankYouAccessibilityLabel = personalizedDonationThankYouAccessibilityLabel
-            self.personalizedSavedArticlesAccessibilityLabel = personalizedSavedArticlesAccessibilityLabel
-            self.personalizedWeekdayAccessibilityLabel = personalizedWeekdayAccessibilityLabel
-            self.personalizedYourEditsViewsAccessibilityLabel = personalizedYourEditsViewsAccessibilityLabel
-            self.collectiveExploreAccessibilityLabel = collectiveExploreAccessibilityLabel
-            self.collectiveLanguagesAccessibilityLabel = collectiveLanguagesAccessibilityLabel
-            self.collectiveArticleViewsAccessibilityLabel = collectiveArticleViewsAccessibilityLabel
-            self.collectiveSavedArticlesAccessibilityLabel = collectiveSavedArticlesAccessibilityLabel
-            self.collectiveAmountEditsAccessibilityLabel = collectiveAmountEditsAccessibilityLabel
-            self.englishEditsAccessibilityLabel = englishEditsAccessibilityLabel
-            self.collectiveEditsPerMinuteAccessibilityLabel = collectiveEditsPerMinuteAccessibilityLabel
-            self.collectiveZeroAdsAccessibilityLabel = collectiveZeroAdsAccessibilityLabel
+            self.puzzleGlobeHandAccessibilityLabel = puzzleGlobeHandAccessibilityLabel
+            self.puzzleWalkAccessibilityLabel = puzzleWalkAccessibilityLabel
+            self.bytesAccessibilityLabel = bytesAccessibilityLabel
+            self.clockAccessibilityLabel = clockAccessibilityLabel
+            self.stoneAccessibilityLabel = stoneAccessibilityLabel
+            self.compAccessibilityLabel = compAccessibilityLabel
+            self.skyAccessibilityLabel = skyAccessibilityLabel
+            self.duoAccessibilityLabel = duoAccessibilityLabel
+            self.penballAccessibilityLabel = penballAccessibilityLabel
             self.englishReadingSlideTitle = englishReadingSlideTitle
             self.englishReadingSlideSubtitle = englishReadingSlideSubtitle
             self.englishTopReadSlideTitle = englishTopReadSlideTitle
@@ -71,14 +57,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.collectiveAmountEditsSlideSubtitle = collectiveAmountEditsSlideSubtitle
             self.collectiveEditsPerMinuteSlideTitle = collectiveEditsPerMinuteSlideTitle
             self.collectiveEditsPerMinuteSlideSubtitle = collectiveEditsPerMinuteSlideSubtitle
-            self.collectiveZeroAdsSlideTitle = collectiveZeroAdsSlideTitle
-            self.collectiveZeroAdsSlideSubtitle = collectiveZeroAdsSlideSubtitle
-            self.personalizedYouReadSlideTitleV2 = personalizedYouReadSlideTitleV2
-            self.personalizedYouReadSlideSubtitleV2 = personalizedYouReadSlideSubtitleV2
             self.personalizedYouReadSlideTitleV3 = personalizedYouReadSlideTitleV3
             self.personalizedYouReadSlideSubtitleV3 = personalizedYouReadSlideSubtitleV3
-            self.personalizedDateSlideTitleV2 = personalizedDateSlideTitleV2
-            self.personalizedDateSlideSubtitleV2 = personalizedDateSlideSubtitleV2
             self.personalizedDateSlideTitleV3 = personalizedDateSlideTitleV3
             self.personalizedDateSlideTimeV3 = personalizedDateSlideTimeV3
             self.personalizedDateSlideTimeFooterV3 = personalizedDateSlideTimeFooterV3
@@ -89,7 +69,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.personalizedSaveCountSlideTitle = personalizedSaveCountSlideTitle
             self.personalizedSaveCountSlideSubtitle = personalizedSaveCountSlideSubtitle
             self.personalizedUserEditsSlideTitle = personalizedUserEditsSlideTitle
-            self.personzlizedUserEditsSlideTitle500Plus = personzlizedUserEditsSlideTitle500Plus
             self.personzlizedUserEditsSlideSubtitleEN = personzlizedUserEditsSlideSubtitleEN
             self.personzlizedUserEditsSlideSubtitleNonEN = personzlizedUserEditsSlideSubtitleNonEN
             self.personalizedYourEditsViewedSlideTitle = personalizedYourEditsViewedSlideTitle
@@ -112,15 +91,18 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.highlightsSlideTitle = highlightsSlideTitle
             self.highlightsSlideSubtitle = highlightsSlideSubtitle
             self.highlightsSlideButtonTitle = highlightsSlideButtonTitle
-            self.longestReadArticlesTitle = longestReadArticlesTitle
+            self.mostReadArticlesTitle = mostReadArticlesTitle
             self.minutesReadTitle = minutesReadTitle
             self.favoriteReadingDayTitle = favoriteReadingDayTitle
-            self.savedArticlesTitle = savedArticlesTitle
+            self.articlesReadTitle = articlesReadTitle
             self.favoriteCategoriesTitle = favoriteCategoriesTitle
             self.editedArticlesTitle = editedArticlesTitle
             self.enWikiTopArticlesTitle = enWikiTopArticlesTitle
+            self.enWikiTopArticlesValue = enWikiTopArticlesValue
             self.hoursSpentReadingTitle = hoursSpentReadingTitle
+            self.hoursSpentReadingValue = hoursSpentReadingValue
             self.numberOfChangesMadeTitle = numberOfChangesMadeTitle
+            self.numberOfChangesMadeValue = numberOfChangesMadeValue
             self.numberOfViewedArticlesTitle = numberOfViewedArticlesTitle
             self.numberOfViewedArticlesValue = numberOfViewedArticlesValue
             self.numberOfReadingListsTitle = numberOfReadingListsTitle
@@ -131,6 +113,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.logoCaption = logoCaption
         }
         
+        
         // Navigation strings
         let donateButtonTitle: String
         let doneButtonTitle: String
@@ -139,13 +122,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let finishButtonTitle: String
         public let shareText: String
         
-        // Intro strings
-        let introV2Title: String
-        let introV2TitlePersonalized: String
-        let introV2Subtitle: String
-        let introV2SubtitlePersonzalized: String
-        let introV2PrimaryButtonTitle: String
-        let introV2SecondaryButtonTitle: String
+        // Intro slides
         let introV3Title: String
         let introV3Subtitle: String
         let introV3Footer: String
@@ -156,22 +133,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let wIconAccessibilityLabel: String
         let wmfLogoImageAccessibilityLabel: String
         
-        let personalizedExploreAccessibilityLabel: String
-        let personalizedYouReadAccessibilityLabel: String
-        let personalizedUserEditsAccessibilityLabel: String
-        let personalizedDonationThankYouAccessibilityLabel: String
-        let personalizedSavedArticlesAccessibilityLabel: String
-        let personalizedWeekdayAccessibilityLabel: String
-        let personalizedYourEditsViewsAccessibilityLabel: String
-        
-        let collectiveExploreAccessibilityLabel: String
-        let collectiveLanguagesAccessibilityLabel: String
-        let collectiveArticleViewsAccessibilityLabel: String
-        let collectiveSavedArticlesAccessibilityLabel: String
-        let collectiveAmountEditsAccessibilityLabel: String
-        let englishEditsAccessibilityLabel: String
-        let collectiveEditsPerMinuteAccessibilityLabel: String
-        let collectiveZeroAdsAccessibilityLabel: String
+        let puzzleGlobeHandAccessibilityLabel: String
+        let puzzleWalkAccessibilityLabel: String
+        let bytesAccessibilityLabel: String
+        let clockAccessibilityLabel: String
+        let stoneAccessibilityLabel: String
+        let compAccessibilityLabel: String
+        let skyAccessibilityLabel: String
+        let duoAccessibilityLabel: String
+        let penballAccessibilityLabel: String
         
         // Standard Slide Strings
         let englishReadingSlideTitle: String
@@ -194,14 +164,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let collectiveAmountEditsSlideSubtitle: String
         let collectiveEditsPerMinuteSlideTitle: String
         let collectiveEditsPerMinuteSlideSubtitle: String
-        let collectiveZeroAdsSlideTitle: String
-        let collectiveZeroAdsSlideSubtitle: () -> String
-        let personalizedYouReadSlideTitleV2: (Int) -> String
-        let personalizedYouReadSlideSubtitleV2: (Int) -> String
         let personalizedYouReadSlideTitleV3: (Int, Int) -> String
         let personalizedYouReadSlideSubtitleV3: (Int) -> String
-        let personalizedDateSlideTitleV2: (Int) -> String
-        let personalizedDateSlideSubtitleV2: (Int) -> String
         let personalizedDateSlideTitleV3: String
         let personalizedDateSlideTimeV3: (Int) -> String
         let personalizedDateSlideTimeFooterV3: String
@@ -212,7 +176,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let personalizedSaveCountSlideTitle: (Int) -> String
         let personalizedSaveCountSlideSubtitle: (Int, [String]) -> String
         let personalizedUserEditsSlideTitle: (Int) -> String
-        let personzlizedUserEditsSlideTitle500Plus: String
         let personzlizedUserEditsSlideSubtitleEN: String
         let personzlizedUserEditsSlideSubtitleNonEN: String
         let personalizedYourEditsViewedSlideTitle: (Int) -> String
@@ -237,15 +200,18 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let highlightsSlideTitle: String
         let highlightsSlideSubtitle: String
         let highlightsSlideButtonTitle: String
-        let longestReadArticlesTitle: String
+        let mostReadArticlesTitle: String
         let minutesReadTitle: String
         let favoriteReadingDayTitle: String
-        let savedArticlesTitle: String
+        let articlesReadTitle: String
         let favoriteCategoriesTitle: String
         let editedArticlesTitle: String
         let enWikiTopArticlesTitle: String
+        let enWikiTopArticlesValue: [String]
         let hoursSpentReadingTitle: String
+        let hoursSpentReadingValue: String
         let numberOfChangesMadeTitle: String
+        let numberOfChangesMadeValue: String
         let numberOfViewedArticlesTitle: String
         let numberOfViewedArticlesValue: String
         let numberOfReadingListsTitle: String
@@ -264,14 +230,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
             }
         }
     }
-    @Published var isShowingIntro: Bool = true
+    @Published public var isShowingIntro: Bool = true
+    @Published var donateButtonRect: CGRect = .zero
     
     public let localizedStrings: LocalizedStrings
     
-    private(set) var introV2ViewModel: WMFYearInReviewIntroV2ViewModel?
     private(set) var introV3ViewModel: WMFYearInReviewIntroV3ViewModel?
     
-    private(set) var slides: [WMFYearInReviewSlide] // doesn't include intro
+    @Published var slides: [WMFYearInReviewSlide] // doesn't include intro
     public let shareLink: String
     public let hashtag: String
     public let plaintextURL: String
@@ -282,16 +248,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var isUserPermanent: Bool // i.e. logged in
     private let primaryAppLanguage: WMFProject
-    private let aboutYiRURL: URL?
-    private var hasPersonalizedDonateSlide: Bool
 
     // Highlights
-    var savedCount: Int?
-    var favoriteReadingDay: WMFPageViewDay?
-    var frequentCategories: [String]?
-    var topReadArticles: [String]?
-    var minutesRead: Int?
-    var editNumber: Int?
+    private var highlightsReadCount: Int?
+    private var highlightsFavoriteReadingDay: WMFPageViewDay?
+    private var highlightsFrequentCategories: [String]?
+    private var highlightsTopReadArticles: [String]?
+    private var highlightsMinutesRead: Int?
+    private var highlightsEditNumber: Int?
     
     // Donate
     public var toggleAppIcon: (Bool) -> Void
@@ -302,41 +266,48 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public var populateYearInReviewReport: () async throws -> Void
     @Published public var isPopulatingReport: Bool = false
     
-    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool, populateYearInReviewReport: @escaping () async throws -> Void) {
+    private lazy var dataController: WMFYearInReviewDataController? = {
+        return try? WMFYearInReviewDataController()
+    }()
+    
+    private let introSlideLoggingID: String
+    
+    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, introSlideLoggingID: String,  coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool, populateYearInReviewReport: @escaping () async throws -> Void) {
 
         self.localizedStrings = localizedStrings
         self.shareLink = shareLink
         self.hashtag = hashtag
         self.plaintextURL = plaintextURL
+        self.introSlideLoggingID = introSlideLoggingID
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
         self.badgeDelegate = badgeDelegate
         self.isUserPermanent = isUserPermanent
         self.primaryAppLanguage = primaryAppLanguage
-        self.aboutYiRURL = aboutYiRURL
         self.toggleAppIcon = toggleAppIcon
         self.isIconOn = isIconOn
         self.populateYearInReviewReport = populateYearInReviewReport
         
         // Default inits to avoid compiler complaints later in this method
-        self.introV2ViewModel = nil
         self.introV3ViewModel = nil
         self.slides = []
-        self.hasPersonalizedDonateSlide = false
         
         self.setupIntro(isUserPermanent: isUserPermanent)
+    }
+    
+    private func prefixedLoggingID(_ suffix: String) -> String {
+        let loggedInOrOut = isUserPermanent ? "li" : "lo"
+        let enOrNon = primaryAppLanguage.languageCode == "en" ? "en" : "non"
+        return "\(loggedInOrOut)_\(enOrNon)_\(suffix)"
     }
     
     // MARK: Personalized Slides
     
     private struct PersonalizedSlides {
-        var readCountSlideV2: WMFYearInReviewSlideStandardViewModel?
         var readCountSlideV3: WMFYearInReviewSlideStandardViewModel?
         var editCountSlide: WMFYearInReviewSlideStandardViewModel?
-        var donateCountSlideV2: WMFYearInReviewSlideStandardViewModel?
         var donateCountSlideV3: WMFYearInReviewContributorSlideViewModel?
         var saveCountSlide: WMFYearInReviewSlideStandardViewModel?
-        var mostReadDateSlideV2: WMFYearInReviewSlideStandardViewModel?
         var mostReadDateSlideV3: WMFYearInReviewSlideMostReadDateV3ViewModel?
         var viewCountSlide: WMFYearInReviewSlideStandardViewModel?
         var topArticlesSlide: WMFYearInReviewSlideStandardViewModel?
@@ -344,23 +315,18 @@ public class WMFYearInReviewViewModel: ObservableObject {
         var locationSlide: WMFYearInReviewSlideLocationViewModel?
     }
     
-    private func getPersonalizedSlides(aboutYiRURL: URL?) -> PersonalizedSlides {
+    private func getPersonalizedSlides() -> PersonalizedSlides {
         // Personalized Slides
-        var readCountSlideV2: WMFYearInReviewSlideStandardViewModel?
         var readCountSlideV3: WMFYearInReviewSlideStandardViewModel?
         var editCountSlide: WMFYearInReviewSlideStandardViewModel?
-        var donateCountSlideV2: WMFYearInReviewSlideStandardViewModel?
         var donateCountSlideV3: WMFYearInReviewContributorSlideViewModel?
         var saveCountSlide: WMFYearInReviewSlideStandardViewModel?
-        var mostReadDateSlideV2: WMFYearInReviewSlideStandardViewModel?
         var mostReadDateSlideV3: WMFYearInReviewSlideMostReadDateV3ViewModel?
         var viewCountSlide: WMFYearInReviewSlideStandardViewModel?
         var topArticlesSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadCategoriesSlide: WMFYearInReviewSlideStandardViewModel?
         var locationSlide: WMFYearInReviewSlideLocationViewModel?
-        
-        let dataController = try? WMFYearInReviewDataController()
-        
+
         // Fetch YiR report for personalized data, assign to personalized slides
         if let dataController,
            let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) {
@@ -371,27 +337,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         let decoder = JSONDecoder()
                         if let readData = try? decoder.decode(WMFYearInReviewReadData.self, from: data),
                            readData.readCount > 5 {
-                            minutesRead = readData.minutesRead
-                            readCountSlideV2 = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-01",
-                                altText: localizedStrings.personalizedYouReadAccessibilityLabel,
-                                title: localizedStrings.personalizedYouReadSlideTitleV2(readData.readCount),
-                                subtitle: localizedStrings.personalizedYouReadSlideSubtitleV2(readData.readCount),
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "read_count_custom",
-                                tappedInfo: tappedInfo
-                            )
-                            
+                            highlightsMinutesRead = readData.minutesRead
+                            highlightsReadCount = readData.readCount
+
                             readCountSlideV3 = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-01",
-                                altText: localizedStrings.personalizedYouReadAccessibilityLabel,
+                                gifName: "puzzle-walk",
+                                altText: localizedStrings.puzzleWalkAccessibilityLabel,
                                 title: localizedStrings.personalizedYouReadSlideTitleV3(readData.readCount, readData.minutesRead),
                                 subtitle: localizedStrings.personalizedYouReadSlideSubtitleV3(readData.readCount),
                                 subtitleType: .html,
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "read_count_custom",
+                                loggingID: prefixedLoggingID("readcount"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -401,15 +356,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         let decoder = JSONDecoder()
                         if let editCount = try? decoder.decode(Int.self, from: data),
                            editCount > 0 {
-                            editNumber = editCount
+                            highlightsEditNumber = editCount
                             editCountSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-04",
-                                altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
-                                title: editCount >= 500 ? localizedStrings.personzlizedUserEditsSlideTitle500Plus : localizedStrings.personalizedUserEditsSlideTitle(editCount),
+                                gifName: "duo",
+                                altText: localizedStrings.duoAccessibilityLabel,
+                                title: localizedStrings.personalizedUserEditsSlideTitle(editCount),
                                 subtitle: primaryAppLanguage.isEnglishWikipedia ? localizedStrings.personzlizedUserEditsSlideSubtitleEN : localizedStrings.personzlizedUserEditsSlideSubtitleNonEN,
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "edit_count_custom",
+                                loggingID: prefixedLoggingID("editedcount"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -421,16 +374,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             let donateCount = donateSlideData.donateCount ?? 0
                             let editCount = donateSlideData.editCount ?? 0
                             
-                            if donateCount > 0 || editCount > 0 {
+                            if donateCount > 0 || editCount > 1 {
                                 donateCountSlideV3 = WMFYearInReviewContributorSlideViewModel(
                                     gifName: "contribution-slide",
                                     altText: "",
                                     title: localizedStrings.contributorTitle,
                                     subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
-                                    loggingID: "", // todo
+                                    loggingID: prefixedLoggingID("donoricon"),
                                     contributionStatus: .contributor,
-                                    onTappedDonateButton: { [weak self] sourceRect in
-                                        self?.handleDonate(sourceRect: sourceRect)
+                                    onTappedDonateButton: { [weak self] in
+                                        self?.handleDonate()
                                     },
                                     onToggleIcon: { isOn in
                                         self.toggleAppIcon(isOn)
@@ -439,24 +392,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     donateButtonTitle: localizedStrings.donateButtonTitle,
                                     toggleButtonTitle: localizedStrings.contributorGiftTitle,
                                     toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle,
-                                    isIconOn: isIconOn,
-                                    infoURL: aboutYiRURL
+                                    isIconOn: isIconOn
                                 )
                             }
-                            
-                            if donateCount > 0 {
-                                donateCountSlideV2 = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "all-slide-06",
-                                altText: localizedStrings.personalizedDonationThankYouAccessibilityLabel,
-                                title: localizedStrings.personalizedThankYouTitle,
-                                subtitle: localizedStrings.personalizedThankYouSubtitle(primaryAppLanguage.languageCode ?? "en"),
-                                subtitleType: .markdown,
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: true,
-                                loggingID: "thank_custom",
-                                tappedLearnMore: tappedLearnMore(url:),
-                                tappedInfo: tappedInfo)
-                            }
+
                         }
                     }
                 case .saveCount:
@@ -466,16 +405,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            savedSlideData.savedArticlesCount > 3,
                            savedSlideData.articleTitles.count >= 3 {
                             let count = savedSlideData.savedArticlesCount
-                            savedCount = count
                             saveCountSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-03",
-                                altText: localizedStrings.personalizedSavedArticlesAccessibilityLabel,
+                                gifName: "sky",
+                                altText: localizedStrings.skyAccessibilityLabel,
                                 title: localizedStrings.personalizedSaveCountSlideTitle(count),
                                 subtitle: localizedStrings.personalizedSaveCountSlideSubtitle(count, savedSlideData.articleTitles),
                                 subtitleType: .html,
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "save_count_custom",
+                                loggingID: prefixedLoggingID("savedcount"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -490,22 +426,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            mostReadDay.viewCount > 0,
                            mostReadTime.viewCount > 0,
                            mostReadMonth.viewCount > 0 {
-                            favoriteReadingDay = mostReadDay
-
-                            mostReadDateSlideV2 = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-02",
-                                altText: localizedStrings.personalizedWeekdayAccessibilityLabel,
-                                title: localizedStrings.personalizedDateSlideTitleV2(mostReadDay.day),
-                                subtitle: localizedStrings.personalizedDateSlideSubtitleV2(mostReadDay.day),
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "read_day_custom",
-                                tappedInfo: tappedInfo
-                            )
+                            highlightsFavoriteReadingDay = mostReadDay
                             
                             mostReadDateSlideV3 = WMFYearInReviewSlideMostReadDateV3ViewModel(
-                                gifName: "personal-slide-02",
-                                altText: localizedStrings.personalizedWeekdayAccessibilityLabel,
+                                gifName: "clock",
+                                altText: localizedStrings.clockAccessibilityLabel,
                                 title: localizedStrings.personalizedDateSlideTitleV3,
                                 time: localizedStrings.personalizedDateSlideTimeV3(mostReadTime.hour),
                                 timeFooter: localizedStrings.personalizedDateSlideTimeFooterV3,
@@ -513,9 +438,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 dayFooter: localizedStrings.personalizedDateSlideDayFooterV3,
                                 month: localizedStrings.personalizedDateSlideMonthV3(mostReadMonth.month),
                                 monthFooter: localizedStrings.personalizedDateSlideMonthFooterV3,
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "read_day_custom",
+                                loggingID: prefixedLoggingID("readpattern"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -527,13 +450,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            viewCount > 0 {
                             
                             viewCountSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-05",
-                                altText: localizedStrings.personalizedYourEditsViewsAccessibilityLabel,
+                                gifName: "penball",
+                                altText: localizedStrings.penballAccessibilityLabel,
                                 title: localizedStrings.personalizedYourEditsViewedSlideTitle(viewCount),
                                 subtitle: localizedStrings.personalizedYourEditsViewedSlideSubtitle(viewCount),
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "edit_view_count_custom",
+                                loggingID: prefixedLoggingID("editviewcount"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -542,16 +463,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     if let data = slide.data {
                         let decoder = JSONDecoder()
                         if let mostReadCategories = try? decoder.decode([String].self, from: data), mostReadCategories.count >= 3 {
-                            frequentCategories = mostReadCategories
+                            highlightsFrequentCategories = mostReadCategories
                             mostReadCategoriesSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-05", // TODO: modify gif name
-                                altText: "", // TODO: alt text
+                                gifName: "farms",
+                                altText: "",
                                 title: localizedStrings.personalizedMostReadCategoriesSlideTitle,
                                 subtitle: localizedStrings.personalizedMostReadCategoriesSlideSubtitle(mostReadCategories),
                                 subtitleType: .standard,
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "", // TODO: logging ID,
+                                loggingID: prefixedLoggingID("readcategory"),
                                 tappedInfo: tappedInfo)
                         }
                     }
@@ -560,15 +479,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         let decoder = JSONDecoder()
                         if let topArticles = try? decoder.decode([String].self, from: data),
                            topArticles.count > 0 {
-                            topReadArticles = topArticles
+                            highlightsTopReadArticles = topArticles
                             topArticlesSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "english-slide-02", // TODO: modify gif name
-                                altText: "", // TODO: alt text
+                                gifName: "sundial",
+                                altText: "",
                                 title: localizedStrings.personalizedMostReadArticlesSlideTitle,
                                 subtitle: localizedStrings.personalizedMostReadArticlesSlideSubtitle(topArticles),
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "", // TODO: logging ID
+                                loggingID: prefixedLoggingID("toparticles"),
                                 tappedInfo: tappedInfo
                             )
                         }
@@ -581,8 +498,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             locationSlide = WMFYearInReviewSlideLocationViewModel(
                                 localizedStrings: localizedStrings,
                                 legacyPageViews: legacyPageViews,
-                                loggingID: "", // TODO: Logging ID
-                                infoURL: aboutYiRURL,
+                                loggingID: prefixedLoggingID("readgeo"),
                                 tappedInfo: tappedInfo)
                         }
                     }
@@ -590,427 +506,378 @@ public class WMFYearInReviewViewModel: ObservableObject {
             }
         }
 
-        return PersonalizedSlides(readCountSlideV2: readCountSlideV2, readCountSlideV3: readCountSlideV3, editCountSlide: editCountSlide, donateCountSlideV2: donateCountSlideV2, donateCountSlideV3: donateCountSlideV3, saveCountSlide: saveCountSlide, mostReadDateSlideV2: mostReadDateSlideV2, mostReadDateSlideV3: mostReadDateSlideV3, viewCountSlide: viewCountSlide, topArticlesSlide: topArticlesSlide, mostReadCategoriesSlide: mostReadCategoriesSlide, locationSlide: locationSlide)
+        return PersonalizedSlides(readCountSlideV3: readCountSlideV3, editCountSlide: editCountSlide, donateCountSlideV3: donateCountSlideV3, saveCountSlide: saveCountSlide, mostReadDateSlideV3: mostReadDateSlideV3, viewCountSlide: viewCountSlide, topArticlesSlide: topArticlesSlide, mostReadCategoriesSlide: mostReadCategoriesSlide, locationSlide: locationSlide)
     }
     
     private func setupIntro(isUserPermanent: Bool) {
 
         self.isUserPermanent = isUserPermanent
-        
+
         // Intro slide
-        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            let introV3LoggingID = "" // TODO: logging ID
-            let introV3ViewModel = WMFYearInReviewIntroV3ViewModel(
-                gifName: "personal-slide-00",
-                altText: localizedStrings.personalizedExploreAccessibilityLabel,
-                title: localizedStrings.introV3Title,
-                subtitle: localizedStrings.introV3Subtitle,
-                footer: localizedStrings.introV3Footer,
-                primaryButtonTitle: localizedStrings.introV3PrimaryButtonTitle,
-                secondaryButtonTitle: localizedStrings.introV3SecondaryButtonTitle,
-                loggingID: introV3LoggingID,
-                onAppear: { [weak self] in
-                    self?.loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: introV3LoggingID)
-                    self?.markFirstSlideAsSeen()
-                },
-                tappedPrimaryButton: { [weak self] in
-                    self?.tappedIntroV3GetStarted()
-                },
-                tappedSecondaryButton: { [weak self] in
-                    self?.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
-                    self?.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
-                }
-            )
-            self.introV3ViewModel = introV3ViewModel
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
-            let introV2LoggingID = isUserPermanent ? "start_c" : "start"
-            let introV2ViewModel = WMFYearInReviewIntroV2ViewModel(
-                gifName: isUserPermanent ? "personal-slide-00" : "english-slide-00",
-                altText: isUserPermanent ? localizedStrings.personalizedExploreAccessibilityLabel : localizedStrings.collectiveExploreAccessibilityLabel,
-                title: isUserPermanent ? localizedStrings.introV2TitlePersonalized : localizedStrings.introV2Title,
-                subtitle: isUserPermanent ? localizedStrings.introV2SubtitlePersonzalized : localizedStrings.introV2Subtitle,
-                primaryButtonTitle: localizedStrings.introV2PrimaryButtonTitle,
-                secondaryButtonTitle: localizedStrings.introV2SecondaryButtonTitle,
-                loggingID: introV2LoggingID,
-                onAppear: { [weak self] in
-                    self?.loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: introV2LoggingID)
-                    self?.markFirstSlideAsSeen()
-                },
-                tappedPrimaryButton: { [weak self] in
-                    self?.tappedIntroV2GetStarted()
-                },
-                tappedSecondaryButton: { [weak self] in
-                    self?.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
-                    self?.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
-                }
-            )
-            self.introV2ViewModel = introV2ViewModel
-        }
+        let introV3ViewModel = WMFYearInReviewIntroV3ViewModel(
+            gifName: "puzzle-globe-hand",
+            altText: localizedStrings.puzzleGlobeHandAccessibilityLabel,
+            title: localizedStrings.introV3Title,
+            subtitle: localizedStrings.introV3Subtitle,
+            footer: localizedStrings.introV3Footer,
+            primaryButtonTitle: localizedStrings.introV3PrimaryButtonTitle,
+            secondaryButtonTitle: localizedStrings.introV3SecondaryButtonTitle,
+            loggingID: self.introSlideLoggingID,
+            onAppear: { [weak self] in
+                guard let self else { return }
+                self.loggingDelegate?.logYearInReviewSlideDidAppear(slideLoggingID: self.introSlideLoggingID)
+                self.markFirstSlideAsSeen()
+            },
+            tappedPrimaryButton: { [weak self] in
+                self?.tappedIntroV3GetStarted()
+            },
+            tappedSecondaryButton: { [weak self] in
+                self?.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
+                self?.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
+            }
+        )
+        self.introV3ViewModel = introV3ViewModel
+
     }
     
     private func updateSlides(isUserPermanent: Bool) {
 
+        let bypassLoginForPersonalizedFlow = dataController?.bypassLoginForPersonalizedFlow ?? false
+
         var slides: [WMFYearInReviewSlide] = []
-        
-        let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
-        
-        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            if isUserPermanent {
-                slides.append(.standard(personalizedSlides.readCountSlideV3 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
-                
-                if primaryAppLanguage.isEnglishWikipedia {
-                    slides.append(.standard(englishTopReadSlide))
-                    
-                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
-                        slides.append(.standard(topArticlesSlide))
-                    }
-                    
-                    if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
-                        slides.append(.mostReadDateV3(mostReadDateSlideV3))
-                    }
-                    
-                    if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
-                        slides.append(.standard(categorySlide))
-                    }
-                    
-                    if let locationSlide = personalizedSlides.locationSlide {
-                        slides.append(.location(locationSlide))
-                    }
-                    
-                } else {
-                    slides.append(.standard(collectiveArticleViewsSlide))
-                    
-                    if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
-                        slides.append(.mostReadDateV3(mostReadDateSlideV3))
-                    }
-                    
-                    if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
-                        slides.append(.standard(categorySlide))
-                    }
-                    
-                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
-                        slides.append(.standard(topArticlesSlide))
-                    }
-                    
-                    if let locationSlide = personalizedSlides.locationSlide {
-                        slides.append(.location(locationSlide))
-                    }
+
+        let personalizedSlides = getPersonalizedSlides()
+
+        if isUserPermanent || bypassLoginForPersonalizedFlow {
+            slides.append(.standard(personalizedSlides.readCountSlideV3 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
+
+            if primaryAppLanguage.isEnglishWikipedia {
+                slides.append(.standard(englishTopReadSlide))
+
+                if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                    slides.append(.standard(topArticlesSlide))
                 }
 
-                slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
-                slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
-                slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
-                slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide))
-                slides.append(.highlights(getPersonalizedHighlights()))
+                if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
+                    slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                }
+
+                if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                    slides.append(.standard(categorySlide))
+                }
+
+                if let locationSlide = personalizedSlides.locationSlide {
+                    slides.append(.location(locationSlide))
+                }
+
             } else {
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
-                slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide))
-                slides.append(.highlights(primaryAppLanguage.isEnglishWikipedia ? getEnglishCollectiveHighlights() : getCollectiveHighlights()))
+                slides.append(.standard(collectiveArticleViewsSlide))
+
+                if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                    slides.append(.standard(topArticlesSlide))
+                }
+
+                if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
+                    slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                }
+
+                if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                    slides.append(.standard(categorySlide))
+                }
+
+                if let locationSlide = personalizedSlides.locationSlide {
+                    slides.append(.location(locationSlide))
+                }
             }
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
-            if isUserPermanent {
-                slides.append(.standard(personalizedSlides.readCountSlideV2 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
-                slides.append(.standard(personalizedSlides.mostReadDateSlideV2 ?? (primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide)))
-                slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
-                slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
-                slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
-                slides.append(.standard(personalizedSlides.donateCountSlideV2 ?? collectiveZeroAdsSlide))
-            } else {
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
-                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
-                slides.append(.standard(personalizedSlides.donateCountSlideV2 ?? collectiveZeroAdsSlide))
+
+            slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
+            slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
+            slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
+
+            if let donateSlide = personalizedSlides.donateCountSlideV3 {
+                // If donateSlide exists, user contributed in some form (donate count > 0 or edit count > 0),
+                slides.append(.contribution(donateSlide))
+            } else if !shouldHideDonateButtonForCertainRegions() {
+                // We want to hide slide entirely for non-donate regions, otherwise add non-contributor version of donate slide.
+                slides.append(.contribution(nonContributorSlide))
             }
+
+            if let personalHighlights = getPersonalizedHighlights() {
+                slides.append(.highlights(personalHighlights))
+            }
+
+        } else {
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
+            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
+
+            if let donateSlide = personalizedSlides.donateCountSlideV3 {
+                // If donateSlide exists, user contributed in some form (donate count > 0 or edit count > 0),
+                slides.append(.contribution(donateSlide))
+            } else if !shouldHideDonateButtonForCertainRegions() {
+                // We want to hide slide entirely for non-donate regions, otherwise add non-contributor version of donate slide.
+                slides.append(.contribution(nonContributorSlide))
+            }
+
+            slides.append(.highlights(primaryAppLanguage.isEnglishWikipedia ? getEnglishCollectiveHighlights() : getCollectiveHighlights()))
         }
-        
         self.slides = slides
-        
-        if personalizedSlides.donateCountSlideV2 != nil || personalizedSlides.donateCountSlideV3 != nil {
-            self.hasPersonalizedDonateSlide = true
-        }
     }
 
-    func getPersonalizedHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
+    func getPersonalizedHighlights() -> WMFYearInReviewSlideHighlightsViewModel? {
         var itemArray: [TableItem] = []
 
-        if let topReadArticles {
-            let top3 = topReadArticles.prefix(3)
+        if let highlightsTopReadArticles {
+            let top3 = highlightsTopReadArticles.prefix(3)
             let articleList = makeNumberedBlueList(Array(top3), needsLinkColor: true)
-            let topArticlesItem = TableItem(title: localizedStrings.longestReadArticlesTitle, richRows: articleList)
+            let topArticlesItem = TableItem(title: localizedStrings.mostReadArticlesTitle, richRows: articleList)
 
             itemArray.append(topArticlesItem)
         }
 
-        if let minutesRead {
-            let timeItem = TableItem(title: localizedStrings.minutesReadTitle, text: String(minutesRead))
+        if let highlightsMinutesRead {
+            let timeItem = TableItem(title: localizedStrings.minutesReadTitle, text: String(highlightsMinutesRead))
             itemArray.append(timeItem)
         }
 
-        if let favoriteReadingDay {
-            let mostReadTimeItem = TableItem(title: localizedStrings.favoriteReadingDayTitle, text: localizedStrings.personalizedDateSlideDayV3(favoriteReadingDay.day))
+        if let highlightsFavoriteReadingDay {
+            let mostReadTimeItem = TableItem(title: localizedStrings.favoriteReadingDayTitle, text: localizedStrings.personalizedDateSlideDayV3(highlightsFavoriteReadingDay.day))
             itemArray.append(mostReadTimeItem)
         }
 
-        if savedCount != nil, let savedCount {
-            let savedCountItem = TableItem(title: localizedStrings.savedArticlesTitle, text: String(savedCount))
+        if let highlightsReadCount {
+            let savedCountItem = TableItem(title: localizedStrings.articlesReadTitle, text: String(highlightsReadCount))
             itemArray.append(savedCountItem)
         }
 
-        if let frequentCategories {
-            let top3 = frequentCategories.prefix(3)
+        if let highlightsFrequentCategories {
+            let top3 = highlightsFrequentCategories.prefix(3)
             let categoryList = makeNumberedBlueList(Array(top3), needsLinkColor: false)
             let categoriesItem = TableItem(title: localizedStrings.favoriteCategoriesTitle, richRows: categoryList)
             itemArray.append(categoriesItem)
         }
         
-        if let editNumber, editNumber > 0 {
-            let editCountItem = TableItem(title: localizedStrings.editedArticlesTitle, text: String(editNumber))
+        if let highlightsEditNumber, highlightsEditNumber > 0 {
+            let editCountItem = TableItem(title: localizedStrings.editedArticlesTitle, text: String(highlightsEditNumber))
             itemArray.append(editCountItem)
         }
-
-        return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: itemArray),
-            loggingID: "",  // TODO: logging ID
-            localizedStrings: getHighlightsStrings(),
-            coordinatorDelegate: coordinatorDelegate,
-            hashtag: hashtag,
-            plaintextURL: plaintextURL
-        )
+        
+        if itemArray.count >= 2 {
+            return WMFYearInReviewSlideHighlightsViewModel(
+                infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: itemArray),
+                loggingID: prefixedLoggingID("summary"),
+                localizedStrings: getHighlightsStrings(),
+                coordinatorDelegate: coordinatorDelegate,
+                hashtag: hashtag,
+                plaintextURL: plaintextURL,
+                tappedShare: tappedShare
+            )
+        } else {
+            return nil
+        }
     }
 
     // MARK: - English Slides
 
-    // TODO: Get real numbers
-    // TODO: Confirm copy
     func getEnglishCollectiveHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
-        let articles = ["Deaths in 2024", "Kamala Harris", "2024 United States presidential election", "Lyle and Erik Menendez", "Donald Trump"]
+        let articles = localizedStrings.enWikiTopArticlesValue
 
         let blueList = makeNumberedBlueList(articles, needsLinkColor: true)
 
         let topArticles = TableItem(title: localizedStrings.enWikiTopArticlesTitle, richRows: blueList)
-        let hoursSpent = TableItem(title: localizedStrings.hoursSpentReadingTitle, text: "2.4 billion")
-        let changesMade = TableItem(title: localizedStrings.numberOfChangesMadeTitle, text: "82 million")
+        let hoursSpent = TableItem(title: localizedStrings.hoursSpentReadingTitle, text: localizedStrings.hoursSpentReadingValue)
+        let changesMade = TableItem(title: localizedStrings.numberOfChangesMadeTitle, text: localizedStrings.numberOfChangesMadeValue)
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: [topArticles, hoursSpent, changesMade]),
-            loggingID: "", // TODO: logging ID
+            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: [topArticles, hoursSpent, changesMade]),
+            loggingID: prefixedLoggingID("summary"),
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
             hashtag: hashtag,
-            plaintextURL: plaintextURL
+            plaintextURL: plaintextURL,
+            tappedShare: tappedShare
         )
     }
 
     private var englishHoursReadingSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-01",
-            altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
+            gifName: "clock",
+            altText: localizedStrings.clockAccessibilityLabel,
             title: localizedStrings.englishReadingSlideTitle,
             subtitle: localizedStrings.englishReadingSlideSubtitle,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "en_read_hours_base",
+            loggingID: prefixedLoggingID("collhours"),
             tappedInfo: tappedInfo
         )
     }
     
     private var englishTopReadSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-02",
-            altText: localizedStrings.collectiveArticleViewsAccessibilityLabel,
+            gifName: "comp",
+            altText: localizedStrings.compAccessibilityLabel,
             title: localizedStrings.englishTopReadSlideTitle,
             subtitle: localizedStrings.englishTopReadSlideSubtitle,
             subtitleType: .html,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "en_most_visit_base",
+            loggingID: prefixedLoggingID("popular"),
             tappedInfo: tappedInfo
         )
     }
     
     private var englishReadingListSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-03",
-            altText: localizedStrings.collectiveSavedArticlesAccessibilityLabel,
+            gifName: "sky",
+            altText: localizedStrings.skyAccessibilityLabel,
             title: localizedStrings.englishSavedReadingSlideTitle,
             subtitle: localizedStrings.englishSavedReadingSlideSubtitle,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "en_list_count_base",
+            loggingID: prefixedLoggingID("collrlists"),
             tappedInfo: tappedInfo
         )
     }
     
     private var englishEditsSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-04",
-            altText: localizedStrings.englishEditsAccessibilityLabel,
+            gifName: "duo",
+            altText: localizedStrings.duoAccessibilityLabel,
             title: localizedStrings.englishEditsSlideTitle,
             subtitle: localizedStrings.englishEditsSlideSubtitle,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "en_edit_count_base",
+            loggingID: prefixedLoggingID("changes"),
             tappedInfo: tappedInfo
         )
     }
     
     private var englishEditsBytesSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-05",
-            altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
+            gifName: "bytes",
+            altText: localizedStrings.bytesAccessibilityLabel,
             title: localizedStrings.englishEditsBytesSlideTitle,
             subtitle: localizedStrings.englishEditsBytesSlideSubtitle,
             subtitleType: .markdown,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "en_byte_base",
+            loggingID: prefixedLoggingID("bytes"),
             tappedInfo: tappedInfo
         )
     }
 
     // MARK: - Collective Slides
 
-    // TODO: Get real numbers
-    // TODO: Confirm copy
     func getCollectiveHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
         let viewedArticles = TableItem(title: localizedStrings.numberOfViewedArticlesTitle, text: localizedStrings.numberOfViewedArticlesValue)
         // let readingLists = TableItem(title: localizedStrings.numberOfReadingListsTitle, text: "987654321")
         let edits = TableItem(title: localizedStrings.numberOfEditsTitle, text: localizedStrings.numberOfEditsValue)
         let editFrequency = TableItem(title: localizedStrings.editFrequencyTitle, text: localizedStrings.editFrequencyValue)
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoboxViewModel(tableItems: [viewedArticles, edits, editFrequency]),
-            loggingID: "", // TODO: logging ID
+            infoBoxViewModel: WMFInfoboxViewModel(logoCaption: localizedStrings.logoCaption, tableItems: [viewedArticles, edits, editFrequency]),
+            loggingID: prefixedLoggingID("summary"),
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate,
             hashtag: hashtag,
-            plaintextURL: plaintextURL
+            plaintextURL: plaintextURL,
+            tappedShare: tappedShare
         )
     }
 
     private var collectiveLanguagesSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "non-english-slide-01",
-            altText: localizedStrings.collectiveLanguagesAccessibilityLabel,
+            gifName: "stone",
+            altText: localizedStrings.stoneAccessibilityLabel,
             title: localizedStrings.collectiveLanguagesSlideTitle,
             subtitle: localizedStrings.collectiveLanguagesSlideSubtitle,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "read_count_base",
+            loggingID: prefixedLoggingID("langs"),
             tappedInfo: tappedInfo
         )
     }
     
     private var collectiveArticleViewsSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-02",
-            altText: localizedStrings.collectiveArticleViewsAccessibilityLabel,
+            gifName: "comp",
+            altText: localizedStrings.compAccessibilityLabel,
             title: localizedStrings.collectiveArticleViewsSlideTitle,
             subtitle: localizedStrings.collectiveArticleViewsSlideSubtitle,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "read_view_base",
+            loggingID: prefixedLoggingID("collappread"),
             tappedInfo: tappedInfo
         )
     }
 
     private var collectiveSavedArticlesSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-03",
-            altText: localizedStrings.collectiveSavedArticlesAccessibilityLabel,
+            gifName: "sky",
+            altText: localizedStrings.skyAccessibilityLabel,
             title: localizedStrings.collectiveSavedArticlesSlideTitle,
             subtitle: localizedStrings.collectiveSavedArticlesSlideSubtitle,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "list_count_base",
+            loggingID: prefixedLoggingID("collrlists"),
             tappedInfo: tappedInfo
         )
     }
 
     private var collectiveAmountEditsSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "non-english-slide-04",
-            altText: localizedStrings.collectiveAmountEditsAccessibilityLabel,
+            gifName: "duo",
+            altText: localizedStrings.duoAccessibilityLabel,
             title: localizedStrings.collectiveAmountEditsSlideTitle,
             subtitle: localizedStrings.collectiveAmountEditsSlideSubtitle,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "edit_count_base",
+            loggingID: prefixedLoggingID("appcolledits"),
             tappedInfo: tappedInfo
         )
     }
     
     private var collectiveEditsPerMinuteSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
-            gifName: "english-slide-01",
-            altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
+            gifName: "bytes",
+            altText: localizedStrings.bytesAccessibilityLabel,
             title: localizedStrings.collectiveEditsPerMinuteSlideTitle,
             subtitle: localizedStrings.collectiveEditsPerMinuteSlideSubtitle,
             subtitleType: .markdown,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "edit_rate_base",
-            tappedInfo: tappedInfo
-        )
-    }
-
-    private var collectiveZeroAdsSlide: WMFYearInReviewSlideStandardViewModel {
-        WMFYearInReviewSlideStandardViewModel(
-            gifName: "all-slide-06",
-            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
-            title: localizedStrings.collectiveZeroAdsSlideTitle,
-            subtitle: localizedStrings.collectiveZeroAdsSlideSubtitle(),
-            subtitleType: .markdown,
-            infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
-            loggingID: "ads_served_base",
-            tappedLearnMore: tappedLearnMore(url:),
+            loggingID: prefixedLoggingID("colleditspm"),
             tappedInfo: tappedInfo
         )
     }
     
     private var nonContributorSlide: WMFYearInReviewContributorSlideViewModel {
-        let forceHideDonateButton = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
         return WMFYearInReviewContributorSlideViewModel(
             gifName: "contribution-slide",
             altText: "",
             title: localizedStrings.noncontributorTitle,
             subtitle: localizedStrings.noncontributorSubtitle,
-            loggingID: "",
+            loggingID: prefixedLoggingID("nondonoricon"),
             contributionStatus: .noncontributor,
-            forceHideDonateButton: forceHideDonateButton,
-            onTappedDonateButton: { [weak self] sourceRect in
-                self?.handleDonate(sourceRect: sourceRect)
+            onTappedDonateButton: { [weak self] in
+                self?.handleDonate()
             },
             onInfoButtonTap: tappedInfo,
             donateButtonTitle: localizedStrings.donateButtonTitle,
             toggleButtonTitle: localizedStrings.contributorGiftTitle,
-            toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle,
-            infoURL: aboutYiRURL)
+            toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle)
     }
     
     private var currentSlide: WMFYearInReviewSlide {
         return slides[currentSlideIndex]
     }
     
-    func tappedIntroV2GetStarted() {
-        loggingDelegate?.logYearInReviewIntroDidTapContinue()
-        populateReportAndShowFirstSlide()
-    }
-    
     func tappedIntroV3GetStarted() {
         if !isUserPermanent {
             coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
         } else {
-            populateReportAndShowFirstSlide()
+            coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedIn)
         }
     }
     
-    private func populateReportAndShowFirstSlide() {
+    private func populateReportAndUpdateSlides() {
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await self.populateYearInReviewReport()
+                Task { @MainActor [weak self] in
+                    
+                    guard let self else { return }
+                    
+                    self.updateSlides(isUserPermanent: isUserPermanent)
+                }
+            } catch {
+                // do nothing
+            }
+        }
+    }
+    
+    public func populateReportAndShowFirstSlide() {
         isPopulatingReport = true
         Task { [weak self] in
             guard let self else { return }
@@ -1022,14 +889,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     
                     self.updateSlides(isUserPermanent: isUserPermanent)
                     self.isPopulatingReport = false
-                    self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
-                    self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     
                     // Maybe delay a little bit to let slide changes propagate
                     try await Task.sleep(nanoseconds: 200_000_000)
                     
                     withAnimation {
                         self.isShowingIntro = false
+                        self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     }
                 }
             } catch {
@@ -1039,14 +905,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     
                     self.updateSlides(isUserPermanent: isUserPermanent)
                     self.isPopulatingReport = false
-                    self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
-                    self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     
                     // Maybe delay a little bit to let slide changes propagate
                     try await Task.sleep(nanoseconds: 200_000_000)
                     
                     withAnimation {
                         self.isShowingIntro = false
+                        self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
                     }
                 }
             }
@@ -1066,6 +931,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public func completedLoginFromIntroV3LoginPrompt() {
         isUserPermanent = true
         populateReportAndShowFirstSlide()
+    }
+    
+    public func donateDidSucceed() {
+        populateReportAndUpdateSlides()
     }
     
     private func incrementSlideIndex() {
@@ -1136,8 +1005,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
             }
             break
-        case .highlights:
-            break
+        case .highlights(let viewModel):
+            let view = WMFYearInReviewSlideHighlightShareableView(viewModel: viewModel)
+            let renderer = ImageRenderer(content: view)
+            renderer.proposedSize = .init(width: 393, height: nil)
+            renderer.scale = UIScreen.main.scale
+            if let uiImage = renderer.uiImage {
+                coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
+            }
         }
         logYearInReviewDidTapShare()
     }
@@ -1148,30 +1023,26 @@ public class WMFYearInReviewViewModel: ObservableObject {
             logYearInReviewDidTapDone()
             coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: hasSeenTwoSlides))
         }
-        
-        if !isShowingIntro {
+
+        if !isShowingIntro || isUserPermanent {
             standardDismissal()
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
-            standardDismissal()
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            if isUserPermanent {
-                standardDismissal()
-            } else {
-                coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
-            }
+        } else {
+            logYearInReviewDidTapDone()
+            coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
         }
     }
     
-    func handleDonate(sourceRect: CGRect) {
-        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect))
+    func handleDonate() {
+        let getSourceRect: () -> CGRect = { [weak self] in
+            return self?.donateButtonRect ?? .zero
+        }
+        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: getSourceRect, slideLoggingID: slideLoggingID))
         logYearInReviewDidTapDonate()
     }
     
     private var slideLoggingID: String {
         if isShowingIntro {
-            if let introV2ViewModel {
-                return introV2ViewModel.loggingID
-            } else if let introV3ViewModel {
+            if let introV3ViewModel {
                 return introV3ViewModel.loggingID
             }
         }
@@ -1189,50 +1060,33 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    var shouldShowDonateButton: Bool {
+    var shouldShowTopNavDonateButton: Bool {
         if isShowingIntro {
             return false
         }
         
         // Config has certain countries that do not show donate button
-        let configShouldHide = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
-        if configShouldHide {
+        if shouldHideDonateButtonForCertainRegions() {
             return false
         }
         
         let slide = currentSlide
         switch slide {
-        case .standard(let viewModel):
-            if viewModel.forceHideDonateButton {
-                return false
-            } else {
-                return true
-            }
         case .contribution(let viewModel):
-            if viewModel.contributionStatus == .contributor {
-                if viewModel.forceHideDonateButton {
-                    return false
-                }
-                
-                return true
+            if viewModel.contributionStatus == .noncontributor {
+                return false
             }
-            return false
+            break
         default:
-            return true
+            break
         }
+        
+        return true
     }
     
-    func tappedLearnMore(url: URL) {
-        var shouldShowDonate = false
-        if slides.count - 1 == currentSlideIndex && !hasPersonalizedDonateSlide {
-            shouldShowDonate = true
-        }
-
-        // Always verify for regions we cannot ask for donations
-        shouldShowDonate = !shouldHideDonateButtonForCertainRegions()
-
-        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: shouldShowDonate))
-        loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
+    func tappedLearnMoreAttributedText(url: URL) {
+        // TODO: audit this in https://phabricator.wikimedia.org/T406642
+        coordinatorDelegate?.handleYearInReviewAction(.learnMoreAttributedText(url: url, shouldShowDonateButton: !shouldHideDonateButtonForCertainRegions(), slideLoggingID: slideLoggingID))
     }
 
     private func logYearInReviewSlideDidAppear() {
@@ -1260,7 +1114,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     private func markFirstSlideAsSeen() {
-        if let dataController = try? WMFYearInReviewDataController() {
+        if let dataController {
             dataController.hasSeenYiRIntroSlide = true
             badgeDelegate?.updateYIRBadgeVisibility()
         }
@@ -1269,13 +1123,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func tappedInfo() {
         switch currentSlide {
         case .standard(let vm):
-            coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
+            coordinatorDelegate?.handleYearInReviewAction(.info)
         case .mostReadDateV3(let vm):
-            coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
+            coordinatorDelegate?.handleYearInReviewAction(.info)
         case .location(let vm):
-            coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
+            coordinatorDelegate?.handleYearInReviewAction(.info)
         case .contribution(let vm):
-            coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
+            coordinatorDelegate?.handleYearInReviewAction(.info)
         case .highlights:
             break
         }

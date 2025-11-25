@@ -58,7 +58,7 @@
 "action-redo" = "पुन: कायम गर्नुहाेस्";
 "action-remove" = "हटाउनुहोस्";
 "action-retry" = "पुनः प्रयास गर्नुहोस्";
-"action-save" = "संग्रह गर्नुहोस्";
+"action-save" = "सङ्ग्रह गर्नुहोस्";
 "action-saved" = "सुरक्षित गरिएको";
 "action-saved-accessibility-notification" = "पछिको लागि लेख साँचियो";
 "action-share" = "आदान-प्रदान गर्नुहोस्";
@@ -69,6 +69,15 @@
 "action-unsave" = "संग्रहबाट हटाउनुहोस्";
 "action-unsaved-accessibility-notification" = "लेख सङ्ग्रहबाट हटाइयो";
 "action-update" = "अद्यावधिक गर्नुहोस्";
+"activity-tab-articles-read" = "यस महिना पढिएका लेखहरू";
+"activity-tab-articles-read-graph-label" = "लेखहरू";
+"activity-tab-onboarding-first-item-subtitle" = "तपाईंले कति समय पढ्नुभएको छ र कुन लेख वा विषयहरू समयसँगै अन्वेषण गर्नुभएको छ हेर्नुहोस्।";
+"activity-tab-onboarding-first-item-title" = "पढ्ने ढाँचाहरू";
+"activity-tab-onboarding-fourth-item-subtitle" = "कुन मोड्युलहरू प्रदर्शन गर्ने छनौट गर्नुहोस्। सबै व्यक्तिगत डेटा तपाईंको उपकरणमा निजी रहन्छ र ब्राउजिङ इतिहास जुनसुकै बेला खाली गर्न सकिन्छ।";
+"activity-tab-onboarding-third-item-title" = "संलग्न हुने थप तरिकाहरू";
+"activity-tab-saved" = "यस महिना सुरक्षित गरिएका लेखहरू";
+"activity-tab-top-categories" = "यस महिनाका शीर्ष श्रेणीहरू";
+"activity-tab-week-graph-label" = "हप्ता";
 "add-articles-to-reading-list" = "पठन सूचीमा {{PLURAL:$1|$1 लेख|$1 लेखहरू}} थप्नुहाेस्";
 "announcements-dismiss" = "खारेज गर्नुहोस्";
 "app-store-keywords" = "विकिपिडिया, सन्दर्भ, विकि, विश्वकाेश, जानकारी, ज्ञान, अनुसन्धान, जानकारी, अन्वेषण, सिक्नुहाेस्";
@@ -89,7 +98,7 @@
 "back-button-popover-title" = "पछाडि जानको लागि ट्याप गर्नुहोस्";
 "button-next" = "अर्को";
 "button-ok" = "ठीक छ";
-"button-publish" = "प्रकाशन गर्नुहोस्";
+"button-publish" = "प्रकाशित गर्नुहोस्";
 "button-report-a-bug" = "बग उजुरी गर्ने";
 "button-save-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "button-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
@@ -252,7 +261,7 @@
 "login-title" = "खातामा प्रवेश गर्नुहोस्";
 "main-menu-about" = "विकिपिडिया अनुप्रयोगको बारेमा";
 "main-menu-account-login" = "प्रवेश गर्नुहोस्";
-"main-menu-account-logout" = "निर्गमन";
+"main-menu-account-logout" = "निर्गमन गर्नुहोस्";
 "main-menu-account-logout-are-you-sure" = "के तपाईं निर्गमन गर्न चहानुहुन्छ?";
 "main-menu-account-title-logged-in" = "$1 का रूपमा लगइन गरियो";
 "main-menu-heading-legal" = "गोपनीयता र सर्तहरू";
@@ -336,7 +345,7 @@
 "places-unknown-distance" = "अज्ञात दूरी";
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउनका लागि तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
 "privacy-policy-title" = "गोपनीयता नीति";
-"project-name-mediawiki" = "मिडियाविकी";
+"project-name-mediawiki" = "मिडियाविकि";
 "project-name-wikibooks" = "विकिपुस्तक";
 "project-name-wikidata" = "विकिडाटा";
 "project-name-wikimedia-commons" = "विकिमिडिया कमन्स";

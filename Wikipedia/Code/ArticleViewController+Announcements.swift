@@ -16,12 +16,12 @@ extension ArticleViewController {
             return
         }
         
-        let dataController = WMFFundraisingCampaignDataController.shared
+        let fundraisingDataController = WMFFundraisingCampaignDataController.shared
         
         Task {
-            let isOptedIn = await dataController.isOptedIn(project: wmfProject)
+            let isOptedIn = await fundraisingDataController.isOptedIn(project: wmfProject)
             
-            guard let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
+            guard let activeCampaignAsset = fundraisingDataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
                 return
             }
 
@@ -34,11 +34,33 @@ extension ArticleViewController {
             guard isOptedIn else {
                 return
             }
+            
+            guard !userDonatedWithinLast250Days() else {
+                return
+            }
+            
 
             willDisplayFundraisingBanner = true
 
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
+    }
+    
+    private func userDonatedWithinLast250Days() -> Bool {
+        
+        let donateDataController = WMFDonateDataController.shared
+        
+        let currentDate = Date()
+        let twoFiftyDaysTimeInterval = TimeInterval(60*60*24*250)
+        let twoFiftyDaysAgo = currentDate.addingTimeInterval(-twoFiftyDaysTimeInterval)
+        let localDonationHistory = donateDataController.loadLocalDonationHistory(startDate: twoFiftyDaysAgo, endDate: Date())
+        
+        if let localDonationHistory,
+           !localDonationHistory.isEmpty {
+            return true
+        }
+        
+        return false
     }
     
     private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, project: WikimediaProject) {
@@ -65,13 +87,15 @@ extension ArticleViewController {
             
             let globalRect = CGRect(x: globalPoint.x, y: globalPoint.y, width: button.frame.width, height: button.frame.height)
             
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: globalRect, source: .articleCampaignModal(articleURL, asset.metricsID, donateURL), dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
+            let getDonateButtonGlobalRect: () -> CGRect = { globalRect }
+            
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .articleCampaignModal(articleURL, asset.metricsID, donateURL), dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
                 guard let fundraisingPanelVC = viewController as? FundraisingAnnouncementPanelViewController else {
                     return
                 }
                 
                 fundraisingPanelVC.isLoading = isLoading
-            })
+            }, getDonateButtonGlobalRect: getDonateButtonGlobalRect)
             
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
@@ -129,7 +153,6 @@ extension ArticleViewController {
         }
     }
 
-    // TODO: remove after expiry date (1 March 2025)
     func needsYearInReviewAnnouncement() -> Bool {
 
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
@@ -140,46 +163,23 @@ extension ArticleViewController {
             return false
         }
 
-        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
+        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
             return false
         }
         
         return true
     }
     
-    // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
 
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
         
-        if WMFDeveloperSettingsDataController.shared.showYiRV2 {
-            let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
-            let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
-            let primaryButtonTitle = CommonStrings.continueButton
-            let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
-            let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
+        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "article_prompt")
+        self.yirCoordinator?.start()
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
 
-            let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
-                guard let self else { return }
-                self.yirCoordinator?.start()
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-            }, closeButtonAction: {
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
-            })
-            
-            if let profileBarButtonItem = self.currentProfileBarButtonItem {
-                announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
-                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-                yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-            }
-        } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            // A change in V3 is that we just show the feature itself with a modified intro slide.
-            // No feature announcement component
-            self.yirCoordinator?.start()
-            yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-        }
     }
 }
 

@@ -298,6 +298,194 @@
 			<string>%1$d lines unedited</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>In %1$@, volunteers added %#@v2@ to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld byte</string>
+			<key>other</key>
+			<string>%2$lld bytes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ added</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld byte</string>
+			<key>other</key>
+			<string>%1$lld bytes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Volunteers made %#@v1@ across over %#@v2@ of Wikipedia. %#@v3@ were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld change</string>
+			<key>other</key>
+			<string>%1$lld changes</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d different language edition</string>
+			<key>other</key>
+			<string>%2$d different language editions</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%3$lld change</string>
+			<key>other</key>
+			<string>%3$lld changes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Editors made %#@v1@ this year</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld change</string>
+			<key>other</key>
+			<string>%1$lld changes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>People spent an estimated %#@v1@—around %#@v2@!—reading English Wikipedia in %3$@. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld hour</string>
+			<key>other</key>
+			<string>%1$lld hours</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld year</string>
+			<key>other</key>
+			<string>%2$lld years</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>People spent an estimated %#@v1@—around %#@v2@!—reading English Wikipedia in %3$@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld hour</string>
+			<key>other</key>
+			<string>%1$lld hours</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld year</string>
+			<key>other</key>
+			<string>%2$lld years</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>We spent %#@v1@ reading</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld hour</string>
+			<key>other</key>
+			<string>%1$lld hours</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Active app users had %#@v1@ this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld saved article</string>
+			<key>other</key>
+			<string>%1$lld saved articles</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>We had %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld saved article</string>
+			<key>other</key>
+			<string>%1$lld saved articles</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -899,6 +1087,113 @@
 			<string>%1$d filters</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-editors-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Editors on the official Wikipedia apps made %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld edit</string>
+			<key>other</key>
+			<string>%1$lld edits</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia was edited %#@v1@ per minute</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d time</string>
+			<key>other</key>
+			<string>%1$d times</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia had %#@v1@ across over %#@v2@. You joined millions in expanding knowledge and exploring diverse topics.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld article</string>
+			<key>other</key>
+			<string>%1$lld articles</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d active language</string>
+			<key>other</key>
+			<string>%2$d active languages</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia was available in more than %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d language</string>
+			<key>other</key>
+			<string>%1$d languages</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>App users had %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld saved article</string>
+			<key>other</key>
+			<string>%1$lld saved articles</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>App users viewed Wikipedia articles %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld time</string>
+			<key>other</key>
+			<string>%1$lld times</string>
+		</dict>
+	</dict>
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -915,10 +1210,69 @@
 			<string>%1$d times</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received %#@v1@. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for the world.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld view</string>
+			<key>other</key>
+			<string>%1$lld total views</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Your edits have been viewed more than %#@v1@ recently</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld time</string>
+			<key>other</key>
+			<string>%1$lld times</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Volunteers like you made %#@v1@ across %#@v2@ of Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld change</string>
+			<key>other</key>
+			<string>%1$lld changes</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d different language edition</string>
+			<key>other</key>
+			<string>%2$d different language editions</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>You edited Wikipedia %#@v1@</string>
+		<string>You edited %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -931,42 +1285,10 @@
 			<string>%1$d times</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>You read %#@v1@. Wikipedia had %2$@ million articles available across over %3$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d article</string>
-			<key>other</key>
-			<string>%1$d articles</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>This puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads %#@v1@ a year.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d article</string>
-			<key>other</key>
-			<string>%1$d articles</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>You read %#@v1@</string>
+		<string>We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads %#@v1@ a year.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -982,7 +1304,7 @@
 	<key>year-in-review-personalized-reading-title-v3-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>You spent %#@v1@ reading %#@v2@ in 2025</string>
+		<string>You spent %#@v1@ reading %#@v2@ in %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1004,6 +1326,24 @@
 			<string>%2$d article</string>
 			<key>other</key>
 			<string>%2$d articles</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>These articles included %1$@, %2$@, and %3$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.
+
+Active app users had %#@v4@ this year.</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%4$lld saved article</string>
+			<key>other</key>
+			<string>%4$lld saved articles</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

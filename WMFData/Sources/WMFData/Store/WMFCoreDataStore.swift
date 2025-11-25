@@ -67,7 +67,7 @@ public final class WMFCoreDataStore {
         
     }
     
-    var newBackgroundContext: NSManagedObjectContext {
+    public var newBackgroundContext: NSManagedObjectContext {
         get throws {
             guard let persistentContainer else {
                 throw WMFCoreDataStoreError.setupMissingPersistentContainer
@@ -87,8 +87,8 @@ public final class WMFCoreDataStore {
         }
     }
     
-    func fetchOrCreate<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, in moc: NSManagedObjectContext) throws -> T? {
-        
+    public func fetchOrCreate<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, in moc: NSManagedObjectContext) throws -> T? {
+
         guard let existing: [T] = try fetch(entityType: entityType, predicate: predicate, fetchLimit: 1, in: moc),
               !existing.isEmpty else {
             return try create(entityType: entityType, in: moc)
@@ -96,21 +96,24 @@ public final class WMFCoreDataStore {
 
         return existing.first
     }
-    
-    private func fetchRequest<T>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) -> NSFetchRequest<T> {
-        
+
+    private func fetchRequest<T>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, sortDescriptors: [NSSortDescriptor]? = nil, in moc: NSManagedObjectContext) -> NSFetchRequest<T> {
+
         let entityName = NSStringFromClass(entityType)
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = predicate
         if let fetchLimit {
             fetchRequest.fetchLimit = fetchLimit
         }
+        if let sortDescriptors {
+            fetchRequest.sortDescriptors = sortDescriptors
+        }
         return fetchRequest
     }
-    
-    func fetch<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, in moc: NSManagedObjectContext) throws -> [T]? {
-        
-        let fetchRequest = fetchRequest(entityType: entityType, predicate: predicate, fetchLimit: fetchLimit, in: moc)
+
+    public func fetch<T: NSManagedObject>(entityType: T.Type, predicate: NSPredicate?, fetchLimit: Int?, sortDescriptors: [NSSortDescriptor]? = nil, in moc: NSManagedObjectContext) throws -> [T]? {
+
+        let fetchRequest = fetchRequest(entityType: entityType, predicate: predicate, fetchLimit: fetchLimit, sortDescriptors: sortDescriptors, in: moc)
         return try moc.fetch(fetchRequest)
     }
     
@@ -186,8 +189,10 @@ public final class WMFCoreDataStore {
                 
                 let emptyPageViewsPredicate = NSPredicate(format: "pageViews.@count == 0")
                 let emptyArticleTabItemsPredicate = NSPredicate(format: "articleTabItems.@count == 0")
-                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate])
-                
+                let savedPageInfoPredicate = NSPredicate(format: "savedInfo == nil")
+
+                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate, savedPageInfoPredicate])
+
                 // Delete CDPages that have no page views, no article tab items, and were added > one year ago
                 guard let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: compoundPredicate, fetchLimit: 2000, in: backgroundContext) else {
                     return
@@ -213,45 +218,8 @@ public final class WMFCoreDataStore {
     }
 }
 
-extension WMFProject {
-    var coreDataIdentifier: String {
-        switch self {
-        case .commons:
-            return "commons"
-        case .wikidata:
-            return "wikidata"
-        case .wikipedia(let language):
-            var identifier = "wikipedia~\(language.languageCode)"
-            if let variantCode = language.languageVariantCode {
-                identifier.append("~\(variantCode)")
-            }
-            return identifier
-        }
-    }
-    
-    init?(coreDataIdentifier: String) {
-        switch coreDataIdentifier {
-        case "commons":
-            self = .commons
-        case "wikidata":
-            self = .wikidata
-        default:
-            // Expected format: wikipedia~languageCode or wikipedia~languageCode~variant
-            let components = coreDataIdentifier.components(separatedBy: "~")
-            guard components.count >= 2, components[0] == "wikipedia" else {
-                return nil
-            }
-            
-            let languageCode = components[1]
-            let variantCode = components.count > 2 ? components[2] : nil
-            let language = WMFLanguage(languageCode: languageCode, languageVariantCode: variantCode)
-            self = .wikipedia(language)
-        }
-    }
-}
-
 extension String {
-    var normalizedForCoreData: String {
+    public var normalizedForCoreData: String {
         return self.spacesToUnderscores.precomposedStringWithCanonicalMapping
     }
 }

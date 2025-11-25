@@ -143,7 +143,6 @@ class ShareActivityController: UIActivityViewController {
             let text = "\"\(title)\" on Wikipedia"
             items.append(text)
         }
-        
         if let shareURL = article.url?.wmf_URL(withOptionalFragment: article.viewedFragment)?.wmf_URLForTextSharing {
             items.append(shareURL)
         }

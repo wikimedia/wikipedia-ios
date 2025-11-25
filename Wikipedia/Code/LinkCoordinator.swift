@@ -1,5 +1,6 @@
 import WMF
 
+@MainActor
 final class LinkCoordinator: Coordinator {
     
     enum Destination {
@@ -15,16 +16,17 @@ final class LinkCoordinator: Coordinator {
     private let previousPageViewObjectID: NSManagedObjectID?
     let tabConfig: ArticleTabConfig
     
-    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
+    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig? = nil) {
         self.navigationController = navigationController
         self.url = url
         self.dataStore = dataStore ?? MWKDataStore.shared()
         self.theme = theme
         self.articleSource = articleSource
         self.previousPageViewObjectID = previousPageViewObjectID
-        self.tabConfig = tabConfig
+        self.tabConfig = tabConfig ?? .appendArticleAndAssignCurrentTab
     }
-    
+
+    @MainActor
     @discardableResult
     func start() -> Bool {
         
@@ -40,7 +42,7 @@ final class LinkCoordinator: Coordinator {
                 source: articleSource,
                 previousPageViewObjectID: previousPageViewObjectID,
                 tabConfig: self.tabConfig)
-            
+
             return articleCoordinator.start()
         case .unknown:
             return false

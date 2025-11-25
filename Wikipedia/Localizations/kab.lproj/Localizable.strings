@@ -59,9 +59,11 @@
 "action-saved-accessibility" = "Yettwasekles. Rmed akken ad tekkseḍ asekles.";
 "action-saved-accessibility-notification" = "Amagrad yettwasekles i ticki";
 "action-share" = "Bḍu";
+"action-share-accessibility" = "Bḍu";
 "action-unsave" = "UR yettwasekles ara";
 "action-unsaved-accessibility-notification" = "Amagrad ur yettwasekles ara";
 "activity-tab-add-images-title" = "Rnu tugniwin";
+"activity-tab-articles-read-graph-label" = "Imagraden";
 "alert-temporary-account-learn-more" = "Issin ugar.";
 "announcements-dismiss" = "Zgel";
 "app-store-subtitle" = "Tasanayt tilellit";
@@ -95,6 +97,7 @@
 "compass-direction" = "af $1 n isragen";
 "continue-reading-empty-description" = "Snirem Wikipedia i wugar n imagraden ara teɣreḍ";
 "continue-reading-empty-title" = "Ula d yiwen n umagrad ur yerrwaɣra melmi kan";
+"create-account" = "Snulfu-d amiḍan";
 "description-help-about-title" = "Ɣef";
 "diff-context-lines-collapsed-button-title" = "Sken-d";
 "diff-context-lines-expanded-button-title" = "Ffer";
@@ -212,14 +215,18 @@
 "new-password-instructions" = "Teqqneḍ s wawal uffir askudan. Akken ad fakeḍ tuqqna, sekcem awal-nniḍen uffir dagi.";
 "new-password-title" = "Sbadu awal-ik uffir";
 "no-email-account-alert" = "Swel amiḍan n yiznan deg usagu-ik sakin ɛreḍ tikelt-nniḍen.";
+"notifications-center-empty-no-messages" = "Ulac ɣur-k·m iznan";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Rmed ilɣa";
 "notifications-center-filters-read-status-item-title-all" = "Akk";
 "notifications-center-go-to-article" = "Amagrad";
 "notifications-center-more-action-accessibility-label" = "Ugar";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 n yizen|$1 n yiznan}}";
 "notifications-center-status-all" = "Akk";
 "notifications-center-type-title-thanks" = "Tanemmirt";
 "notifications-center-type-title-welcome" = "Ansuf";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 n yizen amaynut|$1 n yiznan imaynuten}} ɣef $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|n yizen amaynut|n yiznan imaynuten}}";
 "number-billions" = "$1AṬ";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

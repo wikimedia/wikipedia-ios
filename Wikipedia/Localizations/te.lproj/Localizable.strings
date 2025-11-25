@@ -416,6 +416,7 @@
 "main-menu-zero-faq" = "వికీపీడియా సున్నా ఎఫ్ఎక్యూ";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "2025 లో ఇంగ్లీషు వికీపీడియా చదవడానికి ప్రజలు దాదాపు 2.4 బిలియన్ల గంటలు - 275,000 సంవత్సరాలకు పైగా - వెచ్చించారని అంచనా. మారుతున్న మన ప్రపంచం గురించి తెలుసుకోవాలనుకున్నప్పుడు, స్నేహితుల మధ్య పందెం గెలవాలనుకున్నప్పుడు లేదా ఆసక్తికరమైన పిల్లల ప్రశ్నకు సమాధానం చెప్పాలనుకున్నప్పుడూ వికీపీడియా తోడుగా ఉంటుంది.";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle-short" = "2025 లో ఇంగ్లీషు వికీపీడియా చదవడానికి ప్రజలు దాదాపు 2.4 బిలియన్ల గంటలు - 275,000 సంవత్సరాలకు పైగా! - వెచ్చించారని అంచనా.";
 "more-languages-tooltip-description" = "వికీపీడియాను 300 భాషల్లో వెతకండి";
 "more-languages-tooltip-title" = "భాషలను చేర్చు";
@@ -804,7 +805,9 @@
 "year-in-review-personalized-date-title-v3" = "మీకు స్పష్టమైన పఠన ధోరణులు ఉన్నాయి";
 "year-in-review-personalized-location-subtitle-format-1" = "మీరు $2$1$3 గురించి చదివారు.";
 "year-in-review-personalized-location-subtitle-format-3" = "మీరు $4$1$5, $4$2$5, $4$3$5 ల గురించి చదివారు.";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format-v3" = "ప్రపంచవ్యాప్తంగా వికీపీడియా పాఠకుల్లో మీరు తొలి **PERCENT** లో ఉన్నారు. సగటున ఒక్కో పాఠకుడు సంవత్సరానికి {{PLURAL:$1|$1 వ్యాసం|$1 వ్యాసాలు}} చదువుతారు.";
+// Fuzzy
 "year-in-review-personalized-reading-title-v3-format" = "2025 లో మీరు, {{PLURAL:$2|$2 వ్యాసాన్ని|$2 వ్యాసాలను}} చదవడానికి {{PLURAL:$1|$1 నిమిషం|$1 నిమిషాలు}} వెచ్చించారు";
 "year-in-review-time-afternoon" = "అపరాహ్ణం";
 "year-in-review-time-evening" = "సాయంత్రం";

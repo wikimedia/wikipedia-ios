@@ -5,11 +5,9 @@ import WMF
 import Combine
 
 
-final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {
+final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {}
 
-}
-
-@objc public final class WMFHistoryViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring, HintPresenting, MEPEventsProviding {
+@objc final class WMFHistoryViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring, HintPresenting, MEPEventsProviding {
 
     // MARK: - Properties
 
@@ -55,12 +53,14 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         return existingYirCoordinator
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController, let dataStore else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController, let dataStore else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: dataStore
+        )
+    }()
 
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -188,6 +188,12 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         super.viewWillAppear(animated)
 
         configureNavigationBar()
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        ArticleTabsFunnel.shared.logIconImpression(interface: .history, project: nil)
     }
 
     // MARK: - Methods

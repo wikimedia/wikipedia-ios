@@ -4,20 +4,22 @@ import CoreData
 final class YearInReviewSlideDataControllerFactory {
     
     private let year: Int
-    private let config: YearInReviewFeatureConfig
+    private let config: WMFFeatureConfigResponse.Common.YearInReview
     
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
     private let username: String?
-    private let userID: String?
+    private let userID: Int?
+    private let globalUserID: Int?
     private let project: WMFProject?
     
     init(
         year: Int,
-        config: YearInReviewFeatureConfig,
+        config: WMFFeatureConfigResponse.Common.YearInReview,
         username: String?,
-        userID: String?,
+        userID: Int?,
+        globalUserID: Int?,
         project: WMFProject?,
         savedSlideDataDelegate: SavedArticleSlideDataDelegate,
         legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate
@@ -26,6 +28,7 @@ final class YearInReviewSlideDataControllerFactory {
         self.config = config
         self.username = username
         self.userID = userID
+        self.globalUserID = globalUserID
         self.project = project
         
         self.savedSlideDataDelegate = savedSlideDataDelegate
@@ -37,6 +40,7 @@ final class YearInReviewSlideDataControllerFactory {
         let userInfo = YearInReviewUserInfo(
             username: username,
             userID: userID,
+            globalUserID: globalUserID,
             project: project
         )
         
@@ -52,7 +56,7 @@ final class YearInReviewSlideDataControllerFactory {
             .topArticles
         ]
         
-        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, languageCode: project?.languageCode)
+        let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, globalUserID: globalUserID, languageCode: project?.languageCode)
         
         var dataControllers: [YearInReviewSlideDataControllerProtocol] = []
         
@@ -69,6 +73,12 @@ final class YearInReviewSlideDataControllerFactory {
     }
     
     private func shouldAddSlideDataController(existingSlideIDs: Set<String>, id: WMFYearInReviewPersonalizedSlideID) -> Bool {
-        !existingSlideIDs.contains(id.rawValue)
+        
+        // If slide should not freeze its data, always return true, which will trigger calculation each time.
+        if !id.dataController().shouldFreeze {
+            return true
+        }
+        
+        return !existingSlideIDs.contains(id.rawValue)
     }
 }

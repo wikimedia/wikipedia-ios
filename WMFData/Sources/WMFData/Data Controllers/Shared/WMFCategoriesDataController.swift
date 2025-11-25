@@ -32,7 +32,7 @@ public final class WMFCategoriesDataController {
             
             // First fetch WMFPage of article
             
-            let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, 0, coreDataTitle])
+            let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, 0, coreDataTitle])
             
             guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: predicate, fetchLimit: 1, in: backgroundContext)?.first else {
                 throw WMFCoreDataStoreError.missingEntity
@@ -41,7 +41,7 @@ public final class WMFCategoriesDataController {
             // Fetch or create category
             for category in categories {
                 let categoryTitle = category.normalizedForCoreData
-                let predicate = NSPredicate(format: "projectID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, categoryTitle])
+                let predicate = NSPredicate(format: "projectID == %@ && title == %@", argumentArray: [project.id, categoryTitle])
                 
                 guard let category = try? self.coreDataStore.fetchOrCreate(entityType: CDCategory.self, predicate: predicate, in: backgroundContext),
                       var pages = category.pages as? Set<CDPage> else {
@@ -49,7 +49,7 @@ public final class WMFCategoriesDataController {
                 }
                 
                 category.title = categoryTitle
-                category.projectID = project.coreDataIdentifier
+                category.projectID = project.id
                 
                 pages.insert(page)
                 category.pages = pages as NSSet
@@ -81,7 +81,7 @@ public final class WMFCategoriesDataController {
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
-    
+
     public func fetchCategoryCounts(startDate: Date, endDate: Date) async throws -> [WMFCategory: Int] {
         
         let context = try coreDataStore.newBackgroundContext
@@ -107,7 +107,7 @@ public final class WMFCategoriesDataController {
                     
                     guard let title = category.title,
                           let projectID = category.projectID,
-                          let project = WMFProject(coreDataIdentifier: projectID) else {
+                          let project = WMFProject(id: projectID) else {
                         continue
                     }
                     

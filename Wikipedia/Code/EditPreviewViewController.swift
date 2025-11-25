@@ -244,7 +244,7 @@ extension EditPreviewViewController: UIGestureRecognizerDelegate {
 }
 
 extension EditPreviewViewController: ArticleWebMessageHandling {
-    func didRecieve(action: ArticleWebMessagingController.Action) {
+    func didReceive(action: ArticleWebMessagingController.Action) {
         switch action {
         case .unknown(let href):
             showExternalLinkInAlert(link: href)

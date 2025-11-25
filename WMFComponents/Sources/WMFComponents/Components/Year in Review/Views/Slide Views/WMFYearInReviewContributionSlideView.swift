@@ -2,10 +2,9 @@ import SwiftUI
 
 struct WMFYearInReviewContributionSlideView: View {
     @ObservedObject var viewModel: WMFYearInReviewContributorSlideViewModel
+    @ObservedObject var parentViewModel: WMFYearInReviewViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @Binding var isLoading: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @State private var buttonRect: CGRect = .zero
     
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -112,55 +111,14 @@ struct WMFYearInReviewContributionSlideView: View {
                             }
                         }
                     }
-                    .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: viewModel.contributionStatus == .noncontributor && !viewModel.forceHideDonateButton ? 66 : 0, trailing: sizeClassPadding))
+                    .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: viewModel.contributionStatus == .noncontributor && viewModel.contributionStatus == .noncontributor ? 66 : 0, trailing: sizeClassPadding))
                 }
             )
             
-            if viewModel.contributionStatus == .noncontributor && !viewModel.forceHideDonateButton {
+            if viewModel.contributionStatus == .noncontributor {
                 Group {
-                    Button(action: { viewModel.onTappedDonateButton(buttonRect) }) {
-                        Group {
-                            if isLoading {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: Color(uiColor: theme.destructive)))
-                                    .scaleEffect(1.2)
-                            } else {
-                                HStack(alignment: .center, spacing: 6) {
-                                    if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline) {
-                                        Image(uiImage: uiImage)
-                                            .foregroundStyle(Color(uiColor: theme.destructive))
-                                        Text(viewModel.donateButtonTitle)
-                                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                                            .foregroundStyle(Color(uiColor: theme.destructive))
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.vertical, 11)
-                        .padding(.horizontal, 16)
-                        .frame(maxWidth: .infinity)
-                        .contentShape(RoundedRectangle(cornerRadius: 12))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color(uiColor: theme.newBorder), lineWidth: 1)
-                        )
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(uiColor: theme.midBackground))
-                        )
-                    }
-                    .padding(.horizontal, horizontalSizeClass == .regular ? 64 : 32)
-                    .padding(.bottom, 16)
-                    .buttonStyle(PlainButtonStyle())
-                    .background(
-                        GeometryReader { geometry in
-                            Color.clear
-                                .onAppear {
-                                    let frame = geometry.frame(in: .global)
-                                    buttonRect = frame
-                                }
-                        }
-                    )
+                    WMFLargeButtonLoading(configuration: .primary, title: viewModel.donateButtonTitle, icon: WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline), isLoading: $parentViewModel.isLoadingDonate, action: viewModel.onTappedDonateButton)
+                        .padding([.leading, .trailing], sizeClassPadding)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 12)

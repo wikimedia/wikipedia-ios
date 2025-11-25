@@ -615,27 +615,6 @@
 			<string>%1$d 回</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>今年、あなたが読んだ%#@v1@%1$dでした。ウィキペディアには%3$@以上の言語で%2$@万件以上の記事が利用可能でした。あなたは何百万人もの人々に加わって知識を広げ、多様なトピックを探求しました。</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d article</string>
-			<key>other</key>
-			<string>記事は %1$d 件</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>あなたが読んだのは、</string>
-	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

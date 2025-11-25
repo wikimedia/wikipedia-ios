@@ -93,6 +93,16 @@
 "action-unsave" = "Fjern lagring";
 "action-unsaved-accessibility-notification" = "Artikkelen er ikke lenger lagret";
 "action-update" = "Oppdater";
+"activity-tab-add-images-subtitle" = "Legg til foreslåtte bilder i Wikipedia-artikler for å gjøre dem enklere å forstå.";
+"activity-tab-add-images-title" = "Legg til bilder";
+"activity-tab-generic-no-edits" = "Du har ikke redigert denne uka. Begynn nå for å spore bidragene dine.";
+"activity-tab-greeting" = "$1Hei, $2$3 👋 Her er det ukentlige Wikipedia-sammendraget ditt.";
+// Fuzzy
+"activity-tab-logged-out-subtitle" = "Spor hva du har lest, og vis bidragene dine over tid på en ny måte";
+// Fuzzy
+"activity-tab-logged-out-title" = "Logg inn eller opprett en konto for å se mer redigerings- og leseaktivitet.";
+"activity-tab-no-edits-title" = "Du har ikke redigert denne uka. Legg til bilder for å gjøre artikler enklere å forstå.";
+"activity-tab-read-title" = "Vis lesehistorikk";
 "add-articles-to-reading-list" = "Legg til {{PLURAL:$1|$1 artikkel|$1 artikler}} i leselisten";
 "advanced-settings-title" = "Avanserte innstillinger";
 "announcements-dismiss" = "Lukk";
@@ -121,6 +131,13 @@
 "article-revision-history" = "Artikkelsideversjonshistorikk";
 "article-save-error-not-enough-space" = "Du har ikke nok plass ledig på enheten din for å lagre denne artikkelen";
 "article-share" = "Del";
+"article-tabs-feature-announcement-item-2-title" = "Fortsett der du slapp";
+"article-tabs-feature-announcement-item-3-title" = "Lagre lenker til senere";
+"article-tabs-feature-announcement-item-4-title" = "Tilpass den nye fanen din";
+"article-tabs-feature-announcement-sub-cta" = "Lær mer om faner";
+"article-tabs-feature-announcement-title" = "Innføring av faner";
+"article-tabs-max-reached" = "Fanegrensen er nådd ($1). Artikkelen ble åpnet i den gjeldende fanen. Du bør lukke én eller flere faner.";
+"article-tabs-navigation" = "Fanenavigasjon";
 "article-talk-page" = "Artikkeldiskusjonsside";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring av lesedrakter";
 "back-button-accessibility-label" = "Tilbake";
@@ -828,6 +845,7 @@
 "panel-not-logged-in-continue-edit-action-title" = "Rediger uten å logge inn";
 "panel-not-logged-in-subtitle" = "IP-adressa di vil være synlig offentlig hvis du gjør redigeringer. Hvis du $1logger inn$2 eller $3oppretter en konto$4 vil redigeringene dine bli tilskrevet brukernavnet ditt, samt at du får andre fordeler i tillegg.";
 "panel-not-logged-in-title" = "Du er ikke logget inn";
+"percentile-0.01" = "0,01";
 "pictured" = "bildet";
 "places-accessibility-clear-saved-searches" = "Tøm lagrede søk";
 "places-accessibility-group" = "$1 artikler";

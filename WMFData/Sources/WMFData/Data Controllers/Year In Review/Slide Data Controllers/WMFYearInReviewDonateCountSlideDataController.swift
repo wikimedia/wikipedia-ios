@@ -6,8 +6,9 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
+    static var shouldFreeze = false
     
-    private let username: String?
+    private let globalUserID: Int?
     private let project: WMFProject?
     
     private let service = WMFDataEnvironment.current.mediaWikiService
@@ -15,29 +16,28 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     private var donateCount: Int?
     private var editCount: Int?
     
-    private let yirConfig: YearInReviewFeatureConfig
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
-        self.username = dependencies.username
+        self.globalUserID = dependencies.globalUserID
         self.project = dependencies.project
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
-        guard let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate else {
+        guard let startDate = yirConfig.dataStartDate,
+              let endDate = yirConfig.dataEndDate else {
             return
         }
         donateCount = getDonateCount(startDate: startDate, endDate: endDate)
         
-        if let username, let project {
+        if let globalUserID,
+           let startDate = yirConfig.dataStartDate,
+           let endDate = yirConfig.dataEndDate {
             do {
-                guard let startDateString = yirConfig.dataPopulationStartDateString,
-                      let endDateString = yirConfig.dataPopulationEndDateString else {
-                    return
-                }
-                editCount = try await getEditCount(startDate: startDateString, endDate: endDateString, username: username, project: project)
+                let dataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
+                editCount = try await dataController.fetchEditCount(globalUserID: globalUserID, startDate: startDate, endDate: endDate)
                 isEvaluated = true
             } catch {
                 isEvaluated = false
@@ -137,7 +137,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        config.isEnabled && config.slideConfig.donateCountIsEnabled
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date())
     }
 }

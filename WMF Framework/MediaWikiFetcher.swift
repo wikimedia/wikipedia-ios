@@ -183,4 +183,8 @@ public final class MediaWikiFetcher: Fetcher, WMFService {
         assertionFailure("Not implemented")
         completion(.failure(MediaWikiFetcherError.invalidRequest))
     }
+    
+    public func clearCachedData() {
+        session.clearTemporaryCache()
+    }
 }

@@ -14,25 +14,22 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject, WMFYear
     public let subtitle: String
     public let loggingID: String
     public let contributionStatus: ContributionStatus
-    public let forceHideDonateButton: Bool
     
-    public let onTappedDonateButton: (CGRect) -> Void
+    public let onTappedDonateButton: () -> Void
     public let onToggleIcon: ((Bool) -> Void)?
     public let onInfoButtonTap: () -> Void
     public let donateButtonTitle: String
     public let toggleButtonTitle: String
     public let toggleButtonSubtitle: String
-    public let infoURL: URL?
     @Published var isIconOn: Bool
     
-    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, forceHideDonateButton: Bool = false, onTappedDonateButton: @escaping (CGRect) -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false, infoURL: URL? = nil) {
+    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, onTappedDonateButton: @escaping () -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
         self.subtitle = subtitle
         self.loggingID = loggingID
         self.contributionStatus = contributionStatus
-        self.forceHideDonateButton = forceHideDonateButton
         self.onTappedDonateButton = onTappedDonateButton
         self.onToggleIcon = onToggleIcon
         self.onInfoButtonTap = onInfoButtonTap
@@ -40,7 +37,6 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject, WMFYear
         self.toggleButtonTitle = toggleButtonTitle
         self.toggleButtonSubtitle = toggleButtonSubtitle
         self.isIconOn = isIconOn
-        self.infoURL = infoURL
     }
     
     public enum SubtitleType {
