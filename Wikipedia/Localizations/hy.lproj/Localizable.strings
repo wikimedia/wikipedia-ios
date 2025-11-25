@@ -35,6 +35,7 @@
 "action-sort" = "Տեսակավորել";
 "action-undo" = "Հետ շրջել";
 "action-update" = "Թարմացնել";
+"activity-tab-articles-read-graph-label" = "Հոդվածներ";
 "activity-tab-title" = "Ակտիվություն";
 "announcements-dismiss" = "Փակել";
 "article-delete" = "Ջնջել";

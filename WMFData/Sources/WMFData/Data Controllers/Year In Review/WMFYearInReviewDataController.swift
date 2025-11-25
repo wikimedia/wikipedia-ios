@@ -78,10 +78,6 @@ import CoreData
     
     public func shouldShowYiRNotification(isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
-        if !developerSettingsDataController.showYiRV3 {
-            return false
-        }
-        
         if isTemporaryAccount {
             return false
         }
@@ -122,10 +118,6 @@ import CoreData
 
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
         
-        if !developerSettingsDataController.showYiRV3 {
-            return false
-        }
-        
         guard let config = self.config else {
             return false
         }
@@ -159,10 +151,6 @@ import CoreData
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
         
         let currentDate = currentDate ?? Date()
-        
-        if !developerSettingsDataController.showYiRV3 {
-            return false
-        }
 
         guard yearInReviewSettingsIsEnabled else {
             return false
@@ -202,10 +190,6 @@ import CoreData
     // MARK: - Hide Year in Review
 
     @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?) -> Bool {
-        
-        if !developerSettingsDataController.showYiRV3 {
-            return false
-        }
 
         guard let countryCode else {
             return false
@@ -355,10 +339,6 @@ import CoreData
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?) -> Bool {
-        
-        if !developerSettingsDataController.showYiRV3 {
-            return false
-        }
         
         guard yearInReviewSettingsIsEnabled else {
             return false

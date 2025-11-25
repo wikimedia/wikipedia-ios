@@ -1,13 +1,10 @@
 import Foundation
 
-public final class WMFActivityTabDataController {
+public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-    
-    public init() {
-        
-    }
-    
+    public init() {}
+
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current
         let now = Date()
@@ -65,10 +62,8 @@ public final class WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-    @objc public func getActivityAssignment() -> Int {
-        // TODO: More thoroughly assign experiment
-        if shouldShowActivityTab { return 1 }
-        return 0
+    public func getActivityAssignment() -> Int {
+        shouldShowActivityTab ? 1 : 0
     }
 
     public var shouldShowActivityTab: Bool {
@@ -102,12 +97,20 @@ public final class WMFActivityTabDataController {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue, value: newValue)
         }
     }
-    
+
+    public func setHasSeenActivityTab(_ value: Bool) {
+        self.hasSeenActivityTab = value
+    }
+
+    public func getHasSeenActivityTab() -> Bool {
+        return hasSeenActivityTab
+    }
+
     public func getMostRecentReadDateTime() async throws -> Date? {
         let dataController = try WMFPageViewsDataController()
         return try await dataController.fetchMostRecentTime()
     }
-    
+
     public func getTopCategories() async throws -> [String]? {
         let calendar = Calendar.current
         let now = Date()
@@ -127,7 +130,7 @@ public final class WMFActivityTabDataController {
 
         return Array(topThreeCategories)
     }
-    
+
     public func fetchTopCategories(startDate: Date, endDate: Date) async throws -> [String] {
         let categoryCounts = try await WMFCategoriesDataController()
             .fetchCategoryCounts(startDate: startDate, endDate: endDate)
@@ -136,4 +139,135 @@ public final class WMFActivityTabDataController {
             .sorted { $0.value > $1.value }
             .map { $0.key.categoryName }
     }
+
+    public func fetchTimeline() async throws -> [Date: [TimelineItem]] {
+        let dataController = try WMFPageViewsDataController()
+        let pageRecords = try await dataController.fetchTimelinePages()
+        guard !pageRecords.isEmpty else { return [:] }
+
+        var dailyTimeline: [Date: [TimelineItem]] = [:]
+        let calendar = Calendar.current
+
+        for record in pageRecords {
+            let page = record.page
+            let timestamp = record.timestamp
+            let dayBucket = calendar.startOfDay(for: timestamp)
+            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
+
+            var todaysPages = Set<String>()
+            if let existingItems = dailyTimeline[dayBucket] {
+                todaysPages = Set(existingItems.map { $0.pageTitle })
+            }
+
+            guard !todaysPages.contains(page.title) else { continue }
+
+            let item = TimelineItem(
+                id: UUID().uuidString,
+                date: timestamp,
+                titleHtml: page.title,
+                projectID: page.projectID,
+                pageTitle: page.title,
+                url: articleURL,
+                description: nil,
+                imageURLString: nil,
+                snippet: nil,
+                page: page,
+                itemType: .read
+            )
+
+            dailyTimeline[dayBucket, default: []].append(item)
+        }
+
+        let sortedTimeline = dailyTimeline.mapValues { items in
+            items.sorted { $0.date < $1.date }
+        }
+
+        return sortedTimeline
+
+    }
+    
+    public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
+        let dataController = try WMFPageViewsDataController()
+        try? await dataController.deletePageView(title: title, namespaceID: namespaceID, project: project)
+    }
+    
+    public func deletePageView(for item: TimelineItem) async throws {
+        guard let project = WMFProject(id: item.page.projectID) else { return }
+        try await deletePageView(
+            title: item.page.title,
+            namespaceID: Int16(item.page.namespaceID),
+            project: project
+        )
+    }
+    
+    public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
+        let articleSummaryController = WMFArticleSummaryDataController()
+        guard let project = WMFProject(id: page.projectID) else { return nil }
+        return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
+    }
+
+}
+
+extension WMFActivityTabDataController {
+    @objc public nonisolated static func activityAssignmentForObjC() -> Int {
+        let key = WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue
+        let value = (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: key)) ?? false
+        return value ? 1 : 0
+    }
+}
+
+
+public protocol SavedArticleModuleDataDelegate: AnyObject {
+    func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
+}
+
+public struct TimelineItem: Identifiable, Equatable {
+    public let id: String
+    public let date: Date
+    public let titleHtml: String
+    public let projectID: String
+    public let pageTitle: String
+    public let url: URL?
+    public var description: String?
+    public var imageURLString: String?
+    public var snippet: String?
+    
+    public let page: WMFPage
+    
+    public let itemType: TimelineItemType
+
+    public init(id: String,
+                date: Date,
+                titleHtml: String,
+                projectID: String,
+                pageTitle: String,
+                url: URL?,
+                description: String? = nil,
+                imageURLString: String? = nil,
+                snippet: String? = nil,
+                page: WMFPage,
+                itemType: TimelineItemType = .standard) {
+        self.id = id
+        self.date = date
+        self.titleHtml = titleHtml
+        self.projectID = projectID
+        self.pageTitle = pageTitle
+        self.url = url
+        self.description = description
+        self.imageURLString = imageURLString
+        self.snippet = snippet
+        self.page = page
+        self.itemType = itemType
+    }
+
+    public static func == (lhs: TimelineItem, rhs: TimelineItem) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+public enum TimelineItemType {
+    case standard // no icon, logged out users, etc.
+    case edit
+    case read
+    case save
 }

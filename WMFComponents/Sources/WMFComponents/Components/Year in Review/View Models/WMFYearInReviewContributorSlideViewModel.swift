@@ -21,10 +21,9 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject, WMFYear
     public let donateButtonTitle: String
     public let toggleButtonTitle: String
     public let toggleButtonSubtitle: String
-    public let infoURL: URL?
     @Published var isIconOn: Bool
     
-    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, onTappedDonateButton: @escaping () -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false, infoURL: URL? = nil) {
+    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, onTappedDonateButton: @escaping () -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
@@ -38,7 +37,6 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject, WMFYear
         self.toggleButtonTitle = toggleButtonTitle
         self.toggleButtonSubtitle = toggleButtonSubtitle
         self.isIconOn = isIconOn
-        self.infoURL = infoURL
     }
     
     public enum SubtitleType {

@@ -108,6 +108,7 @@
 "activity-tab-add-images-subtitle" = "Paranna Wikipedia-artikkelin ymmärrettävyyttä hyväksymällä niihin ehdotettavia kuvia.";
 "activity-tab-add-images-title" = "Lisää kuvia";
 "activity-tab-additional-thoughts" = "Muuta sanottavaa?";
+// Fuzzy
 "activity-tab-logged-out-subtitle" = "Tarkastele uudella tavalla lukemaasi ja lisäämääsi sisältöä";
 "activity-tab-neutral" = "Neutraali";
 "activity-tab-satisfied" = "Tyytyväinen";
@@ -318,7 +319,7 @@
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-placeholder-text" = "Miten paransit artikkelia?";
 "edit-summary-short-description-added" = "Lyhyt kuvaus lisätty";
-"edit-summary-short-description-updated" = "Lyhyttä kuvausta päivitetty";
+"edit-summary-short-description-updated" = "Päivitetty lyhyt kuvaus";
 "edit-watch-list-learn-more-text" = "Lue lisää omista tarkkailulistoista";
 "edit-watch-this-page-text" = "Tarkkaile tätä sivua";
 "editing-welcome-be-bold-subtitle" = "Muokkaa rohkeasti, mutta älä holtittomasti. Älä epäröi virheiden tekemistä, sillä yhteisömme voi tarvittaessa helposti palauttaa edellisen version.";
@@ -1280,6 +1281,7 @@
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "Wikipediaa muokattiin keskimäärin $1 kertaa joka minuutti. Artikkeleita luodaan ja parannetaan yhteistyössä luotettavien lähteiden avulla. Meillä kaikilla on tietoa jaettavana, [näin osallistut]($2).";
+// Fuzzy
 "year-in-review-base-edits-title" = "Wikipediaa muokattiin $1 kertaa joka minuutti";
 // Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipediassa oli yli $1 artikkelia yli $2 aktiivisella kielellä. Liityit miljoonien joukkoon laajentamassa tietämystä ja tutkimassa erilaisia aiheita.";
@@ -1297,7 +1299,6 @@
 "year-in-review-day-wednesday" = "keskiviikko";
 "year-in-review-donate" = "Lahjoita";
 "year-in-review-donate-now" = "Lahjoita nyt";
-"year-in-review-english-edits" = "Kaavio näyttää kymmenen muokatuinta Wikipedian kieliversiota vuonna 2024: englanti (yli 31 miljoonaa muokkausta), saksa (5 508 570), ranska (5 276 385), espanja (4 786 205), venäjä (3 303 066), italia (3 200 398), japani (2 973 657), kiina (2 505 032), puola (1 383 808) ja ukraina (1 376 980). Kaikissa Wikipedian kieliversioissa tehtiin yhteensä 81 987 181 muokkausta vuonna 2024.";
 "year-in-review-feature-announcement-body" = "Tutustu kohokohtiin miten artikkeleita luetaan ja muokataan Wikipediassa.";
 "year-in-review-feature-announcement-title-personalized" = "Tutustu Wikipedia-vuoteesi";
 "year-in-review-feature-explore-body-personalized" = "Tutustu kohokohtiin lukemastasi ja muokkaamastasi sisällöstä Wikipedia-sovelluksessa vuonna 2024. Lukuhistoria säilytetään suojattuna. Kohokohdat muodostetaan laitteellesi tallennetun tiedon perusteella.";

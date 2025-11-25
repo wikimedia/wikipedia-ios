@@ -73,7 +73,6 @@
 "action-share" = "বণ্টন";
 "action-unsave" = "অসংরক্ষিত";
 "action-update" = "হালনাগাদ করুন";
-"activity-tab-remaining-articles" = "+$1";
 "activity-tab-saved" = "এই মাসে সংরক্ষিত নিবন্ধসমূহ";
 "add-articles-to-reading-list" = "পড়ার তালিকায় {{PLURAL:$1|$1টি নিবন্ধ}} যোগ করুন";
 "announcements-dismiss" = "খারিজ";

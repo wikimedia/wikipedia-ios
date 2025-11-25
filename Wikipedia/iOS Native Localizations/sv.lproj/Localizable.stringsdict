@@ -288,6 +288,186 @@
 			<string>%1$d oredigerade rader</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Under %1$@ lade volontärer till %#@v2@ på engelskspråkiga Wikipedia. Summan av deras arbete leder tillsammans till en faktabaserad och pålitlig kunskapsresurs för omvärlden som ständigt förbättras. Alla har kunskap att dela med sig, så [läs om hur man deltar](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld byte</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ lades till</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld byte</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Volontärer gjorde %#@v1@ på över %#@v2@ av Wikipedia. %#@v3@ gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld ändring</string>
+			<key>other</key>
+			<string>%1$lld ändringar</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d språkversion</string>
+			<key>other</key>
+			<string>%2$d olika språkversioner</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%3$lld ändring</string>
+			<key>other</key>
+			<string>%3$lld ändringar</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Redigerare gjorde %#@v1@ i år</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld ändring</string>
+			<key>other</key>
+			<string>%1$lld ändringar</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Folk tillbringade uppskattningsvis %#@v1@ (omkring %#@v2@!) på att läsa på engelskspråkiga Wikipedia under %3$@. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld timme</string>
+			<key>other</key>
+			<string>%1$lld timmar</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld år</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Folk spenderade uppskattningsvis %#@v1@ (omkring %#@v2@!) på att läsa på engelskspråkiga Wikipedia under %3$@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld timme</string>
+			<key>other</key>
+			<string>%1$lld timmar</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld år</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vi spenderade %#@v1@ på att läsa</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld timme</string>
+			<key>other</key>
+			<string>%1$lld timmar</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Aktiva användare hade %#@v1@ i år. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld sparad läslista</string>
+			<key>other</key>
+			<string>%1$lld sparade läslistor</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vi hade %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld sparad artikel</string>
+			<key>other</key>
+			<string>%1$lld sparade artiklar</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -861,6 +1041,111 @@
 			<string>%1$d filter</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-editors-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Redigerare i de officiella Wikipedia-apparna har gjort fler än %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld redigering</string>
+			<key>other</key>
+			<string>%1$lld redigeringar</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia redigerades %#@v1@ per minut</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d gång</string>
+			<key>other</key>
+			<string>%1$d gånger</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia hade %#@v1@ på över %#@v2@. Du anslöt dig till miljontals andra för att utöka kunskapen och utforska olika ämnen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld artikel</string>
+			<key>other</key>
+			<string>%1$lld artiklar</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d aktivt språk</string>
+			<key>other</key>
+			<string>%2$d aktiva språk</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia gjordes tillgänglig på fler än %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d språk</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Appanvändare hade %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld sparad artikel</string>
+			<key>other</key>
+			<string>%1$lld sparade artiklar</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Appanvändare besökte Wikipedia-artiklar %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld gång</string>
+			<key>other</key>
+			<string>%1$lld gånger</string>
+		</dict>
+	</dict>
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -877,6 +1162,65 @@
 			<string>%1$d gånger</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Läsare runt om i världen uppskattar dina bidrag. Under de senaste två månaderna har artiklarna som du redigerade fått totalt %#@v1@. Tack vare redigerare som dig är Wikipedia en faktabaserad och pålitlig kunskapsresurs för hela världen som ständigt förbättras.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld visning</string>
+			<key>other</key>
+			<string>%1$lld visningar</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dina redigeringar har nyligen visats mer än %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld gång</string>
+			<key>other</key>
+			<string>%1$lld gånger</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Volontärer som dig gjorde %#@v1@ på %#@v2@ av Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld ändring</string>
+			<key>other</key>
+			<string>%1$lld ändringar</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d språkutgåva</string>
+			<key>other</key>
+			<string>%2$d olika språkutgåvor</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -891,6 +1235,67 @@
 			<string>%1$d gång</string>
 			<key>other</key>
 			<string>%1$d gånger</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vi uppskattar att detta placerar dig bland de **PERCENT** mest aktiva av alla Wikipedia-läsare globalt. En person läser i genomsnitt %#@v1@ per år.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikel</string>
+			<key>other</key>
+			<string>%1$d artiklar</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du har tillbringat %#@v1@ med att läsa %#@v2@ under %3$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d minut</string>
+			<key>other</key>
+			<string>%1$d minuter</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d artikel</string>
+			<key>other</key>
+			<string>%2$d artiklar</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dessa artiklar inkluderade %1$@, %2$@ och %3$@. Varje sparad artikel återspeglar dina intressen och hjälper till att bygga en personlig kunskapsbas på Wikipedia.
+
+Aktiva appanvändare hade %#@v4@ i år.</string>
+		<key>v4</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%4$lld sparad artikel</string>
+			<key>other</key>
+			<string>%4$lld sparade artiklar</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

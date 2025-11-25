@@ -16,12 +16,12 @@ extension ArticleViewController {
             return
         }
         
-        let dataController = WMFFundraisingCampaignDataController.shared
+        let fundraisingDataController = WMFFundraisingCampaignDataController.shared
         
         Task {
-            let isOptedIn = await dataController.isOptedIn(project: wmfProject)
+            let isOptedIn = await fundraisingDataController.isOptedIn(project: wmfProject)
             
-            guard let activeCampaignAsset = dataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
+            guard let activeCampaignAsset = fundraisingDataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
                 return
             }
 
@@ -34,11 +34,33 @@ extension ArticleViewController {
             guard isOptedIn else {
                 return
             }
+            
+            guard !userDonatedWithinLast250Days() else {
+                return
+            }
+            
 
             willDisplayFundraisingBanner = true
 
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }
+    }
+    
+    private func userDonatedWithinLast250Days() -> Bool {
+        
+        let donateDataController = WMFDonateDataController.shared
+        
+        let currentDate = Date()
+        let twoFiftyDaysTimeInterval = TimeInterval(60*60*24*250)
+        let twoFiftyDaysAgo = currentDate.addingTimeInterval(-twoFiftyDaysTimeInterval)
+        let localDonationHistory = donateDataController.loadLocalDonationHistory(startDate: twoFiftyDaysAgo, endDate: Date())
+        
+        if let localDonationHistory,
+           !localDonationHistory.isEmpty {
+            return true
+        }
+        
+        return false
     }
     
     private func showNewDonateExperienceCampaignModal(asset: WMFFundraisingCampaignConfig.WMFAsset, project: WikimediaProject) {
@@ -154,13 +176,10 @@ extension ArticleViewController {
             return
         }
         
-        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
-            // A change in V3 is that we just show the feature itself with a modified intro slide.
-            // No feature announcement component
-            yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "article_prompt")
-            self.yirCoordinator?.start()
-            yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
-        }
+        yirCoordinator?.setupForFeatureAnnouncement(introSlideLoggingID: "article_prompt")
+        self.yirCoordinator?.start()
+        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+
     }
 }
 

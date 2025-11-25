@@ -569,8 +569,8 @@ public protocol WMFArticleTabsDataControlling {
             if let cdArticleItem = adjacentArticle as? CDArticleTabItem,
                let title = cdArticleItem.page?.title,
                let identifier = cdArticleItem.identifier,
-               let coreDataIdentifier = cdArticleItem.page?.projectID,
-               let wmfProject = WMFProject(coreDataIdentifier: coreDataIdentifier) {
+               let projectID = cdArticleItem.page?.projectID,
+               let wmfProject = WMFProject(id: projectID) {
 
                 guard let siteURL = wmfProject.siteURL,
                       let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
@@ -711,7 +711,7 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         let coreDataTitle = article.title.normalizedForCoreData
-        let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [article.project.coreDataIdentifier, 0, coreDataTitle])
+        let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [article.project.id, 0, coreDataTitle])
         
         let page = try coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: pagePredicate, in: moc)
         
@@ -721,7 +721,7 @@ public protocol WMFArticleTabsDataControlling {
         
         page.title = coreDataTitle
         page.namespaceID = 0
-        page.projectID = article.project.coreDataIdentifier
+        page.projectID = article.project.id
         if page.timestamp == nil {
             page.timestamp = Date()
         }
@@ -937,7 +937,7 @@ public protocol WMFArticleTabsDataControlling {
                           let identifier = articleTabItem.identifier,
                           let title = page.title,
                           let projectID = page.projectID,
-                          let project = WMFProject(coreDataIdentifier: projectID) else {
+                          let project = WMFProject(id: projectID) else {
                         throw CustomError.unexpectedType
                     }
 
@@ -991,7 +991,7 @@ public protocol WMFArticleTabsDataControlling {
                   let page = cdItem.page,
                   let title = page.title,
                   let projectID = page.projectID,
-                  let project = WMFProject(coreDataIdentifier: projectID) else {
+                  let project = WMFProject(id: projectID) else {
                 throw CustomError.missingTabItem
             }
             guard let siteURL = project.siteURL,
@@ -1023,6 +1023,8 @@ private extension WMFProject {
         case .wikidata:
             return false
         case .commons:
+            return false
+        case .mediawiki:
             return false
         }
     }

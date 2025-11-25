@@ -14,7 +14,6 @@ final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
     var title: String
     var subtitle: String
     
-    var infoURL: URL?
     let tappedInfo: () -> Void
     let loggingID: String
     
@@ -27,7 +26,7 @@ final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
     let clusteringIdentifier = "clusterID"
     let markerReuseIdentifier = "marker"
     
-    init(localizedStrings: WMFYearInReviewViewModel.LocalizedStrings, legacyPageViews: [WMFLegacyPageView], loggingID: String, infoURL: URL?, tappedInfo: @escaping () -> Void) {
+    init(localizedStrings: WMFYearInReviewViewModel.LocalizedStrings, legacyPageViews: [WMFLegacyPageView], loggingID: String, tappedInfo: @escaping () -> Void) {
         self.localizedStrings = localizedStrings
         
         title = ""
@@ -37,8 +36,6 @@ final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
         randomArticleTitles = []
         
         self.legacyPageViews = legacyPageViews
-        
-        self.infoURL = infoURL
         self.tappedInfo = tappedInfo
         self.loggingID = loggingID
         

@@ -159,8 +159,7 @@ extension WMFAppViewController {
     }
     
     @objc func getAssignmentForActivityTab() -> Int {
-        let dataController = WMFActivityTabDataController.shared
-        return dataController.getActivityAssignment()
+        return WMFActivityTabDataController.activityAssignmentForObjC()
     }
 
 }
@@ -638,12 +637,32 @@ extension WMFAppViewController {
         Task {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
+                await migrateSavedArticleInfoWithBackgroundTask()
+
             } catch let error {
                 DDLogError("Error setting up WMFCoreDataStore: \(error)")
             }
         }
     }
-    
+
+    private func migrateSavedArticleInfoWithBackgroundTask() async {
+
+        var bgTask: UIBackgroundTaskIdentifier = .invalid
+        bgTask = UIApplication.shared.beginBackgroundTask(withName: "WMFDataMigration") {
+            if bgTask != .invalid {
+                UIApplication.shared.endBackgroundTask(bgTask)
+                bgTask = .invalid
+            }
+        }
+
+        await WMFArticleSavedStateMigrationManager.shared.migrateAllIfNeeded()
+
+        if bgTask != .invalid {
+            UIApplication.shared.endBackgroundTask(bgTask)
+            bgTask = .invalid
+        }
+    }
+
     @objc func setupWMFDataEnvironment() {
         WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
@@ -768,9 +787,9 @@ extension WMFAppViewController {
 
         // view model properties
 
-        let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
+        let todayTitle = CommonStrings.todayTitle
 
-        let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
+        let yesterdayTitle = CommonStrings.yesterdayTitle
 
         let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: CommonStrings.articleTabsOpen, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
         let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
@@ -836,6 +855,16 @@ extension WMFAppViewController {
         let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "See more reading and editing insights", comment: "Title for logged out users")
         let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
         let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
+        let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
+        
+        var authdValue: Int = 0
+        if dataStore.authenticationManager.authStateIsPermanent {
+            authdValue = 2
+        } else if dataStore.authenticationManager.authStateIsTemporary {
+            authdValue = 1
+        } else {
+            authdValue = 0
+        }
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
@@ -853,11 +882,16 @@ extension WMFAppViewController {
 				loggedOutTitle: loggedOutTitle,
                 loggedOutSubtitle: loggedOutSubtitle,
                 loggedOutPrimaryCTA: createAccount,
-                loggedOutSecondaryCTA: CommonStrings.editSignIn),
+                loggedOutSecondaryCTA: CommonStrings.editSignIn,
+                todayTitle: CommonStrings.todayTitle,
+                yesterdayTitle: CommonStrings.yesterdayTitle,
+                openArticle: openArticle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
-            activityTabDataController.hasSeenActivityTab = true
-        }, isLoggedIn: isLoggedIn)
+            Task {
+                await activityTabDataController.setHasSeenActivityTab(true)
+            }
+        }, isLoggedIn: authdValue)
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,

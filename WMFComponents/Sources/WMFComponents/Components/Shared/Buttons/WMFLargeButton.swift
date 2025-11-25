@@ -12,7 +12,16 @@ struct WMFLargeButton: View {
     
     let configuration: Configuration
     let title: String
+    let forceBackgroundColor: UIColor?
     let action: (() -> Void)?
+    
+    init(appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, configuration: Configuration, title: String, forceBackgroundColor: UIColor? = nil, action: (() -> Void)?) {
+        self.appEnvironment = appEnvironment
+        self.configuration = configuration
+        self.title = title
+        self.forceBackgroundColor = forceBackgroundColor
+        self.action = action
+    }
     
     private var foregroundColor: UIColor {
         switch configuration {
@@ -24,6 +33,11 @@ struct WMFLargeButton: View {
     }
     
     private var backgroundColor: UIColor {
+        
+        if let forceBackgroundColor {
+            return forceBackgroundColor
+        }
+        
         switch configuration {
         case .primary:
             return appEnvironment.theme.link

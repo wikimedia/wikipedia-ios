@@ -1,26 +1,30 @@
 import SwiftUI
+import WMFData
 import Charts
+import Foundation
 
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
-    
+    @ObservedObject private var timelineViewModel: TimelineViewModel
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
+
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
+        self.timelineViewModel = viewModel.timelineViewModel
     }
-    
-    public var body: some View {
-        VStack(spacing: 20) {
-            ZStack {
-                if viewModel.isLoggedIn == 2 {
-                    VStack(spacing: 20) {
-                        headerView
 
-                        VStack(alignment: .leading, spacing: 16) {
+    public var body: some View {
+        ScrollViewReader { proxy in
+            if viewModel.isLoggedIn == 2 {
+                List {
+                    Section {
+                        VStack(spacing: 20) {
+                            headerView
+
                             VStack(alignment: .center, spacing: 8) {
                                 hoursMinutesRead
                                 Text(viewModel.localizedStrings.timeSpentReading)
@@ -29,64 +33,213 @@ public struct WMFActivityTabView: View {
                             }
                             .frame(maxWidth: .infinity)
 
-                            // Start of modules on top section
-                            articlesReadModule
+                            articlesReadModule(proxy: proxy)
                             savedArticlesModule
-                            if let model = viewModel.articlesReadViewModel {
-                                if !model.topCategories.isEmpty {
-                                    topCategoriesModule(categories: model.topCategories)
-                                }
-                            }
-                            Spacer()
-                        }
-                        .padding(.horizontal, 16)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .background(
-                        LinearGradient(
-                            stops: [
-                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0.00),
-                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1.00)
-                            ],
-                            startPoint: UnitPoint(x: 0.5, y: 0),
-                            endPoint: UnitPoint(x: 0.5, y: 1)
-                        )
-                    )
-                    .frame(maxWidth: .infinity)
-                } else {
-                    if viewModel.shouldShowLoginPrompt() {
-                        loggedOutView
-                    } else {
-                        Text("")
-                    }
-                }
-                
-                Spacer()
-            }
-            .padding(.top, 16)
 
-            Spacer()
+                            if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                                topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                            }
+                        }
+                        .padding(16)
+                        .listRowInsets(EdgeInsets())
+                        .background(
+                            LinearGradient(
+                                stops: [
+                                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                                    Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                    }
+                    .listRowSeparator(.hidden)
+                    
+                    historyView
+                        .id("timelineSection")
+                }
+                .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+                .scrollContentBackground(.hidden)
+                .listStyle(.grouped)
+                .onAppear {
+                    viewModel.fetchData()
+                    viewModel.hasSeenActivityTab()
+                }
+            } else {
+                List {
+                    Section {
+                        VStack(alignment: .leading) {
+                            loggedOutView
+                            historyView
+                                .id("timelineSection")
+                        }
+                        .padding(16)
+                        .listRowInsets(EdgeInsets())
+                        .background(Color(uiColor: theme.paperBackground))
+                    }
+                    .listRowSeparator(.hidden)
+                }
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+                .scrollContentBackground(.hidden)
+                .listStyle(.grouped)
+                .onAppear {
+                    viewModel.fetchData()
+                    viewModel.hasSeenActivityTab()
+                }
+            }
         }
-        .frame(maxWidth: .infinity)
-        .onAppear {
-            viewModel.fetchData()
-            viewModel.hasSeenActivityTab()
+    }
+
+    private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
+        let summary = timelineViewModel.pageSummaries[item.id]
+
+        return WMFArticlePreviewViewModel(
+            url: item.url,
+            titleHtml: item.titleHtml,
+            description: summary?.description ?? item.description,
+            imageURLString: summary?.thumbnailURL?.absoluteString ?? item.imageURLString,
+            isSaved: false,
+            snippet: summary?.extract ?? item.snippet
+        )
+    }
+
+    private var historyView: some View {
+       return Group {
+           let timeline = timelineViewModel.timeline
+            if !timeline.isEmpty {
+                // Sort dates descending
+                ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
+                    timelineSection(for: date, pages: timeline[date] ?? [])
+                        .listRowSeparator(.hidden)
+                }
+            }
         }
     }
     
+    private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
+        let sortedPages = pages.sorted(by: { $0.date > $1.date })
+        let calendar = Calendar.current
+
+        let title: String
+        let subtitle: String
+        if calendar.isDateInToday(date) {
+            title = viewModel.localizedStrings.todayTitle
+            subtitle = viewModel.formatDate(date)
+        } else if calendar.isDateInYesterday(date) {
+            title = viewModel.localizedStrings.yesterdayTitle
+            subtitle = viewModel.formatDate(date)
+        } else {
+            title = viewModel.formatDate(date)
+            subtitle = ""
+        }
+
+        return Section(
+            header:
+                VStack(alignment: .leading, spacing: 4) {
+                    if !title.isEmpty {
+                        Text(title)
+                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .foregroundColor(Color(uiColor: theme.text))
+                            .textCase(.none)
+                    }
+                    if !subtitle.isEmpty {
+                        Text(subtitle)
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundColor(Color(uiColor: theme.secondaryText))
+                            .textCase(.none)
+                    }
+                }
+                .padding(.bottom, 20)
+        ) {
+            ForEach(sortedPages.indices, id: \.self) { index in
+                pageRow(page: sortedPages[index], section: date)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .padding(.bottom, 20)
+            }
+        }
+        .listRowInsets(EdgeInsets())
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color(uiColor: theme.paperBackground))
+        .padding(.horizontal, 16)
+    }
+
+
+    private func pageRow(page: TimelineItem, section: Date) -> some View {
+        let iconImage: UIImage?
+        switch page.itemType {
+        case .standard:
+            iconImage = nil
+        case .edit:
+            iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
+        case .read:
+            iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
+        case .save:
+            iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
+        }
+
+        let summary = timelineViewModel.pageSummaries[page.id]
+        let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
+
+        return WMFPageRow(
+            needsLimitedFontSize: false,
+            id: page.id,
+            titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
+            articleDescription: {
+                if let desc = summary?.description, !desc.isEmpty {
+                    return desc
+                } else if let pageDesc = page.description, !pageDesc.isEmpty {
+                    return pageDesc
+                } else if let extract = summary?.extract, !extract.isEmpty {
+                    return extract
+                } else {
+                    return nil
+                }
+            }(),
+            imageURLString: initialThumbnailURLString,
+            titleLineLimit: 1,
+            isSaved: false,
+            showsSwipeActions: true,
+            deleteItemAction: { timelineViewModel.deletePage(item: page) },
+            loadImageAction: { imageURLString in
+                try? await timelineViewModel.loadImage(imageURLString: imageURLString)
+            },
+            iconImage: iconImage
+        )
+        .contentShape(Rectangle())
+        .onTapGesture {
+            timelineViewModel.onTap(page)
+        }
+        .contextMenu {
+            Button {
+                timelineViewModel.onTap(page)
+            } label: {
+                HStack {
+                    Text(viewModel.localizedStrings.openArticle)
+                        .font(Font(WMFFont.for(.mediumSubheadline)))
+                    Spacer()
+                    if let icon = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
+                        Image(uiImage: icon)
+                    }
+                }
+            }
+        } preview: {
+            if summary != nil {
+                WMFArticlePreviewView(viewModel: getPreviewViewModel(from: page))
+            }
+        }
+        .task {
+            _ = await timelineViewModel.fetchSummary(for: page)
+        }
+    }
+
     private var headerView: some View {
         VStack(alignment: .center, spacing: 8) {
-            if let model = viewModel.articlesReadViewModel {
-                Text(model.usernamesReading)
+            Text(viewModel.articlesReadViewModel.usernamesReading)
                     .foregroundColor(Color(uiColor: theme.text))
                     .font(Font(WMFFont.for(.boldHeadline)))
                     .frame(maxWidth: .infinity, alignment: .center)
-            } else {
-                Text(viewModel.localizedStrings.noUsernameReading)
-                    .foregroundColor(Color(uiColor: theme.text))
-                    .font(Font(WMFFont.for(.boldHeadline)))
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
             Text(viewModel.localizedStrings.onWikipediaiOS)
                 .font(.custom("Menlo", size: 11, relativeTo: .caption2))
                 .foregroundColor(Color(uiColor: theme.text))
@@ -98,7 +251,7 @@ public struct WMFActivityTabView: View {
                 )
         }
     }
-    
+
     private var loggedOutView: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -156,7 +309,7 @@ public struct WMFActivityTabView: View {
         .padding(16) // exterior padding
     }
 
-    
+
     private var hoursMinutesRead: some View {
         Text(viewModel.hoursMinutesRead)
             .font(Font(WMFFont.for(.boldTitle1)))
@@ -176,109 +329,72 @@ public struct WMFActivityTabView: View {
                         .font(Font(WMFFont.for(.boldTitle1)))
                 )
             )
-        
     }
-    
-    private var articlesReadModule: some View {
-        Group {
-            if let model = viewModel.articlesReadViewModel {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
-                    title: viewModel.localizedStrings.totalArticlesRead,
-                    dateText: model.dateTimeLastRead,
-                    amount: model.totalArticlesRead,
-                    onTapModule: {
-                        print("Tapped module")
-                        // TODO: Navigate to history below
-                    },
-                    content: {
-                        if let weeklyReads = viewModel.articlesReadViewModel?.weeklyReads {
-                            articlesReadGraph(weeklyReads: weeklyReads)
-                        }
-                    }
-                )
-            } else {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookPages),
-                    title: viewModel.localizedStrings.totalArticlesRead,
-                    dateText: nil,
-                    amount: 0,
-                    onTapModule: {
-                        print("Tapped module")
-                        // TODO: Navigate to history below
-                    }
-                )
+
+    private func articlesReadModule(proxy: ScrollViewProxy) -> some View {
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.totalArticlesRead,
+            dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
+            amount: viewModel.articlesReadViewModel.totalArticlesRead,
+            onTapModule: {
+                withAnimation(.easeInOut) {
+                    proxy.scrollTo("timelineSection", anchor: .top)
+                }
+            },
+            content: {
+                articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
             }
-        }
+        )
     }
-    
+
     private var savedArticlesModule: some View {
         Group {
-            if let model = viewModel.articlesReadViewModel {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookmark),
-                    title: viewModel.localizedStrings.articlesSavedTitle,
-                    dateText: model.dateTimeLastSaved,
-                    amount: model.articlesSavedAmount,
-                    onTapModule: {
-                        viewModel.navigateToSaved?()
-                    },
-                    content: {
-                        if let savedArticleImageList = viewModel.articlesReadViewModel?.articlesSavedImages, !savedArticleImageList.isEmpty {
-                            savedArticlesImages(images: savedArticleImageList)
-                        }
+            WMFActivityTabInfoCardView(
+                icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
+                title: viewModel.localizedStrings.articlesSavedTitle,
+                dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
+                amount: viewModel.articlesSavedViewModel.articlesSavedAmount,
+                onTapModule: {
+                    viewModel.articlesSavedViewModel.navigateToSaved?()
+                },
+                content: {
+                    let thumbURLs = viewModel.articlesSavedViewModel.articlesSavedThumbURLs
+                    if !thumbURLs.isEmpty {
+                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount)
                     }
-                )
-            } else {
-                WMFActivityTabInfoCardView(
-                    icon: WMFSFSymbolIcon.for(symbol: .bookmark),
-                    title: viewModel.localizedStrings.articlesSavedTitle,
-                    dateText: nil,
-                    amount: 0,
-                    onTapModule: {
-                        viewModel.navigateToSaved?()
-                    }
-                )
-            }
+                }
+            )
         }
     }
-    
-    private func savedArticlesImages(images: [URL]) -> some View {
-        HStack(spacing: 4) {
-            if images.count <= 4 {
-                ForEach(images.prefix(4), id: \.self) { imageURL in
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        Color.gray.opacity(0.3)
-                    }
-                    .frame(width: 38, height: 38)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                }
-            } else {
-                ForEach(images.prefix(3), id: \.self) { imageURL in
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        Color.gray.opacity(0.3)
-                    }
-                    .frame(width: 38, height: 38)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                }
 
-                let remaining = images.count - 3
-                Text(viewModel.localizedStrings.remaining(remaining))
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.white)
+    private func savedArticlesImages(thumbURLs: [URL?], totalSavedCount: Int) -> some View {
+        HStack(spacing: 4) {
+            let displayCount = min(thumbURLs.count, 3)
+            let showPlus = totalSavedCount > 3
+
+            ForEach(Array(thumbURLs.prefix(displayCount)), id: \.self) { imageURL in
+                AsyncImage(url: imageURL) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    Color.gray.opacity(0.3)
+                }
+                .frame(width: 38, height: 38)
+                .clipShape(Circle())
+            }
+
+            if showPlus {
+                let remaining = totalSavedCount - 3
+                Text("+\(remaining)")
+                    .font(Font(WMFFont.for(.caption2)))
+                    .foregroundColor(Color(uiColor: theme.paperBackground))
                     .frame(width: 38, height: 38)
-                    .background(Circle().fill(Color.gray))
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                    .background(
+                        Circle()
+                            .fill(Color(uiColor: theme.secondaryText))
+                    )
             }
         }
     }
@@ -291,17 +407,21 @@ public struct WMFActivityTabView: View {
                     y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
                     width: 12
                 )
-                .foregroundStyle(weeklyReads[index] > 0 ? Color(uiColor: theme.accent) : Color(uiColor: theme.baseBackground))
+                .foregroundStyle(
+                    weeklyReads[index] > 0
+                    ? Color(uiColor: theme.accent)
+                    : Color(uiColor: theme.newBorder)
+                )
                 .cornerRadius(1.5)
+                .accessibilityLabel("\(viewModel.localizedStrings.week) \(index + 1)")
+                .accessibilityValue("\(weeklyReads[index]) \(viewModel.localizedStrings.articlesRead)")
             }
         }
-        .frame(maxWidth: 65, maxHeight: 45)
+        .accessibilityElement(children: .contain)
+        .frame(maxWidth: 54, maxHeight: 45)
         .chartXAxis(.hidden)
         .chartYAxis(.hidden)
-        .chartPlotStyle { plotArea in
-            plotArea
-                .background(Color.clear)
-        }
+        .chartPlotStyle { $0.background(.clear) }
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
@@ -313,15 +433,17 @@ public struct WMFActivityTabView: View {
                 Text(viewModel.localizedStrings.topCategories)
                     .foregroundStyle(Color(theme.text))
                     .font(Font(WMFFont.for(.boldCaption1)))
-                Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
             ForEach(categories.indices, id: \.self) { index in
                 let category = categories[index]
                 VStack(alignment: .leading, spacing: 16) {
                     Text(category)
                         .foregroundStyle(Color(theme.text))
                         .font(Font(WMFFont.for(.callout)))
-                    
+                        .lineLimit(2)
+
                     if index < categories.count - 1 {
                         Divider()
                     }
