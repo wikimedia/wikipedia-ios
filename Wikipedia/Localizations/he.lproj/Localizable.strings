@@ -671,6 +671,24 @@
 "main-menu-title" = "עוד";
 "main-menu-zero-faq" = "שו\"ת ויקיפדיה אפס";
 // Fuzzy
+"microsite-yir-english-edits-bytes-slide-subtitle" = "בשנת 2024, מתנדבים הוסיפו 4,104,852,969 בתים לוויקיפדיה האנגלית. כל העבודה המשותפת הזאת שלהם מובילה ליצירת משאב ידע שמשתפר בהתמדה, מבוסס על עובדות ואמין, והם נותנים אותו לכל עולם. לכולנו יש ידע לשתף, [כאן אפשר ללמוד איך אפשר לקחת בזה חלק]($1).";
+// Fuzzy
+"microsite-yir-english-edits-bytes-slide-title" = "נוספו 4 מיליארד בתים";
+// Fuzzy
+"microsite-yir-english-edits-slide-subtitle" = "מתנדבים עשו 98,222,407 שינויים ביותר מ־300 מהדורות של ויקיפדיה בשפות שונות. יותר מ־37 מיליון שינויים נעשו בויקיפדיה האנגלית. כל שעה בכל יום עובדים מתנדבים לשיפור ויקיפדיה.";
+// Fuzzy
+"microsite-yir-english-edits-slide-title" = "העורכים עשו השנה כמעט 98 מיליון שינויים";
+// Fuzzy
+"microsite-yir-english-reading-slide-subtitle" = "אנשים השקיעו כ־2.9 מיליארד שעות - כמעט 331,000 שנה! - בקריאה בוויקיפדיה האנגלית בשנת 2024. ויקיפדיה נמצאת שם כאשר אתם רוצים ללמוד על העולם המשתנה שלנו, לזכות בהתערבות בין חברים או לענות על שאלה של ילד סקרן.";
+// Fuzzy
+"microsite-yir-english-reading-slide-title" = "בילינו 2.9 מיליארד שעות בקריאה";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-subtitle" = "למשתמשים הפעילים של היישום ל־iOS היו יותר מ־62.2 מיליון רשימות קריאה. הוספת ערכים לרשימות קריאה מאפשרת לך לגשת לערכים גם ללא חיבור לרשת. אפשר גם להיכנס לחשבון כדי לסנכרן רשימות קריאה בין מכשירים.";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-title" = "היו לנו למעלה מ־62.2 מיליון רשימות קריאה";
+// Fuzzy
+"microsite-yir-english-top-read-slide-subtitle" = "5 הערכים שביקרו בהם הכי הרבה בוויקיפדיה האנגלית היו:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nבואו לקרוא עוד ב$6רשומה על זה בבלוג שלנו$7.";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "הערכים הפופולריים ביותר של ויקיפדיה האנגלית";
 "more-languages-tooltip-description" = "חיפוש בוויקיפדיה בלמעלה מ־300 שפות";
 "more-languages-tooltip-title" = "הוספת שפות";
@@ -1090,7 +1108,7 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "הצגת רשימת הקריאה השמורה";
 "settings-storage-and-syncing-title" = "אחסון וסנכרון ערכים";
 "settings-title" = "הגדרות";
-"settings-year-in-review-header" = "כיבוי סקירה שנתית ינקה את כל התובנות המותאמות לך ויסתיר את הסקירה השנתית.";
+"settings-year-in-review-header" = "כיבוי הסקירה השנתית ינקה את כל התובנות המותאמות שלך ויסתיר את הסקירה השנתית.";
 "share-a-fact-made-with" = "נוצר עם יישום ויקיפדיה";
 "share-article-name-on-wikipedia" = "\"$1\" בוויקיפדיה:";
 "share-building" = "בניית כרטיס שיתוף עובדה...";
@@ -1339,9 +1357,23 @@
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "קהילת העורכים המתנדבים של ויקיפדיה עשתה יותר מ-555,647 עריכות ביישום iOS. הלב והנשמה של ויקיפדיה היא הקהילה הגלובלית שלנו של העורכים המתנדבים, התורמים ומיליארדי קוראים כמוך – כולם מאוחדים כדי לשתף גישה בלתי־מוגבלת למידע אמין.";
 // Fuzzy
+"year-in-review-base-editors-title" = "העורכים ביישום ל־iOS עשו יותר מ־$1 עריכות";
+// Fuzzy
+"year-in-review-base-edits-subtitle" = "נערכה ויקיפדיה בקצב ממוצע של $1 פעמים בדקה. ערכים נוצרים ומשתפרים באופן שיתופי תוך שימוש במקורות אמינים. לכולנו יש ידע לשתף, [ואנו מזמינים אותך לקבל מידע נוסף על השתתפות]($2).";
+// Fuzzy
+"year-in-review-base-edits-title" = "ויקיפדיה נערכה $1 פעמים בדקה";
+// Fuzzy
+"year-in-review-base-reading-subtitle" = "לוויקיפדיה היו יותר מ־$1 מיליון ערכים על פני $2 שפות פעילות. הצטרפת למיליונים לטובת הרחבת ידע וחקירת נושאים מגוונים.";
+// Fuzzy
+"year-in-review-base-reading-title" = "ויקיפדיה הייתה זמינה ביותר מ־300 שפות";
+// Fuzzy
 "year-in-review-base-saved-subtitle" = "למשתמשים הפעילים של היישום ל־iOS היו יותר מ־62.2 מיליון רשימות קריאה. הוספת ערכים לרשימות קריאה מאפשרת לך לגשת לערכים גם ללא חיבור לרשת. אפשר גם להיכנס לחשבון כדי לסנכרן רשימות קריאה בין מכשירים.";
 // Fuzzy
+"year-in-review-base-saved-title" = "היו לנו למעלה מ־$1 מיליון רשימות קריאה";
+// Fuzzy
 "year-in-review-base-viewed-subtitle" = "משתמשי יישום iOS צפו בערכי ויקיפדיה $1 מיליארד פעמים. עבור אנשים ברחבי העולם, ויקיפדיה היא התחנה הראשונה כאשר עונים על שאלה, מחפשים מידע עבור בית־ספר או עבודה, או לומדים עובדה חדשה.";
+// Fuzzy
+"year-in-review-base-viewed-title" = "צפינו בערכים בוויקיפדיה $1 מיליארד פעמים";
 "year-in-review-button-title" = "סקירה שנתית";
 "year-in-review-collective-article-views" = "איור מונפש של מסך מחשב עם דפדפן אינטרנט פתוח, מנווט באופן פעיל בערך בוויקיפדיה.";
 "year-in-review-collective-edits" = "איור של שני חלקי פאזל של ויקיפדיה, שכל אחד מהם נושא פיסת מידע.";
@@ -1365,13 +1397,19 @@
 "year-in-review-finish" = "סיום";
 "year-in-review-personalized-donate-subtitle" = "תודה על ההשקעה בעתיד של ידע חופשי. השנה, קרן ויקימדיה שיפרה את הטכנולוגיה כדי לשרת טוב יותר כל קורא וכל מתנדב, פיתחה כלים המעצימים שיתוף פעולה ותמכה בוויקיפדיה בעוד שפות. [למידע נוסף על העבודה שלנו]($1).";
 "year-in-review-personalized-donate-title" = "הנדיבות שלך עזרה לוויקיפדיה לצמוח";
+// Fuzzy
+"year-in-review-personalized-edit-views-subtitle-format" = "קוראים ברחבי העולם מעריכים את התרומות שלך. במהלך החודשיים האחרונים, ערכים שערכת קיבלו $1 צפיות בסך הכול. הודות לעורכים כמוך, ויקיפדיה היא משאב ידע המשתפר בהתמדה, מבוסס עובדות ואמין עבור העולם";
+// Fuzzy
+"year-in-review-personalized-edit-views-title-format" = "העריכות שלך נצפו יותר מ־$1 פעמים לאחרונה";
+// Fuzzy
+"year-in-review-personalized-editing-title-format" = "ערכת את ויקיפדיה {{PLURAL:$1|פעם אחת|פעמיים|$1 פעמים}}";
 "year-in-review-personalized-explore" = "איור מונפש של יד אוחזת בגלובוס ויקיפדיה, שהופך בהדרגה לפיסת פאזל קטנה, המסמלת תרומות בודדות לפלטפורמה.";
 "year-in-review-personalized-saved-title-format" = "שמרת {{PLURAL:$1|ערך|$1 ערכים}}";
 "year-in-review-personalized-user-edits" = "איור מונפש שמציג בתים שנערמים זה על גבי זה, שמסמל יצירה מתמשכת של ידע חופשי.";
 "year-in-review-personalized-weekday" = "שעון מתקתק, שמסמל את הזמן שאנשים השקיעו בקריאה בוויקיפדיה.";
 "year-in-review-personalized-you-read" = "חתיכת פאזל עם הסמל של ויקימדיה נכנס משמאל.";
 "year-in-review-personalized-your-edits-views" = "איור שמציג פיסת פאזל של ויקיפדיה לצד עט.";
-"year-in-review-share-text" = "הנה הסקירה השנתית שלי בוויקיפדיה. נוצרה באמצעות יישום ויקיפדיה ל־iOS.";
+"year-in-review-share-text" = "הינה הסקירה השנתית שלי בוויקיפדיה. נוצרה באמצעות יישום ויקיפדיה ל־iOS.";
 "year-in-review-survey-additional-thoughts" = "יש מחשבות נוספות?";
 "year-in-review-survey-neutral" = "רגיל";
 "year-in-review-survey-satisfied" = "מרוצה";
