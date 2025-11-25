@@ -699,6 +699,7 @@
 "main-page" = "Página principal";
 "microsite-yir-english-edits-bytes-slide-title" = "Adicionado(s) {{PLURAL:$1|$1 byte|$1 bytes}}";
 "microsite-yir-english-reading-slide-title" = "Nós passamos {{PLURAL:$1|$1 hora|$1 horas}} a ler";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Artigos mais lidos na Wikipédia em inglês";
 "more-languages-tooltip-description" = "Pesquise a Wikipédia em mais de 300 línguas";
 "more-languages-tooltip-title" = "Adicionar idiomas";

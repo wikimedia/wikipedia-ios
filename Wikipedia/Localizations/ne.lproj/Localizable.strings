@@ -261,7 +261,7 @@
 "login-title" = "खातामा प्रवेश गर्नुहोस्";
 "main-menu-about" = "विकिपिडिया अनुप्रयोगको बारेमा";
 "main-menu-account-login" = "प्रवेश गर्नुहोस्";
-"main-menu-account-logout" = "निर्गमन";
+"main-menu-account-logout" = "निर्गमन गर्नुहोस्";
 "main-menu-account-logout-are-you-sure" = "के तपाईं निर्गमन गर्न चहानुहुन्छ?";
 "main-menu-account-title-logged-in" = "$1 का रूपमा लगइन गरियो";
 "main-menu-heading-legal" = "गोपनीयता र सर्तहरू";
@@ -345,7 +345,7 @@
 "places-unknown-distance" = "अज्ञात दूरी";
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउनका लागि तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
 "privacy-policy-title" = "गोपनीयता नीति";
-"project-name-mediawiki" = "मिडियाविकी";
+"project-name-mediawiki" = "मिडियाविकि";
 "project-name-wikibooks" = "विकिपुस्तक";
 "project-name-wikidata" = "विकिडाटा";
 "project-name-wikimedia-commons" = "विकिमिडिया कमन्स";

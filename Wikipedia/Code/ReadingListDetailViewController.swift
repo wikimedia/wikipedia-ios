@@ -117,7 +117,9 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        readingListEntryCollectionViewController.editController.isTextEditing = false
+        if !readingList.isDefault {
+            readingListEntryCollectionViewController.editController.isTextEditing = false
+        }
         
         importSurveyPromptTimer?.invalidate()
         importSurveyPromptTimer = nil
