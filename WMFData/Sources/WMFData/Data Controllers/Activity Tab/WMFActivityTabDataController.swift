@@ -313,7 +313,7 @@ public actor WMFActivityTabDataController {
         var dateComponents = DateComponents()
         dateComponents.year = 2025
         dateComponents.month = 12
-        dateComponents.day = 1
+        dateComponents.day = 9
         return Calendar.current.date(from: dateComponents)
     }
 
