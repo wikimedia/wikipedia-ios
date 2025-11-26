@@ -31,7 +31,7 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsShowActivityTab = "developer-settings-show-activity-tab"
     case hasSeenActivityTab = "has-seen-activity-tab"
     case hasSeenExploreSurvey = "has-seen-explore-survey"
-    case activityTabIPUserDismissLogin = "activity-tab-ip-user-dismiss-login"
+    case activityTabUserDismissLogin = "activity-tab-user-dismiss-login"
     case activityTabTempAccountUserDismissLogin = "activity-tab-temp-account-user-dismiss-login"
     case developerSettingsForceActivityTabControl = "developer-settings-force-activity-tab-control"
     case developerSettingsForceActivityTabExperiment = "developer-settings-force-activity-tab-experiment"

@@ -97,32 +97,32 @@ public actor WMFActivityTabDataController {
         case .loggedIn:
             return false
         case .temp:
-            return !dismissLoginTempUser
+            return !tempAccountUserHasDismissedActivityTabLogInPrompt
         case .loggedOut:
-            return !dismissLoginIPUser
+            return !loggedOutUserHasDismissedActivityTabLogInPrompt
         }
     }
     
-    public func recordDismissLoginprompt(for state: LoginState) {
+    public func updateDismissedState(for state: LoginState) {
         switch state {
         case .loggedOut:
-            dismissLoginIPUser = true
+            loggedOutUserHasDismissedActivityTabLogInPrompt = true
         case .temp:
-            dismissLoginTempUser = true
+            tempAccountUserHasDismissedActivityTabLogInPrompt = true
         case .loggedIn:
             break
         }
     }
-
-    public var dismissLoginIPUser: Bool {
+    
+    public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabIPUserDismissLogin.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabIPUserDismissLogin.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue, value: newValue)
         }
     }
     
-    public var dismissLoginTempUser: Bool {
+    public var tempAccountUserHasDismissedActivityTabLogInPrompt: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue)) ?? false
         } set {

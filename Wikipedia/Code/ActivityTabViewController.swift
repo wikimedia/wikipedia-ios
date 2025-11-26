@@ -150,62 +150,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
         }
         
-        // Assign CTAs
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
-            self?.presentCreateAccountFlow()
+            self?.presentFullLoginFlow()
         }
-
-        viewModel.didTapSecondaryLoggedOutCTA = { [weak self] in
-            self?.presentLoginFlow()
-        }
-    }
-
-    // MARK: - Separated Login/Create Account Flows
-
-    private func presentLoginFlow() {
-        guard let nav = navigationController else { return }
-        guard nav.presentedViewController == nil else { return } // Prevent double presentation
-
-        let loginCoordinator = LoginCoordinator(
-            navigationController: nav,
-            theme: theme,
-            loggingCategory: .history
-        )
-
-        loginCoordinator.loginSuccessCompletion = { [weak self] in
-            guard let self else { return }
-            if let loginVC = nav.presentedViewController?.presentedViewController {
-                loginVC.dismiss(animated: true) { [weak self] in
-                    self?.viewModel.fetchData()
-                    self?.updateLoginState()
-                }
-            }
-        }
-
-        loginCoordinator.start()
-    }
-
-    private func presentCreateAccountFlow() {
-        guard let nav = navigationController else { return }
-        guard nav.presentedViewController == nil else { return } // Prevent double presentation
-
-        let loginCoordinator = LoginCoordinator(
-            navigationController: nav,
-            theme: theme,
-            loggingCategory: .history
-        )
-
-        loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
-            guard let self else { return }
-            if let createVC = nav.presentedViewController?.presentedViewController {
-                createVC.dismiss(animated: true) { [weak self] in
-                    self?.viewModel.fetchData()
-                    self?.updateLoginState()
-                }
-            }
-        }
-
-        loginCoordinator.start()
     }
 
     private func presentOnboarding() {

@@ -14,7 +14,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
     public var didTapPrimaryLoggedOutCTA: (() -> Void)?
-    public var didTapSecondaryLoggedOutCTA: (() -> Void)?
 
     // MARK: - Localization
 
@@ -33,31 +32,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let loggedOutTitle: String
         public let loggedOutSubtitle: String
         public let loggedOutPrimaryCTA: String
-        public let loggedOutSecondaryCTA: String
         public let todayTitle: String
         public let yesterdayTitle: String
         public let openArticle: String
 
-        public init(
-            userNamesReading: @escaping (String) -> String,
-            noUsernameReading: String,
-            totalHoursMinutesRead: @escaping (Int, Int) -> String,
-            onWikipediaiOS: String,
-            timeSpentReading: String,
-            totalArticlesRead: String,
-            week: String,
-            articlesRead: String,
-            topCategories: String,
-            articlesSavedTitle: String,
-            remaining: @escaping (Int) -> String,
-            loggedOutTitle: String,
-            loggedOutSubtitle: String,
-            loggedOutPrimaryCTA: String,
-            loggedOutSecondaryCTA: String,
-            todayTitle: String,
-            yesterdayTitle: String,
-            openArticle: String
-        ) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, todayTitle: String, yesterdayTitle: String, openArticle: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -72,7 +51,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.loggedOutTitle = loggedOutTitle
             self.loggedOutSubtitle = loggedOutSubtitle
             self.loggedOutPrimaryCTA = loggedOutPrimaryCTA
-            self.loggedOutSecondaryCTA = loggedOutSecondaryCTA
             self.todayTitle = todayTitle
             self.yesterdayTitle = yesterdayTitle
             self.openArticle = openArticle
@@ -120,6 +98,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
         self.timelineViewModel = TimelineViewModel(
             dataController: dataController
         )
+        
+        Task {
+            await self.updateShouldShowLoginPrompt()
+        }
     }
 
     // MARK: - Loading
@@ -135,10 +117,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
-            
-            Task {
-                await updateShouldShowLoginPrompt()
-            }
 
             hasSeenActivityTab()
         }
@@ -155,6 +133,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     public func updateIsLoggedIn(isLoggedIn: LoginState) {
         self.isLoggedIn = isLoggedIn
+        Task {
+            await self.updateShouldShowLoginPrompt()
+        }
     }
 
     public var hoursMinutesRead: String {
@@ -183,10 +164,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
     func updateShouldShowLoginPrompt() async {
         let dc = WMFActivityTabDataController.shared
         shouldShowLogInPrompt = await dc.shouldShowLoginPrompt(for: isLoggedIn)
+        print("updated login prompt:", shouldShowLogInPrompt)
     }
 
     func dismissLoginPrompt() async {
-        await WMFActivityTabDataController.shared.recordDismissLoginprompt(for: isLoggedIn)
+        let dc = WMFActivityTabDataController.shared
+        await dc.updateDismissedState(for: isLoggedIn)
         shouldShowLogInPrompt = false
     }
 }

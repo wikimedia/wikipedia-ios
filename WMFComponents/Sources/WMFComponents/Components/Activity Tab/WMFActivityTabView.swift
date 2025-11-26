@@ -270,9 +270,7 @@ public struct WMFActivityTabView: View {
                     .foregroundColor(Color(uiColor: theme.text))
                 Spacer()
                 WMFCloseButton(action: {
-                    Task {
-                        await viewModel.dismissLoginPrompt()
-                    }
+                   viewModel.closeLoginPrompt()
                 })
             }
             Text(viewModel.localizedStrings.loggedOutSubtitle)
@@ -294,14 +292,6 @@ public struct WMFActivityTabView: View {
                     .padding(.vertical, 4)
                     .background(Color(uiColor: theme.link))
                     .cornerRadius(8)
-                }
-                Button(action: {
-                    viewModel.didTapSecondaryLoggedOutCTA?()
-                }) {
-                    Text(viewModel.localizedStrings.loggedOutSecondaryCTA)
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .padding(.horizontal, 10)
                 }
                 Spacer()
             }
