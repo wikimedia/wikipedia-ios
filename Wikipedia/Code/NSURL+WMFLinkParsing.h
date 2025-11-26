@@ -143,7 +143,7 @@ extern NSString *const WMFEditPencil;
 #pragma mark - URL Components
 
 /**
- *  Return a URL with just the domain and language of the reciever.
+ *  Return a URL with just the domain and language of the receiver.
  *  Everything but the path
  *
  *  @return The site URL
