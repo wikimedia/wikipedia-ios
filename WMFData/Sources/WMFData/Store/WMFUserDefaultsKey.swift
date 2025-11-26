@@ -10,7 +10,7 @@ public enum WMFUserDefaultsKey: String {
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement-v3"
     case yearInReviewSurveyPresented = "year-in-review-survey-presented-v3"
     case bypassDonation = "bypass-donation"
-    case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide"
+    case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v3"
     case tappedYIR = "tapped-yir"
     case forceEmailAuth = "force-email-auth"
     case activityTabGroupA = "activity-tab-group-a"
