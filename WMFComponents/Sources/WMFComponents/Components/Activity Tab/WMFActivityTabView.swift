@@ -156,7 +156,13 @@ public struct WMFActivityTabView: View {
                 }
                 .padding(.bottom, 20)
         ) {
-            ForEach(sortedPages.indices, id: \.self) { index in
+            ForEach(sortedPages.indices.filter { index in
+                if viewModel.isLoggedIn != .loggedIn {
+                    let type = sortedPages[index].itemType
+                    return type != .edit && type != .save
+                }
+                return true
+            }, id: \.self) { index in
                 pageRow(page: sortedPages[index], section: date)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
