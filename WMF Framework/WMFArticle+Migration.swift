@@ -15,12 +15,12 @@ import CocoaLumberjackSwift
     // MARK: - Public API
 
     public func migrateAllIfNeeded() async {
-        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
+        guard shouldRunMigration() else { return }
         await runMigration(limit: 500)
     }
 
     public func migrateIncremental() async {
-        guard WMFActivityTabDataController.activityAssignmentForObjC() == 1 else { return }
+        guard shouldRunMigration() else { return }
         await runMigration(limit: 20)
     }
 
@@ -172,7 +172,15 @@ import CocoaLumberjackSwift
                                     viewedDate: viewedDate
                                 )
                             )
+
+                            if let article, article.isSavedMigrated == false {
+                                article.isSavedMigrated = true
+                            }
                         }
+                    }
+
+                    if wikipediaContext.hasChanges {
+                        try wikipediaContext.save()
                     }
 
                     return localSnaps

@@ -21,7 +21,7 @@ public final class WMFTabsOverviewRecommendationsViewModel: ObservableObject {
 
     var geometryFrames: [String: CGRect] = [:]
 
-    private let imageDataController = WMFImageDataController()
+    private let imageDataController = WMFImageDataController.shared
 
     // MARK: - Init
 
