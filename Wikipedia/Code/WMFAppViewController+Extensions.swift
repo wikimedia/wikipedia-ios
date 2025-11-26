@@ -857,13 +857,13 @@ extension WMFAppViewController {
         let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         
-        var authdValue: Int = 0
+        var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
-            authdValue = 2
+            authdValue = .loggedIn
         } else if dataStore.authenticationManager.authStateIsTemporary {
-            authdValue = 1
+            authdValue = .temp
         } else {
-            authdValue = 0
+            authdValue = .loggedOut
         }
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:

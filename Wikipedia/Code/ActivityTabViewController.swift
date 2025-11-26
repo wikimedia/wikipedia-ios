@@ -41,15 +41,47 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc private func updateLoginState() {
         if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
-            viewModel.updateIsLoggedIn(isLoggedIn: 2)
+            viewModel.updateIsLoggedIn(isLoggedIn: .loggedIn)
         } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
-            viewModel.updateIsLoggedIn(isLoggedIn: 1)
+            viewModel.updateIsLoggedIn(isLoggedIn: .temp)
         } else {
-            viewModel.updateIsLoggedIn(isLoggedIn: 0)
+            viewModel.updateIsLoggedIn(isLoggedIn: .loggedOut)
         }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
         }
+    }
+
+    private func presentFullLoginFlow() {
+        guard let nav = navigationController else { return }
+
+        let loginCoordinator = LoginCoordinator(
+            navigationController: nav,
+            theme: theme,
+            loggingCategory: .history // TODO GREY FIX
+        )
+
+        loginCoordinator.loginSuccessCompletion = { [weak self] in
+            guard let self else { return }
+            if let loginVC = nav.presentedViewController?.presentedViewController {
+                loginVC.dismiss(animated: true) { [weak self] in
+                    self?.viewModel.fetchData()
+                    self?.updateLoginState()
+                }
+            }
+        }
+
+        loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
+            guard let self else { return }
+            if let createVC = nav.presentedViewController?.presentedViewController {
+                createVC.dismiss(animated: true) { [weak self] in
+                    self?.viewModel.fetchData()
+                    self?.updateLoginState()
+                }
+            }
+        }
+
+        loginCoordinator.start()
     }
 
     // MARK: - Profile button dependencies
@@ -98,7 +130,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         return existingProfileCoordinator
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -117,6 +149,63 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 presentOnboarding()
             }
         }
+        
+        // Assign CTAs
+        viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
+            self?.presentCreateAccountFlow()
+        }
+
+        viewModel.didTapSecondaryLoggedOutCTA = { [weak self] in
+            self?.presentLoginFlow()
+        }
+    }
+
+    // MARK: - Separated Login/Create Account Flows
+
+    private func presentLoginFlow() {
+        guard let nav = navigationController else { return }
+        guard nav.presentedViewController == nil else { return } // Prevent double presentation
+
+        let loginCoordinator = LoginCoordinator(
+            navigationController: nav,
+            theme: theme,
+            loggingCategory: .history
+        )
+
+        loginCoordinator.loginSuccessCompletion = { [weak self] in
+            guard let self else { return }
+            if let loginVC = nav.presentedViewController?.presentedViewController {
+                loginVC.dismiss(animated: true) { [weak self] in
+                    self?.viewModel.fetchData()
+                    self?.updateLoginState()
+                }
+            }
+        }
+
+        loginCoordinator.start()
+    }
+
+    private func presentCreateAccountFlow() {
+        guard let nav = navigationController else { return }
+        guard nav.presentedViewController == nil else { return } // Prevent double presentation
+
+        let loginCoordinator = LoginCoordinator(
+            navigationController: nav,
+            theme: theme,
+            loggingCategory: .history
+        )
+
+        loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
+            guard let self else { return }
+            if let createVC = nav.presentedViewController?.presentedViewController {
+                createVC.dismiss(animated: true) { [weak self] in
+                    self?.viewModel.fetchData()
+                    self?.updateLoginState()
+                }
+            }
+        }
+
+        loginCoordinator.start()
     }
 
     private func presentOnboarding() {

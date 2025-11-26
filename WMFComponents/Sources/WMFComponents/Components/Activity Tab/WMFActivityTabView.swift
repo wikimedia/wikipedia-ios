@@ -19,7 +19,7 @@ public struct WMFActivityTabView: View {
 
     public var body: some View {
         ScrollViewReader { proxy in
-            if viewModel.isLoggedIn == 2 {
+            if viewModel.isLoggedIn == .loggedIn {
                 List {
                     Section {
                         VStack(spacing: 20) {
@@ -68,12 +68,14 @@ public struct WMFActivityTabView: View {
             } else {
                 List {
                     Section {
-                        VStack(alignment: .leading) {
-                            loggedOutView
+                        VStack(alignment: .leading, spacing: 32) {
+                            if viewModel.shouldShowLogInPrompt {
+                                loggedOutView
+                            }
                             historyView
                                 .id("timelineSection")
+                            Spacer()
                         }
-                        .padding(16)
                         .listRowInsets(EdgeInsets())
                         .background(Color(uiColor: theme.paperBackground))
                     }
@@ -256,11 +258,13 @@ public struct WMFActivityTabView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(viewModel.localizedStrings.loggedOutTitle)
-                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .font(Font(WMFFont.for(.semiboldHeadline)))
                     .foregroundColor(Color(uiColor: theme.text))
                 Spacer()
                 WMFCloseButton(action: {
-                    // todo close
+                    Task {
+                        await viewModel.dismissLoginPrompt()
+                    }
                 })
             }
             Text(viewModel.localizedStrings.loggedOutSubtitle)
@@ -268,9 +272,9 @@ public struct WMFActivityTabView: View {
                 .foregroundColor(Color(uiColor: theme.text))
             HStack(spacing: 12) {
                 Button(action: {
-                    // todo navigate
+                    viewModel.didTapPrimaryLoggedOutCTA?()
                 }) {
-                    HStack(spacing: 3) {
+                    HStack(spacing: 8) {
                         if let icon = WMFSFSymbolIcon.for(symbol: .personFilled) {
                             Image(uiImage: icon)
                         }
@@ -278,13 +282,13 @@ public struct WMFActivityTabView: View {
                     }
                     .font(Font(WMFFont.for(.subheadline)))
                     .foregroundColor(Color(uiColor: theme.paperBackground))
-                    .padding(.horizontal, 10)
+                    .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(Color(uiColor: theme.link))
-                    .cornerRadius(40)
+                    .cornerRadius(8)
                 }
                 Button(action: {
-                    // todo navigate
+                    viewModel.didTapSecondaryLoggedOutCTA?()
                 }) {
                     Text(viewModel.localizedStrings.loggedOutSecondaryCTA)
                         .font(Font(WMFFont.for(.subheadline)))
@@ -297,7 +301,7 @@ public struct WMFActivityTabView: View {
             .padding(.top, 8)
         }
         .multilineTextAlignment(.leading)
-        .padding(16) // interior padding
+        .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color(uiColor: theme.paperBackground))
@@ -306,7 +310,7 @@ public struct WMFActivityTabView: View {
                         .stroke(Color(uiColor: theme.baseBackground), lineWidth: 0.5)
                 )
         )
-        .padding(16) // exterior padding
+        .padding(.horizontal, 16)
     }
 
 

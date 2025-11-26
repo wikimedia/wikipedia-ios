@@ -12,8 +12,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Navigation / Delegates
 
-
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
+    public var didTapPrimaryLoggedOutCTA: (() -> Void)?
+    public var didTapSecondaryLoggedOutCTA: (() -> Void)?
 
     // MARK: - Localization
 
@@ -82,10 +83,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Published State
 
-    @Published public var isLoggedIn: Int
+    @Published public var isLoggedIn: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
     @Published public var timelineViewModel: TimelineViewModel
+    @Published public var shouldShowLogInPrompt: Bool = false
 
     // MARK: - Init
 
@@ -93,7 +95,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         localizedStrings: LocalizedStrings,
         dataController: WMFActivityTabDataController = .shared,
         hasSeenActivityTab: @escaping () -> Void,
-        isLoggedIn: Int
+        isLoggedIn: LoginState
     ) {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
@@ -133,6 +135,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
+            
+            Task {
+                await updateShouldShowLoginPrompt()
+            }
 
             hasSeenActivityTab()
         }
@@ -147,7 +153,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             : localizedStrings.userNamesReading(username)
     }
 
-    public func updateIsLoggedIn(isLoggedIn: Int) {
+    public func updateIsLoggedIn(isLoggedIn: LoginState) {
         self.isLoggedIn = isLoggedIn
     }
 
@@ -156,6 +162,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
             articlesReadViewModel.hoursRead,
             articlesReadViewModel.minutesRead
         )
+    }
+    
+    public func closeLoginPrompt() {
+        Task {
+            await dismissLoginPrompt()
+        }
     }
 
     // MARK: - Helpers
@@ -167,5 +179,14 @@ public final class WMFActivityTabViewModel: ObservableObject {
     func formatDate(_ dateTime: Date) -> String {
         DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
     }
+    
+    func updateShouldShowLoginPrompt() async {
+        let dc = WMFActivityTabDataController.shared
+        shouldShowLogInPrompt = await dc.shouldShowLoginPrompt(for: isLoggedIn)
+    }
 
+    func dismissLoginPrompt() async {
+        await WMFActivityTabDataController.shared.recordDismissLoginprompt(for: isLoggedIn)
+        shouldShowLogInPrompt = false
+    }
 }

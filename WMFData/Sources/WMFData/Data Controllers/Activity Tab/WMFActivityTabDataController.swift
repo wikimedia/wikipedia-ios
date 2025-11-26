@@ -73,6 +73,28 @@ public actor WMFActivityTabDataController {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
         }
     }
+    
+    public func shouldShowLoginPrompt(for state: LoginState) -> Bool {
+        switch state {
+        case .loggedIn:
+            return false
+        case .temp:
+            return !dismissLoginTempUser
+        case .loggedOut:
+            return !dismissLoginIPUser
+        }
+    }
+    
+    public func recordDismissLoginprompt(for state: LoginState) {
+        switch state {
+        case .loggedOut:
+            dismissLoginIPUser = true
+        case .temp:
+            dismissLoginTempUser = true
+        case .loggedIn:
+            break
+        }
+    }
 
     public var dismissLoginIPUser: Bool {
         get {
@@ -270,4 +292,10 @@ public enum TimelineItemType {
     case edit
     case read
     case save
+}
+
+public enum LoginState: Int {
+    case loggedOut = 0
+    case temp = 1
+    case loggedIn = 2
 }
