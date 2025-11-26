@@ -18,42 +18,39 @@ final class WMFExperimentsDataController {
     }
     
     public enum Experiment {
-        case activityTab
         case moreDynamicTabs
         case moreDynamicTabsV2
         case yirLoginPrompt
+        case activityTab
 
         var config: ExperimentConfig {
             switch self {
-            case .activityTab:
-                return WMFExperimentsDataController.activityTabConfig
             case .moreDynamicTabs:
                 return WMFExperimentsDataController.moreDynamicTabsConfig
             case .moreDynamicTabsV2:
                 return WMFExperimentsDataController.moreDynamicTabsV2Config
             case .yirLoginPrompt:
                 return WMFExperimentsDataController.yirLoginPromptConfig
+            case .activityTab:
+                return WMFExperimentsDataController.activityTab
             }
         }
     }
     
     public enum PercentageFileName: String {
-        case activityTabPercent
         case moreDynamicTabsPercent
         case yirLoginPromptPercent
+        case activityTabPercent
     }
     
     enum BucketFileName: String {
-        case activityTabBucket
         case moreDynamicTabsBucket
         case moreDynamicTabsV2Bucket
         case yirLoginPromptBucket
+        case activityTabBucket
     }
     
     public enum BucketValue: String {
-        case activityTabGroupAControl = "ActivityTab_GroupA_Control"
-        case activityTabGroupBEdit = "ActivityTab_GroupB_Edit"
-        case activityTabGroupCSuggestedEdit = "ActivityTab_GroupC_SuggestedEdit"
         case moreDynamicTabsControl = "MoreDynamicTabs_Control"
         case moreDynamicTabsGroupB = "MoreDynamicTabs_GroupB"
         case moreDynamicTabsGroupC = "MoreDynamicTabs_GroupC"
@@ -62,19 +59,21 @@ final class WMFExperimentsDataController {
         case moreDynamicTabsV2GroupC = "MoreDynamicTabsV2_GroupC"
         case yirLoginPromptControl = "YirLoginPrompt_Control"
         case yirLoginPromptGroupB = "YirLoginPrompt_GroupB"
+        case activityTabControl = "ActivityTab_Control"
+        case activityTabExperiment = "ActivityTab_Experiment"
     }
     
     // MARK: Properties
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
 
-    private static let activityTabConfig = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabGroupAControl, bucketValueTest: .activityTabGroupBEdit, bucketValueTest2: .activityTabGroupCSuggestedEdit)
-
     private static let moreDynamicTabsConfig = ExperimentConfig(experiment: .moreDynamicTabs, percentageFileName: .moreDynamicTabsPercent, bucketFileName: .moreDynamicTabsBucket, bucketValueControl: .moreDynamicTabsControl, bucketValueTest: .moreDynamicTabsGroupB, bucketValueTest2: .moreDynamicTabsGroupC)
     
     private static let moreDynamicTabsV2Config = ExperimentConfig(experiment: .moreDynamicTabsV2, percentageFileName: .moreDynamicTabsPercent, bucketFileName: .moreDynamicTabsV2Bucket, bucketValueControl: .moreDynamicTabsV2Control, bucketValueTest: .moreDynamicTabsV2GroupB, bucketValueTest2: .moreDynamicTabsV2GroupC)
     
     private static let yirLoginPromptConfig = ExperimentConfig(experiment: .yirLoginPrompt, percentageFileName: .yirLoginPromptPercent, bucketFileName: .yirLoginPromptBucket, bucketValueControl: .yirLoginPromptControl, bucketValueTest: .yirLoginPromptGroupB, bucketValueTest2: nil)
+
+    private static let activityTab = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabControl, bucketValueTest: .activityTabExperiment, bucketValueTest2: nil)
 
     private let store: WMFKeyValueStore
     
@@ -129,19 +128,18 @@ final class WMFExperimentsDataController {
                 } else {
                     bucket = .moreDynamicTabsV2GroupC
                 }
-            case .activityTab:
-                if randomInt <= percentage {
-                    bucket = .activityTabGroupAControl
-                } else if randomInt > percentage && randomInt <= percentage*2 {
-                    bucket = .activityTabGroupBEdit
-                } else {
-                    bucket = .activityTabGroupCSuggestedEdit
-                }
+
             case .yirLoginPrompt:
                 if randomInt <= percentage {
                     bucket = .yirLoginPromptControl
                 } else {
                     bucket = .yirLoginPromptGroupB
+                }
+            case .activityTab:
+                if randomInt <= percentage {
+                    bucket = .activityTabControl
+                } else {
+                    bucket = .activityTabExperiment
                 }
             }
         }

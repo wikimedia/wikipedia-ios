@@ -7,6 +7,7 @@ public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
     @ObservedObject private var timelineViewModel: TimelineViewModel
+    @ObservedObject private var savedViewModel: ArticlesSavedViewModel
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -15,6 +16,7 @@ public struct WMFActivityTabView: View {
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
         self.timelineViewModel = viewModel.timelineViewModel
+        self.savedViewModel = viewModel.articlesSavedViewModel
     }
 
     public var body: some View {
@@ -207,7 +209,7 @@ public struct WMFActivityTabView: View {
             loadImageAction: { imageURLString in
                 try? await timelineViewModel.loadImage(imageURLString: imageURLString)
             },
-            iconImage: iconImage
+            iconImage: viewModel.isLoggedIn == .loggedIn ? iconImage : nil
         )
         .contentShape(Rectangle())
         .onTapGesture {
@@ -363,9 +365,9 @@ public struct WMFActivityTabView: View {
                     viewModel.articlesSavedViewModel.navigateToSaved?()
                 },
                 content: {
-                    let thumbURLs = viewModel.articlesSavedViewModel.articlesSavedThumbURLs
+                    let thumbURLs = savedViewModel.articlesSavedThumbURLs
                     if !thumbURLs.isEmpty {
-                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount)
+                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: savedViewModel.articlesSavedAmount)
                     }
                 }
             )
