@@ -172,7 +172,15 @@ import CocoaLumberjackSwift
                                     viewedDate: viewedDate
                                 )
                             )
+
+                            if let article, article.isSavedMigrated == false {
+                                article.isSavedMigrated = true
+                            }
                         }
+                    }
+
+                    if wikipediaContext.hasChanges {
+                        try wikipediaContext.save()
                     }
 
                     return localSnaps
