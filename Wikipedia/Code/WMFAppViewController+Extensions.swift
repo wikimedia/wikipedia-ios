@@ -120,9 +120,14 @@ extension WMFAppViewController {
     }
     
     @objc func getAssignmentForActivityTab() -> Int {
-        return WMFActivityTabDataController.activityAssignmentForObjC()
+        Task {
+            if await !WMFActivityTabDataController.shared.alreadyAssigned {
+                // TODO: Log assignment
+            }
+        }
+        let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
+        return assignment
     }
-
 }
 
 // MARK: - Notifications
