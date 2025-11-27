@@ -59,14 +59,14 @@
 @interface NSDate (WMFComparisons)
 
 - (BOOL)wmf_isTodayUTC;
-- (BOOL)wmf_UTCDateIsTodayLocal;                         //TimeZone insensitive compare, assumes reciever is UTC date
-- (BOOL)wmf_UTCDateIsSameDateAsLocalDate:(NSDate *)date; //TimeZone insensitive compare, assumes reciever is UTC date
+- (BOOL)wmf_UTCDateIsTodayLocal;                         //TimeZone insensitive compare, assumes receiver is UTC date
+- (BOOL)wmf_UTCDateIsSameDateAsLocalDate:(NSDate *)date; //TimeZone insensitive compare, assumes receiver is UTC date
 
 - (NSDate *)wmf_midnightUTCDateFromLocalDateByAddingDays:(NSInteger)days;
 
-@property (nonatomic, readonly) NSDate *wmf_midnightUTCDateFromLocalDate;          //Assumes the receiever is a local date, returns midnight UTC on the same day, month, and year.
-@property (nonatomic, readonly) NSDate *wmf_midnightUTCDateFromUTCDate;            //Assumes the receiever is a UTC date, returns midnight UTC on the same day, month, and year.
-@property (nonatomic, readonly) NSDate *wmf_midnightLocalDateForEquivalentUTCDate; //Assumes the receiever is a local date, returns midnight local time for the same UTC day, month, and year. For example, 10 PM Eastern 1/5/2017 will return midnight eastern 1/6/2017 (since 10 PM eastern on 1/5 is already 1/6 UTC)
+@property (nonatomic, readonly) NSDate *wmf_midnightUTCDateFromLocalDate;          //Assumes the receiver is a local date, returns midnight UTC on the same day, month, and year.
+@property (nonatomic, readonly) NSDate *wmf_midnightUTCDateFromUTCDate;            //Assumes the receiver is a UTC date, returns midnight UTC on the same day, month, and year.
+@property (nonatomic, readonly) NSDate *wmf_midnightLocalDateForEquivalentUTCDate; //Assumes the receiver is a local date, returns midnight local time for the same UTC day, month, and year. For example, 10 PM Eastern 1/5/2017 will return midnight eastern 1/6/2017 (since 10 PM eastern on 1/5 is already 1/6 UTC)
 @property (nonatomic, readonly) NSDate *wmf_midnightDate;
 
 @end

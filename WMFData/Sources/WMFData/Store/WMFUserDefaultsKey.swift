@@ -13,10 +13,6 @@ public enum WMFUserDefaultsKey: String {
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v3"
     case tappedYIR = "tapped-yir"
     case forceEmailAuth = "force-email-auth"
-    case activityTabGroupA = "activity-tab-group-a"
-    case activityTabGroupB = "activity-tab-group-b"
-    case activityTabGroupC = "activity-tab-group-c"
-    case activityTabHadFirstLaunch = "activity-tab-had-first-launch"
     case articleTabsOnboarding = "article-tabs-onboarding"
     case articleTabRestoration = "article-tab-restoration"
     case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
@@ -35,4 +31,6 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsShowActivityTab = "developer-settings-show-activity-tab"
     case hasSeenActivityTab = "has-seen-activity-tab"
     case hasSeenExploreSurvey = "has-seen-explore-survey"
+    case developerSettingsForceActivityTabControl = "developer-settings-force-activity-tab-control"
+    case developerSettingsForceActivityTabExperiment = "developer-settings-force-activity-tab-experiment"
 }
