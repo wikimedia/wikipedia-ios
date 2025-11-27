@@ -202,7 +202,7 @@ public struct WMFActivityTabView: View {
             imageURLString: initialThumbnailURLString,
             titleLineLimit: 1,
             isSaved: false,
-            showsSwipeActions: true,
+            showsSwipeActions: page.itemType == .read,
             deleteItemAction: { timelineViewModel.deletePage(item: page) },
             loadImageAction: { imageURLString in
                 try? await timelineViewModel.loadImage(imageURLString: imageURLString)
