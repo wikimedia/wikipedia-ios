@@ -130,7 +130,58 @@ public actor WMFActivityTabDataController {
             .map { $0.key.categoryName }
     }
 
-    public func fetchTimeline() async throws -> [Date: [TimelineItem]] {
+    public func getTimelineItems() async throws -> [Date: [TimelineItem]] {
+        var allItems: [Date: [TimelineItem]] = [:]
+
+        let savedItems = try await fetchTimelineSavedArticles()
+        let readItems = try await fetchTimelineReadArticles()
+
+        allItems.merge(savedItems) { old, new in
+            return old + new
+        }
+
+        allItems.merge(readItems) { old, new in
+            return old + new
+        }
+
+        return allItems
+    }
+
+    public func fetchTimelineSavedArticles() async throws -> [Date: [TimelineItem]] {
+        let dataController = WMFSavedArticlesDataController()
+        let savedPages = try await dataController.fetchTimelinePages()
+        guard !savedPages.isEmpty else { return [:] }
+        var dailyTimeline: [Date: [TimelineItem]] = [:]
+        let calendar = Calendar.current
+
+        for item in savedPages {
+            let savedDate = item.timestamp
+            let page = item.page
+            let dayBucket = calendar.startOfDay(for: savedDate)
+            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
+
+            let timelineItem = TimelineItem(
+                id: UUID().uuidString,
+                date: savedDate,
+                titleHtml: page.title,
+                projectID: page.projectID,
+                pageTitle: page.title,
+                url: articleURL,
+                page: page,
+                itemType: .saved
+            )
+            
+            dailyTimeline[dayBucket, default: []].append(timelineItem)
+        }
+
+        let sortedTimeline = dailyTimeline.mapValues { items in
+            items.sorted { $0.date < $1.date }
+        }
+
+        return sortedTimeline
+    }
+
+    public func fetchTimelineReadArticles() async throws -> [Date: [TimelineItem]] {
         let dataController = try WMFPageViewsDataController()
         let pageRecords = try await dataController.fetchTimelinePages()
         guard !pageRecords.isEmpty else { return [:] }
@@ -427,5 +478,5 @@ public enum TimelineItemType {
     case standard // no icon, logged out users, etc.
     case edit
     case read
-    case save
+    case saved
 }

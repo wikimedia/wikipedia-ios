@@ -18,7 +18,7 @@ public final class TimelineViewModel: ObservableObject {
 
     public func fetch() async {
         do {
-            let result = try await dataController.fetchTimeline()
+            let result = try await dataController.getTimelineItems()
             self.timeline = result
         } catch {
             debugPrint("error fetching timeline: \(error)")

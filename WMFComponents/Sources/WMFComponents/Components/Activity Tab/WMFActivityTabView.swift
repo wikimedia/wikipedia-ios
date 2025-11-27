@@ -177,7 +177,7 @@ public struct WMFActivityTabView: View {
             iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
         case .read:
             iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
-        case .save:
+        case .saved:
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
         }
 
