@@ -167,7 +167,7 @@ public actor WMFActivityTabDataController {
                 projectID: page.projectID,
                 pageTitle: page.title,
                 url: articleURL,
-                page: page,
+                namespaceID: page.namespaceID,
                 itemType: .saved
             )
             
@@ -212,7 +212,7 @@ public actor WMFActivityTabDataController {
                 description: nil,
                 imageURLString: nil,
                 snippet: nil,
-                page: page,
+                namespaceID: page.namespaceID,
                 itemType: .read
             )
 
@@ -233,18 +233,18 @@ public actor WMFActivityTabDataController {
     }
     
     public func deletePageView(for item: TimelineItem) async throws {
-        guard let project = WMFProject(id: item.page.projectID) else { return }
+        guard let project = WMFProject(id: item.projectID) else { return }
         try await deletePageView(
-            title: item.page.title,
-            namespaceID: Int16(item.page.namespaceID),
+            title: item.pageTitle,
+            namespaceID: Int16(item.namespaceID),
             project: project
         )
     }
     
-    public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
+    public func fetchSummary(for pageTitle: String, projectID: String) async throws -> WMFArticleSummary? {
         let articleSummaryController = WMFArticleSummaryDataController()
-        guard let project = WMFProject(id: page.projectID) else { return nil }
-        return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
+        guard let project = WMFProject(id: projectID) else { return nil }
+        return try await articleSummaryController.fetchArticleSummary(project: project, title: pageTitle)
     }
 
     // MARK: - Experiment
@@ -440,8 +440,8 @@ public struct TimelineItem: Identifiable, Equatable {
     public var description: String?
     public var imageURLString: String?
     public var snippet: String?
-    
-    public let page: WMFPage
+    public let namespaceID: Int
+
     
     public let itemType: TimelineItemType
 
@@ -454,7 +454,7 @@ public struct TimelineItem: Identifiable, Equatable {
                 description: String? = nil,
                 imageURLString: String? = nil,
                 snippet: String? = nil,
-                page: WMFPage,
+                namespaceID: Int,
                 itemType: TimelineItemType = .standard) {
         self.id = id
         self.date = date
@@ -465,7 +465,7 @@ public struct TimelineItem: Identifiable, Equatable {
         self.description = description
         self.imageURLString = imageURLString
         self.snippet = snippet
-        self.page = page
+        self.namespaceID = namespaceID
         self.itemType = itemType
     }
 

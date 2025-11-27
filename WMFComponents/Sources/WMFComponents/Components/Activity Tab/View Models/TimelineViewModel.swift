@@ -33,7 +33,7 @@ public final class TimelineViewModel: ObservableObject {
         }
 
         do {
-            if let summary = try await dataController.fetchSummary(for: item.page) {
+            if let summary = try await dataController.fetchSummary(for: item.pageTitle, projectID: item.projectID) {
                 pageSummaries[itemID] = summary   // triggers UI update
                 return summary
             }
