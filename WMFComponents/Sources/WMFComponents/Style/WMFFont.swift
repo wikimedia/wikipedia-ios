@@ -23,6 +23,7 @@ public enum WMFFont {
     case callout
     case caption1
     case caption2
+    case caption2Semibold
     case editorHeading
     case editorSubheading1
     case editorSubheading2
@@ -152,6 +153,11 @@ public enum WMFFont {
             
         case .caption2:
             return UIFont.preferredFont(forTextStyle: .caption2, compatibleWith: traitCollection)
+            
+        case .caption2Semibold:
+            let base = UIFont.preferredFont(forTextStyle: .caption2, compatibleWith: traitCollection)
+            let font = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
+            return UIFontMetrics(forTextStyle: .caption2).scaledFont(for: font)
 
         case .editorHeading:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .semibold), compatibleWith: traitCollection)
