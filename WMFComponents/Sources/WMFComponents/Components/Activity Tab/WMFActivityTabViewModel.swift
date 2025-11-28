@@ -127,8 +127,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             async let readTask: Void = articlesReadViewModel.fetch()
             async let savedTask: Void = articlesSavedViewModel.fetch()
             async let timelineTask: Void = timelineViewModel.fetch()
+            async let editCountTask: Int? = try? dataController.getGlobalEditCount()
 
-            _ = await (readTask, savedTask, timelineTask)
+            _ = await (readTask, savedTask, timelineTask, editCountTask)
 
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel

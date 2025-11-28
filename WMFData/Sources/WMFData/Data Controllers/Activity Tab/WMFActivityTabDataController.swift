@@ -195,6 +195,21 @@ public actor WMFActivityTabDataController {
         return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
     }
 
+    public func getGlobalEditCount() async throws -> Int? {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            throw CustomError.missingLanguage
+        }
+        let proj = WMFProject.wikipedia(appLanguage)
+
+        do {
+            let userInfoDataController = WMFGlobalUserInfoDataController(project: proj)
+            let globalUserInfo = try await userInfoDataController.fetchGlobalUserInfo()
+            return globalUserInfo.editcount
+        } catch {
+            throw CustomError.unexpectedError(error)
+        }
+    }
+
     // MARK: - Experiment
 
     public func assignOrFetchExperimentAssignment() throws -> ActivityTabExperimentAssignment? {
@@ -339,6 +354,8 @@ public actor WMFActivityTabDataController {
         case pastAssignmentEndDate
         case beforeStartDate
         case errorFetchingAssigment
+        case missingLanguage
+        case unexpectedError(Error)
     }
 
 }
