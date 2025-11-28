@@ -20,7 +20,6 @@ public actor WMFActivityTabDataController {
         } else {
             self.experimentsDataController = nil
         }
-
     }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
