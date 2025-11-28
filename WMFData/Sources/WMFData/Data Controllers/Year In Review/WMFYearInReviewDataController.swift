@@ -108,11 +108,10 @@ import CoreData
 
     public var hasPresentedYiRFeatureAnnouncementModel: Bool {
         get {
-            return featureAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal
-        } set {
-            var currentAnnouncementStatus = featureAnnouncementStatus
-            currentAnnouncementStatus.hasPresentedYiRFeatureAnnouncementModal = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue, value: currentAnnouncementStatus)
+            (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue)) ?? false
+        }
+        set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue, value: newValue)
         }
     }
 
