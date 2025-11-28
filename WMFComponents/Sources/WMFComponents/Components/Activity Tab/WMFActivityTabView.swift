@@ -56,7 +56,12 @@ public struct WMFActivityTabView: View {
                         )
                     }
                     .listRowSeparator(.hidden)
-                    
+                    Section {
+                        totalEditsView
+                    }
+                    .listRowSeparator(.hidden)
+
+
                     historyView
                         .id("timelineSection")
                 }
@@ -118,7 +123,19 @@ public struct WMFActivityTabView: View {
             }
         }
     }
-    
+
+    private var totalEditsView: some View {
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.totalEdits,
+            dateText: nil,
+            amount: viewModel.globalEditCount ?? 0,
+            onTapModule: {
+                viewModel.navigateToGlobalEdits?()
+            })
+
+    }
+
     private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
         let sortedPages = pages.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current

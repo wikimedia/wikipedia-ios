@@ -822,7 +822,8 @@ extension WMFAppViewController {
         let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
         let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
-        
+        let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
+
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
@@ -842,7 +843,9 @@ extension WMFAppViewController {
                 loggedOutSecondaryCTA: CommonStrings.editSignIn,
                 todayTitle: CommonStrings.todayTitle,
                 yesterdayTitle: CommonStrings.yesterdayTitle,
-                openArticle: openArticle),
+                openArticle: openArticle,
+                totalEdits: totalEdits
+            ),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             Task {
