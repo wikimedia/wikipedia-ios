@@ -23,28 +23,27 @@ public actor WMFSavedArticlesDataController {
     // MARK: - Public API
 
     public func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData? {
-        guard let pages = try? await fetchSavedArticleSnapshots(startDate: startDate, endDate: endDate) else {return nil}
+        guard let pages = try? await fetchSavedArticleSnapshots(startDate: startDate, endDate: endDate) else { return nil }
 
         var lastDate: Date?
-        var randomURLs: [URL?] = []
 
         if let lastDateSaved = pages.first?.savedDate {
             lastDate = lastDateSaved
         }
 
-        let random3articles = pages
-            .compactMap { $0 }
-            .shuffled()
-            .prefix(3)
-            .map { $0 }
-        
-        let titles = random3articles.map { $0.title }
+        let titleURLTuples = await fetchSavedArticlesImageURLs(for: pages)
 
-        if let thumbnailURLs = try? await fetchSavedArticlesImageURLs(for: random3articles) {
-            randomURLs = thumbnailURLs
-        }
+        let articleThumbTuples = Array(
+            titleURLTuples
+                .filter { $0.1 != nil } // only non-nil URLS
+                .prefix(3)
+        )
 
-        return SavedArticleModuleData(savedArticlesCount: pages.count, articleThumbURLs: randomURLs, dateLastSaved: lastDate, articleTitles: titles)
+        let thumbURLs = articleThumbTuples.map { $0.1! }
+
+        let titles = articleThumbTuples.map { $0.0 }
+
+        return SavedArticleModuleData(savedArticlesCount: pages.count, articleThumbURLs: thumbURLs, dateLastSaved: lastDate, articleTitles: titles)
     }
 
     // MARK: - Private functions
@@ -155,33 +154,38 @@ public actor WMFSavedArticlesDataController {
         }
     }
     
-    private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot]) async throws -> [URL?] {
+    private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot]) async -> [(String, URL?)] {
         guard !snapshots.isEmpty else { return [] }
 
-        return await withTaskGroup(of: (Int, URL?).self) { group in
+        return await withTaskGroup(of: (Int, String, URL?).self) { group in
             for (index, snap) in snapshots.enumerated() {
                 group.addTask { [snap, index] in
                     guard let project = WMFProject(id: snap.projectID) else {
-                        return (index, nil)
+                        return (index, snap.title, nil)
                     }
+
                     do {
-                        let summary = try await self.fetchSummary(project: project, title: snap.title)
-                        return (index, summary.thumbnailURL)
+                        let summary = try await self.fetchSummary(
+                            project: project,
+                            title: snap.title
+                        )
+                        return (index, snap.title, summary.thumbnailURL)
                     } catch {
-                        return (index, nil)
+                        return (index, snap.title, nil)
                     }
                 }
             }
 
-            var urls = [URL?](repeating: nil, count: snapshots.count)
+            var results = [(String, URL?)](repeating: ("", nil), count: snapshots.count)
 
-            for await (index, url) in group {
-                urls[index] = url
+            for await (index, title, url) in group {
+                results[index] = (title, url)
             }
 
-            return urls
+            return results
         }
     }
+
 }
 
 // MARK: - Types

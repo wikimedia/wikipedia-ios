@@ -442,7 +442,7 @@ public struct WMFActivityTabView: View {
         let titles = viewModel.articlesSavedViewModel.articleTitles
         let displayCount = min(thumbURLs.count, 3)
         let showPlus = viewModel.articlesSavedViewModel.articlesSavedAmount > 3
-        let remaining = showPlus ? viewModel.articlesSavedViewModel.articlesSavedAmount - 3 : 0
+        let remaining = showPlus ? viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount : 0
 
         var contentAccessibilityLabels: [String] = []
         contentAccessibilityLabels.append(contentsOf: titles.prefix(displayCount))
@@ -463,7 +463,8 @@ public struct WMFActivityTabView: View {
                 if !thumbURLs.isEmpty {
                     savedArticlesImages(
                         thumbURLs: thumbURLs,
-                        totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount
+                        totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount,
+                        remaining: showPlus ? remaining : 0
                     )
                 }
             }
@@ -472,12 +473,12 @@ public struct WMFActivityTabView: View {
 
     private func savedArticlesImages(
         thumbURLs: [URL?],
-        totalSavedCount: Int
+        totalSavedCount: Int,
+        remaining: Int
     ) -> some View {
         let titles = viewModel.articlesSavedViewModel.articleTitles
         let displayCount = min(thumbURLs.count, 3)
         let showPlus = totalSavedCount > 3
-        let remaining = showPlus ? totalSavedCount - 3 : 0
 
         return HStack(spacing: 4) {
             ForEach(0..<displayCount, id: \.self) { index in
