@@ -41,11 +41,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @objc private func updateLoginState() {
         if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
-            viewModel.updateIsLoggedIn(isLoggedIn: .loggedIn)
+            viewModel.updateAuthenticationState(authState: .loggedIn)
         } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
-            viewModel.updateIsLoggedIn(isLoggedIn: .temp)
+            viewModel.updateAuthenticationState(authState: .temp)
         } else {
-            viewModel.updateIsLoggedIn(isLoggedIn: .loggedOut)
+            viewModel.updateAuthenticationState(authState: .loggedOut)
         }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)

@@ -85,7 +85,15 @@ public struct WMFActivityTabView: View {
                 List {
                     Section {
                         VStack(alignment: .leading) {
-                            loggedOutView
+                            if viewModel.shouldShowLogInPrompt {
+                                VStack(alignment: .leading) {
+                                    loggedOutView
+                                }
+                                .listRowBackground(Color(uiColor: theme.paperBackground))
+                                .listRowInsets(EdgeInsets())
+                                .contentShape(Rectangle())
+                                .onTapGesture { /* disable row tap */ }
+                            }
                             if !viewModel.timelineViewModel.timeline.isEmpty {
                                 historyView
                                     .id("timelineSection")
@@ -306,6 +314,7 @@ public struct WMFActivityTabView: View {
                 WMFCloseButton(action: {
                    viewModel.closeLoginPrompt()
                 })
+                .buttonStyle(BorderlessButtonStyle())
             }
             Text(viewModel.localizedStrings.loggedOutSubtitle)
                 .font(Font(WMFFont.for(.callout)))
@@ -327,6 +336,7 @@ public struct WMFActivityTabView: View {
                     .background(Color(uiColor: theme.link))
                     .cornerRadius(8)
                 }
+                .buttonStyle(BorderlessButtonStyle())
                 Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -344,7 +354,6 @@ public struct WMFActivityTabView: View {
         )
         .padding(.horizontal, 16)
     }
-
 
     private var hoursMinutesRead: some View {
         Text(viewModel.hoursMinutesRead)

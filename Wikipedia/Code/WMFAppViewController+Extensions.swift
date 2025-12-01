@@ -859,7 +859,7 @@ extension WMFAppViewController {
             Task {
                 await activityTabDataController.setHasSeenActivityTab(true)
             }
-        }, isLoggedIn: authdValue)
+        }, authenticationState: authdValue)
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
