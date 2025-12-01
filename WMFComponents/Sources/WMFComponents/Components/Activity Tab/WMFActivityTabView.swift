@@ -239,7 +239,7 @@ public struct WMFActivityTabView: View {
         case .read:
             iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
             actionString = viewModel.localizedStrings.read
-        case .save:
+        case .saved:
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
             actionString = viewModel.localizedStrings.saved
         }
@@ -271,7 +271,7 @@ public struct WMFActivityTabView: View {
             imageURLString: summary?.thumbnailURL?.absoluteString ?? page.imageURLString,
             titleLineLimit: 1,
             isSaved: false,
-            showsSwipeActions: true,
+            showsSwipeActions: page.itemType == .read,
             deleteItemAction: { timelineViewModel.deletePage(item: page) },
             loadImageAction: { imageURLString in
                 try? await timelineViewModel.loadImage(imageURLString: imageURLString)

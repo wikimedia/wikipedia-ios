@@ -18,7 +18,7 @@ public final class TimelineViewModel: ObservableObject {
 
     public func fetch() async {
         do {
-            let result = try await dataController.fetchTimeline()
+            let result = try await dataController.getTimelineItems()
             self.timeline = result
         } catch {
             debugPrint("error fetching timeline: \(error)")
@@ -33,7 +33,7 @@ public final class TimelineViewModel: ObservableObject {
         }
 
         do {
-            if let summary = try await dataController.fetchSummary(for: item.page) {
+            if let summary = try await dataController.fetchSummary(for: item.pageTitle, projectID: item.projectID) {
                 pageSummaries[itemID] = summary   // triggers UI update
                 return summary
             }
