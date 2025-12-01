@@ -106,6 +106,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         viewModel.articlesSavedViewModel.navigateToSaved = goToSaved
         viewModel.timelineViewModel.onTapArticle = onTapArticle
+        viewModel.navigateToGlobalEdits = navigateToGlobalEdits
+
 
         configureNavigationBar()
 
@@ -313,7 +315,27 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             tabBar.selectedIndex = 2
         }
     }
-    
+
+    var userContributionsURL: URL? {
+        if let appLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+           let username = dataStore?.authenticationManager.authStatePermanentUsername,
+           let siteURL = WMFProject.wikipedia(appLanguage).siteURL {
+            return siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)")
+
+        }
+        return nil
+    }
+
+    func navigateToGlobalEdits() {
+        if let url = userContributionsURL {
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            let newNavigationVC =
+            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+            navigationController?.present(newNavigationVC, animated: true)
+        }
+    }
+
     func onTapArticle(item: TimelineItem) {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
