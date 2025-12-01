@@ -130,7 +130,58 @@ public actor WMFActivityTabDataController {
             .map { $0.key.categoryName }
     }
 
-    public func fetchTimeline() async throws -> [Date: [TimelineItem]] {
+    public func getTimelineItems() async throws -> [Date: [TimelineItem]] {
+        var allItems: [Date: [TimelineItem]] = [:]
+
+        let savedItems = try await fetchTimelineSavedArticles()
+        let readItems = try await fetchTimelineReadArticles()
+
+        allItems.merge(savedItems) { old, new in
+            return old + new
+        }
+
+        allItems.merge(readItems) { old, new in
+            return old + new
+        }
+
+        return allItems
+    }
+
+    public func fetchTimelineSavedArticles() async throws -> [Date: [TimelineItem]] {
+        let dataController = WMFSavedArticlesDataController()
+        let savedPages = try await dataController.fetchTimelinePages()
+        guard !savedPages.isEmpty else { return [:] }
+        var dailyTimeline: [Date: [TimelineItem]] = [:]
+        let calendar = Calendar.current
+
+        for item in savedPages {
+            let savedDate = item.timestamp
+            let page = item.page
+            let dayBucket = calendar.startOfDay(for: savedDate)
+            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
+
+            let timelineItem = TimelineItem(
+                id: UUID().uuidString,
+                date: savedDate,
+                titleHtml: page.title,
+                projectID: page.projectID,
+                pageTitle: page.title,
+                url: articleURL,
+                namespaceID: page.namespaceID,
+                itemType: .saved
+            )
+            
+            dailyTimeline[dayBucket, default: []].append(timelineItem)
+        }
+
+        let sortedTimeline = dailyTimeline.mapValues { items in
+            items.sorted { $0.date < $1.date }
+        }
+
+        return sortedTimeline
+    }
+
+    public func fetchTimelineReadArticles() async throws -> [Date: [TimelineItem]] {
         let dataController = try WMFPageViewsDataController()
         let pageRecords = try await dataController.fetchTimelinePages()
         guard !pageRecords.isEmpty else { return [:] }
@@ -161,7 +212,7 @@ public actor WMFActivityTabDataController {
                 description: nil,
                 imageURLString: nil,
                 snippet: nil,
-                page: page,
+                namespaceID: page.namespaceID,
                 itemType: .read
             )
 
@@ -182,18 +233,18 @@ public actor WMFActivityTabDataController {
     }
     
     public func deletePageView(for item: TimelineItem) async throws {
-        guard let project = WMFProject(id: item.page.projectID) else { return }
+        guard let project = WMFProject(id: item.projectID) else { return }
         try await deletePageView(
-            title: item.page.title,
-            namespaceID: Int16(item.page.namespaceID),
+            title: item.pageTitle,
+            namespaceID: Int16(item.namespaceID),
             project: project
         )
     }
     
-    public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
+    public func fetchSummary(for pageTitle: String, projectID: String) async throws -> WMFArticleSummary? {
         let articleSummaryController = WMFArticleSummaryDataController()
-        guard let project = WMFProject(id: page.projectID) else { return nil }
-        return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
+        guard let project = WMFProject(id: projectID) else { return nil }
+        return try await articleSummaryController.fetchArticleSummary(project: project, title: pageTitle)
     }
 
     // MARK: - Experiment
@@ -389,8 +440,8 @@ public struct TimelineItem: Identifiable, Equatable {
     public var description: String?
     public var imageURLString: String?
     public var snippet: String?
-    
-    public let page: WMFPage
+    public let namespaceID: Int
+
     
     public let itemType: TimelineItemType
 
@@ -403,7 +454,7 @@ public struct TimelineItem: Identifiable, Equatable {
                 description: String? = nil,
                 imageURLString: String? = nil,
                 snippet: String? = nil,
-                page: WMFPage,
+                namespaceID: Int,
                 itemType: TimelineItemType = .standard) {
         self.id = id
         self.date = date
@@ -414,7 +465,7 @@ public struct TimelineItem: Identifiable, Equatable {
         self.description = description
         self.imageURLString = imageURLString
         self.snippet = snippet
-        self.page = page
+        self.namespaceID = namespaceID
         self.itemType = itemType
     }
 
@@ -427,5 +478,5 @@ public enum TimelineItemType {
     case standard // no icon, logged out users, etc.
     case edit
     case read
-    case save
+    case saved
 }
