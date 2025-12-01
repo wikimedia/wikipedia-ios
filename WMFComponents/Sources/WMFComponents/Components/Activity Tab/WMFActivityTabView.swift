@@ -172,7 +172,7 @@ public struct WMFActivityTabView: View {
             dateText: nil,
             amount: amount,
             onTapModule: {
-                viewModel.navigateToGlobalEdits?()
+                viewModel.onTapGlobalEdits?()
             }
         )
     }
@@ -457,7 +457,7 @@ public struct WMFActivityTabView: View {
             amount: viewModel.articlesSavedViewModel.articlesSavedAmount,
             contentAccessibilityLabels: contentAccessibilityLabels,
             onTapModule: {
-                viewModel.articlesSavedViewModel.navigateToSaved?()
+                viewModel.articlesSavedViewModel.onTapSaved?()
             },
             content: {
                 if !thumbURLs.isEmpty {

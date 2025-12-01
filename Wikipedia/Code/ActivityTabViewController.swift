@@ -104,9 +104,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
 
-        viewModel.articlesSavedViewModel.navigateToSaved = goToSaved
+        viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
         viewModel.timelineViewModel.onTapArticle = onTapArticle
-        viewModel.navigateToGlobalEdits = navigateToGlobalEdits
+        viewModel.onTapGlobalEdits = onTapGlobalEdits
 
 
         configureNavigationBar()
@@ -308,7 +308,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
-    @objc func goToSaved() {
+    // MARK: - private funcs
+
+    private func onTapSaved() {
         navigationController?.popToRootViewController(animated: false)
 
         if let tabBar = self.tabBarController {
@@ -316,7 +318,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
-    var userContributionsURL: URL? {
+    private var userContributionsURL: URL? {
         if let appLanguage = WMFDataEnvironment.current.primaryAppLanguage,
            let username = dataStore?.authenticationManager.authStatePermanentUsername,
            let siteURL = WMFProject.wikipedia(appLanguage).siteURL {
@@ -326,7 +328,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         return nil
     }
 
-    func navigateToGlobalEdits() {
+    private func onTapGlobalEdits() {
         if let url = userContributionsURL {
             let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
@@ -336,14 +338,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
-    func onTapArticle(item: TimelineItem) {
+   private  func onTapArticle(item: TimelineItem) {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }
     }
     
-    // MARK: Theming
+    // MARK: - Theming
 
     public func apply(theme: Theme) {
         guard viewIfLoaded != nil else {
@@ -353,6 +355,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         profileCoordinator?.theme = theme
         self.theme = theme
     }
+
 }
 
 // MARK: - Extensions

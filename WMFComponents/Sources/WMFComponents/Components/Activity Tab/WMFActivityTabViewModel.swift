@@ -100,7 +100,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var timelineViewModel: TimelineViewModel
 
     @Published var globalEditCount: Int?
-    public var navigateToGlobalEdits: (() -> Void)?
+    public var onTapGlobalEdits: (() -> Void)?
 
     // MARK: - Init
 
