@@ -79,7 +79,7 @@
 "activity-tab-additional-thoughts" = "Wëllt Dir nach eppes soen?";
 "activity-tab-articles-read" = "Artikelen, déi dëse Mount gelies goufen";
 "activity-tab-articles-read-graph-label" = "Artikelen";
-"activity-tab-greeting" = "$1Salut $2$3 👋 Hei ass Äre wëchentleche Wikipedia-Resümmee.";
+"activity-tab-email-fifth-line" = "[Screenshotten oder Linken]";
 // Fuzzy
 "activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
 "activity-tab-neutral" = "Neutral";

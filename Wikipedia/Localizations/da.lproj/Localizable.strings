@@ -92,7 +92,6 @@
 "activity-tab-add-images-title" = "Tilføj billeder";
 "activity-tab-additional-thoughts" = "Yderligere tanker?";
 "activity-tab-generic-no-edits" = "Du har ikke redigeret i denne uge. Start nu med at spore dine bidrag.";
-"activity-tab-greeting" = "$1Hej $2$3 👋 Her er din ugentlige Wikipedia-oversigt.";
 // Fuzzy
 "activity-tab-logged-out-subtitle" = "Spor, hvad du har læst, og se dine bidrag over tid på en ny måde";
 // Fuzzy
@@ -230,9 +229,6 @@
 "description-welcome-start-editing-button" = "Start med at redigere";
 "developer-force-email-auth" = "Tving e-mailgodkendelse";
 "developer-settings" = "Indstillinger for Udvikler";
-"developer-settings-activity-tab-group-A" = "Indstil aktivitetsfanen til gruppe A";
-"developer-settings-activity-tab-group-B" = "Indstil aktivitetsfanen til gruppe B";
-"developer-settings-activity-tab-group-C" = "Indstil aktivitetsfanen til gruppe C";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-enable-year-in-review" = "Aktiver År i gennemgang";
 "developer-settings-send-analytics-to-wmflabs" = "Send analyser til wmflabs.";
@@ -297,6 +293,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tryk to gange for at aktivere automatiske månedlige donationer af dette beløb.";
 "donate-accessibility-textfield-hint" = "Indtast det beløb du ønsker at donere.";
 "donate-accessibility-transaction-fee-hint" = "Tryk to gange for at tilføje transaktionsgebyr til donationsbeløbet.";
+// Fuzzy
 "donate-already-donated" = "Tak, kære donor! Din gavmildhed hjælper med at holde Wikipedia og dets søsterwebsteder i gang.";
 "donate-apple-fine-print" = "Apple er ikke ansvarlig for at rejse penge til dette formål.";
 "donate-email-opt-in-text" = "Ja, Wikimedia Foundation må gerne sende mig en lejlighedsvis e-mail.";

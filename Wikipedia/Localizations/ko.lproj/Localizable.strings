@@ -249,9 +249,6 @@
 "description-welcome-start-editing-button" = "편집 시작";
 "developer-force-email-auth" = "이메일 인증 강제";
 "developer-settings" = "개발자 설정";
-"developer-settings-activity-tab-group-A" = "활동 탭을 그룹 A로 설정";
-"developer-settings-activity-tab-group-B" = "활동 탭을 그룹 B로 설정";
-"developer-settings-activity-tab-group-C" = "활동 탭을 그룹 C로 설정";
 "developer-settings-bypass-donation" = "기부 건너뛰기";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
@@ -310,6 +307,7 @@
 "donate-accessibility-monthly-recurring-hint" = "이 금액의 자동 월간 기부를 활성화하려면 두 번 탭하세요.";
 "donate-accessibility-textfield-hint" = "기부용 맞춤 금액을 입력하세요.";
 "donate-accessibility-transaction-fee-hint" = "기부 금액에 거래 수수료를 추가하려면 두 번 탭하세요.";
+// Fuzzy
 "donate-already-donated" = "기부해 주셔서 감사합니다! 당신의 관대한 선택으로 위키백과와 자매 사이트의 발전에 큰 힘이 되었습니다.";
 "donate-apple-fine-print" = "애플은 이 목적으로 자금을 모으는 일을 맡지 않습니다.";
 "donate-email-opt-in-text" = "네, 위키미디어 재단에서 가끔 이메일을 보내드릴 수 있게 됩니다.";
