@@ -662,6 +662,8 @@ public class CommonStrings: NSObject {
     public static let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
     
     public static let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
+    
+    public static let readString = WMFLocalizedString("notifications-center-filters-read-status-item-title-read", value: "Read", comment: "Title of Read option in the read status section of the notifications center filter view. Selecting this only displays read notifications in the notifications center.")
 
     // Donation history
 
