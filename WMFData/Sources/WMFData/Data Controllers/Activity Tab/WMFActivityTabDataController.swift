@@ -80,18 +80,6 @@ public actor WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-    public func getActivityAssignment() -> Int {
-        shouldShowActivityTab ? 1 : 0
-    }
-
-    public var shouldShowActivityTab: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
-        }
-    }
-    
     public func shouldShowLoginPrompt(for state: LoginState) -> Bool {
         switch state {
         case .loggedIn:

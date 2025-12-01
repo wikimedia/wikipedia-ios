@@ -21,7 +21,7 @@ public struct WMFActivityTabView: View {
 
     public var body: some View {
         ScrollViewReader { proxy in
-            if viewModel.isLoggedIn == .loggedIn {
+            if viewModel.authenticationState == .loggedIn {
                 List {
                     Section {
                         VStack(spacing: 20) {
@@ -171,7 +171,7 @@ public struct WMFActivityTabView: View {
                 .accessibilityAddTraits(.isHeader)
         ) {
             ForEach(sortedPages.indices.filter { index in
-                if viewModel.isLoggedIn != .loggedIn {
+                if viewModel.authenticationState != .loggedIn {
                     let type = sortedPages[index].itemType
                     return type != .edit && type != .save
                 }
@@ -239,7 +239,7 @@ public struct WMFActivityTabView: View {
             loadImageAction: { imageURLString in
                 try? await timelineViewModel.loadImage(imageURLString: imageURLString)
             },
-            iconImage: viewModel.isLoggedIn == .loggedIn ? iconImage : nil
+            iconImage: viewModel.authenticationState == .loggedIn ? iconImage : nil
         )
         .listRowInsets(EdgeInsets())
         .listRowSeparator(.hidden)

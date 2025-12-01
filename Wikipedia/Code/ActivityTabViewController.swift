@@ -58,7 +58,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let loginCoordinator = LoginCoordinator(
             navigationController: nav,
             theme: theme,
-            loggingCategory: .history // TODO GREY FIX
+            loggingCategory: .activity
         )
 
         loginCoordinator.loginSuccessCompletion = { [weak self] in

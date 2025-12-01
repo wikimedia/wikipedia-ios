@@ -67,7 +67,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Published State
 
-    @Published public var isLoggedIn: LoginState
+    @Published public var authenticationState: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
     @Published public var timelineViewModel: TimelineViewModel
@@ -84,7 +84,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
         self.hasSeenActivityTab = hasSeenActivityTab
-        self.isLoggedIn = isLoggedIn
+        self.authenticationState = isLoggedIn
 
         let dateFormatter: (Date) -> String = { date in
             DateFormatter.wmfLastReadFormatter(for: date)
@@ -138,7 +138,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     public func updateIsLoggedIn(isLoggedIn: LoginState) {
-        self.isLoggedIn = isLoggedIn
+        self.authenticationState = isLoggedIn
         Task {
             await self.updateShouldShowLoginPrompt()
         }
@@ -168,14 +168,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
     
     func updateShouldShowLoginPrompt() async {
-        let dc = WMFActivityTabDataController.shared
-        shouldShowLogInPrompt = await dc.shouldShowLoginPrompt(for: isLoggedIn)
-        print("updated login prompt:", shouldShowLogInPrompt)
+        shouldShowLogInPrompt = await dataController.shouldShowLoginPrompt(for: authenticationState)
     }
 
     func dismissLoginPrompt() async {
-        let dc = WMFActivityTabDataController.shared
-        await dc.updateDismissedState(for: isLoggedIn)
+        await dataController.updateDismissedState(for: authenticationState)
         shouldShowLogInPrompt = false
     }
 }
