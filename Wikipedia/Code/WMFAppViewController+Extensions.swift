@@ -824,6 +824,8 @@ extension WMFAppViewController {
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
 
+        let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
+        
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
@@ -844,8 +846,10 @@ extension WMFAppViewController {
                 todayTitle: CommonStrings.todayTitle,
                 yesterdayTitle: CommonStrings.yesterdayTitle,
                 openArticle: openArticle,
-                totalEdits: totalEdits
-            ),
+                totalEdits: totalEdits,
+                read: CommonStrings.readString,
+                edited: edited,
+                saved: CommonStrings.shortSavedTitle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             Task {

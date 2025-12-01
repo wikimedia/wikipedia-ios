@@ -374,6 +374,7 @@
 "edit-summary-short-description-updated" = "Edit summary message when updating the short description of an article";
 "edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
 "edit-watch-this-page-text" = "Text for watch this page label";
+"edited-article" = "Label for edited articles";
 "editing-welcome-be-bold-subtitle" = "Subtitle for editing onboarding screen encouraging users to start editing Wikipedia articles";
 "editing-welcome-be-bold-title" = "Title for editing onboarding screen encouraging users to start editing Wikipedia articles";
 "editing-welcome-citations-subtitle" = "Subtitle for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles";

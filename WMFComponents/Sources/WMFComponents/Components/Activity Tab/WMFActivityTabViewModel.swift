@@ -36,6 +36,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let yesterdayTitle: String
         public let openArticle: String
         public let totalEdits: String
+        public let read: String
+        public let edited: String
+        public let saved: String
 
         public init(
             userNamesReading: @escaping (String) -> String,
@@ -56,8 +59,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
             todayTitle: String,
             yesterdayTitle: String,
             openArticle: String,
-            totalEdits: String
+            totalEdits: String,
+            read: String,
+            edited: String,
+            saved: String
         ) {
+
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -77,6 +84,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.yesterdayTitle = yesterdayTitle
             self.openArticle = openArticle
             self.totalEdits = totalEdits
+            self.read = read
+            self.edited = edited
+            self.saved = saved
         }
     }
 
