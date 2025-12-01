@@ -80,7 +80,6 @@
 "activity-tab-email-third-line" = "The behavior I would like to see is:";
 "activity-tab-email-title" = "Issue Report - Activity Tab";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
-"activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Log in or create an account to view your activity on the Wikipedia app.";
@@ -255,9 +254,6 @@
 "description-welcome-start-editing-button" = "Start editing";
 "developer-force-email-auth" = "Force email auth";
 "developer-settings" = "Developer Settings";
-"developer-settings-activity-tab-group-A" = "Set activity tab to group A";
-"developer-settings-activity-tab-group-B" = "Set activity tab to group B";
-"developer-settings-activity-tab-group-C" = "Set activity tab to group C";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-dynamic-tabs-group-B-v2" = "Enable tabs V2 with group B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Enable tabs V2 with group C";
@@ -325,7 +321,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Double tap to enable automatic monthly donations of this amount.";
 "donate-accessibility-textfield-hint" = "Enter custom amount to donate.";
 "donate-accessibility-transaction-fee-hint" = "Double tap to add transaction fee to donation amount.";
-"donate-already-donated" = "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.";
+"donate-already-donated" = "Thank you, dear donor! Your generosity helps keep Wikipedia and its and other free knowledge projects thriving.";
 "donate-apple-fine-print" = "Apple is not in charge of raising money for this purpose.";
 "donate-email-opt-in-text" = "Yes, the Wikimedia Foundation can send me an occasional email.";
 "donate-help-frequently-asked-questions" = "Frequently asked questions";
@@ -1257,7 +1253,7 @@
 "talk-page-collapse-thread-button" = "Collapse thread";
 "talk-page-discussion-read-accessibility-label" = "Read";
 "talk-page-discussion-unread-accessibility-label" = "Unread";
-"talk-page-error-alert-subtitle" = "The app recieved an unexpected response from the server. Please try again later.";
+"talk-page-error-alert-subtitle" = "The app received an unexpected response from the server. Please try again later.";
 "talk-page-error-alert-title" = "Unexpected error";
 "talk-page-error-loading-subtitle" = "Something went wrong.";
 "talk-page-error-loading-title" = "Unable to load talk page";

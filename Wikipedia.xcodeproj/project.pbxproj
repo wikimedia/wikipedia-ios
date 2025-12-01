@@ -392,9 +392,6 @@
 		37B0D0162E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
 		37B0D0172E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
 		37B0D0182E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
-		37C4A98D2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */; };
-		37C4A98E2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */; };
-		37C4A98F2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */; };
 		37C5C1FB2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
 		37C5C1FC2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
 		37C5C1FD2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
@@ -3218,7 +3215,6 @@
 		372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountExpiryViewController.swift; sourceTree = "<group>"; };
 		373BF9092E32A34E000F6643 /* WMFFeedDidYouKnowFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFFeedDidYouKnowFetcher.swift; sourceTree = "<group>"; };
 		37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconUtility.swift; sourceTree = "<group>"; };
-		37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFActivityTabExperimentOldViewController.swift; sourceTree = "<group>"; };
 		37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsOverviewCoordinator.swift; sourceTree = "<group>"; };
 		37FAFB342E45382000EEFEC5 /* DidYouKnowCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidYouKnowCache.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
@@ -8028,7 +8024,6 @@
 				83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */,
 				83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */,
 				83DE45B72449C09B00671878 /* SplashScreenViewController.swift */,
-				37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -11146,7 +11141,6 @@
 				B0524B70214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				675826742D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
-				37C4A98E2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */,
 				6730FD1028998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				83250BED2CDA7CED00DA42DC /* WMFDonateDataControllerWrapper.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
@@ -11706,7 +11700,6 @@
 				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				675826762D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
-				37C4A98F2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */,
 				83250BEC2CDA7CED00DA42DC /* WMFDonateDataControllerWrapper.swift in Sources */,
 				6730FD0F28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,

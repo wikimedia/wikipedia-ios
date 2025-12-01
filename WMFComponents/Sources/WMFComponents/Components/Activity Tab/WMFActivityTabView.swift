@@ -7,6 +7,7 @@ public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
     @ObservedObject private var timelineViewModel: TimelineViewModel
+    @ObservedObject private var savedViewModel: ArticlesSavedViewModel
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -15,6 +16,7 @@ public struct WMFActivityTabView: View {
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
         self.timelineViewModel = viewModel.timelineViewModel
+        self.savedViewModel = viewModel.articlesSavedViewModel
     }
 
     public var body: some View {
@@ -449,7 +451,7 @@ public struct WMFActivityTabView: View {
 
             if showPlus {
                 Text("+\(remaining)")
-                    .font(Font(WMFFont.for(.caption2)))
+                    .font(Font(WMFFont.for(.caption2Semibold)))
                     .foregroundColor(Color(uiColor: theme.paperBackground))
                     .frame(width: 38, height: 38)
                     .background(Circle().fill(Color(uiColor: theme.secondaryText)))
@@ -489,12 +491,14 @@ public struct WMFActivityTabView: View {
         .chartXAxis(.hidden)
         .chartYAxis(.hidden)
         .chartPlotStyle { $0.background(.clear) }
+        .padding(.trailing, 6)
+        .padding(.bottom, 0)
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
         VStack(alignment: .leading, spacing: 24) {
             HStack {
-                if let icon = WMFSFSymbolIcon.for(symbol: .rectangle3) {
+                if let icon = WMFSFSymbolIcon.for(symbol: .rectangle3, font: WMFFont.boldCaption1) {
                     Image(uiImage: icon)
                 }
                 Text(viewModel.localizedStrings.topCategories)
@@ -510,9 +514,11 @@ public struct WMFActivityTabView: View {
                         .foregroundStyle(Color(theme.text))
                         .font(Font(WMFFont.for(.callout)))
                         .lineLimit(2)
+                        .padding(0)
 
                     if index < categories.count - 1 {
                         Divider()
+                            .padding(0)
                     }
                 }
             }
