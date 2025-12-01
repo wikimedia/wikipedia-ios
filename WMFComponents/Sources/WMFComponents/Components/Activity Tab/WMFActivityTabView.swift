@@ -130,62 +130,36 @@ public struct WMFActivityTabView: View {
     }
 
     private var historyView: some View {
-       return Group {
-           let timeline = timelineViewModel.timeline
-            if !timeline.isEmpty {
-                // Sort dates descending
-                ForEach(timeline.keys.sorted(by: >), id: \.self) { date in
-                    timelineSection(for: date, pages: timeline[date] ?? [])
-                        .listRowSeparator(.hidden)
+        Group {
+            if !viewModel.timelineSections.isEmpty {
+                ForEach(viewModel.timelineSections) { section in
+                    timelineSection(for: section)
                 }
             }
         }
     }
     
-    private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
-        let sortedPages = pages.sorted(by: { $0.date > $1.date })
-        let calendar = Calendar.current
-
-        let title: String
-        let subtitle: String
-        if calendar.isDateInToday(date) {
-            title = viewModel.localizedStrings.todayTitle
-            subtitle = viewModel.formatDate(date)
-        } else if calendar.isDateInYesterday(date) {
-            title = viewModel.localizedStrings.yesterdayTitle
-            subtitle = viewModel.formatDate(date)
-        } else {
-            title = viewModel.formatDate(date)
-            subtitle = ""
-        }
-
-        return Section(
-            header:
-                VStack(alignment: .leading, spacing: 4) {
-                    if !title.isEmpty {
-                        Text(title)
-                            .font(Font(WMFFont.for(.boldTitle3)))
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .textCase(.none)
-                    }
-                    if !subtitle.isEmpty {
-                        Text(subtitle)
-                            .font(Font(WMFFont.for(.subheadline)))
-                            .foregroundColor(Color(uiColor: theme.secondaryText))
-                            .textCase(.none)
-                    }
+    private func timelineSection(for section: WMFActivityTabViewModel.TimelineSection) -> some View {
+        Section(
+            header: VStack(alignment: .leading, spacing: 4) {
+                if !section.title.isEmpty {
+                    Text(section.title)
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundColor(Color(uiColor: theme.text))
+                        .textCase(.none)
                 }
-                .accessibilityElement(children: .combine)
-                .accessibilityAddTraits(.isHeader)
+                if !section.subtitle.isEmpty {
+                    Text(section.subtitle)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
+                        .textCase(.none)
+                }
+            }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isHeader)
         ) {
-            ForEach(sortedPages.indices.filter { index in
-                if viewModel.authenticationState != .loggedIn {
-                    let type = sortedPages[index].itemType
-                    return type != .edit && type != .save
-                }
-                return true
-            }, id: \.self) { index in
-                pageRow(page: sortedPages[index], section: date)
+            ForEach(section.pages.indices, id: \.self) { index in
+                pageRow(page: section.pages[index], section: section.id)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .padding(0)

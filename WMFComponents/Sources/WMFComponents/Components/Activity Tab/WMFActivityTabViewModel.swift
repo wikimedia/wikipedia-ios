@@ -176,3 +176,43 @@ public final class WMFActivityTabViewModel: ObservableObject {
         shouldShowLogInPrompt = false
     }
 }
+
+@MainActor
+extension WMFActivityTabViewModel {
+    public struct TimelineSection: Identifiable {
+        public let id: Date
+        public let title: String
+        public let subtitle: String
+        public let pages: [TimelineItem]
+    }
+
+    public var timelineSections: [TimelineSection] {
+        let calendar = Calendar.current
+        return timelineViewModel.timeline.keys.sorted(by: >).map { date in
+            let pages = timelineViewModel.timeline[date] ?? []
+            let sortedPages = pages.sorted(by: { $0.date > $1.date })
+
+            let title: String
+            let subtitle: String
+            if calendar.isDateInToday(date) {
+                title = localizedStrings.todayTitle
+                subtitle = formatDate(date)
+            } else if calendar.isDateInYesterday(date) {
+                title = localizedStrings.yesterdayTitle
+                subtitle = formatDate(date)
+            } else {
+                title = formatDate(date)
+                subtitle = ""
+            }
+
+            let filteredPages: [TimelineItem]
+            if authenticationState != .loggedIn {
+                filteredPages = sortedPages.filter { $0.itemType != .edit && $0.itemType != .save }
+            } else {
+                filteredPages = sortedPages
+            }
+
+            return TimelineSection(id: date, title: title, subtitle: subtitle, pages: filteredPages)
+        }
+    }
+}
