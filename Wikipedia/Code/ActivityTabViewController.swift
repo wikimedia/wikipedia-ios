@@ -37,6 +37,22 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
         updateLoginState()
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reachabilityNotifier.start()
+
+        if !reachabilityNotifier.isReachable {
+            showOfflineAlertIfNeeded()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        reachabilityNotifier.stop()
     }
 
     @objc private func updateLoginState() {
@@ -308,7 +324,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
-    // MARK: - private funcs
+    // MARK: - Private funcs
 
     private func onTapSaved() {
         navigationController?.popToRootViewController(animated: false)
@@ -354,6 +370,36 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateProfileButton()
         profileCoordinator?.theme = theme
         self.theme = theme
+    }
+
+    // MARK: - Reachability
+
+    private lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
+
+    private func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
+    }
+
+    private func showOfflineAlertIfNeeded() {
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+        }
     }
 
 }
