@@ -59,7 +59,7 @@ public struct WMFActivityTabView: View {
                         )
                     }
                     .listRowSeparator(.hidden)
-                    if let globalEditCount = viewModel.globalEditCount {
+                    if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
                         Section {
                             totalEditsView(amount: animatedGlobalEditCount)
                                 .onAppear {
