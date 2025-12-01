@@ -18,103 +18,140 @@ public struct WMFActivityTabView: View {
         self.timelineViewModel = viewModel.timelineViewModel
         self.savedViewModel = viewModel.articlesSavedViewModel
     }
-
+    
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.authenticationState == .loggedIn {
-                List {
-                    Section {
-                        VStack(spacing: 20) {
-                            headerView
-                                .accessibilityElement()
-                                .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
-                                .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
-
-                            VStack(alignment: .center, spacing: 8) {
-                                hoursMinutesRead
-                                    .accessibilityLabel(viewModel.hoursMinutesRead)
-                                Text(viewModel.localizedStrings.timeSpentReading)
-                                    .font(Font(WMFFont.for(.semiboldHeadline)))
-                                    .foregroundColor(Color(uiColor: theme.text))
-                                    .accessibilityHidden(true)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .accessibilityElement()
-                            .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
-
-                            articlesReadModule(proxy: proxy)
-
-                            savedArticlesModule
-
-                            if !viewModel.articlesReadViewModel.topCategories.isEmpty {
-                                topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
-                                    .accessibilityElement()
-                                    .accessibilityLabel(viewModel.localizedStrings.topCategories)
-                                    .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
-                            }
-                        }
-                        .padding(16)
-                        .listRowInsets(EdgeInsets())
-                        .background(
-                            LinearGradient(
-                                stops: [
-                                    Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
-                                    Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                    }
-                    .listRowSeparator(.hidden)
-                    
-                    if !viewModel.timelineViewModel.timeline.isEmpty {
-                        historyView
-                            .id("timelineSection")
-                            .padding(.top, 28)
-                    }
-                }
-                .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
-                .scrollContentBackground(.hidden)
-                .listStyle(.grouped)
-                .onAppear {
-                    viewModel.fetchData()
-                    viewModel.hasSeenActivityTab()
-                }
+                loggedInList(proxy: proxy)
             } else {
-                List {
-                    Section {
-                        VStack(alignment: .leading) {
-                            if viewModel.shouldShowLogInPrompt {
-                                VStack(alignment: .leading) {
-                                    loggedOutView
-                                }
-                                .listRowBackground(Color(uiColor: theme.paperBackground))
-                                .listRowInsets(EdgeInsets())
-                                .contentShape(Rectangle())
-                                .onTapGesture { /* disable row tap */ }
-                            }
-                            if !viewModel.timelineViewModel.timeline.isEmpty {
-                                historyView
-                                    .id("timelineSection")
-                            }
-                        }
-                        .listRowInsets(EdgeInsets())
-                        .background(Color(uiColor: theme.paperBackground))
-                    }
-                    .listRowSeparator(.hidden)
-                }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-                .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
-                .scrollContentBackground(.hidden)
-                .listStyle(.grouped)
-                .onAppear {
-                    viewModel.fetchData()
-                    viewModel.hasSeenActivityTab()
-                }
+                loggedOutList()
             }
         }
     }
+
+    private func loggedInList(proxy: ScrollViewProxy) -> some View {
+        List {
+            Section {
+                VStack(spacing: 20) {
+                    headerView
+                        .accessibilityElement()
+                        .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
+                        .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
+
+                    VStack(alignment: .center, spacing: 8) {
+                        hoursMinutesRead
+                            .accessibilityLabel(viewModel.hoursMinutesRead)
+                        Text(viewModel.localizedStrings.timeSpentReading)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundColor(Color(uiColor: theme.text))
+                            .accessibilityHidden(true)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .accessibilityElement()
+                    .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
+
+                    articlesReadModule(proxy: proxy)
+                    savedArticlesModule
+
+                    if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                        topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                            .accessibilityElement()
+                            .accessibilityLabel(viewModel.localizedStrings.topCategories)
+                            .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
+                    }
+                }
+                .padding(16)
+                .background(
+                    LinearGradient(
+                        stops: [
+                            Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                            Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .cornerRadius(12)
+            }
+            .listRowInsets(EdgeInsets())
+            .listRowSeparator(.hidden)
+
+            timelineSectionsList()
+        }
+        .listStyle(.grouped)
+        .scrollContentBackground(.hidden)
+        .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+        .onAppear {
+            viewModel.fetchData()
+            viewModel.hasSeenActivityTab()
+        }
+    }
+
+    private func loggedOutList() -> some View {
+        List {
+            if viewModel.shouldShowLogInPrompt {
+                Section {
+                    loggedOutView
+                        .padding(16)
+                        .background(Color(uiColor: theme.paperBackground))
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color(uiColor: theme.baseBackground), lineWidth: 0.5)
+                        )
+                }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color(uiColor: theme.paperBackground))
+                .listRowSeparator(.hidden)
+            }
+
+            timelineSectionsList()
+        }
+        .listStyle(.grouped)
+        .scrollContentBackground(.hidden)
+        .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+        .onAppear {
+            viewModel.fetchData()
+            viewModel.hasSeenActivityTab()
+        }
+    }
+
+    private func timelineSectionsList() -> some View {
+        ForEach(viewModel.timelineSections) { section in
+            Section(header: timelineHeaderView(for: section)) {
+                ForEach(section.pages.indices, id: \.self) { index in
+                    pageRow(page: section.pages[index], section: section.id)
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                        .padding(.vertical, 4)
+                }
+            }
+            .listRowBackground(Color(uiColor: theme.paperBackground))
+            .padding(.horizontal, 16)
+            .id("timelineSection")
+        }
+    }
+
+    private func timelineHeaderView(for section: WMFActivityTabViewModel.TimelineSection) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            if !section.title.isEmpty {
+                Text(section.title)
+                    .font(Font(WMFFont.for(.boldTitle3)))
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .textCase(.none)
+            }
+            if !section.subtitle.isEmpty {
+                Text(section.subtitle)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .textCase(.none)
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isHeader)
+        .padding(.vertical, 4)
+    }
+
 
     private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
         let summary = timelineViewModel.pageSummaries[item.id]
