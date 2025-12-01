@@ -9,6 +9,9 @@ public struct WMFActivityTabView: View {
     @ObservedObject private var timelineViewModel: TimelineViewModel
     @ObservedObject private var savedViewModel: ArticlesSavedViewModel
 
+    @State private var animatedGlobalEditCount: Int = 0
+    @State private var hasShownGlobalEditsCard: Bool = false
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -67,7 +70,34 @@ public struct WMFActivityTabView: View {
                         )
                     }
                     .listRowSeparator(.hidden)
-                    
+                    if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                        Section {
+                            totalEditsView(amount: animatedGlobalEditCount)
+                                .onAppear {
+                                    if !hasShownGlobalEditsCard {
+                                        hasShownGlobalEditsCard = true
+                                        animatedGlobalEditCount = 0
+
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = globalEditCount
+                                        }
+                                    } else {
+                                        animatedGlobalEditCount = globalEditCount
+                                    }
+                                }
+                                .onChange(of: globalEditCount) { newValue in
+                                    withAnimation(.easeOut(duration: 0.6)) {
+                                        animatedGlobalEditCount = newValue
+                                    }
+                                }
+                        }
+                        .listRowSeparator(.hidden)
+                        .transition(
+                            .move(edge: .bottom)
+                            .combined(with: .opacity)
+                        )
+                    }
+
                     if !viewModel.timelineViewModel.timeline.isEmpty {
                         historyView
                             .id("timelineSection")
@@ -134,7 +164,19 @@ public struct WMFActivityTabView: View {
             }
         }
     }
-    
+
+    private func totalEditsView(amount: Int) -> some View {
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.totalEdits,
+            dateText: nil,
+            amount: amount,
+            onTapModule: {
+                viewModel.navigateToGlobalEdits?()
+            }
+        )
+    }
+
     private func timelineSection(for date: Date, pages: [TimelineItem]) -> some View {
         let sortedPages = pages.sorted(by: { $0.date > $1.date })
         let calendar = Calendar.current

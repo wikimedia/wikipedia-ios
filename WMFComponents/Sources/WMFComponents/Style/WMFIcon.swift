@@ -126,6 +126,7 @@ public enum WMFSFSymbolIcon {
     case rectangle3
     case clockBadgeX
     case bubbleRightFill
+    case globeAmericas
 
     public var name: String? {
         switch self {
@@ -315,6 +316,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "text.page", withConfiguration: configuration)
         case .bubbleRightFill:
             image = UIImage(systemName: "bubble.right.fill", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
+        case .globeAmericas:
+            image = UIImage(systemName: "globe.americas.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
