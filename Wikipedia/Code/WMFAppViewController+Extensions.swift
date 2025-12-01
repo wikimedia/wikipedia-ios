@@ -822,6 +822,7 @@ extension WMFAppViewController {
         let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         
+        let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
         var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
             authdValue = .loggedIn
@@ -849,7 +850,10 @@ extension WMFAppViewController {
                 loggedOutPrimaryCTA: CommonStrings.joinLoginTitle,
                 todayTitle: CommonStrings.todayTitle,
                 yesterdayTitle: CommonStrings.yesterdayTitle,
-                openArticle: openArticle),
+                openArticle: openArticle,
+                read: CommonStrings.readString,
+                edited: edited,
+                saved: CommonStrings.shortSavedTitle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
             Task {

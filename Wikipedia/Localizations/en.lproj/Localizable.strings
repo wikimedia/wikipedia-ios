@@ -320,7 +320,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Double tap to enable automatic monthly donations of this amount.";
 "donate-accessibility-textfield-hint" = "Enter custom amount to donate.";
 "donate-accessibility-transaction-fee-hint" = "Double tap to add transaction fee to donation amount.";
-"donate-already-donated" = "Thank you, dear donor! Your generosity helps keep Wikipedia and its sister sites thriving.";
+"donate-already-donated" = "Thank you, dear donor! Your generosity helps keep Wikipedia and its and other free knowledge projects thriving.";
 "donate-apple-fine-print" = "Apple is not in charge of raising money for this purpose.";
 "donate-email-opt-in-text" = "Yes, the Wikimedia Foundation can send me an occasional email.";
 "donate-help-frequently-asked-questions" = "Frequently asked questions";
@@ -372,6 +372,7 @@
 "edit-summary-short-description-updated" = "Updated short description";
 "edit-watch-list-learn-more-text" = "Learn more about your Watchlist";
 "edit-watch-this-page-text" = "Watch this page";
+"edited-article" = "Edited";
 "editing-welcome-be-bold-subtitle" = "Be bold but not reckless in updating articles. Do not agonize over making mistakes: every past version of a page is saved, so mistakes can be easily corrected by our community.";
 "editing-welcome-be-bold-title" = "Your voice is important";
 "editing-welcome-citations-subtitle" = "All content must be verifiable. When adding new information to an article, editors should provide an inline citation to a reliable source that directly supports the contribution.";

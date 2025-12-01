@@ -37,12 +37,14 @@ public actor WMFSavedArticlesDataController {
             .shuffled()
             .prefix(3)
             .map { $0 }
+        
+        let titles = random3articles.map { $0.title }
 
         if let thumbnailURLs = try? await fetchSavedArticlesImageURLs(for: random3articles) {
             randomURLs = thumbnailURLs
         }
 
-        return SavedArticleModuleData(savedArticlesCount: pages.count, articleThumbURLs: randomURLs, dateLastSaved: lastDate)
+        return SavedArticleModuleData(savedArticlesCount: pages.count, articleThumbURLs: randomURLs, dateLastSaved: lastDate, articleTitles: titles)
     }
 
     // MARK: - Private functions
@@ -111,31 +113,31 @@ public actor WMFSavedArticlesDataController {
             }
         }
     }
-
+    
     private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot]) async throws -> [URL?] {
         guard !snapshots.isEmpty else { return [] }
 
-        return await withTaskGroup(of: URL?.self) { group in
-            for snap in snapshots {
-                group.addTask { [snap] in
-                    guard let project = WMFProject(id: snap.projectID) else { return nil }
+        return await withTaskGroup(of: (Int, URL?).self) { group in
+            for (index, snap) in snapshots.enumerated() {
+                group.addTask { [snap, index] in
+                    guard let project = WMFProject(id: snap.projectID) else {
+                        return (index, nil)
+                    }
                     do {
                         let summary = try await self.fetchSummary(project: project, title: snap.title)
-                        return summary.thumbnailURL
+                        return (index, summary.thumbnailURL)
                     } catch {
-                        return nil
+                        return (index, nil)
                     }
                 }
             }
 
-            var urls: [URL?] = []
-            urls.reserveCapacity(snapshots.count)
+            var urls = [URL?](repeating: nil, count: snapshots.count)
 
-            for await url in group {
-                if let url {
-                    urls.append(url)
-                }
+            for await (index, url) in group {
+                urls[index] = url
             }
+
             return urls
         }
     }
@@ -156,10 +158,18 @@ public struct SavedArticleModuleData: Codable {
     public let savedArticlesCount: Int
     public let articleThumbURLs: [URL?]
     public let dateLastSaved: Date?
+    public let articleTitles: [String]
 
-    public init(savedArticlesCount: Int, articleThumbURLs: [URL?], dateLastSaved: Date?) {
+    public init(
+        savedArticlesCount: Int,
+        articleThumbURLs: [URL?],
+        dateLastSaved: Date?,
+        articleTitles: [String]
+    ) {
         self.savedArticlesCount = savedArticlesCount
         self.articleThumbURLs = articleThumbURLs
         self.dateLastSaved = dateLastSaved
+        self.articleTitles = articleTitles
     }
 }
+
