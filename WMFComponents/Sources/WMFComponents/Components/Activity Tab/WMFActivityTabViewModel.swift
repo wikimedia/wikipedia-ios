@@ -12,7 +12,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Navigation / Delegates
 
-
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
 
     // MARK: - Localization
@@ -36,6 +35,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let todayTitle: String
         public let yesterdayTitle: String
         public let openArticle: String
+        public let totalEdits: String
+        public let read: String
+        public let edited: String
+        public let saved: String
 
         public init(
             userNamesReading: @escaping (String) -> String,
@@ -55,8 +58,13 @@ public final class WMFActivityTabViewModel: ObservableObject {
             loggedOutSecondaryCTA: String,
             todayTitle: String,
             yesterdayTitle: String,
-            openArticle: String
+            openArticle: String,
+            totalEdits: String,
+            read: String,
+            edited: String,
+            saved: String
         ) {
+
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -75,6 +83,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.todayTitle = todayTitle
             self.yesterdayTitle = yesterdayTitle
             self.openArticle = openArticle
+            self.totalEdits = totalEdits
+            self.read = read
+            self.edited = edited
+            self.saved = saved
         }
     }
 
@@ -86,6 +98,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
     @Published public var timelineViewModel: TimelineViewModel
+
+    @Published var globalEditCount: Int?
+    public var navigateToGlobalEdits: (() -> Void)?
 
     // MARK: - Init
 
@@ -127,18 +142,30 @@ public final class WMFActivityTabViewModel: ObservableObject {
             async let readTask: Void = articlesReadViewModel.fetch()
             async let savedTask: Void = articlesSavedViewModel.fetch()
             async let timelineTask: Void = timelineViewModel.fetch()
+            async let editCountTask: Void = getGlobalEditCount()
 
-            _ = await (readTask, savedTask, timelineTask)
+            _ = await (readTask, savedTask, timelineTask, editCountTask)
 
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
+            self.globalEditCount = globalEditCount
 
             hasSeenActivityTab()
         }
     }
 
     // MARK: - Updates
+
+    private func getGlobalEditCount() async {
+        do {
+            let count = try await dataController.getGlobalEditCount()
+            globalEditCount = count
+        } catch {
+            debugPrint("Error getting global edit count: \(error)")
+        }
+
+    }
 
     public func updateUsername(username: String) {
         articlesReadViewModel.username = username

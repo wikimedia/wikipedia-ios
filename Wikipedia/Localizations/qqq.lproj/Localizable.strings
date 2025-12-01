@@ -108,6 +108,7 @@
 "activity-tab-time-spent-reading" = "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes";
 "activity-tab-title" = "Activity title";
 "activity-tab-top-categories" = "Title for module about top categories this month";
+"activity-tab-total-edits" = "Text for activity tab module about global edits";
 "activity-tab-unsatisfied" = "Satisfaction survey unsatisfied";
 "activity-tab-usernames-reading-title" = "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username.";
 "activity-tab-very-satisfied" = "Satisfaction survey very satisfied";
@@ -373,6 +374,7 @@
 "edit-summary-short-description-updated" = "Edit summary message when updating the short description of an article";
 "edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
 "edit-watch-this-page-text" = "Text for watch this page label";
+"edited-article" = "Label for edited articles";
 "editing-welcome-be-bold-subtitle" = "Subtitle for editing onboarding screen encouraging users to start editing Wikipedia articles";
 "editing-welcome-be-bold-title" = "Title for editing onboarding screen encouraging users to start editing Wikipedia articles";
 "editing-welcome-citations-subtitle" = "Subtitle for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles";
