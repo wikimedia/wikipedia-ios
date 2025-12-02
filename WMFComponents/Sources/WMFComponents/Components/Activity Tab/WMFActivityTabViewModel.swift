@@ -8,7 +8,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Dependencies
 
     private let dataController: WMFActivityTabDataController
-    let hasSeenActivityTab: () -> Void
 
     // MARK: - Navigation / Delegates
 
@@ -83,12 +82,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public init(
         localizedStrings: LocalizedStrings,
         dataController: WMFActivityTabDataController = .shared,
-        hasSeenActivityTab: @escaping () -> Void,
         authenticationState: LoginState
     ) {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
-        self.hasSeenActivityTab = hasSeenActivityTab
         self.authenticationState = authenticationState
 
         let dateFormatter: (Date) -> String = { date in
@@ -130,8 +127,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
-
-            hasSeenActivityTab()
         }
     }
 
