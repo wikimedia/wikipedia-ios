@@ -102,8 +102,8 @@ public struct WMFActivityTabView: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
 
-
             timelineSectionsList()
+                .id("timelineSection")
         }
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .scrollContentBackground(.hidden)
@@ -161,7 +161,6 @@ public struct WMFActivityTabView: View {
             }
             .listRowBackground(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 16)
-            .id("timelineSection-\(section.id)")
         }
     }
 
