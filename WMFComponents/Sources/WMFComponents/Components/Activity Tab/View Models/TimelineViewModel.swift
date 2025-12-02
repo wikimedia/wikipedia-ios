@@ -19,7 +19,14 @@ public final class TimelineViewModel: ObservableObject {
     public func fetch() async {
         do {
             let result = try await dataController.getTimelineItems()
-            self.timeline = result
+            
+            // Business rule: if there are no items, we still want a section that says "Today"
+            if result.isEmpty {
+                self.timeline = [Date(): []]
+            } else {
+                self.timeline = result
+            }
+            
         } catch {
             debugPrint("error fetching timeline: \(error)")
         }
