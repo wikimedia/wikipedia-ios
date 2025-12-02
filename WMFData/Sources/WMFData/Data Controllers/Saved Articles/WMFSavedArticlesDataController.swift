@@ -31,7 +31,7 @@ public actor WMFSavedArticlesDataController {
             lastDate = lastDateSaved
         }
 
-        let titleURLTuples = await fetchSavedArticlesImageURLs(for: pages)
+        let titleURLTuples = await fetchSavedArticlesImageURLs(for: pages, count: 3)
 
         let articleThumbTuples = Array(
             titleURLTuples
@@ -154,37 +154,43 @@ public actor WMFSavedArticlesDataController {
         }
     }
     
-    private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot]) async -> [(String, URL?)] {
-        guard !snapshots.isEmpty else { return [] }
+    private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot], count: Int?) async -> [(String, URL?)] {
+        guard !snapshots.isEmpty else {
+            return []
+        }
 
-        return await withTaskGroup(of: (Int, String, URL?).self) { group in
-            for (index, snap) in snapshots.enumerated() {
-                group.addTask { [snap, index] in
-                    guard let project = WMFProject(id: snap.projectID) else {
-                        return (index, snap.title, nil)
-                    }
+        let shuffledSnapshots = snapshots.shuffled()
 
-                    do {
-                        let summary = try await self.fetchSummary(
-                            project: project,
-                            title: snap.title
-                        )
-                        return (index, snap.title, summary.thumbnailURL)
-                    } catch {
-                        return (index, snap.title, nil)
-                    }
+        var results: [(String, URL?)] = []
+
+        for snapshot in shuffledSnapshots {
+            if let count {
+                if results.count >= count {
+                    break
                 }
             }
 
-            var results = [(String, URL?)](repeating: ("", nil), count: snapshots.count)
-
-            for await (index, title, url) in group {
-                results[index] = (title, url)
+            guard let project = WMFProject(id: snapshot.projectID) else {
+                continue
             }
 
-            return results
+            do {
+                let summary = try await fetchSummary(
+                    project: project,
+                    title: snapshot.title
+                )
+
+                if let thumbURL = summary.thumbnailURL {
+                    results.append((snapshot.title, thumbURL))
+                }
+            } catch {
+                continue
+            }
         }
+
+        return results
     }
+
 
 }
 
