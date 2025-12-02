@@ -37,6 +37,22 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
         updateLoginState()
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reachabilityNotifier.start()
+
+        if !reachabilityNotifier.isReachable {
+            showOfflineAlertIfNeeded()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        reachabilityNotifier.stop()
     }
 
     @objc private func updateLoginState() {
@@ -138,8 +154,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
 
-        viewModel.articlesSavedViewModel.navigateToSaved = goToSaved
+        viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
         viewModel.timelineViewModel.onTapArticle = onTapArticle
+        viewModel.onTapGlobalEdits = onTapGlobalEdits
+
 
         configureNavigationBar()
 
@@ -344,22 +362,42 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
-    @objc func goToSaved() {
+    // MARK: - Private funcs
+
+    private func onTapSaved() {
         navigationController?.popToRootViewController(animated: false)
 
         if let tabBar = self.tabBarController {
             tabBar.selectedIndex = 2
         }
     }
-    
-    func onTapArticle(item: TimelineItem) {
+
+    private var userContributionsURL: URL? {
+        if let appLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+           let username = dataStore?.authenticationManager.authStatePermanentUsername,
+           let siteURL = WMFProject.wikipedia(appLanguage).siteURL {
+            return siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)")
+
+        }
+        return nil
+    }
+
+    private func onTapGlobalEdits() {
+        if let url = userContributionsURL {
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            navigationController?.pushViewController(webVC, animated: true)
+        }
+    }
+
+   private  func onTapArticle(item: TimelineItem) {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }
     }
     
-    // MARK: Theming
+    // MARK: - Theming
 
     public func apply(theme: Theme) {
         guard viewIfLoaded != nil else {
@@ -369,6 +407,37 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         profileCoordinator?.theme = theme
         self.theme = theme
     }
+
+    // MARK: - Reachability
+
+    private lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
+
+    private func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
+    }
+
+    private func showOfflineAlertIfNeeded() {
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+        }
+    }
+
 }
 
 // MARK: - Extensions

@@ -143,7 +143,7 @@ public struct WMFActivityTabView: View {
             dateText: nil,
             amount: amount,
             onTapModule: {
-                viewModel.navigateToGlobalEdits?()
+                viewModel.onTapGlobalEdits?()
             }
         )
     }
@@ -270,7 +270,7 @@ public struct WMFActivityTabView: View {
             snippet: summary?.extract ?? item.snippet
         )
     }
-    
+
     private func pageRow(page: TimelineItem, section: Date) -> some View {
         let iconImage: UIImage?
         let actionString: String
@@ -399,7 +399,7 @@ public struct WMFActivityTabView: View {
                 dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
                 amount: viewModel.articlesSavedViewModel.articlesSavedAmount,
                 onTapModule: {
-                    viewModel.articlesSavedViewModel.navigateToSaved?()
+                    viewModel.articlesSavedViewModel.onTapSaved?()
                 },
                 content: {
                     let thumbURLs = savedViewModel.articlesSavedThumbURLs

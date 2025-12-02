@@ -76,7 +76,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var shouldShowLogInPrompt: Bool = false
 
     @Published var globalEditCount: Int?
-    public var navigateToGlobalEdits: (() -> Void)?
+    public var onTapGlobalEdits: (() -> Void)?
 
     // MARK: - Init
 
@@ -138,6 +138,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Updates
 
     private func getGlobalEditCount() async {
+        guard case .loggedIn = authenticationState else { return }
         do {
             let count = try await dataController.getGlobalEditCount()
             globalEditCount = count
