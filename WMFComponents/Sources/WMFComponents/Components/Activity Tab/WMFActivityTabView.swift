@@ -320,7 +320,7 @@ public struct WMFActivityTabView: View {
             loadImageAction: { imageURLString in
                 try? await timelineViewModel.loadImage(imageURLString: imageURLString)
             },
-            iconImage: iconImage
+            iconImage: viewModel.authenticationState == .loggedIn ? iconImage : nil
         )
         .listRowSeparator(.hidden)
         .accessibilityElement()
