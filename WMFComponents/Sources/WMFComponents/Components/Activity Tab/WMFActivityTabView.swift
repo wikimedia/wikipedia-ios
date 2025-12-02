@@ -213,11 +213,15 @@ public struct WMFActivityTabView: View {
                 .accessibilityElement(children: .combine)
                 .accessibilityAddTraits(.isHeader)
         ) {
-            ForEach(sortedPages.indices, id: \.self) { index in
-                pageRow(page: sortedPages[index], section: date)
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
-                    .padding(0)
+            if sortedPages.isEmpty {
+                Text("I am empty!")
+            } else {
+                ForEach(sortedPages.indices, id: \.self) { index in
+                    pageRow(page: sortedPages[index], section: date)
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                        .padding(0)
+                }
             }
         }
         .listRowInsets(EdgeInsets())
