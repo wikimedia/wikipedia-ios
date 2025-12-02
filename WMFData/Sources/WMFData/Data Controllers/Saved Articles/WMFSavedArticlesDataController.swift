@@ -101,6 +101,47 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
+    public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
+        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
+        let context = try coreDataStore.newBackgroundContext
+
+        return try await context.perform {
+            let sortDescriptor = NSSortDescriptor(key: "savedInfo.savedDate", ascending: false)
+            let predicate = NSPredicate(format: "savedInfo != nil")
+
+            guard
+                let pages: [CDPage] = try coreDataStore.fetch(
+                    entityType: CDPage.self,
+                    predicate: predicate,
+                    fetchLimit: 1000,
+                    sortDescriptors: [sortDescriptor],
+                    in: context
+                )
+            else { return [] }
+
+            var result: [WMFPageWithTimestamp] = []
+
+            for page in pages {
+                guard
+                    let projectID = page.projectID,
+                    let title = page.title,
+                    let saved = page.savedInfo?.savedDate
+                else { continue }
+
+                let wmfPage = WMFPage(
+                    namespaceID: Int(page.namespaceID),
+                    projectID: projectID,
+                    title: title
+                )
+
+                result.append(WMFPageWithTimestamp(page: wmfPage, timestamp: saved))
+            }
+
+            return result
+        }
+
+    }
+
     private func fetchSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary {
         try await withCheckedThrowingContinuation { continuation in
             articleSummaryDataController.fetchArticleSummary(project: project, title: title) { result in

@@ -278,6 +278,7 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1行が未編集}}";
 "diff-user-button-accessibility-text" = "ダブルタップしてメニューを開く";
 "dim-images" = "暗い画像";
+// Fuzzy
 "donate-already-donated" = "ご寄付をしてくださり、ありがとうございます！あなたの寛大なご寄付が、ウィキペディアとその姉妹サイトの繁栄を支えています。";
 "donate-apple-fine-print" = "この募金活動はアップル社が行っているものではありません。";
 "donate-email-opt-in-text" = "はい、ウィキメディア財団から不定期のお知らせメールを受け取ります。";

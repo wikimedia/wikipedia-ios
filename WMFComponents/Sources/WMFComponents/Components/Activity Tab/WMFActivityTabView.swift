@@ -9,6 +9,9 @@ public struct WMFActivityTabView: View {
     @ObservedObject private var timelineViewModel: TimelineViewModel
     @ObservedObject private var savedViewModel: ArticlesSavedViewModel
 
+    @State private var animatedGlobalEditCount: Int = 0
+    @State private var hasShownGlobalEditsCard: Bool = false
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -74,6 +77,31 @@ public struct WMFActivityTabView: View {
                 )
             }
             .listRowSeparator(.hidden)
+            
+            if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                Section {
+                    totalEditsView(amount: animatedGlobalEditCount)
+                        .onAppear {
+                            if !hasShownGlobalEditsCard {
+                                hasShownGlobalEditsCard = true
+                                animatedGlobalEditCount = 0
+                                withAnimation(.easeOut(duration: 0.6)) {
+                                    animatedGlobalEditCount = globalEditCount
+                                }
+                            } else {
+                                animatedGlobalEditCount = globalEditCount
+                            }
+                        }
+                        .onChange(of: globalEditCount) { newValue in
+                            withAnimation(.easeOut(duration: 0.6)) {
+                                animatedGlobalEditCount = newValue
+                            }
+                        }
+                }
+                .listRowSeparator(.hidden)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+
 
             timelineSectionsList()
         }
@@ -106,6 +134,18 @@ public struct WMFActivityTabView: View {
             viewModel.fetchData()
             viewModel.hasSeenActivityTab()
         }
+    }
+    
+    private func totalEditsView(amount: Int) -> some View {
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.totalEdits,
+            dateText: nil,
+            amount: amount,
+            onTapModule: {
+                viewModel.navigateToGlobalEdits?()
+            }
+        )
     }
 
     private func timelineSectionsList() -> some View {
@@ -230,45 +270,60 @@ public struct WMFActivityTabView: View {
     
     private func pageRow(page: TimelineItem, section: Date) -> some View {
         let iconImage: UIImage?
+        let actionString: String
         switch page.itemType {
         case .standard:
             iconImage = nil
+            actionString = ""
         case .edit:
             iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
+            actionString = viewModel.localizedStrings.edited
         case .read:
             iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
-        case .save:
+            actionString = viewModel.localizedStrings.read
+        case .saved:
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
+            actionString = viewModel.localizedStrings.saved
         }
-
         let summary = timelineViewModel.pageSummaries[page.id]
         let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
+        let description: String? = {
+            if let desc = summary?.description, !desc.isEmpty {
+                return desc
+            } else if let pageDesc = page.description, !pageDesc.isEmpty {
+                return pageDesc
+            } else if let extract = summary?.extract, !extract.isEmpty {
+                return extract
+            } else {
+                return nil
+            }
+        }()
+        
+        let accessibilityLabelParts = [
+            actionString,
+            page.pageTitle.replacingOccurrences(of: "_", with: " "),
+            description
+        ].compactMap { $0 }
 
         return WMFPageRow(
             needsLimitedFontSize: false,
             id: page.id,
             titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
-            articleDescription: {
-                if let desc = summary?.description, !desc.isEmpty {
-                    return desc
-                } else if let pageDesc = page.description, !pageDesc.isEmpty {
-                    return pageDesc
-                } else if let extract = summary?.extract, !extract.isEmpty {
-                    return extract
-                } else {
-                    return nil
-                }
-            }(),
-            imageURLString: initialThumbnailURLString,
+            articleDescription: description,
+            imageURLString: summary?.thumbnailURL?.absoluteString ?? page.imageURLString,
             titleLineLimit: 1,
             isSaved: false,
-            showsSwipeActions: true,
+            showsSwipeActions: page.itemType == .read,
             deleteItemAction: { timelineViewModel.deletePage(item: page) },
             loadImageAction: { imageURLString in
                 try? await timelineViewModel.loadImage(imageURLString: imageURLString)
             },
-            iconImage: viewModel.authenticationState == .loggedIn ? iconImage : nil
+            iconImage: iconImage
         )
+        .listRowSeparator(.hidden)
+        .accessibilityElement()
+        .accessibilityLabel(accessibilityLabelParts.joined(separator: " - "))
+        .accessibilityAddTraits(.isButton)
         .contentShape(Rectangle())
         .onTapGesture {
             timelineViewModel.onTap(page)
