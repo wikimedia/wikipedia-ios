@@ -158,6 +158,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Updates
 
     private func getGlobalEditCount() async {
+        guard isLoggedIn else { return }
         do {
             let count = try await dataController.getGlobalEditCount()
             globalEditCount = count
