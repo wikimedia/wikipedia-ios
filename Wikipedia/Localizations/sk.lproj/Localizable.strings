@@ -89,7 +89,6 @@
 "action-unsave" = "Zrušiť uloženie";
 "action-unsaved-accessibility-notification" = "Článok neuložený";
 "action-update" = "Aktualizovať";
-"activity-tab-greeting" = "$1Dobrý deň, $2$3 👋 Tu je váš týždenný prehľad na Wikipédii.";
 "activity-tab-title" = "Aktivita";
 "add-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články}} k zoznamu na prečítanie";
 "advanced-settings-title" = "Rozšírené nastavenia";

@@ -133,7 +133,6 @@
 "activity-tab-email-third-line" = "Görmek istediğim davranış:";
 "activity-tab-email-title" = "Sorun Bildirimi - Etkinlik Sekmesi";
 "activity-tab-generic-no-edits" = "Bu hafta düzenleme yapmadınız. Katkıları takip etmek için şimdi başlayın.";
-"activity-tab-greeting" = "$1Merhaba $2$3👋 İşte haftalık Wikipedia özetiniz.";
 "activity-tab-hours-minutes-read" = "$1s $2d";
 "activity-tab-hours-on-wikipedia-ios" = "iOS VİKİPEDİ'DE";
 "activity-tab-logged-out-subtitle" = "Vikipedi uygulamasındaki etkinliğinizi görüntülemek için oturum açın ya da bir hesap oluşturun.";
@@ -307,9 +306,6 @@
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
 "developer-force-email-auth" = "E-posta kimlik doğrulamasını zorunlu kıl";
 "developer-settings" = "Geliştirici Ayarları";
-"developer-settings-activity-tab-group-A" = "Etkinlik sekmesini Grup A'ya ayarla";
-"developer-settings-activity-tab-group-B" = "Etkinlik sekmesini Grup B'ye ayarla";
-"developer-settings-activity-tab-group-C" = "Etkinlik sekmesini Grup C'ye ayarla";
 "developer-settings-bypass-donation" = "Baypas Bağışı";
 "developer-settings-dynamic-tabs-group-B-v2" = "B kümesindeki V2 sekmelerini etkinleştir";
 "developer-settings-dynamic-tabs-group-C-v2" = "C kümesindeki V2 sekmelerini etkinleştir";
@@ -377,6 +373,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu tutarda otomatik aylık bağış etkinleştirmek için iki kez dokunun.";
 "donate-accessibility-textfield-hint" = "Bağış yapmak için özel tutarı girin.";
 "donate-accessibility-transaction-fee-hint" = "Bağış tutarına işlem ücreti eklemek için iki kez dokunun.";
+// Fuzzy
 "donate-already-donated" = "Teşekkürler sevgili bağışçı! Cömertliğiniz Vikipedi'nin ve kardeş sitelerinin gelişmesine yardımcı oluyor.";
 "donate-apple-fine-print" = "Apple bu amaç için para toplamakla yükümlü değildir.";
 "donate-email-opt-in-text" = "Evet, Wikimedia Vakfı bana ara sıra e-posta gönderebilir.";

@@ -283,6 +283,7 @@
 "donate-accessibility-monthly-recurring-hint" = "برای فعال‌سازی اهدای خودکار ماهانهٔ این مبلغ، دو بار ضربه بزنید.";
 "donate-accessibility-textfield-hint" = "مبلغ سفارشی برای کمک را وارد کنید.";
 "donate-accessibility-transaction-fee-hint" = "برای افزودن کارمزد تراکنش مبلغ کمک اهدایی دو بار ضربه بزنید.";
+// Fuzzy
 "donate-already-donated" = "از شما اهداکنندهٔ عزیز سپاسگزاریم! سخاوت شما به رونق ویکی‌پدیا و وبگاه‌های خواهر آن کمک خواهد کرد.";
 "donate-apple-fine-print" = "شرکت اپل مسؤولیتی برای جمع‌آوری پول برای این منظور ندارد.";
 "donate-email-opt-in-text" = "بله، بنیاد ویکی‌مدیا می‌تواند گاهی برای من ایمیل ارسال کند.";

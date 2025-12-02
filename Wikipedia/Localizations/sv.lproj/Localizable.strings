@@ -106,7 +106,6 @@
 "activity-tab-articles-read" = "Artiklar som har lästs denna månad";
 "activity-tab-articles-read-graph-label" = "Artiklar";
 "activity-tab-generic-no-edits" = "Du har inte redigerat den här veckan. Börja nu för att spåra dina bidrag.";
-"activity-tab-greeting" = "$1Hej $2$3 👋 Här kommer din veckosammanfattning från Wikipedia.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "PÅ WIKIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Logga in eller skapa ett konto för att se din aktivitet i Wikipedia-appen";
@@ -279,9 +278,6 @@
 "description-welcome-start-editing-button" = "Börja redigera";
 "developer-force-email-auth" = "Tvinga e-postautentisering";
 "developer-settings" = "Utvecklarinställningar";
-"developer-settings-activity-tab-group-A" = "Ändra aktivitetsfliken till grupp A";
-"developer-settings-activity-tab-group-B" = "Ändra aktivitetsfliken till grupp B";
-"developer-settings-activity-tab-group-C" = "Ändra aktivitetsfliken till grupp C";
 "developer-settings-bypass-donation" = "Hoppa över donation";
 "developer-settings-dynamic-tabs-group-B-v2" = "Aktivera flikar V2 med grupp B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Aktivera flikar V2 med grupp C";
@@ -349,6 +345,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltryck för att aktivera automatiska månadsdonationer med detta belopp.";
 "donate-accessibility-textfield-hint" = "Ange anpassat belopp att donera.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltryck för att lägga till transaktionsavgiften i donationsbeloppet.";
+// Fuzzy
 "donate-already-donated" = "Tack, kära donator! Din generositet hjälper till att hålla Wikipedia och dess systerwebbplatser blomstrande.";
 "donate-apple-fine-print" = "Apple är inte ansvarig för att samla in pengar till detta ändamål.";
 "donate-email-opt-in-text" = "Ja, Wikimedia Foundation får skicka e-postmeddelande till mig ibland.";
