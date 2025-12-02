@@ -79,7 +79,42 @@ public actor WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-    private var hasSeenActivityTab: Bool {
+    public func shouldShowLoginPrompt(for state: LoginState) -> Bool {
+        switch state {
+        case .loggedIn:
+            return false
+        case .temp:
+            return !tempAccountUserHasDismissedActivityTabLogInPrompt
+        case .loggedOut:
+            return !loggedOutUserHasDismissedActivityTabLogInPrompt
+        }
+    }
+    
+    public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue, value: newValue)
+        }
+    }
+    
+    public var tempAccountUserHasDismissedActivityTabLogInPrompt: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue, value: newValue)
+        }
+    }
+    
+    public func setLoggedOutUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
+        loggedOutUserHasDismissedActivityTabLogInPrompt = value
+    }
+
+    public func setTempAccountUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
+        tempAccountUserHasDismissedActivityTabLogInPrompt = value
+    }
+    
+    public var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
         } set {
@@ -323,10 +358,6 @@ public actor WMFActivityTabDataController {
             throw CustomError.beforeStartDate
         }
 
-        guard isDevSettingOn || !hasExperimentEnded() else {
-            throw CustomError.pastAssignmentEndDate
-        }
-
         if let assignmentCache {
             return assignmentCache
         }
@@ -345,6 +376,11 @@ public actor WMFActivityTabDataController {
 
             self.assignmentCache = assignment
             return assignment
+        }
+
+        // return assigment if existing, do not assign new if past experiment end date
+        guard isDevSettingOn || !hasExperimentEnded() else {
+            throw CustomError.pastAssignmentEndDate
         }
 
         let newAssignment = try assignExperiment()
@@ -543,4 +579,10 @@ public enum TimelineItemType {
     case edit
     case read
     case saved
+}
+
+public enum LoginState: Int {
+    case loggedOut = 0
+    case temp = 1
+    case loggedIn = 2
 }

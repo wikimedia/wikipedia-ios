@@ -1357,6 +1357,14 @@ extension WMFAppViewController {
         let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
 
         let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
+        var authdValue: LoginState = .loggedOut
+        if dataStore.authenticationManager.authStateIsPermanent {
+            authdValue = .loggedIn
+        } else if dataStore.authenticationManager.authStateIsTemporary {
+            authdValue = .temp
+        } else {
+            authdValue = .loggedOut
+        }
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
@@ -1373,8 +1381,7 @@ extension WMFAppViewController {
                 remaining: remaining(amount:),
                 loggedOutTitle: loggedOutTitle,
                 loggedOutSubtitle: loggedOutSubtitle,
-                loggedOutPrimaryCTA: createAccount,
-                loggedOutSecondaryCTA: CommonStrings.editSignIn,
+                loggedOutPrimaryCTA: CommonStrings.joinLoginTitle,
                 todayTitle: CommonStrings.todayTitle,
                 yesterdayTitle: CommonStrings.yesterdayTitle,
                 openArticle: openArticle,
@@ -1383,7 +1390,7 @@ extension WMFAppViewController {
                 edited: edited,
                 saved: CommonStrings.shortSavedTitle),
                 dataController: activityTabDataController,
-                isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+                authenticationState: authdValue)
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
@@ -1393,5 +1400,17 @@ extension WMFAppViewController {
         )
 
         return controller
+    }
+    
+    private var isLoggedIn: Int {
+        // 0 logged out
+        // 1 temp
+        // 2 logged in
+        if dataStore.authenticationManager.authStateIsTemporary {
+            return 1
+        } else if dataStore.authenticationManager.authStateIsPermanent {
+            return 2
+        }
+        return 0
     }
 }

@@ -212,7 +212,6 @@
 "continue-button-title" = "Continue button title";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"create-account" = "Create account title";
 "crimean-tatar-variants-alert-body" = "Body text of alert used to inform users about Crimean Tatar variant support. Please do not translate the newlines (\n) or Crimean Tatar characters (къырымтатарджа, etc.).";
 "crimean-tatar-variants-alert-title" = "Title of alert used to inform users about Crimean Tatar variant support.";
 "data-migration-status" = "Message displayed during a long running data migration.";

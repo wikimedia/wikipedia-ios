@@ -220,6 +220,7 @@
 "donate-accessibility-keyboard-done-hint" = "Кок гана темдалат гын клавиатур гоч пуртымо суммо ок кой.";
 "donate-accessibility-textfield-hint" = "Кеч-могай полыш кугытым пурто.";
 "donate-accessibility-transaction-fee-hint" = "Полыш суммо дек транзакций комиссийым ешарашлан кок гана темдал.";
+// Fuzzy
 "donate-already-donated" = "Тау, шергакан полшышо! Тыйын кумыллыкет Википедий да тудын родо сайт-влаклан кушкаш полша.";
 "donate-apple-fine-print" = "Apple тиде пашалан шийвундым ок пого.";
 "donate-email-opt-in-text" = "Да,  Wikimedia Foundation жапын-жапын мыланем серышым колтен кертеш.";

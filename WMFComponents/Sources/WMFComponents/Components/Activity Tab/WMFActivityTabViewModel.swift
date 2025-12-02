@@ -12,6 +12,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Navigation / Delegates
 
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
+    public var didTapPrimaryLoggedOutCTA: (() -> Void)?
 
     // MARK: - Localization
 
@@ -30,7 +31,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let loggedOutTitle: String
         public let loggedOutSubtitle: String
         public let loggedOutPrimaryCTA: String
-        public let loggedOutSecondaryCTA: String
         public let todayTitle: String
         public let yesterdayTitle: String
         public let openArticle: String
@@ -39,31 +39,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let edited: String
         public let saved: String
 
-        public init(
-            userNamesReading: @escaping (String) -> String,
-            noUsernameReading: String,
-            totalHoursMinutesRead: @escaping (Int, Int) -> String,
-            onWikipediaiOS: String,
-            timeSpentReading: String,
-            totalArticlesRead: String,
-            week: String,
-            articlesRead: String,
-            topCategories: String,
-            articlesSavedTitle: String,
-            remaining: @escaping (Int) -> String,
-            loggedOutTitle: String,
-            loggedOutSubtitle: String,
-            loggedOutPrimaryCTA: String,
-            loggedOutSecondaryCTA: String,
-            todayTitle: String,
-            yesterdayTitle: String,
-            openArticle: String,
-            totalEdits: String,
-            read: String,
-            edited: String,
-            saved: String
-        ) {
-
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, todayTitle: String, yesterdayTitle: String, openArticle: String, totalEdits: String, read: String, edited: String, saved: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -78,7 +54,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.loggedOutTitle = loggedOutTitle
             self.loggedOutSubtitle = loggedOutSubtitle
             self.loggedOutPrimaryCTA = loggedOutPrimaryCTA
-            self.loggedOutSecondaryCTA = loggedOutSecondaryCTA
             self.todayTitle = todayTitle
             self.yesterdayTitle = yesterdayTitle
             self.openArticle = openArticle
@@ -93,24 +68,25 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Published State
 
-    @Published public var isLoggedIn: Bool
+    @Published public var authenticationState: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
     @Published public var timelineViewModel: TimelineViewModel
+    @Published public var shouldShowLogInPrompt: Bool = false
 
     @Published var globalEditCount: Int?
-    public var navigateToGlobalEdits: (() -> Void)?
+    public var onTapGlobalEdits: (() -> Void)?
 
     // MARK: - Init
 
     public init(
         localizedStrings: LocalizedStrings,
         dataController: WMFActivityTabDataController = .shared,
-        isLoggedIn: Bool
+        authenticationState: LoginState
     ) {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
-        self.isLoggedIn = isLoggedIn
+        self.authenticationState = authenticationState
 
         let dateFormatter: (Date) -> String = { date in
             DateFormatter.wmfLastReadFormatter(for: date)
@@ -130,6 +106,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
         self.timelineViewModel = TimelineViewModel(
             dataController: dataController
         )
+        
+        Task {
+            await self.updateShouldShowLoginPrompt()
+        }
     }
 
     // MARK: - Loading
@@ -153,6 +133,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Updates
 
     private func getGlobalEditCount() async {
+        guard case .loggedIn = authenticationState else { return }
         do {
             let count = try await dataController.getGlobalEditCount()
             globalEditCount = count
@@ -169,8 +150,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
             : localizedStrings.userNamesReading(username)
     }
 
-    public func updateIsLoggedIn(isLoggedIn: Bool) {
-        self.isLoggedIn = isLoggedIn
+    public func updateAuthenticationState(authState: LoginState) {
+        self.authenticationState = authState
+        Task {
+            await self.updateShouldShowLoginPrompt()
+        }
     }
 
     public var hoursMinutesRead: String {
@@ -178,6 +162,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
             articlesReadViewModel.hoursRead,
             articlesReadViewModel.minutesRead
         )
+    }
+    
+    public func closeLoginPrompt() {
+        Task {
+            await dismissLoginPrompt()
+        }
     }
 
     // MARK: - Helpers
@@ -189,5 +179,62 @@ public final class WMFActivityTabViewModel: ObservableObject {
     func formatDate(_ dateTime: Date) -> String {
         DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
     }
+    
+    func updateShouldShowLoginPrompt() async {
+        let shouldShow = await dataController.shouldShowLoginPrompt(for: authenticationState)
+        shouldShowLogInPrompt = shouldShow
+    }
 
+    func dismissLoginPrompt() async {
+        shouldShowLogInPrompt = false
+        
+        switch authenticationState {
+        case .loggedOut:
+            await dataController.setLoggedOutUserHasDismissedActivityTabLogInPrompt(true)
+        case .temp:
+            await dataController.setTempAccountUserHasDismissedActivityTabLogInPrompt(true)
+        case .loggedIn:
+            break
+        }
+    }
+}
+
+@MainActor
+extension WMFActivityTabViewModel {
+    public struct TimelineSection: Identifiable {
+        public let id: Date
+        public let title: String
+        public let subtitle: String
+        public let pages: [TimelineItem]
+    }
+
+    public var timelineSections: [TimelineSection] {
+        let calendar = Calendar.current
+        return timelineViewModel.timeline.keys.sorted(by: >).map { date in
+            let pages = timelineViewModel.timeline[date] ?? []
+            let sortedPages = pages.sorted(by: { $0.date > $1.date })
+
+            let title: String
+            let subtitle: String
+            if calendar.isDateInToday(date) {
+                title = localizedStrings.todayTitle
+                subtitle = formatDate(date)
+            } else if calendar.isDateInYesterday(date) {
+                title = localizedStrings.yesterdayTitle
+                subtitle = formatDate(date)
+            } else {
+                title = formatDate(date)
+                subtitle = ""
+            }
+
+            let filteredPages: [TimelineItem]
+            if authenticationState != .loggedIn {
+                filteredPages = sortedPages.filter { $0.itemType != .edit && $0.itemType != .saved }
+            } else {
+                filteredPages = sortedPages
+            }
+
+            return TimelineSection(id: date, title: title, subtitle: subtitle, pages: filteredPages)
+        }
+    }
 }
