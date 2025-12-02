@@ -213,14 +213,17 @@ public struct WMFActivityTabView: View {
                     .foregroundColor(Color(uiColor: theme.text))
                 Spacer()
                 WMFCloseButton(action: {
-                    Task { await viewModel.dismissLoginPrompt() }
+                   viewModel.closeLoginPrompt()
                 })
+                .buttonStyle(BorderlessButtonStyle())
             }
             Text(viewModel.localizedStrings.loggedOutSubtitle)
                 .font(Font(WMFFont.for(.callout)))
                 .foregroundColor(Color(uiColor: theme.text))
             HStack(spacing: 12) {
-                Button(action: { viewModel.didTapPrimaryLoggedOutCTA?() }) {
+                Button(action: {
+                    viewModel.didTapPrimaryLoggedOutCTA?()
+                }) {
                     HStack(spacing: 8) {
                         if let icon = WMFSFSymbolIcon.for(symbol: .personFilled) {
                             Image(uiImage: icon)
@@ -234,6 +237,7 @@ public struct WMFActivityTabView: View {
                     .background(Color(uiColor: theme.link))
                     .cornerRadius(8)
                 }
+                .buttonStyle(BorderlessButtonStyle())
                 Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
