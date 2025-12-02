@@ -859,8 +859,7 @@ extension WMFAppViewController {
                     await activityTabDataController.setHasSeenActivityTab(true)
                 }
             },
-            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
-            emptyViewImage: UIImage(named: "history-blank"))
+            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,

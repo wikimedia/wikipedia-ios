@@ -116,8 +116,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         localizedStrings: LocalizedStrings,
         dataController: WMFActivityTabDataController = .shared,
         hasSeenActivityTab: @escaping () -> Void,
-        isLoggedIn: Bool,
-        emptyViewImage: UIImage?
+        isLoggedIn: Bool
     ) {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
@@ -152,7 +151,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
         self.emptyViewModel = WMFEmptyViewModel(
             localizedStrings: emptyLocalizedStrings,
-            image: emptyViewImage,
+            image: UIImage(named: "empty-activity", in: .module, with: nil),
             imageColor: nil,
             numberOfFilters: 0)
     }

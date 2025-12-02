@@ -213,7 +213,7 @@ public struct WMFActivityTabView: View {
                 .accessibilityElement(children: .combine)
                 .accessibilityAddTraits(.isHeader)
         ) {
-            if viewModel.timelineViewModel.shouldShowEmptyState  {
+            if viewModel.timelineViewModel.shouldShowEmptyState {
                 emptyState
             } else {
                 ForEach(sortedPages.indices, id: \.self) { index in
