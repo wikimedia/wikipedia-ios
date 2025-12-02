@@ -47,6 +47,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if !reachabilityNotifier.isReachable {
             showOfflineAlertIfNeeded()
         }
+        
+        presentModalsIfNeeded()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -160,12 +162,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
 
         configureNavigationBar()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        presentModalsIfNeeded()
     }
     
     @MainActor
