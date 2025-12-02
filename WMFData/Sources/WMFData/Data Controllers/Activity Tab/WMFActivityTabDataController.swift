@@ -310,10 +310,6 @@ public actor WMFActivityTabDataController {
             throw CustomError.beforeStartDate
         }
 
-        guard isDevSettingOn || !hasExperimentEnded() else {
-            throw CustomError.pastAssignmentEndDate
-        }
-
         if let assignmentCache {
             return assignmentCache
         }
@@ -332,6 +328,11 @@ public actor WMFActivityTabDataController {
 
             self.assignmentCache = assignment
             return assignment
+        }
+
+        // return assigment if existing, do not assign new if past experiment end date
+        guard isDevSettingOn || !hasExperimentEnded() else {
+            throw CustomError.pastAssignmentEndDate
         }
 
         let newAssignment = try assignExperiment()
