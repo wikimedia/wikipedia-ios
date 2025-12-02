@@ -146,7 +146,9 @@ public enum WMFFont {
             return UIFontMetrics(forTextStyle: .callout).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 16), size: 0), compatibleWith: traitCollection)
 
         case .callout:
-            return UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
+            let base = UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
+            let font = UIFont.systemFont(ofSize: base.pointSize, weight: .regular)
+            return UIFontMetrics(forTextStyle: .callout).scaledFont(for: font)
 
         case .caption1:
             return UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
