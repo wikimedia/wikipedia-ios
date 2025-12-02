@@ -150,7 +150,6 @@
 "activity-tab-add-images-title" = "Agregar imágenes";
 "activity-tab-additional-thoughts" = "¿Algún otro comentario?";
 "activity-tab-generic-no-edits" = "No has editado esta semana. Comienza ahora a hacer un seguimiento de tus contribuciones.";
-"activity-tab-greeting" = "$1Hola, $2$3: 👋 Aquí está tu resumen semanal de Wikipedia.";
 // Fuzzy
 "activity-tab-logged-out-subtitle" = "Haz un seguimiento de lo que has leído y ve tus contribuciones a lo largo del tiempo de una nueva manera";
 // Fuzzy
@@ -300,9 +299,6 @@
 "description-welcome-start-editing-button" = "Empezar a editar";
 "developer-force-email-auth" = "Forzar la autenticación de correo electrónico.";
 "developer-settings" = "Configuración de desarrollador";
-"developer-settings-activity-tab-group-A" = "Establecer la pestaña de actividad en el grupo A";
-"developer-settings-activity-tab-group-B" = "Establecer la pestaña de actividad en el grupo B";
-"developer-settings-activity-tab-group-C" = "Establecer la pestaña de actividad en el grupo C";
 "developer-settings-bypass-donation" = "Saltar donación";
 "developer-settings-enable-year-in-review" = "Habilitar Resumen del año";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análisis a wmflabs";
@@ -367,6 +363,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Toca dos veces para habilitar donaciones mensuales automáticas por esta cantidad.";
 "donate-accessibility-textfield-hint" = "Ingresa una cantidad personalizada para donar.";
 "donate-accessibility-transaction-fee-hint" = "Toca dos veces para agregar el costo de la transacción al donativo.";
+// Fuzzy
 "donate-already-donated" = "¡Gracias por tu donación! Tu generosidad mantiene viva la Wikipedia y otros proyectos relacionados.";
 "donate-apple-fine-print" = "Apple no es responsable de recaudar fondos para esta causa.";
 "donate-email-opt-in-text" = "Sí, acepto que Wikimedia Foundation me envíe correos ocasionalmente.";

@@ -210,6 +210,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Neɛ gbɛre ayi a soŋ kyuuri sommo.";
 "donate-accessibility-textfield-hint" = "Eŋ lɛ fo boɔrɔ ka fo tere.";
 "donate-accessibility-transaction-fee-hint" = "Neɛ gbɛre ayi a eŋ lɛ fo naŋ tere ana e la mɔlɔ.";
+// Fuzzy
 "donate-already-donated" = "Bareka, te-terɛ! Yɛ zuiŋ la ka Wikipiideɛ na baara.";
 "donate-apple-fine-print" = "Apple ŋa naane sɔ a libie yɛlɛ.";
 "donate-email-opt-in-text" = "Ooo, a Wikipiideɛ tondeme na koma la a yuoni baaroo duoro bie.";

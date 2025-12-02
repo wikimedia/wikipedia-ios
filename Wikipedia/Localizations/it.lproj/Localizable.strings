@@ -131,7 +131,6 @@
 "activity-tab-articles-read" = "Voci lette questo mese";
 "activity-tab-articles-read-graph-label" = "Voci";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
-"activity-tab-greeting" = "$1Ciao, $2$3 👋 Qui c'è il tuo riepilogo Wikipediani settimanale.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-logged-out-subtitle" = "Accedi o crea un'utenza per vedere la tua attività sull'applicazione di Wikipedia.";
 "activity-tab-logged-out-title" = "Scopri di più su lettura e modifica";
@@ -317,7 +316,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tocca due volte per rendere le donazioni mensili automatiche con questo importo.";
 "donate-accessibility-textfield-hint" = "Inserisci un importo personalizzato da donare.";
 "donate-accessibility-transaction-fee-hint" = "Tocca due volte per aggiungere la commissione di transazione all'importo della donazione.";
-"donate-already-donated" = "Grazie a te che hai donato! La tua generosità ci aiuta a sostenere Wikipedia ed i suoi siti correlati.";
+"donate-already-donated" = "Grazie a te che hai donato! La tua generosità ci aiuta a sostenere Wikipedia e altri progetti di conoscenza libera.";
 "donate-apple-fine-print" = "Apple non è incaricata di raccogliere fondi per questo scopo.";
 "donate-email-opt-in-text" = "Sì, la Wikimedia Foundation può inviarmi e-mail di tanto in tanto.";
 "donate-help-frequently-asked-questions" = "Domande frequenti";

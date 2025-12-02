@@ -49,7 +49,7 @@
 "about-libraries-complete-list" = "Vollständige Liste";
 "about-libraries-license" = "Lizenz";
 "about-libraries-licenses-title" = "Wir lieben Open-Source-Software $1";
-"about-places-maps-license" = "Orte-Karten-Lizenz";
+"about-places-maps-license" = "Karten-Lizenz der „Orte“-Funktion";
 "about-places-maps-license-details" = "„Orte“ verwendet Karten von Apple Maps. $1.";
 "about-places-maps-license-details-link-text" = "Siehe bitte hier die Einzelheiten zur Lizenz";
 "about-product-of" = "Gemacht von der $1 mit der Hilfe von Freiwilligen wie dir";
@@ -116,12 +116,18 @@
 "activity-tab-additional-thoughts" = "Möchtest du noch etwas sagen?";
 "activity-tab-articles-read" = "Diesen Monat gelesene Artikel";
 "activity-tab-articles-read-graph-label" = "Artikel";
+"activity-tab-email-fifth-line" = "[Screenshots oder Links]";
+"activity-tab-email-first-line" = "Ich habe ein Problem mit der Aktivitäten-Tab-Funktion festgestellt:";
+"activity-tab-email-fourth-line" = "[Gewünschtes Verhalten beschreiben]";
+"activity-tab-email-second-line" = "- [Spezifisches Problem beschreiben]";
+"activity-tab-email-third-line" = "Das gewünschte Verhalten wäre:";
+"activity-tab-email-title" = "Problembericht - Aktivitäten-Tab";
 "activity-tab-generic-no-edits" = "Du hast diese Woche nichts bearbeitet. Fang jetzt an, um deine Beiträge zu verfolgen.";
-"activity-tab-greeting" = "$1Hallo $2$3 👋 Hier ist deine wöchentliche Wikipedia-Zusammenfassung.";
 "activity-tab-hours-minutes-read" = "$1 Std. $2 Min.";
 "activity-tab-hours-on-wikipedia-ios" = "IN DER WIKIPEDIA iOS-APP";
 "activity-tab-logged-out-subtitle" = "Melde dich an oder erstelle ein Konto, um dir deine Aktivitäten in der Wikipedia-App anzusehen";
 "activity-tab-logged-out-title" = "Mehr Lese- und Bearbeitungseinblicke anzeigen";
+"activity-tab-menu-clear-history" = "Leseverlauf löschen";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "Du hast diese Woche nichts bearbeitet. Füge Bilder hinzu, um das Artikelverständnis zu verbessern.";
 "activity-tab-no-username-reading-title" = "Deine Leseaktivität";
@@ -290,9 +296,6 @@
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
 "developer-force-email-auth" = "E-Mail-Authentifizierung erzwingen";
 "developer-settings" = "Entwicklereinstellungen";
-"developer-settings-activity-tab-group-A" = "Aktivitäts-Tab auf Gruppe A setzen";
-"developer-settings-activity-tab-group-B" = "Aktivitäts-Tab auf Gruppe B setzen";
-"developer-settings-activity-tab-group-C" = "Aktivitäts-Tab auf Gruppe C setzen";
 "developer-settings-bypass-donation" = "Spende umgehen";
 "developer-settings-dynamic-tabs-group-B-v2" = "Tabs V2 mit Gruppe B aktivieren";
 "developer-settings-dynamic-tabs-group-C-v2" = "Tabs V2 mit Gruppe C aktivieren";
@@ -360,6 +363,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Doppeltippen, um automatische monatliche Spenden dieses Betrags zu aktivieren.";
 "donate-accessibility-textfield-hint" = "Geben Sie den gewünschten Spendenbetrag ein.";
 "donate-accessibility-transaction-fee-hint" = "Doppeltippen, um die Transaktionsgebühr zum Spendenbetrag hinzuzufügen.";
+// Fuzzy
 "donate-already-donated" = "Vielen Dank, lieber Spender! Deine Großzügigkeit trägt dazu bei, dass Wikipedia und seine Schwesterprojekte weiter bestehen können.";
 "donate-apple-fine-print" = "Apple ist nicht dafür zuständig, Geld für diesen Zweck zu sammeln.";
 "donate-email-opt-in-text" = "Ja, die Wikimedia Foundation kann mir gelegentlich eine E-Mail schicken.";
@@ -593,6 +597,8 @@
 "explore-suggested-edits-footer" = "Hinzufügen";
 "explore-suggested-edits-image-recs-body" = "Füge vorgeschlagene Bilder zu Wikipedia-Artikeln hinzu, um das Verständnis zu verbessern.";
 "explore-suggested-edits-image-recs-title" = "Ein Bild hinzufügen";
+"explore-survey-subtitle" = "Nimm bitte an einer kurzen Umfrage zum Entdecken-Feed teil. Dein Feedback hilft uns, die App zu verbessern.";
+"explore-survey-title" = "Gib uns Feedback, um den Entdecken-Feed zu verbessern.";
 "export-user-data-confirmation-message" = "Das Teilen deiner App-Bibliothek umfasst Daten über deine Leselisten und -historie, Einstellungen und Entdecken-Feed-Inhalte. Diese Datendatei sollte nur mit einem vertrauenswürdigen Empfänger für technische Diagnosezwecke geteilt werden.";
 "export-user-data-confirmation-title" = "App-Bibliothek teilen?";
 "export-user-data-generic-error" = "Beim Exportieren deiner Daten ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.";
@@ -791,10 +797,8 @@
 "microsite-yir-english-reading-slide-title" = "Wir verbrachten {{PLURAL:$1|$1 Stunde|$1 Stunden}} mit Lesen";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktive App-Nutzer hatten in diesem Jahr {{PLURAL:$1|$1 gespeicherten Artikel|$1 gespeicherte Artikel}}. Das Hinzufügen von Artikeln zu Leselisten ermöglicht es dir, auf Artikel auch offline zuzugreifen. Du kannst dich auch anmelden, um Leselisten zwischen Geräten zu synchronisieren.";
 "microsite-yir-english-saved-reading-slide-title" = "Wir hatten {{PLURAL:$1|$1 gespeicherten Artikel|$1 gespeicherte Artikel}}";
-// Fuzzy
-"microsite-yir-english-top-read-slide-subtitle" = "Wenn Menschen über unsere Welt lernen wollen – das Gute, Schlechte, Seltsame und Wilde gleichermaßen –, wenden sie sich an Wikipedia. Die Top 5 der meistbesuchten Artikel der englischen Wikipedia waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nErfahre mehr in $6unserem Blogpost$7.";
-// Fuzzy
-"microsite-yir-english-top-read-slide-title" = "Am häufigsten gelesene Artikel in der englischsprachigen Wikipedia";
+"microsite-yir-english-top-read-slide-subtitle" = "Wenn Menschen über unsere Welt lernen wollen, wenden sie sich an Wikipedia. Die Top 5 der meistbesuchten Artikel der englischen Wikipedia waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLies mehr dazu im $6Beitrag auf unserem Blog$7.";
+"microsite-yir-english-top-read-slide-title" = "Meistgelesene Artikel der englischsprachigen Wikipedia";
 "more-languages-tooltip-description" = "Wikipedia in über 300 Sprachen durchsuchen";
 "more-languages-tooltip-title" = "Sprachen hinzufügen";
 "more-menu" = "Mehr";
@@ -953,6 +957,7 @@
 "on-this-day-no-internet-error" = "Keine Daten verfügbar";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "An diesem Tag";
+"open-article" = "Artikel öffnen";
 "open-in-tab-tooltip-body" = "Langes Drücken auf einen Artikeltitel oder blauen Link öffnet ihn in einem neuen Tab.";
 "open-in-tab-tooltip-title" = "In neuem Tab öffnen";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
@@ -1186,9 +1191,9 @@
 "serbian-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Serbisch-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\nсрпски ћирилица Serbisch, Kyrillisch (sr-ec)\nsrpski latinica Serbisch, Lateinisch (sr-el)";
 "serbian-variants-alert-title" = "Updates zur Serbisch-Varianten-Unterstützung";
 "settings-account" = "Benutzerkonto";
-"settings-appearance" = "Leseeinstellungen";
+"settings-appearance" = "Erscheinungsbild";
 "settings-clear-cache" = "Gecachte Daten löschen";
-"settings-clear-cache-are-you-sure-message" = "Das Löschen gecachter Daten kann bis zu $1 Speicherplatz freigeben. Es löscht nicht deine gespeicherten Seiten.";
+"settings-clear-cache-are-you-sure-message" = "Das Löschen gecachter Daten gibt etwa $1 Speicherplatz frei. Es löscht nicht deine gespeicherten Artikel.";
 "settings-clear-cache-are-you-sure-title" = "Gecachte Daten löschen?";
 "settings-clear-cache-cancel" = "Abbrechen";
 "settings-clear-cache-ok" = "Cache löschen";
@@ -1197,10 +1202,10 @@
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
 "settings-my-languages" = "Meine Sprachen";
-"settings-new-article-tab-header-text" = "Neues Tab-Design";
+"settings-new-article-tab-header-text" = "Neues Artikel-Tab-Design";
 "settings-notifications" = "Push-Benachrichtigungen";
-"settings-notifications-echo-failure-message" = "Ein Fehler ist beim Prüfen der Benachrichtigungsabonnements für Ihr Konto aufgetreten.";
-"settings-notifications-echo-failure-title" = "Nicht möglich, Echo-Benachrichtigungsabonnements zu prüfen";
+"settings-notifications-echo-failure-message" = "Ein Fehler ist beim Prüfen der Benachrichtigungsabonnements für dein Konto aufgetreten.";
+"settings-notifications-echo-failure-title" = "Prüfung der Echo-Benachrichtigungsabonnements nicht möglich";
 "settings-notifications-echo-failure-try-again" = "Erneut versuchen";
 "settings-notifications-header" = "Werde über Aktivitäten im Zusammenhang mit deinem Konto benachrichtigt, wie z. B. Nachrichten von anderen Mitwirkenden, Meldungen und Hinweise. Alles unter Berücksichtigung deiner Privatsphäre und mit aktuellen Daten.";
 "settings-notifications-info" = "Werde über beliebte Artikel auf Wikipedia benachrichtigt mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
@@ -1209,7 +1214,7 @@
 "settings-notifications-system-turn-on" = "Benachrichtigungen anschalten";
 "settings-notifications-trending" = "Beliebte aktuelle Ereignisse";
 "settings-off" = "Aus";
-"settings-on" = "An";
+"settings-on" = "Ein";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet.";
 "settings-search-footer-text" = "Passe die App an, damit der Suchreiter anstatt des Entdecken-Reiters geöffnet wird.";
@@ -1219,14 +1224,14 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto – falls die Synchronisierung aktiviert ist – und von diesem Gerät. Du kannst diese Aktion nicht rückgängig machen.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle gespeicherten Artikel löschen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Löschen";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto und – falls die Synchronisierung aktiviert ist – von diesem Gerät.\n\nDie Löschung deiner gespeicherten Artikel wird ungefähr $1 Speicherplatz freigeben.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto – falls die Synchronisierung aktiviert ist – und von diesem Gerät.\n\nDie Löschung deiner gespeicherten Artikel gibt etwa $1 Speicherplatz frei.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Gespeicherte Artikel löschen";
 "settings-storage-and-syncing-full-sync" = "Deine Leselisten werden im Hintergrund synchronisiert";
 "settings-storage-and-syncing-server-sync-footer-text" = "Fordert eine Aktualisierung deiner synchronisierten Artikel und Leselisten an.";
 "settings-storage-and-syncing-server-sync-title" = "Synchronisierte Leselisten aktualisieren";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Zeigt die gespeicherte Leseliste (z. B. die Standardliste) als separate Liste in deiner Leselistenansicht an. Diese Liste erscheint auf Android-Geräten.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gespeicherte Leseliste anzeigen";
-"settings-storage-and-syncing-title" = "Artikelspeicher und Synchronisierung";
+"settings-storage-and-syncing-title" = "Speichern und Synchronisieren";
 "settings-title" = "Einstellungen";
 "settings-year-in-review-header" = "Wenn du den Jahresrückblick deaktivierst, werden alle gespeicherten personalisierten Einblicke gelöscht und der Jahresrückblick ausgeblendet.";
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
@@ -1513,8 +1518,7 @@
 "year-in-review-base-viewed-subtitle" = "Für Menschen auf der ganzen Welt ist Wikipedia die erste Anlaufstelle, wenn es darum geht, eine Frage zu beantworten, Informationen für Schule oder Arbeit nachzuschlagen oder sich neues Wissen anzueignen.";
 "year-in-review-base-viewed-title" = "App-Nutzer haben Wikipedia-Artikel {{PLURAL:$1|einmal|$1 Mal}} angesehen";
 "year-in-review-button-title" = "Jahresrückblick";
-// Fuzzy
-"year-in-review-categories-slide-subtitle" = "Kategorien gruppieren Artikel zu ähnlichen Themen. 2025 hast du mehrfach Artikel in diesen interessanten Kategorien besucht $1";
+"year-in-review-categories-slide-subtitle" = "Kategorien gruppieren Artikel zu ähnlichen Themen. 2025 hast du mehrfach Artikel in diesen interessanten Kategorien besucht.\n\n$1";
 "year-in-review-collective-article-views" = "Eine animierte Illustration eines Computerbildschirms mit einem geöffneten Webbrowser, der aktiv durch einen Wikipedia-Artikel navigiert.";
 "year-in-review-collective-edits" = "Eine Illustration von zwei Wikipedia-Puzzleteilen, jedes trägt eine Information.";
 "year-in-review-collective-languages" = "Eine animierte Illustration eines Steins mit Inschriften in verschiedenen Sprachen, die symbolisiert, wie Wikipedia gemeinsam Wissen aus verschiedenen Kulturen und Regionen aufbaut.";
@@ -1565,8 +1569,7 @@
 "year-in-review-intro-login-title" = "Für Personalisierung anmelden";
 "year-in-review-most-read-categories-title" = "Deine interessantesten Kategorien";
 "year-in-review-non-contributor-slide-title" = "Sichere dir deine Mitwirkendenprämie für das nächste Jahr!";
-// Fuzzy
-"year-in-review-noncontributor-slide-subtitle" = "Wir freuen uns, dass Wikipedia Teil deines $1 war! Schalte eine besondere Belohnung in deinem $2 frei, indem du selbst aktiv wirst – entweder durch [Bearbeiten von Wikipedia]($3) oder durch eine Spende an die [Wikimedia Foundation]($4), die dahinterstehende gemeinnützige Organisation. Wenn Wikipedia für Dich nützlich ist, erwäge bitte eine Spende, um ihre Zukunft zu sichern und es kostenlos, werbefrei, vertrauenswürdig und für alle zugänglich zu halten.";
+"year-in-review-noncontributor-slide-subtitle" = "Wir freuen uns, dass Wikipedia Teil deines $1 war! Schalte eine besondere Belohnung in deinem $2 frei, indem du mitwirkst – entweder durch [Bearbeiten von Wikipedia]($3) oder durch eine Spende an die [Wikimedia Foundation]($4), die dahinterstehende gemeinnützige Organisation. Wenn Wikipedia für dich nützlich ist, erwäge bitte eine Spende, um die Zukunft zu sichern und es kostenlos, werbefrei, vertrauenswürdig und für alle zugänglich zu halten. Falls du anderswo gespendet hast, wird deine Unterstützung sehr geschätzt.";
 "year-in-review-personalized-date-day-footer-v3" = "Lieblings-Lesetag";
 "year-in-review-personalized-date-month-footer-v3" = "Monat, in dem du am meisten gelesen hast";
 "year-in-review-personalized-date-time-footer-v3" = "Lieblings-Lesezeit";
