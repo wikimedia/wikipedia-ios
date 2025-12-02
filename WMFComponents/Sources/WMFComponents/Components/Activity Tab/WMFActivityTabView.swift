@@ -285,7 +285,6 @@ public struct WMFActivityTabView: View {
             actionString = viewModel.localizedStrings.saved
         }
         let summary = timelineViewModel.pageSummaries[page.id]
-        let initialThumbnailURLString = summary?.thumbnailURL?.absoluteString ?? page.imageURLString
         let description: String? = {
             if let desc = summary?.description, !desc.isEmpty {
                 return desc

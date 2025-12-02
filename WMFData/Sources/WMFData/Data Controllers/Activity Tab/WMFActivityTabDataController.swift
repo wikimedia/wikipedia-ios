@@ -90,17 +90,6 @@ public actor WMFActivityTabDataController {
         }
     }
     
-    public func updateDismissedState(for state: LoginState) {
-        switch state {
-        case .loggedOut:
-            loggedOutUserHasDismissedActivityTabLogInPrompt = true
-        case .temp:
-            tempAccountUserHasDismissedActivityTabLogInPrompt = true
-        case .loggedIn:
-            break
-        }
-    }
-    
     public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false
