@@ -191,6 +191,15 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     func dismissLoginPrompt() async {
         shouldShowLogInPrompt = false
+        
+        switch authenticationState {
+        case .loggedOut:
+            await dataController.setLoggedOutUserHasDismissedActivityTabLogInPrompt(true)
+        case .temp:
+            await dataController.setTempAccountUserHasDismissedActivityTabLogInPrompt(true)
+        case .loggedIn:
+            break
+        }
     }
 }
 

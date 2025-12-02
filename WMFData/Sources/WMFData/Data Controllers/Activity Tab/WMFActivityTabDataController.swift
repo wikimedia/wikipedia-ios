@@ -106,6 +106,14 @@ public actor WMFActivityTabDataController {
         }
     }
     
+    public func setLoggedOutUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
+        loggedOutUserHasDismissedActivityTabLogInPrompt = value
+    }
+
+    public func setTempAccountUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
+        tempAccountUserHasDismissedActivityTabLogInPrompt = value
+    }
+    
     public var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
