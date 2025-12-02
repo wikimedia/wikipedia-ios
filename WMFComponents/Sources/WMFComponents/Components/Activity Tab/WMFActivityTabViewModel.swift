@@ -39,8 +39,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let read: String
         public let edited: String
         public let saved: String
-        public let emptyViewTitle: String
-        public let emptyViewSubtitle: String
+        public let emptyViewTitleLoggedIn: String
+        public let emptyViewSubtitleLoggedIn: String
+        public let emptyViewTitleLoggedOut: String
+        public let emptyViewSubtitleLoggedOut: String
 
         public init(
             userNamesReading: @escaping (String) -> String,
@@ -65,8 +67,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
             read: String,
             edited: String,
             saved: String,
-            emptyViewTitle: String,
-            emptyViewSubtitle: String
+            emptyViewTitleLoggedIn: String,
+            emptyViewSubtitleLoggedIn: String,
+            emptyViewTitleLoggedOut: String,
+            emptyViewSubtitleLoggedOut: String
         ) {
 
             self.userNamesReading = userNamesReading
@@ -91,8 +95,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.read = read
             self.edited = edited
             self.saved = saved
-            self.emptyViewTitle = emptyViewTitle
-            self.emptyViewSubtitle = emptyViewSubtitle
+            self.emptyViewTitleLoggedIn = emptyViewTitleLoggedIn
+            self.emptyViewSubtitleLoggedIn = emptyViewSubtitleLoggedIn
+            self.emptyViewTitleLoggedOut = emptyViewTitleLoggedOut
+            self.emptyViewSubtitleLoggedOut = emptyViewSubtitleLoggedOut
         }
     }
 
@@ -104,7 +110,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
     @Published public var timelineViewModel: TimelineViewModel
-    let emptyViewModel: WMFEmptyViewModel
+    @Published public var emptyViewModel: WMFEmptyViewModel
 
     @Published var globalEditCount: Int?
     public var navigateToGlobalEdits: (() -> Void)?
@@ -142,18 +148,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             dataController: dataController
         )
         
-        let emptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings(
-            title: localizedStrings.emptyViewTitle,
-            subtitle: localizedStrings.emptyViewSubtitle,
-            titleFilter: nil,
-            buttonTitle: nil,
-            attributedFilterString: nil)
-
-        self.emptyViewModel = WMFEmptyViewModel(
-            localizedStrings: emptyLocalizedStrings,
-            image: UIImage(named: "empty-activity", in: .module, with: nil),
-            imageColor: nil,
-            numberOfFilters: 0)
+        self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: isLoggedIn)
     }
 
     // MARK: - Loading
@@ -197,6 +192,22 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     public func updateIsLoggedIn(isLoggedIn: Bool) {
         self.isLoggedIn = isLoggedIn
+        self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: isLoggedIn)
+    }
+    
+    private static func generateEmptyViewModel(localizedStrings: LocalizedStrings, isLoggedIn: Bool) -> WMFEmptyViewModel {
+        let emptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings(
+            title: isLoggedIn ? localizedStrings.emptyViewTitleLoggedIn : localizedStrings.emptyViewTitleLoggedOut,
+            subtitle: isLoggedIn ? localizedStrings.emptyViewSubtitleLoggedIn : localizedStrings.emptyViewSubtitleLoggedOut,
+            titleFilter: nil,
+            buttonTitle: nil,
+            attributedFilterString: nil)
+
+        return WMFEmptyViewModel(
+            localizedStrings: emptyLocalizedStrings,
+            image: UIImage(named: "empty-activity", in: .module, with: nil),
+            imageColor: nil,
+            numberOfFilters: 0)
     }
 
     public var hoursMinutesRead: String {

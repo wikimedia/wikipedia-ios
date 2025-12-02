@@ -824,8 +824,10 @@ extension WMFAppViewController {
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
         let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
-        let emptyTitle = WMFLocalizedString("activity-tab-empty-title", value: "Nothing to show", comment: "Title on activity tab timeline empty state.")
-        let emptySubtitle = WMFLocalizedString("activity-tab-empty-subtitle", value: "Start reading and editing to build your history", comment: "Subtitle on activity tab timeline empty state.")
+        let emptyTitleLoggedIn = WMFLocalizedString("activity-tab-empty-title", value: "Nothing to show", comment: "Title on activity tab timeline empty state.")
+        let emptySubtitleLoggedIn = WMFLocalizedString("activity-tab-empty-subtitle", value: "Start reading and editing to build your history", comment: "Subtitle on activity tab timeline empty state.")
+        let emptyTitleLoggedOut = CommonStrings.emptyNoHistoryTitle
+        let emptySubtitleLoggedOut = CommonStrings.emptyNoHistorySubtitle
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
@@ -851,8 +853,10 @@ extension WMFAppViewController {
                 read: CommonStrings.readString,
                 edited: edited,
                 saved: CommonStrings.shortSavedTitle,
-                emptyViewTitle: emptyTitle,
-                emptyViewSubtitle: emptySubtitle),
+                emptyViewTitleLoggedIn: emptyTitleLoggedIn,
+                emptyViewSubtitleLoggedIn: emptySubtitleLoggedIn,
+                emptyViewTitleLoggedOut: emptyTitleLoggedOut,
+                emptyViewSubtitleLoggedOut: emptySubtitleLoggedOut),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
                 Task {
