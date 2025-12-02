@@ -103,7 +103,7 @@
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
 "activity-tab-saved" = "Title for module about saved articles";
 "activity-tab-start-editing" = "Button title for users to begin editing.";
-"activity-tab-survey" = "Survey title for the activity tab";
+"activity-tab-survey-subtitle" = "Title for activity tab survey.";
 "activity-tab-survey-title" = "Satisfaction survey view title";
 "activity-tab-time-spent-reading" = "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes";
 "activity-tab-title" = "Activity title";

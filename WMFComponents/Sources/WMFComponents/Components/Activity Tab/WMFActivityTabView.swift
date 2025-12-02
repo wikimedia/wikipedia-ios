@@ -109,7 +109,6 @@ public struct WMFActivityTabView: View {
                 .listStyle(.grouped)
                 .onAppear {
                     viewModel.fetchData()
-                    viewModel.hasSeenActivityTab()
                 }
             } else {
                 List {
@@ -133,7 +132,6 @@ public struct WMFActivityTabView: View {
                 .listStyle(.grouped)
                 .onAppear {
                     viewModel.fetchData()
-                    viewModel.hasSeenActivityTab()
                 }
             }
         }
