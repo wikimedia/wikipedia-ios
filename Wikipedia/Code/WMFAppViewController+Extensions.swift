@@ -823,8 +823,9 @@ extension WMFAppViewController {
         let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
-
         let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
+        let emptyTitle = WMFLocalizedString("activity-tab-empty-title", value: "Nothing to show", comment: "Title on activity tab timeline empty state.")
+        let emptySubtitle = WMFLocalizedString("activity-tab-empty-subtitle", value: "Start reading and editing to build your history", comment: "Subtitle on activity tab timeline empty state.")
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
@@ -849,13 +850,17 @@ extension WMFAppViewController {
                 totalEdits: totalEdits,
                 read: CommonStrings.readString,
                 edited: edited,
-                saved: CommonStrings.shortSavedTitle),
+                saved: CommonStrings.shortSavedTitle,
+                emptyViewTitle: emptyTitle,
+                emptyViewSubtitle: emptySubtitle),
             dataController: activityTabDataController,
             hasSeenActivityTab: {
-            Task {
-                await activityTabDataController.setHasSeenActivityTab(true)
-            }
-        }, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+                Task {
+                    await activityTabDataController.setHasSeenActivityTab(true)
+                }
+            },
+            isLoggedIn: dataStore.authenticationManager.authStateIsPermanent,
+            emptyViewImage: UIImage(named: "history-blank"))
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,

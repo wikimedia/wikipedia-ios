@@ -39,6 +39,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let read: String
         public let edited: String
         public let saved: String
+        public let emptyViewTitle: String
+        public let emptyViewSubtitle: String
 
         public init(
             userNamesReading: @escaping (String) -> String,
@@ -62,7 +64,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             totalEdits: String,
             read: String,
             edited: String,
-            saved: String
+            saved: String,
+            emptyViewTitle: String,
+            emptyViewSubtitle: String
         ) {
 
             self.userNamesReading = userNamesReading
@@ -87,6 +91,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.read = read
             self.edited = edited
             self.saved = saved
+            self.emptyViewTitle = emptyViewTitle
+            self.emptyViewSubtitle = emptyViewSubtitle
         }
     }
 
@@ -98,9 +104,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
     @Published public var timelineViewModel: TimelineViewModel
+    let emptyViewModel: WMFEmptyViewModel
 
     @Published var globalEditCount: Int?
     public var navigateToGlobalEdits: (() -> Void)?
+    
 
     // MARK: - Init
 
@@ -108,7 +116,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
         localizedStrings: LocalizedStrings,
         dataController: WMFActivityTabDataController = .shared,
         hasSeenActivityTab: @escaping () -> Void,
-        isLoggedIn: Bool
+        isLoggedIn: Bool,
+        emptyViewImage: UIImage?
     ) {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
@@ -133,6 +142,19 @@ public final class WMFActivityTabViewModel: ObservableObject {
         self.timelineViewModel = TimelineViewModel(
             dataController: dataController
         )
+        
+        let emptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings(
+            title: localizedStrings.emptyViewTitle,
+            subtitle: localizedStrings.emptyViewSubtitle,
+            titleFilter: nil,
+            buttonTitle: nil,
+            attributedFilterString: nil)
+
+        self.emptyViewModel = WMFEmptyViewModel(
+            localizedStrings: emptyLocalizedStrings,
+            image: emptyViewImage,
+            imageColor: nil,
+            numberOfFilters: 0)
     }
 
     // MARK: - Loading

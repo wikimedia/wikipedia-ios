@@ -213,8 +213,8 @@ public struct WMFActivityTabView: View {
                 .accessibilityElement(children: .combine)
                 .accessibilityAddTraits(.isHeader)
         ) {
-            if sortedPages.isEmpty {
-                Text("I am empty!")
+            if viewModel.timelineViewModel.shouldShowEmptyState  {
+                emptyState
             } else {
                 ForEach(sortedPages.indices, id: \.self) { index in
                     pageRow(page: sortedPages[index], section: date)
@@ -228,6 +228,14 @@ public struct WMFActivityTabView: View {
         .listRowSeparator(.hidden)
         .listRowBackground(Color(uiColor: theme.paperBackground))
         .padding(.horizontal, 16)
+    }
+    
+    private var emptyState: some View {
+        HStack {
+            Spacer()
+            WMFEmptyView(viewModel: viewModel.emptyViewModel, type: .noItems, isScrollable: false)
+            Spacer()
+        }
     }
 
     private func pageRow(page: TimelineItem, section: Date) -> some View {

@@ -15,6 +15,10 @@ public final class TimelineViewModel: ObservableObject {
     public init(dataController: WMFActivityTabDataController) {
         self.dataController = dataController
     }
+    
+    var shouldShowEmptyState: Bool {
+        return self.timeline.count == 1 && self.timeline.values.first?.isEmpty ?? true
+    }
 
     public func fetch() async {
         do {
