@@ -123,7 +123,6 @@
 "activity-tab-articles-read" = "Artigos lidos este mês";
 "activity-tab-articles-read-graph-label" = "Artigos";
 "activity-tab-generic-no-edits" = "Você não editou esta semana. Comece agora a acompanhar suas contribuições.";
-"activity-tab-greeting" = "$1Oi $2$3 👋 Aqui está seu resumo semanal da Wikipédia.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "NA WIKIPÉDIA iOS";
 "activity-tab-logged-out-subtitle" = "Entre ou crie uma conta para visualizar sua atividade no aplicativo da Wikipédia.";
@@ -295,9 +294,6 @@
 "description-welcome-start-editing-button" = "Começar a editar";
 "developer-force-email-auth" = "Forçar autenticação por e-mail";
 "developer-settings" = "Configurações do desenvolvedor";
-"developer-settings-activity-tab-group-A" = "Definir aba de atividade para o grupo A";
-"developer-settings-activity-tab-group-B" = "Defina a guia de atividades para o grupo B";
-"developer-settings-activity-tab-group-C" = "Defina a guia de atividades para o grupo C";
 "developer-settings-bypass-donation" = "Pular doação";
 "developer-settings-dynamic-tabs-group-B-v2" = "Ativar guias V2 com o grupo B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Ativar guias V2 com o grupo C";
@@ -365,6 +361,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Toque duas vezes para ativar doações mensais automáticas desse valor.";
 "donate-accessibility-textfield-hint" = "Insira o valor personalizado que deseja doar.";
 "donate-accessibility-transaction-fee-hint" = "Toque duas vezes para adicionar a taxa de transação ao valor da doação.";
+// Fuzzy
 "donate-already-donated" = "Obrigado, prezado(a) apoiador(a)! Sua generosidade ajuda a manter a Wikipédia e seus projetos irmãos prosperando.";
 "donate-apple-fine-print" = "A Apple não está encarregada de arrecadar dinheiro para essa finalidade.";
 "donate-email-opt-in-text" = "Sim, a Wikimedia Foundation pode me mandar um e-mail ocasionalmente.";

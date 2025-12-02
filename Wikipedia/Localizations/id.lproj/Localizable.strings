@@ -29,6 +29,7 @@
 // Author: Naufal06
 // Author: Nemo bis
 // Author: NikolasKHF
+// Author: Penyuwangi
 // Author: Polos
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
@@ -248,7 +249,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Ketuk dua kali untuk mengaktifkan donasi bulanan otomatis sebesar jumlah tersebut.";
 "donate-accessibility-textfield-hint" = "Masukkan jumlah tertentu untuk disumbangkan.";
 "donate-accessibility-transaction-fee-hint" = "Ketuk dua kali untuk menambahkan biaya transaksi ke jumlah donasi.";
-"donate-already-donated" = "Terima kasih, donatur yang terhormat! Kemurahan hati Anda akan membantu Wikipedia dan situs sejenisnya untuk terus berkembang.";
+"donate-already-donated" = "Terima kasih, para penyumbang terhormat! Kedermawanan Anda membantu menjaga Wikipedia dan proyek pengetahuan bebas lainnya tetap berkembang.";
 "donate-apple-fine-print" = "Apple tidak memegang tanggung jawab atas pengumpulan uang donasi ini.";
 "donate-email-opt-in-text" = "Ya, Yayasan Wikimedia dapat sesekali mengirimi saya surel.";
 "donate-help-frequently-asked-questions" = "Pertanyaan yang sering diajukan";

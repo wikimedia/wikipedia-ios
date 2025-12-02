@@ -80,7 +80,6 @@
 "activity-tab-articles-read" = "Articulos legite iste mense";
 "activity-tab-articles-read-graph-label" = "Articulos";
 "activity-tab-generic-no-edits" = "Tu non ha apportate alcun modification iste septimana. Comencia a modificar ora pro traciar tu contributiones.";
-"activity-tab-greeting" = "$1Salute $2$3 👋 Ecce tu summario septimanal de Wikipedia.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "SUR WIKIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Aperi session o crea un conto pro vider tu activitate sur le app Wikipedia.";
@@ -253,9 +252,6 @@
 "description-welcome-start-editing-button" = "Comenciar a modificar";
 "developer-force-email-auth" = "Fortiar le authentication per e-mail";
 "developer-settings" = "Parametros de disveloppator";
-"developer-settings-activity-tab-group-A" = "Mitter le scheda de activitate al gruppo A";
-"developer-settings-activity-tab-group-B" = "Mitter le scheda de activitate al gruppo B";
-"developer-settings-activity-tab-group-C" = "Mitter le scheda de activitate al gruppo C";
 "developer-settings-bypass-donation" = "Contornar donation";
 "developer-settings-dynamic-tabs-group-B-v2" = "Activar schedas V2 con gruppo B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Activar schedas V2 con gruppo C";
@@ -323,6 +319,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tocca duo vices pro activar donationes automatic mensual in iste amonta.";
 "donate-accessibility-textfield-hint" = "Inserer un amonta personalisate a donar.";
 "donate-accessibility-transaction-fee-hint" = "Tocca duo vices pro adder le costo del transaction al amonta del donation.";
+// Fuzzy
 "donate-already-donated" = "Gratias, car donator! Tu generositate adjuta Wikipedia e su sitos fratres a prosperar.";
 "donate-apple-fine-print" = "Apple non es responsabile pro le collecta de fundos a iste fin.";
 "donate-email-opt-in-text" = "Si, le Fundation Wikimedia pote inviar me un message de e-mail occasional.";

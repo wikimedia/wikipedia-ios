@@ -234,6 +234,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Бу суммада автомат халда багъыш этиуню джандырыр ючюн эки кере бас.";
 "donate-accessibility-textfield-hint" = "Багъыш этер ючюн энчи сумманы киргиз.";
 "donate-accessibility-transaction-fee-hint" = "Багъыш суммагъа транзакция коммиссия къошар ючюн эки кере бас.";
+// Fuzzy
 "donate-already-donated" = "Сау бол, багъалы багъышчы! Чомартлыгъыгъыз Википедияны эмда эгеч сайтланы маджаллашдырыуларны болушурукъду.";
 "donate-apple-fine-print" = "Apple бу нюзюр ючюн ачха джыяр борчу джокъду.";
 "donate-email-opt-in-text" = "Хоу, Викимедиа Фонд меннге анда мында электрон джиберирге боллукъду.";

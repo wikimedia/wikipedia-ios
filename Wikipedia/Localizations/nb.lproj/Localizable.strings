@@ -96,7 +96,6 @@
 "activity-tab-add-images-subtitle" = "Legg til foreslåtte bilder i Wikipedia-artikler for å gjøre dem enklere å forstå.";
 "activity-tab-add-images-title" = "Legg til bilder";
 "activity-tab-generic-no-edits" = "Du har ikke redigert denne uka. Begynn nå for å spore bidragene dine.";
-"activity-tab-greeting" = "$1Hei, $2$3 👋 Her er det ukentlige Wikipedia-sammendraget ditt.";
 // Fuzzy
 "activity-tab-logged-out-subtitle" = "Spor hva du har lest, og vis bidragene dine over tid på en ny måte";
 // Fuzzy
@@ -262,6 +261,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dobbelttrykk for å aktivere automatiske månedlige donasjoner med dette beløpet.";
 "donate-accessibility-textfield-hint" = "Angi egendefinert donasjonsbeløp.";
 "donate-accessibility-transaction-fee-hint" = "Dobbelttrykk for å legge til transaksjonsgebyr til donasjonsbeløpet.";
+// Fuzzy
 "donate-already-donated" = "Takk, kjære giver! Din sjenerøsitet hjelper å blomstre Wikipedia og søsterprosjektene.";
 "donate-apple-fine-print" = "Apple er ikke ansvarlig for å samle inn penger til dette formålet.";
 "donate-email-opt-in-text" = "Ja, Wikimedia Foundation kan sende meg en e-post i ny og ne.";

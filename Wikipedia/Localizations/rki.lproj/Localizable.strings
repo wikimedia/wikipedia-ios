@@ -78,7 +78,6 @@
 "activity-tab-add-images-title" = "ပုံတိ ပေါင်းထည့်ပါ";
 "activity-tab-additional-thoughts" = "နောက်ထပ် တွီးစရာတိ ဟိမ့်လား?";
 "activity-tab-generic-no-edits" = "သင်စွာ ‌‌ဒေအပတ်မှာ မတီးဖြတ်ရသိပါ။  သင်ဧ့ပံ့ပိုးမှုတိကို ခြီရာခံဖို့ အဂုစတင်ပါ။";
-"activity-tab-greeting" = "$1Hi $2$3 👋 ‌‌‌‌‌‌‌‌‌‌ဒေချင့်ကတော့ခါ သင်ဧ့အပတ်စိုင် Wikipedia အနှစ်ချုပ်ပါ။";
 // Fuzzy
 "activity-tab-logged-out-subtitle" = "သင်ဖတ်ပြီးရေအရာကို ခြီရာခံပြီးကေ သင့်ပံ့ပိုးမှုတိကို အချိန်ကြာလာစော်နန့်အမျှ နည်းလမ်းအသစ်နန့် ‌ကြေ့ရှုပါ";
 // Fuzzy
@@ -214,9 +213,6 @@
 "description-welcome-start-editing-button" = "စတင်တီးဖြတ်ပါ";
 "developer-force-email-auth" = "အီးမေးလ်စစ်ဖို့ အတင်းအကြပ်";
 "developer-settings" = "ဆော့ဖ်ဝဲရီးသားသူ ဆက်တင်တိ";
-"developer-settings-activity-tab-group-A" = "လှုပ်ရှားမှုတဘ်ကို အုပ်စု A ပသို့ သတ်မှတ်ပါ။";
-"developer-settings-activity-tab-group-B" = "လှုပ်ရှားမှုတဘ်ကို အုပ်စု B တွင် သတ်မှတ်ပါ";
-"developer-settings-activity-tab-group-C" = "လှုပ်ရှားမှုတဘ်ကို အုပ်စု C ပသို့ သတ်မှတ်ပါ။";
 "developer-settings-bypass-donation" = "ရှောင်လွှဲလှူဒါန်းခြင်း";
 "developer-settings-enable-year-in-review" = "သုံးသပ်ချက်တွင် နှစ်ကိုဖွင့်ပါ";
 "developer-settings-send-analytics-to-wmflabs" = "ခွဲခြမ်းစိတ်ဖြာချက်တိကို wmflabs ပသို့ ပို့ပါ။";
@@ -281,6 +277,7 @@
 "donate-accessibility-monthly-recurring-hint" = "ဒေပမာဏဧ့ အလိုအလျောက် လစိုင်လှူဒါန်းမှုတိကို ဖွင့်ဖို့ နှစ်ချက်တို့ပါ။";
 "donate-accessibility-textfield-hint" = "လှူဒါန်းဖို့ စိတ်ကြိုက်ပမာဏကို ထည့်သွင်းပါ။";
 "donate-accessibility-transaction-fee-hint" = "အလှူ‌ဖေသာပမာဏသို့ ‌ဖေသာလွှဲကြေးထည့်ဖို့နှစ်ချက်တို့ပါ။";
+// Fuzzy
 "donate-already-donated" = "ကျေးဇူးတင်ပါရေ ချစ်အလှူရှင်။  သင်ဧ့ ရက်ရောမှုစွာ ဝီကီးပီးဒီးယားနန့် ယင်းဧ့ညီအေးမဆိုဒ်တိကို ရှင်သန်အောင် ကူညီပီးရေ။";
 "donate-apple-fine-print" = "Apple စွာ ဒေရည်ရွယ်ချက်အတွက် ဖေသာရှာဖို့တာဝန်မဟိမ့်ပါ။";
 "donate-email-opt-in-text" = "ဟုတ်ပါရေ၊ ဝီကီးမီဒီယာဖောင်ဒေးရှင်းက အကျွန့်ကို တစ်ခါတလီ အီးမေးလ်တစ်စောင် ပို့နိုင်ပါရေ။";
