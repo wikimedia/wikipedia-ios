@@ -348,9 +348,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if let url = userContributionsURL {
             let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
-            let newNavigationVC =
-            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
-            navigationController?.present(newNavigationVC, animated: true)
+            navigationController?.pushViewController(webVC, animated: true)
         }
     }
 
