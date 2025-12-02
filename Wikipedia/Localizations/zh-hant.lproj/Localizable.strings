@@ -127,7 +127,6 @@
 "activity-tab-email-third-line" = "我期望看到的情況是：";
 "activity-tab-email-title" = "問題報告 - 活動分頁";
 "activity-tab-generic-no-edits" = "您本週尚未動手編輯，立即開始編輯來追蹤貢獻。";
-"activity-tab-greeting" = "$1$2您好$3👋 這邊是您本週的維基百科摘要。";
 "activity-tab-hours-minutes-read" = "$1 時 $2 分";
 "activity-tab-hours-on-wikipedia-ios" = "在維基百科 iOS 版";
 "activity-tab-logged-out-subtitle" = "登入或建立帳號來查看您在維基百科應用程式上的活動。";
@@ -301,9 +300,6 @@
 "description-welcome-start-editing-button" = "開始編輯";
 "developer-force-email-auth" = "強制電子郵件驗證";
 "developer-settings" = "開發人員設定";
-"developer-settings-activity-tab-group-A" = "將活動分頁設定成群組 A";
-"developer-settings-activity-tab-group-B" = "將活動分頁設定成群組 B";
-"developer-settings-activity-tab-group-C" = "將活動分頁設定成群組 C";
 "developer-settings-bypass-donation" = "跳過捐贈";
 "developer-settings-dynamic-tabs-group-B-v2" = "啟用群組 B 的分頁 V2";
 "developer-settings-dynamic-tabs-group-C-v2" = "啟用群組 C 的分頁 V2";
@@ -371,6 +367,7 @@
 "donate-accessibility-monthly-recurring-hint" = "輕觸兩次來啟用每月自動捐贈此金額。";
 "donate-accessibility-textfield-hint" = "輸入自訂捐款金額。";
 "donate-accessibility-transaction-fee-hint" = "輕觸兩次來添加交易手續費到捐款金額。";
+// Fuzzy
 "donate-already-donated" = "感謝您，親愛的捐款者！您的慷慨贊助會幫助維基百科與相關的姐妹網站蓬勃發展。";
 "donate-apple-fine-print" = "Apple 未對此目的負責籌集資金。";
 "donate-email-opt-in-text" = "是的，維基媒體基金會可以臨時對我發送電子郵件。";

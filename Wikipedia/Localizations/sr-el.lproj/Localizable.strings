@@ -208,6 +208,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tapnite dvaput da dozvolite automatske mesečne donacije sa ovim iznosom.";
 "donate-accessibility-textfield-hint" = "Drugi iznos donacije.";
 "donate-accessibility-transaction-fee-hint" = "Tapnite dvaput da dodate proviziju za transakciju iznosu donacije.";
+// Fuzzy
 "donate-already-donated" = "Hvala, dragi donatore! Vaša velikodušnost pomaže da Vikipedija i njeni sestrinski sajtovi budu uspešni.";
 "donate-apple-fine-print" = "Epl nije zadužen za prikupljanje novca u ove svrhe.";
 "donate-email-opt-in-text" = "Da, neka mi Zadužbina Vikimedija periodično šalje imejlove.";

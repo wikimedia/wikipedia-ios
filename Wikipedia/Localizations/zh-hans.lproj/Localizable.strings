@@ -152,7 +152,6 @@
 "activity-tab-articles-read-graph-label" = "条目";
 "activity-tab-email-fifth-line" = "[截图或链接]";
 "activity-tab-generic-no-edits" = "您本周尚未进行编辑。马上开始编辑，以追踪贡献。";
-"activity-tab-greeting" = "$1$2，您好！$3👋以下是您的维基百科每周概览。";
 "activity-tab-hours-on-wikipedia-ios" = "在维基百科iOS版";
 "activity-tab-logged-out-subtitle" = "登录或创建账号来查看您在维基百科应用程序上的活动。";
 "activity-tab-logged-out-title" = "查看更多阅读和编辑方面的分析";
@@ -297,9 +296,6 @@
 "description-welcome-start-editing-button" = "开始编辑";
 "developer-force-email-auth" = "强制电子邮件验证";
 "developer-settings" = "开发者设置";
-"developer-settings-activity-tab-group-A" = "将活动标签设置为A组";
-"developer-settings-activity-tab-group-B" = "将活动标签设置为B组";
-"developer-settings-activity-tab-group-C" = "将活动标签设置到为C组";
 "developer-settings-bypass-donation" = "绕过捐赠";
 "developer-settings-enable-year-in-review" = "启用年度回顾";
 "developer-settings-send-analytics-to-wmflabs" = "发送分析信息至wmflabs。";
@@ -365,6 +361,7 @@
 "donate-accessibility-monthly-recurring-hint" = "双击以启用每月自动捐赠此金额。";
 "donate-accessibility-textfield-hint" = "输入自定义捐赠金额。";
 "donate-accessibility-transaction-fee-hint" = "双击以添加交易手续费至捐赠金额。";
+// Fuzzy
 "donate-already-donated" = "谢谢您，亲爱的捐赠者！您的慷慨解囊会帮助维基百科和姊妹网站蓬勃发展。";
 "donate-apple-fine-print" = "Apple不负责为此目的筹集资金。";
 "donate-email-opt-in-text" = "是的，维基媒体基金会可以偶尔向我发送电子邮件。";

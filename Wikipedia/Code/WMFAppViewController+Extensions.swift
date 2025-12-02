@@ -820,11 +820,18 @@ extension WMFAppViewController {
         
         let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "See more reading and editing insights", comment: "Title for logged out users")
         let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
-        let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
 
         let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
+        var authdValue: LoginState = .loggedOut
+        if dataStore.authenticationManager.authStateIsPermanent {
+            authdValue = .loggedIn
+        } else if dataStore.authenticationManager.authStateIsTemporary {
+            authdValue = .temp
+        } else {
+            authdValue = .loggedOut
+        }
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
@@ -841,8 +848,7 @@ extension WMFAppViewController {
                 remaining: remaining(amount:),
 				loggedOutTitle: loggedOutTitle,
                 loggedOutSubtitle: loggedOutSubtitle,
-                loggedOutPrimaryCTA: createAccount,
-                loggedOutSecondaryCTA: CommonStrings.editSignIn,
+                loggedOutPrimaryCTA: CommonStrings.joinLoginTitle,
                 todayTitle: CommonStrings.todayTitle,
                 yesterdayTitle: CommonStrings.yesterdayTitle,
                 openArticle: openArticle,
@@ -855,7 +861,7 @@ extension WMFAppViewController {
             Task {
                 await activityTabDataController.setHasSeenActivityTab(true)
             }
-        }, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+        }, authenticationState: authdValue)
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
@@ -865,6 +871,18 @@ extension WMFAppViewController {
         )
 
         return controller
+    }
+    
+    private var isLoggedIn: Int {
+        // 0 logged out
+        // 1 temp
+        // 2 logged in
+        if dataStore.authenticationManager.authStateIsTemporary {
+            return 1
+        } else if dataStore.authenticationManager.authStateIsPermanent {
+            return 2
+        }
+        return 0
     }
     
     private func surveyViewController() -> UIViewController {
