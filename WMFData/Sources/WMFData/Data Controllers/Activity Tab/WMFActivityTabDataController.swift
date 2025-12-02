@@ -458,11 +458,11 @@ public actor WMFActivityTabDataController {
         return Calendar.current.date(from: dateComponents)
     }
 
-    private var experimentStartDate: Date? { // TODO: check with product, otherwise remove flags later
+    private var experimentStartDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2025
         dateComponents.month = 12
-        dateComponents.day = 9
+        dateComponents.day = 1
         return Calendar.current.date(from: dateComponents)
     }
 
