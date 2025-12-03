@@ -84,8 +84,10 @@
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
+"activity-tab-log-in-or-create-account" = "Log in or create an account to see more editing and reading activity.";
 "activity-tab-logged-out-subtitle" = "Log in or create an account to view your activity on the Wikipedia app.";
 "activity-tab-logged-out-title" = "See more reading and editing insights";
+"activity-tab-logged-out-track-what-youve-read" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-menu-clear-history" = "Clear reading history";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";

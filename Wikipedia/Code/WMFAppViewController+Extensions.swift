@@ -1298,16 +1298,6 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
 // MARK: - Activity Tab
 
 extension WMFAppViewController {
-    @objc func getAssignmentForActivityTab() -> Int {
-        Task {
-            if await !WMFActivityTabDataController.shared.alreadyAssigned {
-                // TODO: Log assignment
-            }
-        }
-        let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
-        return assignment
-    }
-    
     @objc func incrementActivityTabVisitCount() {
         Task {
             await WMFActivityTabDataController.shared.incrementActivityTabVisitCount()

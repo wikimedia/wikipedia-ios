@@ -515,6 +515,13 @@ public struct WMFActivityTabView: View {
 
                     if index < categories.count - 1 {
                         Divider()
+                            .frame(height: 1)
+                            .overlay(
+                                Rectangle()
+                                    .fill(Color(uiColor: theme.baseBackground))
+                                    .frame(height: 1)
+                            )
+                            .padding(0)
                     }
                 }
             }

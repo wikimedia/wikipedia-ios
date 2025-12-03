@@ -358,7 +358,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
 
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-              let metricsID = DonateCoordinator.metricsID(for: .activityTabProfile, languageCode: languageCode) else {
+              DonateCoordinator.metricsID(for: .activityTabProfile, languageCode: languageCode) != nil else {
             return
         }
 
