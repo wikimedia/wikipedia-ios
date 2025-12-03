@@ -1,4 +1,5 @@
 import SwiftUI
+import WMFData
 
 /// A reusable component for displaying a page row (typically an article) with optional swipe actions. These should be embedded inside of a List.
 struct WMFPageRow: View {
@@ -111,7 +112,7 @@ struct WMFPageRow: View {
             }
         }
     }
-
+    
     @ViewBuilder
     var textViewLimitedFontSize: some View {
         VStack(alignment: .leading, spacing: 4) {

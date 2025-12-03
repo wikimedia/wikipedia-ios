@@ -241,9 +241,11 @@ public actor WMFActivityTabDataController {
             let page = item.page
             let dayBucket = calendar.startOfDay(for: savedDate)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
+            
+            let identifier = String(item.timestamp.timeIntervalSince1970)
 
             let timelineItem = TimelineItem(
-                id: UUID().uuidString,
+                id: identifier,
                 date: savedDate,
                 titleHtml: page.title,
                 projectID: page.projectID,
@@ -281,11 +283,13 @@ public actor WMFActivityTabDataController {
             if let existingItems = dailyTimeline[dayBucket] {
                 todaysPages = Set(existingItems.map { $0.pageTitle })
             }
+            
+            let identifier = String(record.timestamp.timeIntervalSince1970)
 
             guard !todaysPages.contains(page.title) else { continue }
 
             let item = TimelineItem(
-                id: UUID().uuidString,
+                id: identifier,
                 date: timestamp,
                 titleHtml: page.title,
                 projectID: page.projectID,
@@ -324,7 +328,7 @@ public actor WMFActivityTabDataController {
     }
     
     public func fetchSummary(for pageTitle: String, projectID: String) async throws -> WMFArticleSummary? {
-        let articleSummaryController = WMFArticleSummaryDataController()
+        let articleSummaryController = WMFArticleSummaryDataController.shared
         guard let project = WMFProject(id: projectID) else { return nil }
         return try await articleSummaryController.fetchArticleSummary(project: project, title: pageTitle)
     }
@@ -541,7 +545,6 @@ public struct TimelineItem: Identifiable, Equatable {
     public var imageURLString: String?
     public var snippet: String?
     public let namespaceID: Int
-
     
     public let itemType: TimelineItemType
 

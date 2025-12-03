@@ -1399,6 +1399,7 @@ extension WMFAppViewController {
                     todayTitle: CommonStrings.todayTitle,
                     yesterdayTitle: CommonStrings.yesterdayTitle,
                     openArticle: openArticle,
+                    deleteAccessibilityLabel: CommonStrings.deleteActionTitle,
                     totalEdits: totalEdits,
                     read: CommonStrings.readString,
                     edited: edited,
