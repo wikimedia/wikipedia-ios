@@ -38,6 +38,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         updateLoginState()
 
+        if viewModel.isEmpty {
+            ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "empty")
+        } else {
+            ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

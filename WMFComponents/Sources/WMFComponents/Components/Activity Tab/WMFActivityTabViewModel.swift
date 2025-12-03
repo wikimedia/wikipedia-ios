@@ -84,6 +84,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var shouldShowLogInPrompt: Bool = false
 
     @Published var globalEditCount: Int?
+    public var isEmpty: Bool = false
     public var onTapGlobalEdits: (() -> Void)?
 
     // MARK: - Init
@@ -131,13 +132,20 @@ public final class WMFActivityTabViewModel: ObservableObject {
             async let savedTask: Void = articlesSavedViewModel.fetch()
             async let timelineTask: Void = timelineViewModel.fetch()
             async let editCountTask: Void = getGlobalEditCount()
-
+            
             _ = await (readTask, savedTask, timelineTask, editCountTask)
-
+            
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
+            
+            isEmpty =
+                articlesReadViewModel.hoursRead == 0 &&
+                articlesReadViewModel.minutesRead == 0 &&
+                articlesSavedViewModel.articlesSavedAmount == 0 &&
+                timelineViewModel.timeline.count == 1 &&
+                (timelineViewModel.timeline.values.first?.isEmpty == true)
         }
     }
 
