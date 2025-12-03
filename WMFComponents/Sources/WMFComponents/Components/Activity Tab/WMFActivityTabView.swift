@@ -110,7 +110,6 @@ public struct WMFActivityTabView: View {
         .listStyle(.grouped)
         .onAppear {
             viewModel.fetchData()
-            viewModel.hasSeenActivityTab()
         }
     }
 
@@ -132,7 +131,6 @@ public struct WMFActivityTabView: View {
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             viewModel.fetchData()
-            viewModel.hasSeenActivityTab()
         }
     }
     

@@ -47,6 +47,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if !reachabilityNotifier.isReachable {
             showOfflineAlertIfNeeded()
         }
+        
+        presentModalsIfNeeded()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -160,11 +162,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
 
         configureNavigationBar()
-
+    }
+    
+    @MainActor
+    private func presentModalsIfNeeded() {
         Task {
-            let hasSeen = await dataController.getHasSeenActivityTab()
-            if !hasSeen {
+            let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
+            if !hasSeenActivityTab {
                 presentOnboarding()
+                await dataController.setHasSeenActivityTab(true)
+            } else {
+                presentSurveyIfNeeded()
             }
         }
         
@@ -466,13 +474,11 @@ extension WMFActivityTabViewController: ShareableArticlesProvider {}
 extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewDidClickPrimaryButton() {
-        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            Task {
-                await self?.dataController.setHasSeenActivityTab(true)
-            }
-        })
-
+        
         // TODO: Log
+        presentedViewController?.dismiss(animated: true)
+
+        
     }
 
     public func onboardingViewDidClickSecondaryButton() {
@@ -484,12 +490,58 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
         // TODO: Log
     }
-
-    public func onboardingViewWillSwipeToDismiss() {
-        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            Task {
-                await self?.dataController.setHasSeenActivityTab(true)
+    
+    @MainActor
+    private func presentSurveyIfNeeded() {
+        Task { [weak self] in
+            
+            guard let self else {
+                return
             }
+            
+            guard await dataController.shouldShowSurvey() else {
+                return
+            }
+            
+            let surveyView = createSurveyView()
+            let hostedView = WMFComponentHostingController(rootView: surveyView)
+            present(hostedView, animated: true)
+            
+            await dataController.setHasSeenSurvey(value: true)
+        }
+    }
+    
+    private func createSurveyView() -> WMFSurveyView {
+        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
+            title: CommonStrings.satisfactionSurveyTitle,
+            cancel: CommonStrings.cancelActionTitle,
+            submit: CommonStrings.surveySubmitActionTitle,
+            subtitle: WMFLocalizedString("activity-tab-survey-subtitle", value: "Help improve Activity. Are you satisfied with this feature?", comment: "Title for activity tab survey."),
+            instructions: nil,
+            otherPlaceholder: CommonStrings.surveyAdditionalThoughts
+        )
+
+        let surveyOptions = [
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVerySatisfied, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveySatisfied, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyNeutral, apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyUnsatisfied, apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVeryUnsatisfied, apiIdentifer: "5")
+        ]
+
+        return WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
+            
+            // TODO: Log cancel
+            
+            self?.dismiss(animated: true)
+        }, submitAction: { [weak self] options, otherText in
+            
+            // TODO: Log submit
+            
+            self?.dismiss(animated: true, completion: {
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+            })
         })
     }
 }
