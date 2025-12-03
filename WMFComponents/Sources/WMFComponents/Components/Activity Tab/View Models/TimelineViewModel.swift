@@ -25,6 +25,7 @@ public final class TimelineViewModel: ObservableObject {
             let result = try await dataController.getTimelineItems()
             
             // Business rule: if there are no items, we still want a section that says "Today"
+            // https://phabricator.wikimedia.org/T409200
             if result.isEmpty {
                 self.timeline = [Date(): []]
             } else {
