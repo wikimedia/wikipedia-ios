@@ -379,6 +379,9 @@
 		370C97FA2EA17F8200642A08 /* ActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */; };
 		370C97FB2EA17F8200642A08 /* ActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */; };
 		370C97FC2EA17F8200642A08 /* ActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */; };
+		3712FD6A2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */; };
+		3712FD6B2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */; };
+		3712FD6C2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */; };
 		3717C38C2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38D2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38E2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
@@ -3210,6 +3213,7 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabViewController.swift; sourceTree = "<group>"; };
+		3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabFunnel.swift; sourceTree = "<group>"; };
 		3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCoordinator.swift; sourceTree = "<group>"; };
 		372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountsSettingsViewController.swift; sourceTree = "<group>"; };
 		372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountExpiryViewController.swift; sourceTree = "<group>"; };
@@ -5885,6 +5889,7 @@
 		0E7AAEEA1C21F4160046B5B6 /* Wikimedia Event Logging */ = {
 			isa = PBXGroup;
 			children = (
+				3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */,
 				83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */,
 				67B278EE2D47CEEC00E2DF8A /* ArticleLinkInteractionFunnel.swift */,
 				7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */,
@@ -10363,6 +10368,7 @@
 				67ADEE9623A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */,
 				0042813925E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
+				3712FD6C2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
 				7AFEB3F51FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				B08624341F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
@@ -10415,7 +10421,6 @@
 				678D79E4235E592F006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				B0BCF0AB2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
 				67165C602ECFD3EB0078098D /* DatabasePopulationViewModel.swift in Sources */,
-				37C4A98D2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */,
 				7AB209F922FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				B0E804DA1C0CE0B40065EBC0 /* NSString+FormattedAttributedString.m in Sources */,
 				B01CFC5F1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift in Sources */,
@@ -11004,6 +11009,7 @@
 				D8CE25051E698E2400DAE2E0 /* WMFDatabaseHousekeeper.swift in Sources */,
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
 				7A0FF2CD230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
+				3712FD6A2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */,
 				00BCB72426DEEB1C002C3F72 /* RoundedImageView.swift in Sources */,
 				7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */,
 				83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
@@ -11563,6 +11569,7 @@
 				830795272C9DE92200E453BD /* LoginCoordinator.swift in Sources */,
 				83FDE79A293564AC006D55FE /* Link.swift in Sources */,
 				7A20AE0A2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
+				3712FD6B2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */,
 				7A0FF2CE230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
 				00BCB72326DEEB1C002C3F72 /* RoundedImageView.swift in Sources */,
 				7A610CB9220A30C900C266AE /* HintViewController.swift in Sources */,

@@ -147,6 +147,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let hasSeen = await dataController.getHasSeenActivityTab()
             if !hasSeen {
                 presentOnboarding()
+                ActivityTabFunnel.shared.logOnboardingDidAppear()
             }
         }
         
@@ -215,14 +216,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         let clearAction = UIAction(title: clearTitle, image: WMFSFSymbolIcon.for(symbol: .clockBadgeX), handler: { _ in
             self.userDidTapClearReadingHistory()
+            ActivityTabFunnel.shared.logActivityTabOverflowMenuClearHistory()
         })
 
         let learnMoreAction = UIAction(title: CommonStrings.learnMoreTitle(), image: WMFSFSymbolIcon.for(symbol: .infoCircle), handler: { _ in
             self.userDidTapLearnMore()
+            ActivityTabFunnel.shared.logActivityTabOverflowMenuLearnMore()
         })
 
         let reportIssueAction = UIAction(title: CommonStrings.problemWithFeatureTitle, image: WMFSFSymbolIcon.for(symbol: .flag), handler: { _ in
             self.userDidTapReportIssue()
+            ActivityTabFunnel.shared.logActivityTabOverflowMenuProblem()
         })
         let mainMenu = UIMenu(title: String(), children: [learnMoreAction, clearAction, reportIssueAction])
 
@@ -403,7 +407,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
             }
         })
 
-        // TODO: Log
+        ActivityTabFunnel.shared.logOnboardingDidTapContinue()
     }
 
     public func onboardingViewDidClickSecondaryButton() {
@@ -413,7 +417,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
         UIApplication.shared.open(url)
 
-        // TODO: Log
+        ActivityTabFunnel.shared.logOnboardingDidTapLearnMore()
     }
 
     public func onboardingViewWillSwipeToDismiss() {

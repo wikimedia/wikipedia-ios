@@ -122,7 +122,15 @@ extension WMFAppViewController {
     @objc func getAssignmentForActivityTab() -> Int {
         Task {
             if await !WMFActivityTabDataController.shared.alreadyAssigned {
-                // TODO: Log assignment
+                let assignment = try await WMFActivityTabDataController.shared.assignOrFetchExperimentAssignment()
+                
+                let groupName: String
+                switch assignment {
+                    case .control: groupName = "ios_activity_a"
+                    case .activityTab: groupName = "ios_activity_b"
+                    default: groupName = "ios_activity_error"
+                }
+                ActivityTabFunnel.shared.logGroupAssignment(group: groupName)
             }
         }
         let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
