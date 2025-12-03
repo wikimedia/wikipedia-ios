@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
- public final class WMFPage {
+public final class WMFPage: Hashable, Equatable {
    public let namespaceID: Int
    public let projectID: String
    public let title: String
@@ -11,6 +11,20 @@ import CoreData
        self.projectID = projectID
        self.title = title
    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(namespaceID)
+        hasher.combine(projectID)
+        hasher.combine(title)
+    }
+    
+    public static func == (lhs: WMFPage, rhs: WMFPage) -> Bool {
+        return
+            lhs.namespaceID == rhs.namespaceID &&
+            lhs.projectID == rhs.projectID &&
+            lhs.title == rhs.title
+    }
+
  }
 
 public final class WMFPageViewCount: Identifiable {

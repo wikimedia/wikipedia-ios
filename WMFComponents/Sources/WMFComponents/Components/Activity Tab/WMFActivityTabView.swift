@@ -6,8 +6,6 @@ import Foundation
 public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
-    @ObservedObject private var timelineViewModel: TimelineViewModel
-    @ObservedObject private var savedViewModel: ArticlesSavedViewModel
 
     @State private var animatedGlobalEditCount: Int = 0
     @State private var hasShownGlobalEditsCard: Bool = false
@@ -18,8 +16,6 @@ public struct WMFActivityTabView: View {
 
     public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
-        self.timelineViewModel = viewModel.timelineViewModel
-        self.savedViewModel = viewModel.articlesSavedViewModel
     }
 
     public var body: some View {
@@ -147,53 +143,9 @@ public struct WMFActivityTabView: View {
     }
 
     private func timelineSectionsList() -> some View {
-        ForEach(viewModel.timelineSections) { section in
-            Section(header: timelineHeaderView(for: section)) {
-                
-                if viewModel.timelineViewModel.shouldShowEmptyState {
-                    emptyState
-                } else {
-                    ForEach(section.pages.indices, id: \.self) { index in
-                        pageRow(page: section.pages[index], section: section.id)
-                            .listRowInsets(EdgeInsets())
-                            .listRowSeparator(.hidden)
-                            .padding(.bottom, 20)
-                            .listRowBackground(Color(uiColor: theme.paperBackground))
-                    }
-                }
-            }
-            .listRowBackground(Color(uiColor: theme.paperBackground))
-            .padding(.horizontal, 16)
+        ForEach(viewModel.timelineViewModel.sections) { section in
+            TimelineSectionView(activityViewModel: viewModel, section: section)
         }
-    }
-    
-    private var emptyState: some View {
-        HStack {
-            Spacer()
-            WMFEmptyView(viewModel: viewModel.emptyViewModel, type: .noItems, isScrollable: false)
-            Spacer()
-        }
-    }
-
-    private func timelineHeaderView(for section: WMFActivityTabViewModel.TimelineSection) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            if !section.title.isEmpty {
-                Text(section.title)
-                    .font(Font(WMFFont.for(.boldTitle3)))
-                    .foregroundColor(Color(uiColor: theme.text))
-                    .textCase(.none)
-            }
-            if !section.subtitle.isEmpty {
-                Text(section.subtitle)
-                    .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-                    .textCase(.none)
-            }
-        }
-        .listRowInsets(EdgeInsets())
-        .padding(.bottom, 20)
-        .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(.isHeader)
     }
 
     private var headerView: some View {
@@ -269,101 +221,6 @@ public struct WMFActivityTabView: View {
         .accessibilityLabel("\(viewModel.localizedStrings.loggedOutTitle). \(viewModel.localizedStrings.loggedOutSubtitle)")
     }
 
-    private func getPreviewViewModel(from item: TimelineItem) -> WMFArticlePreviewViewModel {
-        let summary = timelineViewModel.pageSummaries[item.id]
-
-        return WMFArticlePreviewViewModel(
-            url: item.url,
-            titleHtml: item.pageTitle.replacingOccurrences(of: "_", with: " "),
-            description: summary?.description ?? item.description,
-            imageURLString: summary?.thumbnailURL?.absoluteString ?? item.imageURLString,
-            isSaved: false,
-            snippet: summary?.extract ?? item.snippet
-        )
-    }
-
-    private func pageRow(page: TimelineItem, section: Date) -> some View {
-        let iconImage: UIImage?
-        let actionString: String
-        switch page.itemType {
-        case .standard:
-            iconImage = nil
-            actionString = ""
-        case .edit:
-            iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
-            actionString = viewModel.localizedStrings.edited
-        case .read:
-            iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
-            actionString = viewModel.localizedStrings.read
-        case .saved:
-            iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
-            actionString = viewModel.localizedStrings.saved
-        }
-        let summary = timelineViewModel.pageSummaries[page.id]
-        let description: String? = {
-            if let desc = summary?.description, !desc.isEmpty {
-                return desc
-            } else if let pageDesc = page.description, !pageDesc.isEmpty {
-                return pageDesc
-            } else if let extract = summary?.extract, !extract.isEmpty {
-                return extract
-            } else {
-                return nil
-            }
-        }()
-        
-        let accessibilityLabelParts = [
-            actionString,
-            page.pageTitle.replacingOccurrences(of: "_", with: " "),
-            description
-        ].compactMap { $0 }
-
-        return WMFPageRow(
-            needsLimitedFontSize: false,
-            id: page.id,
-            titleHtml: page.pageTitle.replacingOccurrences(of: "_", with: " "),
-            articleDescription: description,
-            imageURLString: summary?.thumbnailURL?.absoluteString ?? page.imageURLString,
-            titleLineLimit: 1,
-            isSaved: false,
-            showsSwipeActions: page.itemType == .read,
-            deleteItemAction: { timelineViewModel.deletePage(item: page) },
-            loadImageAction: { imageURLString in
-                try? await timelineViewModel.loadImage(imageURLString: imageURLString)
-            },
-            iconImage: viewModel.authenticationState == .loggedIn ? iconImage : nil
-        )
-        .listRowSeparator(.hidden)
-        .accessibilityElement()
-        .accessibilityLabel(accessibilityLabelParts.joined(separator: " - "))
-        .accessibilityAddTraits(.isButton)
-        .contentShape(Rectangle())
-        .onTapGesture {
-            timelineViewModel.onTap(page)
-        }
-        .contextMenu {
-            Button {
-                timelineViewModel.onTap(page)
-            } label: {
-                HStack {
-                    Text(viewModel.localizedStrings.openArticle)
-                        .font(Font(WMFFont.for(.mediumSubheadline)))
-                    Spacer()
-                    if let icon = WMFSFSymbolIcon.for(symbol: .chevronForward, font: .mediumSubheadline) {
-                        Image(uiImage: icon)
-                    }
-                }
-            }
-        } preview: {
-            if summary != nil {
-                WMFArticlePreviewView(viewModel: getPreviewViewModel(from: page))
-            }
-        }
-        .task {
-            _ = await timelineViewModel.fetchSummary(for: page)
-        }
-    }
-
     private var hoursMinutesRead: some View {
         Text(viewModel.hoursMinutesRead)
             .font(Font(WMFFont.for(.boldTitle1)))
@@ -405,7 +262,7 @@ public struct WMFActivityTabView: View {
     private var savedArticlesModule: some View {
 
         Group {
-            let thumbURLs = savedViewModel.articlesSavedThumbURLs
+            let thumbURLs = viewModel.articlesSavedViewModel.articlesSavedThumbURLs
             let displayCount = min(thumbURLs.count, 3)
             let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
 
@@ -420,7 +277,7 @@ public struct WMFActivityTabView: View {
                 content: {
 
                     if !thumbURLs.isEmpty {
-                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: savedViewModel.articlesSavedAmount, remaining: remaining)
+                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount, remaining: remaining)
                     }
                 }
             )
@@ -533,5 +390,174 @@ public struct WMFActivityTabView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color(theme.baseBackground), lineWidth: 0.5)
         )
+    }
+}
+
+struct TimelineSectionView: View {
+    
+    let activityViewModel: WMFActivityTabViewModel
+    @ObservedObject var section: TimelineViewModel.TimelineSection
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    public var body: some View {
+        return Section(
+            header:
+                TimelineHeaderView(activityViewModel: activityViewModel, section: section)
+        ) {
+            if activityViewModel.timelineViewModel.shouldShowEmptyState {
+                emptyState
+            } else {
+                ForEach(section.items) { item in
+                    TimelineRowView(activityViewModel: activityViewModel, section: section, item: item)
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                        .padding(.bottom, 20)
+                        .listRowBackground(Color(uiColor: theme.paperBackground))
+                }
+            }
+        }
+        .listRowBackground(Color(uiColor: theme.paperBackground))
+        .padding(.horizontal, 16)
+    }
+    
+    private var emptyState: some View {
+        HStack {
+            Spacer()
+            WMFEmptyView(viewModel: activityViewModel.emptyViewModel, type: .noItems, isScrollable: false)
+            Spacer()
+        }
+    }
+}
+
+struct TimelineRowView: View {
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    let activityViewModel: WMFActivityTabViewModel
+    let section: TimelineViewModel.TimelineSection
+    let item: TimelineItem
+    
+    var pageRowViewModel: WMFAsyncPageRowViewModel {
+        var iconImage: UIImage?
+        var iconAccessiblityLabel: String
+        switch item.itemType {
+        case .standard:
+            iconImage = nil
+            iconAccessiblityLabel = ""
+        case .edit:
+            iconImage = WMFSFSymbolIcon.for(symbol: .pencil, font: .callout)
+            iconAccessiblityLabel = activityViewModel.localizedStrings.edited
+        case .read:
+            iconImage = WMFSFSymbolIcon.for(symbol: .textPage, font: .callout)
+            iconAccessiblityLabel = activityViewModel.localizedStrings.read
+        case .saved:
+            iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
+            iconAccessiblityLabel = activityViewModel.localizedStrings.saved
+        }
+        
+        // Hide icon if logged out
+        if activityViewModel.authenticationState == .loggedOut {
+            iconImage = nil
+            iconAccessiblityLabel = ""
+        }
+        
+        let deleteItemAction: () -> Void = {
+            self.activityViewModel.timelineViewModel.deletePage(item: item, section: section)
+        }
+        
+        let tapAction: () -> Void = {
+            self.activityViewModel.timelineViewModel.onTap(item)
+        }
+        
+        let contextMenuOpenAction: () -> Void = {
+            self.activityViewModel.timelineViewModel.onTap(item)
+        }
+
+        return WMFAsyncPageRowViewModel(
+            id: item.id,
+            title: item.pageTitle.replacingOccurrences(of: "_", with: " "),
+            projectID: item.projectID,
+            iconImage: iconImage,
+            iconAccessibilityLabel: iconAccessiblityLabel,
+            tapAction: tapAction,
+            contextMenuOpenAction: contextMenuOpenAction,
+            contextMenuOpenText: activityViewModel.localizedStrings.openArticle,
+            deleteItemAction: deleteItemAction,
+            deleteAccessibilityLabel: activityViewModel.localizedStrings.deleteAccessibilityLabel)
+    }
+    
+    public var body: some View {
+        return WMFAsyncPageRow(viewModel: pageRowViewModel)
+    }
+}
+
+struct TimelineHeaderView: View {
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    let activityViewModel: WMFActivityTabViewModel
+    let section: TimelineViewModel.TimelineSection
+    
+    var title: String {
+        let calendar = Calendar.current
+
+        let title: String
+        if calendar.isDateInToday(section.date) {
+            title = activityViewModel.localizedStrings.todayTitle
+        } else if calendar.isDateInYesterday(section.date) {
+            title = activityViewModel.localizedStrings.yesterdayTitle
+        } else {
+            title = activityViewModel.formatDate(section.date)
+        }
+        
+        return title
+    }
+    
+    var subtitle: String {
+        let calendar = Calendar.current
+
+        let subtitle: String
+        if calendar.isDateInToday(section.date) {
+            subtitle = activityViewModel.formatDate(section.date)
+        } else if calendar.isDateInYesterday(section.date) {
+            subtitle = activityViewModel.formatDate(section.date)
+        } else {
+            subtitle = ""
+        }
+        
+        return subtitle
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            if !title.isEmpty {
+                Text(title)
+                    .font(Font(WMFFont.for(.boldTitle3)))
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .textCase(.none)
+            }
+            if !subtitle.isEmpty {
+                Text(subtitle)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .textCase(.none)
+            }
+        }
+        .listRowInsets(EdgeInsets())
+        .padding(.bottom, 20)
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isHeader)
     }
 }

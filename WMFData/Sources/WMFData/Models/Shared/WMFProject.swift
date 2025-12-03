@@ -43,7 +43,7 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
         }
     }
     
-    init?(id: String) {
+    public init?(id: String) {
         switch id {
         case "commons":
             self = .commons
