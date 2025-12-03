@@ -37,17 +37,69 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
         updateLoginState()
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reachabilityNotifier.start()
+
+        if !reachabilityNotifier.isReachable {
+            showOfflineAlertIfNeeded()
+        }
+        
+        presentModalsIfNeeded()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        reachabilityNotifier.stop()
     }
 
     @objc private func updateLoginState() {
         if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
-            viewModel.updateIsLoggedIn(isLoggedIn: true)
+            viewModel.updateAuthenticationState(authState: .loggedIn)
+        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
+            viewModel.updateAuthenticationState(authState: .temp)
         } else {
-            viewModel.updateIsLoggedIn(isLoggedIn: false)
+            viewModel.updateAuthenticationState(authState: .loggedOut)
         }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
         }
+    }
+
+    private func presentFullLoginFlow() {
+        guard let nav = navigationController else { return }
+
+        let loginCoordinator = LoginCoordinator(
+            navigationController: nav,
+            theme: theme,
+            loggingCategory: .activity
+        )
+
+        loginCoordinator.loginSuccessCompletion = { [weak self] in
+            guard let self else { return }
+            if let loginVC = nav.presentedViewController?.presentedViewController {
+                loginVC.dismiss(animated: true) { [weak self] in
+                    self?.viewModel.fetchData()
+                    self?.updateLoginState()
+                }
+            }
+        }
+
+        loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
+            guard let self else { return }
+            if let createVC = nav.presentedViewController?.presentedViewController {
+                createVC.dismiss(animated: true) { [weak self] in
+                    self?.viewModel.fetchData()
+                    self?.updateLoginState()
+                }
+            }
+        }
+
+        loginCoordinator.start()
     }
 
     // MARK: - Profile button dependencies
@@ -96,7 +148,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         return existingProfileCoordinator
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -104,16 +156,28 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: username)
         }
 
-        viewModel.articlesSavedViewModel.navigateToSaved = goToSaved
+        viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
         viewModel.timelineViewModel.onTapArticle = onTapArticle
+        viewModel.onTapGlobalEdits = onTapGlobalEdits
+
 
         configureNavigationBar()
-
+    }
+    
+    @MainActor
+    private func presentModalsIfNeeded() {
         Task {
-            let hasSeen = await dataController.getHasSeenActivityTab()
-            if !hasSeen {
+            let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
+            if !hasSeenActivityTab {
                 presentOnboarding()
+                await dataController.setHasSeenActivityTab(true)
+            } else {
+                presentSurveyIfNeeded()
             }
+        }
+        
+        viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
+            self?.presentFullLoginFlow()
         }
     }
 
@@ -306,22 +370,42 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
-    @objc func goToSaved() {
+    // MARK: - Private funcs
+
+    private func onTapSaved() {
         navigationController?.popToRootViewController(animated: false)
 
         if let tabBar = self.tabBarController {
             tabBar.selectedIndex = 2
         }
     }
-    
-    func onTapArticle(item: TimelineItem) {
+
+    private var userContributionsURL: URL? {
+        if let appLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+           let username = dataStore?.authenticationManager.authStatePermanentUsername,
+           let siteURL = WMFProject.wikipedia(appLanguage).siteURL {
+            return siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)")
+
+        }
+        return nil
+    }
+
+    private func onTapGlobalEdits() {
+        if let url = userContributionsURL {
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            navigationController?.pushViewController(webVC, animated: true)
+        }
+    }
+
+   private  func onTapArticle(item: TimelineItem) {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }
     }
     
-    // MARK: Theming
+    // MARK: - Theming
 
     public func apply(theme: Theme) {
         guard viewIfLoaded != nil else {
@@ -331,6 +415,37 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         profileCoordinator?.theme = theme
         self.theme = theme
     }
+
+    // MARK: - Reachability
+
+    private lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.hideOfflineAlertIfNeeded()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineAlertIfNeeded()
+                }
+            }
+        }
+        return notifier
+    }()
+
+    private func hideOfflineAlertIfNeeded() {
+        WMFAlertManager.sharedInstance.dismissAllAlerts()
+    }
+
+    private func showOfflineAlertIfNeeded() {
+        let title = CommonStrings.noInternetConnection
+        if UIAccessibility.isVoiceOverRunning {
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+        }
+    }
+
 }
 
 // MARK: - Extensions
@@ -359,13 +474,11 @@ extension WMFActivityTabViewController: ShareableArticlesProvider {}
 extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewDidClickPrimaryButton() {
-        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            Task {
-                await self?.dataController.setHasSeenActivityTab(true)
-            }
-        })
-
+        
         // TODO: Log
+        presentedViewController?.dismiss(animated: true)
+
+        
     }
 
     public func onboardingViewDidClickSecondaryButton() {
@@ -377,12 +490,58 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
         // TODO: Log
     }
-
-    public func onboardingViewWillSwipeToDismiss() {
-        presentedViewController?.dismiss(animated: true, completion: { [weak self] in
-            Task {
-                await self?.dataController.setHasSeenActivityTab(true)
+    
+    @MainActor
+    private func presentSurveyIfNeeded() {
+        Task { [weak self] in
+            
+            guard let self else {
+                return
             }
+            
+            guard await dataController.shouldShowSurvey() else {
+                return
+            }
+            
+            let surveyView = createSurveyView()
+            let hostedView = WMFComponentHostingController(rootView: surveyView)
+            present(hostedView, animated: true)
+            
+            await dataController.setHasSeenSurvey(value: true)
+        }
+    }
+    
+    private func createSurveyView() -> WMFSurveyView {
+        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
+            title: CommonStrings.satisfactionSurveyTitle,
+            cancel: CommonStrings.cancelActionTitle,
+            submit: CommonStrings.surveySubmitActionTitle,
+            subtitle: WMFLocalizedString("activity-tab-survey-subtitle", value: "Help improve Activity. Are you satisfied with this feature?", comment: "Title for activity tab survey."),
+            instructions: nil,
+            otherPlaceholder: CommonStrings.surveyAdditionalThoughts
+        )
+
+        let surveyOptions = [
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVerySatisfied, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveySatisfied, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyNeutral, apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyUnsatisfied, apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVeryUnsatisfied, apiIdentifer: "5")
+        ]
+
+        return WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
+            
+            // TODO: Log cancel
+            
+            self?.dismiss(animated: true)
+        }, submitAction: { [weak self] options, otherText in
+            
+            // TODO: Log submit
+            
+            self?.dismiss(animated: true, completion: {
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+            })
         })
     }
 }

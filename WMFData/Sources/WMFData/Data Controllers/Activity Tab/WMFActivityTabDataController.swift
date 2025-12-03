@@ -79,7 +79,42 @@ public actor WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-    private var hasSeenActivityTab: Bool {
+    public func shouldShowLoginPrompt(for state: LoginState) -> Bool {
+        switch state {
+        case .loggedIn:
+            return false
+        case .temp:
+            return !tempAccountUserHasDismissedActivityTabLogInPrompt
+        case .loggedOut:
+            return !loggedOutUserHasDismissedActivityTabLogInPrompt
+        }
+    }
+    
+    public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue, value: newValue)
+        }
+    }
+    
+    public var tempAccountUserHasDismissedActivityTabLogInPrompt: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue, value: newValue)
+        }
+    }
+    
+    public func setLoggedOutUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
+        loggedOutUserHasDismissedActivityTabLogInPrompt = value
+    }
+
+    public func setTempAccountUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
+        tempAccountUserHasDismissedActivityTabLogInPrompt = value
+    }
+    
+    public var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
         } set {
@@ -93,6 +128,54 @@ public actor WMFActivityTabDataController {
 
     public func getHasSeenActivityTab() -> Bool {
         return hasSeenActivityTab
+    }
+    
+    public func setHasSeenSurvey(value: Bool) {
+        self.hasSeenSurvey = value
+    }
+    
+    private var hasSeenSurvey: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActiviyTabSurvey.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActiviyTabSurvey.rawValue, value: newValue)
+        }
+    }
+    
+    public func shouldShowSurvey() -> Bool {
+        let visitCount = activityTabVisitCount
+        let alreadySeenSurvey = hasSeenSurvey
+        
+        guard visitCount >= 3 && !alreadySeenSurvey else {
+            return false
+        }
+        
+        if let surveyEndDate {
+            return surveyEndDate >= Date()
+        }
+        
+        return false
+    }
+    
+    private var surveyEndDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2026
+        dateComponents.month = 1
+        dateComponents.day = 15
+        return Calendar.current.date(from: dateComponents)
+    }
+    
+    private var activityTabVisitCount: Int {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabVisitCount.rawValue)) ?? 0
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabVisitCount.rawValue, value: newValue)
+        }
+    }
+    
+    public func incrementActivityTabVisitCount() {
+        let visitCount = self.activityTabVisitCount + 1
+        self.activityTabVisitCount = visitCount
     }
 
     public func getMostRecentReadDateTime() async throws -> Date? {
@@ -275,10 +358,6 @@ public actor WMFActivityTabDataController {
             throw CustomError.beforeStartDate
         }
 
-        guard isDevSettingOn || !hasExperimentEnded() else {
-            throw CustomError.pastAssignmentEndDate
-        }
-
         if let assignmentCache {
             return assignmentCache
         }
@@ -297,6 +376,11 @@ public actor WMFActivityTabDataController {
 
             self.assignmentCache = assignment
             return assignment
+        }
+
+        // return assigment if existing, do not assign new if past experiment end date
+        guard isDevSettingOn || !hasExperimentEnded() else {
+            throw CustomError.pastAssignmentEndDate
         }
 
         let newAssignment = try assignExperiment()
@@ -374,11 +458,11 @@ public actor WMFActivityTabDataController {
         return Calendar.current.date(from: dateComponents)
     }
 
-    private var experimentStartDate: Date? { // TODO: check with product, otherwise remove flags later
+    private var experimentStartDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2025
         dateComponents.month = 12
-        dateComponents.day = 9
+        dateComponents.day = 1
         return Calendar.current.date(from: dateComponents)
     }
 
@@ -495,4 +579,10 @@ public enum TimelineItemType {
     case edit
     case read
     case saved
+}
+
+public enum LoginState: Int {
+    case loggedOut = 0
+    case temp = 1
+    case loggedIn = 2
 }

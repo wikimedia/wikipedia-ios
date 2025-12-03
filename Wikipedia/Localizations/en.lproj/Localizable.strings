@@ -79,6 +79,8 @@
 "activity-tab-email-second-line" = "- [Describe specific problem]";
 "activity-tab-email-third-line" = "The behavior I would like to see is:";
 "activity-tab-email-title" = "Issue Report - Activity Tab";
+"activity-tab-empty-subtitle" = "Start reading and editing to build your history";
+"activity-tab-empty-title" = "Nothing to show";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
@@ -103,7 +105,7 @@
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-saved" = "Articles saved this month";
 "activity-tab-start-editing" = "Start editing";
-"activity-tab-survey" = "Are you satisfied with your \"Activity\" screen? What else would you like to see here in the future?";
+"activity-tab-survey-subtitle" = "Help improve Activity. Are you satisfied with this feature?";
 "activity-tab-survey-title" = "Satisfaction survey";
 "activity-tab-time-spent-reading" = "Time spent reading this week";
 "activity-tab-title" = "Activity";
