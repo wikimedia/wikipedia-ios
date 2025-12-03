@@ -771,175 +771,6 @@ extension WMFAppViewController {
         let viewController = WMFHistoryViewController(viewModel: viewModel, dataController: historyDataController, theme: theme, dataStore: dataStore)
         return viewController
     }
-    
-    @objc func generateActivityTab() -> WMFActivityTabViewController {
-        let onWikipediaiOS = WMFLocalizedString(
-            "activity-tab-hours-on-wikipedia-ios",
-            value: "ON WIKIPEDIA iOS",
-            comment: "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization"
-        )
-        
-        let timeSpentReading = WMFLocalizedString(
-            "activity-tab-time-spent-reading",
-            value: "Time spent reading this week",
-            comment: "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes"
-        )
-
-        let activityTabDataController = WMFActivityTabDataController()
-
-        func usernamesReading(username: String) -> String {
-            let format = WMFLocalizedString(
-                "activity-tab-usernames-reading-title",
-                value: "%1$@'s reading",
-                comment: "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username."
-            )
-            return String.localizedStringWithFormat(format, username)
-        }
-        
-        let noUsernameReading = WMFLocalizedString("activity-tab-no-username-reading-title", value: "Your reading", comment: "Activity tab header, for when there is no username.")
-
-        func hoursMinutesRead(hours: Int, minutes: Int) -> String {
-            let hoursString = hours.description
-            let minutesString = minutes.description
-            let format = WMFLocalizedString(
-                "activity-tab-hours-minutes-read",
-                value: "%1$@h %2$@m",
-                comment: "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes."
-            )
-            return String.localizedStringWithFormat(format, hoursString, minutesString)
-        }
-        
-        let articlesRead = WMFLocalizedString("activity-tab-articles-read", value: "Articles read this month", comment: "Title for module about articles read this month, displayed below the time spent reading this week")
-
-        let articlesReadGraph = WMFLocalizedString("activity-tab-articles-read-graph-label", value: "Articles", comment: "Activity tab articles read graph axis label")
-        let weekGraph = WMFLocalizedString("activity-tab-week-graph-label", value: "Week", comment: "Activity tab week graph axis label")
-
-        let topCategories = WMFLocalizedString("activity-tab-top-categories", value: "Top categories this month", comment: "Title for module about top categories this month")
-        let saved = WMFLocalizedString("activity-tab-saved", value: "Articles saved this month", comment: "Title for module about saved articles")
-        
-        func remaining(amount: Int) -> String {
-            let format = WMFLocalizedString(
-                "activity-tab-remaining-articles",
-                value: "+%1$@",
-                comment: "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3."
-            )
-            return String.localizedStringWithFormat(format, String(amount))
-        }
-        
-        let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "See more reading and editing insights", comment: "Title for logged out users")
-        let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
-        let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
-        let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
-
-        let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
-        var authdValue: LoginState = .loggedOut
-        if dataStore.authenticationManager.authStateIsPermanent {
-            authdValue = .loggedIn
-        } else if dataStore.authenticationManager.authStateIsTemporary {
-            authdValue = .temp
-        } else {
-            authdValue = .loggedOut
-        }
-        
-        let viewModel = WMFActivityTabViewModel(localizedStrings:
-            WMFActivityTabViewModel.LocalizedStrings(
-                userNamesReading: usernamesReading(username:),
-                noUsernameReading: noUsernameReading,
-                totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
-                onWikipediaiOS: onWikipediaiOS,
-                timeSpentReading: timeSpentReading,
-                totalArticlesRead: articlesRead,
-                week: weekGraph,
-                articlesRead: articlesReadGraph,
-                topCategories: topCategories,
-                articlesSavedTitle: saved,
-                remaining: remaining(amount:),
-				loggedOutTitle: loggedOutTitle,
-                loggedOutSubtitle: loggedOutSubtitle,
-                loggedOutPrimaryCTA: CommonStrings.joinLoginTitle,
-                todayTitle: CommonStrings.todayTitle,
-                yesterdayTitle: CommonStrings.yesterdayTitle,
-                openArticle: openArticle,
-                totalEdits: totalEdits,
-                read: CommonStrings.readString,
-                edited: edited,
-                saved: CommonStrings.shortSavedTitle),
-            dataController: activityTabDataController,
-            hasSeenActivityTab: {
-            Task {
-                await activityTabDataController.setHasSeenActivityTab(true)
-            }
-        }, authenticationState: authdValue)
-
-        let controller = WMFActivityTabViewController(
-            dataStore: dataStore,
-            theme: theme,
-            viewModel: viewModel,
-            dataController: activityTabDataController
-        )
-
-        return controller
-    }
-    
-    private var isLoggedIn: Int {
-        // 0 logged out
-        // 1 temp
-        // 2 logged in
-        if dataStore.authenticationManager.authStateIsTemporary {
-            return 1
-        } else if dataStore.authenticationManager.authStateIsPermanent {
-            return 2
-        }
-        return 0
-    }
-    
-    private func surveyViewController() -> UIViewController {
-        
-        var wikimediaProject: WikimediaProject? = nil
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-        let project = WikimediaProject(siteURL: siteURL) {
-            wikimediaProject = project
-        }
-        
-        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
-            title: CommonStrings.satisfactionSurveyTitle,
-            cancel: CommonStrings.cancelActionTitle,
-            submit: CommonStrings.surveySubmitActionTitle,
-            subtitle: CommonStrings.activityTabSurvey,
-            instructions: nil,
-            otherPlaceholder: CommonStrings.surveyAdditionalThoughts
-        )
-
-        let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVerySatisfied, apiIdentifer: "1"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveySatisfied, apiIdentifer: "2"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyNeutral, apiIdentifer: "3"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyUnsatisfied, apiIdentifer: "4"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVeryUnsatisfied, apiIdentifer: "5")
-        ]
-
-        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
-            
-            if let wikimediaProject {
-                EditInteractionFunnel.shared.logActivityTabSurveyDidTapCancel(project: wikimediaProject)
-            }
-            
-            self?.currentTabNavigationController?.dismiss(animated: true)
-        }, submitAction: { [weak self] options, otherText in
-            
-            if let wikimediaProject {
-                EditInteractionFunnel.shared.logActivityTabSurveyDidTapSubmit(options: options, otherText: otherText, project: wikimediaProject)
-            }
-            
-            self?.currentTabNavigationController?.dismiss(animated: true, completion: {
-                let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
-            })
-        })
-
-        let hostedView = WMFComponentHostingController(rootView: surveyView)
-        return hostedView
-    }
 }
 
 // MARK: Activity Tab Image Recommendations flow conformances. Delete after Activity Tab experiment ends.
@@ -1463,3 +1294,151 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
          tabItemIdentifiersToDelete.removeAllObjects()
       }
  }
+
+// MARK: - Activity Tab
+
+extension WMFAppViewController {
+    @objc func getAssignmentForActivityTab() -> Int {
+        Task {
+            if await !WMFActivityTabDataController.shared.alreadyAssigned {
+                // TODO: Log assignment
+            }
+        }
+        let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
+        return assignment
+    }
+    
+    @objc func incrementActivityTabVisitCount() {
+        Task {
+            await WMFActivityTabDataController.shared.incrementActivityTabVisitCount()
+        }
+    }
+    
+    @objc func generateActivityTab() -> WMFActivityTabViewController {
+        let onWikipediaiOS = WMFLocalizedString(
+            "activity-tab-hours-on-wikipedia-ios",
+            value: "ON WIKIPEDIA iOS",
+            comment: "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization"
+        )
+        
+        let timeSpentReading = WMFLocalizedString(
+            "activity-tab-time-spent-reading",
+            value: "Time spent reading this week",
+            comment: "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes"
+        )
+
+        let activityTabDataController = WMFActivityTabDataController()
+
+        func usernamesReading(username: String) -> String {
+            let format = WMFLocalizedString(
+                "activity-tab-usernames-reading-title",
+                value: "%1$@'s reading",
+                comment: "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username."
+            )
+            return String.localizedStringWithFormat(format, username)
+        }
+        
+        let noUsernameReading = WMFLocalizedString("activity-tab-no-username-reading-title", value: "Your reading", comment: "Activity tab header, for when there is no username.")
+
+        func hoursMinutesRead(hours: Int, minutes: Int) -> String {
+            let hoursString = hours.description
+            let minutesString = minutes.description
+            let format = WMFLocalizedString(
+                "activity-tab-hours-minutes-read",
+                value: "%1$@h %2$@m",
+                comment: "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes."
+            )
+            return String.localizedStringWithFormat(format, hoursString, minutesString)
+        }
+        
+        let articlesRead = WMFLocalizedString("activity-tab-articles-read", value: "Articles read this month", comment: "Title for module about articles read this month, displayed below the time spent reading this week")
+
+        let articlesReadGraph = WMFLocalizedString("activity-tab-articles-read-graph-label", value: "Articles", comment: "Activity tab articles read graph axis label")
+        let weekGraph = WMFLocalizedString("activity-tab-week-graph-label", value: "Week", comment: "Activity tab week graph axis label")
+
+        let topCategories = WMFLocalizedString("activity-tab-top-categories", value: "Top categories this month", comment: "Title for module about top categories this month")
+        let saved = WMFLocalizedString("activity-tab-saved", value: "Articles saved this month", comment: "Title for module about saved articles")
+        
+        func remaining(amount: Int) -> String {
+            let format = WMFLocalizedString(
+                "activity-tab-remaining-articles",
+                value: "+%1$@",
+                comment: "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3."
+            )
+            return String.localizedStringWithFormat(format, String(amount))
+        }
+        
+        let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "See more reading and editing insights", comment: "Title for logged out users")
+        let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
+        let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
+        let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
+        let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
+
+        let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
+        let emptyTitleLoggedIn = WMFLocalizedString("activity-tab-empty-title", value: "Nothing to show", comment: "Title on activity tab timeline empty state.")
+        let emptySubtitleLoggedIn = WMFLocalizedString("activity-tab-empty-subtitle", value: "Start reading and editing to build your history", comment: "Subtitle on activity tab timeline empty state.")
+        let emptyTitleLoggedOut = CommonStrings.emptyNoHistoryTitle
+        let emptySubtitleLoggedOut = CommonStrings.emptyNoHistorySubtitle
+        
+        var authdValue: LoginState = .loggedOut
+        if dataStore.authenticationManager.authStateIsPermanent {
+            authdValue = .loggedIn
+        } else if dataStore.authenticationManager.authStateIsTemporary {
+            authdValue = .temp
+        } else {
+            authdValue = .loggedOut
+        }
+        
+        let viewModel = WMFActivityTabViewModel(
+            localizedStrings:
+                WMFActivityTabViewModel.LocalizedStrings(
+                    userNamesReading: usernamesReading(username:),
+                    noUsernameReading: noUsernameReading,
+                    totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
+                    onWikipediaiOS: onWikipediaiOS,
+                    timeSpentReading: timeSpentReading,
+                    totalArticlesRead: articlesRead,
+                    week: weekGraph,
+                    articlesRead: articlesReadGraph,
+                    topCategories: topCategories,
+                    articlesSavedTitle: saved,
+                    remaining: remaining(amount:),
+                    loggedOutTitle: loggedOutTitle,
+                    loggedOutSubtitle: loggedOutSubtitle,
+                    loggedOutPrimaryCTA: CommonStrings.joinLoginTitle,
+                    todayTitle: CommonStrings.todayTitle,
+                    yesterdayTitle: CommonStrings.yesterdayTitle,
+                    openArticle: openArticle,
+                    totalEdits: totalEdits,
+                    read: CommonStrings.readString,
+                    edited: edited,
+                    saved: CommonStrings.shortSavedTitle,
+                    emptyViewTitleLoggedIn: emptyTitleLoggedIn,
+                    emptyViewSubtitleLoggedIn: emptySubtitleLoggedIn,
+                    emptyViewTitleLoggedOut: emptyTitleLoggedOut,
+                    emptyViewSubtitleLoggedOut: emptySubtitleLoggedOut),
+                dataController: activityTabDataController,
+                authenticationState: authdValue)
+
+        let controller = WMFActivityTabViewController(
+            dataStore: dataStore,
+            theme: theme,
+            viewModel: viewModel,
+            dataController: activityTabDataController
+        )
+
+        return controller
+    }
+    
+    private var isLoggedIn: Int {
+        // 0 logged out
+        // 1 temp
+        // 2 logged in
+        if dataStore.authenticationManager.authStateIsTemporary {
+            return 1
+        } else if dataStore.authenticationManager.authStateIsPermanent {
+            return 2
+        }
+        return 0
+    }
+}

@@ -1782,6 +1782,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
     
+    // When switching to Activity via tab bar button, we want to increment the visit count
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)viewController;
+        if (navVC.viewControllers.count == 1 && [navVC.viewControllers[0] isKindOfClass:[WMFActivityTabViewController class]]) {
+            [self incrementActivityTabVisitCount];
+        }
+    }
+    
     return YES;
 }
 

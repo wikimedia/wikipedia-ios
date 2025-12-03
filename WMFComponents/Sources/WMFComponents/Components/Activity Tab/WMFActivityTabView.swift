@@ -110,7 +110,6 @@ public struct WMFActivityTabView: View {
         .listStyle(.grouped)
         .onAppear {
             viewModel.fetchData()
-            viewModel.hasSeenActivityTab()
         }
     }
 
@@ -132,7 +131,6 @@ public struct WMFActivityTabView: View {
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             viewModel.fetchData()
-            viewModel.hasSeenActivityTab()
         }
     }
     
@@ -143,7 +141,7 @@ public struct WMFActivityTabView: View {
             dateText: nil,
             amount: amount,
             onTapModule: {
-                viewModel.navigateToGlobalEdits?()
+                viewModel.onTapGlobalEdits?()
             }
         )
     }
@@ -151,16 +149,29 @@ public struct WMFActivityTabView: View {
     private func timelineSectionsList() -> some View {
         ForEach(viewModel.timelineSections) { section in
             Section(header: timelineHeaderView(for: section)) {
-                ForEach(section.pages.indices, id: \.self) { index in
-                    pageRow(page: section.pages[index], section: section.id)
-                        .listRowInsets(EdgeInsets())
-                        .listRowSeparator(.hidden)
-                        .padding(.bottom, 20)
-                        .listRowBackground(Color(uiColor: theme.paperBackground))
+                
+                if viewModel.timelineViewModel.shouldShowEmptyState {
+                    emptyState
+                } else {
+                    ForEach(section.pages.indices, id: \.self) { index in
+                        pageRow(page: section.pages[index], section: section.id)
+                            .listRowInsets(EdgeInsets())
+                            .listRowSeparator(.hidden)
+                            .padding(.bottom, 20)
+                            .listRowBackground(Color(uiColor: theme.paperBackground))
+                    }
                 }
             }
             .listRowBackground(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 16)
+        }
+    }
+    
+    private var emptyState: some View {
+        HStack {
+            Spacer()
+            WMFEmptyView(viewModel: viewModel.emptyViewModel, type: .noItems, isScrollable: false)
+            Spacer()
         }
     }
 
@@ -270,7 +281,7 @@ public struct WMFActivityTabView: View {
             snippet: summary?.extract ?? item.snippet
         )
     }
-    
+
     private func pageRow(page: TimelineItem, section: Date) -> some View {
         let iconImage: UIImage?
         let actionString: String
@@ -392,29 +403,45 @@ public struct WMFActivityTabView: View {
     }
 
     private var savedArticlesModule: some View {
+
         Group {
+            let thumbURLs = savedViewModel.articlesSavedThumbURLs
+            let displayCount = min(thumbURLs.count, 3)
+            let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
+
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.articlesSavedTitle,
                 dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
                 amount: viewModel.articlesSavedViewModel.articlesSavedAmount,
                 onTapModule: {
-                    viewModel.articlesSavedViewModel.navigateToSaved?()
+                    viewModel.articlesSavedViewModel.onTapSaved?()
                 },
                 content: {
-                    let thumbURLs = savedViewModel.articlesSavedThumbURLs
+
                     if !thumbURLs.isEmpty {
-                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: savedViewModel.articlesSavedAmount)
+                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: savedViewModel.articlesSavedAmount, remaining: remaining)
                     }
                 }
             )
         }
     }
 
-    private func savedArticlesImages(thumbURLs: [URL?], totalSavedCount: Int) -> some View {
+    private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {
+        if displayCount < 3 && totalSavedCount == 3 {
+            return true
+        } else if totalSavedCount > 3 {
+            return true
+        } else {
+            return false
+        }
+
+    }
+
+    private func savedArticlesImages(thumbURLs: [URL?], totalSavedCount: Int, remaining: Int) -> some View {
         HStack(spacing: 4) {
             let displayCount = min(thumbURLs.count, 3)
-            let showPlus = totalSavedCount > 3
+            let showPlus = showPlus(displayCount: displayCount, totalSavedCount: totalSavedCount)
 
             ForEach(Array(thumbURLs.prefix(displayCount)), id: \.self) { imageURL in
                 AsyncImage(url: imageURL) { image in
@@ -429,7 +456,6 @@ public struct WMFActivityTabView: View {
             }
 
             if showPlus {
-                let remaining = totalSavedCount - 3
                 Text("+\(remaining)")
                     .font(Font(WMFFont.for(.caption2)))
                     .foregroundColor(Color(uiColor: theme.paperBackground))

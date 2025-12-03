@@ -8,7 +8,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Dependencies
 
     private let dataController: WMFActivityTabDataController
-    let hasSeenActivityTab: () -> Void
 
     // MARK: - Navigation / Delegates
 
@@ -39,8 +38,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let read: String
         public let edited: String
         public let saved: String
+        public let emptyViewTitleLoggedIn: String
+        public let emptyViewSubtitleLoggedIn: String
+        public let emptyViewTitleLoggedOut: String
+        public let emptyViewSubtitleLoggedOut: String
 
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, todayTitle: String, yesterdayTitle: String, openArticle: String, totalEdits: String, read: String, edited: String, saved: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, todayTitle: String, yesterdayTitle: String, openArticle: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -62,6 +65,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.read = read
             self.edited = edited
             self.saved = saved
+            self.emptyViewTitleLoggedIn = emptyViewTitleLoggedIn
+            self.emptyViewSubtitleLoggedIn = emptyViewSubtitleLoggedIn
+            self.emptyViewTitleLoggedOut = emptyViewTitleLoggedOut
+            self.emptyViewSubtitleLoggedOut = emptyViewSubtitleLoggedOut
         }
     }
 
@@ -73,22 +80,21 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
     @Published public var timelineViewModel: TimelineViewModel
+    @Published public var emptyViewModel: WMFEmptyViewModel
     @Published public var shouldShowLogInPrompt: Bool = false
 
     @Published var globalEditCount: Int?
-    public var navigateToGlobalEdits: (() -> Void)?
+    public var onTapGlobalEdits: (() -> Void)?
 
     // MARK: - Init
 
     public init(
         localizedStrings: LocalizedStrings,
         dataController: WMFActivityTabDataController = .shared,
-        hasSeenActivityTab: @escaping () -> Void,
         authenticationState: LoginState
     ) {
         self.localizedStrings = localizedStrings
         self.dataController = dataController
-        self.hasSeenActivityTab = hasSeenActivityTab
         self.authenticationState = authenticationState
 
         let dateFormatter: (Date) -> String = { date in
@@ -110,6 +116,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
             dataController: dataController
         )
         
+        self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authenticationState == .loggedIn)
+        
         Task {
             await self.updateShouldShowLoginPrompt()
         }
@@ -130,14 +138,13 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
-
-            hasSeenActivityTab()
         }
     }
 
     // MARK: - Updates
 
     private func getGlobalEditCount() async {
+        guard case .loggedIn = authenticationState else { return }
         do {
             let count = try await dataController.getGlobalEditCount()
             globalEditCount = count
@@ -154,11 +161,28 @@ public final class WMFActivityTabViewModel: ObservableObject {
             : localizedStrings.userNamesReading(username)
     }
 
+
+    private static func generateEmptyViewModel(localizedStrings: LocalizedStrings, isLoggedIn: Bool) -> WMFEmptyViewModel {
+        let emptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings(
+            title: isLoggedIn ? localizedStrings.emptyViewTitleLoggedIn : localizedStrings.emptyViewTitleLoggedOut,
+            subtitle: isLoggedIn ? localizedStrings.emptyViewSubtitleLoggedIn : localizedStrings.emptyViewSubtitleLoggedOut,
+            titleFilter: nil,
+            buttonTitle: nil,
+            attributedFilterString: nil)
+        
+        return WMFEmptyViewModel(
+            localizedStrings: emptyLocalizedStrings,
+            image: UIImage(named: "empty-activity", in: .module, with: nil),
+            imageColor: nil,
+            numberOfFilters: 0)
+    }
+    
     public func updateAuthenticationState(authState: LoginState) {
         self.authenticationState = authState
         Task {
             await self.updateShouldShowLoginPrompt()
         }
+        self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
     }
 
     public var hoursMinutesRead: String {

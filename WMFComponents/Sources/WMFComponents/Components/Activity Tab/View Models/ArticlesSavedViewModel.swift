@@ -7,7 +7,7 @@ public final class ArticlesSavedViewModel: ObservableObject {
     @Published public var dateTimeLastSaved: String = ""
     @Published public var articlesSavedThumbURLs: [URL?] = []
     @Published public var articleTitles: [String] = []
-    public var navigateToSaved: (() -> Void)?
+    public var onTapSaved: (() -> Void)?
 
     private var dataController: WMFSavedArticlesDataController
     private let dateFormatter: (Date) -> String
