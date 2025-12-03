@@ -68,7 +68,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
-@property (nonatomic, strong, readonly) WMFActivityTabExperimentOldViewController *activityTabExperimentOldViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
 
@@ -122,7 +121,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @synthesize savedViewController = _savedViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize activityTabViewController = _activityTabViewController;
-@synthesize activityTabExperimentOldViewController = _activityTabExperimentOldViewController;
 @synthesize placesViewController = _placesViewController;
 
 - (void)dealloc {
@@ -340,9 +338,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if ([self uiIsLoaded]) {
         return;
     }
-
-    [self assignAndLogActivityTabExperiment];
-
     [self configureTabController];
 
     self.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -1580,15 +1575,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _activityTabViewController;
 }
 
-- (WMFActivityTabExperimentOldViewController *)activityTabExperimentOldViewController {
-    if (!_activityTabExperimentOldViewController) {
-        _activityTabExperimentOldViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
-        _activityTabExperimentOldViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
-        _activityTabExperimentOldViewController.title = [WMFCommonStrings activityTitle];
-    }
-    return _activityTabExperimentOldViewController;
-}
-
 - (WMFPlacesViewController *)placesViewController {
     if (!_placesViewController) {
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
@@ -1793,6 +1779,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         if (navVC.viewControllers.count == 1 && [navVC.viewControllers[0] isKindOfClass:[ExploreViewController class]]) {
             ExploreViewController *exploreVC = (ExploreViewController *)navVC.viewControllers[0];
             exploreVC.checkForSurveyUponAppear = YES;
+        }
+    }
+    
+    // When switching to Activity via tab bar button, we want to increment the visit count
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)viewController;
+        if (navVC.viewControllers.count == 1 && [navVC.viewControllers[0] isKindOfClass:[WMFActivityTabViewController class]]) {
+            [self incrementActivityTabVisitCount];
         }
     }
     

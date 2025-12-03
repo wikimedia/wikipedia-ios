@@ -168,7 +168,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WMFGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WMFArticleSummaryDataController.shared
-        self.imageDataController = WMFImageDataController()
+        self.imageDataController = WMFImageDataController.shared
         self.imageRecommendationsDataController = WMFImageRecommendationsDataController()
         
         $loading

@@ -9,7 +9,7 @@
 
 "about-content-license" = "Sisdoalloliseansa";
 "about-content-license-details" = "Sisdoalu sáhttá geavahit liseanssain $1, jus ii boađe eará diehtu.";
-"about-content-license-details-share-alike-license" = "Creative Commons Nammadeapmi-JuogeSeammaEavttuiguin liseansa";
+"about-content-license-details-share-alike-license" = "Creative Commons Namat-JuogeSeammáláhkái -liseansa";
 "about-contributors" = "Čálusveahkit";
 "about-libraries" = "Girjerádju geavahuvvon";
 "about-libraries-complete-list" = "Ollislaš listu";
@@ -244,6 +244,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Deaddil guktii vai biddjojuvvo johtui automáhtalaš mánnosaš donašuvnnat dán supmis.";
 "donate-accessibility-textfield-hint" = "Čális iežat merrojuvvon donašuvdnasupmi.";
 "donate-accessibility-transaction-fee-hint" = "Deaddil guktii lasihit transakšuvdnabálvalusmáksu donašuvdnasupmii.";
+// Fuzzy
 "donate-already-donated" = "Giitu, ráhkis skeŋkejeaddji! Du árvvasvuohta veahkeha Wikipedia ja dan oabbáprošeavttaid lihkostuvvat.";
 "donate-apple-fine-print" = "Apple ii leat ovddasvástideaddji ruđa čoaggit dán ulbmilii.";
 "donate-email-opt-in-text" = "Juo, Wikimedia Foundation sáhttá munnje sáddet e-boasttaid duollet dálle.";
@@ -998,8 +999,7 @@
 "serbian-variants-alert-body" = "Wikipedia-áppa doarju dál čuovvovaš serbialaš-variánttaid váldo- dahje nubbingiellan áppas, juoga mii dahká álkibun lohkat, ohcat, ja rievdadit iežat oidojuvvon variánttaid:\n\nсрпски ћирилица kyrillialaš serbalaš (sr-ec)\nsrpski latinica Serbian, latiinna serbalaš (sr-el)";
 "serbian-variants-alert-title" = "Ođasmahttimat mat dorjot serbalaš-variánttaid";
 "settings-account" = "Geavaheaddjidovddaldat";
-// Fuzzy
-"settings-appearance" = "Lohkanheivehusat";
+"settings-appearance" = "Áppafárda";
 "settings-clear-cache" = "Gurre gaskavuorkká";
 "settings-clear-cache-are-you-sure-message" = "Gaskavuorkká gurrema bokte luvvet sullii $1 saji. Jus ležžet vurkejuvvon siiddut, de dat eai sihkkojuvvo.";
 "settings-clear-cache-are-you-sure-title" = "Gurre gaskavuorkká?";
@@ -1146,8 +1146,8 @@
 "theme-black-display-name" = "Vástiduvvon";
 "theme-dark-display-name" = "Seavdnjat";
 "theme-default-display-name" = "Dábálaš";
-"theme-default-explanation" = "Heiveme vuogádatfáddái";
-"theme-light-display-name" = "Čuovga";
+"theme-default-explanation" = "Heiveme vuogádatfárdii";
+"theme-light-display-name" = "Čuvges fárda";
 "top-read-widget-description" = "Fuomáš man birra olbmot lohket Wikipedias odne.";
 "top-read-widget-readers-count" = "$1 lohkki";
 "top-read-widget-title" = "Eanemusat lohkkojuvvon";

@@ -7,6 +7,7 @@ import SwiftUI
 public final class TimelineViewModel: ObservableObject {
     
     public final class TimelineSection: ObservableObject, Identifiable {
+        
         internal init(date: Date, items: [TimelineItem]) {
             self.date = date
             self.items = items
@@ -20,6 +21,7 @@ public final class TimelineViewModel: ObservableObject {
     }
 
     private let dataController: WMFActivityTabDataController
+    weak var activityTabViewModel: WMFActivityTabViewModel?
     
     @Published var sections: [TimelineSection] = []
 
@@ -28,15 +30,33 @@ public final class TimelineViewModel: ObservableObject {
     public init(dataController: WMFActivityTabDataController) {
         self.dataController = dataController
     }
+    
+    var shouldShowEmptyState: Bool {
+        return self.sections.count == 1 && (self.sections.first?.items.isEmpty ?? true)
+    }
 
     public func fetch() async {
         do {
-            let result = try await dataController.fetchTimeline()
+            let result = try await dataController.getTimelineItems()
             
             var sections = [TimelineSection]()
-            for (key, value) in result {
-                let sortedItems = value.sorted { $0.date > $1.date }
-                sections.append(TimelineSection(date: key, items: sortedItems))
+            
+            // Business rule: if there are no items, we still want a section that says "Today"
+            // https://phabricator.wikimedia.org/T409200
+            if result.isEmpty {
+                sections.append(TimelineSection(date: Date(), items: []))
+            } else {
+                for (key, value) in result {
+                    
+                    var filteredValues = value
+                    
+                    // If user is logged out, only show viewed items
+                    if let activityTabViewModel, activityTabViewModel.authenticationState != .loggedIn {
+                        filteredValues = value.filter { $0.itemType != .edit && $0.itemType != .saved }
+                    }
+                    
+                    sections.append(TimelineSection(date: key, items: filteredValues))
+                }
             }
             
             let sortedSections = sections.sorted { $0.date > $1.date }

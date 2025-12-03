@@ -2,7 +2,7 @@ import WMF
 
 extension ArticleViewController: ArticleWebMessageHandling {
     
-    func didRecieve(action: ArticleWebMessagingController.Action) {
+    func didReceive(action: ArticleWebMessagingController.Action) {
         dismissReferencesPopover()
         switch action {
         case .setup:

@@ -120,7 +120,6 @@
 "activity-tab-articles-read" = "Pagina's gelezen deze maand";
 "activity-tab-articles-read-graph-label" = "Pagina's";
 "activity-tab-generic-no-edits" = "U hebt deze week nog niets bewerkt. Begin nu om uw bijdragen bij te houden.";
-"activity-tab-greeting" = "$1Hallo $2$3 👋 Hier is uw wekelijkse Wikipedia-samenvatting.";
 "activity-tab-hours-minutes-read" = "$1u $2m";
 "activity-tab-hours-on-wikipedia-ios" = "OP WIKIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Meld u aan of maak een account aan om uw activiteit in de Wikipedia-app te bekijken.";
@@ -293,9 +292,6 @@
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "developer-force-email-auth" = "E-mailauthenticatie afdwingen";
 "developer-settings" = "Ontwikkelaarsinstellingen";
-"developer-settings-activity-tab-group-A" = "Activiteitentabblad op groep A instellen";
-"developer-settings-activity-tab-group-B" = "Activiteitentabblad op groep B instellen";
-"developer-settings-activity-tab-group-C" = "Activiteitentabblad op groep C instellen";
 "developer-settings-bypass-donation" = "Donatie omzeilen";
 "developer-settings-dynamic-tabs-group-B-v2" = "Tabbladen V2 inschakelen met groep B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Tabbladen V2 inschakelen met groep C";
@@ -363,6 +359,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltik om automatische maandelijkse donaties van dit bedrag in te schakelen.";
 "donate-accessibility-textfield-hint" = "Voer een aangepast bedrag in om te doneren.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltik om de transactiekosten toe te voegen aan het donatiebedrag.";
+// Fuzzy
 "donate-already-donated" = "Bedankt, beste donateur! Dankzij uw bijdrage kunnen Wikipedia en haar zustersites zich blijven ontwikkelen.";
 "donate-apple-fine-print" = "Apple is niet verantwoordelijk voor het inzamelen van geld voor dit doel.";
 "donate-email-opt-in-text" = "Ja, de Wikimedia Foundation mag mij af en toe een e-mail sturen.";
@@ -596,6 +593,8 @@
 "explore-suggested-edits-footer" = "Toevoegen";
 "explore-suggested-edits-image-recs-body" = "Voeg gesuggereerde afbeeldingen toe aan Wikipedia-pagina's om het begrip van het onderwerp te vergroten.";
 "explore-suggested-edits-image-recs-title" = "Afbeelding toevoegen";
+"explore-survey-subtitle" = "Vul een korte vragenlijst in over de Verkennen-feed. Uw terugkoppeling helpt bij het vormgeven van toekomstige app-verbeteringen.";
+"explore-survey-title" = "Help ons Verkennen te verbeteren";
 "export-user-data-confirmation-message" = "Deelt u uw app-bibliotheek, dan deelt u ook gegevens over uw leeslijsten en geschiedenis, uw voorkeuren en de inhoud van uw overzicht Verkennen. Dit gegevensbestand kunt u beter alleen delen met een vertrouwde ontvanger voor technische diagnosedoeleinden.";
 "export-user-data-confirmation-title" = "App-bibliotheek delen?";
 "export-user-data-generic-error" = "Er is een fout opgetreden bij het exporteren van uw gegevens. Probeer het later opnieuw.";
@@ -794,8 +793,8 @@
 "microsite-yir-english-reading-slide-title" = "We hebben {{PLURAL:$1|één uur|$1 uur}} lang gelezen";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Gebruikers van de app hebben dit jaar {{PLURAL:$1|één pagina|$1 pagina's}} opgeslagen. Pagina's die u aan leeslijsten hebt toegevoegd kunt u ook offline raadplegen. Daarnaast kunt u, na aanmelden, leeslijsten op verschillende apparaten synchroniseren.";
 "microsite-yir-english-saved-reading-slide-title" = "We hebben {{PLURAL:$1|één pagina|$1 pagina's}} opgeslagen";
-"microsite-yir-english-top-read-slide-subtitle" = "Als mensen meer willen weten over onze wereld – het goede, het slechte, het vreemde en het wilde – wenden ze zich tot Wikipedia. De top 5 meest bezochte pagina's op de Engelstalige Wikipedia waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLees meer in $6ons speciale blogbericht$7.";
-"microsite-yir-english-top-read-slide-title" = "De meest gelezen pagina's op de Engelstalige Wikipedia";
+"microsite-yir-english-top-read-slide-subtitle" = "Als mensen meer willen weten over onze wereld wenden ze zich tot Wikipedia. De top 5 meest bezochte pagina's op de Engelstalige Wikipedia waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLees meer in $6ons speciale blogbericht$7.";
+"microsite-yir-english-top-read-slide-title" = "Meest gelezen pagina's op de Engelstalige Wikipedia";
 "more-languages-tooltip-description" = "Doorzoek Wikipedia in meer dan 300 talen";
 "more-languages-tooltip-title" = "Talen toevoegen";
 "more-menu" = "Meer";
@@ -954,6 +953,7 @@
 "on-this-day-no-internet-error" = "Geen gegevens beschikbaar";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
+"open-article" = "Pagina openen";
 "open-in-tab-tooltip-body" = "Druk lang op een paginatitel of blauwe koppeling om deze in een nieuw tabblad te openen.";
 "open-in-tab-tooltip-title" = "In nieuw tabblad openen";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
@@ -1521,7 +1521,7 @@
 "year-in-review-base-viewed-subtitle" = "Overal ter wereld gaan mensen eerst naar Wikipedia als ze het antwoord op een vraag zoeken, informatie voor school of werk nodig hebben, of gewoon iets nieuws willen leren.";
 "year-in-review-base-viewed-title" = "Appgebruikers hebben Wikipedia-pagina's {{PLURAL:$1|$1 keer}} bekeken";
 "year-in-review-button-title" = "Jaaroverzicht";
-"year-in-review-categories-slide-subtitle" = "In categorieën worden pagina's over vergelijkbare onderwerpen gegroepeerd. In 2025 bezocht u meermaals pagina's in deze interessante categorieën\n$1";
+"year-in-review-categories-slide-subtitle" = "In categorieën worden pagina's over vergelijkbare onderwerpen gegroepeerd. In 2025 bezocht u meermaals pagina's in deze interessante categorieën.\n\n$1";
 "year-in-review-collective-article-views" = "Een geanimeerde illustratie van een computerscherm met een geopende webbrowser, waarin actief door een Wikipedia-pagina wordt genavigeerd.";
 "year-in-review-collective-edits" = "Een illustratie van twee Wikipedia-puzzelstukjes, elk met een stukje informatie.";
 "year-in-review-collective-languages" = "Een geanimeerde illustratie van een steen met inscripties in verschillende talen. Deze inscriptie symboliseert de samenwerking waardoor Wikipedia kennis uit verschillende culturen en regio’s opbouwt.";
@@ -1572,7 +1572,7 @@
 "year-in-review-intro-login-title" = "Meld u aan voor personalisatie";
 "year-in-review-most-read-categories-title" = "Uw interessantste categorieën";
 "year-in-review-non-contributor-slide-title" = "Ontsluit uw eigen bijdragerspictogram voor volgend jaar!";
-"year-in-review-noncontributor-slide-subtitle" = "Wat fijn dat Wikipedia deel uitmaakte van uw jaar $1! Ontgrendel met uw bijdragen een speciale beloning in uw Jaaroverzicht $2. Dat doet u door [Wikipedia te bewerken]($3) of door te doneren aan de [Wikimedia Foundation]($4), de non-profitorganisatie erachter. Als Wikipedia dit jaar voor u behulpzaam is geweest, overweeg dan te doneren zodat Wikipedia ook in de toekomst voor iedereen gratis, advertentievrij, betrouwbaar en toegankelijk blijft.";
+"year-in-review-noncontributor-slide-subtitle" = "Wat fijn dat Wikipedia deel uitmaakte van uw jaar $1! Ontgrendel met uw bijdragen een speciale beloning in uw Jaaroverzicht $2. Dat doet u door [Wikipedia te bewerken]($3) of door vanuit de app te doneren aan de [Wikimedia Foundation]($4), de non-profitorganisatie erachter. Als Wikipedia dit jaar voor u behulpzaam is geweest, overweeg dan te doneren zodat Wikipedia ook in de toekomst voor iedereen gratis, advertentievrij, betrouwbaar en toegankelijk blijft. Als u ergens anders hebt gedoneerd, stellen we uw steun zeer op prijs.";
 "year-in-review-personalized-date-day-footer-v3" = "Favoriete dag om te lezen";
 "year-in-review-personalized-date-month-footer-v3" = "Maand waarin u het meest hebt gelezen";
 "year-in-review-personalized-date-time-footer-v3" = "Favoriete tijd om te lezen";

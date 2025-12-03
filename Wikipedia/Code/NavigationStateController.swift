@@ -24,7 +24,7 @@ final class NavigationStateController: NSObject {
             return
         }
         
-        guard let articleViewController = visibleArticleViewController(for: selectedNavigationController) else {
+        guard visibleArticleViewController(for: selectedNavigationController) != nil else {
             moc.navigationState = nil
             return
         }
