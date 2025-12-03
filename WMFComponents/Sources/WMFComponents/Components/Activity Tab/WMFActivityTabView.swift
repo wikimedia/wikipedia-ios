@@ -149,16 +149,29 @@ public struct WMFActivityTabView: View {
     private func timelineSectionsList() -> some View {
         ForEach(viewModel.timelineSections) { section in
             Section(header: timelineHeaderView(for: section)) {
-                ForEach(section.pages.indices, id: \.self) { index in
-                    pageRow(page: section.pages[index], section: section.id)
-                        .listRowInsets(EdgeInsets())
-                        .listRowSeparator(.hidden)
-                        .padding(.bottom, 20)
-                        .listRowBackground(Color(uiColor: theme.paperBackground))
+                
+                if viewModel.timelineViewModel.shouldShowEmptyState {
+                    emptyState
+                } else {
+                    ForEach(section.pages.indices, id: \.self) { index in
+                        pageRow(page: section.pages[index], section: section.id)
+                            .listRowInsets(EdgeInsets())
+                            .listRowSeparator(.hidden)
+                            .padding(.bottom, 20)
+                            .listRowBackground(Color(uiColor: theme.paperBackground))
+                    }
                 }
             }
             .listRowBackground(Color(uiColor: theme.paperBackground))
             .padding(.horizontal, 16)
+        }
+    }
+    
+    private var emptyState: some View {
+        HStack {
+            Spacer()
+            WMFEmptyView(viewModel: viewModel.emptyViewModel, type: .noItems, isScrollable: false)
+            Spacer()
         }
     }
 

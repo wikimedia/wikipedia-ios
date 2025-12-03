@@ -130,7 +130,7 @@ public struct WMFArticleTabsView: View {
                         imageColor: nil,
                         numberOfFilters: 0
                     )
-                    WMFEmptyView(viewModel: emptyViewModel, type: .noItems)
+                    WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true)
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
