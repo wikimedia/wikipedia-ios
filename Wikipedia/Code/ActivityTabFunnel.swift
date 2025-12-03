@@ -12,13 +12,17 @@ import WMF
         case articleClick = "article_click"
         case clearHistory = "clear_history_click"
         case problemClick = "problem_click"
-        
+        case surveyClose = "feedback_close_click"
+        case surveySubmit = "feedback_submit_click"
+        case loginClick = "login_click"
     }
     
     public enum ActiveInterface: String {
         case activityTabStart = "activity_tab_start"
         case activityTab = "activity_tab"
         case overflowMenu = "activity_tab_overflow_menu"
+        case survey = "activity_tab_feedback"
+        case activityTabLogin = "activity_tab_login"
     }
     
     private struct Event: EventInterface {
@@ -93,10 +97,28 @@ import WMF
         logEvent(activeInterface: .overflowMenu, action: .problemClick, project: nil)
     }
     
-    /*
-     func logTabsOverviewTappedDYK() {
-         logEvent(activeInterface: .overview, action: .suggestedTabClick, actionData: ["suggested": "dyk"], project: nil)
-     }
-     */
+    func logActivityTabSurveyImpression() {
+        logEvent(activeInterface: .survey, action: .impression, project: nil)
+    }
+    
+    func logActivityTabSurveyCancel() {
+        logEvent(activeInterface: .survey, action: .surveyClose, project: nil)
+    }
+    
+    func logFeedbackSubmit(selectedItems: [String], comment: String?) {
+        let selectedJoined = selectedItems.filter { $0 != "other" }.joined(separator: ",")
+        var actionData = [
+            "feedback_select": selectedJoined
+        ]
+
+        if let comment {
+            actionData["feedback_comment"] = comment
+        }
+        logEvent(activeInterface: .survey, action: .surveySubmit, actionData: actionData, project: nil)
+    }
+    
+    func logLoginClick() {
+        logEvent(activeInterface: .activityTabLogin, action: .loginClick, project: nil)
+    }
 }
 

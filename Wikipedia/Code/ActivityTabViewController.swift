@@ -71,6 +71,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     private func presentFullLoginFlow() {
+        ActivityTabFunnel.shared.logLoginClick()
         guard let nav = navigationController else { return }
 
         let loginCoordinator = LoginCoordinator(
@@ -403,6 +404,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
    private  func onTapArticle(item: TimelineItem) {
+       ActivityTabFunnel.shared.logActivityTabArticleTap()
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
@@ -507,6 +509,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
             let surveyView = createSurveyView()
             let hostedView = WMFComponentHostingController(rootView: surveyView)
             present(hostedView, animated: true)
+            ActivityTabFunnel.shared.logActivityTabSurveyImpression()
             
             await dataController.setHasSeenSurvey(value: true)
         }
@@ -532,12 +535,12 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
         return WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
             
-            // TODO: Log cancel
+            ActivityTabFunnel.shared.logActivityTabSurveyCancel()
             
             self?.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
             
-            // TODO: Log submit
+            ActivityTabFunnel.shared.logFeedbackSubmit(selectedItems: options, comment: otherText)
             
             self?.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
