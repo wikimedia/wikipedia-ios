@@ -103,6 +103,11 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: webViewConfiguration)
         webView.navigationDelegate = self
         webView.uiDelegate = self
+        
+#if WMF_STAGING || WMF_EXPERIMENTAL
+        webView.isInspectable = true
+#endif
+        
         return webView
     }()
 
