@@ -1357,6 +1357,11 @@ extension WMFAppViewController {
         let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
 
         let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
+        let emptyTitleLoggedIn = WMFLocalizedString("activity-tab-empty-title", value: "Nothing to show", comment: "Title on activity tab timeline empty state.")
+        let emptySubtitleLoggedIn = WMFLocalizedString("activity-tab-empty-subtitle", value: "Start reading and editing to build your history", comment: "Subtitle on activity tab timeline empty state.")
+        let emptyTitleLoggedOut = CommonStrings.emptyNoHistoryTitle
+        let emptySubtitleLoggedOut = CommonStrings.emptyNoHistorySubtitle
+        
         var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
             authdValue = .loggedIn
@@ -1366,29 +1371,34 @@ extension WMFAppViewController {
             authdValue = .loggedOut
         }
         
-        let viewModel = WMFActivityTabViewModel(localizedStrings:
-            WMFActivityTabViewModel.LocalizedStrings(
-                userNamesReading: usernamesReading(username:),
-                noUsernameReading: noUsernameReading,
-                totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
-                onWikipediaiOS: onWikipediaiOS,
-                timeSpentReading: timeSpentReading,
-                totalArticlesRead: articlesRead,
-                week: weekGraph,
-                articlesRead: articlesReadGraph,
-                topCategories: topCategories,
-                articlesSavedTitle: saved,
-                remaining: remaining(amount:),
-                loggedOutTitle: loggedOutTitle,
-                loggedOutSubtitle: loggedOutSubtitle,
-                loggedOutPrimaryCTA: CommonStrings.joinLoginTitle,
-                todayTitle: CommonStrings.todayTitle,
-                yesterdayTitle: CommonStrings.yesterdayTitle,
-                openArticle: openArticle,
-                totalEdits: totalEdits,
-                read: CommonStrings.readString,
-                edited: edited,
-                saved: CommonStrings.shortSavedTitle),
+        let viewModel = WMFActivityTabViewModel(
+            localizedStrings:
+                WMFActivityTabViewModel.LocalizedStrings(
+                    userNamesReading: usernamesReading(username:),
+                    noUsernameReading: noUsernameReading,
+                    totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
+                    onWikipediaiOS: onWikipediaiOS,
+                    timeSpentReading: timeSpentReading,
+                    totalArticlesRead: articlesRead,
+                    week: weekGraph,
+                    articlesRead: articlesReadGraph,
+                    topCategories: topCategories,
+                    articlesSavedTitle: saved,
+                    remaining: remaining(amount:),
+                    loggedOutTitle: loggedOutTitle,
+                    loggedOutSubtitle: loggedOutSubtitle,
+                    loggedOutPrimaryCTA: CommonStrings.joinLoginTitle,
+                    todayTitle: CommonStrings.todayTitle,
+                    yesterdayTitle: CommonStrings.yesterdayTitle,
+                    openArticle: openArticle,
+                    totalEdits: totalEdits,
+                    read: CommonStrings.readString,
+                    edited: edited,
+                    saved: CommonStrings.shortSavedTitle,
+                    emptyViewTitleLoggedIn: emptyTitleLoggedIn,
+                    emptyViewSubtitleLoggedIn: emptySubtitleLoggedIn,
+                    emptyViewTitleLoggedOut: emptyTitleLoggedOut,
+                    emptyViewSubtitleLoggedOut: emptySubtitleLoggedOut),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
