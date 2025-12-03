@@ -403,7 +403,12 @@ public struct WMFActivityTabView: View {
     }
 
     private var savedArticlesModule: some View {
+
         Group {
+            let thumbURLs = savedViewModel.articlesSavedThumbURLs
+            let displayCount = min(thumbURLs.count, 3)
+            let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
+
             WMFActivityTabInfoCardView(
                 icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
                 title: viewModel.localizedStrings.articlesSavedTitle,
@@ -413,19 +418,30 @@ public struct WMFActivityTabView: View {
                     viewModel.articlesSavedViewModel.onTapSaved?()
                 },
                 content: {
-                    let thumbURLs = savedViewModel.articlesSavedThumbURLs
+
                     if !thumbURLs.isEmpty {
-                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: savedViewModel.articlesSavedAmount)
+                        savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: savedViewModel.articlesSavedAmount, remaining: remaining)
                     }
                 }
             )
         }
     }
 
-    private func savedArticlesImages(thumbURLs: [URL?], totalSavedCount: Int) -> some View {
+    private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {
+        if displayCount < 3 && totalSavedCount == 3 {
+            return true
+        } else if totalSavedCount > 3 {
+            return true
+        } else {
+            return false
+        }
+
+    }
+
+    private func savedArticlesImages(thumbURLs: [URL?], totalSavedCount: Int, remaining: Int) -> some View {
         HStack(spacing: 4) {
             let displayCount = min(thumbURLs.count, 3)
-            let showPlus = totalSavedCount > 3
+            let showPlus = showPlus(displayCount: displayCount, totalSavedCount: totalSavedCount)
 
             ForEach(Array(thumbURLs.prefix(displayCount)), id: \.self) { imageURL in
                 AsyncImage(url: imageURL) { image in
@@ -440,7 +456,6 @@ public struct WMFActivityTabView: View {
             }
 
             if showPlus {
-                let remaining = totalSavedCount - 3
                 Text("+\(remaining)")
                     .font(Font(WMFFont.for(.caption2)))
                     .foregroundColor(Color(uiColor: theme.paperBackground))
