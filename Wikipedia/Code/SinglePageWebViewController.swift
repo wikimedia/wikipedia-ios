@@ -104,6 +104,11 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         webView.navigationDelegate = self
         webView.uiDelegate = self
         
+        if case .donate(let donateConfig) = configType {
+            let currentUserAgent = webView.value(forKey: "userAgent") as? String ?? ""
+            webView.customUserAgent = currentUserAgent + " GOOGLE_PAY_SUPPORTED"
+        }
+        
 #if WMF_STAGING || WMF_EXPERIMENTAL
         webView.isInspectable = true
 #endif
