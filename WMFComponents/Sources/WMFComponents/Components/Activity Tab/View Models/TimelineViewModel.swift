@@ -55,7 +55,9 @@ public final class TimelineViewModel: ObservableObject {
                         filteredValues = value.filter { $0.itemType != .edit && $0.itemType != .saved }
                     }
                     
-                    sections.append(TimelineSection(date: key, items: filteredValues))
+                    let sortedFilteredValues = filteredValues.sorted { $0.date > $1.date }
+                    
+                    sections.append(TimelineSection(date: key, items: sortedFilteredValues))
                 }
             }
             

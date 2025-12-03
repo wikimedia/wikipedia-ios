@@ -446,8 +446,8 @@ struct TimelineRowView: View {
     let item: TimelineItem
     
     var pageRowViewModel: WMFAsyncPageRowViewModel {
-        let iconImage: UIImage?
-        let iconAccessiblityLabel: String
+        var iconImage: UIImage?
+        var iconAccessiblityLabel: String
         switch item.itemType {
         case .standard:
             iconImage = nil
@@ -461,6 +461,12 @@ struct TimelineRowView: View {
         case .saved:
             iconImage = WMFSFSymbolIcon.for(symbol: .bookmark, font: .callout)
             iconAccessiblityLabel = activityViewModel.localizedStrings.saved
+        }
+        
+        // Hide icon if logged out
+        if activityViewModel.authenticationState == .loggedOut {
+            iconImage = nil
+            iconAccessiblityLabel = ""
         }
         
         let deleteItemAction: () -> Void = {
