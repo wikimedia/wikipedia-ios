@@ -3,10 +3,11 @@ import WMFData
 
 final class WMFAsyncPageRowViewModel: ObservableObject {
     
-    let wmfPage: WMFPage
     let id: String
     let title: String
+    let projectID: String
     let iconImage: UIImage?
+    let iconAccessibilityLabel: String
     
     let tapAction: (() -> Void)?
     let contextMenuOpenAction: (() -> Void)?
@@ -19,11 +20,12 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     @Published var articleDescription: String?
     @Published var uiImage: UIImage?
     
-    internal init(wmfpage: WMFPage, id: String, title: String, iconImage: UIImage? = nil, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil) {
-        self.wmfPage = wmfpage
+    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil) {
         self.id = id
         self.title = title
+        self.projectID = projectID
         self.iconImage = iconImage
+        self.iconAccessibilityLabel = iconAccessibilityLabel
         self.articleDescription = nil
         self.uiImage = nil
         self.tapAction = tapAction
@@ -44,11 +46,11 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         
         let summaryDataController = WMFArticleSummaryDataController.shared
         
-        guard let project = WMFProject(id: wmfPage.projectID) else {
+        guard let project = WMFProject(id: projectID) else {
             return
         }
         
-        let summary = try? await summaryDataController.fetchArticleSummary(project: project, title: wmfPage.title)
+        let summary = try? await summaryDataController.fetchArticleSummary(project: project, title: title)
         
         self.summary = summary
         
@@ -76,6 +78,10 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         }
         
         return WMFArticlePreviewViewModel(url: nil, titleHtml: self.title, description: self.articleDescription, image: self.uiImage, backgroundImage: nil, isSaved: false, snippet: summary.extract)
+    }
+    
+    var accessibilityLabelParts: String {
+        [iconAccessibilityLabel, title, articleDescription].compactMap { $0 }.joined(separator: " - ")
     }
         
 }
@@ -134,6 +140,11 @@ struct WMFAsyncPageRow: View {
 
     var body: some View {
         rowContent
+        .listRowSeparator(.hidden)
+        .accessibilityElement()
+        .accessibilityLabel(viewModel.accessibilityLabelParts)
+        .accessibilityAddTraits(.isButton)
+        .contentShape(Rectangle())
         .onTapGesture {
             viewModel.tapAction?()
         }
