@@ -662,6 +662,8 @@ public class CommonStrings: NSObject {
     public static let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
     
     public static let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
+    
+    public static let readString = WMFLocalizedString("notifications-center-filters-read-status-item-title-read", value: "Read", comment: "Title of Read option in the read status section of the notifications center filter view. Selecting this only displays read notifications in the notifications center.")
 
     // Donation history
 
@@ -763,7 +765,6 @@ public class CommonStrings: NSObject {
     public static var activityTabAddImagesTitle = WMFLocalizedString("activity-tab-add-images-title", value: "Add images", comment: "Title for add images feature suggestion.")
     public static var activityTabAddImagesSubitle = WMFLocalizedString("activity-tab-add-images-subtitle", value: "Add suggested images to Wikipedia articles to enhance understanding.", comment: "Subtitle for add images feature.")
     public static var satisfactionSurveyTitle = WMFLocalizedString("activity-tab-survey-title", value: "Satisfaction survey", comment: "Satisfaction survey view title")
-    public static var activityTabSurvey = WMFLocalizedString("activity-tab-survey", value: "Are you satisfied with your \"Activity\" screen? What else would you like to see here in the future?", comment: "Survey title for the activity tab")
     public static var surveyVerySatisfied = WMFLocalizedString("activity-tab-very-satisfied", value: "Very satisfied", comment: "Satisfaction survey very satisfied")
     public static var surveySatisfied = WMFLocalizedString("activity-tab-satisfied", value: "Satisfied", comment: "Satisfaction survey satisfied")
     public static var surveyVeryUnsatisfied = WMFLocalizedString("activity-tab-very-unsatisfied", value: "Very unsatisfied", comment: "Satisfaction survey very unsatisfied")

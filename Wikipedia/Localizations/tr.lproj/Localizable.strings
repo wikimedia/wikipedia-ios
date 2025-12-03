@@ -126,12 +126,18 @@
 "activity-tab-additional-thoughts" = "Eklemek istediğiniz başka düşünceleriniz var mı?";
 "activity-tab-articles-read" = "Bu ay okunan maddeler";
 "activity-tab-articles-read-graph-label" = "Maddeler";
+"activity-tab-email-fifth-line" = "[Ekran görüntüleri ya da Bağlantılar]";
+"activity-tab-email-first-line" = "Etkinlik Sekmesi Özelliği ile ilgili bir sorunla karşılaştım:";
+"activity-tab-email-fourth-line" = "[İstenen davranışı tanımlayın]";
+"activity-tab-email-second-line" = "- [Belirli bir sorunu tanımlayın]";
+"activity-tab-email-third-line" = "Görmek istediğim davranış:";
+"activity-tab-email-title" = "Sorun Bildirimi - Etkinlik Sekmesi";
 "activity-tab-generic-no-edits" = "Bu hafta düzenleme yapmadınız. Katkıları takip etmek için şimdi başlayın.";
-"activity-tab-greeting" = "$1Merhaba $2$3👋 İşte haftalık Wikipedia özetiniz.";
 "activity-tab-hours-minutes-read" = "$1s $2d";
 "activity-tab-hours-on-wikipedia-ios" = "iOS VİKİPEDİ'DE";
 "activity-tab-logged-out-subtitle" = "Vikipedi uygulamasındaki etkinliğinizi görüntülemek için oturum açın ya da bir hesap oluşturun.";
 "activity-tab-logged-out-title" = "Daha fazla okuma ve düzenleme içgörüsü görün";
+"activity-tab-menu-clear-history" = "Okuma geçmişini temizle";
 "activity-tab-neutral" = "Kararsızım";
 "activity-tab-no-edits-title" = "Bu hafta düzenleme yapmadınız. Makalenin daha iyi anlaşılmasını sağlamak için resimler ekleyin";
 "activity-tab-no-username-reading-title" = "Okumanız";
@@ -300,9 +306,6 @@
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
 "developer-force-email-auth" = "E-posta kimlik doğrulamasını zorunlu kıl";
 "developer-settings" = "Geliştirici Ayarları";
-"developer-settings-activity-tab-group-A" = "Etkinlik sekmesini Grup A'ya ayarla";
-"developer-settings-activity-tab-group-B" = "Etkinlik sekmesini Grup B'ye ayarla";
-"developer-settings-activity-tab-group-C" = "Etkinlik sekmesini Grup C'ye ayarla";
 "developer-settings-bypass-donation" = "Baypas Bağışı";
 "developer-settings-dynamic-tabs-group-B-v2" = "B kümesindeki V2 sekmelerini etkinleştir";
 "developer-settings-dynamic-tabs-group-C-v2" = "C kümesindeki V2 sekmelerini etkinleştir";
@@ -370,6 +373,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu tutarda otomatik aylık bağış etkinleştirmek için iki kez dokunun.";
 "donate-accessibility-textfield-hint" = "Bağış yapmak için özel tutarı girin.";
 "donate-accessibility-transaction-fee-hint" = "Bağış tutarına işlem ücreti eklemek için iki kez dokunun.";
+// Fuzzy
 "donate-already-donated" = "Teşekkürler sevgili bağışçı! Cömertliğiniz Vikipedi'nin ve kardeş sitelerinin gelişmesine yardımcı oluyor.";
 "donate-apple-fine-print" = "Apple bu amaç için para toplamakla yükümlü değildir.";
 "donate-email-opt-in-text" = "Evet, Wikimedia Vakfı bana ara sıra e-posta gönderebilir.";
@@ -603,6 +607,8 @@
 "explore-suggested-edits-footer" = "Ekle";
 "explore-suggested-edits-image-recs-body" = "Anlaşılabilirliği artırmak için Vikipedi maddelerine önerilen görseller ekleyin.";
 "explore-suggested-edits-image-recs-title" = "Bir görsel ekle";
+"explore-survey-subtitle" = "Lütfen Keşfet akışı hakkında kısa bir ankete katılın. Geri bildiriminiz, uygulamadaki gelecekteki iyileştirmelerin şekillenmesine yardımcı olacaktır.";
+"explore-survey-title" = "Keşfet'i geliştirmemize yardımcı olun";
 "export-user-data-confirmation-message" = "Uygulama kitaplığınızı paylaşmak, Okuma listeleriniz ve geçmişiniz, tercihleriniz ve Keşfet akışı içeriğinizle ilgili verileri içerir. Bu veri dosyası, teknik tanı amacıyla kullanılmak üzere yalnızca güvenilir bir alıcıyla paylaşılmalıdır.";
 "export-user-data-confirmation-title" = "Uygulama kütüphanesi paylaşılsın mı?";
 "export-user-data-generic-error" = "Verileriniz dışa aktarılırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
@@ -801,8 +807,8 @@
 "microsite-yir-english-reading-slide-title" = "Okumaya {{PLURAL:$1|$1 saat}} harcadık";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Bu yıl, etkin uygulama kullanıcılarının {{PLURAL:$1|$1 saklanan maddesi}} vardı. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
 "microsite-yir-english-saved-reading-slide-title" = "{{PLURAL:$1|$1 saklanan maddemiz}} oldu";
-"microsite-yir-english-top-read-slide-subtitle" = "İnsanlar dünyamız hakkında bilgi edinmek istediklerinde - iyi, kötü, tuhaf ve çılgın - Vikipedi'ye yöneliyorlar. İngilizce Vikipedi'de en çok ziyaret edilen 5 madde:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nDaha fazlasını $6özel günlük yazımızda$7 okuyabilirsiniz.";
-"microsite-yir-english-top-read-slide-title" = "İngilizce Vikipedi'de en çok okunan maddeler";
+"microsite-yir-english-top-read-slide-subtitle" = "İnsanlar dünyamız hakkında bilgi edinmek istediklerinde Vikipedi'ye yöneliyorlar. İngilizce Vikipedi'de en çok ziyaret edilen 5 madde:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nDaha fazlasını $6özel günlük yazımızda$7 okuyabilirsiniz.";
+"microsite-yir-english-top-read-slide-title" = "İngilizce Vikipedi'nin en çok okunan maddeleri";
 "more-languages-tooltip-description" = "Vikipedi'yi 300'den fazla dilde arayın";
 "more-languages-tooltip-title" = "Dil ekle";
 "more-menu" = "Daha fazla";
@@ -961,6 +967,7 @@
 "on-this-day-no-internet-error" = "Veri yok";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
+"open-article" = "Maddeyi aç";
 "open-in-tab-tooltip-body" = "Yeni sekmede açmak için bir madde başlığına ya da mavi bağlantıya uzun basın.";
 "open-in-tab-tooltip-title" = "Yeni sekmede aç";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
@@ -1521,7 +1528,7 @@
 "year-in-review-base-viewed-subtitle" = "Dünya çapındaki insanlar için Vikipedi, bir soruyu yanıtlamak, okul ya da iş için bilgi aramak ya da yeni bir bilgi edinmek için ilk duraktır.";
 "year-in-review-base-viewed-title" = "Uygulama kullanıcıları Vikipedi maddelerini {{PLURAL:$1|$1 kez}} görüntüledi";
 "year-in-review-button-title" = "Yılın Değerlendirmesi";
-"year-in-review-categories-slide-subtitle" = "Kategoriler, benzer konulardaki maddeleri bir araya getirir. 2025 yılında, bu ilgi çekici kategorilerdeki maddeleri birden çok kez ziyaret ettiniz\n$1";
+"year-in-review-categories-slide-subtitle" = "Kategoriler, benzer konulardaki maddeleri bir araya getirir. 2025 yılında, bu ilgi çekici kategorilerdeki maddeleri birden çok kez ziyaret ettiniz.\n\n$1";
 "year-in-review-collective-article-views" = "Bir web tarayıcısı açıkken bir bilgisayar ekranının etkin olarak bir Vikipedi maddesinde gezindiğini gösteren canlandırmalı bir çizim.";
 "year-in-review-collective-edits" = "Her biri bir bilgi parçası taşıyan iki Vikipedi bulmaca parçasının çizimi.";
 "year-in-review-collective-languages" = "Vikipedi'nin farklı kültürlerden ve bölgelerden gelen bilgileri nasıl iş birliği içinde oluşturduğunu simgeleyen, üzerinde çeşitli dilleri temsil eden yazıtların kazındığı bir taşın hareketli çizimi.";
@@ -1572,7 +1579,7 @@
 "year-in-review-intro-login-title" = "Kişiselleştirme için giriş yapın";
 "year-in-review-most-read-categories-title" = "En ilginç kategorileriniz";
 "year-in-review-non-contributor-slide-title" = "Gelecek yıl için katkıda bulunan ödülünüzün kilidini açın!";
-"year-in-review-noncontributor-slide-subtitle" = "Vikipedi'nin $1 yılınızın bir parçası olmasından mutluluk duyuyoruz! Katkıda bulunarak -[Vikipedi'yi düzenleyerek]($3) ya da arkasındaki kâr amacı gütmeyen kuruluş [Wikimedia Vakfı'na]($4) bağış yaparak- $2 Yıl Sonu İncelemenizde özel bir ödülü açın. Vikipedi sizin için faydalıysa, geleceğini sürdürmesine ve ücretsiz, reklamsız, güvenilir ve herkes için erişilebilir kalmasına yardımcı olmak için lütfen bağış yapmayı düşünün.";
+"year-in-review-noncontributor-slide-subtitle" = "Vikipedi'nin $1 yılınızın bir parçası olmasından mutluluk duyuyoruz! Katkıda bulunarak -[Vikipedi'yi düzenleyerek]($3) ya da arkasındaki kâr amacı gütmeyen kuruluş [Wikimedia Vakfı'na]($4) uygulamadan bağış yaparak- $2 Yıl Sonu İncelemenizde özel bir ödülü açın. Vikipedi sizin için faydalıysa, geleceğini sürdürmesine ve ücretsiz, reklamsız, güvenilir ve herkes için erişilebilir kalmasına yardımcı olmak için lütfen bağış yapmayı düşünün. Başka bir yerde bağış yaptıysanız, desteğiniz için çok teşekkür ederiz.";
 "year-in-review-personalized-date-day-footer-v3" = "Okumayı en sevilen gün";
 "year-in-review-personalized-date-month-footer-v3" = "En çok okuduğunuz ay";
 "year-in-review-personalized-date-time-footer-v3" = "Okumayı en sevilen zaman";

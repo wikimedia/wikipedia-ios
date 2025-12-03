@@ -1,6 +1,7 @@
 import Foundation
 
 public final class WMFImageDataController {
+    public static let shared = WMFImageDataController()
     private var basicService: WMFService?
     private var mediaWikiService: WMFService?
     private let imageCache = NSCache<NSURL, NSData>()

@@ -15,11 +15,23 @@ public final class TimelineViewModel: ObservableObject {
     public init(dataController: WMFActivityTabDataController) {
         self.dataController = dataController
     }
+    
+    var shouldShowEmptyState: Bool {
+        return self.timeline.count == 1 && self.timeline.values.first?.isEmpty ?? true
+    }
 
     public func fetch() async {
         do {
-            let result = try await dataController.fetchTimeline()
-            self.timeline = result
+            let result = try await dataController.getTimelineItems()
+            
+            // Business rule: if there are no items, we still want a section that says "Today"
+            // https://phabricator.wikimedia.org/T409200
+            if result.isEmpty {
+                self.timeline = [Date(): []]
+            } else {
+                self.timeline = result
+            }
+            
         } catch {
             debugPrint("error fetching timeline: \(error)")
         }
@@ -33,7 +45,7 @@ public final class TimelineViewModel: ObservableObject {
         }
 
         do {
-            if let summary = try await dataController.fetchSummary(for: item.page) {
+            if let summary = try await dataController.fetchSummary(for: item.pageTitle, projectID: item.projectID) {
                 pageSummaries[itemID] = summary   // triggers UI update
                 return summary
             }

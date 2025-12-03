@@ -79,8 +79,9 @@
 "activity-tab-email-second-line" = "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering";
 "activity-tab-email-third-line" = "Text for Activity Tab pre-filled issue report email";
 "activity-tab-email-title" = "Title text for Activity Tab pre-filled issue report email";
+"activity-tab-empty-subtitle" = "Subtitle on activity tab timeline empty state.";
+"activity-tab-empty-title" = "Title on activity tab timeline empty state.";
 "activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
-"activity-tab-greeting" = "$1 is opening bold, $2 is the username, $3 is closing bold.";
 "activity-tab-hours-minutes-read" = "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes.";
 "activity-tab-hours-on-wikipedia-ios" = "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization";
 "activity-tab-log-in-or-create-account" = "Title for activity tab when users are logged out.";
@@ -106,11 +107,12 @@
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
 "activity-tab-saved" = "Title for module about saved articles";
 "activity-tab-start-editing" = "Button title for users to begin editing.";
-"activity-tab-survey" = "Survey title for the activity tab";
+"activity-tab-survey-subtitle" = "Title for activity tab survey.";
 "activity-tab-survey-title" = "Satisfaction survey view title";
 "activity-tab-time-spent-reading" = "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes";
 "activity-tab-title" = "Activity title";
 "activity-tab-top-categories" = "Title for module about top categories this month";
+"activity-tab-total-edits" = "Text for activity tab module about global edits";
 "activity-tab-unsatisfied" = "Satisfaction survey unsatisfied";
 "activity-tab-usernames-reading-title" = "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username.";
 "activity-tab-very-satisfied" = "Satisfaction survey very satisfied";
@@ -257,9 +259,6 @@
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "developer-force-email-auth" = "Title for option to force email auth in developer settings menu.";
 "developer-settings" = "Title for developer settings view.";
-"developer-settings-activity-tab-group-A" = "Title for option to set activity tab experiment to group A";
-"developer-settings-activity-tab-group-B" = "Title for option to set activity tab experiment to group B";
-"developer-settings-activity-tab-group-C" = "Title for option to set activity tab experiment to group C";
 "developer-settings-bypass-donation" = "Title for option to bypass a donation in developer settings menu.";
 "developer-settings-dynamic-tabs-group-B-v2" = "Title for option to enable tabs for Group B V2";
 "developer-settings-dynamic-tabs-group-C-v2" = "Title for option to enable for Group C V2";
@@ -379,6 +378,7 @@
 "edit-summary-short-description-updated" = "Edit summary message when updating the short description of an article";
 "edit-watch-list-learn-more-text" = "Text for watch lists learn more button";
 "edit-watch-this-page-text" = "Text for watch this page label";
+"edited-article" = "Label for edited articles";
 "editing-welcome-be-bold-subtitle" = "Subtitle for editing onboarding screen encouraging users to start editing Wikipedia articles";
 "editing-welcome-be-bold-title" = "Title for editing onboarding screen encouraging users to start editing Wikipedia articles";
 "editing-welcome-citations-subtitle" = "Subtitle for editing onboarding screen instructing users to cite reliable sources when editing Wikipedia articles";

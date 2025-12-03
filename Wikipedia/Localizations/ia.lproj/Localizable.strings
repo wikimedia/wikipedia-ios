@@ -80,7 +80,6 @@
 "activity-tab-articles-read" = "Articulos legite iste mense";
 "activity-tab-articles-read-graph-label" = "Articulos";
 "activity-tab-generic-no-edits" = "Tu non ha apportate alcun modification iste septimana. Comencia a modificar ora pro traciar tu contributiones.";
-"activity-tab-greeting" = "$1Salute $2$3 👋 Ecce tu summario septimanal de Wikipedia.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "SUR WIKIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Aperi session o crea un conto pro vider tu activitate sur le app Wikipedia.";
@@ -253,9 +252,6 @@
 "description-welcome-start-editing-button" = "Comenciar a modificar";
 "developer-force-email-auth" = "Fortiar le authentication per e-mail";
 "developer-settings" = "Parametros de disveloppator";
-"developer-settings-activity-tab-group-A" = "Mitter le scheda de activitate al gruppo A";
-"developer-settings-activity-tab-group-B" = "Mitter le scheda de activitate al gruppo B";
-"developer-settings-activity-tab-group-C" = "Mitter le scheda de activitate al gruppo C";
 "developer-settings-bypass-donation" = "Contornar donation";
 "developer-settings-dynamic-tabs-group-B-v2" = "Activar schedas V2 con gruppo B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Activar schedas V2 con gruppo C";
@@ -323,6 +319,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tocca duo vices pro activar donationes automatic mensual in iste amonta.";
 "donate-accessibility-textfield-hint" = "Inserer un amonta personalisate a donar.";
 "donate-accessibility-transaction-fee-hint" = "Tocca duo vices pro adder le costo del transaction al amonta del donation.";
+// Fuzzy
 "donate-already-donated" = "Gratias, car donator! Tu generositate adjuta Wikipedia e su sitos fratres a prosperar.";
 "donate-apple-fine-print" = "Apple non es responsabile pro le collecta de fundos a iste fin.";
 "donate-email-opt-in-text" = "Si, le Fundation Wikimedia pote inviar me un message de e-mail occasional.";
@@ -754,7 +751,9 @@
 "microsite-yir-english-reading-slide-title" = "Nos ha passate $1 hora{{PLURAL:$1||s}} a leger";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Le usatores active del app habeva $1 articulo{{PLURAL:$1||s}} salveguardate iste anno. Adder articulos a listas de lectura te permitte acceder a articulos mesmo sin connexion. Tu pote tamben, post aperir session, synchronisar le listas de lectura inter apparatos.";
 "microsite-yir-english-saved-reading-slide-title" = "Nos habeva $1 articulo{{PLURAL:$1||s}} salveguardate";
+// Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "Quando le gente vole apprender sur nostre mundo – lo bon, lo mal, lo bizarre e lo salvage – on recurre a Wikipedia. Le cinque articulos le plus visitate sur Wikipedia in anglese esseva:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLege plus in $6nostre articulo special de blog$7.";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Le articulos le plus legite sur Wikipedia in anglese";
 "more-languages-tooltip-description" = "Cercar in Wikipedia in plus de 300 linguas";
 "more-languages-tooltip-title" = "Adder linguas";
@@ -1481,6 +1480,7 @@
 "year-in-review-base-viewed-subtitle" = "Pro le gente de tote le le mundo, Wikipedia es le prime station quando on vole trovar le responsa a un question, cercar information pro schola o labor, o apprender un nove facto.";
 "year-in-review-base-viewed-title" = "Le usatores del app ha consultate articulos de Wikipedia $1 vice{{PLURAL:$1||s}}";
 "year-in-review-button-title" = "Summario del anno";
+// Fuzzy
 "year-in-review-categories-slide-subtitle" = "Le categorias reuni articulos sur subjectos similar. In 2025, tu ha visitate articulos in iste categorias interessante plure vices:\n$1";
 "year-in-review-collective-article-views" = "Un illustration animate de un schermo de computator con un navigator del web, percurrente un articulo de Wikipedia.";
 "year-in-review-collective-edits" = "Un illustration de duo pecias de puzzle de Wikipedia, cata un portante un pecia de information.";
@@ -1532,6 +1532,7 @@
 "year-in-review-intro-login-title" = "Aperi session pro personalisation";
 "year-in-review-most-read-categories-title" = "Tu categorias le plus interessante";
 "year-in-review-non-contributor-slide-title" = "Disvela tu recompensa de contributor pro le proxime anno!";
+// Fuzzy
 "year-in-review-noncontributor-slide-subtitle" = "Nos es felice que Wikipedia ha facite parte de tu anno $1! Disvela un recompensa special in tu Summario del anno $2 deveniente contributor: [modifica Wikipedia]($3) o dona al [Fundation Wikimedia]($4), le organisation sin scopo lucrative detra Wikipedia. Si Wikipedia te es utile, per favor considera donar pro adjutar a sustener su futuro e mantener lo libere, sin publicitate, digne de fide e accessibile pro omnes.";
 "year-in-review-personalized-date-day-footer-v3" = "Die favorite pro leger";
 "year-in-review-personalized-date-month-footer-v3" = "Mense in le qual tu ha legite le plus";

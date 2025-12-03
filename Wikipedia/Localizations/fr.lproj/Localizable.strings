@@ -132,7 +132,6 @@
 "activity-tab-add-images-title" = "Ajouter des images";
 "activity-tab-additional-thoughts" = "Des suggestions ?";
 "activity-tab-generic-no-edits" = "Vous n’avez pas encore édité cette semaine. Commencez maintenant à suivre vos contributions.";
-"activity-tab-greeting" = "$1Bonjour $2$3👋 Voici votre résumé hebdomadaire de Wikipédia.";
 // Fuzzy
 "activity-tab-logged-out-subtitle" = "Suivez ce que vous avez lu et visualisez vos contributions au fil du temps d'une nouvelle manière";
 // Fuzzy
@@ -286,9 +285,6 @@
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "developer-force-email-auth" = "Forcer l'authentification par e-mail";
 "developer-settings" = "Paramètres développeur";
-"developer-settings-activity-tab-group-A" = "Définir l’onglet d’activité sur le groupe A";
-"developer-settings-activity-tab-group-B" = "Définir l’onglet d’activité sur le groupe B";
-"developer-settings-activity-tab-group-C" = "Définir l’onglet d’activité sur le groupe C";
 "developer-settings-bypass-donation" = "Contourner un don";
 "developer-settings-enable-year-in-review" = "Activer le Bilan de l'Année";
 "developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
@@ -355,6 +351,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Double-appuyez pour activer les dons mensuels automatiques de ce montant.";
 "donate-accessibility-textfield-hint" = "Saisissez le montant personnalisé à donner.";
 "donate-accessibility-transaction-fee-hint" = "Double-appuyez pour ajouter des frais de transaction au montant du don.";
+// Fuzzy
 "donate-already-donated" = "Merci, cher donateur ! Votre générosité permet à Wikipédia et à ses sites frères de continuer à prospérer.";
 "donate-apple-fine-print" = "Apple n'est pas responsable de la collecte de fonds à cet effet.";
 "donate-email-opt-in-text" = "Oui, la Fondation Wikimedia peut m'envoyer un courriel de temps en temps.";
@@ -778,9 +775,29 @@
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "main-page" = "Accueil";
 // Fuzzy
+"microsite-yir-english-edits-bytes-slide-subtitle" = "En 2024, les bénévoles ont ajouté 4 104 852 969 octets à la Wikipédia anglophone. La somme de leur travail commun conduit à une ressource de connaissances en constante amélioration, fondée sur des faits existants et des ressources fiables de connaissances, qu'ils mettent à la disposition du monde. Nous avons tous des connaissances à partager, [apprenez à participer]($1).";
+// Fuzzy
+"microsite-yir-english-edits-bytes-slide-title" = "4 milliards d'octets ajoutés";
+// Fuzzy
+"microsite-yir-english-edits-slide-subtitle" = "Les bénévoles ont apporté 98 222 407 modifications dans plus de 300 versions linguistiques différentes de Wikipédia. Plus de 37 millions de modifications ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l'amélioration de Wikipédia.";
+// Fuzzy
+"microsite-yir-english-edits-slide-title" = "Les contributeurs ont réalisé 98 millions de modifications cette année";
+// Fuzzy
+"microsite-yir-english-reading-slide-subtitle" = "Les utilisateurs ont passé environ 2,4 milliards d'heures (près de 275 000 ans !) à lire Wikipédia en anglais en 2025. Wikipédia est là lorsque vous souhaitez en savoir plus sur l'évolution de notre monde, gagner un pari entre amis ou répondre à la question d'un enfant curieux.";
+// Fuzzy
+"microsite-yir-english-reading-slide-subtitle-short" = "Les utilisateurs ont passé environ 2,4 milliards d'heures (près de 275 000 ans !) à lire Wikipédia en anglais en 2025.";
+// Fuzzy
+"microsite-yir-english-reading-slide-title" = "Nous avons passé 2,9 milliards d’heures à lire";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-subtitle" = "Les utilisateurs actifs de l'application iOS comptaient plus de 62,2 millions de listes de lecture. L'ajout d'articles aux listes de lecture vous permet d'accéder aux articles même hors ligne. Vous pouvez également vous connecter pour synchroniser les listes de lecture sur plusieurs appareils.";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-title" = "Nous avions plus de 62,2 millions de listes de lecture";
+// Fuzzy
+"microsite-yir-english-top-read-slide-subtitle" = "Les 5 articles les plus consultés sur Wikipédia en anglais ont été :\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nLisez $6notre article de blog dédié$7.";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Les articles les plus populaires de Wikipédia en anglais";
 "more-languages-tooltip-description" = "Rechercher sur Wikipédia dans plus de 300 langues";
-"more-languages-tooltip-title" = "Ajustar de lengas";
+"more-languages-tooltip-title" = "Ajouter des langues";
 "more-menu" = "Plus";
 "move-articles-to-reading-list" = "Placer $1 article{{PLURAL:$1||s}} dans la liste de lecture";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
@@ -1484,9 +1501,23 @@
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "La communauté de bénévoles de Wikipédia a réalisé plus de 555 647 modifications via l’application iOS. Le cœur de Wikipédia réside dans sa communauté mondiale de contributeurs bénévoles, de donateurs et de milliards de lecteurs comme vous — tous unis pour partager un accès universel à des informations fiables.";
 // Fuzzy
+"year-in-review-base-editors-title" = "Plus de $1 modifications ont été faites par les contributeurs";
+// Fuzzy
+"year-in-review-base-edits-subtitle" = "Wikipédia a été mise à jour en moyenne $1 fois par minute. Les articles sont créés et améliorés collectivement, en s’appuyant sur des sources fiables. Chacun de nous a des connaissances à partager, [apprendre comment participer]($2).";
+// Fuzzy
+"year-in-review-base-edits-title" = "Wikipédia a été modifié $1 fois par minute";
+// Fuzzy
+"year-in-review-base-reading-subtitle" = "Wikipédia comptait plus d' $1 million d'articles dans plus de $2 langues actives. Vous avez rejoint des millions de personnes pour élargir leurs connaissances et explorer des sujets variés.";
+// Fuzzy
+"year-in-review-base-reading-title" = "Wikipédia était disponible dans plus de 300 langues";
+// Fuzzy
 "year-in-review-base-saved-subtitle" = "Les utilisateurs actifs de l'application iOS comptaient plus de 62,2 millions de listes de lecture. L'ajout d'articles aux listes de lecture vous permet d'accéder aux articles même hors ligne. Vous pouvez également vous connecter pour synchroniser les listes de lecture sur plusieurs appareils.";
 // Fuzzy
+"year-in-review-base-saved-title" = "Il a été utilisé plus de $1 million de listes de lecture";
+// Fuzzy
 "year-in-review-base-viewed-subtitle" = "Les utilisateurs de l'application iOS ont consulté des articles de Wikipédia $1 milliard de fois. Pour les gens du monde entier, Wikipédia est la première étape pour répondre à une question, rechercher des informations pour l'école ou le travail, ou apprendre un fait nouveau.";
+// Fuzzy
+"year-in-review-base-viewed-title" = "Nous avons consulté des articles de Wikipédia $1 milliard de fois";
 "year-in-review-button-title" = "Bilan de l'Année";
 "year-in-review-collective-article-views" = "Une illustration animée d'un écran d'ordinateur avec un navigateur Internet ouvert, naviguant activement dans un article Wikipédia.";
 "year-in-review-collective-edits" = "Une illustration de deux pièces du puzzle Wikipédia, chacune contenant une information.";
@@ -1518,17 +1549,31 @@
 "year-in-review-intro-login-title" = "Connectez-vous pour la personnalisation";
 // Fuzzy
 "year-in-review-non-contributor-slide-title" = "Débloquer une icône personnalisée";
+// Fuzzy
+"year-in-review-noncontributor-slide-subtitle" = "Devenez contributeur(rice) et débloquez une icône de profil personnalisée. [En savoir plus]($1) sur les différentes façons de rejoindre le mouvement de la connaissance libre. Vous pouvez devenir éditeur(rice) ou faire un don à la Fondation Wikimédia, l'association à but non lucratif à l'origine de Wikipédia, afin de garantir que les informations sur lesquelles vous comptez restent exemptes de publicité, tout en assurant le bon fonctionnement de Wikipédia grâce à des outils et des technologies de pointe.";
 "year-in-review-personalized-date-day-footer-v3" = "Jour favori pour la lecture";
 "year-in-review-personalized-date-month-footer-v3" = "Mois où vous avez le plus lu";
 "year-in-review-personalized-date-time-footer-v3" = "Moment préféré pour lire";
 "year-in-review-personalized-date-title-v3" = "Vous avez des schémas de lecture précis";
 "year-in-review-personalized-donate-subtitle" = "Merci d'investir dans l'avenir du savoir en accès libre. Cette année, la Fondation Wikimédia a fait progresser la technologie pour mieux servir chaque lecteur et bénévole, a développé des outils qui favorisent la collaboration et a soutenu Wikipédia dans davantage de langues. [En savoir plus sur notre travail]($1).";
 "year-in-review-personalized-donate-title" = "Votre générosité a contribué au dynamisme de Wikipédia";
+// Fuzzy
+"year-in-review-personalized-edit-views-subtitle-format" = "Les lecteurs du monde entier apprécient vos contributions. Au cours des deux derniers mois, les articles que vous avez édités ont reçu un total de $1 de vues. Grâce à des éditeurs comme vous, Wikipédia est une ressource de connaissances fiable, basée sur des faits et en constante amélioration pour le monde entier.";
+// Fuzzy
+"year-in-review-personalized-edit-views-title-format" = "Vos modifications ont été consultées récemment plus de $1 fois";
+// Fuzzy
+"year-in-review-personalized-editing-title-format" = "Vous avez modifié Wikipédia {{PLURAL:$1|une|$1}} fois";
 "year-in-review-personalized-explore" = "Une illustration animée d'une main tenant le globe Wikipédia qui se transforme progressivement en une petite pièce de puzzle, symbolisant les contributions individuelles à la plateforme.";
 "year-in-review-personalized-location-subtitle-format-1" = "Vous avez lu des articles dans le domaine $2$1$3.";
 "year-in-review-personalized-location-subtitle-format-2" = "Vous avez lu des articles dans les domaines $3$1$4 et $3$2$4 .";
 "year-in-review-personalized-location-subtitle-format-3" = "Vous avez lu des articles dans les domaines $4$1$5, $4$2$5 et$4$3$5.";
+// Fuzzy
+"year-in-review-personalized-location-title-format" = "Les articles que vous avez lus sont proches de $1.";
 "year-in-review-personalized-most-read-articles-title" = "Vos articles les plu lus";
+// Fuzzy
+"year-in-review-personalized-reading-subtitle-format-v3" = "Vous êtes dans les **PERCENT** des plus grands lecteurs de Wikipédia au monde. En moyenne, une personne lit {{PLURAL:$1|$1 article|$1 articles}} par an.";
+// Fuzzy
+"year-in-review-personalized-reading-title-v3-format" = "Vous avez passé {{PLURAL:$1|$1 minute|$1 minutes}} à lire un total de {{PLURAL:$2|$2 article|$2 articles}} en 2025";
 "year-in-review-personalized-saved-title-format" = "Vous avez enregistré $1 article{{PLURAL:$1||s}}";
 "year-in-review-personalized-user-edits" = "Une illustration animée montrant des octets s'empilant les uns sur les autres, symbolisant la création continue de connaissances gratuites.";
 "year-in-review-personalized-weekday" = "Une horloge qui tourne, symbolisant le temps passé par les utilisateurs à lire Wikipédia.";

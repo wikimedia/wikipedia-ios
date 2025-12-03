@@ -23,26 +23,27 @@ public actor WMFSavedArticlesDataController {
     // MARK: - Public API
 
     public func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData? {
-        guard let pages = try? await fetchSavedArticleSnapshots(startDate: startDate, endDate: endDate) else {return nil}
+        guard let pages = try? await fetchSavedArticleSnapshots(startDate: startDate, endDate: endDate) else { return nil }
 
         var lastDate: Date?
-        var randomURLs: [URL?] = []
 
         if let lastDateSaved = pages.first?.savedDate {
             lastDate = lastDateSaved
         }
 
-        let random3articles = pages
-            .compactMap { $0 }
-            .shuffled()
-            .prefix(3)
-            .map { $0 }
+        let titleURLTuples = await fetchSavedArticlesImageURLs(for: pages, count: 3)
 
-        if let thumbnailURLs = try? await fetchSavedArticlesImageURLs(for: random3articles) {
-            randomURLs = thumbnailURLs
-        }
+        let articleThumbTuples = Array(
+            titleURLTuples
+                .filter { $0.1 != nil } // only non-nil URLS
+                .prefix(3)
+        )
 
-        return SavedArticleModuleData(savedArticlesCount: pages.count, articleThumbURLs: randomURLs, dateLastSaved: lastDate)
+        let thumbURLs = articleThumbTuples.map { $0.1! }
+
+        let titles = articleThumbTuples.map { $0.0 }
+
+        return SavedArticleModuleData(savedArticlesCount: pages.count, articleThumbURLs: thumbURLs, dateLastSaved: lastDate, articleTitles: titles)
     }
 
     // MARK: - Private functions
@@ -99,6 +100,47 @@ public actor WMFSavedArticlesDataController {
         }
     }
 
+    public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
+        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
+        let context = try coreDataStore.newBackgroundContext
+
+        return try await context.perform {
+            let sortDescriptor = NSSortDescriptor(key: "savedInfo.savedDate", ascending: false)
+            let predicate = NSPredicate(format: "savedInfo != nil")
+
+            guard
+                let pages: [CDPage] = try coreDataStore.fetch(
+                    entityType: CDPage.self,
+                    predicate: predicate,
+                    fetchLimit: 1000,
+                    sortDescriptors: [sortDescriptor],
+                    in: context
+                )
+            else { return [] }
+
+            var result: [WMFPageWithTimestamp] = []
+
+            for page in pages {
+                guard
+                    let projectID = page.projectID,
+                    let title = page.title,
+                    let saved = page.savedInfo?.savedDate
+                else { continue }
+
+                let wmfPage = WMFPage(
+                    namespaceID: Int(page.namespaceID),
+                    projectID: projectID,
+                    title: title
+                )
+
+                result.append(WMFPageWithTimestamp(page: wmfPage, timestamp: saved))
+            }
+
+            return result
+        }
+
+    }
+
     private func fetchSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary {
         try await withCheckedThrowingContinuation { continuation in
             articleSummaryDataController.fetchArticleSummary(project: project, title: title) { result in
@@ -111,34 +153,45 @@ public actor WMFSavedArticlesDataController {
             }
         }
     }
-
-    private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot]) async throws -> [URL?] {
-        guard !snapshots.isEmpty else { return [] }
-
-        return await withTaskGroup(of: URL?.self) { group in
-            for snap in snapshots {
-                group.addTask { [snap] in
-                    guard let project = WMFProject(id: snap.projectID) else { return nil }
-                    do {
-                        let summary = try await self.fetchSummary(project: project, title: snap.title)
-                        return summary.thumbnailURL
-                    } catch {
-                        return nil
-                    }
-                }
-            }
-
-            var urls: [URL?] = []
-            urls.reserveCapacity(snapshots.count)
-
-            for await url in group {
-                if let url {
-                    urls.append(url)
-                }
-            }
-            return urls
+    
+    private func fetchSavedArticlesImageURLs(for snapshots: [SavedArticleSnapshot], count: Int?) async -> [(String, URL?)] {
+        guard !snapshots.isEmpty else {
+            return []
         }
+
+        let shuffledSnapshots = snapshots.shuffled()
+
+        var results: [(String, URL?)] = []
+
+        for snapshot in shuffledSnapshots {
+            if let count {
+                if results.count >= count {
+                    break
+                }
+            }
+
+            guard let project = WMFProject(id: snapshot.projectID) else {
+                continue
+            }
+
+            do {
+                let summary = try await fetchSummary(
+                    project: project,
+                    title: snapshot.title
+                )
+
+                if let thumbURL = summary.thumbnailURL {
+                    results.append((snapshot.title, thumbURL))
+                }
+            } catch {
+                continue
+            }
+        }
+
+        return results
     }
+
+
 }
 
 // MARK: - Types
@@ -156,10 +209,18 @@ public struct SavedArticleModuleData: Codable {
     public let savedArticlesCount: Int
     public let articleThumbURLs: [URL?]
     public let dateLastSaved: Date?
+    public let articleTitles: [String]
 
-    public init(savedArticlesCount: Int, articleThumbURLs: [URL?], dateLastSaved: Date?) {
+    public init(
+        savedArticlesCount: Int,
+        articleThumbURLs: [URL?],
+        dateLastSaved: Date?,
+        articleTitles: [String]
+    ) {
         self.savedArticlesCount = savedArticlesCount
         self.articleThumbURLs = articleThumbURLs
         self.dateLastSaved = dateLastSaved
+        self.articleTitles = articleTitles
     }
 }
+

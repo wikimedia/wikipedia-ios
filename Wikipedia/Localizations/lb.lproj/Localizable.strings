@@ -79,7 +79,7 @@
 "activity-tab-additional-thoughts" = "Wëllt Dir nach eppes soen?";
 "activity-tab-articles-read" = "Artikelen, déi dëse Mount gelies goufen";
 "activity-tab-articles-read-graph-label" = "Artikelen";
-"activity-tab-greeting" = "$1Salut $2$3 👋 Hei ass Äre wëchentleche Wikipedia-Resümmee.";
+"activity-tab-email-fifth-line" = "[Screenshotten oder Linken]";
 // Fuzzy
 "activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
 "activity-tab-neutral" = "Neutral";
@@ -399,6 +399,8 @@
 "explore-suggested-edits-footer" = "Derbäisetzen";
 "explore-suggested-edits-image-recs-body" = "Setzt virgeschloe Biller a Wikipedia-Artikelen derbäi fir d'Verständnis ze verbesseren.";
 "explore-suggested-edits-image-recs-title" = "E Bild derbäisetzen";
+"explore-survey-subtitle" = "Maacht wgl. bei enger kuerzer Ëmfro iwwer den Entdecke-Feed mat. Äre Feedback hëlleft derbäi fir zukünfteg Verbesserunge vun der App matzegestalten.";
+"explore-survey-title" = "Hëlleft eis Entdecken ze verbesseren";
 "export-user-data-title" = "Benotzerdaten exportéieren";
 "featured-widget-from-language-wikipedia" = "Vun der Wikipedia op $1";
 "featured-widget-from-wikipedia" = "Vun der Wikipedia";
@@ -550,6 +552,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-page" = "Haaptsäit";
 "microsite-yir-english-edits-bytes-slide-title" = "{{PLURAL:$1|$1 Byte}} derbäigesat";
+"microsite-yir-english-top-read-slide-subtitle" = "Wann d'Leit eppes iwwer d'Welt gewuer gi wëllen, da ginn se Wikipedia. Déi 5 meeschtbesicht Artikelen op der Wikipedia op Englesch waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLiest méi an $6eisem Blogantrag$7.";
+"microsite-yir-english-top-read-slide-title" = "Déi meeschtgelies Artikelen op der Wikipedia op Englesch";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "more-menu" = "Méi";
@@ -1085,6 +1089,8 @@
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
+// Fuzzy
+"year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-reading-subtitle-format-v3" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
 "year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
 "year-in-review-share-text" = "Hei ass mäi Wikipedia-Joresréckbléck. Mat der Wikipedia-iOS-App erstallt";

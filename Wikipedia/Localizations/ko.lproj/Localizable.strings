@@ -249,9 +249,6 @@
 "description-welcome-start-editing-button" = "편집 시작";
 "developer-force-email-auth" = "이메일 인증 강제";
 "developer-settings" = "개발자 설정";
-"developer-settings-activity-tab-group-A" = "활동 탭을 그룹 A로 설정";
-"developer-settings-activity-tab-group-B" = "활동 탭을 그룹 B로 설정";
-"developer-settings-activity-tab-group-C" = "활동 탭을 그룹 C로 설정";
 "developer-settings-bypass-donation" = "기부 건너뛰기";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
@@ -310,6 +307,7 @@
 "donate-accessibility-monthly-recurring-hint" = "이 금액의 자동 월간 기부를 활성화하려면 두 번 탭하세요.";
 "donate-accessibility-textfield-hint" = "기부용 맞춤 금액을 입력하세요.";
 "donate-accessibility-transaction-fee-hint" = "기부 금액에 거래 수수료를 추가하려면 두 번 탭하세요.";
+// Fuzzy
 "donate-already-donated" = "기부해 주셔서 감사합니다! 당신의 관대한 선택으로 위키백과와 자매 사이트의 발전에 큰 힘이 되었습니다.";
 "donate-apple-fine-print" = "애플은 이 목적으로 자금을 모으는 일을 맡지 않습니다.";
 "donate-email-opt-in-text" = "네, 위키미디어 재단에서 가끔 이메일을 보내드릴 수 있게 됩니다.";
@@ -721,6 +719,14 @@
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "main-page" = "대문";
+// Fuzzy
+"microsite-yir-english-edits-bytes-slide-title" = "34억 바이트 추가됨";
+// Fuzzy
+"microsite-yir-english-edits-slide-title" = "편집자들은 올해 8,200만 건의 변경을 수행했습니다";
+// Fuzzy
+"microsite-yir-english-reading-slide-title" = "읽기에 24억 시간이 할애됐습니다";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-title" = "3,700만 개가 넘는 읽기 목록이 있습니다";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "영어 위키백과의 가장 인기 있는 문서";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
@@ -1389,6 +1395,14 @@
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
+// Fuzzy
+"year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
+// Fuzzy
+"year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
+// Fuzzy
+"year-in-review-base-saved-title" = "$1백만 개가 넘는 읽기 목록이 있습니다";
+// Fuzzy
+"year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
 "year-in-review-day-friday" = "금요일";
 "year-in-review-day-monday" = "월요일";
 "year-in-review-day-saturday" = "토요일";
@@ -1402,6 +1416,8 @@
 "year-in-review-intro-login-title" = "개인화를 위해선 로그인하세요";
 "year-in-review-personalized-date-month-footer-v3" = "가장 많이 읽은 달";
 "year-in-review-personalized-donate-title" = "귀하의 기부 덕분에 위키백과의 번영 유지에 도움이 되었습니다";
+// Fuzzy
+"year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
 "year-in-review-personalized-most-read-articles-title" = "인기 기사";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|문서 $1개}}를 저장했습니다";
 "year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";
