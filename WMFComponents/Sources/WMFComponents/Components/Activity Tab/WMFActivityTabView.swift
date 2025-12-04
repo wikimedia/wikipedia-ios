@@ -104,6 +104,7 @@ public struct WMFActivityTabView: View {
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .scrollContentBackground(.hidden)
         .listStyle(.grouped)
+        .listCustomSectionSpacing(0)
         .onAppear {
             viewModel.fetchData()
         }
@@ -124,6 +125,7 @@ public struct WMFActivityTabView: View {
         }
         .scrollContentBackground(.hidden)
         .listStyle(.grouped)
+        .listCustomSectionSpacing(0)
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             viewModel.fetchData()
@@ -140,6 +142,7 @@ public struct WMFActivityTabView: View {
                 viewModel.onTapGlobalEdits?()
             }
         )
+        .padding(.top, 24)
     }
 
     private func timelineSectionsList() -> some View {
@@ -561,7 +564,7 @@ struct TimelineHeaderView: View {
         }
         .listRowInsets(EdgeInsets())
         .padding(.bottom, 20)
-        .padding(.top, 22)
+        .padding(.top, 28)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isHeader)
     }
