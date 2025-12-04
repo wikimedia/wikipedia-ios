@@ -106,14 +106,16 @@ import WMF
     }
     
     func logFeedbackSubmit(selectedItems: [String], comment: String?) {
+
         let selectedJoined = selectedItems.filter { $0 != "other" }.joined(separator: ",")
         var actionData = [
             "feedback_select": selectedJoined
         ]
 
-        if let comment {
-            actionData["feedback_comment"] = comment
+        if let comment, !comment.isEmpty {
+            actionData["feedback_comment"] = comment.replacingOccurrences(of: ",", with: "&comma;")
         }
+        
         logEvent(activeInterface: .survey, action: .surveySubmit, actionData: actionData, project: nil)
     }
     
