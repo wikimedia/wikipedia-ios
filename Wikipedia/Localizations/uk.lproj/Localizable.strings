@@ -131,11 +131,11 @@
 "activity-tab-satisfied" = "Задоволений/а";
 "activity-tab-saved" = "Статті, збережені цього місяця";
 "activity-tab-start-editing" = "Почати редагування";
-"activity-tab-survey" = "Чи задоволені ви своїм екраном «Активність»? Що ще ви хотіли б побачити тут у майбутньому?";
 "activity-tab-survey-title" = "Опитування задоволеності";
 "activity-tab-time-spent-reading" = "Час, витрачений на читання цього тижня";
 "activity-tab-title" = "Активність";
 "activity-tab-top-categories" = "Найпопулярніші категорії, читані цього місяця";
+"activity-tab-total-edits" = "Загальна кількість редагувань у проєктах";
 "activity-tab-unsatisfied" = "Незадоволений/а";
 "activity-tab-usernames-reading-title" = "Читання $1";
 "activity-tab-very-satisfied" = "Дуже задоволений/а";
@@ -401,6 +401,7 @@
 "edit-summary-short-description-updated" = "Оновлений короткий опис";
 "edit-watch-list-learn-more-text" = "Дізнатися більше про ваш список спостереження";
 "edit-watch-this-page-text" = "Спостерігати за цією сторінкою";
+"edited-article" = "Відредаговані";
 "editing-welcome-be-bold-subtitle" = "Редагуйте сміливо, але обдумано. Не засмучуйтеся через помилки — кожна версія статті зберігається, тому помилки можуть легко бути виправлені нашою спільнотою.";
 "editing-welcome-be-bold-title" = "Ваш голос важливий";
 "editing-welcome-citations-subtitle" = "Уся інформація має бути перевірена. Додаючи нову інформацію до статті, редактори мають вказувати посилання на надійне джерело інформації, що підтверджує цю інформацію.";

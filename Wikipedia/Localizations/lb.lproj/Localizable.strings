@@ -89,6 +89,7 @@
 "activity-tab-survey-title" = "Zefriddenheetsëmfro";
 "activity-tab-title" = "Aktivitéit";
 "activity-tab-top-categories" = "Top-Kategorien dëse Mount";
+"activity-tab-total-edits" = "Ännerungen op alle Projeten insgesamt";
 "activity-tab-unsatisfied" = "Onzefridden";
 "activity-tab-very-satisfied" = "Ganz zefridden";
 "activity-tab-very-unsatisfied" = "Ganz onzefridden";
@@ -279,6 +280,7 @@
 "edit-summary-short-description-updated" = "Kuerzbeschreiwung aktualiséiert";
 "edit-watch-list-learn-more-text" = "Méi iwwer Är Iwwerwaachungslëscht gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
+"edited-article" = "Geännert";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
 "editor-edit-published" = "Är Ännerung gouf verëffentlecht.";
 "editor-edit-source" = "Quelltext änneren";
