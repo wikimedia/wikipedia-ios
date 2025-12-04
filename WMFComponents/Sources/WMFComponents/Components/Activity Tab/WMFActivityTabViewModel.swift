@@ -84,6 +84,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var timelineViewModel: TimelineViewModel
     @Published public var emptyViewModel: WMFEmptyViewModel
     @Published public var shouldShowLogInPrompt: Bool = false
+    @Published var sections: [TimelineViewModel.TimelineSection] = []
 
     @Published var globalEditCount: Int?
     public var onTapGlobalEdits: (() -> Void)?
@@ -228,5 +229,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
         case .loggedIn:
             break
         }
+    }
+    
+    var shouldShowEmptyState: Bool {
+        return self.sections.count == 1 && (self.sections.first?.items.isEmpty ?? true)
     }
 }

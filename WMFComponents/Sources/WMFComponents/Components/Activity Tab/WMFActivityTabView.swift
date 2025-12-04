@@ -143,7 +143,7 @@ public struct WMFActivityTabView: View {
     }
 
     private func timelineSectionsList() -> some View {
-        ForEach(viewModel.timelineViewModel.sections) { section in
+        ForEach(viewModel.sections) { section in
             TimelineSectionView(activityViewModel: viewModel, section: section)
         }
     }
@@ -409,7 +409,7 @@ struct TimelineSectionView: View {
             header:
                 TimelineHeaderView(activityViewModel: activityViewModel, section: section)
         ) {
-            if activityViewModel.timelineViewModel.shouldShowEmptyState {
+            if activityViewModel.shouldShowEmptyState {
                 emptyState
             } else {
                 ForEach(section.items) { item in
