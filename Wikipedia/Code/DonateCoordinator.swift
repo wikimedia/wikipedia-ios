@@ -119,13 +119,20 @@ class DonateCoordinator: Coordinator {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
-        case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .historyProfile, .searchProfile, .activityTabProfile:
+        case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
                 return nil
             }
             
             return "\(languageCode)\(countryCode)_appmenu_iOS"
+        case .activityTabProfile:
+            guard let languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+            
+            return "\(languageCode)\(countryCode)_appmenu_activity_iOS"
         case .yearInReview(let slideLoggingID):
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {

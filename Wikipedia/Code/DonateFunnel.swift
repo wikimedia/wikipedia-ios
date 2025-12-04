@@ -22,6 +22,7 @@ import WMFData
         case historyProfile = "history_profile"
         case savedProfile = "saved_profile"
         case searchProfile = "search_profile"
+        case activityProfile = "activity_profile"
         case wikiYiR = "wiki_yir"
     }
     
@@ -399,6 +400,10 @@ import WMFData
     
     func logSearchProfileDonate(metricsID: String) {
         logEvent(activeInterface: .searchProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logActivityProfileDonate(metricsID: String) {
+        logEvent(activeInterface: .activityProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
     }
     
     func logSearchProfileDonateCancel(metricsID: String) {
