@@ -120,7 +120,7 @@ struct WMFAsyncPageRow: View {
             }
         }
         .background(Color(theme.paperBackground))
-        .padding(.vertical, 8)
+        .padding(.vertical, 10)
     }
 
     @ViewBuilder
@@ -129,6 +129,7 @@ struct WMFAsyncPageRow: View {
             Text(viewModel.title)
                 .font(WMFSwiftUIFont.font(.callout))
                 .foregroundColor(Color(theme.text))
+                .lineLimit(1)
             if let description = viewModel.articleDescription {
                 Text(description)
                     .font(WMFSwiftUIFont.font(.subheadline))
