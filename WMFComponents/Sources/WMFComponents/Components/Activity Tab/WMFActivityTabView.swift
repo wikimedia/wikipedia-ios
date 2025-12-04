@@ -469,8 +469,11 @@ struct TimelineRowView: View {
             iconAccessiblityLabel = ""
         }
         
-        let deleteItemAction: () -> Void = {
-            self.activityViewModel.timelineViewModel.deletePage(item: item, section: section)
+        var deleteItemAction: (() -> Void)? = nil
+        if item.itemType == .read {
+            deleteItemAction = {
+                self.activityViewModel.timelineViewModel.deletePage(item: item, section: section)
+            }
         }
         
         let tapAction: () -> Void = {
