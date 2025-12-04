@@ -37,12 +37,19 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
         updateLoginState()
-
-        if viewModel.isEmpty {
-            ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "empty")
-        } else {
-            ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+        
+        viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
+            guard let self else { return }
+            if onAppearance {
+                if viewModel.isEmpty {
+                    ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "empty")
+                } else {
+                    ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+                }
+            }
         }
+
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -89,7 +96,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             guard let self else { return }
             if let loginVC = nav.presentedViewController?.presentedViewController {
                 loginVC.dismiss(animated: true) { [weak self] in
-                    self?.viewModel.fetchData()
+                    self?.viewModel.fetchData(fromAppearance: true)
                     self?.updateLoginState()
                 }
             }
@@ -99,7 +106,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             guard let self else { return }
             if let createVC = nav.presentedViewController?.presentedViewController {
                 createVC.dismiss(animated: true) { [weak self] in
-                    self?.viewModel.fetchData()
+                    self?.viewModel.fetchData(fromAppearance: true)
                     self?.updateLoginState()
                 }
             }

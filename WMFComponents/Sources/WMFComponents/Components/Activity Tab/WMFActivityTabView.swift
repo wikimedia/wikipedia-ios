@@ -105,7 +105,7 @@ public struct WMFActivityTabView: View {
         .scrollContentBackground(.hidden)
         .listStyle(.grouped)
         .onAppear {
-            viewModel.fetchData()
+            viewModel.fetchData(fromAppearance: true)
         }
     }
 
@@ -126,7 +126,7 @@ public struct WMFActivityTabView: View {
         .listStyle(.grouped)
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
-            viewModel.fetchData()
+            viewModel.fetchData(fromAppearance: true)
         }
     }
     
