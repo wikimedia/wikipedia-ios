@@ -412,6 +412,7 @@ struct TimelineSectionView: View {
         ) {
             if activityViewModel.shouldShowEmptyState {
                 emptyState
+                    .listRowSeparator(.hidden)
             } else {
                 ForEach(section.items) { item in
                     TimelineRowView(activityViewModel: activityViewModel, section: section, item: item)
