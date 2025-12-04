@@ -170,7 +170,7 @@ public struct WMFActivityTabView: View {
 
     private var loggedOutView: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
+            HStack(alignment: .top) {
                 Text(viewModel.localizedStrings.loggedOutTitle)
                     .font(Font(WMFFont.for(.semiboldHeadline)))
                     .foregroundColor(Color(uiColor: theme.text))
@@ -219,6 +219,7 @@ public struct WMFActivityTabView: View {
         .padding(.horizontal, 16)
         .accessibilityElement(children: .contain)
         .accessibilityLabel("\(viewModel.localizedStrings.loggedOutTitle). \(viewModel.localizedStrings.loggedOutSubtitle)")
+        .background(Color(uiColor: theme.paperBackground))
     }
 
     private var hoursMinutesRead: some View {
@@ -416,7 +417,6 @@ struct TimelineSectionView: View {
                     TimelineRowView(activityViewModel: activityViewModel, section: section, item: item)
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
-                        .padding(.bottom, 20)
                         .listRowBackground(Color(uiColor: theme.paperBackground))
                 }
             }
@@ -560,6 +560,7 @@ struct TimelineHeaderView: View {
         }
         .listRowInsets(EdgeInsets())
         .padding(.bottom, 20)
+        .padding(.top, 22)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isHeader)
     }
