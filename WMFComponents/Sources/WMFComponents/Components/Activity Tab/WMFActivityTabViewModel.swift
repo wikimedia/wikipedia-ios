@@ -151,7 +151,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
                 articlesReadViewModel.minutesRead == 0 &&
                 articlesSavedViewModel.articlesSavedAmount == 0 &&
                 (globalEditCount == 0 || globalEditCount == nil) &&
-                timelineViewModel.shouldShowEmptyState
+                shouldShowEmptyState
             
             fetchDataCompleteAction?(fromAppearance)
         }
