@@ -265,7 +265,7 @@ class DonateCoordinator: Coordinator {
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
             case .activityTabProfile:
-                // TODO: Logging
+                DonateFunnel.shared.logActivityProfileDonateApplePay(metricsID: metricsID)
                 return
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
@@ -302,7 +302,7 @@ class DonateCoordinator: Coordinator {
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
             case .activityTabProfile:
-                // TODO: Logging
+                DonateFunnel.shared.logActivityProfileDonateWebPay(metricsID: metricsID)
                 return
             }
             navigateToOtherPaymentMethod()
