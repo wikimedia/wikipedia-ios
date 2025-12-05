@@ -535,8 +535,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                         self.editorLoggingDelegate?.logEditSaveViewControllerPublishSuccess(source: source, revisionID: newRevID, project: project)
                     }
                     
-                    EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID))
-                    
+                    EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: Int(newRevID), project: WikimediaProject(siteURL: pageURL))
+
                 }
                 
                 self.imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !self.summaryText.isEmpty)

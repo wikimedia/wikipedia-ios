@@ -1326,7 +1326,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             }
             
             if let pageURL = self.fetchPageURL() {
-                    EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: result.newRevisionID)
+                EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: result.newRevisionID, project: wikimediaProject)
             }
 
             let diffVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: result.oldRevisionID, toRevisionID: result.newRevisionID, articleTitle: articleTitle, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
