@@ -15,6 +15,7 @@ import WMF
         case surveyClose = "feedback_close_click"
         case surveySubmit = "feedback_submit_click"
         case loginClick = "login_click"
+        case activityNavClick = "activity_nav_click"
     }
     
     public enum ActiveInterface: String {
@@ -23,6 +24,16 @@ import WMF
         case overflowMenu = "activity_tab_overflow_menu"
         case survey = "activity_tab_feedback"
         case activityTabLogin = "activity_tab_login"
+        case historyTab = "history_tab"
+        
+        // areas where the activity tab bar button could be tapped
+        case feed = "feed"
+        case article = "article"
+        case mainPage = "main_page"
+        case places = "places"
+        case saved = "saved"
+        case search = "search"
+        case settings = "settings"
     }
     
     private struct Event: EventInterface {
@@ -121,6 +132,18 @@ import WMF
     
     func logLoginClick() {
         logEvent(activeInterface: .activityTabLogin, action: .loginClick, project: nil)
+    }
+    
+    func logTabBarSelected(from activeInterface: ActiveInterface) {
+        logEvent(activeInterface: activeInterface, action: .activityNavClick, actionData: nil, project: nil)
+    }
+    
+    func logHistoryImpression() {
+        logEvent(activeInterface: .historyTab, action: .impression)
+    }
+    
+    func logHistoryArticleClick() {
+        logEvent(activeInterface: .historyTab, action: .articleClick)
     }
 }
 
