@@ -1458,7 +1458,7 @@ extension WMFAppViewController {
         } else if currentVC as? SavedViewController != nil {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved)
         } else if currentVC as? WMFHistoryViewController != nil {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .history)
+            ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab)
         } else if currentVC as? SearchViewController != nil {
             ActivityTabFunnel.shared.logTabBarSelected(from: .search)
         } else if currentVC as? WMFSettingsViewController != nil {
