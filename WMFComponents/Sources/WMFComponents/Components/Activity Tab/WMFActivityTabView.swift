@@ -106,7 +106,7 @@ public struct WMFActivityTabView: View {
         .listStyle(.grouped)
         .listCustomSectionSpacing(0)
         .onAppear {
-            viewModel.fetchData()
+            viewModel.fetchData(fromAppearance: true)
         }
     }
 
@@ -128,7 +128,7 @@ public struct WMFActivityTabView: View {
         .listCustomSectionSpacing(0)
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
-            viewModel.fetchData()
+            viewModel.fetchData(fromAppearance: true)
         }
     }
     

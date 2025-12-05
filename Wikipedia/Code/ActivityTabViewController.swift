@@ -37,7 +37,19 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
         updateLoginState()
+        
+        viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
+            guard let self else { return }
+            if onAppearance {
+                if viewModel.isEmpty {
+                    ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "empty")
+                } else {
+                    ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+                }
+            }
+        }
 
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -71,6 +83,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     private func presentFullLoginFlow() {
+        ActivityTabFunnel.shared.logLoginClick()
         guard let nav = navigationController else { return }
 
         let loginCoordinator = LoginCoordinator(
@@ -83,7 +96,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             guard let self else { return }
             if let loginVC = nav.presentedViewController?.presentedViewController {
                 loginVC.dismiss(animated: true) { [weak self] in
-                    self?.viewModel.fetchData()
+                    self?.viewModel.fetchData(fromAppearance: true)
                     self?.updateLoginState()
                 }
             }
@@ -93,7 +106,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             guard let self else { return }
             if let createVC = nav.presentedViewController?.presentedViewController {
                 createVC.dismiss(animated: true) { [weak self] in
-                    self?.viewModel.fetchData()
+                    self?.viewModel.fetchData(fromAppearance: true)
                     self?.updateLoginState()
                 }
             }
@@ -170,6 +183,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
             if !hasSeenActivityTab {
                 presentOnboarding()
+                ActivityTabFunnel.shared.logOnboardingDidAppear()
                 await dataController.setHasSeenActivityTab(true)
             } else {
                 presentSurveyIfNeeded()
@@ -241,14 +255,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         let clearAction = UIAction(title: clearTitle, image: WMFSFSymbolIcon.for(symbol: .clockBadgeX), handler: { _ in
             self.userDidTapClearReadingHistory()
+            ActivityTabFunnel.shared.logActivityTabOverflowMenuClearHistory()
         })
 
         let learnMoreAction = UIAction(title: CommonStrings.learnMoreTitle(), image: WMFSFSymbolIcon.for(symbol: .infoCircle), handler: { _ in
             self.userDidTapLearnMore()
+            ActivityTabFunnel.shared.logActivityTabOverflowMenuLearnMore()
         })
 
         let reportIssueAction = UIAction(title: CommonStrings.problemWithFeatureTitle, image: WMFSFSymbolIcon.for(symbol: .flag), handler: { _ in
             self.userDidTapReportIssue()
+            ActivityTabFunnel.shared.logActivityTabOverflowMenuProblem()
         })
         let mainMenu = UIMenu(title: String(), children: [learnMoreAction, clearAction, reportIssueAction])
 
@@ -399,6 +416,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
    private  func onTapArticle(item: TimelineItem) {
+       ActivityTabFunnel.shared.logActivityTabArticleTap()
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
@@ -474,11 +492,8 @@ extension WMFActivityTabViewController: ShareableArticlesProvider {}
 extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
     public func onboardingViewDidClickPrimaryButton() {
-        
-        // TODO: Log
         presentedViewController?.dismiss(animated: true)
-
-        
+        ActivityTabFunnel.shared.logOnboardingDidTapContinue()
     }
 
     public func onboardingViewDidClickSecondaryButton() {
@@ -488,7 +503,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
         UIApplication.shared.open(url)
 
-        // TODO: Log
+        ActivityTabFunnel.shared.logOnboardingDidTapLearnMore()
     }
     
     @MainActor
@@ -506,6 +521,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
             let surveyView = createSurveyView()
             let hostedView = WMFComponentHostingController(rootView: surveyView)
             present(hostedView, animated: true)
+            ActivityTabFunnel.shared.logActivityTabSurveyImpression()
             
             await dataController.setHasSeenSurvey(value: true)
         }
@@ -531,12 +547,12 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
         return WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
             
-            // TODO: Log cancel
+            ActivityTabFunnel.shared.logActivityTabSurveyCancel()
             
             self?.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
             
-            // TODO: Log submit
+            ActivityTabFunnel.shared.logFeedbackSubmit(selectedItems: options, comment: otherText)
             
             self?.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")

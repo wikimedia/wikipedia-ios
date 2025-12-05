@@ -141,16 +141,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (void)updateFourthTab {
-    NSInteger assignment = [self getAssignmentForActivityTab];
+    WMFActivityTabExperimentAssignment assignment = [self getAssignmentForActivityTab];
 
     // Don't change unnecessarily or else we'll get a crash
     if (self.viewControllers.count >= 4 && ([self.viewControllers[3] isKindOfClass:[UINavigationController class]])) {
         UINavigationController *fourthNavVC = self.viewControllers[3];
         if (fourthNavVC.viewControllers.count >= 1) {
             UIViewController *rootVC = fourthNavVC.viewControllers[0];
-            if (assignment == 1 && [rootVC isKindOfClass:[WMFActivityTabViewController class]]) {
+            if (assignment == WMFActivityTabExperimentAssignmentActivityTab && [rootVC isKindOfClass:[WMFActivityTabViewController class]]) {
                 return;
-            } else if (assignment == 0 && [rootVC isKindOfClass:[WMFHistoryViewController class]]) {
+            } else if (assignment == WMFActivityTabExperimentAssignmentControl && [rootVC isKindOfClass:[WMFHistoryViewController class]]) {
                 return;
             }
         }
@@ -353,14 +353,15 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 }
 
-- (WMFComponentNavigationController *)setupFourthTab:(NSInteger)assignment {
+- (WMFComponentNavigationController *)setupFourthTab:(WMFActivityTabExperimentAssignment)assignment {
     WMFComponentNavigationController *nav4;
-    if (assignment == 0) {
-        nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
-    } else {
+    
+    if (assignment == WMFActivityTabExperimentAssignmentActivityTab) {
         nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
+    } else {
+        nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
     }
-
+    
     return nav4;
 }
 
@@ -379,7 +380,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
     }
 
-    NSInteger assignment = [self getAssignmentForActivityTab];
+    WMFActivityTabExperimentAssignment assignment = [self getAssignmentForActivityTab];
 
     WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
     WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];

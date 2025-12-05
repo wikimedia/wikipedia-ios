@@ -49,7 +49,7 @@ import CocoaLumberjackSwift
     }
 
     public func shouldRunMigration() -> Bool {
-        return WMFActivityTabDataController.activityAssignmentForObjC() == 1
+        return WMFActivityTabDataController.activityAssignmentForObjC() == .activityTab
     }
 
     // MARK: - Migration
