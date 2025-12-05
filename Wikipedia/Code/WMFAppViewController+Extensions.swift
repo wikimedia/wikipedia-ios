@@ -1424,4 +1424,18 @@ extension WMFAppViewController {
         }
         return 0
     }
+    
+    @objc func logTabBarSelectionsForActivityTab(currentTabSelection: UIViewController, newTabSelection: UIViewController) {
+        guard let currentNavVC = currentTabSelection as? UINavigationController,
+              currentNavVC.viewControllers.count > 0,
+              let newTabNavVC = newTabSelection as? UINavigationController,
+              newTabNavVC.viewControllers.count > 0 else {
+            return
+        }
+        
+        let currentVC = currentNavVC.viewControllers[0]
+        let newVC = newTabNavVC.viewControllers[0]
+        
+        
+    }
 }
