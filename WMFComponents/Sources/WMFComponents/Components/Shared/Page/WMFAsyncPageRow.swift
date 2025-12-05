@@ -17,7 +17,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     let deleteAccessibilityLabel: String?
     
     private var summary: WMFArticleSummary?
-    @Published var articleDescription: String?
+    @Published var articleDescription: String
     @Published var uiImage: UIImage?
     
     internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil) {
@@ -26,7 +26,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         self.projectID = projectID
         self.iconImage = iconImage
         self.iconAccessibilityLabel = iconAccessibilityLabel
-        self.articleDescription = nil
+        self.articleDescription = ""
         self.uiImage = nil
         self.tapAction = tapAction
         self.contextMenuOpenAction = contextMenuOpenAction
@@ -59,7 +59,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         } else if let extract = summary?.extract, !extract.isEmpty {
             self.articleDescription = extract
         } else {
-            self.articleDescription = nil
+            self.articleDescription = ""
         }
         
         let imageDataController = WMFImageDataController()
@@ -116,7 +116,10 @@ struct WMFAsyncPageRow: View {
                     .scaledToFill()
                     .frame(width: 40, height: 40)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
-
+            } else {
+                Color.clear
+                    .frame(width: 40, height: 40)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
             }
         }
         .background(Color(theme.paperBackground))
@@ -130,12 +133,10 @@ struct WMFAsyncPageRow: View {
                 .font(WMFSwiftUIFont.font(.callout))
                 .foregroundColor(Color(theme.text))
                 .lineLimit(1)
-            if let description = viewModel.articleDescription {
-                Text(description)
-                    .font(WMFSwiftUIFont.font(.subheadline))
-                    .foregroundColor(Color(theme.secondaryText))
-                    .lineLimit(1)
-            }
+            Text(viewModel.articleDescription)
+                .font(WMFSwiftUIFont.font(.subheadline))
+                .foregroundColor(Color(theme.secondaryText))
+                .lineLimit(1)
         }
     }
 

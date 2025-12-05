@@ -140,11 +140,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
             async let editCountTask: Void = getGlobalEditCount()
             
             _ = await (readTask, savedTask, timelineTask, editCountTask)
-            
-            self.articlesReadViewModel = articlesReadViewModel
-            self.articlesSavedViewModel = articlesSavedViewModel
-            self.timelineViewModel = timelineViewModel
-            self.globalEditCount = globalEditCount
+//            
+//            self.articlesReadViewModel = articlesReadViewModel
+//            self.articlesSavedViewModel = articlesSavedViewModel
+//            self.timelineViewModel = timelineViewModel
+//            self.globalEditCount = globalEditCount
             
             isEmpty =
                 articlesReadViewModel.hoursRead == 0 &&
