@@ -101,11 +101,17 @@ public actor WMFSavedArticlesDataController {
     }
 
     public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
-        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
+        guard let coreDataStore else {
+            throw WMFDataControllerError.coreDataStoreUnavailable
+        }
+
         let context = try coreDataStore.newBackgroundContext
 
         return try await context.perform {
-            let sortDescriptor = NSSortDescriptor(key: "savedInfo.savedDate", ascending: false)
+            let sortDescriptor = NSSortDescriptor(
+                key: "savedInfo.savedDate",
+                ascending: false
+            )
             let predicate = NSPredicate(format: "savedInfo != nil")
 
             guard
@@ -116,16 +122,29 @@ public actor WMFSavedArticlesDataController {
                     sortDescriptors: [sortDescriptor],
                     in: context
                 )
-            else { return [] }
+            else {
+                return []
+            }
 
             var result: [WMFPageWithTimestamp] = []
+            var seenArticleKeys = Set<String>()  // one entry per article
 
             for page in pages {
                 guard
                     let projectID = page.projectID,
                     let title = page.title,
-                    let saved = page.savedInfo?.savedDate
-                else { continue }
+                    let savedDate = page.savedInfo?.savedDate
+                else {
+                    continue
+                }
+
+                let key = "\(projectID)::\(title)"
+
+                if seenArticleKeys.contains(key) {
+                    continue
+                }
+
+                seenArticleKeys.insert(key)
 
                 let wmfPage = WMFPage(
                     namespaceID: Int(page.namespaceID),
@@ -133,12 +152,16 @@ public actor WMFSavedArticlesDataController {
                     title: title
                 )
 
-                result.append(WMFPageWithTimestamp(page: wmfPage, timestamp: saved))
+                result.append(
+                    WMFPageWithTimestamp(
+                        page: wmfPage,
+                        timestamp: savedDate
+                    )
+                )
             }
 
             return result
         }
-
     }
 
     private func fetchSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary {
