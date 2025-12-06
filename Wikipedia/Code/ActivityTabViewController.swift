@@ -180,14 +180,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     @MainActor
     private func presentModalsIfNeeded() {
         Task {
-            let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
-            if !hasSeenActivityTab {
-                presentOnboarding()
-                ActivityTabFunnel.shared.logOnboardingDidAppear()
-                await dataController.setHasSeenActivityTab(true)
-            } else {
-                presentSurveyIfNeeded()
-            }
+            // TODO: Bring back onboarding screen in January 2026 (https://phabricator.wikimedia.org/T411424)
+//            let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
+//            if !hasSeenActivityTab {
+//                presentOnboarding()
+//                ActivityTabFunnel.shared.logOnboardingDidAppear()
+//                await dataController.setHasSeenActivityTab(true)
+//            } else {
+//                presentSurveyIfNeeded()
+//            }
+            presentSurveyIfNeeded()
         }
         
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
