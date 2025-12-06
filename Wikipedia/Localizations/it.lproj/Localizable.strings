@@ -130,6 +130,7 @@
 "activity-tab-additional-thoughts" = "Qualcosa da aggiungere?";
 "activity-tab-articles-read" = "Voci lette questo mese";
 "activity-tab-articles-read-graph-label" = "Voci";
+"activity-tab-empty-title" = "Niente da mostrare";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-logged-out-subtitle" = "Accedi o crea un'utenza per vedere la tua attività sull'applicazione di Wikipedia.";

@@ -92,16 +92,13 @@
 "activity-tab-add-images-title" = "Tilføj billeder";
 "activity-tab-additional-thoughts" = "Yderligere tanker?";
 "activity-tab-generic-no-edits" = "Du har ikke redigeret i denne uge. Start nu med at spore dine bidrag.";
-// Fuzzy
-"activity-tab-logged-out-subtitle" = "Spor, hvad du har læst, og se dine bidrag over tid på en ny måde";
-// Fuzzy
-"activity-tab-logged-out-title" = "Log ind eller opret en konto for at se mere redigerings- og læseaktivitet.";
+"activity-tab-logged-out-subtitle" = "Log ind eller opret en konto for at se dine aktiviteter i Wikipedia appen.";
+"activity-tab-logged-out-title" = "Se mere redigerings- og læseaktivitet";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "Du har ikke redigeret i denne uge. Tilføj billeder for at forbedre forståelsen af ​​artiklen.";
 "activity-tab-read-title" = "Se læsehistorik";
 "activity-tab-satisfied" = "Tilfreds";
 "activity-tab-start-editing" = "Begynd at redigere";
-"activity-tab-survey" = "Er du tilfreds med din \"Aktivitets\"-skærm? Hvad vil du ellers gerne se her i fremtiden?";
 "activity-tab-survey-title" = "Tilfredshedsundersøgelse";
 "activity-tab-title" = "Aktivitet";
 "activity-tab-unsatisfied" = "Utilfreds";
@@ -293,7 +290,6 @@
 "donate-accessibility-monthly-recurring-hint" = "Tryk to gange for at aktivere automatiske månedlige donationer af dette beløb.";
 "donate-accessibility-textfield-hint" = "Indtast det beløb du ønsker at donere.";
 "donate-accessibility-transaction-fee-hint" = "Tryk to gange for at tilføje transaktionsgebyr til donationsbeløbet.";
-// Fuzzy
 "donate-already-donated" = "Tak, kære donor! Din gavmildhed hjælper med at holde Wikipedia og dets søsterwebsteder i gang.";
 "donate-apple-fine-print" = "Apple er ikke ansvarlig for at rejse penge til dette formål.";
 "donate-email-opt-in-text" = "Ja, Wikimedia Foundation må gerne sende mig en lejlighedsvis e-mail.";
@@ -691,22 +687,14 @@
 "main-menu-terms-of-use" = "Vilkår for anvendelse";
 "main-menu-title" = "Mere";
 "main-menu-zero-faq" = "Ofte stillede spørgsmål om Wikipedia Zero";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "4 milliarder bytes tilføjet";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "Bidragere lavede 98 millioner ændringer dette år";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "Det anslås at folk har brugt 2,9 milliarder timer – over 331.000 år! – på at læse engelsk Wikipedia i 2024. Wikipedia er der, når du vil lære om vores foranderlige verden, vinde et væddemål blandt venner eller besvare et nysgerrigt barns spørgsmål.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "Vi brugte 2,9 milliarder timer på at læse";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Aktive iOS App-brugere havde over 62,2 millioner læselister. Tilføjelse af artikler til læselister giver dig adgang til artikler, selv når du er offline. Du kan også logge ind for at synkronisere læselister på tværs af enheder.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "Vi havde over 62,2 millioner læselister";
-// Fuzzy
-"microsite-yir-english-top-read-slide-subtitle" = "De 5 mest besøgte artikler på engelsk Wikipedia var:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nLæs mere i $6 vores dedikerede blogindlæg $7 .";
-// Fuzzy
-"microsite-yir-english-top-read-slide-title" = "Engelsk Wikipedias mest populære artikler";
+"microsite-yir-english-edits-bytes-slide-title" = "{{PLURAL:$1|$1 byte|$1 bytes}} tilføjet";
+"microsite-yir-english-edits-slide-title" = "Bidragere lavede {{PLURAL:$1|$1 ændring|$1 ændringer}} dette år";
+"microsite-yir-english-reading-slide-subtitle" = "Det anslås at folk har brugt {{PLURAL:$1|$1 time|$1 timer}} – over {{PLURAL:$2|år}}! – på at læse engelsk Wikipedia i $3. Wikipedia er der, når du vil lære om vores foranderlige verden, vinde et væddemål blandt venner eller besvare et nysgerrigt barns spørgsmål.";
+"microsite-yir-english-reading-slide-title" = "Vi brugte {{PLURAL:$1|$1 time|$1 timer}} på at læse";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Aktive iOS App-brugere havde over {{PLURAL:$1|$1 gemt artikel|$1 gemte artikler}}. Tilføjelse af artikler til læselister giver dig adgang til artikler, selv når du er offline. Du kan også logge ind for at synkronisere læselister på tværs af enheder.";
+"microsite-yir-english-saved-reading-slide-title" = "Vi havde over {{PLURAL:$1|$1 gemt artikel|$1 gemte artikler}}";
+"microsite-yir-english-top-read-slide-subtitle" = "De 5 mest besøgte artikler på engelsk Wikipedia var:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \n\nLæs mere i $6vores dedikerede blogindlæg $7 .";
+"microsite-yir-english-top-read-slide-title" = "Engelsk Wikipedias mest læste artikler";
 "more-languages-tooltip-description" = "Søg Wikipedia på mere end 300 sprog";
 "more-languages-tooltip-title" = "Tilføj sprog";
 "more-menu" = "Mere";
@@ -1015,8 +1003,7 @@
 "serbian-variants-alert-body" = "Wikipedia-appen understøtter nu følgende serbiske varianter som primære eller sekundære sprog i appen, hvilket gør det nemmere at læse, søge og redigere i dine foretrukne varianter:\n\nсрпски ћирилица serbisk, kyrillisk (sr-ec)\nsrpski latinica serbisk, latin (sr-el)";
 "serbian-variants-alert-title" = "Opdateringer til understøttelse af serbisk variant";
 "settings-account" = "Konto";
-// Fuzzy
-"settings-appearance" = "Læsepræferencer";
+"settings-appearance" = "App-tema";
 "settings-clear-cache" = "Ryd cachede data";
 "settings-clear-cache-are-you-sure-message" = "Rydning af cachede data vil frigøre omkring $1 plads. Det vil ikke slette dine gemte sider.";
 "settings-clear-cache-are-you-sure-title" = "Ryd cachede data?";
@@ -1232,20 +1219,13 @@
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
 "wikitext-upload-save-sign-in" = "Log på";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
-// Fuzzy
-"year-in-review-base-editors-title" = "Redaktører på iOS-appen foretog mere end $1 redigeringer";
-// Fuzzy
-"year-in-review-base-edits-title" = "Wikipedia blev redigeret $1 gange i minuttet";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "Wikipedia havde mere end $1 millioner artikler på tværs af $2 aktive sprog. Du sluttede dig til millioner i at udvide viden og udforske forskellige emner.";
-// Fuzzy
-"year-in-review-base-reading-title" = "Wikipedia var tilgængelig på mere end 300 sprog";
-// Fuzzy
-"year-in-review-base-saved-title" = "Vi havde over $1 million læselister";
-// Fuzzy
-"year-in-review-base-viewed-subtitle" = "iOS-appbrugere har set Wikipedia-artikler $1 milliarder gange. For mange mennesker verden over, er Wikipedia det første stop, når de besvarer et spørgsmål, finder informationer til skole eller arbejde eller får ny viden.";
-// Fuzzy
-"year-in-review-base-viewed-title" = "Vi har set Wikipedia-artikler $1 milliarder gange";
+"year-in-review-base-editors-title" = "Redaktører på iOS-appen foretog mere end {{PLURAL:$1|$1 redigering|$1 redigeringer}}";
+"year-in-review-base-edits-title" = "Wikipedia blev redigeret {{PLURAL:$1|$1 gang|$1 gange}} i minuttet";
+"year-in-review-base-reading-subtitle" = "Wikipedia havde {{PLURAL:$1| $1 artikel| $1 artikler}} på tværs af over {{PLURAL:$2| $2 aktivt sprog| $2 aktive sprog}}. Du sluttede dig til millioner af andre i at udvide din viden og udforske forskellige emner.";
+"year-in-review-base-reading-title" = "Wikipedia var tilgængelig på mere end {{PLURAL:$1|sprog}}";
+"year-in-review-base-saved-title" = "Brugere af appen havde mere end{{PLURAL:$1|$1 gemt artikel|$1 gemte artikler}}";
+"year-in-review-base-viewed-subtitle" = "For folk over hele verden er Wikipedia ofte det første stop, når de skal besvare et spørgsmål, søge information til skole eller arbejde eller lære en ny kendsgerning.";
+"year-in-review-base-viewed-title" = "App-brugere har set Wikipedia-artikler {{PLURAL:$1| $1 gang| $1 gange}}";
 "year-in-review-day-friday" = "Fredage";
 "year-in-review-day-monday" = "Mandage";
 "year-in-review-day-saturday" = "Lørdage";
@@ -1259,12 +1239,9 @@
 "year-in-review-finish" = "Afslut";
 "year-in-review-personalized-donate-subtitle" = "Tak fordi du investerer i fremtiden for fri og gratis viden. I år forbedrede Wikimedia Foundation teknologien for at kunne betjene enhver læser og frivillige bedre, udviklede værktøjer, der styrker samarbejdet, og understøttede Wikipedia på flere sprog. [Få mere at vide om vores arbejde]($1).";
 "year-in-review-personalized-donate-title" = "Din generøsitet hjalp med at holde Wikipedia i gang";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, fået $1 visninger i alt. Takket være bidragere som dig, er Wikipedia en konstant forbedret, faktabaseret og pålidelig videnressource for verden";
-// Fuzzy
-"year-in-review-personalized-edit-views-title-format" = "Dine redigeringer er blevet set mere end $1 gange for nylig";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "Du har redigeret Wikipedia {{PLURAL:$1|$1 gang|$1 gange}}";
+"year-in-review-personalized-edit-views-subtitle-format" = "Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, modtaget {{PLURAL:$1| $1 visning| $1 visninger}}. Takket være redaktører som dig er Wikipedia en stadigt forbedret, faktabaseret og pålidelig vidensressource for verden.";
+"year-in-review-personalized-edit-views-title-format" = "Dine redigeringer er blevet vist mere end {{PLURAL:$1| $1 gang| $1 gange}} for nylig";
+"year-in-review-personalized-editing-title-format" = "Du redigerede {{PLURAL:$1|$1 gang|$1 gange}} i denne uge.";
 "year-in-review-personalized-explore" = "En animeret illustration af en hånd, der holder Wikipedia-kloden, som gradvist forvandles til en lille puslespilsbrik, der symboliserer individuelle bidrag til platformen.";
 "year-in-review-personalized-saved-title-format" = "Du har gemt {{PLURAL:$1| $1 artikel| $1 artikler}}";
 "year-in-review-personalized-user-edits" = "En animeret illustration, der viser bytes, der stables oven på hinanden, hvilket symboliserer den kontinuerlige skabelse af fri viden.";

@@ -93,11 +93,15 @@
 "activity-tab-email-second-line" = "— [Опишете го конкретниот проблем]";
 "activity-tab-email-third-line" = "Сакам да го видам следново поведение:";
 "activity-tab-email-title" = "Пријава на проблем — Јазиче за активности";
+"activity-tab-empty-subtitle" = "Почнете да читате и уредувате за да ја изградите вашата историја";
+"activity-tab-empty-title" = "Нема што да се прикаже";
 "activity-tab-generic-no-edits" = "Немате уредувано неделава. Почнете сега за да ги следите вашите придонеси.";
 "activity-tab-hours-minutes-read" = "$1 ч. $2 м.";
 "activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈА iOS";
+"activity-tab-log-in-or-create-account" = "Најавете се или направете сметка за да гледате повеќе уредувачка и читачка активност.";
 "activity-tab-logged-out-subtitle" = "Најавете се или направете сметка за да ги гледате вашите активности на Википедииниот прилог.";
 "activity-tab-logged-out-title" = "Погледајте повеќе сознанија за читање и уредување";
+"activity-tab-logged-out-track-what-youve-read" = "Следете го она што сте го прочитале и гледајте ги вашите придонеси со текот на времето на нов начин";
 "activity-tab-menu-clear-history" = "Исчисти историја на читање";
 "activity-tab-neutral" = "Воздржан";
 "activity-tab-no-edits-title" = "Немате уредувано неделава. Додавајте слики за статиите да бидат полесни за разбирање.";
@@ -116,11 +120,12 @@
 "activity-tab-satisfied" = "Задоволен";
 "activity-tab-saved" = "Зачувани статии овој месец";
 "activity-tab-start-editing" = "Почнете со уредување";
-"activity-tab-survey" = "Дали сте задоволни со екранот „Активност“? Што друго би сакале да видите овде во иднина?";
+"activity-tab-survey-subtitle" = "Помогнете ни да ја подобриме „Активност“. Дали сте задоволни од оваа функција?";
 "activity-tab-survey-title" = "Анкета за задоволност";
 "activity-tab-time-spent-reading" = "Време поминато во читање неделава";
 "activity-tab-title" = "Активност";
 "activity-tab-top-categories" = "Најпосетени категории овој месец";
+"activity-tab-total-edits" = "Вкупно уредувања низ проектите";
 "activity-tab-unsatisfied" = "Незадоволен";
 "activity-tab-usernames-reading-title" = "Читање на $1";
 "activity-tab-very-satisfied" = "Многу задоволен";
@@ -334,8 +339,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Допрете двапати за да овозможите автоматско месечно дарување во овој износ.";
 "donate-accessibility-textfield-hint" = "Внесете износ за дарување по ваш избор.";
 "donate-accessibility-transaction-fee-hint" = "Допрете двапати за да додадете трансакциска провизија во износот на дарот.";
-// Fuzzy
-"donate-already-donated" = "Ви благодариме, драг дарителу! Википедија и нејзините братски проекти напредуваат благодарение на вашата великодушност.";
+"donate-already-donated" = "Ви благодариме, драг дарителу! Википедија и другите нејзини проекти за слободно знаење напредуваат благодарение на вашата великодушност.";
 "donate-apple-fine-print" = "Apple не е задолжен за собирање пари за оваа цел.";
 "donate-email-opt-in-text" = "Да, Фондацијата Викимедија може повремено да ми испраќа е-пошта.";
 "donate-help-frequently-asked-questions" = "Често поставувани прашања";
@@ -387,6 +391,7 @@
 "edit-summary-short-description-updated" = "Изменет краток опис";
 "edit-watch-list-learn-more-text" = "Дознајте повеќе за набљудуваните";
 "edit-watch-this-page-text" = "Набљудувај ја страницава";
+"edited-article" = "Уредено";
 "editing-welcome-be-bold-subtitle" = "Бидете смели кога ги уредувате статиите, но не си допуштајте немарност. Нека не ве обесхрабрува тоа што може да направите грешка: секоја претходна верзија на статијата стои зачувана, што значи дека заедницата лесно може да го исправи згрешеното.";
 "editing-welcome-be-bold-title" = "Вашиот глас е важен";
 "editing-welcome-citations-subtitle" = "Сите содржини мора да бидат проверливи. Кога се ставаат нови информации во статиите, уредниците мора да вметнат навод до меродавен извор кој недвосмислено оди во прилог на кажаното.";
@@ -1250,7 +1255,7 @@
 "tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-show-suggested-articles" = "Прикажи предложени статии";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Предлозите сега се скриени";
-"tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата. Дали сте задоволни со оваа функција?";
+"tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата. Дали сте задоволни од оваа функција?";
 "tabs-thumbnail-description" = "Истражете ја Википедија, слободната енциклопедија што секој може да ја уредува";
 "tabs-thumbnail-subtitle" = "Тука започнете го вашето пребарување";
 "tabs-title" = "Јазичиња";
@@ -1577,7 +1582,7 @@
 "year-in-review-survey-additional-thoughts" = "Имате други размисли?";
 "year-in-review-survey-neutral" = "Воздржан";
 "year-in-review-survey-satisfied" = "Задоволен";
-"year-in-review-survey-subtitle" = "Помогнете ми да го подобриме Прегледот на годината на Википедија. Дали сте задоволни со оваа функција? Дали сакате да ја има идната година?";
+"year-in-review-survey-subtitle" = "Помогнете ми да го подобриме Прегледот на годината на Википедија. Дали сте задоволни од оваа функција? Дали сакате да ја има идната година?";
 "year-in-review-survey-title" = "Анкета за задоволност";
 "year-in-review-survey-unsatisfied" = "Незадоволен";
 "year-in-review-survey-very-satisfied" = "Многу задоволен";
