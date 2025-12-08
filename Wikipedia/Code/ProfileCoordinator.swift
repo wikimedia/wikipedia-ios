@@ -312,7 +312,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .search:
             DonateFunnel.shared.logSearchProfileDonate(metricsID: metricsID)
         case .activity:
-            // TODO: Logging
+            DonateFunnel.shared.logActivityProfileDonate(metricsID: metricsID)
             return
         }
     }
