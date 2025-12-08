@@ -367,6 +367,7 @@
 "editor-replace-textfield-placeholder" = "Korvaa seuraavalla...";
 "editor-replace-type-all" = "Korvaa kaikki";
 "editor-replace-type-single" = "Korvaa";
+"editor-toolbar-find-accessibility" = "Etsi sivulta";
 "empty-diff-compare-title" = "Ei eroavaisuuksia versioiden välillä";
 "empty-diff-single-title" = "Näkyviä muutoksia ei tehty";
 "empty-edit-summary" = "Tyhjä muokkausyhteenveto";
@@ -499,7 +500,7 @@
 "field-captcha-title" = "Kirjoita yllä oleva teksti";
 "field-email-placeholder" = "esimerkki@example.org";
 "field-email-title" = "Sähköposti";
-"field-email-title-optional" = "Sähköposti (vapaaehtoinen)";
+"field-email-title-optional" = "Sähköpostiosoite (valinnainen)";
 "field-new-password-confirm-placeholder" = "anna uusi salasana uudelleen";
 "field-new-password-confirm-title" = "Vahvista uusi salasana";
 "field-new-password-placeholder" = "anna uusi salasana";
@@ -652,6 +653,7 @@
 "main-menu-terms-of-use" = "Käyttöehdot";
 "main-menu-title" = "Lisää";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
+"main-page" = "Etusivu";
 // Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "4 miljardia tavua lisätty";
 // Fuzzy
