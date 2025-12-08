@@ -93,11 +93,15 @@
 "activity-tab-email-second-line" = "- [Spesifik problemi təsvir edin]";
 "activity-tab-email-third-line" = "Görmək istədiyim davranış:";
 "activity-tab-email-title" = "Problemin bildirilməsi - Fəaliyyət vərəqəsi";
+"activity-tab-empty-subtitle" = "Tarixçənizi yaratmaq üçün oxumağa və redaktə etməyə başlayın";
+"activity-tab-empty-title" = "Göstəriləcək heç nə yoxdur";
 "activity-tab-generic-no-edits" = "Siz bu həftə redaktə etməmisiniz. Töhfələrinizi izləmək üçün indi başlayın.";
 "activity-tab-hours-minutes-read" = "$1s $2d";
 "activity-tab-hours-on-wikipedia-ios" = "WIKIPEDIA iOS-da";
+"activity-tab-log-in-or-create-account" = "Daha çox redaktə və oxuma fəaliyyəti görmək üçün daxil olun və ya hesab yaradın.";
 "activity-tab-logged-out-subtitle" = "Vikipediya tətbiqində fəaliyyətinizə baxmaq üçün daxil olun və ya hesab yaradın";
 "activity-tab-logged-out-title" = "Daha çox oxuma və redaktə statistikalarına baxın";
+"activity-tab-logged-out-track-what-youve-read" = "Oxuduqlarınızı izləyin və zamanla töhfələrinizə yeni şəkildə baxın";
 "activity-tab-menu-clear-history" = "Oxuma tarixçəsini sil";
 "activity-tab-neutral" = "Neytral";
 "activity-tab-no-edits-title" = "Siz bu həftə redaktə etməmisiniz. Məqaləni başa düşülməsini asanlaşdırmaq üçün şəkillər əlavə edin.";
@@ -116,11 +120,12 @@
 "activity-tab-satisfied" = "Məmnunam";
 "activity-tab-saved" = "Bu ay yadda saxlanılan məqalələr";
 "activity-tab-start-editing" = "Redaktəyə başla";
-"activity-tab-survey" = "\"Fəaliyyət\" ekranınız sizi qane edirmi? Gələcəkdə burada başqa nə görmək istərdiniz?";
+"activity-tab-survey-subtitle" = "Fəaliyyəti təkmilləşdirməyə kömək edin. Bu xüsusiyyət sizi qane edirmi?";
 "activity-tab-survey-title" = "Məmnuniyyət sorğusu";
 "activity-tab-time-spent-reading" = "Bu həftə oxumağa sərf olunan vaxt";
 "activity-tab-title" = "Fəaliyyət";
 "activity-tab-top-categories" = "Bu ay ən çox oxunan kateqoriyalar";
+"activity-tab-total-edits" = "Layihələr üzrə ümumi redaktə sayı";
 "activity-tab-unsatisfied" = "Məmnun deyiləm";
 "activity-tab-usernames-reading-title" = "$1 istifadəçisinin oxuduqları";
 "activity-tab-very-satisfied" = "Çox məmnunam";
@@ -384,6 +389,7 @@
 "edit-summary-short-description-updated" = "Qısa təsvir yeniləndi";
 "edit-watch-list-learn-more-text" = "İzləmə Siyahınız haqqında ətraflı məlumat əldə edin";
 "edit-watch-this-page-text" = "Bu səhifəni izlə";
+"edited-article" = "Redaktə edilib";
 "editing-welcome-be-bold-subtitle" = "Məqalələri yeniləməkdə cəsarətli olun, lakin ehtiyatsız olmayın. Səhv etməkdən çəkinməyin: səhifənin hər bir versiyası saxlanılır, səhvlər icma tərəfindən asanlıqla düzəldilə bilər.";
 "editing-welcome-be-bold-title" = "Səsiniz önəmlidir";
 "editing-welcome-citations-subtitle" = "Bütün məzmun yoxlanıla bilən olmalıdır. Məqaləyə yeni məlumat əlavə edərkən redaktorlar töhfəni birbaşa dəstəkləyən etibarlı mənbəyə daxili sitat təqdim etməlidirlər.";
