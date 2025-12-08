@@ -41,11 +41,17 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                         .foregroundStyle(Color(theme.text))
                         .font(Font(WMFFont.for(.boldCaption1)))
                         .multilineTextAlignment(.leading)
+                        .lineLimit(4)
                     Spacer()
                     if let dateText {
-                        Text(dateText)
-                            .foregroundStyle(Color(theme.secondaryText))
-                            .font(Font(WMFFont.for(.caption1)))
+                        HStack {
+                            Text("\(dateText)")
+                                .foregroundStyle(Color(theme.secondaryText))
+                                .font(Font(WMFFont.for(.caption1)))
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color(theme.secondaryText))
+                                .font(Font(WMFFont.for(.caption1)))
+                        }
                     }
                 }
 
