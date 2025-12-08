@@ -1754,6 +1754,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
+    UIViewController *current = tabBarController.selectedViewController;
+    UIViewController *selected = viewController;
+    
     if (viewController == tabBarController.selectedViewController) {
         switch (tabBarController.selectedIndex) {
             case WMFAppTabTypeMain: {
@@ -1767,12 +1771,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
 
         if (self.currentTabNavigationController.viewControllers.count > 1) {
+            [self logTabBarSelectionsForActivityTabWithCurrentTabSelection:current newTabSelection:selected];
             return YES;
         } else {
             // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
             return NO;
         }
     }
+    
+    [self logTabBarSelectionsForActivityTabWithCurrentTabSelection:current newTabSelection:selected];
     
     // When switching to Explore via tab bar button, we want to flag Explore to show survey prompt
     if ([viewController isKindOfClass:[UINavigationController class]]) {
