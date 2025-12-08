@@ -87,7 +87,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published var sections: [TimelineViewModel.TimelineSection] = []
 
     @Published var globalEditCount: Int?
+    public var isEmpty: Bool = false
     public var onTapGlobalEdits: (() -> Void)?
+    public var fetchDataCompleteAction: ((Bool) -> Void)?
 
     // MARK: - Init
 
@@ -130,19 +132,28 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     // MARK: - Loading
 
-    public func fetchData() {
+    public func fetchData(fromAppearance: Bool = false) {
         Task {
             async let readTask: Void = articlesReadViewModel.fetch()
             async let savedTask: Void = articlesSavedViewModel.fetch()
             async let timelineTask: Void = timelineViewModel.fetch()
             async let editCountTask: Void = getGlobalEditCount()
-
+            
             _ = await (readTask, savedTask, timelineTask, editCountTask)
-
+            
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
+            
+            isEmpty =
+                articlesReadViewModel.hoursRead == 0 &&
+                articlesReadViewModel.minutesRead == 0 &&
+                articlesSavedViewModel.articlesSavedAmount == 0 &&
+                (globalEditCount == 0 || globalEditCount == nil) &&
+                shouldShowEmptyState
+            
+            fetchDataCompleteAction?(fromAppearance)
         }
     }
 
@@ -188,6 +199,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             await self.updateShouldShowLoginPrompt()
         }
         self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
+        if self.authenticationState != .loggedIn {
+            globalEditCount = nil
+        }
     }
 
     public var hoursMinutesRead: String {

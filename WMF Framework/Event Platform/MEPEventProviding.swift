@@ -4,7 +4,7 @@ public enum EventCategoryMEP: String, Codable {
     case feed
     case feedDetail = "feed_detail"
     case history
-    case activity
+    case activity = "activity_tab"
     case places
     case search
     case addToList = "add_to_list"
