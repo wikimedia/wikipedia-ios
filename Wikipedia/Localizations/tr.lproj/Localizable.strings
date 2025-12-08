@@ -132,11 +132,15 @@
 "activity-tab-email-second-line" = "- [Belirli bir sorunu tanımlayın]";
 "activity-tab-email-third-line" = "Görmek istediğim davranış:";
 "activity-tab-email-title" = "Sorun Bildirimi - Etkinlik Sekmesi";
+"activity-tab-empty-subtitle" = "Geçmişinizi oluşturmak için okumaya ve düzenlemeye başlayın";
+"activity-tab-empty-title" = "Gösterilecek bir şey yok";
 "activity-tab-generic-no-edits" = "Bu hafta düzenleme yapmadınız. Katkıları takip etmek için şimdi başlayın.";
 "activity-tab-hours-minutes-read" = "$1s $2d";
 "activity-tab-hours-on-wikipedia-ios" = "iOS VİKİPEDİ'DE";
+"activity-tab-log-in-or-create-account" = "Daha fazla düzenleme ve okuma etkinliği görmek için giriş yapın ya da hesap oluşturun.";
 "activity-tab-logged-out-subtitle" = "Vikipedi uygulamasındaki etkinliğinizi görüntülemek için oturum açın ya da bir hesap oluşturun.";
 "activity-tab-logged-out-title" = "Daha fazla okuma ve düzenleme içgörüsü görün";
+"activity-tab-logged-out-track-what-youve-read" = "Okuduklarınızı takip edin ve zaman içindeki katkılarınızı yeni bir şekilde görüntüleyin";
 "activity-tab-menu-clear-history" = "Okuma geçmişini temizle";
 "activity-tab-neutral" = "Kararsızım";
 "activity-tab-no-edits-title" = "Bu hafta düzenleme yapmadınız. Makalenin daha iyi anlaşılmasını sağlamak için resimler ekleyin";
@@ -155,11 +159,12 @@
 "activity-tab-satisfied" = "Memnunum";
 "activity-tab-saved" = "Bu ay saklanan maddeler";
 "activity-tab-start-editing" = "Düzenlemeye başla";
-"activity-tab-survey" = "\"Aktivite\" ekranınızdan memnun musunuz? Gelecekte burada başka neler görmek istersiniz?";
+"activity-tab-survey-subtitle" = "Etkinliği iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
 "activity-tab-survey-title" = "Memnuniyet anketi";
 "activity-tab-time-spent-reading" = "Bu hafta okumaya harcanan zaman";
 "activity-tab-title" = "Aktivite";
 "activity-tab-top-categories" = "Bu ayın en popüler kategorileri";
+"activity-tab-total-edits" = "Projelerdeki toplam düzenlemeler";
 "activity-tab-unsatisfied" = "Memnun değilim";
 "activity-tab-usernames-reading-title" = "$1 okuması";
 "activity-tab-very-satisfied" = "Çok memnunum";
@@ -373,8 +378,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Bu tutarda otomatik aylık bağış etkinleştirmek için iki kez dokunun.";
 "donate-accessibility-textfield-hint" = "Bağış yapmak için özel tutarı girin.";
 "donate-accessibility-transaction-fee-hint" = "Bağış tutarına işlem ücreti eklemek için iki kez dokunun.";
-// Fuzzy
-"donate-already-donated" = "Teşekkürler sevgili bağışçı! Cömertliğiniz Vikipedi'nin ve kardeş sitelerinin gelişmesine yardımcı oluyor.";
+"donate-already-donated" = "Teşekkürler sevgili bağışçı! Cömertliğiniz Vikipedi'nin ve diğer özgür bilgi projelerinin gelişmesine yardımcı oluyor.";
 "donate-apple-fine-print" = "Apple bu amaç için para toplamakla yükümlü değildir.";
 "donate-email-opt-in-text" = "Evet, Wikimedia Vakfı bana ara sıra e-posta gönderebilir.";
 "donate-help-frequently-asked-questions" = "Sıkça sorulan sorular";
@@ -426,6 +430,7 @@
 "edit-summary-short-description-updated" = "Kısa açıklama güncellendi";
 "edit-watch-list-learn-more-text" = "İzleme listeniz hakkında daha fazla bilgi edinin";
 "edit-watch-this-page-text" = "Bu sayfayı izle";
+"edited-article" = "Düzenlendi";
 "editing-welcome-be-bold-subtitle" = "Maddeleri güncellerken dikkatsiz değil cesur olun. Hata yapmaktan çekinmeyin. Sayfanın her eski sürümü kaydedilir böylece hatalar topluluğumuz tarafından kolayca düzeltilebilir.";
 "editing-welcome-be-bold-title" = "Sizin sözünüz önemli";
 "editing-welcome-citations-subtitle" = "Bütün içerik doğrulanabilir olmalıdır. Katkı yapanlar, bir maddeye yeni bilgi eklerken, onu doğrudan destekleyen metin içi atıflar da sunmalıdır.";

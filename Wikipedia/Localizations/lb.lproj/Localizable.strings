@@ -89,6 +89,7 @@
 "activity-tab-survey-title" = "Zefriddenheetsëmfro";
 "activity-tab-title" = "Aktivitéit";
 "activity-tab-top-categories" = "Top-Kategorien dëse Mount";
+"activity-tab-total-edits" = "Ännerungen op alle Projeten insgesamt";
 "activity-tab-unsatisfied" = "Onzefridden";
 "activity-tab-very-satisfied" = "Ganz zefridden";
 "activity-tab-very-unsatisfied" = "Ganz onzefridden";
@@ -279,6 +280,7 @@
 "edit-summary-short-description-updated" = "Kuerzbeschreiwung aktualiséiert";
 "edit-watch-list-learn-more-text" = "Méi iwwer Är Iwwerwaachungslëscht gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
+"edited-article" = "Geännert";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
 "editor-edit-published" = "Är Ännerung gouf verëffentlecht.";
 "editor-edit-source" = "Quelltext änneren";
@@ -666,6 +668,7 @@
 "on-this-day-no-internet-error" = "Keng Donnéeën disponibel";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
+"open-article" = "Artikel opmaachen";
 "open-in-tab-tooltip-body" = "Haalt en Artikeltitel oder e bloe Link laang gedréckt fir en an engem neien Tab opzemaachen.";
 "open-in-tab-tooltip-title" = "An neiem Tab opmaachen";
 "page-history-bot-edits" = "Bot";

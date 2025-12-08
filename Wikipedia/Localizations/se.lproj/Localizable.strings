@@ -78,6 +78,8 @@
 "action-unsaved-accessibility-notification" = "Artihkal ii leat šat vurkejuvvon";
 "action-update" = "Ođasmahte";
 "activity-tab-add-images-title" = "Lasit govaid";
+"activity-tab-articles-read-graph-label" = "Artihkkalat";
+"activity-tab-menu-clear-history" = "Gurre lohkanhistorjjá";
 "activity-tab-neutral" = "Neutrála";
 "activity-tab-read-title" = "Čájet lohkanhistorjjá";
 "activity-tab-satisfied" = "Duhtavaš";
@@ -187,7 +189,7 @@
 "description-welcome-descriptions-title" = "Artihkkala govvádusat";
 "description-welcome-promise-title" = "Álggaheami bokte lohpidan ahte in áiggo verrošit dáinna doaimmain";
 "description-welcome-start-editing-button" = "Rievdadišgoađe";
-"diff-article-revision-history" = "Artihkalsiidoveršuvdnahistorihkka";
+"diff-article-revision-history" = "Artihkkala veršuvdnahistorjá";
 "diff-change-added" = "Lassi, $1, loahppa lasis.";
 "diff-change-paragraph-lines-moved-down" = "Teakstabihttá sirdojuvvui $1 {{PLURAL:$1|linnjá}} vulos. Mana ođđa sajusteapmái.";
 "diff-change-paragraph-lines-moved-up" = "Teakstabihttá sirdojuvvui $1 {{PLURAL:$1|linnjá}} bajás. Mana ođđa sajusteapmái.";

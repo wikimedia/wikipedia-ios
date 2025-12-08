@@ -126,11 +126,15 @@
 "activity-tab-email-second-line" = "- [描述具體問題]";
 "activity-tab-email-third-line" = "我期望看到的情況是：";
 "activity-tab-email-title" = "問題報告 - 活動分頁";
+"activity-tab-empty-subtitle" = "開始閱讀與編輯來建立您的歷史";
+"activity-tab-empty-title" = "沒有可顯示的內容";
 "activity-tab-generic-no-edits" = "您本週尚未動手編輯，立即開始編輯來追蹤貢獻。";
 "activity-tab-hours-minutes-read" = "$1 時 $2 分";
 "activity-tab-hours-on-wikipedia-ios" = "在維基百科 iOS 版";
+"activity-tab-log-in-or-create-account" = "登入或建立帳號來查看更多編輯和閱讀活動。";
 "activity-tab-logged-out-subtitle" = "登入或建立帳號來查看您在維基百科應用程式上的活動。";
 "activity-tab-logged-out-title" = "查看更多閱讀和編輯方面的分析";
+"activity-tab-logged-out-track-what-youve-read" = "以全新的方式追蹤您的閱，並查看您隨著時間的貢獻。";
 "activity-tab-menu-clear-history" = "清除閱讀歷史";
 "activity-tab-neutral" = "中立";
 "activity-tab-no-edits-title" = "您本週尚未動手編輯，請新增圖片以增強對條目的理解。";
@@ -149,11 +153,12 @@
 "activity-tab-satisfied" = "滿意";
 "activity-tab-saved" = "此月份儲存的條目";
 "activity-tab-start-editing" = "開始編輯";
-"activity-tab-survey" = "您對於「活動」畫面是否滿意？您未來希望在這裡看到哪些內容呢？";
+"activity-tab-survey-subtitle" = "請協助改善活動。您對此功能滿意嗎？";
 "activity-tab-survey-title" = "滿意度調查";
 "activity-tab-time-spent-reading" = "本週閱讀時間";
 "activity-tab-title" = "活動";
 "activity-tab-top-categories" = "本月的熱門分類";
+"activity-tab-total-edits" = "跨專案總編輯數";
 "activity-tab-unsatisfied" = "不滿意";
 "activity-tab-usernames-reading-title" = "$1的閱讀";
 "activity-tab-very-satisfied" = "非常滿意";
@@ -367,8 +372,7 @@
 "donate-accessibility-monthly-recurring-hint" = "輕觸兩次來啟用每月自動捐贈此金額。";
 "donate-accessibility-textfield-hint" = "輸入自訂捐款金額。";
 "donate-accessibility-transaction-fee-hint" = "輕觸兩次來添加交易手續費到捐款金額。";
-// Fuzzy
-"donate-already-donated" = "感謝您，親愛的捐款者！您的慷慨贊助會幫助維基百科與相關的姐妹網站蓬勃發展。";
+"donate-already-donated" = "感謝您，親愛的捐款者！您的慷慨贊助會幫助維基百科與其他自由知識專案網站蓬勃發展。";
 "donate-apple-fine-print" = "Apple 未對此目的負責籌集資金。";
 "donate-email-opt-in-text" = "是的，維基媒體基金會可以臨時對我發送電子郵件。";
 "donate-help-frequently-asked-questions" = "常見問題";
@@ -420,6 +424,7 @@
 "edit-summary-short-description-updated" = "已更新簡短描述";
 "edit-watch-list-learn-more-text" = "了解更多關於您的監視清單";
 "edit-watch-this-page-text" = "監視此頁面";
+"edited-article" = "已編輯";
 "editing-welcome-be-bold-subtitle" = "在更新條目的時候可以大膽但不要魯莽。不要為犯錯而苦惱：頁面過去的所有版本都會儲存下來，所以錯誤會很容易被我們的社群糾正。";
 "editing-welcome-be-bold-title" = "您的想法很重要";
 "editing-welcome-citations-subtitle" = "所有的內容都必須是可查證的。當添加新資訊到條目時，編者應提供能直接證實此貢獻之可靠來源的內文引用。";
