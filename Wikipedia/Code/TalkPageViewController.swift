@@ -1170,7 +1170,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         
                         self.handleNewTopicOrCommentAlert(isNewTopic: false, needsFollowupTempAccountToast: wasIP && isTemp)
                         if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID)
+                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID, project: WikimediaProject(siteURL: talkPageURL))
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
@@ -1261,7 +1261,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
                         if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: viewModel.latestRevisionID)
+                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: viewModel.latestRevisionID, project: WikimediaProject(siteURL: pageURL))
                         }
                     case .failure:
                         if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {

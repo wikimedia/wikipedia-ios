@@ -371,7 +371,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                             revisionID = Int(uintRevisionID)
                         }
                         
-                        EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: revisionID)
+                        EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: revisionID, project: WikimediaProject(siteURL: articleURL))
                     }
                     var needsNewTempAccountToast = false
                     guard let dataStore = self.dataStore else { return }
