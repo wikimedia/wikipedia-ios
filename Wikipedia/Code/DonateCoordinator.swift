@@ -230,8 +230,7 @@ class DonateCoordinator: Coordinator {
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateCancel(metricsID: metricsID)
             case .activityTabProfile:
-                // TODO: Logging
-                return
+                DonateFunnel.shared.logActivityProfileDonateCancel(metricsID: metricsID)
             }
         }))
         
@@ -266,7 +265,6 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateApplePay(metricsID: metricsID)
-                return
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -303,7 +301,6 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
             case .activityTabProfile:
                 DonateFunnel.shared.logActivityProfileDonateWebPay(metricsID: metricsID)
-                return
             }
             navigateToOtherPaymentMethod()
         }))
@@ -547,7 +544,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func popAndShowSuccessToastFromNativeForm() {
         
         let showToastBlock: () -> Void = {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
             }
@@ -592,7 +589,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     }
     
     private func displayThankYouToastAfterDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
@@ -741,8 +738,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         case .searchProfile:
             DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .activityTabProfile:
-            // TODO: Logging
-            return
+            DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         }
     }
     
@@ -859,8 +855,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .activityTabProfile:
-                // TODO: Logging
-                return
+                DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             }
         }
     }

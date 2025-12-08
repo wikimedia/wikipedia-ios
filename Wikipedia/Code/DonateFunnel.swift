@@ -413,6 +413,14 @@ import WMFData
     func logActivityProfileDonateWebPay(metricsID: String) {
         logEvent(activeInterface: .activityProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
     }
+    
+    func logActivityProfileDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .activityProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .activityProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
+    }
 
     func logSearchProfileDonateCancel(metricsID: String) {
         logEvent(activeInterface: .searchProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
