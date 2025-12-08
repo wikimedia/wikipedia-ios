@@ -1432,4 +1432,47 @@ extension WMFAppViewController {
         }
         return 0
     }
+    
+    @objc func logTabBarSelectionsForActivityTab(currentTabSelection: UIViewController, newTabSelection: UIViewController) {
+        guard let currentNavVC = currentTabSelection as? UINavigationController,
+              currentNavVC.viewControllers.count > 0,
+              let newTabNavVC = newTabSelection as? UINavigationController,
+              newTabNavVC.viewControllers.count > 0 else {
+            return
+        }
+        
+        guard let currentVC = currentNavVC.viewControllers.last else {
+            return
+        }
+        
+        let newVC = newTabNavVC.viewControllers[0]
+        
+        guard newVC as? WMFActivityTabViewController != nil else {
+            return
+        }
+        
+        if currentVC as? ExploreViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .feed)
+        } else if currentVC as? PlacesViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .places)
+        } else if currentVC as? SavedViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .saved)
+        } else if currentVC as? WMFHistoryViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab)
+        } else if currentVC as? SearchViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .search)
+        } else if currentVC as? WMFSettingsViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .settings)
+        } else if let article = currentVC as? ArticleViewController {
+            guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {
+                return
+            }
+            
+            if title == "Main_Page" {
+                ActivityTabFunnel.shared.logTabBarSelected(from: .mainPage)
+            } else {
+                ActivityTabFunnel.shared.logTabBarSelected(from: .article)
+            }
+        }
+    }
 }
