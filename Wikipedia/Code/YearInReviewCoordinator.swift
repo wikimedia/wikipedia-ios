@@ -1076,7 +1076,21 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     }
     
     private func tappedIntroV3GetStartedWhileLoggedIn() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
+        
+        if dataController.needsLoginExperimentAssignment() {
+            do {
+                _ = try dataController.assignLoginExperimentIfNeeded()
+            } catch {
+                
+            }
+        }
+        
+        if let assignment = dataController.getLoginExperimentAssignment() {
+            DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: assignment)
+        } else {
+            DonateFunnel.shared.logYearInReviewDidTapIntroGetStarted(slideLoggingID: introSlideLoggingID, assignment: nil)
+        }
+        
         viewModel?.populateReportAndShowFirstSlide()
     }
     

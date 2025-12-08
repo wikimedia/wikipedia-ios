@@ -214,20 +214,61 @@ public actor WMFActivityTabDataController {
     }
 
     public func getTimelineItems() async throws -> [Date: [TimelineItem]] {
-        var allItems: [Date: [TimelineItem]] = [:]
-
-        let savedItems = try await fetchTimelineSavedArticles()
+        let rawSavedItems = try await fetchTimelineSavedArticles()
         let readItems = try await fetchTimelineReadArticles()
 
-        allItems.merge(savedItems) { old, new in
-            return old + new
+        let dedupedSavedItems = Self.deduplicatedSavedItems(rawSavedItems)
+
+        var allItems: [Date: [TimelineItem]] = [:]
+
+        allItems.merge(dedupedSavedItems) { old, new in
+            old + new
         }
 
         allItems.merge(readItems) { old, new in
-            return old + new
+            old + new
         }
 
         return allItems
+    }
+
+    private static func deduplicatedSavedItems(_ savedItems: [Date: [TimelineItem]]) -> [Date: [TimelineItem]] {
+
+        struct ArticleKey: Hashable {
+            let projectID: String
+            let title: String
+        }
+
+        var latestByArticle: [ArticleKey: (sectionDate: Date, item: TimelineItem)] = [:]
+
+        for (sectionDate, items) in savedItems {
+            for item in items {
+                guard item.itemType == .saved else {
+                    continue
+                }
+
+                let key = ArticleKey(
+                    projectID: item.projectID,
+                    title: item.pageTitle
+                )
+
+                if let existing = latestByArticle[key] {
+                    if item.date > existing.item.date {
+                        latestByArticle[key] = (sectionDate, item)
+                    }
+                } else {
+                    latestByArticle[key] = (sectionDate, item)
+                }
+            }
+        }
+
+        var result: [Date: [TimelineItem]] = [:]
+
+        for (sectionDate, item) in latestByArticle.values {
+            result[sectionDate, default: []].append(item)
+        }
+
+        return result
     }
 
     public func fetchTimelineSavedArticles() async throws -> [Date: [TimelineItem]] {
@@ -243,7 +284,7 @@ public actor WMFActivityTabDataController {
             let dayBucket = calendar.startOfDay(for: savedDate)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
             
-            let identifier = String(item.timestamp.timeIntervalSince1970)
+            let identifier = String("saved~\(page.projectID)~\(page.title)~\(item.timestamp.timeIntervalSince1970)")
 
             let timelineItem = TimelineItem(
                 id: identifier,
@@ -285,7 +326,7 @@ public actor WMFActivityTabDataController {
                 todaysPages = Set(existingItems.map { $0.pageTitle })
             }
             
-            let identifier = String(record.timestamp.timeIntervalSince1970)
+            let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
 
             guard !todaysPages.contains(page.title) else { continue }
 
