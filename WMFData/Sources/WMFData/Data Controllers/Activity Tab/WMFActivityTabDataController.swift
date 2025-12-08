@@ -1,17 +1,18 @@
 import Foundation
 
+@objc public enum WMFActivityTabExperimentAssignment: Int {
+    case unknown = -1
+    case control = 0
+    case activityTab = 1
+}
+
 public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     private let experimentsDataController: WMFExperimentsDataController?
-    private var assignmentCache: ActivityTabExperimentAssignment?
+    private var assignmentCache: WMFActivityTabExperimentAssignment?
     private let activityTabExperimentPercentage: Int = 50
-
-    public enum ActivityTabExperimentAssignment: Int {
-        case control = 1
-        case activityTab = 2
-    }
 
     public init(developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
                 experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
@@ -350,7 +351,7 @@ public actor WMFActivityTabDataController {
 
     // MARK: - Experiment
 
-    public func assignOrFetchExperimentAssignment() throws -> ActivityTabExperimentAssignment? {
+    public func assignOrFetchExperimentAssignment() throws -> WMFActivityTabExperimentAssignment {
         if isForceControlDevSettingOn {
             return .control
         }
@@ -367,7 +368,7 @@ public actor WMFActivityTabDataController {
         }
 
         if let bucketValue = experimentsDataController?.bucketForExperiment(.activityTab) {
-            let assignment: ActivityTabExperimentAssignment
+            let assignment: WMFActivityTabExperimentAssignment
 
             switch bucketValue {
             case .activityTabControl:
@@ -375,7 +376,7 @@ public actor WMFActivityTabDataController {
             case .activityTabExperiment:
                 assignment = .activityTab
             default:
-                throw CustomError.unexpectedAssignment
+                assignment = .unknown
             }
 
             self.assignmentCache = assignment
@@ -392,7 +393,7 @@ public actor WMFActivityTabDataController {
         return newAssignment
     }
 
-    private func assignExperiment() throws -> ActivityTabExperimentAssignment {
+    private func assignExperiment() throws -> WMFActivityTabExperimentAssignment {
 
         guard isDevSettingOn || hasExperimentStarted() else {
             throw CustomError.beforeStartDate
@@ -412,7 +413,7 @@ public actor WMFActivityTabDataController {
 
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.activityTab, withPercentage: activityTabExperimentPercentage)
 
-        var assignment: ActivityTabExperimentAssignment
+        var assignment: WMFActivityTabExperimentAssignment
 
         switch bucketValue {
         case .activityTabControl:
@@ -501,14 +502,14 @@ public actor WMFActivityTabDataController {
 
 extension WMFActivityTabDataController {
 
-    @objc public nonisolated static func activityAssignmentForObjC() -> Int {
+    public nonisolated static func activityAssignmentForObjC() -> WMFActivityTabExperimentAssignment {
         let semaphore = DispatchSemaphore(value: 0)
-        var result: Int = 0
+        var result: WMFActivityTabExperimentAssignment = .unknown
 
         Task {
             let controller = WMFActivityTabDataController.shared
 
-            let assignment: ActivityTabExperimentAssignment?
+            let assignment: WMFActivityTabExperimentAssignment?
             do {
                 assignment = try await controller.assignOrFetchExperimentAssignment()
             } catch {
@@ -516,11 +517,7 @@ extension WMFActivityTabDataController {
                 assignment = nil
             }
 
-            if let assignment, assignment == .activityTab {
-                result = 1
-            } else {
-                result = 0
-            }
+            result = assignment ?? .unknown
             semaphore.signal()
         }
 

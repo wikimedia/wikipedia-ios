@@ -118,6 +118,24 @@ extension WMFAppViewController {
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
+    
+    @objc func getAssignmentForActivityTab() -> WMFActivityTabExperimentAssignment {
+        let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
+        
+        let groupName: String?
+        switch assignment {
+        case .control: groupName = "ios_activity_a"
+        case .activityTab: groupName = "ios_activity_b"
+        case .unknown: groupName = nil
+        }
+        
+        // A nil group name probably indicates the user fresh installed past the experiment end date
+        if let groupName {
+            ActivityTabFunnel.shared.logGroupAssignment(group: groupName)
+        }
+        
+        return assignment
+    }
 }
 
 // MARK: - Notifications
@@ -1280,16 +1298,6 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
 // MARK: - Activity Tab
 
 extension WMFAppViewController {
-    @objc func getAssignmentForActivityTab() -> Int {
-        Task {
-            if await !WMFActivityTabDataController.shared.alreadyAssigned {
-                // TODO: Log assignment
-            }
-        }
-        let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
-        return assignment
-    }
-    
     @objc func incrementActivityTabVisitCount() {
         Task {
             await WMFActivityTabDataController.shared.incrementActivityTabVisitCount()
@@ -1423,5 +1431,48 @@ extension WMFAppViewController {
             return 2
         }
         return 0
+    }
+    
+    @objc func logTabBarSelectionsForActivityTab(currentTabSelection: UIViewController, newTabSelection: UIViewController) {
+        guard let currentNavVC = currentTabSelection as? UINavigationController,
+              currentNavVC.viewControllers.count > 0,
+              let newTabNavVC = newTabSelection as? UINavigationController,
+              newTabNavVC.viewControllers.count > 0 else {
+            return
+        }
+        
+        guard let currentVC = currentNavVC.viewControllers.last else {
+            return
+        }
+        
+        let newVC = newTabNavVC.viewControllers[0]
+        
+        guard newVC as? WMFActivityTabViewController != nil else {
+            return
+        }
+        
+        if currentVC as? ExploreViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .feed)
+        } else if currentVC as? PlacesViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .places)
+        } else if currentVC as? SavedViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .saved)
+        } else if currentVC as? WMFHistoryViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab)
+        } else if currentVC as? SearchViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .search)
+        } else if currentVC as? WMFSettingsViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .settings)
+        } else if let article = currentVC as? ArticleViewController {
+            guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {
+                return
+            }
+            
+            if title == "Main_Page" {
+                ActivityTabFunnel.shared.logTabBarSelected(from: .mainPage)
+            } else {
+                ActivityTabFunnel.shared.logTabBarSelected(from: .article)
+            }
+        }
     }
 }

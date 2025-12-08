@@ -22,17 +22,11 @@ public final class TimelineViewModel: ObservableObject {
 
     private let dataController: WMFActivityTabDataController
     weak var activityTabViewModel: WMFActivityTabViewModel?
-    
-    @Published var sections: [TimelineSection] = []
 
     public var onTapArticle: ((TimelineItem) -> Void)?
 
     public init(dataController: WMFActivityTabDataController) {
         self.dataController = dataController
-    }
-    
-    var shouldShowEmptyState: Bool {
-        return self.sections.count == 1 && (self.sections.first?.items.isEmpty ?? true)
     }
 
     public func fetch() async {
@@ -57,12 +51,14 @@ public final class TimelineViewModel: ObservableObject {
                     
                     let sortedFilteredValues = filteredValues.sorted { $0.date > $1.date }
                     
-                    sections.append(TimelineSection(date: key, items: sortedFilteredValues))
+                    if !sortedFilteredValues.isEmpty {
+                        sections.append(TimelineSection(date: key, items: sortedFilteredValues))
+                    }
                 }
             }
             
             let sortedSections = sections.sorted { $0.date > $1.date }
-            self.sections = sortedSections
+            self.activityTabViewModel?.sections = sortedSections
         } catch {
             debugPrint("error fetching timeline: \(error)")
         }
@@ -89,11 +85,25 @@ public final class TimelineViewModel: ObservableObject {
             }
         }
 
+        // Delete item
         section.items.removeAll { $0.id == item.id }
         
+        // If last item, delete section
+        var currentSections = activityTabViewModel?.sections ?? []
+        
         if section.items.isEmpty {
-            sections.removeAll { $0.id == section.id }
+            currentSections.removeAll { $0.id == section.id }
         }
+        
+        // If last section, bring back one section with empty items
+        
+        // Business rule: if there are no items, we still want a section that says "Today"
+        // https://phabricator.wikimedia.org/T409200
+        if currentSections.isEmpty {
+            currentSections.append(TimelineSection(date: Date(), items: []))
+        }
+        
+        self.activityTabViewModel?.sections = currentSections
     }
 
     func onTap(_ item: TimelineItem) {
