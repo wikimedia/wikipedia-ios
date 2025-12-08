@@ -50,16 +50,48 @@ public struct WMFActivityTabView: View {
                     .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
 
                     articlesReadModule(proxy: proxy)
+                        .padding(.horizontal, 16)
                     savedArticlesModule
+                        .padding(.horizontal, 16)
 
                     if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                         topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                            .padding(.horizontal, 16)
                             .accessibilityElement()
                             .accessibilityLabel(viewModel.localizedStrings.topCategories)
                             .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
                     }
+                    
+                    if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                        HStack {
+                            YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
+                            Spacer()
+                        }
+                        .padding(.top, 32)
+                        .padding(.bottom, 20)
+                        .background(Color(uiColor: theme.paperBackground))
+                                    
+                        totalEditsView(amount: animatedGlobalEditCount)
+                            .padding(.horizontal, 16)
+                            .onAppear {
+                                if !hasShownGlobalEditsCard {
+                                    hasShownGlobalEditsCard = true
+                                    animatedGlobalEditCount = 0
+                                    withAnimation(.easeOut(duration: 0.6)) {
+                                        animatedGlobalEditCount = globalEditCount
+                                    }
+                                } else {
+                                    animatedGlobalEditCount = globalEditCount
+                                }
+                            }
+                            .onChange(of: globalEditCount) { newValue in
+                                withAnimation(.easeOut(duration: 0.6)) {
+                                    animatedGlobalEditCount = newValue
+                                }
+                            }
+                    }
                 }
-                .padding(16)
+                .padding(.bottom, 20)
                 .listRowInsets(EdgeInsets())
                 .background(
                     LinearGradient(
@@ -73,30 +105,6 @@ public struct WMFActivityTabView: View {
                 )
             }
             .listRowSeparator(.hidden)
-            
-            if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
-                Section {
-                    totalEditsView(amount: animatedGlobalEditCount)
-                        .onAppear {
-                            if !hasShownGlobalEditsCard {
-                                hasShownGlobalEditsCard = true
-                                animatedGlobalEditCount = 0
-                                withAnimation(.easeOut(duration: 0.6)) {
-                                    animatedGlobalEditCount = globalEditCount
-                                }
-                            } else {
-                                animatedGlobalEditCount = globalEditCount
-                            }
-                        }
-                        .onChange(of: globalEditCount) { newValue in
-                            withAnimation(.easeOut(duration: 0.6)) {
-                                animatedGlobalEditCount = newValue
-                            }
-                        }
-                }
-                .listRowSeparator(.hidden)
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-            }
 
             timelineSectionsList()
                 .id("timelineSection")
@@ -142,7 +150,7 @@ public struct WMFActivityTabView: View {
                 viewModel.onTapGlobalEdits?()
             }
         )
-        .padding(.top, 24)
+        // .padding(.top, 20)
     }
 
     private func timelineSectionsList() -> some View {
@@ -296,7 +304,6 @@ public struct WMFActivityTabView: View {
         } else {
             return false
         }
-
     }
 
     private func savedArticlesImages(thumbURLs: [URL?], totalSavedCount: Int, remaining: Int) -> some View {
@@ -566,6 +573,25 @@ struct TimelineHeaderView: View {
         .padding(.bottom, 20)
         .padding(.top, 28)
         .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isHeader)
+    }
+}
+
+struct YourImpactHeaderView: View {
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    let title: String
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    var body: some View {
+        Text(title)
+            .font(Font(WMFFont.for(.boldTitle3)))
+            .foregroundColor(Color(uiColor: theme.text))
+            .textCase(.none)
+            .padding(.horizontal, 16)
         .accessibilityAddTraits(.isHeader)
     }
 }
