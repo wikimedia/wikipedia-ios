@@ -284,7 +284,7 @@ public actor WMFActivityTabDataController {
             let dayBucket = calendar.startOfDay(for: savedDate)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
             
-            let identifier = String(item.timestamp.timeIntervalSince1970)
+            let identifier = String("saved~\(page.projectID)~\(page.title)~\(item.timestamp.timeIntervalSince1970)")
 
             let timelineItem = TimelineItem(
                 id: identifier,
@@ -326,7 +326,7 @@ public actor WMFActivityTabDataController {
                 todaysPages = Set(existingItems.map { $0.pageTitle })
             }
             
-            let identifier = String(record.timestamp.timeIntervalSince1970)
+            let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
 
             guard !todaysPages.contains(page.title) else { continue }
 
