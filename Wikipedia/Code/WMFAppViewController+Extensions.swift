@@ -1369,6 +1369,7 @@ extension WMFAppViewController {
         let emptySubtitleLoggedIn = WMFLocalizedString("activity-tab-empty-subtitle", value: "Start reading and editing to build your history", comment: "Subtitle on activity tab timeline empty state.")
         let emptyTitleLoggedOut = CommonStrings.emptyNoHistoryTitle
         let emptySubtitleLoggedOut = CommonStrings.emptyNoHistorySubtitle
+        let yourImpact = WMFLocalizedString("activity-tab-your-impact", value: "Your impact", comment: "Title for editing section in activity tab.")
         
         var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
@@ -1396,6 +1397,7 @@ extension WMFAppViewController {
                     loggedOutTitle: loggedOutTitle,
                     loggedOutSubtitle: loggedOutSubtitle,
                     loggedOutPrimaryCTA: CommonStrings.joinLoginTitle,
+                    yourImpact: yourImpact,
                     todayTitle: CommonStrings.todayTitle,
                     yesterdayTitle: CommonStrings.yesterdayTitle,
                     openArticle: openArticle,

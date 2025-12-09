@@ -124,6 +124,7 @@
 "activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
 "activity-tab-you-read" = "You read {{PLURAL:$1|$1 article|$1 articles}} this week.";
 "activity-tab-you-saved" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this week.";
+"activity-tab-your-impact" = "Your impact";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
 "alert-temporary-account" = "You are using a temporary account. Account will expire in 90 days.";
