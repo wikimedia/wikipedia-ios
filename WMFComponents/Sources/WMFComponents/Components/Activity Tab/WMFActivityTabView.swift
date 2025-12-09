@@ -586,7 +586,7 @@ struct YourImpactHeaderView: View {
     
     var body: some View {
         Text(title)
-            .font(Font(WMFFont.for(.boldTitle3)))
+            .font(Font(WMFFont.for(.boldHeadline)))
             .foregroundColor(Color(uiColor: theme.text))
             .textCase(.none)
             .padding(.horizontal, 16)
