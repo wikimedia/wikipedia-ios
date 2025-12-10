@@ -202,19 +202,7 @@ public protocol WMFArticleTabsDataControlling {
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
         }
-        
-        guard let experimentsDataController else {
-            throw CustomError.missingExperimentsDataController
-        }
-        
-        if let assignmentCache {
-            return assignmentCache
-        }
-        
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.moreDynamicTabsV2) else {
-            throw CustomError.missingAssignment
-        }
-        
+
         let assignment: MoreDynamicTabsExperimentAssignment
         assignment = .groupC
         
@@ -223,11 +211,6 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public func assignExperimentV2IfNeeded() throws -> MoreDynamicTabsExperimentAssignment {
-        
-        guard shouldAssignToBucketV2() else {
-            throw CustomError.alreadyAssignedExperiment
-        }
-        
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
         }
@@ -235,11 +218,7 @@ public protocol WMFArticleTabsDataControlling {
         guard isBeforeAssignmentEndDate else {
             throw CustomError.pastAssignmentEndDate
         }
-        
-        guard let experimentsDataController else {
-            throw CustomError.missingExperimentsDataController
-        }
-        
+
         let assignment: MoreDynamicTabsExperimentAssignment
         assignment = .groupC
         self.assignmentCache = assignment
@@ -247,7 +226,7 @@ public protocol WMFArticleTabsDataControlling {
     }
 
     public var moreDynamicTabsGroupCEnabled: Bool {
-        ((try? getMoreDynamicTabsExperimentAssignmentV2()) == .groupC) || developerSettingsDataController.enableMoreDynamicTabsV2GroupC
+        return true
     }
     
     // MARK: Onboarding
@@ -388,10 +367,6 @@ public protocol WMFArticleTabsDataControlling {
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             try self.deleteAllTabs(moc: moc)
-        }
-        
-        if !shouldShowMoreDynamicTabsV2 {
-            _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
         }
     }
     
@@ -619,34 +594,6 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public func shouldShowSurvey() -> Bool {
-        // Make sure it's before January 31, 2026 for B and C
-        let now = Date()
-        let calendar = Calendar.current
-        let deadlineComponents = DateComponents(year: 2026, month: 1, day: 31)
-        
-        guard let deadline = calendar.date(from: deadlineComponents),
-              now <= deadline else {
-            return false
-        }
-        
-        var seenCount: Int = 0
-        if shouldShowMoreDynamicTabsV2 {
-            seenCount = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
-        }
-        
-        let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue)) ?? false
-        
-        if seenSurvey {
-            return false
-        }
-        
-        if shouldShowMoreDynamicTabsV2 {
-            if seenCount >= 4 {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue, value: true)
-                return true
-            }
-        }
-        
         return false
     }
     

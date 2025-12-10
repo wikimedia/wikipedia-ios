@@ -261,7 +261,6 @@
 "developer-force-email-auth" = "Title for option to force email auth in developer settings menu.";
 "developer-settings" = "Title for developer settings view.";
 "developer-settings-bypass-donation" = "Title for option to bypass a donation in developer settings menu.";
-"developer-settings-dynamic-tabs-group-B-v2" = "Title for option to enable tabs for Group B V2";
 "developer-settings-dynamic-tabs-group-C-v2" = "Title for option to enable for Group C V2";
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";

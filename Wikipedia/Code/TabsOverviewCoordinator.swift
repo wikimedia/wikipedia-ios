@@ -200,48 +200,50 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 
     @MainActor
     private func loadRecommendedArticlesViewModel() async throws -> WMFTabsOverviewRecommendationsViewModel? {
-
-        let seedURLsSet = try? await getRecentTabArticleURLs()
-        guard let seedURLsSet else { return nil }
-
-        let seedURLs = Array(seedURLsSet)
-
-        let articles = await relatedArticlesProviderClosure(seedURLs)
-
-        guard let articles, !articles.isEmpty else {
-            DDLogWarn("TabsOverviewCoordinator: related articles provider returned empty")
-            return nil
-        }
-
-        let limit = UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
-        let limitedArticles = Array(articles.prefix(limit))
-
-        guard limitedArticles.count > 1 else { return nil }
-
-        let title = WMFLocalizedString(
-            "tabs-overview-recommendations-title",
-            value: "Based on your most recent tabs",
-            comment: "title for section on tabs overview with article recommendations"
-        )
-
-        let onTapArticleAction: WMFTabsOverviewRecommendationsViewModel.OnRecordTapAction = { [weak self] historyItem in
-            guard let self else { return }
-            self.tappedArticle(historyItem)
-            ArticleTabsFunnel.shared.logTabsOverviewTappedBYR()
-        }
-
-        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
-            guard let self else { return }
-            self.shareArticleRecommendation(item:historyItem, sourceFrameInWindow: frame)
-        }
-
-        return WMFTabsOverviewRecommendationsViewModel(title: title,
-                                                       openButtonTitle: CommonStrings.articleTabsOpen,
-                                                       shareButtonTitle: CommonStrings.shareActionTitle,
-                                                       articles: limitedArticles,
-                                                       onTapArticle: onTapArticleAction,
-                                                       shareRecordAction: shareArticleAction
-        )
+        // TODO: https://phabricator.wikimedia.org/T411060 scale
+//
+//        let seedURLsSet = try? await getRecentTabArticleURLs()
+//        guard let seedURLsSet else { return nil }
+//
+//        let seedURLs = Array(seedURLsSet)
+//
+//        let articles = await relatedArticlesProviderClosure(seedURLs)
+//
+//        guard let articles, !articles.isEmpty else {
+//            DDLogWarn("TabsOverviewCoordinator: related articles provider returned empty")
+//            return nil
+//        }
+//
+//        let limit = UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
+//        let limitedArticles = Array(articles.prefix(limit))
+//
+//        guard limitedArticles.count > 1 else { return nil }
+//
+//        let title = WMFLocalizedString(
+//            "tabs-overview-recommendations-title",
+//            value: "Based on your most recent tabs",
+//            comment: "title for section on tabs overview with article recommendations"
+//        )
+//
+//        let onTapArticleAction: WMFTabsOverviewRecommendationsViewModel.OnRecordTapAction = { [weak self] historyItem in
+//            guard let self else { return }
+//            self.tappedArticle(historyItem)
+//            ArticleTabsFunnel.shared.logTabsOverviewTappedBYR()
+//        }
+//
+//        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
+//            guard let self else { return }
+//            self.shareArticleRecommendation(item:historyItem, sourceFrameInWindow: frame)
+//        }
+//
+//        return WMFTabsOverviewRecommendationsViewModel(title: title,
+//                                                       openButtonTitle: CommonStrings.articleTabsOpen,
+//                                                       shareButtonTitle: CommonStrings.shareActionTitle,
+//                                                       articles: limitedArticles,
+//                                                       onTapArticle: onTapArticleAction,
+//                                                       shareRecordAction: shareArticleAction
+//        )
+        return nil
     }
 
     private func tappedArticle(_ item: HistoryItem) {
@@ -304,25 +306,26 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
 
     private func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
-
-        let facts = await didYouKnowProviderClosure()
-        guard let facts, !facts.isEmpty else {
-            DDLogWarn("TabsOverviewCoordinator: DYK provider returned empty")
-            return nil
-        }
-
-        let localized = WMFTabsOverviewDidYouKnowViewModel.LocalizedStrings(
-            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know?", comment: "Text displayed as heading for section of tabs overview dedicated to Did You Know "),
-            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
-        )
-
-        let viewModel = WMFTabsOverviewDidYouKnowViewModel(
-            facts: facts.map { $0.html },
-            languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
-            tappedLinkAction: tappedDYKLink(url:),
-            dykLocalizedStrings: localized
-        )
-        return viewModel
+// TODO: Scale https://phabricator.wikimedia.org/T411060
+//        let facts = await didYouKnowProviderClosure()
+//        guard let facts, !facts.isEmpty else {
+//            DDLogWarn("TabsOverviewCoordinator: DYK provider returned empty")
+//            return nil
+//        }
+//
+//        let localized = WMFTabsOverviewDidYouKnowViewModel.LocalizedStrings(
+//            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know?", comment: "Text displayed as heading for section of tabs overview dedicated to Did You Know "),
+//            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
+//        )
+//
+//        let viewModel = WMFTabsOverviewDidYouKnowViewModel(
+//            facts: facts.map { $0.html },
+//            languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
+//            tappedLinkAction: tappedDYKLink(url:),
+//            dykLocalizedStrings: localized
+//        )
+//        return viewModel
+        return nil
     }
     
     

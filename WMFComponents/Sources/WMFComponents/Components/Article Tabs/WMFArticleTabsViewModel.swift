@@ -304,8 +304,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     maybeStartSecondaryLoads()
                     if dataController.shouldShowMoreDynamicTabsV2 {
                         shouldShowCloseButton = true
-                    } else {
-                        shouldShowCloseButton = articleTabs.count > 1
                     }
                     await refreshCurrentTab()
                     updateNavigationBarTitleAction?(articleTabs.count)

@@ -6,18 +6,16 @@ import WMFData
     let developerSettings: String
     let doNotPostImageRecommendations: String
     let sendAnalyticsToWMFLabs: String
-    let enableMoreDynamicTabsV2GroupB: String
     let enableMoreDynamicTabsV2GroupC: String
     let enableYearinReview: String
     let bypassDonation: String
     let forceEmailAuth: String
     let done: String
 
-    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableMoreDynamicTabsV2GroupB: String, enableMoreDynamicTabsV2GroupC: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, done: String) {
+    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableMoreDynamicTabsV2GroupC: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, done: String) {
         self.developerSettings = developerSettings
         self.doNotPostImageRecommendations = doNotPostImageRecommendations
         self.sendAnalyticsToWMFLabs = sendAnalyticsToWMFLabs
-        self.enableMoreDynamicTabsV2GroupB = enableMoreDynamicTabsV2GroupB
         self.enableMoreDynamicTabsV2GroupC = enableMoreDynamicTabsV2GroupC
         self.enableYearinReview = enableYearinReview
         self.bypassDonation = bypassDonation
