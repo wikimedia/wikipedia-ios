@@ -84,6 +84,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     private func presentFullLoginFlow() {
         ActivityTabFunnel.shared.logLoginClick()
+        LoginFunnel.shared.logLoginStartFromActivityTab()
         guard let nav = navigationController else { return }
 
         let loginCoordinator = LoginCoordinator(
@@ -92,23 +93,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             loggingCategory: .activity
         )
 
-        loginCoordinator.loginSuccessCompletion = { [weak self] in
-            guard let self else { return }
-            if let loginVC = nav.presentedViewController?.presentedViewController {
-                loginVC.dismiss(animated: true) { [weak self] in
-                    self?.viewModel.fetchData(fromAppearance: true)
-                    self?.updateLoginState()
-                }
-            }
-        }
-
-        loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
-            guard let self else { return }
-            if let createVC = nav.presentedViewController?.presentedViewController {
-                createVC.dismiss(animated: true) { [weak self] in
-                    self?.viewModel.fetchData(fromAppearance: true)
-                    self?.updateLoginState()
-                }
+        loginCoordinator.createAccountSuccessCustomDismissBlock = {
+            if let createVC = nav.presentedViewController {
+                createVC.dismiss(animated: true)
             }
         }
 
