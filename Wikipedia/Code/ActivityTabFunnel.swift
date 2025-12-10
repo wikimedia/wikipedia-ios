@@ -16,6 +16,7 @@ import WMF
         case surveySubmit = "feedback_submit_click"
         case loginClick = "login_click"
         case activityNavClick = "activity_nav_click"
+        case historyNavClick = "history_nav_click"
     }
     
     public enum ActiveInterface: String {
@@ -134,8 +135,11 @@ import WMF
         logEvent(activeInterface: .activityTabLogin, action: .loginClick, project: nil)
     }
     
-    func logTabBarSelected(from activeInterface: ActiveInterface) {
-        logEvent(activeInterface: activeInterface, action: .activityNavClick, actionData: nil, project: nil)
+    func logTabBarSelected(from activeInterface: ActiveInterface, action: Action) {
+        
+        guard action == .historyNavClick || action == .activityNavClick else { return }
+        
+        logEvent(activeInterface: activeInterface, action: action, actionData: nil, project: nil)
     }
     
     func logHistoryImpression() {

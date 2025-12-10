@@ -1747,10 +1747,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     [self wmf_hideKeyboard];
-}
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    [self logTappedTabBarItem:item inTabBar:tabBar];
+    [self logDidSelectViewController:viewController];
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
@@ -2212,37 +2209,27 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Navigation logging
 
-- (void)logTappedTabBarItem:(UITabBarItem *)item inTabBar:(UITabBar *)tabBar {
-    if (tabBar.items.count != self.viewControllers.count || self.tabBar != tabBar) {
-        NSAssert(false, @"Unexpected tab bar setup for logging tap events.");
-        return;
-    }
-
-    NSInteger index = [self.tabBar.items indexOfObject:item];
-    if (index != NSNotFound) {
-        UIViewController *viewController = self.viewControllers[index];
+- (void)logDidSelectViewController:(UIViewController *)viewController {
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)viewController;
         
-        if ([viewController isKindOfClass:[UINavigationController class]]) {
-            UINavigationController *navVC = (UINavigationController *)viewController;
+        if (navVC.viewControllers.count > 0) {
+            UIViewController *rootViewController = navVC.viewControllers[0];
             
-            if (navVC.viewControllers.count > 0) {
-                UIViewController *rootViewController = navVC.viewControllers[0];
-                
-                if ([rootViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
-                    [[WMFNavigationEventsFunnel shared] logTappedExplore];
-                } else if ([rootViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
-                    [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
-                } else if ([rootViewController isKindOfClass:[WMFPlacesViewController class]]) {
-                    [[WMFNavigationEventsFunnel shared] logTappedPlaces];
-                } else if ([rootViewController isKindOfClass:[WMFSavedViewController class]]) {
-                    [[WMFNavigationEventsFunnel shared] logTappedSaved];
-                } else if ([rootViewController isKindOfClass:[WMFHistoryViewController class]]) {
-                    [[WMFNavigationEventsFunnel shared] logTappedHistory];
-                } else if ([rootViewController isKindOfClass:[WMFActivityTabViewController class]]) {
-                    [[WMFNavigationEventsFunnel shared] logTappedActivityTab];
-                } else if ([rootViewController isKindOfClass:[SearchViewController class]]) {
-                    [[WMFNavigationEventsFunnel shared] logTappedSearch];
-                }
+            if ([rootViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
+                [[WMFNavigationEventsFunnel shared] logTappedExplore];
+            } else if ([rootViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+                [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
+            } else if ([rootViewController isKindOfClass:[WMFPlacesViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedPlaces];
+            } else if ([rootViewController isKindOfClass:[WMFSavedViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedSaved];
+            } else if ([rootViewController isKindOfClass:[WMFHistoryViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedHistory];
+            } else if ([rootViewController isKindOfClass:[WMFActivityTabViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedActivityTab];
+            } else if ([rootViewController isKindOfClass:[SearchViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedSearch];
             }
         }
     }

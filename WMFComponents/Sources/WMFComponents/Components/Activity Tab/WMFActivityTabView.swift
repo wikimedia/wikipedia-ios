@@ -31,7 +31,7 @@ public struct WMFActivityTabView: View {
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
             Section {
-                VStack(spacing: 20) {
+                VStack(spacing: 16) {
                     headerView
                         .accessibilityElement()
                         .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
@@ -67,9 +67,7 @@ public struct WMFActivityTabView: View {
                             YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
                             Spacer()
                         }
-                        .padding(.top, 32)
-                        .padding(.bottom, 20)
-                        .background(Color(uiColor: theme.paperBackground))
+                        .padding(.top, 12)
                                     
                         totalEditsView(amount: animatedGlobalEditCount)
                             .padding(.horizontal, 16)
@@ -91,7 +89,7 @@ public struct WMFActivityTabView: View {
                             }
                     }
                 }
-                .padding(.bottom, 20)
+                .padding(.bottom, 16)
                 .listRowInsets(EdgeInsets())
                 .background(
                     LinearGradient(
@@ -588,7 +586,7 @@ struct YourImpactHeaderView: View {
     
     var body: some View {
         Text(title)
-            .font(Font(WMFFont.for(.boldTitle3)))
+            .font(Font(WMFFont.for(.boldHeadline)))
             .foregroundColor(Color(uiColor: theme.text))
             .textCase(.none)
             .padding(.horizontal, 16)

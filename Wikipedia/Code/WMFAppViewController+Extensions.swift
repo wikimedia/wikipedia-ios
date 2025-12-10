@@ -1436,31 +1436,38 @@ extension WMFAppViewController {
         
         let newVC = newTabNavVC.viewControllers[0]
         
-        guard newVC is WMFActivityTabViewController else {
-            return
+        var action: ActivityTabFunnel.Action? = nil
+        if newVC as? WMFActivityTabViewController != nil {
+            action = .activityNavClick
+        } else if newVC as? WMFHistoryViewController != nil {
+            action = .historyNavClick
         }
         
-        if currentVC is ExploreViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .feed)
-        } else if currentVC is PlacesViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .places)
-        } else if currentVC is SavedViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .saved)
-        } else if currentVC is WMFHistoryViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab)
-        } else if currentVC is SearchViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .search)
-        } else if currentVC is WMFSettingsViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .settings)
+        guard let action else { return }
+        
+        if currentVC as? ExploreViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .feed, action: action)
+        } else if currentVC as? PlacesViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
+        } else if currentVC as? SavedViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
+        } else if currentVC as? WMFHistoryViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab, action: action)
+        } else if currentVC as? WMFActivityTabViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
+        } else if currentVC as? SearchViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .search, action: action)
+        } else if currentVC as? WMFSettingsViewController != nil {
+            ActivityTabFunnel.shared.logTabBarSelected(from: .settings, action: action)
         } else if let article = currentVC as? ArticleViewController {
             guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {
                 return
             }
             
             if title == "Main_Page" {
-                ActivityTabFunnel.shared.logTabBarSelected(from: .mainPage)
+                ActivityTabFunnel.shared.logTabBarSelected(from: .mainPage, action: action)
             } else {
-                ActivityTabFunnel.shared.logTabBarSelected(from: .article)
+                ActivityTabFunnel.shared.logTabBarSelected(from: .article, action: action)
             }
         }
     }
