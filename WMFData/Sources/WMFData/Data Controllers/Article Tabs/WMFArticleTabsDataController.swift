@@ -91,8 +91,6 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public enum MoreDynamicTabsExperimentAssignment {
-        case control
-        case groupB
         case groupC
     }
     
@@ -168,25 +166,7 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public var shouldShowMoreDynamicTabsV2: Bool {
-
-        guard !developerSettingsDataController.enableMoreDynamicTabsV2GroupB else {
-            return true
-        }
-        
-        guard !developerSettingsDataController.enableMoreDynamicTabsV2GroupC else {
-            return true
-        }
-        
-        guard let assignment = try? getMoreDynamicTabsExperimentAssignmentV2() else {
-            return false
-        }
-        
-        switch assignment {
-        case .groupB, .groupC:
-            return true
-        case .control:
-            return false
-        }
+        return true
     }
     
     private var primaryAppLanguageProject: WMFProject? {
@@ -236,17 +216,7 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         let assignment: MoreDynamicTabsExperimentAssignment
-        switch bucketValue {
-            
-        case .moreDynamicTabsV2Control:
-            assignment = .control
-        case .moreDynamicTabsV2GroupB:
-            assignment = .groupB
-        case .moreDynamicTabsV2GroupC:
-            assignment = .groupC
-        default:
-            throw CustomError.unexpectedAssignment
-        }
+        assignment = .groupC
         
         self.assignmentCache = assignment
         return assignment
@@ -270,28 +240,10 @@ public protocol WMFArticleTabsDataControlling {
             throw CustomError.missingExperimentsDataController
         }
         
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.moreDynamicTabsV2, withPercentage: moreDynamicTabsExperimentPercentage)
-
         let assignment: MoreDynamicTabsExperimentAssignment
-        
-        switch bucketValue {
-        case .moreDynamicTabsV2Control:
-            assignment = .control
-        case .moreDynamicTabsV2GroupB:
-            assignment = .groupB
-        case .moreDynamicTabsV2GroupC:
-            assignment = .groupC
-        default:
-            throw CustomError.unexpectedAssignment
-        }
-        
+        assignment = .groupC
         self.assignmentCache = assignment
         return assignment
-    }
-    
-    
-    public var moreDynamicTabsGroupBEnabled: Bool {
-        ((try? getMoreDynamicTabsExperimentAssignmentV2()) == .groupB) || developerSettingsDataController.enableMoreDynamicTabsV2GroupB
     }
 
     public var moreDynamicTabsGroupCEnabled: Bool {
@@ -332,7 +284,7 @@ public protocol WMFArticleTabsDataControlling {
 
         guard !moreDynamicTabsGroupCEnabled else { return }
         
-        let setAsCurrent = moreDynamicTabsGroupBEnabled ? false : true
+        let setAsCurrent = true
 
         let count = try await tabsCount()
         if count == 0 {
