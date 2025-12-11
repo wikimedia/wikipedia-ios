@@ -647,13 +647,18 @@ public typealias ReadingListsController = WMFReadingListsController
     /// Only one variant of an article can be added to a reading list. However *all* variants of the same article appear saved in the user interface.
     /// The 'unsave' button can be tapped by the user on *any* variant of the article.
     /// By only searching for article key, the saved article variant is removed regardless of which variant of the article was tapped.
-    public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
+    public func remove(articles: [WMFArticle], readingList: ReadingList?) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         
         let articleKeys = articles.compactMap { $0.key }
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        entriesRequest.predicate = NSPredicate(format: "list == %@ && articleKey IN %@", readingList, articleKeys)
+        if let readingList {
+            entriesRequest.predicate = NSPredicate(format: "list == %@ && articleKey IN %@", readingList, articleKeys)
+        } else {
+            entriesRequest.predicate = NSPredicate(format: "articleKey IN %@", articleKeys)
+        }
+        
         let entriesToDelete = try moc.fetch(entriesRequest)
         try remove(entries: entriesToDelete)
     }

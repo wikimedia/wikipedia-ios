@@ -130,7 +130,7 @@ extension APIReadingListEntry {
 }
 
 public class ReadingListsAPIController: Fetcher {
-    private let builder = Configuration.current.pageContentServiceBuilder(withWikiHost: "en.wikipedia.org")
+    private let builder = Configuration.current.pageContentServiceBuilder(withWikiHost: "en.wikipedia.beta.wmcloud.org")
     private let basePathComponents = ["data", "lists"]
     var lastRequestType: APIReadingListRequestType?
 

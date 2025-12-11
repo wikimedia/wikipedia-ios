@@ -8,11 +8,7 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
     // class
     
     init?(with dataStore: MWKDataStore) {
-        guard let readingList = dataStore.viewContext.defaultReadingList else {
-            return nil
-        }
-        
-        super.init(for: readingList, with: dataStore)
+        super.init(for: nil, with: dataStore)
         emptyViewType = .noSavedPages
     }
     

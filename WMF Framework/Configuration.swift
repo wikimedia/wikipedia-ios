@@ -48,7 +48,7 @@ public class Configuration: NSObject {
 			.appsLabsForPCS = Product Infrastructure team's labs instance for PCS endpoints
 			All other endpoints would point to production */
 		
-        return Configuration.staging(options: [])
+        return Configuration.staging(options: [.betaCluster])
         #else
         return .production
         #endif

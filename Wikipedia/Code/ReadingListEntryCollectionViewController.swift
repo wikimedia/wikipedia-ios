@@ -14,14 +14,22 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     let dataStore: MWKDataStore
     var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
-    let readingList: ReadingList
+    let readingList: ReadingList?
     var searchString: String?
     
     var basePredicate: NSPredicate {
+        guard let readingList else {
+            return NSPredicate(format: "isDeletedLocally != YES")
+        }
+        
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
     }
     
     var shouldShowEditButtonsForEmptyState: Bool {
+        guard let readingList else {
+            return false
+        }
+        
         return !readingList.isDefault
     }
     
@@ -51,7 +59,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     var readingListDetailHeaderView: ReadingListDetailHeaderView?
     fileprivate static let headerReuseIdentifier = "ReadingListDetailHeaderView"
     
-    init(for readingList: ReadingList, with dataStore: MWKDataStore) {
+    init(for readingList: ReadingList?, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
         super.init(nibName: nil, bundle: nil)
@@ -100,10 +108,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         guard let article = article(for: entry) else {
             return
         }
-        cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: readingList.isDefault)
-        if readingList.isDefault {
-            cell.tags = (readingLists: article.sortedNonDefaultReadingLists, indexPath: indexPath)
+        
+        if let readingList {
+            cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: readingList.isDefault)
+            if readingList.isDefault {
+                cell.tags = (readingLists: article.sortedNonDefaultReadingLists, indexPath: indexPath)
+            }
         }
+        
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
@@ -180,9 +192,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     }
     
     lazy var sortActions: [SortActionType: SortAction] = {
+        
+        guard let readingList else {
+            return [:]
+        }
+        
         let moc = dataStore.viewContext
         let updateSortOrder: (Int) -> Void = { [weak self] (rawValue: Int) in
-            self?.readingList.sortOrder = NSNumber(value: rawValue)
+            self?.readingList?.sortOrder = NSNumber(value: rawValue)
             if moc.hasChanges {
                 do {
                     try moc.save()
@@ -496,7 +513,7 @@ extension ReadingListEntryCollectionViewController {
 extension ReadingListEntryCollectionViewController: SortableCollection {
     
     var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
-        guard let sortOrder = readingList.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
+        guard let sortOrder = readingList?.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
             return ([], nil)
         }
         return (sortAction.sortDescriptors, sortAction.alertAction)
