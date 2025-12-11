@@ -4,7 +4,6 @@ import CoreData
 
 public protocol WMFArticleTabsDataControlling {
     func tabsCount() async throws -> Int
-    func checkAndCreateInitialArticleTabIfNeeded() async throws
     func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func deleteArticleTab(identifier: UUID) async throws
     func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID, needsCleanoutOfFutureArticles: Bool) async throws -> WMFArticleTabsDataController.Identifiers
@@ -256,18 +255,6 @@ public protocol WMFArticleTabsDataControlling {
         return try await moc.perform {
             let fetchRequest = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
             return try moc.count(for: fetchRequest)
-        }
-    }
-
-    public func checkAndCreateInitialArticleTabIfNeeded() async throws {
-
-        guard !moreDynamicTabsGroupCEnabled else { return }
-        
-        let setAsCurrent = true
-
-        let count = try await tabsCount()
-        if count == 0 {
-            _ = try await createArticleTab(initialArticle: nil, setAsCurrent: setAsCurrent)
         }
     }
     
