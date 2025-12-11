@@ -103,16 +103,48 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             request.sortDescriptors = baseSortDescriptors
             fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         } else {
-            let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            // request.predicate = basePredicate
-            // request.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
-            request.sortDescriptors = [NSSortDescriptor(key: "articleKey", ascending: false)]
+            // 1. Create fetch request
+                let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+                request.predicate = basePredicate
+                request.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
 
-            // Ensure we only get distinct articles
-            request.returnsDistinctResults = true
-            request.propertiesToFetch = ["articleKey"] // only include needed properties
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+                // 2. Create FRC
+                fetchedResultsController = NSFetchedResultsController(
+                    fetchRequest: request,
+                    managedObjectContext: dataStore.viewContext,
+                    sectionNameKeyPath: nil,
+                    cacheName: nil
+                )
+
+                // 3. Set updater as delegate
+                fetchedResultsController?.delegate = collectionViewUpdater
+
+                // 4. Perform fetch
+                do {
+                    try fetchedResultsController?.performFetch()
+                } catch {
+                    DDLogError("Error fetching ReadingListEntries: \(error)")
+                }
+
+                // 5. Deduplicate in-memory for the collection view
+                deduplicateFetchedResults()
         }
+    }
+    
+    private func deduplicateFetchedResults() {
+        guard let objects = fetchedResultsController?.fetchedObjects else { return }
+        
+        var seenKeys = Set<String>()
+        let deduped = objects.filter { entry in
+            guard let key = entry.articleKey else { return false }
+            if seenKeys.contains(key) { return false }
+            seenKeys.insert(key)
+            return true
+        }
+        
+        // Update the collection view with deduped objects
+        // We'll tell the updater to reload with this array
+        collectionViewUpdater?.replaceFetchedObjects(with: deduped)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
