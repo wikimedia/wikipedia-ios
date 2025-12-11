@@ -6,6 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticle : NSManagedObject
 
 @property (atomic, readonly) NSArray<ReadingList *> *sortedNonDefaultReadingLists;
+@property (atomic, readonly) NSArray<ReadingList *> *sortedYesDefaultReadingLists;
 
 @end
 

@@ -3,6 +3,7 @@
 
 @interface WMFArticle () {
     NSArray<ReadingList *> * _Nullable _sortedNonDefaultReadingLists;
+    NSArray<ReadingList *> * _Nullable _sortedYesDefaultReadingLists;
 }
 @end
 
@@ -23,6 +24,24 @@
             return [a localizedStandardCompare:b];
         }]]];
         return _sortedNonDefaultReadingLists ?: @[];
+    }
+}
+
+- (NSArray<ReadingList *> *)sortedYesDefaultReadingLists {
+    @synchronized (self) {
+        if (_sortedYesDefaultReadingLists != nil) {
+            return _sortedYesDefaultReadingLists;
+        }
+        _sortedYesDefaultReadingLists = [self.readingLists sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"canonicalName" ascending:YES comparator:^NSComparisonResult(NSString *a, NSString *b) {
+            if (a == nil) {
+                return NSOrderedAscending;
+            }
+            if (b == nil) {
+                return NSOrderedDescending;
+            }
+            return [a localizedStandardCompare:b];
+        }]]];
+        return _sortedYesDefaultReadingLists ?: @[];
     }
 }
 

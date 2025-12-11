@@ -71,7 +71,7 @@ extension SavedArticlesCollectionViewController: SavedArticlesCollectionViewCell
         guard let article = article(at: tag.indexPath) else {
             return
         }
-        let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: article.sortedNonDefaultReadingLists) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
+        let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: article.sortedYesDefaultReadingLists) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
         viewController.apply(theme: theme)
         push(viewController, animated: true)
     }

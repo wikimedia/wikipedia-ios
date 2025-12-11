@@ -111,9 +111,8 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         
         if let readingList {
             cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: readingList.isDefault)
-            if readingList.isDefault {
-                cell.tags = (readingLists: article.sortedNonDefaultReadingLists, indexPath: indexPath)
-            }
+        } else {
+            cell.tags = (readingLists: article.sortedYesDefaultReadingLists, indexPath: indexPath)
         }
         
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
