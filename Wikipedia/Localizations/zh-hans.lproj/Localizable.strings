@@ -49,6 +49,7 @@
 // Author: StarrySky
 // Author: SunAfterRain
 // Author: TFX202X
+// Author: TeaSummer
 // Author: Tonylianlong
 // Author: Tsevener
 // Author: Viztor
@@ -360,8 +361,7 @@
 "donate-accessibility-monthly-recurring-hint" = "双击以启用每月自动捐赠此金额。";
 "donate-accessibility-textfield-hint" = "输入自定义捐赠金额。";
 "donate-accessibility-transaction-fee-hint" = "双击以添加交易手续费至捐赠金额。";
-// Fuzzy
-"donate-already-donated" = "谢谢您，亲爱的捐赠者！您的慷慨解囊会帮助维基百科和姊妹网站蓬勃发展。";
+"donate-already-donated" = "谢谢您，亲爱的捐赠者！您的慷慨解囊会帮助维基百科与其他自由知识项目网站蓬勃发展。";
 "donate-apple-fine-print" = "Apple不负责为此目的筹集资金。";
 "donate-email-opt-in-text" = "是的，维基媒体基金会可以偶尔向我发送电子邮件。";
 "donate-help-frequently-asked-questions" = "常见问题";

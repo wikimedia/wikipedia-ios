@@ -15,6 +15,7 @@
 // Author: DARMAS BUDI SANTOSO
 // Author: Daud I.F. Argana
 // Author: Fate Kage
+// Author: Felianiwiki
 // Author: Gombang
 // Author: Hanif Al Husaini
 // Author: Hendra ibaraki1
@@ -38,6 +39,7 @@
 // Author: Tsevener
 // Author: Ulinfaizah
 // Author: Veracious
+// Author: William Surya Permana
 // Author: WongKentir
 
 "about-content-license" = "Lisensi konten";
@@ -100,7 +102,7 @@
 "action-retry" = "Coba lagi";
 "action-save" = "Simpan";
 "action-saved" = "Tersimpan";
-"action-saved-accessibility" = "Disimpan. Aktifkan untuk tidak menyimpannya.";
+"action-saved-accessibility" = "Disimpan. Nyalakan untuk tidak menyimpannya.";
 "action-saved-accessibility-notification" = "Artikel tersimpan untuk nanti";
 "action-share" = "Bagikan";
 "action-share-accessibility" = "Bagikan";
@@ -110,6 +112,7 @@
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
 "action-update" = "Perbarui";
+"activity-tab-your-impact" = "Dampak Anda";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "announcements-dismiss" = "Tutup";
 "app-store-keywords" = "Wikipedia, referensi, wiki, ensiklopedia, info, pengetahuan, penelitian, informasi, mengeksplorasi, belajar";
@@ -636,8 +639,8 @@
 "notifications-center-empty-state-no-projects-selected" = "Tambah proyek untuk melihat lebih banyak pesan";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
 "notifications-center-feed-card-title" = "Pemberitahuan suntingan sekarang tersedia";
-"notifications-center-feed-news-notification-button-text" = "Aktifkan pemberitahuan otomatis";
-"notifications-center-feed-news-notification-text" = "Pemberitahuan suntingan untuk semua proyek Wikimedia sekarang tersedia melalui aplikasi. Aktifkan pemberitahuan agar bisa tetap mendapatkan informasi terbaru mengenai pesan Anda di Wikipedia di sepanjang perjalanan.";
+"notifications-center-feed-news-notification-button-text" = "Nyalakan pemberitahuan otomatis";
+"notifications-center-feed-news-notification-text" = "Pemberitahuan suntingan untuk semua proyek Wikimedia sekarang tersedia melalui aplikasi. Nyalakan pemberitahuan agar bisa tetap mendapatkan informasi terbaru mengenai pesan Anda di Wikipedia di sepanjang perjalanan.";
 "notifications-center-filters-accessibility-label" = "Saringan Pemberitahuan";
 "notifications-center-filters-read-status-item-title-all" = "Semua";
 "notifications-center-filters-read-status-item-title-read" = "Baca";
@@ -677,11 +680,11 @@
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Pemberitahuan dan peringatan";
 "notifications-center-onboarding-modal-project-inboxes-message" = "Baca semua pesan belum dibaca dari berbagai bahasa Wikipedia dan proyek Wikimedia di satu tempat.";
 "notifications-center-onboarding-modal-project-inboxes-title" = "Kotak masuk proyek";
-"notifications-center-onboarding-modal-push-notifications-message" = "Aktifkan pemberitahuan agar tetap mendapatkan informasi terbaru mengenai pesan dan peringatan suntingan Anda di sepanjang perjalanan.";
+"notifications-center-onboarding-modal-push-notifications-message" = "Nyalakan pemberitahuan agar tetap mendapatkan informasi terbaru mengenai pesan dan peringatan suntingan Anda di sepanjang perjalanan.";
 "notifications-center-onboarding-modal-push-notifications-title" = "Pemberitahuan otomatis";
 "notifications-center-onboarding-modal-title" = "Pemberitahuan suntingan";
-"notifications-center-onboarding-panel-heading" = "Aktifkan pemberitahuan otomatis?";
-"notifications-center-onboarding-panel-primary-button" = "Aktifkan pemberitahuan otomatis";
+"notifications-center-onboarding-panel-heading" = "Nyalakan pemberitahuan otomatis?";
+"notifications-center-onboarding-panel-primary-button" = "Nyalakan pemberitahuan otomatis";
 "notifications-center-onboarding-panel-secondary-button" = "Tidak, terima kasih";
 "notifications-center-onboarding-panel-subheading" = "Wikipedia adalah proyek kolaboratif dan mengaktifkan pemberitahuan dapat mempermudah Anda untuk tetap mendapatkan informasi terbaru tentang pesan, peringatan, dan \"terima kasih\" dari sesama penyunting.";
 "notifications-center-project-filters-accessibility-label" = "Filter Proyek";
@@ -713,7 +716,7 @@
 "notifications-center-subheader-translate-milestone" = "Pencapaian terjemahan";
 "notifications-center-subheader-user-rights-change" = "Perubahan hak pengguna";
 "notifications-center-subheader-welcome" = "Selamat datang!";
-"notifications-center-subheader-wikidata-connection" = "Koneksi Wikidata dibuat";
+"notifications-center-subheader-wikidata-connection" = "Sambungan Wikidata dibuat";
 "notifications-center-swipe-mark-as-read" = "Tandai sudah dibaca";
 "notifications-center-swipe-mark-as-unread" = "Tandai belum dibaca";
 "notifications-center-swipe-more" = "Lainnya";
@@ -790,7 +793,7 @@
 "places-accessibility-show-more" = "Tampilkan artikel lainnya";
 "places-empty-search-description" = "Jelajahi kota, negara, benua, tengara alam, peristiwa sejarah, bangunan dan lainnya.";
 "places-empty-search-title" = "Cari artikel Wikipedia dengan lokasi geografis";
-"places-enable-location-action-button-title" = "Aktifkan lokasi";
+"places-enable-location-action-button-title" = "Nyalakan lokasi";
 "places-enable-location-description" = "Akses ke lokasi Anda hanya tersedia bila aplikasi atau salah satu dari fitur-fiturnya yang terlihat di layar Anda.";
 "places-enable-location-title" = "Jelajahi artikel di sekitar lokasi Anda dengan mengaktifkan Akses Lokasi";
 "places-filter-articles-action-sheet-title" = "Saring artikel";
@@ -872,9 +875,9 @@
 "reading-list-new-list-name-placeholder" = "judul daftar bacaan";
 "reading-list-sync-disabled-panel-message" = "Sinkronisasi daftar bacaan telah dinonaktifkan untuk akun Wikipedia Anda di perangkat lain. Anda dapat mengaktifkan kembali sinkronisasi dengan memperbarui pengaturan Anda.";
 "reading-list-sync-disabled-panel-title" = "Sinkronisasi dinonaktifkan";
-"reading-list-sync-enable-button-title" = "Aktifkan sinkronisasi";
+"reading-list-sync-enable-button-title" = "Nyalakan sinkronisasi";
 "reading-list-sync-enable-subtitle" = "Artikel tersimpan dan daftar bacaan Anda sekarang dapat disimpan ke akun Wikipedia Anda dan disinkronkan di seluruh aplikasi Wikipedia.";
-"reading-list-sync-enable-title" = "Aktifkan sinkronisasi daftar bacaan?";
+"reading-list-sync-enable-title" = "Nyalakan sinkronisasi daftar bacaan?";
 "reading-list-sync-enabled-panel-message" = "Sinkronisasi daftar bacaan diaktifkan untuk akun ini. Untuk berhenti menyinkronkan, Anda dapat menonaktifkan sinkronisasi untuk akun ini dengan memperbarui pengaturan Anda.";
 "reading-list-sync-enabled-panel-title" = "Sinkronisasi diaktifkan pada akun ini";
 "reading-list-unable-to-add-entry" = "Terjadi kesalahan tak terduga saat menambahkan entri ke daftar bacaan Anda. Silakan coba lagi nanti.";
@@ -902,7 +905,7 @@
 "reading-lists-list-not-synced-limit-exceeded" = "Daftar tidak disinkronkan, batas terlampaui";
 "reading-lists-sort-saved-articles" = "Urutkan artikel tersimpan";
 "reading-lists-split-notification" = "Ada batasan $1 artikel per daftar bacaan. Daftar yang ada dengan lebih dari batas ini telah dibagi menjadi beberapa daftar.";
-"reading-lists-sync-error-no-internet-connection" = "Sinkronisasi akan dilanjutkan ketika koneksi internet tersedia";
+"reading-lists-sync-error-no-internet-connection" = "Sinkronisasi akan dilanjutkan ketika sambungan internet tersedia";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";
 "reading-themes-controls-accessibility-brightness-slider" = "Penggeser kecerahan";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
@@ -981,7 +984,7 @@
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
 "settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";
 "settings-notifications-push-notifications" = "Pemberitahuan otomatis";
-"settings-notifications-system-turn-on" = "Aktifkan Pemberitahuan";
+"settings-notifications-system-turn-on" = "Nyalakan Pemberitahuan";
 "settings-notifications-trending" = "Peristiwa terkini";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi.";
@@ -1048,7 +1051,7 @@
 "talk-page-overflow-menu-accessibility" = "Opsi Halaman Pembicaraan Lebih Banyak";
 "talk-page-page-info" = "Informasi halaman";
 "talk-page-permanent-link" = "Pranala permanen";
-"talk-page-publish-reply-error-subtitle" = "Silakan periksa koneksi internet Anda.";
+"talk-page-publish-reply-error-subtitle" = "Silakan periksa sambungan internet Anda.";
 "talk-page-publish-reply-error-title" = "Tidak dapat memublikasikan komentar Anda.";
 "talk-page-publish-topic-error-title" = "Tidak dapat memublikasikan topik baru.";
 "talk-page-read-in-web" = "Baca di web";

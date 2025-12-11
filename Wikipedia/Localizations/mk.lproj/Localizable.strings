@@ -137,6 +137,7 @@
 "activity-tab-you-edited" = "Неделава уредивте {{PLURAL:$1|еднаш|$1 пати}}.";
 "activity-tab-you-read" = "Неделава прочитавте {{PLURAL:$1|$1 статија|$1 статии}}.";
 "activity-tab-you-saved" = "Неделава зачувавте {{PLURAL:$1|$1 статија|$1 статии}}.";
+"activity-tab-your-impact" = "Ваше влијание";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "advanced-settings-title" = "Напредни нагодувања";
 "alert-temporary-account" = "Користите привремена сметка. Таа истекува за 90 дена.";
