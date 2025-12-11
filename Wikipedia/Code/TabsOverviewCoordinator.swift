@@ -166,16 +166,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation
             )
 
-            articleTabsViewModel.loadDidYouKnowViewModel = { [weak self] in
-                guard let self else { return nil }
-                return try? await self.loadDidYouKnowViewModel()
-            }
-
-            articleTabsViewModel.loadRecommendationsViewModel = { [weak self] in
-                guard let self else { return nil }
-                return try? await self.loadRecommendedArticlesViewModel()
-            }
-
             let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
@@ -197,55 +187,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             }
         }
     }
-
-    @MainActor
-    private func loadRecommendedArticlesViewModel() async throws -> WMFTabsOverviewRecommendationsViewModel? {
-        // TODO: https://phabricator.wikimedia.org/T411060 scale
-//
-//        let seedURLsSet = try? await getRecentTabArticleURLs()
-//        guard let seedURLsSet else { return nil }
-//
-//        let seedURLs = Array(seedURLsSet)
-//
-//        let articles = await relatedArticlesProviderClosure(seedURLs)
-//
-//        guard let articles, !articles.isEmpty else {
-//            DDLogWarn("TabsOverviewCoordinator: related articles provider returned empty")
-//            return nil
-//        }
-//
-//        let limit = UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
-//        let limitedArticles = Array(articles.prefix(limit))
-//
-//        guard limitedArticles.count > 1 else { return nil }
-//
-//        let title = WMFLocalizedString(
-//            "tabs-overview-recommendations-title",
-//            value: "Based on your most recent tabs",
-//            comment: "title for section on tabs overview with article recommendations"
-//        )
-//
-//        let onTapArticleAction: WMFTabsOverviewRecommendationsViewModel.OnRecordTapAction = { [weak self] historyItem in
-//            guard let self else { return }
-//            self.tappedArticle(historyItem)
-//            ArticleTabsFunnel.shared.logTabsOverviewTappedBYR()
-//        }
-//
-//        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
-//            guard let self else { return }
-//            self.shareArticleRecommendation(item:historyItem, sourceFrameInWindow: frame)
-//        }
-//
-//        return WMFTabsOverviewRecommendationsViewModel(title: title,
-//                                                       openButtonTitle: CommonStrings.articleTabsOpen,
-//                                                       shareButtonTitle: CommonStrings.shareActionTitle,
-//                                                       articles: limitedArticles,
-//                                                       onTapArticle: onTapArticleAction,
-//                                                       shareRecordAction: shareArticleAction
-//        )
-        return nil
-    }
-
+    
     private func tappedArticle(_ item: HistoryItem) {
         if let articleURL = item.url {
             let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
@@ -255,13 +197,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 }
             }
         }
-    }
-
-    private func shareArticleRecommendation(item: HistoryItem, sourceFrameInWindow: CGRect?) {
-        guard let url = item.url else { return }
-        let articleURL = url.wmf_URLForTextSharing
-        let presenter = navigationController.presentedViewController ?? navigationController
-        shareURL(articleURL, from: presenter, sourceFrameInWindow: sourceFrameInWindow)
     }
 
     // Returns unordered set of URLs
@@ -303,77 +238,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
 
         return urls
-    }
-
-    private func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
-// TODO: Scale https://phabricator.wikimedia.org/T411060
-//        let facts = await didYouKnowProviderClosure()
-//        guard let facts, !facts.isEmpty else {
-//            DDLogWarn("TabsOverviewCoordinator: DYK provider returned empty")
-//            return nil
-//        }
-//
-//        let localized = WMFTabsOverviewDidYouKnowViewModel.LocalizedStrings(
-//            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know?", comment: "Text displayed as heading for section of tabs overview dedicated to Did You Know "),
-//            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
-//        )
-//
-//        let viewModel = WMFTabsOverviewDidYouKnowViewModel(
-//            facts: facts.map { $0.html },
-//            languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
-//            tappedLinkAction: tappedDYKLink(url:),
-//            dykLocalizedStrings: localized
-//        )
-//        return viewModel
-        return nil
-    }
-    
-    
-    private func tappedDYKLink(url: URL) {
-        
-        ArticleTabsFunnel.shared.logTabsOverviewTappedDYK()
-        
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: navigationController,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
-        )
-        if let presented = navigationController.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-    }
-
-    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
-        guard let self else { return nil }
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
-        let dc = NewArticleTabDataController(dataStore: dataStore)
-        do {
-            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
-        } catch {
-            DDLogError("DYK fetch error: \(error)")
-            return nil
-        }
-    }
-
-    private lazy var relatedArticlesProviderClosure: (@MainActor (_ sourceArticles: [URL?]) async -> [HistoryRecord]?) = { [weak self] sourceArticles in
-        guard let self else { return nil }
-        let dc = NewArticleTabDataController(dataStore: self.dataStore)
-        do {
-            let maxArticlesPerSource: Int =  UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
-            return try await dc.getRelatedArticles(for: sourceArticles, maxTotal: maxArticlesPerSource)
-        } catch {
-            DDLogError("Related articles fetch error: \(error)")
-            return nil
-        }
     }
 
     private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String

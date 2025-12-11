@@ -160,7 +160,6 @@
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-tabs-button-accessibility-hint" = "Accessibility hint for the tabs navigation bar button";
 "article-tabs-button-accessibility-label" = "Accessibility label for the tabs navigation bar button";
-"article-tabs-did-you-know-title" = "Title for the new article tab did you know section";
 "article-tabs-feature-announcement-item-1-subtitle" = "Subtitle for the article tabs feature announcement item 2";
 "article-tabs-feature-announcement-item-1-title" = "Title for the article tabs feature announcement item";
 "article-tabs-feature-announcement-item-2-subtitle" = "Subtitle for the article tabs feature announcement item 2";
@@ -265,7 +264,6 @@
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";
-"did-you-know" = "Text displayed as heading for section of tabs overview dedicated to Did You Know";
 "diff-article-revision-history" = "Label for article edit history menu item in diff more menu.";
 "diff-change-added" = "Accessibility text announced in VoiceOver when content additions are announced in a diff. $1 is replaced with the added content.";
 "diff-change-paragraph-lines-moved-down" = "Accessibility text announced in VoiceOver to indicate content has moved. $1 is replaced by the number of lines.";
@@ -771,9 +769,6 @@
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
-"new-article-tab-from-wikipedia-default" = "Text displayed as Wikipedia source on new tab if language is unavailable.";
-"new-article-tab-settings-did-you-know" = "Toggle for did you know";
-"new-article-tab-settings-recommendations" = "Toggle for article recommendations / because you read";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
 "new-tab" = "Title for creating a new tab.";
@@ -1237,7 +1232,6 @@
 "tabs-main-page-subtitle" = "Main page subtitle";
 "tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
 "tabs-open-tab" = "Accessibility label for opening a tab";
-"tabs-overview-recommendations-title" = "title for section on tabs overview with article recommendations";
 "tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
 "tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
 "tabs-show-suggested-articles" = "Show suggested articles button title";
