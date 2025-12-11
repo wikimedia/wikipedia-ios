@@ -90,6 +90,30 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         fetch()
         super.viewWillAppear(animated)
     }
+
+    // Overridding default UpdatableCollection implementation
+    func setupFetchedResultsController() {
+        if let readingList {
+            let request = ReadingListEntry.fetchRequest()
+            request.predicate = basePredicate
+            if let searchPredicate = searchPredicate {
+                request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
+            }
+            
+            request.sortDescriptors = baseSortDescriptors
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        } else {
+            let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+            // request.predicate = basePredicate
+            // request.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
+            request.sortDescriptors = [NSSortDescriptor(key: "articleKey", ascending: false)]
+
+            // Ensure we only get distinct articles
+            request.returnsDistinctResults = true
+            request.propertiesToFetch = ["articleKey"] // only include needed properties
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        }
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
