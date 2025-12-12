@@ -99,7 +99,8 @@ class DonateCoordinator: Coordinator {
         }
         
         let appVersion = Bundle.main.wmf_debugVersion()
-        return URL(string: urlString)?.appendingAppVersion(appVersion: appVersion)
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
+        return URL(string: urlString)?.appendingAppVersionAndAppInstallID(appVersion: appVersion, appInstallID: appInstallID)
     }
     
     // MARK: Lifecycle
@@ -865,16 +866,17 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
 // MARK: URL Extensions
 
 fileprivate extension URL {
-    func appendingAppVersion(appVersion: String?) -> URL {
+    func appendingAppVersionAndAppInstallID(appVersion: String?, appInstallID: String?) -> URL {
         
         guard let appVersion,
+              let appInstallID,
               var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
         var queryItems = components.queryItems else {
             return self
         }
         
-        
         queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        queryItems.append(URLQueryItem(name: "app_install_id", value: appInstallID))
         components.queryItems = queryItems
         
         guard let url = components.url else {
