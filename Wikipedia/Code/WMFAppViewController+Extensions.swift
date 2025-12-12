@@ -1450,27 +1450,27 @@ extension WMFAppViewController {
         let newVC = newTabNavVC.viewControllers[0]
         
         var action: ActivityTabFunnel.Action? = nil
-        if newVC as? WMFActivityTabViewController != nil {
+        if newVC is WMFActivityTabViewController {
             action = .activityNavClick
-        } else if newVC as? WMFHistoryViewController != nil {
+        } else if newVC is WMFHistoryViewController {
             action = .historyNavClick
         }
         
         guard let action else { return }
         
-        if currentVC as? ExploreViewController != nil {
+        if currentVC is ExploreViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .feed, action: action)
-        } else if currentVC as? PlacesViewController != nil {
+        } else if currentVC is PlacesViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
-        } else if currentVC as? SavedViewController != nil {
+        } else if currentVC is SavedViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
-        } else if currentVC as? WMFHistoryViewController != nil {
+        } else if currentVC is WMFHistoryViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab, action: action)
-        } else if currentVC as? WMFActivityTabViewController != nil {
+        } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
-        } else if currentVC as? SearchViewController != nil {
+        } else if currentVC is SearchViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .search, action: action)
-        } else if currentVC as? WMFSettingsViewController != nil {
+        } else if currentVC is WMFSettingsViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .settings, action: action)
         } else if let article = currentVC as? ArticleViewController {
             guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {

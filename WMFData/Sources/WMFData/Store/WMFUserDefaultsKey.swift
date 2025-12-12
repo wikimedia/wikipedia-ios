@@ -37,4 +37,10 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsForceActivityTabControl = "developer-settings-force-activity-tab-control"
     case developerSettingsForceActivityTabExperiment = "developer-settings-force-activity-tab-experiment"
     case activityTabVisitCount = "activity-tab-visit-count"
+    case activityTabIsTimeSpentReadingOn = "activity-tab-time-spent-reading"
+    case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
+    case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
+    case activityTabIsAllTimeImpactOn = "activity-tab-all-time-impact"
+    case activityTabIsLastInAppDonationOn = "activity-tab-last-in-app-donation"
+    case activityTabIsTimelineOfBehaviorOn = "activity-tab-timeline-of-behavior"
 }

@@ -22,6 +22,92 @@ public actor WMFActivityTabDataController {
             self.experimentsDataController = nil
         }
     }
+    
+    // MARK: - Activity Tab Customization Toggles
+
+    public var isTimeSpentReadingOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isReadingInsightsOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isEditingInsightsOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isAllTimeImpactOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsAllTimeImpactOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsAllTimeImpactOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isLastInAppDonationOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsLastInAppDonationOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsLastInAppDonationOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isTimelineOfBehaviorOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue,
+                value: newValue
+            )
+        }
+    }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current

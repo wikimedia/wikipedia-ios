@@ -77,6 +77,25 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     public let localizedStrings: LocalizedStrings
+    
+    // MARK: - Customization
+    public struct ActivityTabCustomization {
+        var isTimeSpentReadingOn: Bool
+        var isReadingInsightsOn: Bool
+        var isEditingInsightsOn: Bool
+        var isAllTimeImpactOn: Bool
+        var isLastInAppDonationOn: Bool
+        var isTimelineOfBehaviorOn: Bool
+        
+        public init(isTimeSpentReadingOn: Bool, isReadingInsightsOn: Bool, isEditingInsightsOn: Bool, isAllTimeImpactOn: Bool, isLastInAppDonationOn: Bool, isTimelineOfBehaviorOn: Bool) {
+            self.isTimeSpentReadingOn = isTimeSpentReadingOn
+            self.isReadingInsightsOn = isReadingInsightsOn
+            self.isEditingInsightsOn = isEditingInsightsOn
+            self.isAllTimeImpactOn = isAllTimeImpactOn
+            self.isLastInAppDonationOn = isLastInAppDonationOn
+            self.isTimelineOfBehaviorOn = isTimelineOfBehaviorOn
+        }
+    }
 
     // MARK: - Published State
 
@@ -89,6 +108,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published var sections: [TimelineViewModel.TimelineSection] = []
 
     @Published var globalEditCount: Int?
+    @Published public var customization: ActivityTabCustomization? = nil
     public var isEmpty: Bool = false
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
@@ -169,7 +189,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         } catch {
             debugPrint("Error getting global edit count: \(error)")
         }
-
     }
 
     public func updateUsername(username: String) {

@@ -23,7 +23,10 @@ public struct WMFActivityTabView: View {
             if viewModel.authenticationState == .loggedIn {
                 loggedInList(proxy: proxy)
             } else {
-                loggedOutList(proxy: proxy)
+                if viewModel.customization?.isTimelineOfBehaviorOn ?? false {
+                    loggedOutList(proxy: proxy)
+                }
+                // TODO: else do the empty empty view
             }
         }
     }
@@ -32,61 +35,67 @@ public struct WMFActivityTabView: View {
         List {
             Section {
                 VStack(spacing: 16) {
-                    headerView
-                        .accessibilityElement()
-                        .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
-                        .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
-
-                    VStack(alignment: .center, spacing: 8) {
-                        hoursMinutesRead
-                            .accessibilityLabel(viewModel.hoursMinutesRead)
-                        Text(viewModel.localizedStrings.timeSpentReading)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .accessibilityHidden(true)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .accessibilityElement()
-                    .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
-
-                    articlesReadModule(proxy: proxy)
-                        .padding(.horizontal, 16)
-                    savedArticlesModule
-                        .padding(.horizontal, 16)
-
-                    if !viewModel.articlesReadViewModel.topCategories.isEmpty {
-                        topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
-                            .padding(.horizontal, 16)
+                    if viewModel.customization?.isTimeSpentReadingOn ?? false {
+                        headerView
                             .accessibilityElement()
-                            .accessibilityLabel(viewModel.localizedStrings.topCategories)
-                            .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
+                            .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
+                            .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
+                        
+                        VStack(alignment: .center, spacing: 8) {
+                            hoursMinutesRead
+                                .accessibilityLabel(viewModel.hoursMinutesRead)
+                            Text(viewModel.localizedStrings.timeSpentReading)
+                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                                .foregroundColor(Color(uiColor: theme.text))
+                                .accessibilityHidden(true)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .accessibilityElement()
+                        .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
+                    }
+
+                    if viewModel.customization?.isReadingInsightsOn ?? false {
+                        articlesReadModule(proxy: proxy)
+                            .padding(.horizontal, 16)
+                        savedArticlesModule
+                            .padding(.horizontal, 16)
+                        
+                        if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                            topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                                .padding(.horizontal, 16)
+                                .accessibilityElement()
+                                .accessibilityLabel(viewModel.localizedStrings.topCategories)
+                                .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
+                        }
                     }
                     
-                    if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
-                        HStack {
-                            YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                            Spacer()
-                        }
-                        .padding(.top, 12)
-                                    
-                        totalEditsView(amount: animatedGlobalEditCount)
-                            .padding(.horizontal, 16)
-                            .onAppear {
-                                if !hasShownGlobalEditsCard {
-                                    hasShownGlobalEditsCard = true
-                                    animatedGlobalEditCount = 0
-                                    withAnimation(.easeOut(duration: 0.6)) {
+                    if viewModel.customization?.isEditingInsightsOn ?? false {
+                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                            HStack {
+                                YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
+                                Spacer()
+                            }
+                            .padding(.top, 12)
+                            
+                            totalEditsView(amount: animatedGlobalEditCount)
+                                .padding(.horizontal, 16)
+                                .onAppear {
+                                    if !hasShownGlobalEditsCard {
+                                        hasShownGlobalEditsCard = true
+                                        animatedGlobalEditCount = 0
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = globalEditCount
+                                        }
+                                    } else {
                                         animatedGlobalEditCount = globalEditCount
                                     }
-                                } else {
-                                    animatedGlobalEditCount = globalEditCount
                                 }
-                            }
-                            .onChange(of: globalEditCount) { newValue in
-                                withAnimation(.easeOut(duration: 0.6)) {
-                                    animatedGlobalEditCount = newValue
+                                .onChange(of: globalEditCount) { newValue in
+                                    withAnimation(.easeOut(duration: 0.6)) {
+                                        animatedGlobalEditCount = newValue
+                                    }
                                 }
-                            }
+                        }
                     }
                 }
                 .padding(.bottom, 16)
@@ -104,8 +113,10 @@ public struct WMFActivityTabView: View {
             }
             .listRowSeparator(.hidden)
 
-            timelineSectionsList()
-                .id("timelineSection")
+            if viewModel.customization?.isTimelineOfBehaviorOn ?? false {
+                timelineSectionsList()
+                    .id("timelineSection")
+            }
         }
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .scrollContentBackground(.hidden)

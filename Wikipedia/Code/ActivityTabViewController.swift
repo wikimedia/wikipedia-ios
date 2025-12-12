@@ -24,6 +24,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         self.dataController = dataController
         self.theme = theme
         super.init()
+        Task {
+            viewModel.customization = await getCustomization()
+        }
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -48,8 +51,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 }
             }
         }
-
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -100,6 +101,24 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
 
         loginCoordinator.start()
+    }
+    
+    private func getCustomization() async -> WMFActivityTabViewModel.ActivityTabCustomization {
+        let isTimeSpentReadingOn = await dataController.isTimeSpentReadingOn
+        let isReadingInsightsOn = await dataController.isReadingInsightsOn
+        let isEditingInsightsOn = await dataController.isEditingInsightsOn
+        let isAllTimeImpactOn = await dataController.isAllTimeImpactOn
+        let isLastInAppDonationOn = await dataController.isLastInAppDonationOn
+        let isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOn
+        
+        return WMFActivityTabViewModel.ActivityTabCustomization(
+            isTimeSpentReadingOn: isTimeSpentReadingOn,
+            isReadingInsightsOn: isReadingInsightsOn,
+            isEditingInsightsOn: isEditingInsightsOn,
+            isAllTimeImpactOn: isAllTimeImpactOn,
+            isLastInAppDonationOn: isLastInAppDonationOn,
+            isTimelineOfBehaviorOn: isTimelineOfBehaviorOn
+        )
     }
 
     // MARK: - Profile button dependencies
@@ -256,6 +275,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             self.userDidTapReportIssue()
             ActivityTabFunnel.shared.logActivityTabOverflowMenuProblem()
         })
+        
+        let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gear), handler: { _ in
+//            self.userDidTapLearnMore()
+//            ActivityTabFunnel.shared.logActivityTabOverflowMenuLearnMore()
+        })
+        
         let mainMenu = UIMenu(title: String(), children: [learnMoreAction, clearAction, reportIssueAction])
 
         return mainMenu
@@ -548,5 +573,18 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
             })
         })
+    }
+    
+    // Customize View
+    private func createCustomizeView() {
+        let timeSpentReading = WMFLocalizedString("activity-tab-customize-time-spent-reading", value: "Time spent reading", comment: "Title for time spent reading")
+        let readingInsights = WMFLocalizedString("activity-tab-customize-reading-insights", value: "Reading insights", comment: "Title for reading insights")
+        let editingInsights = WMFLocalizedString("activity-tab-customize-editing-insights", value: "Editing insights", comment: "Title for editing insights")
+        let allTimeImpact = WMFLocalizedString("activity-tab-customize-all-time-impact", value: "All time impact", comment: "Title for all time impact")
+        let lastInAppDonation = WMFLocalizedString("activity-tab-customize-last-in-app-donation", value: "Last in app donation", comment: "Title for last in-app donation")
+        let timelineOfBehavior = WMFLocalizedString("activity-tab-customize-timeline-of-behavior", value: "Timeline of behavior", comment: "Title for timeline of behavior")
+        let footer = WMFLocalizedString("activity-tab-customize-footer", value: "Reading insights are based on your app languages in settings, and editing insights are limited to your primary app language.  Insights leverage local data, with the exception of edits which are public.", comment: "Footer for customize activity tab, explaining how reading and editing insights work")
+        let title = CommonStrings.customize
+        let doneButtonTitle = CommonStrings.doneTitle
     }
 }
