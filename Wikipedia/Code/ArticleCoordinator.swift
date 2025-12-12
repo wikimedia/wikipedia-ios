@@ -65,6 +65,16 @@ extension ArticleTabCoordinating {
             // Reassign tabConfig if needed
             // If there is no current tab but we were expecting one, create a new tab instead
             let currentTabIdentifier = try await tabsDataController.currentTabIdentifier()
+            if currentTabIdentifier == nil {
+                    switch tabConfig {
+                    case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles,
+                            .appendArticleAndAssignCurrentTab,
+                            .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage:
+                        tabConfig = .appendArticleAndAssignNewTabAndSetToCurrent
+                    default:
+                        break
+                    }
+           }
             
             switch tabConfig {
             case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles:
