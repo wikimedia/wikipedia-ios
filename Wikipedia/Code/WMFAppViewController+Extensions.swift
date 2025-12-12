@@ -953,7 +953,6 @@ extension WMFAppViewController {
         
         let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "See more reading and editing insights", comment: "Title for logged out users")
         let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
-        let createAccount = WMFLocalizedString("create-account", value: "Create account", comment: "Create account title")
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
         let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
 
