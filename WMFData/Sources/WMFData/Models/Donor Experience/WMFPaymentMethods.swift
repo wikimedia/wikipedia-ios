@@ -18,6 +18,11 @@ public struct WMFPaymentMethods: Codable {
     private let response: Response
     var cachedDate: Date?
     
+    init(response: Response, cachedDate: Date? = nil) {
+        self.response = response
+        self.cachedDate = cachedDate
+    }
+    
     public var applePayPaymentNetworks: [PKPaymentNetwork] {
         let brands = self.response.paymentMethods.first { $0.type == "applepay" }?.brands ?? []
         
