@@ -137,6 +137,7 @@
 "activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz.";
 "activity-tab-you-read" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} oxumusunuz.";
 "activity-tab-you-saved" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız.";
+"activity-tab-your-impact" = "Sizin təsiriniz";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 Məqalə|$1 Məqalələri}} oxuma siyahısına əlavə et";
 "advanced-settings-title" = "Qabaqcıl parametrlər";
 "alert-temporary-account" = "Siz müvəqqəti hesabdan istifadə edirsiniz. Hesabın müddəti 90 gün ərzində bitəcək.";

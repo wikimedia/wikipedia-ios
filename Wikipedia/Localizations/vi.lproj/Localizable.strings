@@ -605,6 +605,7 @@
 "notifications-center-more-action-accessibility-label" = "Thêm";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
 "notifications-center-onboarding-modal-push-notifications-title" = "Thông báo đẩy";
+"notifications-center-onboarding-panel-secondary-button" = "Không, cảm ơn";
 "notifications-center-status-all" = "Tất cả";
 "notifications-center-status-read" = "Đã đọc";
 "notifications-center-status-unread" = "Chưa đọc";
@@ -1009,6 +1010,7 @@
 "watchlist-filter-automated-contributions-options-human" = "Con người (không phải bot)";
 "watchlist-filter-latest-revisions-header" = "Phiên bản mới nhất";
 "watchlist-filters-add-language" = "Thêm ngôn ngữ...";
+"watchlist-thanks-success" = "\"Lời cảm ơn\" của bạn đã được gửi tới $1";
 "watchlist-user-button-thank" = "Cảm ơn";
 "watchlist-user-button-user-contributions" = "Đóng góp của người dùng";
 "watchlist-user-button-user-page" = "Trang cá nhân";
