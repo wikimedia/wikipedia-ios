@@ -272,13 +272,25 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     private func customizeViewController() -> UIViewController {
-        let customizationView = WMFActivityTabCustomizeView(viewModel: viewModel.customizeViewModel)
-        let hostedView = WMFComponentHostingController(rootView: customizationView)
-        hostedView.modalPresentationStyle = .pageSheet
-        if let sheet = hostedView.sheetPresentationController {
-            sheet.detents = [.large()]
-        }
-        return hostedView
+        let customizationView = WMFActivityTabCustomizeView(
+            viewModel: viewModel.customizeViewModel
+        )
+
+        let hostedView = WMFActivityCustomizeHostingController(
+            rootView: customizationView,
+            theme: theme
+        )
+
+        let navController = UINavigationController(rootViewController: hostedView)
+        navController.modalPresentationStyle = .pageSheet
+        navController.sheetPresentationController?.detents = [.large()]
+        navController.sheetPresentationController?.prefersGrabberVisible = true
+
+        return navController
+    }
+
+    @objc private func dismissCustomizeView() {
+        navigationController?.presentedViewController?.dismiss(animated: true)
     }
 
     var learnMoreAboutActivityURL: URL? {
@@ -568,5 +580,73 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
             })
         })
+    }
+}
+
+final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring, Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = theme.colors.paperBackground
+        appearance.titleTextAttributes = [
+            .foregroundColor: theme.colors.primaryText
+        ]
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+
+        rootView = WMFActivityTabCustomizeView(
+            viewModel: rootView.viewModel
+        )
+    }
+    
+    init(rootView: WMFActivityTabCustomizeView, theme: Theme) {
+        self.theme = theme
+        super.init(rootView: rootView)
+    }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private var theme: Theme
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .systemBackground
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+
+        let titleConfig = WMFNavigationBarTitleConfig(
+            title: CommonStrings.customize,
+            customView: nil,
+            alignment: .centerCompact
+        )
+
+        let closeConfig = WMFNavigationBarCloseButtonConfig(
+            text: CommonStrings.doneTitle,
+            target: self,
+            action: #selector(closeTapped),
+            alignment: .trailing
+        )
+
+        configureNavigationBar(
+            titleConfig: titleConfig,
+            closeButtonConfig: closeConfig,
+            profileButtonConfig: nil,
+            tabsButtonConfig: nil,
+            searchBarConfig: nil,
+            hideNavigationBarOnScroll: false
+        )
+    }
+
+    @objc private func closeTapped() {
+        dismiss(animated: true)
     }
 }

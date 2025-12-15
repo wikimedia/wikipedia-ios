@@ -111,21 +111,16 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         let allTimeImpact: String
         let lastInAppDonation: String
         let timeline: String
+        let footer: String
 
-        public init(
-            timeSpentReading: String,
-            readingInsights: String,
-            editingInsights: String,
-            allTimeImpact: String,
-            lastInAppDonation: String,
-            timeline: String
-        ) {
+        public init(timeSpentReading: String, readingInsights: String, editingInsights: String, allTimeImpact: String, lastInAppDonation: String, timeline: String, footer: String) {
             self.timeSpentReading = timeSpentReading
             self.readingInsights = readingInsights
             self.editingInsights = editingInsights
             self.allTimeImpact = allTimeImpact
             self.lastInAppDonation = lastInAppDonation
             self.timeline = timeline
+            self.footer = footer
         }
     }
 }

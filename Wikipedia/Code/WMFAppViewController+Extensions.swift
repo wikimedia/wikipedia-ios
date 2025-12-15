@@ -1359,6 +1359,7 @@ extension WMFAppViewController {
         let customizeAllTimeImpact = WMFLocalizedString("activity-tab-customize-all-time-impact", value: "All time impact", comment: "Title for all time impact")
         let customizeLastInAppDonation = WMFLocalizedString("activity-tab-customize-last-in-app-donation", value: "Last in app donation", comment: "Title for last in-app donation")
         let customizeTimelineOfBehavior = WMFLocalizedString("activity-tab-customize-timeline-of-behavior", value: "Timeline of behavior", comment: "Title for timeline of behavior")
+        let customizeFooter = WMFLocalizedString("activity-tab-customize-footer", value: "Reading insights are based on your app languages in settings, and editing insights are limited to your primary app language.  Insights leverage local data, with the exception of edits which are public.", comment: "Footer for customize activity tab page.")
         
         var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
@@ -1404,7 +1405,8 @@ extension WMFAppViewController {
                     customizeEditingInsights: customizeEditingInsights,
                     customizeAllTimeImpact: customizeAllTimeImpact,
                     customizeLastInAppDonation: customizeLastInAppDonation,
-                    customizeTimelineOfBehavior: customizeTimelineOfBehavior),
+                    customizeTimelineOfBehavior: customizeTimelineOfBehavior,
+                    customizeFooter: customizeFooter),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
