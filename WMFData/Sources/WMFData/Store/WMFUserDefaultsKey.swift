@@ -39,8 +39,6 @@ public enum WMFUserDefaultsKey: String {
     case activityTabIsTimeSpentReadingOn = "activity-tab-time-spent-reading"
     case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
     case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
-    case activityTabIsAllTimeImpactOn = "activity-tab-all-time-impact"
-    case activityTabIsLastInAppDonationOn = "activity-tab-last-in-app-donation"
     case activityTabIsTimelineOfBehaviorOnLoggedIn = "activity-tab-timeline-of-behavior-logged-in"
     case activityTabIsTimelineOfBehaviorOnLoggedOut = "activity-tab-timeline-of-behavior-logged-out"
 }

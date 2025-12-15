@@ -67,34 +67,6 @@ public actor WMFActivityTabDataController {
         }
     }
 
-    public var isAllTimeImpactOn: Bool {
-        get {
-            return (try? userDefaultsStore?.load(
-                key: WMFUserDefaultsKey.activityTabIsAllTimeImpactOn.rawValue
-            )) ?? true
-        }
-        set {
-            try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.activityTabIsAllTimeImpactOn.rawValue,
-                value: newValue
-            )
-        }
-    }
-
-    public var isLastInAppDonationOn: Bool {
-        get {
-            return (try? userDefaultsStore?.load(
-                key: WMFUserDefaultsKey.activityTabIsLastInAppDonationOn.rawValue
-            )) ?? true
-        }
-        set {
-            try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.activityTabIsLastInAppDonationOn.rawValue,
-                value: newValue
-            )
-        }
-    }
-
     public var isTimelineOfBehaviorOnLoggedIn: Bool {
         get {
             return (try? userDefaultsStore?.load(
@@ -133,14 +105,6 @@ public actor WMFActivityTabDataController {
     
     public func updateIsEditingInsightsOn(_ value: Bool) {
         isEditingInsightsOn = value
-    }
-    
-    public func updateIsAllTimeImpactOn(_ value: Bool) {
-        isAllTimeImpactOn = value
-    }
-    
-    public func updateIsLastInAppDonationOn(_ value: Bool) {
-        isLastInAppDonationOn = value
     }
     
     public func updateIsTimelineOfBehaviorOnLoggedIn(_ value: Bool) {

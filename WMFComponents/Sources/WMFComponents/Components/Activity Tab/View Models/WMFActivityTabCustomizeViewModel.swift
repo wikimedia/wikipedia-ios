@@ -9,8 +9,6 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
     @Published var isTimeSpentReadingOn: Bool = true
     @Published var isReadingInsightsOn: Bool = true
     @Published var isEditingInsightsOn: Bool = true
-    @Published var isAllTimeImpactOn: Bool = true
-    @Published var isLastInAppDonationOn: Bool = true
     @Published var isTimelineOfBehaviorOn: Bool = true
     var isLoggedIn: Bool {
         didSet {
@@ -40,8 +38,6 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         let isTimeSpentReadingOn = isLoggedIn ? await dataController.isTimeSpentReadingOn : false
         let isReadingInsightsOn = isLoggedIn ? await dataController.isReadingInsightsOn : false
         let isEditingInsightsOn = isLoggedIn ?  await dataController.isEditingInsightsOn : false
-        let isAllTimeImpactOn = isLoggedIn ? await dataController.isAllTimeImpactOn : false
-        let isLastInAppDonationOn = isLoggedIn ? await dataController.isLastInAppDonationOn : false
         let isTimelineOfBehaviorOn: Bool
         
         if isLoggedIn {
@@ -53,8 +49,6 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         self.isTimeSpentReadingOn = isTimeSpentReadingOn
         self.isReadingInsightsOn = isReadingInsightsOn
         self.isEditingInsightsOn = isEditingInsightsOn
-        self.isAllTimeImpactOn = isAllTimeImpactOn
-        self.isLastInAppDonationOn = isLastInAppDonationOn
         self.isTimelineOfBehaviorOn = isTimelineOfBehaviorOn
     }
     
@@ -87,28 +81,6 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
                 
                 Task {
                     await self.dataController.updateIsEditingInsightsOn(value)
-                }
-                
-            }
-            .store(in: &cancellables)
-        
-        $isAllTimeImpactOn
-            .sink { [weak self] value in
-                guard let self, self.isLoggedIn else { return }
-                
-                Task {
-                    await self.dataController.updateIsAllTimeImpactOn(value)
-                }
-                
-            }
-            .store(in: &cancellables)
-        
-        $isLastInAppDonationOn
-            .sink { [weak self] value in
-                guard let self, self.isLoggedIn else { return }
-                
-                Task {
-                    await self.dataController.updateIsLastInAppDonationOn(value)
                 }
                 
             }

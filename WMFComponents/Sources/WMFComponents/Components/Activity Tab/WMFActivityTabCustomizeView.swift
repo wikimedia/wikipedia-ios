@@ -58,32 +58,6 @@ public struct WMFActivityTabCustomizeView: View {
                 }
 
                 Toggle(
-                    viewModel.localizedStrings.allTimeImpact,
-                    isOn: $viewModel.isAllTimeImpactOn
-                )
-                .onChange(of: viewModel.isAllTimeImpactOn) { newValue in
-                    guard newValue == true else { return }
-                    guard viewModel.isLoggedIn else {
-                        viewModel.isAllTimeImpactOn = false
-                        viewModel.presentLoggedInToastAction?()
-                        return
-                    }
-                }
-
-                Toggle(
-                    viewModel.localizedStrings.lastInAppDonation,
-                    isOn: $viewModel.isLastInAppDonationOn
-                )
-                .onChange(of: viewModel.isLastInAppDonationOn) { newValue in
-                    guard newValue == true else { return }
-                    guard viewModel.isLoggedIn else {
-                        viewModel.isLastInAppDonationOn = false
-                        viewModel.presentLoggedInToastAction?()
-                        return
-                    }
-                }
-
-                Toggle(
                     viewModel.localizedStrings.timeline,
                     isOn: $viewModel.isTimelineOfBehaviorOn
                 )
