@@ -307,8 +307,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             theme: theme
         )
 
-        let navController = UINavigationController(rootViewController: hostedView)
-        navController.modalPresentationStyle = .pageSheet
+        let navController = WMFComponentNavigationController(rootViewController: hostedView, modalPresentationStyle: .pageSheet)
         navController.sheetPresentationController?.detents = [.large()]
         navController.sheetPresentationController?.prefersGrabberVisible = true
 
@@ -609,24 +608,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
     }
 }
 
-final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring, Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = theme.colors.paperBackground
-        appearance.titleTextAttributes = [
-            .foregroundColor: theme.colors.primaryText
-        ]
-
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
-        rootView = WMFActivityTabCustomizeView(
-            viewModel: rootView.viewModel
-        )
-    }
+final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring {
     
     init(rootView: WMFActivityTabCustomizeView, theme: Theme) {
         self.theme = theme
@@ -641,13 +623,6 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .systemBackground
-
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
 
         let titleConfig = WMFNavigationBarTitleConfig(
             title: CommonStrings.customize,
