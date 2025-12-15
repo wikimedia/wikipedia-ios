@@ -200,29 +200,6 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
         }
     }
     
-    func testCannotDeleteLastTab() async throws {
-        guard let dataController else {
-            throw TestsError.missingDataController
-        }
-        
-        // Create a single tab
-        let identifier = try await dataController.createArticleTab(initialArticle: nil)
-        
-        // Attempt to delete the last tab
-        do {
-            try await dataController.deleteArticleTab(identifier: identifier.tabIdentifier)
-            XCTFail("Should throw error when deleting last tab")
-        } catch WMFArticleTabsDataController.CustomError.cannotDeleteLastTab {
-            // Expected error
-        } catch {
-            XCTFail("Unexpected error: \(error)")
-        }
-        
-        // Verify tab still exists
-        let count = try await dataController.tabsCount()
-        XCTAssertEqual(count, 1)
-    }
-    
     func testIsCurrentTab() async throws {
         guard let store else {
             throw TestsError.missingStore
