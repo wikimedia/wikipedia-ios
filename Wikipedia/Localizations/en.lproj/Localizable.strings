@@ -166,7 +166,6 @@
 "article-share" = "Share";
 "article-tabs-button-accessibility-hint" = "Navigates to tabs overview";
 "article-tabs-button-accessibility-label" = "Article tabs";
-"article-tabs-did-you-know-title" = "Did you know";
 "article-tabs-feature-announcement-item-1-subtitle" = "Open multiple articles and switch between them with ease.";
 "article-tabs-feature-announcement-item-1-title" = "Browse with tabs";
 "article-tabs-feature-announcement-item-2-subtitle" = "Tabs remember your scroll position automatically.";
@@ -268,12 +267,10 @@
 "developer-force-email-auth" = "Force email auth";
 "developer-settings" = "Developer Settings";
 "developer-settings-bypass-donation" = "Bypass Donation";
-"developer-settings-dynamic-tabs-group-B-v2" = "Enable tabs V2 with group B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Enable tabs V2 with group C";
 "developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
-"did-you-know" = "Did you know?";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";
 "diff-change-paragraph-lines-moved-down" = "Paragraph moved down {{PLURAL:$1|0=0 lines|$1 line|$1 lines}}. Go to new location.";
@@ -779,9 +776,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
-"new-article-tab-from-wikipedia-default" = "from Wikipedia";
-"new-article-tab-settings-did-you-know" = "Did You Know?";
-"new-article-tab-settings-recommendations" = "Recommendations";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
 "new-tab" = "New tab";
@@ -1245,7 +1239,6 @@
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
 "tabs-open-tab" = "Open tab";
-"tabs-overview-recommendations-title" = "Based on your most recent tabs";
 "tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
 "tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-show-suggested-articles" = "Show article suggestions";
