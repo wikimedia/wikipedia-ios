@@ -20,7 +20,6 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
-    case developerSettingsMoreDynamicTabsV2GroupB = "more-dynamic-tabs-group-b-v2"
     case developerSettingsMoreDynamicTabsV2GroupC = "more-dynamic-tabs-group-c-v2"
     case developerSettingsShowYiRV3 = "dev-settings-yir-show-v3"
     case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
