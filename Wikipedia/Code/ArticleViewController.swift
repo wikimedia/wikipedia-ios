@@ -477,22 +477,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         loadNextAndPreviousArticleTabs()
         
         var focusingOnSearch = false
-        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
-            focusingOnSearch =  true
-            needsTabsIconImpressonOnCancel = true
-            DispatchQueue.main.async { [weak self] in
-                guard let self,
-                      let searchController = self.navigationItem.searchController else { return }
-                if !searchController.isActive {
-                    self.webView.isHidden = true
-                    searchController.isActive = true
-                }
-                DispatchQueue.main.async {
-                    searchController.searchBar.becomeFirstResponder()
-                }
-            }
-        }
-        isFirstAppearance = false
         
         if let project {
             if isMainPage {
@@ -800,7 +784,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.customTabConfigUponArticleNavigation = tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch ? .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage : .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -1626,16 +1610,6 @@ extension ArticleViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = false
         searchBarIsAnimating = true
-    }
-    
-    func willDismissSearchController(_ searchController: UISearchController) {
-        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
-            webView.isHidden = false
-            if needsTabsIconImpressonOnCancel {
-                ArticleTabsFunnel.shared.logIconImpression(interface: .mainPage, project: project)
-                needsTabsIconImpressonOnCancel = false
-            }
-        }
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
