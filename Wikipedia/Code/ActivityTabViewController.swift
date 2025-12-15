@@ -16,8 +16,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
-    @MainActor
-    private var customizationState: WMFActivityTabViewModel.ActivityTabCustomization?
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
         self.dataStore = dataStore
@@ -27,13 +25,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         self.dataController = dataController
         self.theme = theme
         super.init()
-        Task {
-            viewModel.customization = await getCustomization()
-            await MainActor.run {
-                self.customizationState = viewModel.customization
-            }
-        }
-
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -57,29 +48,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                     ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
                 }
             }
-        }
-    }
-    @MainActor
-    private func customizationBinding() -> Binding<WMFActivityTabViewModel.ActivityTabCustomization> {
-        Binding(
-            get: { self.customizationState ?? .defaultValue },
-            set: { newValue in
-                self.customizationState = newValue
-                self.persistCustomization(newValue)
-            }
-        )
-    }
-    
-    private func persistCustomization(
-        _ customization: WMFActivityTabViewModel.ActivityTabCustomization
-    ) {
-        Task {
-            await dataController.isTimeSpentReadingOn = customization.isTimeSpentReadingOn
-            await dataController.isReadingInsightsOn = customization.isReadingInsightsOn
-            await dataController.isEditingInsightsOn = customization.isEditingInsightsOn
-            await dataController.isAllTimeImpactOn = customization.isAllTimeImpactOn
-            await dataController.isLastInAppDonationOn = customization.isLastInAppDonationOn
-            await dataController.isTimelineOfBehaviorOn = customization.isTimelineOfBehaviorOn
         }
     }
 
@@ -131,24 +99,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
 
         loginCoordinator.start()
-    }
-    
-    private func getCustomization() async -> WMFActivityTabViewModel.ActivityTabCustomization {
-        let isTimeSpentReadingOn = await dataController.isTimeSpentReadingOn
-        let isReadingInsightsOn = await dataController.isReadingInsightsOn
-        let isEditingInsightsOn = await dataController.isEditingInsightsOn
-        let isAllTimeImpactOn = await dataController.isAllTimeImpactOn
-        let isLastInAppDonationOn = await dataController.isLastInAppDonationOn
-        let isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOn
-        
-        return WMFActivityTabViewModel.ActivityTabCustomization(
-            isTimeSpentReadingOn: isTimeSpentReadingOn,
-            isReadingInsightsOn: isReadingInsightsOn,
-            isEditingInsightsOn: isEditingInsightsOn,
-            isAllTimeImpactOn: isAllTimeImpactOn,
-            isLastInAppDonationOn: isLastInAppDonationOn,
-            isTimelineOfBehaviorOn: isTimelineOfBehaviorOn
-        )
     }
 
     // MARK: - Profile button dependencies
@@ -322,45 +272,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     private func customizeViewController() -> UIViewController {
-        let activityTabCustomizationLocalizations = WMFActivityTabCustomizeViewModel.LocalizedStrings(
-            timeSpentReading: WMFLocalizedString(
-                "activity-tab-customize-time-spent-reading",
-                value: "Time spent reading",
-                comment: "Title for time spent reading"
-            ),
-            readingInsights: WMFLocalizedString(
-                "activity-tab-customize-reading-insights",
-                value: "Reading insights",
-                comment: "Title for reading insights"
-            ),
-            editingInsights: WMFLocalizedString(
-                "activity-tab-customize-editing-insights",
-                value: "Editing insights",
-                comment: "Title for editing insights"
-            ),
-            allTimeImpact: WMFLocalizedString(
-                "activity-tab-customize-all-time-impact",
-                value: "All time impact",
-                comment: "Title for all time impact"
-            ),
-            lastInAppDonation: WMFLocalizedString(
-                "activity-tab-customize-last-in-app-donation",
-                value: "Last in app donation",
-                comment: "Title for last in-app donation"
-            ),
-            timeline: WMFLocalizedString(
-                "activity-tab-customize-timeline-of-behavior",
-                value: "Timeline of behavior",
-                comment: "Title for timeline of behavior"
-            )
-        )
-
-        let viewModel = WMFActivityTabCustomizeViewModel(
-            customization: customizationBinding(),
-            localizedStrings: activityTabCustomizationLocalizations
-        )
-        
-        let customizationView = WMFActivityTabCustomizeView(viewModel: viewModel)
+        let customizationView = WMFActivityTabCustomizeView(viewModel: viewModel.customizeViewModel)
         let hostedView = WMFComponentHostingController(rootView: customizationView)
         hostedView.modalPresentationStyle = .pageSheet
         if let sheet = hostedView.sheetPresentationController {

@@ -1,69 +1,107 @@
 import WMFData
 import SwiftUI
+import Combine
 
 @MainActor
 public final class WMFActivityTabCustomizeViewModel: ObservableObject {
-    public let customization: Binding<WMFActivityTabViewModel.ActivityTabCustomization>
     let localizedStrings: LocalizedStrings
+    
+    @Published var isTimeSpentReadingOn: Bool = true
+    @Published var isReadingInsightsOn: Bool = true
+    @Published var isEditingInsightsOn: Bool = true
+    @Published var isAllTimeImpactOn: Bool = true
+    @Published var isLastInAppDonationOn: Bool = true
+    @Published var isTimelineOfBehaviorOn: Bool = true
+    
+    private let dataController = WMFActivityTabDataController.shared
+    
+    private var cancellables = Set<AnyCancellable>()
 
-    func updatedCustomization() -> WMFActivityTabViewModel.ActivityTabCustomization {
-        customization.wrappedValue
-    }
-
-    public var toggleMappings: [(label: String, binding: Binding<Bool>)] {
-        [
-            (
-                localizedStrings.timeSpentReading,
-                Binding(
-                    get: { self.customization.wrappedValue.isTimeSpentReadingOn },
-                    set: { self.customization.wrappedValue.isTimeSpentReadingOn = $0 }
-                )
-            ),
-            (
-                localizedStrings.readingInsights,
-                Binding(
-                    get: { self.customization.wrappedValue.isReadingInsightsOn },
-                    set: { self.customization.wrappedValue.isReadingInsightsOn = $0 }
-                )
-            ),
-            (
-                localizedStrings.editingInsights,
-                Binding(
-                    get: { self.customization.wrappedValue.isEditingInsightsOn },
-                    set: { self.customization.wrappedValue.isEditingInsightsOn = $0 }
-                )
-            ),
-            (
-                localizedStrings.allTimeImpact,
-                Binding(
-                    get: { self.customization.wrappedValue.isAllTimeImpactOn },
-                    set: { self.customization.wrappedValue.isAllTimeImpactOn = $0 }
-                )
-            ),
-            (
-                localizedStrings.lastInAppDonation,
-                Binding(
-                    get: { self.customization.wrappedValue.isLastInAppDonationOn },
-                    set: { self.customization.wrappedValue.isLastInAppDonationOn = $0 }
-                )
-            ),
-            (
-                localizedStrings.timeline,
-                Binding(
-                    get: { self.customization.wrappedValue.isTimelineOfBehaviorOn },
-                    set: { self.customization.wrappedValue.isTimelineOfBehaviorOn = $0 }
-                )
-            )
-        ]
-    }
-
-    public init(
-        customization: Binding<WMFActivityTabViewModel.ActivityTabCustomization>,
-        localizedStrings: LocalizedStrings
-    ) {
-        self.customization = customization
+    public init(localizedStrings: LocalizedStrings) {
         self.localizedStrings = localizedStrings
+        
+        Task {
+            await updateFromDataController()
+        }
     }
+    
+    private func updateFromDataController() async {
+        let isTimeSpentReadingOn = await dataController.isTimeSpentReadingOn
+        let isReadingInsightsOn = await dataController.isReadingInsightsOn
+        let isEditingInsightsOn = await dataController.isEditingInsightsOn
+        let isAllTimeImpactOn = await dataController.isAllTimeImpactOn
+        let isLastInAppDonationOn = await dataController.isLastInAppDonationOn
+        let isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOn
+        
+        self.isTimeSpentReadingOn = isTimeSpentReadingOn
+        self.isReadingInsightsOn = isReadingInsightsOn
+        self.isEditingInsightsOn = isEditingInsightsOn
+        self.isAllTimeImpactOn = isAllTimeImpactOn
+        self.isLastInAppDonationOn = isLastInAppDonationOn
+        self.isTimelineOfBehaviorOn = isTimelineOfBehaviorOn
+    }
+//    
+//    private func bindPublishedProperties() {
+//        $isTimeSpentReadingOn
+//            .sink { [weak self] value in
+//                guard let self else { return }
+//                Task {
+//                    await self.dataController.setIsTimeSpentReadingOn(value)
+//                }
+//                
+//            }
+//            .store(in: &cancellables)
+//
+//        $isReadingInsightsOn
+//            .sink { [weak self] value in
+//                guard let self else { return }
+//                Task {
+//                    await self.dataController.setIsReadingInsightsOn(value)
+//                }
+//                
+//            }
+//            .store(in: &cancellables)
+//
+//        $isEditingInsightsOn
+//            .sink { [weak self] value in
+//                guard let self else { return }
+//                Task {
+//                    await self.dataController.setIsEditingInsightsOn(value)
+//                }
+//                
+//            }
+//            .store(in: &cancellables)
+//        
+//        $isAllTimeImpactOn
+//            .sink { [weak self] value in
+//                guard let self else { return }
+//                Task {
+//                    await self.dataController.setIsAllTimeImpactOn(value)
+//                }
+//                
+//            }
+//            .store(in: &cancellables)
+//        
+//        $isLastInAppDonationOn
+//            .sink { [weak self] value in
+//                guard let self else { return }
+//                Task {
+//                    await self.dataController.setIsLastInAppDonationOn(value)
+//                }
+//                
+//            }
+//            .store(in: &cancellables)
+//        
+//        $isTimelineOfBehaviorOn
+//            .sink { [weak self] value in
+//                guard let self else { return }
+//                Task {
+//                    await self.dataController.setIsTimelineOfBehaviorOn(value)
+//                }
+//                
+//            }
+//            .store(in: &cancellables)
+//    }
 
     public struct LocalizedStrings {
         let timeSpentReading: String

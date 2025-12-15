@@ -23,7 +23,7 @@ public struct WMFActivityTabView: View {
             if viewModel.authenticationState == .loggedIn {
                 loggedInList(proxy: proxy)
             } else {
-                if viewModel.customization?.isTimelineOfBehaviorOn ?? false {
+                if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
                     loggedOutList(proxy: proxy)
                 }
                 // TODO: else do the empty empty view
@@ -35,7 +35,7 @@ public struct WMFActivityTabView: View {
         List {
             Section {
                 VStack(spacing: 16) {
-                    if viewModel.customization?.isTimeSpentReadingOn ?? false {
+                    if viewModel.customizeViewModel.isTimeSpentReadingOn {
                         headerView
                             .accessibilityElement()
                             .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
@@ -54,7 +54,7 @@ public struct WMFActivityTabView: View {
                         .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                     }
 
-                    if viewModel.customization?.isReadingInsightsOn ?? false {
+                    if viewModel.customizeViewModel.isReadingInsightsOn {
                         articlesReadModule(proxy: proxy)
                             .padding(.horizontal, 16)
                         savedArticlesModule
@@ -69,7 +69,7 @@ public struct WMFActivityTabView: View {
                         }
                     }
                     
-                    if viewModel.customization?.isEditingInsightsOn ?? false {
+                    if viewModel.customizeViewModel.isEditingInsightsOn {
                         if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
                             HStack {
                                 YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
@@ -113,7 +113,7 @@ public struct WMFActivityTabView: View {
             }
             .listRowSeparator(.hidden)
 
-            if viewModel.customization?.isTimelineOfBehaviorOn ?? false {
+            if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
                 timelineSectionsList()
                     .id("timelineSection")
             }

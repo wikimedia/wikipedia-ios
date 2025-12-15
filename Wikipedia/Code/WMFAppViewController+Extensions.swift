@@ -1352,6 +1352,14 @@ extension WMFAppViewController {
         let emptySubtitleLoggedOut = CommonStrings.emptyNoHistorySubtitle
         let yourImpact = WMFLocalizedString("activity-tab-your-impact", value: "Your impact", comment: "Title for editing section in activity tab.")
         
+        // Customize Screen
+        let customizeTimeSpentReading = WMFLocalizedString("activity-tab-customize-time-spent-reading", value: "Time spent reading", comment: "Title for time spent reading")
+        let customizeReadingInsights = WMFLocalizedString("activity-tab-customize-reading-insights", value: "Reading insights", comment: "Title for reading insights")
+        let customizeEditingInsights = WMFLocalizedString("activity-tab-customize-editing-insights", value: "Editing insights", comment: "Title for editing insights")
+        let customizeAllTimeImpact = WMFLocalizedString("activity-tab-customize-all-time-impact", value: "All time impact", comment: "Title for all time impact")
+        let customizeLastInAppDonation = WMFLocalizedString("activity-tab-customize-last-in-app-donation", value: "Last in app donation", comment: "Title for last in-app donation")
+        let customizeTimelineOfBehavior = WMFLocalizedString("activity-tab-customize-timeline-of-behavior", value: "Timeline of behavior", comment: "Title for timeline of behavior")
+        
         var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
             authdValue = .loggedIn
@@ -1390,7 +1398,13 @@ extension WMFAppViewController {
                     emptyViewTitleLoggedIn: emptyTitleLoggedIn,
                     emptyViewSubtitleLoggedIn: emptySubtitleLoggedIn,
                     emptyViewTitleLoggedOut: emptyTitleLoggedOut,
-                    emptyViewSubtitleLoggedOut: emptySubtitleLoggedOut),
+                    emptyViewSubtitleLoggedOut: emptySubtitleLoggedOut,
+                    customizeTimeSpentReading: customizeTimeSpentReading,
+                    customizeReadingInsights: customizeReadingInsights,
+                    customizeEditingInsights: customizeEditingInsights,
+                    customizeAllTimeImpact: customizeAllTimeImpact,
+                    customizeLastInAppDonation: customizeLastInAppDonation,
+                    customizeTimelineOfBehavior: customizeTimelineOfBehavior),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
