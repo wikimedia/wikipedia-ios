@@ -77,6 +77,7 @@
 "activity-tab-customize-editing-insights" = "Title for editing insights";
 "activity-tab-customize-footer" = "Footer for customize activity tab page.";
 "activity-tab-customize-last-in-app-donation" = "Title for last in-app donation";
+"activity-tab-customize-logout-warning" = "Activity tab - warning toast title displayed when a logged out user tries to enable a module requiring login.";
 "activity-tab-customize-reading-insights" = "Title for reading insights";
 "activity-tab-customize-time-spent-reading" = "Title for time spent reading";
 "activity-tab-customize-timeline-of-behavior" = "Title for timeline of behavior";
@@ -744,7 +745,7 @@
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
 "login-title" = "Title for log in interface";
 "main-menu-about" = "Button for showing information about the app.";
-"main-menu-account-login" = "Button text for logging in. {{Identical|Log in}}";
+"main-menu-account-login" = "Button text for logging in.";
 "main-menu-account-logout" = "Button text for logging out.";
 "main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
 "main-menu-account-logout-are-you-sure-message" = "Message explaining what happens to local data when logging out.";
@@ -1475,7 +1476,6 @@
 "wikitext-upload-save" = "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}";
 "wikitext-upload-save-anonymously-or-login" = "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting.";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
-"wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
 "year-in-review-articles-slide-subtitle" = "Year in review articles slide subtitle, $1 is the list of top articles.";

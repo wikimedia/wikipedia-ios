@@ -49,6 +49,22 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 }
             }
         }
+        
+        viewModel.presentCustomizeLogInToastAction = { [weak self] in
+            guard let self else {
+                return
+            }
+            
+            let localizableStrings = WMFToastViewBasicViewModel.LocalizableStrings(title: WMFLocalizedString("activity-tab-customize-logout-warning", value: "You must be logged in to turn on this activity insight.", comment: "Activity tab - warning toast title displayed when a logged out user tries to enable a module requiring login."), buttonTitle: CommonStrings.logIn)
+            
+            let buttonAction: () -> Void = { [weak self] in
+                self?.presentFullLoginFlow(fromCustomizeToast: true)
+            }
+            
+            let viewModel = WMFToastViewBasicViewModel(localizableStrings: localizableStrings, buttonAction: buttonAction)
+            let view = WMFToastViewBasicView(viewModel: viewModel)
+            WMFToastPresenter.shared.presentToastView(view: view)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -81,9 +97,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
-    private func presentFullLoginFlow() {
-        ActivityTabFunnel.shared.logLoginClick()
-        LoginFunnel.shared.logLoginStartFromActivityTab()
+    private func presentFullLoginFlow(fromCustomizeToast: Bool = false) {
+        if fromCustomizeToast {
+            // TODO: Will probably need some special logging here.
+        } else {
+            ActivityTabFunnel.shared.logLoginClick()
+            LoginFunnel.shared.logLoginStartFromActivityTab()
+        }
+        
         guard let nav = navigationController else { return }
 
         let loginCoordinator = LoginCoordinator(
@@ -91,8 +112,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             theme: theme,
             loggingCategory: .activity
         )
+        
+        loginCoordinator.loginSuccessCompletion = {
+            WMFToastPresenter.shared.dismissCurrentToast()
+        }
 
         loginCoordinator.createAccountSuccessCustomDismissBlock = {
+            WMFToastPresenter.shared.dismissCurrentToast()
             if let createVC = nav.presentedViewController {
                 createVC.dismiss(animated: true)
             }

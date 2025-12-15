@@ -19,14 +19,16 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
             }
         }
     }
+    var presentLoggedInToastAction: (() -> Void)?
     
     private let dataController = WMFActivityTabDataController.shared
     
     private var cancellables = Set<AnyCancellable>()
 
     public init(localizedStrings: LocalizedStrings, isLoggedIn: Bool) {
-        self.localizedStrings = localizedStrings
+        self.localizedStrings = localizedStrings 
         self.isLoggedIn = isLoggedIn
+        self.presentLoggedInToastAction = nil
         
         Task {
             await updateFromDataController()
@@ -60,6 +62,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         $isTimeSpentReadingOn
             .sink { [weak self] value in
                 guard let self, self.isLoggedIn else { return }
+                
                 Task {
                     await self.dataController.updateIsTimeSpentReadingOn(value)
                 }
@@ -70,6 +73,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         $isReadingInsightsOn
             .sink { [weak self] value in
                 guard let self, self.isLoggedIn else { return }
+                
                 Task {
                     await self.dataController.updateIsReadingInsightsOn(value)
                 }
@@ -80,6 +84,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         $isEditingInsightsOn
             .sink { [weak self] value in
                 guard let self, self.isLoggedIn else { return }
+                
                 Task {
                     await self.dataController.updateIsEditingInsightsOn(value)
                 }
@@ -90,6 +95,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         $isAllTimeImpactOn
             .sink { [weak self] value in
                 guard let self, self.isLoggedIn else { return }
+                
                 Task {
                     await self.dataController.updateIsAllTimeImpactOn(value)
                 }
@@ -100,6 +106,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         $isLastInAppDonationOn
             .sink { [weak self] value in
                 guard let self, self.isLoggedIn else { return }
+                
                 Task {
                     await self.dataController.updateIsLastInAppDonationOn(value)
                 }
@@ -116,7 +123,6 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
                     } else {
                         await self.dataController.updateIsTimelineOfBehaviorOnLoggedOut(value)
                     }
-                    
                 }
                 
             }

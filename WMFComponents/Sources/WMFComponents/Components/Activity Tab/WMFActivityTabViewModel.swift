@@ -13,6 +13,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
     public var didTapPrimaryLoggedOutCTA: (() -> Void)?
+    public var presentCustomizeLogInToastAction: (() -> Void)? {
+        didSet {
+            self.customizeViewModel.presentLoggedInToastAction = self.presentCustomizeLogInToastAction
+        }
+    }
 
     // MARK: - Localization
 
