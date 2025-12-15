@@ -80,12 +80,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
     
     // MARK: - Customization
     public struct ActivityTabCustomization {
-        var isTimeSpentReadingOn: Bool
-        var isReadingInsightsOn: Bool
-        var isEditingInsightsOn: Bool
-        var isAllTimeImpactOn: Bool
-        var isLastInAppDonationOn: Bool
-        var isTimelineOfBehaviorOn: Bool
+        public var isTimeSpentReadingOn: Bool
+        public var isReadingInsightsOn: Bool
+        public var isEditingInsightsOn: Bool
+        public var isAllTimeImpactOn: Bool
+        public var isLastInAppDonationOn: Bool
+        public var isTimelineOfBehaviorOn: Bool
         
         public init(isTimeSpentReadingOn: Bool, isReadingInsightsOn: Bool, isEditingInsightsOn: Bool, isAllTimeImpactOn: Bool, isLastInAppDonationOn: Bool, isTimelineOfBehaviorOn: Bool) {
             self.isTimeSpentReadingOn = isTimeSpentReadingOn
@@ -269,4 +269,15 @@ public final class WMFActivityTabViewModel: ObservableObject {
     var shouldShowEmptyState: Bool {
         return self.sections.count == 1 && (self.sections.first?.items.isEmpty ?? true)
     }
+}
+
+extension WMFActivityTabViewModel.ActivityTabCustomization {
+    public static let defaultValue = WMFActivityTabViewModel.ActivityTabCustomization(
+        isTimeSpentReadingOn: true,
+        isReadingInsightsOn: true,
+        isEditingInsightsOn: true,
+        isAllTimeImpactOn: true,
+        isLastInAppDonationOn: true,
+        isTimelineOfBehaviorOn: true
+    )
 }
