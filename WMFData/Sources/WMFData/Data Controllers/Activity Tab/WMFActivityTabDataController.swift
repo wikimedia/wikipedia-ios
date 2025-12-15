@@ -109,29 +109,29 @@ public actor WMFActivityTabDataController {
         }
     }
     
-//    public func setIsTimeSpentReadingOn(_ value: Bool) {
-//        isTimeSpentReadingOn = value
-//    }
-//    
-//    public func setIsReadingInsightsOn(_ value: Bool) {
-//        isReadingInsightsOn = value
-//    }
-//    
-//    public func setIsEditingInsightsOn(_ value: Bool) {
-//        isEditingInsightsOn = value
-//    }
-//    
-//    public func setIsAllTimeImpactOn(_ value: Bool) {
-//        isAllTimeImpactOn = value
-//    }
-//    
-//    public func setIsLastInAppDonationOn(_ value: Bool) {
-//        isLastInAppDonationOn = value
-//    }
-//    
-//    public func setIsTimelineOfBehaviorOn(_ value: Bool) {
-//        isTimelineOfBehaviorOn = value
-//    }
+    public func updateIsTimeSpentReadingOn(_ value: Bool) {
+        isTimeSpentReadingOn = value
+    }
+    
+    public func updateIsReadingInsightsOn(_ value: Bool) {
+        isReadingInsightsOn = value
+    }
+    
+    public func updateIsEditingInsightsOn(_ value: Bool) {
+        isEditingInsightsOn = value
+    }
+    
+    public func updateIsAllTimeImpactOn(_ value: Bool) {
+        isAllTimeImpactOn = value
+    }
+    
+    public func updateIsLastInAppDonationOn(_ value: Bool) {
+        isLastInAppDonationOn = value
+    }
+    
+    public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
+        isTimelineOfBehaviorOn = value
+    }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current

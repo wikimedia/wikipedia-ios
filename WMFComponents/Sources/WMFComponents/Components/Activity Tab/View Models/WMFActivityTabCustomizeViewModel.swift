@@ -22,6 +22,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         
         Task {
             await updateFromDataController()
+            bindPublishedProperties()
         }
     }
     
@@ -40,68 +41,68 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         self.isLastInAppDonationOn = isLastInAppDonationOn
         self.isTimelineOfBehaviorOn = isTimelineOfBehaviorOn
     }
-//    
-//    private func bindPublishedProperties() {
-//        $isTimeSpentReadingOn
-//            .sink { [weak self] value in
-//                guard let self else { return }
-//                Task {
-//                    await self.dataController.setIsTimeSpentReadingOn(value)
-//                }
-//                
-//            }
-//            .store(in: &cancellables)
-//
-//        $isReadingInsightsOn
-//            .sink { [weak self] value in
-//                guard let self else { return }
-//                Task {
-//                    await self.dataController.setIsReadingInsightsOn(value)
-//                }
-//                
-//            }
-//            .store(in: &cancellables)
-//
-//        $isEditingInsightsOn
-//            .sink { [weak self] value in
-//                guard let self else { return }
-//                Task {
-//                    await self.dataController.setIsEditingInsightsOn(value)
-//                }
-//                
-//            }
-//            .store(in: &cancellables)
-//        
-//        $isAllTimeImpactOn
-//            .sink { [weak self] value in
-//                guard let self else { return }
-//                Task {
-//                    await self.dataController.setIsAllTimeImpactOn(value)
-//                }
-//                
-//            }
-//            .store(in: &cancellables)
-//        
-//        $isLastInAppDonationOn
-//            .sink { [weak self] value in
-//                guard let self else { return }
-//                Task {
-//                    await self.dataController.setIsLastInAppDonationOn(value)
-//                }
-//                
-//            }
-//            .store(in: &cancellables)
-//        
-//        $isTimelineOfBehaviorOn
-//            .sink { [weak self] value in
-//                guard let self else { return }
-//                Task {
-//                    await self.dataController.setIsTimelineOfBehaviorOn(value)
-//                }
-//                
-//            }
-//            .store(in: &cancellables)
-//    }
+    
+    private func bindPublishedProperties() {
+        $isTimeSpentReadingOn
+            .sink { [weak self] value in
+                guard let self else { return }
+                Task {
+                    await self.dataController.updateIsTimeSpentReadingOn(value)
+                }
+                
+            }
+            .store(in: &cancellables)
+
+        $isReadingInsightsOn
+            .sink { [weak self] value in
+                guard let self else { return }
+                Task {
+                    await self.dataController.updateIsReadingInsightsOn(value)
+                }
+                
+            }
+            .store(in: &cancellables)
+
+        $isEditingInsightsOn
+            .sink { [weak self] value in
+                guard let self else { return }
+                Task {
+                    await self.dataController.updateIsEditingInsightsOn(value)
+                }
+                
+            }
+            .store(in: &cancellables)
+        
+        $isAllTimeImpactOn
+            .sink { [weak self] value in
+                guard let self else { return }
+                Task {
+                    await self.dataController.updateIsAllTimeImpactOn(value)
+                }
+                
+            }
+            .store(in: &cancellables)
+        
+        $isLastInAppDonationOn
+            .sink { [weak self] value in
+                guard let self else { return }
+                Task {
+                    await self.dataController.updateIsLastInAppDonationOn(value)
+                }
+                
+            }
+            .store(in: &cancellables)
+        
+        $isTimelineOfBehaviorOn
+            .sink { [weak self] value in
+                guard let self else { return }
+                Task {
+                    await self.dataController.updateIsTimelineOfBehaviorOn(value)
+                }
+                
+            }
+            .store(in: &cancellables)
+    }
 
     public struct LocalizedStrings {
         let timeSpentReading: String
