@@ -141,7 +141,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         
         self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authenticationState == .loggedIn)
         
-        let customizeViewModel = WMFActivityTabCustomizeViewModel(localizedStrings: WMFActivityTabCustomizeViewModel.LocalizedStrings(timeSpentReading: localizedStrings.customizeTimeSpentReading, readingInsights: localizedStrings.customizeReadingInsights, editingInsights: localizedStrings.customizeEditingInsights, allTimeImpact: localizedStrings.customizeAllTimeImpact, lastInAppDonation: localizedStrings.customizeLastInAppDonation, timeline: localizedStrings.customizeTimelineOfBehavior))
+        let customizeViewModel = WMFActivityTabCustomizeViewModel(localizedStrings: WMFActivityTabCustomizeViewModel.LocalizedStrings(timeSpentReading: localizedStrings.customizeTimeSpentReading, readingInsights: localizedStrings.customizeReadingInsights, editingInsights: localizedStrings.customizeEditingInsights, allTimeImpact: localizedStrings.customizeAllTimeImpact, lastInAppDonation: localizedStrings.customizeLastInAppDonation, timeline: localizedStrings.customizeTimelineOfBehavior), isLoggedIn: authenticationState == .loggedIn)
         self.customizeViewModel = customizeViewModel
         
         // Unfortunately this part is needed for SwiftUI view to see changes in binding. Alternative is to have the toggle booleans live here within WMFActivityTabViewModel
@@ -229,6 +229,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         if self.authenticationState != .loggedIn {
             globalEditCount = nil
         }
+        self.customizeViewModel.isLoggedIn = authState == .loggedIn
     }
 
     public var hoursMinutesRead: String {

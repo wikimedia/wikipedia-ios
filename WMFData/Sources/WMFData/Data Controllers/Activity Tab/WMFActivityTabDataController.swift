@@ -95,15 +95,29 @@ public actor WMFActivityTabDataController {
         }
     }
 
-    public var isTimelineOfBehaviorOn: Bool {
+    public var isTimelineOfBehaviorOnLoggedIn: Bool {
         get {
             return (try? userDefaultsStore?.load(
-                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOnLoggedIn.rawValue
             )) ?? true
         }
         set {
             try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue,
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOnLoggedIn.rawValue,
+                value: newValue
+            )
+        }
+    }
+    
+    public var isTimelineOfBehaviorOnLoggedOut: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOnLoggedOut.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOnLoggedOut.rawValue,
                 value: newValue
             )
         }
@@ -129,8 +143,12 @@ public actor WMFActivityTabDataController {
         isLastInAppDonationOn = value
     }
     
-    public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
-        isTimelineOfBehaviorOn = value
+    public func updateIsTimelineOfBehaviorOnLoggedIn(_ value: Bool) {
+        isTimelineOfBehaviorOnLoggedIn = value
+    }
+    
+    public func updateIsTimelineOfBehaviorOnLoggedOut(_ value: Bool) {
+        isTimelineOfBehaviorOnLoggedOut = value
     }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {

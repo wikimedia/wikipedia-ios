@@ -12,13 +12,21 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
     @Published var isAllTimeImpactOn: Bool = true
     @Published var isLastInAppDonationOn: Bool = true
     @Published var isTimelineOfBehaviorOn: Bool = true
+    var isLoggedIn: Bool {
+        didSet {
+            Task {
+               await updateFromDataController()
+            }
+        }
+    }
     
     private let dataController = WMFActivityTabDataController.shared
     
     private var cancellables = Set<AnyCancellable>()
 
-    public init(localizedStrings: LocalizedStrings) {
+    public init(localizedStrings: LocalizedStrings, isLoggedIn: Bool) {
         self.localizedStrings = localizedStrings
+        self.isLoggedIn = isLoggedIn
         
         Task {
             await updateFromDataController()
@@ -27,12 +35,18 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
     }
     
     private func updateFromDataController() async {
-        let isTimeSpentReadingOn = await dataController.isTimeSpentReadingOn
-        let isReadingInsightsOn = await dataController.isReadingInsightsOn
-        let isEditingInsightsOn = await dataController.isEditingInsightsOn
-        let isAllTimeImpactOn = await dataController.isAllTimeImpactOn
-        let isLastInAppDonationOn = await dataController.isLastInAppDonationOn
-        let isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOn
+        let isTimeSpentReadingOn = isLoggedIn ? await dataController.isTimeSpentReadingOn : false
+        let isReadingInsightsOn = isLoggedIn ? await dataController.isReadingInsightsOn : false
+        let isEditingInsightsOn = isLoggedIn ?  await dataController.isEditingInsightsOn : false
+        let isAllTimeImpactOn = isLoggedIn ? await dataController.isAllTimeImpactOn : false
+        let isLastInAppDonationOn = isLoggedIn ? await dataController.isLastInAppDonationOn : false
+        let isTimelineOfBehaviorOn: Bool
+        
+        if isLoggedIn {
+            isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOnLoggedIn
+        } else {
+            isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOnLoggedOut
+        }
         
         self.isTimeSpentReadingOn = isTimeSpentReadingOn
         self.isReadingInsightsOn = isReadingInsightsOn
@@ -45,7 +59,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
     private func bindPublishedProperties() {
         $isTimeSpentReadingOn
             .sink { [weak self] value in
-                guard let self else { return }
+                guard let self, self.isLoggedIn else { return }
                 Task {
                     await self.dataController.updateIsTimeSpentReadingOn(value)
                 }
@@ -55,7 +69,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
 
         $isReadingInsightsOn
             .sink { [weak self] value in
-                guard let self else { return }
+                guard let self, self.isLoggedIn else { return }
                 Task {
                     await self.dataController.updateIsReadingInsightsOn(value)
                 }
@@ -65,7 +79,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
 
         $isEditingInsightsOn
             .sink { [weak self] value in
-                guard let self else { return }
+                guard let self, self.isLoggedIn else { return }
                 Task {
                     await self.dataController.updateIsEditingInsightsOn(value)
                 }
@@ -75,7 +89,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         
         $isAllTimeImpactOn
             .sink { [weak self] value in
-                guard let self else { return }
+                guard let self, self.isLoggedIn else { return }
                 Task {
                     await self.dataController.updateIsAllTimeImpactOn(value)
                 }
@@ -85,7 +99,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         
         $isLastInAppDonationOn
             .sink { [weak self] value in
-                guard let self else { return }
+                guard let self, self.isLoggedIn else { return }
                 Task {
                     await self.dataController.updateIsLastInAppDonationOn(value)
                 }
@@ -97,7 +111,12 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
             .sink { [weak self] value in
                 guard let self else { return }
                 Task {
-                    await self.dataController.updateIsTimelineOfBehaviorOn(value)
+                    if self.isLoggedIn {
+                        await self.dataController.updateIsTimelineOfBehaviorOnLoggedIn(value)
+                    } else {
+                        await self.dataController.updateIsTimelineOfBehaviorOnLoggedOut(value)
+                    }
+                    
                 }
                 
             }
