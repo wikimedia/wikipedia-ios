@@ -48,7 +48,7 @@
 "about-title" = "Sobre";
 "about-translators" = "Tradutores";
 "about-translators-details" = "Traduzida por voluntários em $1";
-"about-wikimedia-foundation" = "Fundação Wikimédia";
+"about-wikimedia-foundation" = "Fundação Wikimedia";
 "about-wikipedia" = "Wikipédia";
 "account-creation-captcha-cannot-see-image" = "Não consegue ver a imagem? $1";
 "account-creation-captcha-obtaining" = "A obter um novo CAPTCHA...";
@@ -1448,5 +1448,5 @@
 "year-in-review-time-morning" = "Manhã";
 "year-in-review-time-night" = "Noite";
 "year-in-review-wikipedia-w-accessibility-label" = "Logótipo w da Wikipédia";
-"year-in-review-wmf-logo-accessibility-label" = "Logótipo da Fundação Wikimédia";
+"year-in-review-wmf-logo-accessibility-label" = "Logótipo da Fundação Wikimedia";
 "yesterday-title" = "Ontem";
