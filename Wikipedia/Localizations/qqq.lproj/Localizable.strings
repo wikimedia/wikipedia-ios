@@ -75,6 +75,7 @@
 "activity-tab-articles-read-graph-label" = "Activity tab articles read graph axis label";
 "activity-tab-customize-all-time-impact" = "Title for all time impact";
 "activity-tab-customize-editing-insights" = "Title for editing insights";
+"activity-tab-customize-footer" = "Footer for customize activity tab page.";
 "activity-tab-customize-last-in-app-donation" = "Title for last in-app donation";
 "activity-tab-customize-reading-insights" = "Title for reading insights";
 "activity-tab-customize-time-spent-reading" = "Title for time spent reading";
