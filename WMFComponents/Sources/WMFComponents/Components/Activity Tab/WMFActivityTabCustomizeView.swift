@@ -3,7 +3,7 @@ import Foundation
 import WMFData
 
 public struct WMFActivityTabCustomizeView: View {
-    @State private var viewModel: WMFActivityTabCustomizeViewModel
+    @ObservedObject private var viewModel: WMFActivityTabCustomizeViewModel
     
     public init(viewModel: WMFActivityTabCustomizeViewModel) {
         self.viewModel = viewModel
@@ -11,12 +11,35 @@ public struct WMFActivityTabCustomizeView: View {
     
     public var body: some View {
         Form {
-            ForEach(viewModel.toggleMappings.indices, id: \.self) { index in
-                Toggle(
-                    viewModel.toggleMappings[index].label,
-                    isOn: viewModel.toggleMappings[index].binding
-                )
-            }
+            Toggle(
+                viewModel.localizedStrings.timeSpentReading,
+                isOn: $viewModel.isTimeSpentReadingOn
+            )
+            
+            Toggle(
+                viewModel.localizedStrings.readingInsights,
+                isOn: $viewModel.isReadingInsightsOn
+            )
+            
+            Toggle(
+                viewModel.localizedStrings.editingInsights,
+                isOn: $viewModel.isEditingInsightsOn
+            )
+            
+            Toggle(
+                viewModel.localizedStrings.allTimeImpact,
+                isOn: $viewModel.isAllTimeImpactOn
+            )
+            
+            Toggle(
+                viewModel.localizedStrings.lastInAppDonation,
+                isOn: $viewModel.isLastInAppDonationOn
+            )
+            
+            Toggle(
+                viewModel.localizedStrings.timeline,
+                isOn: $viewModel.isTimelineOfBehaviorOn
+            )
         }
     }
 }
