@@ -780,28 +780,9 @@ extension WMFAppViewController {
      @objc func assignMoreDynamicTabsV2ExperimentIfNeeded() {
          do {
              let assignment = try WMFArticleTabsDataController.shared.assignExperimentV2IfNeeded()
-             
-             let groupName: String
-             switch assignment {
-             case .control: groupName = "dynamic_a"
-             case .groupB: groupName = "dynamic_b"
-             case .groupC: groupName = "dynamic_c"
-             }
-             
-             ArticleTabsFunnel.shared.logGroupAssignment(group: groupName)
+             ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_c")
          } catch {
              DDLogError("Failed to assign more dynamic tabs v2 experiment: \(error)")
-         }
-     }
-     
-     @objc func checkAndCreateInitialArticleTab() {
-        let dataController = WMFArticleTabsDataController.shared
-         Task {
-             do {
-                 try await dataController.checkAndCreateInitialArticleTabIfNeeded()
-             } catch {
-                 DDLogError("Failed to check or create initial article tab: \(error)")
-             }
          }
      }
      
@@ -1042,27 +1023,27 @@ extension WMFAppViewController {
         let newVC = newTabNavVC.viewControllers[0]
         
         var action: ActivityTabFunnel.Action? = nil
-        if newVC as? WMFActivityTabViewController != nil {
+        if newVC is WMFActivityTabViewController {
             action = .activityNavClick
-        } else if newVC as? WMFHistoryViewController != nil {
+        } else if newVC is WMFHistoryViewController {
             action = .historyNavClick
         }
         
         guard let action else { return }
         
-        if currentVC as? ExploreViewController != nil {
+        if currentVC is ExploreViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .feed, action: action)
-        } else if currentVC as? PlacesViewController != nil {
+        } else if currentVC is PlacesViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
-        } else if currentVC as? SavedViewController != nil {
+        } else if currentVC is SavedViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
-        } else if currentVC as? WMFHistoryViewController != nil {
+        } else if currentVC is WMFHistoryViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab, action: action)
-        } else if currentVC as? WMFActivityTabViewController != nil {
+        } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
-        } else if currentVC as? SearchViewController != nil {
+        } else if currentVC is SearchViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .search, action: action)
-        } else if currentVC as? WMFSettingsViewController != nil {
+        } else if currentVC is WMFSettingsViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .settings, action: action)
         } else if let article = currentVC as? ArticleViewController {
             guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {
