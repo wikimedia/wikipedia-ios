@@ -73,6 +73,15 @@
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
 "activity-tab-articles-read" = "Articles read this month";
 "activity-tab-articles-read-graph-label" = "Articles";
+"activity-tab-customize-all-time-impact" = "All time impact";
+"activity-tab-customize-editing-insights" = "Editing insights";
+"activity-tab-customize-empty-state" = "Activity modules are turned off. $1Switch them on$2 to see updates in this tab.";
+"activity-tab-customize-footer" = "Reading insights are based on your app languages in settings, and editing insights are limited to your primary app language.  Insights leverage local data, with the exception of edits which are public.";
+"activity-tab-customize-last-in-app-donation" = "Last in app donation";
+"activity-tab-customize-logout-warning" = "You must be logged in to turn on this activity insight.";
+"activity-tab-customize-reading-insights" = "Reading insights";
+"activity-tab-customize-time-spent-reading" = "Time spent reading";
+"activity-tab-customize-timeline-of-behavior" = "Timeline of behavior";
 "activity-tab-email-fifth-line" = "[Screenshots or Links]";
 "activity-tab-email-first-line" = "I have encountered a problem with Activity Tab Feature:";
 "activity-tab-email-fourth-line" = "[Describe desired behavior]";
@@ -218,6 +227,7 @@
 "continue-reading-empty-title" = "No recently read articles";
 "crimean-tatar-variants-alert-body" = "The Wikipedia app now supports the following Crimean Tatar variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Updates to Crimean Tatar variant support";
+"customize-action-title" = "Customize";
 "data-migration-status" = "Updating...";
 "description-add-title" = "Add description";
 "description-article-introduction-warning-message" = "The ordering of elements will be different in the editing view than article view.";
@@ -1466,7 +1476,6 @@
 "wikitext-upload-save" = "Publishing...";
 "wikitext-upload-save-anonymously-or-login" = "Edits will be attributed to the IP address of your device. If you $1Log in$2 you will have more privacy.";
 "wikitext-upload-save-anonymously-warning" = "Edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
-"wikitext-upload-save-sign-in" = "Log in";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
 "year-in-review-articles-slide-subtitle" = "Here were the articles you visited the most in 2025:\n$1";

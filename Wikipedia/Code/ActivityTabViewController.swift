@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMF
 import Combine
+import SwiftUI
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}
 
@@ -38,6 +39,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         updateLoginState()
         
+        viewModel.openCustomize = userDidTapCustomize
+        
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
             if onAppearance {
@@ -48,8 +51,22 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 }
             }
         }
-
         
+        viewModel.presentCustomizeLogInToastAction = { [weak self] in
+            guard let self else {
+                return
+            }
+            
+            let localizableStrings = WMFToastViewBasicViewModel.LocalizableStrings(title: WMFLocalizedString("activity-tab-customize-logout-warning", value: "You must be logged in to turn on this activity insight.", comment: "Activity tab - warning toast title displayed when a logged out user tries to enable a module requiring login."), buttonTitle: CommonStrings.logIn)
+            
+            let buttonAction: () -> Void = { [weak self] in
+                self?.presentFullLoginFlow(fromCustomizeToast: true)
+            }
+            
+            let viewModel = WMFToastViewBasicViewModel(localizableStrings: localizableStrings, buttonAction: buttonAction)
+            let view = WMFToastViewBasicView(viewModel: viewModel)
+            WMFToastPresenter.shared.presentToastView(view: view)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -82,9 +99,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
-    private func presentFullLoginFlow() {
-        ActivityTabFunnel.shared.logLoginClick()
-        LoginFunnel.shared.logLoginStartFromActivityTab()
+    private func presentFullLoginFlow(fromCustomizeToast: Bool = false) {
+        if fromCustomizeToast {
+            // TODO: Will probably need some special logging here.
+        } else {
+            ActivityTabFunnel.shared.logLoginClick()
+            LoginFunnel.shared.logLoginStartFromActivityTab()
+        }
+        
         guard let nav = navigationController else { return }
 
         let loginCoordinator = LoginCoordinator(
@@ -92,8 +114,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             theme: theme,
             loggingCategory: .activity
         )
+        
+        loginCoordinator.loginSuccessCompletion = {
+            WMFToastPresenter.shared.dismissCurrentToast()
+        }
 
         loginCoordinator.createAccountSuccessCustomDismissBlock = {
+            WMFToastPresenter.shared.dismissCurrentToast()
             if let createVC = nav.presentedViewController {
                 createVC.dismiss(animated: true)
             }
@@ -256,9 +283,37 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             self.userDidTapReportIssue()
             ActivityTabFunnel.shared.logActivityTabOverflowMenuProblem()
         })
-        let mainMenu = UIMenu(title: String(), children: [learnMoreAction, clearAction, reportIssueAction])
+        
+        let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gear), handler: { _ in
+            self.userDidTapCustomize()
+            // TODO: Log
+        })
+        
+        let mainMenu = UIMenu(title: String(), children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
 
         return mainMenu
+    }
+    
+    private func userDidTapCustomize() {
+        let customizeVC = self.customizeViewController()
+        navigationController?.present(customizeVC, animated: true)
+    }
+
+    private func customizeViewController() -> UIViewController {
+        let customizationView = WMFActivityTabCustomizeView(
+            viewModel: viewModel.customizeViewModel
+        )
+
+        let hostedView = WMFActivityCustomizeHostingController(
+            rootView: customizationView,
+            theme: theme
+        )
+
+        let navController = WMFComponentNavigationController(rootViewController: hostedView, modalPresentationStyle: .pageSheet)
+        navController.sheetPresentationController?.detents = [.large()]
+        navController.sheetPresentationController?.prefersGrabberVisible = true
+
+        return navController
     }
 
     var learnMoreAboutActivityURL: URL? {
@@ -548,5 +603,49 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
             })
         })
+    }
+}
+
+final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring {
+    
+    init(rootView: WMFActivityTabCustomizeView, theme: Theme) {
+        self.theme = theme
+        super.init(rootView: rootView)
+    }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private var theme: Theme
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let titleConfig = WMFNavigationBarTitleConfig(
+            title: CommonStrings.customize,
+            customView: nil,
+            alignment: .centerCompact
+        )
+
+        let closeConfig = WMFNavigationBarCloseButtonConfig(
+            text: CommonStrings.doneTitle,
+            target: self,
+            action: #selector(closeTapped),
+            alignment: .trailing
+        )
+
+        configureNavigationBar(
+            titleConfig: titleConfig,
+            closeButtonConfig: closeConfig,
+            profileButtonConfig: nil,
+            tabsButtonConfig: nil,
+            searchBarConfig: nil,
+            hideNavigationBarOnScroll: false
+        )
+    }
+
+    @objc private func closeTapped() {
+        dismiss(animated: true)
     }
 }

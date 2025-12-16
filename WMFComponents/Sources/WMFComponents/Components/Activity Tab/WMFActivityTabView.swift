@@ -21,9 +21,21 @@ public struct WMFActivityTabView: View {
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.authenticationState == .loggedIn {
-                loggedInList(proxy: proxy)
+                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
+                    customizedEmptyState()
+                } else {
+                    if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn || viewModel.customizeViewModel.isEditingInsightsOn {
+                        loggedInList(proxy: proxy)
+                    } else {
+                        loggedInListTimeline(proxy: proxy)
+                    }
+                }
             } else {
-                loggedOutList(proxy: proxy)
+                if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
+                    loggedOutList(proxy: proxy)
+                } else {
+                    customizedEmptyState()
+                }
             }
         }
     }
@@ -32,61 +44,67 @@ public struct WMFActivityTabView: View {
         List {
             Section {
                 VStack(spacing: 16) {
-                    headerView
-                        .accessibilityElement()
-                        .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
-                        .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
-
-                    VStack(alignment: .center, spacing: 8) {
-                        hoursMinutesRead
-                            .accessibilityLabel(viewModel.hoursMinutesRead)
-                        Text(viewModel.localizedStrings.timeSpentReading)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .accessibilityHidden(true)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .accessibilityElement()
-                    .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
-
-                    articlesReadModule(proxy: proxy)
-                        .padding(.horizontal, 16)
-                    savedArticlesModule
-                        .padding(.horizontal, 16)
-
-                    if !viewModel.articlesReadViewModel.topCategories.isEmpty {
-                        topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
-                            .padding(.horizontal, 16)
+                    if viewModel.customizeViewModel.isTimeSpentReadingOn {
+                        headerView
                             .accessibilityElement()
-                            .accessibilityLabel(viewModel.localizedStrings.topCategories)
-                            .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
+                            .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
+                            .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
+                        
+                        VStack(alignment: .center, spacing: 8) {
+                            hoursMinutesRead
+                                .accessibilityLabel(viewModel.hoursMinutesRead)
+                            Text(viewModel.localizedStrings.timeSpentReading)
+                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                                .foregroundColor(Color(uiColor: theme.text))
+                                .accessibilityHidden(true)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .accessibilityElement()
+                        .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                     }
                     
-                    if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
-                        HStack {
-                            YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                            Spacer()
-                        }
-                        .padding(.top, 12)
-                                    
-                        totalEditsView(amount: animatedGlobalEditCount)
+                    if viewModel.customizeViewModel.isReadingInsightsOn {
+                        articlesReadModule(proxy: proxy)
                             .padding(.horizontal, 16)
-                            .onAppear {
-                                if !hasShownGlobalEditsCard {
-                                    hasShownGlobalEditsCard = true
-                                    animatedGlobalEditCount = 0
-                                    withAnimation(.easeOut(duration: 0.6)) {
+                        savedArticlesModule
+                            .padding(.horizontal, 16)
+                        
+                        if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                            topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                                .padding(.horizontal, 16)
+                                .accessibilityElement()
+                                .accessibilityLabel(viewModel.localizedStrings.topCategories)
+                                .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
+                        }
+                    }
+                    
+                    if viewModel.customizeViewModel.isEditingInsightsOn {
+                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                            HStack {
+                                YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
+                                Spacer()
+                            }
+                            .padding(.top, 12)
+                            
+                            totalEditsView(amount: animatedGlobalEditCount)
+                                .padding(.horizontal, 16)
+                                .onAppear {
+                                    if !hasShownGlobalEditsCard {
+                                        hasShownGlobalEditsCard = true
+                                        animatedGlobalEditCount = 0
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = globalEditCount
+                                        }
+                                    } else {
                                         animatedGlobalEditCount = globalEditCount
                                     }
-                                } else {
-                                    animatedGlobalEditCount = globalEditCount
                                 }
-                            }
-                            .onChange(of: globalEditCount) { newValue in
-                                withAnimation(.easeOut(duration: 0.6)) {
-                                    animatedGlobalEditCount = newValue
+                                .onChange(of: globalEditCount) { newValue in
+                                    withAnimation(.easeOut(duration: 0.6)) {
+                                        animatedGlobalEditCount = newValue
+                                    }
                                 }
-                            }
+                        }
                     }
                 }
                 .padding(.bottom, 16)
@@ -103,14 +121,29 @@ public struct WMFActivityTabView: View {
                 )
             }
             .listRowSeparator(.hidden)
-
-            timelineSectionsList()
-                .id("timelineSection")
+            
+            if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
+                timelineSectionsList()
+                    .id("timelineSection")
+            }
         }
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .scrollContentBackground(.hidden)
         .listStyle(.grouped)
         .listCustomSectionSpacing(0)
+        .onAppear {
+            viewModel.fetchData(fromAppearance: true)
+        }
+    }
+    
+    private func loggedInListTimeline(proxy: ScrollViewProxy) -> some View {
+        List {
+            timelineSectionsList()
+        }
+        .scrollContentBackground(.hidden)
+        .listStyle(.grouped)
+        .listCustomSectionSpacing(0)
+        .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             viewModel.fetchData(fromAppearance: true)
         }
@@ -148,7 +181,6 @@ public struct WMFActivityTabView: View {
                 viewModel.onTapGlobalEdits?()
             }
         )
-        // .padding(.top, 20)
     }
 
     private func timelineSectionsList() -> some View {
@@ -399,6 +431,10 @@ public struct WMFActivityTabView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color(theme.baseBackground), lineWidth: 0.5)
         )
+    }
+    
+    private func customizedEmptyState() -> some View {
+        WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState) 
     }
 }
 

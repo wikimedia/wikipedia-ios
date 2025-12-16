@@ -13,6 +13,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     public var savedArticlesModuleDataDelegate: SavedArticleModuleDataDelegate?
     public var didTapPrimaryLoggedOutCTA: (() -> Void)?
+    public var presentCustomizeLogInToastAction: (() -> Void)? {
+        didSet {
+            self.customizeViewModel.presentLoggedInToastAction = self.presentCustomizeLogInToastAction
+        }
+    }
 
     // MARK: - Localization
 
@@ -44,8 +49,16 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let emptyViewSubtitleLoggedIn: String
         public let emptyViewTitleLoggedOut: String
         public let emptyViewSubtitleLoggedOut: String
-
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String) {
+        public let customizeTimeSpentReading: String
+        public let customizeReadingInsights: String
+        public let customizeEditingInsights: String
+        public let customizeAllTimeImpact: String
+        public let customizeLastInAppDonation: String
+        public let customizeTimelineOfBehavior: String
+        public let customizeFooter: String
+        public let customizeEmptyState: String
+        
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -73,6 +86,14 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.emptyViewSubtitleLoggedIn = emptyViewSubtitleLoggedIn
             self.emptyViewTitleLoggedOut = emptyViewTitleLoggedOut
             self.emptyViewSubtitleLoggedOut = emptyViewSubtitleLoggedOut
+            self.customizeTimeSpentReading = customizeTimeSpentReading
+            self.customizeReadingInsights = customizeReadingInsights
+            self.customizeEditingInsights = customizeEditingInsights
+            self.customizeAllTimeImpact = customizeAllTimeImpact
+            self.customizeLastInAppDonation = customizeLastInAppDonation
+            self.customizeTimelineOfBehavior = customizeTimelineOfBehavior
+            self.customizeFooter = customizeFooter
+            self.customizeEmptyState = customizeEmptyState
         }
     }
 
@@ -85,6 +106,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
     @Published public var timelineViewModel: TimelineViewModel
     @Published public var emptyViewModel: WMFEmptyViewModel
+    @Published public var customizeViewModel: WMFActivityTabCustomizeViewModel
     @Published public var shouldShowLogInPrompt: Bool = false
     @Published var sections: [TimelineViewModel.TimelineSection] = []
 
@@ -92,6 +114,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var isEmpty: Bool = false
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
+    public var openCustomize: () -> Void = { }
+    
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Init
 
@@ -124,6 +149,16 @@ public final class WMFActivityTabViewModel: ObservableObject {
         )
         
         self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authenticationState == .loggedIn)
+        
+        let customizeViewModel = WMFActivityTabCustomizeViewModel(localizedStrings: WMFActivityTabCustomizeViewModel.LocalizedStrings(timeSpentReading: localizedStrings.customizeTimeSpentReading, readingInsights: localizedStrings.customizeReadingInsights, editingInsights: localizedStrings.customizeEditingInsights, allTimeImpact: localizedStrings.customizeAllTimeImpact, lastInAppDonation: localizedStrings.customizeLastInAppDonation, timeline: localizedStrings.customizeTimelineOfBehavior, footer: localizedStrings.customizeFooter), isLoggedIn: authenticationState == .loggedIn)
+        self.customizeViewModel = customizeViewModel
+        
+        // Unfortunately this part is needed for SwiftUI view to see changes in binding. Alternative is to have the toggle booleans live here within WMFActivityTabViewModel
+        customizeViewModel.objectWillChange
+                    .sink { [weak self] _ in
+                        self?.objectWillChange.send()
+                    }
+                    .store(in: &cancellables)
         
         self.timelineViewModel.activityTabViewModel = self
         
@@ -169,7 +204,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         } catch {
             debugPrint("Error getting global edit count: \(error)")
         }
-
     }
 
     public func updateUsername(username: String) {
@@ -204,6 +238,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         if self.authenticationState != .loggedIn {
             globalEditCount = nil
         }
+        self.customizeViewModel.isLoggedIn = authState == .loggedIn
     }
 
     public var hoursMinutesRead: String {

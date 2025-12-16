@@ -73,6 +73,15 @@
 "activity-tab-additional-thoughts" = "Asking user if they have any comments";
 "activity-tab-articles-read" = "Title for module about articles read this month, displayed below the time spent reading this week";
 "activity-tab-articles-read-graph-label" = "Activity tab articles read graph axis label";
+"activity-tab-customize-all-time-impact" = "Title for all time impact";
+"activity-tab-customize-editing-insights" = "Title for editing insights";
+"activity-tab-customize-empty-state" = "Empty state for customization on activity tab, $1 is the opening link, $2 is the closing.";
+"activity-tab-customize-footer" = "Footer for customize activity tab page.";
+"activity-tab-customize-last-in-app-donation" = "Title for last in-app donation";
+"activity-tab-customize-logout-warning" = "Activity tab - warning toast title displayed when a logged out user tries to enable a module requiring login.";
+"activity-tab-customize-reading-insights" = "Title for reading insights";
+"activity-tab-customize-time-spent-reading" = "Title for time spent reading";
+"activity-tab-customize-timeline-of-behavior" = "Title for timeline of behavior";
 "activity-tab-email-fifth-line" = "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.";
 "activity-tab-email-first-line" = "Text for Activity Tab pre-filled issue report email";
 "activity-tab-email-fourth-line" = "Text for Activity Tab pre-filled issue report email. This text is intended to be replaced by the user with a description of the desired behavior";
@@ -218,6 +227,7 @@
 "continue-reading-empty-title" = "No recently read articles";
 "crimean-tatar-variants-alert-body" = "Body text of alert used to inform users about Crimean Tatar variant support. Please do not translate the newlines (\n) or Crimean Tatar characters (къырымтатарджа, etc.).";
 "crimean-tatar-variants-alert-title" = "Title of alert used to inform users about Crimean Tatar variant support.";
+"customize-action-title" = "Title for action that allows users to customize their preferences.";
 "data-migration-status" = "Message displayed during a long running data migration.";
 "description-add-title" = "Title text for description addition screen";
 "description-article-introduction-warning-message" = "Description of alert dialouge to show ordering is different";
@@ -735,7 +745,7 @@
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
 "login-title" = "Title for log in interface";
 "main-menu-about" = "Button for showing information about the app.";
-"main-menu-account-login" = "Button text for logging in. {{Identical|Log in}}";
+"main-menu-account-login" = "Button text for logging in.";
 "main-menu-account-logout" = "Button text for logging out.";
 "main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
 "main-menu-account-logout-are-you-sure-message" = "Message explaining what happens to local data when logging out.";
@@ -1466,7 +1476,6 @@
 "wikitext-upload-save" = "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}";
 "wikitext-upload-save-anonymously-or-login" = "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting.";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
-"wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
 "wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
 "year-in-review-articles-slide-subtitle" = "Year in review articles slide subtitle, $1 is the list of top articles.";
