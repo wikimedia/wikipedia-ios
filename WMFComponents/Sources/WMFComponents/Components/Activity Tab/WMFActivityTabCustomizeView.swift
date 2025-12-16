@@ -5,7 +5,6 @@ import WMFData
 public struct WMFActivityTabCustomizeView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabCustomizeViewModel
-    @Environment(\.dismiss) private var dismiss
 
     public init(viewModel: WMFActivityTabCustomizeViewModel) {
         self.viewModel = viewModel

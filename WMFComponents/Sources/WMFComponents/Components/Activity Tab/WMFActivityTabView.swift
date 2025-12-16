@@ -24,7 +24,11 @@ public struct WMFActivityTabView: View {
                 if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
                     customizedEmptyState()
                 } else {
-                    loggedInList(proxy: proxy)
+                    if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn || viewModel.customizeViewModel.isEditingInsightsOn {
+                        loggedInList(proxy: proxy)
+                    } else {
+                        loggedInListTimeline(proxy: proxy)
+                    }
                 }
             } else {
                 if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
@@ -58,7 +62,7 @@ public struct WMFActivityTabView: View {
                         .accessibilityElement()
                         .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                     }
-
+                    
                     if viewModel.customizeViewModel.isReadingInsightsOn {
                         articlesReadModule(proxy: proxy)
                             .padding(.horizontal, 16)
@@ -117,7 +121,7 @@ public struct WMFActivityTabView: View {
                 )
             }
             .listRowSeparator(.hidden)
-
+            
             if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
                 timelineSectionsList()
                     .id("timelineSection")
@@ -127,6 +131,19 @@ public struct WMFActivityTabView: View {
         .scrollContentBackground(.hidden)
         .listStyle(.grouped)
         .listCustomSectionSpacing(0)
+        .onAppear {
+            viewModel.fetchData(fromAppearance: true)
+        }
+    }
+    
+    private func loggedInListTimeline(proxy: ScrollViewProxy) -> some View {
+        List {
+            timelineSectionsList()
+        }
+        .scrollContentBackground(.hidden)
+        .listStyle(.grouped)
+        .listCustomSectionSpacing(0)
+        .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             viewModel.fetchData(fromAppearance: true)
         }
@@ -164,7 +181,6 @@ public struct WMFActivityTabView: View {
                 viewModel.onTapGlobalEdits?()
             }
         )
-        // .padding(.top, 20)
     }
 
     private func timelineSectionsList() -> some View {

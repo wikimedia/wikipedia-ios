@@ -316,10 +316,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         return navController
     }
 
-    @objc private func dismissCustomizeView() {
-        navigationController?.presentedViewController?.dismiss(animated: true)
-    }
-
     var learnMoreAboutActivityURL: URL? {
 
         guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
