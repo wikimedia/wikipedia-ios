@@ -84,6 +84,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var authenticationState: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
+    @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
+    @Published var contributionsViewModel: ContributionsViewModel?
+    @Published var allTimeImpactViewModel: AllTimeImpactViewModel?
+    @Published var recentActivityViewModel: RecentActivityViewModel?
+    @Published var articleViewsViewModel: ArticleViewsViewModel?
     @Published public var timelineViewModel: TimelineViewModel
     @Published public var emptyViewModel: WMFEmptyViewModel
     @Published public var shouldShowLogInPrompt: Bool = false
@@ -178,9 +183,13 @@ public final class WMFActivityTabViewModel: ObservableObject {
         guard let userID else { return }
         do {
             let response = try await dataController.getUserImpactData(userID: userID)
-            print(response)
+            self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(response: response)
+            self.contributionsViewModel = ContributionsViewModel(response: response)
+            self.allTimeImpactViewModel = AllTimeImpactViewModel(response: response)
+            self.recentActivityViewModel = RecentActivityViewModel(response: response)
+            self.articleViewsViewModel = ArticleViewsViewModel(response: response)
         } catch {
-            debugPrint("Error getting global edit count: \(error)")
+            debugPrint("Error getting user impact: \(error)")
         }
     }
 

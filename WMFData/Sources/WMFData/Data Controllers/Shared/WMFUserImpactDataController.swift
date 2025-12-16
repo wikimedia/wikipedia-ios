@@ -5,19 +5,19 @@ public actor WMFUserImpactDataController {
     public struct APIResponse {
         
         public struct TopViewedArticle {
-            let title: String
+            public let title: String
             let views: [Date: Int]
-            let viewsCount: Int
+            public let viewsCount: Int
         }
         
         let totalPageviewsCount: Int?
-        let topViewedArticles: [TopViewedArticle]
-        let editCountByDay: [Date: Int]
-        let totalEditsCount: Int?
-        let givenThanksCount: Int?
-        let longestEditingStreak: Int?
-        let lastEditTimestamp: Date?
-        let dailyTotalViews: [Date: Int]
+        public let topViewedArticles: [TopViewedArticle]
+        public let editCountByDay: [Date: Int]
+        public let totalEditsCount: Int?
+        public let givenThanksCount: Int?
+        public let longestEditingStreak: Int?
+        public let lastEditTimestamp: Date?
+        public let dailyTotalViews: [Date: Int]
     }
     
     public static let shared = WMFUserImpactDataController()

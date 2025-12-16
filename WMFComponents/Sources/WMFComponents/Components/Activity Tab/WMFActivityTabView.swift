@@ -62,12 +62,34 @@ public struct WMFActivityTabView: View {
                             .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
                     }
                     
+                    // todo: put this in own section
                     if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                        // todo: put this as section header
                         HStack {
                             YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
                             Spacer()
                         }
                         .padding(.top, 12)
+                        
+                        if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
+                            MostViewedArticlesView(viewModel: mostViewedArticlesViewModel)
+                        }
+                        
+                        if let contributionsViewModel = viewModel.contributionsViewModel {
+                            ContributionsView(viewModel: contributionsViewModel)
+                        }
+                        
+                        if let allTimeImpactViewModel = viewModel.allTimeImpactViewModel {
+                            AllTimeImpactView(viewModel: allTimeImpactViewModel)
+                        }
+                        
+                        if let recentActivityViewModel = viewModel.recentActivityViewModel {
+                            RecentActivityView(viewModel: recentActivityViewModel)
+                        }
+                        
+                        if let articleViewsViewModel = viewModel.articleViewsViewModel {
+                            ArticleViewsView(viewModel: articleViewsViewModel)
+                        }
                                     
                         totalEditsView(amount: animatedGlobalEditCount)
                             .padding(.horizontal, 16)
@@ -591,5 +613,95 @@ struct YourImpactHeaderView: View {
             .textCase(.none)
             .padding(.horizontal, 16)
         .accessibilityAddTraits(.isHeader)
+    }
+}
+
+private struct MostViewedArticlesView: View {
+    let viewModel: MostViewedArticlesViewModel
+    
+    var body: some View {
+        // TODO: TEMP UI
+        VStack {
+            Text("Most viewed")
+                .bold()
+            
+            ForEach(viewModel.titles, id: \.self) { title in
+                Text(title)
+            }
+        }
+    }
+}
+
+private struct ContributionsView: View {
+    let viewModel: ContributionsViewModel
+    
+    var body: some View {
+        // TODO: TEMP UI
+        VStack {
+            Text("Contributions")
+                .bold()
+            Text("This month: \(viewModel.thisMonthCount)")
+            Text("Last month: \(viewModel.lastMonthCount)")
+        }
+    }
+}
+
+private struct AllTimeImpactView: View {
+    let viewModel: AllTimeImpactViewModel
+    
+    var body: some View {
+        // TODO: TEMP UI
+        VStack {
+            Text("All time impact")
+                .bold()
+            if let totalEdits = viewModel.totalEdits {
+                Text("Total edits: \(totalEdits)")
+            } else {
+                Text("Total edits: 0")
+            }
+            if let thanks = viewModel.thanksCount {
+                Text("Thanks count: \(thanks)")
+            } else {
+                Text("Thanks count: 0")
+            }
+            if let streak = viewModel.bestStreak {
+                Text("Best streak: \(streak)")
+            } else {
+                Text("Best streak: -")
+            }
+            if let lastEdited = viewModel.lastEdited {
+                Text("Last edited: \(lastEdited)")
+            } else {
+                Text("Last edited: -")
+            }
+        }
+    }
+}
+
+private struct RecentActivityView: View {
+    let viewModel: RecentActivityViewModel
+    
+    var body: some View {
+        // TODO: TEMP UI
+        VStack {
+            Text("Recent Activity")
+                .bold()
+            Text("Edit count: \(viewModel.editCount)")
+            Text("Start date: \(viewModel.startDate)")
+            Text("End count: \(viewModel.endDate)")
+        }
+    }
+}
+
+private struct ArticleViewsView: View {
+    let viewModel: ArticleViewsViewModel
+    
+    var body: some View {
+        // TODO: TEMP UI
+        VStack {
+            Text("Views on articles you've edited")
+                .bold()
+            Text("Views count: \(viewModel.totalViewsCount)")
+        }
     }
 }
