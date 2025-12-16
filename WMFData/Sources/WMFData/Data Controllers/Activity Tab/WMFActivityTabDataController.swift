@@ -389,6 +389,10 @@ public actor WMFActivityTabDataController {
             throw CustomError.unexpectedError(error)
         }
     }
+    
+    public func getUserImpactData() async throws -> WMFUserImpactDataController.APIResponse {
+        let userInfoDataController = WMFGlobalUserInfoDataController(project: proj)
+    }
 
     // MARK: - Experiment
 
