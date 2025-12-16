@@ -358,8 +358,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dubbeltik om automatische maandelijkse donaties van dit bedrag in te schakelen.";
 "donate-accessibility-textfield-hint" = "Voer een aangepast bedrag in om te doneren.";
 "donate-accessibility-transaction-fee-hint" = "Dubbeltik om de transactiekosten toe te voegen aan het donatiebedrag.";
-// Fuzzy
-"donate-already-donated" = "Bedankt, beste donateur! Dankzij uw bijdrage kunnen Wikipedia en haar zustersites zich blijven ontwikkelen.";
+"donate-already-donated" = "Bedankt, beste donateur! Door uw vrijgevingheid kunnen Wikipedia en andere projecten voor vrije kennis blijven floreren.";
 "donate-apple-fine-print" = "Apple is niet verantwoordelijk voor het inzamelen van geld voor dit doel.";
 "donate-email-opt-in-text" = "Ja, de Wikimedia Foundation mag mij af en toe een e-mail sturen.";
 "donate-help-frequently-asked-questions" = "Veelgestelde vragen";

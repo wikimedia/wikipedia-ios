@@ -108,11 +108,15 @@
 "activity-tab-email-second-line" = "- [Опишіть конкретну проблему]";
 "activity-tab-email-third-line" = "Бажана поведінка програми:";
 "activity-tab-email-title" = "Звіт про проблему – вкладка «Активність»";
+"activity-tab-empty-subtitle" = "Почніть читати та редагувати, щоб створити свою історію";
+"activity-tab-empty-title" = "Нічого показати";
 "activity-tab-generic-no-edits" = "Ви ще не редагували цього тижня. Почніть зараз, щоб відстежувати свій внесок.";
 "activity-tab-hours-minutes-read" = "$1 год $2 хв";
 "activity-tab-hours-on-wikipedia-ios" = "У ВІКІПЕДІЇ iOS";
+"activity-tab-log-in-or-create-account" = "Увійдіть або створіть обліковий запис для перегляду редагувань та прочитаного.";
 "activity-tab-logged-out-subtitle" = "Увійдіть або створіть обліковий запис, щоб переглядати свою активність у додатку Вікіпедії.";
 "activity-tab-logged-out-title" = "Див. більше статистики читання та редагування";
+"activity-tab-logged-out-track-what-youve-read" = "У новий спосіб відстежувати те, що ви вже читали та переглядати ваш внесок протягом часу";
 "activity-tab-menu-clear-history" = "Очистити історію читання";
 "activity-tab-neutral" = "Нейтрально";
 "activity-tab-no-edits-title" = "Ви ще не редагували цього тижня. Додайте зображення, щоб покращити розуміння статті.";
@@ -131,6 +135,7 @@
 "activity-tab-satisfied" = "Задоволений/а";
 "activity-tab-saved" = "Статті, збережені цього місяця";
 "activity-tab-start-editing" = "Почати редагування";
+"activity-tab-survey-subtitle" = "Допоможіть покращити функцію \"Активність\". Чи ви задоволені цією функцією?";
 "activity-tab-survey-title" = "Опитування задоволеності";
 "activity-tab-time-spent-reading" = "Час, витрачений на читання цього тижня";
 "activity-tab-title" = "Активність";
@@ -147,6 +152,7 @@
 "activity-tab-you-edited" = "Цього тижня ви редагували {{PLURAL:$1|$1 раз|$1 рази|$1 разів}}.";
 "activity-tab-you-read" = "Цього тижня ви прочитали {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
 "activity-tab-you-saved" = "Цього тижня ви зберегли {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}.";
+"activity-tab-your-impact" = "Ваш вплив";
 "add-articles-to-reading-list" = "Додати {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
 "advanced-settings-title" = "Розширені налаштування";
 "alert-temporary-account" = "Ви використовуєте тимчасовий обліковий запис. Термін дії облікового запису закінчиться через 90 днів.";
