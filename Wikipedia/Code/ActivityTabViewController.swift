@@ -39,6 +39,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         updateLoginState()
         
+        viewModel.openCustomize = userDidTapCustomize
+        
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
             if onAppearance {

@@ -423,17 +423,28 @@ public struct WMFActivityTabView: View {
             if let image = UIImage(named: "empty_activity_tab", in: .module, with: nil) {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 132, height: 118)
             }
-            Text(viewModel.localizedStrings.noUsernameReading)
-                .font(Font(WMFFont.for(.callout)))
-                .foregroundColor(Color(appEnvironment.theme.text))
-                .padding([.top], 12)
-                .padding([.bottom], 8)
+            WMFHtmlText(html: viewModel.localizedStrings.customizeEmptyState, styles: summaryStyles)
+                .padding(.top, 12)
+                .padding(.bottom, 8)
                 .multilineTextAlignment(.center)
+                .overlay(
+                    Rectangle()
+                        .fill(Color.clear)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            viewModel.openCustomize()
+                        }
+                )
             Spacer()
         }
+        .padding(.horizontal, 16)
+    }
+    
+    private var summaryStyles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.subheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.italicSubheadline), boldItalicsFont: WMFFont.for(.boldItalicSubheadline), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 }
 

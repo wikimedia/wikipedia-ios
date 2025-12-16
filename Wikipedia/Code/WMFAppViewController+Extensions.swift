@@ -1361,6 +1361,14 @@ extension WMFAppViewController {
         let customizeTimelineOfBehavior = WMFLocalizedString("activity-tab-customize-timeline-of-behavior", value: "Timeline of behavior", comment: "Title for timeline of behavior")
         let customizeFooter = WMFLocalizedString("activity-tab-customize-footer", value: "Reading insights are based on your app languages in settings, and editing insights are limited to your primary app language.  Insights leverage local data, with the exception of edits which are public.", comment: "Footer for customize activity tab page.")
         
+        func customizeEmptyState() -> String {
+            // Fake link because it's needed
+            let openingLink = "<a href=\"www.wikipedia.org\">"
+            let closingLink = "</a>"
+            let format = WMFLocalizedString("activity-tab-customize-empty-state", value: "Activity modules are turned off. %1$@Switch them on%2$@ to see updates in this tab.", comment: "Empty state for customization on activity tab, $1 is the opening link, $2 is the closing.")
+            return String.localizedStringWithFormat(format, openingLink, closingLink)
+        }
+        
         var authdValue: LoginState = .loggedOut
         if dataStore.authenticationManager.authStateIsPermanent {
             authdValue = .loggedIn
@@ -1406,7 +1414,8 @@ extension WMFAppViewController {
                     customizeAllTimeImpact: customizeAllTimeImpact,
                     customizeLastInAppDonation: customizeLastInAppDonation,
                     customizeTimelineOfBehavior: customizeTimelineOfBehavior,
-                    customizeFooter: customizeFooter),
+                    customizeFooter: customizeFooter,
+                    customizeEmptyState: customizeEmptyState()),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 

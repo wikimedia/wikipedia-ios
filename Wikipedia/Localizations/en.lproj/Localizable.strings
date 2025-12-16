@@ -75,6 +75,7 @@
 "activity-tab-articles-read-graph-label" = "Articles";
 "activity-tab-customize-all-time-impact" = "All time impact";
 "activity-tab-customize-editing-insights" = "Editing insights";
+"activity-tab-customize-empty-state" = "Activity modules are turned off. $1Switch them on$2 to see updates in this tab.";
 "activity-tab-customize-footer" = "Reading insights are based on your app languages in settings, and editing insights are limited to your primary app language.  Insights leverage local data, with the exception of edits which are public.";
 "activity-tab-customize-last-in-app-donation" = "Last in app donation";
 "activity-tab-customize-logout-warning" = "You must be logged in to turn on this activity insight.";
