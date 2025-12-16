@@ -14,7 +14,7 @@ final class ArticleViewsViewModel: ObservableObject {
     let totalViewsCount: Int
     let views: [View]
 
-    init(data: WMFUserImpactData) {
+    init?(data: WMFUserImpactData) {
         let calendar = Calendar.current
 
         // Normalize to start-of-day
@@ -39,6 +39,10 @@ final class ArticleViewsViewModel: ObservableObject {
 
             views.append(View(date: date, count: count))
             total += count
+        }
+        
+        guard total > 0 else {
+            return nil
         }
 
         self.views = views

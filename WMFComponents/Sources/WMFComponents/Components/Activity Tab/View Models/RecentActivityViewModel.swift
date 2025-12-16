@@ -16,7 +16,7 @@ final class RecentActivityViewModel: ObservableObject {
     let endDate: Date
     let edits: [Edit]
 
-    init(data: WMFUserImpactData) {
+    init?(data: WMFUserImpactData) {
         let calendar = Calendar.current
 
         // Normalize to start-of-day so keys line up
@@ -41,6 +41,10 @@ final class RecentActivityViewModel: ObservableObject {
 
             edits.append(Edit(date: date, count: count))
             totalCount += count
+        }
+        
+        guard totalCount > 0 else {
+            return nil
         }
 
         self.startDate = startDate

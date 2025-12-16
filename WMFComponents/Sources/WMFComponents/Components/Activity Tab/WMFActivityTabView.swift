@@ -50,49 +50,55 @@ public struct WMFActivityTabView: View {
                     .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
 
                     articlesReadModule(proxy: proxy)
-                        .padding(.horizontal, 16)
                     savedArticlesModule
-                        .padding(.horizontal, 16)
 
                     if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                         topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
-                            .padding(.horizontal, 16)
                             .accessibilityElement()
                             .accessibilityLabel(viewModel.localizedStrings.topCategories)
                             .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
                     }
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
+                .listRowInsets(EdgeInsets())
+                .background(
+                    LinearGradient(
+                        stops: [
+                            Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                            Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+            }
+            .listRowSeparator(.hidden)
+            
+            Section(header: YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)) {
+                VStack(spacing: 16) {
+                    if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
+                        MostViewedArticlesView(viewModel: mostViewedArticlesViewModel)
+                    }
                     
-                    // todo: put this in own section
+                    if let contributionsViewModel = viewModel.contributionsViewModel {
+                        ContributionsView(viewModel: contributionsViewModel)
+                    }
+                    
+                    if let allTimeImpactViewModel = viewModel.allTimeImpactViewModel {
+                        AllTimeImpactView(viewModel: allTimeImpactViewModel)
+                    }
+                    
+                    if let recentActivityViewModel = viewModel.recentActivityViewModel {
+                        RecentActivityView(viewModel: recentActivityViewModel)
+                    }
+                    
+                    if let articleViewsViewModel = viewModel.articleViewsViewModel {
+                        ArticleViewsView(viewModel: articleViewsViewModel)
+                    }
+                    
                     if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
-                        // todo: put this as section header
-                        HStack {
-                            YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                            Spacer()
-                        }
-                        .padding(.top, 12)
-                        
-                        if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
-                            MostViewedArticlesView(viewModel: mostViewedArticlesViewModel)
-                        }
-                        
-                        if let contributionsViewModel = viewModel.contributionsViewModel {
-                            ContributionsView(viewModel: contributionsViewModel)
-                        }
-                        
-                        if let allTimeImpactViewModel = viewModel.allTimeImpactViewModel {
-                            AllTimeImpactView(viewModel: allTimeImpactViewModel)
-                        }
-                        
-                        if let recentActivityViewModel = viewModel.recentActivityViewModel {
-                            RecentActivityView(viewModel: recentActivityViewModel)
-                        }
-                        
-                        if let articleViewsViewModel = viewModel.articleViewsViewModel {
-                            ArticleViewsView(viewModel: articleViewsViewModel)
-                        }
-                                    
                         totalEditsView(amount: animatedGlobalEditCount)
-                            .padding(.horizontal, 16)
                             .onAppear {
                                 if !hasShownGlobalEditsCard {
                                     hasShownGlobalEditsCard = true
@@ -111,6 +117,7 @@ public struct WMFActivityTabView: View {
                             }
                     }
                 }
+                .padding(.horizontal, 16)
                 .padding(.bottom, 16)
                 .listRowInsets(EdgeInsets())
                 .background(
@@ -607,12 +614,15 @@ struct YourImpactHeaderView: View {
     }
     
     var body: some View {
-        Text(title)
-            .font(Font(WMFFont.for(.boldHeadline)))
-            .foregroundColor(Color(uiColor: theme.text))
-            .textCase(.none)
-            .padding(.horizontal, 16)
-        .accessibilityAddTraits(.isHeader)
+        HStack {
+            Text(title)
+                .font(Font(WMFFont.for(.boldHeadline)))
+                .foregroundColor(Color(uiColor: theme.text))
+                .textCase(.none)
+                .accessibilityAddTraits(.isHeader)
+            Spacer()
+        }
+        .padding(.top, 12)
     }
 }
 
