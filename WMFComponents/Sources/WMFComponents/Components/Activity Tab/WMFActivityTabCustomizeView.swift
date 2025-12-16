@@ -21,6 +21,7 @@ public struct WMFActivityTabCustomizeView: View {
                     viewModel.localizedStrings.timeSpentReading,
                     isOn: $viewModel.isTimeSpentReadingOn
                 )
+                .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
                 .onChange(of: viewModel.isTimeSpentReadingOn) { newValue in
                     guard newValue == true else { return }
                     guard viewModel.isLoggedIn else {
@@ -34,6 +35,7 @@ public struct WMFActivityTabCustomizeView: View {
                     viewModel.localizedStrings.readingInsights,
                     isOn: $viewModel.isReadingInsightsOn
                 )
+                .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
                 .onChange(of: viewModel.isReadingInsightsOn) { newValue in
                     guard newValue == true else { return }
                     guard viewModel.isLoggedIn else {
@@ -47,6 +49,7 @@ public struct WMFActivityTabCustomizeView: View {
                     viewModel.localizedStrings.editingInsights,
                     isOn: $viewModel.isEditingInsightsOn
                 )
+                .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
                 .onChange(of: viewModel.isEditingInsightsOn) { newValue in
                     guard newValue == true else { return }
                     guard viewModel.isLoggedIn else {
@@ -60,12 +63,25 @@ public struct WMFActivityTabCustomizeView: View {
                     viewModel.localizedStrings.timeline,
                     isOn: $viewModel.isTimelineOfBehaviorOn
                 )
+                .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
             } footer: {
                 Text(viewModel.localizedStrings.footer)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
             }
         }
-        .background(Color(uiColor: theme.midBackground))
+        .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
+        .listStyle(GroupedListStyle())
+        .listBackgroundColor(Color(theme.baseBackground))
+        .onAppear(perform: {
+            if #unavailable(iOS 16) {
+                UITableView.appearance().backgroundColor = UIColor.clear
+            }
+        })
+        .onDisappear(perform: {
+            if #unavailable(iOS 16) {
+                UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
+            }
+        })
     }
 }
