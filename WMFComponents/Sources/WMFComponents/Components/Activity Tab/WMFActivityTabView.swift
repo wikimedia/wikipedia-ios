@@ -625,7 +625,7 @@ private struct MostViewedArticlesView: View {
             Text("Most viewed")
                 .bold()
             
-            ForEach(viewModel.titles, id: \.self) { title in
+            ForEach(viewModel.topViewedArticles.map(\.title), id: \.self) { title in
                 Text(title)
             }
         }

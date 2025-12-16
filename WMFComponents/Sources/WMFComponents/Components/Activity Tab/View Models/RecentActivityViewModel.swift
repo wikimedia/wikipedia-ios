@@ -16,7 +16,7 @@ final class RecentActivityViewModel: ObservableObject {
     let endDate: Date
     let edits: [Edit]
 
-    init(response: WMFUserImpactDataController.APIResponse) {
+    init(data: WMFUserImpactData) {
         let calendar = Calendar.current
 
         // Normalize to start-of-day so keys line up
@@ -25,7 +25,7 @@ final class RecentActivityViewModel: ObservableObject {
 
         // Normalize response dates to start-of-day
         let normalizedCounts: [Date: Int] = Dictionary(
-            response.editCountByDay.map { key, value in
+            data.editCountByDay.map { key, value in
                 (calendar.startOfDay(for: key), value)
             },
             uniquingKeysWith: +

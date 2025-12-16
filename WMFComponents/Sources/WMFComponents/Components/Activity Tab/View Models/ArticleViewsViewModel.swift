@@ -14,7 +14,7 @@ final class ArticleViewsViewModel: ObservableObject {
     let totalViewsCount: Int
     let views: [View]
 
-    init(response: WMFUserImpactDataController.APIResponse) {
+    init(data: WMFUserImpactData) {
         let calendar = Calendar.current
 
         // Normalize to start-of-day
@@ -23,7 +23,7 @@ final class ArticleViewsViewModel: ObservableObject {
 
         // Normalize response dates
         let normalizedCounts: [Date: Int] = Dictionary(
-            response.dailyTotalViews.map { date, count in
+            data.dailyTotalViews.map { date, count in
                 (calendar.startOfDay(for: date), count)
             },
             uniquingKeysWith: +

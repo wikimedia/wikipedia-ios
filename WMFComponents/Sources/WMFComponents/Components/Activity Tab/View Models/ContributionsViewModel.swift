@@ -6,7 +6,7 @@ final class ContributionsViewModel: ObservableObject {
     let thisMonthCount: Int
     let lastMonthCount: Int
 
-    init(response: WMFUserImpactDataController.APIResponse) {
+    init(data: WMFUserImpactData) {
         let calendar = Calendar.current
         let now = Date()
         
@@ -20,7 +20,7 @@ final class ContributionsViewModel: ObservableObject {
         var thisMonthCount: Int = 0
         var lastMonthCount: Int = 0
         
-        for (date, count) in response.editCountByDay {
+        for (date, count) in data.editCountByDay {
             let components = calendar.dateComponents([.year, .month], from: date)
             
             if components.year == thisMonthComponents.year &&

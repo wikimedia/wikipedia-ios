@@ -390,7 +390,7 @@ public actor WMFActivityTabDataController {
         }
     }
     
-    public func getUserImpactData(userID: Int) async throws -> WMFUserImpactDataController.APIResponse {
+    public func getUserImpactData(userID: Int) async throws -> WMFUserImpactData {
         
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             throw WMFDataControllerError.failureCreatingRequestURL

@@ -3,9 +3,9 @@ import SwiftUI
 
 @MainActor
 final class MostViewedArticlesViewModel: ObservableObject {
-    let titles: [String]
+    let topViewedArticles: [WMFUserImpactData.TopViewedArticle]
     
-    init(response: WMFUserImpactDataController.APIResponse) {
-        self.titles = Array(response.topViewedArticles.sorted { $0.viewsCount > $1.viewsCount }.prefix(3)).map { $0.title }
+    init(data: WMFUserImpactData) {
+        self.topViewedArticles = Array(data.topViewedArticles.prefix(3))
     }
 }

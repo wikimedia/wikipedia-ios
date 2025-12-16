@@ -182,12 +182,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
         guard case .loggedIn = authenticationState else { return }
         guard let userID else { return }
         do {
-            let response = try await dataController.getUserImpactData(userID: userID)
-            self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(response: response)
-            self.contributionsViewModel = ContributionsViewModel(response: response)
-            self.allTimeImpactViewModel = AllTimeImpactViewModel(response: response)
-            self.recentActivityViewModel = RecentActivityViewModel(response: response)
-            self.articleViewsViewModel = ArticleViewsViewModel(response: response)
+            let data = try await dataController.getUserImpactData(userID: userID)
+            self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data)
+            self.contributionsViewModel = ContributionsViewModel(data: data)
+            self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
+            self.recentActivityViewModel = RecentActivityViewModel(data: data)
+            self.articleViewsViewModel = ArticleViewsViewModel(data: data)
         } catch {
             debugPrint("Error getting user impact: \(error)")
         }

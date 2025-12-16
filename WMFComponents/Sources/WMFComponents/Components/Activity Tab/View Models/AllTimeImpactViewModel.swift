@@ -8,10 +8,10 @@ final class AllTimeImpactViewModel: ObservableObject {
     let thanksCount: Int?
     let lastEdited: Date?
 
-    init(response: WMFUserImpactDataController.APIResponse) {
-        self.totalEdits = response.totalEditsCount
-        self.bestStreak = response.longestEditingStreak
-        self.thanksCount = response.givenThanksCount
-        self.lastEdited = response.lastEditTimestamp
+    init(data: WMFUserImpactData) {
+        self.totalEdits = data.totalEditsCount
+        self.bestStreak = data.longestEditingStreak
+        self.thanksCount = data.givenThanksCount
+        self.lastEdited = data.lastEditTimestamp
     }
 }

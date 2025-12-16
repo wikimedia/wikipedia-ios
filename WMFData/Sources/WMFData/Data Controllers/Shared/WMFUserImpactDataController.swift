@@ -2,24 +2,6 @@ import Foundation
 
 public actor WMFUserImpactDataController {
     
-    public struct APIResponse {
-        
-        public struct TopViewedArticle {
-            public let title: String
-            let views: [Date: Int]
-            public let viewsCount: Int
-        }
-        
-        let totalPageviewsCount: Int?
-        public let topViewedArticles: [TopViewedArticle]
-        public let editCountByDay: [Date: Int]
-        public let totalEditsCount: Int?
-        public let givenThanksCount: Int?
-        public let longestEditingStreak: Int?
-        public let lastEditTimestamp: Date?
-        public let dailyTotalViews: [Date: Int]
-    }
-    
     public static let shared = WMFUserImpactDataController()
 
     private let service: WMFService?
@@ -28,7 +10,7 @@ public actor WMFUserImpactDataController {
         self.service = service
     }
     
-    func fetch(userID: Int, project: WMFProject, language: String) async throws -> APIResponse {
+    func fetch(userID: Int, project: WMFProject, language: String) async throws -> WMFUserImpactData {
         return try await withCheckedThrowingContinuation { continuation in
             fetch(userID: userID, project: project, language: language) { result in
                 switch result {
@@ -41,7 +23,7 @@ public actor WMFUserImpactDataController {
         }
     }
     
-    func fetch(userID: Int, project: WMFProject, language: String, completion: @escaping (Result<APIResponse, Error>) -> Void) {
+    func fetch(userID: Int, project: WMFProject, language: String, completion: @escaping (Result<WMFUserImpactData, Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return
@@ -74,7 +56,7 @@ public actor WMFUserImpactDataController {
                 
                 let totalPageviewsCount = jsonData["totalPageviewsCount"] as? Int
                 
-                var finalTopViewedArticles: [APIResponse.TopViewedArticle] = []
+                var finalTopViewedArticles: [WMFUserImpactData.TopViewedArticle] = []
                 if let topViewedArticles = jsonData["topViewedArticles"] as? [String: [String: Any]] {
                     for (key, value) in topViewedArticles {
                         guard let dates = value["views"] as? [String: Int] else {
@@ -94,7 +76,7 @@ public actor WMFUserImpactDataController {
                             continue
                         }
                         
-                        finalTopViewedArticles.append(APIResponse.TopViewedArticle(title: key, views: views, viewsCount: viewsCount))
+                        finalTopViewedArticles.append(WMFUserImpactData.TopViewedArticle(title: key, views: views, viewsCount: viewsCount))
                     }
                 }
                 
@@ -135,7 +117,7 @@ public actor WMFUserImpactDataController {
                     }
                 }
                 
-                completion(.success(APIResponse(totalPageviewsCount: totalPageviewsCount, topViewedArticles: finalTopViewedArticles, editCountByDay: finalEditCountByDay, totalEditsCount: totalEditsCount, givenThanksCount: givenThanksCount, longestEditingStreak: longestEditingStreak, lastEditTimestamp: lastEditTimestamp, dailyTotalViews: finalDailyTotalViews)))
+                completion(.success(WMFUserImpactData(totalPageviewsCount: totalPageviewsCount, topViewedArticles: finalTopViewedArticles, editCountByDay: finalEditCountByDay, totalEditsCount: totalEditsCount, givenThanksCount: givenThanksCount, longestEditingStreak: longestEditingStreak, lastEditTimestamp: lastEditTimestamp, dailyTotalViews: finalDailyTotalViews)))
 
             case .failure(let error):
                 completion(.failure(WMFDataControllerError.serviceError(error)))
