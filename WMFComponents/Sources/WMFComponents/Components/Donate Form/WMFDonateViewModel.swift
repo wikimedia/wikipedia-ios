@@ -544,43 +544,33 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
         let dataController = WMFDonateDataController.shared
-        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion) { [weak self] result in
-            
-            guard let self else {
-                return
-            }
-            
+        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion) { result in
+
             switch result {
             case .success:
-                completion(PKPaymentAuthorizationResult(status: .success, errors: []))
-                // Wait for payment sheet to dismiss
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
-
-                    guard let self else { return }
-
-                    self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
-                    self.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
-                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
-                })
+                self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
             case .failure(let error):
+                
+                // Only log errors, don't show to user since we are assuming success.
                 if let dataControllerError = error as? WMFDonateDataControllerError {
                     switch dataControllerError {
-                    case .paymentsWikiResponseError(_, let orderID):
-                        DispatchQueue.main.async {
-                            self.errorViewModel = ErrorViewModel(localizedStrings: self.errorLocalizedStrings, error: error, orderID: orderID)
-                        }
-                        loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                    case .paymentsWikiResponseError:
+                        self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                     }
                 } else {
-                    DispatchQueue.main.async {
-                        self.errorViewModel = ErrorViewModel(localizedStrings: self.errorLocalizedStrings, error: error, orderID: nil)
-                    }
-                    loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                 }
-                
-                completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             }
         }
+        
+        // Immediately assume success
+        completion(PKPaymentAuthorizationResult(status: .success, errors: []))
+        
+        // Wait for payment sheet to dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
+            self?.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
+            self?.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
+        })
     }
     
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectPaymentMethod paymentMethod: PKPaymentMethod, handler completion: @escaping (PKPaymentRequestPaymentMethodUpdate) -> Void) {
