@@ -176,6 +176,7 @@
 "activity-tab-you-edited" = "Bu hafta {{PLURAL:$1|$1 kez}} düzenleme yaptınız.";
 "activity-tab-you-read" = "Bu hafta {{PLURAL:$1|$1 makale}} okudunuz.";
 "activity-tab-you-saved" = "Bu hafta {{PLURAL:$1|$1 makale}} kaydettiniz.";
+"activity-tab-your-impact" = "Etkiniz";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "advanced-settings-title" = "Gelişmiş ayarlar";
 "alert-temporary-account" = "Geçici bir hesap kullanıyorsunuz. Hesabınızın süresi 90 gün sonra sona erecek.";

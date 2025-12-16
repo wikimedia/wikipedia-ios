@@ -160,6 +160,7 @@
 "activity-tab-you-edited" = "Hai modificato {{PLURAL:$1|$1 volta|$1 volte}} questa settimana.";
 "activity-tab-you-read" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
 "activity-tab-you-saved" = "Hai salvato {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
+"activity-tab-your-impact" = "Il tuo impatto";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
 "alert-temporary-account" = "Stai utilizzando un account temporaneo. L'account scadrà tra 90 giorni.";

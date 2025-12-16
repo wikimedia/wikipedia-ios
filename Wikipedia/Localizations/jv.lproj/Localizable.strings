@@ -1,6 +1,7 @@
 // Messages for Javanese (Jawa)
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
+// Author: Bennylin
 // Author: Diki Ananta
 // Author: Macofe
 // Author: McDutchie
@@ -339,8 +340,8 @@
 "settings-notifications" = "Wara-wara";
 "settings-notifications-info" = "Kabari ngenani artikel sing mumbul lan akèh diwaca ing Wikipédia sarana wara-wara otomatisé awak dhéwé. Kabèh iku cumepak sauga tanpa nglirwakaké privasi lan tumeka dhata-dhata sing nyumlik.";
 "settings-notifications-learn-more" = "Sinaua terus ngenani wara-wara";
-"settings-notifications-push-notifications" = "Wara-wara otomatis";
-"settings-notifications-system-turn-on" = "Urubaké Wara-wara";
+"settings-notifications-push-notifications" = "Pambiwara otomatis";
+"settings-notifications-system-turn-on" = "Urubaké Pambiwara";
 "settings-notifications-trending" = "Prastawa saiki sing mumbul";
 "settings-primary-language" = "Pokok";
 "settings-primary-language-details" = "Basa kapisan ing pratélan iki kaanggo minangka basa pokok tumrap aplikasiné.";
@@ -392,7 +393,7 @@
 "welcome-languages-search-title" = "Golèk ing mèh 300 basa";
 "welcome-notifications-tell-me-more-creation" = "Biwara kagawé lan kakirim menyang pirantimu lumantar aplikasiné, dudu saka paladèn (utawa péhak katelu)-né awak dhéwé.";
 "welcome-notifications-tell-me-more-storage" = "Pilalan wara-wara disimpen ing piranti lan ora adhedhasar katerangan utawa kagiyatan priangga.";
-"welcome-notifications-tell-me-more-title" = "Candhaké ngenani wara-wara";
+"welcome-notifications-tell-me-more-title" = "Candhaké ngenani pambiwara";
 "wikitext-preview-changes" = "Njupuk pratuduh owah-owahanmu ...";
 "wikitext-preview-link-preview-description" = "Pranala iki ngener '$1'";
 "wikitext-preview-link-preview-title" = "Pratuduhé pranala";
