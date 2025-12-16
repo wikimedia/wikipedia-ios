@@ -1,6 +1,6 @@
 import Foundation
 
-actor WMFUserImpactDataController {
+public actor WMFUserImpactDataController {
     
     public struct APIResponse {
         

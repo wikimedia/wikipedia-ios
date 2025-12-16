@@ -77,6 +77,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     public let localizedStrings: LocalizedStrings
+    var userID: Int?
 
     // MARK: - Published State
 
@@ -140,6 +141,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             async let savedTask: Void = articlesSavedViewModel.fetch()
             async let timelineTask: Void = timelineViewModel.fetch()
             async let editCountTask: Void = getGlobalEditCount()
+            async let userImpactTask: Void = fetchUserImpact()
             
             _ = await (readTask, savedTask, timelineTask, editCountTask)
             
@@ -169,7 +171,17 @@ public final class WMFActivityTabViewModel: ObservableObject {
         } catch {
             debugPrint("Error getting global edit count: \(error)")
         }
-
+    }
+    
+    private func fetchUserImpact() async {
+        guard case .loggedIn = authenticationState else { return }
+        guard let userID else { return }
+        do {
+            let response = try await dataController.getUserImpactData(userID: userID)
+            print(response)
+        } catch {
+            debugPrint("Error getting global edit count: \(error)")
+        }
     }
 
     public func updateUsername(username: String) {
@@ -179,6 +191,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             : localizedStrings.userNamesReading(username)
     }
 
+    public func updateID(userID: Int?) {
+        self.userID = userID
+    }
 
     private static func generateEmptyViewModel(localizedStrings: LocalizedStrings, isLoggedIn: Bool) -> WMFEmptyViewModel {
         let emptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings(
