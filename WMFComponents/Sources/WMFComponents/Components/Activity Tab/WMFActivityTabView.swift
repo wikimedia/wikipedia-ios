@@ -21,12 +21,17 @@ public struct WMFActivityTabView: View {
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.authenticationState == .loggedIn {
-                loggedInList(proxy: proxy)
+                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
+                    customizedEmptyState()
+                } else {
+                    loggedInList(proxy: proxy)
+                }
             } else {
                 if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
                     loggedOutList(proxy: proxy)
+                } else {
+                    customizedEmptyState()
                 }
-                // TODO: else do the empty empty view
             }
         }
     }
@@ -410,6 +415,25 @@ public struct WMFActivityTabView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color(theme.baseBackground), lineWidth: 0.5)
         )
+    }
+    
+    private func customizedEmptyState() -> some View {
+        VStack {
+            Spacer()
+            if let image = UIImage(named: "empty_activity_tab", in: .module, with: nil) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 132, height: 118)
+            }
+            Text(viewModel.localizedStrings.noUsernameReading)
+                .font(Font(WMFFont.for(.callout)))
+                .foregroundColor(Color(appEnvironment.theme.text))
+                .padding([.top], 12)
+                .padding([.bottom], 8)
+                .multilineTextAlignment(.center)
+            Spacer()
+        }
     }
 }
 
