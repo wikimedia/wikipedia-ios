@@ -87,6 +87,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     @objc private func updateLoginState() {
+        
+        var userID: Int?
+
+        if let siteURL = dataStore?.languageLinkController.appLanguage?.siteURL,
+           let permanentUser = dataStore?.authenticationManager.permanentUser(siteURL: siteURL) {
+            userID = permanentUser.userID
+        }
+        
+        viewModel.updateID(userID: userID)
+        
         if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
             viewModel.updateAuthenticationState(authState: .loggedIn)
         } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {

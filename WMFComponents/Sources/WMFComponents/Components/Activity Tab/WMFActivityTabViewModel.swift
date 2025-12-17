@@ -98,12 +98,18 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     public let localizedStrings: LocalizedStrings
+    var userID: Int?
 
     // MARK: - Published State
 
     @Published public var authenticationState: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
+    @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
+    @Published var contributionsViewModel: ContributionsViewModel?
+    @Published var allTimeImpactViewModel: AllTimeImpactViewModel?
+    @Published var recentActivityViewModel: RecentActivityViewModel?
+    @Published var articleViewsViewModel: ArticleViewsViewModel?
     @Published public var timelineViewModel: TimelineViewModel
     @Published public var emptyViewModel: WMFEmptyViewModel
     @Published public var customizeViewModel: WMFActivityTabCustomizeViewModel
@@ -175,6 +181,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             async let savedTask: Void = articlesSavedViewModel.fetch()
             async let timelineTask: Void = timelineViewModel.fetch()
             async let editCountTask: Void = getGlobalEditCount()
+            async let userImpactTask: Void = fetchUserImpact()
             
             _ = await (readTask, savedTask, timelineTask, editCountTask)
             
@@ -205,6 +212,21 @@ public final class WMFActivityTabViewModel: ObservableObject {
             debugPrint("Error getting global edit count: \(error)")
         }
     }
+    
+    private func fetchUserImpact() async {
+        guard case .loggedIn = authenticationState else { return }
+        guard let userID else { return }
+        do {
+            let data = try await dataController.getUserImpactData(userID: userID)
+            self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data)
+            self.contributionsViewModel = ContributionsViewModel(data: data)
+            self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
+            self.recentActivityViewModel = RecentActivityViewModel(data: data)
+            self.articleViewsViewModel = ArticleViewsViewModel(data: data)
+        } catch {
+            debugPrint("Error getting user impact: \(error)")
+        }
+    }
 
     public func updateUsername(username: String) {
         articlesReadViewModel.username = username
@@ -213,6 +235,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             : localizedStrings.userNamesReading(username)
     }
 
+    public func updateID(userID: Int?) {
+        self.userID = userID
+    }
 
     private static func generateEmptyViewModel(localizedStrings: LocalizedStrings, isLoggedIn: Bool) -> WMFEmptyViewModel {
         let emptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings(
