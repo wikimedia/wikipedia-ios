@@ -12,7 +12,7 @@ public struct WMFUserImpactData {
     public let topViewedArticles: [TopViewedArticle]
     public let editCountByDay: [Date: Int]
     public let totalEditsCount: Int?
-    public let givenThanksCount: Int?
+    public let receivedThanksCount: Int?
     public let longestEditingStreak: Int?
     public let lastEditTimestamp: Date?
     public let dailyTotalViews: [Date: Int]

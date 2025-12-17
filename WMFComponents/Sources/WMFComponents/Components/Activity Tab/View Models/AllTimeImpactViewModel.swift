@@ -11,7 +11,7 @@ final class AllTimeImpactViewModel: ObservableObject {
     init(data: WMFUserImpactData) {
         self.totalEdits = data.totalEditsCount
         self.bestStreak = data.longestEditingStreak
-        self.thanksCount = data.givenThanksCount
+        self.thanksCount = data.receivedThanksCount
         self.lastEdited = data.lastEditTimestamp
     }
 }

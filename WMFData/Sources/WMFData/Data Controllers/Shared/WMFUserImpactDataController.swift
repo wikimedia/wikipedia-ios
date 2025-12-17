@@ -92,7 +92,7 @@ public actor WMFUserImpactDataController {
                 }
                 
                 let totalEditsCount = jsonData["totalEditsCount"] as? Int
-                let givenThanksCount = jsonData["givenThanksCount"] as? Int
+                let receivedThanksCount = jsonData["receivedThanksCount"] as? Int
                 
                 var longestEditingStreak: Int? = nil
                 if let streak = jsonData["longestEditingStreak"] as? [String: Any],
@@ -117,7 +117,7 @@ public actor WMFUserImpactDataController {
                     }
                 }
                 
-                completion(.success(WMFUserImpactData(totalPageviewsCount: totalPageviewsCount, topViewedArticles: finalTopViewedArticles, editCountByDay: finalEditCountByDay, totalEditsCount: totalEditsCount, givenThanksCount: givenThanksCount, longestEditingStreak: longestEditingStreak, lastEditTimestamp: lastEditTimestamp, dailyTotalViews: finalDailyTotalViews)))
+                completion(.success(WMFUserImpactData(totalPageviewsCount: totalPageviewsCount, topViewedArticles: finalTopViewedArticles, editCountByDay: finalEditCountByDay, totalEditsCount: totalEditsCount, receivedThanksCount: receivedThanksCount, longestEditingStreak: longestEditingStreak, lastEditTimestamp: lastEditTimestamp, dailyTotalViews: finalDailyTotalViews)))
 
             case .failure(let error):
                 completion(.failure(WMFDataControllerError.serviceError(error)))
