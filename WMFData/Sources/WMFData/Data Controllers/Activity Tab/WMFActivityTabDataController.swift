@@ -22,6 +22,98 @@ public actor WMFActivityTabDataController {
             self.experimentsDataController = nil
         }
     }
+    
+    // MARK: - Activity Tab Customization Toggles
+
+    public var isTimeSpentReadingOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isReadingInsightsOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isEditingInsightsOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isTimelineOfBehaviorOnLoggedIn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOnLoggedIn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOnLoggedIn.rawValue,
+                value: newValue
+            )
+        }
+    }
+    
+    public var isTimelineOfBehaviorOnLoggedOut: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOnLoggedOut.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOnLoggedOut.rawValue,
+                value: newValue
+            )
+        }
+    }
+    
+    public func updateIsTimeSpentReadingOn(_ value: Bool) {
+        isTimeSpentReadingOn = value
+    }
+    
+    public func updateIsReadingInsightsOn(_ value: Bool) {
+        isReadingInsightsOn = value
+    }
+    
+    public func updateIsEditingInsightsOn(_ value: Bool) {
+        isEditingInsightsOn = value
+    }
+    
+    public func updateIsTimelineOfBehaviorOnLoggedIn(_ value: Bool) {
+        isTimelineOfBehaviorOnLoggedIn = value
+    }
+    
+    public func updateIsTimelineOfBehaviorOnLoggedOut(_ value: Bool) {
+        isTimelineOfBehaviorOnLoggedOut = value
+    }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current

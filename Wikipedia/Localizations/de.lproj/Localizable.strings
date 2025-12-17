@@ -20,6 +20,7 @@
 // Author: Justman10000
 // Author: Kghbln
 // Author: Killarnee
+// Author: Langusto
 // Author: Lucas Werkmeister
 // Author: McDutchie
 // Author: Metalhead64
@@ -122,9 +123,12 @@
 "activity-tab-email-second-line" = "- [Spezifisches Problem beschreiben]";
 "activity-tab-email-third-line" = "Das gewünschte Verhalten wäre:";
 "activity-tab-email-title" = "Problembericht - Aktivitäten-Tab";
+"activity-tab-empty-subtitle" = "Beginne mit dem Lesen und Bearbeiten, um deine Historie zu erstellen";
+"activity-tab-empty-title" = "Nichts anzuzeigen";
 "activity-tab-generic-no-edits" = "Du hast diese Woche nichts bearbeitet. Fang jetzt an, um deine Beiträge zu verfolgen.";
 "activity-tab-hours-minutes-read" = "$1 Std. $2 Min.";
 "activity-tab-hours-on-wikipedia-ios" = "IN DER WIKIPEDIA iOS-APP";
+"activity-tab-log-in-or-create-account" = "Melden Sie sich an oder erstellen Sie ein Konto, um weitere Bearbeitungs- und Leseaktivitäten anzuzeigen.";
 "activity-tab-logged-out-subtitle" = "Melde dich an oder erstelle ein Konto, um dir deine Aktivitäten in der Wikipedia-App anzusehen";
 "activity-tab-logged-out-title" = "Mehr Lese- und Bearbeitungseinblicke anzeigen";
 "activity-tab-menu-clear-history" = "Leseverlauf löschen";

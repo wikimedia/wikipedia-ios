@@ -82,11 +82,11 @@ public struct WMFActivityTabView: View {
 //                    if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
 //                        MostViewedArticlesView(viewModel: mostViewedArticlesViewModel)
 //                    }
-//                    
+//
 //                    if let contributionsViewModel = viewModel.contributionsViewModel {
 //                        ContributionsView(viewModel: contributionsViewModel)
 //                    }
-//                    
+//
 //                    if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
 //                        CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
 //                    }

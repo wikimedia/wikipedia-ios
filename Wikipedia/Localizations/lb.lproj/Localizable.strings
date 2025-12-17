@@ -100,6 +100,7 @@
 "activity-tab-you-edited" = "Dir hutt dës Woch {{PLURAL:$1|$1 Ännerung|$1 Ännerunge}} gemaach.";
 "activity-tab-you-read" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies.";
 "activity-tab-you-saved" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert.";
+"activity-tab-your-impact" = "Ären Impakt";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
 "advanced-settings-title" = "Erweidert Astellungen";
 "alert-temporary-account" = "Dir benotzt en temporäre Kont. De Kont leeft an 90 Deeg of.";

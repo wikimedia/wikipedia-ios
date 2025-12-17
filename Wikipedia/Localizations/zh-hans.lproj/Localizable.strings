@@ -44,11 +44,13 @@
 // Author: Njzjz
 // Author: Peterxy12
 // Author: Phenolla
+// Author: Plana
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: StarrySky
 // Author: SunAfterRain
 // Author: TFX202X
+// Author: TeaSummer
 // Author: Tonylianlong
 // Author: Tsevener
 // Author: Viztor
@@ -149,8 +151,16 @@
 "activity-tab-add-images-subtitle" = "向维基百科的条目中添加建议的图片，使内容更易懂。";
 "activity-tab-add-images-title" = "添加图片";
 "activity-tab-additional-thoughts" = "还有什么想法吗？";
+"activity-tab-articles-read" = "本月阅读的条目";
 "activity-tab-articles-read-graph-label" = "条目";
 "activity-tab-email-fifth-line" = "[截图或链接]";
+"activity-tab-email-first-line" = "我在使用活动标签页功能时遇到的问题：";
+"activity-tab-email-fourth-line" = "[描述期望的行为]";
+"activity-tab-email-second-line" = "- [描述具体问题]";
+"activity-tab-email-third-line" = "我期望看到的情况是：";
+"activity-tab-email-title" = "问题报告 - 活动标签页";
+"activity-tab-empty-subtitle" = "开始阅读和编辑，构建你的历史";
+"activity-tab-empty-title" = "没有可显示的内容";
 "activity-tab-generic-no-edits" = "您本周尚未进行编辑。马上开始编辑，以追踪贡献。";
 "activity-tab-hours-on-wikipedia-ios" = "在维基百科iOS版";
 "activity-tab-logged-out-subtitle" = "登录或创建账号来查看您在维基百科应用程序上的活动。";
@@ -184,6 +194,7 @@
 "activity-tab-you-edited" = "您本周已编辑{{PLURAL:$1|$1}}次。";
 "activity-tab-you-read" = "您本周已阅读{{PLURAL:$1|$1}}篇条目。";
 "activity-tab-you-saved" = "您本周已保存{{PLURAL:$1|$1}}篇条目。";
+"activity-tab-your-impact" = "您的影响";
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
 "advanced-settings-title" = "高级设置";
 "alert-temporary-account-learn-more" = "了解更多。";
@@ -360,8 +371,7 @@
 "donate-accessibility-monthly-recurring-hint" = "双击以启用每月自动捐赠此金额。";
 "donate-accessibility-textfield-hint" = "输入自定义捐赠金额。";
 "donate-accessibility-transaction-fee-hint" = "双击以添加交易手续费至捐赠金额。";
-// Fuzzy
-"donate-already-donated" = "谢谢您，亲爱的捐赠者！您的慷慨解囊会帮助维基百科和姊妹网站蓬勃发展。";
+"donate-already-donated" = "谢谢您，亲爱的捐赠者！您的慷慨解囊会帮助维基百科与其他自由知识项目网站蓬勃发展。";
 "donate-apple-fine-print" = "Apple不负责为此目的筹集资金。";
 "donate-email-opt-in-text" = "是的，维基媒体基金会可以偶尔向我发送电子邮件。";
 "donate-help-frequently-asked-questions" = "常见问题";

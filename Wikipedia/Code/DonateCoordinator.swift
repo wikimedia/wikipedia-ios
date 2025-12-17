@@ -99,7 +99,8 @@ class DonateCoordinator: Coordinator {
         }
         
         let appVersion = Bundle.main.wmf_debugVersion()
-        return URL(string: urlString)?.appendingAppVersion(appVersion: appVersion)
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
+        return URL(string: urlString)?.appendingAppVersionAndAppInstallID(appVersion: appVersion, appInstallID: appInstallID)
     }
     
     // MARK: Lifecycle
@@ -326,6 +327,7 @@ class DonateCoordinator: Coordinator {
         }
         
         let appVersion = Bundle.main.wmf_debugVersion()
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
         
         let donateDataController = WMFDonateDataController.shared
         let donateData = donateDataController.loadConfigs()
@@ -404,7 +406,7 @@ class DonateCoordinator: Coordinator {
 
         let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, cancelTitle: cancel, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
-        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, coordinatorDelegate: self, loggingDelegate: self) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID, coordinatorDelegate: self, loggingDelegate: self) else {
             return nil
         }
         
@@ -864,16 +866,17 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
 // MARK: URL Extensions
 
 fileprivate extension URL {
-    func appendingAppVersion(appVersion: String?) -> URL {
+    func appendingAppVersionAndAppInstallID(appVersion: String?, appInstallID: String?) -> URL {
         
         guard let appVersion,
+              let appInstallID,
               var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
         var queryItems = components.queryItems else {
             return self
         }
         
-        
         queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        queryItems.append(URLQueryItem(name: "app_install_id", value: appInstallID))
         components.queryItems = queryItems
         
         guard let url = components.url else {

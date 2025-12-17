@@ -170,6 +170,7 @@
 "activity-tab-you-edited" = "您這週編輯了{{PLURAL:$1|$1}}篇條目。";
 "activity-tab-you-read" = "您這週閱讀了{{PLURAL:$1|$1}}篇條目。";
 "activity-tab-you-saved" = "您這週儲存了{{PLURAL:$1|$1}}篇條目。";
+"activity-tab-your-impact" = "您的影響";
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "advanced-settings-title" = "進階設定";
 "alert-temporary-account" = "您正在使用臨時帳號。帳號會在 90 天後到期。";
