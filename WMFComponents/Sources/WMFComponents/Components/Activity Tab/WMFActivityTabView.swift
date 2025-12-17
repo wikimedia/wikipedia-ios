@@ -21,114 +21,134 @@ public struct WMFActivityTabView: View {
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.authenticationState == .loggedIn {
-                loggedInList(proxy: proxy)
+                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
+                    customizedEmptyState()
+                } else {
+                    loggedInList(proxy: proxy)
+                }
             } else {
-                loggedOutList(proxy: proxy)
+                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn {
+                    customizedEmptyState()
+                } else {
+                    loggedOutList(proxy: proxy)
+                }
             }
         }
     }
 
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
-            Section {
-                VStack(spacing: 16) {
-                    headerView
-                        .accessibilityElement()
-                        .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
-                        .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
+            if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {
+                Section {
+                    VStack(spacing: 16) {
+                        
+                        if viewModel.customizeViewModel.isTimeSpentReadingOn {
+                            headerView
+                                .accessibilityElement()
+                                .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
+                                .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
 
-                    VStack(alignment: .center, spacing: 8) {
-                        hoursMinutesRead
-                            .accessibilityLabel(viewModel.hoursMinutesRead)
-                        Text(viewModel.localizedStrings.timeSpentReading)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .accessibilityHidden(true)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .accessibilityElement()
-                    .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
-
-                    articlesReadModule(proxy: proxy)
-                    savedArticlesModule
-
-                    if !viewModel.articlesReadViewModel.topCategories.isEmpty {
-                        topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                            VStack(alignment: .center, spacing: 8) {
+                                hoursMinutesRead
+                                    .accessibilityLabel(viewModel.hoursMinutesRead)
+                                Text(viewModel.localizedStrings.timeSpentReading)
+                                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                                    .foregroundColor(Color(uiColor: theme.text))
+                                    .accessibilityHidden(true)
+                            }
+                            .frame(maxWidth: .infinity)
                             .accessibilityElement()
-                            .accessibilityLabel(viewModel.localizedStrings.topCategories)
-                            .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
+                            .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
+                        }
+                        
+
+                        if viewModel.customizeViewModel.isReadingInsightsOn {
+                            articlesReadModule(proxy: proxy)
+                            savedArticlesModule
+
+                            if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                                topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(viewModel.localizedStrings.topCategories)
+                                    .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
+                            }
+                        }
                     }
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
-                .listRowInsets(EdgeInsets())
-                .background(
-                    LinearGradient(
-                        stops: [
-                            Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
-                            Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                    .listRowInsets(EdgeInsets())
+                    .background(
+                        LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
                     )
-                )
+                }
+                .listRowSeparator(.hidden)
             }
-            .listRowSeparator(.hidden)
             
-            Section(header: YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)) {
-                VStack(spacing: 16) {
-                    
-                    // TODO: Uncomment here for user impact data with stub UI
-//                    if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
-//                        MostViewedArticlesView(viewModel: mostViewedArticlesViewModel)
-//                    }
-//
-//                    if let contributionsViewModel = viewModel.contributionsViewModel {
-//                        ContributionsView(viewModel: contributionsViewModel)
-//                    }
-//
-//                    if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
-//                        CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
-//                    }
-                    
-                    if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
-                        totalEditsView(amount: animatedGlobalEditCount)
-                            .onAppear {
-                                if !hasShownGlobalEditsCard {
-                                    hasShownGlobalEditsCard = true
-                                    animatedGlobalEditCount = 0
-                                    withAnimation(.easeOut(duration: 0.6)) {
+            if viewModel.customizeViewModel.isEditingInsightsOn {
+                Section(header: YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)) {
+                    VStack(spacing: 16) {
+                        
+                        // TODO: Uncomment here for user impact data with stub UI
+//                        if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
+//                            MostViewedArticlesView(viewModel: mostViewedArticlesViewModel)
+//                        }
+//    
+//                        if let contributionsViewModel = viewModel.contributionsViewModel {
+//                            ContributionsView(viewModel: contributionsViewModel)
+//                        }
+//    
+//                        if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
+//                            CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
+//                        }
+                        
+                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                            totalEditsView(amount: animatedGlobalEditCount)
+                                .onAppear {
+                                    if !hasShownGlobalEditsCard {
+                                        hasShownGlobalEditsCard = true
+                                        animatedGlobalEditCount = 0
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = globalEditCount
+                                        }
+                                    } else {
                                         animatedGlobalEditCount = globalEditCount
                                     }
-                                } else {
-                                    animatedGlobalEditCount = globalEditCount
                                 }
-                            }
-                            .onChange(of: globalEditCount) { newValue in
-                                withAnimation(.easeOut(duration: 0.6)) {
-                                    animatedGlobalEditCount = newValue
+                                .onChange(of: globalEditCount) { newValue in
+                                    withAnimation(.easeOut(duration: 0.6)) {
+                                        animatedGlobalEditCount = newValue
+                                    }
                                 }
-                            }
+                        }
                     }
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
-                .listRowInsets(EdgeInsets())
-                .background(
-                    LinearGradient(
-                        stops: [
-                            Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
-                            Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                    .listRowInsets(EdgeInsets())
+                    .background(
+                        LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
                     )
-                )
+                }
+                .listRowSeparator(.hidden)
             }
-            .listRowSeparator(.hidden)
-
-            timelineSectionsList()
-                .id("timelineSection")
+            
+            if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
+                timelineSectionsList()
+                    .id("timelineSection")
+            }
         }
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .scrollContentBackground(.hidden)
@@ -181,7 +201,6 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
-        // .padding(.top, 20)
     }
 
     private func timelineSectionsList() -> some View {
@@ -446,6 +465,10 @@ public struct WMFActivityTabView: View {
         numberFormatter.numberStyle = .decimal
         
         return numberFormatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
+    }
+    
+    private func customizedEmptyState() -> some View {
+        WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
     }
 }
 
