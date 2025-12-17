@@ -77,6 +77,8 @@ public struct WMFActivityTabView: View {
             
             Section(header: YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)) {
                 VStack(spacing: 16) {
+                    
+                    // TODO: Uncomment here for user impact data with stub UI
                     if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
                         MostViewedArticlesView(viewModel: mostViewedArticlesViewModel)
                     }
@@ -85,16 +87,8 @@ public struct WMFActivityTabView: View {
                         ContributionsView(viewModel: contributionsViewModel)
                     }
                     
-                    if let allTimeImpactViewModel = viewModel.allTimeImpactViewModel {
-                        AllTimeImpactView(viewModel: allTimeImpactViewModel)
-                    }
-                    
-                    if let recentActivityViewModel = viewModel.recentActivityViewModel {
-                        RecentActivityView(viewModel: recentActivityViewModel)
-                    }
-                    
-                    if let articleViewsViewModel = viewModel.articleViewsViewModel {
-                        ArticleViewsView(viewModel: articleViewsViewModel)
+                    if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
+                        CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
                     }
                     
                     if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
@@ -647,6 +641,7 @@ struct YourImpactHeaderView: View {
             Spacer()
         }
         .padding(.top, 12)
+        .padding(.bottom, 16)
     }
 }
 
@@ -654,15 +649,24 @@ private struct MostViewedArticlesView: View {
     let viewModel: MostViewedArticlesViewModel
     
     var body: some View {
-        // TODO: TEMP UI
-        VStack {
-            Text("Most viewed")
-                .bold()
-            
-            ForEach(viewModel.topViewedArticles.map(\.title), id: \.self) { title in
-                Text(title)
+        
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .lineDiagonalArrow, font: WMFFont.boldCaption1),
+            title: "Most viewed since your edit", // TODO: localize
+            dateText: nil,
+            additionalAccessibilityLabel: nil,
+            onTapModule: nil,
+            content: {
+                // TODO: TEMP UI
+                VStack {
+                    ForEach(viewModel.topViewedArticles.map(\.title), id: \.self) { title in
+                        Text(title)
+                    }
+                }
             }
-        }
+        )
+        
+        
     }
 }
 
@@ -670,24 +674,102 @@ private struct ContributionsView: View {
     let viewModel: ContributionsViewModel
     
     var body: some View {
-        // TODO: TEMP UI
-        VStack {
-            Text("Contributions")
-                .bold()
-            Text("This month: \(viewModel.thisMonthCount)")
-            Text("Last month: \(viewModel.lastMonthCount)")
+        
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .personFilled, font: WMFFont.boldCaption1), // TODO: Correct icon
+            title: "Contributions this month", // TODO: localize
+            dateText: nil,
+            additionalAccessibilityLabel: nil,
+            onTapModule: nil,
+            content: {
+                // TODO: TEMP UI
+                VStack {
+                    Text("Contributions")
+                        .bold()
+                    Text("This month: \(viewModel.thisMonthCount)")
+                    Text("Last month: \(viewModel.lastMonthCount)")
+                }
+            }
+        )
+    }
+}
+
+private struct CombinedImpactView: View {
+    let allTimeImpactViewModel: AllTimeImpactViewModel?
+    let recentActivityViewModel: RecentActivityViewModel?
+    let articleViewsViewModel: ArticleViewsViewModel?
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    var body: some View {
+        
+        VStack(spacing: 16) {
+            if let allTimeImpactViewModel {
+                AllTimeImpactView(viewModel: allTimeImpactViewModel)
+                
+                Divider()
+                    .frame(height: 1)
+                    .overlay(
+                        Rectangle()
+                            .fill(Color(uiColor: theme.baseBackground))
+                            .frame(height: 1)
+                    )
+                    .padding(0)
+            }
+            
+            if let recentActivityViewModel {
+                RecentActivityView(viewModel: recentActivityViewModel)
+                
+                Divider()
+                    .frame(height: 1)
+                    .overlay(
+                        Rectangle()
+                            .fill(Color(uiColor: theme.baseBackground))
+                            .frame(height: 1)
+                    )
+                    .padding(0)
+            }
+            
+            if let articleViewsViewModel {
+                ArticleViewsView(viewModel: articleViewsViewModel)
+            }
         }
+        .padding(16)
+        .background(Color(theme.paperBackground))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(theme.baseBackground), lineWidth: 0.5)
+        )
     }
 }
 
 private struct AllTimeImpactView: View {
     let viewModel: AllTimeImpactViewModel
     
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
     var body: some View {
-        // TODO: TEMP UI
         VStack {
-            Text("All time impact")
-                .bold()
+            HStack {
+                Text("All time impact") // TODO: Localize
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+                Spacer()
+            }
+            .padding(.bottom, 16)
+            
+            // TODO: TEMP UI
             if let totalEdits = viewModel.totalEdits {
                 Text("Total edits: \(totalEdits)")
             } else {
@@ -715,11 +797,26 @@ private struct AllTimeImpactView: View {
 private struct RecentActivityView: View {
     let viewModel: RecentActivityViewModel
     
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
     var body: some View {
-        // TODO: TEMP UI
+        
         VStack {
-            Text("Recent Activity")
-                .bold()
+            HStack {
+                Text("Recent Activity") // TODO: Localize
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+                Spacer()
+            }
+            .padding(.bottom, 16)
+            
+            // TODO: TEMP UI
             Text("Edit count: \(viewModel.editCount)")
             Text("Start date: \(viewModel.startDate)")
             Text("End count: \(viewModel.endDate)")
@@ -730,11 +827,25 @@ private struct RecentActivityView: View {
 private struct ArticleViewsView: View {
     let viewModel: ArticleViewsViewModel
     
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
     var body: some View {
-        // TODO: TEMP UI
         VStack {
-            Text("Views on articles you've edited")
-                .bold()
+            HStack {
+                Text("Views on articles you've edited") // TODO: Localize
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+                Spacer()
+            }
+            .padding(.bottom, 16)
+            
+            // TODO: TEMP UI
             Text("Views count: \(viewModel.totalViewsCount)")
         }
     }
