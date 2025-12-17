@@ -168,13 +168,23 @@ public struct WMFActivityTabView: View {
     }
     
     private func totalEditsView(amount: Int) -> some View {
-        WMFActivityTabInfoCardView(
+
+        let formattedAmount = amountAccessibilityLabel(for: amount)
+        
+        return WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.totalEdits,
             dateText: nil,
-            amount: amount,
+            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 viewModel.onTapGlobalEdits?()
+            }, content: {
+                HStack(alignment: .bottom) {
+                    Text("\(amount)")
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                    Spacer()
+                }
             }
         )
         // .padding(.top, 20)
@@ -282,45 +292,60 @@ public struct WMFActivityTabView: View {
     }
 
     private func articlesReadModule(proxy: ScrollViewProxy) -> some View {
-        WMFActivityTabInfoCardView(
+
+        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
+
+        return WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.totalArticlesRead,
             dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
-            amount: viewModel.articlesReadViewModel.totalArticlesRead,
+            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 withAnimation(.easeInOut) {
                     proxy.scrollTo("timelineSection", anchor: .top)
                 }
             },
             content: {
-                articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
+                HStack(alignment: .bottom) {
+                    Text("\(viewModel.articlesReadViewModel.totalArticlesRead)")
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                    Spacer()
+                    articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
+                }
+                
             }
         )
     }
 
     private var savedArticlesModule: some View {
 
-        Group {
-            let thumbURLs = viewModel.articlesSavedViewModel.articlesSavedThumbURLs
-            let displayCount = min(thumbURLs.count, 3)
-            let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
+        let thumbURLs = viewModel.articlesSavedViewModel.articlesSavedThumbURLs
+        let displayCount = min(thumbURLs.count, 3)
+        let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
 
-            WMFActivityTabInfoCardView(
-                icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
-                title: viewModel.localizedStrings.articlesSavedTitle,
-                dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
-                amount: viewModel.articlesSavedViewModel.articlesSavedAmount,
-                onTapModule: {
-                    viewModel.articlesSavedViewModel.onTapSaved?()
-                },
-                content: {
+        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
 
+        return WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.articlesSavedTitle,
+            dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
+            additionalAccessibilityLabel: formattedAmount,
+            onTapModule: {
+                viewModel.articlesSavedViewModel.onTapSaved?()
+            },
+            content: {
+                HStack(alignment: .bottom) {
+                    Text("\(viewModel.articlesSavedViewModel.articlesSavedAmount)")
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                    Spacer()
                     if !thumbURLs.isEmpty {
                         savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount, remaining: remaining)
                     }
                 }
-            )
-        }
+            }
+        )
     }
 
     private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {
@@ -389,45 +414,44 @@ public struct WMFActivityTabView: View {
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
-        VStack(alignment: .leading, spacing: 24) {
-            HStack {
-                if let icon = WMFSFSymbolIcon.for(symbol: .rectangle3) {
-                    Image(uiImage: icon)
-                }
-                Text(viewModel.localizedStrings.topCategories)
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-            ForEach(categories.indices, id: \.self) { index in
-                let category = categories[index]
+        
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .rectangle3, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.topCategories,
+            dateText: nil,
+            additionalAccessibilityLabel: nil,
+            onTapModule: nil,
+            content: {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text(category)
-                        .foregroundStyle(Color(theme.text))
-                        .font(Font(WMFFont.for(.callout)))
-                        .lineLimit(2)
+                    ForEach(categories.indices, id: \.self) { index in
+                        let category = categories[index]
+                        Text(category)
+                            .foregroundStyle(Color(theme.text))
+                            .font(Font(WMFFont.for(.callout)))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .lineLimit(2)
 
-                    if index < categories.count - 1 {
-                        Divider()
-                            .frame(height: 1)
-                            .overlay(
-                                Rectangle()
-                                    .fill(Color(uiColor: theme.baseBackground))
-                                    .frame(height: 1)
-                            )
-                            .padding(0)
+                        if index < categories.count - 1 {
+                            Divider()
+                                .frame(height: 1)
+                                .overlay(
+                                    Rectangle()
+                                        .fill(Color(uiColor: theme.baseBackground))
+                                        .frame(height: 1)
+                                )
+                                .padding(0)
+                        }
                     }
                 }
             }
-        }
-        .padding(16)
-        .background(Color(theme.paperBackground))
-        .cornerRadius(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color(theme.baseBackground), lineWidth: 0.5)
         )
+    }
+    
+    private func amountAccessibilityLabel(for amount: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        return numberFormatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
 }
 

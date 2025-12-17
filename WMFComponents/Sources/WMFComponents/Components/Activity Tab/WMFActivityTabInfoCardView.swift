@@ -4,22 +4,22 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     private let icon: UIImage?
     private let title: String
     private let dateText: String?
-    private let amount: Int
-    private let onTapModule: () -> Void
+    private let additionalAccessibilityLabel: String?
+    private let onTapModule: (() -> Void)?
     private let content: () -> Content
 
     init(
         icon: UIImage?,
         title: String,
         dateText: String?,
-        amount: Int = 0,
-        onTapModule: @escaping () -> Void,
+        additionalAccessibilityLabel: String?,
+        onTapModule: (() -> Void)?,
         @ViewBuilder content: @escaping () -> Content = { EmptyView() }
     ) {
         self.icon = icon
         self.title = title
         self.dateText = dateText
-        self.amount = amount
+        self.additionalAccessibilityLabel = additionalAccessibilityLabel
         self.content = content
         self.onTapModule = onTapModule
     }
@@ -28,7 +28,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     private var theme: WMFTheme { appEnvironment.theme }
 
     var body: some View {
-        Button(action: onTapModule) {
+        Button(action: { onTapModule?() }) {
             VStack(spacing: 24) {
                 HStack {
                     if let icon {
@@ -52,17 +52,9 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                     }
                 }
 
-                HStack(alignment: .bottom) {
-                    Text("\(amount)")
-                        .foregroundStyle(Color(theme.text))
-                        .font(Font(WMFFont.for(.boldTitle1)))
-                    Spacer()
-                    content()
-                }
-                .padding(.bottom, 16)
+                content()
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 16)
+            .padding(16)
             .background(Color(theme.paperBackground))
             .cornerRadius(10)
             .overlay(
@@ -77,15 +69,9 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     }
 
     private var accessibilityString: String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        
-        let formattedAmount = numberFormatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
-        
         var parts = [title]
         if let dateText { parts.append(dateText) }
-        parts.append(formattedAmount)
+        if let additionalAccessibilityLabel { parts.append(additionalAccessibilityLabel)}
         return parts.joined(separator: ", ")
     }
-
 }
