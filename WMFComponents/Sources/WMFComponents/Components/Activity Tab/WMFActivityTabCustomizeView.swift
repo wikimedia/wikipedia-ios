@@ -68,7 +68,7 @@ public struct WMFActivityTabCustomizeView: View {
                 Text(viewModel.localizedStrings.footer)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    .padding(.top, 16)
+                    .padding(.top, 12)
             }
         }
         .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
