@@ -39,6 +39,7 @@ public struct WMFSimpleEmptyStateView: View {
                 )
             Spacer()
         }
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, 16)
         .background(Color(uiColor: theme.paperBackground))
     }
