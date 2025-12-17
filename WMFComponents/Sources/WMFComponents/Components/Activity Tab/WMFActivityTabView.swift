@@ -64,52 +64,28 @@ public struct WMFActivityTabView: View {
 
                         if viewModel.customizeViewModel.isReadingInsightsOn {
                             articlesReadModule(proxy: proxy)
+                                .padding(.horizontal, 16)
                             savedArticlesModule
+                                .padding(.horizontal, 16)
 
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                                    .padding(.horizontal, 16)
                                     .accessibilityElement()
                                     .accessibilityLabel(viewModel.localizedStrings.topCategories)
                                     .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
                             }
                         }
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 16)
-                    .listRowInsets(EdgeInsets())
-                    .background(
-                        LinearGradient(
-                            stops: [
-                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
-                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                }
-                .listRowSeparator(.hidden)
-            }
-            
-            if viewModel.customizeViewModel.isEditingInsightsOn {
-                Section(header: YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)) {
-                    VStack(spacing: 16) {
                         
-                        // TODO: Uncomment here for user impact data with stub UI
-//                        if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
-//                            MostViewedArticlesView(viewModel: mostViewedArticlesViewModel)
-//                        }
-//    
-//                        if let contributionsViewModel = viewModel.contributionsViewModel {
-//                            ContributionsView(viewModel: contributionsViewModel)
-//                        }
-//    
-//                        if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
-//                            CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
-//                        }
-                        
-                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0, viewModel.customizeViewModel.isEditingInsightsOn {
+                            HStack {
+                                YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
+                                Spacer()
+                            }
+                            .padding(.top, 12)
+                            
                             totalEditsView(amount: animatedGlobalEditCount)
+                                .padding(.horizontal, 16)
                                 .onAppear {
                                     if !hasShownGlobalEditsCard {
                                         hasShownGlobalEditsCard = true
@@ -128,7 +104,6 @@ public struct WMFActivityTabView: View {
                                 }
                         }
                     }
-                    .padding(.horizontal, 16)
                     .padding(.bottom, 16)
                     .listRowInsets(EdgeInsets())
                     .background(
@@ -655,16 +630,12 @@ struct YourImpactHeaderView: View {
     }
     
     var body: some View {
-        HStack {
             Text(title)
                 .font(Font(WMFFont.for(.boldHeadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .textCase(.none)
+                .padding(.horizontal, 16)
                 .accessibilityAddTraits(.isHeader)
-            Spacer()
-        }
-        .padding(.top, 12)
-        .padding(.bottom, 16)
     }
 }
 
