@@ -7,14 +7,12 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     private let amount: Int
     private let onTapModule: () -> Void
     private let content: () -> Content
-    private let contentAccessibilityLabels: [String]
 
     init(
         icon: UIImage?,
         title: String,
         dateText: String?,
         amount: Int = 0,
-        contentAccessibilityLabels: [String] = [],
         onTapModule: @escaping () -> Void,
         @ViewBuilder content: @escaping () -> Content = { EmptyView() }
     ) {
@@ -22,7 +20,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
         self.title = title
         self.dateText = dateText
         self.amount = amount
-        self.contentAccessibilityLabels = contentAccessibilityLabels
         self.content = content
         self.onTapModule = onTapModule
     }
@@ -88,7 +85,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
         var parts = [title]
         if let dateText { parts.append(dateText) }
         parts.append(formattedAmount)
-        parts.append(contentsOf: contentAccessibilityLabels)
         return parts.joined(separator: ", ")
     }
 
