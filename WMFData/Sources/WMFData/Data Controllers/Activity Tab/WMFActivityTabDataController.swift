@@ -481,6 +481,18 @@ public actor WMFActivityTabDataController {
             throw CustomError.unexpectedError(error)
         }
     }
+    
+    public func getUserImpactData(userID: Int) async throws -> WMFUserImpactData {
+        
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            throw WMFDataControllerError.failureCreatingRequestURL
+        }
+        let project = WMFProject.wikipedia(primaryAppLanguage)
+        
+        let dataController = WMFUserImpactDataController.shared
+        
+        return try await dataController.fetch(userID: userID, project: project, language: primaryAppLanguage.languageCode)
+    }
 
     // MARK: - Experiment
 
