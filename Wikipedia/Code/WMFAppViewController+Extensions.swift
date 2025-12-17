@@ -970,6 +970,12 @@ extension WMFAppViewController {
             authdValue = .loggedOut
         }
         
+        var userID: Int?
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL) {
+            userID = permanentUser.userID
+        }
+        
         let viewModel = WMFActivityTabViewModel(
             localizedStrings:
                 WMFActivityTabViewModel.LocalizedStrings(
