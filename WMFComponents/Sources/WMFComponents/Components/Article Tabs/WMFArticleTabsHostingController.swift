@@ -31,7 +31,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         format = viewModel.localizedStrings.navBarTitleFormat
         viewModel.updateNavigationBarTitleAction = { [weak self] numTabs in
             let newNavigationBarTitle = String.localizedStringWithFormat(self?.format ?? "", numTabs)
-            self?.configureNavigationBar(newNavigationBarTitle)
+            self?.configureNavigationBar(newNavigationBarTitle.lowercased())
         }
     }
     
@@ -45,7 +45,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         configureNavigationBar()
         
         if dataController.shouldShowMoreDynamicTabsV2 {
-            navigationItem.rightBarButtonItems = [overflowButton, addTabButton]
+            navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
         } else {
             navigationItem.rightBarButtonItem = addTabButton
         }
