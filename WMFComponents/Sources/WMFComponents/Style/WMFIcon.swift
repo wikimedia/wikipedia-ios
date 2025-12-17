@@ -112,6 +112,7 @@ public enum WMFSFSymbolIcon {
     case textPage
     case leave
     case gear
+    case gearShape
     case calendar
     case share
     case infoCircleFill
@@ -284,6 +285,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .gearShape:
+            image = UIImage(systemName: "gearshape", withConfiguration: configuration)
         case .heartFilled:
             image = UIImage(systemName: "heart.fill", withConfiguration: configuration)
         case .calendar:

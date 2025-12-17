@@ -294,7 +294,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             ActivityTabFunnel.shared.logActivityTabOverflowMenuProblem()
         })
         
-        let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gear), handler: { _ in
+        let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gearShape), handler: { _ in
             self.userDidTapCustomize()
             // TODO: Log
         })
