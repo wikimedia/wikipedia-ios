@@ -38,13 +38,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         let isTimeSpentReadingOn = isLoggedIn ? await dataController.isTimeSpentReadingOn : false
         let isReadingInsightsOn = isLoggedIn ? await dataController.isReadingInsightsOn : false
         let isEditingInsightsOn = isLoggedIn ?  await dataController.isEditingInsightsOn : false
-        let isTimelineOfBehaviorOn: Bool
-        
-        if isLoggedIn {
-            isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOnLoggedIn
-        } else {
-            isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOnLoggedOut
-        }
+        let isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOn
         
         self.isTimeSpentReadingOn = isTimeSpentReadingOn
         self.isReadingInsightsOn = isReadingInsightsOn
@@ -90,11 +84,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
             .sink { [weak self] value in
                 guard let self else { return }
                 Task {
-                    if self.isLoggedIn {
-                        await self.dataController.updateIsTimelineOfBehaviorOnLoggedIn(value)
-                    } else {
-                        await self.dataController.updateIsTimelineOfBehaviorOnLoggedOut(value)
-                    }
+                    await self.dataController.updateIsTimelineOfBehaviorOn(value)
                 }
                 
             }

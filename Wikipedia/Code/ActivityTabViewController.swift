@@ -320,8 +320,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         )
 
         let navController = WMFComponentNavigationController(rootViewController: hostedView, modalPresentationStyle: .pageSheet)
-        navController.sheetPresentationController?.detents = [.large()]
-        navController.sheetPresentationController?.prefersGrabberVisible = true
 
         return navController
     }
