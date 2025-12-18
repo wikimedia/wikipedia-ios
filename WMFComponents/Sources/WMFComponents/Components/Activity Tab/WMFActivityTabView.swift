@@ -444,6 +444,7 @@ public struct WMFActivityTabView: View {
     
     private func customizedEmptyState() -> some View {
         WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
+            .frame(maxWidth: .infinity)
     }
 }
 
