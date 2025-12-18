@@ -2,77 +2,136 @@ import UIKit
 import WMF
 
 class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewController {
-    
-    // This is not a convenience initalizer because this allows us to not inherit
-    // the super class initializer, so clients can't pass any arbitrary reading list to this
-    // class
-    
+
+    // MARK: - Data
+    private var entries: [ReadingListEntry] = []
+    private var dataSource: UICollectionViewDiffableDataSource<Int, NSManagedObjectID>!
+
+    // MARK: - Init
     init?(with dataStore: MWKDataStore) {
         super.init(for: nil, with: dataStore)
         emptyViewType = .noSavedPages
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override var availableBatchEditToolbarActions: [BatchEditToolbarAction] {
-        return [
-            BatchEditToolbarActionType.addToList.action(with: nil),
-            BatchEditToolbarActionType.unsave.action(with: nil)
-        ]
+
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        bypassLegacyCollectionViewUpdates = true
+        super.viewDidLoad()
+        setupDataSource()
     }
-    
-    override var shouldShowEditButtonsForEmptyState: Bool {
-        return false
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchAndApply(animated: false)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(contextDidChange),
+            name: .NSManagedObjectContextObjectsDidChange,
+            object: dataStore.viewContext
+        )
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
-        if !isEmpty {
-            self.wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: theme)
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func contextDidChange(_ note: Notification) {
+        fetchAndApply(animated: true)
+    }
+
+    // MARK: - Setup Diffable DataSource
+    private func setupDataSource() {
+        collectionView.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: "SavedArticlesCollectionViewCell")
+
+        dataSource = UICollectionViewDiffableDataSource<Int, NSManagedObjectID>(collectionView: collectionView) { [weak self] collectionView, indexPath, objectID in
+            guard let self = self else { return UICollectionViewCell() }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SavedArticlesCollectionViewCell", for: indexPath)
+            guard let savedCell = cell as? SavedArticlesCollectionViewCell,
+                  let entry = try? self.dataStore.viewContext.existingObject(with: objectID) as? ReadingListEntry else {
+                return cell
+            }
+            self.configure(cell: savedCell, for: entry, at: indexPath, layoutOnly: false)
+            return savedCell
         }
     }
     
-    override func shouldDelete(_ articles: [WMFArticle], completion: @escaping (Bool) -> Void) {
-        let alertController = ReadingListsAlertController()
-        let unsave = ReadingListsAlertActionType.unsave.action {
-            completion(true)
+    override func article(at indexPath: IndexPath) -> WMFArticle? {
+        guard indexPath.item < entries.count else {
+            return nil
         }
-        let cancel = ReadingListsAlertActionType.cancel.action {
-            completion(false)
+        let entry = entries[indexPath.item]
+        return article(for: entry)
+    }
+
+    // MARK: - Fetch and Apply
+    private func fetchAndApply(animated: Bool) {
+        let context = dataStore.viewContext
+        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        request.predicate = basePredicate
+        request.sortDescriptors = sort.descriptors
+
+        do {
+            let fetched = try context.fetch(request)
+            let deduped = dedupe(fetched)
+            
+            // Sort entries according to the current sort descriptors
+            let sortedEntries = (deduped as NSArray).sortedArray(using: sort.descriptors) as! [ReadingListEntry]
+
+            entries = sortedEntries
+
+            var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
+            snapshot.appendSections([0])
+            snapshot.appendItems(deduped.map { $0.objectID }, toSection: 0)
+            dataSource.apply(snapshot, animatingDifferences: animated)
+
+            updateEmptyState()
+        } catch {
+            assertionFailure("Fetch failed: \(error)")
         }
-        alertController.showAlertIfNeeded(presenter: self, for: articles, with: [cancel, unsave]) { showed in
-            if !showed {
-                completion(true)
+    }
+
+    private func dedupe(_ items: [ReadingListEntry]) -> [ReadingListEntry] {
+        let grouped = Dictionary(grouping: items) { $0.articleKey }
+        return grouped.compactMap { _, entries in
+            entries.max {
+                let lhs = $0.createdDate as Date? ?? .distantPast
+                let rhs = $1.createdDate as Date? ?? .distantPast
+                return lhs < rhs
             }
         }
     }
-    
-    override func delete(_ articles: [WMFArticle]) {
-        dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
-        let articlesCount = articles.count
-        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
-        let language = articles.count == 1 ? articles.first?.url?.wmf_languageCode : nil
-        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
-    }
-    
-    override func configure(cell: SavedArticlesCollectionViewCell, for entry: ReadingListEntry, at indexPath: IndexPath, layoutOnly: Bool) {
-        super.configure(cell: cell, for: entry, at: indexPath, layoutOnly: layoutOnly)
-        cell.delegate = self
-    }
-}
 
-// MARK: - SavedArticlesCollectionViewCellDelegate
+    // MARK: - Override superclass accessors
+    override func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
 
-extension SavedArticlesCollectionViewController: SavedArticlesCollectionViewCellDelegate {
-    func didSelect(_ tag: Tag) {
-        guard let article = article(at: tag.indexPath) else {
-            return
-        }
-        let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: article.sortedYesDefaultReadingLists) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
-        viewController.apply(theme: theme)
-        push(viewController, animated: true)
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        entries.count
+    }
+
+    override func entry(at indexPath: IndexPath) -> ReadingListEntry? {
+        guard indexPath.item < entries.count else { return nil }
+        return entries[indexPath.item]
+    }
+
+    // MARK: - Article Updates
+    override func articleDidChange(_ note: Notification) {
+        guard let article = note.object as? WMFArticle,
+              article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
+              let articleKey = article.inMemoryKey else { return }
+
+        let objectIDsToReload = entries
+            .filter { $0.inMemoryKey == articleKey }
+            .map { $0.objectID }
+
+        guard !objectIDsToReload.isEmpty else { return }
+
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadItems(objectIDsToReload)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

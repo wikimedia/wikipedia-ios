@@ -16,6 +16,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
     let readingList: ReadingList?
     var searchString: String?
+    var bypassLegacyCollectionViewUpdates: Bool = false
     
     var basePredicate: NSPredicate {
         guard let readingList else {
@@ -76,8 +77,11 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
+        if !bypassLegacyCollectionViewUpdates {
+            layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+            layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
+        }
+        
         setupEditController()
         isRefreshControlEnabled = true
         
@@ -85,9 +89,11 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setupFetchedResultsController()
-        setupCollectionViewUpdater()
-        fetch()
+        if !bypassLegacyCollectionViewUpdates {
+            setupFetchedResultsController()
+            setupCollectionViewUpdater()
+            fetch()
+        }
         super.viewWillAppear(animated)
     }
     
