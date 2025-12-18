@@ -227,11 +227,3 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     }
     
 }
-
-extension CollectionViewUpdater {
-    func replaceFetchedObjects(with objects: [T]) {
-        // Only used for initial load to avoid duplicates
-        // Note: We don't replace the FRC itself, just reload the collection view
-        collectionView.reloadData()
-    }
-}
