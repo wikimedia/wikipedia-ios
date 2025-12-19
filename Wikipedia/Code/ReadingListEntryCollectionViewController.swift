@@ -518,7 +518,9 @@ extension ReadingListEntryCollectionViewController {
 extension ReadingListEntryCollectionViewController: SortableCollection {
     
     var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
-        guard let sortOrder = readingList?.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
+        let sortOrder = readingList?.sortOrder ?? NSNumber(1)
+        
+        guard let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
             return ([], nil)
         }
         return (sortAction.sortDescriptors, sortAction.alertAction)

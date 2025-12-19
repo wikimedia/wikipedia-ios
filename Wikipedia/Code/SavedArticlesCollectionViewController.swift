@@ -41,7 +41,18 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
     }
 
     @objc private func contextDidChange(_ note: Notification) {
-        fetchAndApply(animated: true)
+        
+        guard let userInfo = note.userInfo else { return }
+            let relevantKeys: [String] = [NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey]
+
+            let changedEntries: Set<ReadingListEntry> = relevantKeys.compactMap { key -> Set<ReadingListEntry>? in
+                guard let objects = userInfo[key] as? Set<NSManagedObject> else { return nil }
+                return Set(objects.compactMap { $0 as? ReadingListEntry })
+            }.reduce(into: Set<ReadingListEntry>()) { $0.formUnion($1) }
+
+            guard !changedEntries.isEmpty else { return }
+
+            fetchAndApply(animated: true)
     }
 
     // MARK: - Setup Diffable DataSource
@@ -55,7 +66,10 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
                   let entry = try? self.dataStore.viewContext.existingObject(with: objectID) as? ReadingListEntry else {
                 return cell
             }
+            
+            // Configure swipe drawer state fresh
             self.configure(cell: savedCell, for: entry, at: indexPath, layoutOnly: false)
+            
             return savedCell
         }
     }
@@ -73,17 +87,19 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
         let context = dataStore.viewContext
         let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         request.predicate = basePredicate
-        request.sortDescriptors = sort.descriptors
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: false)] // simple sort
 
         do {
             let fetched = try context.fetch(request)
             let deduped = dedupe(fetched)
             
             // Sort entries according to the current sort descriptors
-            let sortedEntries = (deduped as NSArray).sortedArray(using: sort.descriptors) as! [ReadingListEntry]
-
+            let sortedEntries = deduped.sorted {
+                ($0.displayTitle ?? "") > ($1.displayTitle ?? "")
+            }
             entries = sortedEntries
 
+            print("😡doin stuff")
             var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
             snapshot.appendSections([0])
             snapshot.appendItems(deduped.map { $0.objectID }, toSection: 0)
@@ -130,6 +146,7 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
 
         guard !objectIDsToReload.isEmpty else { return }
 
+        print("🤔doing stuff")
         var snapshot = dataSource.snapshot()
         snapshot.reloadItems(objectIDsToReload)
         dataSource.apply(snapshot, animatingDifferences: true)
