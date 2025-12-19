@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                               scopes: nil,
                                               redirectURL: URL(string: "wikipedia://oauth/callback")!,
                                               responseType: OIDResponseTypeCode,
-                                              additionalParameters: nil)
+                                              additionalParameters: ["prompt": "login"])
 
         // performs authentication request
         print("Initiating authorization request with scope: \(request.scope ?? "nil")")

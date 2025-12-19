@@ -203,7 +203,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
     }
     
     func logout(loginSiteURL: URL, reattemptOn401Response: Bool = false, completion: @escaping (Error?) -> Void) {
-        performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: reattemptOn401Response) { (result, response, error) in
+        performOAuthPOST(tokenType: .csrf, url: loginSiteURL, bodyParameters: ["action": "logout", "format": "json"]) { result, response, error in
             completion(error)
         }
     }
