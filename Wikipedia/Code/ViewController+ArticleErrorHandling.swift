@@ -1,4 +1,5 @@
 import Foundation
+import WMFLocalizations
 
 extension ThemeableViewController {
     func presentArticleErrorRecovery(with article: WMFArticle) {

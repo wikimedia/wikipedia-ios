@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFLocalizations
 
 final class TalkPageCellCommentView: SetupView {
 

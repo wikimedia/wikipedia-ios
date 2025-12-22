@@ -1,4 +1,5 @@
 import Foundation
+import WMFLocalizations
 
 public enum RemoteNotificationType: Hashable {
     case userTalkPageMessage // Message on your talk page

@@ -2,6 +2,7 @@ import WMF
 import WMFData
 import WMFComponents
 import CocoaLumberjackSwift
+import WMFLocalizations
 
 enum ArticleTabConfig {
     case appendArticleAndAssignCurrentTab // Default navigation

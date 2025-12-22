@@ -1,4 +1,5 @@
 import Foundation
+import WMFLocalizations
 
 public enum RemoteNotificationFilterType: String, CaseIterable {
     case userTalkPageMessage

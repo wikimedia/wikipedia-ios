@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 protocol InsertMediaViewControllerDelegate: AnyObject {
     func didTapCloseButton(insertMediaViewController: InsertMediaViewController)

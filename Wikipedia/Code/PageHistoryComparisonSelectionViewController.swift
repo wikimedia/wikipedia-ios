@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 protocol PageHistoryComparisonSelectionViewControllerDelegate: AnyObject {
     func pageHistoryComparisonSelectionViewController(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController, selectionOrder: SelectionOrder)

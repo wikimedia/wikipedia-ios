@@ -2,6 +2,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import WMF
+import WMFLocalizations
 
 final class DatabasePopulationHostingController: WMFComponentHostingController<DatabasePopulationView>, WMFNavigationBarConfiguring {
 

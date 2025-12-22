@@ -1,6 +1,7 @@
 import UIKit
 import CocoaLumberjackSwift
 import WMFComponents
+import WMFLocalizations
 
 protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)

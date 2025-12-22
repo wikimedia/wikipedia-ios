@@ -1,4 +1,5 @@
 import Foundation
+import WMFLocalizations
 
 // Utilize this class to define localized strings that are used in multiple places in similar contexts.
 // There should only be one WMF Localized String function in code for every localization key.

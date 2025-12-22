@@ -1,5 +1,6 @@
 import CocoaLumberjackSwift
 import WMFComponents
+import WMFLocalizations
 
 public class RemoteNotificationsAPIController: Fetcher {
 

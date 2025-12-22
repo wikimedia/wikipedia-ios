@@ -1,4 +1,5 @@
 import UIKit
+import WMFLocalizations
 
 @objc(WMFFontSizeSliderViewController)
 class FontSizeSliderViewController: UIViewController {

@@ -1,4 +1,5 @@
 import UIKit
+import WMFLocalizations
 
 @objc(WMFSaveButtonDelegate) public protocol SaveButtonDelegate {
     func saveButtonDidReceiveLongPress(_ saveButton: SaveButton)

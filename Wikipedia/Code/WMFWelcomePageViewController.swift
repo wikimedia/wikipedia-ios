@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 enum WMFWelcomePageType {
     case intro

@@ -1,5 +1,6 @@
 import CocoaLumberjackSwift
 import CoreData
+import WMFLocalizations
 
 public extension Notification.Name {
     static let NotificationsCenterContextDidSave = Notification.Name("NotificationsCenterContextDidSave")

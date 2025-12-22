@@ -1,5 +1,5 @@
 import Foundation
-
+import WMFLocalizations
 
 enum DiffError: Error {
     case generateUrlFailure

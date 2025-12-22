@@ -1,5 +1,6 @@
 import Foundation
 import WMFData
+import WMFLocalizations
 
 private extension WMFMediaWikiServiceRequest.TokenType {
     var wmfTokenType: TokenType {

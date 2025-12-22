@@ -1,5 +1,6 @@
 import WMFComponents
 import WMFData
+import WMFLocalizations
 
 @objc extension WMFSettingsViewController: WMFNavigationBarConfiguring, WMFNavigationBarHiding {
 
