@@ -646,10 +646,10 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Wikipedia Zero";
 "main-page" = "Почетна";
-"microsite-yir-english-edits-bytes-slide-title" = "$1 {{PLURAL:$1|бајтова}} додато";
-"microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили скоро $1 {{PLURAL:$1|измена}}";
-"microsite-yir-english-reading-slide-title" = "$1 сати смо {{PLURAL:$1|читали}}";
-"microsite-yir-english-saved-reading-slide-title" = "Сачували само $1 {{PLURAL:$1|чланака}}";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "$1 {{PLURAL:$1|бајтова}} додато";
+"microsite-yir-english-edits-slide-title-updated" = "Уредници су ове године начинили скоро $1 {{PLURAL:$1|измена}}";
+"microsite-yir-english-reading-slide-title-updated" = "$1 сати смо {{PLURAL:$1|читали}}";
+"microsite-yir-english-saved-reading-slide-title-updated" = "Сачували само $1 {{PLURAL:$1|чланака}}";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "more-menu" = "Више";
@@ -1305,9 +1305,9 @@
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
-"year-in-review-base-editors-title" = "Преко званичних апликације за Википедију је начињено $1 {{PLURAL:$1|измена}}";
-"year-in-review-base-edits-title" = "Википедија се уређује $1 пута у {{PLURAL:$1|минуту}}";
-"year-in-review-base-reading-title" = "Википедија је доступна на више од $1 {{PLURAL:$1|језика}}";
+"year-in-review-base-editors-title-updated" = "Преко званичних апликације за Википедију је начињено $1 {{PLURAL:$1|измена}}";
+"year-in-review-base-edits-title-updated" = "Википедија се уређује $1 пута у {{PLURAL:$1|минуту}}";
+"year-in-review-base-reading-title-updated" = "Википедија је доступна на више од $1 {{PLURAL:$1|језика}}";
 "year-in-review-base-viewed-subtitle" = "За људе широм света Википедија је почетна тачка за одговор на неко питање, тражење информација за школу или посао или једноставно учење нове чињенице.";
 "year-in-review-day-friday" = "петак";
 "year-in-review-day-monday" = "понедељак";
