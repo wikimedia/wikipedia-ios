@@ -1967,9 +1967,6 @@
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
-		D801C9301EB8E131001FA294 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8531EB8E131001FA294 /* Localizable.strings */; };
-		D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = D801C8611EB8E131001FA294 /* Localizable.stringsdict */; };
-		D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D801C8511EB8E131001FA294 /* InfoPlist.strings */; };
 		D801C93C1EB9404A001FA294 /* WMFLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = D801C93A1EB9404A001FA294 /* WMFLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D801C93D1EB9404A001FA294 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = D801C93B1EB9404A001FA294 /* WMFLocalization.m */; };
 		D808DCEB1E438BE300A3E89C /* PlaceSearchSuggestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */; };
@@ -9347,7 +9344,6 @@
 				D8D92B5C1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png in Resources */,
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
 				6780D5C0237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */,
-				D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */,
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				83B01F8B23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				7AFA21C020110D7900E957E7 /* HintViewController.xib in Resources */,
@@ -9671,9 +9667,7 @@
 				533AB8AE259792A9003A43D9 /* wikipedia-language-variants.json in Resources */,
 				0067E5202BAA252B00AF0960 /* PrivacyInfo.xcprivacy in Resources */,
 				D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */,
-				D801C9301EB8E131001FA294 /* Localizable.strings in Resources */,
 				67C169A22BEC0B9900F09043 /* wikipedia-magicwords in Resources */,
-				D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */,
 				83ACAAA824E6E6C5003B3035 /* wikipedia-languages.json in Resources */,
 				7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */,
 				D8E4CCAA1D931CE100EB6C61 /* assets in Resources */,
