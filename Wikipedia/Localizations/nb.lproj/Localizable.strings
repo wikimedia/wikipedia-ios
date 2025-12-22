@@ -1306,6 +1306,5 @@
 "wikitext-upload-save" = "Publiserer...";
 "wikitext-upload-save-anonymously-or-login" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 logger inn$2 vil du få bedre personvern.";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
-"wikitext-upload-save-sign-in" = "Logg inn";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ved å publisere endringene samtykker du i $1bruksvilkårene$2, og samtykker i å ugjenkallelig utgi bidraget ditt under lisensene $3CC BY-SA 4.0$4 og $5GFDL$6. Du samtykker til at en hyperlenke eller URL er tilstrekkelig attribuering under Creative Commons-lisensen.";
 "wikitext-upload-save-terms-name" = "bruksvilkårene";
