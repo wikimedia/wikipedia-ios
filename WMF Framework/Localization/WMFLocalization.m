@@ -100,26 +100,7 @@ NSDictionary<NSString*, NSString*> *variantContentCodeToLocalizationBundleMappin
 
 @end
 
+// Note: we can't apply @objc to global Swift function WMFLocalizedString, so we are wrapping up Objective-C calls here
 NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSString *_Nullable wikipediaLanguageCode, NSBundle *_Nullable bundle, NSString *value, NSString *comment) {
-    if (bundle == nil) {
-        bundle = NSBundle.wmf_localizationBundle;
-    }
-
-    NSString *translation = nil;
-    if (wikipediaLanguageCode == nil) {
-        translation = [bundle localizedStringForKey:key value:nil table:nil];
-    } else {
-        NSBundle *languageBundle = [bundle wmf_languageBundleForWikipediaLanguageCode:wikipediaLanguageCode];
-        translation = [languageBundle localizedStringForKey:key value:nil table:nil];
-        
-        if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
-            translation = [bundle localizedStringForKey:key value:nil table:nil];
-        }
-    }
-
-    if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
-        translation = [[bundle wmf_fallbackLanguageBundle] localizedStringForKey:key value:value table:nil];
-    }
-
-    return translation ? translation : @"";
+    return [WMFLocalizationWrapper wmf_NewLocalizedStringWithDefaultValue:key wikipediaLanguageCode:wikipediaLanguageCode bundle:bundle value:value comment:comment];
 }
