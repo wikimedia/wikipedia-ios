@@ -259,7 +259,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             }
         } break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
-            [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];
+            [self wmf_navigateToURL:[NSURL URLWithString:[WMFCommonStringsWrapper privacyPolicyURLString]]];
             break;
         case WMFSettingsMenuItemType_Terms:
             [self wmf_navigateToURL:[NSURL URLWithString:WMFSettingsURLTerms]];
@@ -341,11 +341,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)clearDonationHistory {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStrings.confirmDeletionTitle
-                                                                             message:WMFCommonStrings.confirmDeletionSubtitle
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStringsWrapper.confirmDeletionTitle
+                                                                             message:WMFCommonStringsWrapper.confirmDeletionSubtitle
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:WMFCommonStrings.deleteActionTitle
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:WMFCommonStringsWrapper.deleteActionTitle
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *_Nonnull action) {
                                                              [self deleteLocalHistory];
@@ -356,7 +356,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                                              });
                                                          }];
 
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:WMFCommonStrings.cancelActionTitle
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:WMFCommonStringsWrapper.cancelActionTitle
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
 
@@ -370,10 +370,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)showDeletionConfirmation {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStrings.confirmedDeletion
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStringsWrapper.confirmedDeletion
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:WMFCommonStringsWrapper.okTitle style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:okAction];
     [self.navigationController presentViewController:alertController animated:YES completion:nil];
 }

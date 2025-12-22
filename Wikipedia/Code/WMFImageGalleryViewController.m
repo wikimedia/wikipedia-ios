@@ -126,9 +126,9 @@ NS_ASSUME_NONNULL_BEGIN
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
 
-        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithTitle:WMFCommonStrings.doneTitle style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
+        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithTitle:WMFCommonStringsWrapper.doneTitle style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
         close.tintColor = self.theme.colors.link;
-        close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+        close.accessibilityLabel = [WMFCommonStringsWrapper closeButtonAccessibilityLabel];
         self.overlayView.leftBarButtonItem = close;
     }
 }
