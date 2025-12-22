@@ -1,3 +1,5 @@
+import WMFLocalizations
+
 protocol Collection: AnyObject {
     var collectionView: UICollectionView { get set }
 }

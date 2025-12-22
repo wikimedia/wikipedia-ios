@@ -1,6 +1,7 @@
 import WMFComponents
 import SwiftUI
 import WMF
+import WMFLocalizations
 
 struct NotificationsCenterFilterItemView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass

@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import WMFLocalizations
 
 internal let APIReadingListUpdateLimitForFullSyncFallback = 1000 // if we receive over this # of updated items, fall back to full sync
 

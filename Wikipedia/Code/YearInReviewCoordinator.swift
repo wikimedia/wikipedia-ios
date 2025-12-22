@@ -4,6 +4,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import WMFLocalizations
 
 @objc(WMFYearInReviewCoordinator)
 final class YearInReviewCoordinator: NSObject, Coordinator {

@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 protocol WMFReadingThemesControlsViewControllerDelegate: AnyObject {
     

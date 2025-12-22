@@ -3,6 +3,7 @@ import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
+import WMFLocalizations
 
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {

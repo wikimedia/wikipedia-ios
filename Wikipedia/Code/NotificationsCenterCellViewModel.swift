@@ -1,4 +1,5 @@
 import Foundation
+import WMFLocalizations
 
 final class NotificationsCenterCellViewModel {
 

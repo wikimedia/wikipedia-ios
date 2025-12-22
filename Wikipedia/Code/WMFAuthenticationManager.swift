@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import WMFLocalizations
 
 // MARK: WMFAuthenticationManagerDelegate
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {

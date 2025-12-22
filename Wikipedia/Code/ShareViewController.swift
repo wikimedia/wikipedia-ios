@@ -1,4 +1,5 @@
 import UIKit
+import WMFLocalizations
 
 @objc(WMFShareViewController)
 class ShareViewController: UIViewController, Themeable {

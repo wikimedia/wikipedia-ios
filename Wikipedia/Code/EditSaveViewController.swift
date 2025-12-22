@@ -2,6 +2,7 @@ import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
+import WMFLocalizations
 
 struct EditorChanges {
     let newRevisionID: UInt64

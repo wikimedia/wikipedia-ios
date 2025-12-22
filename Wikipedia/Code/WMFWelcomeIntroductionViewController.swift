@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 class WMFWelcomeIntroductionViewController: ThemeableViewController {
     override func apply(theme: Theme) {

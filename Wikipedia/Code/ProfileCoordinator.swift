@@ -3,6 +3,7 @@ import PassKit
 import SwiftUI
 import WMFComponents
 import WMFData
+import WMFLocalizations
 
 @objc
 enum ProfileCoordinatorSource: Int {

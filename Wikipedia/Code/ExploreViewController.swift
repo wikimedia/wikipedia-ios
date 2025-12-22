@@ -3,6 +3,7 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import WMFLocalizations
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
 

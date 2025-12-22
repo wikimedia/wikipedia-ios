@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WMFLocalizations
 
 protocol NotificationsCenterFiltersItemViewModelDelegate: AnyObject {
     func setFilterReadStatus(newReadStatus: RemoteNotificationsFilterState.ReadStatus)

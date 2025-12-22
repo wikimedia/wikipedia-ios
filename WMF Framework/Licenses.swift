@@ -1,4 +1,5 @@
 import Foundation
+import WMFLocalizations
 
 @objc(WMFLicenses)
 @objcMembers public class Licenses: NSObject {

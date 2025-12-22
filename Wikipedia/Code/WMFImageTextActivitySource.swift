@@ -1,4 +1,5 @@
 import UIKit
+import WMFLocalizations
 
 open class WMFImageTextActivitySource: NSObject, UIActivityItemSource {
 

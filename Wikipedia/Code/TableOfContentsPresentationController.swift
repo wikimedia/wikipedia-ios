@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFLocalizations
 
 // MARK: - Delegate
 @objc public protocol TableOfContentsPresentationControllerTapDelegate {

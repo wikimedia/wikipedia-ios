@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFLocalizations
 
 private struct Section {
     let items: [Item]

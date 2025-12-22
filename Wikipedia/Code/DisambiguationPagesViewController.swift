@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFLocalizations
 
 @objc(WMFDisambiguationPagesViewController)
 class DisambiguationPagesViewController: ArticleFetchedResultsViewController, WMFNavigationBarConfiguring {

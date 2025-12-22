@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 final class DiffListChangeItemViewModel {
     let text: String

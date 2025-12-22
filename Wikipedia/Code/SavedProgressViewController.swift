@@ -1,4 +1,5 @@
 import UIKit
+import WMFLocalizations
 
 class SavedProgressViewController: UIViewController, Themeable {
     @IBOutlet weak var label: UILabel!

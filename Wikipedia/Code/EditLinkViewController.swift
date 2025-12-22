@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 protocol EditLinkViewControllerDelegate: AnyObject {
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem)

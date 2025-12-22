@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 public protocol CardContent {
     var view: UIView! { get }

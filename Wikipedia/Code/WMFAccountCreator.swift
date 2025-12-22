@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 public enum WMFAccountCreatorError: LocalizedError {
     case cannotExtractStatus

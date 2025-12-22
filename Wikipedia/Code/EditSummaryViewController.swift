@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import WMFLocalizations
 
 protocol EditSummaryViewDelegate: AnyObject {
     func summaryChanged(newSummary: String)

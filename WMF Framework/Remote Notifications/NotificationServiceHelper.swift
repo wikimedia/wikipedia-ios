@@ -1,4 +1,5 @@
 import Foundation
+import WMFLocalizations
 
 // Testable helper methods for service extension logic
 public class NotificationServiceHelper {

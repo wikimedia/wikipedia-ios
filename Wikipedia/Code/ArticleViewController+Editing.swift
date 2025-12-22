@@ -3,6 +3,7 @@ import WMFComponents
 import WMFData
 import UIKit
 import SwiftUI
+import WMFLocalizations
 
 extension ArticleViewController {
     

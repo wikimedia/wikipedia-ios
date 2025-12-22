@@ -4,6 +4,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import WMFLocalizations
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")

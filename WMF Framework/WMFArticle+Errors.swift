@@ -1,5 +1,5 @@
 import Foundation
-
+import WMFLocalizations
 
 public enum ArticleError: Int32, Error {
     case none = 0

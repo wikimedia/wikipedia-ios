@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 @objc public protocol ReadingListsAlertControllerDelegate: NSObjectProtocol {
     func readingListsAlertController(_ readingListsAlertController: ReadingListsAlertController, didSelectUnsaveForArticle: WMFArticle)

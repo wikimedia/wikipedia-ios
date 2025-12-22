@@ -3,6 +3,7 @@ import WMF
 import WMFData
 import CocoaLumberjackSwift
 import WMFComponents
+import WMFLocalizations
 
 fileprivate protocol YearInReviewSettingsItem {
     var title: String { get }

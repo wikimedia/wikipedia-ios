@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
     func didSelect(_ tag: Tag)

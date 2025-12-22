@@ -2,6 +2,7 @@ import WMF
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import WMFLocalizations
 
 public enum InputAccessoryViewType {
     case format

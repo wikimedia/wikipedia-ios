@@ -1,5 +1,6 @@
 import UserNotifications
 import WMF
+import WMFLocalizations
 
 class NotificationService: UNNotificationServiceExtension {
 

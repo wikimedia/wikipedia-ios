@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFLocalizations
 
 class TalkPageReplyComposeContentView: SetupView {
     

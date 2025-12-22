@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     let compassView: WMFCompassView = WMFCompassView()

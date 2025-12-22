@@ -1,6 +1,7 @@
 import UIKit
 import CocoaLumberjackSwift
 import WMFComponents
+import WMFLocalizations
 
 protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController)

@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 protocol ReadingListDetailHeaderViewDelegate: AnyObject {
     func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, didEdit name: String?, description: String?)

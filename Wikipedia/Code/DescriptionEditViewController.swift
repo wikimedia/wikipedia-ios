@@ -1,6 +1,7 @@
 import WMFComponents
 import WMF
 import WMFData
+import WMFLocalizations
 
 protocol DescriptionEditViewControllerDelegate: AnyObject {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult)

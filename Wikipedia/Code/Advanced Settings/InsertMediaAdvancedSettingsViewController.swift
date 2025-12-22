@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFLocalizations
 
 final class InsertMediaAdvancedSettingsViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     static let title = WMFLocalizedString("advanced-settings-title", value: "Advanced settings", comment: "Title for advanced settings screen")

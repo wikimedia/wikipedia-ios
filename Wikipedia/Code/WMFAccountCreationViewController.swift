@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFLocalizations
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable, WMFNavigationBarConfiguring {
     @IBOutlet fileprivate var usernameField: ThemeableTextField!

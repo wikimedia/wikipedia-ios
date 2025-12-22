@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFLocalizations
 
 class PageHistoryCollectionViewCell: CollectionViewCell {
     private let roundedContent = UIView()

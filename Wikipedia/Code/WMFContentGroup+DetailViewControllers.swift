@@ -1,5 +1,6 @@
 import Foundation
 import WMFComponents
+import WMFLocalizations
 
 extension WMFContentGroup {
     

@@ -4,6 +4,7 @@ import WMFComponents
 import WMF
 import CocoaLumberjackSwift
 import WMFData
+import WMFLocalizations
 
 protocol EditorViewControllerDelegate: AnyObject {
     func editorDidCancelEditing(_ editor: EditorViewController, navigateToURL url: URL?)

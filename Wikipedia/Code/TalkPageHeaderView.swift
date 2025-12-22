@@ -1,6 +1,7 @@
 import WMFComponents
 import WMF
 import CocoaLumberjackSwift
+import WMFLocalizations
 
 final class TalkPageHeaderView: UICollectionReusableView {
     

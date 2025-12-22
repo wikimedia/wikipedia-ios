@@ -1,4 +1,5 @@
 import UIKit
+import WMFLocalizations
 
 class ShareAFactActivityTextItemProvider: UIActivityItemProvider, @unchecked Sendable {
     let text: String

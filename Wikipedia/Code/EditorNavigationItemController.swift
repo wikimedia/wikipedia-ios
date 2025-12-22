@@ -1,6 +1,7 @@
 import WMF
 import WMFData
 import WMFComponents
+import WMFLocalizations
 
 protocol EditorNavigationItemControllerDelegate: AnyObject {
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem)

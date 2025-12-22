@@ -4,6 +4,7 @@ import SwiftUI
 import Combine
 import WMF
 import WMFComponents
+import WMFLocalizations
 
 struct TalkPageArchivesViewModel {
     let siteURL: URL

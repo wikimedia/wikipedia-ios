@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import WMFLocalizations
 
 protocol DiffListContextCellDelegate: AnyObject {
     func didTapContextExpand(indexPath: IndexPath)

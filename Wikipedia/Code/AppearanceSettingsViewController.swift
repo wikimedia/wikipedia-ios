@@ -1,5 +1,6 @@
 import WMFComponents
 import WMFData
+import WMFLocalizations
 
 protocol AppearanceSettingsItem {
     var title: String? { get }
