@@ -298,7 +298,7 @@
 			<string>%1$d righe non modificate</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Nel %1$@, i volontari hanno aggiunto %2$lld %#@v2@ alla Wikipedia in inglese. La somma di tutto il loro lavoro insieme porta a una risorsa di conoscenza in costante miglioramento, basata sui fatti e affidabile che danno al mondo. Tutti noi abbiamo conoscenze da condividere, [impara come partecipare](%3$@).</string>
@@ -312,7 +312,7 @@
 			<string>byte</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%1$lld byte %#@v1@</string>
@@ -328,7 +328,7 @@
 			<string>aggiunti</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-title</key>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Gli editori hanno apportato %1$lld %#@v1@ quest'anno</string>
@@ -344,7 +344,7 @@
 			<string>modifiche</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Quest'anno, gli utenti attivi delle applicazioni hanno salvato %1$lld %#@v1@. Aggiungere voci agli elenchi di lettura ti consente di accedere alle voci anche quando sei offline. Puoi anche effettuare l'accesso per sincronizzare gli elenchi di lettura tra i dispositivi.</string>
@@ -799,7 +799,7 @@
 			<string>%1$d byte</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Gli editor hanno effettuato %1$lld %#@v1@ dalle applicazioni ufficiali di Wikipedia</string>
@@ -815,7 +815,7 @@
 			<string>modifiche</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia è stata modificata %1$d %#@v1@ al minuto</string>
@@ -831,7 +831,7 @@
 			<string>volte</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-subtitle</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia ha avuto %1$lld %#@v1@ in più di %2$d %#@v2@. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.</string>
@@ -858,7 +858,7 @@
 			<string>lingue attive</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia è stata disponibile in più di %1$d %#@v1@</string>
@@ -874,7 +874,7 @@
 			<string>lingue</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Gli utenti delle applicazioni hanno salvato %1$lld %#@v1@</string>
@@ -890,7 +890,7 @@
 			<string>voci</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Gli utenti delle applicazioni hanno visualizzato le voci di Wikipedia %1$lld %#@v1@</string>
@@ -906,7 +906,7 @@
 			<string>volte</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, le voci che hai modificato hanno ricevuto %1$lld %#@v1@. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti.</string>
@@ -922,7 +922,7 @@
 			<string>visualizzazioni totali</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Recentemente le tue modifiche sono state visualizzate più di %1$lld %#@v1@</string>
@@ -938,7 +938,7 @@
 			<string>volte</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Hai modificato %#@v1@</string>

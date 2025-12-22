@@ -140,7 +140,7 @@
 			<string> %1$d ਲਕੀਰਾਂ ਨਹੀਂ ਸੋਧੀਆਂ</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@ ਜੋੜੇ ਗਏ</string>
@@ -538,7 +538,7 @@
 			<string>%1$d ਬਾਈਟਾਂ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ਅਧਿਕਾਰਤ ਵਿਕੀਪੀਡੀਆ ਐਪ ਉੱਤੇ ਸੋਧਕਾਂ ਨੇ %#@v1@</string>
@@ -554,7 +554,7 @@
 			<string>%1$lld ਸੋਧਾਂ ਕੀਤੀਆਂ ਹਨ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ਵਿਕੀਪੀਡੀਆ ਨੂੰ %#@v1@ ਪ੍ਰਤੀ ਮਿੰਟ ਸੋਧਿਆ ਗਿਆ ਸੀ</string>
@@ -568,7 +568,7 @@
 			<string>%1$d ਵਾਰ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ਵਿਕੀਪੀਡੀਆ %#@v1@ ਤੋਂ ਵੱਧ ਵਿੱਚ ਉਪਲਬਧ ਸੀ।</string>
@@ -584,7 +584,7 @@
 			<string>%1$d ਭਾਸ਼ਾਵਾਂ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ਐਪ ਵਰਤੋਂਕਾਰਾਂ ਕੋਲ %#@v1@</string>
@@ -600,7 +600,7 @@
 			<string>%1$lld ਸੰਭਾਲੇ ਲੇਖ ਸਨ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ਐਪ ਵਰਤੋਂਕਾਰਾਂ ਨੇ %#@v1@ ਵਿਕੀਪੀਡੀਆ ਲੇਖ ਦੇਖੇ।</string>
@@ -614,7 +614,7 @@
 			<string>%1$lld ਵਾਰ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ਦੁਨੀਆ ਭਰ ਦੇ ਪਾਠਕ ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਦੀ ਸ਼ਲਾਘਾ ਕਰਦੇ ਹਨ। ਪਿਛਲੇ 2 ਮਹੀਨਿਆਂ ਵਿੱਚ, ਤੁਹਾਡੇ ਵੱਲੋਂ ਸੋਧੇ ਲੇਖਾਂ ਨੂੰ %#@v1@ ਵਾਰ ਦੇਖਿਆ ਗਿਆ ਸੀ।। ਤੁਹਾਡੇ ਵਰਗੇ ਸੋਧਕਾਂ ਦਾ ਧੰਨਵਾਦ, ਵਿਕੀਪੀਡੀਆ ਦੁਨੀਆ ਲਈ ਇੱਕ ਨਿਰੰਤਰ ਸੁਧਾਰ, ਤੱਥ-ਅਧਾਰਤ ਅਤੇ ਭਰੋਸੇਯੋਗ ਗਿਆਨ ਸਰੋਤ ਹੈ।</string>
@@ -630,7 +630,7 @@
 			<string>ਕੁੱਲ %1$lld</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ਤੁਹਾਡੇ ਸੋਧਾਂ ਨੂੰ ਹਾਲ ਹੀ ਵਿੱਚ %#@v1@ ਤੋਂ ਵੱਧ ਵਾਰ ਵੇਖਿਆ ਗਿਆ ਸੀ</string>
@@ -644,7 +644,7 @@
 			<string>%1$lld</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ਤੁਸੀਂ %#@v1@ ਸੋਧਿਆ ਹੈ</string>
