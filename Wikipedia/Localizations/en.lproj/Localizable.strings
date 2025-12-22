@@ -1156,7 +1156,6 @@
 "search-recent-clear-delete-all" = "Delete All";
 "search-recent-empty" = "No recent searches yet";
 "search-recent-title" = "Recently searched";
-"search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
 "search-widget-announcement-body" = "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.";
 "search-widget-announcement-title" = "New Search widget available";

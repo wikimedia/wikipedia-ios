@@ -1,9 +1,10 @@
 import UIKit
 import WMF
+import WMFData
 
 class SearchResultsViewController: ArticleCollectionViewController {
-    var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
-    var results: [MWKSearchResult] = [] {
+    var resultsInfo: WMFSearchDataController.SearchResults? = nil // don't use resultsInfo.results, it mutates
+    var results: [WMFSearchDataController.SearchResult] = [] {
         didSet {
             assert(Thread.isMainThread)
             reload()
@@ -30,7 +31,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
             return false
         }
-        return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
+        return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.term == searchTerm
     }
 
     override var eventLoggingCategory: EventCategoryMEP {
@@ -38,16 +39,23 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
 
     override func articleURL(at indexPath: IndexPath) -> URL? {
-        return results[indexPath.item].articleURL(forSiteURL: searchSiteURL)
+        return results[indexPath.item].articleURL
     }
 
     override func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let articleURL = articleURL(at: indexPath) else {
+        guard
+            let articleURL = articleURL(at: indexPath),
+            let article = dataStore.fetchOrCreateArticle(with: articleURL)
+        else {
             return nil
         }
-        let article = dataStore.fetchOrCreateArticle(with: articleURL)
+
         let result = results[indexPath.item]
-        article?.update(with: result)
+
+        article.displayTitleHTML = result.displayTitleHTML ?? result.title
+        article.wikidataDescription = result.description
+        article.thumbnailURL = result.thumbnailURL
+
         return article
     }
 
@@ -64,27 +72,15 @@ class SearchResultsViewController: ArticleCollectionViewController {
         tappedSearchResultAction?(articleURL, indexPath)
     }
 
-    func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {
-        return resultsInfo?.redirectMappings?.filter({ (mapping) -> Bool in
-            return result.displayTitle == mapping.redirectToTitle
-        }).first
-    }
-
-    func descriptionForSearchResult(_ result: MWKSearchResult) -> String? {
-        let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: searchSiteURL?.wmf_languageCode)
-        let mapping = redirectMappingForSearchResult(result)
-        guard let redirectFromTitle = mapping?.redirectFromTitle else {
-            return capitalizedWikidataDescription
+    func descriptionForSearchResult(_ result: WMFSearchDataController.SearchResult) -> String? {
+        guard let description = result.description else {
+            return nil
         }
 
-        let redirectFormat = WMFLocalizedString("search-result-redirected-from", value: "Redirected from: %1$@", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters: * %1$@ - article title the current search result redirected from")
-        let redirectMessage = String.localizedStringWithFormat(redirectFormat, redirectFromTitle)
-
-        guard let description = capitalizedWikidataDescription else {
-            return redirectMessage
-        }
-
-        return String.localizedStringWithFormat("%@\n%@", redirectMessage, description)
+        return (description as NSString)
+            .wmf_stringByCapitalizingFirstCharacter(
+                usingWikipediaLanguageCode: searchSiteURL?.wmf_languageCode
+            )
     }
 
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
@@ -105,7 +101,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             cell.configureForCompactList(at: indexPath.item)
         }
 
-        cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
+        cell.setTitleHTML(result.displayTitleHTML ?? result.title, boldedString: resultsInfo?.term)
         cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         cell.titleLabel.accessibilityLanguage = languageCode
         cell.descriptionLabel.text = descriptionForSearchResult(result)

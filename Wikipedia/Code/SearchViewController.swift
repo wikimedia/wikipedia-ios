@@ -4,8 +4,9 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+final class WMFSearchHostingController: WMFComponentHostingController<WMFSearchView> {}
 
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     @objc enum EventLoggingSource: Int {
         case searchTab
         case topOfFeed
@@ -25,25 +26,15 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
     }
-
-    @objc var dataStore: MWKDataStore?
-
-    // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
-    var navigateToSearchResultAction: ((URL) -> Void)?
     
-    // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
-    var populateSearchBarWithTextAction: ((String) -> Void)?
-
-    var customTitle: String?
-    @objc var needsCenteredTitle: Bool = false
-    private let isMainRootView: Bool
-
-    private var searchLanguageBarViewController: SearchLanguagesBarViewController?
-    private var needsAnimateLanguageBarMovement = false
-
-    var topSafeAreaOverlayView: UIView?
-    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
-
+    // temporarily nil
+    private let hostingController: WMFSearchHostingController? = nil
+    public let viewModel: WMFSearchViewModel? = nil
+    private let dataController: WMFSearchDataController? = nil
+    @objc var dataStore: MWKDataStore?
+    private let source: EventLoggingSource
+    
+    
     // Properties needed for Profile Button
 
     private var _yirCoordinator: YearInReviewCoordinator?
@@ -96,8 +87,24 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
+    
+    
+// GREY STOPPED HERE, above is good
+    // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
+    var navigateToSearchResultAction: ((URL) -> Void)?
+    
+    // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
+    var populateSearchBarWithTextAction: ((String) -> Void)?
 
-    private let source: EventLoggingSource
+    var customTitle: String?
+    @objc var needsCenteredTitle: Bool = false
+    private let isMainRootView: Bool
+
+    private var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    private var needsAnimateLanguageBarMovement = false
+
+    var topSafeAreaOverlayView: UIView?
+    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
 
     // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController (i.e. Explore and Article).
     private var customArticleCoordinatorNavigationController: UINavigationController?
@@ -354,16 +361,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private func search(for searchTerm: String?, suggested: Bool) {
         guard let siteURL = siteURL else {
-            assert(false)
+            assertionFailure("No siteURL available")
             return
         }
 
         self.lastSearchSiteURL = siteURL
 
-        guard
-            let searchTerm = searchTerm,
-            searchTerm.wmf_hasNonWhitespaceText
-        else {
+        guard let searchTerm = searchTerm, searchTerm.wmf_hasNonWhitespaceText else {
             didCancelSearch()
             return
         }
@@ -375,49 +379,57 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         resetSearchResults()
         let start = Date()
 
-        let failure = { (error: Error, type: WMFSearchType) in
-            DispatchQueue.main.async { [weak self] in
-                guard let self,
-                      searchTerm == self.navigationItem.searchController?.searchBar.text else {
-                    return
+        Task {
+            do {
+                guard let dataController = self.dataController else {
+                    throw NSError(domain: "SearchViewController", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data controller"])
                 }
-                self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
-                self.resultsViewController.results = []
-                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
-            }
-        }
 
-        let success = { (results: WMFSearchResults, type: WMFSearchType) in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
+                // Fetch search results
+                let results = try await dataController.searchArticles(term: searchTerm, siteURL: siteURL, limit: Int(WMFMaxSearchResultLimit))
 
-                NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
-                let resultsArray = results.results ?? []
-                self.resultsViewController.emptyViewType = .noSearchResults
-                self.resultsViewController.resultsInfo = results
-                self.resultsViewController.searchSiteURL = siteURL
-                self.resultsViewController.results = resultsArray
-                guard !suggested else {
-                    return
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
+                    self.resultsViewController.results = results.results
+                    self.resultsViewController.searchSiteURL = siteURL
+                    self.resultsViewController.emptyViewType = results.results.isEmpty ? .noSearchResults : .none
+
+                    guard !suggested else { return }
+                    SearchFunnel.shared.logSearchResults(
+                        with: .prefix,
+                        resultCount: results.results.count,
+                        elapsedTime: Date().timeIntervalSince(start),
+                        source: self.source.stringValue
+                    )
                 }
-                SearchFunnel.shared.logSearchResults(with: type, resultCount: resultsArray.count, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
-            }
-        }
 
-        fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { (error) in
-            failure(error, .prefix)
-        }) { (results) in
-            success(results, .prefix)
-            guard let resultsArray = results.results, resultsArray.count < 12 else {
-                return
-            }
-            self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { (error) in
-                failure(error, .full)
-            }) { (results) in
-                success(results, .full)
+                // Optional: If fewer than 12 results, perform full-text search
+                if results.results.count < 12 {
+                    let fullTextResults = try await dataController.searchArticles(term: searchTerm, siteURL: siteURL, limit: Int(WMFMaxSearchResultLimit), fullText: true)
+
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self else { return }
+                        self.resultsViewController.results.append(contentsOf: fullTextResults)
+                        SearchFunnel.shared.logSearchResults(
+                            with: .full,
+                            resultCount: results.results.count,
+                            elapsedTime: Date().timeIntervalSince(start),
+                            source: self.source.stringValue
+                        )
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+                    self.resultsViewController.results = []
+                    SearchFunnel.shared.logShowSearchError(with: .prefix, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
+                }
             }
         }
     }
+
 
     lazy var fetcher: WMFSearchFetcher = {
         return WMFSearchFetcher()
@@ -505,7 +517,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     func saveLastSearch() {
         guard
-            let term = resultsViewController.resultsInfo?.searchTerm,
+            let term = resultsViewController.resultsInfo?.term,
             let url = resultsViewController.searchSiteURL,
             let entry = MWKRecentSearchEntry(url: url, searchTerm: term),
             let dataStore
@@ -657,7 +669,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
 }
-
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
