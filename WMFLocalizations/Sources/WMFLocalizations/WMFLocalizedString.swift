@@ -1,6 +1,6 @@
 import Foundation
 
-public func WMFNewLocalizedString(_ key: String, languageCode wikipediaLanguageCode: String? = nil, bundle: Bundle? = nil, value: String, comment: String) -> String {
+public func WMFLocalizedString(_ key: String, languageCode wikipediaLanguageCode: String? = nil, bundle: Bundle? = nil, value: String, comment: String) -> String {
     
     let baseBundle = bundle ?? Bundle.module
     var translation: String?
