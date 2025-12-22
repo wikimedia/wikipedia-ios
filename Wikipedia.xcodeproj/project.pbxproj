@@ -3471,6 +3471,7 @@
 		67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFilterView.swift; sourceTree = "<group>"; };
 		67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsRefreshCrossWikiOperation.swift; sourceTree = "<group>"; };
 		67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsViewControllerTests.swift; sourceTree = "<group>"; };
+		67E6E0B72EF9F3820000F9DE /* WMFLocalizations */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFLocalizations; sourceTree = "<group>"; };
 		67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 2.xcdatamodel"; sourceTree = "<group>"; };
 		67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTaskTracking.swift; sourceTree = "<group>"; };
 		67F35A6523E875B900C3D6C7 /* WMFLanguagesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLanguagesViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -6473,6 +6474,7 @@
 		67F47C0E2AAA6E16006E17FA /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				67E6E0B72EF9F3820000F9DE /* WMFLocalizations */,
 				679603962C5D48AC009606C4 /* WMFComponents */,
 				679603952C5D434D009606C4 /* WMFData */,
 			);
