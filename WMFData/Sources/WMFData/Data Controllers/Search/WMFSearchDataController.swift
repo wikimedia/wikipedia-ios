@@ -59,7 +59,6 @@ extension WMFSearchDataController {
         let (data, _) = try await session.data(from: url)
         let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
 
-        // Pass siteURL into the parser
         return try parseSearchResponse(json: json, searchTerm: term, siteURL: siteURL)
     }
 }
@@ -104,6 +103,7 @@ private extension WMFSearchDataController {
 
         var results: [SearchResult] = []
 
+        // Handle generator=search results (pages dictionary)
         if let pages = query["pages"] as? [String: Any] {
             for (_, value) in pages {
                 guard
@@ -129,9 +129,7 @@ private extension WMFSearchDataController {
 
                 let articleURL: URL? = {
                     guard let host = siteURL.host else { return nil }
-                    let encodedTitle = title.addingPercentEncoding(
-                        withAllowedCharacters: .urlPathAllowed
-                    ) ?? title
+                    let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? title
                     return URL(string: "https://\(host)/wiki/\(encodedTitle)")
                 }()
 
@@ -153,8 +151,43 @@ private extension WMFSearchDataController {
             }
         }
 
-        let suggestion =
-            (query["searchinfo"] as? [String: Any])?["suggestion"] as? String
+        // Handle list=search results (search array)
+        if let searchArray = query["search"] as? [[String: Any]] {
+            for page in searchArray {
+                guard
+                    let pageID = page["pageid"] as? Int,
+                    let title = page["title"] as? String
+                else {
+                    continue
+                }
+
+                let snippet = page["snippet"] as? String
+
+                let articleURL: URL? = {
+                    guard let host = siteURL.host else { return nil }
+                    let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? title
+                    return URL(string: "https://\(host)/wiki/\(encodedTitle)")
+                }()
+
+                results.append(
+                    SearchResult(
+                        id: pageID,
+                        title: title,
+                        displayTitle: title,
+                        displayTitleHTML: title,
+                        description: snippet,
+                        extract: nil,
+                        thumbnailURL: nil,
+                        index: page["index"] as? Int,
+                        namespace: page["ns"] as? Int,
+                        location: nil,
+                        articleURL: articleURL
+                    )
+                )
+            }
+        }
+
+        let suggestion = (query["searchinfo"] as? [String: Any])?["suggestion"] as? String
 
         return SearchResults(
             term: searchTerm,

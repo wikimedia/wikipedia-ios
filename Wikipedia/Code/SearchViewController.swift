@@ -30,7 +30,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // temporarily nil
     private let hostingController: WMFSearchHostingController? = nil
     public let viewModel: WMFSearchViewModel? = nil
-    private let dataController: WMFSearchDataController? = nil
+    private let dataController = WMFSearchDataController()
     @objc var dataStore: MWKDataStore?
     private let source: EventLoggingSource
     
@@ -358,7 +358,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     func search() {
         search(for: searchTerm, suggested: false)
     }
-
+    
     private func search(for searchTerm: String?, suggested: Bool) {
         guard let siteURL = siteURL else {
             assertionFailure("No siteURL available")
@@ -381,16 +381,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         Task {
             do {
-                guard let dataController = self.dataController else {
-                    throw NSError(domain: "SearchViewController", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data controller"])
-                }
-
-                // Fetch search results
-                let results = try await dataController.searchArticles(term: searchTerm, siteURL: siteURL, limit: Int(WMFMaxSearchResultLimit))
+                // Fetch standard search results
+                let results = try await dataController.searchArticles(
+                    term: searchTerm,
+                    siteURL: siteURL,
+                    limit: Int(WMFMaxSearchResultLimit)
+                )
 
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
+                    NSUserActivity.wmf_makeActive(
+                        NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm)
+                    )
                     self.resultsViewController.results = results.results
                     self.resultsViewController.searchSiteURL = siteURL
                     self.resultsViewController.emptyViewType = results.results.isEmpty ? .noSearchResults : .none
@@ -404,27 +406,37 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                     )
                 }
 
-                // Optional: If fewer than 12 results, perform full-text search
+                // Optional: perform full-text search if fewer than 12 results
                 if results.results.count < 12 {
-                    let fullTextResults = try await dataController.searchArticles(term: searchTerm, siteURL: siteURL, limit: Int(WMFMaxSearchResultLimit), fullText: true)
+                    let fullTextResults = try await dataController.searchArticles(
+                        term: searchTerm,
+                        siteURL: siteURL,
+                        limit: Int(WMFMaxSearchResultLimit),
+                        fullText: true
+                    )
 
                     DispatchQueue.main.async { [weak self] in
                         guard let self else { return }
-                        self.resultsViewController.results.append(contentsOf: fullTextResults)
+                        self.resultsViewController.results.append(contentsOf: fullTextResults.results)
                         SearchFunnel.shared.logSearchResults(
                             with: .full,
-                            resultCount: results.results.count,
+                            resultCount: fullTextResults.results.count,
                             elapsedTime: Date().timeIntervalSince(start),
                             source: self.source.stringValue
                         )
                     }
                 }
+
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                     self.resultsViewController.results = []
-                    SearchFunnel.shared.logShowSearchError(with: .prefix, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
+                    SearchFunnel.shared.logShowSearchError(
+                        with: .prefix,
+                        elapsedTime: Date().timeIntervalSince(start),
+                        source: self.source.stringValue
+                    )
                 }
             }
         }
