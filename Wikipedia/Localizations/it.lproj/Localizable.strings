@@ -189,7 +189,6 @@
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
 "article-share" = "Condividi";
 "article-tabs-button-accessibility-label" = "Schede voci";
-"article-tabs-did-you-know-title" = "Lo sapevi";
 "article-tabs-open" = "Apri";
 "article-tabs-open-background-tab" = "Apri nella scheda in background";
 "article-tabs-open-new-tab" = "Apri in una nuova scheda";
@@ -232,9 +231,9 @@
 "continue-button-title" = "Continua";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
-"create-account" = "Crea un'utenza";
 "crimean-tatar-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti del tataro di Crimea come lingua principale o secondaria all'interno dell'applicazione, rendendo più semplice la lettura, la ricerca e la modifica nelle varianti preferite:\n\nQırımtatarca, latino tataro di Crimea latino (chr-latn)\nкъырымтатарджа, Кирил tataro di Crimea cirillico (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Aggiorna al supporto della variante Tatara della Crimea";
+"customize-action-title" = "Personalizza";
 "data-migration-status" = "Aggiornamento...";
 "description-add-title" = "Aggiungi descrizione";
 "description-edit-for-article" = "Descrizione della voce per $1";
@@ -266,7 +265,6 @@
 "description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
-"did-you-know" = "Lo sapevi?";
 "diff-article-revision-history" = "Cronologia versioni voce";
 "diff-change-paragraph-lines-moved-down" = "Il paragrafo è stato spostato in basso di {{PLURAL:$1|0=0 righe|$1 riga|$1 righe}}. Vai alla nuova posizione.";
 "diff-change-paragraph-lines-moved-up" = "Il paragrafo è stato spostato in alto di {{PLURAL:$1|0=0 righe|$1 riga|$1 righe}}. Vai alla nuova posizione.";
@@ -1069,7 +1067,6 @@
 "wikitext-upload-save" = "Pubblicazione...";
 "wikitext-upload-save-anonymously-or-login" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1accedi$2 avrai maggiore privacy.";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
-"wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "year-in-review-base-editors-subtitle" = "Il cuore e l'anima di Wikipedia sono la nostra comunità globale di collaboratori volontari, donatori e miliardi di lettori come te, tutti uniti per condividere un accesso illimitato a informazioni affidabili.";
 "year-in-review-base-editors-title" = "Gli editor hanno effettuato $1 {{PLURAL:$1|modifica|modifiche}} dalle applicazioni ufficiali di Wikipedia";

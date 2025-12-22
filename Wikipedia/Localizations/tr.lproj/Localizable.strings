@@ -126,6 +126,15 @@
 "activity-tab-additional-thoughts" = "Eklemek istediğiniz başka düşünceleriniz var mı?";
 "activity-tab-articles-read" = "Bu ay okunan maddeler";
 "activity-tab-articles-read-graph-label" = "Maddeler";
+"activity-tab-customize-all-time-impact" = "Tüm zamanların etkisi";
+"activity-tab-customize-editing-insights" = "Düzenleme içgörüleri";
+"activity-tab-customize-empty-state" = "Etkinlik modülleri kapalı. Bu sekmede güncellemeleri görmek için $1onları açın$2.";
+"activity-tab-customize-footer" = "Okuma içgörüleri, ayarlarınızdaki uygulama dillerinize dayanırken, düzenleme içgörüleri yalnızca birincil uygulama dilinizle sınırlıdır. İçgörüler yerel verilerden yararlanır; ancak düzenlemeler herkese açıktır.";
+"activity-tab-customize-last-in-app-donation" = "Son uygulama için bağış";
+"activity-tab-customize-logout-warning" = "Bu etkinlik içgörüsünü etkinleştirmek için giriş yapmanız gerekmektedir.";
+"activity-tab-customize-reading-insights" = "Okuma içgörüleri";
+"activity-tab-customize-time-spent-reading" = "Okumaya harcanan zaman";
+"activity-tab-customize-timeline-of-behavior" = "Davranışın zaman çizelgesi";
 "activity-tab-email-fifth-line" = "[Ekran görüntüleri ya da Bağlantılar]";
 "activity-tab-email-first-line" = "Etkinlik Sekmesi Özelliği ile ilgili bir sorunla karşılaştım:";
 "activity-tab-email-fourth-line" = "[İstenen davranışı tanımlayın]";
@@ -212,7 +221,6 @@
 "article-share" = "Paylaş";
 "article-tabs-button-accessibility-hint" = "Sekme genel bakışına gider";
 "article-tabs-button-accessibility-label" = "Madde sekmeleri";
-"article-tabs-did-you-know-title" = "Biliyor muydunuz";
 "article-tabs-feature-announcement-item-1-subtitle" = "Birden fazla maddeyi açın ve aralarında kolayca geçiş yapın.";
 "article-tabs-feature-announcement-item-1-title" = "Sekmelerle göz atın";
 "article-tabs-feature-announcement-item-2-subtitle" = "Sekmeler kaydırma konumunuzu otomatik olarak hatırlar.";
@@ -269,9 +277,9 @@
 "continue-button-title" = "Devam et";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
-"create-account" = "Hesap oluştur";
 "crimean-tatar-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kırım Tatarcası biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nQırımtatarca, Latin Kırım Tatarcası Latin (chr-latn)\nкъырымтатарджа, Кирил Kırım Tatarcası Kiril (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Kırım Tatarcası biçim desteği güncellemeleri";
+"customize-action-title" = "Özelleştir";
 "data-migration-status" = "Güncelleniyor...";
 "description-add-title" = "Açıklama ekle";
 "description-article-introduction-warning-message" = "Düzenleme görünümünde öğelerin sıralaması madde görünümünden farklı olacaktır.";
@@ -313,12 +321,10 @@
 "developer-force-email-auth" = "E-posta kimlik doğrulamasını zorunlu kıl";
 "developer-settings" = "Geliştirici Ayarları";
 "developer-settings-bypass-donation" = "Baypas Bağışı";
-"developer-settings-dynamic-tabs-group-B-v2" = "B kümesindeki V2 sekmelerini etkinleştir";
 "developer-settings-dynamic-tabs-group-C-v2" = "C kümesindeki V2 sekmelerini etkinleştir";
 "developer-settings-enable-year-in-review" = "Yıl İncelemesini Etkinleştir";
 "developer-settings-send-analytics-to-wmflabs" = "Analizleri wmflabs'a gönder.";
 "developer-settings-suppress-image-rec-post" = "Görsel önerileri düzenlemleri yayınlamayın.";
-"did-you-know" = "Biliyor muydunuz?";
 "diff-article-revision-history" = "Madde sürüm geçmişi";
 "diff-change-added" = "Ekleme, $1, ekleme sonu.";
 "diff-change-paragraph-lines-moved-down" = "Paragraf {{PLURAL:$1|$1 satır}} aşağıya taşındı. Yeni yere gidin.";
@@ -824,9 +830,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
-"new-article-tab-from-wikipedia-default" = "Vikipedi'den";
-"new-article-tab-settings-did-you-know" = "Biliyor muydunuz?";
-"new-article-tab-settings-recommendations" = "Öneriler";
 "new-password-instructions" = "Geçici bir parolayla giriş yaptınız. Oturum açmayı tamamlamak için bu sayfada yeni bir parola belirleyin.";
 "new-password-title" = "Parolanızı belirleyin";
 "new-tab" = "Yeni sekme";
@@ -1283,7 +1286,6 @@
 "tabs-main-page-subtitle" = "Vikipedi'de günlük öne çıkanlar";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 sekme}}";
 "tabs-open-tab" = "Sekmeyi aç";
-"tabs-overview-recommendations-title" = "En son sekmelerinize göre";
 "tabs-overview-tooltip-body" = "Sekme genel görünümünde açık maddeler arasında geçiş yapın.";
 "tabs-overview-tooltip-title" = "Sekme genel görünümü";
 "tabs-show-suggested-articles" = "Madde önerilerini göster";
@@ -1519,7 +1521,6 @@
 "wikitext-upload-save" = "Yayımlanıyor...";
 "wikitext-upload-save-anonymously-or-login" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1'lık $2 giriş yaparsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
-"wikitext-upload-save-sign-in" = "Oturum aç";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Değişiklikleri yayımlayarak $1Kullanım Koşullarını$2 kabul eder ve katkınızı $3CC BY-SA 4.0$4 Lisansı ve $5GFDL$6 kapsamında yayımlamayı geri alınamaz şekilde kabul edersiniz. Creative Commons lisansı altında, bir bağlantı ya da URL'nin yeterli bir atıf olduğunu kabul edersiniz.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
 "year-in-review-articles-slide-subtitle" = "2025 yılında en çok ziyaret ettiğiniz maddeler şunlardı:\n$1";

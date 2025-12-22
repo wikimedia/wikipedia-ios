@@ -120,6 +120,15 @@
 "activity-tab-additional-thoughts" = "還有其他想法嗎？";
 "activity-tab-articles-read" = "本月閱讀的條目";
 "activity-tab-articles-read-graph-label" = "條目";
+"activity-tab-customize-all-time-impact" = "所有時間影響";
+"activity-tab-customize-editing-insights" = "編輯分析";
+"activity-tab-customize-empty-state" = "已關閉活動模組。$1開啟$2來查看在此分頁上的更新。";
+"activity-tab-customize-footer" = "閱讀分析基於應用程式設定中所設定的主要語言，編輯分析僅限於您的主要應用程式語言。分析會利用本地端資料，但不包含公開的編輯內容。";
+"activity-tab-customize-last-in-app-donation" = "最後一次用應用程式捐款";
+"activity-tab-customize-logout-warning" = "您必須登入才能開啟此活動分析。";
+"activity-tab-customize-reading-insights" = "閱讀分析";
+"activity-tab-customize-time-spent-reading" = "閱讀時間";
+"activity-tab-customize-timeline-of-behavior" = "行為時間軸";
 "activity-tab-email-fifth-line" = "[截圖或連結]";
 "activity-tab-email-first-line" = "我在使用活動分頁功能時遇到的問題：";
 "activity-tab-email-fourth-line" = "[描述期望的行為]";
@@ -206,7 +215,6 @@
 "article-share" = "分享";
 "article-tabs-button-accessibility-hint" = "導覽至分頁概要";
 "article-tabs-button-accessibility-label" = "條目分頁";
-"article-tabs-did-you-know-title" = "你知道嗎";
 "article-tabs-feature-announcement-item-1-subtitle" = "打開多篇條目並輕鬆在各條目間切換。";
 "article-tabs-feature-announcement-item-1-title" = "使用分頁瀏覽";
 "article-tabs-feature-announcement-item-2-subtitle" = "分頁會自動記住您的滑動位置。";
@@ -263,9 +271,9 @@
 "continue-button-title" = "繼續";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
-"create-account" = "建立帳號";
 "crimean-tatar-variants-alert-body" = "維基百科應用程式現在支援下列克里米亞韃靼語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nQırımtatarca，拉丁字母克里米亞韃靼語（chr-latn）\nкъырымтатарджа，西里爾字母克里米亞韃靼語（crh-cyrl）";
 "crimean-tatar-variants-alert-title" = "克里米亞韃靼語異體字支援更新";
+"customize-action-title" = "自訂";
 "data-migration-status" = "更新中…";
 "description-add-title" = "添加描述";
 "description-article-introduction-warning-message" = "編輯視圖中的元素順序與條目視圖中的元素順序不同。";
@@ -307,12 +315,10 @@
 "developer-force-email-auth" = "強制電子郵件驗證";
 "developer-settings" = "開發人員設定";
 "developer-settings-bypass-donation" = "跳過捐贈";
-"developer-settings-dynamic-tabs-group-B-v2" = "啟用群組 B 的分頁 V2";
 "developer-settings-dynamic-tabs-group-C-v2" = "啟用群組 C 的分頁 V2";
 "developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";
-"did-you-know" = "你知道嗎？";
 "diff-article-revision-history" = "條目修訂紀錄";
 "diff-change-added" = "已新增：$1，新增結束。";
 "diff-change-paragraph-lines-moved-down" = "章節向下移動了 {{PLURAL:$1|0=0|$1}} 行。轉到新的位置。";
@@ -818,9 +824,6 @@
 "nearby-distance-label-km" = "$1 公里";
 "nearby-distance-label-meters" = "$1 公尺";
 "nearby-distance-label-miles" = "$1 英里";
-"new-article-tab-from-wikipedia-default" = "來自維基百科";
-"new-article-tab-settings-did-you-know" = "你知道嗎？";
-"new-article-tab-settings-recommendations" = "建議";
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";
 "new-password-title" = "設定您的密碼";
 "new-tab" = "新分頁";
@@ -1284,7 +1287,6 @@
 "tabs-main-page-subtitle" = "維基百科每日精彩內容";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 個分頁}}";
 "tabs-open-tab" = "開啟分頁";
-"tabs-overview-recommendations-title" = "根據您最近的分頁";
 "tabs-overview-tooltip-body" = "在分頁總覽中切換開啟的條目。";
 "tabs-overview-tooltip-title" = "分頁總覽";
 "tabs-show-suggested-articles" = "顯示條目建議";
@@ -1520,7 +1522,6 @@
 "wikitext-upload-save" = "發布中…";
 "wikitext-upload-save-anonymously-or-login" = "編輯將使用您裝置的IP位址發布，如果您想保護隱私，請$1登入$2。";
 "wikitext-upload-save-anonymously-warning" = "編輯將使用您裝置的IP位址發布，如果您想保護隱私，請$1。";
-"wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
 "year-in-review-articles-slide-subtitle" = "以下是您在 2025 年閱讀過最多次的條目：\n$1";

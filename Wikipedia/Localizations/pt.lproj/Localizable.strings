@@ -169,7 +169,6 @@
 "article-share" = "Partilhar";
 "article-tabs-button-accessibility-hint" = "Navega para a visão geral dos separadores";
 "article-tabs-button-accessibility-label" = "Separadores de artigo";
-"article-tabs-did-you-know-title" = "Sabia que";
 "article-tabs-feature-announcement-item-1-title" = "Explore com os separadores";
 "article-tabs-feature-announcement-item-3-subtitle" = "Abra as hiperligações nos separadores em segundo plano sem perder o seu lugar.";
 "article-tabs-feature-announcement-item-3-title" = "Guardar hiperligação para mais tarde";
@@ -216,7 +215,6 @@
 "continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar na Wikipédia mais artigos para ler";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
-"create-account" = "Criar conta";
 "crimean-tatar-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes de idioma tártaro da Crimeia como idiomas principais ou secundários dentro da aplicação, simplificando a leitura, procura e edição nas suas variantes preferidas:\n\nQırımtatarca, Latino - Tártaro da Crimeia, latino (chr-latn)\nкъырымтатарджа, Кирил - Tártaro da Crimeia, cirílico (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Atualizações ao suporte de variantes do tártaro da Crimeia";
 "data-migration-status" = "A atualizar...";
@@ -257,7 +255,6 @@
 "description-welcome-start-editing-button" = "Começar a editar";
 "developer-settings" = "Definições do Programador";
 "developer-settings-bypass-donation" = "Ignorar Doação";
-"did-you-know" = "Sabia que?";
 "diff-article-revision-history" = "Historial de revisões do artigo";
 "diff-compare-header-from-info-heading" = "Edição anterior";
 "diff-compare-header-heading" = "Comparar revisões";
@@ -707,9 +704,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milhas";
-"new-article-tab-from-wikipedia-default" = "da Wikipédia";
-"new-article-tab-settings-did-you-know" = "Sabia que?";
-"new-article-tab-settings-recommendations" = "Recomendações";
 "new-password-instructions" = "Autenticou-se com uma palavra-passe temporária. Para concluir a autenticação, defina uma palavra-passe nova aqui.";
 "new-password-title" = "Definir a sua palavra-passe";
 "new-tab" = "Novo separador";
@@ -1157,7 +1151,6 @@
 "tabs-hide-suggested-articles" = "Ocultar sugestões de artigo";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 separador|$1 separadores}}";
 "tabs-open-tab" = "Abrir separador";
-"tabs-overview-recommendations-title" = "Com base nos seus separadores mais recentes";
 "tabs-overview-tooltip-body" = "Mude entre os artigos abertos na visão geral dos separadores.";
 "tabs-overview-tooltip-title" = "Visão geral dos separadores";
 "tabs-show-suggested-articles" = "Mostrar sugestões de artigo";
@@ -1387,7 +1380,6 @@
 "wikitext-upload-save" = "A publicar...";
 "wikitext-upload-save-anonymously-or-login" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1iniciar uma sessão$2, terá mais privacidade.";
 "wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
-"wikitext-upload-save-sign-in" = "Iniciar sessão";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar as alterações, concorda com as $1Condições de Utilização$2 e concorda irrevogavelmente em publicar o seu contributo com a licença $3CC BY-SA 4.0$4 e a $5GFDL$6. Concorda que uma hiperligação ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condições de utilização";
 "year-in-review-base-reading-title" = "A Wikipédia estava disponível em mais de {{PLURAL:$1|$1 idioma|$1 idiomas}}";

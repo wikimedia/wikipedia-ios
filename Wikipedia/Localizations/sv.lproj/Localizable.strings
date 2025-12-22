@@ -177,7 +177,6 @@
 "article-share" = "Dela";
 "article-tabs-button-accessibility-hint" = "Navigerar till fliköversikten";
 "article-tabs-button-accessibility-label" = "Artikelflikar";
-"article-tabs-did-you-know-title" = "Visste du att";
 "article-tabs-feature-announcement-item-1-subtitle" = "Öppna flera artiklar och växla enkelt mellan dem.";
 "article-tabs-feature-announcement-item-1-title" = "Bläddra med flikar";
 "article-tabs-feature-announcement-item-2-subtitle" = "Flikar kommer automatiskt ihåg din skrollposition.";
@@ -234,7 +233,6 @@
 "continue-button-title" = "Fortsätt";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
-"create-account" = "Skapa konto";
 "crimean-tatar-variants-alert-body" = "Wikipediaappen stödjer följande krimtatariska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nQırımtatarca, Latin krimtatariska latinska (chr-latn)\nкъырымтатарджа, Кирил krimtatariska kyrilliska (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Uppdaterades till stöd för krimtatariska varianter";
 "data-migration-status" = "Uppdaterar...";
@@ -278,12 +276,10 @@
 "developer-force-email-auth" = "Tvinga e-postautentisering";
 "developer-settings" = "Utvecklarinställningar";
 "developer-settings-bypass-donation" = "Hoppa över donation";
-"developer-settings-dynamic-tabs-group-B-v2" = "Aktivera flikar V2 med grupp B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Aktivera flikar V2 med grupp C";
 "developer-settings-enable-year-in-review" = "Aktivera årsöversikt";
 "developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Publicera inte redigering med bildrekommendationer.";
-"did-you-know" = "Visste du att?";
 "diff-article-revision-history" = "Artikelns versionshistorik";
 "diff-change-added" = "Nytt innehåll, $1, slut på nytt innehåll.";
 "diff-change-paragraph-lines-moved-down" = "Stycke flyttades ned {{PLURAL:$1|0=0 rader|$1 rad|$1 rader}}. Gå till den nya platsen.";
@@ -789,9 +785,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 engelska mil";
-"new-article-tab-from-wikipedia-default" = "från Wikipedia";
-"new-article-tab-settings-did-you-know" = "Visste du att...?";
-"new-article-tab-settings-recommendations" = "Rekommendationer";
 "new-password-instructions" = "Du loggade in med ett temporärt lösenord. För att slutföra inloggningen måste du ange ett nytt lösenord här:";
 "new-password-title" = "Ändra ditt lösenord";
 "new-tab" = "Ny flik";
@@ -1246,7 +1239,6 @@
 "tabs-main-page-subtitle" = "Wikipedias dagliga höjdpunkter";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 flik|$1 flikar}}";
 "tabs-open-tab" = "Öppna fliken";
-"tabs-overview-recommendations-title" = "Baserat på dina senaste flikar";
 "tabs-overview-tooltip-body" = "Växla mellan öppna artiklar i fliköversikten.";
 "tabs-overview-tooltip-title" = "Fliköversikt";
 "tabs-show-suggested-articles" = "Visa artikelförslag";
@@ -1482,7 +1474,6 @@
 "wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-anonymously-or-login" = "Redigeringar kommer att signeras med din enhets IP-adress. Om du $1loggar in$2 kommer du ha mer integritet.";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
-"wikitext-upload-save-sign-in" = "logga in";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Genom att publicera ändringarna samtycker du till $1användaravtalet$2 och du oåterkalleligen går med på att släppa ditt bidrag under licensen $3CC BY-SA 4.0$4 och $5GFDL$6. Du samtycker till att en hyperlänk eller webbadress är tillräckligt tillskrivande under licensen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "year-in-review-articles-slide-subtitle" = "Här kommer artiklar som du besökte mest under 2025:\n$1";
@@ -1528,7 +1519,7 @@
 "year-in-review-finish" = "Slutför";
 "year-in-review-highlights-articles-read" = "Lästa artiklar";
 "year-in-review-highlights-articles-viewed" = "Antal lästa artiklar";
-"year-in-review-highlights-button-title" = "Dela höjdpunkter";
+"year-in-review-highlights-button-title" = "Dela höjdpunkterna";
 "year-in-review-highlights-categories" = "Kategorier som intresserade mig";
 "year-in-review-highlights-changes" = "Ändringar som redigerare gjorde";
 "year-in-review-highlights-collective-time-spent" = "Timmar som spenderades på att läsa";
@@ -1540,7 +1531,7 @@
 "year-in-review-highlights-number-app-editors" = "Redigeringar i appen";
 "year-in-review-highlights-personalized-articles" = "Artiklar jag läste mest";
 "year-in-review-highlights-reading-time" = "Lästa minuter";
-"year-in-review-highlights-share-logo-caption" = "Wikipedia-logotyp";
+"year-in-review-highlights-share-logo-caption" = "Wikipedias logotyp";
 "year-in-review-highlights-subtitle" = "Vi ser fram emot nästa år!";
 "year-in-review-highlights-times-edited" = "Antal redigerade";
 "year-in-review-highlights-title" = "Tack för att du tillbringade ditt år med Wikipedia.";

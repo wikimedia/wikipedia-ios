@@ -1205,7 +1205,6 @@
 "wikitext-upload-save" = "公開中...";
 "wikitext-upload-save-anonymously-or-login" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1ログイン$2すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-anonymously-warning" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1すれば、よりプライバシーが高まります。";
-"wikitext-upload-save-sign-in" = "ログイン";
 "wikitext-upload-save-terms-name" = "利用規約";
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "ウィキペディアのボランティア編集者コミュニティは、iOSアプリを使い55万5647回超の編集を行いました。ウィキペディアの心臓部とも魂ともいうべきはボランティアの寄稿者、寄付者、そしてあなたのような何十億もの読者であり – 信頼できる情報への無制限のアクセスを共有しようと集まったのです。";

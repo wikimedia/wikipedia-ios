@@ -141,7 +141,6 @@
 "article-revision-history" = "Историја чланка";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
-"article-tabs-did-you-know-title" = "Да ли сте знали";
 "article-tabs-open" = "Отвори";
 "article-tabs-open-new-tab" = "Отвори у новој картици";
 "article-talk-page" = "Страница за разговор чланка";
@@ -180,7 +179,6 @@
 "continue-button-title" = "Настави";
 "continue-reading-empty-description" = "Истражите Википедију да бисте нашли још чланака за читање";
 "continue-reading-empty-title" = "Нема недавно прочитаних чланака";
-"create-account" = "Отвори налог";
 "data-migration-status" = "Ажурирање...";
 "description-add-title" = "Додавање описа";
 "description-edit-for-article" = "Опис чланка за страницу $1";
@@ -220,7 +218,6 @@
 "developer-settings" = "Подешавања за програмере";
 "developer-settings-bypass-donation" = "Заобилажење донирања";
 "developer-settings-send-analytics-to-wmflabs" = "Пошаљи аналитику wmflabs-у.";
-"did-you-know" = "Да ли сте знали?";
 "diff-article-revision-history" = "Историја чланка";
 "diff-change-added" = "Додато, $1, додавање завршено.";
 "diff-change-removal" = "Уклоњено, $1, уклањање завршено.";
@@ -662,9 +659,6 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миља";
-"new-article-tab-from-wikipedia-default" = "са Википедије";
-"new-article-tab-settings-did-you-know" = "Да ли сте знали?";
-"new-article-tab-settings-recommendations" = "Предлози";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
 "new-password-title" = "Поставите лозинку";
 "new-tab" = "Нова картица";
@@ -1309,7 +1303,6 @@
 "wikitext-upload-save" = "Објављујем…";
 "wikitext-upload-save-anonymously-or-login" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се $1пријавите$2, имаћете више приватности.";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
-"wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
 "year-in-review-base-editors-title" = "Преко званичних апликације за Википедију је начињено $1 {{PLURAL:$1|измена}}";

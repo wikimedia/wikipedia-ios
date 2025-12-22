@@ -76,7 +76,6 @@
 "article-read-more-title" = "ٻیا پڑھو";
 "article-reference-view-title" = "حوالہ$1";
 "article-share" = "شیئر";
-"article-tabs-did-you-know-title" = "بھلا تساں ڄاݨدے ہو";
 "article-tabs-open" = "کھولو";
 "back-button-accessibility-label" = "پچھوں";
 "button-go-back" = "واپس ڄُلو";
@@ -112,8 +111,6 @@
 "description-published-title" = "تفصیل شائع تھی ڳئی!";
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
-// Fuzzy
-"did-you-know" = "بھلا تساں ڄاݨدے ہو";
 "diff-compare-header-from-info-heading" = "پچھلی تبدیلی";
 // Fuzzy
 "diff-compare-header-to-info-heading" = "کوں";
@@ -270,8 +267,6 @@
 "nearby-distance-label-km" = "$1 کلو میٹر";
 "nearby-distance-label-meters" = "$1 میٹر";
 "nearby-distance-label-miles" = "$1 میل";
-"new-article-tab-from-wikipedia-default" = "وکیپیڈیا کنوں";
-"new-article-tab-settings-did-you-know" = "بھلا تساں ڄاݨدے ہو؟";
 "new-password-title" = "پاس ورڈ درج کرو";
 "new-tab" = "نویں ٹیب";
 "next-action-title" = "اڳلا";
@@ -511,7 +506,6 @@
 "wikitext-preview-link-not-found-preview-title" = "کوئی اندرلا لنک کائنی لبھا";
 "wikitext-preview-save-changes-title" = "تبدیلیاں محفوظ کرو";
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
-"wikitext-upload-save-sign-in" = "لاگ ان تھیوو";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
 "year-in-review-donate" = "عطیہ";
 // Fuzzy

@@ -191,7 +191,6 @@
 "article-share" = "Deel";
 "article-tabs-button-accessibility-hint" = "Gaat naar het overzicht van tabbladen";
 "article-tabs-button-accessibility-label" = "Paginatabbladen";
-"article-tabs-did-you-know-title" = "Wist u dat";
 "article-tabs-feature-announcement-item-1-subtitle" = "Open meerdere pagina's en wissel er gemakkelijk tussen.";
 "article-tabs-feature-announcement-item-1-title" = "Bladeren met tabbladen";
 "article-tabs-feature-announcement-item-2-subtitle" = "In tabbladen wordt uw scrollpositie automatisch onthouden.";
@@ -248,7 +247,6 @@
 "continue-button-title" = "Doorgaan";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen pagina's";
-"create-account" = "Account aanmaken";
 "crimean-tatar-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Krim-Tataarse varianten als primaire of secundaire taal binnen de app, waardoor het gemakkelijker wordt om de door u gewenste varianten te lezen, zoeken en bewerken:\n\nQırımtatarca, Latijn Krim-Tataars Latijn (chr-latn) \nкъырымтатарджа, Кирил Krim-Tataars Cyrillisch (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Updates voor ondersteuning van Krim-Tataar varianten";
 "data-migration-status" = "Bijwerken...";
@@ -292,12 +290,10 @@
 "developer-force-email-auth" = "E-mailauthenticatie afdwingen";
 "developer-settings" = "Ontwikkelaarsinstellingen";
 "developer-settings-bypass-donation" = "Donatie omzeilen";
-"developer-settings-dynamic-tabs-group-B-v2" = "Tabbladen V2 inschakelen met groep B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Tabbladen V2 inschakelen met groep C";
 "developer-settings-enable-year-in-review" = "Jaaroverzicht inschakelen";
 "developer-settings-send-analytics-to-wmflabs" = "Zend de analyse naar wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Geen aanbevelingen voor afbeeldingen plaatsen.";
-"did-you-know" = "Wist u dat?";
 "diff-article-revision-history" = "Bewerkingsgeschiedenis van pagina";
 "diff-change-added" = "Toevoeging, $1, einde toevoeging.";
 "diff-change-paragraph-lines-moved-down" = "De paragraaf is {{PLURAL:$1|0=0 regels|$1 regel|$1 regels}} naar beneden verplaatst. Ga naar de nieuwe locatie.";
@@ -802,9 +798,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 meter";
 "nearby-distance-label-miles" = "$1 mijl";
-"new-article-tab-from-wikipedia-default" = "uit Wikipedia";
-"new-article-tab-settings-did-you-know" = "Wist u dat?";
-"new-article-tab-settings-recommendations" = "Aanbevelingen";
 "new-password-instructions" = "U bent aangemeld met een tijdelijk code die u per e-mail hebt ontvangen.\nOm het aanmelden te voltooien moet u hier een nieuw wachtwoord instellen.";
 "new-password-title" = "Wachtwoord instellen";
 "new-tab" = "Nieuw tabblad";
@@ -1268,7 +1261,6 @@
 "tabs-main-page-subtitle" = "Dagelijkse hoogtepunten van Wikipedia";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tabblad|$1 tabbladen}}";
 "tabs-open-tab" = "Tabblad openen";
-"tabs-overview-recommendations-title" = "Gebaseerd op uw recentste tabbladen";
 "tabs-overview-tooltip-body" = "Schakelen tussen geopende pagina's in het tabbladenoverzicht.";
 "tabs-overview-tooltip-title" = "Tabbladenoverzicht";
 "tabs-show-suggested-articles" = "Paginasuggesties weergeven";
@@ -1504,7 +1496,6 @@
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-or-login" = "Bewerkingen worden gelinkt aan het IP adres van uw apparaat. $1Log in$2 om uw privacy te verbeteren.";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
-"wikitext-upload-save-sign-in" = "Aanmelden";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Door wijzigingen te publiceren, gaat u akkoord met de $1Gebruiksvoorwaarden$2 en geeft u onherroepelijk uw bijdrage vrij onder de licenties $3CC BY-SA 4.0$4 en $5GFDL$6. U gaat ermee akkoord dat een hyperlink of URL voldoende bronvermelding is onder de Creative Commons-licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "year-in-review-articles-slide-subtitle" = "Dit waren de pagina's die u in 2025 het vaakst hebt bezocht:\n$1";

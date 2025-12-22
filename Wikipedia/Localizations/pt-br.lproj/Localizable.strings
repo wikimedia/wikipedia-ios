@@ -208,7 +208,6 @@
 "article-share" = "Compartilhar";
 "article-tabs-button-accessibility-hint" = "Navega até a visão geral das guias";
 "article-tabs-button-accessibility-label" = "Guias de artigo";
-"article-tabs-did-you-know-title" = "Você sabia";
 "article-tabs-feature-announcement-item-1-subtitle" = "Abra vários artigos e alterne entre eles com facilidade.";
 "article-tabs-feature-announcement-item-1-title" = "Navegue com guias";
 "article-tabs-feature-announcement-item-2-subtitle" = "As guias lembram automaticamente a sua posição de rolagem.";
@@ -265,7 +264,6 @@
 "continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
-"create-account" = "Criar conta";
 "crimean-tatar-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes de tártara da crimeia como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nQırımtatarca, tártara da crimeia latino (chr-latn)\nкъырымтатарджа, tártara da crimeia cirílico (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Atualizações para suporte a variantes de tártara da Crimeia";
 "data-migration-status" = "Atualizando...";
@@ -309,12 +307,10 @@
 "developer-force-email-auth" = "Forçar autenticação por e-mail";
 "developer-settings" = "Configurações do desenvolvedor";
 "developer-settings-bypass-donation" = "Pular doação";
-"developer-settings-dynamic-tabs-group-B-v2" = "Ativar guias V2 com o grupo B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Ativar guias V2 com o grupo C";
 "developer-settings-enable-year-in-review" = "Ativar resumo do ano";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análises para wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Não publicar recomendações de imagens editadas.";
-"did-you-know" = "Você sabia?";
 "diff-article-revision-history" = "Histórico de revisões do artigo";
 "diff-change-added" = "Adição, $1, fim de adição.";
 "diff-change-paragraph-lines-moved-down" = "Parágrafo movido {{PLURAL:$1|0=0 linhas|$1 linha|$1 linhas}} para baixo. Ir para nova localização.";
@@ -820,9 +816,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milhas";
-"new-article-tab-from-wikipedia-default" = "da Wikipédia";
-"new-article-tab-settings-did-you-know" = "Você sabia?";
-"new-article-tab-settings-recommendations" = "Recomendações";
 "new-password-instructions" = "Você efetuou login com uma senha temporária. Para concluir o login, defina uma nova senha aqui.";
 "new-password-title" = "Defina sua senha";
 "new-tab" = "Nova guia";
@@ -1278,7 +1271,6 @@
 "tabs-main-page-subtitle" = "Destaques diários da Wikipédia";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 guia|$1 guias}}";
 "tabs-open-tab" = "Abrir guia";
-"tabs-overview-recommendations-title" = "Com base nas suas guias mais recentes";
 "tabs-overview-tooltip-body" = "Alterne entre os artigos abertos na visão geral das guias.";
 "tabs-overview-tooltip-title" = "Visão geral das guias";
 "tabs-show-suggested-articles" = "Mostrar sugestões de artigos";
@@ -1514,7 +1506,6 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-or-login" = "As edições serão atribuídas ao endereço IP do seu dispositivo. Se você $1entrar em$2, você terá mais privacidade.";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
-"wikitext-upload-save-sign-in" = "Entrar";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar as alterações, concorda com os $1termos de uso$2 e concorda irrevogavelmente em publicar a sua contribuição com a licença $3CC BY-SA 4.0$4 e a $5GFDL$6. Concorda que um hyperlink ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termo de uso";
 "year-in-review-articles-slide-subtitle" = "Aqui estão os artigos que você mais visitou em 2025:\n$1";

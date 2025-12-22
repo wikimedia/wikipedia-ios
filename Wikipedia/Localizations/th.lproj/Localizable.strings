@@ -169,7 +169,6 @@
 "article-share" = "แบ่งปัน";
 "article-tabs-button-accessibility-hint" = "ส่วนนำทางไปยังแท็บภาพรวม";
 "article-tabs-button-accessibility-label" = "แท็บบทความ";
-"article-tabs-did-you-know-title" = "รู้ไหมว่า";
 "article-tabs-feature-announcement-item-1-subtitle" = "เปิดบทความพร้อมกันและสลับระหว่างบทความอย่างง่ายดาย";
 "article-tabs-feature-announcement-item-1-title" = "เรียกดูด้วยแท็บ";
 "article-tabs-feature-announcement-item-2-subtitle" = "แท็บจะจำตำแหน่งที่อ่านถึงในหน้าอัตโนมัติ";
@@ -1012,7 +1011,6 @@
 "tabs-hide-suggested-articles" = "ซ่อนการแนะนำบทความ";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 แท็บ}}";
 "tabs-open-tab" = "เปิดแท็บ";
-"tabs-overview-recommendations-title" = "อิงจากแท็บล่าสุดของคุณ";
 "tabs-overview-tooltip-body" = "สลับระหว่างบทความในมุมองภาพรวมของแท็บ";
 "tabs-overview-tooltip-title" = "รวมแท็บ";
 "tabs-show-suggested-articles" = "แสดงการแนะนำบทความ";
@@ -1224,7 +1222,6 @@
 "wikitext-upload-save" = "กำลังเผยแพร่...";
 "wikitext-upload-save-anonymously-or-login" = "การแก้ไขจะเกิดจากที่อยู่ไอพีของอุปกรณ์ของคุณ หากคุณ$1เข้าสู่ระบบ$2คุณจะมีความเป็นส่วนตัวมากขึ้น";
 "wikitext-upload-save-anonymously-warning" = "การแก้ไขจะถูกส่งผ่านที่อยู่ไอพีของอุปกรณ์ของคุณ คุณจะมีความเป็นส่วนตัวมากขึ้นหากคุณ$1";
-"wikitext-upload-save-sign-in" = "เข้าสู่ระบบ";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "ในการเผยแพร่การเปลี่ยนแปลง คุณยอมรับ$1นโยบายการใช้งาน$2และตกลงจะไม่เพิกถอนการเผยแพร่งานของคุณภายใต้สัญญาอนุญาต$3ครีเอทีฟคอมมอนส์ อ้างอิงแหล่งที่มา-อนุญาตอย่างเดียวกัน 4.0$4และ$5สัญญาอนุญาตเสรีของกนู$6 คุณยอมรับว่าลิงก์ที่คุณให้นั้นเพียงพอต่อการอ้างอิงแหล่งที่มาภายใต้สัญญาอนุญาตครีเอทีฟคอมมอนส์";
 "wikitext-upload-save-terms-name" = "ข้อกำหนดการใช้งาน";
 "year-in-review-articles-slide-subtitle" = "นี่คือบทความที่คุณเข้าอ่านบ่อยที่สุดในปี 2025:\n$1";

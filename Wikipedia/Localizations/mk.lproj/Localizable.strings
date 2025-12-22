@@ -87,6 +87,15 @@
 "activity-tab-additional-thoughts" = "Имате други размисли?";
 "activity-tab-articles-read" = "Прочитани статии овој месец";
 "activity-tab-articles-read-graph-label" = "Статии";
+"activity-tab-customize-all-time-impact" = "Севкупно влијание";
+"activity-tab-customize-editing-insights" = "Сознанија за уредување";
+"activity-tab-customize-empty-state" = "Модулите за активности се исклучени. $1Вклучете ги$2 за да ги погледате новостите во ова јазиче.";
+"activity-tab-customize-footer" = "Сознанијата за читање се засновани на јазиците на вашиот прилог во нагодувањата, а сознанијата за уредување се ограничени на вашиот главен јазик на прилогот. Сознанијата ги користат месните податоци, со ислучок на уредувањата кои се јавни.";
+"activity-tab-customize-last-in-app-donation" = "Последно дарување од прилог";
+"activity-tab-customize-logout-warning" = "Мора да сте најавени за да го вклучите ова сознание за активности.";
+"activity-tab-customize-reading-insights" = "Сознанија за читање";
+"activity-tab-customize-time-spent-reading" = "Време поминато во читање";
+"activity-tab-customize-timeline-of-behavior" = "Времеслед на поведение";
 "activity-tab-email-fifth-line" = "[Екрански снимки или Врски]";
 "activity-tab-email-first-line" = "Наидов на проблем со функцијата Јазиче за активности:";
 "activity-tab-email-fourth-line" = "[Опишете како сакате да биде]";
@@ -173,7 +182,6 @@
 "article-share" = "Сподели";
 "article-tabs-button-accessibility-hint" = "Преоѓа на преглед на јазичињата";
 "article-tabs-button-accessibility-label" = "Јазичиња на статии";
-"article-tabs-did-you-know-title" = "Дали сте знаеле";
 "article-tabs-feature-announcement-item-1-subtitle" = "Отворајте повеќе статии наеднаш и префрлајте се меѓу нив со леснотија.";
 "article-tabs-feature-announcement-item-1-title" = "Прелистувај со јазичиња";
 "article-tabs-feature-announcement-item-2-subtitle" = "Јазичињата автоматски помнат до каде сте пролизгале.";
@@ -230,9 +238,9 @@
 "continue-button-title" = "Продолжи";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
-"create-account" = "Направи сметка";
 "crimean-tatar-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на кримскотатарски како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nQırımtatarca, Latin — кримскотатарски на латиница (chr-latn)\nкъырымтатарджа, Кирил — кримскотатарски на кирилица (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Новост за поддршка на кримскотатарски варијанти";
+"customize-action-title" = "Прилагоди";
 "data-migration-status" = "Подновувам...";
 "description-add-title" = "Додај опис";
 "description-article-introduction-warning-message" = "Подреденоста на елементите ќе биде поинаква при уредувањето отколку кога се чита статијата.";
@@ -274,12 +282,10 @@
 "developer-force-email-auth" = "Принуди заверка по е-пошта";
 "developer-settings" = "Поставки за разработувачи";
 "developer-settings-bypass-donation" = "Прескокни дарување";
-"developer-settings-dynamic-tabs-group-B-v2" = "Овозможи V2-јазичиња со групата B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Овозможи V2-јазичиња со групата C";
 "developer-settings-enable-year-in-review" = "Овозможи Преглед на годината";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
-"did-you-know" = "Дали сте знаеле?";
 "diff-article-revision-history" = "Историја на преработки на страницата";
 "diff-change-added" = "Додавање, $1, крај на додавањето.";
 "diff-change-paragraph-lines-moved-down" = "Пасусот е преместен {{PLURAL:$1|0=0 редови|$1 ред|$1 реда}} надолу. Одете на ново место.";
@@ -785,9 +791,6 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 милји";
-"new-article-tab-from-wikipedia-default" = "од Википедија";
-"new-article-tab-settings-did-you-know" = "Дали сте знаеле?";
-"new-article-tab-settings-recommendations" = "Препораки";
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
 "new-password-title" = "Ставете лозинка";
 "new-tab" = "Ново јазиче";
@@ -1251,7 +1254,6 @@
 "tabs-main-page-subtitle" = "Дневни истакнувања на Википедија";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 јазиче|$1 јазичиња}}";
 "tabs-open-tab" = "Отвори јазиче";
-"tabs-overview-recommendations-title" = "Според вашите наскорешни јазичиња";
 "tabs-overview-tooltip-body" = "Префрлање помеѓу отворени статии во прегледот на јазичињата.";
 "tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-show-suggested-articles" = "Прикажи предложени статии";
@@ -1487,7 +1489,6 @@
 "wikitext-upload-save" = "Објавувам...";
 "wikitext-upload-save-anonymously-or-login" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако $1се најавите$2, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
-"wikitext-upload-save-sign-in" = "Најава";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објавувајќи ги промените, се согласувате со $1Условите на употреба$2 и со објавувањето вашите придонеси под лиценците $3CC BY-SA 4.0$4 и $5ГЛСД$6. Се согласувате дека наведената хиперврска или URL претставува достатен припис согласно лиценцата на Криејтив комонс.";
 "wikitext-upload-save-terms-name" = "Условите на употреба";
 "year-in-review-articles-slide-subtitle" = "Еве ги статиите што највеќе ги посетувавте во 2025 година:\n$1";

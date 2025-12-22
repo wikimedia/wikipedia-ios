@@ -42,10 +42,12 @@
 // Author: NeverBehave
 // Author: NigelSoft
 // Author: Njzjz
+// Author: Pawsdt
 // Author: Peterxy12
 // Author: Phenolla
 // Author: Plana
 // Author: Qiyue2001
+// Author: RyanCray88
 // Author: Shizhao
 // Author: StarrySky
 // Author: SunAfterRain
@@ -153,6 +155,14 @@
 "activity-tab-additional-thoughts" = "还有什么想法吗？";
 "activity-tab-articles-read" = "本月阅读的条目";
 "activity-tab-articles-read-graph-label" = "条目";
+"activity-tab-customize-all-time-impact" = "所有时间影响";
+"activity-tab-customize-editing-insights" = "编辑分析";
+"activity-tab-customize-empty-state" = "活动模块已关闭。$1请将其开启$2以在此标签页中查看更新。";
+"activity-tab-customize-last-in-app-donation" = "最后一次在应用程序内捐款";
+"activity-tab-customize-logout-warning" = "你必须登录才能开启这个监视列表功能。";
+"activity-tab-customize-reading-insights" = "阅读分析";
+"activity-tab-customize-time-spent-reading" = "阅读时间";
+"activity-tab-customize-timeline-of-behavior" = "行为时间线";
 "activity-tab-email-fifth-line" = "[截图或链接]";
 "activity-tab-email-first-line" = "我在使用活动标签页功能时遇到的问题：";
 "activity-tab-email-fourth-line" = "[描述期望的行为]";
@@ -227,7 +237,11 @@
 "article-save-error-not-enough-space" = "您的设备没有足够空间保存此条目";
 "article-share" = "分享";
 "article-tabs-button-accessibility-label" = "条目标签页";
-"article-tabs-did-you-know-title" = "您知道吗";
+"article-tabs-feature-announcement-item-1-title" = "使用标签页浏览";
+"article-tabs-feature-announcement-item-3-title" = "保存页面以供日后查阅";
+"article-tabs-feature-announcement-title" = "引入标签";
+"article-tabs-max-reached" = "标签页已达到上限（$1）。条目已在当前标签页打开。请关闭一个或多个标签页。";
+"article-tabs-navigation" = "标签导航";
 "article-tabs-open" = "开启";
 "article-tabs-open-background-tab" = "在后台标签页中打开";
 "article-tabs-open-new-tab" = "在新标签页打开";
@@ -264,9 +278,9 @@
 "continue-button-title" = "继续";
 "continue-reading-empty-description" = "探索维基百科阅读更多条目";
 "continue-reading-empty-title" = "没有最近阅读的条目";
-"create-account" = "创建账号";
 "crimean-tatar-variants-alert-body" = "维基百科应用程序现在支持以下克里米亚鞑靼语变体作为应用程序中的主要语言或次要语言，从而使您更易于阅读，搜索和编辑您喜欢的变体形式：\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "更新克里米亚鞑靼语变体支持";
+"customize-action-title" = "自定义";
 "data-migration-status" = "正在更新...";
 "description-add-title" = "添加描述";
 "description-article-introduction-warning-message" = "编辑视图中的元素顺序与文章视图中的元素顺序不同。";
@@ -310,7 +324,6 @@
 "developer-settings-enable-year-in-review" = "启用年度回顾";
 "developer-settings-send-analytics-to-wmflabs" = "发送分析信息至wmflabs。";
 "developer-settings-suppress-image-rec-post" = "不发布图像推荐产生的编辑。";
-"did-you-know" = "您知道吗？";
 "diff-article-revision-history" = "条目修订历史";
 "diff-change-added" = "已新增：$1，新增结束。";
 "diff-change-paragraph-lines-moved-down" = "段落向下移动{{PLURAL:$1| 0=0 行| $1行}}。转到新位置。";
@@ -817,9 +830,6 @@
 "nearby-distance-label-km" = "$1千米";
 "nearby-distance-label-meters" = "$1米";
 "nearby-distance-label-miles" = "$1英里";
-"new-article-tab-from-wikipedia-default" = "来自维基百科";
-"new-article-tab-settings-did-you-know" = "你知道吗？";
-"new-article-tab-settings-recommendations" = "建议";
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";
 "new-password-title" = "设置您的密码";
 "new-tab" = "新标签页";
@@ -1484,7 +1494,6 @@
 "wikitext-upload-save" = "正在发布...";
 "wikitext-upload-save-anonymously-or-login" = "编辑将使用您设备的IP地址发布，如果您想保护隐私，请$1登录$2。";
 "wikitext-upload-save-anonymously-warning" = "编辑将使用您设备的IP地址发布，如果您想保护隐私，请$1。";
-"wikitext-upload-save-sign-in" = "登录";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "发布更改即代表您同意$1使用条款$2，并且不可撤销地同意以$3CC BY-SA 4.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接足够代表知识共享协议所规定的署名。";
 "wikitext-upload-save-terms-name" = "使用条款";
 // Fuzzy

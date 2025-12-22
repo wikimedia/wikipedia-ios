@@ -97,7 +97,6 @@
 "compass-direction" = "af $1 n isragen";
 "continue-reading-empty-description" = "Snirem Wikipedia i wugar n imagraden ara teɣreḍ";
 "continue-reading-empty-title" = "Ula d yiwen n umagrad ur yerrwaɣra melmi kan";
-"create-account" = "Snulfu-d amiḍan";
 "description-help-about-title" = "Ɣef";
 "diff-context-lines-collapsed-button-title" = "Sken-d";
 "diff-context-lines-expanded-button-title" = "Ffer";
@@ -394,5 +393,4 @@
 "wikitext-upload-result-unknown" = "Urizmir ara ad d-yaf agmuḍ n usali n uḍris n uwiki.";
 "wikitext-upload-save" = "Asuffeɣ...";
 "wikitext-upload-save-anonymously-warning" = "Asnifel ad ittunefk i tensa IP n terbaɛt-ik. Ma yella kečč $1, ad yili ɣur-k ugar n tbaḍnit.";
-"wikitext-upload-save-sign-in" = "Qqen";
 "wikitext-upload-save-terms-name" = "Tiwtilin n useqdec";

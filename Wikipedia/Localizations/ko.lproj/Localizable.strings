@@ -159,7 +159,6 @@
 "article-save-error-not-enough-space" = "장치에 이 문서를 저장할 공간이 충분하지 않습니다";
 "article-share" = "공유";
 "article-tabs-button-accessibility-label" = "문서 탭";
-"article-tabs-did-you-know-title" = "알고 계십니까";
 "article-tabs-feature-announcement-item-3-title" = "나중을 위해 링크 저장";
 "article-tabs-feature-announcement-sub-cta" = "탭에 관해 더 알아보기";
 "article-tabs-feature-announcement-title" = "탭 소개";
@@ -252,7 +251,6 @@
 "developer-settings-bypass-donation" = "기부 건너뛰기";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
-"did-you-know" = "알고 계십니까?";
 "diff-article-revision-history" = "문서 편집 역사";
 "diff-change-added" = "추가, $1, 추가 끝.";
 "diff-change-paragraph-moved" = "문단이 이동되었습니다. 이전 위치로 이동합니다.";
@@ -738,8 +736,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 마일";
-"new-article-tab-settings-did-you-know" = "알고 계십니까?";
-"new-article-tab-settings-recommendations" = "권장";
 "new-password-instructions" = "임시 비밀번호로 로그인하였습니다. 로그인을 마치려면 여기에 새로운 비밀번호를 설정하십시오.";
 "new-password-title" = "비밀번호 설정";
 "new-tab" = "새 탭";
@@ -1393,7 +1389,6 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-or-login" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1로그인$2하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
-"wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
 // Fuzzy
 "year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";

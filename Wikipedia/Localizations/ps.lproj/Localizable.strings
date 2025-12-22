@@ -127,7 +127,6 @@
 "article-save-error-not-enough-space" = "ستاسو وسيله دومره ځای نه لري چې دا ليکنه خوندي کړي";
 "article-share" = "وېشل";
 "article-tabs-button-accessibility-label" = "ليکنې ريښکې";
-"article-tabs-did-you-know-title" = "ايا پوهېدې";
 "article-tabs-feature-announcement-item-1-subtitle" = "ډېرې ليکنې پرانېځئ او په خپلمنځي ډول يې په اسانۍ سره بدلې کړئ.";
 "article-tabs-feature-announcement-item-1-title" = "ريښکو سره ښوول";
 "article-tabs-feature-announcement-item-2-title" = "له هغه ځايه يې پيل کړئ پرکوم ځای مو چې پرېښی و";
@@ -191,8 +190,6 @@
 "developer-force-email-auth" = "اجباري برېښليک تاييد";
 "developer-settings" = "پراختياگر اوڼنې";
 "developer-settings-enable-year-in-review" = "کال بياکتنه چارنول";
-// Fuzzy
-"did-you-know" = "ايا پوهېدې";
 "diff-article-revision-history" = "مخ بياکتنې پېښليک";
 "diff-change-added" = "زياتي، $1، زياتي پای.";
 "diff-compare-header-from-info-heading" = "پخوانی سمون";
@@ -341,5 +338,4 @@
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";
 "wikitext-upload-save" = "خپرېږي...";
-"wikitext-upload-save-sign-in" = "ننوتل";
 "wikitext-upload-save-terms-name" = "د کارولو منښتونه";

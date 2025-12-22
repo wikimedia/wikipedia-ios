@@ -248,7 +248,7 @@
 "donate-accessibility-donate-hint-format" = "Ketuk dua kali untuk mendonasikan $1 ke Yayasan Wikimedia.";
 "donate-accessibility-email-opt-in-hint" = "Ketuk dua kali untuk memberikan izin kepada Yayasan Wikimedia agar dapat mengirim surel kepada Anda.";
 "donate-accessibility-keyboard-done-hint" = "Ketuk dua kali untuk menutup papan ketik input jumlah.";
-"donate-accessibility-monthly-recurring-hint" = "Ketuk dua kali untuk mengaktifkan donasi bulanan otomatis sebesar jumlah tersebut.";
+"donate-accessibility-monthly-recurring-hint" = "Ketuk dua kali untuk menyalakan sumbangan bulanan otomatis sebesar jumlah tersebut.";
 "donate-accessibility-textfield-hint" = "Masukkan jumlah tertentu untuk disumbangkan.";
 "donate-accessibility-transaction-fee-hint" = "Ketuk dua kali untuk menambahkan biaya transaksi ke jumlah donasi.";
 "donate-already-donated" = "Terima kasih, para penyumbang terhormat! Kedermawanan Anda membantu menjaga Wikipedia dan proyek pengetahuan bebas lainnya tetap berkembang.";
@@ -442,7 +442,7 @@
 "explore-feed-preferences-turn-off-explore-tab-message" = "Tab Jelajahi dapat diaktifkan kembali di setelan umpan Jelajahi";
 "explore-feed-preferences-turn-off-explore-tab-title" = "Matikan tab Jelajahi?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Mematikan tab Jelajahi akan menggantikan tab Jelajahi dengan tab Pengaturan.";
-"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Dengan memilih untuk menampilkan kartu umpan Jelajahi, Anda mengaktifkan tab Jelajahi";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Dengan memilih untuk menampilkan kartu umpan Jelajahi, Anda menyalakan tab Jelajahi";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Hidupkan Jelajahi";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ini akan mengganti tab Pengaturan dengan tab Jelajahi, Anda dapat mengakses Pengaturan dari bagian atas tab Jelajahi dengan mengetuk ikon roda gigi";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Hidupkan tab Jelajahi?";
@@ -794,7 +794,7 @@
 "places-empty-search-title" = "Cari artikel Wikipedia dengan lokasi geografis";
 "places-enable-location-action-button-title" = "Nyalakan lokasi";
 "places-enable-location-description" = "Akses ke lokasi Anda hanya tersedia bila aplikasi atau salah satu dari fitur-fiturnya yang terlihat di layar Anda.";
-"places-enable-location-title" = "Jelajahi artikel di sekitar lokasi Anda dengan mengaktifkan Akses Lokasi";
+"places-enable-location-title" = "Jelajahi artikel di sekitar lokasi Anda dengan menyalakan Akses Lokasi";
 "places-filter-articles-action-sheet-title" = "Saring artikel";
 "places-filter-button-title" = "Penyaring";
 "places-filter-no-saved-places" = "Anda tidak memiliki tempat yang tersimpan";
@@ -1225,5 +1225,4 @@
 "wikitext-upload-save" = "Menerbitkan...";
 "wikitext-upload-save-anonymously-or-login" = "Suntingan akan dikaitkan dengan alamat IP perangkat Anda. Jika Anda $1Masuk log$2, Anda akan memiliki lebih banyak privasi.";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
-"wikitext-upload-save-sign-in" = "Masuk log";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";

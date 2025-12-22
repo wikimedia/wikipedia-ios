@@ -102,6 +102,15 @@
 "activity-tab-additional-thoughts" = "Є ще якісь думки?";
 "activity-tab-articles-read" = "Статті, прочитані цього місяця";
 "activity-tab-articles-read-graph-label" = "Статті";
+"activity-tab-customize-all-time-impact" = "Вплив за весь час";
+"activity-tab-customize-editing-insights" = "Статистика редагування";
+"activity-tab-customize-empty-state" = "Модулі активності вимкнено. $1Увімкніть їх$2, щоб переглядати оновлення на цій вкладці.";
+"activity-tab-customize-footer" = "Статистика читання базується на мовах вашого застосунку, встановлених у налаштуваннях, а статистика редагування обмежена до основної мови вашого застосунку. Статистика використовує локальні дані (окрім редагувань: вони є публічними).";
+"activity-tab-customize-last-in-app-donation" = "Минула пожертва в застосунку";
+"activity-tab-customize-logout-warning" = "Ви маєте увійти в систему, щоб увімкнути цю статистику активності.";
+"activity-tab-customize-reading-insights" = "Статистика читання";
+"activity-tab-customize-time-spent-reading" = "Час, витрачений на читання";
+"activity-tab-customize-timeline-of-behavior" = "Хронологія поведінки";
 "activity-tab-email-fifth-line" = "[Скриншоти або посилання]";
 "activity-tab-email-first-line" = "У мене виникла проблема з функцією вкладки «Активність»:";
 "activity-tab-email-fourth-line" = "[Опишіть бажану поведінку]";
@@ -188,7 +197,6 @@
 "article-share" = "Поділитися";
 "article-tabs-button-accessibility-hint" = "Перехід до огляду вкладок";
 "article-tabs-button-accessibility-label" = "Вкладки статей";
-"article-tabs-did-you-know-title" = "Чи знаєте ви";
 "article-tabs-feature-announcement-item-1-subtitle" = "Відкривайте кілька статей та легко перемикайтеся між ними.";
 "article-tabs-feature-announcement-item-1-title" = "Перегляд за допомогою вкладок";
 "article-tabs-feature-announcement-item-2-subtitle" = "Вкладки автоматично запам'ятовують позицію прокручування.";
@@ -245,9 +253,9 @@
 "continue-button-title" = "Продовжити";
 "continue-reading-empty-description" = "Дослідіть Вікіпедію, аби знайти більше статей для читання";
 "continue-reading-empty-title" = "Немає нещодавно прочитаних статей";
-"create-account" = "Створити обліковий запис";
 "crimean-tatar-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти кримськотатарської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nQırımtatarca кримськотатарська, латинка (chr-latn)\nкъырымтатарджа кримськотатарська, кирилиця (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Оновлення щодо підтримки варіантів кримськотатарської";
+"customize-action-title" = "Налаштувати";
 "data-migration-status" = "Оновлення…";
 "description-add-title" = "Додати опис";
 "description-article-introduction-warning-message" = "Порядок елементів у вікні редагування відрізнятиметься від вигляду статті.";
@@ -289,12 +297,10 @@
 "developer-force-email-auth" = "Примусова автентифікація через електронну пошту";
 "developer-settings" = "Налаштування для розробників";
 "developer-settings-bypass-donation" = "Обійти пожертвування";
-"developer-settings-dynamic-tabs-group-B-v2" = "Увімкнути вкладки V2 з групою B";
 "developer-settings-dynamic-tabs-group-C-v2" = "Увімкнути вкладки V2 з групою C";
 "developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Не публікуйте рекомендації щодо редагування зображень.";
-"did-you-know" = "Чи знаєте ви?";
 "diff-article-revision-history" = "Історія редагування статті";
 "diff-change-added" = "Додавання, $1, кінець додавання.";
 "diff-change-paragraph-lines-moved-down" = "Абзац переміщено вниз на {{PLURAL:$1|0=0 рядків|$1 рядок|$1 рядки|$1 рядків}}. Перейти на нове місце.";
@@ -771,7 +777,7 @@
 "main-menu-account-logout" = "Вихід";
 "main-menu-account-logout-are-you-sure" = "Ви справді хочете вийти?";
 "main-menu-account-logout-are-you-sure-message" = "Вихід призведе до видалення локально збережених даних облікового запису (сповіщень і повідомлень), але дані вашого облікового запису залишаться доступними в інтернеті та будуть повторно завантажені, якщо ви знову ввійдете.";
-"main-menu-account-title-logged-in" = "Увійшов в систему як $1";
+"main-menu-account-title-logged-in" = "Увійшли в систему як $1";
 "main-menu-heading-legal" = "Приватність та умови";
 "main-menu-nearby" = "Неподалік";
 "main-menu-privacy-policy" = "Політика конфіденційності";
@@ -800,9 +806,6 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миль";
-"new-article-tab-from-wikipedia-default" = "з Вікіпедії";
-"new-article-tab-settings-did-you-know" = "Чи знаєте ви?";
-"new-article-tab-settings-recommendations" = "Рекомендації";
 "new-password-instructions" = "Ви увійшли до системи за допомогою тимчасового пароля. Аби завершити вхід, встановіть новий пароль тут.";
 "new-password-title" = "Встановіть свій пароль";
 "new-tab" = "Нова вкладка";
@@ -1266,7 +1269,6 @@
 "tabs-main-page-subtitle" = "Найцікавіше від Вікіпедії за сьогодні";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}";
 "tabs-open-tab" = "Відкрити вкладку";
-"tabs-overview-recommendations-title" = "На основі ваших недавніх вкладок";
 "tabs-overview-tooltip-body" = "Перемикатися між відкритими статтями в огляді вкладок.";
 "tabs-overview-tooltip-title" = "Огляд вкладок";
 "tabs-show-suggested-articles" = "Показати пропозиції статей";
@@ -1502,7 +1504,6 @@
 "wikitext-upload-save" = "Збереження…";
 "wikitext-upload-save-anonymously-or-login" = "Редагування будуть приписані ІР-адресі вашого пристрою. Якщо ви $1авторизуєтеся$2, ваші дії будуть більш конфіденційними.";
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі вашого пристрою. Якщо ви $1, ваші дії будуть більш конфіденційними.";
-"wikitext-upload-save-sign-in" = "Увійти";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Публікуючи зміни, ви погоджуєтеся з $1Умовами використання$2 і з тим, що розміщуєте свій внесок за ліцензіями $3CC BY-SA 4.0$4 і $5GFDL$6. Ви також погоджуєтеся, що зазначене гіперпосилання чи URL задовольняє ліцензію Creative Commons.";
 "wikitext-upload-save-terms-name" = "Умови використання";
 "year-in-review-articles-slide-subtitle" = "Ось статті, які ви відвідували найчастіше у 2025 році: \n$1";

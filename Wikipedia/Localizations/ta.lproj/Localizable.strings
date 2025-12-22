@@ -64,7 +64,6 @@
 "article-languages-yours" = "தங்களது மொழி";
 "article-read-more-title" = "மேலும் படிக்க";
 "article-share" = "பகிர்க";
-"article-tabs-did-you-know-title" = "உங்களுக்குத் தெரியுமா";
 "back-button-accessibility-label" = "பின்னே";
 "button-next" = "அடுத்தது";
 "button-ok" = "சரி";
@@ -81,8 +80,6 @@
 "continue-reading-empty-title" = "அண்மையில் படித்த கட்டுரைகள் ஏதுமில்லை";
 "description-edit-length-warning" = "$2 இல் $1";
 "description-help-about-title" = "நிரலைப் பற்றி";
-// Fuzzy
-"did-you-know" = "உங்களுக்கு தெரியுமா";
 "dim-images" = "படங்களை மந்தப்படுத்து";
 "donate-success-title" = "நன்றி!";
 "edit-sheet-temp-account-notice" = "தற்காலிகக் கணக்கு அறிவிப்பு";
@@ -185,7 +182,6 @@
 "nearby-distance-label-km" = "$1 கி.மீ.";
 "nearby-distance-label-meters" = "$1 மீ";
 "nearby-distance-label-miles" = "$1 மைல்கள்";
-"new-article-tab-settings-recommendations" = "பரிந்துரைகள்";
 "new-password-instructions" = "நீங்கள் தற்காலிகமாக மின்னஞ்சல் செய்யப்பட்ட குறியீடுடன் புகுபதிந்துள்ளீர்.\nபுகுபதிவை நிறைவு செய்ய, புதிய கடவுச்சொல்லை இங்கு உருவாக்குங்கள்:";
 "new-password-title" = "உங்கள் கடவுச்சொல்லை அமைக்கவும்";
 "notifications-center-alert" = "விழிப்பூட்டல்கள்";
@@ -283,7 +279,6 @@
 "welcome-intro-free-encyclopedia-title" = "இலவச கலை கலஞ்சியம்";
 "welcome-languages-add-button" = "மற்றொரு மொழி சேர்க்கவும்";
 "wikitext-upload-save" = "பதிப்பிடப்படுகின்றது...";
-"wikitext-upload-save-sign-in" = "புகுபதிகை";
 "wikitext-upload-save-terms-name" = "பயன்பாட்டு விதிமுறைகள்";
 "year-in-review-time-afternoon" = "மதியம்";
 "year-in-review-time-late-night" = "பின்னிரவு";

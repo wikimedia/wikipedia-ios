@@ -177,7 +177,6 @@
 "article-save-error-not-enough-space" = "Du har ikke nok plads ledig på din enhed for at lagre denne artikel";
 "article-share" = "Del";
 "article-tabs-button-accessibility-label" = "Artikelfaner";
-"article-tabs-did-you-know-title" = "Vidste du";
 "article-tabs-max-reached" = "Fanegrænsen er nået ($1). Artiklen blev åbnet i den aktuelle fane. Luk venligst en eller flere faner.";
 "article-tabs-navigation" = "Fanebladsnavigation";
 "article-tabs-onboarding-tooltip" = "Værktøjstips til onboarding af faner";
@@ -221,7 +220,6 @@
 "continue-button-title" = "Fortsæt";
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
-"create-account" = "Opret konto";
 "crimean-tatar-variants-alert-body" = "Wikipedia-appen understøtter nu følgende krimtatariske varianter som primære eller sekundære sprog i appen, hvilket gør det nemmere at læse, søge og redigere i dine foretrukne varianter:\n\nQırımtatarca, latin krimtatarisk latin (chr-latn) \nкъырымтатарджа, Кирил krimtatarisk kyrillisk (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Opdateringer til understøttelse af Krim-tatariske varianter";
 "data-migration-status" = "Opdaterer...";
@@ -268,7 +266,6 @@
 "developer-settings-enable-year-in-review" = "Aktiver År i gennemgang";
 "developer-settings-send-analytics-to-wmflabs" = "Send analyser til wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Indsend ikke billedanbefalinger redigering.";
-"did-you-know" = "Vidste du?";
 "diff-article-revision-history" = "Artiklens redigeringshistorik";
 "diff-change-added" = "Tilføjelse, $1 , tilføjelse slut.";
 "diff-change-paragraph-lines-moved-down" = "Afsnit flyttet {{PLURAL:$1|0=0 linjer|$1 linje|$1 linjer}} ned. Gå til ny placering.";
@@ -745,9 +742,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 amerikanske mil";
-"new-article-tab-from-wikipedia-default" = "fra Wikipedia";
-"new-article-tab-settings-did-you-know" = "Vidste du?";
-"new-article-tab-settings-recommendations" = "Anbefalinger";
 "new-password-instructions" = "Du loggede på med en midlertidig adgangskode. Angiv en ny adgangskode her for at færdiggøre login.";
 "new-password-title" = "Sæt din adgangskode";
 "new-tab" = "Ny fane";
@@ -1275,7 +1269,6 @@
 "wikitext-upload-result-unknown" = "Ude af stand til at afgøre resultatet af wikitext upload.";
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
-"wikitext-upload-save-sign-in" = "Log på";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
 "year-in-review-base-editors-title" = "Redaktører på iOS-appen foretog mere end {{PLURAL:$1|$1 redigering|$1 redigeringer}}";
 "year-in-review-base-edits-title" = "Wikipedia blev redigeret {{PLURAL:$1|$1 gang|$1 gange}} i minuttet";

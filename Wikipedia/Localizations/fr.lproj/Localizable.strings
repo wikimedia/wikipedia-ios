@@ -187,7 +187,6 @@
 "article-share" = "Partager";
 "article-tabs-button-accessibility-hint" = "Navigue vers l’aperçu des onglets";
 "article-tabs-button-accessibility-label" = "Onglets de l’article";
-"article-tabs-did-you-know-title" = "Le saviez-vous ?";
 "article-tabs-feature-announcement-item-1-subtitle" = "Ouvrez plusieurs articles et passez facilement de l’un à l'autre.";
 "article-tabs-feature-announcement-item-1-title" = "Naviguez avec des onglets";
 "article-tabs-feature-announcement-item-2-subtitle" = "Les onglets mémorisent automatiquement votre position de défilement.";
@@ -290,8 +289,6 @@
 "developer-settings-enable-year-in-review" = "Activer le Bilan de l'Année";
 "developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
 "developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
-// Fuzzy
-"did-you-know" = "Le saviez-vous ?";
 "diff-article-revision-history" = "Historique des révisions de l’article";
 "diff-change-added" = "Ajout, $1, fin de l'ajout.";
 "diff-change-paragraph-lines-moved-down" = "Paragraphe déplacé vers le bas {{PLURAL:$1|0=0 lignes|$1 ligne|$1 lignes}}. Aller au nouvel emplacement.";
@@ -806,9 +803,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
-"new-article-tab-from-wikipedia-default" = "de Wikipédia";
-"new-article-tab-settings-did-you-know" = "Le saviez-vous ?";
-"new-article-tab-settings-recommendations" = "Recommandations";
 "new-password-instructions" = "Vous vous êtes connecté avec un mot de passe temporaire. Pour achever de vous connecter, saisissez un nouveau mot de passe ici.";
 "new-password-title" = "Définir votre mot de passe";
 "new-tab" = "Nouvel onglet";
@@ -1496,7 +1490,6 @@
 "wikitext-upload-save" = "Publication en cours...";
 "wikitext-upload-save-anonymously-or-login" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1vous connectez$2, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
-"wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "En publiant les modifications, vous acceptez les $1Conditions d'utilisation$2 et acceptez irrévocablement de mettre votre contribution sous les licences $3CC BY-SA 3.0$4 et la $5GFDL$6. Vous acceptez qu’un hyperlien ou une URL soit une attribution suffisante pour la licence Creative Commons.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
 // Fuzzy

@@ -79,6 +79,9 @@
 "activity-tab-additional-thoughts" = "Wëllt Dir nach eppes soen?";
 "activity-tab-articles-read" = "Artikelen, déi dëse Mount gelies goufen";
 "activity-tab-articles-read-graph-label" = "Artikelen";
+"activity-tab-customize-editing-insights" = "Ännerungsablécker";
+"activity-tab-customize-reading-insights" = "Liesablécker";
+"activity-tab-customize-time-spent-reading" = "Lieszäit";
 "activity-tab-email-fifth-line" = "[Screenshotten oder Linken]";
 // Fuzzy
 "activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
@@ -123,7 +126,6 @@
 "article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
-"article-tabs-did-you-know-title" = "Wousst Dir";
 "article-tabs-feature-announcement-item-2-subtitle" = "Tabs erënnere sech automatesch un Är Scrollpositioun.";
 "article-tabs-feature-announcement-item-2-title" = "Fuert do virun, wou Dir opgehal hutt";
 "article-tabs-feature-announcement-item-3-subtitle" = "Maacht Linken an Hannergrondtabs op, ouni Är Positioun ze verléieren.";
@@ -167,7 +169,6 @@
 "continue-button-title" = "Virufueren";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
-"create-account" = "Kont uleeën";
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
@@ -199,7 +200,6 @@
 "description-welcome-start-editing-button" = "Ufänke mat Änneren";
 "developer-settings" = "Entwécklerastellungen";
 "developer-settings-enable-year-in-review" = "Joresréckbléck aktivéieren";
-"did-you-know" = "Wousst Dir schonn?";
 "diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
 "diff-compare-header-to-info-heading" = "Gewisen Ännerung";
@@ -566,9 +566,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
-"new-article-tab-from-wikipedia-default" = "vu Wikipedia";
-"new-article-tab-settings-did-you-know" = "Wousst Dir schonn?";
-"new-article-tab-settings-recommendations" = "Recommandatiounen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
 "new-password-title" = "Leet Äert Passwuert fest";
 "new-tab" = "Neien Tab";
@@ -1064,7 +1061,6 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréiwung obligatoresch.";
 "wikitext-upload-save" = "Verëffentlechen...";
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
-"wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "year-in-review-base-edits-title" = "D'Wikipedia gouf {{PLURAL:$1|$1 Mol}} pro Minutt geännert";
 "year-in-review-base-reading-title" = "Wikipedia war a méi wéi {{PLURAL:$1|$1 Sprooch|$1 Sproochen}} disponibel";

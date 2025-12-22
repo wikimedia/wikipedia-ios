@@ -146,7 +146,6 @@
 "article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "article-save-error-not-enough-space" = "حافظهٔ کافی برای ذخیره‌سازی این مقاله بر روی دستگاهتان ندارید";
 "article-share" = "اشتراک‌گذاری";
-"article-tabs-did-you-know-title" = "آیا می‌دانستید";
 "article-tabs-feature-announcement-item-4-title" = "زبانهٔ جدید خود را شخصی‌سازی کنید";
 "article-talk-page" = "صفحهٔ بحث مقاله";
 "article-toolbar-reading-themes-controls-toolbar-item" = "تنظیمات پوسته‌های مطالعه";
@@ -221,8 +220,6 @@
 "developer-settings-enable-year-in-review" = "فعال‌سازی سال در یک نگاه";
 "developer-settings-send-analytics-to-wmflabs" = "ارسال تحلیل‌ها به wmflabs.";
 "developer-settings-suppress-image-rec-post" = "ویرایش پیشنهادهای تصویر را ارسال نکن.";
-// Fuzzy
-"did-you-know" = "آیا می‌دانستید";
 "diff-article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "diff-change-added" = "اضافه، $1، پایان اضافه.";
 "diff-change-paragraph-lines-moved-down" = "بند به میزان {{PLURAL:$1|0=۰ سطر|$1 سطر}} به پایین منتقل شد. به موقعیت جدید بروید.";
@@ -725,9 +722,6 @@
 "nearby-distance-label-km" = "$1 کیلومتر";
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مایل";
-"new-article-tab-from-wikipedia-default" = "از ویکی‌پدیا";
-"new-article-tab-settings-did-you-know" = "آیا می‌دانستید؟";
-"new-article-tab-settings-recommendations" = "پیشنهادها";
 "new-password-instructions" = "با رمز عبور موقت به سامانه وارد شدید. برای تکمیل ورود، رمز عبور جدید انتخاب کنید.";
 "new-password-title" = "تنظیم رمز عبورتان";
 "next-action-title" = "بعدی";
@@ -1379,7 +1373,6 @@
 "wikitext-upload-save" = "در حال منتشرکردن...";
 "wikitext-upload-save-anonymously-or-login" = "ویرایش‌ها به‌نام نشانی آی‌پی دستگاه شما ثبت خواهند شد. اگر $1وارد حساب شوید$2 اطلاعات خصوصی‌تان بهتر حفظ خواهد شد.";
 "wikitext-upload-save-anonymously-warning" = "ویرایش‌ها به‌نام نشانی آی‌پی دستگاه شما ثبت خواهند شد. اگر $1، اطلاعات خصوصی‌‌تان بهتر حفظ خواهد شد.";
-"wikitext-upload-save-sign-in" = "ورود";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "با انتشار تغییرات، $1شرایط استفاده$2 را می‌پذیرید و قبول می‌کنید که به‌طور برگشت‌ناپذیری مشارکت‌های خود را تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 منتشر کنید. همچنین می‌پذیرید که تحت اجازه‌نامهٔ کریتیو کامنز، تنها یک ابرپیوند یا نشانی وب برای انتشاب به مشارکت‌های شما کفایت می‌کند.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "year-in-review-base-reading-title" = "ویکی‌پدیا در بیش از {{PLURAL:$1|$1 زبان}} در دسترس بوده است";

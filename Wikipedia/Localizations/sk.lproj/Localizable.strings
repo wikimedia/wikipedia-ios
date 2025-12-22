@@ -527,8 +527,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 míľ";
-"new-article-tab-settings-did-you-know" = "Vedeli ste, že...";
-"new-article-tab-settings-recommendations" = "Odporúčania";
 "new-password-instructions" = "Ste prihlásení s dočasným heslom. Ak chcete dokončiť prihlásenie, nastavte si tu nové heslo.";
 "new-password-title" = "Nastavte si heslo";
 "new-tab" = "Nová karta";
@@ -1032,7 +1030,6 @@
 "wikitext-upload-save" = "Uverejňuje sa...";
 "wikitext-upload-save-anonymously-or-login" = "Úpravy budú mať pridelenú IP adresu vášho zariadenia. Pokiaľ sa $1prihlásite$2, budete mať viac súkromia.";
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho zariadenia. Ak $1, budete mať viac súkromia.";
-"wikitext-upload-save-sign-in" = "Prihlásiť sa";
 "wikitext-upload-save-terms-name" = "Podmienky používania";
 "year-in-review-donate" = "Darovať";
 "year-in-review-donate-now" = "Darovať teraz";

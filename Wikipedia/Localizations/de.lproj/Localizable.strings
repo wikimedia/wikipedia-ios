@@ -200,7 +200,6 @@
 "article-share" = "Teilen";
 "article-tabs-button-accessibility-hint" = "Navigiert zur Übersicht der Registerkarten";
 "article-tabs-button-accessibility-label" = "Artikelregister";
-"article-tabs-did-you-know-title" = "Schon gewusst?";
 "article-tabs-feature-announcement-item-1-subtitle" = "Öffne mehrere Artikel und wechsle problemlos zwischen ihnen.";
 "article-tabs-feature-announcement-item-1-title" = "Mit Tabs browsen";
 "article-tabs-feature-announcement-item-2-subtitle" = "Tabs merken sich deine Scrollposition automatisch.";
@@ -257,7 +256,6 @@
 "continue-button-title" = "Fortfahren";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
 "continue-reading-empty-title" = "Keine kürzlich gelesenen Artikel";
-"create-account" = "Konto erstellen";
 "crimean-tatar-variants-alert-body" = "Die Wikipedia-App unterstützt jetzt die folgenden krimtatarischen Varianten als Primär- oder Sekundärsprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\nQırımtatarca, Latein Krimtatarisches Latein (chr-latn) \nкъырымтатарджа, Кирил Krimtatarisches Kyrillisch (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Updates zur Unterstützung der krimtatarischen Variante";
 "data-migration-status" = "Aktualisierung …";
@@ -301,12 +299,10 @@
 "developer-force-email-auth" = "E-Mail-Authentifizierung erzwingen";
 "developer-settings" = "Entwicklereinstellungen";
 "developer-settings-bypass-donation" = "Spende umgehen";
-"developer-settings-dynamic-tabs-group-B-v2" = "Tabs V2 mit Gruppe B aktivieren";
 "developer-settings-dynamic-tabs-group-C-v2" = "Tabs V2 mit Gruppe C aktivieren";
 "developer-settings-enable-year-in-review" = "Jahresrückblick aktivieren";
 "developer-settings-send-analytics-to-wmflabs" = "Analytics an wmflabs senden.";
 "developer-settings-suppress-image-rec-post" = "Bildempfehlungsbearbeitung nicht veröffentlichen.";
-"did-you-know" = "Schon gewusst?";
 "diff-article-revision-history" = "Versionsgeschichte";
 "diff-change-added" = "Hinzufügung, $1, Hinzufügung Ende.";
 "diff-change-paragraph-lines-moved-down" = "Absatz {{PLURAL:$1|0=0 Zeilen|$1 Zeile|$1 Zeilen}} nach unten verschoben. Zur neuen Position gehen.";
@@ -812,9 +808,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
-"new-article-tab-from-wikipedia-default" = "aus Wikipedia";
-"new-article-tab-settings-did-you-know" = "Wusstest du?";
-"new-article-tab-settings-recommendations" = "Empfehlungen";
 "new-password-instructions" = "Du hast dich mit einem temporären Passwort angemeldet. Um die Anmeldung abzuschließen, lege hier ein neues Passwort fest.";
 "new-password-title" = "Passwort festlegen";
 "new-tab" = "Neuer Tab";
@@ -1271,7 +1264,6 @@
 "tabs-main-page-subtitle" = "Wikipedias tägliche Highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 Tab|$1 Tabs}}";
 "tabs-open-tab" = "Tab öffnen";
-"tabs-overview-recommendations-title" = "Basierend auf deinen neuesten Tabs";
 "tabs-overview-tooltip-body" = "Wechseln Sie zwischen geöffneten Artikeln in der Tab-Übersicht.";
 "tabs-overview-tooltip-title" = "Tab-Übersicht";
 "tabs-show-suggested-articles" = "Artikelvorschläge anzeigen";
@@ -1507,7 +1499,6 @@
 "wikitext-upload-save" = "Veröffentliche …";
 "wikitext-upload-save-anonymously-or-login" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du dich $1anmeldest$2, wirst du über mehr Datenschutz verfügen.";
 "wikitext-upload-save-anonymously-warning" = "Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
-"wikitext-upload-save-sign-in" = "Anmelden";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Durch das Veröffentlichen von Änderungen stimmen Sie den $1Nutzungsbedingungen$2 zu, und Sie stimmen unwiderruflich zu, Ihren Beitrag unter der $3CC BY-SA 4.0$4 Lizenz und der $5GFDL$6 zu veröffentlichen. Sie stimmen zu, dass ein Hyperlink oder eine URL eine ausreichende Namensnennung unter der Creative Commons-Lizenz darstellt.";
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
 "year-in-review-articles-slide-subtitle" = "Dies waren die Artikel, die du 2025 am häufigsten besucht hast: $1";
