@@ -210,7 +210,7 @@
 			<string>%1$d linhas não editadas</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Adicionado(s) %#@v1@</string>
@@ -226,7 +226,7 @@
 			<string>%1$lld bytes</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-title</key>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Nós passamos %#@v1@ a ler</string>
@@ -843,7 +843,7 @@
 			<string>%1$d filtros</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>A Wikipédia estava disponível em mais de %#@v1@</string>
@@ -875,7 +875,7 @@
 			<string>%1$d vezes</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Recentemente, as suas edições foram visualizadas mais de %#@v1@</string>
@@ -891,7 +891,7 @@
 			<string>%1$lld vezes</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Você editou %#@v1@</string>
@@ -907,7 +907,7 @@
 			<string>%1$d vezes</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Nós estimamos que isso coloca-o(a) nos **PERCENT** do topo de leitores da Wikipédia em todo o mundo. A média de leitura de uma pessoa é de %#@v1@ por ano.</string>

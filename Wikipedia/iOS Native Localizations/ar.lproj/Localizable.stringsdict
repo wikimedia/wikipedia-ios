@@ -286,7 +286,7 @@
 			<string>%1$d أسطر غير معدلة</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>في %1$@، أضاف المتطوعون %#@v2@ إلى ويكيبيديا الإنجليزية. يُثمر مجموع عملهم المشترك عن مصدر معرفة جدير بالثقة يتطوّر باستمرار يستند إلى حقائق، يقدمونه للعالم. لدينا جميعًا معرفة نشاركها، [تعرفوا على كيفية المشاركة] (%3$@).</string>
@@ -300,7 +300,7 @@
 			<string>%2$lld بايت</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>أضيفت مقدار قدره %#@v1@</string>
@@ -314,7 +314,7 @@
 			<string>%1$lld بايت</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>أجرى المتطوعون عدد %#@v1@ في أكثر من %#@v2@ من ويكيبيديا. أُجري عدد %#@v3@ على ويكيبيديا الإنجليزية. في كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.</string>
@@ -352,7 +352,7 @@
 			<string>%3$lld تغيير</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-title</key>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>أجرى المحررون عدد %#@v1@ هذا العام</string>
@@ -368,34 +368,7 @@
 			<string>%1$lld تغيير</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>يُقدَّر أن الناس أمضوا %#@v1@ — أي ما يعادل %#@v2@ تقريبًا! — في قراءة ويكيبيديا الإنجليزية في %3$@. ويكيبيديا متاحة عندما ترغب في التعرّف على عالمنا المتغير أو الفوز برهان بين الأصدقاء أو الإجابة عن سؤال طفل فضولي.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%1$lld ساعة</string>
-			<key>other</key>
-			<string>%1$lld ساعة</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%2$lld سنة</string>
-			<key>other</key>
-			<string>%2$lld سنة</string>
-		</dict>
-	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>يُقدَّر أن الناس أمضوا %#@v1@ — أي ما يعادل %#@v2@ تقريبًا! — في قراءة ويكيبيديا الإنجليزية في %3$@.</string>
@@ -422,7 +395,34 @@
 			<string>%2$lld سنة</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-title</key>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>يُقدَّر أن الناس أمضوا %#@v1@ — أي ما يعادل %#@v2@ تقريبًا! — في قراءة ويكيبيديا الإنجليزية في %3$@. ويكيبيديا متاحة عندما ترغب في التعرّف على عالمنا المتغير أو الفوز برهان بين الأصدقاء أو الإجابة عن سؤال طفل فضولي.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld ساعة</string>
+			<key>other</key>
+			<string>%1$lld ساعة</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld سنة</string>
+			<key>other</key>
+			<string>%2$lld سنة</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>لقد أمضينا %#@v1@ في القراءة</string>
@@ -438,7 +438,7 @@
 			<string>%1$lld ساعة</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>مستخدمو التطبيق النشطاء حفظوا %#@v1@ هذه السنة. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إليها حتى دون اتصال بالإنترنت. كما يمكنكم تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.</string>
@@ -454,7 +454,7 @@
 			<string>%1$lld مقالة</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>حفظنا %#@v1@</string>
@@ -1053,7 +1053,7 @@
 			<string>%1$d مرشح</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>أجرى المحررون مستخدمين تطبيقات ويكيبيديا الرسمية عدد %#@v1@</string>
@@ -1069,7 +1069,7 @@
 			<string>%1$lld تعديل</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>جرى تعديل ويكيبيديا %#@v1@ في الدقيقة</string>
@@ -1085,7 +1085,7 @@
 			<string>%1$d مرة</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-subtitle</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>اشتملت ويكيبيديا على %#@v1@ تغطي أكثر من %#@v2@. لقد انضممت إلى ملايين يسعون لنشر رقعة المعرفة والتعرف على مواضيع متنوعة.</string>
@@ -1112,7 +1112,7 @@
 			<string>%2$d لغة ناشطة</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>كانت ويكيبيديا متاحة بأكثر من %#@v1@</string>
@@ -1128,7 +1128,7 @@
 			<string>%1$d لغة</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>حفظ مستخدمو التطبيق %#@v1@</string>
@@ -1144,7 +1144,7 @@
 			<string>%1$lld مقالة</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>اطلّع مستخدمو التطبيق على مقالات ويكيبيديا %#@v1@</string>
@@ -1176,7 +1176,7 @@
 			<string>%1$d مرات</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>يُقدّر القراء حول العالم مساهماتكم. خلال الشهرين الماضيين، حصدت المقالات التي حرّرتموها %#@v1@. بفضل محررين مثلكم، تُعدّ ويكيبيديا مصدرًا معرفيًا عالميًا موثوقًا، قائمًا على الحقائق، ويتطور باستمرار.</string>
@@ -1192,7 +1192,7 @@
 			<string> مشاهدة %1$lld إجمالية</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>لقد تمت مشاهدة تعديلاتك أكثر من %#@v1@ مؤخرًا</string>
@@ -1208,7 +1208,7 @@
 			<string>%1$lld مرات</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>المتطوعون مثلكم أجروا %#@v1@ تغطي %#@v2@ من ويكيبيديا.</string>
@@ -1235,7 +1235,7 @@
 			<string>%2$d نسخة مختلفة</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>لقد قمت بتعديل %#@v1@</string>
@@ -1251,7 +1251,7 @@
 			<string>%1$d مرات</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>نُقدّر أن هذا يضعك ضمن أعلى **نسبة** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي %#@v1@ سنويًا.</string>
@@ -1267,7 +1267,7 @@
 			<string> %1$d مقالات</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>لقد قضيت %#@v1@ في قراءة %#@v2@ في %3$@</string>
@@ -1294,7 +1294,7 @@
 			<string>%2$d مقالات</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>اشتملت هذه المقالات على %1$@ و%2$@ و%3$@. تشير كل مقالة محفوظة اهتماماتكم وتساعدكم في تأسيس قاعدة معرفة مخصصة على ويكيبيديا.
