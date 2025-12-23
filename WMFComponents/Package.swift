@@ -14,7 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "WMFData", path: "../WMFData/"),
-        .package(name: "WMFLocalizations", path: "../WMFLocalizations/"),
+        .package(name: "WMFNativeLocalizations", path: "../WMFNativeLocalizations/"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.19.0")
     ],
     targets: [
@@ -31,7 +31,7 @@ let package = Package(
                 .product(name: "WMFData", package: "WMFData"),
                 .product(name: "WMFDataMocks", package: "WMFData"),
                 .product(name: "SDWebImage", package: "SDWebImage"),
-                .product(name: "WMFLocalizations", package: "WMFLocalizations")
+                .product(name: "WMFNativeLocalizations", package: "WMFNativeLocalizations")
             ],
             path: "Sources/WMFComponents",
             resources: [
