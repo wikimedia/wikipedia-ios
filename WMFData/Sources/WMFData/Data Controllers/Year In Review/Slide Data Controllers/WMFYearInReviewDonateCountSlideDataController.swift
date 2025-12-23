@@ -5,8 +5,8 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     let id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static var containsPersonalizedNetworkData = false
-    static var shouldFreeze = false
+    static let containsPersonalizedNetworkData = false
+    static let shouldFreeze = false
     
     private let globalUserID: Int?
     private let project: WMFProject?

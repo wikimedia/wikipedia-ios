@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WMFArticleSummary: Decodable {
+public struct WMFArticleSummary: Decodable, Sendable {
     public let displayTitle: String
     public let description: String?
     public let extractHtml: String

@@ -1,6 +1,6 @@
 import Foundation
 
-@objc public enum WMFActivityTabExperimentAssignment: Int {
+@objc public enum WMFActivityTabExperimentAssignment: Int, Sendable {
     case unknown = -1
     case control = 0
     case activityTab = 1

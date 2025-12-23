@@ -1,12 +1,12 @@
 import Foundation
 import CoreData
 
+public struct WMFCategory: Hashable, Sendable {
+    public let categoryName: String
+    public let project: WMFProject
+}
+
 public final class WMFCategoriesDataController {
-    
-    public struct WMFCategory: Hashable {
-        public let categoryName: String
-        public let project: WMFProject
-    }
     
     private let coreDataStore: WMFCoreDataStore
     

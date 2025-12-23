@@ -5,8 +5,8 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
     let id = WMFYearInReviewPersonalizedSlideID.topArticles.rawValue
     let year: Int
     var isEvaluated: Bool = false
-    static var containsPersonalizedNetworkData = false
-    static var shouldFreeze = true
+    static let containsPersonalizedNetworkData = false
+    static let shouldFreeze = true
     
     private var articles: [String]?
 

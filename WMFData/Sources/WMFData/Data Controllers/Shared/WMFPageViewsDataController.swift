@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-public final class WMFPage: Hashable, Equatable {
+public final class WMFPage: Hashable, Equatable, Sendable {
    public let namespaceID: Int
    public let projectID: String
    public let title: String
@@ -27,7 +27,7 @@ public final class WMFPage: Hashable, Equatable {
 
  }
 
-public final class WMFPageViewCount: Identifiable {
+public final class WMFPageViewCount: Identifiable, Sendable {
     
     public var id: String {
         return "\(page.projectID)~\(page.namespaceID)~\(page.title)"
@@ -84,7 +84,7 @@ public final class WMFPageViewTime: Codable {
     }
 }
 
-public struct WMFPageWithTimestamp {
+public struct WMFPageWithTimestamp: Sendable {
     public let page: WMFPage
     public let timestamp: Date
 }
