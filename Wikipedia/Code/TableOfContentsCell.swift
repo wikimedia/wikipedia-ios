@@ -1,5 +1,5 @@
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 // MARK: - Cell
 class TableOfContentsCell: UITableViewCell {

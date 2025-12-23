@@ -1,6 +1,6 @@
 import WMFData
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
 

@@ -1,6 +1,6 @@
 import UIKit
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol InsertLinkViewControllerDelegate: AnyObject {
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem)

@@ -1,5 +1,5 @@
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol FocusNavigationViewDelegate: AnyObject {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView)

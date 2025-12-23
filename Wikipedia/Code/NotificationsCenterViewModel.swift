@@ -1,7 +1,7 @@
 import CocoaLumberjackSwift
 import WMF
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 enum NotificationsCenterUpdateType {
     case emptyDisplay(Bool)

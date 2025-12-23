@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 struct ImportedReadingList: Codable {
     let name: String?

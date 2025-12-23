@@ -1,6 +1,6 @@
 import UIKit
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewController {
     

@@ -1,5 +1,5 @@
 import UIKit
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, MEPEventsProviding, CollectionViewContextMenuShowing {

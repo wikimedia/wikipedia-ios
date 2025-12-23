@@ -1,5 +1,5 @@
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol NotificationsCenterCellDelegate: AnyObject {
     func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell)

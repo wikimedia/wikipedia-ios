@@ -1,6 +1,6 @@
 import UIKit
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol PlaceSearchSuggestionControllerDelegate: NSObjectProtocol {
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch)

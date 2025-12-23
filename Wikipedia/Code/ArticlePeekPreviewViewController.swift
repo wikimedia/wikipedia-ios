@@ -3,7 +3,7 @@ import WMF
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @objc(WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController {

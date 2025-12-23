@@ -1,5 +1,5 @@
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class OnThisDayViewControllerHeader: UICollectionReusableView {
     @IBOutlet weak var eventsLabel: UILabel!

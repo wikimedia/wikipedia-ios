@@ -1,4 +1,4 @@
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol ThemeableTextViewPlaceholderDelegate: AnyObject {
     func themeableTextViewPlaceholderDidHide(_ themeableTextView: UITextView, isPlaceholderHidden: Bool)

@@ -2,7 +2,7 @@ import UIKit
 import WMFData
 import WMF
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 

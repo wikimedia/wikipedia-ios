@@ -1,6 +1,6 @@
 import UIKit
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class PageIssuesTableViewController: UITableViewController, WMFNavigationBarConfiguring {
     static let defaultViewCellReuseIdentifier = "org.wikimedia.default"

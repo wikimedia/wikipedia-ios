@@ -1,5 +1,5 @@
 import XCTest
-@testable import WMFLocalizations
+@testable import WMFNativeLocalizations
 
 final class WMFLocalizationsTests: XCTestCase {
     func testExample() throws {

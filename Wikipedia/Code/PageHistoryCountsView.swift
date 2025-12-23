@@ -1,6 +1,6 @@
 import UIKit
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class PageHistoryCountsView: UICollectionReusableView {
     fileprivate var pageTitle: String = ""

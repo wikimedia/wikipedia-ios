@@ -1,5 +1,5 @@
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 // https://stackoverflow.com/a/34902501/135557
 class WMFWelcomeLanguageIntrinsicTableView: UITableView {

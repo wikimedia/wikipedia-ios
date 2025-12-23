@@ -3,7 +3,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMF
 import Combine
-import WMFLocalizations
+import WMFNativeLocalizations
 
 final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {}
 

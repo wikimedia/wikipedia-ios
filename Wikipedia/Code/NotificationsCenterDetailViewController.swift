@@ -2,7 +2,7 @@ import UIKit
 import WMF
 import SwiftUI
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 final class NotificationsCenterDetailViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 

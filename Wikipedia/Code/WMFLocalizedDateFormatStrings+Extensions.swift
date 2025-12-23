@@ -1,5 +1,5 @@
 import Foundation
-import WMFLocalizations
+import WMFNativeLocalizations
 
 extension WMFLocalizedDateFormatStrings {
     @objc public static func yearsAgo(forWikiLanguage languageCode: String?) -> String {

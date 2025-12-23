@@ -3,7 +3,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
-import WMFLocalizations
+import WMFNativeLocalizations
 
 final class TempAccountSheetCoordinator: Coordinator {
     var navigationController: UINavigationController

@@ -1,6 +1,6 @@
 import WMFComponents
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol ArticlePopoverViewControllerDelegate: NSObjectProtocol {
     func articlePopoverViewController(articlePopoverViewController: ArticlePopoverViewController, didSelectAction: WMFArticleAction)

@@ -1,6 +1,6 @@
 import UIKit
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNavigationBarConfiguring {
 

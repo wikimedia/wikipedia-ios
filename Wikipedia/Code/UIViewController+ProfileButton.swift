@@ -1,7 +1,7 @@
 import WMFComponents
 import WMFData
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 extension UIViewController {
     

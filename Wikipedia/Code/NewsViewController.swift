@@ -1,6 +1,6 @@
 import WMF
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @objc(WMFNewsViewController)
 class NewsViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {

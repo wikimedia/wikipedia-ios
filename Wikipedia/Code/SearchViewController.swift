@@ -3,7 +3,7 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
 

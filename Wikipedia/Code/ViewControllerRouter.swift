@@ -2,7 +2,7 @@ import UIKit
 import AVKit
 import WMFComponents
 import WMFData
-import WMFLocalizations
+import WMFNativeLocalizations
 
 // Wrapper class for access in Objective-C
 @objc class WMFRoutingUserInfoKeys: NSObject {

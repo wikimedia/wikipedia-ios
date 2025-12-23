@@ -2,7 +2,7 @@ import WMF
 import CocoaLumberjackSwift
 import WMFData
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 extension ArticleViewController {
     

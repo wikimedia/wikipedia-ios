@@ -1,5 +1,5 @@
 import Foundation
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @objc public final class WMFLocalizationWrapper: NSObject {
 

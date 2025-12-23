@@ -3,7 +3,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @MainActor
 final class TabsOverviewCoordinator: NSObject, Coordinator {

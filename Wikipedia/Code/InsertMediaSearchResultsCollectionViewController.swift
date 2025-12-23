@@ -1,5 +1,5 @@
 import UIKit
-import WMFLocalizations
+import WMFNativeLocalizations
 
 fileprivate class FlowLayout: UICollectionViewFlowLayout {
     override init() {

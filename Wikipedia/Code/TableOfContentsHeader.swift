@@ -1,5 +1,5 @@
 import UIKit
-import WMFLocalizations
+import WMFNativeLocalizations
 
 open class TableOfContentsHeader: UIView {
     @IBOutlet open var contentsLabel: UILabel!

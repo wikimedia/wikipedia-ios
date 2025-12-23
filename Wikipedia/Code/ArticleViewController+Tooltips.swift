@@ -1,7 +1,7 @@
 import WMFData
 import WMFComponents
 import WebKit
-import WMFLocalizations
+import WMFNativeLocalizations
 
 /// Article Tooltips
 extension ArticleViewController {

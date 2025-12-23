@@ -1,6 +1,6 @@
 import Foundation
 import CoreData
-import WMFLocalizations
+import WMFNativeLocalizations
 
 extension ReadingList {
 

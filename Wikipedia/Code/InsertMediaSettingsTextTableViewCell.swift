@@ -1,5 +1,5 @@
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     @IBOutlet private weak var headerLabel: UILabel!

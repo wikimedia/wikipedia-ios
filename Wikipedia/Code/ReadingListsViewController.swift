@@ -1,6 +1,6 @@
 import Foundation
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 enum ReadingListsDisplayType {
     case readingListsTab, addArticlesToReadingList

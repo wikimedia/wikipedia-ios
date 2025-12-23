@@ -1,5 +1,5 @@
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @objc(WMFReadingListHintViewController)
 class ReadingListHintViewController: HintViewController {

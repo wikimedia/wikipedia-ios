@@ -1,5 +1,5 @@
 import Foundation
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol ReferenceViewControllerDelegate: AnyObject {
     var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer { get }

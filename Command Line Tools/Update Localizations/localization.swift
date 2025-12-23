@@ -358,7 +358,7 @@ func writeTWNStrings(fromDictionary dictionary: [String: String], toFile: String
 }
 
 func exportLocalizationsFromSourceCode(_ path: String) {
-    let iOSENPath = "\(path)/WMFLocalizations/Sources/WMFLocalizations/Resources/en.lproj/Localizable.strings"
+    let iOSENPath = "\(path)/WMFNativeLocalizations/Sources/WMFNativeLocalizations/Resources/en.lproj/Localizable.strings"
     let twnQQQPath = "\(path)/Wikipedia/Localizations/qqq.lproj/Localizable.strings"
     let twnENPath = "\(path)/Wikipedia/Localizations/en.lproj/Localizable.strings"
     guard let iOSEN = NSDictionary(contentsOfFile: iOSENPath) else {
@@ -414,7 +414,7 @@ func exportLocalizationsFromSourceCode(_ path: String) {
 
 let locales: Set<String> =  {
     var identifiers = Locale.availableIdentifiers
-    if let filenames = try? FileManager.default.contentsOfDirectory(atPath: "\(path)/WMFLocalizations/Sources/WMFLocalizations/Resources") {
+    if let filenames = try? FileManager.default.contentsOfDirectory(atPath: "\(path)/WMFNativeLocalizations/Sources/WMFNativeLocalizations/Resources") {
         let additional = filenames.compactMap { $0.components(separatedBy: ".").first?.lowercased() }
         identifiers += additional
     }
@@ -433,7 +433,7 @@ func localeIsAvailable(_ locale: String) -> Bool {
 }
 
 func importLocalizationsFromTWN(_ path: String) {
-    let enPath = "\(path)/WMFLocalizations/Sources/WMFLocalizations/Resources/en.lproj/Localizable.strings"
+    let enPath = "\(path)/WMFNativeLocalizations/Sources/WMFNativeLocalizations/Resources/en.lproj/Localizable.strings"
     
     guard let enDictionary = NSDictionary(contentsOfFile: enPath) as? [String: String] else {
         print("Unable to read \(enPath)")
@@ -483,7 +483,7 @@ func importLocalizationsFromTWN(_ path: String) {
                 continue
             }
             
-            let localeFolder = "\(path)/WMFLocalizations/Sources/WMFLocalizations/Resources/\(locale).lproj"
+            let localeFolder = "\(path)/WMFNativeLocalizations/Sources/WMFNativeLocalizations/Resources/\(locale).lproj"
 
             guard localeIsAvailable(locale), let twnStrings = NSDictionary(contentsOfFile: "\(path)/Wikipedia/Localizations/\(locale).lproj/Localizable.strings") else {
                 try? fm.removeItem(atPath: localeFolder)
@@ -533,7 +533,7 @@ func importLocalizationsFromTWN(_ path: String) {
                     let folderURL = fileURLForFastlaneMetadataFolder(for: metadataLocale)
                     try fm.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil)
                     
-                    let infoPlistPath = "\(path)/WMFLocalizations/Sources/WMFLocalizations/Resources/\(locale).lproj/InfoPlist.strings"
+                    let infoPlistPath = "\(path)/WMFNativeLocalizations/Sources/WMFNativeLocalizations/Resources/\(locale).lproj/InfoPlist.strings"
                     let infoPlist = NSDictionary(contentsOfFile: infoPlistPath)
                     
                     try? writeFastlaneMetadata(strings["app-store-short-description"], to: "description.txt", for: metadataLocale)

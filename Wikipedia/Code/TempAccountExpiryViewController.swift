@@ -3,7 +3,7 @@ import CocoaLumberjackSwift
 import WMF
 import WMFComponents
 import WMFData
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @objc class TempAccountExpiryViewController: ThemeableViewController {
     var category: EventCategoryMEP?

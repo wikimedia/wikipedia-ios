@@ -1,6 +1,6 @@
 import UIKit
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 fileprivate enum WMFTwoFactorNextFirstResponderDirection: Int {
     case forward = 1

@@ -1,5 +1,5 @@
 import UIKit
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @objc(WMFEditingWelcomeViewController)
 final class EditingWelcomeViewController: WelcomeViewController {

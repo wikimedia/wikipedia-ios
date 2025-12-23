@@ -1,6 +1,6 @@
 import UIKit
 import CocoaLumberjackSwift
-import WMFLocalizations
+import WMFNativeLocalizations
 
 enum ArticleFetcherError: LocalizedError {
     case doesNotExist

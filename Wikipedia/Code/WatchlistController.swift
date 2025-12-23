@@ -1,7 +1,7 @@
 import Foundation
 import WMF
 import WMFData
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol WatchlistControllerDelegate: AnyObject {
     func didSuccessfullyWatchTemporarily(_ controller: WatchlistController)
