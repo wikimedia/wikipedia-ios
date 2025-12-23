@@ -124,7 +124,7 @@ public final class WMFPageViewsDataController {
         let coreDataTitle = title.normalizedForCoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
         let managedObjectID: NSManagedObjectID? = try await backgroundContext.perform { [weak self] () -> NSManagedObjectID? in
             
@@ -158,7 +158,7 @@ public final class WMFPageViewsDataController {
     public func addPageViewSeconds(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) async throws {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
         try await backgroundContext.perform { [weak self] in
             
@@ -179,7 +179,7 @@ public final class WMFPageViewsDataController {
         let coreDataTitle = title.normalizedForCoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
         try await backgroundContext.perform { [weak self] in
             
@@ -209,7 +209,7 @@ public final class WMFPageViewsDataController {
     
     public func deleteAllPageViewsAndCategories() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
         try await backgroundContext.perform {
             
@@ -232,7 +232,7 @@ public final class WMFPageViewsDataController {
     public func importPageViews(requests: [WMFLegacyPageView]) async throws {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
         try await backgroundContext.perform {
             for request in requests {
@@ -419,7 +419,7 @@ public final class WMFPageViewsDataController {
     
     public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         let results: [WMFPageWithTimestamp] = try await backgroundContext.perform {
             let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()

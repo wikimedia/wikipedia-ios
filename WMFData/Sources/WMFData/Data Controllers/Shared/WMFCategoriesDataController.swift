@@ -24,7 +24,7 @@ public final class WMFCategoriesDataController {
         let coreDataTitle = articleTitle.normalizedForCoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
         try await backgroundContext.perform { [weak self] in
             
@@ -62,7 +62,7 @@ public final class WMFCategoriesDataController {
     func deleteEmptyCategories() async throws {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
         try await backgroundContext.perform { [weak self] in
             

@@ -57,7 +57,7 @@ public final class WMFCoreDataStore {
                     
                     DispatchQueue.main.async {
                         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-                        persistentContainer.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+                        persistentContainer.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
                         
                         continuation.resume()
                     }
