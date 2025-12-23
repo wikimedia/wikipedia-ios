@@ -1,0 +1,123 @@
+// Messages for Scots (Scots)
+// Exported from translatewiki.net
+// Author: AmaryllisGardener
+// Author: CiphriusKane
+// Author: Fitoschido
+// Author: John Reid
+// Author: MinecraftAustralia
+
+"about-content-license" = "Content license";
+"about-content-license-details" = "Unless itherwise specifee'd, content is available unner a $1.";
+"about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
+"about-contributors" = "Contreebutors";
+"about-libraries" = "Leebrars uised";
+"about-libraries-complete-list" = "Complete leet";
+"about-libraries-license" = "License";
+"about-libraries-licenses-title" = "We luve open soorce saftware $1";
+"about-product-of" = "Made bi the $1 wi the help o volunteers lik ye";
+"about-repositories" = "Repositories";
+"about-repositories-app-source-license" = "Soorce code available unner the $1.";
+"about-repositories-app-source-license-mit" = "MIT License";
+"about-send-feedback" = "Send app feedback";
+"about-testers" = "Testers";
+"about-testers-details" = "QA testit bi $1";
+"about-title" = "Aboot";
+"about-translators" = "Translators";
+"about-translators-details" = "Translatit bi volunteers at $1";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
+"about-wikipedia" = "Wikipaedia";
+"account-creation-captcha-cannot-see-image" = "Canna see the eemage? $1";
+"account-creation-captcha-obtaining" = "Obteenin a new CAPTCHA...";
+"account-creation-captcha-request-account" = "Request accoont.";
+"account-creation-captcha-title" = "CAPTCHA siccarity check";
+"account-creation-create-account" = "Mak yer accoont";
+"account-creation-have-account" = "Awreidy hae an accoont? $1";
+"account-creation-log-in" = "Log in.";
+"account-creation-logging-in" = "Loggin in...";
+"account-creation-missing-fields" = "Ye maun enter ae uisername, trystwird, an trystwird confirmation tae create an accoont.";
+"account-creation-passwords-mismatched" = "Passwaird fields dinna match.";
+"account-creation-saving" = "Hainin...";
+"account-creation-title" = "Create a new accoont";
+// Fuzzy
+"action-find-in-page" = "Find in page";
+"action-read" = "Read";
+"action-save" = "Sauf";
+"action-saved" = "Sauft";
+"action-saved-accessibility" = "Sauft. Activate tae unsauf.";
+"action-saved-accessibility-notification" = "Airticle sauft for later";
+"action-share" = "Share";
+"action-unsave" = "Unsauf";
+"action-unsaved-accessibility-notification" = "Airticle unsauft";
+"announcements-dismiss" = "Dismiss";
+"appearance-settings-adjust-text-sizing" = "Adjuist airticle text sizin";
+// Fuzzy
+"appearance-settings-image-dimming-footer" = "Decrease the opacity o eemages on daurk theme";
+"appearance-settings-reading-themes" = "Readin themes";
+"appearance-settings-text-sizing-example-text" = "Drag the slider tae chynge the airticle text sizin. Utilise yer system text size tae resize ither text areas in the app.";
+"appearance-settings-theme-options" = "Theme options";
+"article-delete" = "Delete";
+// Fuzzy
+"article-deleted-accessibility-notification" = "Airticle deletit";
+"article-languages-filter-placeholder" = "Find leid";
+"article-languages-label" = "Pick yer leid";
+"article-languages-others" = "Ither leids";
+"article-languages-yours" = "Yer leids";
+"article-share" = "Share";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Readin Themes Controls";
+"back-button-accessibility-label" = "Back";
+"button-next" = "Nex";
+"button-ok" = "OK";
+"button-publish" = "Publish";
+"button-report-a-bug" = "Report a bug";
+"button-save-for-later" = "Sauf for later";
+"button-saved-for-later" = "Sauft for later";
+"button-saved-remove" = "Remuive frae sauft";
+"button-skip" = "Skip";
+"cancel" = "Cancel";
+"close-button-accessibility-label" = "Close";
+"compass-direction" = "at $1 o'clock";
+"continue-reading-empty-description" = "Explore Wikipaedia for mair airticles tae read";
+"continue-reading-empty-title" = "Na recently read airticles";
+"dim-images" = "Dim eemages";
+"edit-summary-choice-fixed-grammar" = "Fixi graimmer";
+"edit-summary-choice-fixed-typos" = "Fixt typo";
+"edit-summary-choice-linked-words" = "Addit airtins";
+"empty-no-article-message" = "Sairy, coud nae laid the airticle";
+"empty-no-feed-action-message" = "Ye can still read sauft pages";
+"empty-no-feed-message" = "Ye can see yer recommendit airticles whan ye have internet";
+"empty-no-history-message" = "Keep track o whit ye'v been readin here";
+"empty-no-history-title" = "Na history tae shaw";
+"empty-no-saved-pages-message" = "Sauf pages tae view them later, even offline";
+"empty-no-saved-pages-title" = "Na sauft pages yet";
+"empty-no-search-results-message" = "No results foond";
+"error-unknown" = "An unkent error occurred";
+"explore-another-random" = "Anither random airticle";
+"explore-because-you-read" = "Acause ye read";
+"explore-continue-reading-heading" = "Conteena readin";
+"explore-enable-location-title" = "Explore airticles near yer current location";
+"explore-featured-article-heading" = "Featurt airticle";
+"explore-main-page-description" = "Main page o Wikimedia projects";
+"explore-main-page-heading" = "The day on Wikipaedia";
+"explore-most-read-generic-heading" = "Tap read";
+"explore-most-read-more-list-title-for-date" = "Tap on $1";
+"explore-potd-heading" = "Pictur o the day";
+"explore-random-article-heading" = "Allevolie airticle";
+"history-clear-confirmation-heading" = "Are ye shuir ye want tae delete aw yer recent eetems?";
+"history-clear-delete-all" = "Aye, delete aw";
+// Fuzzy
+"main-menu-account-login" = "Log in";
+"main-menu-account-logout" = "Log oot";
+// Fuzzy
+"main-menu-account-title-logged-in" = "Loggit in aes: $1";
+"navbar-title-mode-edit-wikitext-preview" = "Luikower";
+"places-accessibility-show-more" = "Shaw mair airticles";
+"saved-pages-image-download-error" = "Failt tae dounlaid eemages for this sauft page.";
+"search-field-placeholder-text" = "Rake Wikipaedia";
+"wikitext-preview-changes" = "Retreevin luikower o yer chynges...";
+"wikitext-upload-captcha-error" = "Captcha vereefeecation mistak.";
+"wikitext-upload-captcha-needed" = "Need captcha vereefication.";
+"wikitext-upload-result-unknown" = "Onable tae determine wikitex uplaid ootcome.";
+// Fuzzy
+"wikitext-upload-save" = "Hainin...";
+// Fuzzy
+"wikitext-upload-save-anonymously-warning" = "This haes less preevacie. Yer IP address is veesible wi eedits.";

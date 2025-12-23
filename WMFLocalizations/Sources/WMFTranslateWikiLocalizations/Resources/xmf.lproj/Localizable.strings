@@ -1,0 +1,70 @@
+// Messages for Mingrelian (მარგალური)
+// Exported from translatewiki.net
+// Author: Narazeni
+// Author: Silovan
+
+"about-content-license" = "დინორეშ ლიცენზია";
+// Fuzzy
+"account-creation-captcha-obtaining" = "ახალ CAPTCHA-შ მეღება.";
+"account-creation-logging-in" = "სისტემაშა მიშულა…";
+"account-creation-missing-fields" = "ანგარიშიშ განწყუმალო უციო რე მახვარებუშ ჯოხოშ, პაროლიშ დო პაროლიშ გომაჟირაფაშ მეწურაფა.";
+"account-creation-passwords-mismatched" = "პაროლი ვაუხვადუ.";
+"account-creation-saving" = "იჩუალუაფუ…";
+// Fuzzy
+"article-languages-filter-placeholder" = "ნინაშ ფილტრი";
+"article-languages-label" = "გეგშაგორით ნინა";
+// Fuzzy
+"diff-compare-header-from-info-heading" = "მაჯღონალი:";
+// Fuzzy
+"diff-compare-header-to-info-heading" = "ადრესატი";
+"edit-summary-choice-linked-words" = "გეძინელი რსხუეფი";
+"empty-no-other-article-languages-message" = "თე სტატია დიო ვა რე ჭარილი შხვა ნინაშა";
+"empty-no-other-article-languages-title" = "შხვა ნინეფი ვა რე ხემიოჭირინაფუს";
+"error-unknown" = "მეგორაფილი რე უჩინებუ ჩილათაშა.";
+"explore-featured-article-heading" = "გიშნაგორა სტატია";
+"explore-feed-preferences-featured-article-description" = "დღაშ გიშნაგორა სტატია ვიკიპედიას";
+"explore-feed-preferences-show-featured-article-title" = "ქაძირე ბართი „გიშნაგორა სტატია“";
+"featured-widget-content-failure-for-date" = "გიშნაგორა სტატია ვა რე ხემიოლუ თე თარიღიშო.";
+// Fuzzy
+"history-clear-confirmation-heading" = "დობლასათო არძა ასერდეიანი ელემენტი?";
+// Fuzzy
+"history-clear-delete-all" = "არძაშ ლასუა";
+"history-title" = "ისტორია";
+// Fuzzy
+"home-news-footer" = "კილიშკილშა ახალ ამბეეფს";
+// Fuzzy
+"languages-title" = "ნინეფი";
+// Fuzzy
+"main-menu-about" = "აპლიკაცია \"ვიკიპედიაშ\" გეშა";
+// Fuzzy
+"main-menu-account-login" = "ვიკიპედიაშა მიშულა";
+"main-menu-account-logout" = "გიშულა";
+// Fuzzy
+"main-menu-account-title-logged-in" = "მიშულირი რეთ მუჭო: $1";
+"main-menu-heading-legal" = "კონფიდენციალურობა დო წესეფი";
+"main-menu-nearby" = "გოხოლუას";
+"main-menu-privacy-policy" = "კონფიდენციალურობაშ პოლიტიკა";
+// Fuzzy
+"main-menu-rate-app" = "აპლიკაციაშ შეფასება";
+// Fuzzy
+"main-menu-terms-of-use" = "გჷმორინაფაშ წესეფი";
+"main-menu-title" = "ხოლო";
+"main-menu-zero-faq" = "Wikipedia Zero FAQ";
+"more-menu" = "უმოსი";
+"navbar-title-mode-edit-wikitext-preview" = "გიწოთოლორაფა";
+"saved-title" = "ჩუალირი";
+"search-field-placeholder-text" = "გორუა ვიკიპედიას";
+"search-recent-clear-confirmation-heading" = "დობლასათო ასერდე მუნათხუა გორუეფი?";
+"search-recent-clear-confirmation-sub-heading" = "თე ქიმინჯუა ვეგიუქვებუ!";
+"search-recent-clear-delete-all" = "არძაშ ლასუა";
+"search-recent-title" = "ასერდე გორუნდით";
+"search-title" = "გორუა";
+"settings-title" = "პარამეტრეფი";
+"talk-pages-topic-reply-onboarding-title" = "სხუნუაშ ხასჷლეფი";
+"watchlist" = "კონტროლიშ ერკებული";
+"wikitext-preview-changes" = "მიშნაღელი თირაფეფიშ გიწოთოლორაფაშ ძირაფა…";
+"wikitext-upload-captcha-error" = "CAPTCHA-შ დოდასურაფაშ ჩილათა..";
+"wikitext-upload-captcha-needed" = "CAPTCHA-შ დოდასურაფაშ ოხვილჷ.";
+// Fuzzy
+"wikitext-upload-save" = "იჩუალუაფუ...";
+"wikitext-upload-save-terms-name" = "გჷმორინაფაშ წესეფი";

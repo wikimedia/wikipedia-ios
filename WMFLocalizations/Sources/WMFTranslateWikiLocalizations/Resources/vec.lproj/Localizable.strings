@@ -1,0 +1,60 @@
+// Messages for Venetian (vèneto)
+// Exported from translatewiki.net
+// Author: Candalua
+// Author: Cusolotto
+// Author: Fierodelveneto
+// Author: Macofe
+
+"about-contributors" = "Contribudori";
+"about-libraries" = "librarie doparae";
+"about-libraries-license" = "Licensa";
+"about-product-of" = "Un prodoto de la $1, co el juto de vołontari come ti!";
+"about-repositories" = "archivi";
+"about-testers" = "tester";
+"about-title" = "Informasion";
+"about-translators" = "Tradutori";
+"about-translators-details" = "Tradoto dai volontari de $1";
+"about-wikimedia-foundation" = "Fondasion Wikimedia";
+"about-wikipedia" = "Wikipedia";
+"action-undo" = "Desfare";
+"add-articles-to-reading-list" = "Xonta {{PLURAL:$1|voce|voci}} al'elenco de letura";
+"app-store-short-description" = "Descarga l'app de Wikipedia par esplorar i posti visin a ti, sincronixar i articoli par vardarli offline e personalixar la to esperiensa de letura.";
+"article-languages-filter-placeholder" = "Cata łéngua";
+"article-languages-label" = "Sełesiona ła lengua";
+"article-languages-others" = "Altre łéngue";
+"article-save-error-not-enough-space" = "No te ghe mia spasio sul to telefono par salvar l'articolo";
+"edit-summary-choice-fixed-grammar" = "Sistemà la gramàtega";
+"edit-summary-choice-fixed-typos" = "Sistemà un becanoto";
+"edit-summary-choice-linked-words" = "Xontà dei link";
+"edit-summary-placeholder-text" = "Come xe che te ghè mejorà ła voxe?";
+"history-clear-delete-all" = "Sì, descançeła tuto";
+"languages-title" = "Canbia łéngua";
+"main-menu-about" = "Informasion so l'app";
+"main-menu-account-login" = "Lòghite";
+"main-menu-account-logout" = "Deslòghite";
+"main-menu-account-title-logged-in" = "Aceso efetuà cofà: $1";
+"main-menu-heading-legal" = "Privacy e condision";
+"main-menu-nearby" = "Cuà rente";
+"main-menu-privacy-policy" = "Polìtega su la riservadessa";
+"main-menu-rate-app" = "Cuałifega l'aplicasion";
+"main-menu-terms-of-use" = "Condision de doparasion";
+"main-menu-title" = "Piassè";
+"main-menu-zero-faq" = "FAQ de Wikipedia Zero";
+"move-articles-to-reading-list" = "Moi {{PLURAL:$1|voce|voci}} al'elenco de letura.";
+"navbar-title-mode-edit-wikitext-preview" = "Anteprima";
+"nearby-distance-label-feet" = "$1 pié";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-miles" = "$1 miglia";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipèdia in $2";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "No, tolto articolo dal telefono e dal me Wikipedia account";
+"reading-lists-conflicting-reading-list-name-updated" = "La to lista '$1' ła xé sta sta renomenà en '$2'";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Rexalta ła sintasi";
+"reading-themes-controls-syntax-highlighting" = "Rexalta ła sintasi";
+"search-field-placeholder-text" = "Serca su Wikipedia";
+"search-recent-clear-delete-all" = "Scancela tuto";
+// Fuzzy
+"share-article-name-on-wikipedia" = "\"$1\" so @Wikipèdia Vèneta:";
+"table-of-contents-heading" = "Contegnùi";
+"wikitext-upload-save" = "Publegasion...";
+"wikitext-upload-save-terms-name" = "Condision de dòpara";

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>places-filter-saved-articles-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Znaleziono %d miejsca</string>
+			<key>one</key>
+			<string>Znaleziono %d miejsce</string>
+			<key>other</key>
+			<string>Znaleziono %d miejsc</string>
+		</dict>
+	</dict>
+	<key>places-filter-top-articles-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%d artykuły</string>
+			<key>one</key>
+			<string>%d artykuł</string>
+			<key>other</key>
+			<string>%d artykułów</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

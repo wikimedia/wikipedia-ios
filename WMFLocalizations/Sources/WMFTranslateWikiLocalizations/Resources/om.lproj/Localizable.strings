@@ -1,0 +1,43 @@
+// Messages for Oromo (Oromoo)
+// Exported from translatewiki.net
+// Author: Ahrada2016
+// Author: Lalise2021
+// Author: Nemo bis
+// Author: Tumsaa
+
+"about-contributors" = "Hirmaattota";
+"about-libraries-license" = "Eeyyama";
+"about-title" = "Waa'ee";
+"about-wikipedia" = "Wiikippiidiyaa";
+"account-creation-logging-in" = "Seenaa jirta...";
+"account-creation-passwords-mismatched" = "Iggitni lamaan wal hinfakkaatu.";
+"account-creation-saving" = "Olkaawaa...";
+"back-button-accessibility-label" = "Gara duubaa";
+"button-next" = "Itti fufi";
+"close-button-accessibility-label" = "Cufi";
+"description-edit-for-article" = "$1tiif ibsa keeyyataa";
+"description-edit-pencil-title" = "Ibsa keeyyataa gulaali";
+"description-help-title" = "Gargaarsa ibsa keeyyataa";
+"description-welcome-descriptions-title" = "Ibsa keeyyataa";
+"explore-continue-reading-heading" = "Dubbisuu itti fufi";
+"explore-potd-heading" = "Suura har'aa";
+"history-clear-delete-all" = "Eeyyee, hunda balleessi";
+"icon-shortcut-search-title" = "Wiikippiidiyaa keessa barbaadi";
+"image-gallery-unknown-owner" = "Aangawaan hin beekamu.";
+"main-menu-account-login" = "Saaqii Seeni";
+"main-menu-account-logout" = "Ba'i";
+"main-menu-nearby" = "Dhihoo";
+"main-menu-terms-of-use" = "Wayetii fayyadamaa";
+"main-menu-title" = "Dabalata";
+"navbar-title-mode-edit-wikitext-preview" = "Durargii";
+"nearby-distance-label-feet" = "Fiitii $1";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-miles" = "Maayilii $1";
+"page-protected-can-not-edit" = "Fuula kana jijjiiruuf mirga hin qabdu";
+"search-field-placeholder-text" = "Wiikippiidiyaa keessa barbaadi";
+"search-recent-clear-delete-all" = "Hunda haqi";
+"table-of-contents-button-label" = "Gabatee qabiyyeewwanii";
+"table-of-contents-heading" = "Qabiyyeewwan";
+"wikitext-upload-save" = "Uummataawaara...";
+"wikitext-upload-save-terms-name" = "Waliigaltee fayyadamaa";

@@ -1,0 +1,120 @@
+// Messages for Tagalog (Tagalog)
+// Exported from translatewiki.net
+// Author: 0x16w
+// Author: Brazal.dang
+// Author: Emem.calist
+// Author: Exec8
+// Author: GinawaSaHapon
+// Author: Ianlopez1115
+// Author: Jewel457
+// Author: Jojit fb
+// Author: Leeheonjin
+// Author: Mrkczr
+// Author: Nemo bis
+// Author: Sky Harbor
+// Author: Stranger195
+
+"about-content-license" = "Lisensiya ng nilalaman";
+"about-content-license-details" = "Maliban kung nakasaad, magagamit ang nilalaman sa ilalim ng $1";
+"about-content-license-details-share-alike-license" = "Lisensiyang Creative Commons Attribution-ShareAlike";
+"about-contributors" = "Mga Nag-ambag";
+"about-libraries" = "Mga ginamit ng library";
+"about-libraries-complete-list" = "Kumpletong listahan";
+"about-libraries-license" = "Lisensiya";
+"about-libraries-licenses-title" = "Mahal namin ang open source na software $1";
+"about-places-maps-license" = "Lisensiya ng mapa ng mga lugar";
+"about-places-maps-license-details" = "Ginagamit ng mga lugar ang mapa ng Apple Maps. $1";
+"about-places-maps-license-details-link-text" = "Tingnan rito para sa detalye ng lisensiya";
+"about-product-of" = "Ginawa ng $1 sa tulong mga nagboluntaryong tulad mo";
+"about-repositories" = "Mga Repositoryo";
+"about-repositories-app-source-license" = "Magagamit ang source code sa ilalim ng $1.";
+"about-repositories-app-source-license-mit" = "Lisensiyang MIT";
+"about-send-feedback" = "Magpadala ng feedback";
+"about-testers" = "Mga Sumubok";
+"about-testers-details" = "QA test ng $1";
+"about-title" = "Patungkol";
+"about-translators" = "Mga Nagsalin";
+"about-translators-details" = "Sinalin ng mga boluntaryo sa $1";
+"about-wikimedia-foundation" = "Pundasyong Wikimedia";
+"about-wikipedia" = "Wikipedia";
+"account-creation-captcha-cannot-see-image" = "Di makita ang larawan? $1";
+"account-creation-captcha-obtaining" = "Kumukuha ng bagong CAPTCHA...";
+"account-creation-captcha-request-account" = "Humiling ng account";
+"account-creation-captcha-title" = "CAPTCHA security check";
+"account-creation-create-account" = "Gawin ang account";
+"account-creation-have-account" = "May account ka na? $1";
+"account-creation-log-in" = "Mag-login.";
+"account-creation-logging-in" = "Nagla-login...";
+"account-creation-missing-fields" = "Kailangan mong magpasok ng username, password, at pagkumpirma sa password para magawa ang account mo.";
+"account-creation-passwords-mismatched" = "Hindi nagtutugma ang mga password.";
+"account-creation-saving" = "Sine-save...";
+"account-creation-title" = "Gumawa ng bagong account";
+"account-group-title" = "Account Mo";
+"account-request-vanishing" = "Mag-request ng pagtanggal ng account";
+"account-talk-page-title" = "Usapan Mo";
+"account-talk-preferences-auto-sign-discussions" = "Agarang paglagda sa talakayan";
+"account-talk-preferences-title" = "Mga preferensya ng pahinng pang-usap";
+"action-add-to" = "Idagdag sa…";
+"action-add-to-reading-list-short" = "Idagdag sa listahan";
+"action-cancel" = "Cancel";
+"action-discard-edits" = "Huwag na ituloy ang mga edit";
+"action-find-in-page" = "Hanapin sa pahina";
+"action-keep-editing" = "Ituloy ang Pag-edit";
+"action-language-accessibility" = "Palitan ang wika";
+"action-redo" = "Gawin muli";
+"action-save" = "Itala";
+"action-saved" = "Na-save na";
+"action-saved-accessibility" = "Nai-save. I-activate para i-unsave.";
+"action-sort" = "Ayusin";
+"action-unsaved-accessibility-notification" = "Artikulo ay tinanggalan ng save";
+"article-delete" = "Huling tawad, buburahin mo na ba?";
+"article-languages-filter-placeholder" = "Hanapin ang wika";
+"article-languages-label" = "Pumili ng wika";
+"button-next" = "Kasunod";
+"explore-because-you-read" = "Sapagkat iyong binasa";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Mula sa Wikipediang $1";
+"explore-featured-article-sub-heading-from-wikipedia" = "Mula sa Wikipedia";
+"explore-most-read-sub-heading-on-language-wikipedia" = "Sa Wikipediang $1";
+"explore-most-read-sub-heading-on-wikipedia" = "Sa Wikipedia";
+"explore-nearby-placeholder-heading" = "Mga lugar";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Mula sa Wikipediang $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Mula sa Wikipedia";
+"explore-potd-sub-heading" = "Mula sa Wikimedia Commons";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Mula sa Wikipediang $1";
+"explore-random-article-sub-heading-from-wikipedia" = "Mula sa Wikipedia";
+"find-infolabel-number-matches" = "$1 / $2";
+"history-clear-confirmation-heading" = "Sigurado kang gusto mong burahin ang lahat ng mga kamakailang aytem?";
+"history-clear-delete-all" = "Oo, Burahin lahat";
+"image-gallery-unknown-owner" = "Di-kilalang tagapatnugot";
+"in-the-news-sub-title-from-language-wikipedia" = "Mula sa Wikipediang $1";
+"languages-title" = "Baguhin ang wika";
+"nearby-distance-label-feet" = "$1 talampakan";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-miles" = "$1 milya";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 mula sa Wikipediang $2";
+"page-protected-can-not-edit" = "Wala kang karapatang baguhin ang pahinang ito";
+"page-protected-can-not-edit-title" = "Nakasanggalang ang pahinang ito";
+"places-accessibility-group" = "$1 mga artikulo";
+"places-accessibility-recenter-map-on-user-location" = "Igitna ang iyong lokasyon";
+"places-accessibility-show-as-map" = "Ipakita sa mapa";
+"places-no-saved-articles-have-location" = "Ni isa sa iyong artikulong nai-save ay may impormasyon sa lokasyon";
+"places-title" = "Mga lugar";
+"preference-summary-eventlogging-opt-in" = "Pahintulutan ang Pundasyong Wikimedia na mangalap ng impormasyon tungkol sa kung paano mo ginagamit ang app upang maipabuti ito";
+"reading-list-new-list-description-placeholder" = "Maikling deskripsiyon (optional)";
+"reading-list-new-list-name-placeholder" = "Pamagat ng Listahang-binasa";
+"saved-pages-progress-syncing" = "Kasalukuyang dinadownload ang article...";
+"search-field-placeholder-text" = "Hanapin sa Wikipedia";
+"search-recent-title" = "Kamakailang hinanap";
+"search-title" = "Hanapin";
+"table-of-contents-heading" = "Mga nilalaman";
+"talk-page-discussion-read-accessibility-label" = "Basahin";
+"talk-page-discussion-unread-accessibility-label" = "Hindi pa nababasa";
+"two-factor-login-with-backup-code" = "Gamitin ang isa sa mga iyong 'backup codes'";
+"wikitext-preview-changes" = "Kinukuhang muli ang paunang tingin ng iyong mga pagbabago...";
+"wikitext-preview-link-preview-title" = "Paunang tingin sa kawing";
+"wikitext-upload-captcha-error" = "May mali sa pagpapa-totoo (beripikasyon) sa CAPTCHA.";
+"wikitext-upload-captcha-needed" = "Kinakailangan ng pagpapa-totoo (beripikasyon) ng CAPTCHA";
+"wikitext-upload-result-unknown" = "Hindi matukoy ang kinalabasan ng pagkarga ng wikitext";
+"wikitext-upload-save" = "Itinatala...";
+"wikitext-upload-save-terms-name" = "Mga tuntunin sa paggamit";

@@ -1,0 +1,6 @@
+// Messages for Message documentation (Message documentation)
+// Exported from translatewiki.net
+// Author: Amire80
+// Author: Shirayuki
+
+"CFBundleDisplayName" = "{{Doc-protected-established}}\n\nName of the app as it will appear on the iOS home screen. Should be the canonical, locally-trademarked name of Wikipedia, and identical to these messages:\n* Android app name: {{msg-wm|Wikipedia-android-strings-app name prod}}\n* Portal site name: {{msg-wm|Portals-wiki.name}}\n{{Identical|Wikipedia}}";

@@ -1,0 +1,116 @@
+// Messages for Tajik (Cyrillic script) (тоҷикӣ)
+// Exported from translatewiki.net
+// Author: Ibrahim
+// Author: Nemo bis
+// Author: ToJack
+// Author: Vashgird
+// Author: ZulfiqorF
+
+// Fuzzy
+"about-contributors" = "саҳмгузорон";
+// Fuzzy
+"about-libraries" = "китобхонаҳои истифодашуда";
+"about-libraries-license" = "Иҷозатнома";
+"about-title" = "Дар бораи";
+// Fuzzy
+"about-translators" = "тарҷумонҳо";
+"about-translators-details" = "Тавассути ихтиёриҳо дар $1 тарҷума шудааст";
+"about-wikimedia-foundation" = "Фонди Викимедиа";
+"about-wikipedia" = "Википедия";
+// Fuzzy
+"account-creation-captcha-obtaining" = "Дарёфти як CAPTCHA нав.";
+"account-creation-log-in" = "Вуруд.";
+"account-creation-logging-in" = "Дар ҳоли вуруд...";
+"account-creation-passwords-mismatched" = "Фазоҳои гузарвожа бо ҳам мутобиқат надоранд.";
+"account-creation-saving" = "Дар ҳоли захиракунӣ...";
+"action-language-accessibility" = "Тағйири забон";
+"action-next-revision-accessibility" = "Нусхаи баъдӣ";
+"action-previous-revision-accessibility" = "Нусхаи қаблӣ";
+"action-thank-user-accessibility" = "Ташаккур кардани корбар";
+// Fuzzy
+"activity-tab-logged-out-title" = "Барои дидани виришҳо ва хониши бештар ворид шавед ё ҳисоб эҷод кунед.";
+"article-delete" = "Ҳазф кардан";
+// Fuzzy
+"article-languages-filter-placeholder" = "Филтри Забон";
+"article-languages-label" = "Интихоби забон";
+"article-share" = "Хабардор кардан";
+"button-next" = "Баъдӣ";
+"button-skip" = "Рафтан";
+"cancel" = "Пӯшидан";
+"description-add-title" = "Тавзеҳот илова намудан";
+"description-published-button-title" = "Карда шуд";
+// Fuzzy
+"diff-compare-header-from-info-heading" = "Аз:";
+// Fuzzy
+"diff-compare-header-to-info-heading" = "Ба:";
+"diff-context-lines-collapsed-button-title" = "Нишон додан";
+"diff-context-lines-expanded-button-title" = "Пинҳон";
+"diff-multi-line-format" = "Сатрҳои $1 – $2";
+"diff-paragraph-moved-direction-down" = "поён";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 сатр}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 ҷузъ|$1 ҷузъҳо}}";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 вироиш|$1 вироишот}}";
+"diff-single-header-editor-title" = "Иттилои вироишгар";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт}} илова шуд";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 байт}} ҳазф шуд";
+"diff-single-header-summary-heading" = "Хулосаи вироиш";
+"diff-single-line-format" = "Сатри $1";
+"diff-thanks-login-title" = "Барои фиристодани 'ташаккур' ворид шавед";
+"diff-thanks-send-button-title" = "Фиристодани 'Ташаккур'";
+"diff-thanks-send-title" = "Фиристодани 'ташаккур'-и ҳамагонӣ";
+// Fuzzy
+"diff-thanks-sent" = "'Ташаккур'-и шумо ба $1 фиристода шуд";
+"diff-thanks-sent-already" = "Шумо аллакай барои ин вироиш 'ташаккур' фиристодед";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 сатр}} вироиш нашуд";
+"empty-diff-compare-title" = "Ягон тафовуте байни нусхаҳо нест";
+"empty-no-article-message" = "Бахшиш, мақоларо кушода натавонистам";
+// Fuzzy
+"empty-no-search-results-message" = "Бахшиш, натиҷаҳоро кушода натавонистам";
+"field-username-title" = "Номи корбар";
+// Fuzzy
+"history-clear-delete-all" = "Ҳазви Ҳама";
+"languages-title" = "Тағйир кардани забон";
+// Fuzzy
+"main-menu-account-login" = "Вуруд ба Википедиа";
+"main-menu-account-logout" = "Хуруҷ";
+// Fuzzy
+"main-menu-account-title-logged-in" = "Вуруд шуд чун: $1";
+"main-menu-heading-legal" = "Ҳарими шахсӣ ва Шартҳо";
+"main-menu-nearby" = "Наздикӣ";
+// Fuzzy
+"main-menu-rate-app" = "Баҳогузори барои ин афзуна";
+// Fuzzy
+"main-menu-terms-of-use" = "Шартҳои истифода";
+"main-menu-title" = "Бештар";
+"navbar-title-mode-edit-wikitext-preview" = "Пешнамоиш";
+"nearby-distance-label-feet" = "$1 фут";
+"nearby-distance-label-km" = "$1 км";
+"nearby-distance-label-meters" = "$1 м";
+"nearby-distance-label-miles" = "$1 мил";
+"page-history-bot-edits" = "вироишоти роботҳо";
+"page-history-minor-edits" = "вироишҳои хурд";
+"page-history-revision-author-accessibility-label" = "Муаллиф: $1";
+"page-history-revision-history-title" = "Таърихи вироишҳо";
+"page-history-revision-minor-edit-accessibility-label" = "Вироиши хурд";
+"page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 байт|$1 байт}} илова шуд";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 байт|$1 байт}} тоза шуд";
+"page-history-stats-text" = "{{PLURAL:$1|$1 вироиш|$1 вироишот}} аз $2";
+"page-history-unregistered-edits" = "Сабтиномнашуда";
+"places-search-default-text" = "Ҷои ҷустуҷӯ";
+"relative-date-hours-abbreviated" = "$1 соат";
+"relative-date-hours-ago-abbreviated" = "$1 соат пеш";
+"relative-date-minutes-abbreviated" = "$1 дақ.";
+"relative-date-minutes-ago-abbreviated" = "$1 дақ. пеш";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Ҳамин моҳ|1=Моҳи пешина|$1 моҳ пеш}}";
+"relative-date-seconds-abbreviated" = "$1ҳо";
+"search-field-placeholder-text" = "Ҷустуҷӯи Википедия";
+"search-recent-clear-delete-all" = "Ҳазви Ҳама";
+"search-title" = "Ҷустуҷӯ";
+"settings-title" = "Танзимот";
+"table-of-contents-heading" = "Мундариҷа";
+"talk-page-discussion-read-accessibility-label" = "Хондан";
+"temp-account-edit-sheet-subtitle" = "$2Шумо дар айни замон ҳисоби муваққатиро истифода мебаред.$3 Вироишоте, ки бо ҳисоби муваққатии $1 анҷом дода мешаванд, ҳангоми ворид шудан ба ҳисоби доимии шумо интиқол дода намешаванд. Ворид шавед ё бо номи корбарии худ барои бартариҳои бештар ҳисоб эҷод кунед.";
+"unknown-generic-text" = "Номаълум";
+"wikitext-preview-changes" = "Фарохонии пешнамоиши тағийроти шумо...";
+// Fuzzy
+"wikitext-upload-save" = "Дар ҳоли захиракунӣ...";

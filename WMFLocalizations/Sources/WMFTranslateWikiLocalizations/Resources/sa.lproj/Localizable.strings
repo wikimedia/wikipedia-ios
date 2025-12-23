@@ -1,0 +1,88 @@
+// Messages for Sanskrit (संस्कृतम्)
+// Exported from translatewiki.net
+// Author: NehalDaveND
+// Author: Nemo bis
+
+// Fuzzy
+"about-contributors" = "योगदानानि";
+// Fuzzy
+"about-libraries" = "प्रयुक्ताः सङ्ग्रहालयाः";
+"about-libraries-license" = "अनुज्ञापत्रम्";
+// Fuzzy
+"about-product-of" = "$1 इत्यस्य प्रकाशनम्";
+// Fuzzy
+"about-repositories" = "भण्डाराः";
+"about-send-feedback" = "अनुप्रयोगप्रतिक्रियां प्रेषयतु";
+// Fuzzy
+"about-testers" = "परीक्षकाः";
+"about-testers-details" = "$1 द्वारा QA परीक्षितः";
+"about-title" = "विवरणम्";
+// Fuzzy
+"about-translators" = "अनुवादकाः";
+"about-translators-details" = "$1 अत्र अनुवादः स्वयंसेव्यनुवादकेन कृतः";
+"about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन्";
+"about-wikipedia" = "विकिपीडिया";
+// Fuzzy
+"account-creation-captcha-obtaining" = "नवीनं संभेपूस्वसाट्यूप प्राप्तम् ।";
+"account-creation-logging-in" = "प्रवेशः भवति...";
+"account-creation-missing-fields" = "सदस्यता प्राप्त्यै भवता/भवत्या सदस्यनाम-कूटशब्दयोः लेखनं, कूटशब्दस्य पुष्टिकरणं च अनिवार्यत्वेन करणीयं भवति ।";
+"account-creation-passwords-mismatched" = "कूटशब्दौ असमानौ स्तः";
+"account-creation-saving" = "रक्षति...";
+// Fuzzy
+"article-languages-filter-placeholder" = "भाषाशोधनी";
+"article-languages-label" = "भाषां चिनोतु";
+"button-next" = "अग्रिमम्";
+"edit-summary-choice-fixed-grammar" = "व्याकरणदोषः परिष्कृतः";
+"edit-summary-choice-fixed-typos" = "टङ्कणदोषः परिष्कृतः";
+"edit-summary-choice-linked-words" = "परिसन्धयः योजिताः";
+// Fuzzy
+"history-clear-confirmation-heading" = "रक्षितानि वस्तूनि अपाकरणीयानि ?";
+// Fuzzy
+"history-clear-delete-all" = "सर्वम् अपाक्रियताम्";
+// Fuzzy
+"image-gallery-unknown-owner" = "अज्ञातः उपारोहकः";
+// Fuzzy
+"languages-title" = "भाषाः";
+// Fuzzy
+"main-menu-about" = "विकिपीडिया-अनुप्रयोगस्य विवरणम्";
+// Fuzzy
+"main-menu-account-login" = "प्रविश्यताम्";
+"main-menu-account-logout" = "निर्गम्यताम्";
+// Fuzzy
+"main-menu-account-title-logged-in" = "$1-त्वेन प्रविश्यताम्";
+"main-menu-heading-legal" = "गोपनीयता, नियमाः च";
+"main-menu-nearby" = "निकटे";
+"main-menu-privacy-policy" = "गोपनीयतानीतिः";
+// Fuzzy
+"main-menu-rate-app" = "अनुप्रयोगस्य मूल्याङ्कनम्";
+// Fuzzy
+"main-menu-terms-of-use" = "प्रयोगस्य नियमाः";
+"main-menu-title" = "अधिकम्";
+"main-menu-zero-faq" = "विकिपीडिया-शून्यविषये सामान्यजिज्ञासाः";
+"navbar-title-mode-edit-wikitext-preview" = "प्राग्दृश्यम्";
+"nearby-distance-label-feet" = "$1 फिट्";
+"nearby-distance-label-km" = "$1 कि.मी.";
+"nearby-distance-label-meters" = "$1 मि.";
+"nearby-distance-label-miles" = "$1 माइल्स्";
+"page-protected-can-not-edit" = "एतस्मिन् पृष्ठे सम्पादनं कर्तुं भवतः/भवत्याः पार्श्वे अधिकाराः न सन्ति ।";
+"page-protected-can-not-edit-title" = "एतत् पृष्ठं संरक्षितचरम् अस्ति";
+// Fuzzy
+"preference-summary-eventlogging-opt-in" = "अनुप्रयोगे आवश्यकपरिवर्तनं कर्तुं भवान्/भवती विकिपीडिया-अनुप्रयोगस्य कथम् उपयोगं करोति इत्यस्य सूचनां क्रोडीकर्तुं विकिपीडिया-जालाय अनुमतिं ददातु ।";
+"search-field-placeholder-text" = "विकिपीडिया-जाले अन्विष्यताम्";
+"search-recent-clear-confirmation-heading" = "सद्यस्कस्य सर्वाणि अन्वेषणानि अपाक्रियन्ताम् ?";
+"search-recent-clear-confirmation-sub-heading" = "एषा क्रिया अपूर्णा भवितुं शक्नोति !";
+"search-recent-clear-delete-all" = "सर्वम् अपाक्रियताम्";
+// Fuzzy
+"search-recent-title" = "सद्यःकृतानि अन्वेषणानि";
+"settings-title" = "अभिविन्यासाः";
+// Fuzzy
+"share-article-name-on-wikipedia" = "@Wikipedia उपरि \"$1\" :";
+"table-of-contents-heading" = "अन्तर्विषयाः";
+"wikitext-preview-changes" = "भवता/भवत्या कृतस्य परिवतनस्य प्राग्दृश्यं प्रदर्शयति...";
+"wikitext-upload-captcha-error" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनदोषः ।";
+"wikitext-upload-captcha-needed" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनम् आवश्यकम् ।";
+"wikitext-upload-result-unknown" = "विकि-पाठस्य उपारोपणनिर्णयस्य निर्धारणं न शक्यते ।";
+// Fuzzy
+"wikitext-upload-save" = "रक्षति...";
+"wikitext-upload-save-anonymously-warning" = "भवतः/भवत्याः यन्त्रस्य सार्वसङ्केतेन भवतः/भवत्याः सम्पादनस्य् गुणनिर्धारणं भवति । यदि भवान्/भवती $1, तर्हि भवान्/भवती अधिकां गोपनीयतां प्राप्स्यति ।";
+"wikitext-upload-save-terms-name" = "प्रयोगस्य नियमाः";

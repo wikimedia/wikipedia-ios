@@ -1,0 +1,31 @@
+// Messages for Hawaiian (Hawaiʻi)
+// Exported from translatewiki.net
+// Author: Kolonahe
+
+// Fuzzy
+"account-creation-captcha-obtaining" = "Lawe nei i kekahi Kapakā hou.";
+"account-creation-logging-in" = "ʻEʻe nei...";
+"account-creation-passwords-mismatched" = "ʻAʻole like nā ʻōlelo hūnā ʻelua";
+"account-creation-saving" = "Mālama nei...";
+// Fuzzy
+"article-languages-filter-placeholder" = "Kānana";
+"article-languages-label" = "Koho i ka ʻōlelo";
+"edit-summary-choice-fixed-grammar" = "Ua kāpili hou i ka pilinaʻōlelo";
+"edit-summary-choice-fixed-typos" = "Ua kāpili hou i ka hewa kākau";
+// Fuzzy
+"edit-summary-choice-linked-words" = "Ua hoʻoloulou i nā huaʻōlelo";
+// Fuzzy
+"main-menu-account-login" = "ʻEʻe";
+"main-menu-account-logout" = "Haʻalele";
+// Fuzzy
+"main-menu-account-title-logged-in" = "ʻEʻe ʻia e: $1";
+"navbar-title-mode-edit-wikitext-preview" = "Nāmua";
+"search-field-placeholder-text" = "Huli iā Wikipikia";
+"wikitext-preview-changes" = "Lawe ʻia nei ka nāmua o kāu mau loli...";
+"wikitext-upload-captcha-error" = "Hewa hōʻoia Kapakā.";
+"wikitext-upload-captcha-needed" = "Pono i ka hōʻoia Kapakā.";
+"wikitext-upload-result-unknown" = "Hiki ʻole ke ʻike ka hopena o ka hoʻouka kikokikonawiki ʻana.";
+// Fuzzy
+"wikitext-upload-save" = "Mālama nei...";
+// Fuzzy
+"wikitext-upload-save-anonymously-warning" = "Oi aʻe ka pilikino o ka hana ʻeʻe ma mua o kēia hana ʻana. E hōʻike ana i kāu wahinoho IP me kāu mau hoʻololi a ma ka mālama ʻana, ʻae ʻoe i ka paʻi ʻana o kāu mau hoʻololi ma lalo o ka laikini CC BY-SA 3.0";

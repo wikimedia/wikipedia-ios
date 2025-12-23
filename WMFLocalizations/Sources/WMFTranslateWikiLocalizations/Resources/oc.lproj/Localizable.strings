@@ -1,0 +1,192 @@
+// Messages for Occitan (occitan)
+// Exported from translatewiki.net
+// Author: BrennodAloisi
+// Author: Cedric31
+// Author: Guilhelma
+// Author: Lhanars
+// Author: Macofe
+// Author: Nemo bis
+// Author: Nicolas Eynaud
+// Author: Quentí
+// Author: Unuaiga
+
+"about-content-license" = "Licéncia del contengut";
+"about-contributors" = "!Contributors";
+"about-libraries" = "Bibliotècas utilizadas";
+"about-libraries-complete-list" = "Lista completa";
+"about-libraries-license" = "Licéncia";
+"about-product-of" = "Fait per la $1 amb l’ajuda de volontaris tals coma vos";
+"about-repositories" = "Referencials";
+"about-repositories-app-source-license-mit" = "Licéncia MIT";
+"about-send-feedback" = "Mandar un comentari sus l’aplicacion";
+"about-testers" = "Testaires";
+"about-testers-details" = "AQ testada per $1";
+"about-title" = "A prepaus";
+"about-translators" = "Traductors";
+"about-translators-details" = "Aquesta aplicacion es estada traduita per de traductors benevòls sus $1";
+"about-wikimedia-foundation" = "Fondacion Wikimèdia";
+"about-wikipedia" = "Wikipèdia";
+"account-creation-captcha-cannot-see-image" = "Impossible de veire l’imatge ? $1";
+"account-creation-captcha-obtaining" = "Obtencion d’un novèl CAPTCHA…";
+"account-creation-captcha-request-account" = "Demandar un compte.";
+"account-creation-captcha-title" = "Verificacion de seguretat CAPTCHA";
+"account-creation-logging-in" = "Connexion en cors…";
+"account-creation-missing-fields" = "Vos cal sasir un nom d'utilizaire, un senhal e una confirmacion de vòstre senhal per crear un compte.";
+"account-creation-passwords-mismatched" = "Los senhals son pas identics.";
+"account-creation-saving" = "Enregistrament en cors…";
+"action-add-to-reading-list-short" = "Ajustar a la lista";
+// Fuzzy
+"action-find-in-page" = "Trobar dins la pagina";
+"action-read" = "Legir";
+"action-retry" = "Tornar ensajar";
+"action-save" = "Enregistrar";
+"action-share" = "Partejar";
+"action-unsave" = "Pas enregistrat";
+"announcements-dismiss" = "Ignorar";
+"article-delete" = "Suprimir";
+"article-languages-filter-placeholder" = "Trobar la lenga";
+"article-languages-label" = "Causir una lenga";
+"article-languages-others" = "Autras lengas";
+"article-languages-yours" = "Vòstras lengas";
+"article-reference-view-title" = "Referéncia $1";
+"article-share" = "Partejar";
+"back-button-accessibility-label" = "Retorn";
+"button-next" = "Seguent";
+"button-ok" = "D’acòrdi";
+"button-publish" = "Publicar";
+"button-report-a-bug" = "Senhalar una error";
+"button-save-for-later" = "Enregistrar per mai tard";
+"button-saved-for-later" = "Enregistrat per mai tard";
+"button-saved-remove" = "Suprimir dels enregistraments";
+"close-button-accessibility-label" = "Tampar";
+"compass-direction" = "a $1 oras";
+"continue-reading-empty-title" = "Cap d'articles pas legits recentament";
+"edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
+"edit-summary-choice-fixed-typos" = "Correccion de fautas";
+"edit-summary-choice-linked-words" = "Ligams aponduts";
+// Fuzzy
+"empty-no-reading-lists-message" = "Clicatz sul « + » blau per crear de listas de lecturas a prepaus de luòcs a visitar, de subjèctes favorits e de nombrosas autras tematicas";
+"empty-no-search-results-message" = "Cap de resultat pas trobat";
+"explore-another-random" = "Un autre article a l'azard";
+"explore-continue-reading-heading" = "Contunhar de legir";
+"explore-featured-article-heading" = "Article de qualitat";
+"explore-main-page-heading" = "Uèi sus Wikipèdia";
+// Fuzzy
+"explore-most-read-footer" = "Totes los articles los mai legits";
+"explore-most-read-generic-heading" = "Los mai legits";
+"explore-most-read-more-list-title-for-date" = "Los mai legits al $1";
+"explore-nearby-heading" = "Endreits a proximitat";
+"explore-nearby-placeholder-heading" = "Endreits";
+"explore-nearby-sub-heading-your-location" = "Vòstre emplaçament";
+"explore-potd-heading" = "Imatge del jorn";
+"explore-random-article-heading" = "Article a l'azard";
+"explore-randomizer" = "Article a l'azard";
+"field-email-title" = "Corrièr electronic";
+"field-email-title-optional" = "Corrièr electronic (facultatiu)";
+"field-new-password-title" = "Senhal novèl";
+"field-password-title" = "Senhal";
+"field-token-title" = "Còdi de verificacion";
+"field-username-title" = "Nom d'utilizaire";
+"find-infolabel-number-matches" = "$1 / $2";
+"forgot-password-button-title" = "Reïnicializar";
+"forgot-password-title" = "Reïnicializar lo senhal";
+"forgot-password-username-or-email-title" = "O";
+"history-clear-all" = "Escafar";
+"history-clear-delete-all" = "Òc, suprimir tot";
+"history-title" = "Istoric";
+"home-button-explore-accessibility-label" = "Wikipèdia, tornar a Explorar";
+"home-button-history-accessibility-label" = "Wikipèdia, tornar a Istoric";
+"home-button-saved-accessibility-label" = "Wikipèdia, tornar a Enregistrats";
+"home-more-like-footer" = "Mai coma $1";
+// Fuzzy
+"home-nearby-footer" = "Mai pròche d'ont sètz";
+"home-nearby-location-footer" = "Mai pròche de $1";
+"home-title" = "Explorar";
+"home-title-accessibility-label" = "Wikipèdia, far desfilar cap amont per Explorar";
+"icon-shortcut-nearby-title" = "Articles vesins";
+"icon-shortcut-random-title" = "Article a l'azard";
+"icon-shortcut-search-title" = "Recercar dins Wikipèdia";
+"in-the-news-title" = "Dins l'actualitat";
+"languages-title" = "Cambiar de lenga";
+"login-forgot-password" = "Senhal doblidat ?";
+"main-menu-about" = "A prepaus de l’aplicacion";
+"main-menu-account-login" = "Connexion";
+"main-menu-account-logout" = "Desconnexion";
+"main-menu-account-logout-are-you-sure" = "Sètz segur que vos volètz desconnectar ?";
+"main-menu-account-title-logged-in" = "Connectat en tant que $1.";
+"main-menu-heading-legal" = "Confidencialitat e condicions";
+"main-menu-nearby" = "A proximitat";
+"main-menu-privacy-policy" = "Politica de confidencialitat";
+"main-menu-rate-app" = "Notar l’aplicacion";
+"main-menu-terms-of-use" = "Condicions d'utilizacion";
+"main-menu-title" = "Mai";
+"main-menu-zero-faq" = "FAQ de Wikipèdia Zèro";
+"move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 article|$1 articles}} a la lista de lectura";
+"navbar-title-mode-edit-wikitext-preview" = "Apercebut";
+"nearby-distance-label-feet" = "$1 pès";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-miles" = "$1 millas";
+"new-password-title" = "Definir vòstre senhal";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar las notificacions";
+"number-billions" = "$1G";
+"number-millions" = "$1M";
+"number-thousands" = "$1K";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 eveniment istoric|$1 eveniments istorics}}";
+"on-this-day-title" = "Aqueste jorn";
+"page-protected-can-not-edit-title" = "Aquesta pagina es protegida";
+"places-search-recently-searched-header" = "Recercat recentament";
+"places-search-saved-articles" = "Totes los articles enregistrats";
+"places-search-suggested-searches-header" = "Recèrcas suggeridas";
+"places-search-this-area" = "Resultats dins aquesta zòna";
+"places-search-top-articles" = "Totes los melhors articles";
+"places-search-top-articles-that-match-scope" = "A proximitat";
+"places-title" = "Luòcs";
+"potd-description-prefix" = "Imatge del jorn per $1";
+"reading-list-sync-enable-subtitle" = "Vòstres articles e listas de lectura salvagardats pòdon ara èstre salvats dins vòstre compte Wikipedia e sincronizats demest las aplicacions Wikipedia.";
+"reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
+"reference-title" = "Referéncia $1";
+// Fuzzy
+"relative-date-days-ago" = "{{PLURAL:$1|0=Uèi|Ièr|Fa $1 jorns}}";
+// Fuzzy
+"saved-pages-progress-syncing" = "Sincronizacion de l'article en cors...";
+"saved-title" = "Enregistrat";
+"search-field-placeholder-text" = "Recercar dins Wikipèdia";
+"search-recent-clear-confirmation-heading" = "Escafar totas las recèrcas recentas ?";
+"search-recent-clear-delete-all" = "Suprimir tot";
+"search-recent-title" = "Recercats recentament";
+"search-result-redirected-from" = "Redirigit dempuèi: $1";
+"search-title" = "Recercar";
+// Fuzzy
+"settings-appearance" = "Aparéncia";
+"settings-clear-cache-cancel" = "Anullar";
+"settings-help-and-feedback" = "Ajuda e comentaris";
+"settings-my-languages" = "Mas lengas";
+// Fuzzy
+"settings-notifications" = "Notificacions";
+"settings-notifications-push-notifications" = "Notificacions mandadas";
+"settings-notifications-system-turn-on" = "Activar las notificacions";
+"settings-notifications-trending" = "Tendéncias dels eveniments actuals";
+"settings-primary-language" = "Principal";
+"settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
+"settings-title" = "Paramètres";
+// Fuzzy
+"share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
+// Fuzzy
+"share-on-twitter-sign-off" = "via @Wikipèdia";
+"table-of-contents-button-label" = "Ensenhador";
+"table-of-contents-close-accessibility-hint" = "Tampar";
+"table-of-contents-close-accessibility-label" = "Tampar l'ensenhador";
+"table-of-contents-heading" = "Contenguts";
+"talk-page-unsubscribe-to-topic" = "Annular l'inscripcion";
+"talk-pages-topic-reply-onboarding-title" = "Paginas de discussion";
+"two-factor-login-title" = "Se connectar a vòstre compte";
+"watchlist-change-expiry-option-one-month" = "1 mes";
+"watchlist-filter" = "Filtrar";
+"welcome-explore-continue-button" = "Començar";
+"welcome-explore-tell-me-more-done-button" = "L’obténer";
+"welcome-languages-add-button" = "Apondre una autra lenga";
+"welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
+"wikitext-upload-save" = "Publicacion en cors…";
+"wikitext-upload-save-terms-name" = "Condicions d'utilizacion";

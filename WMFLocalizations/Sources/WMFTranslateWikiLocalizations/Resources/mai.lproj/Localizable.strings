@@ -1,0 +1,69 @@
+// Messages for Maithili (मैथिली)
+// Exported from translatewiki.net
+// Author: Bijay chaurasia
+// Author: Krish Dulal
+// Author: Mhurd
+// Author: NehalDaveND
+// Author: Nemo bis
+// Author: बिप्लब आनन्द
+
+// Fuzzy
+"about-contributors" = "योगदानकर्ता";
+"about-libraries-license" = "अधिकार";
+"about-title" = "विवरण";
+// Fuzzy
+"about-translators" = "उल्था-केनहार सभ";
+"about-wikimedia-foundation" = "विकिमेडिया फाउंडेशन";
+"about-wikipedia" = "विकिपिडिया";
+// Fuzzy
+"account-creation-captcha-obtaining" = "नयाँ क्याप्चा प्राप्त।";
+"account-creation-logging-in" = "प्रवेश करेत ...";
+"account-creation-missing-fields" = "आहाँ ईं खाता सिर्जना करबाक लेल प्रयोगकर्ता नाम, कुटशब्द, आर कुटशब्द पुष्टि प्रविष्टि करु।";
+"account-creation-passwords-mismatched" = "कुटशब्द मेल नै भेल";
+"account-creation-saving" = "आहाँ के सम्पादन सुरक्षित भ्यरहल अछि...";
+// Fuzzy
+"article-languages-filter-placeholder" = "भाषा छनोट";
+"article-languages-label" = "भाषा चुनु";
+"button-next" = "आगाँ";
+"edit-summary-choice-fixed-grammar" = "व्याकरण ठिक करु";
+"edit-summary-choice-fixed-typos" = "टाइपो ठिक करु";
+"edit-summary-choice-linked-words" = "लिंक जोडू";
+// Fuzzy
+"history-clear-confirmation-heading" = "हालके सब वस्तुसभ नस्टकरु?";
+// Fuzzy
+"history-clear-delete-all" = "सभटाकेँ मेटाउ";
+// Fuzzy
+"main-menu-about" = "विकिपिडिया अनुप्रयोग बारे में";
+// Fuzzy
+"main-menu-account-login" = "सम्प्रवेश";
+"main-menu-account-logout" = "निष्क्रमण";
+"main-menu-heading-legal" = "गोपनीयता आर नियम";
+"main-menu-nearby" = "लगमे";
+"main-menu-privacy-policy" = "गोपनीयताकऽ नियम";
+// Fuzzy
+"main-menu-rate-app" = "अनुप्रयोग दर";
+// Fuzzy
+"main-menu-terms-of-use" = "उपयोग कऽ शर्त सभ";
+"main-menu-title" = "आर";
+"main-menu-zero-faq" = "शून्य विकिपिडिया पुछल प्रश्नसभ";
+"navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
+// Fuzzy
+"nearby-distance-label-km" = "$१ किलो मीटर";
+// Fuzzy
+"nearby-distance-label-meters" = "$१ मीटर";
+"page-protected-can-not-edit" = "ई पन्ना सम्पादन करई लेल आहाँ के अधिकार नै अछि";
+"page-protected-can-not-edit-title" = "ई पृष्ठ संरक्षित अछि।";
+"search-field-placeholder-text" = "विकिपिडिया खोजी";
+"search-recent-clear-confirmation-heading" = "हालक खोजसभ मेटाउ?";
+"search-recent-clear-confirmation-sub-heading" = "ई कार्य पूर्ववत नै भ्यसकई यऽ!";
+"search-recent-clear-delete-all" = "सभटाकेँ मेटाउ";
+// Fuzzy
+"search-recent-title" = "हाल के खोजसभ ...";
+"settings-my-languages" = "हमर भाषासभ";
+"table-of-contents-heading" = "विषय-सूची";
+"wikitext-preview-changes" = "आहाँकें परिवर्तनसभ पूर्वावलोकन निकालइत ...";
+"wikitext-upload-captcha-error" = "केप्चा प्रमाणिकरणमे त्रुटि।";
+"wikitext-upload-captcha-needed" = "केप्चा प्रमाणिकरण चाही ।";
+// Fuzzy
+"wikitext-upload-save" = "आहाँ के सम्पादन सुरक्षित भ्यरहल अछि...";
+"wikitext-upload-save-terms-name" = "उपयोग कऽ शर्त सभ";

@@ -1,0 +1,104 @@
+// Messages for Abkhazian (аԥсшәа)
+// Exported from translatewiki.net
+// Author: Fraxinus.cs
+// Author: Pupsik-ipa
+// Author: Surprizi
+// Author: Андрей
+
+"about-contributors" = "Авторцәа";
+// Fuzzy
+"about-libraries" = "Ихархәо абиблиотекақәа";
+"about-libraries-license" = "Алицензиа";
+"about-repositories-app-source-license-mit" = "MIT Алицензиа";
+"about-translators" = "Аиҭагаҩцәа";
+"about-wikipedia" = "Авикипедиа";
+"account-creation-log-in" = "Иҭалатәуп";
+"account-creation-logging-in" = "Асистемахь аҭаларҭа...";
+"account-creation-passwords-mismatched" = "Ажәамаӡақәа еиқәшәаӡом.";
+"account-creation-saving" = "Аиқәырхара...";
+"action-find-in-page" = "Иԥшаатәуп адаҟьаҟны";
+"action-read" = "Иаԥхьатәуп";
+"action-save" = "Еиқәырхатәуп";
+"action-saved" = "Еиқәырхоуп";
+"action-unsave" = "Еиқәырхаӡам";
+"announcements-dismiss" = "Аркра";
+"appearance-settings-theme-options" = "Атема архиарақәа";
+"article-delete" = "Ианыхтәуп";
+// Fuzzy
+"article-deleted-accessibility-notification" = "Астатиа аныхуп";
+"article-languages-filter-placeholder" = "Абызшәатә фильтр";
+"article-languages-label" = "Иалышәх абызшәа";
+"article-languages-others" = "Егьырҭ абызшәақәа";
+"article-languages-yours" = "Шәара шәбызшәақәа";
+"back-button-accessibility-label" = "Шьҭахьҟа";
+"button-next" = "Анаҩс";
+"button-ok" = "OK";
+"button-skip" = "Ибжьажьтәуп";
+"cancel" = "Аҟәыхра";
+"close-button-accessibility-label" = "Иарктәуп";
+"edit-summary-choice-linked-words" = "Иацҵоу азхьарԥшқәа";
+"empty-no-search-results-message" = "Акагь ԥшаам";
+"error-unknown" = "Иҟалеит идырым агха";
+"explore-most-read-generic-heading" = "Иаҳа изыԥхьо";
+"field-alert-token-invalid" = "Ииашам акод.";
+"field-email-placeholder" = "example@example.org";
+"field-email-title" = "Email";
+"field-new-password-title" = "Ажәамаӡа ҿыц";
+"field-password-confirm-placeholder" = "даҽазнык иҭажәгал ажәамаӡа";
+"field-password-confirm-title" = "Ишьақәшәырӷәӷәа ажәамаӡа";
+"field-password-placeholder" = "иҭажәгал ажәамаӡа";
+"field-password-title" = "Ажәамаӡа";
+"field-token-title" = "Ашьақәырӷәӷәара акод";
+"field-username-placeholder" = "иҭажәгал ахархәаҩ ихьӡ";
+"field-username-title" = "Алахәыла ихьӡ";
+"find-infolabel-number-matches" = "$1 $2 аҟынтәи";
+"forgot-password-button-title" = "Иқәгатәуп";
+"forgot-password-title" = "Иқәгатәуп ажәамаӡа";
+"forgot-password-username-or-email-title" = "Ма";
+"history-clear-all" = "Ирыцқьатәуп";
+"history-clear-delete-all" = "Ааи, ианыхтәуп зегьы";
+"history-title" = "Аҭоурых";
+"home-title" = "Иҭышәҵаала!";
+"languages-title" = "Иԥсахтәуп абызшәа";
+"languages-wikipedia" = "Википедиа Абызшәақәа";
+"login-forgot-password" = "Ишәхашҭыма ажәамаӡа?";
+"main-menu-account-login" = "Иҭалатәуп";
+"main-menu-account-logout" = "Иҭыҵтәуп";
+"main-menu-nearby" = "Ааигәа";
+"main-menu-title" = "Еиҭа";
+"more-languages-tooltip-title" = "Иацҵатәуп абызшәақәа";
+"nearby-distance-label-feet" = "$1 фут.";
+"nearby-distance-label-km" = "$1 км";
+"nearby-distance-label-meters" = "$1 м";
+"nearby-distance-label-miles" = "$1 мил.";
+"new-password-title" = "Иқәыргылатәуп ажәамаӡа";
+"number-billions" = "$1 млрд.";
+"on-this-day-title" = "Ари амш аҽны...";
+"page-protected-can-not-edit-title" = "Ари адаҟьа хьчоуп";
+"places-accessibility-show-as-list" = "Иаарԥштәуп ахьӡынҵа еиԥш";
+"places-filter-saved-articles" = "Еиқәырхо астатиақәа";
+"places-filter-top-articles" = "Иаҳа изыԥхьо";
+"places-search-default-text" = "Аԥшаара аҭыԥқәа";
+"places-search-saved-articles" = "Еиқәырхо астатиақәа зегьы";
+"places-title" = "Аҭыԥқәа";
+"reading-themes-controls-accessibility-light-theme-button" = "Илашоу атема";
+"reference-title" = "Азгәаҭа $1";
+"saved-title" = "Еиқәырхоуп";
+"search-button-accessibility-label" = "Википедиа аҟны аԥшаара";
+"search-recent-clear-delete-all" = "Ианыхтәуп зегьы";
+"search-title" = "Аԥшаара";
+"settings-clear-cache-cancel" = "Аҟәыхра";
+"settings-my-languages" = "Сара сбызшәақәа";
+"settings-title" = "Архиарақәа";
+// Fuzzy
+"share-article-name-on-wikipedia" = "«$1» @Wikipedia аҟны:";
+"share-message-format" = "«$1» $2";
+// Fuzzy
+"share-on-twitter-sign-off" = "@Wikipedia ала";
+"table-of-contents-close-accessibility-hint" = "Иарктәуп";
+"theme-black-display-name" = "Аиқәаҵәа";
+"two-factor-login-with-regular-code" = "Ихархәатәуп ашьақәырӷәӷәаратә код";
+"welcome-exploration-on-this-day-title" = "Ари амш аҽны...";
+"welcome-explore-continue-button" = "Иалагатәуп";
+"welcome-explore-tell-me-more-done-button" = "Еилкаауп";
+"welcome-intro-free-encyclopedia-more-about" = "Википедиа иазкны";

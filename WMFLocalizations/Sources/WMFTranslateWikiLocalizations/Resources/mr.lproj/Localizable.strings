@@ -1,0 +1,157 @@
+// Messages for Marathi (मराठी)
+// Exported from translatewiki.net
+// Author: Abhinavgarule
+// Author: NehalDaveND
+// Author: Nemo bis
+// Author: Rupalichinchure
+// Author: Sureshkhole
+// Author: V.narsikar
+// Author: अभय नातू
+// Author: संतोष दहिवळ
+
+"about-content-license" = "आशय परवाना";
+"about-content-license-details" = "जर नमूद केले नसेल तर, आशय हा $1 परवान्यांतर्गत उपलब्ध आहे.";
+"about-content-license-details-share-alike-license" = "क्रिएटिव कॉमन्स अट्ट्रिब्यूशन-शेयरअलाइक लायसंस";
+"about-contributors" = "योगदानकर्ते";
+"about-libraries" = "वापरलेले ग्रंथभंडार";
+"about-libraries-complete-list" = "संपूर्ण यादी";
+"about-libraries-license" = "परवाना";
+"about-libraries-licenses-title" = "आम्हास मुक्त स्रोत संचेतन $1 आवडते";
+"about-product-of" = "आपल्यासम स्वयंसेवकांच्या मदतीद्वारे $1 ने तयार केले";
+"about-repositories-app-source-license" = "स्रोत संकेत $1 अंतर्गत उपलब्ध.";
+"about-repositories-app-source-license-mit" = "एमआयटी परवाना";
+"about-send-feedback" = "अॅपबद्दलची प्रतिक्रिया पाठवा";
+"about-testers" = "तपासनीस";
+"about-title" = "च्या विषयी";
+"about-translators" = "भाषांतरकार";
+"about-translators-details" = "$1 वर स्वयंसेवकांद्वारे भाषांतरीत";
+"about-wikimedia-foundation" = "विकीमेडिया प्रतिष्ठान";
+"about-wikipedia" = "विकिपीडिया";
+"account-creation-captcha-obtaining" = "नविन कॅपचा मिळवित आहे...";
+"account-creation-logging-in" = "सनोंद प्रवेश करीत आहे...";
+"account-creation-missing-fields" = "खाते उघडण्यास आपण सदस्यनाव,परवलीचा शब्द व परवलीचा शब्दाचे नक्कीकरण टाकणे आवश्यक आहे.";
+"account-creation-passwords-mismatched" = "परवलीचा शब्द जुळत नाही.";
+"account-creation-saving" = "जतन करीत आहे...";
+// Fuzzy
+"action-find-in-page" = "पानामध्ये शोधा";
+"action-sort" = "निवडा";
+"article-delete" = "हटवा";
+"article-languages-filter-placeholder" = "भाषा शोधा";
+"article-languages-label" = "भाषा निवडा";
+"article-languages-others" = "इतर भाषा";
+"article-languages-yours" = "आपल्या भाषा";
+"back-button-accessibility-label" = "परत जा";
+"button-next" = "पुढील";
+"button-ok" = "ठिक आहे";
+"button-publish" = "प्रकाशित करा";
+"button-report-a-bug" = "गणकदोष अहवाल द्या";
+"button-save-for-later" = "नंतरसाठी जतन करा";
+"button-saved-for-later" = "नंतरसाठी जतन केले";
+"close-button-accessibility-label" = "बंद करा";
+"compass-direction" = "$1 वाजता";
+"edit-summary-choice-fixed-grammar" = "व्याकरण ठिकठाक केले";
+"edit-summary-choice-fixed-typos" = "टंकनदोष सुधरविला";
+"edit-summary-choice-linked-words" = "दुवे जोडले";
+"empty-no-article-message" = "माफ करा, लेख दाखवू शकलो नाही";
+"empty-no-feed-action-message" = "आपण अजूनही जतन केलेली पाने वाचू शकता";
+"empty-no-feed-message" = "आपल्यापाशी आंतरजाल असल्यावर आपण आपले शिफारस केलेले लेख बघु शकता";
+"empty-no-history-message" = "आपण येथे काय वाचत आहात त्याचा मागोवा घ्या";
+"empty-no-history-title" = "दर्शविण्यास काहीच इतिहास नाही";
+"empty-no-saved-pages-message" = "नंतर बघण्यास पाने जतन करा, विनाजाल सुद्धा";
+"empty-no-saved-pages-title" = "अद्याप जतन केलेली कोणतीही पाने नाहीत";
+"empty-no-search-results-message" = "निकाल सापडले नाहीत";
+"explore-continue-reading-heading" = "वाचन सुरू ठेवा";
+"explore-featured-article-heading" = "विशेष लेख";
+"explore-main-page-heading" = "विकिपीडियावर आज";
+// Fuzzy
+"explore-most-read-footer" = "सर्वात जास्त वाचलेले लेख";
+"explore-most-read-generic-heading" = "जास्तीत जास्त वाचलेले";
+"explore-most-read-more-list-title-for-date" = "$1 वरील उत्कृष्ट";
+"explore-nearby-heading" = "जवळपासची स्थाने";
+"explore-nearby-sub-heading-your-location" = "आपले ठिकाण";
+"explore-potd-heading" = "आजचे चित्र";
+"explore-random-article-heading" = "अविशिष्ट लेख";
+"history-clear-all" = "स्वछ करा";
+"history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
+"history-clear-delete-all" = "होय, सर्व वगळा";
+"history-title" = "इतिहास";
+"home-more-like-footer" = "अधिक $1 सारखे";
+// Fuzzy
+"home-nearby-footer" = "आपल्या जवळपासच्या ठिकाणांबाबत अधिक";
+"home-nearby-location-footer" = "अधिक जवळचे $1";
+"home-title" = "शोध करा";
+"icon-shortcut-nearby-title" = "जवळपासचे लेख";
+"icon-shortcut-random-title" = "अविशिष्ट लेख";
+"icon-shortcut-search-title" = "विकिपीडिया मध्ये शोधा";
+"image-gallery-unknown-owner" = "लेखक अज्ञात.";
+"languages-title" = "भाषा बदला";
+"main-menu-about" = "अॅप विषयी";
+"main-menu-account-login" = "सनोंद-प्रवेश करा";
+"main-menu-account-logout" = "बाहेर पडा";
+"main-menu-account-logout-are-you-sure" = "आपण निश्चित करता काय कि आपणास निर्गमित व्हायचे आहे?";
+"main-menu-account-title-logged-in" = "सनोंद प्रवेशित $1 म्हणून";
+"main-menu-heading-legal" = "गुप्तता व अटी";
+"main-menu-nearby" = "जवळपास";
+"main-menu-privacy-policy" = "गुप्तता नीती";
+"main-menu-rate-app" = "या अॲपचे दरनिर्धारण करा";
+"main-menu-terms-of-use" = "वापरण्याच्या अटी";
+"main-menu-title" = "अधिक";
+"main-menu-zero-faq" = "विकिपीडीया झीरो एफएक्यू";
+"navbar-title-mode-edit-wikitext-preview" = "झलक";
+"nearby-distance-label-feet" = "$1 फूट";
+"nearby-distance-label-km" = "$1 कि.मी.";
+"nearby-distance-label-meters" = "$1 मी.";
+"nearby-distance-label-miles" = "$1 मैल";
+"no-email-account-alert" = "कृपया आपल्या उपकरणावर विपत्रपत्ता स्थापित करा व पुन्हा प्रयत्न करा.";
+"number-billions" = "$1कोटी";
+"number-millions" = "$1लक्ष";
+"number-thousands" = "$1हजार";
+"page-protected-can-not-edit" = "तुम्हाला हे पान संपादन करण्याचा अधिकार नाही";
+"page-protected-can-not-edit-title" = "हे पान संरक्षित आहे";
+"potd-description-prefix" = "$1 साठी आजचे चित्र";
+"potd-empty-error-description" = "$1 साठी आजचे चित्र आणण्यात अयशस्वी";
+// Fuzzy
+"preference-summary-eventlogging-opt-in" = "विकिपीडियास, आपण हे अॅप कसे वापरता याबद्दल माहिती घेण्यास परवानगी द्या जेणेकरुन, ते अॅप अधिक चांगले करता येईल.";
+"reading-list-add-hint-title" = "$1 हे वाचनयादीत जोडायचे आहे?";
+// Fuzzy
+"reading-list-exists-with-same-name" = "$1 या नावाची वाचन यादी आधीच अस्तित्त्वात आहे.";
+"reading-list-new-list-description-placeholder" = "पर्यायी लघु वर्णन";
+"reading-list-new-list-name-placeholder" = "वाचन यादी शिर्षक";
+"reading-lists-article-added-confirmation" = "$1 येथे लेख जोडला आहे";
+"reading-lists-delete-reading-list-alert-title" = "काढून टाका {{PLURAL:$1|यादी|याद्या}}?";
+"reference-title" = "संदर्भ $1";
+"saved-pages-image-download-error" = "या जतन केलेल्या पानासाठीच्या संचिका अधिभारण अयशस्वी";
+"saved-title" = "जतन केले";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "साठवू नका {{PLURAL:$1|लेख|लेख}}?";
+"search-field-placeholder-text" = "विकिपीडिया मध्ये शोधा";
+"search-recent-clear-confirmation-heading" = "सध्याचे सर्व शोध वगळु?";
+"search-recent-clear-confirmation-sub-heading" = "ही क्रिया परतवू शकत नाही!";
+"search-recent-clear-delete-all" = "सर्व वगळा";
+"search-recent-title" = "अलीकडील शोधलेले";
+"search-result-redirected-from" = "पासून पुनर्निदेशन: $1";
+"search-title" = "शोधा";
+"settings-help-and-feedback" = "साहाय्य व प्रतिसाद";
+"settings-language-bar" = "शोधात भाषा दाखवा";
+"settings-my-languages" = "माझ्या भाषा";
+// Fuzzy
+"settings-notifications" = "अधिसूचना";
+"settings-primary-language" = "प्राथमिक";
+// Fuzzy
+"settings-primary-language-details" = "या अॲपसाठी, यादीतील प्रथम भाषा ही प्राथमिक भाषा म्हणून वापरल्या जाते. ही भाषा बदलण्याने, शोधा वर दाखविलेले, रोजचे आशय  बदलतील(जसे अविशिष्ट लेख).";
+"settings-title" = "मांडण्या";
+"sort-by-recently-added-action" = "नुकतेच जोडलेले";
+"sort-by-title-action" = "शीर्षक";
+"table-of-contents-button-label" = "अनुक्रमणिका";
+"table-of-contents-close-accessibility-hint" = "बंद करा";
+"table-of-contents-close-accessibility-label" = "अनुक्रमणिका बंद करा";
+"table-of-contents-heading" = "आशय";
+"welcome-explore-continue-button" = "सुरुवात करा";
+"welcome-explore-tell-me-more-done-button" = "समजले";
+"welcome-languages-add-button" = "इतर भाषा जोडा";
+"wikitext-preview-changes" = "आपल्या बदलाची झलक दाखवित आहे...";
+"wikitext-upload-captcha-error" = "कॅपचा पडताळणीत त्रुटी.";
+"wikitext-upload-captcha-needed" = "कॅपचा पडताळणी करणे आवश्यक.";
+"wikitext-upload-result-unknown" = "विकिमजकूर अपभारण निकाल नक्की करण्यास अक्षम.";
+"wikitext-upload-save" = "प्रकाशन करीत आहे...";
+"wikitext-upload-save-anonymously-warning" = "आपल्या उपकरणाच्या अंकपत्त्यास ही संपादने संलग्न होतील. जर आपण $1 केले तर आपणास अधिक एकांत मिळू शकतो.";
+"wikitext-upload-save-terms-name" = "वापराच्या अटी";

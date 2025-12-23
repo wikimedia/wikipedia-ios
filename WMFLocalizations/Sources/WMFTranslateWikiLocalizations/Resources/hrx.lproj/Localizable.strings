@@ -1,0 +1,31 @@
+// Messages for Hunsrik (Hunsrik)
+// Exported from translatewiki.net
+// Author: Envlh
+// Author: Paul Beppler
+
+// Fuzzy
+"account-creation-captcha-obtaining" = "En neies CAPTCHA abrufe.";
+"account-creation-logging-in" = "Oonmelde …";
+"account-creation-passwords-mismatched" = "Die Passwortfelder stimme net üwer enanner.";
+"account-creation-saving" = "Am speichre …";
+// Fuzzy
+"article-languages-filter-placeholder" = "Filter";
+"article-languages-label" = "Sproch auswähle";
+"edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
+"edit-summary-choice-fixed-typos" = "Tippfehler korrigiert (digitalisierung)";
+// Fuzzy
+"edit-summary-choice-linked-words" = "Verlinkte Wörter";
+// Fuzzy
+"main-menu-account-login" = "Oonmelde";
+"main-menu-account-logout" = "Abmelde";
+// Fuzzy
+"main-menu-account-title-logged-in" = "Oongemeldet wie: $1";
+"navbar-title-mode-edit-wikitext-preview" = "Voarschau";
+"search-field-placeholder-text" = "Wikipedia doorrichsuche";
+"wikitext-preview-changes" = "Ruf den Voarschau von deiner Ännrungen ab …";
+"wikitext-upload-captcha-error" = "Captcha-Üwerprüfungsfehler.";
+"wikitext-upload-captcha-needed" = "Captcha-Üwerprüfung nötich.";
+"wikitext-upload-result-unknown" = "Das Ergebnis von deine Wikitext-Upload (Uffloodung) konnt net ermittelt sin.";
+// Fuzzy
+"wikitext-upload-save" = "Speichere …";
+"wikitext-upload-save-anonymously-warning" = "Das bedeitet wenicher Dateschutz. Dein IP-Adress ist mit den Beoorbeitunge einsiehbar. Mit dem Speichre stimmst du der dauerhafte Veröffentlichung von deiner Beoorbeitunge unner der CC BY-SA 3.0 Lizenz zu.";

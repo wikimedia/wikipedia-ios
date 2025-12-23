@@ -1,0 +1,87 @@
+// Messages for Hakha-Chin (Lai holh)
+// Exported from translatewiki.net
+// Author: Nemo bis
+// Author: Salai
+
+// Fuzzy
+"about-contributors" = "Teltumtu pawl";
+// Fuzzy
+"about-libraries" = "Hmanmi caruuk";
+"about-libraries-license" = "License";
+// Fuzzy
+"about-product-of" = "$1 kutchuak";
+// Fuzzy
+"about-repositories" = "bukbau";
+"about-send-feedback" = "App cung na ruahnak kuat ding";
+// Fuzzy
+"about-testers" = "teptu pawl";
+"about-testers-details" = "$1 a biahalnak";
+"about-title" = "Konglam";
+// Fuzzy
+"about-translators" = "Holh Lettu";
+"about-translators-details" = "Zaanghleicawi nih $1 ah an leh.";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
+"about-wikipedia" = "Wikipedia";
+// Fuzzy
+"account-creation-captcha-obtaining" = "CAPTCHA athar a lak lio";
+"account-creation-logging-in" = "A lut lio...";
+"account-creation-missing-fields" = "Account sernak ah na min, biathup le biathup fiahnak na telh hrim a hau.";
+"account-creation-passwords-mismatched" = "Biathup a khat lo.";
+"account-creation-saving" = "Khon lio...";
+// Fuzzy
+"article-languages-filter-placeholder" = "Holh thimnak";
+"article-languages-label" = "Holh thimpiak";
+"button-next" = "Kal";
+"edit-summary-choice-fixed-grammar" = "Grammar ka remh";
+"edit-summary-choice-fixed-typos" = "Tial palhmi ka remh";
+"edit-summary-choice-linked-words" = "Link betpiak";
+// Fuzzy
+"history-clear-confirmation-heading" = "tuandeuh ta vialte na hloh dih lai maw?";
+// Fuzzy
+"history-clear-delete-all" = "Hlo Dih";
+// Fuzzy
+"image-gallery-unknown-owner" = "Atartu hngalh a si lo";
+// Fuzzy
+"languages-title" = "Holh pawl";
+// Fuzzy
+"main-menu-about" = "Hi Wikipedia app konglam";
+// Fuzzy
+"main-menu-account-login" = "Luhnak";
+"main-menu-account-logout" = "Chuahnak";
+// Fuzzy
+"main-menu-account-title-logged-in" = "$1: in lut";
+"main-menu-heading-legal" = "Pumpak Kilvennak le Zulhphung";
+"main-menu-nearby" = "Pawngkam";
+"main-menu-privacy-policy" = "Pumpak Kilvenak Policy";
+// Fuzzy
+"main-menu-rate-app" = "App kha arfi vun pe";
+// Fuzzy
+"main-menu-terms-of-use" = "Hmannak Hngalhawk Phung";
+"main-menu-title" = "Tamdeuh";
+"main-menu-zero-faq" = "Wikipedia Alak Biahalnak";
+"navbar-title-mode-edit-wikitext-preview" = "Zohchunawk";
+"nearby-distance-label-feet" = "pe $1";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-miles" = "meng $1";
+"page-protected-can-not-edit" = "Hi cahmai remhnak nawl na ngei lo.";
+"page-protected-can-not-edit-title" = "Hi cahmai hi kilvenpiak a si.";
+// Fuzzy
+"preference-summary-eventlogging-opt-in" = "App na hmannak ah a that deuh nakhga Wikimedia kha thil sining pawl laknak nawl pe";
+"search-field-placeholder-text" = "Wikipedia ah kawl";
+"search-recent-clear-confirmation-heading" = "Na kawlmi tete na hloh dih lai maw?";
+"search-recent-clear-confirmation-sub-heading" = "Tuah khawh a si lo!";
+"search-recent-clear-delete-all" = "Hlo Dih";
+// Fuzzy
+"search-recent-title" = "Na kawlmi tete:";
+// Fuzzy
+"share-article-name-on-wikipedia" = "@Wikipedia ah \"$1\"";
+"table-of-contents-heading" = "Cazin pawl";
+"wikitext-preview-changes" = "Na remhmi pawl a langh lio...";
+"wikitext-upload-captcha-error" = "CAPTCHA zohfelnak a rawk.";
+"wikitext-upload-captcha-needed" = "CAPTCHA zohfelnak a herh.";
+"wikitext-upload-result-unknown" = "Wikicafang tarlanghmi phichuak a hmu kholo";
+// Fuzzy
+"wikitext-upload-save" = "Khon lio...";
+"wikitext-upload-save-anonymously-warning" = "Na IP address ning in na remhmi cu langhter a si lai. Na $1 asicun na thlithup kho deuh lai.";
+"wikitext-upload-save-terms-name" = "Hmannak Hngalhawk Phung";

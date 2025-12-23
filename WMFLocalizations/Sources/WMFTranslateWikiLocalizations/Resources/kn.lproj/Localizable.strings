@@ -1,0 +1,107 @@
+// Messages for Kannada (ಕನ್ನಡ)
+// Exported from translatewiki.net
+// Author: Ananth subray
+// Author: Anzx
+// Author: Nayvik
+// Author: Nemo bis
+// Author: VASANTH S.N.
+// Author: Vikashegde
+// Author: ಮಲ್ನಾಡಾಚ್ ಕೊಂಕ್ಣೊ
+
+"about-libraries-complete-list" = "ಪೂರ್ಣ ಪಟ್ಟಿ";
+"about-libraries-license" = "ಪರವಾನಗಿ";
+"about-title" = "ಕುರಿತು";
+"about-translators" = "ಅನುವಾದಕರು";
+"about-translators-details" = "ಸ್ವಯಂಸೇವಕರಿಂದ $1 ಅಲ್ಲಿ ಅನುವಾದಿಸಲಾಯಿತು";
+"about-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
+"account-creation-create-account" = "ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಸೃಷ್ಟಿಸಿ";
+"account-creation-log-in" = "ಲಾಗ್ ಇನ್.";
+"account-creation-logging-in" = "ನೀವು ಲಾಗ್-ಇನ್ ಆಗುತ್ತಿದ್ದೀರಿ...";
+"account-creation-saving" = "ಉಳಿಸಲಾಗುತ್ತಿದೆ....";
+"account-creation-title" = "ಹೊಸ ಖಾತೆಯನ್ನು ರಚಿಸಿ";
+"account-group-title" = "ನಿಮ್ಮ ಖಾತೆ";
+"account-talk-page-title" = "ನಿಮ್ಮ ಚರ್ಚೆಪುಟ";
+"account-talk-preferences-title" = "ಚರ್ಚೆಪುಟ ಪ್ರಾಶಸ್ತ್ಯಗಳು";
+"action-add-to-reading-list" = "ಓದುವ ಪಟ್ಟಿಗೆ ಸೇರಿಸಿ";
+"action-add-to-reading-list-short" = "ಪಟ್ಟಿಗೆ ಸೇರಿಸಿ";
+"action-cancel" = "ರದ್ದು ಮಾಡು";
+"action-language-accessibility" = "ಭಾಷೆ ಬದಲಾಯಿಸಿ";
+"action-read" = "ಓದು";
+"action-redo" = "ಮತ್ತೆಮಾಡು";
+"action-remove" = "ತೆಗೆ";
+"action-retry" = "ಪುನಃ ಪ್ರಯತ್ನಿಸಿ";
+"action-save" = "ಉಳಿಸಿ";
+"action-saved" = "ಉಳಿಸಲಾಗಿದೆ";
+"action-share" = "ಹಂಚು";
+"action-share-accessibility" = "ಹಂಚು";
+"action-sort" = "ವಿಂಗಡಿಸು";
+"app-store-subtitle" = "ಒಂದು ಮುಕ್ತ ವಿಶ್ವಕೋಶ";
+"article-delete" = "ಅಳಿಸು";
+"article-languages-filter-placeholder" = "ಭಾಷೆ ಹುಡುಕು";
+"article-languages-label" = "ಭಾಷೆ ಆಯ್ದುಕೊಳ್ಳಿ";
+"article-languages-others" = "ಇತರೆ ಭಾಷೆಗಳು";
+"article-languages-yours" = "ನಿಮ್ಮ ಭಾಷೆಗಳು";
+"article-read-more-title" = "ಇನ್ನೂ ಓದಿ";
+"article-reference-view-title" = "ಉಲ್ಲೇಖ $1";
+"article-save-error-not-enough-space" = "ಈ ಲೇಖನವನ್ನು ಉಳಿಸಲು ಬೇಕಾಗುವಷ್ಟು ಜಾಗವು ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಇಲ್ಲ";
+"article-share" = "ಹಂಚು";
+"back-button-accessibility-label" = "ಹಿಂದಕ್ಕೆ";
+"back-button-popover-title" = "ಹಿಂದಕ್ಕೆ ಹೋಗಲು ಒತ್ತಿ";
+"button-next" = "ಮುಂದೆ";
+"button-ok" = "ಸರಿ";
+"button-publish" = "ಪ್ರಕಟಿಸಿ";
+"button-report-a-bug" = "ದೋಷವನ್ನು ವರದಿ ಮಾಡಿ";
+"button-save-for-later" = "ನಂತರಕ್ಕಾಗಿ ಉಳಿಸಿ";
+"button-saved-for-later" = "ನಂತರಕ್ಕಾಗಿ ಉಳಿಸಲಾಗಿದೆ";
+"close-button-accessibility-label" = "ಮುಚ್ಚಿ";
+"description-help-about-title" = "ಕುರಿತು";
+"description-help-more-info-title" = "ಹೆಚ್ಚಿನ ಮಾಹಿತಿ";
+"description-help-tips-for-example" = "ಉದಾಹರಣೆಗೆ:";
+// Fuzzy
+"diff-compare-header-from-info-heading" = "ಇಂದ:";
+// Fuzzy
+"diff-compare-header-to-info-heading" = "ಗೆ:";
+"diff-context-lines-collapsed-button-title" = "ತೋರಿಸು";
+"diff-context-lines-expanded-button-title" = "ಅಡಗಿಸು";
+"diff-paragraph-moved-direction-down" = "ಕೆಳಗೆ";
+"diff-paragraph-moved-direction-up" = "ಮೇಲೆ";
+"diff-single-header-summary-heading" = "ಸಂಪಾದನೆಯ ಸಾರಾಂಶ";
+"edit-menu-item" = "ಸಂಪಾದಿಸಿ";
+"edit-minor-text" = "ಇದು ಚುಟುಕಾದ ಬದಲಾವಣೆ";
+"edit-summary-add-summary-text" = "ಸಂಪಾದನೆಯ ಸಾರಾಂಶವನ್ನು ಸೇರಿಸಿ";
+"edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ತಿದ್ದಿದೆ";
+"edit-summary-placeholder-text" = "ನೀವು ಲೇಖನವನ್ನು ಹೇಗೆ ಉತ್ತಮಪಡಿಸಿದ್ದೀರಿ?";
+"edit-watch-this-page-text" = "ಈ ಪುಟವನ್ನು ವೀಕ್ಷಿಸಿ";
+"empty-no-history-title" = "ತೋರಿಸಲು ಯಾವುದೇ ಇತಿಹಾಸವಿಲ್ಲ";
+"field-email-title" = "ಇ-ಅಂಚೆ";
+"field-email-title-optional" = "ಇ-ಅಂಚೆ (ಐಚ್ಛಿಕ)";
+"field-new-password-title" = "ಹೊಸ ಪ್ರವೇಶಪದ";
+"field-password-title" = "ಪ್ರವೇಶಪದ";
+"field-username-title" = "ಬಳಕೆದಾರರ ಹೆಸರು";
+"forgot-password-username-or-email-title" = "ಅಥವಾ";
+"history-clear-delete-all" = "ಹೌದು, ಎಲ್ಲವನ್ನೂ ಅಳಿಸು";
+"history-title" = "ಇತಿಹಾಸ";
+"in-the-news-sub-title-from-language-wikipedia" = "$1 ವಿಕಿಪೀಡಿಯದಿಂದ";
+"in-the-news-sub-title-from-wikipedia" = "ವಿಕಿಪೀಡಿಯದಿಂದ";
+"in-the-news-title" = "ಸುದ್ದಿಯಲ್ಲಿ";
+"insert-action-title" = "ಸೇರ್ಪಡಿಸು";
+"insert-media-image-position-setting-center" = "ಮಧ್ಯೆ";
+"insert-media-image-position-setting-left" = "ಎಡ";
+"insert-media-image-position-setting-right" = "ಬಲ";
+"insert-media-image-size-settings-title" = "ಚಿತ್ರದ ಗಾತ್ರ";
+"insert-media-image-type-setting-basic" = "ಮೂಲಭೂತ";
+"insert-media-image-type-settings-title" = "ಚಿತ್ರ ಮಾದರಿ";
+"languages-settings-title" = "ಭಾಷೆಗಳು";
+"languages-title" = "ಭಾಷೆ ಬದಲಾಯಿಸಿ";
+"languages-wikipedia" = "ವಿಕಿಪೀಡಿಯ ಭಾಷೆಗಳು";
+"main-menu-account-login" = "ಲಾಗ್ ಇನ್";
+"main-menu-account-logout" = "ನಿರ್ಗಮಿಸು";
+"main-menu-nearby" = "ಹತ್ತಿರದ";
+"main-menu-terms-of-use" = "ಬಳಕೆಯ ನಿಬಂಧನೆಗಳು";
+"navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟ";
+"page-protected-can-not-edit-title" = "ಈ ಪುಟವನ್ನು ಸಂರಕ್ಷಿಸಲಾಗಿದೆ";
+"search-field-placeholder-text" = "ವಿಕಿಪೀಡಿಯ ಹುಡುಕು";
+"search-recent-clear-delete-all" = "ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ";
+"search-title" = "ಹುಡುಕಿ";
+"table-of-contents-close-accessibility-hint" = "ಮುಚ್ಚಿ";
+"wikitext-upload-save" = "ಪ್ರಕಟಿಸಲಾಗುತ್ತಿದೆ…";

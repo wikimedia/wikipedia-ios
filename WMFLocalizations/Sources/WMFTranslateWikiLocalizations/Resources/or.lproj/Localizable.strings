@@ -1,0 +1,43 @@
+// Messages for Odia (ଓଡ଼ିଆ)
+// Exported from translatewiki.net
+// Author: DareDevil
+// Author: Jnanaranjan Sahu
+// Author: Psubhashish
+
+// Fuzzy
+"account-creation-captcha-obtaining" = "ନୂଆ CAPTCHA ଆହରଣ କରୁଛି ।";
+"account-creation-logging-in" = "ଲଗ ଇନ କରୁଛି...";
+"account-creation-passwords-mismatched" = "ପାସୱାର୍ଡ଼ ଦୁଇଟି ସମାନ ନୁହଁନ୍ତି ।";
+"account-creation-saving" = "ସାଇତା ଯାଉଛି...";
+"article-delete" = "ଲିଭାନ୍ତୁ";
+// Fuzzy
+"article-languages-filter-placeholder" = "ଛାଣିବା";
+"article-languages-label" = "ଭାଷା ବାଛନ୍ତୁ";
+"article-share" = "ବାଣ୍ଟିବେ";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 ବାଇଟ ଯୋଡ଼ିଲେ}}";
+"edit-summary-choice-fixed-grammar" = "ବ୍ୟାକରଣ ସଜାଡ଼ିବେ";
+"edit-summary-choice-fixed-typos" = "ବନାନ ସୁଧାରିଲି";
+// Fuzzy
+"edit-summary-choice-linked-words" = "ସମ୍ବନ୍ଧିତ ଶବ୍ଦରାଜି";
+"editor-edit-published" = "ଆପଣଙ୍କ ସମ୍ପାଦନା ପ୍ରକାଶ ପାଇଲା ।";
+"editor-exit-confirmation-body" = "ପ୍ରକାଶ ବିନା ସମ୍ପାଦନା ମୋଡ୍ ଛାଡିବେ ବୋଲି ଆପଣ ପୂରା ନିଶ୍ଚିତ ତ?";
+// Fuzzy
+"languages-title" = "ଭାଷାସମୂହ";
+// Fuzzy
+"main-menu-account-login" = "ଲଗ ଇନ";
+"main-menu-account-logout" = "ଲଗ ଆଉଟ";
+// Fuzzy
+"main-menu-account-title-logged-in" = "$1 ନାମରେ ଲଗଇନ କଲେ ।";
+"navbar-title-mode-edit-wikitext-preview" = "ଦେଖଣା";
+"search-field-placeholder-text" = "ଉଇକିପିଡ଼ିଆରେ ଖୋଜନ୍ତୁ";
+"talk-page-permanent-link" = "ସ୍ଥାୟୀ ଲିଙ୍କ";
+"watchlist-filter-automated-contributions-options-human" = "ମଣିଷ (ବଟ୍ ନୁହେଁ)";
+"watchlist-filter-type-of-change-options-page-edits" = "ପୃଷ୍ଠା ସମ୍ପାଦନା";
+"wikitext-preview-changes" = "ଆପଣଙ୍କ ବଦଳର ଦେଖଣା ଆହରଣ କରୁଛି...";
+"wikitext-upload-captcha-error" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବାରେ ଅସୁବିଧା ।";
+"wikitext-upload-captcha-needed" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବା ଲୋଡ଼ା ।";
+"wikitext-upload-result-unknown" = "ଉଇକି ଲେଖା ଅପଲୋଡ଼ ଫଳାଫଳ ନିର୍ଣ୍ଣୟ କରିବାରେ ବିଫଳ ।";
+// Fuzzy
+"wikitext-upload-save" = "ସାଇତାଯାଉଛି..।";
+// Fuzzy
+"wikitext-upload-save-anonymously-warning" = "ଏଥିରେ କମ ଗୋପନୀୟତା ରହିଛି । ଆପଣଙ୍କ ସମ୍ପାଦନା IP ଠିକଣା ସହ ଦେଖାଯିବ ।";
