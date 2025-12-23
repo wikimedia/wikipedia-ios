@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 74;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -4419,6 +4419,34 @@
 		FFE891452445150B0058B642 /* AppTabBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		67EFD34A2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				/Localized/InfoPlist.strings,
+			);
+			target = D4991434181D51DE00E6073C /* Wikipedia */;
+		};
+		67EFD34B2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				/Localized/InfoPlist.strings,
+			);
+			target = D8EC3DCE1E9BDA35006712EB /* Staging */;
+		};
+		67EFD34C2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				/Localized/InfoPlist.strings,
+			);
+			target = D8CE24D71E698E2400DAE2E0 /* Experimental */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		67ADAC722EFA240D00852D2F /* InfoPlist Native Localizations */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (67EFD34A2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67EFD34B2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67EFD34C2EFA2724006CBD7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "InfoPlist Native Localizations"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		00021DDE24D48EFD00476F97 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -7638,6 +7666,7 @@
 				BCF012321AD2FA38008D3675 /* assets */,
 				6768B9422D36C7680031003C /* logo-wikipedia.ttf */,
 				D8BA1F1F1DF1E19700502877 /* Resources */,
+				67ADAC722EFA240D00852D2F /* InfoPlist Native Localizations */,
 			);
 			path = Wikipedia;
 			sourceTree = "<group>";
@@ -8799,7 +8828,6 @@
 				};
 			};
 			buildConfigurationList = D4991430181D51DE00E6073C /* Build configuration list for PBXProject "Wikipedia" */;
-			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -8942,6 +8970,7 @@
 			packageReferences = (
 				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
+			preferredProjectObjectVersion = 51;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
