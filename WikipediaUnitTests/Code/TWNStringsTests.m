@@ -24,7 +24,7 @@
 
 + (NSString *)iOSLocalizationsDirectory {
     NSString *sourceRootPath = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:WMFSourceRootDirKey];
-    return [sourceRootPath stringByAppendingPathComponent:@"WMFNativeLocalizations/Sources/WMFNativeLocalizations/Resources"];
+    return [sourceRootPath stringByAppendingPathComponent:@"WMFLocalizations/Sources/WMFNativeLocalizations/Resources"];
 }
 
 + (NSString *)iOSInfoPlistLocalizationsDirectory {

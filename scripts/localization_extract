@@ -15,7 +15,7 @@ EXCLUDES=(
   "$REPO_ROOT/Wikipedia/Third Party Code"
   "$REPO_ROOT/WMF Framework/Third Party"
   "$REPO_ROOT/WMF Framework/Localization"
-  "$REPO_ROOT/WMFNativeLocalizations/Sources/WMFNativeLocalizations/WMFLocalizedString.swift"
+  "$REPO_ROOT/WMFLocalizations/Sources/WMFNativeLocalizations/WMFLocalizedString.swift"
 )
 
 # Build -path … -prune expression for find
@@ -32,7 +32,7 @@ done < <(
   find "$REPO_ROOT/Wikipedia" "$REPO_ROOT/WMF Framework" \
        "$REPO_ROOT/ContinueReadingWidget" "$REPO_ROOT/Widgets" \
        "$REPO_ROOT/NotificationServiceExtension" \
-       "$REPO_ROOT/WMFComponents" "$REPO_ROOT/WMFNativeLocalizations" \
+       "$REPO_ROOT/WMFComponents" "$REPO_ROOT/WMFLocalizations" \
        \( "${PRUNE_EXPR[@]}" -type f \( -name "*.m" -o -name "*.swift" \) -print0 \)
 )
 
@@ -46,5 +46,5 @@ fi
 # Run extractLocStrings on them
 xcrun extractLocStrings \
   -s WMFLocalizedString \
-  -o "$REPO_ROOT/WMFNativeLocalizations/Sources/WMFNativeLocalizations/Resources/en.lproj/" \
+  -o "$REPO_ROOT/WMFLocalizations/Sources/WMFNativeLocalizations/Resources/en.lproj/" \
   "${files[@]}"
