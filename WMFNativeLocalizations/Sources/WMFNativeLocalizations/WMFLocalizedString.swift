@@ -18,7 +18,7 @@ public func WMFLocalizedString(_ key: String, languageCode wikipediaLanguageCode
     return translation ?? ""
 }
 
-fileprivate extension Bundle {
+public extension Bundle {
     
     /// A mapping of language variant content codes to available native `NSLocale` bundle identifiers.
     /// The values map to existing `.lproj` folders.
@@ -53,7 +53,7 @@ fileprivate extension Bundle {
     private static let _wmf_languageBundlesLock = NSLock()
     
     /// Name of the localization bundle to use for a given Wikipedia language code.
-    func wmf_languageBundleName(forWikipediaLanguageCode languageCode: String) -> String {
+    private func wmf_languageBundleName(forWikipediaLanguageCode languageCode: String) -> String {
         if let mapped = Bundle.variantContentCodeToLocalizationBundleMapping[languageCode] {
             return mapped
         } else if languageCode == "zh" {
@@ -77,7 +77,7 @@ fileprivate extension Bundle {
     }
     
     /// Returns a bundle for a given Wikipedia language code, caching the result.
-    func wmf_languageBundle(forWikipediaLanguageCode languageCode: String) -> Bundle? {
+    fileprivate func wmf_languageBundle(forWikipediaLanguageCode languageCode: String) -> Bundle? {
         Bundle._wmf_languageBundlesLock.lock()
         if let cached = Bundle._wmf_languageBundles[languageCode] {
             Bundle._wmf_languageBundlesLock.unlock()
@@ -102,7 +102,7 @@ fileprivate extension Bundle {
     }
     
     /// English fallback bundle.
-    var wmf_fallbackLanguageBundle: Bundle? {
+    private var wmf_fallbackLanguageBundle: Bundle? {
         struct Static {
             static let fallback: Bundle? = {
                 if let path = Bundle.module.path(forResource: "en", ofType: "lproj") {

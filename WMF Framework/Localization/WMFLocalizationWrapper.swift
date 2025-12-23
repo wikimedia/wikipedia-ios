@@ -12,6 +12,8 @@ import WMFNativeLocalizations
     ) -> String {
         WMFLocalizedString(key, languageCode: wikipediaLanguageCode, bundle: bundle, value: value, comment: comment)
     }
+    
+    @objc public static let wmf_localizationBundle = Bundle.wmf_localizationBundle
 }
 
 @objc public final class WMFCommonStringsWrapper: NSObject {
