@@ -1,6 +1,6 @@
 import WMFComponents
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 public struct LibraryUsed {
     let title:String

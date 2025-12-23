@@ -1,4 +1,4 @@
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class DescriptionWelcomeContentsViewController: UIViewController, Themeable {
     private var theme = Theme.standard

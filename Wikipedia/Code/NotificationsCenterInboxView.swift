@@ -1,7 +1,7 @@
 import SwiftUI
 import WMF
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 struct NotificationsCenterIconImage: View {
     let iconName: String

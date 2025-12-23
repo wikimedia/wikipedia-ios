@@ -1,6 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
-import WMFLocalizations
+import WMFNativeLocalizations
 
 // Sync keys
 let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"

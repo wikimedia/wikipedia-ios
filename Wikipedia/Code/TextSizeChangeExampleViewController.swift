@@ -1,5 +1,5 @@
 import UIKit
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class TextSizeChangeExampleViewController: UIViewController {
     

@@ -2,7 +2,7 @@ import MessageUI
 import CocoaLumberjackSwift
 import WMF
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @objc(WMFHelpViewController)
 class HelpViewController: SinglePageWebViewController {

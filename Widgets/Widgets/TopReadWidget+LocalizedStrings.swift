@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 extension TopReadWidget {
 

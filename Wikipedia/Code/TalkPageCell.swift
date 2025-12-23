@@ -1,6 +1,6 @@
 import WMFComponents
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol TalkPageCellDelegate: AnyObject {
     func userDidTapDisclosureButton(cellViewModel: TalkPageCellViewModel?, cell: TalkPageCell)

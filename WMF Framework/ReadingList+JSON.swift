@@ -1,5 +1,5 @@
 import Foundation
-import WMFLocalizations
+import WMFNativeLocalizations
 
 extension ReadingList {
     @objc public static let conflictingReadingListNameUpdatedNotification = NSNotification.Name(rawValue: "WMFConflictingReadingListNameUpdatedNotification")

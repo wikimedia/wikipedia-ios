@@ -1,4 +1,4 @@
-import WMFLocalizations
+import WMFNativeLocalizations
 
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"

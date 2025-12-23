@@ -3,7 +3,7 @@ import WMFComponents
 import SwiftUI
 import WMFData
 import CocoaLumberjackSwift
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable, WMFNavigationBarConfiguring {
     // SINGLETONTODO

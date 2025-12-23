@@ -1,6 +1,6 @@
 import WMFComponents
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol TalkPageTopicComposeViewControllerDelegate: AnyObject {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController)

@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 import WMF
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 // MARK: - Widget
 

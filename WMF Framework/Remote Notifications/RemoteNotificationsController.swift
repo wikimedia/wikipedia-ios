@@ -1,7 +1,7 @@
 import CocoaLumberjackSwift
 import Foundation
 import WMFData
-import WMFLocalizations
+import WMFNativeLocalizations
 
 public enum RemoteNotificationsControllerError: LocalizedError {
     case databaseUnavailable

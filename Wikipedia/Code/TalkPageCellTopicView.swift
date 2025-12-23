@@ -1,6 +1,6 @@
 import WMFComponents
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 final class TalkPageCellTopicView: SetupView {
     

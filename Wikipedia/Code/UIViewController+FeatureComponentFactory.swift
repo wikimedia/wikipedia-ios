@@ -3,7 +3,7 @@ import SwiftUI
 import WMFComponents
 import WMF
 import WMFData
-import WMFLocalizations
+import WMFNativeLocalizations
 
 extension WMFImageRecommendationsViewController {
     static func imageRecommendationsViewController(dataStore: MWKDataStore, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> WMFImageRecommendationsViewController? {

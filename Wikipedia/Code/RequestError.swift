@@ -1,4 +1,4 @@
-import WMFLocalizations
+import WMFNativeLocalizations
 public enum RequestError: LocalizedError {
     case unknown
     case invalidParameters

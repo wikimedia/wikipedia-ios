@@ -1,7 +1,7 @@
 import Foundation
 import SystemConfiguration
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 public extension UIColor {
     @objc(initWithHexInteger:alpha:)

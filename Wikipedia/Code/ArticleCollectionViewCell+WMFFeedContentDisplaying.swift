@@ -1,5 +1,5 @@
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 public extension ArticleCollectionViewCell {
     @objc(configureWithArticle:displayType:index:theme:layoutOnly:completion:)

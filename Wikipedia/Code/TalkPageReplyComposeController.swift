@@ -1,7 +1,7 @@
 import Foundation
 import WMFComponents
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 protocol TalkPageReplyComposeDelegate: AnyObject {
     func closeReplyView()

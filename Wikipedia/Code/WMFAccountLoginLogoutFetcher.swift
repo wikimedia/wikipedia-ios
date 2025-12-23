@@ -1,5 +1,5 @@
 import WMFData
-import WMFLocalizations
+import WMFNativeLocalizations
 
 public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus

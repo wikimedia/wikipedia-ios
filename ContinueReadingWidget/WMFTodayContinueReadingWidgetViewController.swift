@@ -1,7 +1,7 @@
 import WMFComponents
 import NotificationCenter
 import WMF
-import WMFLocalizations
+import WMFNativeLocalizations
 
 @available(*, deprecated, message: "TODO: Rework into iOS 14 home screen widget")
 class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWidgetProviding {

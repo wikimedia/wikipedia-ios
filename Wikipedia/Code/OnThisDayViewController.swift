@@ -1,6 +1,6 @@
 import WMF
 import WMFComponents
-import WMFLocalizations
+import WMFNativeLocalizations
 
 class OnThisDayViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
