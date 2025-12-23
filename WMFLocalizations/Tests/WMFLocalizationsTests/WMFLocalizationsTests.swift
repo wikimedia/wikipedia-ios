@@ -4,6 +4,6 @@ import XCTest
 
 final class WMFLocalizationsTests: XCTestCase {
     func testExample() throws {
-
+        
     }
 }
