@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFNativeLocalizations
 
 @objc protocol SearchLanguagesBarViewControllerDelegate: AnyObject {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String)

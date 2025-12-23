@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var bottomSeparator = UIView()

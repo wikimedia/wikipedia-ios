@@ -3,6 +3,7 @@ import PassKit
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import WMFNativeLocalizations
 
 // Helper class to access donate coordinator logic from Obj-c
 @objc class WMFDonateCoordinatorWrapper: NSObject {

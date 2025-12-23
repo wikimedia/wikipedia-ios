@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 fileprivate protocol ViewModel {
     var title: String { get }

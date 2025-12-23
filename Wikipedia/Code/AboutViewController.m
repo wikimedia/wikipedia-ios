@@ -206,7 +206,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     NSString *enableMoreDynamicTabsV2GroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-group-C-v2", nil, nil, @"Enable tabs V2 with group C", @"Title for option to enable for Group C V2");
 
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableMoreDynamicTabsV2GroupC:enableMoreDynamicTabsV2GroupC enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth done:WMFCommonStrings.doneTitle];
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableMoreDynamicTabsV2GroupC:enableMoreDynamicTabsV2GroupC enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth done:WMFCommonStringsWrapper.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
@@ -263,7 +263,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     };
 
     setDivHTML(@"version", [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier]);
-    setDivHTML(@"wikipedia", WMFCommonStrings.plainWikipediaName);
+    setDivHTML(@"wikipedia", WMFCommonStringsWrapper.plainWikipediaName);
     setDivHTML(@"contributors_title", WMFLocalizedStringWithDefaultValue(@"about-contributors", nil, nil, @"Contributors", @"Header text for contributors section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Contributor}}"));
     setDivHTML(@"contributors_body", self.contributors);
     setDivHTML(@"translators_title", WMFLocalizedStringWithDefaultValue(@"about-translators", nil, nil, @"Translators", @"Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Translator}}"));

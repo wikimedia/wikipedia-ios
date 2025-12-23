@@ -1,3 +1,5 @@
+import WMFNativeLocalizations
+
 @objc public class ExploreFeedPreferencesUpdateCoordinator: NSObject {
     private unowned let feedContentController: WMFExploreFeedContentController
     private var oldExploreFeedPreferences = [String: Any]()

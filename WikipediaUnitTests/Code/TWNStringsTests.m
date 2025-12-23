@@ -24,7 +24,12 @@
 
 + (NSString *)iOSLocalizationsDirectory {
     NSString *sourceRootPath = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:WMFSourceRootDirKey];
-    return [sourceRootPath stringByAppendingPathComponent:@"Wikipedia/iOS Native Localizations"];
+    return [sourceRootPath stringByAppendingPathComponent:@"WMFLocalizations/Sources/WMFNativeLocalizations/Resources"];
+}
+
++ (NSString *)iOSInfoPlistLocalizationsDirectory {
+    NSString *sourceRootPath = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:WMFSourceRootDirKey];
+    return [sourceRootPath stringByAppendingPathComponent:@"Wikipedia/InfoPlist Native Localizations"];
 }
 
 + (NSString *)twnLocalizationsDirectory {
@@ -33,7 +38,7 @@
 }
 
 + (NSString *)bundleRoot {
-    return [[NSBundle wmf_localizationBundle] bundlePath];
+    return [[WMFLocalizationWrapper wmf_localizationBundle] bundlePath];
 }
 
 + (NSString *)appBundleRoot {
@@ -65,7 +70,7 @@
     static NSArray *infoPlistFilePaths;
     dispatch_once(&onceToken, ^{
         infoPlistFilePaths = [self.iOSLprojFiles wmf_map:^NSString *(NSString *lprojFileName) {
-            return [[self.iOSLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
+            return [[self.iOSInfoPlistLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
         }];
     });
     return infoPlistFilePaths;

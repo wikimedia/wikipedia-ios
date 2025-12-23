@@ -476,6 +476,7 @@
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
 "empty-talk-page-title" = "Text for placeholder label visible when talk page is empty";
+"end-session" = "Button to allow temporary account users to end their session.";
 "error-generic-recovery-suggestion" = "Generic recovery suggestion for when the error isn't recoverable by the user.";
 "error-unknown" = "Message displayed when an unknown error occurred";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
@@ -1206,6 +1207,10 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Footer text of the settings option that enables showing the default reading list";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Title of the settings option that enables showing the default reading list";
 "settings-storage-and-syncing-title" = "Title of the saved articles storage and syncing settings screen";
+"settings-temp-account-end-session-confirm" = "Confirm action title";
+"settings-temp-account-end-session-message" = "Message body for confirmation alert";
+"settings-temp-account-end-session-title" = "Title for confirmation alert when user is ending a temporary account session";
+"settings-temp-accounts-talk-page-footer" = "Footer below temporary account user's talk page, letting them know their account will expire";
 "settings-title" = "Title of the view where app settings are displayed. {{Identical|Settings}}";
 "settings-year-in-review-header" = "Text informing user of benefits of hiding the year in review feature.";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";

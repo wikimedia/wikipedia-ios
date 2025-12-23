@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFNativeLocalizations
 
 public class UITestHelperViewController: WMFCanvasViewController {
 

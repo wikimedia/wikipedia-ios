@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 class LoadingAnimationViewController: UIViewController {
     

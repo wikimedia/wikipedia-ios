@@ -1,4 +1,5 @@
 import Foundation
+import WMFNativeLocalizations
 
 struct TransformDiffItem {
     let type: DiffItemType

@@ -1,6 +1,7 @@
 import WMFComponents
 import SwiftUI
 import WMF
+import WMFNativeLocalizations
 
 struct NotificationsCenterOnboardingView: View {
 

@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WMFNativeLocalizations
 
 protocol ThanksGiving: HintPresenting {
     var url: URL? { get }

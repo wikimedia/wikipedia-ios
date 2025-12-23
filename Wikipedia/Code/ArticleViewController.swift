@@ -3,6 +3,7 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 @objc(WMFArticleViewController)
 class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding {

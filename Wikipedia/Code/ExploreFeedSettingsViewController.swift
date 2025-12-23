@@ -1,5 +1,6 @@
 import WMFComponents
 import WMFData
+import WMFNativeLocalizations
 
 private class FeedCard: ExploreFeedSettingsItem {
     let contentGroupKind: WMFContentGroupKind

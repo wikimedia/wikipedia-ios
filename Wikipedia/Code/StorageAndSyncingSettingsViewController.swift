@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 private struct Section {
     let type: ItemType

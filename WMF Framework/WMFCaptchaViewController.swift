@@ -1,4 +1,5 @@
 import UIKit
+import WMFNativeLocalizations
 
 // Presently it is assumed this view controller will be used only as a
 // child view controller of another view controller.

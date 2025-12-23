@@ -1,6 +1,7 @@
 import WMFComponents
 import CocoaLumberjackSwift
 import WMFData
+import WMFNativeLocalizations
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem)

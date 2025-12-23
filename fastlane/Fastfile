@@ -13,9 +13,4 @@ platform :ios do
      ensure_git_status_clean if ENV['FL_ENSURE_CLEAN']
   end
 
-  desc "Upload app store metadata"
-  lane :upload_app_store_metadata do
-    deliver(skip_binary_upload: true, skip_screenshots: true)
-  end
-
 end

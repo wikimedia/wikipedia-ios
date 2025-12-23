@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFNativeLocalizations
 
 protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
     func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController)

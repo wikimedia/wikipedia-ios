@@ -1,4 +1,5 @@
 import UIKit
+import WMFNativeLocalizations
 
 @objc(WMFFindAndReplaceKeyboardBarDelegate)
 protocol FindAndReplaceKeyboardBarDelegate: AnyObject {

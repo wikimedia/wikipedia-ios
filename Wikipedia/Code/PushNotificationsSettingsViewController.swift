@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import UserNotifications
 import WMFComponents
+import WMFNativeLocalizations
 
 fileprivate protocol PushNotificationsSettingsItem {
     var title: String { get }

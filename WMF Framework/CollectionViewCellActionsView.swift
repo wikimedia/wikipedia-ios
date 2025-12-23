@@ -1,4 +1,5 @@
 import Foundation
+import WMFNativeLocalizations
 
 public class Action: UIAccessibilityCustomAction {
     let icon: UIImage?

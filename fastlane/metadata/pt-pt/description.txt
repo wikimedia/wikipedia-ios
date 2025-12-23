@@ -1,1 +1,0 @@
-Transfira a aplicação Wikipédia para explorar lugares perto de si, sincronize os artigos para os ler ''off-line'' e personalize a sua experiência de leitura.

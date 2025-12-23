@@ -3,6 +3,7 @@ import WMF
 import UIKit
 import WMFComponents
 import Combine
+import WMFNativeLocalizations
 
 class NotificationsCenterInboxViewModel: ObservableObject {
     

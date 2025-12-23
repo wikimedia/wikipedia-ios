@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFNativeLocalizations
 
 protocol PageHistoryFilterCountsViewDelegate: AnyObject {
     func didDetermineFilterCountsAvailability(_ available: Bool, view: PageHistoryFilterCountsView)

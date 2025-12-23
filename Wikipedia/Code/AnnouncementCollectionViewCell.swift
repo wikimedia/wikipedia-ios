@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 public protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
     func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell)

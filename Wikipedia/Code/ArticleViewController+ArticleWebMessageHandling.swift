@@ -1,4 +1,5 @@
 import WMF
+import WMFNativeLocalizations
 
 extension ArticleViewController: ArticleWebMessageHandling {
     

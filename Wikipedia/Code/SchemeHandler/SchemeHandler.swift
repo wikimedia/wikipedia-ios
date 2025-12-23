@@ -1,4 +1,5 @@
 import WebKit
+import WMFNativeLocalizations
 
 enum SchemeHandlerError: Error {
     case invalidParameters

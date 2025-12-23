@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 protocol ArticleLocationAuthorizationCollectionViewCellDelegate: AnyObject {
     func articleLocationAuthorizationCollectionViewCellDidTapAuthorize(_ cell: ArticleLocationAuthorizationCollectionViewCell)

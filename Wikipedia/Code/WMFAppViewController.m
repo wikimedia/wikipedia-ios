@@ -1514,7 +1514,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController.dataStore = self.dataStore;
         _exploreViewController.notificationsCenterPresentationDelegate = self;
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
-        _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
+        _exploreViewController.title = [WMFCommonStringsWrapper exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
     }
     return _exploreViewController;
@@ -1540,7 +1540,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
         _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
-        _searchViewController.title = [WMFCommonStrings searchTitle];
+        _searchViewController.title = [WMFCommonStringsWrapper searchTitle];
     }
     return _searchViewController;
 }
@@ -1552,7 +1552,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _savedViewController.dataStore = self.dataStore;
         _savedViewController.tabBarDelegate = self;
         _savedViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-save"];
-        _savedViewController.title = [WMFCommonStrings savedTabTitle];
+        _savedViewController.title = [WMFCommonStringsWrapper savedTabTitle];
     }
     return _savedViewController;
 }
@@ -1561,7 +1561,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!_recentArticlesViewController) {
         _recentArticlesViewController = [self generateHistoryTab];
         _recentArticlesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
-        _recentArticlesViewController.title = [WMFCommonStrings historyTabTitle];
+        _recentArticlesViewController.title = [WMFCommonStringsWrapper historyTabTitle];
     }
     return _recentArticlesViewController;
 }
@@ -1570,7 +1570,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!_activityTabViewController) {
         _activityTabViewController = [self generateActivityTab];
         _activityTabViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
-        _activityTabViewController.title = [WMFCommonStrings activityTitle];
+        _activityTabViewController.title = [WMFCommonStringsWrapper activityTitle];
     }
     return _activityTabViewController;
 }
@@ -1580,7 +1580,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
         [_placesViewController applyTheme:self.theme];
         _placesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-nearby"];
-        _placesViewController.title = [WMFCommonStrings placesTabTitle];
+        _placesViewController.title = [WMFCommonStringsWrapper placesTabTitle];
     }
     return _placesViewController;
 }
@@ -2146,7 +2146,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
         _settingsViewController.notificationsCenterPresentationDelegate = self;
-        _settingsViewController.title = [WMFCommonStrings settingsTitle];
+        _settingsViewController.title = [WMFCommonStringsWrapper settingsTitle];
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }
     return _settingsViewController;

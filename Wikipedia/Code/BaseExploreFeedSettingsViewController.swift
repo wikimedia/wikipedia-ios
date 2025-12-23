@@ -1,3 +1,5 @@
+import WMFNativeLocalizations
+
 protocol ExploreFeedSettingsItem {
     var title: String { get }
     var subtitle: String? { get }

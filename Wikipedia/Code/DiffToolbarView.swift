@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFNativeLocalizations
 
 protocol DiffToolbarViewDelegate: AnyObject {
     func tappedPrevious()

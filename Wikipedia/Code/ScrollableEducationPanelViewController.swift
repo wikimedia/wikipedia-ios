@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFNativeLocalizations
 
 typealias ScrollableEducationPanelButtonTapHandler = ((_ button: UIButton, _ viewController: UIViewController) -> Void)
 typealias ScrollableEducationPanelDismissHandler = (() -> Void)

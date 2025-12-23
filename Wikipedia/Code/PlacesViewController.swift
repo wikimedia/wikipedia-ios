@@ -2,8 +2,8 @@ import WMFComponents
 import WMFData
 import WMF
 import CocoaLumberjackSwift
-
 import MapKit
+import WMFNativeLocalizations
 
 @objc(WMFPlacesViewController)
 class PlacesViewController: ArticleLocationCollectionViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {

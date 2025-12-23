@@ -49,7 +49,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [[WMFLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = [WMFCommonStrings wikipediaLanguages];
+    languagesVC.title = [WMFCommonStringsWrapper wikipediaLanguages];
     languagesVC.editing = NO;
     languagesVC.showPreferredLanguages = NO;
 
@@ -60,7 +60,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [[WMFLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = [WMFCommonStrings wikipediaLanguages];
+    languagesVC.title = [WMFCommonStringsWrapper wikipediaLanguages];
     languagesVC.editing = NO;
     languagesVC.showAllLanguages = YES;
     languagesVC.showPreferredLanguages = NO;
@@ -265,7 +265,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)configureExploreFeedCustomizationCell:(WMFSettingsTableViewCell *)cell {
     cell.disclosureType = WMFSettingsMenuItemDisclosureType_ViewController;
-    cell.title = [WMFCommonStrings customizeExploreFeedTitle];
+    cell.title = [WMFCommonStringsWrapper customizeExploreFeedTitle];
     cell.iconName = nil;
     [cell applyTheme:self.theme];
 }
@@ -484,7 +484,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFPreferredLanguagesViewController *languagesVC = [[WMFPreferredLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = [WMFCommonStrings wikipediaLanguages];
+    languagesVC.title = [WMFCommonStringsWrapper wikipediaLanguages];
 
     languagesVC.hideLanguageFilter = YES;
     languagesVC.showNonPreferredLanguages = NO;
@@ -511,7 +511,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = [WMFCommonStrings wikipediaLanguages];
+    self.title = [WMFCommonStringsWrapper wikipediaLanguages];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
