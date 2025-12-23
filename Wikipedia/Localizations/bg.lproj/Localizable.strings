@@ -466,7 +466,7 @@
 "reading-themes-controls-syntax-highlighting" = "Оцветяване на синтаксиса";
 "reference-title" = "Източник $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Днес|1=Вчера|преди $1 дни}}";
-"relative-date-hours-ago-abbreviated" = "преди {{PLURAL:$1|$1 час|$1 часа}}";
+"relative-date-hours-ago-abbreviated" = "преди $1 час";
 "replace-infolabel-method-replace" = "Замяна";
 "replace-infolabel-method-replace-all" = "Замяна на всички";
 "replace-textfield-accessibility" = "Замяна";
