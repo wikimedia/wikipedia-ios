@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import WMFData
+import WMFNativeLocalizations
 
 @objc public class WMFDeveloperSettingsLocalizedStrings: NSObject {
     let developerSettings: String
@@ -34,6 +35,9 @@ import WMFData
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
+        
+        // WMFComponents localized string!
+        let testing = WMFLocalizedString("developer-settings-testing", value: "Testing!", comment: "Test string for components localization")
 
         // Form Items
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
