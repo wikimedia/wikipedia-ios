@@ -38,6 +38,7 @@ import WMFNativeLocalizations
         
         // WMFComponents localized string!
         let testing = WMFLocalizedString("developer-settings-testing", value: "Testing!", comment: "Test string for components localization")
+        print(testing)
 
         // Form Items
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
