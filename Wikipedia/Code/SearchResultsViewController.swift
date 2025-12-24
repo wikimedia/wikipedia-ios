@@ -2,48 +2,69 @@ import UIKit
 import WMF
 import WMFData
 
-class SearchResultsViewController: ArticleCollectionViewController {
-    var resultsInfo: WMFSearchDataController.SearchResults? = nil // don't use resultsInfo.results, it mutates
+final class SearchResultsViewController: ArticleCollectionViewController {
+
+    var resultsInfo: WMFSearchDataController.SearchResults?
     var results: [WMFSearchDataController.SearchResult] = [] {
         didSet {
             assert(Thread.isMainThread)
             reload()
         }
     }
+
     var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
     var longPressSearchResultAndCommitAction: ((URL) -> Void)?
     var longPressOpenInNewTabAction: ((URL) -> Void)?
 
+    var searchSiteURL: URL?
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         reload()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateArticleCell(_:)),
+            name: NSNotification.Name.WMFArticleUpdated,
+            object: nil
+        )
     }
 
-    func reload() {
+    // MARK: - Helpers
+
+    private func reload() {
         collectionView.reloadData()
         updateEmptyState()
     }
 
-    var searchSiteURL: URL? = nil
-
     func isDisplaying(resultsFor searchTerm: String, from siteURL: URL) -> Bool {
-        guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
+        guard
+            let info = resultsInfo,
+            let searchSiteURL
+        else {
             return false
         }
-        return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.term == searchTerm
+
+        return !results.isEmpty
+            && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL)
+            && info.term == searchTerm
     }
 
     override var eventLoggingCategory: EventCategoryMEP {
-        return .search
+        .search
     }
 
+    // MARK: - Article plumbing
+
     override func articleURL(at indexPath: IndexPath) -> URL? {
-        return results[indexPath.item].articleURL
+        results[safeIndex: indexPath.item]?.articleURL
     }
 
     override func article(at indexPath: IndexPath) -> WMFArticle? {
         guard
+            indexPath.item < results.count,
             let articleURL = articleURL(at: indexPath),
             let article = dataStore.fetchOrCreateArticle(with: articleURL)
         else {
@@ -53,47 +74,91 @@ class SearchResultsViewController: ArticleCollectionViewController {
         let result = results[indexPath.item]
 
         article.displayTitleHTML = result.displayTitleHTML ?? result.title
-        article.wikidataDescription = result.description
+        article.wikidataDescription = descriptionForSearchResult(result)
         article.thumbnailURL = result.thumbnailURL
 
         return article
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return results.count
+    // MARK: - Collection view
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        results.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let articleURL = articleURL(at: indexPath) else {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard let url = articleURL(at: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
 
-        tappedSearchResultAction?(articleURL, indexPath)
+        tappedSearchResultAction?(url, indexPath)
     }
 
-    func descriptionForSearchResult(_ result: WMFSearchDataController.SearchResult) -> String? {
-        guard let description = result.description else {
+    // MARK: - Description handling (HTML FIX)
+
+    private func descriptionForSearchResult(
+        _ result: WMFSearchDataController.SearchResult
+    ) -> String? {
+
+        guard let html = result.description else {
             return nil
         }
 
-        return (description as NSString)
+        let plainText: String = {
+            guard let data = html.data(using: .utf8),
+                  let attributed = try? NSAttributedString(
+                      data: data,
+                      options: [
+                          .documentType: NSAttributedString.DocumentType.html,
+                          .characterEncoding: String.Encoding.utf8.rawValue
+                      ],
+                      documentAttributes: nil
+                  )
+            else {
+                return html
+            }
+
+            return attributed.string
+        }()
+
+        return (plainText as NSString)
             .wmf_stringByCapitalizingFirstCharacter(
                 usingWikipediaLanguageCode: searchSiteURL?.wmf_languageCode
             )
     }
 
-    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly, configureForCompact: true)
+    // MARK: - Cell configuration
+
+    override func configure(
+        cell: ArticleRightAlignedImageCollectionViewCell,
+        forItemAt indexPath: IndexPath,
+        layoutOnly: Bool
+    ) {
+        configure(
+            cell: cell,
+            forItemAt: indexPath,
+            layoutOnly: layoutOnly,
+            configureForCompact: true
+        )
     }
 
-    private func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool, configureForCompact: Bool) {
-        guard indexPath.item < results.count else {
-            return
-        }
-        let result = results[indexPath.item]
-        guard let languageCode = searchSiteURL?.wmf_languageCode,
-              let contentLanguageCode = searchSiteURL?.wmf_contentLanguageCode else {
+    private func configure(
+        cell: ArticleRightAlignedImageCollectionViewCell,
+        forItemAt indexPath: IndexPath,
+        layoutOnly: Bool,
+        configureForCompact: Bool
+    ) {
+        guard
+            let result = results[safeIndex: indexPath.item],
+            let siteURL = searchSiteURL
+        else {
             return
         }
 
@@ -101,65 +166,72 @@ class SearchResultsViewController: ArticleCollectionViewController {
             cell.configureForCompactList(at: indexPath.item)
         }
 
-        cell.setTitleHTML(result.displayTitleHTML ?? result.title, boldedString: resultsInfo?.term)
-        cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
+        let languageCode = siteURL.wmf_languageCode
+        let contentLanguageCode = siteURL.wmf_contentLanguageCode
+
+        cell.setTitleHTML(
+            result.displayTitleHTML ?? result.title,
+            boldedString: resultsInfo?.term
+        )
+
+        cell.articleSemanticContentAttribute =
+            MWKLanguageLinkController.semanticContentAttribute(
+                forContentLanguageCode: contentLanguageCode
+            )
+
         cell.titleLabel.accessibilityLanguage = languageCode
         cell.descriptionLabel.text = descriptionForSearchResult(result)
         cell.descriptionLabel.accessibilityLanguage = languageCode
-        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+
+        editController.configureSwipeableCell(
+            cell,
+            forItemAt: indexPath,
+            layoutOnly: layoutOnly
+        )
+
         if layoutOnly {
             cell.isImageViewHidden = result.thumbnailURL != nil
         } else {
             cell.imageURL = result.thumbnailURL
         }
+
         cell.apply(theme: theme)
     }
 
+    // MARK: - Theme
+
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        guard viewIfLoaded != nil else {
-            return
-        }
         collectionView.backgroundColor = theme.colors.midBackground
     }
 
-    @objc func updateArticleCell(_ notification: NSNotification) {
-        guard let updatedArticle = notification.object as? WMFArticle,
-              updatedArticle.hasChangedValuesForCurrentEventThatAffectSavedState,
-              let updatedArticleKey = updatedArticle.inMemoryKey else {
+    // MARK: - Updates
+
+    @objc
+    private func updateArticleCell(_ notification: NSNotification) {
+        guard
+            let article = notification.object as? WMFArticle,
+            article.hasChangedValuesForCurrentEventThatAffectSavedState,
+            let key = article.inMemoryKey
+        else {
             return
         }
 
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard articleURL(at: indexPath)?.wmf_inMemoryKey == updatedArticleKey,
-                  let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
+            guard
+                articleURL(at: indexPath)?.wmf_inMemoryKey == key,
+                let cell = collectionView.cellForItem(at: indexPath)
+                    as? ArticleRightAlignedImageCollectionViewCell
+            else {
                 continue
             }
 
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false, configureForCompact: false)
+            configure(
+                cell: cell,
+                forItemAt: indexPath,
+                layoutOnly: false,
+                configureForCompact: false
+            )
         }
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-
-        guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController else {
-            assertionFailure("Should be able to find previewed VC")
-            return
-        }
-        animator.addCompletion { [weak self] in
-
-            guard let self else { return }
-
-            self.longPressSearchResultAndCommitAction?(peekVC.articleURL)
-        }
-    }
-
-    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
-
-        longPressSearchResultAndCommitAction?(peekController.articleURL)
-    }
-
-    override func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
-        longPressOpenInNewTabAction?(peekController.articleURL)
     }
 }

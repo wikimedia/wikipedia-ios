@@ -442,11 +442,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
     }
 
-
-    lazy var fetcher: WMFSearchFetcher = {
-        return WMFSearchFetcher()
-    }()
-
     func resetSearchResults() {
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []

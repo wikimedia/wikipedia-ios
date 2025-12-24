@@ -48,8 +48,11 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         searchViewController.dataStore = dataStore
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
-            self?.navigationItem.searchController?.searchBar.text = searchTerm
-            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.navigationItem.searchController?.searchBar.text = searchTerm
+                self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            }
         }
         
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
