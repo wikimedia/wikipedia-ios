@@ -741,11 +741,13 @@
 "microsite-yir-english-edits-bytes-slide-title-updated" = "$1 byte{{PLURAL:$1||s}} addite";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Le voluntarios ha apportate $1 modification{{PLURAL:$1||es}} in plus de $2 edition{{PLURAL:$2||es}} de Wikipedia in linguas differente. $3 modification{{PLURAL:$3||es}} ha essite apportate sur Wikipedia in anglese. Cata hora de cata die, voluntarios labora pro meliorar Wikipedia.";
 "microsite-yir-english-edits-slide-title-updated" = "Redactores ha apportate $1 modification{{PLURAL:$1||es}} iste anno";
-"microsite-yir-english-reading-slide-subtitle-updated" = "Le gente ha passate circa $1 hora{{PLURAL:$1||s}} (circa $2 anno{{PLURAL:$2||s}}!) a leger Wikipedia in anglese in $3. Wikipedia es a tu disposition quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.";
 "microsite-yir-english-reading-slide-subtitle-short-updated" = "Le gente ha passate circa $1 hora{{PLURAL:$1||s}} (circa $2 anno{{PLURAL:$2||s}}!) a leger Wikipedia in anglese in $3.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "Le gente ha passate circa $1 hora{{PLURAL:$1||s}} (circa $2 anno{{PLURAL:$2||s}}!) a leger Wikipedia in anglese in $3. Wikipedia es a tu disposition quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.";
 "microsite-yir-english-reading-slide-title-updated" = "Nos ha passate $1 hora{{PLURAL:$1||s}} a leger";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "Le usatores active del app habeva $1 articulo{{PLURAL:$1||s}} salveguardate iste anno. Adder articulos a listas de lectura te permitte acceder a articulos mesmo sin connexion. Tu pote tamben, post aperir session, synchronisar le listas de lectura inter apparatos.";
 "microsite-yir-english-saved-reading-slide-title-updated" = "Nos habeva $1 articulo{{PLURAL:$1||s}} salveguardate";
+// Fuzzy
+"microsite-yir-english-top-read-slide-subtitle-updated" = "Quando le gente vole apprender sur nostre mundo – lo bon, lo mal, lo bizarre e lo salvage – on recurre a Wikipedia. Le cinque articulos le plus visitate sur Wikipedia in anglese esseva:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLege plus in $6nostre articulo special de blog$7.";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "Le articulos le plus legite sur Wikipedia in anglese";
 "more-languages-tooltip-description" = "Cercar in Wikipedia in plus de 300 linguas";
@@ -1477,8 +1479,8 @@
 "year-in-review-contributor-gift-subtitle" = "Si tu non lo activa ora, tu pote acceder a illo plus tarde in Parametros sub Thema.";
 "year-in-review-contributor-gift-title" = "Activar le nove icone del application";
 "year-in-review-contributor-slide-subtitle-donor-updated" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como donator in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
-"year-in-review-contributor-slide-subtitle-editor-updated" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
 "year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como donator e redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
 "year-in-review-contributor-slide-title" = "Nove icone disvelate pro tu schermo initial";
 "year-in-review-day-friday" = "venerdis";
 "year-in-review-day-monday" = "lunedis";
@@ -1520,6 +1522,8 @@
 "year-in-review-intro-login-title" = "Aperi session pro personalisation";
 "year-in-review-most-read-categories-title" = "Tu categorias le plus interessante";
 "year-in-review-non-contributor-slide-title" = "Disvela tu recompensa de contributor pro le proxime anno!";
+// Fuzzy
+"year-in-review-noncontributor-slide-subtitle-updated" = "Nos es felice que Wikipedia ha facite parte de tu anno $1! Disvela un recompensa special in tu Summario del anno $2 deveniente contributor: [modifica Wikipedia]($3) o dona al [Fundation Wikimedia]($4), le organisation sin scopo lucrative detra Wikipedia. Si Wikipedia te es utile, per favor considera donar pro adjutar a sustener su futuro e mantener lo libere, sin publicitate, digne de fide e accessibile pro omnes.";
 "year-in-review-personalized-date-day-footer-v3" = "Die favorite pro leger";
 "year-in-review-personalized-date-month-footer-v3" = "Mense in le qual tu ha legite le plus";
 "year-in-review-personalized-date-time-footer-v3" = "Hora favorite pro leger";

@@ -764,8 +764,8 @@
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 bayt}} əlavə edildi";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Könüllülər Vikipediyanın {{PLURAL:$2|$2 müxtəlif dildə nəşrlərində}} {{PLURAL:$1|$1 dəyişiklik}} ediblər. İngiliscə Vikipediyada {{PLURAL:$3|$3 dəyişiklik} edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
 "microsite-yir-english-edits-slide-title-updated" = "Bu il redaktorlar {{PLURAL:$1|$1 dəyişiklik}} edib";
-"microsite-yir-english-reading-slide-subtitle-updated" = "İnsanlar $3-ci ildə İngiliscə Vikipediyanı oxumağa təqribən {{PLURAL:$1|$1 saat}} sərf ediblər - {{PLURAL:$2|$2 ildən}} çox! Siz dəyişən dünyamız haqqında öyrənmək, dostlar arasında mərc qazanmaq və ya maraqlı uşağın sualına cavab vermək istədiyiniz zaman Vikipediya oradadır.";
 "microsite-yir-english-reading-slide-subtitle-short-updated" = "İnsanlar $3-ci ildə İngiliscə Vikipediyanı oxumaq üçün təxminən {{PLURAL:$1|$1 saat}} - {{PLURAL:$2|$2 ildən}} çox vaxt sərf ediblər.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "İnsanlar $3-ci ildə İngiliscə Vikipediyanı oxumağa təqribən {{PLURAL:$1|$1 saat}} sərf ediblər - {{PLURAL:$2|$2 ildən}} çox! Siz dəyişən dünyamız haqqında öyrənmək, dostlar arasında mərc qazanmaq və ya maraqlı uşağın sualına cavab vermək istədiyiniz zaman Vikipediya oradadır.";
 "microsite-yir-english-reading-slide-title-updated" = "Oxumağa {{PLURAL:$1|$1 saat}} sərf etmişik";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "Aktiv mobil tətbiq istifadəçiləri {{PLURAL:$1|$1 yadda saxlanılan məqaləyə}} sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
 "microsite-yir-english-saved-reading-slide-title-updated" = "{{PLURAL:$1|$1 oxuma siyahılarımız}} olub.";
@@ -1489,8 +1489,8 @@
 "year-in-review-contributor-gift-subtitle" = "Əgər onu indi aktiv etməsəniz, daha sonra Tema altındakı Parametrlərdə ona daxil ola bilərsiniz.";
 "year-in-review-contributor-gift-title" = "Yeni proqram ikonasını aktivləşdir";
 "year-in-review-contributor-slide-subtitle-donor-updated" = "Açıq biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik.\n\n$1-ci ildə donor kimi verdiyiniz töhfələr azad məlumat dünyasına yol açmağa kömək edir və nəticədə siz fərdi töhfəçi ikonasını açdınız.";
-"year-in-review-contributor-slide-subtitle-editor-updated" = "Açıq biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik.\n\n$1-ci ildə redaktor kimi töhfələriniz azad məlumat dünyasına yol açmağa kömək edir və nəticədə siz xüsusi töhfəçi ikonasını açdınız.";
 "year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "Açıq biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik.\n\n$1-ci ildə donor və redaktor kimi töhfələriniz azad məlumat dünyasına yol açmağa kömək edir və nəticədə siz xüsusi töhfəçi ikonasını açdınız.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "Açıq biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik.\n\n$1-ci ildə redaktor kimi töhfələriniz azad məlumat dünyasına yol açmağa kömək edir və nəticədə siz xüsusi töhfəçi ikonasını açdınız.";
 "year-in-review-contributor-slide-title" = "Yeni ikonanın kilidi açıldı";
 "year-in-review-day-friday" = "cümə günlərində";
 "year-in-review-day-monday" = "bazar ertəsi günlərində";
