@@ -994,7 +994,7 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dari perangkat ini. Anda tidak dapat membatalkan tindakan ini.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Hapus semua artikel tersimpan?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Hapus";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dari perangkat ini.\n\nMenghapus artikel yang Anda simpan akan membebaskan ruang sekitar $1.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah menyalakan sinkronisasi serta dari perangkat ini.\n\nMenghapus artikel yang Anda simpan akan membebaskan ruang sekitar $1.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Hapus artikel tersimpan";
 "settings-storage-and-syncing-full-sync" = "Daftar bacaan Anda akan disinkronkan di latar belakang";
 "settings-storage-and-syncing-server-sync-footer-text" = "Minta pemutakhiran ke artikel yang disinkronkan dan daftar bacaan Anda.";
