@@ -84,6 +84,7 @@ public actor WMFDonateDataController {
             "action": "raw"
         ]
         
+        // DEBT: Make these calls concurrent, but to do so we must first make WMFService sendable.
         // 1️⃣ Fetch payment methods (first)
         let paymentMethods: WMFPaymentMethods = try await withCheckedThrowingContinuation { continuation in
             let request = WMFBasicServiceRequest(
