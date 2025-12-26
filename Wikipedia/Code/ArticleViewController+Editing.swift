@@ -79,7 +79,7 @@ extension ArticleViewController {
 
         Task {
             let dataController = WMFTempAccountDataController.shared
-            let languageHasTempAccountsEnabled = await dataController.asyncCheckWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
+            let languageHasTempAccountsEnabled = await dataController.checkWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
 
             state = .loaded
 
@@ -133,7 +133,7 @@ extension ArticleViewController {
 
         Task {
             let dataController = WMFTempAccountDataController.shared
-            let languageHasTempAccountsEnabled = await dataController.asyncCheckWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
+            let languageHasTempAccountsEnabled = await dataController.checkWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
 
             state = .loaded
 

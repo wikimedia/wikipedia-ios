@@ -1,77 +1,72 @@
 import Foundation
 
-@objc public class WMFTempAccountDataController: NSObject {
-    @objc public static let shared = WMFTempAccountDataController()
-    
-    private var mediaWikiService = WMFDataEnvironment.current.mediaWikiService
+// MARK: - Pure Swift Actor (Clean Implementation)
 
+public actor WMFTempAccountDataController {
+    
+    public static let shared = WMFTempAccountDataController()
+    
+    private let mediaWikiService: WMFService?
+    
     private var _primaryWikiHasTempAccountsEnabled: Bool?
-    @objc public var primaryWikiHasTempAccountsEnabled: Bool {
+    public var primaryWikiHasTempAccountsEnabled: Bool {
         return _primaryWikiHasTempAccountsEnabled ?? false
     }
-
+    
     public var wikisWithTempAccountsEnabled: [String] = []
-
-    @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
-        Task {
-            await asyncCheckWikiTempAccountAvailability(language: language, isCheckingPrimaryWiki: isCheckingPrimaryWiki)
-        }
+    
+    public init(mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
+        self.mediaWikiService = mediaWikiService
     }
-
-    @discardableResult
-    public func asyncCheckWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) async -> Bool {
+    
+    public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) async -> Bool {
         if wikisWithTempAccountsEnabled.contains(language) {
             if isCheckingPrimaryWiki {
                 _primaryWikiHasTempAccountsEnabled = true
             }
             return true
         }
-
+        
         do {
             let hasTempStatus = try await getTempAccountStatusForWiki(language: language)
-
+            
             if hasTempStatus, !wikisWithTempAccountsEnabled.contains(language) {
                 wikisWithTempAccountsEnabled.append(language)
             }
-
+            
             if isCheckingPrimaryWiki {
                 _primaryWikiHasTempAccountsEnabled = hasTempStatus
             }
-
+            
             return hasTempStatus
         } catch {
             debugPrint("Error fetching temporary account status: \(error)")
             return false
         }
     }
-
+    
     private func getTempAccountStatusForWiki(language: String) async throws -> Bool {
         let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
         let project = WMFProject.wikipedia(wmfLanguage)
-
+        
         return try await withCheckedThrowingContinuation { continuation in
             fetchWikiTempStatus(project: project) { status in
-                switch status {
-                case .success(let isTemporary):
-                    continuation.resume(returning: isTemporary)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
+                continuation.resume(with: status)
             }
         }
     }
-
-    private func fetchWikiTempStatus(project: WMFProject, completion: ((Result<Bool, Error>) -> Void)? = nil) {
+    
+    private func fetchWikiTempStatus(project: WMFProject, completion: @escaping @Sendable (Result<Bool, Error>) -> Void) {
         guard let mediaWikiService else {
-            completion?(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
+            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
         }
-
+        
         guard let url = URL.mediaWikiAPIURL(project: project) else {
-            completion?(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
-
+        
         let parameters: [String: Any] = [
             "action": "query",
             "format": "json",
@@ -79,19 +74,16 @@ import Foundation
             "formatversion": "2",
             "siprop": "autocreatetempuser"
         ]
-
-        let request = WMFMediaWikiServiceRequest(url:url, method: .GET, backend: .mediaWiki, parameters: parameters)
-
+        
+        let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        
         mediaWikiService.performDecodableGET(request: request) { (result: Result<TempStatusResponse, Error>) in
-            switch result {
-            case .success(let response):
-                completion?(.success(response.query.autocreatetempuser.enabled))
-            case .failure(let error):
-                completion?(.failure(error))
-            }
+            completion(result.map { $0.query.autocreatetempuser.enabled })
         }
     }
 }
+
+// MARK: - Response Types
 
 private struct TempStatusResponse: Codable {
     let batchcomplete: Bool
@@ -104,4 +96,41 @@ private struct TempStatusQuery: Codable {
 
 private struct AutoCreateTempUser: Codable {
     let enabled: Bool
+}
+
+// MARK: - Objective-C Bridge
+
+@objc public final class WMFTempAccountDataControllerObjCBridge: NSObject, @unchecked Sendable {
+    
+    @objc public static let shared = WMFTempAccountDataControllerObjCBridge(controller: .shared)
+    
+    private let controller: WMFTempAccountDataController
+    
+    public init(controller: WMFTempAccountDataController) {
+        self.controller = controller
+        super.init()
+    }
+    
+    @objc public var primaryWikiHasTempAccountsEnabled: Bool {
+        // Synchronous bridge using semaphore
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let controller = controller
+        
+        Task {
+            result = await controller.primaryWikiHasTempAccountsEnabled
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
+        let controller = self.controller
+        Task {
+            await controller.checkWikiTempAccountAvailability(language: language, isCheckingPrimaryWiki: isCheckingPrimaryWiki)
+        }
+    }
 }

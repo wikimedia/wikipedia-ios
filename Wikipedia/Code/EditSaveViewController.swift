@@ -386,7 +386,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private func checkWikiStatus() async -> Bool? {
         guard let languageCode else { return false }
         let dataController = WMFTempAccountDataController.shared
-        return await dataController.asyncCheckWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
+        return await dataController.checkWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
 
     }
 

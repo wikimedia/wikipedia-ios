@@ -349,7 +349,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
 
         let dataController = WMFTempAccountDataController.shared
         Task {
-            let hasTempStatus = await dataController.asyncCheckWikiTempAccountAvailability(language: language, isCheckingPrimaryWiki: false)
+            let hasTempStatus = await dataController.checkWikiTempAccountAvailability(language: language, isCheckingPrimaryWiki: false)
             completion(hasTempStatus)
         }
     }

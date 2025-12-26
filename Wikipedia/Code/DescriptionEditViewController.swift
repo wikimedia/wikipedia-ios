@@ -114,7 +114,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
     private func checkWikiStatus() async -> Bool {
         let dataController = WMFTempAccountDataController.shared
-        return await dataController.asyncCheckWikiTempAccountAvailability(language: articleDescriptionController.articleLanguageCode, isCheckingPrimaryWiki: false)
+        return await dataController.checkWikiTempAccountAvailability(language: articleDescriptionController.articleLanguageCode, isCheckingPrimaryWiki: false)
     }
 
     private func showTempAccountToast() {

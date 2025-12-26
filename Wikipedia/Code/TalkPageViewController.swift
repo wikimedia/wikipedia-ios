@@ -276,7 +276,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func checkWikiStatus() async -> Bool? {
         guard let languageCode = viewModel.siteURL.wmf_languageCode else { return false }
         let dataController = WMFTempAccountDataController.shared
-        return await dataController.asyncCheckWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
+        return await dataController.checkWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
     }
 
     private func setupOverflowMenu() {

@@ -1737,7 +1737,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     BOOL shouldCheckTempAccountWikis = (now - lastCheckTime) >= WMFTempAccountConfigCheckInterval;
 
     if (shouldCheckTempAccountWikis) {
-        [[WMFTempAccountDataController shared] checkWikiTempAccountAvailabilityWithLanguage:self.dataStore.languageLinkController.appLanguage.languageCode isCheckingPrimaryWiki:YES];
+        [[WMFTempAccountDataControllerObjCBridge shared] checkWikiTempAccountAvailabilityWithLanguage:self.dataStore.languageLinkController.appLanguage.languageCode isCheckingPrimaryWiki:YES];
     }
 }
 
