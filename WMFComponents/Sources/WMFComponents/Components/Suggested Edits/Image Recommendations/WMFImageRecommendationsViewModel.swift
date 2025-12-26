@@ -3,6 +3,7 @@ import WMFData
 import Combine
 import UIKit
 
+@MainActor
 public final class WMFImageRecommendationsViewModel: ObservableObject {
     
     // MARK: - Nested Types
@@ -13,38 +14,38 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
     }
     
     public struct LocalizedStrings {
-		public typealias SurveyLocalizedStrings =  WMFSurveyViewModel.LocalizedStrings
+        public typealias SurveyLocalizedStrings =  WMFSurveyViewModel.LocalizedStrings
         public typealias EmptyLocalizedStrings = WMFEmptyViewModel.LocalizedStrings
         public typealias TooltipLocalizedStrings = WMFTooltipViewModel.LocalizedStrings
         public typealias ErrorLocalizedStrings = WMFErrorViewModel.LocalizedStrings
 
-		public struct OnboardingStrings {
-			let title: String
-			let firstItemTitle: String
-			let firstItemBody: String
-			let secondItemTitle: String
-			let secondItemBody: String
-			let thirdItemTitle: String
-			let thirdItemBody: String
-			let continueButton: String
-			let learnMoreButton: String
+        public struct OnboardingStrings {
+            let title: String
+            let firstItemTitle: String
+            let firstItemBody: String
+            let secondItemTitle: String
+            let secondItemBody: String
+            let thirdItemTitle: String
+            let thirdItemBody: String
+            let continueButton: String
+            let learnMoreButton: String
 
-			public init(title: String, firstItemTitle: String, firstItemBody: String, secondItemTitle: String, secondItemBody: String, thirdItemTitle: String, thirdItemBody: String, continueButton: String, learnMoreButton: String) {
-				self.title = title
-				self.firstItemTitle = firstItemTitle
-				self.firstItemBody = firstItemBody
-				self.secondItemTitle = secondItemTitle
-				self.secondItemBody = secondItemBody
-				self.thirdItemTitle = thirdItemTitle
-				self.thirdItemBody = thirdItemBody
-				self.continueButton = continueButton
-				self.learnMoreButton = learnMoreButton
-			}
-		}
+            public init(title: String, firstItemTitle: String, firstItemBody: String, secondItemTitle: String, secondItemBody: String, thirdItemTitle: String, thirdItemBody: String, continueButton: String, learnMoreButton: String) {
+                self.title = title
+                self.firstItemTitle = firstItemTitle
+                self.firstItemBody = firstItemBody
+                self.secondItemTitle = secondItemTitle
+                self.secondItemBody = secondItemBody
+                self.thirdItemTitle = thirdItemTitle
+                self.thirdItemBody = thirdItemBody
+                self.continueButton = continueButton
+                self.learnMoreButton = learnMoreButton
+            }
+        }
 
         let title: String
         let viewArticle: String
-		let onboardingStrings: OnboardingStrings
+        let onboardingStrings: OnboardingStrings
         let surveyLocalizedStrings: SurveyLocalizedStrings
         let emptyLocalizedStrings: EmptyLocalizedStrings
         let errorLocalizedStrings: ErrorLocalizedStrings
@@ -196,7 +197,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    func fetchImageRecommendationsIfNeeded(completion: @escaping () -> Void) {
+    func fetchImageRecommendationsIfNeeded(completion: @escaping @MainActor () -> Void) {
         
         guard imageRecommendations.isEmpty else {
             completion()
@@ -204,17 +205,13 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         }
         
         loading = true
-        growthTasksDataController.getImageRecommendationsCombined { [weak self] result in
-            guard let self else {
-                completion()
-                return
-            }
-            
-            switch result {
-            case .success(let pages):
-                DispatchQueue.main.async {
-                    self.loadingError = nil
-                    let imageDataArray = self.getFirstImageData(for: pages)
+        
+        Task {
+            do {
+                let pages = try await growthTasksDataController.getImageRecommendationsCombined()
+                
+                    loadingError = nil
+                    let imageDataArray = getFirstImageData(for: pages)
 
                     for page in pages {
                         if let imageData = imageDataArray.first(where: { $0.pageId == page.pageid}) {
@@ -223,11 +220,9 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
                         }
                     }
                     
-                    guard let firstRecommendation = self.imageRecommendations.first else {
-                        DispatchQueue.main.async {
-                            self.loading = false
-                            completion()
-                        }
+                    guard let firstRecommendation = imageRecommendations.first else {
+                        loading = false
+                        completion()
                         return
                     }
                     
@@ -237,50 +232,51 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
                         self?.loadingError = error
                         completion()
                     }
-                }
-                
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.loading = false
-                    self.loadingError = error
-                    completion()
-                }
+            } catch {
+                loading = false
+                loadingError = error
+                completion()
             }
         }
     }
     
-    public func next(completion: @escaping () -> Void) {
+    public func next(completion: @escaping @MainActor () -> Void) {
         guard !imageRecommendations.isEmpty else {
-            self.currentRecommendation = nil
+            currentRecommendation = nil
             completion()
             return
         }
         
         let removedPage = imageRecommendations.removeFirst()
-        growthTasksDataController.remove(pageId: removedPage.pageId, from: project)
         
-        guard let nextRecommendation = imageRecommendations.first else {
-            growthTasksDataController.reset(for: project)
-            fetchImageRecommendationsIfNeeded {
-                completion()
+        Task {
+            await growthTasksDataController.remove(pageId: removedPage.pageId, from: project)
+            
+            guard let nextRecommendation = imageRecommendations.first else {
+                await growthTasksDataController.reset(for: project)
+                
+                fetchImageRecommendationsIfNeeded {
+                    completion()
+                }
+                
+                return
             }
             
-            return
-        }
-        
-        loading = true
-        
-        populateImageAndArticleSummary(for: nextRecommendation) { [weak self] error in
+                
+            loading = true
+            
+            populateImageAndArticleSummary(for: nextRecommendation) { [weak self] error in
 
-            guard let self else { return }
+                guard let self else { return }
 
-            if let currentRecommendation {
-                self.lastRecommendation = currentRecommendation
+                if let currentRecommendation {
+                    self.lastRecommendation = currentRecommendation
+                }
+                self.currentRecommendation = nextRecommendation
+                self.loading = false
+                self.loadingError = error
+                completion()
             }
-            self.currentRecommendation = nextRecommendation
-            self.loading = false
-            self.loadingError = error
-            completion()
         }
     }
     
@@ -300,12 +296,12 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
     }
 
 
-    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping (Error?) -> Void) {
+    private func populateImageAndArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping @MainActor (Error?) -> Void) {
         let group = DispatchGroup()
         var populateError: Error? = nil
 
         group.enter()
-        self.populateCurrentArticleSummary(for: imageRecommendation, completion: { error in
+        populateCurrentArticleSummary(for: imageRecommendation, completion: { error in
             if let error {
                 populateError = error
             }
@@ -313,7 +309,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         })
         
         group.enter()
-        self.populateUIImage(for: imageRecommendation.imageData) { error in
+        populateUIImage(for: imageRecommendation.imageData) { error in
             if let error {
                 populateError = error
             }

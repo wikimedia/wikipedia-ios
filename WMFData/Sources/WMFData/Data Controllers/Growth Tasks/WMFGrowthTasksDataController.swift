@@ -1,17 +1,20 @@
 import Foundation
 
-@objc public final class WMFGrowthTasksDataController: NSObject {
+// MARK: - Pure Swift Actor (Clean Implementation)
 
-    private var service = WMFDataEnvironment.current.mediaWikiService
-    let project: WMFProject
+public actor WMFGrowthTasksDataController {
+
+    private let service: WMFService?
+    private let project: WMFProject
     
     private static var currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] = [:]
 
-    public init (project: WMFProject) {
+    public init(project: WMFProject, service: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self.project = project
+        self.service = service
     }
 
-    // MARK: GET Methods
+    // MARK: Public Methods
     
     public func remove(pageId: Int, from project: WMFProject) {
         guard let recommendations = Self.currentImageRecommendations[project] else {
@@ -25,59 +28,53 @@ import Foundation
         Self.currentImageRecommendations[project] = []
     }
 
-    public func getImageRecommendationsCombined(completion: @escaping (Result<[WMFImageRecommendation.Page], Error>) -> Void) {
+    public func getImageRecommendationsCombined() async throws -> [WMFImageRecommendation.Page] {
         guard let service else {
-            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-            return
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
         
         if let currentRecommendations = Self.currentImageRecommendations[project],
            !currentRecommendations.isEmpty {
-            completion(.success(currentRecommendations))
-            return
+            return currentRecommendations
         }
 
-        let parameters: [String: Any] = [ "action": "query",
-                           "generator": "search",
-                           "gsrsearch": "hasrecommendation:image",
-                           "gsrnamespace": 0,
-                           "gsrsort": "random",
-                           "prop": "growthimagesuggestiondata|revisions|pageimages",
-                           "pilicense": "any",
-                           "rvprop": "ids|timestamp|flags|comment|user|content",
-                           "rvslots": "main",
-                           "rvsection": 0,
-                           "gsrlimit": "10",
-                           "formatversion": "2",
-                           "format": "json"
+        let parameters: [String: Any] = [
+            "action": "query",
+            "generator": "search",
+            "gsrsearch": "hasrecommendation:image",
+            "gsrnamespace": 0,
+            "gsrsort": "random",
+            "prop": "growthimagesuggestiondata|revisions|pageimages",
+            "pilicense": "any",
+            "rvprop": "ids|timestamp|flags|comment|user|content",
+            "rvslots": "main",
+            "rvsection": 0,
+            "gsrlimit": "10",
+            "formatversion": "2",
+            "format": "json"
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
+            throw WMFDataControllerError.failureCreatingRequestURL
         }
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
-        service.performDecodableGET(request: request) { [weak self] (result: Result<WMFImageRecommendationAPIResponse, Error>) in
-            
-            guard let self else {
-                return
-            }
-            
-            switch result {
-            case .success(let response):
-                Self.currentImageRecommendations[project, default: []].append(contentsOf: self.getImageSuggestions(from: response))
-                completion(.success(Self.currentImageRecommendations[project] ?? []))
-            case .failure(let error):
-                completion(.failure(error))
+        
+        let response: WMFImageRecommendationAPIResponse = try await withCheckedThrowingContinuation { continuation in
+            service.performDecodableGET(request: request) { (result: Result<WMFImageRecommendationAPIResponse, Error>) in
+                continuation.resume(with: result)
             }
         }
+        
+        let suggestions = getImageSuggestions(from: response)
+        Self.currentImageRecommendations[project, default: []].append(contentsOf: suggestions)
+        return Self.currentImageRecommendations[project] ?? []
     }
 
-    // MARK: Private methods
+    // MARK: Private Methods
 
-    fileprivate func getImageSuggestions(from response: WMFImageRecommendationAPIResponse) -> [WMFImageRecommendation.Page] {
-        var recommendationsPerPage:[WMFImageRecommendation.Page] = []
+    private func getImageSuggestions(from response: WMFImageRecommendationAPIResponse) -> [WMFImageRecommendation.Page] {
+        var recommendationsPerPage: [WMFImageRecommendation.Page] = []
 
         for page in response.query.pages {
             
@@ -95,10 +92,9 @@ import Foundation
         }
 
         return recommendationsPerPage
-
     }
 
-   fileprivate func getGrowthAPIImageSuggestions(for page: WMFImageRecommendationAPIResponse.Page) -> [WMFImageRecommendation.GrowthImageSuggestionData] {
+    private func getGrowthAPIImageSuggestions(for page: WMFImageRecommendationAPIResponse.Page) -> [WMFImageRecommendation.GrowthImageSuggestionData] {
        
         var suggestions: [WMFImageRecommendation.GrowthImageSuggestionData] = []
 
@@ -109,12 +105,11 @@ import Foundation
                 images: getImageSuggestionData(from: item))
 
             suggestions.append(item)
-
         }
         return suggestions
     }
 
-    fileprivate func getImageSuggestionRevisionData(for page: WMFImageRecommendationAPIResponse.Page) -> [WMFImageRecommendation.Revision] {
+    private func getImageSuggestionRevisionData(for page: WMFImageRecommendationAPIResponse.Page) -> [WMFImageRecommendation.Revision] {
         var revisions: [WMFImageRecommendation.Revision] = []
 
         for item in page.revisions {
@@ -124,7 +119,7 @@ import Foundation
         return revisions
     }
 
-    fileprivate func getImageSuggestionData(from suggestion: WMFImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WMFImageRecommendation.ImageSuggestion] {
+    private func getImageSuggestionData(from suggestion: WMFImageRecommendationAPIResponse.GrowthImageSuggestionData) -> [WMFImageRecommendation.ImageSuggestion] {
         var images: [WMFImageRecommendation.ImageSuggestion] = []
 
         for image in suggestion.images {
@@ -140,36 +135,55 @@ import Foundation
         return images
     }
 
-    fileprivate func getMetadataObject(from image: WMFImageRecommendationAPIResponse.ImageMetadata) -> WMFImageRecommendation.ImageMetadata {
-        let metadata = WMFImageRecommendation.ImageMetadata(descriptionUrl: image.descriptionUrl, thumbUrl: image.thumbUrl, fullUrl: image.fullUrl, originalWidth: image.originalWidth, originalHeight: image.originalHeight, mediaType: image.mediaType, description: image.description, author: image.author, license: image.license, date: image.date, caption: image.caption, categories: image.categories, reason: image.reason, contentLanguageName: image.contentLanguageName, sectionNumber: image.sectionNumber)
+    private func getMetadataObject(from image: WMFImageRecommendationAPIResponse.ImageMetadata) -> WMFImageRecommendation.ImageMetadata {
+        let metadata = WMFImageRecommendation.ImageMetadata(
+            descriptionUrl: image.descriptionUrl,
+            thumbUrl: image.thumbUrl,
+            fullUrl: image.fullUrl,
+            originalWidth: image.originalWidth,
+            originalHeight: image.originalHeight,
+            mediaType: image.mediaType,
+            description: image.description,
+            author: image.author,
+            license: image.license,
+            date: image.date,
+            caption: image.caption,
+            categories: image.categories,
+            reason: image.reason,
+            contentLanguageName: image.contentLanguageName,
+            sectionNumber: image.sectionNumber)
 
         return metadata
     }
-
 }
 
-// MARK: Types
+// MARK: - Types
 
 public enum WMFGrowthTaskType: String {
     case imageRecommendation = "image-recommendation"
 }
 
-// MARK: Objective-C Helpers
+// MARK: - Objective-C Bridge
 
-public extension WMFGrowthTasksDataController {
+@objc public final class WMFGrowthTasksDataControllerObjCBridge: NSObject {
     
-    @objc convenience init(languageCode: String) {
-        let language = WMFLanguage(languageCode: languageCode, languageVariantCode: nil)
-        self.init(project: WMFProject.wikipedia(language))
+    private let controller: WMFGrowthTasksDataController
+    
+    @objc public init(languageCode: String, languageVariantCode: String?) {
+        let language = WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode)
+        let project = WMFProject.wikipedia(language)
+        self.controller = WMFGrowthTasksDataController(project: project)
+        super.init()
     }
     
-    @objc func hasImageRecommendations(completion: @escaping (Bool) -> Void) {
-        getImageRecommendationsCombined { result in
-            switch result {
-            case .success(let pages):
+    @objc public func hasImageRecommendations(completion: @escaping @Sendable (Bool) -> Void) {
+        let controller = self.controller
+        Task {
+            do {
+                let pages = try await controller.getImageRecommendationsCombined()
                 let pagesWithSuggestions = pages.filter { !($0.growthimagesuggestiondata ?? []).isEmpty }
                 completion(!pagesWithSuggestions.isEmpty)
-            case .failure:
+            } catch {
                 completion(false)
             }
         }

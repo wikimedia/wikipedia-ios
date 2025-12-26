@@ -5,7 +5,7 @@
 @interface WMFSuggestedEditsContentSource ()
 
 @property (readwrite, nonatomic) MWKDataStore *dataStore;
-@property (readwrite, nonatomic, strong) WMFGrowthTasksDataController *growthTasksDataController;
+@property (readwrite, nonatomic, strong) WMFGrowthTasksDataControllerObjCBridge *growthTasksDataController;
 
 @end
 
@@ -17,7 +17,8 @@
     if (self) {
         self.dataStore = dataStore;
         NSString *languageCode = dataStore.languageLinkController.appLanguage.languageCode;
-        self.growthTasksDataController = [[WMFGrowthTasksDataController alloc] initWithLanguageCode:languageCode];
+        NSString *languageVariantCode = dataStore.languageLinkController.appLanguage.languageVariantCode;
+        self.growthTasksDataController = [[WMFGrowthTasksDataControllerObjCBridge alloc] initWithLanguageCode:languageCode languageVariantCode:languageVariantCode];
     }
     return self;
 }
