@@ -152,7 +152,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 
     let growthTasksDataController: WMFGrowthTasksDataController
     let articleSummaryDataController: WMFArticleSummaryDataController
-    let imageDataController: WMFImageDataController
+    let imageDataController: WMFImageDataControllerObjCBridge
     let imageRecommendationsDataController: WMFImageRecommendationsDataController
     let learnMoreURL = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Add_an_image")
 
@@ -169,7 +169,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WMFGrowthTasksDataController(project: project)
         self.articleSummaryDataController = WMFArticleSummaryDataController.shared
-        self.imageDataController = WMFImageDataController.shared
+        self.imageDataController = WMFImageDataControllerObjCBridge.shared
         self.imageRecommendationsDataController = WMFImageRecommendationsDataController()
         
         $loading
@@ -343,14 +343,18 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
             return
         }
         
-        imageDataController.fetchImageData(url: url) { result in
-            switch result {
-            case .success(let data):
-                let image = UIImage(data: data)
-                imageData.uiImage = image
-                completion(nil)
-            case .failure(let error):
+        imageDataController.fetchImageData(url: url) { data, error in
+            if let error {
                 completion(error)
+                return
+            }
+            
+            if let data {
+                imageData.uiImage = UIImage(data: data)
+                completion(nil)
+            } else {
+                completion(WMFDataControllerError.unexpectedResponse)
+                return
             }
         }
     }
