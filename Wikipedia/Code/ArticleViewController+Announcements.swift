@@ -48,7 +48,7 @@ extension ArticleViewController {
     
     private func userDonatedWithinLast250Days() -> Bool {
         
-        let donateDataController = WMFDonateDataController.shared
+        let donateDataController = WMFDonateDataControllerObjCBridge.shared
         
         let currentDate = Date()
         let twoFiftyDaysTimeInterval = TimeInterval(60*60*24*250)

@@ -545,17 +545,15 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
-        let dataController = WMFDonateDataController.shared
-        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID) { [weak self] result in
+        Task {
+            let dataController = WMFDonateDataController.shared
+            do {
+                
+                try await dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID)
             
-            guard let self else {
-                return
-            }
-            
-            switch result {
-            case .success:
                 completion(PKPaymentAuthorizationResult(status: .success, errors: []))
-                // Wait for payment sheet to dismiss
+                
+             //    Wait for payment sheet to dismiss
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
 
                     guard let self else { return }
@@ -564,7 +562,8 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                     self.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
                     self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
                 })
-            case .failure(let error):
+                
+            } catch {
                 if let dataControllerError = error as? WMFDonateDataControllerError {
                     switch dataControllerError {
                     case .paymentsWikiResponseError(_, let orderID):
@@ -582,7 +581,10 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                 
                 completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             }
+            
         }
+        
+        
     }
     
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectPaymentMethod paymentMethod: PKPaymentMethod, handler completion: @escaping (PKPaymentRequestPaymentMethodUpdate) -> Void) {
@@ -598,7 +600,10 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
     private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool, currencyCode: String) {
         let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
         
-        dataController.saveLocalDonationHistory(type: donationType, amount: finalAmount, currencyCode: currencyCode, isNative: true)
+        Task {
+            await dataController.saveLocalDonationHistory(type: donationType, amount: finalAmount, currencyCode: currencyCode, isNative: true)
+        }
+        
     }
 
 }

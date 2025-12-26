@@ -1,12 +1,14 @@
 import Foundation
 import Contacts
 
-@objc final public class WMFDonateDataController: NSObject {
+// MARK: - Pure Swift Actor (Clean Implementation)
+
+public actor WMFDonateDataController {
     
-    // MARK: - Properties
+    public static let shared = WMFDonateDataController()
     
-    var service: WMFService?
-    var sharedCacheStore: WMFKeyValueStore?
+    private let service: WMFService?
+    private let sharedCacheStore: WMFKeyValueStore?
     
     private var donateConfig: WMFDonateConfig?
     private var paymentMethods: WMFPaymentMethods?
@@ -15,34 +17,28 @@ import Contacts
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
     private let cachePaymentMethodsResponseFileName = "PaymentMethods"
     private let cacheLocalDonateHistoryFileName = "AppLocalDonationHistory"
-
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-
-    public var hasLocallySavedDonations: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue, value: newValue)
-        }
-    }
-
-    // MARK: - Lifecycle
     
-    @objc(sharedInstance)
-    public static let shared = WMFDonateDataController()
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    
+    public var hasLocallySavedDonations: Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue)) ?? false
+    }
+    
+    private func setHasLocallySavedDonations(_ value: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue, value: value)
+    }
     
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
-       self.service = service
+        self.service = service
         self.sharedCacheStore = sharedCacheStore
-   }
+    }
     
     // MARK: - Public
     
     public func loadConfigs() -> (donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?) {
         
         // First pull from memory
-        guard donateConfig == nil,
-              paymentMethods == nil else {
+        if let donateConfig, let paymentMethods {
             return (donateConfig, paymentMethods)
         }
         
@@ -67,30 +63,15 @@ import Contacts
         return (self.donateConfig, self.paymentMethods)
     }
     
-    @objc public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping (Error?) -> Void) {
-        fetchConfigs(for: countryCode) { result in
-            switch result {
-            case .success:
-                completion(nil)
-            case .failure(let error):
-                completion(error)
-            }
-        }
-    }
-    
-    public func fetchConfigs(for countryCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func fetchConfigs(for countryCode: String) async throws {
         
         guard let service else {
-            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
-            return
+            throw WMFDataControllerError.basicServiceUnavailable
         }
-        
-        let group = DispatchGroup()
         
         guard let paymentMethodsURL = URL.paymentMethodsAPIURL(),
               let donateConfigURL = URL.donateConfigURL() else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
+            throw WMFDataControllerError.failureCreatingRequestURL
         }
         
         let paymentMethodParameters: [String: Any] = [
@@ -103,82 +84,72 @@ import Contacts
             "action": "raw"
         ]
         
-        var errors: [Error] = []
-        
-        var donateConfig: WMFDonateConfig?
-        var paymentMethods: WMFPaymentMethods?
-        
-        group.enter()
-        let paymentMethodsRequest = WMFBasicServiceRequest(url: paymentMethodsURL, method: .GET, parameters: paymentMethodParameters, acceptType: .json)
-        service.performDecodableGET(request: paymentMethodsRequest) { (result: Result<WMFPaymentMethods, Error>) in
-            defer {
-                group.leave()
-            }
-            
-            switch result {
-            case .success(let response):
-                paymentMethods = response
-            case .failure(let error):
-                errors.append(error)
-            }
-        }
-        
-        group.enter()
-        let donateConfigRequest = WMFBasicServiceRequest(url: donateConfigURL, method: .GET, parameters: donateConfigParameters, acceptType: .json)
-        service.performDecodableGET(request: donateConfigRequest) { (result: Result<WMFDonateConfigResponse, Error>) in
-            
-            defer {
-                group.leave()
-            }
-            
-            switch result {
-            case .success(let response):
-                donateConfig = response.config
-            case .failure(let error):
-                errors.append(error)
-            }
-        }
-        
-        group.notify(queue: .main) {
+        // 1️⃣ Fetch payment methods (first)
+        let paymentMethods: WMFPaymentMethods = try await withCheckedThrowingContinuation { continuation in
+            let request = WMFBasicServiceRequest(
+                url: paymentMethodsURL,
+                method: .GET,
+                parameters: paymentMethodParameters,
+                acceptType: .json
+            )
 
-            if let firstError = errors.first {
-                self.donateConfig = nil
-                self.paymentMethods = nil
-                completion(.failure(firstError))
-                return
+            service.performDecodableGET(request: request) { (result: Result<WMFPaymentMethods, Error>) in
+                continuation.resume(with: result)
             }
-            
-            guard var donateConfig,
-                var paymentMethods else {
-                self.donateConfig = nil
-                self.paymentMethods = nil
-                completion(.failure(WMFServiceError.unexpectedResponse))
-                return
-            }
-            
-            donateConfig.cachedDate = Date()
-            paymentMethods.cachedDate = Date()
-            
-            self.donateConfig = donateConfig
-            self.paymentMethods = paymentMethods
-            
-            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheDonateConfigContainerFileName, value: donateConfig)
-            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cachePaymentMethodsResponseFileName, value: paymentMethods)
-            
-            completion(.success(()))
         }
+
+        // 2️⃣ Fetch donate config (second)
+        let donateConfigResponse: WMFDonateConfigResponse = try await withCheckedThrowingContinuation { continuation in
+            let request = WMFBasicServiceRequest(
+                url: donateConfigURL,
+                method: .GET,
+                parameters: donateConfigParameters,
+                acceptType: .json
+            )
+
+            service.performDecodableGET(request: request) { (result: Result<WMFDonateConfigResponse, Error>) in
+                continuation.resume(with: result)
+            }
+        }
+
+        // 3️⃣ Update cached models
+        var donateConfig = donateConfigResponse.config
+        var mutPaymentMethods = paymentMethods
+        
+        donateConfig.cachedDate = Date()
+        mutPaymentMethods.cachedDate = Date()
+        
+        self.donateConfig = donateConfig
+        self.paymentMethods = mutPaymentMethods
+        
+        try? sharedCacheStore?.save(key: cacheDirectoryName, cacheDonateConfigContainerFileName, value: donateConfig)
+        try? sharedCacheStore?.save(key: cacheDirectoryName, cachePaymentMethodsResponseFileName, value: mutPaymentMethods)
     }
     
-    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, appInstallID: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(
+        amount: Decimal,
+        countryCode: String,
+        currencyCode: String,
+        languageCode: String,
+        paymentToken: String,
+        paymentNetwork: String?,
+        donorNameComponents: PersonNameComponents,
+        recurring: Bool,
+        donorEmail: String,
+        donorAddressComponents: CNPostalAddress,
+        emailOptIn: Bool?,
+        transactionFee: Bool,
+        metricsID: String?,
+        appVersion: String?,
+        appInstallID: String?
+    ) async throws {
         
         guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
-            completion(.success(()))
             return
         }
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
+            throw WMFDataControllerError.failureCreatingRequestURL
         }
         
         var parameters: [String: String] = [
@@ -228,26 +199,24 @@ import Contacts
         if let appInstallID {
             parameters["app_install_id"] = appInstallID
         }
-            
-        let request = WMFBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
-        service?.performDecodablePOST(request: request, completion: { (result: Result<WMFPaymentSubmissionResponse, Error>) in
-            switch result {
-            case .success(let response):
-                switch response.response.status.lowercased() {
-                case "success":
-                    completion(.success(()))
-                case "error":
-                    completion(.failure(WMFDonateDataControllerError.paymentsWikiResponseError(reason: response.response.errorMessage, orderID: response.response.orderID)))
-                default:
-                    completion(.failure(WMFServiceError.unexpectedResponse))
-                }
-                return
-            case .failure(let error):
-                completion(.failure(error))
+        
+        let response: WMFPaymentSubmissionResponse = try await withCheckedThrowingContinuation { continuation in
+            let request = WMFBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
+            service?.performDecodablePOST(request: request) { (result: Result<WMFPaymentSubmissionResponse, Error>) in
+                continuation.resume(with: result)
             }
-        })
+        }
+        
+        switch response.response.status.lowercased() {
+        case "success":
+            return
+        case "error":
+            throw WMFDonateDataControllerError.paymentsWikiResponseError(reason: response.response.errorMessage, orderID: response.response.orderID)
+        default:
+            throw WMFServiceError.unexpectedResponse
+        }
     }
-
+    
     @discardableResult
     public func saveLocalDonationHistory(type: WMFDonateLocalHistory.DonationType, amount: Decimal, currencyCode: String, isNative: Bool) -> [WMFDonateLocalHistory]? {
         
@@ -257,34 +226,32 @@ import Contacts
         let donateHistory: [WMFDonateLocalHistory]? = loadLocalDonationHistory(startDate: nil, endDate: nil)
         let isFirstDonation = donateHistory?.count ?? 0 == 0
         
-        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
-                                                         donationType: type,
-                                                         donationAmount: amount,
-                                                         currencyCode: currencyCode,
-                                                         isNative: true,
-                                                         isFirstDonation: isFirstDonation)
-
+        let donationHistoryEntry = WMFDonateLocalHistory(
+            donationTimestamp: timestamp,
+            donationType: type,
+            donationAmount: amount,
+            currencyCode: currencyCode,
+            isNative: true,
+            isFirstDonation: isFirstDonation
+        )
+        
         if let donateHistory {
             var donationArray: [WMFDonateLocalHistory] = donateHistory
             donationArray.append(donationHistoryEntry)
-            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: donationArray)
+            try? sharedCacheStore?.save(key: cacheDirectoryName, cacheLocalDonateHistoryFileName, value: donationArray)
         } else {
-            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: [donationHistoryEntry])
+            try? sharedCacheStore?.save(key: cacheDirectoryName, cacheLocalDonateHistoryFileName, value: [donationHistoryEntry])
         }
-
-        hasLocallySavedDonations = true
+        
+        setHasLocallySavedDonations(true)
         return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
-
     }
-
-    // Pass in startDate and endDate to return filtered donations.
-    // If either are nil, all local donations are returned.
     
     /// Returns persisted local donation entries, filtered by date params if needed. If either startDate or endDate is nil, no filter is applied.
     /// - Parameters:
     ///   - startDate: Supply to filter out donations timestamped older than startDate
     ///   - endDate: Supply to filter out donations timestamped older than endDate
-    /// - Returns:Array of local donation entries
+    /// - Returns: Array of local donation entries
     public func loadLocalDonationHistory(startDate: Date?, endDate: Date?) -> [WMFDonateLocalHistory]? {
         
         guard let donations: [WMFDonateLocalHistory] = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName) else {
@@ -294,7 +261,6 @@ import Contacts
         guard let startDate, let endDate else {
             return donations
         }
-        
         
         let filteredDonationsByDate = donations.filter { donation in
             
@@ -310,16 +276,97 @@ import Contacts
         
         return filteredDonationsByDate
     }
-
+    
     public func deleteLocalDonationHistory() {
-        hasLocallySavedDonations = false
-        try? self.sharedCacheStore?.remove(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+        setHasLocallySavedDonations(false)
+        try? sharedCacheStore?.remove(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
     }
-
+    
     // MARK: - Internal
     
     func reset() {
         donateConfig = nil
         paymentMethods = nil
+    }
+}
+
+// MARK: - Objective-C Bridge
+
+@objc final public class WMFDonateDataControllerObjCBridge: NSObject, @unchecked Sendable {
+    
+    @objc(sharedInstance)
+    public static let shared = WMFDonateDataControllerObjCBridge(controller: .shared)
+    
+    private let controller: WMFDonateDataController
+    
+    public init(controller: WMFDonateDataController) {
+        self.controller = controller
+        super.init()
+    }
+    
+    public func loadConfigs() -> (donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?) {
+        
+        // Synchronous bridge using semaphore
+        var result: (WMFDonateConfig?, WMFPaymentMethods?) = (nil, nil)
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await controller.loadConfigs()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    @objc public var hasLocallySavedDonations: Bool {
+        // Synchronous bridge using semaphore
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await controller.hasLocallySavedDonations
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    @objc public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping @Sendable (Error?) -> Void) {
+        let controller = self.controller
+        Task {
+            do {
+                try await controller.fetchConfigs(for: countryCode)
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
+    }
+    
+    public func loadLocalDonationHistory(
+            startDate: Date?,
+            endDate: Date?
+        ) -> [WMFDonateLocalHistory]? {
+            // Synchronous bridge
+            var result: [WMFDonateLocalHistory]?
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            let localController = self.controller
+            Task {
+                result = await localController.loadLocalDonationHistory(startDate: startDate, endDate: endDate)
+                semaphore.signal()
+            }
+            
+            semaphore.wait()
+            return result
+        }
+    
+    @objc public func deleteLocalDonationHistory() {
+        let controller = self.controller
+        Task {
+            await controller.deleteLocalDonationHistory()
+        }
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WMFDonateLocalHistory: Codable {
+public final class WMFDonateLocalHistory: Codable, Sendable {
 
     public let donationTimestamp: String
     public let donationType: DonationType
@@ -11,7 +11,7 @@ public final class WMFDonateLocalHistory: Codable {
 
     // MARK: Nested Types
 
-    public enum DonationType: String, Codable {
+    public enum DonationType: String, Codable, Sendable {
         case oneTime
         case recurring
     }

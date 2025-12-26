@@ -495,7 +495,10 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
 
         let donationType: WMFDonateLocalHistory.DonationType = donationInfo.isRecurring ? .recurring : .oneTime
 
-        dataController.saveLocalDonationHistory(type: donationType, amount: decimalAmount, currencyCode: currency, isNative: false)
+        Task {
+            await dataController.saveLocalDonationHistory(type: donationType, amount: decimalAmount, currencyCode: currency, isNative: false)
+        }
+        
     }
     
     // MARK: - YiR Learn More Config Logic

@@ -1,7 +1,7 @@
 import Foundation
 
-final public class WMFPaymentSubmissionResponse: Codable {
-    public class Response: Codable {
+final public class WMFPaymentSubmissionResponse: Codable, Sendable {
+    public final class Response: Codable, Sendable {
         let status: String
         let errorMessage: String?
         let orderID: String?

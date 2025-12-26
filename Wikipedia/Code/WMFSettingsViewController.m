@@ -25,7 +25,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
-@property (readwrite, nonatomic, strong) WMFDonateDataController *donateDataController;
+@property (readwrite, nonatomic, strong) WMFDonateDataControllerObjCBridge *donateDataController;
 @property (nullable, nonatomic, strong) WMFYearInReviewCoordinator *yirCoordinator;
 
 @end
@@ -36,7 +36,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
-    vc.donateDataController = [WMFDonateDataController sharedInstance];
+    vc.donateDataController = [WMFDonateDataControllerObjCBridge sharedInstance];
     vc.theme = theme;
     return vc;
 }
@@ -366,7 +366,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)deleteLocalHistory {
-    [[WMFDonateDataControllerWrapper shared] deleteLocalDonationHistory];
+    [[WMFDonateDataControllerObjCBridge sharedInstance] deleteLocalDonationHistory];
 }
 
 - (void)showDeletionConfirmation {
@@ -622,7 +622,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [menuItems addObject:privacy];
     [menuItems addObject:terms];
 
-    BOOL hasDonations = [WMFDonateDataControllerWrapper shared].hasLocallySavedDonations;
+    BOOL hasDonations = [WMFDonateDataControllerObjCBridge sharedInstance].hasLocallySavedDonations;
     if (hasDonations) {
         [menuItems addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DonateHistory]];
     }

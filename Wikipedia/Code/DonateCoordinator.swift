@@ -151,7 +151,7 @@ class DonateCoordinator: Coordinator {
         }
         
         setLoadingBlock(true)
-        WMFDonateDataController.shared.fetchConfigsForCountryCode(countryCode) { [weak self] error in
+        WMFDonateDataControllerObjCBridge.shared.fetchConfigsForCountryCode(countryCode) { [weak self] error in
             
             DispatchQueue.main.async {
                 
@@ -329,7 +329,7 @@ class DonateCoordinator: Coordinator {
         let appVersion = Bundle.main.wmf_debugVersion()
         let appInstallID = UserDefaults.standard.wmf_appInstallId
         
-        let donateDataController = WMFDonateDataController.shared
+        let donateDataController = WMFDonateDataControllerObjCBridge.shared
         let donateData = donateDataController.loadConfigs()
         
         guard let donateConfig = donateData.donateConfig,
