@@ -31,6 +31,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private let hostingController: WMFSearchHostingController? = nil
     public let viewModel: WMFSearchViewModel? = nil
     private let dataController = WMFSearchDataController()
+    private let recentSearchesDataController = try? WMFRecentSearchesDataController()
     @objc var dataStore: MWKDataStore?
     private let source: EventLoggingSource
     
@@ -88,6 +89,57 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return try? WMFYearInReviewDataController()
     }
     
+    // MARK: - Recent Search Migration
+
+    @MainActor
+    private func migrateRecentSearchesIfNeeded() async {
+        guard
+            recentSearchesDataController?.hasMigrated == false,
+            let dataStore
+        else { return }
+
+        let oldEntries = Array(dataStore.recentSearchList.entries.prefix(20))
+        guard !oldEntries.isEmpty else {
+            recentSearchesDataController?.hasMigrated = true
+            return
+        }
+
+        do {
+            for entry in oldEntries {
+                guard let siteURL = entry.url else { continue }
+                try await recentSearchesDataController?.saveRecentSearch(
+                    term: entry.searchTerm,
+                    siteURL: siteURL
+                )
+            }
+
+            recentSearchesDataController?.hasMigrated = true
+        } catch {
+            recentSearchesDataController?.hasMigrated = false
+            DDLogError("Recent search migration failed: \(error)")
+        }
+    }
+
+    // MARK: - Load Recent Search Terms
+    @MainActor
+    private func loadRecentSearchTerms() async {
+        guard let controller = recentSearchesDataController else {
+            recentSearchTerms = []
+            recentSearchesViewModel.recentSearchTerms = []
+            return
+        }
+
+        do {
+            let terms = try await controller.fetchRecentSearches()
+            recentSearchTerms = terms.map { WMFRecentlySearchedViewModel.RecentSearchTerm(text: $0) }
+            recentSearchesViewModel.recentSearchTerms = recentSearchTerms
+        } catch {
+            DDLogError("Failed to fetch recent searches: \(error)")
+            recentSearchTerms = []
+            recentSearchesViewModel.recentSearchTerms = []
+        }
+    }
+
     
 // GREY STOPPED HERE, above is good
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
@@ -137,9 +189,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
-        updateLanguageBarVisibility()
-        reloadRecentSearches()
+
+        Task {
+            await migrateRecentSearchesIfNeeded()
+            await loadRecentSearchTerms()
+        }
     }
+
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -524,16 +580,24 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     func saveLastSearch() {
         guard
-            let term = resultsViewController.resultsInfo?.term,
-            let url = resultsViewController.searchSiteURL,
-            let entry = MWKRecentSearchEntry(url: url, searchTerm: term),
-            let dataStore
-        else {
-            return
+            let term = searchTerm,
+            let siteURL = siteURL
+        else { return }
+
+        Task {
+            try? await recentSearchesDataController?.saveRecentSearch(
+                term: term,
+                siteURL: siteURL
+            )
+            await reloadRecentSearches()
         }
-        dataStore.recentSearchList.addEntry(entry)
-        dataStore.recentSearchList.save()
-        reloadRecentSearches()
+    }
+    
+    @MainActor
+    private func reloadRecentSearches() async {
+        let terms = (try? await recentSearchesDataController?.fetchRecentSearches()) ?? []
+        recentSearchesViewModel.recentSearchTerms =
+            terms.map { .init(text: $0) }
     }
 
     @objc func makeSearchBarBecomeFirstResponder() {
@@ -568,28 +632,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }()
 
     private lazy var deleteAllAction: () -> Void = { [weak self] in
-        guard let self = self else { return }
-
         Task {
-            self.dataStore?.recentSearchList.removeAllEntries()
-            self.dataStore?.recentSearchList.save()
-            self.reloadRecentSearches()
+            try? await self?.recentSearchesDataController?.deleteAll()
+            await self?.reloadRecentSearches()
         }
-
     }
 
     private lazy var deleteItemAction: (Int) -> Void = { [weak self] index in
-        guard
-            let self = self,
-            let entry = self.recentSearches?.entries[index]
-        else {
-            return
-        }
+        guard let self else { return }
 
         Task {
-            self.dataStore?.recentSearchList.removeEntry(entry)
-            self.dataStore?.recentSearchList.save()
-            self.reloadRecentSearches()
+            try? await self.recentSearchesDataController?.deleteRecentSearch(at: index)
+            await self.reloadRecentSearches()
         }
     }
 
@@ -615,13 +669,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let vm = WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, topPadding: 0, localizedStrings: localizedStrings, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
         return vm
     }()
-
-    private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
-        guard let recent = recentSearches else { return [] }
-        return recent.entries.map {
-            WMFRecentlySearchedViewModel.RecentSearchTerm(text: $0.searchTerm)
-        }
-    }()
+    
+    private var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = []
 
     private func embedRecentSearches() {
         addChild(recentSearchesViewController)
@@ -638,25 +687,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         recentSearchesViewController.didMove(toParent: self)
     }
 
-    private func reloadRecentSearches() {
-        let entries = recentSearches?.entries ?? []
-        let terms = entries.map { entry in
-            WMFRecentlySearchedViewModel.RecentSearchTerm(text: entry.searchTerm)
-        }
-
-        recentSearchesViewModel.recentSearchTerms = terms
-        updateRecentlySearchedVisibility(
-            searchText: navigationItem.searchController?.searchBar.text
-        )
-    }
-
     public func updateRecentlySearchedVisibility(searchText: String?) {
-        guard let searchText = searchText else {
-            resultsViewController.view.isHidden = true
-            return
-        }
+        let showRecent = searchText?.isEmpty ?? true
 
-        resultsViewController.view.isHidden = searchText.isEmpty
+        recentSearchesViewController.view.isHidden = !showRecent
+        resultsViewController.view.isHidden = showRecent
     }
 
     // MARK: - Theme

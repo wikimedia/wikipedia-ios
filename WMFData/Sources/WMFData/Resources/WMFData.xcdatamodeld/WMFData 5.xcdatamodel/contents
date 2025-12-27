@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24G231" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24G90" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDArticleTab" representedClassName="CDArticleTab" syncable="YES" codeGenerationType="class">
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isCurrent" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -46,6 +46,12 @@
         <relationship name="nextPageViews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="previousPageView" inverseEntity="CDPageView"/>
         <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPage" inverseName="pageViews" inverseEntity="CDPage"/>
         <relationship name="previousPageView" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="nextPageViews" inverseEntity="CDPageView"/>
+    </entity>
+    <entity name="CDRecentSearch" representedClassName="CDRecentSearch" syncable="YES" codeGenerationType="class">
+        <attribute name="languageCode" optional="YES" attributeType="String"/>
+        <attribute name="siteURL" optional="YES" attributeType="String"/>
+        <attribute name="term" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="CDYearInReviewReport" representedClassName="CDYearInReviewReport" syncable="YES" codeGenerationType="class">
         <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
