@@ -98,7 +98,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             yearInReviewDependencies = WMFProfileViewModel.YearInReviewDependencies(dataController: yearInReviewDataController, countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject)
         }
 
-        let primaryWikiHasTempAccountsOn = WMFTempAccountDataControllerObjCBridge.shared.primaryWikiHasTempAccountsEnabled
+        let primaryWikiHasTempAccountsOn = WMFTempAccountDataControllerSyncBridge.shared.primaryWikiHasTempAccountsEnabled
 
         let viewModel = WMFProfileViewModel(
             isLoggedIn: isLoggedIn,

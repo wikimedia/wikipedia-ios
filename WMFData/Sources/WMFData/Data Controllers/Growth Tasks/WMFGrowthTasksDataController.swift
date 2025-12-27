@@ -165,7 +165,7 @@ public enum WMFGrowthTaskType: String {
 
 // MARK: - Objective-C Bridge
 
-@objc public final class WMFGrowthTasksDataControllerObjCBridge: NSObject {
+@objc public final class WMFGrowthTasksDataControllerSyncBridge: NSObject {
     
     private let controller: WMFGrowthTasksDataController
     

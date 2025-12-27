@@ -545,7 +545,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)notifyDelegateThatPreferredLanguagesDidUpdate {
     if ([self.delegate respondsToSelector:@selector(languagesController:didUpdatePreferredLanguages:)]) {
         [self.delegate languagesController:self didUpdatePreferredLanguages:MWKDataStore.shared.languageLinkController.preferredLanguages];
-        [[WMFTempAccountDataControllerObjCBridge shared] checkWikiTempAccountAvailabilityWithLanguage:MWKDataStore.shared.languageLinkController.appLanguage.languageCode isCheckingPrimaryWiki:YES];
+        [[WMFTempAccountDataControllerSyncBridge shared] checkWikiTempAccountAvailabilityWithLanguage:MWKDataStore.shared.languageLinkController.appLanguage.languageCode isCheckingPrimaryWiki:YES];
     }
 }
 

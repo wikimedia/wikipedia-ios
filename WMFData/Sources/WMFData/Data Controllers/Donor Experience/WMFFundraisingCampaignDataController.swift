@@ -371,10 +371,10 @@ public actor WMFFundraisingCampaignDataController {
 
 // MARK: - Objective-C Bridge
 
-@objc final public class WMFFundraisingCampaignDataControllerObjCBridge: NSObject, @unchecked Sendable {
+@objc final public class WMFFundraisingCampaignDataControllerSyncBridge: NSObject, @unchecked Sendable {
     
     @objc(sharedInstance)
-    public static let shared = WMFFundraisingCampaignDataControllerObjCBridge(controller: .shared)
+    public static let shared = WMFFundraisingCampaignDataControllerSyncBridge(controller: .shared)
     
     private let controller: WMFFundraisingCampaignDataController
     

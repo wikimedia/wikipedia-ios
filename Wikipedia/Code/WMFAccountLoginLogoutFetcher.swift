@@ -77,7 +77,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
             parameters["logincontinue"] = "1"
         }
 
-        if WMFDeveloperSettingsDataControllerObjCBridge.shared.forceEmailAuth {
+        if WMFDeveloperSettingsDataControllerSyncBridge.shared.forceEmailAuth {
             self.session.injectEmailAuthCookie()
         }
         

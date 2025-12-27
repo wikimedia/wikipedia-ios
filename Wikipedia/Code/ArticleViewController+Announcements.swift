@@ -48,7 +48,7 @@ extension ArticleViewController {
     
     private func userDonatedWithinLast250Days() -> Bool {
         
-        let donateDataController = WMFDonateDataControllerObjCBridge.shared
+        let donateDataController = WMFDonateDataControllerSyncBridge.shared
         
         let currentDate = Date()
         let twoFiftyDaysTimeInterval = TimeInterval(60*60*24*250)
@@ -68,7 +68,7 @@ extension ArticleViewController {
         DonateFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
         
         let dataController = WMFFundraisingCampaignDataController.shared
-        let dataControllerBridge = WMFFundraisingCampaignDataControllerObjCBridge.shared
+        let dataControllerBridge = WMFFundraisingCampaignDataControllerSyncBridge.shared
         
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 

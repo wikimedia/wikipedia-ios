@@ -11,7 +11,7 @@ extension UIViewController {
     func profileButtonConfig(target: Any, action: Selector, dataStore: MWKDataStore, yirDataController: WMFYearInReviewDataController?, leadingBarButtonItem: UIBarButtonItem?) -> WMFNavigationBarProfileButtonConfig {
         var hasUnreadNotifications: Bool = false
         
-        let isTemporaryAccount = WMFTempAccountDataControllerObjCBridge.shared.primaryWikiHasTempAccountsEnabled && dataStore.authenticationManager.authStateIsTemporary
+        let isTemporaryAccount = WMFTempAccountDataControllerSyncBridge.shared.primaryWikiHasTempAccountsEnabled && dataStore.authenticationManager.authStateIsTemporary
         
         if dataStore.authenticationManager.authStateIsPermanent || isTemporaryAccount {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()

@@ -186,9 +186,9 @@ public actor WMFDeveloperSettingsDataController: WMFDeveloperSettingsDataControl
 
 // MARK: - Objective-C Bridge
 
-@objc public final class WMFDeveloperSettingsDataControllerObjCBridge: NSObject, @unchecked Sendable {
+@objc public final class WMFDeveloperSettingsDataControllerSyncBridge: NSObject, @unchecked Sendable {
     
-    @objc public static let shared = WMFDeveloperSettingsDataControllerObjCBridge(controller: .shared)
+    @objc public static let shared = WMFDeveloperSettingsDataControllerSyncBridge(controller: .shared)
     
     private let controller: WMFDeveloperSettingsDataController
     

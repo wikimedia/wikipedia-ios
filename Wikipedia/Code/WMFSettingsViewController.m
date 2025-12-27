@@ -25,7 +25,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
-@property (readwrite, nonatomic, strong) WMFDonateDataControllerObjCBridge *donateDataController;
+@property (readwrite, nonatomic, strong) WMFDonateDataControllerSyncBridge *donateDataController;
 @property (nullable, nonatomic, strong) WMFYearInReviewCoordinator *yirCoordinator;
 
 @end
@@ -36,7 +36,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
-    vc.donateDataController = [WMFDonateDataControllerObjCBridge sharedInstance];
+    vc.donateDataController = [WMFDonateDataControllerSyncBridge sharedInstance];
     vc.theme = theme;
     return vc;
 }
@@ -366,7 +366,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)deleteLocalHistory {
-    [[WMFDonateDataControllerObjCBridge sharedInstance] deleteLocalDonationHistory];
+    [[WMFDonateDataControllerSyncBridge sharedInstance] deleteLocalDonationHistory];
 }
 
 - (void)showDeletionConfirmation {
@@ -577,7 +577,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (WMFSettingsTableViewSection *)section_1 {
     NSMutableArray *items = [NSMutableArray array];
-    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataControllerObjCBridge shared] primaryWikiHasTempAccountsEnabled];
+    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataControllerSyncBridge shared] primaryWikiHasTempAccountsEnabled];
     if (_authManager.authStateIsTemporary && primaryWikiHasTempAccounts) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_TemporaryAccount]];
     }
@@ -600,7 +600,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
     }
 
-    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataControllerObjCBridge shared] primaryWikiHasTempAccountsEnabled];
+    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataControllerSyncBridge shared] primaryWikiHasTempAccountsEnabled];
     if (_authManager.authStateIsPermanent || (_authManager.authStateIsTemporary && primaryWikiHasTempAccounts)) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
@@ -622,7 +622,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [menuItems addObject:privacy];
     [menuItems addObject:terms];
 
-    BOOL hasDonations = [WMFDonateDataControllerObjCBridge sharedInstance].hasLocallySavedDonations;
+    BOOL hasDonations = [WMFDonateDataControllerSyncBridge sharedInstance].hasLocallySavedDonations;
     if (hasDonations) {
         [menuItems addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DonateHistory]];
     }

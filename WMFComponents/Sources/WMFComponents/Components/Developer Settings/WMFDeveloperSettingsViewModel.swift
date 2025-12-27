@@ -36,27 +36,27 @@ import WMFData
         self.localizedStrings = localizedStrings
 
         // Form Items
-        let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.doNotPostImageRecommendationsEdit)
-        let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.sendAnalyticsToWMFLabs)
-        let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.bypassDonation)
-        let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.forceEmailAuth)
+        let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.doNotPostImageRecommendationsEdit)
+        let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.sendAnalyticsToWMFLabs)
+        let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.bypassDonation)
+        let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.forceEmailAuth)
         
-        let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.forceMaxArticleTabsTo5)
+        let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.forceMaxArticleTabsTo5)
         
         // V2 tabs
-        let enableMoreDynamicTabsV2GroupC = WMFFormItemSelectViewModel(title: localizedStrings.enableMoreDynamicTabsV2GroupC, isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.enableMoreDynamicTabsV2GroupC)
+        let enableMoreDynamicTabsV2GroupC = WMFFormItemSelectViewModel(title: localizedStrings.enableMoreDynamicTabsV2GroupC, isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.enableMoreDynamicTabsV2GroupC)
 
-        let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.showYiRV3)
+        let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.showYiRV3)
 
-        let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.enableYiRLoginExperimentControl)
+        let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.enableYiRLoginExperimentControl)
         
-        let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.enableYiRLoginExperimentB)
+        let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.enableYiRLoginExperimentB)
 
-        let showActivityTab = WMFFormItemSelectViewModel(title: "Show Activity Tab", isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.showActivityTab)
+        let showActivityTab = WMFFormItemSelectViewModel(title: "Show Activity Tab", isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.showActivityTab)
 
-        let activityTabForceControl =  WMFFormItemSelectViewModel(title: "Activity Tab Control (history)", isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.forceActivityTabControl)
+        let activityTabForceControl =  WMFFormItemSelectViewModel(title: "Activity Tab Control (history)", isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.forceActivityTabControl)
 
-        let activityTabForceExperiment =  WMFFormItemSelectViewModel(title: "Activity Tab Experiment", isSelected: WMFDeveloperSettingsDataControllerObjCBridge.shared.forceActivityTabExperiment)
+        let activityTabForceExperiment =  WMFFormItemSelectViewModel(title: "Activity Tab Experiment", isSelected: WMFDeveloperSettingsDataControllerSyncBridge.shared.forceActivityTabExperiment)
 
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
@@ -78,42 +78,42 @@ import WMFData
 
         // Individual Toggle Bindings
         doNotPostImageRecommendationsEditItem.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataControllerObjCBridge.shared.doNotPostImageRecommendationsEdit = isSelected }
+            .sink { isSelected in WMFDeveloperSettingsDataControllerSyncBridge.shared.doNotPostImageRecommendationsEdit = isSelected }
             .store(in: &subscribers)
 
         sendAnalyticsToWMFLabsItem.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataControllerObjCBridge.shared.sendAnalyticsToWMFLabs = isSelected }
+            .sink { isSelected in WMFDeveloperSettingsDataControllerSyncBridge.shared.sendAnalyticsToWMFLabs = isSelected }
             .store(in: &subscribers)
 
         bypassDonationItem.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataControllerObjCBridge.shared.bypassDonation = isSelected }
+            .sink { isSelected in WMFDeveloperSettingsDataControllerSyncBridge.shared.bypassDonation = isSelected }
             .store(in: &subscribers)
 
         forceEmailAuth.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataControllerObjCBridge.shared.forceEmailAuth = isSelected }
+            .sink { isSelected in WMFDeveloperSettingsDataControllerSyncBridge.shared.forceEmailAuth = isSelected }
             .store(in: &subscribers)
         
         forceMaxArticleTabsTo5.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataControllerObjCBridge.shared.forceMaxArticleTabsTo5 = isSelected }
+            .sink { isSelected in WMFDeveloperSettingsDataControllerSyncBridge.shared.forceMaxArticleTabsTo5 = isSelected }
             .store(in: &subscribers)
         
         showActivityTab.$isSelected
             .sink { isSelected in
-                WMFDeveloperSettingsDataControllerObjCBridge.shared.showActivityTab = isSelected
+                WMFDeveloperSettingsDataControllerSyncBridge.shared.showActivityTab = isSelected
 
             }
             .store(in: &subscribers)
 
         showYiRV3.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataControllerObjCBridge.shared.showYiRV3 = isSelected }
+            .sink { isSelected in WMFDeveloperSettingsDataControllerSyncBridge.shared.showYiRV3 = isSelected }
             .store(in: &subscribers)
         
         enableYiRVLoginExperimentControl.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataControllerObjCBridge.shared.enableYiRLoginExperimentControl = isSelected }
+            .sink { isSelected in WMFDeveloperSettingsDataControllerSyncBridge.shared.enableYiRLoginExperimentControl = isSelected }
             .store(in: &subscribers)
         
         enableYiRVLoginExperimentB.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataControllerObjCBridge.shared.enableYiRLoginExperimentB = isSelected }
+            .sink { isSelected in WMFDeveloperSettingsDataControllerSyncBridge.shared.enableYiRLoginExperimentB = isSelected }
             .store(in: &subscribers)
         
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(
@@ -134,14 +134,14 @@ private final class YirLoginExperimentBindingCoordinator {
 
     init(control: WMFFormItemSelectViewModel, b: WMFFormItemSelectViewModel) {
         control.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataControllerObjCBridge.shared.enableYiRLoginExperimentControl = isSelected
+            WMFDeveloperSettingsDataControllerSyncBridge.shared.enableYiRLoginExperimentControl = isSelected
             if isSelected {
                 b.isSelected = false
             }
         }.store(in: &subscribers)
 
         b.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataControllerObjCBridge.shared.enableYiRLoginExperimentB = isSelected
+            WMFDeveloperSettingsDataControllerSyncBridge.shared.enableYiRLoginExperimentB = isSelected
             if isSelected {
                 control.isSelected = false
             }
@@ -166,7 +166,7 @@ private final class ActivityTabBindingCoordinator {
 
         control.$isSelected
             .sink { isSelected in
-                WMFDeveloperSettingsDataControllerObjCBridge.shared.forceActivityTabControl = isSelected
+                WMFDeveloperSettingsDataControllerSyncBridge.shared.forceActivityTabControl = isSelected
 
                 guard isSelected else {
                     return
@@ -183,7 +183,7 @@ private final class ActivityTabBindingCoordinator {
 
         experiment.$isSelected
             .sink { isSelected in
-                WMFDeveloperSettingsDataControllerObjCBridge.shared.forceActivityTabExperiment = isSelected
+                WMFDeveloperSettingsDataControllerSyncBridge.shared.forceActivityTabExperiment = isSelected
 
                 if isSelected {
                     if !main.isSelected {

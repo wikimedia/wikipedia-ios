@@ -9,7 +9,7 @@
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 @property (readwrite, nonatomic, strong) WMFAnnouncementsFetcher *fetcher;
 @property (readwrite, nonatomic, strong) MWKDataStore *userDataStore;
-@property (readwrite, nonatomic, strong) WMFFundraisingCampaignDataControllerObjCBridge *fundraisingCampaignDataController;
+@property (readwrite, nonatomic, strong) WMFFundraisingCampaignDataControllerSyncBridge *fundraisingCampaignDataController;
 @property (readonly, nonatomic, assign) BOOL isLoggedIn;
 
 @end
@@ -23,7 +23,7 @@
         self.siteURL = siteURL;
         self.userDataStore = userDataStore;
         self.fetcher = [[WMFAnnouncementsFetcher alloc] initWithSession:userDataStore.session configuration:userDataStore.configuration];
-        self.fundraisingCampaignDataController = [WMFFundraisingCampaignDataControllerObjCBridge sharedInstance];
+        self.fundraisingCampaignDataController = [WMFFundraisingCampaignDataControllerSyncBridge sharedInstance];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userWasLoggedIn:)
                                                      name:[WMFAuthenticationManager didLogInNotification]

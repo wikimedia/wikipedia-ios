@@ -81,7 +81,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         
         apply(theme: theme)
 
-        if WMFTempAccountDataControllerObjCBridge.shared.primaryWikiHasTempAccountsEnabled {
+        if WMFTempAccountDataControllerSyncBridge.shared.primaryWikiHasTempAccountsEnabled {
             let authManager = dataStore.authenticationManager
             if authManager.authStateIsTemporary {
                 let viewModel = WMFTempAccountsToastViewModel(

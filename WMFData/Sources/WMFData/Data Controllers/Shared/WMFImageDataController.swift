@@ -111,9 +111,9 @@ private extension WMFImageDataController {
 
 // MARK: - Objective-C Bridge
 
-@objc public final class WMFImageDataControllerObjCBridge: NSObject, @unchecked Sendable {
+@objc public final class WMFImageDataControllerSyncBridge: NSObject, @unchecked Sendable {
     
-    @objc public static let shared = WMFImageDataControllerObjCBridge(controller: .shared)
+    @objc public static let shared = WMFImageDataControllerSyncBridge(controller: .shared)
     
     private let controller: WMFImageDataController
     

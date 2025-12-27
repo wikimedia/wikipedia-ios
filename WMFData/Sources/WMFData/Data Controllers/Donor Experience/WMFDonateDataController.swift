@@ -293,10 +293,10 @@ public actor WMFDonateDataController {
 
 // MARK: - Objective-C Bridge
 
-@objc final public class WMFDonateDataControllerObjCBridge: NSObject, @unchecked Sendable {
+@objc final public class WMFDonateDataControllerSyncBridge: NSObject, @unchecked Sendable {
     
     @objc(sharedInstance)
-    public static let shared = WMFDonateDataControllerObjCBridge(controller: .shared)
+    public static let shared = WMFDonateDataControllerSyncBridge(controller: .shared)
     
     private let controller: WMFDonateDataController
     

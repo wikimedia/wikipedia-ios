@@ -517,7 +517,7 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         loggingDelegate?.handleDonateLoggingAction(.nativeFormDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, metricsID: metricsID))
 
         let paymentToken: String
-        if !WMFDeveloperSettingsDataControllerObjCBridge.shared.bypassDonation {
+        if !WMFDeveloperSettingsDataControllerSyncBridge.shared.bypassDonation {
             guard !payment.token.paymentData.isEmpty,
                   let token = String(data: payment.token.paymentData, encoding: .utf8) else {
                 let error = Error.invalidToken

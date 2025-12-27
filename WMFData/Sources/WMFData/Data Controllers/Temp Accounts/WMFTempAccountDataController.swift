@@ -100,9 +100,9 @@ private struct AutoCreateTempUser: Codable {
 
 // MARK: - Objective-C Bridge
 
-@objc public final class WMFTempAccountDataControllerObjCBridge: NSObject, @unchecked Sendable {
+@objc public final class WMFTempAccountDataControllerSyncBridge: NSObject, @unchecked Sendable {
     
-    @objc public static let shared = WMFTempAccountDataControllerObjCBridge(controller: .shared)
+    @objc public static let shared = WMFTempAccountDataControllerSyncBridge(controller: .shared)
     
     private let controller: WMFTempAccountDataController
     
