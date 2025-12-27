@@ -334,7 +334,7 @@ public actor WMFDonateDataController {
         return result
     }
     
-    @objc public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping @Sendable (Error?) -> Void) {
+    public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping @Sendable (Error?) -> Void) {
         let controller = self.controller
         Task {
             do {
