@@ -4,8 +4,8 @@ import WMFData
 
 final class SearchResultsViewController: ArticleCollectionViewController {
 
-    var resultsInfo: WMFSearchDataController.SearchResults?
-    var results: [WMFSearchDataController.SearchResult] = [] {
+    var resultsInfo: SearchResults?
+    var results: [SearchResult] = [] {
         didSet {
             assert(Thread.isMainThread)
             reload()
@@ -104,7 +104,7 @@ final class SearchResultsViewController: ArticleCollectionViewController {
     // MARK: - Description handling (HTML FIX)
 
     private func descriptionForSearchResult(
-        _ result: WMFSearchDataController.SearchResult
+        _ result: SearchResult
     ) -> String? {
 
         guard let html = result.description else {

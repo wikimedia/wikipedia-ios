@@ -4,83 +4,68 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 
-final class WMFSearchHostingController: WMFComponentHostingController<WMFSearchView> {}
+final class SearchHostingController: WMFComponentHostingController<WMFSearchView> {}
 
 class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     @objc enum EventLoggingSource: Int {
-        case searchTab
-        case topOfFeed
-        case article
-        case unknown
-
+        case searchTab, topOfFeed, article, unknown
         var stringValue: String {
             switch self {
-            case .article:
-                return "article"
-            case .topOfFeed:
-                return "top_of_feed"
-            case .searchTab:
-                return "search_tab"
-            case .unknown:
-                return "unknown"
+            case .article: return "article"
+            case .topOfFeed: return "top_of_feed"
+            case .searchTab: return "search_tab"
+            case .unknown: return "unknown"
             }
         }
     }
-    
-    // temporarily nil
-    private let hostingController: WMFSearchHostingController? = nil
-    public let viewModel: WMFSearchViewModel? = nil
+
     private let dataController = WMFSearchDataController()
-    private let recentSearchesDataController = try? WMFRecentSearchesDataController()
+    private let recentSearchesDataController = WMFRecentSearchesDataController()
     @objc var dataStore: MWKDataStore?
     private let source: EventLoggingSource
-    
-    
-    // Properties needed for Profile Button
+
+    // MARK: - Profile / YIR Coordinators
 
     private var _yirCoordinator: YearInReviewCoordinator?
     var yirCoordinator: YearInReviewCoordinator? {
-
         guard let navigationController,
               let yirDataController,
-              let dataStore else {
-            return nil
-        }
+              let dataStore else { return nil }
 
-        guard let existingYirCoordinator = _yirCoordinator else {
-            _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
-            _yirCoordinator?.badgeDelegate = self
-            return _yirCoordinator
-        }
-
-        return existingYirCoordinator
+        if let existing = _yirCoordinator { return existing }
+        _yirCoordinator = YearInReviewCoordinator(
+            navigationController: navigationController,
+            theme: theme,
+            dataStore: dataStore,
+            dataController: yirDataController
+        )
+        _yirCoordinator?.badgeDelegate = self
+        return _yirCoordinator
     }
 
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
-
         guard let navigationController,
-        let yirCoordinator = self.yirCoordinator,
-            let dataStore else {
-            return nil
-        }
+              let yirCoordinator = self.yirCoordinator,
+              let dataStore else { return nil }
 
-        guard let existingProfileCoordinator = _profileCoordinator else {
-            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .searchProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.search, yirCoordinator: yirCoordinator)
-            _profileCoordinator?.badgeDelegate = self
-            return _profileCoordinator
-        }
-
-        return existingProfileCoordinator
+        if let existing = _profileCoordinator { return existing }
+        _profileCoordinator = ProfileCoordinator(
+            navigationController: navigationController,
+            theme: theme,
+            dataStore: dataStore,
+            donateSouce: .searchProfile,
+            logoutDelegate: self,
+            sourcePage: .search,
+            yirCoordinator: yirCoordinator
+        )
+        _profileCoordinator?.badgeDelegate = self
+        return _profileCoordinator
     }
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController, let dataStore else { return nil }
-        return TabsOverviewCoordinator(
-            navigationController: nav,
-            theme: self.theme,
-            dataStore: dataStore
-        )
+        return TabsOverviewCoordinator(navigationController: nav, theme: self.theme, dataStore: dataStore)
     }()
 
     var customTabConfigUponArticleNavigation: ArticleTabConfig?
@@ -88,64 +73,82 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
-    
-    // MARK: - Recent Search Migration
+
+    // MARK: - Recent Searches
 
     @MainActor
     private func migrateRecentSearchesIfNeeded() async {
-        guard
-            recentSearchesDataController?.hasMigrated == false,
-            let dataStore
-        else { return }
+        guard recentSearchesDataController.hasMigrated == false, let dataStore else { return }
 
         let oldEntries = Array(dataStore.recentSearchList.entries.prefix(20))
         guard !oldEntries.isEmpty else {
-            recentSearchesDataController?.hasMigrated = true
+            recentSearchesDataController.hasMigrated = true
             return
         }
 
         do {
             for entry in oldEntries {
                 guard let siteURL = entry.url else { continue }
-                try await recentSearchesDataController?.saveRecentSearch(
-                    term: entry.searchTerm,
-                    siteURL: siteURL
-                )
+                try await recentSearchesDataController.saveRecentSearch(term: entry.searchTerm, siteURL: siteURL)
             }
-
-            recentSearchesDataController?.hasMigrated = true
+            recentSearchesDataController.hasMigrated = true
         } catch {
-            recentSearchesDataController?.hasMigrated = false
+            recentSearchesDataController.hasMigrated = false
             DDLogError("Recent search migration failed: \(error)")
         }
     }
 
-    // MARK: - Load Recent Search Terms
     @MainActor
     private func loadRecentSearchTerms() async {
-        guard let controller = recentSearchesDataController else {
-            recentSearchTerms = []
-            recentSearchesViewModel.recentSearchTerms = []
-            return
-        }
-
         do {
-            let terms = try await controller.fetchRecentSearches()
-            recentSearchTerms = terms.map { WMFRecentlySearchedViewModel.RecentSearchTerm(text: $0) }
-            recentSearchesViewModel.recentSearchTerms = recentSearchTerms
+            let terms = try await recentSearchesDataController.fetchRecentSearches()
+            wmfSearchViewModel.recentSearches = terms.map { WMFSearchViewModel.RecentSearchTerm(text: $0) }
         } catch {
             DDLogError("Failed to fetch recent searches: \(error)")
-            recentSearchTerms = []
-            recentSearchesViewModel.recentSearchTerms = []
+            wmfSearchViewModel.recentSearches = []
         }
     }
 
-    
-// GREY STOPPED HERE, above is good
-    // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
+    // MARK: - SwiftUI Search View
+
+    private lazy var searchSwiftUIView: WMFSearchView = WMFSearchView(viewModel: wmfSearchViewModel)
+    private lazy var searchHostingController: UIHostingController<WMFSearchView> = {
+        let host = UIHostingController(rootView: searchSwiftUIView)
+        host.view.backgroundColor = .clear
+        return host
+    }()
+
+    @MainActor
+    private lazy var wmfSearchViewModel: WMFSearchViewModel = {
+        let vm = WMFSearchViewModel(
+            dataController: dataController,
+            localizedStrings: WMFSearchViewModel.LocalizedStrings(
+                recentTitle: CommonStrings.recentlySearchedTitle,
+                noSearches: CommonStrings.recentlySearchedEmpty,
+                clearAll: CommonStrings.clearRecentSearchesDialogTitle,
+                deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
+            )
+        )
+
+        vm.didTapSearchResult = { [weak self] result in
+            guard let self, let url = result.articleURL else { return }
+            self.saveLastSearch()
+
+            if let navigateToSearchResultAction {
+                navigateToSearchResultAction(url)
+            } else if let customNav = self.customArticleCoordinatorNavigationController ?? self.navigationController {
+                let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
+                let coordinator = LinkCoordinator(navigationController: customNav, url: url, dataStore: self.dataStore, theme: self.theme, articleSource: .search, tabConfig: tabConfig)
+                _ = coordinator.start()
+            }
+        }
+
+        return vm
+    }()
+
+    // MARK: - General Properties
+
     var navigateToSearchResultAction: ((URL) -> Void)?
-    
-    // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
     var populateSearchBarWithTextAction: ((String) -> Void)?
 
     var customTitle: String?
@@ -158,30 +161,24 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     var topSafeAreaOverlayView: UIView?
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
 
-    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController (i.e. Explore and Article).
     private var customArticleCoordinatorNavigationController: UINavigationController?
-
     private var presentingSearchResults: Bool = false
 
     // MARK: - Lifecycle
 
-    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil,  isMainRootView: Bool = false) {
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, isMainRootView: Bool = false) {
         self.source = source
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
         self.isMainRootView = isMainRootView
         super.init(nibName: nil, bundle: nil)
-        if !isMainRootView {
-            hidesBottomBarWhenPushed = true
-        }
+        if !isMainRootView { hidesBottomBarWhenPushed = true }
     }
 
-    @MainActor required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    @MainActor required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        embedRecentSearches()
+        embedSearchSwiftUIView()
         embedResultsViewController()
         updateLanguageBarVisibility()
     }
@@ -189,13 +186,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
-
         Task {
             await migrateRecentSearchesIfNeeded()
             await loadRecentSearchTerms()
         }
     }
-
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -216,42 +211,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        if let searchLanguageBarViewController {
-            recentSearchesViewModel.topPadding = searchLanguageBarViewController.view.bounds.height
-            resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
-        } else {
-            recentSearchesViewModel.topPadding = 0
-            resultsViewController.collectionView.contentInset.top = 0
-        }
+        let topPadding = searchLanguageBarViewController?.view.bounds.height ?? 0
+        resultsViewController.collectionView.contentInset.top = topPadding
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    @objc var shouldBecomeFirstResponder: Bool = false
 
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
-                }
-            }
-        }
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-
-        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.calculateTopSafeAreaOverlayHeight()
-        }
-    }
-
-    // MARK: - Navigation bar configuring
+    // MARK: - Navigation Bar & Buttons
 
     private func configureNavigationBar() {
-
         let title = customTitle ?? CommonStrings.searchTitle
-
         var alignment: WMFNavigationBarTitleConfig.Alignment = needsCenteredTitle ? .centerCompact : .leadingCompact
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
@@ -260,57 +229,26 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
-        let wButton = UIButton(type: .custom)
-            wButton.setImage(UIImage(named: "W"), for: .normal)
 
-        var titleConfig: WMFNavigationBarTitleConfig
-        titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
-
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .leadingLarge)
-            }
-        }
-
-        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
-        if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
-        } else {
-            profileButtonConfig = nil
-            tabsButtonConfig = nil
-        }
-        
+        let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
+        let profileButtonConfig = dataStore.map { self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: $0, yirDataController: yirDataController, leadingBarButtonItem: nil) }
+        let tabsButtonConfig = dataStore.map { self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: $0) }
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: nil, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
     }
 
     private func updateProfileButton() {
-
-        guard let dataStore else {
-            return
-        }
-
+        guard let dataStore else { return }
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
     @objc func userDidTapProfile() {
-
-        guard let dataStore else {
-            return
-        }
-
+        guard let dataStore else { return }
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-              let metricsID = DonateCoordinator.metricsID(for: .searchProfile, languageCode: languageCode) else {
-            return
-        }
-
+              let metricsID = DonateCoordinator.metricsID(for: .searchProfile, languageCode: languageCode) else { return }
         DonateFunnel.shared.logSearchProfile(metricsID: metricsID)
-
         profileCoordinator?.start()
     }
 
@@ -319,6 +257,28 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         ArticleTabsFunnel.shared.logIconClick(interface: .search, project: nil)
     }
 
+    // MARK: - Embed Views
+
+    private func embedSearchSwiftUIView() {
+        addChild(searchHostingController)
+        view.addSubview(searchHostingController.view)
+        searchHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchHostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            searchHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchHostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchHostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        searchHostingController.didMove(toParent: self)
+    }
+
+    lazy var resultsViewController: SearchResultsViewController = {
+        let vc = SearchResultsViewController()
+        vc.dataStore = dataStore
+        vc.apply(theme: theme)
+        return vc
+    }()
+
     private func embedResultsViewController() {
         addChild(resultsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
@@ -326,93 +286,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         updateRecentlySearchedVisibility(searchText: nil)
     }
 
-    private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
-        if let vc = self.searchLanguageBarViewController {
-            return vc
-        }
-        let searchLanguageBarViewController = SearchLanguagesBarViewController()
-        searchLanguageBarViewController.apply(theme: theme)
-        searchLanguageBarViewController.delegate = self
-        self.searchLanguageBarViewController = searchLanguageBarViewController
-        return searchLanguageBarViewController
-    }
-
-    var searchLanguageBarTopConstraint: NSLayoutConstraint?
-    private func updateLanguageBarVisibility() {
-        let showLanguageBar = self.showLanguageBar ?? UserDefaults.standard.wmf_showSearchLanguageBar()
-        if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
-            let searchLanguageBarViewController = setupLanguageBarViewController()
-            addChild(searchLanguageBarViewController)
-            searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
-
-            let searchLanguageBarTopConstraint = searchLanguageBarViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top)
-            self.searchLanguageBarTopConstraint = searchLanguageBarTopConstraint
-
-            view.addSubview(searchLanguageBarViewController.view)
-            NSLayoutConstraint.activate([
-                searchLanguageBarTopConstraint,
-                view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: searchLanguageBarViewController.view.leadingAnchor),
-                view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: searchLanguageBarViewController.view.trailingAnchor)
-            ])
-
-            searchLanguageBarViewController.didMove(toParent: self)
-            searchLanguageBarViewController.view.isHidden = false
-        } else if !showLanguageBar && searchLanguageBarViewController != nil {
-
-            if let searchLanguageBarViewController {
-                searchLanguageBarViewController.willMove(toParent: nil)
-                searchLanguageBarViewController.view.removeFromSuperview()
-                searchLanguageBarViewController.removeFromParent()
-                self.searchLanguageBarViewController = nil
-                self.searchLanguageBarTopConstraint = nil
-            }
-        }
-        view.setNeedsLayout()
-    }
-
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-
-        guard needsAnimateLanguageBarMovement else {
-            searchLanguageBarTopConstraint?.constant = view.safeAreaInsets.top
-            view.layoutIfNeeded()
-            return
-        }
-
-        searchLanguageBarTopConstraint?.constant = view.safeAreaInsets.top
-        UIView.animate(withDuration: 0.2) {
-            self.view.layoutIfNeeded()
-        }
-    }
-
     // MARK: - Search
 
-    @objc var shouldBecomeFirstResponder: Bool = false
-
-    var showLanguageBar: Bool?
-
-    var searchTerm: String?
-    private var lastSearchSiteURL: URL?
-    private var _siteURL: URL?
-
-    var siteURL: URL? {
-        get {
-            return _siteURL ?? searchLanguageBarViewController?.selectedSiteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
-        }
-        set {
-            _siteURL = newValue
-        }
+    func search() {
+        search(for: searchTerm, suggested: false)
     }
-
-    @objc func searchAndMakeResultsVisibleForSearchTerm(_ term: String?, animated: Bool) {
+    
+    @objc(searchAndMakeResultsVisibleForSearchTerm:animated:)
+    func searchAndMakeResultsVisible(for term: String?, animated: Bool) {
         searchTerm = term
         navigationItem.searchController?.searchBar.text = term
         search(for: searchTerm, suggested: false)
         navigationItem.searchController?.searchBar.becomeFirstResponder()
-    }
-
-    func search() {
-        search(for: searchTerm, suggested: false)
     }
     
     private func search(for searchTerm: String?, suggested: Bool) {
@@ -437,7 +322,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         Task {
             do {
-                // Fetch standard search results
                 let results = try await dataController.searchArticles(
                     term: searchTerm,
                     siteURL: siteURL,
@@ -462,7 +346,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                     )
                 }
 
-                // Optional: perform full-text search if fewer than 12 results
                 if results.results.count < 12 {
                     let fullTextResults = try await dataController.searchArticles(
                         term: searchTerm,
@@ -498,6 +381,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
     }
 
+
+    @objc func makeSearchBarBecomeFirstResponder() {
+        if !(navigationItem.searchController?.searchBar.isFirstResponder ?? false) {
+            navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
+    }
+
+    @objc func clear() {
+        didCancelSearch()
+        updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
+    }
+
     func resetSearchResults() {
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
@@ -509,209 +404,84 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         navigationItem.searchController?.searchBar.text = nil
     }
 
-    @objc func clear() {
-        didCancelSearch()
-        updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
-    }
-
-    lazy var resultsViewController: SearchResultsViewController = {
-        let resultsViewController = SearchResultsViewController()
-        resultsViewController.dataStore = dataStore
-        resultsViewController.apply(theme: theme)
-
-        let tappedSearchResultAction: (URL, IndexPath) -> Void = { [weak self] articleURL, indexPath in
-
-            guard let self else {
-                return
-            }
-            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue)
-
-            saveLastSearch()
-
-            if let navigateToSearchResultAction {
-                navigateToSearchResultAction(articleURL)
-            } else if let customArticleCoordinatorNavigationController {
-                
-                let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
-
-                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
-                let success = linkCoordinator.start()
-
-                if !success {
-                    navigate(to: articleURL)
-                }
-
-            } else if let navigationController {
-                
-                let tabConfig = self.customTabConfigUponArticleNavigation
-
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
-                let success = linkCoordinator.start()
-
-                if !success {
-                    navigate(to: articleURL)
-                }
-            }
-        }
-
-        let longPressSearchResultAndCommitAction: (URL) -> Void = { [weak self] articleURL in
-            guard let self, let dataStore = self.dataStore else { return }
-            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
-            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: .search)
-            coordinator.start()
-        }
-
-        let longPressOpenInNewTabAction: (URL) -> Void = { [weak self] articleURL in
-            guard let self else { return }
-
-            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
-            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignCurrentTab)
-            articleCoordinator.start()
-        }
-
-        resultsViewController.tappedSearchResultAction = tappedSearchResultAction
-        resultsViewController.longPressSearchResultAndCommitAction = longPressSearchResultAndCommitAction
-        resultsViewController.longPressOpenInNewTabAction = longPressOpenInNewTabAction
-
-        return resultsViewController
-    }()
-
-    // MARK: - Recent Search Saving
-
-    func saveLastSearch() {
-        guard
-            let term = searchTerm,
-            let siteURL = siteURL
-        else { return }
-
-        Task {
-            try? await recentSearchesDataController?.saveRecentSearch(
-                term: term,
-                siteURL: siteURL
-            )
-            await reloadRecentSearches()
-        }
-    }
-    
-    @MainActor
-    private func reloadRecentSearches() async {
-        let terms = (try? await recentSearchesDataController?.fetchRecentSearches()) ?? []
-        recentSearchesViewModel.recentSearchTerms =
-            terms.map { .init(text: $0) }
-    }
-
-    @objc func makeSearchBarBecomeFirstResponder() {
-        if !(navigationItem.searchController?.searchBar.isFirstResponder ?? false) {
-            navigationItem.searchController?.searchBar.becomeFirstResponder()
-        }
-    }
-
-    // MARK: - Recently Searched
-
-    var recentSearches: MWKRecentSearchList? {
-        return self.dataStore?.recentSearchList
-    }
-
-    var countOfRecentSearches: Int {
-        return recentSearches?.entries.count ?? 0
-    }
-
-    lazy var didPressClearRecentSearches: () -> Void = { [weak self] in
-        let dialog = UIAlertController(title: CommonStrings.clearRecentSearchesDialogTitle, message: CommonStrings.clearRecentSearchesDialogSubtitle, preferredStyle: .alert)
-        dialog.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
-        dialog.addAction(UIAlertAction(title: CommonStrings.deleteAllTitle, style: .destructive, handler: { (action) in
-            self?.deleteAllAction()
-        }))
-        self?.present(dialog, animated: true)
-    }
-
-    private lazy var recentSearchesViewController: UIViewController = {
-        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
-        let host = UIHostingController(rootView: root)
-        return host
-    }()
-
-    private lazy var deleteAllAction: () -> Void = { [weak self] in
-        Task {
-            try? await self?.recentSearchesDataController?.deleteAll()
-            await self?.reloadRecentSearches()
-        }
-    }
-
-    private lazy var deleteItemAction: (Int) -> Void = { [weak self] index in
-        guard let self else { return }
-
-        Task {
-            try? await self.recentSearchesDataController?.deleteRecentSearch(at: index)
-            await self.reloadRecentSearches()
-        }
-    }
-
-    lazy var selectAction: (WMFRecentlySearchedViewModel.RecentSearchTerm) -> Void = { [weak self] term in
-        guard let self = self else { return }
-
-        if let pop = self.populateSearchBarWithTextAction {
-            pop(term.text)
-        } else {
-            self.navigationItem.searchController?.searchBar.text = term.text
-            self.navigationItem.searchController?.searchBar.becomeFirstResponder()
-        }
-        self.search()
-    }
-
-    private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
-        let localizedStrings = WMFRecentlySearchedViewModel.LocalizedStrings(
-            title: CommonStrings.recentlySearchedTitle,
-            noSearches: CommonStrings.recentlySearchedEmpty,
-            clearAll: CommonStrings.clearTitle,
-            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle, editButtonTitle: CommonStrings.editContextMenuTitle
-        )
-        let vm = WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, topPadding: 0, localizedStrings: localizedStrings, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
-        return vm
-    }()
-    
-    private var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = []
-
-    private func embedRecentSearches() {
-        addChild(recentSearchesViewController)
-        view.addSubview(recentSearchesViewController.view)
-        recentSearchesViewController.view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            recentSearchesViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            recentSearchesViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recentSearchesViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recentSearchesViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
-        recentSearchesViewController.didMove(toParent: self)
-    }
-
     public func updateRecentlySearchedVisibility(searchText: String?) {
         let showRecent = searchText?.isEmpty ?? true
-
-        recentSearchesViewController.view.isHidden = !showRecent
         resultsViewController.view.isHidden = showRecent
     }
 
-    // MARK: - Theme
-
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        guard viewIfLoaded != nil else {
-            return
+    func saveLastSearch() {
+        guard let term = searchTerm, let siteURL = siteURL else { return }
+        Task {
+            try? await recentSearchesDataController.saveRecentSearch(term: term, siteURL: siteURL)
+            await reloadRecentSearches()
         }
-
-        searchLanguageBarViewController?.apply(theme: theme)
-        resultsViewController.apply(theme: theme)
-        view.backgroundColor = theme.colors.paperBackground
-        themeTopSafeAreaOverlay()
-        updateProfileButton()
-        profileCoordinator?.theme = theme
     }
 
+    @MainActor
+    private func reloadRecentSearches() async {
+        let terms = (try? await recentSearchesDataController.fetchRecentSearches()) ?? []
+        wmfSearchViewModel.recentSearches = terms.map { WMFSearchViewModel.RecentSearchTerm(text: $0) }
+    }
+
+    var searchTerm: String?
+    private var lastSearchSiteURL: URL?
+    private var _siteURL: URL?
+
+    var siteURL: URL? {
+        get { _siteURL ?? searchLanguageBarViewController?.selectedSiteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale() }
+        set { _siteURL = newValue }
+    }
+
+    var showLanguageBar: Bool?
+
+    private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
+        if let vc = self.searchLanguageBarViewController { return vc }
+        let vc = SearchLanguagesBarViewController()
+        vc.apply(theme: theme)
+        vc.delegate = self
+        self.searchLanguageBarViewController = vc
+        return vc
+    }
+
+    var searchLanguageBarTopConstraint: NSLayoutConstraint?
+    private func updateLanguageBarVisibility() {
+        let showLanguageBar = self.showLanguageBar ?? UserDefaults.standard.wmf_showSearchLanguageBar()
+        if showLanguageBar && searchLanguageBarViewController == nil {
+            let vc = setupLanguageBarViewController()
+            addChild(vc)
+            vc.view.translatesAutoresizingMaskIntoConstraints = false
+            let topConstraint = vc.view.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top)
+            self.searchLanguageBarTopConstraint = topConstraint
+            view.addSubview(vc.view)
+            NSLayoutConstraint.activate([
+                topConstraint,
+                view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
+                view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor)
+            ])
+            vc.didMove(toParent: self)
+            vc.view.isHidden = false
+        } else if !showLanguageBar, let vc = searchLanguageBarViewController {
+            vc.willMove(toParent: nil)
+            vc.view.removeFromSuperview()
+            vc.removeFromParent()
+            self.searchLanguageBarViewController = nil
+            self.searchLanguageBarTopConstraint = nil
+        }
+        view.setNeedsLayout()
+    }
+
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        searchLanguageBarTopConstraint?.constant = view.safeAreaInsets.top
+        if needsAnimateLanguageBarMovement {
+            UIView.animate(withDuration: 0.2) { self.view.layoutIfNeeded() }
+        } else {
+            view.layoutIfNeeded()
+        }
+    }
 }
 
+// MARK: - SearchLanguagesBarViewControllerDelegate
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
         SearchFunnel.shared.logSearchLangSwitch(source: source.stringValue)
@@ -719,34 +489,26 @@ extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     }
 }
 
+// MARK: - UISearchResultsUpdating
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text,
-        !text.isEmpty else {
+        guard let text = searchController.searchBar.text, !text.isEmpty else {
             searchTerm = nil
             updateRecentlySearchedVisibility(searchText: nil)
             return
         }
-
-        if let lastSearchSiteURL,
-           searchTerm == text && lastSearchSiteURL == siteURL {
-            return
-        }
-
         searchTerm = text
-        updateRecentlySearchedVisibility(searchText: text)
-        search(for: text, suggested: false)
+        wmfSearchViewModel.searchQuery = text
+        Task { await wmfSearchViewModel.performSearch(query: text) }
     }
 }
 
+// MARK: - UISearchControllerDelegate
 extension SearchViewController: UISearchControllerDelegate {
     func didPresentSearchController(_ searchController: UISearchController) {
         if shouldBecomeFirstResponder {
-            DispatchQueue.main.async {[weak self] in
-                self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
-            }
+            DispatchQueue.main.async { [weak self] in self?.navigationItem.searchController?.searchBar.becomeFirstResponder() }
         }
-
         needsAnimateLanguageBarMovement = false
     }
 
@@ -768,25 +530,24 @@ extension SearchViewController: UISearchControllerDelegate {
     }
 }
 
+// MARK: - UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         navigationItem.searchController?.isActive = false
     }
 }
 
+// MARK: - LogoutCoordinatorDelegate
 extension SearchViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
-
-        guard let dataStore else {
-            return
-        }
-
+        guard let dataStore else { return }
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             dataStore.authenticationManager.logout(initiatedBy: .user)
         }
     }
 }
 
+// MARK: - YearInReviewBadgeDelegate
 extension SearchViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()

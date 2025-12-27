@@ -3,32 +3,6 @@ import CoreLocation
 
 public final class WMFSearchDataController {
 
-    // MARK: - Models
-
-    public struct SearchResult: Identifiable, Equatable {
-        public let id: Int
-        public let title: String
-        public let displayTitle: String?
-        public let displayTitleHTML: String?
-        public let description: String?
-        public let extract: String?
-        public let thumbnailURL: URL?
-        public let index: Int?
-        public let namespace: Int?
-        public let location: CLLocation?
-        public let articleURL: URL?
-    }
-
-    public struct SearchResults: Sequence {
-        public let term: String
-        public let results: [SearchResult]
-        public let suggestion: String?
-
-        public func makeIterator() -> IndexingIterator<[SearchResult]> {
-            results.makeIterator()
-        }
-    }
-
     // MARK: - Properties
 
     private let session: URLSession
@@ -292,4 +266,28 @@ private extension WMFSearchDataController {
         )
         return attributed?.string ?? html
     }
+}
+
+public struct SearchResults: Sequence {
+    public let term: String
+    public let results: [SearchResult]
+    public let suggestion: String?
+
+    public func makeIterator() -> IndexingIterator<[SearchResult]> {
+        results.makeIterator()
+    }
+}
+
+public struct SearchResult: Identifiable, Equatable {
+    public let id: Int
+    public let title: String
+    public let displayTitle: String?
+    public let displayTitleHTML: String?
+    public let description: String?
+    public let extract: String?
+    public let thumbnailURL: URL?
+    public let index: Int?
+    public let namespace: Int?
+    public let location: CLLocation?
+    public let articleURL: URL?
 }
