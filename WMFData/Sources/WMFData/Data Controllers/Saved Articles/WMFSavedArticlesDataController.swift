@@ -1,4 +1,5 @@
 import Foundation
+@preconcurrency import CoreData
 
 public actor WMFSavedArticlesDataController {
 
@@ -50,27 +51,25 @@ public actor WMFSavedArticlesDataController {
 
     private func fetchSavedArticleSnapshots(startDate: Date, endDate: Date) async throws -> [SavedArticleSnapshot] {
         guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
+        
         let context = try coreDataStore.newBackgroundContext
 
-        let startNSDate = startDate as NSDate
-        let endNSDate = endDate as NSDate
-
         return try await context.perform { () throws -> [SavedArticleSnapshot] in
+            
+            let startNSDate = startDate as NSDate
+            let endNSDate = endDate as NSDate
+            
             let sortDescriptor = NSSortDescriptor(key: "savedInfo.savedDate", ascending: false)
             let predicate = NSPredicate(
                 format: "savedInfo != nil AND savedInfo.savedDate >= %@ AND savedInfo.savedDate <= %@",
                 startNSDate, endNSDate
             )
+            
+            let fetchRequest = NSFetchRequest<CDPage>(entityName: "CDPage")
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = [sortDescriptor]
 
-            guard
-                let pages: [CDPage] = try coreDataStore.fetch(
-                    entityType: CDPage.self,
-                    predicate: predicate,
-                    fetchLimit: nil,
-                    sortDescriptors: [sortDescriptor],
-                    in: context
-                )
-            else { return [] }
+            let pages: [CDPage] = try context.fetch(fetchRequest)
 
             var snapshots: [SavedArticleSnapshot] = []
             snapshots.reserveCapacity(pages.count)
@@ -113,18 +112,13 @@ public actor WMFSavedArticlesDataController {
                 ascending: false
             )
             let predicate = NSPredicate(format: "savedInfo != nil")
-
-            guard
-                let pages: [CDPage] = try coreDataStore.fetch(
-                    entityType: CDPage.self,
-                    predicate: predicate,
-                    fetchLimit: 1000,
-                    sortDescriptors: [sortDescriptor],
-                    in: context
-                )
-            else {
-                return []
-            }
+            
+            let fetchRequest = NSFetchRequest<CDPage>(entityName: "CDPage")
+            fetchRequest.predicate = predicate
+            fetchRequest.fetchLimit = 1000
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            
+            let pages = try context.fetch(fetchRequest)
 
             var result: [WMFPageWithTimestamp] = []
             var seenArticleKeys = Set<String>()  // one entry per article
