@@ -2,9 +2,9 @@ import Foundation
 
 public struct WMFFundraisingCampaignConfig {
  
- public struct WMFAsset {
+    public struct WMFAsset: Sendable {
      
-     public struct WMFAction {
+    public struct WMFAction: Sendable {
          public let title: String
          public let url: URL?
      }

@@ -1,31 +1,20 @@
 import Foundation
 
-@objc final public class WMFFundraisingCampaignDataController: NSObject {
+// MARK: - Pure Swift Actor (Clean Implementation)
+
+public actor WMFFundraisingCampaignDataController {
     
-    private actor SafeDictionary<Key: Hashable, Value> {
-        private var dictionary: [Key: Value]
-        init(dict: [Key: Value] = [Key: Value]()) {
-            self.dictionary = dict
-        }
-        
-        func getValue(forKey key: Key) -> Value? {
-            dictionary[key]
-        }
-        
-        func update(value: Value, forKey key: Key) {
-            dictionary[key] = value
-        }
-    }
+    public static let shared = WMFFundraisingCampaignDataController()
     
     // MARK: - Properties
     
-    var service: WMFService?
-    var sharedCacheStore: WMFKeyValueStore?
-    var mediaWikiService: WMFService?
+    private let service: WMFService?
+    private let sharedCacheStore: WMFKeyValueStore?
+    private let mediaWikiService: WMFService?
     
     private var activeCountryConfigs: [WMFFundraisingCampaignConfig] = []
     private var promptState: WMFFundraisingCampaignPromptState?
-    private var preferencesBannerOptIns: SafeDictionary<WMFProject, Bool> = SafeDictionary<WMFProject, Bool>()
+    private var preferencesBannerOptIns: [WMFProject: Bool] = [:]
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
@@ -39,13 +28,10 @@ import Foundation
         self.mediaWikiService = mediaWikiService
     }
     
-    @objc(sharedInstance)
-    public static let shared = WMFFundraisingCampaignDataController()
-    
     // MARK: - Public
     
-    public func isOptedIn(project: WMFProject) async -> Bool {
-        return await preferencesBannerOptIns.getValue(forKey: project) ?? true
+    public func isOptedIn(project: WMFProject) -> Bool {
+        return preferencesBannerOptIns[project] ?? true
     }
     
     /// Set asset as "maybe later" in persistence, so that it can me loaded later only once the maybe later date has passed
@@ -68,7 +54,7 @@ import Foundation
     ///   - asset: WMFAsset displayed
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
     /// - Returns: Bool
-    public func showShowMaybeLaterOption(asset: WMFFundraisingCampaignConfig.WMFAsset, currentDate: Date) -> Bool {
+    nonisolated public func showShowMaybeLaterOption(asset: WMFFundraisingCampaignConfig.WMFAsset, currentDate: Date) -> Bool {
 
         let calendar = Calendar.current
         let endDateComponents = calendar.dateComponents([.year, .month, .day], from: asset.endDate)
@@ -117,27 +103,18 @@ import Foundation
         
         return nil
     }
-    
-    @objc public func fetchConfig(countryCode: String, currentDate: Date) {
-        fetchConfig(countryCode: countryCode, currentDate: currentDate) { result in
-            
-        }
-    }
 
     /// Fetches the apps campaign configuration data at https://donate.wikimedia.org/w/index.php?title=MediaWiki:AppsCampaignConfig.json and caches the response. Valid assets can be loaded with loadActiveCampaignAsset
     /// - Parameters:
     ///   - countryCode: Country code of the user. Can use Locale.current.regionCode
     ///   - currentDate: Current date, sent in as a parameter for stable unit testing.
-    ///   - completion: Completion handler indicating if the fetch was successful or not.
-    public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func fetchConfig(countryCode: String, currentDate: Date) async throws {
         guard let service else {
-            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
-            return
+            throw WMFDataControllerError.basicServiceUnavailable
         }
         
         guard let url = URL.fundraisingCampaignConfigURL() else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
+            throw WMFDataControllerError.failureCreatingRequestURL
         }
         
         let parameters: [String: Any] = [
@@ -145,35 +122,25 @@ import Foundation
         ]
         
         let request = WMFBasicServiceRequest(url: url, method: .GET, parameters: parameters, acceptType: .json)
-        service.performDecodableGET(request: request) { [weak self] (result: Result<WMFFundraisingCampaignConfigResponse, Error>) in
-            
-            guard let self else {
-                return
-            }
-
-            switch result {
-            case .success(let response):
-                
-                activeCountryConfigs = self.activeCountryConfigs(from: response, countryCode: countryCode, currentDate: currentDate)
-
-                try? sharedCacheStore?.save(key: cacheDirectoryName, cacheConfigFileName, value: response)
-                
-                completion(.success(()))
-            case .failure(let error):
-                completion(.failure(error))
+        
+        let response: WMFFundraisingCampaignConfigResponse = try await withCheckedThrowingContinuation { continuation in
+            service.performDecodableGET(request: request) { (result: Result<WMFFundraisingCampaignConfigResponse, Error>) in
+                continuation.resume(with: result)
             }
         }
+        
+        activeCountryConfigs = self.activeCountryConfigs(from: response, countryCode: countryCode, currentDate: currentDate)
+        
+        try? sharedCacheStore?.save(key: cacheDirectoryName, cacheConfigFileName, value: response)
     }
     
-    public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    public func fetchMediaWikiBannerOptIn(project: WMFProject) async throws {
         guard let mediaWikiService else {
-            completion?(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-            return
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
         
         guard let url = URL.mediaWikiAPIURL(project: project) else {
-            completion?(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
+            throw WMFDataControllerError.failureCreatingRequestURL
         }
         
         let parameters: [String: Any] = [
@@ -183,41 +150,44 @@ import Foundation
             "format": "json"
         ]
         
-        let request = WMFMediaWikiServiceRequest(url:url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        let actor = self
         
-        let completion: (Result<[String: Any]?, Error>) -> Void = { result in
-            switch result {
-            case .success(let dict):
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            mediaWikiService.perform(request: request) { (result: Result<[String: Any]?, Error>) in
                 
-                if let query = dict?["query"] as? [String: Any],
-                   let userInfo = query["userinfo"] as? [String: Any],
-                   let options = userInfo["options"] as? [String: Any] {
-                    
-                    if options.keys.contains("centralnotice-display-campaign-type-fundraising") {
+                // Extract Sendable data before Task
+                let optInValue: Bool?
+                switch result {
+                case .success(let dict):
+                    if let query = dict?["query"] as? [String: Any],
+                       let userInfo = query["userinfo"] as? [String: Any],
+                       let options = userInfo["options"] as? [String: Any],
+                       options.keys.contains("centralnotice-display-campaign-type-fundraising") {
                         
-                        if let responseOptInFlag = (options["centralnotice-display-campaign-type-fundraising"] as? Bool) {
-                            
-                            Task {
-                                await self.preferencesBannerOptIns.update(value:responseOptInFlag, forKey:project)
-                                
-                            }
-                        } else {
-                            Task {
-                                await self.preferencesBannerOptIns.update(value:false, forKey:project)
-                                
-                            }
-                        }
+                        optInValue = (options["centralnotice-display-campaign-type-fundraising"] as? Bool) ?? false
+                    } else {
+                        optInValue = nil
                     }
-                    
+                case .failure(let error):
+                    Task {
+                        continuation.resume(throwing: error)
+                    }
+                    return
                 }
                 
-                completion?(.success(()))
-            case .failure(let error):
-                completion?(.failure(error))
+                Task {
+                    if let value = optInValue {
+                        await actor.setOptIn(project: project, value: value)
+                    }
+                    continuation.resume()
+                }
             }
         }
-        
-        mediaWikiService.perform(request: request, completion: completion)
+    }
+    
+    private func setOptIn(project: WMFProject, value: Bool) {
+        preferencesBannerOptIns[project] = value
     }
     
     // MARK: - Internal
@@ -305,23 +275,23 @@ import Foundation
     }
     
     private func activeCountryConfigs(from response: WMFFundraisingCampaignConfigResponse, countryCode: String, currentDate: Date) -> [WMFFundraisingCampaignConfig] {
-        
+            
         var configs: [WMFFundraisingCampaignConfig] = []
         
-        response.configs.forEach({ config in
+        for config in response.configs {
             
             guard config.countryCodes.contains(countryCode) else {
-                return
+                continue
             }
             
             let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
             guard let startDate = dateFormatter.date(from: config.startTimeString),
                   let endDate = dateFormatter.date(from: config.endTimeString) else {
-                return
+                continue
             }
             
             guard (startDate...endDate).contains(currentDate) else {
-                return
+                continue
             }
             
             var finalAssets: [String: WMFFundraisingCampaignConfig.WMFAsset] = [:]
@@ -351,7 +321,7 @@ import Foundation
             }
             
             configs.append(WMFFundraisingCampaignConfig(id: config.id, assets: finalAssets))
-        })
+        }
         
         return configs
     }
@@ -397,6 +367,82 @@ import Foundation
         return assets[0]
     }
 
+}
+
+// MARK: - Objective-C Bridge
+
+@objc final public class WMFFundraisingCampaignDataControllerObjCBridge: NSObject, @unchecked Sendable {
+    
+    @objc(sharedInstance)
+    public static let shared = WMFFundraisingCampaignDataControllerObjCBridge(controller: .shared)
+    
+    private let controller: WMFFundraisingCampaignDataController
+    
+    public init(controller: WMFFundraisingCampaignDataController) {
+        self.controller = controller
+        super.init()
+    }
+    
+    public func isOptedIn(project: WMFProject, completion: @escaping @Sendable (Bool) -> Void) {
+        let controller = self.controller
+        Task {
+            let result = await controller.isOptedIn(project: project)
+            completion(result)
+        }
+    }
+    
+    public func markAssetAsMaybeLater(asset: WMFFundraisingCampaignConfig.WMFAsset, currentDate: Date) {
+        let controller = self.controller
+        Task {
+            await controller.markAssetAsMaybeLater(asset: asset, currentDate: currentDate)
+        }
+    }
+    
+    public func markAssetAsPermanentlyHidden(asset: WMFFundraisingCampaignConfig.WMFAsset) {
+        let controller = self.controller
+        Task {
+            await controller.markAssetAsPermanentlyHidden(asset: asset)
+        }
+    }
+    
+    public func loadActiveCampaignAsset(countryCode: String, wmfProject: WMFProject, currentDate: Date, completion: @escaping @Sendable (WMFFundraisingCampaignConfig.WMFAsset?) -> Void) {
+        let controller = self.controller
+        Task {
+            let result = await controller.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate)
+            completion(result)
+        }
+    }
+    
+    @objc public func fetchConfig(countryCode: String, currentDate: Date) {
+        let controller = self.controller
+        Task {
+            try? await controller.fetchConfig(countryCode: countryCode, currentDate: currentDate)
+        }
+    }
+    
+    @objc public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping @Sendable (Error?) -> Void) {
+        let controller = self.controller
+        Task {
+            do {
+                try await controller.fetchConfig(countryCode: countryCode, currentDate: currentDate)
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
+    }
+    
+    public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: @escaping @Sendable (Error?) -> Void) {
+        let controller = self.controller
+        Task {
+            do {
+                try await controller.fetchMediaWikiBannerOptIn(project: project)
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
+    }
 }
 
 // MARK: - Private Models
