@@ -145,7 +145,7 @@ public actor WMFDonateDataController {
         appInstallID: String?
     ) async throws {
         
-        guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
+        guard await !WMFDeveloperSettingsDataController.shared.bypassDonation else {
             return
         }
         

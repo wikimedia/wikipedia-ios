@@ -1,13 +1,13 @@
 import Foundation
 
-public struct WMFFeatureConfigResponse: Codable {
+public struct WMFFeatureConfigResponse: Codable, Sendable {
     
-    public struct Common: Codable {
+    public struct Common: Codable, Sendable {
         public let yir: [YearInReview]
         
-        public struct YearInReview: Codable {
+        public struct YearInReview: Codable, Sendable {
             
-            public struct TopReadPercentage: Codable {
+            public struct TopReadPercentage: Codable, Sendable {
                 public let identifier: String
                 public let min: Int
                 public let max: Int?
@@ -82,7 +82,7 @@ public struct WMFFeatureConfigResponse: Codable {
             func isActive(for date: Date) -> Bool {
                 
                 // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
-                let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
+                let developerSettingsDataController = WMFDeveloperSettingsDataControllerObjCBridge.shared
                 if developerSettingsDataController.showYiRV3 {
                     return true
                 }
@@ -103,7 +103,7 @@ public struct WMFFeatureConfigResponse: Codable {
         }
     }
     
-    public struct IOS: Codable {
+    public struct IOS: Codable, Sendable {
         
     }
     

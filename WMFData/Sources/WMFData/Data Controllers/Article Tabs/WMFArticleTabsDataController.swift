@@ -109,7 +109,7 @@ public protocol WMFArticleTabsDataControlling {
     public static let shared = WMFArticleTabsDataController()
 
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-    private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+    private let developerSettingsDataController: WMFDeveloperSettingsDataControllerObjCBridge
     
     private let experimentsDataController: WMFExperimentsDataController?
     private var assignmentCache: MoreDynamicTabsExperimentAssignment?
@@ -146,7 +146,7 @@ public protocol WMFArticleTabsDataControlling {
     // MARK: - Lifecycle
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-                developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+                developerSettingsDataController: WMFDeveloperSettingsDataControllerObjCBridge = WMFDeveloperSettingsDataControllerObjCBridge.shared,
                 experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
     ) {
         self._coreDataStore = coreDataStore
