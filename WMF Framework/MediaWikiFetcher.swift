@@ -14,7 +14,7 @@ private extension WMFMediaWikiServiceRequest.TokenType {
     }
 }
 
-public final class MediaWikiFetcher: Fetcher, WMFService {
+public final class MediaWikiFetcher: Fetcher, WMFService, @unchecked Sendable {
 
     public enum MediaWikiFetcherError: LocalizedError {
         case invalidRequest
