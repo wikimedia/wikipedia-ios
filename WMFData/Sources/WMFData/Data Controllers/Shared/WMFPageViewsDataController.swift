@@ -1,6 +1,44 @@
 import Foundation
 import CoreData
 
+public final class WMFPageView: Sendable {
+    let numberOfSeconds: Int
+    let timestamp: Date?
+    let nextPageViews: [WMFPageView]
+    let page: WMFPage
+    let previousPageView: WMFPageView?
+    
+    init(numberOfSeconds: Int, timestamp: Date?, nextPageViews: [WMFPageView], page: WMFPage, previousPageView: WMFPageView) {
+        self.numberOfSeconds = numberOfSeconds
+        self.timestamp = timestamp
+        self.nextPageViews = nextPageViews
+        self.page = page
+        self.previousPageView = previousPageView
+    }
+    
+    init?(cdPageView: CDPageView) {
+        self.numberOfSeconds = Int(cdPageView.numberOfSeconds)
+        self.timestamp = cdPageView.timestamp
+        if let nextCDPageViews = cdPageView.nextPageViews as? Set<CDPageView> {
+            self.nextPageViews = nextCDPageViews.compactMap { WMFPageView(cdPageView: $0) }
+        } else {
+            self.nextPageViews = []
+        }
+        
+        if let wmfPage = WMFPage(cdPage: cdPageView.page) {
+            self.page = wmfPage
+        } else {
+            return nil
+        }
+        
+        if let previousCDPageView = cdPageView.previousPageView {
+            self.previousPageView = WMFPageView(cdPageView: previousCDPageView)
+        } else {
+            previousPageView = nil
+        }
+    }
+}
+
 public final class WMFPage: Hashable, Equatable, Sendable {
    public let namespaceID: Int
    public let projectID: String
@@ -23,6 +61,17 @@ public final class WMFPage: Hashable, Equatable, Sendable {
             lhs.namespaceID == rhs.namespaceID &&
             lhs.projectID == rhs.projectID &&
             lhs.title == rhs.title
+    }
+    
+    init?(cdPage: CDPage?) {
+        guard let cdPage,
+              let projectID = cdPage.projectID,
+              let title = cdPage.title else {
+            return nil
+        }
+        self.namespaceID = Int(cdPage.namespaceID)
+        self.projectID = projectID
+        self.title = title
     }
 
  }
@@ -408,7 +457,7 @@ public actor WMFPageViewsDataController {
         }
     }
     
-    public func fetchLinkedPageViews() async throws -> [[CDPageView]] {
+    public func fetchLinkedPageViews() async throws -> [[WMFPageView]] {
         let store = coreDataStore
         let context = try store.viewContext
         
@@ -422,6 +471,7 @@ public actor WMFPageViewsDataController {
                     let roots = allPageViews.filter { $0.previousPageView == nil }
 
                     var result: [[CDPageView]] = []
+                    var returnResult: [[WMFPageView]] = []
 
                     // Walk all possible branches
                     func walk(current: CDPageView, path: [CDPageView]) {
@@ -432,6 +482,8 @@ public actor WMFPageViewsDataController {
                             // Leaf node — end of a navigation path
                             let sortedPath = newPath.sorted(by: { $0.timestamp ?? .distantPast < $1.timestamp ?? .distantPast })
                             result.append(sortedPath)
+                            returnResult.append(sortedPath.compactMap {WMFPageView(cdPageView: $0)})
+                            
                         } else {
                             for next in nextViews {
                                 walk(current: next, path: newPath)
@@ -443,7 +495,7 @@ public actor WMFPageViewsDataController {
                         walk(current: root, path: [])
                     }
 
-                    continuation.resume(returning: result)
+                    continuation.resume(returning: returnResult)
                 } catch {
                     continuation.resume(throwing: error)
                 }
