@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public class WMFWatchlistDataController {
+public actor WMFWatchlistDataController {
     
     let service = WMFDataEnvironment.current.mediaWikiService
     private let sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
@@ -93,19 +93,17 @@ public class WMFWatchlistDataController {
     
     // MARK: GET Watchlist Items
 
-    public func fetchWatchlist(completion: @escaping (Result<WMFWatchlist, Error>) -> Void) {
+    public func fetchWatchlist() async throws -> WMFWatchlist {
         
         guard let service else {
-            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-            return
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
         
         let activeFilterCount = self.activeFilterCount()
         
         let projects = onWatchlistProjects()
         guard !projects.isEmpty else {
-            completion(.success(WMFWatchlist(items: [], activeFilterCount: activeFilterCount)))
-            return
+            return WMFWatchlist(items: [], activeFilterCount: activeFilterCount)
         }
         
         let filterSettings = loadFilterSettings()
@@ -123,89 +121,122 @@ public class WMFWatchlistDataController {
         
         apply(filterSettings: filterSettings, to: &parameters)
         
-        let group = DispatchGroup()
-        var items: [WMFWatchlist.Item] = []
-        var errors: [WMFProject: [WMFDataControllerError]] = [:]
-        projects.forEach { project in
-            errors[project] = []
+        // Use an actor to protect shared mutable state
+        actor ResultAccumulator {
+            var items: [WMFWatchlist.Item] = []
+            var errors: [WMFProject: [WMFDataControllerError]] = [:]
+            
+            func addItems(_ newItems: [WMFWatchlist.Item]) {
+                items.append(contentsOf: newItems)
+            }
+            
+            func addError(_ error: WMFDataControllerError, for project: WMFProject) {
+                errors[project, default: []].append(error)
+            }
+            
+            func addErrors(_ newErrors: [WMFDataControllerError], for project: WMFProject) {
+                errors[project, default: []].append(contentsOf: newErrors)
+            }
+            
+            func initializeProject(_ project: WMFProject) {
+                errors[project] = []
+            }
+            
+            func getResults() -> (items: [WMFWatchlist.Item], errors: [WMFProject: [WMFDataControllerError]]) {
+                return (items, errors)
+            }
         }
+        
+        let accumulator = ResultAccumulator()
         
         for project in projects {
-            
-            guard let url = URL.mediaWikiAPIURL(project: project) else {
-                return
-            }
-            
-            parameters["variant"] = project.languageVariantCode
-            
-            group.enter()
-            let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
-            service.performDecodableGET(request: request) { [weak self] (result: Result<WatchlistAPIResponse, Error>) in
-                
-                guard let self else {
-                    return
-                }
-                
-                defer {
-                    group.leave()
-                }
-                
-                switch result {
-                case .success(let apiResponse):
-                    
-                    if let apiResponseErrors = apiResponse.errors,
-                       !apiResponseErrors.isEmpty {
-                        
-                        let mediaWikiResponseErrors = apiResponseErrors.map { WMFDataControllerError.mediaWikiResponseError($0) }
-                        errors[project, default: []].append(contentsOf: mediaWikiResponseErrors)
-                        return
-                    }
-                    
-                    guard let query = apiResponse.query else {
-                        errors[project, default: []].append(WMFDataControllerError.unexpectedResponse)
-                        return
-                    }
-                    
-                    items.append(contentsOf: self.watchlistItems(from: query, project: project))
-                    
-                    try? sharedCacheStore?.save(key: WMFSharedCacheDirectoryNames.watchlists.rawValue, project.id, value: apiResponse)
-                    
-                case .failure(let error):
-                    var usedCache = false
-                    
-                    if (error as NSError).isInternetConnectionError {
-                        
-                        let cachedResult: WatchlistAPIResponse? = try? sharedCacheStore?.load(key: WMFSharedCacheDirectoryNames.watchlists.rawValue, project.id)
-                        
-                        if let query = cachedResult?.query {
-                            items.append(contentsOf: self.watchlistItems(from: query, project: project))
-                            usedCache = true
-                        }
-                    }
-                    
-                    if !usedCache {
-                        errors[project, default: []].append(WMFDataControllerError.serviceError(error))
-                    }
-                }
-            }
+            await accumulator.initializeProject(project)
         }
         
-        group.notify(queue: .main) {
-        
-            let successProjects = errors.filter { $0.value.isEmpty }
-            let failureProjects = errors.filter { !$0.value.isEmpty }
+        return try await withCheckedThrowingContinuation { continuation in
+            let group = DispatchGroup()
             
-            if !successProjects.isEmpty {
-                completion(.success(WMFWatchlist(items: items, activeFilterCount: activeFilterCount)))
-                return
+            for project in projects {
+                
+                guard let url = URL.mediaWikiAPIURL(project: project) else {
+                    continue
+                }
+                
+                var projectParameters = parameters
+                projectParameters["variant"] = project.languageVariantCode
+                
+                group.enter()
+                let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: projectParameters)
+                service.performDecodableGET(request: request) { (result: Result<WatchlistAPIResponse, Error>) in
+                    
+                    defer {
+                        group.leave()
+                    }
+                    
+                    Task {
+                        switch result {
+                        case .success(let apiResponse):
+                            
+                            if let apiResponseErrors = apiResponse.errors,
+                               !apiResponseErrors.isEmpty {
+                                
+                                let mediaWikiResponseErrors = apiResponseErrors.map { WMFDataControllerError.mediaWikiResponseError($0) }
+                                await accumulator.addErrors(mediaWikiResponseErrors, for: project)
+                                return
+                            }
+                            
+                            guard let query = apiResponse.query else {
+                                await accumulator.addError(WMFDataControllerError.unexpectedResponse, for: project)
+                                return
+                            }
+                            
+                            let items = await self.watchlistItems(from: query, project: project)
+                            await accumulator.addItems(items)
+                            
+                            try? self.sharedCacheStore?.save(key: WMFSharedCacheDirectoryNames.watchlists.rawValue, project.id, value: apiResponse)
+                            
+                        case .failure(let error):
+                            var usedCache = false
+                            
+                            if (error as NSError).isInternetConnectionError {
+                                
+                                let cachedResult: WatchlistAPIResponse? = try? self.sharedCacheStore?.load(key: WMFSharedCacheDirectoryNames.watchlists.rawValue, project.id)
+                                
+                                if let query = cachedResult?.query {
+                                    let items = await self.watchlistItems(from: query, project: project)
+                                    await accumulator.addItems(items)
+                                    usedCache = true
+                                }
+                            }
+                            
+                            if !usedCache {
+                                await accumulator.addError(WMFDataControllerError.serviceError(error), for: project)
+                            }
+                        }
+                    }
+                }
             }
             
-            if let error = failureProjects.first?.value.first {
-                completion(.failure(error))
-                return
+            group.notify(queue: .main) {
+                Task {
+                    let (items, errors) = await accumulator.getResults()
+                    
+                    let successProjects = errors.filter { $0.value.isEmpty }
+                    let failureProjects = errors.filter { !$0.value.isEmpty }
+                    
+                    if !successProjects.isEmpty {
+                        continuation.resume(returning: WMFWatchlist(items: items, activeFilterCount: activeFilterCount))
+                        return
+                    }
+                    
+                    if let error = failureProjects.first?.value.first {
+                        continuation.resume(throwing: error)
+                        return
+                    }
+                    
+                    continuation.resume(returning: WMFWatchlist(items: items, activeFilterCount: activeFilterCount))
+                }
             }
-            
-            completion(.success(WMFWatchlist(items: items, activeFilterCount: activeFilterCount)))
         }
     }
     
@@ -309,95 +340,92 @@ public class WMFWatchlistDataController {
         parameters["wltype"] = wltype.joined(separator: "|")
     }
     
-    // MARK: POST Watch Item
-     
-     public func watch(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func watch(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType) async throws {
 
-         guard let service else {
-             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-             return
-         }
+        guard let service else {
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
+        }
 
-         let parameters = [
-             "action": "watch",
-             "titles": title,
-             "expiry": expiry.rawValue,
-             "format": "json",
-             "formatversion": "2",
-             "errorformat": "html",
-             "errorsuselocal": "1"
-         ]
+        let parameters = [
+            "action": "watch",
+            "titles": title,
+            "expiry": expiry.rawValue,
+            "format": "json",
+            "formatversion": "2",
+            "errorformat": "html",
+            "errorsuselocal": "1"
+        ]
 
-         guard let url = URL.mediaWikiAPIURL(project: project) else {
-             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-             return
-         }
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            throw WMFDataControllerError.failureCreatingRequestURL
+        }
 
-         let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .watch, parameters: parameters)
-         service.perform(request: request) { result in
-             switch result {
-             case .success(let response):
-                 guard let watched = (response?["watch"] as? [[String: Any]])?.first?["watched"] as? Bool,
-                 watched == true else {
-                     completion(.failure(WMFDataControllerError.unexpectedResponse))
-                     return
-                 }
+        let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .watch, parameters: parameters)
+        
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            service.perform(request: request) { result in
+                // Extract Sendable data before resuming
+                switch result {
+                case .success(let response):
+                    let watched = (response?["watch"] as? [[String: Any]])?.first?["watched"] as? Bool
+                    
+                    if watched == true {
+                        continuation.resume()
+                    } else {
+                        continuation.resume(throwing: WMFDataControllerError.unexpectedResponse)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
 
-                 completion(.success(()))
-             case .failure(let error):
-                 completion(.failure(WMFDataControllerError.serviceError(error)))
-             }
-         }
-     }
+    public func unwatch(title: String, project: WMFProject) async throws {
 
-     // MARK: POST Unwatch Item
-     
-     public func unwatch(title: String, project: WMFProject, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let service else {
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
+        }
 
-         guard let service else {
-             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-             return
-         }
+        let parameters = [
+            "action": "watch",
+            "unwatch": "1",
+            "titles": title,
+            "format": "json",
+            "formatversion": "2",
+            "errorformat": "html",
+            "errorsuselocal": "1"
+        ]
 
-         let parameters = [
-             "action": "watch",
-             "unwatch": "1",
-             "titles": title,
-             "format": "json",
-             "formatversion": "2",
-             "errorformat": "html",
-             "errorsuselocal": "1"
-         ]
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            throw WMFDataControllerError.failureCreatingRequestURL
+        }
 
-         guard let url = URL.mediaWikiAPIURL(project: project) else {
-             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-             return
-         }
+        let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .watch, parameters: parameters)
+        
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            service.perform(request: request) { result in
+                // Extract Sendable data before resuming
+                switch result {
+                case .success(let response):
+                    let unwatched = (response?["watch"] as? [[String: Any]])?.first?["unwatched"] as? Bool
+                    
+                    if unwatched == true {
+                        continuation.resume()
+                    } else {
+                        continuation.resume(throwing: WMFDataControllerError.unexpectedResponse)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
 
-         let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .watch, parameters: parameters)
-         service.perform(request: request) { result in
-             switch result {
-             case .success(let response):
-                 guard let unwatched = (response?["watch"] as? [[String: Any]])?.first?["unwatched"] as? Bool,
-                       unwatched == true else {
-                     completion(.failure(WMFDataControllerError.unexpectedResponse))
-                     return
-                 }
-
-                 completion(.success(()))
-             case .failure(let error):
-                 completion(.failure(WMFDataControllerError.serviceError(error)))
-             }
-         }
-     }
-    
-    // MARK: POST Rollback Page
-    
-    public func rollback(title: String, project: WMFProject, username: String, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
+    public func rollback(title: String, project: WMFProject, username: String) async throws -> WMFUndoOrRollbackResult {
         
         guard let service else {
-            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-            return
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
 
         let parameters = [
@@ -412,90 +440,87 @@ public class WMFWatchlistDataController {
         ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
+            throw WMFDataControllerError.failureCreatingRequestURL
         }
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .rollback, parameters: parameters)
-        service.perform(request: request) { result in
-            switch result {
-            case .success(let response):
-                guard let rollback = (response?["rollback"] as? [String: Any]),
-                    let newRevisionID = rollback["revid"] as? Int,
-                    let oldRevisionID = rollback["old_revid"] as? Int else {
-                    completion(.failure(WMFDataControllerError.unexpectedResponse))
-                    return
-                }
-
-                completion(.success(WMFUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)))
-            case .failure(let error):
-                completion(.failure(WMFDataControllerError.serviceError(error)))
-            }
-        }
-    }
-    
-    // MARK: POST Undo Revision
-    
-    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
-
-        guard let service else {
-            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-            return
-        }
         
-        fetchUndoRevisionSummaryPrefixText(revisionID: revisionID, username: username, project: project) { result in
-            switch result {
-            case .success(let summaryPrefix):
-                
-                let finalSummary = summaryPrefix + " " + summary
-                
-                let parameters = [
-                    "action": "edit",
-                    "title": title,
-                    "summary": finalSummary,
-                    "undo": String(revisionID),
-                    "matags": WMFEditTag.appUndo.rawValue,
-                    "format": "json",
-                    "formatversion": "2",
-                    "errorformat": "html",
-                    "errorsuselocal": "1"
-                ]
-
-                guard let url = URL.mediaWikiAPIURL(project: project) else {
-                    completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-                    return
-                }
-
-                let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .csrf, parameters: parameters)
-                service.perform(request: request) { result in
-                    switch result {
-                    case .success(let response):
-                        guard let edit = (response?["edit"] as? [String: Any]),
-                              let result = edit["result"] as? String,
-                              result == "Success",
-                              let newRevisionID = edit["newrevid"] as? Int,
-                              let oldRevisionID = edit["oldrevid"] as? Int else {
-                            completion(.failure(WMFDataControllerError.unexpectedResponse))
-                            return
-                        }
-
-                        completion(.success(WMFUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)))
-                    case .failure(let error):
-                        completion(.failure(WMFDataControllerError.serviceError(error)))
+        return try await withCheckedThrowingContinuation { continuation in
+            service.perform(request: request) { result in
+                // Extract Sendable data before resuming
+                switch result {
+                case .success(let response):
+                    guard let rollbackDict = response?["rollback"] as? [String: Any],
+                          let newRevisionID = rollbackDict["revid"] as? Int,
+                          let oldRevisionID = rollbackDict["old_revid"] as? Int else {
+                        continuation.resume(throwing: WMFDataControllerError.unexpectedResponse)
+                        return
                     }
+                    
+                    let result = WMFUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)
+                    continuation.resume(returning: result)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
                 }
-                
-            case .failure(let error):
-                completion(.failure(WMFDataControllerError.serviceError(error)))
+            }
+        }
+    }
+
+    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject) async throws -> WMFUndoOrRollbackResult {
+
+        guard let service else {
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
+        }
+        
+        let summaryPrefix = try await fetchUndoRevisionSummaryPrefixText(revisionID: revisionID, username: username, project: project)
+        
+        let finalSummary = summaryPrefix + " " + summary
+        
+        let parameters = [
+            "action": "edit",
+            "title": title,
+            "summary": finalSummary,
+            "undo": String(revisionID),
+            "matags": WMFEditTag.appUndo.rawValue,
+            "format": "json",
+            "formatversion": "2",
+            "errorformat": "html",
+            "errorsuselocal": "1"
+        ]
+
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            throw WMFDataControllerError.failureCreatingRequestURL
+        }
+
+        let request = WMFMediaWikiServiceRequest(url: url, method: .POST, backend: .mediaWiki, tokenType: .csrf, parameters: parameters)
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            service.perform(request: request) { result in
+                // Extract Sendable data before resuming
+                switch result {
+                case .success(let response):
+                    guard let editDict = response?["edit"] as? [String: Any],
+                          let resultString = editDict["result"] as? String,
+                          resultString == "Success",
+                          let newRevisionID = editDict["newrevid"] as? Int,
+                          let oldRevisionID = editDict["oldrevid"] as? Int else {
+                        continuation.resume(throwing: WMFDataControllerError.unexpectedResponse)
+                        return
+                    }
+                    
+                    let result = WMFUndoOrRollbackResult(newRevisionID: newRevisionID, oldRevisionID: oldRevisionID)
+                    continuation.resume(returning: result)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
             }
         }
     }
     
-    private func fetchUndoRevisionSummaryPrefixText(revisionID: UInt, username: String, project: WMFProject, completion: @escaping (Result<String, Error>) -> Void) {
+    private func fetchUndoRevisionSummaryPrefixText(revisionID: UInt, username: String, project: WMFProject) async throws -> String {
         
         guard let service else {
-            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-            return
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
 
         let parameters = [
@@ -511,38 +536,121 @@ public class WMFWatchlistDataController {
                 ]
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
-            return
+            throw WMFDataControllerError.failureCreatingRequestURL
         }
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
 
-        service.performDecodableGET(request: request) { (result: Result<UndoRevisionSummaryTextResponse, Error>) in
-            switch result {
-            case .success(let response):
-                
-                guard let undoSummaryMessage = response.query.messages.first(where: { message in
-                    message.name == "undo-summary"
-                }) else {
-                    completion(.failure(WMFDataControllerError.unexpectedResponse))
-                    return
-                }
-                
-                completion(.success(undoSummaryMessage.content))
-            case .failure(let error):
-                completion(.failure(WMFDataControllerError.serviceError(error)))
+        let response: UndoRevisionSummaryTextResponse = try await withCheckedThrowingContinuation { continuation in
+            service.performDecodableGET(request: request) { (result: Result<UndoRevisionSummaryTextResponse, Error>) in
+                continuation.resume(with: result)
             }
         }
+        
+        guard let undoSummaryMessage = response.query.messages.first(where: { message in
+            message.name == "undo-summary"
+        }) else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
+        
+        return undoSummaryMessage.content
+    }
+}
+
+// MARK: - Sync Bridge Extension
+
+extension WMFWatchlistDataController {
+    
+    nonisolated public func fetchWatchlistSyncBridge(completion: @escaping @Sendable (Result<WMFWatchlist, Error>) -> Void) {
+        Task {
+            do {
+                let watchlist = try await self.fetchWatchlist()
+                completion(.success(watchlist))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    nonisolated public func watchSyncBridge(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
+        Task {
+            do {
+                try await self.watch(title: title, project: project, expiry: expiry)
+                completion(.success(()))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    nonisolated public func unwatchSyncBridge(title: String, project: WMFProject, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
+        Task {
+            do {
+                try await self.unwatch(title: title, project: project)
+                completion(.success(()))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    nonisolated public func rollbackSyncBridge(title: String, project: WMFProject, username: String, completion: @escaping @Sendable (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
+        Task {
+            do {
+                let result = try await self.rollback(title: title, project: project, username: username)
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    nonisolated public func undoSyncBridge(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, completion: @escaping @Sendable (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
+        Task {
+            do {
+                let result = try await self.undo(title: title, revisionID: revisionID, summary: summary, username: username, project: project)
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    nonisolated public func allWatchlistProjectsSyncBridge() -> [WMFProject] {
+        var result: [WMFProject] = []
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.allWatchlistProjects()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    nonisolated public func activeFilterCountSyncBridge() -> Int {
+        var result = 0
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.activeFilterCount()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
     }
 }
 
 // MARK: - Private Models
 
 private extension WMFWatchlistDataController {
-    struct WatchlistAPIResponse: Codable {
+    struct WatchlistAPIResponse: Codable, Sendable {
         
-        struct Query: Codable {
+        struct Query: Codable, Sendable {
             
-            struct Item: Codable {
+            struct Item: Codable, Sendable {
                 let title: String
                 let revisionID: UInt
                 let oldRevisionID: UInt
@@ -579,11 +687,11 @@ private extension WMFWatchlistDataController {
         let errors: [WMFMediaWikiError]?
     }
 
-    struct UndoRevisionSummaryTextResponse: Codable {
+    struct UndoRevisionSummaryTextResponse: Codable, Sendable {
         
-        struct Query: Codable {
+        struct Query: Codable, Sendable {
             
-            struct Messages: Codable {
+            struct Messages: Codable, Sendable {
                 let name: String
                 let content: String
             }

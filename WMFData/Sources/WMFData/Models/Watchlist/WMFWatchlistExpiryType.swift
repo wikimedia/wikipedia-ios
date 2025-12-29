@@ -1,4 +1,4 @@
-public enum WMFWatchlistExpiryType: String {
+public enum WMFWatchlistExpiryType: String, Sendable {
     case never
     case oneWeek = "1 week"
     case oneMonth = "1 month"
