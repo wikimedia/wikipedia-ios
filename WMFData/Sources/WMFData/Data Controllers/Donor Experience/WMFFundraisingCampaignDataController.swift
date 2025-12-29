@@ -2,9 +2,9 @@ import Foundation
 
 // MARK: - Pure Swift Actor (Clean Implementation)
 
-public actor WMFFundraisingCampaignDataController {
+@objc public actor WMFFundraisingCampaignDataController {
     
-    public static let shared = WMFFundraisingCampaignDataController()
+    @objc public static let shared = WMFFundraisingCampaignDataController()
     
     // MARK: - Properties
     
@@ -369,62 +369,45 @@ public actor WMFFundraisingCampaignDataController {
 
 }
 
-// MARK: - Objective-C Bridge
+// Sync Bridge Methods
 
-@objc final public class WMFFundraisingCampaignDataControllerSyncBridge: NSObject, @unchecked Sendable {
-    
-    @objc(sharedInstance)
-    public static let shared = WMFFundraisingCampaignDataControllerSyncBridge(controller: .shared)
-    
-    private let controller: WMFFundraisingCampaignDataController
-    
-    public init(controller: WMFFundraisingCampaignDataController) {
-        self.controller = controller
-        super.init()
-    }
-    
-    public func isOptedIn(project: WMFProject, completion: @escaping @Sendable (Bool) -> Void) {
-        let controller = self.controller
+extension WMFFundraisingCampaignDataController {
+    nonisolated public func isOptedInSyncBridge(project: WMFProject, completion: @escaping @Sendable (Bool) -> Void) {
         Task {
-            let result = await controller.isOptedIn(project: project)
+            let result = await isOptedIn(project: project)
             completion(result)
         }
     }
     
-    public func markAssetAsMaybeLater(asset: WMFFundraisingCampaignConfig.WMFAsset, currentDate: Date) {
-        let controller = self.controller
+    nonisolated public func markAssetAsMaybeLaterSyncBridge(asset: WMFFundraisingCampaignConfig.WMFAsset, currentDate: Date) {
         Task {
-            await controller.markAssetAsMaybeLater(asset: asset, currentDate: currentDate)
+            await markAssetAsMaybeLater(asset: asset, currentDate: currentDate)
         }
     }
     
-    public func markAssetAsPermanentlyHidden(asset: WMFFundraisingCampaignConfig.WMFAsset) {
-        let controller = self.controller
+    nonisolated public func markAssetAsPermanentlyHiddenSyncBridge(asset: WMFFundraisingCampaignConfig.WMFAsset) {
         Task {
-            await controller.markAssetAsPermanentlyHidden(asset: asset)
+            await markAssetAsPermanentlyHidden(asset: asset)
         }
     }
     
-    public func loadActiveCampaignAsset(countryCode: String, wmfProject: WMFProject, currentDate: Date, completion: @escaping @Sendable (WMFFundraisingCampaignConfig.WMFAsset?) -> Void) {
-        let controller = self.controller
+    nonisolated public func loadActiveCampaignAssetSyncBridge(countryCode: String, wmfProject: WMFProject, currentDate: Date, completion: @escaping @Sendable (WMFFundraisingCampaignConfig.WMFAsset?) -> Void) {
         Task {
-            let result = await controller.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate)
+            let result = await loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate)
             completion(result)
         }
     }
     
-    @objc public func fetchConfig(countryCode: String, currentDate: Date) {
-        let controller = self.controller
+    @objc nonisolated public func fetchConfigSyncBridge(countryCode: String, currentDate: Date) {
         Task {
-            try? await controller.fetchConfig(countryCode: countryCode, currentDate: currentDate)
+            try? await fetchConfig(countryCode: countryCode, currentDate: currentDate)
         }
     }
     
-    @objc public func fetchConfig(countryCode: String, currentDate: Date, completion: @escaping @Sendable (Error?) -> Void) {
-        let controller = self.controller
+    @objc nonisolated public func fetchConfigSyncBridge(countryCode: String, currentDate: Date, completion: @escaping @Sendable (Error?) -> Void) {
         Task {
             do {
-                try await controller.fetchConfig(countryCode: countryCode, currentDate: currentDate)
+                try await fetchConfig(countryCode: countryCode, currentDate: currentDate)
                 completion(nil)
             } catch {
                 completion(error)
@@ -432,11 +415,10 @@ public actor WMFFundraisingCampaignDataController {
         }
     }
     
-    public func fetchMediaWikiBannerOptIn(project: WMFProject, completion: @escaping @Sendable (Error?) -> Void) {
-        let controller = self.controller
+    nonisolated public func fetchMediaWikiBannerOptInSyncBridge(project: WMFProject, completion: @escaping @Sendable (Error?) -> Void) {
         Task {
             do {
-                try await controller.fetchMediaWikiBannerOptIn(project: project)
+                try await fetchMediaWikiBannerOptIn(project: project)
                 completion(nil)
             } catch {
                 completion(error)

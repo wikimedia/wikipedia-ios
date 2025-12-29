@@ -3,13 +3,13 @@ import WMFData
 
 extension WMFAnnouncementsContentSource {
     @objc func fetchMediaWikiBannerOptInForSiteURL(_ siteURL: URL) {
-        let dataController = WMFFundraisingCampaignDataControllerSyncBridge.shared
+        let dataController = WMFFundraisingCampaignDataController.shared
         let wikimediaProject = WikimediaProject(siteURL: siteURL)
         guard let wmfProject = wikimediaProject?.wmfProject else {
             return
         }
         
-        dataController.fetchMediaWikiBannerOptIn(project: wmfProject, completion: {_ in })
+        dataController.fetchMediaWikiBannerOptInSyncBridge(project: wmfProject, completion: {_ in })
         
     }
 }

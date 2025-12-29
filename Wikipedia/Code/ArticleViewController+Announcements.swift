@@ -68,7 +68,6 @@ extension ArticleViewController {
         DonateFunnel.shared.logFundraisingCampaignModalImpression(project: project, metricsID: asset.metricsID)
         
         let dataController = WMFFundraisingCampaignDataController.shared
-        let dataControllerBridge = WMFFundraisingCampaignDataControllerSyncBridge.shared
         
         let shouldShowMaybeLater = dataController.showShowMaybeLaterOption(asset: asset, currentDate: Date())
 
@@ -101,24 +100,24 @@ extension ArticleViewController {
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
             
-            dataControllerBridge.markAssetAsPermanentlyHidden(asset: asset)
+            dataController.markAssetAsPermanentlyHiddenSyncBridge(asset: asset)
             
         }, secondaryButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapMaybeLater(project: project, metricsID: asset.metricsID)
             
             if shouldShowMaybeLater {
-                dataControllerBridge.markAssetAsMaybeLater(asset: asset, currentDate: Date())
+                dataController.markAssetAsMaybeLaterSyncBridge(asset: asset, currentDate: Date())
                 self.donateDidSetMaybeLater(metricsID: asset.metricsID)
             } else {
                 DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
                 self.donateAlreadyDonated()
-                dataControllerBridge.markAssetAsPermanentlyHidden(asset: asset)
+                dataController.markAssetAsPermanentlyHiddenSyncBridge(asset: asset)
             }
             
         }, optionalButtonTapHandler: { _, _ in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapAlreadyDonated(project: project, metricsID: asset.metricsID)
             self.donateAlreadyDonated()
-            dataControllerBridge.markAssetAsPermanentlyHidden(asset: asset)
+            dataController.markAssetAsPermanentlyHiddenSyncBridge(asset: asset)
             
         }, footerLinkAction: { url in
             DonateFunnel.shared.logFundraisingCampaignModalDidTapDonorPolicy(project: project, metricsID: asset.metricsID)
@@ -127,7 +126,7 @@ extension ArticleViewController {
             
             if action == .tappedClose {
                 DonateFunnel.shared.logFundraisingCampaignModalDidTapClose(project: project, metricsID: asset.metricsID)
-                dataControllerBridge.markAssetAsPermanentlyHidden(asset: asset)
+                dataController.markAssetAsPermanentlyHiddenSyncBridge(asset: asset)
             }
         }, showMaybeLater: shouldShowMaybeLater)
     }
