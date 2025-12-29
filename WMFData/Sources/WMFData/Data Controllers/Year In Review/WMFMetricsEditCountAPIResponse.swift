@@ -1,7 +1,7 @@
 import Foundation
 
-struct MetricsEditCountAPIRResponse: Codable {
-    struct Item: Codable {
+struct MetricsEditCountAPIRResponse: Codable, Sendable {
+    struct Item: Codable, Sendable {
         let timestampString: String
         let editCount: Int
         

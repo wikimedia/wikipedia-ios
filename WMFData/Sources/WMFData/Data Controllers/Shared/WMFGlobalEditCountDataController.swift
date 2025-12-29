@@ -1,6 +1,6 @@
 import Foundation
 
-final class WMFGlobalEditCountDataController {
+actor WMFGlobalEditCountDataController {
     
     private let globalUserID: Int
     
@@ -12,27 +12,12 @@ final class WMFGlobalEditCountDataController {
     }
     
     func fetchEditCount(globalUserID: Int, startDate: Date, endDate: Date) async throws -> Int {
-        return try await withCheckedThrowingContinuation { continuation in
-            fetchEditCount(globalUserID: globalUserID, startDate: startDate, endDate: endDate) { result in
-                switch result {
-                case .success(let successResult):
-                    continuation.resume(returning: successResult)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
-    }
-    
-    func fetchEditCount(globalUserID: Int, startDate: Date, endDate: Date, completion: @escaping (Result<Int, Error>) -> Void) {
         guard let service = service else {
-            completion(.failure(WMFDataControllerError.basicServiceUnavailable))
-            return
+            throw WMFDataControllerError.basicServiceUnavailable
         }
         
         guard let baseURL = URL.metricsAPIURL() else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
+            throw WMFDataControllerError.failureCreatingRequestURL
         }
         
         let dateFormatter = DateFormatter.metricsAPIDateFormatter
@@ -44,12 +29,26 @@ final class WMFGlobalEditCountDataController {
         
         let request = WMFBasicServiceRequest(url: finalURL, method: .GET, contentType: .json, acceptType: .json)
         
-        service.performDecodableGET(request: request) { (result: Result<MetricsEditCountAPIRResponse, Error>) in
-            switch result {
-            case .success(let response):
-                let count = response.items.reduce(0) { $0 + $1.editCount }
+        let response: MetricsEditCountAPIRResponse = try await withCheckedThrowingContinuation { continuation in
+            service.performDecodableGET(request: request) { (result: Result<MetricsEditCountAPIRResponse, Error>) in
+                continuation.resume(with: result)
+            }
+        }
+        
+        return response.items.reduce(0) { $0 + $1.editCount }
+    }
+}
+
+// MARK: - Sync Bridge Extension
+
+extension WMFGlobalEditCountDataController {
+    
+    nonisolated func fetchEditCountSyncBridge(globalUserID: Int, startDate: Date, endDate: Date, completion: @escaping @Sendable (Result<Int, Error>) -> Void) {
+        Task {
+            do {
+                let count = try await self.fetchEditCount(globalUserID: globalUserID, startDate: startDate, endDate: endDate)
                 completion(.success(count))
-            case .failure(let error):
+            } catch {
                 completion(.failure(error))
             }
         }
