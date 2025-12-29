@@ -36,12 +36,11 @@ extension ArticleTabCoordinating {
 
         guard let title = articleURL?.wmf_title,
               let siteURL = articleURL?.wmf_site,
-              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
-              let articleURL = siteURL.wmf_URL(withTitle: title) else {
+              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
             return
         }
 
-        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject, articleURL: articleURL)
+        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject)
         do {
             
             // Reassign tabConfig if needed

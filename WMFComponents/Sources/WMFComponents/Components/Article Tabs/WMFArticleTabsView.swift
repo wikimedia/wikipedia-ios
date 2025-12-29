@@ -211,7 +211,6 @@ public struct WMFArticleTabsView: View {
 
         if last?.isMain == true {
             return WMFArticlePreviewViewModel(
-                url: info?.url ?? last?.articleURL,
                 titleHtml: viewModel.localizedStrings.mainPageTitle ?? tab.title,
                 description: info?.subtitle
                 ?? info?.description
@@ -224,7 +223,6 @@ public struct WMFArticleTabsView: View {
         }
 
         return WMFArticlePreviewViewModel(
-            url: info?.url ?? last?.articleURL,
             titleHtml: tab.title,
             description: info?.subtitle ?? info?.description,
             imageURL: info?.image,

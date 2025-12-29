@@ -356,7 +356,6 @@ public actor WMFActivityTabDataController {
             let savedDate = item.timestamp
             let page = item.page
             let dayBucket = calendar.startOfDay(for: savedDate)
-            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
             
             let identifier = String("saved~\(page.projectID)~\(page.title)~\(item.timestamp.timeIntervalSince1970)")
 
@@ -366,7 +365,6 @@ public actor WMFActivityTabDataController {
                 titleHtml: page.title,
                 projectID: page.projectID,
                 pageTitle: page.title,
-                url: articleURL,
                 namespaceID: page.namespaceID,
                 itemType: .saved
             )
@@ -393,7 +391,6 @@ public actor WMFActivityTabDataController {
             let page = record.page
             let timestamp = record.timestamp
             let dayBucket = calendar.startOfDay(for: timestamp)
-            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
 
             var todaysPages = Set<String>()
             if let existingItems = dailyTimeline[dayBucket] {
@@ -410,7 +407,6 @@ public actor WMFActivityTabDataController {
                 titleHtml: page.title,
                 projectID: page.projectID,
                 pageTitle: page.title,
-                url: articleURL,
                 description: nil,
                 imageURLString: nil,
                 snippet: nil,
@@ -666,7 +662,6 @@ public struct TimelineItem: Identifiable, Equatable {
     public let titleHtml: String
     public let projectID: String
     public let pageTitle: String
-    public let url: URL?
     public var description: String?
     public var imageURLString: String?
     public var snippet: String?
@@ -679,7 +674,6 @@ public struct TimelineItem: Identifiable, Equatable {
                 titleHtml: String,
                 projectID: String,
                 pageTitle: String,
-                url: URL?,
                 description: String? = nil,
                 imageURLString: String? = nil,
                 snippet: String? = nil,
@@ -690,7 +684,6 @@ public struct TimelineItem: Identifiable, Equatable {
         self.titleHtml = titleHtml
         self.projectID = projectID
         self.pageTitle = pageTitle
-        self.url = url
         self.description = description
         self.imageURLString = imageURLString
         self.snippet = snippet

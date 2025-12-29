@@ -155,7 +155,7 @@ class ArticlePeekPreviewViewController: UIViewController {
                         
                         let tabsCount = try await articleTabsDataController.tabsCount()
                         let tabsMax = await articleTabsDataController.tabsMax
-                        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project, articleURL: article.url)
+                        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project)
                         if tabsCount >= tabsMax {
                             
                             if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {

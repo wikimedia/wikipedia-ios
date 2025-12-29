@@ -80,9 +80,6 @@ public actor WMFSavedArticlesDataController {
                     let title = page.title, !title.isEmpty
                 else { continue }
 
-                let project = WMFProject(id: projectID)
-                let url = project?.siteURL?.wmfURL(withTitle: title, languageVariantCode: nil)
-
                 let date = page.savedInfo?.savedDate
 
                 snapshots.append(
@@ -90,8 +87,7 @@ public actor WMFSavedArticlesDataController {
                         projectID: projectID,
                         title: title,
                         namespaceID: page.namespaceID,
-                        savedDate: date,
-                        articleURL: url
+                        savedDate: date
                     )
                 )
             }
@@ -210,7 +206,6 @@ fileprivate struct SavedArticleSnapshot: Sendable {
     let title: String
     let namespaceID: Int16
     let savedDate: Date?
-    let articleURL: URL?
 }
 
 public struct SavedArticleModuleData: Codable {

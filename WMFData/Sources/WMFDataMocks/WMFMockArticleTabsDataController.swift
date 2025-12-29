@@ -142,8 +142,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
                     description: "Description for \(title)",
                     extract: "Summary for \(title)",
                     imageURL: URL(string: imageURL),
-                    project: enProject,
-                    articleURL: URL(string: "")
+                    project: enProject
                 )
                 articles.append(article)
             }

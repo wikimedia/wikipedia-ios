@@ -2,7 +2,6 @@ import UIKit
 
 public final class WMFArticlePreviewViewModel {
 
-    public let url: URL?
     public let titleHtml: String
     public let description: String?
     public let imageURL: URL?
@@ -10,8 +9,7 @@ public final class WMFArticlePreviewViewModel {
     public let backgroundImage: UIImage?
     public let snippet: String?
 
-    public init(url: URL?, titleHtml: String, description: String?, imageURLString: String?, isSaved: Bool, snippet: String?) {
-        self.url = url
+    public init(titleHtml: String, description: String?, imageURLString: String?, isSaved: Bool, snippet: String?) {
         self.titleHtml = titleHtml
         self.description = description
         
@@ -25,8 +23,7 @@ public final class WMFArticlePreviewViewModel {
         self.snippet = snippet
     }
 
-    public init(url: URL?, titleHtml: String, description: String?, imageURL: URL?, isSaved: Bool, snippet: String?) {
-        self.url = url
+    public init(titleHtml: String, description: String?, imageURL: URL?, isSaved: Bool, snippet: String?) {
         self.titleHtml = titleHtml
         self.description = description
         self.imageURL = imageURL
@@ -35,8 +32,7 @@ public final class WMFArticlePreviewViewModel {
         self.snippet = snippet
     }
 
-    public init(url: URL?, titleHtml: String, description: String?, image: UIImage?, backgroundImage: UIImage?, isSaved: Bool, snippet: String?) {
-        self.url = url
+    public init(titleHtml: String, description: String?, image: UIImage?, backgroundImage: UIImage?, isSaved: Bool, snippet: String?) {
         self.titleHtml = titleHtml
         self.description = description
         self.imageURL = nil

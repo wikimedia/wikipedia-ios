@@ -77,7 +77,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
             return nil
         }
         
-        return WMFArticlePreviewViewModel(url: nil, titleHtml: self.title, description: self.articleDescription, image: self.uiImage, backgroundImage: nil, isSaved: false, snippet: summary.extract)
+        return WMFArticlePreviewViewModel(titleHtml: self.title, description: self.articleDescription, image: self.uiImage, backgroundImage: nil, isSaved: false, snippet: summary.extract)
     }
     
     var accessibilityLabelParts: String {

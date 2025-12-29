@@ -27,11 +27,15 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     public struct WMFArticle: Codable, Sendable {
         public let identifier: UUID?, title: String, description: String?, extract: String?
-        public let imageURL: URL?, project: WMFProject, articleURL: URL?
+        public let imageURL: URL?, project: WMFProject
 
-        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject, articleURL: URL?) {
-            self.identifier = identifier; self.title = title; self.description = description
-            self.extract = extract; self.imageURL = imageURL; self.project = project; self.articleURL = articleURL
+        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject) {
+            self.identifier = identifier
+            self.title = title
+            self.description = description
+            self.extract = extract
+            self.imageURL = imageURL
+            self.project = project
         }
         
         public var isMain: Bool { title == "Main_Page" || title == "Main Page" }
@@ -166,10 +170,7 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             guard let lang = WMFDataEnvironment.current.appData.appLanguages.first else { throw CustomError.missingAppLanguage }
             let proj = WMFProject.wikipedia(lang)
             let title = "Main_Page"
-            guard let siteURL = proj.siteURL, let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
-                throw CustomError.missingURL
-            }
-            article = WMFArticle(identifier: nil, title: title, project: proj, articleURL: articleURL)
+            article = WMFArticle(identifier: nil, title: title, project: proj,)
         }
 
         let store = coreDataStore
@@ -316,9 +317,8 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                     }
 
                     if let cdi = adj as? CDArticleTabItem, let t = cdi.page?.title, let id = cdi.identifier,
-                       let pid = cdi.page?.projectID, let proj = WMFProject(id: pid),
-                       let siteURL = proj.siteURL, let aurl = siteURL.wmfURL(withTitle: t, languageVariantCode: nil) {
-                        continuation.resume(returning: WMFArticle(identifier: id, title: t, project: proj, articleURL: aurl))
+                       let pid = cdi.page?.projectID, let proj = WMFProject(id: pid) {
+                        continuation.resume(returning: WMFArticle(identifier: id, title: t, project: proj))
                     } else {
                         continuation.resume(returning: nil)
                     }
@@ -525,11 +525,10 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                         var arts: [WMFArticle] = []
                         for item in items {
                             guard let ati = item as? CDArticleTabItem, let page = ati.page, let id = ati.identifier,
-                                  let t = page.title, let pid = page.projectID, let proj = WMFProject(id: pid),
-                                  let siteURL = proj.siteURL, let aurl = siteURL.wmfURL(withTitle: t, languageVariantCode: nil) else {
+                                  let t = page.title, let pid = page.projectID, let proj = WMFProject(id: pid) else {
                                 throw CustomError.unexpectedType
                             }
-                            arts.append(WMFArticle(identifier: id, title: t, project: proj, articleURL: aurl))
+                            arts.append(WMFArticle(identifier: id, title: t, project: proj))
                             if ati.isCurrent { break }
                         }
                         ats.append(WMFArticleTab(identifier: tid, timestamp: ts, isCurrent: cdt.isCurrent, articles: arts))
@@ -556,12 +555,11 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                     let cdis = cdt.items?.compactMap { $0 as? CDArticleTabItem }
                     let cdi = cdis?.first(where: { $0.isCurrent == true })
                     guard let cdi, let aid = cdi.identifier, let page = cdi.page, let t = page.title,
-                          let pid = page.projectID, let proj = WMFProject(id: pid),
-                          let siteURL = proj.siteURL, let aurl = siteURL.wmfURL(withTitle: t, languageVariantCode: nil) else {
+                          let pid = page.projectID, let proj = WMFProject(id: pid) else {
                         throw CustomError.missingTabItem
                     }
                     let tab = WMFArticleTab(identifier: tid, timestamp: tts, isCurrent: cdt.isCurrent,
-                                           articles: [WMFArticle(identifier: aid, title: t, project: proj, articleURL: aurl)])
+                                           articles: [WMFArticle(identifier: aid, title: t, project: proj)])
                     try self.userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
                     continuation.resume()
                 } catch {

@@ -395,3 +395,9 @@ final class TabsCoordinatorManager {
         coordinator.start()
     }
 }
+
+fileprivate extension WMFArticleTabsDataController.WMFArticle {
+    var articleURL: URL? {
+        return project.siteURL?.wmf_URL(withTitle: title)
+    }
+}

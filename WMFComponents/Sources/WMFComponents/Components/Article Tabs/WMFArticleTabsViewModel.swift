@@ -328,7 +328,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             let id: String
             let project: WMFProject
             let title: String
-            let url: URL?
             let isMain: Bool
         }
 
@@ -339,7 +338,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 if self.prefetchedTabIDs.contains(tab.id) || self.incomingTabIDs.contains(tab.id) { return nil }
                 guard let last = tab.data.articles.last else { return nil }
                 self.incomingTabIDs.insert(tab.id)
-                return Input(id: tab.id, project: last.project, title: last.title, url: last.articleURL, isMain: last.isMain)
+                return Input(id: tab.id, project: last.project, title: last.title, isMain: last.isMain)
             }
         }
 
@@ -359,7 +358,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                             subtitle: subtitle,
                             image: summary.thumbnailURL,
                             description: desc,
-                            url: input.url,
                             snippet: desc
                         )
                         return (input.id, info)
@@ -403,7 +401,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     subtitle: subtitle,
                     image: summary.thumbnailURL,
                     description: snippet,
-                    url: last.articleURL,
                     snippet: snippet
                 )
                 await MainActor.run {
@@ -440,7 +437,6 @@ class ArticleTab: Identifiable, Hashable, Equatable, ObservableObject {
         let subtitle: String?
         let image: URL?
         let description: String?
-        let url: URL?
         let snippet: String?
     }
 

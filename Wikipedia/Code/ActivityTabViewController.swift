@@ -469,7 +469,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
    private  func onTapArticle(item: TimelineItem) {
        ActivityTabFunnel.shared.logActivityTabArticleTap()
-        if let articleURL = item.url, let dataStore, let navVC = navigationController {
+        if let project = WMFProject(id: item.projectID),
+            let articleURL = project.siteURL?.wmf_URL(withTitle: item.pageTitle), let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }
