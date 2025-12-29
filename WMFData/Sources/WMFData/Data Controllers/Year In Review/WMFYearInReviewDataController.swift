@@ -247,7 +247,7 @@ import CoreData
             return false
         }
         
-        guard experimentsDataController.bucketForExperiment(.yirLoginPrompt) == nil else {
+        guard experimentsDataController.bucketForExperimentSyncBridge(.yirLoginPrompt) == nil else {
             return false
         }
         
@@ -260,7 +260,9 @@ import CoreData
             throw CustomError.missingExperimentsDataController
         }
         
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.yirLoginPrompt, withPercentage: 50)
+        guard let bucketValue = experimentsDataController.determineBucketForExperimentSyncBridge(.yirLoginPrompt, withPercentage: 50) else {
+            throw CustomError.unexpectedAssignment
+        }
 
         let assignment: YiRLoginExperimentAssignment
         
@@ -316,7 +318,7 @@ import CoreData
             return assignmentCache
         }
         
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.yirLoginPrompt) else {
+        guard let bucketValue = experimentsDataController.bucketForExperimentSyncBridge(.yirLoginPrompt) else {
             return nil
         }
         

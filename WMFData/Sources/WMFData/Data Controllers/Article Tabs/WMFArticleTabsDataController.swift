@@ -96,7 +96,7 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         self.experimentsDataController = experimentStore != nil ? WMFExperimentsDataController(store: experimentStore!) : nil
     }
     
-    private func shouldAssignToBucketV2() -> Bool { experimentsDataController?.bucketForExperiment(.moreDynamicTabsV2) == nil }
+    private func shouldAssignToBucketV2() -> Bool { experimentsDataController?.bucketForExperimentSyncBridge(.moreDynamicTabsV2) == nil }
     public var shouldShowMoreDynamicTabsV2: Bool { true }
     private var primaryAppLanguageProject: WMFProject? {
         guard let language = WMFDataEnvironment.current.appData.appLanguages.first else { return nil }

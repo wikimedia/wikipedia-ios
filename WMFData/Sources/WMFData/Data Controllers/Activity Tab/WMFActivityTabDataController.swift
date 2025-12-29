@@ -494,7 +494,7 @@ public actor WMFActivityTabDataController {
             return assignmentCache
         }
 
-        if let bucketValue = experimentsDataController?.bucketForExperiment(.activityTab) {
+        if let bucketValue = experimentsDataController?.bucketForExperimentSyncBridge(.activityTab) {
             let assignment: WMFActivityTabExperimentAssignment
 
             switch bucketValue {
@@ -538,7 +538,9 @@ public actor WMFActivityTabDataController {
             throw CustomError.missingExperimentsDataController
         }
 
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.activityTab, withPercentage: activityTabExperimentPercentage)
+        guard let bucketValue = experimentsDataController.determineBucketForExperimentSyncBridge(.activityTab, withPercentage: activityTabExperimentPercentage) else {
+            throw CustomError.unexpectedAssignment
+        }
 
         var assignment: WMFActivityTabExperimentAssignment
 
@@ -579,7 +581,7 @@ public actor WMFActivityTabDataController {
     }
 
     public var alreadyAssigned: Bool {
-       return experimentsDataController?.bucketForExperiment(.activityTab) != nil
+       return experimentsDataController?.bucketForExperimentSyncBridge(.activityTab) != nil
     }
 
     private var experimentEndDate: Date? {

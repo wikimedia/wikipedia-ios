@@ -1,6 +1,8 @@
 import Foundation
 
-final class WMFExperimentsDataController {
+// MARK: - Actor
+
+actor WMFExperimentsDataController {
     
     // MARK: - Nested Types
     
@@ -165,5 +167,57 @@ final class WMFExperimentsDataController {
         
         let key = experiment.config.bucketFileName.rawValue
         try store.save(key: cacheDirectoryName, key, value: bucket.rawValue)
+    }
+}
+
+// MARK: - Sync Bridge Extension
+
+extension WMFExperimentsDataController {
+    
+    @discardableResult
+    nonisolated public func determineBucketForExperimentSyncBridge(_ experiment: Experiment, withPercentage percentage: Int, forceValue: BucketValue? = nil) -> BucketValue? {
+        var result: BucketValue? = nil
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            do {
+                result = try await self.determineBucketForExperiment(experiment, withPercentage: percentage, forceValue: forceValue)
+            } catch {
+                print("Error determining bucket: \(error)")
+                result = nil
+            }
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    nonisolated public func bucketForExperimentSyncBridge(_ experiment: Experiment) -> BucketValue? {
+        var result: BucketValue? = nil
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.bucketForExperiment(experiment)
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    nonisolated public func resetExperimentSyncBridge(_ experiment: Experiment) {
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            do {
+                try await self.resetExperiment(experiment)
+            } catch {
+                print("Error resetting experiment: \(error)")
+            }
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
     }
 }
