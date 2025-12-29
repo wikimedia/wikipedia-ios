@@ -1,7 +1,7 @@
 import Foundation
 
-/// A plain‐Swift struct representing a single record or WMFArticle from the user’s read history, exactly as it’s stored in WMKDataStore
-public struct HistoryRecord {
+/// A plain‐Swift struct representing a single record or WMFArticle from the user's read history, exactly as it's stored in WMKDataStore
+public struct HistoryRecord: Sendable {
     public let id: Int
     public let title: String
     public let descriptionOrSnippet: String?
@@ -27,21 +27,21 @@ public struct HistoryRecord {
     }
 }
 
-public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
+public actor WMFHistoryDataController: WMFHistoryDataControllerProtocol {
 
     // MARK: - Dependency Injection Closures
 
     /// Closure that returns an array of history records
-    public typealias RecordsProvider = () -> [HistoryRecord]
+    public typealias RecordsProvider = @Sendable () -> [HistoryRecord]
 
     /// Closure that deletes a single history record
-    public typealias DeleteRecordAction = (HistoryItem) -> Void
+    public typealias DeleteRecordAction = @Sendable (HistoryItem) -> Void
 
     /// Closure to pass an item to be saved on the data store
-    public typealias SaveRecordAction = (HistoryItem) -> Void
+    public typealias SaveRecordAction = @Sendable (HistoryItem) -> Void
 
     /// Closure to pass an item to be unsaved from the data store
-    public typealias UnsaveRecordAction = (HistoryItem) -> Void
+    public typealias UnsaveRecordAction = @Sendable (HistoryItem) -> Void
 
     private let recordsProvider: RecordsProvider
     public var deleteRecordAction: DeleteRecordAction?
@@ -56,6 +56,16 @@ public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
     }
 
     // MARK: - Data Access Methods
+    
+    public func setActions(
+            deleteAction: DeleteRecordAction?,
+            saveAction: SaveRecordAction?,
+            unsaveAction: UnsaveRecordAction?
+        ) {
+            self.deleteRecordAction = deleteAction
+            self.saveRecordAction = saveAction
+            self.unsaveRecordAction = unsaveAction
+        }
 
     /// Groups history records by day (using the start of the day) and returns an array of `HistorySection`.
     public func fetchHistorySections() -> [HistorySection] {
@@ -99,39 +109,74 @@ public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
 
 }
 
+// MARK: - Sync Bridge Extension
+
+extension WMFHistoryDataController {
+    
+    nonisolated public func fetchHistorySectionsSyncBridge() -> [HistorySection] {
+        var result: [HistorySection] = []
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.fetchHistorySections()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    nonisolated public func deleteHistoryItemSyncBridge(_ item: HistoryItem) {
+        Task {
+            await self.deleteHistoryItem(item)
+        }
+    }
+    
+    nonisolated public func saveHistoryItemSyncBridge(_ item: HistoryItem) {
+        Task {
+            await self.saveHistoryItem(item)
+        }
+    }
+    
+    nonisolated public func unsaveHistoryItemSyncBridge(_ item: HistoryItem) {
+        Task {
+            await self.unsaveHistoryItem(item)
+        }
+    }
+}
 
 public protocol WMFHistoryDataControllerProtocol {
     // MARK: - Dependency Injection Typealiases
 
     /// Closure that returns an array of history records.
-    typealias RecordsProvider = () -> [HistoryRecord]
+    typealias RecordsProvider = @Sendable () -> [HistoryRecord]
 
     /// Closure that deletes a single history record.
-    typealias DeleteRecordAction = (HistoryItem) -> Void
+    typealias DeleteRecordAction = @Sendable (HistoryItem) -> Void
 
     /// Closure that saves a history record.
-    typealias SaveRecordAction = (HistoryItem) -> Void
+    typealias SaveRecordAction = @Sendable (HistoryItem) -> Void
 
     /// Closure that unsaves a history record.
-    typealias UnsaveRecordAction = (HistoryItem) -> Void
+    typealias UnsaveRecordAction = @Sendable (HistoryItem) -> Void
 
     // MARK: - Data Access Methods
 
     /// Groups history records by day and returns an array of HistorySection.
-    func fetchHistorySections() -> [HistorySection]
+    func fetchHistorySectionsSyncBridge() -> [HistorySection]
 
     /// Deletes the specified history item.
-    func deleteHistoryItem(_ item: HistoryItem)
+    func deleteHistoryItemSyncBridge(_ item: HistoryItem)
 
     /// Saves the specified history item.
-    func saveHistoryItem(_ item: HistoryItem)
+    func saveHistoryItemSyncBridge(_ item: HistoryItem)
 
     /// Un-saves the specified history item.
-    func unsaveHistoryItem(_ item: HistoryItem)
+    func unsaveHistoryItemSyncBridge(_ item: HistoryItem)
 }
 
 /// Representation of a section of a list of history items
-public final class HistorySection: Identifiable, Equatable {
+public final class HistorySection: Identifiable, Equatable, @unchecked Sendable {
     public static func == (lhs: HistorySection, rhs: HistorySection) -> Bool {
         return lhs.id == rhs.id
     }
@@ -149,7 +194,7 @@ public final class HistorySection: Identifiable, Equatable {
 
 /// A view‐layer representation of a history record, for use in SwiftUI lists.
 /// Converts raw data from `HistoryRecord` into types and bindings that UI code can work and update
-public final class HistoryItem: Identifiable, Equatable {
+public final class HistoryItem: Identifiable, Equatable, @unchecked Sendable {
     public let id: String
     public let url: URL?
     public let titleHtml: String

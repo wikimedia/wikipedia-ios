@@ -100,61 +100,69 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         super.init()
 
         let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historyItem in
-            guard let self, let dataStore = self.dataStore else { return }
-            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            request.predicate = NSPredicate(format: "pageID == %@", historyItem.id)
-            do {
-                if let article = try dataStore.viewContext.fetch(request).first {
-                    try article.removeFromReadHistory()
+            Task { @MainActor in
+                guard let self, let dataStore = self.dataStore else { return }
+                let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+                request.predicate = NSPredicate(format: "pageID == %@", historyItem.id)
+                do {
+                    if let article = try dataStore.viewContext.fetch(request).first {
+                        try article.removeFromReadHistory()
+                    }
+                } catch {
+                    self.showError(error)
+                }
+                
+                guard let title = historyItem.url?.wmf_title,
+                      let languageCode = historyItem.url?.wmf_languageCode else {
+                    return
                 }
 
-            } catch {
-                showError(error)
+                let variant = historyItem.variant
+                let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: variant))
 
-            }
-            guard let title = historyItem.url?.wmf_title,
-                  let languageCode = historyItem.url?.wmf_languageCode else {
-                return
-            }
-
-            let variant = historyItem.variant
-
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: variant))
-
-            Task {
-                do {
-                    let dataController = try WMFPageViewsDataController()
-                    try await dataController.deletePageView(title: title, namespaceID: 0, project: project)
-                } catch {
-                    DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+                Task {
+                    do {
+                        let dataController = try WMFPageViewsDataController()
+                        try await dataController.deletePageView(title: title, namespaceID: 0, project: project)
+                    } catch {
+                        DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+                    }
                 }
             }
         }
 
         let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historyItem in
-            guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
-            dataStore.savedPageList.addSavedPage(with: articleURL)
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(userDidSaveOrUnsaveArticle(_:)),
-                                                   name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
-                                                   object: nil)
-            historyItem.isSaved = true
+            Task { @MainActor in
+                guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
+                dataStore.savedPageList.addSavedPage(with: articleURL)
+                NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(self.userDidSaveOrUnsaveArticle(_:)),
+                                                       name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+                                                       object: nil)
+                historyItem.isSaved = true
+            }
         }
 
         let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historyItem in
-            guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
+            Task { @MainActor in
+                guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
 
-            dataStore.savedPageList.removeEntry(with: articleURL)
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(userDidSaveOrUnsaveArticle(_:)),
-                                                   name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
-                                                   object: nil)
-            historyItem.isSaved = false
+                dataStore.savedPageList.removeEntry(with: articleURL)
+                NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(self.userDidSaveOrUnsaveArticle(_:)),
+                                                       name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+                                                       object: nil)
+                historyItem.isSaved = false
+            }
         }
 
-        dataController.deleteRecordAction = deleteRecordAction
-        dataController.saveRecordAction = saveArticleAction
-        dataController.unsaveRecordAction = unsaveArticleAction
+        Task {
+            await dataController.setActions(
+                deleteAction: deleteRecordAction,
+                saveAction: saveArticleAction,
+                unsaveAction: unsaveArticleAction
+            )
+        }
 
         let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
             guard let self else { return }

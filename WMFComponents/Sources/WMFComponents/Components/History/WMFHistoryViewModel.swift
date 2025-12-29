@@ -67,7 +67,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     // MARK: - Public functions
 
     public func loadHistory() {
-        let dataSections = historyDataController.fetchHistorySections()
+        let dataSections = historyDataController.fetchHistorySectionsSyncBridge()
         let viewModelSections = dataSections.map { dataSection -> HistorySection in
             let items = dataSection.items.map { dataItem in
                 HistoryItem(id: dataItem.id,
@@ -102,7 +102,7 @@ public final class WMFHistoryViewModel: ObservableObject {
                 self.sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
             }
         }
-        historyDataController.deleteHistoryItem(item)
+        historyDataController.deleteHistoryItemSyncBridge(item)
 
         isEmpty = sections.isEmpty || sections.allSatisfy { $0.items.isEmpty }
 
@@ -125,9 +125,9 @@ public final class WMFHistoryViewModel: ObservableObject {
         Task {
             await MainActor.run {
                 if newIsSaved {
-                    historyDataController.saveHistoryItem(sections[sectionIndex].items[itemIndex])
+                    historyDataController.saveHistoryItemSyncBridge(sections[sectionIndex].items[itemIndex])
                 } else {
-                    historyDataController.unsaveHistoryItem(sections[sectionIndex].items[itemIndex])
+                    historyDataController.unsaveHistoryItemSyncBridge(sections[sectionIndex].items[itemIndex])
                 }
             }
         }

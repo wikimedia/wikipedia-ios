@@ -709,50 +709,59 @@ extension WMFAppViewController {
 
         // data controller properties
         let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
-
-            guard let self else {
-                return []
-            }
-
-            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            request.predicate = NSPredicate(format: "viewedDate != NULL")
-            request.sortDescriptors = [
-                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
-                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
-            ]
-            request.fetchLimit = 1000
-
-            do {
-                var articles: [HistoryRecord] = []
-                let articleFetchRequest = try dataStore.viewContext.fetch(request)
-                
-                let thumbnailImageWidth = UIScreen.main.wmf_listThumbnailWidthForScale().intValue
-
-                for article in articleFetchRequest {
-                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
-
-                        let record = HistoryRecord(
-                            id: Int(truncating: pageID),
-                            title: article.displayTitle ?? article.displayTitleHTML,
-                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
-                            shortDescription: article.snippet,
-                            articleURL: article.url,
-                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
-                            viewedDate: viewedDate,
-                            isSaved: article.isSaved,
-                            snippet: article.snippet,
-                            variant: article.variant
-                        )
-                        articles.append(record)
-                    }
+            var result: [HistoryRecord] = []
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            Task { @MainActor in
+                guard let self else {
+                    semaphore.signal()
+                    return
                 }
 
-                return articles
+                let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+                request.predicate = NSPredicate(format: "viewedDate != NULL")
+                request.sortDescriptors = [
+                    NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
+                    NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
+                ]
+                request.fetchLimit = 1000
 
-            } catch {
-                DDLogError("Error fetching history: \(error)")
-                return []
+                do {
+                    var articles: [HistoryRecord] = []
+                    let articleFetchRequest = try self.dataStore.viewContext.fetch(request)
+                    
+                    let thumbnailImageWidth = UIScreen.main.wmf_listThumbnailWidthForScale().intValue
+
+                    for article in articleFetchRequest {
+                        if let viewedDate = article.viewedDate, let pageID = article.pageID {
+
+                            let record = HistoryRecord(
+                                id: Int(truncating: pageID),
+                                title: article.displayTitle ?? article.displayTitleHTML,
+                                descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
+                                shortDescription: article.snippet,
+                                articleURL: article.url,
+                                imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
+                                viewedDate: viewedDate,
+                                isSaved: article.isSaved,
+                                snippet: article.snippet,
+                                variant: article.variant
+                            )
+                            articles.append(record)
+                        }
+                    }
+
+                    result = articles
+
+                } catch {
+                    DDLogError("Error fetching history: \(error)")
+                }
+                
+                semaphore.signal()
             }
+            
+            semaphore.wait()
+            return result
         }
 
         let historyDataController = WMFHistoryDataController(
