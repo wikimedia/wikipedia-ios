@@ -42,7 +42,7 @@ public final class WMFPageViewCount: Identifiable, Sendable {
    }
  }
 
-public final class WMFPageViewDates: Codable {
+public final class WMFPageViewDates: Codable, Sendable {
     public let days: [WMFPageViewDay]
     public let times: [WMFPageViewTime]
     public let months: [WMFPageViewMonth]
@@ -54,7 +54,7 @@ public final class WMFPageViewDates: Codable {
     }
 }
 
-public final class WMFPageViewDay: Codable {
+public final class WMFPageViewDay: Codable, Sendable {
     public let day: Int
     public let viewCount: Int
     
@@ -64,7 +64,7 @@ public final class WMFPageViewDay: Codable {
     }
 }
 
-public final class WMFPageViewMonth: Codable {
+public final class WMFPageViewMonth: Codable, Sendable {
     public let month: Int
     public let viewCount: Int
     
@@ -74,7 +74,7 @@ public final class WMFPageViewMonth: Codable {
     }
 }
 
-public final class WMFPageViewTime: Codable {
+public final class WMFPageViewTime: Codable, Sendable {
     public let hour: Int
     public let viewCount: Int
     
@@ -89,7 +89,7 @@ public struct WMFPageWithTimestamp: Sendable {
     public let timestamp: Date
 }
 
-public final class WMFLegacyPageView: Codable {
+public final class WMFLegacyPageView: Codable, Sendable {
     public let title: String
     let project: WMFProject
     let viewedDate: Date
@@ -106,7 +106,7 @@ public final class WMFLegacyPageView: Codable {
     
 }
 
-public final class WMFPageViewsDataController {
+public actor WMFPageViewsDataController {
     
     private let coreDataStore: WMFCoreDataStore
     
@@ -123,54 +123,62 @@ public final class WMFPageViewsDataController {
         
         let coreDataTitle = title.normalizedForCoreData
         
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
-        let managedObjectID: NSManagedObjectID? = try await backgroundContext.perform { [weak self] () -> NSManagedObjectID? in
-            
-            guard let self else { return nil }
-            
-            let timestamp = timestamp ?? Date()
-            let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
-            let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
-            page?.title = coreDataTitle
-            page?.namespaceID = namespaceID
-            page?.projectID = project.id
-            page?.timestamp = timestamp
-            
-            let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
-            viewedPage.page = page
-            viewedPage.timestamp = timestamp
-            
-            if let previousPageViewObjectID,
-               let previousPageView = backgroundContext.object(with: previousPageViewObjectID) as? CDPageView {
-                viewedPage.previousPageView = previousPageView
+        return try await withCheckedThrowingContinuation { continuation in
+            backgroundContext.perform {
+                do {
+                    let timestamp = timestamp ?? Date()
+                    let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
+                    let page = try store.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
+                    page?.title = coreDataTitle
+                    page?.namespaceID = namespaceID
+                    page?.projectID = project.id
+                    page?.timestamp = timestamp
+                    
+                    let viewedPage = try store.create(entityType: CDPageView.self, in: backgroundContext)
+                    viewedPage.page = page
+                    viewedPage.timestamp = timestamp
+                    
+                    if let previousPageViewObjectID,
+                       let previousPageView = backgroundContext.object(with: previousPageViewObjectID) as? CDPageView {
+                        viewedPage.previousPageView = previousPageView
+                    }
+                    
+                    try store.saveIfNeeded(moc: backgroundContext)
+                    
+                    continuation.resume(returning: viewedPage.objectID)
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
-            
-            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-            
-            return viewedPage.objectID
         }
-        
-        return managedObjectID
     }
     
     public func addPageViewSeconds(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) async throws {
         
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
-        try await backgroundContext.perform { [weak self] in
-            
-            guard let self else { return }
-            
-            guard let pageView = backgroundContext.object(with: pageViewManagedObjectID) as? CDPageView else {
-                return
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            backgroundContext.perform {
+                do {
+                    guard let pageView = backgroundContext.object(with: pageViewManagedObjectID) as? CDPageView else {
+                        continuation.resume()
+                        return
+                    }
+                    
+                    pageView.numberOfSeconds += Int64(numberOfSeconds)
+                    
+                    try store.saveIfNeeded(moc: backgroundContext)
+                    continuation.resume()
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
-            
-            pageView.numberOfSeconds += Int64(numberOfSeconds)
-            
-            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
     
@@ -178,29 +186,36 @@ public final class WMFPageViewsDataController {
         
         let coreDataTitle = title.normalizedForCoreData
         
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
-        try await backgroundContext.perform { [weak self] in
-            
-            guard let self else { return }
-            
-            let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
-            guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else {
-                return
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            backgroundContext.perform {
+                do {
+                    let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
+                    guard let page = try store.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else {
+                        continuation.resume()
+                        return
+                    }
+                    
+                    let pageViewsPredicate = NSPredicate(format: "page == %@", argumentArray: [page])
+                    
+                    guard let pageViews = try store.fetch(entityType: CDPageView.self, predicate: pageViewsPredicate, fetchLimit: nil, in: backgroundContext) else {
+                        continuation.resume()
+                        return
+                    }
+                    
+                    for pageView in pageViews {
+                        backgroundContext.delete(pageView)
+                    }
+                    
+                    try store.saveIfNeeded(moc: backgroundContext)
+                    continuation.resume()
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
-            
-            let pageViewsPredicate = NSPredicate(format: "page == %@", argumentArray: [page])
-            
-            guard let pageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: pageViewsPredicate, fetchLimit: nil, in: backgroundContext) else {
-                return
-            }
-            
-            for pageView in pageViews {
-                backgroundContext.delete(pageView)
-            }
-            
-            try coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
         
         let categoriesDataController = try WMFCategoriesDataController(coreDataStore: self.coreDataStore)
@@ -208,247 +223,344 @@ public final class WMFPageViewsDataController {
     }
     
     public func deleteAllPageViewsAndCategories() async throws {
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
-        try await backgroundContext.perform {
-            
-            let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
-            
-            let batchCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: categoryFetchRequest)
-            batchCategoryDeleteRequest.resultType = .resultTypeObjectIDs
-            _ = try backgroundContext.execute(batchCategoryDeleteRequest) as? NSBatchDeleteResult
-            
-            let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
-            
-            let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
-            batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
-            _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
-            
-            backgroundContext.refreshAllObjects()
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            backgroundContext.perform {
+                do {
+                    let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
+                    
+                    let batchCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: categoryFetchRequest)
+                    batchCategoryDeleteRequest.resultType = .resultTypeObjectIDs
+                    _ = try backgroundContext.execute(batchCategoryDeleteRequest) as? NSBatchDeleteResult
+                    
+                    let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
+                    
+                    let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
+                    batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
+                    _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
+                    
+                    backgroundContext.refreshAllObjects()
+                    continuation.resume()
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            }
         }
     }
     
     public func importPageViews(requests: [WMFLegacyPageView]) async throws {
         
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         
-        try await backgroundContext.perform {
-            for request in requests {
-                
-                let coreDataTitle = request.title.normalizedForCoreData
-                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.id, 0, coreDataTitle])
-                
-                let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
-                page?.title = coreDataTitle
-                page?.namespaceID = 0
-                page?.projectID = request.project.id
-                page?.timestamp = request.viewedDate
-                
-                let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
-                viewedPage.page = page
-                viewedPage.timestamp = request.viewedDate
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            backgroundContext.perform {
+                do {
+                    for request in requests {
+                        
+                        let coreDataTitle = request.title.normalizedForCoreData
+                        let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.id, 0, coreDataTitle])
+                        
+                        let page = try store.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
+                        page?.title = coreDataTitle
+                        page?.namespaceID = 0
+                        page?.projectID = request.project.id
+                        page?.timestamp = request.viewedDate
+                        
+                        let viewedPage = try store.create(entityType: CDPageView.self, in: backgroundContext)
+                        viewedPage.page = page
+                        viewedPage.timestamp = request.viewedDate
+                    }
+                    
+                    try store.saveIfNeeded(moc: backgroundContext)
+                    continuation.resume()
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
-            
-            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
     
     public func fetchPageViewCounts(startDate: Date, endDate: Date) async throws -> [WMFPageViewCount] {
         
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         
-        let results: [WMFPageViewCount] = try await backgroundContext.perform {
-            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: predicate, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: backgroundContext)
-            var pageViewCounts: [WMFPageViewCount] = []
-            for dict in pageViewsDict {
-                
-                guard let objectID = dict["page"] as? NSManagedObjectID,
-                      let count = dict["count"] as? Int else {
-                    continue
+        return try await withCheckedThrowingContinuation { continuation in
+            backgroundContext.perform {
+                do {
+                    let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+                    let pageViewsDict = try store.fetchGrouped(entityType: CDPageView.self, predicate: predicate, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: backgroundContext)
+                    var pageViewCounts: [WMFPageViewCount] = []
+                    for dict in pageViewsDict {
+                        
+                        guard let objectID = dict["page"] as? NSManagedObjectID,
+                              let count = dict["count"] as? Int else {
+                            continue
+                        }
+                        
+                        guard let page = backgroundContext.object(with: objectID) as? CDPage,
+                              let projectID = page.projectID, let title = page.title else {
+                            continue
+                        }
+                        
+                        let namespaceID = page.namespaceID
+                        
+                        pageViewCounts.append(WMFPageViewCount(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), count: count))
+                    }
+                    continuation.resume(returning: pageViewCounts)
+                } catch {
+                    continuation.resume(throwing: error)
                 }
-                
-                guard let page = backgroundContext.object(with: objectID) as? CDPage,
-                      let projectID = page.projectID, let title = page.title else {
-                    continue
-                }
-                
-                let namespaceID = page.namespaceID
-                
-                pageViewCounts.append(WMFPageViewCount(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), count: count))
             }
-            return pageViewCounts
         }
-        
-        return results
     }
     
     public func fetchPageViewMinutes(startDate: Date, endDate: Date) async throws -> Int {
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         
-        let result: Int64 = try await backgroundContext.perform {
-            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-            
-            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
-            request.predicate = predicate
+        return try await withCheckedThrowingContinuation { continuation in
+            backgroundContext.perform {
+                do {
+                    let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+                    
+                    let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+                    request.predicate = predicate
 
-            let sumExpression = NSExpressionDescription()
-            sumExpression.name = "totalSeconds"
-            sumExpression.expression = NSExpression(
-                forFunction: "sum:",
-                arguments: [NSExpression(forKeyPath: "numberOfSeconds")]
-            )
-            sumExpression.expressionResultType = .integer64AttributeType
+                    let sumExpression = NSExpressionDescription()
+                    sumExpression.name = "totalSeconds"
+                    sumExpression.expression = NSExpression(
+                        forFunction: "sum:",
+                        arguments: [NSExpression(forKeyPath: "numberOfSeconds")]
+                    )
+                    sumExpression.expressionResultType = .integer64AttributeType
 
-            request.resultType = .dictionaryResultType
-            request.propertiesToFetch = [sumExpression]
+                    request.resultType = .dictionaryResultType
+                    request.propertiesToFetch = [sumExpression]
 
-            if let result = try backgroundContext.fetch(request).first,
-               let totalSeconds = result["totalSeconds"] as? Int64 {
-                return totalSeconds / Int64(60)
+                    if let result = try backgroundContext.fetch(request).first,
+                       let totalSeconds = result["totalSeconds"] as? Int64 {
+                        continuation.resume(returning: Int(totalSeconds / Int64(60)))
+                    } else {
+                        continuation.resume(returning: 0)
+                    }
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
-            
-            return 0
         }
-        
-        return Int(result)
     }
 
     func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) async throws -> WMFPageViewDates? {
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         
-        let results: WMFPageViewDates? = try await backgroundContext.perform { () -> WMFPageViewDates? in
-            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-            let cdPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: backgroundContext)
-            
-            guard let cdPageViews = cdPageViews else {
-                return nil
-            }
-            
-            var countsDictionaryDay: [Int: Int] = [:]
-            var countsDictionaryTime: [Int: Int] = [:]
-            var countsDictionaryMonth: [Int: Int] = [:]
-            
-            for cdPageView in cdPageViews {
-                if let timestamp = cdPageView.timestamp {
-                    let calendar = Calendar.current
-                    let dayOfWeek = calendar.component(.weekday, from: timestamp)
-                    let hourOfDay = calendar.component(.hour, from: timestamp)
-                    let month = calendar.component(.month, from: timestamp)
+        return try await withCheckedThrowingContinuation { continuation in
+            backgroundContext.perform {
+                do {
+                    let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+                    let cdPageViews = try store.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: backgroundContext)
                     
-                    countsDictionaryDay[dayOfWeek, default: 0] += 1
-                    countsDictionaryTime[hourOfDay, default: 0] += 1
-                    countsDictionaryMonth[month, default: 0] += 1
+                    guard let cdPageViews = cdPageViews else {
+                        continuation.resume(returning: nil)
+                        return
+                    }
+                    
+                    var countsDictionaryDay: [Int: Int] = [:]
+                    var countsDictionaryTime: [Int: Int] = [:]
+                    var countsDictionaryMonth: [Int: Int] = [:]
+                    
+                    for cdPageView in cdPageViews {
+                        if let timestamp = cdPageView.timestamp {
+                            let calendar = Calendar.current
+                            let dayOfWeek = calendar.component(.weekday, from: timestamp)
+                            let hourOfDay = calendar.component(.hour, from: timestamp)
+                            let month = calendar.component(.month, from: timestamp)
+                            
+                            countsDictionaryDay[dayOfWeek, default: 0] += 1
+                            countsDictionaryTime[hourOfDay, default: 0] += 1
+                            countsDictionaryMonth[month, default: 0] += 1
+                        }
+                    }
+                    
+                    let days = countsDictionaryDay.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
+                        WMFPageViewDay(day: dayOfWeek, viewCount: count)
+                    }
+                    
+                    let times: [WMFPageViewTime] = countsDictionaryTime.sorted(by: { $0.key < $1.key }).map { hour, count in
+                        return WMFPageViewTime(hour: hour, viewCount: count)
+                    }
+                    
+                    let months = countsDictionaryMonth.sorted(by: { $0.key < $1.key }).map { month, count in
+                        WMFPageViewMonth(month: month, viewCount: count)
+                    }
+                    
+                    continuation.resume(returning: WMFPageViewDates(days: days, times: times, months: months))
+                } catch {
+                    continuation.resume(throwing: error)
                 }
             }
-            
-            let days = countsDictionaryDay.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
-                WMFPageViewDay(day: dayOfWeek, viewCount: count)
-            }
-            
-            let times: [WMFPageViewTime] = countsDictionaryTime.sorted(by: { $0.key < $1.key }).map { hour, count in
-                return WMFPageViewTime(hour: hour, viewCount: count)
-            }
-            
-            let months = countsDictionaryMonth.sorted(by: { $0.key < $1.key }).map { month, count in
-                WMFPageViewMonth(month: month, viewCount: count)
-            }
-            
-            return WMFPageViewDates(days: days, times: times, months: months)
         }
-        
-        return results
     }
     
     public func fetchLinkedPageViews() async throws -> [[CDPageView]] {
-        let context = try coreDataStore.viewContext
+        let store = coreDataStore
+        let context = try store.viewContext
         
-        let result: [[CDPageView]] = try await context.perform {
-            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
-            let allPageViews = try context.fetch(fetchRequest)
+        return try await withCheckedThrowingContinuation { continuation in
+            context.perform {
+                do {
+                    let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+                    let allPageViews = try context.fetch(fetchRequest)
 
-            // Find roots: page views with no previousPageView
-            let roots = allPageViews.filter { $0.previousPageView == nil }
+                    // Find roots: page views with no previousPageView
+                    let roots = allPageViews.filter { $0.previousPageView == nil }
 
-            var result: [[CDPageView]] = []
+                    var result: [[CDPageView]] = []
 
-            // Walk all possible branches
-            func walk(current: CDPageView, path: [CDPageView]) {
-                let newPath = path + [current]
-                
-                let nextViews = (current.nextPageViews as? Set<CDPageView>) ?? []
-                if nextViews.isEmpty {
-                    // Leaf node — end of a navigation path
-                    let sortedPath = newPath.sorted(by: { $0.timestamp ?? .distantPast < $1.timestamp ?? .distantPast })
-                    result.append(sortedPath)
-                } else {
-                    for next in nextViews {
-                        walk(current: next, path: newPath)
+                    // Walk all possible branches
+                    func walk(current: CDPageView, path: [CDPageView]) {
+                        let newPath = path + [current]
+                        
+                        let nextViews = (current.nextPageViews as? Set<CDPageView>) ?? []
+                        if nextViews.isEmpty {
+                            // Leaf node — end of a navigation path
+                            let sortedPath = newPath.sorted(by: { $0.timestamp ?? .distantPast < $1.timestamp ?? .distantPast })
+                            result.append(sortedPath)
+                        } else {
+                            for next in nextViews {
+                                walk(current: next, path: newPath)
+                            }
+                        }
                     }
+
+                    for root in roots {
+                        walk(current: root, path: [])
+                    }
+
+                    continuation.resume(returning: result)
+                } catch {
+                    continuation.resume(throwing: error)
                 }
             }
-
-            for root in roots {
-                walk(current: root, path: [])
-            }
-
-            return result
         }
-        
-        return result
     }
     
     public func fetchMostRecentTime() async throws -> Date? {
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
 
-        let result: Date? = try await backgroundContext.perform {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
-            fetchRequest.fetchLimit = 1
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-            
-            if let pageView = try backgroundContext.fetch(fetchRequest).first as? CDPageView {
-               return pageView.timestamp
+        return try await withCheckedThrowingContinuation { continuation in
+            backgroundContext.perform {
+                do {
+                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
+                    fetchRequest.fetchLimit = 1
+                    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+                    
+                    if let pageView = try backgroundContext.fetch(fetchRequest).first as? CDPageView {
+                        continuation.resume(returning: pageView.timestamp)
+                    } else {
+                        continuation.resume(returning: nil)
+                    }
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
-            return nil
         }
-
-        return result
     }
     
     public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
-        let backgroundContext = try coreDataStore.newBackgroundContext
+        let store = coreDataStore
+        let backgroundContext = try store.newBackgroundContext
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
-        let results: [WMFPageWithTimestamp] = try await backgroundContext.perform {
-            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-            fetchRequest.fetchLimit = 1000
+        return try await withCheckedThrowingContinuation { continuation in
+            backgroundContext.perform {
+                do {
+                    let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+                    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+                    fetchRequest.fetchLimit = 1000
 
-            let pageViews = try backgroundContext.fetch(fetchRequest)
-            var result: [WMFPageWithTimestamp] = []
+                    let pageViews = try backgroundContext.fetch(fetchRequest)
+                    var result: [WMFPageWithTimestamp] = []
 
-            for pageView in pageViews {
-                guard
-                    let page = pageView.page,
-                    let projectID = page.projectID,
-                    let title = page.title,
-                    let timestamp = pageView.timestamp
-                else { continue }
+                    for pageView in pageViews {
+                        guard
+                            let page = pageView.page,
+                            let projectID = page.projectID,
+                            let title = page.title,
+                            let timestamp = pageView.timestamp
+                        else { continue }
 
-                let wmfPage = WMFPage(
-                    namespaceID: Int(page.namespaceID),
-                    projectID: projectID,
-                    title: title
-                )
+                        let wmfPage = WMFPage(
+                            namespaceID: Int(page.namespaceID),
+                            projectID: projectID,
+                            title: title
+                        )
 
-                result.append(WMFPageWithTimestamp(page: wmfPage, timestamp: timestamp))
+                        result.append(WMFPageWithTimestamp(page: wmfPage, timestamp: timestamp))
+                    }
+
+                    continuation.resume(returning: result)
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
-
-            return result
         }
+    }
+}
 
-        return results
+// MARK: - Sync Bridge Extension
+
+extension WMFPageViewsDataController {
+    
+    nonisolated public func addPageViewSyncBridge(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?, timestamp: Date? = nil, completion: @escaping @Sendable (Result<NSManagedObjectID?, Error>) -> Void) {
+        Task {
+            do {
+                let objectID = try await self.addPageView(title: title, namespaceID: namespaceID, project: project, previousPageViewObjectID: previousPageViewObjectID, timestamp: timestamp)
+                completion(.success(objectID))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    nonisolated public func addPageViewSecondsSyncBridge(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) {
+        Task {
+            try? await self.addPageViewSeconds(pageViewManagedObjectID: pageViewManagedObjectID, numberOfSeconds: numberOfSeconds)
+        }
+    }
+    
+    nonisolated public func deletePageViewSyncBridge(title: String, namespaceID: Int16, project: WMFProject) {
+        Task {
+            try? await self.deletePageView(title: title, namespaceID: namespaceID, project: project)
+        }
+    }
+    
+    nonisolated public func fetchPageViewCountsSyncBridge(startDate: Date, endDate: Date, completion: @escaping @Sendable (Result<[WMFPageViewCount], Error>) -> Void) {
+        Task {
+            do {
+                let counts = try await self.fetchPageViewCounts(startDate: startDate, endDate: endDate)
+                completion(.success(counts))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    nonisolated public func fetchTimelinePagesSyncBridge(completion: @escaping @Sendable (Result<[WMFPageWithTimestamp], Error>) -> Void) {
+        Task {
+            do {
+                let pages = try await self.fetchTimelinePages()
+                completion(.success(pages))
+            } catch {
+                completion(.failure(error))
+            }
+        }
     }
 }
