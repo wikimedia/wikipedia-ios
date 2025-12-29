@@ -366,27 +366,27 @@ import CoreData
         return true
     }
 
-    private func beginDataPopulationBackgroundTask() async {
-        
-        guard dataPopulationBackgroundTaskID == .invalid else {
-            return
-        }
-        
-        dataPopulationBackgroundTaskID = await UIApplication.shared.beginBackgroundTask(withName: WMFBackgroundTasksNameKey.yearInReviewPopulateReportData.rawValue, expirationHandler: {
-            UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
-            self.dataPopulationBackgroundTaskID = .invalid
-        })
-    }
-    
-    private func endDataPopulationBackgroundTask() {
-        
-        guard dataPopulationBackgroundTaskID != .invalid else {
-            return
-        }
-        
-        UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
-        dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
-    }
+//    private func beginDataPopulationBackgroundTask() async {
+//        
+//        guard dataPopulationBackgroundTaskID == .invalid else {
+//            return
+//        }
+//        
+//        dataPopulationBackgroundTaskID = await UIApplication.shared.beginBackgroundTask(withName: WMFBackgroundTasksNameKey.yearInReviewPopulateReportData.rawValue, expirationHandler: {
+//            UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+//            self.dataPopulationBackgroundTaskID = .invalid
+//        })
+//    }
+//    
+//    private func endDataPopulationBackgroundTask() {
+//        
+//        guard dataPopulationBackgroundTaskID != .invalid else {
+//            return
+//        }
+//        
+//        UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+//        dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
+//    }
     
     @discardableResult
     public func populateYearInReviewReportData(for year: Int, countryCode: String,  primaryAppLanguageProject: WMFProject?, username: String?, userID: Int?, globalUserID: Int?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
@@ -395,11 +395,11 @@ import CoreData
             return nil
         }
 
-        await beginDataPopulationBackgroundTask()
-        
-        defer {
-            endDataPopulationBackgroundTask()
-        }
+//        await beginDataPopulationBackgroundTask()
+//        
+//        defer {
+//            endDataPopulationBackgroundTask()
+//        }
 
         let backgroundContext = try coreDataStore.newBackgroundContext
         

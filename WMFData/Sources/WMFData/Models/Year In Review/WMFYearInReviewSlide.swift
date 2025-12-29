@@ -1,18 +1,26 @@
 import Foundation
 
-public class WMFYearInReviewSlide: Identifiable {
+public final class WMFYearInReviewSlide: Identifiable, @unchecked Sendable {
     public let year: Int
     public let id: WMFYearInReviewPersonalizedSlideID
-    public var data: Data?
+    
+    // Private serial queue to safely access `data`
+    private var _data: Data?
+    private let queue = DispatchQueue(label: "WMFYearInReviewSlide.data.queue")
+
+    public var data: Data? {
+        get { queue.sync { _data } }
+        set { queue.sync { _data = newValue } }
+    }
 
     init(year: Int, id: WMFYearInReviewPersonalizedSlideID, data: Data? = nil) {
         self.year = year
         self.id = id
-        self.data = data
+        self._data = data
     }
 }
 
-public enum WMFYearInReviewPersonalizedSlideID: String, Comparable {
+public enum WMFYearInReviewPersonalizedSlideID: String, Comparable, Sendable {
     case readCount
     case editCount
     case donateCount
