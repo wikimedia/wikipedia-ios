@@ -167,29 +167,34 @@ class WatchlistController {
                     WatchlistFunnel.shared.logExpiryTapOneYear(project: wikimediaProject)
                 }
                 
-                self?.dataController.watch(title: pageTitle, project: wmfProject, expiry: expiry, completion: { [weak self] result in
+                Task {
+                    var watchError: Error?
+                    do {
+                        try await self?.dataController.watch(title: pageTitle, project: wmfProject, expiry: expiry)
+                    } catch let error {
+                        watchError = error
+                    }
                     
-                    DispatchQueue.main.async {
+                    Task { @MainActor [weak self] in
+                        
                         guard let self else {
                             return
                         }
                         
-                        switch result {
-                        case .success:
+                        if let watchError {
+                            self.evaluateServerError(error: watchError, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
+                                self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+                            })
+                        } else {
                             if expiry == .never {
                                 self.delegate?.didSuccessfullyWatchPermanently(self)
                             } else {
                                 self.delegate?.didSuccessfullyWatchTemporarily(self)
                             }
                             self.displayWatchSuccessMessage(pageTitle: pageTitle, wmfProject: wmfProject, siteURL: siteURL, expiry: expiry, viewController: viewController, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
-                        case .failure(let error):
-                            self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
-                                self?.watch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme, sender: sender, sourceView: sourceView, sourceRect: sourceRect)
-                            })
                         }
                     }
-                    
-                })
+                }
             }
             
             alertController.addAction(action)
@@ -242,16 +247,24 @@ class WatchlistController {
             WatchlistFunnel.shared.logRemoveWatchlistItemFromDiff(project: wikimediaProject)
         }
         
-        dataController.unwatch(title: pageTitle, project: wmfProject) { [weak self] result in
+        Task {
+            var unwatchError: Error? = nil
+            do {
+                try await dataController.unwatch(title: pageTitle, project: wmfProject)
+            } catch let error {
+                unwatchError = error
+            }
             
-            DispatchQueue.main.async {
-                
+            Task { @MainActor [weak self] in
                 guard let self else {
                     return
                 }
                 
-                switch result {
-                case .success:
+                if let unwatchError {
+                    self.evaluateServerError(error: unwatchError, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
+                        self?.unwatch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme)
+                    })
+                } else {
                     
                     switch self.context {
                     case .article:
@@ -270,10 +283,6 @@ class WatchlistController {
                     }
                     
                     self.delegate?.didSuccessfullyUnwatch(self)
-                case .failure(let error):
-                    self.evaluateServerError(error: error, viewController: viewController, theme: theme, performAfterLoginBlock: { [weak self] in
-                        self?.unwatch(pageTitle: pageTitle, siteURL: siteURL, viewController: viewController, authenticationManager: authenticationManager, theme: theme)
-                    })
                 }
             }
         }

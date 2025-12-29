@@ -1264,7 +1264,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
         
-        WMFWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wmfProject) { [weak self] result in
+        WMFWatchlistDataController().undoSyncBridge(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wmfProject) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: false)
             }
@@ -1307,7 +1307,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
-        WMFWatchlistDataController().rollback(title: title, project: wmfProject, username: username) { [weak self] result in
+        WMFWatchlistDataController().rollbackSyncBridge(title: title, project: wmfProject, username: username) { [weak self] result in
             DispatchQueue.main.async {
                 self?.completeRollbackOrUndo(result: result, isRollback: true)
             }

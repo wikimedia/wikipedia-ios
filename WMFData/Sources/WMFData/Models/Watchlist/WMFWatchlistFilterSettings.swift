@@ -1,37 +1,37 @@
 import Foundation
 
-public struct WMFWatchlistFilterSettings: Codable, Equatable {
+public struct WMFWatchlistFilterSettings: Codable, Equatable, Sendable {
 
-    public enum LatestRevisions: Int, Codable {
+    public enum LatestRevisions: Int, Codable, Sendable {
         case latestRevision
         case notTheLatestRevision
     }
     
-    public enum Activity: Int, Codable {
+    public enum Activity: Int, Codable, Sendable {
         case all
         case unseenChanges
         case seenChanges
     }
     
-    public enum AutomatedContributions: Int, Codable {
+    public enum AutomatedContributions: Int, Codable, Sendable {
         case all
         case bot
         case human
     }
     
-    public enum Significance: Int, Codable {
+    public enum Significance: Int, Codable, Sendable {
         case all
         case minorEdits
         case nonMinorEdits
     }
     
-    public enum UserRegistration: Int, Codable {
+    public enum UserRegistration: Int, Codable, Sendable {
         case all
         case unregistered
         case registered
     }
     
-    public enum ChangeType: Int, Codable, CaseIterable {
+    public enum ChangeType: Int, Codable, CaseIterable, Sendable {
         case pageEdits
         case pageCreations
         case categoryChanges

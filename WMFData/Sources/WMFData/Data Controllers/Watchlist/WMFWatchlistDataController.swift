@@ -629,6 +629,45 @@ extension WMFWatchlistDataController {
         return result
     }
     
+    nonisolated public func offWatchlistProjectsSyncBridge() -> [WMFProject] {
+        var result: [WMFProject] = []
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.offWatchlistProjects()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    nonisolated public func allChangeTypesSyncBridge() -> [WMFWatchlistFilterSettings.ChangeType] {
+        var result: [WMFWatchlistFilterSettings.ChangeType] = []
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.allChangeTypes()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    nonisolated public func offChangeTypesSyncBridge() -> [WMFWatchlistFilterSettings.ChangeType] {
+        var result: [WMFWatchlistFilterSettings.ChangeType] = []
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.allChangeTypes()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
     nonisolated public func activeFilterCountSyncBridge() -> Int {
         var result = 0
         let semaphore = DispatchSemaphore(value: 0)
@@ -641,6 +680,21 @@ extension WMFWatchlistDataController {
         semaphore.wait()
         return result
     }
+    
+    nonisolated public func loadFilterSettingsSyncBridge() -> WMFWatchlistFilterSettings {
+        var result: WMFWatchlistFilterSettings = WMFWatchlistFilterSettings()
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.loadFilterSettings()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    
 }
 
 // MARK: - Private Models

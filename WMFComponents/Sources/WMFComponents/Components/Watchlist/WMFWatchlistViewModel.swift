@@ -157,7 +157,7 @@ public final class WMFWatchlistViewModel: ObservableObject {
     }
 
 	 public func fetchWatchlist(_ completion: (() -> Void)? = nil) {
-        dataController.fetchWatchlist { result in
+        dataController.fetchWatchlistSyncBridge { result in
 			switch result {
 			case .success(let watchlist):
 				self.items = watchlist.items.map { item in

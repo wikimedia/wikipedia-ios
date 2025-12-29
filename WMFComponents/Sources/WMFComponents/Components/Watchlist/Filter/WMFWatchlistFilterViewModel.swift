@@ -96,13 +96,13 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
         self.overrideUserInterfaceStyle = overrideUserInterfaceStyle
         self.loggingDelegate = loggingDelegate
         
-        let filterSettings = dataController.loadFilterSettings()
-        let allProjects = dataController.allWatchlistProjects()
-        let offProjects = dataController.offWatchlistProjects()
+        let filterSettings = dataController.loadFilterSettingsSyncBridge()
+        let allProjects = dataController.allWatchlistProjectsSyncBridge()
+        let offProjects = dataController.offWatchlistProjectsSyncBridge()
         self.projectViewModels = Self.projectViewModels(allProjects: allProjects, offProjects: offProjects, strings: localizedStrings)
         
-        let allChangeTypes = dataController.allChangeTypes()
-        let offChangeTypes = dataController.offChangeTypes()
+        let allChangeTypes = dataController.allChangeTypesSyncBridge()
+        let offChangeTypes = dataController.offChangeTypesSyncBridge()
         
         self.formViewModel = WMFFormViewModel(sections: [
             Self.section1(projectViewModels: Array(projectViewModels.prefix(2)), strings: localizedStrings),
@@ -122,7 +122,7 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
 		}
 
 		self.localizedStrings.localizedProjectNames = localizedProjectNames
-		let allProjects = dataController.allWatchlistProjects()
+		let allProjects = dataController.allWatchlistProjectsSyncBridge()
 		let offProjects = self.projectViewModels.filter { !$0.isSelected }.map { $0.project }
 
 		self.projectViewModels = Self.projectViewModels(allProjects: allProjects, offProjects: offProjects, strings: localizedStrings)
@@ -133,7 +133,9 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
         let data = generateDataForNewFilterSettings()
         
         let newFilterSettings = data.filterSettings
-        dataController.saveFilterSettings(newFilterSettings)
+        Task {
+            await dataController.saveFilterSettings(newFilterSettings)
+        }
         
         let onProjects = data.onProjects
         loggingDelegate?.logWatchlistUserDidSaveFilterSettings(filterSettings: newFilterSettings, onProjects: onProjects)
@@ -279,13 +281,13 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
 	// MARK: - Private
 
 	private func reloadSectionData() {
-		let filterSettings = dataController.loadFilterSettings()
-		let allProjects = dataController.allWatchlistProjects()
-		let offProjects = dataController.offWatchlistProjects()
+		let filterSettings = dataController.loadFilterSettingsSyncBridge()
+		let allProjects = dataController.allWatchlistProjectsSyncBridge()
+		let offProjects = dataController.offWatchlistProjectsSyncBridge()
 		self.projectViewModels = Self.projectViewModels(allProjects: allProjects, offProjects: offProjects, strings: localizedStrings)
 
-		let allChangeTypes = dataController.allChangeTypes()
-		let offChangeTypes = dataController.offChangeTypes()
+		let allChangeTypes = dataController.allChangeTypesSyncBridge()
+		let offChangeTypes = dataController.offChangeTypesSyncBridge()
 
 		self.formViewModel = WMFFormViewModel(sections: [
 			Self.section1(projectViewModels: Array(projectViewModels.prefix(2)), strings: localizedStrings),
