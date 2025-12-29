@@ -231,7 +231,7 @@ public class Session: NSObject {
                 isLoginAction = actionValue.lowercased() == "clientlogin"
             }
         }
-        if WMFDeveloperSettingsDataControllerSyncBridge.shared.forceEmailAuth && isLoginAction {
+        if WMFDeveloperSettingsDataController.shared.forceEmailAuthSyncBridge && isLoginAction {
             defaultHeaders.removeValue(forKey: "User-Agent")
         }
 

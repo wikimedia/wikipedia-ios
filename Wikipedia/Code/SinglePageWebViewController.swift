@@ -406,7 +406,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         }
         
         // Fake a donation if developer settings toggle is on
-        if WMFDeveloperSettingsDataControllerSyncBridge.shared.bypassDonation,
+        if WMFDeveloperSettingsDataController.shared.bypassDonationSyncBridge,
            let host = actionURL.host(),
            host == "payments.wikimedia.org",
            let thankYouURL = URL(string: "https://thankyou.wikipedia.org/wiki/Thank_You/en?country=US") {

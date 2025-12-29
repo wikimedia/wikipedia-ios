@@ -907,7 +907,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                          }];
     // Remote Feature config
     [taskGroup enter];
-    [[WMFDeveloperSettingsDataControllerSyncBridge shared] fetchFeatureConfigWithCompletion:^(NSError *_Nullable error) {
+    [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError *_Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error) {
                 updateError = error;

@@ -14,9 +14,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
 // MARK: - Pure Swift Actor (Clean Implementation)
 
-public actor WMFDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
+@objc public actor WMFDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
 
-    public static let shared = WMFDeveloperSettingsDataController()
+    @objc public static let shared = WMFDeveloperSettingsDataController()
     
     private let service: WMFService?
     private let sharedCacheStore: WMFKeyValueStore?
@@ -184,259 +184,160 @@ public actor WMFDeveloperSettingsDataController: WMFDeveloperSettingsDataControl
     }
 }
 
-// MARK: - Objective-C Bridge
+// Sync Bridge Methods
 
-@objc public final class WMFDeveloperSettingsDataControllerSyncBridge: NSObject, @unchecked Sendable {
-    
-    @objc public static let shared = WMFDeveloperSettingsDataControllerSyncBridge(controller: .shared)
-    
-    private let controller: WMFDeveloperSettingsDataController
-    
-    public init(controller: WMFDeveloperSettingsDataController) {
-        self.controller = controller
-        super.init()
+extension WMFDeveloperSettingsDataController {
+    nonisolated public var doNotPostImageRecommendationsEditSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await doNotPostImageRecommendationsEdit
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return result
     }
     
-    // MARK: - Property Getters (Synchronous with Semaphore)
-    
-    @objc public var doNotPostImageRecommendationsEdit: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.doNotPostImageRecommendationsEdit
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var sendAnalyticsToWMFLabsSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await sendAnalyticsToWMFLabs
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setDoNotPostImageRecommendationsEdit(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var sendAnalyticsToWMFLabs: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.sendAnalyticsToWMFLabs
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var bypassDonationSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await bypassDonation
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setSendAnalyticsToWMFLabs(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var bypassDonation: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.bypassDonation
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var forceEmailAuthSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await forceEmailAuth
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setBypassDonation(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var forceEmailAuth: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.forceEmailAuth
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var showActivityTabSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await showActivityTab
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setForceEmailAuth(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var showActivityTab: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.showActivityTab
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var forceActivityTabControlSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await forceActivityTabControl
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setShowActivityTab(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var forceActivityTabControl: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.forceActivityTabControl
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var forceActivityTabExperimentSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await forceActivityTabExperiment
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setForceActivityTabControl(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var forceActivityTabExperiment: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.forceActivityTabExperiment
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var showYiRV3SyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await showYiRV3
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setForceActivityTabExperiment(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var showYiRV3: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.showYiRV3
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var enableYiRLoginExperimentBSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await enableYiRLoginExperimentB
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setShowYiRV3(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var enableYiRLoginExperimentB: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.enableYiRLoginExperimentB
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var enableYiRLoginExperimentControlSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await enableYiRLoginExperimentControl
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setEnableYiRLoginExperimentB(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public var enableYiRLoginExperimentControl: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.enableYiRLoginExperimentControl
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
+    nonisolated public var forceMaxArticleTabsTo5SyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await forceMaxArticleTabsTo5
+            semaphore.signal()
         }
-        set {
-            Task {
-                await controller.setEnableYiRLoginExperimentControl(newValue)
-            }
-        }
+        semaphore.wait()
+        return result
     }
     
-    @objc public func fetchFeatureConfig(completion: @escaping @Sendable (Error?) -> Void) {
-        let controller = self.controller
+    nonisolated public var enableMoreDynamicTabsV2GroupCSyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await enableMoreDynamicTabsV2GroupC
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return result
+    }
+    
+    nonisolated public func loadFeatureConfigSyncBridge() -> WMFFeatureConfigResponse? {
+        var result: WMFFeatureConfigResponse? = nil
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            result = await loadFeatureConfig()
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return result
+    }
+    
+    @objc nonisolated public func fetchFeatureConfig(completion: @escaping @Sendable (Error?) -> Void) {
         Task {
             do {
-                try await controller.fetchFeatureConfig()
+                try await fetchFeatureConfig()
                 completion(nil)
             } catch {
                 completion(error)
             }
         }
-    }
-    
-    @objc public var forceMaxArticleTabsTo5: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.forceMaxArticleTabsTo5
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
-        }
-        set {
-            Task {
-                await controller.setForceMaxArticleTabsTo5(newValue)
-            }
-        }
-    }
-    
-    @objc public var enableMoreDynamicTabsV2GroupC: Bool {
-        get {
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            Task {
-                result = await controller.enableMoreDynamicTabsV2GroupC
-                semaphore.signal()
-            }
-            semaphore.wait()
-            return result
-        }
-        set {
-            Task {
-                await controller.setEnableMoreDynamicTabsV2GroupC(newValue)
-            }
-        }
-    }
-    
-    
-    public func loadFeatureConfig() -> WMFFeatureConfigResponse? {
-        
-        var result: WMFFeatureConfigResponse? = nil
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await controller.loadFeatureConfig()
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
     }
 }

@@ -185,7 +185,7 @@ import WMFData
      * configurations from Meta wiki as its source of truth.
      */
     private static var eventIntakeURI: URL {
-        if WMFDeveloperSettingsDataControllerSyncBridge.shared.sendAnalyticsToWMFLabs {
+        if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabsSyncBridge {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
         } else {
             URL(string: "https://intake-analytics.wikimedia.org/v1/events")!

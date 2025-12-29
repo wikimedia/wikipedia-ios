@@ -15,7 +15,7 @@ import CoreData
     
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
-    private let developerSettingsDataController: WMFDeveloperSettingsDataControllerSyncBridge
+    private let developerSettingsDataController: WMFDeveloperSettingsDataController
     private let experimentsDataController: WMFExperimentsDataController?
 
     @objc public static let targetYear = 2025
@@ -43,7 +43,7 @@ import CoreData
     }
     
     public var config: WMFFeatureConfigResponse.Common.YearInReview? {
-        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
+        if let featureConfig = developerSettingsDataController.loadFeatureConfigSyncBridge(),
            let config = featureConfig.common.yir(year: Self.targetYear) {
             return config
         }
@@ -51,7 +51,7 @@ import CoreData
         return nil
     }
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControllerSyncBridge = WMFDeveloperSettingsDataControllerSyncBridge.shared, experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) throws {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataController = WMFDeveloperSettingsDataController.shared, experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) throws {
 
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -227,11 +227,11 @@ import CoreData
     private var assignmentCache: YiRLoginExperimentAssignment?
     
     public func needsLoginExperimentAssignment() -> Bool {
-        if developerSettingsDataController.enableYiRLoginExperimentB {
+        if developerSettingsDataController.enableYiRLoginExperimentBSyncBridge {
             return false
         }
         
-        if developerSettingsDataController.enableYiRLoginExperimentControl {
+        if developerSettingsDataController.enableYiRLoginExperimentControlSyncBridge {
             return false
         }
         
@@ -278,11 +278,11 @@ import CoreData
     }
     
     public var bypassLoginForPersonalizedFlow: Bool {
-        if developerSettingsDataController.enableYiRLoginExperimentB {
+        if developerSettingsDataController.enableYiRLoginExperimentBSyncBridge {
             return true
         }
         
-        if developerSettingsDataController.enableYiRLoginExperimentControl {
+        if developerSettingsDataController.enableYiRLoginExperimentControlSyncBridge {
             return false
         }
         
