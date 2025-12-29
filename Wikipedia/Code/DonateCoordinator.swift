@@ -151,7 +151,7 @@ class DonateCoordinator: Coordinator {
         }
         
         setLoadingBlock(true)
-        WMFDonateDataControllerSyncBridge.shared.fetchConfigsForCountryCode(countryCode) { [weak self] error in
+        WMFDonateDataController.shared.fetchConfigsForCountryCodeSyncBridge(countryCode) { [weak self] error in
             
             DispatchQueue.main.async {
                 
@@ -329,8 +329,8 @@ class DonateCoordinator: Coordinator {
         let appVersion = Bundle.main.wmf_debugVersion()
         let appInstallID = UserDefaults.standard.wmf_appInstallId
         
-        let donateDataController = WMFDonateDataControllerSyncBridge.shared
-        let donateData = donateDataController.loadConfigs()
+        let donateDataController = WMFDonateDataController.shared
+        let donateData = donateDataController.loadConfigsSyncBridge()
         
         guard let donateConfig = donateData.donateConfig,
               donateConfig.countryCodeApplePayEnabled.contains(countryCode),

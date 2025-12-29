@@ -46,7 +46,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     }
     
     func getDonateCount(startDate: Date, endDate: Date) -> Int? {
-        return WMFDonateDataControllerSyncBridge.shared.loadLocalDonationHistory(startDate: startDate, endDate: endDate)?.count
+        return WMFDonateDataController.shared.loadLocalDonationHistorySyncBridge(startDate: startDate, endDate: endDate)?.count
     }
     
     func getEditCount(startDate: String, endDate: String, username: String, project: WMFProject) async throws -> Int? {

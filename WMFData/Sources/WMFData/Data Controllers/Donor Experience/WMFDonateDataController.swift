@@ -3,9 +3,9 @@ import Contacts
 
 // MARK: - Pure Swift Actor (Clean Implementation)
 
-public actor WMFDonateDataController {
+@objc public actor WMFDonateDataController {
     
-    public static let shared = WMFDonateDataController()
+    @objc public static let shared = WMFDonateDataController()
     
     private let service: WMFService?
     private let sharedCacheStore: WMFKeyValueStore?
@@ -291,28 +291,17 @@ public actor WMFDonateDataController {
     }
 }
 
-// MARK: - Objective-C Bridge
+// Sync Bridge Methods
 
-@objc final public class WMFDonateDataControllerSyncBridge: NSObject, @unchecked Sendable {
-    
-    @objc(sharedInstance)
-    public static let shared = WMFDonateDataControllerSyncBridge(controller: .shared)
-    
-    private let controller: WMFDonateDataController
-    
-    public init(controller: WMFDonateDataController) {
-        self.controller = controller
-        super.init()
-    }
-    
-    public func loadConfigs() -> (donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?) {
+extension WMFDonateDataController {
+    nonisolated public func loadConfigsSyncBridge() -> (donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?) {
         
         // Synchronous bridge using semaphore
         var result: (WMFDonateConfig?, WMFPaymentMethods?) = (nil, nil)
         let semaphore = DispatchSemaphore(value: 0)
         
         Task {
-            result = await controller.loadConfigs()
+            result = await loadConfigs()
             semaphore.signal()
         }
         
@@ -320,13 +309,13 @@ public actor WMFDonateDataController {
         return result
     }
     
-    @objc public var hasLocallySavedDonations: Bool {
+    @objc nonisolated public var hasLocallySavedDonationsSyncBridge: Bool {
         // Synchronous bridge using semaphore
         var result = false
         let semaphore = DispatchSemaphore(value: 0)
         
         Task {
-            result = await controller.hasLocallySavedDonations
+            result = await hasLocallySavedDonations
             semaphore.signal()
         }
         
@@ -334,11 +323,10 @@ public actor WMFDonateDataController {
         return result
     }
     
-    public func fetchConfigsForCountryCode(_ countryCode: String, completion: @escaping @Sendable (Error?) -> Void) {
-        let controller = self.controller
+    nonisolated public func fetchConfigsForCountryCodeSyncBridge(_ countryCode: String, completion: @escaping @Sendable (Error?) -> Void) {
         Task {
             do {
-                try await controller.fetchConfigs(for: countryCode)
+                try await fetchConfigs(for: countryCode)
                 completion(nil)
             } catch {
                 completion(error)
@@ -346,7 +334,7 @@ public actor WMFDonateDataController {
         }
     }
     
-    public func loadLocalDonationHistory(
+    nonisolated public func loadLocalDonationHistorySyncBridge(
             startDate: Date?,
             endDate: Date?
         ) -> [WMFDonateLocalHistory]? {
@@ -354,9 +342,8 @@ public actor WMFDonateDataController {
             var result: [WMFDonateLocalHistory]?
             let semaphore = DispatchSemaphore(value: 0)
             
-            let localController = self.controller
             Task {
-                result = await localController.loadLocalDonationHistory(startDate: startDate, endDate: endDate)
+                result = await loadLocalDonationHistory(startDate: startDate, endDate: endDate)
                 semaphore.signal()
             }
             
@@ -364,10 +351,9 @@ public actor WMFDonateDataController {
             return result
         }
     
-    @objc public func deleteLocalDonationHistory() {
-        let controller = self.controller
+    @objc nonisolated public func deleteLocalDonationHistorySyncBridge() {
         Task {
-            await controller.deleteLocalDonationHistory()
+            await deleteLocalDonationHistory()
         }
     }
 }

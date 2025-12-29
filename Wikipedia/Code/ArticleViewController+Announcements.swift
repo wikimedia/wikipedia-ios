@@ -48,12 +48,12 @@ extension ArticleViewController {
     
     private func userDonatedWithinLast250Days() -> Bool {
         
-        let donateDataController = WMFDonateDataControllerSyncBridge.shared
+        let donateDataController = WMFDonateDataController.shared
         
         let currentDate = Date()
         let twoFiftyDaysTimeInterval = TimeInterval(60*60*24*250)
         let twoFiftyDaysAgo = currentDate.addingTimeInterval(-twoFiftyDaysTimeInterval)
-        let localDonationHistory = donateDataController.loadLocalDonationHistory(startDate: twoFiftyDaysAgo, endDate: Date())
+        let localDonationHistory = donateDataController.loadLocalDonationHistorySyncBridge(startDate: twoFiftyDaysAgo, endDate: Date())
         
         if let localDonationHistory,
            !localDonationHistory.isEmpty {
