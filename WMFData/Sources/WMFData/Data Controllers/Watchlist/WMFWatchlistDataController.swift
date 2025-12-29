@@ -3,7 +3,7 @@ import UIKit
 
 public class WMFWatchlistDataController {
     
-    var service = WMFDataEnvironment.current.mediaWikiService
+    let service = WMFDataEnvironment.current.mediaWikiService
     private let sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 

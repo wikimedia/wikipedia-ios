@@ -6,9 +6,9 @@ public protocol WMFArticleSummaryDataControlling {
 }
 
 public actor WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
-    private var service: WMFService?
+    private let service: WMFService?
     
-    public static var shared = WMFArticleSummaryDataController()
+    public static let shared = WMFArticleSummaryDataController()
     
     private var cache: [WMFPage: WMFArticleSummary] = [:]
     
