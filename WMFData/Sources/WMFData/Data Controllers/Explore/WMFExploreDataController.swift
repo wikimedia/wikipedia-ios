@@ -1,4 +1,6 @@
-public final class WMFExploreDataController {
+import Foundation
+
+public actor WMFExploreDataController {
 
     private let userDefaultsStore: WMFKeyValueStore?
     
@@ -7,10 +9,36 @@ public final class WMFExploreDataController {
     }
     
     public var hasSeenExploreSurvey: Bool {
-        get {
+        get async {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenExploreSurvey.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenExploreSurvey.rawValue, value: newValue)
+        }
+    }
+    
+    public func setHasSeenExploreSurvey(_ value: Bool) async {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenExploreSurvey.rawValue, value: value)
+    }
+}
+
+// MARK: - Sync Bridge Extension
+
+extension WMFExploreDataController {
+    
+    nonisolated public var hasSeenExploreSurveySyncBridge: Bool {
+        var result = false
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.hasSeenExploreSurvey
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
+    nonisolated public func setHasSeenExploreSurveySyncBridge(_ value: Bool) {
+        Task {
+            await self.setHasSeenExploreSurvey(value)
         }
     }
 }

@@ -1915,7 +1915,7 @@ private extension ExploreViewController {
         
         let dataController = WMFExploreDataController()
         
-        guard !dataController.hasSeenExploreSurvey else {
+        guard !dataController.hasSeenExploreSurveySyncBridge else {
             return false
         }
         
@@ -1954,6 +1954,6 @@ private extension ExploreViewController {
         )
         
         let dataController = WMFExploreDataController()
-        dataController.hasSeenExploreSurvey = true
+        dataController.setHasSeenExploreSurveySyncBridge(true)
     }
 }
