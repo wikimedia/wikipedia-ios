@@ -35,7 +35,7 @@ extension ArticleViewController {
     }
     
     func needsTooltips() -> Bool {
-        if !WMFArticleTabsDataController.shared.hasPresentedTooltips || shouldShowWIconPopover {
+        if !WMFArticleTabsDataController.shared.hasPresentedTooltipsSyncBridge || shouldShowWIconPopover {
             return true
         }
         
@@ -68,7 +68,9 @@ extension ArticleViewController {
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
                 ArticleTabsFunnel.shared.logTabTooltipImpression(project: project)
             }
-            dataController.hasPresentedTooltips = true
+            Task {
+                await dataController.setHasPresentedTooltips(true)
+            }
         }
 
         let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) { [weak self] in
@@ -77,10 +79,12 @@ extension ArticleViewController {
                 // logging icon impression here so it's only sent once
                 ArticleTabsFunnel.shared.logTabIconFirstImpression(project: project)
             }
-            dataController.hasPresentedTooltips = true
+            Task {
+                await dataController.setHasPresentedTooltips(true)
+            }
         }
 
-        if !dataController.hasPresentedTooltips {
+        if !dataController.hasPresentedTooltipsSyncBridge {
             tooltipViewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
         } else if shouldShowWIconPopover {
             tooltipViewModels = [wIconVM]

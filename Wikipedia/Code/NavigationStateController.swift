@@ -48,7 +48,7 @@ final class NavigationStateController: NSObject {
         }
         
         let tabsDataController = WMFArticleTabsDataController.shared
-        guard let tab = try? tabsDataController.loadCurrentStateForRestoration() ,
+        guard let tab = tabsDataController.loadCurrentStateForRestorationSyncBridge(),
               let article = tab.articles.last,
               let siteURL = article.project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
@@ -59,7 +59,9 @@ final class NavigationStateController: NSObject {
         let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true, tabConfig: .assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier)))
         let success = articleCoordinator.start()
         if success {
-            try? tabsDataController.clearCurrentStateForRestoration()
+            Task {
+                try? await tabsDataController.clearCurrentStateForRestoration()
+            }
         }
         completion()
     }

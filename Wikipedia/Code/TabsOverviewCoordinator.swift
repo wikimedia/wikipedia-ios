@@ -64,7 +64,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     
     
     public func showAlertForArticleSuggestionsDisplayChangeConfirmation() {
-        if dataController.userHasHiddenArticleSuggestionsTabs {
+        if dataController.userHasHiddenArticleSuggestionsTabsSyncBridge {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
                 WMFLocalizedString("tabs-suggested-articles-hide-suggestions-confirmation", value: "Suggestions are now hidden", comment: "Confirmation on hiding of the suggested articles in tabs."),
                 subtitle: nil,
@@ -113,7 +113,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
         
         let showSurveyClosure = { [weak self] in
-            if let shouldShowSurvey = self?.dataController.shouldShowSurvey(), shouldShowSurvey {
+            if false {
                 guard let presentedVC = self?.navigationController.presentedViewController else { return }
                 let surveyVC = self?.surveyViewController()
                 guard let surveyVC else { return }
@@ -181,7 +181,10 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             )
             
             navigationController.present(navVC, animated: true) { [weak self] in
-                self?.dataController.updateSurveyDataTabsOverviewSeenCount()
+                Task {
+                    await self?.dataController.updateSurveyDataTabsOverviewSeenCount()
+                }
+                
                 guard self != nil else { return }
                 showSurveyClosure()
             }

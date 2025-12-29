@@ -55,7 +55,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.loggingDelegate = loggingDelegate
         self.articleTabs = []
         self.shouldShowCloseButton = false
-        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabsV2
+        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabsV2SyncBridge
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
@@ -80,8 +80,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published public var shouldShowSuggestions: Bool = false
     
     private func updateShouldShowSuggestions() {
-        shouldShowSuggestions = dataController.shouldShowMoreDynamicTabsV2 &&
-        !dataController.userHasHiddenArticleSuggestionsTabs
+        shouldShowSuggestions = dataController.shouldShowMoreDynamicTabsV2SyncBridge &&
+        !dataController.userHasHiddenArticleSuggestionsTabsSyncBridge
     }
     
     public func refreshShouldShowSuggestionsFromDataController() {
@@ -159,7 +159,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             await refreshCurrentTab()
             updateNavigationBarTitleAction?(articleTabs.count)
 
-            if dataController.shouldShowMoreDynamicTabsV2 {
+            if await dataController.shouldShowMoreDynamicTabsV2 {
                 shouldShowCloseButton = true
             } else {
                 shouldShowCloseButton = articleTabs.count > 1
@@ -264,7 +264,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
                     articleTabs.removeAll { $0 == tab }
                     updateHasMultipleTabs()
-                    if dataController.shouldShowMoreDynamicTabsV2 {
+                    if await dataController.shouldShowMoreDynamicTabsV2 {
                         shouldShowCloseButton = true
                     }
                     await refreshCurrentTab()
@@ -278,7 +278,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
 
     var shouldShowTabsV2: Bool {
-        return dataController.shouldShowMoreDynamicTabsV2
+        return dataController.shouldShowMoreDynamicTabsV2SyncBridge
     }
 
     // MARK: - Populate article summary

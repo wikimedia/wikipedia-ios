@@ -133,7 +133,9 @@ class ArticlePeekPreviewViewController: UIViewController {
             // Open in new tab
             let openInNewTabAction = UIAction(title: CommonStrings.articleTabsOpenInNewTab, image: WMFSFSymbolIcon.for(symbol: .tabsIcon), handler: { [weak self] _ in
                 guard let self = self else { return }
-                articleTabsDataController.didTapOpenNewTab()
+                Task {
+                    await articleTabsDataController.didTapOpenNewTab()
+                }
                 ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
                 self.articlePreviewingDelegate?.openInNewTabArticlePreviewActionSelected(with: self)
             })
@@ -149,10 +151,10 @@ class ArticlePeekPreviewViewController: UIViewController {
                       let project = WikimediaProject(siteURL: siteURL)?.wmfProject else { return }
                 Task {
                     do {
-                        articleTabsDataController.didTapOpenNewTab()
+                        await articleTabsDataController.didTapOpenNewTab()
                         
                         let tabsCount = try await articleTabsDataController.tabsCount()
-                        let tabsMax = articleTabsDataController.tabsMax
+                        let tabsMax = await articleTabsDataController.tabsMax
                         let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project, articleURL: article.url)
                         if tabsCount >= tabsMax {
                             

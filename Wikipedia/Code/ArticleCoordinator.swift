@@ -50,7 +50,7 @@ extension ArticleTabCoordinating {
             switch tabConfig {
             case .assignNewTabAndSetToCurrent, .appendArticleAndAssignNewTabAndSetToCurrent:
                 let tabsCount = try await tabsDataController.tabsCount()
-                let tabsMax = tabsDataController.tabsMax
+                let tabsMax = await tabsDataController.tabsMax
                 if tabsCount >= tabsMax {
                     tabConfig = .appendArticleAndAssignCurrentTab
                     
