@@ -371,7 +371,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         let dataController = WMFArticleDataController()
 
-        dataController.fetchArticleInfo(title: title, project: project, request: request) { [weak self] result in
+        dataController.fetchArticleInfoSyncBridge(title: title, project: project, request: request) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let status):

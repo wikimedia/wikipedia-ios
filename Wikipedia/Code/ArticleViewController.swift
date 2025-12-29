@@ -635,7 +635,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             return
         }
         
-        WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { [weak self] result in
+        WMFArticleDataController().fetchArticleInfoSyncBridge(title: title, project: project, request: request) { [weak self] result in
             
             guard let self else { return }
             

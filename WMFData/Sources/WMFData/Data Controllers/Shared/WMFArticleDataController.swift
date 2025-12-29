@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WMFArticleDataController {
+public actor WMFArticleDataController {
     
     private let mediaWikiService: WMFService?
     
@@ -8,7 +8,7 @@ public final class WMFArticleDataController {
         self.mediaWikiService = mediaWikiService
     }
     
-    public struct ArticleInfoRequest {
+    public struct ArticleInfoRequest: Sendable {
         let needsWatchedStatus: Bool
         let needsRollbackRights: Bool
         let needsCategories: Bool
@@ -26,13 +26,13 @@ public final class WMFArticleDataController {
         }
     }
     
-    struct ArticleInfoResponse: Codable {
+    struct ArticleInfoResponse: Codable, Sendable {
 
-        struct Query: Codable {
+        struct Query: Codable, Sendable {
 
-            struct Page: Codable {
+            struct Page: Codable, Sendable {
                 
-                struct Category: Codable {
+                struct Category: Codable, Sendable {
                     let ns: Int
                     let title: String
                 }
@@ -43,7 +43,7 @@ public final class WMFArticleDataController {
                 let categories: [Category]?
             }
 
-            struct UserInfo: Codable {
+            struct UserInfo: Codable, Sendable {
                 let name: String
                 let rights: [String]
             }
@@ -55,7 +55,7 @@ public final class WMFArticleDataController {
         let query: Query
     }
     
-    public struct WMFArticleInfoResponse {
+    public struct WMFArticleInfoResponse: Sendable {
         public let watched: Bool
         public let watchlistExpiry: Date?
         public let userHasRollbackRights: Bool?
@@ -69,7 +69,7 @@ public final class WMFArticleDataController {
     ///   - project: Project the article belongs to (EN Wiki, etc)
     ///   - request: Request struct to fetch certain pieces of data. So far can support watchlist status and user rollback rights.
     ///   - completion: Completion block called when API has completed
-    public func fetchArticleInfo(title: String, project: WMFProject, request: ArticleInfoRequest, completion: @escaping (Result<WMFArticleInfoResponse, Error>) -> Void) {
+    public func fetchArticleInfo(title: String, project: WMFProject, request: ArticleInfoRequest, completion: @escaping @Sendable (Result<WMFArticleInfoResponse, Error>) -> Void) {
          
         guard let mediaWikiService else {
              completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -144,4 +144,15 @@ public final class WMFArticleDataController {
              }
          }
      }
+}
+
+// MARK: - Sync Bridge Extension
+
+extension WMFArticleDataController {
+    
+    nonisolated public func fetchArticleInfoSyncBridge(title: String, project: WMFProject, request: ArticleInfoRequest, completion: @escaping @Sendable (Result<WMFArticleInfoResponse, Error>) -> Void) {
+        Task {
+            await self.fetchArticleInfo(title: title, project: project, request: request, completion: completion)
+        }
+    }
 }
