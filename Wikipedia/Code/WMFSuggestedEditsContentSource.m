@@ -5,7 +5,7 @@
 @interface WMFSuggestedEditsContentSource ()
 
 @property (readwrite, nonatomic) MWKDataStore *dataStore;
-@property (readwrite, nonatomic, strong) WMFGrowthTasksDataControllerSyncBridge *growthTasksDataController;
+@property (readwrite, nonatomic, strong) WMFGrowthTasksDataController *growthTasksDataController;
 
 @end
 
@@ -18,7 +18,7 @@
         self.dataStore = dataStore;
         NSString *languageCode = dataStore.languageLinkController.appLanguage.languageCode;
         NSString *languageVariantCode = dataStore.languageLinkController.appLanguage.languageVariantCode;
-        self.growthTasksDataController = [[WMFGrowthTasksDataControllerSyncBridge alloc] initWithLanguageCode:languageCode languageVariantCode:languageVariantCode];
+        self.growthTasksDataController = [[WMFGrowthTasksDataController alloc] initWithLanguageCode:languageCode languageVariantCode:languageVariantCode];
     }
     return self;
 }
@@ -50,7 +50,7 @@
         BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
 
         if (isEligibleForImageRecommendations) {
-            [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
+            [self.growthTasksDataController hasImageRecommendationsSyncBridgeWithCompletion:^(BOOL hasRecommendations) {
                 if (hasRecommendations) {
                     NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
                     

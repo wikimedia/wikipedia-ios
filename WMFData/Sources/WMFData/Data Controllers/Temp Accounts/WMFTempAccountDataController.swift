@@ -2,9 +2,9 @@ import Foundation
 
 // MARK: - Pure Swift Actor (Clean Implementation)
 
-public actor WMFTempAccountDataController {
+@objc public actor WMFTempAccountDataController: NSObject {
     
-    public static let shared = WMFTempAccountDataController()
+    @objc public static let shared = WMFTempAccountDataController()
     
     private let mediaWikiService: WMFService?
     
@@ -98,28 +98,16 @@ private struct AutoCreateTempUser: Codable {
     let enabled: Bool
 }
 
-// MARK: - Objective-C Bridge
+// Sync Bridge Methods
 
-@objc public final class WMFTempAccountDataControllerSyncBridge: NSObject, @unchecked Sendable {
-    
-    @objc public static let shared = WMFTempAccountDataControllerSyncBridge(controller: .shared)
-    
-    private let controller: WMFTempAccountDataController
-    
-    public init(controller: WMFTempAccountDataController) {
-        self.controller = controller
-        super.init()
-    }
-    
-    @objc public var primaryWikiHasTempAccountsEnabled: Bool {
+extension WMFTempAccountDataController {
+    @objc nonisolated public var primaryWikiHasTempAccountsEnabledSyncBridge: Bool {
         // Synchronous bridge using semaphore
         var result = false
         let semaphore = DispatchSemaphore(value: 0)
-        
-        let controller = controller
-        
+
         Task {
-            result = await controller.primaryWikiHasTempAccountsEnabled
+            result = await primaryWikiHasTempAccountsEnabled
             semaphore.signal()
         }
         
@@ -127,10 +115,9 @@ private struct AutoCreateTempUser: Codable {
         return result
     }
     
-    @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
-        let controller = self.controller
+    @objc nonisolated public func checkWikiTempAccountAvailabilitySyncBridge(language: String, isCheckingPrimaryWiki: Bool) {
         Task {
-            await controller.checkWikiTempAccountAvailability(language: language, isCheckingPrimaryWiki: isCheckingPrimaryWiki)
+            await checkWikiTempAccountAvailability(language: language, isCheckingPrimaryWiki: isCheckingPrimaryWiki)
         }
     }
 }

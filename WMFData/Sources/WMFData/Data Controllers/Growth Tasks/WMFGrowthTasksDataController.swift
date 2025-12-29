@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - Pure Swift Actor (Clean Implementation)
 
-public actor WMFGrowthTasksDataController {
+@objc public actor WMFGrowthTasksDataController: NSObject {
 
     private let service: WMFService?
     private let project: WMFProject
@@ -12,6 +12,11 @@ public actor WMFGrowthTasksDataController {
     public init(project: WMFProject, service: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self.project = project
         self.service = service
+    }
+    
+    @objc public init(languageCode: String, languageVariantCode: String?) {
+        self.project = .wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+        self.service = WMFDataEnvironment.current.mediaWikiService
     }
 
     // MARK: Public Methods
@@ -163,24 +168,13 @@ public enum WMFGrowthTaskType: String {
     case imageRecommendation = "image-recommendation"
 }
 
-// MARK: - Objective-C Bridge
+// Sync Bridge Methods
 
-@objc public final class WMFGrowthTasksDataControllerSyncBridge: NSObject {
-    
-    private let controller: WMFGrowthTasksDataController
-    
-    @objc public init(languageCode: String, languageVariantCode: String?) {
-        let language = WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode)
-        let project = WMFProject.wikipedia(language)
-        self.controller = WMFGrowthTasksDataController(project: project)
-        super.init()
-    }
-    
-    @objc public func hasImageRecommendations(completion: @escaping @Sendable (Bool) -> Void) {
-        let controller = self.controller
+extension WMFGrowthTasksDataController {
+    @objc nonisolated public func hasImageRecommendationsSyncBridge(completion: @escaping @Sendable (Bool) -> Void) {
         Task {
             do {
-                let pages = try await controller.getImageRecommendationsCombined()
+                let pages = try await getImageRecommendationsCombined()
                 let pagesWithSuggestions = pages.filter { !($0.growthimagesuggestiondata ?? []).isEmpty }
                 completion(!pagesWithSuggestions.isEmpty)
             } catch {

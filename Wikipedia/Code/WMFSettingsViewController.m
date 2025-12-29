@@ -577,7 +577,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (WMFSettingsTableViewSection *)section_1 {
     NSMutableArray *items = [NSMutableArray array];
-    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataControllerSyncBridge shared] primaryWikiHasTempAccountsEnabled];
+    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataController shared] primaryWikiHasTempAccountsEnabledSyncBridge];
     if (_authManager.authStateIsTemporary && primaryWikiHasTempAccounts) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_TemporaryAccount]];
     }
@@ -600,7 +600,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
     }
 
-    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataControllerSyncBridge shared] primaryWikiHasTempAccountsEnabled];
+    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataController shared] primaryWikiHasTempAccountsEnabledSyncBridge];
     if (_authManager.authStateIsPermanent || (_authManager.authStateIsTemporary && primaryWikiHasTempAccounts)) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }

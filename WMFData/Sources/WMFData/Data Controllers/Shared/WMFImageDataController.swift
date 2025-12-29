@@ -109,24 +109,13 @@ private extension WMFImageDataController {
     }
 }
 
-// MARK: - Objective-C Bridge
+// Sync Bridge Methods
 
-@objc public final class WMFImageDataControllerSyncBridge: NSObject, @unchecked Sendable {
-    
-    @objc public static let shared = WMFImageDataControllerSyncBridge(controller: .shared)
-    
-    private let controller: WMFImageDataController
-    
-    public init(controller: WMFImageDataController) {
-        self.controller = controller
-        super.init()
-    }
-    
-    @objc public func fetchImageData(url: URL, completion: @escaping @Sendable (Data?, Error?) -> Void) {
-        let controller = self.controller
+extension WMFImageDataController {
+    nonisolated public func fetchImageDataSyncBridge(url: URL, completion: @escaping @Sendable (Data?, Error?) -> Void) {
         Task {
             do {
-                let data = try await controller.fetchImageData(url: url)
+                let data = try await fetchImageData(url: url)
                 completion(data, nil)
             } catch {
                 completion(nil, error)

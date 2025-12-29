@@ -129,7 +129,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        let primaryWikiHasTempAccounts = WMFTempAccountDataControllerSyncBridge.shared.primaryWikiHasTempAccountsEnabled
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabledSyncBridge
         guard authManager.authStateIsPermanent || (primaryWikiHasTempAccounts && authManager.authStateIsTemporary) else {
             completion?(.failure(RequestError.unauthenticated))
             return
@@ -179,7 +179,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        let primaryWikiHasTempAccounts = WMFTempAccountDataControllerSyncBridge.shared.primaryWikiHasTempAccountsEnabled
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabledSyncBridge
         guard authManager.authStateIsPermanent || (primaryWikiHasTempAccounts && authManager.authStateIsTemporary) else {
             completion?(.failure(RequestError.unauthenticated))
             return
@@ -197,7 +197,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        let primaryWikiHasTempAccounts = WMFTempAccountDataControllerSyncBridge.shared.primaryWikiHasTempAccountsEnabled
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabledSyncBridge
         guard authManager.authStateIsPermanent || (primaryWikiHasTempAccounts && authManager.authStateIsTemporary) else {
             completion?(.failure(RequestError.unauthenticated))
             return
@@ -209,7 +209,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     /// Asks server to mark all notifications as seen for the primary app language
     public func markAllAsSeen(completion: @escaping ((Result<Void, Error>) -> Void)) {
         
-        let primaryWikiHasTempAccounts = WMFTempAccountDataControllerSyncBridge.shared.primaryWikiHasTempAccountsEnabled
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabledSyncBridge
         guard authManager.authStateIsPermanent || (primaryWikiHasTempAccounts && authManager.authStateIsTemporary) else {
             completion(.failure(RequestError.unauthenticated))
             return
@@ -346,7 +346,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return false
         }
         
-        let primaryWikiHasTempAccounts = WMFTempAccountDataControllerSyncBridge.shared.primaryWikiHasTempAccountsEnabled
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabledSyncBridge
         var languages: [MWKLanguageLink] = languageLinkController.preferredLanguages
         if primaryWikiHasTempAccounts && authManager.authStateIsTemporary,
            let appLanguage = languageLinkController.appLanguage {
