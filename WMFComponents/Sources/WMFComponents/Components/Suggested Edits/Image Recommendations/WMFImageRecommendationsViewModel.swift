@@ -280,7 +280,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         }
     }
     
-    public func sendFeedback(editRevId: UInt64?, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func sendFeedback(editRevId: UInt64?, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
         
         guard !needsSuppressPosting else {
             completion(.success(()))
@@ -292,7 +292,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
             return
         }
         
-        imageRecommendationsDataController.sendFeedback(project: project, pageTitle: currentRecommendation.imageData.pageTitle.spacesToUnderscores, editRevId: editRevId, fileName: currentRecommendation.imageData.filename, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
+        imageRecommendationsDataController.sendFeedbackSyncBridge(project: project, pageTitle: currentRecommendation.imageData.pageTitle.spacesToUnderscores, editRevId: editRevId, fileName: currentRecommendation.imageData.filename, accepted: accepted, reasons: reasons, caption: caption, completion: completion)
     }
 
 

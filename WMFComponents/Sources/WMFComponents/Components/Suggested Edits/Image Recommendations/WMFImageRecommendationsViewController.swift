@@ -134,7 +134,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         super.viewDidAppear(animated)
         bindViewModel()
 
-        if !dataController.hasPresentedOnboardingModal {
+        if !dataController.hasPresentedOnboardingModalSyncBridge {
             presentOnboardingIfNecessary()
         } else {
             viewModel.fetchImageRecommendationsIfNeeded {
@@ -212,7 +212,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             return
         }
 
-        if !force && dataController.hasPresentedOnboardingTooltips {
+        if !force && dataController.hasPresentedOnboardingTooltipsSyncBridge {
             return
         }
 
@@ -248,12 +248,12 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         bottomSheetViewController.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
 
         if !force {
-            dataController.hasPresentedOnboardingTooltips = true
+            dataController.setHasPresentedOnboardingTooltipsSyncBridge(true)
         }
     }
 
     private func presentOnboardingIfNecessary() {
-        guard !dataController.hasPresentedOnboardingModal else {
+        guard !dataController.hasPresentedOnboardingModalSyncBridge else {
             return
         }
 
@@ -271,7 +271,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
 
-        dataController.hasPresentedOnboardingModal = true
+        dataController.setHasPresentedOnboardingModalSyncBridge(true)
     }
 
     private func bindViewModel() {

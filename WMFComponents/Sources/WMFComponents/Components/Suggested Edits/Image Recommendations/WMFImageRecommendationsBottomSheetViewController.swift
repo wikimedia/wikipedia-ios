@@ -129,12 +129,13 @@ extension WMFImageRecommendationsBottomSheetViewController: WMFImageRecommendati
                 self.loggingDelegate?.logRejectSurveyDidTapSubmit(rejectionReasons: options, otherReason: otherText, fileName: currentRecommendation.imageData.filename, recommendationSource: currentRecommendation.imageData.source)
                 
                 // Send feedback API call
-                self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: options, caption: nil, completion: { [weak self] result in
+                let localDelegate = self.delegate
+                self.viewModel.sendFeedback(editRevId: nil, accepted: false, reasons: options, caption: nil, completion: { [weak localDelegate] result in
                     switch result {
                     case .success:
                         break
                     case .failure(let error):
-                        self?.delegate?.imageRecommendationsDidTriggerError(error)
+                        localDelegate?.imageRecommendationsDidTriggerError(error)
                     }
                     
                 })
