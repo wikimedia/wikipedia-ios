@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WMFServiceEnvironment {
+public enum WMFServiceEnvironment: Sendable {
     case production
     case staging
 }
