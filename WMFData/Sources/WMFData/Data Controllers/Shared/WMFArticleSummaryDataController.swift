@@ -16,7 +16,7 @@ public actor WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
         self.service = WMFDataEnvironment.current.basicService
     }
     
-    public func fetchArticleSummary(project: WMFProject, title: String, completion: @escaping (Result<WMFArticleSummary, Error>) -> Void) {
+    public func fetchArticleSummary(project: WMFProject, title: String, completion: @escaping @Sendable (Result<WMFArticleSummary, Error>) -> Void) {
         
         let wmfPage = WMFPage(namespaceID: 0, projectID: project.id, title: title)
         if let cachedSummary = cache[wmfPage] {

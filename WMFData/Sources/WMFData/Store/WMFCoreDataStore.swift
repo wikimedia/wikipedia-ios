@@ -1,12 +1,12 @@
 import Foundation
 import CoreData
 
-public final class WMFCoreDataStore {
+public final class WMFCoreDataStore: Sendable {
     
     private let appContainerURL: URL
     
     // Will only be populated if persistent stores load correctly
-    private var persistentContainer: NSPersistentContainer?
+    private let persistentContainer: NSPersistentContainer?
 
     public init(appContainerURL: URL? = WMFDataEnvironment.current.appContainerURL) async throws {
         

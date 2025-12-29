@@ -108,7 +108,7 @@ fileprivate extension WMFData.WMFServiceRequest {
     }
 }
 
-public class WMFMockBasicService: WMFService {
+public final class WMFMockBasicService: WMFService {
     
     public init() {
         

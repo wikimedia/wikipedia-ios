@@ -3,7 +3,7 @@ import WMFData
 
 #if DEBUG
 
-public class WMFMockServiceNoInternetConnection: WMFService {
+public final class WMFMockServiceNoInternetConnection: WMFService {
 
     public init() {
         

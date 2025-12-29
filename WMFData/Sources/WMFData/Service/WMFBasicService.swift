@@ -9,36 +9,37 @@ public final class WMFBasicService: WMFService {
         self.urlSession = urlSession
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, Error>) -> Void) {
-        
-        let completion: ((Data?, URLResponse?, Error?) -> Void) = { data, response, error in
+    public func perform<R: WMFServiceRequest>(
+        request: R,
+        completion: @escaping @Sendable (Result<Data, Error>) -> Void
+    ) {
+        let dataCompletion: @Sendable (Data?, URLResponse?, Error?) -> Void = { data, response, error in
             if let error {
                 completion(.failure(error))
                 return
             }
-            
-            guard let data,
-                  !data.isEmpty else {
+
+            guard let data, !data.isEmpty else {
                 completion(.failure(WMFServiceError.missingData))
                 return
             }
-            
+
             completion(.success(data))
         }
-        
+
         switch request.method {
         case .GET:
-            performGET(request: request, completion: completion)
+            performGET(request: request, completion: dataCompletion)
         case .POST:
-            performPOST(request: request, completion: completion)
+            performPOST(request: request, completion: dataCompletion)
         default:
             assertionFailure("Unhandled request method")
         }
     }
     
-    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    public func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
         
-        let completion: ((Result<Data, any Error>) -> Void) = { result in
+        let dataCompletion: @Sendable (Result<Data, any Error>) -> Void = { result in
             switch result {
             case .success(let data):
                 
@@ -53,10 +54,10 @@ public final class WMFBasicService: WMFService {
             }
         }
         
-        perform(request: request, completion: completion)
+        perform(request: request, completion: dataCompletion)
     }
     
-    private func performPOST<R: WMFServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    private func performPOST<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) {
         
         guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
@@ -133,7 +134,7 @@ public final class WMFBasicService: WMFService {
         task.resume()
     }
     
-    private func performGET<R: WMFServiceRequest>(request: R, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    private func performGET<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) {
          
         guard let basicRequest = request as? WMFBasicServiceRequest,
               let url = request.url,
@@ -194,7 +195,7 @@ public final class WMFBasicService: WMFService {
         task.resume()
     }
     
-    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         
         performGET(request: request) { data, response, error in
             
@@ -218,7 +219,7 @@ public final class WMFBasicService: WMFService {
         }
     }
     
-    public func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
+    public func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
         
         performPOST(request: request) { data, response, error in
             
