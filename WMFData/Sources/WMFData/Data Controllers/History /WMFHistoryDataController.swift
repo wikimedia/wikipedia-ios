@@ -182,12 +182,19 @@ public final class HistorySection: Identifiable, Equatable, @unchecked Sendable 
     }
     
     public let dateWithoutTime: Date
-    @Published public var items: [HistoryItem]
     public let id: String
+    
+    private var _items: [HistoryItem]
+    private let queue = DispatchQueue(label: "HistorySection.items.queue", attributes: .concurrent)
+
+    public var items: [HistoryItem] {
+        get { queue.sync { _items } }
+        set { queue.async(flags: .barrier) { self._items = newValue } }
+    }
 
     public init(dateWithoutTime: Date, items: [HistoryItem]) {
         self.dateWithoutTime = dateWithoutTime
-        self.items = items
+        self._items = items
         self.id = UUID().uuidString
     }
 }
@@ -201,9 +208,16 @@ public final class HistoryItem: Identifiable, Equatable, @unchecked Sendable {
     public let description: String?
     public let shortDescription: String?
     public let imageURLString: String?
-    public var isSaved: Bool
     public let snippet: String?
     public let variant: String?
+
+    private var _isSaved: Bool
+    private let queue = DispatchQueue(label: "HistoryItem.isSaved.queue")
+
+    public var isSaved: Bool {
+        get { queue.sync { _isSaved } }
+        set { queue.sync { _isSaved = newValue } }
+    }
 
     public init(id: String, url: URL?, titleHtml: String, description: String?, shortDescription: String?, imageURLString: String?, isSaved: Bool, snippet: String?, variant: String?) {
         self.id = id
@@ -212,7 +226,7 @@ public final class HistoryItem: Identifiable, Equatable, @unchecked Sendable {
         self.description = description
         self.shortDescription = shortDescription
         self.imageURLString = imageURLString
-        self.isSaved = isSaved
+        self._isSaved = isSaved
         self.snippet = snippet
         self.variant = variant
     }
