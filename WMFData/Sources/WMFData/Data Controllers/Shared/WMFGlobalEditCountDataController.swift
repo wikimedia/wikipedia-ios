@@ -38,19 +38,3 @@ actor WMFGlobalEditCountDataController {
         return response.items.reduce(0) { $0 + $1.editCount }
     }
 }
-
-// MARK: - Sync Bridge Extension
-
-extension WMFGlobalEditCountDataController {
-    
-    nonisolated func fetchEditCountSyncBridge(globalUserID: Int, startDate: Date, endDate: Date, completion: @escaping @Sendable (Result<Int, Error>) -> Void) {
-        Task {
-            do {
-                let count = try await self.fetchEditCount(globalUserID: globalUserID, startDate: startDate, endDate: endDate)
-                completion(.success(count))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-    }
-}

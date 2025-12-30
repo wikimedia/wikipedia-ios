@@ -625,6 +625,8 @@ public actor WMFActivityTabDataController {
 
 }
 
+// MARK: - Sync Bridge Extension
+
 extension WMFActivityTabDataController {
 
     public nonisolated static func activityAssignmentForObjC() -> WMFActivityTabExperimentAssignment {

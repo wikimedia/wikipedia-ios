@@ -205,19 +205,4 @@ extension WMFExperimentsDataController {
         semaphore.wait()
         return result
     }
-    
-    nonisolated public func resetExperimentSyncBridge(_ experiment: Experiment) {
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            do {
-                try await self.resetExperiment(experiment)
-            } catch {
-                print("Error resetting experiment: \(error)")
-            }
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-    }
 }

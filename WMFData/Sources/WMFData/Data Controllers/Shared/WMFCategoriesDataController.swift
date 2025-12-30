@@ -113,31 +113,3 @@ public actor WMFCategoriesDataController {
         }
     }
 }
-
-// MARK: - Sync Bridge Extension
-
-extension WMFCategoriesDataController {
-    
-    nonisolated public func addCategoriesSyncBridge(categories: [String], articleTitle: String, project: WMFProject) {
-        Task {
-            try? await self.addCategories(categories: categories, articleTitle: articleTitle, project: project)
-        }
-    }
-    
-    nonisolated func deleteEmptyCategoriesSyncBridge() {
-        Task {
-            try? await self.deleteEmptyCategories()
-        }
-    }
-    
-    nonisolated public func fetchCategoryCountsSyncBridge(startDate: Date, endDate: Date, completion: @escaping @Sendable (Result<[WMFCategory: Int], Error>) -> Void) {
-        Task {
-            do {
-                let counts = try await self.fetchCategoryCounts(startDate: startDate, endDate: endDate)
-                completion(.success(counts))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-    }
-}

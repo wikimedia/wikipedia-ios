@@ -369,7 +369,7 @@ import Foundation
 
 }
 
-// Sync Bridge Methods
+// MARK: - Sync Bridge Extension
 
 extension WMFFundraisingCampaignDataController {
     nonisolated public func isOptedInSyncBridge(project: WMFProject, completion: @escaping @Sendable (Bool) -> Void) {
@@ -388,13 +388,6 @@ extension WMFFundraisingCampaignDataController {
     nonisolated public func markAssetAsPermanentlyHiddenSyncBridge(asset: WMFFundraisingCampaignConfig.WMFAsset) {
         Task {
             await markAssetAsPermanentlyHidden(asset: asset)
-        }
-    }
-    
-    nonisolated public func loadActiveCampaignAssetSyncBridge(countryCode: String, wmfProject: WMFProject, currentDate: Date, completion: @escaping @Sendable (WMFFundraisingCampaignConfig.WMFAsset?) -> Void) {
-        Task {
-            let result = await loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate)
-            completion(result)
         }
     }
     

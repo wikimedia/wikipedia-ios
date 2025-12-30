@@ -582,7 +582,7 @@ private extension Locale {
     }
 }
 
-// Sync Bridge Methods
+// MARK: - Sync Bridge Extension
 
 extension WMFArticleTabsDataController {
     

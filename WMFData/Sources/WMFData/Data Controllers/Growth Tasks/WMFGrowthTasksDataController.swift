@@ -168,7 +168,7 @@ public enum WMFGrowthTaskType: String {
     case imageRecommendation = "image-recommendation"
 }
 
-// Sync Bridge Methods
+// MARK: - Sync Bridge Extension
 
 extension WMFGrowthTasksDataController {
     @objc nonisolated public func hasImageRecommendationsSyncBridge(completion: @escaping @Sendable (Bool) -> Void) {

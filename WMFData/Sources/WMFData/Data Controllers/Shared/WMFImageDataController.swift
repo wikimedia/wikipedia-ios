@@ -109,7 +109,7 @@ private extension WMFImageDataController {
     }
 }
 
-// Sync Bridge Methods
+// MARK: - Sync Bridge Extension
 
 extension WMFImageDataController {
     nonisolated public func fetchImageDataSyncBridge(url: URL, completion: @escaping @Sendable (Data?, Error?) -> Void) {

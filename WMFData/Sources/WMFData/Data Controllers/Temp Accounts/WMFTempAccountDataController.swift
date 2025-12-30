@@ -98,7 +98,7 @@ private struct AutoCreateTempUser: Codable {
     let enabled: Bool
 }
 
-// Sync Bridge Methods
+// MARK: - Sync Bridge Extension
 
 extension WMFTempAccountDataController {
     @objc nonisolated public var primaryWikiHasTempAccountsEnabledSyncBridge: Bool {

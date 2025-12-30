@@ -184,7 +184,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     }
 }
 
-// Sync Bridge Methods
+// MARK: - Sync Bridge Extension
 
 extension WMFDeveloperSettingsDataController {
     nonisolated public var doNotPostImageRecommendationsEditSyncBridge: Bool {

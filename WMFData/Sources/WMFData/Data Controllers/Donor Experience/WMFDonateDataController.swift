@@ -291,7 +291,7 @@ import Contacts
     }
 }
 
-// Sync Bridge Methods
+// MARK: - Sync Bridge Extension
 
 extension WMFDonateDataController {
     nonisolated public func loadConfigsSyncBridge() -> (donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?) {

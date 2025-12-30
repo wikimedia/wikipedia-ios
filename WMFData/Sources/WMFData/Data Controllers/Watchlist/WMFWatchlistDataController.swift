@@ -572,28 +572,6 @@ extension WMFWatchlistDataController {
         }
     }
     
-    nonisolated public func watchSyncBridge(title: String, project: WMFProject, expiry: WMFWatchlistExpiryType, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
-        Task {
-            do {
-                try await self.watch(title: title, project: project, expiry: expiry)
-                completion(.success(()))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    nonisolated public func unwatchSyncBridge(title: String, project: WMFProject, completion: @escaping @Sendable (Result<Void, Error>) -> Void) {
-        Task {
-            do {
-                try await self.unwatch(title: title, project: project)
-                completion(.success(()))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-    }
-    
     nonisolated public func rollbackSyncBridge(title: String, project: WMFProject, username: String, completion: @escaping @Sendable (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
         Task {
             do {
@@ -661,19 +639,6 @@ extension WMFWatchlistDataController {
         
         Task {
             result = await self.allChangeTypes()
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public func activeFilterCountSyncBridge() -> Int {
-        var result = 0
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.activeFilterCount()
             semaphore.signal()
         }
         
