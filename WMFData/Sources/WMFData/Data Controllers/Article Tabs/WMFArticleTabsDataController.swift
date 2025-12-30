@@ -226,31 +226,19 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         guard let moc = backgroundContext else { throw CustomError.missingContext }
         
         let store = coreDataStore
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            moc.perform {
-                do {
-                    try Helpers.deleteArticleTab(identifier: identifier, moc: moc, coreDataStore: store)
-                    try store.saveIfNeeded(moc: moc)
-                    continuation.resume()
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            }
+        try await moc.perform {
+            try Helpers.deleteArticleTab(identifier: identifier, moc: moc, coreDataStore: store)
+            try store.saveIfNeeded(moc: moc)
         }
     }
 
     public func deleteAllTabs() async throws {
+        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
         guard let moc = backgroundContext else { throw CustomError.missingContext }
         
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            moc.perform { [self] in
-                do {
-                    try self.deleteAllTabs(moc: moc)
-                    continuation.resume()
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            }
+        let store = coreDataStore
+        try await moc.perform {
+            try Helpers.deleteAllTabs(moc: moc, coreDataStore: store)
         }
     }
     
@@ -259,56 +247,50 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         guard let moc = backgroundContext else { throw CustomError.missingContext }
         
         let store = coreDataStore
-        return try await withCheckedThrowingContinuation { continuation in
-            moc.perform {
-                do {
-                    let pred = NSPredicate(format: "identifier == %@", argumentArray: [tabID])
-                    guard let tab = try store.fetch(entityType: CDArticleTab.self, predicate: pred, fetchLimit: 1, in: moc)?.first else {
-                        throw CustomError.missingTab
-                    }
-                    
-                    let page = try Helpers.pageForArticle(article, moc: moc, coreDataStore: store)
-                    let newItem = try Helpers.newArticleTabItem(page: page, moc: moc, coreDataStore: store)
-                    
-                    var newItems: [CDArticleTabItem] = []
-                    var foundCurr: Bool = false
-                    if let currItems = tab.items as? NSMutableOrderedSet {
-                        let safe = currItems.compactMap { $0 as? CDArticleTabItem }
-                        for ti in safe {
-                            if ti.isCurrent {
-                                ti.isCurrent = false
-                                newItems.append(ti)
-                                foundCurr = true
-                            } else {
-                                if foundCurr && needsCleanoutOfFutureArticles {
-                                    moc.delete(ti)
-                                    if let id = ti.identifier {
-                                        NotificationCenter.default.post(name: WMFNSNotification.articleTabItemDeleted, object: nil,
-                                                                      userInfo: [WMFNSNotification.UserInfoKey.articleTabItemIdentifier: id])
-                                    }
-                                } else {
-                                    newItems.append(ti)
-                                }
+        return try await moc.perform {
+            let pred = NSPredicate(format: "identifier == %@", argumentArray: [tabID])
+            guard let tab = try store.fetch(entityType: CDArticleTab.self, predicate: pred, fetchLimit: 1, in: moc)?.first else {
+                throw CustomError.missingTab
+            }
+            
+            let page = try Helpers.pageForArticle(article, moc: moc, coreDataStore: store)
+            let newItem = try Helpers.newArticleTabItem(page: page, moc: moc, coreDataStore: store)
+            
+            var newItems: [CDArticleTabItem] = []
+            var foundCurr: Bool = false
+            if let currItems = tab.items as? NSMutableOrderedSet {
+                let safe = currItems.compactMap { $0 as? CDArticleTabItem }
+                for ti in safe {
+                    if ti.isCurrent {
+                        ti.isCurrent = false
+                        newItems.append(ti)
+                        foundCurr = true
+                    } else {
+                        if foundCurr && needsCleanoutOfFutureArticles {
+                            moc.delete(ti)
+                            if let id = ti.identifier {
+                                NotificationCenter.default.post(name: WMFNSNotification.articleTabItemDeleted, object: nil,
+                                                              userInfo: [WMFNSNotification.UserInfoKey.articleTabItemIdentifier: id])
                             }
+                        } else {
+                            newItems.append(ti)
                         }
                     }
-                    
-                    if let last = newItems.last, last.page == newItem.page {
-                        last.isCurrent = true
-                        moc.delete(newItem)
-                    } else {
-                        newItem.isCurrent = true
-                        newItems.append(newItem)
-                    }
-                    
-                    tab.items = NSOrderedSet(array: newItems)
-                    guard let tid = tab.identifier, let tiid = newItem.identifier else { throw CustomError.missingIdentifier }
-                    try store.saveIfNeeded(moc: moc)
-                    continuation.resume(returning: Identifiers(tabIdentifier: tid, tabItemIdentifier: tiid))
-                } catch {
-                    continuation.resume(throwing: error)
                 }
             }
+            
+            if let last = newItems.last, last.page == newItem.page {
+                last.isCurrent = true
+                moc.delete(newItem)
+            } else {
+                newItem.isCurrent = true
+                newItems.append(newItem)
+            }
+            
+            tab.items = NSOrderedSet(array: newItems)
+            guard let tid = tab.identifier, let tiid = newItem.identifier else { throw CustomError.missingIdentifier }
+            try store.saveIfNeeded(moc: moc)
+            return Identifiers(tabIdentifier: tid, tabItemIdentifier: tiid)
         }
     }
     
@@ -316,28 +298,22 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         guard let moc = backgroundContext, let coreDataStore else { throw CustomError.missingContext }
         
         let store = coreDataStore
-        return try await withCheckedThrowingContinuation { continuation in
-            moc.perform {
-                do {
-                    let pred = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
-                    guard let tab = try store.fetch(entityType: CDArticleTab.self, predicate: pred, fetchLimit: 1, in: moc)?.first,
-                          let items = tab.items as? NSMutableOrderedSet, items.count > 0 else { throw CustomError.missingTab }
-                    
-                    var adj: Any?
-                    for (i, item) in items.enumerated() {
-                        guard let ai = item as? CDArticleTabItem, ai.isCurrent else { continue }
-                        if isPrev, i - 1 >= 0, items.count > i - 1 { adj = items[i - 1]; break } else if !isPrev, i + 1 >= 0, items.count > i + 1 { adj = items[i + 1]; break }
-                    }
-
-                    if let cdi = adj as? CDArticleTabItem, let t = cdi.page?.title, let id = cdi.identifier,
-                       let pid = cdi.page?.projectID, let proj = WMFProject(id: pid) {
-                        continuation.resume(returning: WMFArticle(identifier: id, title: t, project: proj))
-                    } else {
-                        continuation.resume(returning: nil)
-                    }
-                } catch {
-                    continuation.resume(throwing: error)
-                }
+        return try await moc.perform {
+            let pred = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
+            guard let tab = try store.fetch(entityType: CDArticleTab.self, predicate: pred, fetchLimit: 1, in: moc)?.first,
+                  let items = tab.items as? NSMutableOrderedSet, items.count > 0 else { throw CustomError.missingTab }
+            
+            var adj: Any?
+            for (i, item) in items.enumerated() {
+                guard let ai = item as? CDArticleTabItem, ai.isCurrent else { continue }
+                if isPrev, i - 1 >= 0, items.count > i - 1 { adj = items[i - 1]; break } else if !isPrev, i + 1 >= 0, items.count > i + 1 { adj = items[i + 1]; break }
+            }
+            
+            if let cdi = adj as? CDArticleTabItem, let t = cdi.page?.title, let id = cdi.identifier,
+               let pid = cdi.page?.projectID, let proj = WMFProject(id: pid) {
+                return WMFArticle(identifier: id, title: t, project: proj)
+            } else {
+                return nil
             }
         }
     }
@@ -420,40 +396,15 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue, value: true)
     }
     
-    private func deleteAllTabs(moc: NSManagedObjectContext) throws {
-        guard let coreDataStore else { throw WMFDataControllerError.coreDataStoreUnavailable }
-        let tabs = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: nil, fetchLimit: nil, in: moc) ?? []
-        if tabs.isEmpty { return }
-        
-        for tab in tabs {
-            guard let id = tab.identifier else { return }
-            NotificationCenter.default.post(name: WMFNSNotification.articleTabDeleted, object: nil,
-                                          userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: id])
-            if let items = tab.items {
-                let safe = items.compactMap { $0 as? CDArticleTabItem }
-                for item in safe { item.tab = nil; moc.delete(item) }
-            }
-            moc.delete(tab)
-        }
-        try coreDataStore.saveIfNeeded(moc: moc)
-    }
-    
     public func currentTabIdentifier() async throws -> UUID? {
         guard let coreDataStore, let moc = backgroundContext else { throw CustomError.missingContext }
         return try await fetchCurrentTabID(coreDataStore: coreDataStore, moc: moc)
     }
 
     private func fetchCurrentTabID(coreDataStore: WMFCoreDataStore, moc: NSManagedObjectContext) async throws -> UUID? {
-        try await withCheckedThrowingContinuation { continuation in
-            moc.perform {
-                do {
-                    let pred = NSPredicate(format: "isCurrent == YES")
-                    let identifier = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: pred, fetchLimit: 1, in: moc)?.first?.identifier
-                    continuation.resume(returning: identifier)
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            }
+        return try await moc.perform {
+            let pred = NSPredicate(format: "isCurrent == YES")
+            return try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: pred, fetchLimit: 1, in: moc)?.first?.identifier
         }
     }
 
@@ -478,60 +429,48 @@ public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         guard let coreDataStore, let moc = backgroundContext else { throw CustomError.missingContext }
         
         let store = coreDataStore
-        return try await withCheckedThrowingContinuation { continuation in
-            moc.perform {
-                do {
-                    guard let cdTabs = try store.fetch(entityType: CDArticleTab.self, predicate: nil, fetchLimit: nil, in: moc) else {
-                        throw CustomError.missingTab
-                    }
-                    
-                    var ats: [WMFArticleTab] = []
-                    for cdt in cdTabs {
-                        guard let tid = cdt.identifier, let ts = cdt.timestamp, let items = cdt.items else { continue }
-                        var arts: [WMFArticle] = []
-                        for item in items {
-                            guard let ati = item as? CDArticleTabItem, let page = ati.page, let id = ati.identifier,
-                                  let t = page.title, let pid = page.projectID, let proj = WMFProject(id: pid) else {
-                                throw CustomError.unexpectedType
-                            }
-                            arts.append(WMFArticle(identifier: id, title: t, project: proj))
-                            if ati.isCurrent { break }
-                        }
-                        ats.append(WMFArticleTab(identifier: tid, timestamp: ts, isCurrent: cdt.isCurrent, articles: arts))
-                    }
-                    continuation.resume(returning: ats)
-                } catch {
-                    continuation.resume(throwing: error)
-                }
+        return try await moc.perform {
+            guard let cdTabs = try store.fetch(entityType: CDArticleTab.self, predicate: nil, fetchLimit: nil, in: moc) else {
+                throw CustomError.missingTab
             }
+            
+            var ats: [WMFArticleTab] = []
+            for cdt in cdTabs {
+                guard let tid = cdt.identifier, let ts = cdt.timestamp, let items = cdt.items else { continue }
+                var arts: [WMFArticle] = []
+                for item in items {
+                    guard let ati = item as? CDArticleTabItem, let page = ati.page, let id = ati.identifier,
+                          let t = page.title, let pid = page.projectID, let proj = WMFProject(id: pid) else {
+                        throw CustomError.unexpectedType
+                    }
+                    arts.append(WMFArticle(identifier: id, title: t, project: proj))
+                    if ati.isCurrent { break }
+                }
+                ats.append(WMFArticleTab(identifier: tid, timestamp: ts, isCurrent: cdt.isCurrent, articles: arts))
+            }
+            return ats
         }
     }
 
     public func saveCurrentStateForLaterRestoration() async throws {
-        guard let coreDataStore, let moc = backgroundContext else { throw CustomError.missingContext }
+        guard let coreDataStore, let userDefaultsStore, let moc = backgroundContext else { throw CustomError.missingContext }
         
         let store = coreDataStore
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            moc.perform { [self] in
-                do {
-                    let cp = NSPredicate(format: "isCurrent == YES")
-                    guard let cdt = try store.fetch(entityType: CDArticleTab.self, predicate: cp, fetchLimit: 1, in: moc)?.first,
-                          let tid = cdt.identifier, let tts = cdt.timestamp else { throw CustomError.missingTab }
-                    
-                    let cdis = cdt.items?.compactMap { $0 as? CDArticleTabItem }
-                    let cdi = cdis?.first(where: { $0.isCurrent == true })
-                    guard let cdi, let aid = cdi.identifier, let page = cdi.page, let t = page.title,
-                          let pid = page.projectID, let proj = WMFProject(id: pid) else {
-                        throw CustomError.missingTabItem
-                    }
-                    let tab = WMFArticleTab(identifier: tid, timestamp: tts, isCurrent: cdt.isCurrent,
-                                           articles: [WMFArticle(identifier: aid, title: t, project: proj)])
-                    try self.userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
-                    continuation.resume()
-                } catch {
-                    continuation.resume(throwing: error)
-                }
+        try await moc.perform {
+            let cp = NSPredicate(format: "isCurrent == YES")
+            guard let cdt = try store.fetch(entityType: CDArticleTab.self, predicate: cp, fetchLimit: 1, in: moc)?.first,
+                  let tid = cdt.identifier, let tts = cdt.timestamp else { throw CustomError.missingTab }
+            
+            let cdis = cdt.items?.compactMap { $0 as? CDArticleTabItem }
+            let cdi = cdis?.first(where: { $0.isCurrent == true })
+            guard let cdi, let aid = cdi.identifier, let page = cdi.page, let t = page.title,
+                  let pid = page.projectID, let proj = WMFProject(id: pid) else {
+                throw CustomError.missingTabItem
             }
+            let tab = WMFArticleTab(identifier: tid, timestamp: tts, isCurrent: cdt.isCurrent,
+                                   articles: [WMFArticle(identifier: aid, title: t, project: proj)])
+            try Helpers.saveTabToRestoreOnLaunch(userDefaultsStore: userDefaultsStore, tab: tab)
+            
         }
     }
     
@@ -601,6 +540,27 @@ fileprivate struct Helpers {
     static func tabsCount(moc: NSManagedObjectContext) throws -> Int {
         let fr = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
         return try moc.count(for: fr)
+    }
+    
+    static func deleteAllTabs(moc: NSManagedObjectContext, coreDataStore: WMFCoreDataStore) throws {
+        let tabs = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: nil, fetchLimit: nil, in: moc) ?? []
+        if tabs.isEmpty { return }
+        
+        for tab in tabs {
+            guard let id = tab.identifier else { return }
+            NotificationCenter.default.post(name: WMFNSNotification.articleTabDeleted, object: nil,
+                                          userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: id])
+            if let items = tab.items {
+                let safe = items.compactMap { $0 as? CDArticleTabItem }
+                for item in safe { item.tab = nil; moc.delete(item) }
+            }
+            moc.delete(tab)
+        }
+        try coreDataStore.saveIfNeeded(moc: moc)
+    }
+    
+    static func saveTabToRestoreOnLaunch(userDefaultsStore: WMFKeyValueStore, tab: WMFArticleTabsDataController.WMFArticleTab) throws {
+        try userDefaultsStore.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
     }
 }
 
