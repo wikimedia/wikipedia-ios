@@ -5,6 +5,7 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
+@MainActor
 @objc(WMFYearInReviewCoordinator)
 final class YearInReviewCoordinator: NSObject, Coordinator {
 
@@ -16,6 +17,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private let targetRects = WMFProfileViewTargetRects()
     let dataController: WMFYearInReviewDataController
     var donateCoordinator: DonateCoordinator?
+    
+    private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
 
     let yearInReviewDonateText = WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button")
     weak var badgeDelegate: YearInReviewBadgeDelegate?
@@ -845,6 +848,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
        }
        
         let yirDataController = try WMFYearInReviewDataController()
+        beginDataPopulationBackgroundTask()
         try await yirDataController.populateYearInReviewReportData(
             for: WMFYearInReviewDataController.targetYear,
             countryCode: countryCode,
@@ -854,7 +858,37 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             globalUserID: globalUserId,
             savedSlideDataDelegate: dataStore.savedPageList,
             legacyPageViewsDataDelegate: dataStore)
+        endDataPopulationBackgroundTask()
    }
+    
+    private func beginDataPopulationBackgroundTask() {
+        guard dataPopulationBackgroundTaskID == .invalid else { return }
+
+        dataPopulationBackgroundTaskID = UIApplication.shared.beginBackgroundTask(
+            withName: WMFBackgroundTasksNameKey.yearInReviewPopulateReportData.rawValue,
+            expirationHandler: { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                Task { @MainActor in
+                    UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+                    self.dataPopulationBackgroundTaskID = .invalid
+                }
+            }
+        )
+    }
+    
+    private func endDataPopulationBackgroundTask() {
+        
+        guard dataPopulationBackgroundTaskID != .invalid else {
+            return
+        }
+        
+        UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+        dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
+    }
 
     private func presentSurveyIfNeeded() {
         if !self.dataController.hasPresentedYiRSurvey {

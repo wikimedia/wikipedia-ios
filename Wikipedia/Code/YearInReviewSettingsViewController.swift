@@ -37,6 +37,8 @@ final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNa
     private var sections: [YearInReviewSettingsSection] = []
     
     private let dataController = try? WMFYearInReviewDataController()
+    
+    private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
 
     fileprivate let headerText = WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature.") + "\n"
 
@@ -126,6 +128,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNa
                 }
 
                 let yirDataController = try WMFYearInReviewDataController()
+                self.beginDataPopulationBackgroundTask()
                 try await yirDataController.populateYearInReviewReportData(
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
@@ -135,10 +138,38 @@ final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNa
                     globalUserID: globalUserId,
                     savedSlideDataDelegate: dataStore.savedPageList,
                     legacyPageViewsDataDelegate: dataStore)
+                self.endDataPopulationBackgroundTask()
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
         }
+    }
+    
+    private func beginDataPopulationBackgroundTask() {
+        guard dataPopulationBackgroundTaskID == .invalid else { return }
+
+        dataPopulationBackgroundTaskID = UIApplication.shared.beginBackgroundTask(
+            withName: WMFBackgroundTasksNameKey.yearInReviewPopulateReportData.rawValue,
+            expirationHandler: { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+                self.dataPopulationBackgroundTaskID = .invalid
+            }
+        )
+    }
+    
+    private func endDataPopulationBackgroundTask() {
+        
+        guard dataPopulationBackgroundTaskID != .invalid else {
+            return
+        }
+        
+        UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
+        dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
     }
 
     // MARK: - UITableView

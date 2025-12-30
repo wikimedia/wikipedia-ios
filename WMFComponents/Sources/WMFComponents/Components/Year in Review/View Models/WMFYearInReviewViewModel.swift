@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import WMFData
 
+@MainActor
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewIntroDidTapLearnMore()
     func logYearInReviewSlideDidAppear(slideLoggingID: String)
@@ -11,6 +12,7 @@ public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewDidTapShare(slideLoggingID: String)
 }
 
+@MainActor
 public class WMFYearInReviewViewModel: ObservableObject {
     
     public struct LocalizedStrings {

@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 import CoreData
 
-@preconcurrency
 @objc public class WMFYearInReviewDataController: NSObject {
     
     public enum CustomError: Error {
@@ -22,7 +21,6 @@ import CoreData
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2025_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
-    private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
     
     struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
@@ -365,28 +363,6 @@ import CoreData
 
         return true
     }
-
-//    private func beginDataPopulationBackgroundTask() async {
-//        
-//        guard dataPopulationBackgroundTaskID == .invalid else {
-//            return
-//        }
-//        
-//        dataPopulationBackgroundTaskID = await UIApplication.shared.beginBackgroundTask(withName: WMFBackgroundTasksNameKey.yearInReviewPopulateReportData.rawValue, expirationHandler: {
-//            UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
-//            self.dataPopulationBackgroundTaskID = .invalid
-//        })
-//    }
-//    
-//    private func endDataPopulationBackgroundTask() {
-//        
-//        guard dataPopulationBackgroundTaskID != .invalid else {
-//            return
-//        }
-//        
-//        UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
-//        dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
-//    }
     
     @discardableResult
     public func populateYearInReviewReportData(for year: Int, countryCode: String,  primaryAppLanguageProject: WMFProject?, username: String?, userID: Int?, globalUserID: Int?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
@@ -394,12 +370,6 @@ import CoreData
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode) else {
             return nil
         }
-
-//        await beginDataPopulationBackgroundTask()
-//        
-//        defer {
-//            endDataPopulationBackgroundTask()
-//        }
 
         let backgroundContext = try coreDataStore.newBackgroundContext
         

@@ -1,6 +1,7 @@
 import UIKit
 import WMFData
 
+@MainActor
 public protocol YearInReviewCoordinatorDelegate: AnyObject {
     func handleYearInReviewAction(_ action: YearInReviewCoordinatorAction)
 }
