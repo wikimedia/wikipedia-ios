@@ -9,7 +9,7 @@ internal enum WMFMockError: Error {
 }
 
 fileprivate extension WMFData.WMFServiceRequest {
-    
+
     var isFeatureConfigGet: Bool {
         switch WMFDataEnvironment.current.serviceEnvironment {
         case .production:
@@ -31,7 +31,7 @@ fileprivate extension WMFData.WMFServiceRequest {
             return method == .GET && action == "raw"
         }
     }
-    
+
     var isDonateConfigGet: Bool {
         switch WMFDataEnvironment.current.serviceEnvironment {
         case .production:
@@ -54,7 +54,7 @@ fileprivate extension WMFData.WMFServiceRequest {
             return method == .GET && action == "raw"
         }
     }
-    
+
     var isPaymentMethodsGet: Bool {
         guard let url,
               url.host == "payments.wikimedia.org",
@@ -64,7 +64,7 @@ fileprivate extension WMFData.WMFServiceRequest {
        
         return method == .GET && action == "getPaymentMethods"
     }
-    
+
     var isSubmitPaymentPost: Bool {
         guard let url,
               url.host == "payments.wikimedia.org",
@@ -74,7 +74,7 @@ fileprivate extension WMFData.WMFServiceRequest {
        
         return method == .POST && action == "submitPayment"
     }
-    
+
     var isFundraisingCampaignGet: Bool {
         switch WMFDataEnvironment.current.serviceEnvironment {
         case .production:
@@ -97,7 +97,7 @@ fileprivate extension WMFData.WMFServiceRequest {
             return method == .GET && action == "raw"
         }
     }
-    
+
     var isArticleSummaryGet: Bool {
         guard let url = url,
               url.absoluteString.contains("/page/summary/") else {
@@ -109,11 +109,11 @@ fileprivate extension WMFData.WMFServiceRequest {
 }
 
 public final class WMFMockBasicService: WMFService {
-    
+
     public init() {
         
     }
-    
+
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -122,7 +122,7 @@ public final class WMFMockBasicService: WMFService {
         
         completion(.success(jsonData))
     }
-    
+
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
@@ -137,7 +137,7 @@ public final class WMFMockBasicService: WMFService {
         
         completion(.success(jsonDict))
     }
-    
+
     public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
@@ -154,7 +154,7 @@ public final class WMFMockBasicService: WMFService {
         
         completion(.success(response))
     }
-    
+
     public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
         
         guard let jsonData = jsonData(for: request) else {
@@ -171,7 +171,7 @@ public final class WMFMockBasicService: WMFService {
         
         completion(.success(response))
     }
-    
+
     private func jsonData(for request: WMFData.WMFServiceRequest) -> Data? {
         if request.isDonateConfigGet {
             let resourceName = "donate-get-config"
@@ -232,7 +232,7 @@ public final class WMFMockBasicService: WMFService {
         
         return nil
     }
-    
+
     public func clearCachedData() {
         // no-op
     }

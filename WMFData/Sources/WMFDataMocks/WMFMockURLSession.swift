@@ -13,12 +13,9 @@ struct WMFMockData: Codable {
 }
 
 final class WMFMockSuccessURLSession: WMFURLSession {
-    
-    var url: URL?
-    
+
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
-        self.url = request.url
-        
+
         let encoder = JSONEncoder()
 
         let data = try? encoder.encode(WMFMockData(oneInt: 1, twoString: "two"))
@@ -27,7 +24,7 @@ final class WMFMockSuccessURLSession: WMFURLSession {
         completionHandler(data, response, nil)
         return WMFMockURLSessionDataTask()
     }
-    
+
     func clearCachedData() {
         // no-op
     }
@@ -41,7 +38,7 @@ final class WMFMockServerErrorSession: WMFURLSession {
         completionHandler(nil, response, nil)
         return WMFMockURLSessionDataTask()
     }
-    
+
     func clearCachedData() {
         // no-op
     }
@@ -54,7 +51,7 @@ final class WMFMockNoInternetConnectionSession: WMFURLSession {
         completionHandler(nil, nil, error)
         return WMFMockURLSessionDataTask()
     }
-    
+
     func clearCachedData() {
         // no-op
     }
@@ -68,7 +65,7 @@ final class WMFMockMissingDataSession: WMFURLSession {
         completionHandler(nil, response, nil)
         return WMFMockURLSessionDataTask()
     }
-    
+
     func clearCachedData() {
         // no-op
     }

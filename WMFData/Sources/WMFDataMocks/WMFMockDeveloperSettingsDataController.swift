@@ -8,19 +8,19 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var enableYearInReview: Bool {
         return true
     }
-    
+
     var enableActivityTabs: Bool {
         return true
     }
-    
+
     var enableArticleTabs: Bool {
         return true
     }
-    
+
     var forceMaxArticleTabsTo5: Bool {
         return false
     }
-    
+
     var enableMoreDynamicTabsV2GroupB: Bool {
         return true
     }
@@ -43,11 +43,11 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var showActivityTab: Bool { return true }
 
     private let featureConfig: WMFData.WMFFeatureConfigResponse
-    
+
     public init(featureConfig: WMFData.WMFFeatureConfigResponse) {
         self.featureConfig = featureConfig
     }
-    
+
     func loadFeatureConfig() -> WMFData.WMFFeatureConfigResponse? {
         return self.featureConfig
     }

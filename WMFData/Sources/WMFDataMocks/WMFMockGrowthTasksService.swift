@@ -31,7 +31,7 @@ fileprivate extension WMFData.WMFServiceRequest {
 
         return method == .GET && action == "query" && formatversion == "2" && format == "json" && prop == "growthimagesuggestiondata" && pageids == "1" && gisdtasktype == "image-recommendation"
     }
-    
+
     var isImageRecommendationCombinedGet: Bool {
         guard let action = parameters?["action"] as? String,
               let formatversion = parameters?["formatversion"] as? String,
@@ -79,7 +79,7 @@ public final class WMFMockGrowthTasksService: WMFService {
         return nil
 
     }
-    
+
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -104,7 +104,7 @@ public final class WMFMockGrowthTasksService: WMFService {
         completion(.success(jsonDict))
 
     }
-    
+
     public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -121,11 +121,11 @@ public final class WMFMockGrowthTasksService: WMFService {
         completion(.success(response))
 
     }
-    
+
     public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
 
     }
-    
+
     public func clearCachedData() {
         // no-op
     }

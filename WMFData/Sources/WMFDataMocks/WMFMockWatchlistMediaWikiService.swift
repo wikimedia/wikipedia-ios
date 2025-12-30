@@ -14,7 +14,7 @@ fileprivate extension WMFData.WMFServiceRequest {
         return method == .GET && action == "query"
             && list == "watchlist" && wlshow == ""
     }
-    
+
     var isWatchlistGetListBotOnly: Bool {
         guard let action = parameters?["action"] as? String,
               let list = parameters?["list"] as? String,
@@ -25,7 +25,7 @@ fileprivate extension WMFData.WMFServiceRequest {
         return method == .GET && action == "query"
             && list == "watchlist" && wlshow == "bot"
     }
-    
+
     var isWatchlistPostWatchArticleExpiryNever: Bool {
          guard let action = parameters?["action"] as? String,
                let expiry = parameters?["expiry"] as? String else {
@@ -55,7 +55,7 @@ fileprivate extension WMFData.WMFServiceRequest {
 
          return method == .POST && action == "watch" && unwatch == "1"
      }
-    
+
     var isWatchlistGetWatchStatus: Bool {
         guard let action = parameters?["action"] as? String,
               let prop = parameters?["prop"] as? String,
@@ -85,7 +85,7 @@ fileprivate extension WMFData.WMFServiceRequest {
         meta == "userinfo" &&
         uiprop == "rights"
     }
-    
+
     var isWatchlistPostRollback: Bool {
         guard let action = parameters?["action"] as? String else {
             return false
@@ -93,7 +93,7 @@ fileprivate extension WMFData.WMFServiceRequest {
 
         return method == .POST && action == "rollback"
     }
-    
+
     var isWatchlistGetUndoSummaryPrefix: Bool {
 
         guard let action = parameters?["action"] as? String,
@@ -104,7 +104,7 @@ fileprivate extension WMFData.WMFServiceRequest {
 
         return method == .GET && action == "query" && meta == "allmessages" && ammessages == "undo-summary"
     }
-    
+
     var isWatchlistPostUndo: Bool {
         guard let action = parameters?["action"] as? String,
               let title = parameters?["title"] as? String,
@@ -117,14 +117,14 @@ fileprivate extension WMFData.WMFServiceRequest {
     }
 }
 
-public class WMFMockWatchlistMediaWikiService: WMFService {
+public final class WMFMockWatchlistMediaWikiService: WMFService {
 
-    public var randomizeGetWatchStatusResponse: Bool = false // used in WMFComponents Demo app
-    
+    public let randomizeGetWatchStatusResponse: Bool = false // used in WMFComponents Demo app
+
     public init() {
         
     }
-    
+
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<Data, any Error>) -> Void) {
         guard let jsonData = jsonData(for: request) else {
             completion(.failure(WMFMockError.unableToPullData))
@@ -133,7 +133,7 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         
         completion(.success(jsonData))
     }
-    
+
     public func perform<R: WMFServiceRequest>(request: R, completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
@@ -148,7 +148,7 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         
         completion(.success(jsonDict))
     }
-    
+
     public func performDecodableGET<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         
         guard let jsonData = jsonData(for: request) else {
@@ -165,11 +165,11 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         
         completion(.success(response))
     }
-    
+
     public func performDecodablePOST<R, T>(request: R, completion: @escaping (Result<T, Error>) -> Void) where R : WMFData.WMFServiceRequest, T : Decodable {
         
     }
-    
+
     private func jsonData(for request: WMFData.WMFServiceRequest) -> Data? {
         if request.isWatchlistGetListNoFilter {
             guard let host = request.url?.host,
@@ -294,7 +294,7 @@ public class WMFMockWatchlistMediaWikiService: WMFService {
         
         return nil
     }
-    
+
     public func clearCachedData() {
         // no-op
     }
