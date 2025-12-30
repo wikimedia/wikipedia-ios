@@ -709,15 +709,10 @@ extension WMFAppViewController {
 
         // data controller properties
         let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
+            guard let self else { return [] }
             var result: [HistoryRecord] = []
-            let semaphore = DispatchSemaphore(value: 0)
             
             Task { @MainActor in
-                guard let self else {
-                    semaphore.signal()
-                    return
-                }
-
                 let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
                 request.predicate = NSPredicate(format: "viewedDate != NULL")
                 request.sortDescriptors = [
@@ -756,11 +751,8 @@ extension WMFAppViewController {
                 } catch {
                     DDLogError("Error fetching history: \(error)")
                 }
-                
-                semaphore.signal()
             }
             
-            semaphore.wait()
             return result
         }
 

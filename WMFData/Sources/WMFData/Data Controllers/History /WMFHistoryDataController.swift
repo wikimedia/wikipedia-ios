@@ -216,7 +216,7 @@ public final class HistoryItem: Identifiable, Equatable, @unchecked Sendable {
 
     public var isSaved: Bool {
         get { queue.sync { _isSaved } }
-        set { queue.sync { _isSaved = newValue } }
+        set { queue.async(flags: .barrier) { self._isSaved = newValue } }
     }
 
     public init(id: String, url: URL?, titleHtml: String, description: String?, shortDescription: String?, imageURLString: String?, isSaved: Bool, snippet: String?, variant: String?) {
