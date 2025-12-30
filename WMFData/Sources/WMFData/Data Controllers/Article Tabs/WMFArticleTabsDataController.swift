@@ -2,20 +2,9 @@ import Foundation
 import UIKit
 @preconcurrency import CoreData
 
-public protocol WMFArticleTabsDataControlling {
-    func tabsCount() async throws -> Int
-    func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> WMFArticleTabsDataController.Identifiers
-    func deleteArticleTab(identifier: UUID) async throws
-    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID, needsCleanoutOfFutureArticles: Bool) async throws -> WMFArticleTabsDataController.Identifiers
-    func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
-    func setTabAsCurrent(tabIdentifier: UUID) async throws
-    func currentTabIdentifier() async throws -> UUID?
-    func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
-}
-
 // MARK: - Pure Swift Actor
 
-public actor WMFArticleTabsDataController: WMFArticleTabsDataControlling {
+public actor WMFArticleTabsDataController {
     
     public enum CustomError: Error {
         case missingTab, missingTabItem, missingSelf, cannotDeleteLastTab, missingPage
