@@ -14,7 +14,7 @@ import CoreData
     
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
-    private let developerSettingsDataController: WMFDeveloperSettingsDataController
+    private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let experimentsDataController: WMFExperimentsDataController?
 
     @objc public static let targetYear = 2025
@@ -49,7 +49,7 @@ import CoreData
         return nil
     }
 
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataController = WMFDeveloperSettingsDataController.shared, experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) throws {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared, experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) throws {
 
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable

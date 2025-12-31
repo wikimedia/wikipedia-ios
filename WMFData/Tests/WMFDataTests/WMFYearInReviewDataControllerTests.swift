@@ -11,7 +11,13 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     }
 
     var store: WMFCoreDataStore?
-    var dataController: WMFYearInReviewDataController?
+    
+    var dataController: WMFYearInReviewDataController? {
+        guard let store else {
+            return nil
+        }
+        return try? WMFYearInReviewDataController(coreDataStore: store)
+    }
     
     private var usCountryCode: String? {
         return Locale(identifier: "en_US").region?.identifier
@@ -27,7 +33,6 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let store = try await WMFCoreDataStore(appContainerURL: temporaryDirectory)
         self.store = store
         
-        self.dataController = try WMFYearInReviewDataController(coreDataStore: store)
         
         try await super.setUp()
     }
@@ -105,7 +110,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
     func testFetchYearInReviewReportForYear() async throws {
         
-        guard let dataController else {
+        guard let dc = dataController else {
             throw TestError.missingDataController
         }
         
@@ -113,11 +118,17 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount)
 
         let report = WMFYearInReviewReport(year: 2021, slides: [slide1, slide2])
-        try await dataController.saveYearInReviewReport(report)
+        try await dc.saveYearInReviewReport(report)
 
         // Switch back to main thread
+        let store = self.store
         try await MainActor.run {
-            let fetchedReport = try dataController.fetchYearInReviewReport(forYear: 2021)
+            
+            guard let dc = try? WMFYearInReviewDataController(coreDataStore: store) else {
+                throw TestError.missingDataController
+            }
+            
+            let fetchedReport = try dc.fetchYearInReviewReport(forYear: 2021)
 
             XCTAssertNotNil(fetchedReport, "Expected to fetch a report for year 2021")
 
@@ -128,7 +139,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             let originalSlideIDs = [slide1.id, slide2.id].sorted()
             XCTAssertEqual(fetchedSlideIDs, originalSlideIDs)
 
-            let noReport = try dataController.fetchYearInReviewReport(forYear: 2020)
+            let noReport = try dc.fetchYearInReviewReport(forYear: 2020)
             XCTAssertNil(noReport, "Expected no report for year 2020")
         }
     }
@@ -253,6 +264,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             XCTFail("Missing expected country codes")
             return
         }
+        
+        let december15 = self.december15
         
         await MainActor.run {
             let shouldShowEntryPointUS = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, currentDate: december15)

@@ -5,35 +5,24 @@ import Contacts
 
 final class WMFDonateDataControllerTests: XCTestCase {
     
-    private let controller: WMFDonateDataController = WMFDonateDataController.shared
+    private var controller: WMFDonateDataController?
 
     override func setUp() async throws {
         WMFDataEnvironment.current.basicService = WMFMockBasicService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-        self.controller.reset()
-        self.controller.service = WMFDataEnvironment.current.basicService
-        self.controller.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+        self.controller = WMFDonateDataController.shared
     }
     
-    func testFetchDonateConfig() {
+    func testFetchDonateConfig() async throws {
         
-        let expectation = XCTestExpectation(description: "Fetch Donate Configs")
-        
-        controller.fetchConfigs(for: "US") { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching configs: \(error)")
-            }
-            
-            expectation.fulfill()
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        try await controller.fetchConfigs(for: "US")
         
-        let donateData = controller.loadConfigs()
+        let donateData = await controller.loadConfigs()
         
         let paymentMethods = donateData.paymentMethods
         let donateConfig = donateData.donateConfig
@@ -56,49 +45,31 @@ final class WMFDonateDataControllerTests: XCTestCase {
         XCTAssertEqual(paymentMethods.applePayPaymentNetworks, [.amex, .discover, .maestro, .masterCard, .visa], "Unexpected Apple Pay payment networks")
     }
     
-    func testDonateSubmitPayment() {
+    func testDonateSubmitPayment() async throws {
         
-        let expectation = XCTestExpectation(description: "Submit Payment")
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
         
         let nameComponents = PersonNameComponents()
         let addressComponents = CNPostalAddress()
         
-        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", paymentNetwork: "Discover", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, metricsID: "enUS_2024_09_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure submitting payment: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 10.0)
+        try await controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", paymentNetwork: "Discover", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, metricsID: "enUS_2024_09_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString)
     }
     
-    func testFetchDonateConfigWithNoCacheAndNoInternetConnection() {
-        WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
-        controller.service = WMFDataEnvironment.current.basicService
+    func testFetchDonateConfigWithNoCacheAndNoInternetConnection() async throws {
         
-        let expectation = XCTestExpectation(description: "Fetch Donate Configs")
-        
-        controller.fetchConfigs(for: "US") { result in
-            switch result {
-            case .success:
-                
-                XCTFail("Unexpected success")
-                
-            case .failure:
-                break
-            }
-            
-            expectation.fulfill()
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        let service = WMFMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.basicService = service
+        await controller.setService(service)
         
-        let donateData = controller.loadConfigs()
+        try await controller.fetchConfigs(for: "US")
+        
+        let donateData = await controller.loadConfigs()
         
         let paymentMethods = donateData.paymentMethods
         let donateConfig = donateData.donateConfig
@@ -107,10 +78,11 @@ final class WMFDonateDataControllerTests: XCTestCase {
         XCTAssertNil(donateConfig, "Expected Donate Config")
     }
     
-    func testFetchDonateConfigWithCacheAndNoInternetConnection() {
-
-        let expectation1 = XCTestExpectation(description: "Fetch Donate Configs with Internet Connection")
-        let expectation2 = XCTestExpectation(description: "Fetch Donate Configs without Internet Connection")
+    func testFetchDonateConfigWithCacheAndNoInternetConnection() async throws {
+        
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
 
         var connectedPaymentMethods: WMFPaymentMethods?
         var connectedDonateConfig: WMFDonateConfig?
@@ -118,46 +90,27 @@ final class WMFDonateDataControllerTests: XCTestCase {
         var notConnectedDonateConfig: WMFDonateConfig?
         
         // First fetch successfully to populate cache
-        controller.fetchConfigs(for: "US") { result in
-            switch result {
-            case .success:
-                
-                let donateData = self.controller.loadConfigs()
-                
-                connectedPaymentMethods = donateData.paymentMethods
-                connectedDonateConfig = donateData.donateConfig
-                
-                // Drop Internet Connection
-                WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
-                self.controller.service = WMFDataEnvironment.current.basicService
-
-                // Fetch again
-                self.controller.fetchConfigs(for: "US") { result in
-                    switch result {
-                    case .success:
-                        
-                        XCTFail("Unexpected disconnected success")
-                        
-                    case .failure:
-                        
-                        // Despite failure, we still expect to be able to load configs from cache
-                        let donateData = self.controller.loadConfigs()
-                        notConnectedPaymentMethods = donateData.paymentMethods
-                        notConnectedDonateConfig = donateData.donateConfig
-                        
-                    }
-                    
-                    expectation2.fulfill()
-                }
-            case .failure:
-                XCTFail("Unexpected connected failure")
-            }
-            
-            expectation1.fulfill()
-        }
+        try await controller.fetchConfigs(for: "US")
         
-        wait(for: [expectation1], timeout: 10.0)
-        wait(for: [expectation2], timeout: 10.0)
+        let donateData = await controller.loadConfigs()
+        
+        connectedPaymentMethods = donateData.paymentMethods
+        connectedDonateConfig = donateData.donateConfig
+        
+        // Drop Internet Connection
+        let noConnectionService = WMFMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.basicService = noConnectionService
+        await controller.setService(noConnectionService)
+
+        // Fetch again
+        do {
+            try await controller.fetchConfigs(for: "US")
+        } catch {
+            // Despite failure, we still expect to be able to load configs from cache
+            let donateData = await controller.loadConfigs()
+            notConnectedPaymentMethods = donateData.paymentMethods
+            notConnectedDonateConfig = donateData.donateConfig
+        }
         
         XCTAssertNotNil(connectedPaymentMethods, "Expected Payment Methods")
         XCTAssertNotNil(connectedDonateConfig, "Expected Donate Config")
@@ -165,27 +118,26 @@ final class WMFDonateDataControllerTests: XCTestCase {
         XCTAssertNotNil(notConnectedDonateConfig, "Expected Donate Config")
     }
     
-    func testDonateSubmitPaymentNoInternetConnection() {
-        WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
-        controller.service = WMFDataEnvironment.current.basicService
+    func testDonateSubmitPaymentNoInternetConnection() async throws {
         
-        let expectation = XCTestExpectation(description: "Submit Payment")
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
+        
+        // Drop Internet Connection
+        let noConnectionService = WMFMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.basicService = noConnectionService
+        await controller.setService(noConnectionService)
         
         let nameComponents = PersonNameComponents()
         let addressComponents = CNPostalAddress()
         
-        controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", paymentNetwork: "Discover", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, metricsID: "enUS_2024_09_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString) { result in
-            switch result {
-            case .success:
+        do {
+            try await controller.submitPayment(amount: 3, countryCode: "US", currencyCode: "USD", languageCode: "EN", paymentToken: "fake-token", paymentNetwork: "Discover", donorNameComponents: nameComponents, recurring: true, donorEmail: "wikimediaTester1@gmail.com", donorAddressComponents: addressComponents, emailOptIn: nil, transactionFee: false, metricsID: "enUS_2024_09_iOS", appVersion: "7.4.3", appInstallID: UUID().uuidString)
                 XCTFail("Expected submitPayment to fail")
-            case .failure:
-                break
-            }
+        } catch {
             
-            expectation.fulfill()
         }
-        
-        wait(for: [expectation], timeout: 10.0)
     }
 
 }

@@ -1,15 +1,15 @@
 import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
-    func loadFeatureConfig() async -> WMFFeatureConfigResponse?
-    var enableMoreDynamicTabsV2GroupC: Bool { get async }
-    var forceMaxArticleTabsTo5: Bool { get async }
-    var showYiRV3: Bool { get async }
-    var enableYiRLoginExperimentControl: Bool { get async }
-    var enableYiRLoginExperimentB: Bool { get async }
-    var showActivityTab: Bool { get async }
-    var forceActivityTabControl: Bool { get async }
-    var forceActivityTabExperiment: Bool { get async }
+    func loadFeatureConfigSyncBridge() -> WMFFeatureConfigResponse?
+    var enableMoreDynamicTabsV2GroupCSyncBridge: Bool { get }
+    var forceMaxArticleTabsTo5SyncBridge: Bool { get }
+    var showYiRV3SyncBridge: Bool { get }
+    var enableYiRLoginExperimentControlSyncBridge: Bool { get }
+    var enableYiRLoginExperimentBSyncBridge: Bool { get }
+    var showActivityTabSyncBridge: Bool { get }
+    var forceActivityTabControlSyncBridge: Bool { get }
+    var forceActivityTabExperimentSyncBridge: Bool { get }
 }
 
 // MARK: - Pure Swift Actor (Clean Implementation)

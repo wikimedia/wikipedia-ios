@@ -5,45 +5,70 @@ final class WMFHistoryDataControllerTests: XCTestCase {
 
     var dataController: WMFHistoryDataController!
     var records: [HistoryRecord] = []
-    var deletedItemID: String?
-    var savedItemID: String?
-    var unsavedItemID: String?
+    
+    // Use an actor to safely capture these values
+    actor TestState {
+        var deletedItemID: String?
+        var savedItemID: String?
+        var unsavedItemID: String?
+        
+        func setDeletedItemID(_ id: String) {
+            deletedItemID = id
+        }
+        
+        func setSavedItemID(_ id: String) {
+            savedItemID = id
+        }
+        
+        func setUnsavedItemID(_ id: String) {
+            unsavedItemID = id
+        }
+    }
+    
+    var testState: TestState!
 
     // MARK: - Setup & Teardown
 
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
+        try await super.setUp()
 
         records = []
-        deletedItemID = nil
-        savedItemID = nil
-        unsavedItemID = nil
+        testState = TestState()
 
-        dataController = WMFHistoryDataController(recordsProvider: { [weak self] in self?.records ?? [] })
+        let testRecords = records
+        dataController = WMFHistoryDataController(recordsProvider: { testRecords })
 
-        dataController.deleteRecordAction = { [weak self] item in
-            self?.deletedItemID = item.id
-        }
-        dataController.saveRecordAction = { [weak self] item in
-            self?.savedItemID = item.id
-        }
-        dataController.unsaveRecordAction = { [weak self] item in
-            self?.unsavedItemID = item.id
-        }
+        let state = testState!
+        
+        await dataController.setActions(
+            deleteAction: { item in
+                Task {
+                    await state.setDeletedItemID(item.id)
+                }
+            },
+            saveAction: { item in
+                Task {
+                    await state.setSavedItemID(item.id)
+                }
+            },
+            unsaveAction: { item in
+                Task {
+                    await state.setUnsavedItemID(item.id)
+                }
+            }
+        )
     }
 
     override func tearDown() {
         dataController = nil
         records = []
-        deletedItemID = nil
-        savedItemID = nil
-        unsavedItemID = nil
+        testState = nil
         super.tearDown()
     }
 
     // MARK: - Tests
 
-    func testFetchHistorySectionsGroupingAndSorting() {
+    func testFetchHistorySectionsGroupingAndSorting() async {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
@@ -87,7 +112,7 @@ final class WMFHistoryDataControllerTests: XCTestCase {
             )
         ]
 
-        let sections = dataController.fetchHistorySections()
+        let sections = await dataController.fetchHistorySections()
         XCTAssertEqual(sections.count, 2, "There should be two sections for two different days.")
 
         XCTAssertEqual(sections[0].dateWithoutTime, today, "First section should be today's date.")
@@ -99,7 +124,7 @@ final class WMFHistoryDataControllerTests: XCTestCase {
 
     // Not testing core data operations, just the if the functions were correctly called
 
-    func testDeleteHistoryItem() {
+    func testDeleteHistoryItem() async {
         let dummyHistoryItem = HistoryItem(
             id: "111",
             url: URL(string: "https://example.com/111")!,
@@ -112,12 +137,16 @@ final class WMFHistoryDataControllerTests: XCTestCase {
             variant: nil
         )
         
-
-        dataController.deleteHistoryItem(dummyHistoryItem)
-        XCTAssertEqual(deletedItemID, dummyHistoryItem.id, "The deleteRecordAction closure should be called with the correct item ID.")
+        await dataController.deleteHistoryItem(dummyHistoryItem)
+        
+        // Give the Task time to complete
+        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+        
+        let deletedID = await testState.deletedItemID
+        XCTAssertEqual(deletedID, dummyHistoryItem.id, "The deleteRecordAction closure should be called with the correct item ID.")
     }
 
-    func testSaveHistoryItem() {
+    func testSaveHistoryItem() async {
         let dummyHistoryItem = HistoryItem(
             id: "222",
             url: URL(string: "https://example.com/222")!,
@@ -130,11 +159,16 @@ final class WMFHistoryDataControllerTests: XCTestCase {
             variant: nil
         )
 
-        dataController.saveHistoryItem(dummyHistoryItem)
-        XCTAssertEqual(savedItemID, dummyHistoryItem.id, "The saveRecordAction closure should be called with the correct item ID.")
+        await dataController.saveHistoryItem(dummyHistoryItem)
+        
+        // Give the Task time to complete
+        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+        
+        let savedID = await testState.savedItemID
+        XCTAssertEqual(savedID, dummyHistoryItem.id, "The saveRecordAction closure should be called with the correct item ID.")
     }
 
-    func testUnsaveHistoryItem() {
+    func testUnsaveHistoryItem() async {
         let dummyHistoryItem = HistoryItem(
             id: "333",
             url: URL(string: "https://example.com/333")!,
@@ -147,7 +181,12 @@ final class WMFHistoryDataControllerTests: XCTestCase {
             variant: nil
         )
 
-        dataController.unsaveHistoryItem(dummyHistoryItem)
-        XCTAssertEqual(unsavedItemID, dummyHistoryItem.id, "The unsaveRecordAction closure should be called with the correct item ID.")
+        await dataController.unsaveHistoryItem(dummyHistoryItem)
+        
+        // Give the Task time to complete
+        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+        
+        let unsavedID = await testState.unsavedItemID
+        XCTAssertEqual(unsavedID, dummyHistoryItem.id, "The unsaveRecordAction closure should be called with the correct item ID.")
     }
 }

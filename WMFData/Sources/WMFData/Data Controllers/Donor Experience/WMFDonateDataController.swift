@@ -7,7 +7,7 @@ import Contacts
     
     @objc public static let shared = WMFDonateDataController()
     
-    private let service: WMFService?
+    private var service: WMFService?
     private let sharedCacheStore: WMFKeyValueStore?
     
     private var donateConfig: WMFDonateConfig?
@@ -19,6 +19,10 @@ import Contacts
     private let cacheLocalDonateHistoryFileName = "AppLocalDonationHistory"
     
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    
+    public func setService(_ service: WMFService) {
+        self.service = service
+    }
     
     public var hasLocallySavedDonations: Bool {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue)) ?? false

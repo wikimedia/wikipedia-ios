@@ -13,41 +13,23 @@ final class WMFGrowthTasksDataControllerTests: XCTestCase {
         WMFDataEnvironment.current.basicService = WMFMockBasicService()
     }
     
-    func testFetchImageRecommendationCombinedForTasks() {
+    func testFetchImageRecommendationCombinedForTasks() async throws {
 
         let controller = WMFGrowthTasksDataController(project: csProject)
-        let expectation = XCTestExpectation(description: "Fetch Image Recommendations")
 
         var imageRecsToTest: [WMFImageRecommendation.Page]?
 
-        controller.getImageRecommendationsCombined(completion: { result in
-            switch result {
-            case .success(let response):
-                imageRecsToTest = response
-            case .failure(let error):
-                XCTFail("Failed to fetch Image Recommendations \(error)")
-            }
-            expectation.fulfill()
-        })
-
-        wait(for: [expectation], timeout: 10.0)
-
+        imageRecsToTest = try await controller.getImageRecommendationsCombined()
+        
         XCTAssertTrue(imageRecsToTest != nil)
     }
     
-    func testParseImageRecommendationsCombined() {
+    func testParseImageRecommendationsCombined() async throws {
 
         let controller = WMFGrowthTasksDataController(project: enProject)
         var imageRecsToTest: [WMFImageRecommendation.Page]?
-
-        controller.getImageRecommendationsCombined(completion: { result in
-            switch result {
-            case .success(let response):
-                imageRecsToTest = response
-            case .failure(let error):
-                XCTFail("Failed to fetch Image Recommendations \(error)")
-            }
-        })
+        
+        imageRecsToTest = try await controller.getImageRecommendationsCombined()
 
         guard let imageRecsToTest else {
             XCTFail("Failed to retrieve image recommendations")

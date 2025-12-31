@@ -8,15 +8,13 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
     private let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
     private let nlProject = WMFProject.wikipedia(WMFLanguage(languageCode: "nl", languageVariantCode: nil))
 
-    private var controller: WMFFundraisingCampaignDataController = WMFFundraisingCampaignDataController.shared
+    private var controller: WMFFundraisingCampaignDataController?
     
     override func setUp() async throws {
         WMFDataEnvironment.current.basicService = WMFMockBasicService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
-        self.controller.reset()
-        self.controller.service = WMFDataEnvironment.current.basicService
-        self.controller.sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
+        self.controller = WMFFundraisingCampaignDataController.shared
     }
     
     func validFirstDayDate() -> Date {
@@ -55,28 +53,17 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         return date!
     }
 
-    func testFetchConfigAndLoadAssetWithValidCountryValidDateValidWiki() {
-        let expectation = XCTestExpectation(description: "Fetch Config")
+    func testFetchConfigAndLoadAssetWithValidCountryValidDateValidWiki() async throws {
         
         let validCountry = "NL"
         let validDate = validFirstDayDate()
         let validENProject = enProject
         let validNLProject = nlProject
         
-        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching config: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
+        try await controller?.fetchConfig(countryCode: validCountry, currentDate: validDate)
         
-        guard let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validENProject, currentDate: validDate),
-              let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate) else {
+        guard let enWikiAsset = await controller?.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validENProject, currentDate: validDate),
+              let nlWikiAsset = await controller?.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate) else {
             XCTFail("Missing assets")
             return
         }
@@ -104,121 +91,85 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         XCTAssertEqual(nlWikiAsset.currencyCode, "EUR", "Unexpected NL asset currency code")
     }
 
-    func testFetchConfigAndLoadAssetWithInvalidCountryValidDateValidWiki() {
-        
-        let expectation = XCTestExpectation(description: "Fetch Config")
+    func testFetchConfigAndLoadAssetWithInvalidCountryValidDateValidWiki() async throws {
         
         let invalidCountry = "US"
         let validDate = validFirstDayDate()
         let validENProject = enProject
         let validNLProject = nlProject
         
-        controller.fetchConfig(countryCode: invalidCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching config: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
+        try await controller?.fetchConfig(countryCode: invalidCountry, currentDate: validDate)
         
-        let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: validENProject, currentDate: validDate)
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: validNLProject, currentDate: validDate)
+        guard let enWikiAsset = await controller?.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: validENProject, currentDate: validDate),
+              let nlWikiAsset = await controller?.loadActiveCampaignAsset(countryCode: invalidCountry, wmfProject: validNLProject, currentDate: validDate) else {
+            XCTFail("Missing assets")
+            return
+        }
     
         XCTAssertNil(enWikiAsset, "Expected EN Asset to be nil for invalid country")
         XCTAssertNil(nlWikiAsset, "Expected NL Asset to be nil for invalid country")
     }
     
-    func testFetchConfigAndLoadAssetWithValidCountryInvalidDateValidWiki() {
-        
-        let expectation = XCTestExpectation(description: "Fetch Config")
+    func testFetchConfigAndLoadAssetWithValidCountryInvalidDateValidWiki() async throws {
         
         let validCountry = "NL"
         let invalidDate = invalidDate()
         let validENProject = enProject
         let validNLProject = nlProject
         
-        controller.fetchConfig(countryCode: validCountry, currentDate: invalidDate) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching config: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
+        try await controller?.fetchConfig(countryCode: validCountry, currentDate: invalidDate)
         
-        let enWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validENProject, currentDate: invalidDate)
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: invalidDate)
+        guard let enWikiAsset = await controller?.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validENProject, currentDate: invalidDate),
+              let nlWikiAsset = await controller?.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: invalidDate) else {
+            XCTFail("Missing assets")
+            return
+        }
     
         XCTAssertNil(enWikiAsset, "Expected EN Asset to be nil for invalid date")
         XCTAssertNil(nlWikiAsset, "Expected NL Asset to be nil for invalid date")
     }
     
-    func testFetchConfigAndLoadAssetWithValidCountryValidDateInvalidWiki() {
-        
-        let expectation = XCTestExpectation(description: "Fetch Config")
+    func testFetchConfigAndLoadAssetWithValidCountryValidDateInvalidWiki() async throws {
         
         let validCountry = "NL"
         let validDate = validFirstDayDate()
         let invalidESProject = esProject
         
-        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching config: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
+        try await controller?.fetchConfig(countryCode: validCountry, currentDate: validDate)
         
-        let esWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: invalidESProject, currentDate: validDate)
+        guard let esWikiAsset = await controller?.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: invalidESProject, currentDate: validDate) else {
+            XCTFail("Missing assets")
+            return
+        }
+        
         XCTAssertNil(esWikiAsset, "ES asset should be nil")
     }
     
-    func testFetchConfigAndLoadAssetWithNoCacheAndNoInternetConnection() {
-        WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
-        controller.service = WMFDataEnvironment.current.basicService
-        
-        let expectation = XCTestExpectation(description: "Fetch Campaign Config")
+    func testFetchConfigAndLoadAssetWithNoCacheAndNoInternetConnection() async throws {
+        let service = WMFMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.basicService = service
+        await self.controller?.setService(service)
         
         let validCountry = "NL"
         let validDate = validFirstDayDate()
         let validNLProject = nlProject
         
-        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                
-                XCTFail("Unexpected success")
-                
-            case .failure:
-                break
-            }
-            
-            expectation.fulfill()
+        try await controller?.fetchConfig(countryCode: validCountry, currentDate: validDate)
+        
+        guard let asset = await controller?.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate) else {
+            XCTFail("Missing assets")
+            return
         }
-        
-        wait(for: [expectation], timeout: 10.0)
-        
-        let asset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         
         XCTAssertNil(asset, "Expected Nil Asset")
     }
     
-    func testFetchConfigAndLoadAssetWithCacheAndNoInternetConnection() {
-
-        let expectation1 = XCTestExpectation(description: "Fetch Config with Internet Connection")
-        let expectation2 = XCTestExpectation(description: "Fetch Config without Internet Connection")
-
+    func testFetchConfigAndLoadAssetWithCacheAndNoInternetConnection() async throws {
+        
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
+        
         var connectedAsset: WMFFundraisingCampaignConfig.WMFAsset?
         var notConnectedAsset: WMFFundraisingCampaignConfig.WMFAsset?
         
@@ -227,42 +178,22 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         let validNLProject = nlProject
         
         // First fetch successfully to populate cache
-
-        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                
-                connectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: self.nlProject, currentDate: validDate)
-
-                // Drop Internet Connection
-                WMFDataEnvironment.current.basicService = WMFMockServiceNoInternetConnection()
-                self.controller.service = WMFDataEnvironment.current.basicService
-
-                // Fetch again
-                self.controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-                    switch result {
-                    case .success:
-                        
-                        XCTFail("Unexpected disconnected success")
-                        
-                    case .failure:
-                        
-                        // Despite failure, we still expect to be able to load configs from cache
-                        notConnectedAsset = self.controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
-                        
-                    }
-                    
-                    expectation2.fulfill()
-                }
-            case .failure:
-                XCTFail("Unexpected connected failure")
-            }
-            
-            expectation1.fulfill()
-        }
+        try await controller.fetchConfig(countryCode: validCountry, currentDate: validDate)
         
-        wait(for: [expectation1], timeout: 10.0)
-        wait(for: [expectation2], timeout: 10.0)
+        connectedAsset = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: self.nlProject, currentDate: validDate)
+        
+        // Drop Internet Connection
+        let service = WMFMockServiceNoInternetConnection()
+        WMFDataEnvironment.current.basicService = service
+        await self.controller?.setService(service)
+        
+        // Fetch again
+        do {
+            try await controller.fetchConfig(countryCode: validCountry, currentDate: validDate)
+        } catch {
+            // Despite failure, we still expect to be able to load configs from cache
+            notConnectedAsset = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
+        }
         
         XCTAssertNotNil(connectedAsset, "Expected Fundraising Config")
         XCTAssertNotNil(notConnectedAsset, "Expected Fundraising Config")
@@ -270,136 +201,101 @@ final class WMFFundraisingCampaignDataControllerTests: XCTestCase {
         XCTAssertEqual(connectedAsset?.textHtml, notConnectedAsset?.textHtml, "Expected asset texts to be equal")
     }
   
-    func testLoadHiddenAsset() {
-        let expectation = XCTestExpectation(description: "Fetch Config")
+    func testLoadHiddenAsset() async throws {
+        
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
         
         let validCountry = "NL"
         let validDate = validFirstDayDate()
         let validNLProject = nlProject
         
         // First fetch asset with valid params
-        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching config: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
+        try await controller.fetchConfig(countryCode: validCountry, currentDate: validDate)
         
         // Confirm valid asset loads
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
-        XCTAssertNotNil(nlWikiAsset, "NL asset should not be nil")
+        let nlWikiAsset = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         
         // Mark asset as dissmissed
-        controller.markAssetAsPermanentlyHidden(asset: nlWikiAsset!)
+        await controller.markAssetAsPermanentlyHidden(asset: nlWikiAsset!)
         
         // Now try to load again
-        let hiddenNLWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
+        let hiddenNLWikiAsset = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNil(hiddenNLWikiAsset, "Hidden NL asset should be nil")
     }
     
-    func testLoadMaybeLaterAssetSixHoursLater() {
-        let expectation = XCTestExpectation(description: "Fetch Config")
+    func testLoadMaybeLaterAssetSixHoursLater() async throws {
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
         
         let validCountry = "NL"
         let validDate = validFirstDayDate()
         let validNLProject = nlProject
         
         // First fetch asset with valid params
-        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching config: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
-        
+        try await controller.fetchConfig(countryCode: validCountry, currentDate: validDate)
         
         // Confirm valid asset loads
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
+        let nlWikiAsset = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNotNil(nlWikiAsset, "NL asset should not be nil")
         
         // Mark asset as maybe later
-        controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
+        await controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load Six Hours later
-        let nlWikiAssetSixHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validFirstDayPlus6HoursDate())
+        let nlWikiAssetSixHoursLater = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validFirstDayPlus6HoursDate())
         
         XCTAssertNil(nlWikiAssetSixHoursLater, "NL asset marked as maybe later, then loaded 6 hours later should be nil")
     }
     
-    func testLoadMaybeLaterAssetThirtyHoursLater() {
-        let expectation = XCTestExpectation(description: "Fetch Config")
+    func testLoadMaybeLaterAssetThirtyHoursLater() async throws {
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
         
         let validCountry = "NL"
         let validDate = validFirstDayDate()
         let validNLProject = nlProject
         
         // First fetch asset with valid params
-        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching config: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
-        
+        try await controller.fetchConfig(countryCode: validCountry, currentDate: validDate)
         
         // Confirm valid asset loads
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
+        let nlWikiAsset = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNotNil(nlWikiAsset, "NL asset should not be nil")
         
         // Mark asset as maybe later
-        controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
+        await controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load Thirty Hours later
-        let nlWikiAssetThirtyHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validFirstDayPlus30HoursDate())
+        let nlWikiAssetThirtyHoursLater = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validFirstDayPlus30HoursDate())
         
         XCTAssertNotNil(nlWikiAssetThirtyHoursLater, "NL asset marked as maybe later, then loaded 30 hours later should not be nil")
     }
     
-    func testLoadMaybeLaterAssetAfterCampaignEnds() {
-        let expectation = XCTestExpectation(description: "Fetch Config")
+    func testLoadMaybeLaterAssetAfterCampaignEnds() async throws {
+        guard let controller else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
         
         let validCountry = "NL"
         let validDate = validLastDayDate()
         let validNLProject = nlProject
         
         // First fetch asset with valid params
-        controller.fetchConfig(countryCode: validCountry, currentDate: validDate) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                XCTFail("Failure fetching config: \(error)")
-            }
-            
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10.0)
-        
+        try await controller.fetchConfig(countryCode: validCountry, currentDate: validDate)
         
         // Confirm valid asset loads
-        let nlWikiAsset = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
+        let nlWikiAsset = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validDate)
         XCTAssertNotNil(nlWikiAsset, "NL asset should not be nil")
         
         // Mark asset as maybe later
-        controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
+        await controller.markAssetAsMaybeLater(asset: nlWikiAsset!, currentDate: validDate)
         
         // Load next day after campaign ends
-        let nlWikiAssetThirtyHoursLater = controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validLastDayPlus30HoursDate())
+        let nlWikiAssetThirtyHoursLater = await controller.loadActiveCampaignAsset(countryCode: validCountry, wmfProject: validNLProject, currentDate: validLastDayPlus30HoursDate())
         
         XCTAssertNil(nlWikiAssetThirtyHoursLater, "NL asset marked as maybe later, then loaded after last day of campaign should be nil")
     }

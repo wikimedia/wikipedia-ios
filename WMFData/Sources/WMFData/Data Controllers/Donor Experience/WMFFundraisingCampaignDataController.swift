@@ -8,7 +8,7 @@ import Foundation
     
     // MARK: - Properties
     
-    private let service: WMFService?
+    var service: WMFService?
     private let sharedCacheStore: WMFKeyValueStore?
     private let mediaWikiService: WMFService?
     
@@ -22,13 +22,17 @@ import Foundation
 
     // MARK: - Lifecycle
     
-    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
+    init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self.service = service
         self.sharedCacheStore = sharedCacheStore
         self.mediaWikiService = mediaWikiService
     }
     
     // MARK: - Public
+    
+    public func setService(_ service: WMFService) {
+        self.service = service
+    }
     
     public func isOptedIn(project: WMFProject) -> Bool {
         return preferencesBannerOptIns[project] ?? true
@@ -186,11 +190,11 @@ import Foundation
         }
     }
     
+    // MARK: - Internal
+    
     private func setOptIn(project: WMFProject, value: Bool) {
         preferencesBannerOptIns[project] = value
     }
-    
-    // MARK: - Internal
     
     func reset() {
         activeCountryConfigs = []
@@ -405,6 +409,13 @@ extension WMFFundraisingCampaignDataController {
             } catch {
                 completion(error)
             }
+        }
+    }
+    
+    nonisolated public func loadActiveCampaignAssetSyncBridge(countryCode: String, wmfProject: WMFProject, currentDate: Date, completion: @escaping @Sendable (WMFFundraisingCampaignConfig.WMFAsset?) -> Void) {
+        Task {
+            let result = await loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: currentDate)
+            completion(result)
         }
     }
     
