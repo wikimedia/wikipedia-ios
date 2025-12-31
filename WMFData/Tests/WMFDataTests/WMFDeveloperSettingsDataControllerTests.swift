@@ -20,8 +20,6 @@ final class WMFDeveloperSettingsDataControllerTests: XCTestCase {
             return
         }
         
-        let expectation = XCTestExpectation(description: "Fetch Config")
-        
         try await controller.fetchFeatureConfig()
         
         guard let config = await controller.loadFeatureConfig(),

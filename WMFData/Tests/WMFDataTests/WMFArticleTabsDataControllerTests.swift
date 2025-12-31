@@ -60,8 +60,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Cat",
             description: "Small domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Cat")
+            project: enProject
         )
         
         let identifier = try await dataController.createArticleTab(initialArticle: article)
@@ -104,8 +103,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Cat",
             description: "Small domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Cat")
+            project: enProject
         )
         let identifier1 = try await dataController.createArticleTab(initialArticle: firstArticle)
         
@@ -113,8 +111,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Dog",
             description: "Domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Dog")
+            project: enProject
         )
         let identifier2 = try await dataController.createArticleTab(initialArticle: secondArticle)
         
@@ -165,8 +162,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Cat",
             description: "Small domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Cat")
+            project: enProject
         )
         let identifier = try await dataController.createArticleTab(initialArticle: initialArticle)
         
@@ -175,8 +171,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Dog",
             description: "Domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Dog")
+            project: enProject
         )
         _ = try await dataController.appendArticle(newArticle, toTabIdentifier: identifier.tabIdentifier)
         
@@ -214,8 +209,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Cat",
             description: "Small domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Cat")
+            project: enProject
         )
         let identifier1 = try await dataController.createArticleTab(initialArticle: firstArticle, setAsCurrent: true)
         
@@ -234,8 +228,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Dog",
             description: "Domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Dog")
+            project: enProject
         )
         let identifier2 = try await dataController.createArticleTab(initialArticle: secondArticle, setAsCurrent: false)
         
@@ -261,8 +254,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Bird",
             description: "Warm-blooded vertebrate animal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Bird")
+            project: enProject
         )
         let identifier3 = try await dataController.createArticleTab(initialArticle: thirdArticle, setAsCurrent: true)
         
@@ -306,8 +298,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Cat",
             description: "Small domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Cat")
+            project: enProject
         )
         let identifier1 = try await dataController.createArticleTab(initialArticle: firstArticle, setAsCurrent: true)
         
@@ -315,8 +306,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             identifier: nil,
             title: "Dog",
             description: "Domesticated carnivorous mammal",
-            project: enProject,
-            articleURL: URL(string: "https://en.wikipedia.org/wiki/Dog")
+            project: enProject
         )
         let identifier2 = try await dataController.createArticleTab(initialArticle: secondArticle, setAsCurrent: false)
         

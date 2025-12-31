@@ -3,11 +3,15 @@ import UIKit
 
 public actor WMFWatchlistDataController {
     
-    let service = WMFDataEnvironment.current.mediaWikiService
+    private var service = WMFDataEnvironment.current.mediaWikiService
     private let sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     public init() { }
+    
+    public func setService(_ service: WMFService) {
+        self.service = service
+    }
     
     // MARK: Multiselect Helpers
     
@@ -169,11 +173,11 @@ public actor WMFWatchlistDataController {
                 let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: projectParameters)
                 service.performDecodableGET(request: request) { (result: Result<WatchlistAPIResponse, Error>) in
                     
-                    defer {
-                        group.leave()
-                    }
-                    
                     Task {
+                        defer {
+                            group.leave()
+                        }
+                        
                         switch result {
                         case .success(let apiResponse):
                             
@@ -658,8 +662,6 @@ extension WMFWatchlistDataController {
         semaphore.wait()
         return result
     }
-    
-    
 }
 
 // MARK: - Private Models

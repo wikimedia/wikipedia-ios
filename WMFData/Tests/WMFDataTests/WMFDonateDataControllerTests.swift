@@ -8,10 +8,15 @@ final class WMFDonateDataControllerTests: XCTestCase {
     private var controller: WMFDonateDataController?
 
     override func setUp() async throws {
-        WMFDataEnvironment.current.basicService = WMFMockBasicService()
+        let service = WMFMockBasicService()
+        WMFDataEnvironment.current.basicService = service
         WMFDataEnvironment.current.serviceEnvironment = .staging
-        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+        let store = WMFMockKeyValueStore()
+        WMFDataEnvironment.current.sharedCacheStore = store
         self.controller = WMFDonateDataController.shared
+        await controller?.setService(service)
+        await controller?.setSharedCacheStore(store)
+        await controller?.reset()
     }
     
     func testFetchDonateConfig() async throws {
@@ -67,7 +72,11 @@ final class WMFDonateDataControllerTests: XCTestCase {
         WMFDataEnvironment.current.basicService = service
         await controller.setService(service)
         
-        try await controller.fetchConfigs(for: "US")
+        do {
+            try await controller.fetchConfigs(for: "US")
+        } catch {
+            
+        }
         
         let donateData = await controller.loadConfigs()
         

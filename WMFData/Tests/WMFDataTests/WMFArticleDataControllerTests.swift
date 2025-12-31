@@ -15,59 +15,27 @@ final class WMFArticleDataControllerTests: XCTestCase {
         WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
     }
     
-    func testFetchWatchStatus() {
+    func testFetchWatchStatus() async throws {
         let controller = WMFArticleDataController()
 
-         let expectation = XCTestExpectation(description: "Fetch Watch Status")
-        var statusToTest: WMFArticleDataController.WMFArticleInfoResponse?
-        
         guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: true, needsRollbackRights: false, needsCategories: false) else {
             return
         }
         
-        controller.fetchArticleInfo(title: "Cat", project: enProject, request: request) { result in
-             switch result {
-             case .success(let status):
-                 statusToTest = status
-             case .failure(let error):
-                 XCTFail("Failure fetching watch status: \(error)")
-             }
-             expectation.fulfill()
-         }
-
-         guard let statusToTest else {
-             XCTFail("Missing statusToTest")
-             return
-         }
+        let statusToTest = try await controller.fetchArticleInfo(title: "Cat", project: enProject, request: request)
 
          XCTAssertTrue(statusToTest.watched)
          XCTAssertNil(statusToTest.userHasRollbackRights)
      }
 
-     func testFetchWatchStatusWithRollbackRights() {
+     func testFetchWatchStatusWithRollbackRights() async throws {
          let controller = WMFArticleDataController()
 
-         let expectation = XCTestExpectation(description: "Fetch Watch Status")
-         var statusToTest: WMFArticleDataController.WMFArticleInfoResponse?
-         
          guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: true, needsRollbackRights: true, needsCategories: false) else {
              return
          }
          
-         controller.fetchArticleInfo(title: "Cat", project: enProject, request: request) { result in
-             switch result {
-             case .success(let status):
-                 statusToTest = status
-             case .failure(let error):
-                 XCTFail("Failure fetching watch status: \(error)")
-             }
-             expectation.fulfill()
-         }
-
-         guard let statusToTest else {
-             XCTFail("Missing statusToTest")
-             return
-         }
+         let statusToTest = try await controller.fetchArticleInfo(title: "Cat", project: enProject, request: request)
 
          XCTAssertFalse(statusToTest.watched)
          XCTAssertTrue((statusToTest.userHasRollbackRights ?? false))

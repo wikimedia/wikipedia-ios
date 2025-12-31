@@ -8,7 +8,7 @@ import Contacts
     @objc public static let shared = WMFDonateDataController()
     
     private var service: WMFService?
-    private let sharedCacheStore: WMFKeyValueStore?
+    private var sharedCacheStore: WMFKeyValueStore?
     
     private var donateConfig: WMFDonateConfig?
     private var paymentMethods: WMFPaymentMethods?
@@ -22,6 +22,10 @@ import Contacts
     
     public func setService(_ service: WMFService) {
         self.service = service
+    }
+    
+    public func setSharedCacheStore(_ store: WMFKeyValueStore) {
+        self.sharedCacheStore = store
     }
     
     public var hasLocallySavedDonations: Bool {

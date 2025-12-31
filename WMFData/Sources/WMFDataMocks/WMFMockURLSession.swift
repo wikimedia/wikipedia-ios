@@ -13,8 +13,39 @@ struct WMFMockData: Codable {
 }
 
 final class WMFMockSuccessURLSession: WMFURLSession {
-
+    
+    actor Actor {
+        var url: URL?
+        
+        func getURL() -> URL? {
+            return self.url
+        }
+        
+        func setURL(_ url: URL?) {
+            self.url = url
+        }
+    }
+    
+    let actor: Actor = Actor()
+    
+    nonisolated func getURLSyncBridge() -> URL? {
+        var result: URL? = nil
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            result = await self.actor.getURL()
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        return result
+    }
+    
     func wmfDataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> WMFData.WMFURLSessionDataTask {
+        
+        Task {
+            await actor.setURL(request.url)
+        }
 
         let encoder = JSONEncoder()
 

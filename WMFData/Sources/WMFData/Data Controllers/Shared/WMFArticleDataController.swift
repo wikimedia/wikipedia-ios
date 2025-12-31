@@ -68,23 +68,20 @@ public actor WMFArticleDataController {
     ///   - title: Title of the article
     ///   - project: Project the article belongs to (EN Wiki, etc)
     ///   - request: Request struct to fetch certain pieces of data. So far can support watchlist status and user rollback rights.
-    ///   - completion: Completion block called when API has completed
-    public func fetchArticleInfo(title: String, project: WMFProject, request: ArticleInfoRequest, completion: @escaping @Sendable (Result<WMFArticleInfoResponse, Error>) -> Void) {
+    public func fetchArticleInfo(title: String, project: WMFProject, request: ArticleInfoRequest) async throws -> WMFArticleInfoResponse {
          
         guard let mediaWikiService else {
-             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-             return
-         }
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
+        }
         
-
-         var parameters = [
-                     "action": "query",
-                     "titles": title,
-                     "errorsuselocal": "1",
-                     "errorformat": "html",
-                     "format": "json",
-                     "formatversion": "2"
-                 ]
+        var parameters = [
+            "action": "query",
+            "titles": title,
+            "errorsuselocal": "1",
+            "errorformat": "html",
+            "format": "json",
+            "formatversion": "2"
+        ]
         
         if request.needsWatchedStatus {
             parameters["prop"] = "info"
@@ -107,43 +104,39 @@ public actor WMFArticleDataController {
             parameters["uiprop"] = "rights"
         }
 
-         guard let url = URL.mediaWikiAPIURL(project: project) else {
-             return
-         }
+        guard let url = URL.mediaWikiAPIURL(project: project) else {
+            throw WMFDataControllerError.failureCreatingRequestURL
+        }
 
-         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
+        let serviceRequest = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
 
-        mediaWikiService.performDecodableGET(request: request) { (result: Result<ArticleInfoResponse, Error>) in
-             switch result {
-             case .success(let response):
+        let response: ArticleInfoResponse = try await withCheckedThrowingContinuation { continuation in
+            mediaWikiService.performDecodableGET(request: serviceRequest) { (result: Result<ArticleInfoResponse, Error>) in
+                continuation.resume(with: result)
+            }
+        }
+        
+        guard let firstPage = response.query.pages.first else {
+            throw WMFDataControllerError.unexpectedResponse
+        }
 
-                guard let firstPage = response.query.pages.first else {
-                 completion(.failure(WMFDataControllerError.unexpectedResponse))
-                 return
-                }
+        let watched = firstPage.watched ?? false
+        let userHasRollbackRights = response.query.userinfo?.rights.contains("rollback")
+         
+        var watchlistExpiry: Date? = nil
+        if let watchlistExpiryString = firstPage.watchlistexpiry {
+            watchlistExpiry = DateFormatter.mediaWikiAPIDateFormatter.date(from: watchlistExpiryString)
+        }
+         
+        var categoryTitles: [String] = []
+        if let responseCategories = firstPage.categories {
+            for category in responseCategories {
+                categoryTitles.append(category.title)
+            }
+        }
 
-                let watched = firstPage.watched ?? false
-                let userHasRollbackRights = response.query.userinfo?.rights.contains("rollback")
-                 
-                var watchlistExpiry: Date? = nil
-                if let watchlistExpiryString = firstPage.watchlistexpiry {
-                  watchlistExpiry = DateFormatter.mediaWikiAPIDateFormatter.date(from: watchlistExpiryString)
-                }
-                 
-                 var categoryTitles: [String] = []
-                 if let responseCategories = firstPage.categories {
-                    for category in responseCategories {
-                        categoryTitles.append(category.title)
-                    }
-                 }
-
-                 let status = WMFArticleInfoResponse(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights, categories: categoryTitles)
-                 completion(.success(status))
-             case .failure(let error):
-                 completion(.failure(WMFDataControllerError.serviceError(error)))
-             }
-         }
-     }
+        return WMFArticleInfoResponse(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights, categories: categoryTitles)
+    }
 }
 
 // MARK: - Sync Bridge Extension
@@ -152,7 +145,12 @@ extension WMFArticleDataController {
     
     nonisolated public func fetchArticleInfoSyncBridge(title: String, project: WMFProject, request: ArticleInfoRequest, completion: @escaping @Sendable (Result<WMFArticleInfoResponse, Error>) -> Void) {
         Task {
-            await self.fetchArticleInfo(title: title, project: project, request: request, completion: completion)
+            do {
+                let response = try await self.fetchArticleInfo(title: title, project: project, request: request)
+                completion(.success(response))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 }

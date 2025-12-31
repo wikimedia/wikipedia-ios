@@ -9,7 +9,7 @@ import Foundation
     // MARK: - Properties
     
     var service: WMFService?
-    private let sharedCacheStore: WMFKeyValueStore?
+    var sharedCacheStore: WMFKeyValueStore?
     private let mediaWikiService: WMFService?
     
     private var activeCountryConfigs: [WMFFundraisingCampaignConfig] = []
@@ -32,6 +32,10 @@ import Foundation
     
     public func setService(_ service: WMFService) {
         self.service = service
+    }
+    
+    public func setStore(_ store: WMFKeyValueStore) {
+        self.sharedCacheStore = store
     }
     
     public func isOptedIn(project: WMFProject) -> Bool {

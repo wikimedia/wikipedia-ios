@@ -26,52 +26,21 @@ final class WMFHistoryDataControllerTests: XCTestCase {
     }
     
     var testState: TestState!
+    
+    var today: Date {
+        let calendar = Calendar.current
+        return calendar.startOfDay(for: Date())
+    }
+    
+    var yesterday: Date {
+        let calendar = Calendar.current
+        return calendar.date(byAdding: .day, value: -1, to: today)!
+    }
 
     // MARK: - Setup & Teardown
 
     override func setUp() async throws {
         try await super.setUp()
-
-        records = []
-        testState = TestState()
-
-        let testRecords = records
-        dataController = WMFHistoryDataController(recordsProvider: { testRecords })
-
-        let state = testState!
-        
-        await dataController.setActions(
-            deleteAction: { item in
-                Task {
-                    await state.setDeletedItemID(item.id)
-                }
-            },
-            saveAction: { item in
-                Task {
-                    await state.setSavedItemID(item.id)
-                }
-            },
-            unsaveAction: { item in
-                Task {
-                    await state.setUnsavedItemID(item.id)
-                }
-            }
-        )
-    }
-
-    override func tearDown() {
-        dataController = nil
-        records = []
-        testState = nil
-        super.tearDown()
-    }
-
-    // MARK: - Tests
-
-    func testFetchHistorySectionsGroupingAndSorting() async {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
-        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
 
         records = [
             HistoryRecord(
@@ -111,6 +80,44 @@ final class WMFHistoryDataControllerTests: XCTestCase {
                 variant: nil
             )
         ]
+        
+        testState = TestState()
+
+        let testRecords = records
+        dataController = WMFHistoryDataController(recordsProvider: { testRecords })
+
+        let state = testState!
+        
+        await dataController.setActions(
+            deleteAction: { item in
+                Task {
+                    await state.setDeletedItemID(item.id)
+                }
+            },
+            saveAction: { item in
+                Task {
+                    await state.setSavedItemID(item.id)
+                }
+            },
+            unsaveAction: { item in
+                Task {
+                    await state.setUnsavedItemID(item.id)
+                }
+            }
+        )
+    }
+
+    override func tearDown() {
+        dataController = nil
+        records = []
+        testState = nil
+        super.tearDown()
+    }
+
+    // MARK: - Tests
+
+    func testFetchHistorySectionsGroupingAndSorting() async {
+        
 
         let sections = await dataController.fetchHistorySections()
         XCTAssertEqual(sections.count, 2, "There should be two sections for two different days.")
