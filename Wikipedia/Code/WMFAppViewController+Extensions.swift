@@ -708,49 +708,41 @@ extension WMFAppViewController {
     @objc func generateHistoryTab() -> WMFHistoryViewController {
 
         // data controller properties
-        let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
-            guard let self else { return [] }
+        let dataStore = self.dataStore
+        let thumbnailImageWidth = UIScreen.main.wmf_listThumbnailWidthForScale().intValue
+        let recordsProvider: WMFHistoryDataController.RecordsProvider = { @MainActor in
             var result: [HistoryRecord] = []
             
-            Task { @MainActor in
-                let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-                request.predicate = NSPredicate(format: "viewedDate != NULL")
-                request.sortDescriptors = [
-                    NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
-                    NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
-                ]
-                request.fetchLimit = 1000
+            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "viewedDate != NULL")
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
+            ]
+            request.fetchLimit = 1000
 
-                do {
-                    var articles: [HistoryRecord] = []
-                    let articleFetchRequest = try self.dataStore.viewContext.fetch(request)
-                    
-                    let thumbnailImageWidth = UIScreen.main.wmf_listThumbnailWidthForScale().intValue
-
-                    for article in articleFetchRequest {
-                        if let viewedDate = article.viewedDate, let pageID = article.pageID {
-
-                            let record = HistoryRecord(
-                                id: Int(truncating: pageID),
-                                title: article.displayTitle ?? article.displayTitleHTML,
-                                descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
-                                shortDescription: article.snippet,
-                                articleURL: article.url,
-                                imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
-                                viewedDate: viewedDate,
-                                isSaved: article.isSaved,
-                                snippet: article.snippet,
-                                variant: article.variant
-                            )
-                            articles.append(record)
-                        }
+            do {
+                let articleFetchRequest = try dataStore.viewContext.fetch(request)
+                for article in articleFetchRequest {
+                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
+                        
+                        let record = HistoryRecord(
+                            id: Int(truncating: pageID),
+                            title: article.displayTitle ?? article.displayTitleHTML,
+                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
+                            shortDescription: article.snippet,
+                            articleURL: article.url,
+                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
+                            viewedDate: viewedDate,
+                            isSaved: article.isSaved,
+                            snippet: article.snippet,
+                            variant: article.variant
+                        )
+                        result.append(record)
                     }
-
-                    result = articles
-
-                } catch {
-                    DDLogError("Error fetching history: \(error)")
                 }
+            } catch {
+                DDLogError("Error fetching history: \(error)")
             }
             
             return result

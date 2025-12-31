@@ -168,7 +168,9 @@ public struct WMFHistoryView: View {
             }
         }
         .onAppear {
-            viewModel.loadHistory()
+            Task {
+                await viewModel.loadHistory()
+            }
         }
     }
 

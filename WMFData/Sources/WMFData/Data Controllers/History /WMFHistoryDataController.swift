@@ -32,7 +32,7 @@ public actor WMFHistoryDataController: WMFHistoryDataControllerProtocol {
     // MARK: - Dependency Injection Closures
 
     /// Closure that returns an array of history records
-    public typealias RecordsProvider = @Sendable () -> [HistoryRecord]
+    public typealias RecordsProvider = @MainActor @Sendable () async -> [HistoryRecord]
 
     /// Closure that deletes a single history record
     public typealias DeleteRecordAction = @Sendable (HistoryItem) -> Void
@@ -68,8 +68,8 @@ public actor WMFHistoryDataController: WMFHistoryDataControllerProtocol {
         }
 
     /// Groups history records by day (using the start of the day) and returns an array of `HistorySection`.
-    public func fetchHistorySections() -> [HistorySection] {
-        let records = recordsProvider()
+    public func fetchHistorySections() async -> [HistorySection] {
+        let records =  await recordsProvider()
         let calendar = Calendar.current
 
         let groupedRecords = Dictionary(grouping: records) { record in
@@ -163,7 +163,7 @@ public protocol WMFHistoryDataControllerProtocol {
     // MARK: - Data Access Methods
 
     /// Groups history records by day and returns an array of HistorySection.
-    func fetchHistorySectionsSyncBridge() -> [HistorySection]
+    func fetchHistorySections() async -> [HistorySection]
 
     /// Deletes the specified history item.
     func deleteHistoryItemSyncBridge(_ item: HistoryItem)

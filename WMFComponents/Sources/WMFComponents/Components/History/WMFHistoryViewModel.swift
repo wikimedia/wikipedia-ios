@@ -1,6 +1,7 @@
 import SwiftUI
 import WMFData
 
+@MainActor
 public final class WMFHistoryViewModel: ObservableObject {
 
     // MARK: - Nested Types
@@ -61,13 +62,13 @@ public final class WMFHistoryViewModel: ObservableObject {
         self.historyDataController = historyDataController
         self.topPadding = topPadding
 
-        loadHistory()
+        // loadHistory()
     }
 
     // MARK: - Public functions
 
-    public func loadHistory() {
-        let dataSections = historyDataController.fetchHistorySectionsSyncBridge()
+    public func loadHistory() async {
+        let dataSections = await historyDataController.fetchHistorySections()
         let viewModelSections = dataSections.map { dataSection -> HistorySection in
             let items = dataSection.items.map { dataItem in
                 HistoryItem(id: dataItem.id,
@@ -83,9 +84,7 @@ public final class WMFHistoryViewModel: ObservableObject {
             return HistorySection(dateWithoutTime: dataSection.dateWithoutTime, items: items)
         }
 
-        DispatchQueue.main.async {
-            self.sections = viewModelSections
-        }
+        self.sections = viewModelSections
         isEmpty = dataSections.isEmpty || dataSections.allSatisfy { $0.items.isEmpty }
     }
 

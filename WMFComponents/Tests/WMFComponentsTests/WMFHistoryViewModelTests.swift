@@ -15,7 +15,7 @@ class FakeHistoryDataController: WMFHistoryDataControllerProtocol {
     var savedItems: [HistoryItem] = []
     var unsavedItems: [HistoryItem] = []
 
-    func fetchHistorySectionsSyncBridge() -> [HistorySection] {
+    func fetchHistorySections() -> [HistorySection] {
         return sections
     }
 
@@ -34,6 +34,7 @@ class FakeHistoryDataController: WMFHistoryDataControllerProtocol {
 
 // MARK: - WMFHistoryViewModel Tests
 
+@MainActor
 final class WMFHistoryViewModelTests: XCTestCase {
 
     var cancellables = Set<AnyCancellable>()
@@ -173,7 +174,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
 
     // MARK: - Test save/unsave functionality
 
-    func testSaveOrUnsave() {
+    func testSaveOrUnsave() async {
 
         let today = Calendar.current.startOfDay(for: Date())
         let savedItem = HistoryItem(
@@ -205,8 +206,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
 
         let viewModel = createViewModel(with: fakeController)
 
-        viewModel.loadHistory()
-        RunLoop.main.run(until: Date().addingTimeInterval(0.1)) // wait for section to load
+        await viewModel.loadHistory()
 
         guard let loadedSection = viewModel.sections.first,
               loadedSection.items.count == 2
@@ -219,8 +219,6 @@ final class WMFHistoryViewModelTests: XCTestCase {
 
         viewModel.saveOrUnsave(item: firstItem,  in: loadedSection)
         viewModel.saveOrUnsave(item: secondItem, in: loadedSection)
-
-        RunLoop.main.run(until: Date().addingTimeInterval(0.1)) // wait for async save/unsave
 
         XCTAssertEqual(
             fakeController.unsavedItems.map(\.id),
