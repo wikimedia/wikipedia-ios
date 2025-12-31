@@ -144,12 +144,4 @@ extern void WMFMultilineFunctionDeclaration(int arg1,
     return foo;
 }
 
-- (BOOL)multiLineConditionalExample {
-    if (YES || NO && YES) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
 @end

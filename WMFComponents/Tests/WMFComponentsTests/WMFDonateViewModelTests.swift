@@ -10,23 +10,16 @@ final class WMFDonateViewModelTests: XCTestCase {
     
     private let merchantID = "merchant.id"
     
-    override func setUp(completion: @escaping (Error?) -> Void) {
+    override func setUp() async throws {
         WMFDataEnvironment.current.basicService = WMFMockBasicService()
         WMFDataEnvironment.current.serviceEnvironment = .staging
         
         let controller = WMFDonateDataController.shared
         
-        controller.fetchConfigs(for: "US") { result in
-            switch result {
-            case .success:
-                let data = controller.loadConfigs()
-                self.paymentMethods = data.paymentMethods
-                self.donateConfig = data.donateConfig
-                completion(nil)
-            case .failure(let error):
-                completion(error)
-            }
-        }
+        try await controller.fetchConfigs(for: "US")
+        let data = await controller.loadConfigs()
+        self.paymentMethods = data.paymentMethods
+        self.donateConfig = data.donateConfig
     }
     
     func testViewModelInstantiatesWithCorrectDefaultsUSD() {

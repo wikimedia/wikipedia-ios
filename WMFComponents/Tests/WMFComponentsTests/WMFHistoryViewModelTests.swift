@@ -8,7 +8,6 @@ import Combine
 
 /// A fake implementation of WMFHistoryDataControllerProtocol
 class FakeHistoryDataController: WMFHistoryDataControllerProtocol {
-
     var sections: [HistorySection] = []
 
     /// helper arrays for testing
@@ -16,19 +15,19 @@ class FakeHistoryDataController: WMFHistoryDataControllerProtocol {
     var savedItems: [HistoryItem] = []
     var unsavedItems: [HistoryItem] = []
 
-    func fetchHistorySections() -> [HistorySection] {
+    func fetchHistorySectionsSyncBridge() -> [HistorySection] {
         return sections
     }
 
-    func deleteHistoryItem(_ item: HistoryItem) {
+    func deleteHistoryItemSyncBridge(_ item: HistoryItem) {
         deletedItems.append(item)
     }
 
-    func saveHistoryItem(_ item: HistoryItem) {
+    func saveHistoryItemSyncBridge(_ item: HistoryItem) {
         savedItems.append(item)
     }
 
-    func unsaveHistoryItem(_ item: HistoryItem) {
+    func unsaveHistoryItemSyncBridge(_ item: HistoryItem) {
         unsavedItems.append(item)
     }
 }

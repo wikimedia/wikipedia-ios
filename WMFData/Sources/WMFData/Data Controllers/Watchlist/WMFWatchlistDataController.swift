@@ -642,7 +642,7 @@ extension WMFWatchlistDataController {
         let semaphore = DispatchSemaphore(value: 0)
         
         Task {
-            result = await self.allChangeTypes()
+            result = await self.offChangeTypes()
             semaphore.signal()
         }
         

@@ -208,7 +208,7 @@ fileprivate struct SavedArticleSnapshot: Sendable {
     let savedDate: Date?
 }
 
-public struct SavedArticleModuleData: Codable {
+public struct SavedArticleModuleData: Codable, Sendable {
     public let savedArticlesCount: Int
     public let articleThumbURLs: [URL?]
     public let dateLastSaved: Date?

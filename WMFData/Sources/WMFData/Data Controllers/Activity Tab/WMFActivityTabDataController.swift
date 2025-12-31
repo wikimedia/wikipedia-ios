@@ -658,15 +658,15 @@ public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
 }
 
-public struct TimelineItem: Identifiable, Equatable {
+public struct TimelineItem: Identifiable, Equatable, Sendable {
     public let id: String
     public let date: Date
     public let titleHtml: String
     public let projectID: String
     public let pageTitle: String
-    public var description: String?
-    public var imageURLString: String?
-    public var snippet: String?
+    public let description: String?
+    public let imageURLString: String?
+    public let snippet: String?
     public let namespaceID: Int
     
     public let itemType: TimelineItemType
@@ -698,7 +698,7 @@ public struct TimelineItem: Identifiable, Equatable {
     }
 }
 
-public enum TimelineItemType {
+public enum TimelineItemType: Sendable {
     case standard // no icon, logged out users, etc.
     case edit
     case read

@@ -176,7 +176,7 @@ final class WMFWatchlistDataControllerTests: XCTestCase {
         let controller = WMFWatchlistDataController()
         
         do {
-            let _ = try await controller.fetchWatchlist()
+            _ = try await controller.fetchWatchlist()
             XCTFail("Unexpected success")
         } catch {
             

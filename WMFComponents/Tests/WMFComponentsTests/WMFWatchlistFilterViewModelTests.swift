@@ -133,12 +133,12 @@ final class WMFWatchlistFilterViewModelTests: XCTestCase {
         XCTAssertTrue(section8Item5.isSelected)
     }
     
-    func testFilterViewModelInstantiatesWithCorrectSavedSettings() throws {
+    func testFilterViewModelInstantiatesWithCorrectSavedSettings() async throws {
         
         // First save some settings
         let dataController = WMFWatchlistDataController()
         let filterSettings = WMFWatchlistFilterSettings(offProjects: [.wikidata, esProject], latestRevisions: .latestRevision, activity: .unseenChanges, automatedContributions: .bot, significance: .nonMinorEdits, userRegistration: .registered, offTypes: [.categoryChanges, .pageCreations])
-        dataController.saveFilterSettings(filterSettings)
+        await dataController.saveFilterSettings(filterSettings)
         
         let filterViewModel = WMFWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified, loggingDelegate: nil)
         
@@ -244,7 +244,7 @@ final class WMFWatchlistFilterViewModelTests: XCTestCase {
         XCTAssertTrue(section8Item5.isSelected)
     }
     
-    func testFilterViewModelSavePersistsSettingsCorrectly() throws {
+    func testFilterViewModelSavePersistsSettingsCorrectly() async throws {
         let filterViewModel = WMFWatchlistFilterViewModel(localizedStrings: .demoStrings, overrideUserInterfaceStyle: .unspecified, loggingDelegate: nil)
         
         // Change some view model settings
@@ -278,11 +278,11 @@ final class WMFWatchlistFilterViewModelTests: XCTestCase {
         selectSections[7].items[4].isSelected = false
         
         // Tell view model to save
-        filterViewModel.saveNewFilterSettings()
+        await filterViewModel.saveNewFilterSettings()
         
         // Load from data framework, confirm values are as expected
         let dataController = WMFWatchlistDataController()
-        let filterSettings = dataController.loadFilterSettings()
+        let filterSettings = await dataController.loadFilterSettings()
         
         XCTAssertEqual(filterSettings.offProjects, [.commons, enProject])
         XCTAssertEqual(filterSettings.latestRevisions, .latestRevision)

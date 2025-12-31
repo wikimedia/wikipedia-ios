@@ -129,13 +129,11 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
 		self.formViewModel.sections[1] = Self.section2(projectViewModels: Array(projectViewModels.suffix(from: 2)), strings: localizedStrings, addLanguageAction: addLanguageAction)
 	}
 
-    func saveNewFilterSettings() {
+    func saveNewFilterSettings() async {
         let data = generateDataForNewFilterSettings()
         
         let newFilterSettings = data.filterSettings
-        Task {
-            await dataController.saveFilterSettings(newFilterSettings)
-        }
+        await dataController.saveFilterSettings(newFilterSettings)
         
         let onProjects = data.onProjects
         loggingDelegate?.logWatchlistUserDidSaveFilterSettings(filterSettings: newFilterSettings, onProjects: onProjects)

@@ -652,7 +652,7 @@ public struct WMFYearInReviewReadData: Codable {
     public let minutesRead: Int
 }
 
-public class SavedArticleSlideData: NSObject, Codable {
+public final class SavedArticleSlideData: NSObject, Codable, Sendable {
     public let savedArticlesCount: Int
     public let articleTitles: [String]
 

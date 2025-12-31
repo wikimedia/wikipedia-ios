@@ -29,8 +29,11 @@ class WMFWatchlistFilterHostingController: WMFComponentHostingController<WMFWatc
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.saveNewFilterSettings()
-        delegate?.watchlistFilterDidChange(self)
+        Task {
+            await self.viewModel.saveNewFilterSettings()
+            self.delegate?.watchlistFilterDidChange(self)
+        }
+        
     }
 
     override func accessibilityPerformEscape() -> Bool {

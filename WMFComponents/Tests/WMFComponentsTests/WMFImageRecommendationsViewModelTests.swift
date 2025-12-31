@@ -3,6 +3,7 @@ import XCTest
 @testable import WMFData
 @testable import WMFDataMocks
 
+@MainActor
 final class WMFImageRecommendationsViewModelTests: XCTestCase {
     
     private let csProject = WMFProject.wikipedia(WMFLanguage(languageCode: "cs", languageVariantCode: nil))
