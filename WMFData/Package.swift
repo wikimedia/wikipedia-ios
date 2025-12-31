@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10.1
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -25,22 +25,13 @@ let package = Package(
                    name: "WMFData",
                    dependencies: [],
                    path: "Sources/WMFData",
-                   resources: [.process("Resources")],
-                   swiftSettings: [
-                    .enableUpcomingFeature("StrictConcurrency")
-                   ]),
+                   resources: [.process("Resources")]),
                .target(name: "WMFDataMocks",
                       dependencies: ["WMFData"],
                        path: "Sources/WMFDataMocks",
-                       resources: [.process("Resources")],
-                       swiftSettings: [
-                        .enableUpcomingFeature("StrictConcurrency")
-                       ]),
+                       resources: [.process("Resources")]),
                .testTarget(
                    name: "WMFDataTests",
-                   dependencies: ["WMFData", "WMFDataMocks"],
-                   swiftSettings: [
-                    .enableUpcomingFeature("StrictConcurrency")
-                   ])
+                   dependencies: ["WMFData", "WMFDataMocks"])
     ]
 )
