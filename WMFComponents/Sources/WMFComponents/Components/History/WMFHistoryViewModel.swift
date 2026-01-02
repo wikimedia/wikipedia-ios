@@ -90,7 +90,7 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     // MARK: - Internal functions
 
-    func delete(section: HistorySection, item: HistoryItem) {
+    func delete(section: HistorySection, item: HistoryItem) async {
         guard let itemIndex = section.items.firstIndex(of: item) else {
             return
         }
@@ -101,13 +101,13 @@ public final class WMFHistoryViewModel: ObservableObject {
                 self.sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
             }
         }
-        historyDataController.deleteHistoryItemSyncBridge(item)
+        await historyDataController.deleteHistoryItem(item)
 
         isEmpty = sections.isEmpty || sections.allSatisfy { $0.items.isEmpty }
 
     }
 
-    public func saveOrUnsave(item: HistoryItem, in section: HistorySection) {
+    public func saveOrUnsave(item: HistoryItem, in section: HistorySection) async {
 
         guard let sectionIndex = sections.firstIndex(of: section),
             let itemIndex    = sections[sectionIndex].items.firstIndex(of: item)
@@ -121,14 +121,10 @@ public final class WMFHistoryViewModel: ObservableObject {
         newSections[sectionIndex].items[itemIndex].isSaved = newIsSaved
         sections = newSections
 
-        Task {
-            await MainActor.run {
-                if newIsSaved {
-                    historyDataController.saveHistoryItemSyncBridge(sections[sectionIndex].items[itemIndex])
-                } else {
-                    historyDataController.unsaveHistoryItemSyncBridge(sections[sectionIndex].items[itemIndex])
-                }
-            }
+        if newIsSaved {
+            await historyDataController.saveHistoryItem(sections[sectionIndex].items[itemIndex])
+        } else {
+            await historyDataController.unsaveHistoryItem(sections[sectionIndex].items[itemIndex])
         }
     }
     

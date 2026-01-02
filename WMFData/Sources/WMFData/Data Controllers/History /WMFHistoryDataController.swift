@@ -109,42 +109,6 @@ public actor WMFHistoryDataController: WMFHistoryDataControllerProtocol {
 
 }
 
-// MARK: - Sync Bridge Extension
-
-extension WMFHistoryDataController {
-    
-    nonisolated public func fetchHistorySectionsSyncBridge() -> [HistorySection] {
-        var result: [HistorySection] = []
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.fetchHistorySections()
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public func deleteHistoryItemSyncBridge(_ item: HistoryItem) {
-        Task {
-            await self.deleteHistoryItem(item)
-        }
-    }
-    
-    nonisolated public func saveHistoryItemSyncBridge(_ item: HistoryItem) {
-        Task {
-            await self.saveHistoryItem(item)
-        }
-    }
-    
-    nonisolated public func unsaveHistoryItemSyncBridge(_ item: HistoryItem) {
-        Task {
-            await self.unsaveHistoryItem(item)
-        }
-    }
-}
-
 public protocol WMFHistoryDataControllerProtocol {
     // MARK: - Dependency Injection Typealiases
 
@@ -166,13 +130,13 @@ public protocol WMFHistoryDataControllerProtocol {
     func fetchHistorySections() async -> [HistorySection]
 
     /// Deletes the specified history item.
-    func deleteHistoryItemSyncBridge(_ item: HistoryItem)
+    func deleteHistoryItem(_ item: HistoryItem) async
 
     /// Saves the specified history item.
-    func saveHistoryItemSyncBridge(_ item: HistoryItem)
+    func saveHistoryItem(_ item: HistoryItem) async
 
     /// Un-saves the specified history item.
-    func unsaveHistoryItemSyncBridge(_ item: HistoryItem)
+    func unsaveHistoryItem(_ item: HistoryItem) async
 }
 
 /// Representation of a section of a list of history items

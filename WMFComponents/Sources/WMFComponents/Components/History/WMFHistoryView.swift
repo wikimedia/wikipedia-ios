@@ -69,13 +69,19 @@ public struct WMFHistoryView: View {
             unsaveAccessibilityLabel: viewModel.localizedStrings.unsaveActionTitle,
             showsSwipeActions: true,
             deleteItemAction: {
-                viewModel.delete(section: section, item: item)
+                Task {
+                    await viewModel.delete(section: section, item: item)
+                }
+                
             },
             shareItemAction: { frame in
                 viewModel.share(frame: frame, item: item)
             },
             saveOrUnsaveItemAction: {
-                viewModel.saveOrUnsave(item: item, in: section)
+                Task {
+                    await viewModel.saveOrUnsave(item: item, in: section)
+                }
+                
             },
             loadImageAction: { imageURLString in
                 return try? await viewModel.loadImage(imageURLString: imageURLString)
@@ -100,7 +106,9 @@ public struct WMFHistoryView: View {
             }
             .labelStyle(.titleAndIcon)
             Button {
-                viewModel.saveOrUnsave(item: item, in: section)
+                Task {
+                    await viewModel.saveOrUnsave(item: item, in: section)
+                }
             } label: {
                 Text(item.isSaved ? viewModel.localizedStrings.unsaveActionTitle : viewModel.localizedStrings.saveForLaterActionTitle)
                 Image(uiImage: item.isSaved ?
