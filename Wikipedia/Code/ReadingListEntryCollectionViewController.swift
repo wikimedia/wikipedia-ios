@@ -1,6 +1,7 @@
 import UIKit
 import CocoaLumberjackSwift
 import WMFComponents
+// import WMF
 
 protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
@@ -303,6 +304,10 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     // MARK: - Article changes
     
     @objc func articleDidChange(_ note: Notification) {
+        print("🔥 notification received")
+            print("name:", note.name.rawValue)
+            print("object:", note.object as Any)
+        
         guard
             let article = note.object as? WMFArticle,
             article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
@@ -423,6 +428,13 @@ extension ReadingListEntryCollectionViewController {
         let sourceView = collectionView.cellForItem(at: indexPath)
         switch action.type {
         case .delete:
+//            if let swipeView = sourceView as? SwipeableCell {
+//                swipeView.swipeState = .closed
+//                if let sourceView {
+//                    editController.deconfigureSwipeableCell(sourceView, forItemAt: indexPath)
+//                }
+//                swipeView.layoutIfNeeded()
+//            }
             delete(at: indexPath)
             return true
         case .share:

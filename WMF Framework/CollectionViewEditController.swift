@@ -92,6 +92,13 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
+//    public func reset() {
+//        swipeInfoByIndexPath = [:]
+//        configuredCellsByIndexPath = [:]
+//        activeIndexPath = nil
+//        initialSwipeTranslation = 0
+//    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

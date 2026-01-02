@@ -39,6 +39,18 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
+    
+    override func refresh() {
+        dataStore.readingListsController.fullSync {
+            assert(Thread.isMainThread)
+            self.retryFailedArticleDownloads {
+                DispatchQueue.main.async {
+                    self.endRefreshing()
+                    self.fetchAndApply(animated: true)
+                }
+            }
+        }
+    }
 
     @objc private func contextDidChange(_ note: Notification) {
         
@@ -68,9 +80,28 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
             }
             
             // Configure swipe drawer state fresh
+            // savedCell.swipeState = .closed
             self.configure(cell: savedCell, for: entry, at: indexPath, layoutOnly: false)
             
             return savedCell
+        }
+    }
+    
+    func resetSwipeStatesAfterSnapshot() {
+        guard let editController = self.editController else { return }
+
+        // Loop over visible cells
+        for cell in collectionView.visibleCells {
+            guard let indexPath = collectionView.indexPath(for: cell),
+                  let savedCell = cell as? SavedArticlesCollectionViewCell else { continue }
+
+            // Remove old swipe state keyed by index path
+            editController.deconfigureSwipeableCell(savedCell, forItemAt: indexPath)
+
+            // Re-configure fresh for the new index path
+            if let entry = entry(at: indexPath) {
+                editController.configureSwipeableCell(savedCell, forItemAt: indexPath, layoutOnly: false)
+            }
         }
     }
     
@@ -84,28 +115,48 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
 
     // MARK: - Fetch and Apply
     private func fetchAndApply(animated: Bool) {
+        // editController.reset()
         let context = dataStore.viewContext
         let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         request.predicate = basePredicate
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: false)] // simple sort
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: true)] // simple sort
 
         do {
             let fetched = try context.fetch(request)
             let deduped = dedupe(fetched)
             
             // Sort entries according to the current sort descriptors
-            let sortedEntries = deduped.sorted {
-                ($0.displayTitle ?? "") > ($1.displayTitle ?? "")
+            let sortedEntries = deduped.sorted { entry1, entry2 in
+                if let date1 = entry1.createdDate,
+                   let date2 = entry2.createdDate {
+                    return (date1 as Date) < (date2 as Date)
+                }
+                return false
             }
+            
+            for sortedEntry in sortedEntries {
+                if let title = sortedEntry.displayTitle {
+                    print(title)
+                }
+                if let date = sortedEntry.createdDate {
+                    print(date)
+                }
+            }
+            
             entries = sortedEntries
 
             print("😡doin stuff")
             var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
             snapshot.appendSections([0])
-            snapshot.appendItems(deduped.map { $0.objectID }, toSection: 0)
-            dataSource.apply(snapshot, animatingDifferences: animated)
+            snapshot.appendItems(sortedEntries.map { $0.objectID }, toSection: 0)
+            
+            dataSource.apply(snapshot, animatingDifferences: animated) { [weak self] in
+                self?.resetSwipeStatesAfterSnapshot()
+                self?.updateEmptyState()
+            }
 
-            updateEmptyState()
+//            resetSwipeStatesAfterSnapshot()
+//            updateEmptyState()
         } catch {
             assertionFailure("Fetch failed: \(error)")
         }
@@ -136,19 +187,23 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
 
     // MARK: - Article Updates
     override func articleDidChange(_ note: Notification) {
-        guard let article = note.object as? WMFArticle,
-              article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
-              let articleKey = article.inMemoryKey else { return }
-
-        let objectIDsToReload = entries
-            .filter { $0.inMemoryKey == articleKey }
-            .map { $0.objectID }
-
-        guard !objectIDsToReload.isEmpty else { return }
-
-        print("🤔doing stuff")
-        var snapshot = dataSource.snapshot()
-        snapshot.reloadItems(objectIDsToReload)
-        dataSource.apply(snapshot, animatingDifferences: true)
+//        print("🔥 notification received")
+//            print("name:", note.name.rawValue)
+//            print("object:", note.object as Any)
+//        
+//        guard let article = note.object as? WMFArticle,
+//              article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
+//              let articleKey = article.inMemoryKey else { return }
+//
+//        let objectIDsToReload = entries
+//            .filter { $0.inMemoryKey == articleKey }
+//            .map { $0.objectID }
+//
+//        guard !objectIDsToReload.isEmpty else { return }
+//
+//        print("🤔doing stuff")
+//        var snapshot = dataSource.snapshot()
+//        snapshot.reloadItems(objectIDsToReload)
+//        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
