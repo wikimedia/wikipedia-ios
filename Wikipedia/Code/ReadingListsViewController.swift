@@ -28,6 +28,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     public weak var delegate: ReadingListsViewControllerDelegate?
     private var createReadingListViewController: CreateReadingListViewController?
     private var needsCreateReadingListButton: Bool = false
+    internal var bypassLegacyCollectionViewUpdates = false
     
     // MARK: - Searching
     

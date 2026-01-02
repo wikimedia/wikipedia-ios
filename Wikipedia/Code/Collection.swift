@@ -10,6 +10,7 @@ protocol UpdatableCollection: Collection, CollectionViewUpdaterDelegate {
     var basePredicate: NSPredicate { get }
     var baseSortDescriptors: [NSSortDescriptor] { get }
     func setupFetchedResultsController()
+    var bypassLegacyCollectionViewUpdates: Bool { get }
 }
 
 extension UpdatableCollection {
@@ -26,6 +27,10 @@ extension UpdatableCollection {
     }
 
     func reset() {
+        guard !bypassLegacyCollectionViewUpdates else {
+            return
+        }
+        
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         fetch()
