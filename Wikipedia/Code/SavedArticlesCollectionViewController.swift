@@ -55,16 +55,48 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
     @objc private func contextDidChange(_ note: Notification) {
         
         guard let userInfo = note.userInfo else { return }
-            let relevantKeys: [String] = [NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey]
+        
+        print("🔥 notification received")
+            print("name:", note.name.rawValue)
+            print("object:", note.object as Any)
 
-            let changedEntries: Set<ReadingListEntry> = relevantKeys.compactMap { key -> Set<ReadingListEntry>? in
-                guard let objects = userInfo[key] as? Set<NSManagedObject> else { return nil }
-                return Set(objects.compactMap { $0 as? ReadingListEntry })
-            }.reduce(into: Set<ReadingListEntry>()) { $0.formUnion($1) }
+        // WMFArticle changes
+        
+        let relevantArticleKeys: [String] = [NSUpdatedObjectsKey]
+        let changedArticles: Set<WMFArticle> = relevantArticleKeys.compactMap { key -> Set<WMFArticle>? in
+            guard let objects = userInfo[key] as? Set<NSManagedObject> else { return nil }
+            return Set(objects.compactMap { object in
+                if let article = object as? WMFArticle {
+                    if article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews && article.isSaved == true {
+                        return article
+                    }
+                }
+                return nil
+            })
+        }.reduce(into: Set<WMFArticle>()) { $0.formUnion($1) }
+        let changedArticleKeys = changedArticles.map { $0.inMemoryKey }
 
-            guard !changedEntries.isEmpty else { return }
+        let objectIDsToReload = entries
+            .filter { changedArticleKeys.contains($0.inMemoryKey) }
+            .map { $0.objectID }
+        
+        if !objectIDsToReload.isEmpty {
+            var snapshot = dataSource.snapshot()
+            snapshot.reloadItems(objectIDsToReload)
+            dataSource.apply(snapshot, animatingDifferences: false)
+        }
+        
+        // ReadingListEntry changes
 
-            fetchAndApply(animated: true)
+        let relevantEntryKeys: [String] = [NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey]
+        let changedEntries: Set<ReadingListEntry> = relevantEntryKeys.compactMap { key -> Set<ReadingListEntry>? in
+            guard let objects = userInfo[key] as? Set<NSManagedObject> else { return nil }
+            return Set(objects.compactMap { $0 as? ReadingListEntry })
+        }.reduce(into: Set<ReadingListEntry>()) { $0.formUnion($1) }
+
+        guard !changedEntries.isEmpty else { return }
+
+        fetchAndApply(animated: true)
     }
 
     // MARK: - Setup Diffable DataSource
@@ -187,23 +219,6 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
 
     // MARK: - Article Updates
     override func articleDidChange(_ note: Notification) {
-//        print("🔥 notification received")
-//            print("name:", note.name.rawValue)
-//            print("object:", note.object as Any)
-//        
-//        guard let article = note.object as? WMFArticle,
-//              article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
-//              let articleKey = article.inMemoryKey else { return }
-//
-//        let objectIDsToReload = entries
-//            .filter { $0.inMemoryKey == articleKey }
-//            .map { $0.objectID }
-//
-//        guard !objectIDsToReload.isEmpty else { return }
-//
-//        print("🤔doing stuff")
-//        var snapshot = dataSource.snapshot()
-//        snapshot.reloadItems(objectIDsToReload)
-//        dataSource.apply(snapshot, animatingDifferences: true)
+//        no-op, should handle in contextDidChange
     }
 }
