@@ -178,7 +178,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: Navigation Bar
     
     private func configureNavigationBar() {
-        
+            
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leadingCompact)
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
@@ -204,13 +204,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         searchViewController.dataStore = dataStore
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
-            DispatchQueue.main.async {
-                guard let self else { return }
-                self.navigationItem.searchController?.searchBar.text = searchTerm
-                self.navigationItem.searchController?.searchBar.becomeFirstResponder()
-            }
+            self?.navigationItem.searchController?.searchBar.text = searchTerm
+            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-
         
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
         
@@ -230,7 +226,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // Need to override this so that "" does not appear as back button title.
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
     }
-    
+
     @objc func updateProfileButton() {
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)

@@ -492,14 +492,12 @@ extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
 // MARK: - UISearchResultsUpdating
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text, !text.isEmpty else {
-            searchTerm = nil
-            updateRecentlySearchedVisibility(searchText: nil)
-            return
-        }
+        let text = searchController.searchBar.text ?? ""
+
         searchTerm = text
         wmfSearchViewModel.searchQuery = text
-        Task { await wmfSearchViewModel.performSearch(query: text) }
+
+        updateRecentlySearchedVisibility(searchText: text)
     }
 }
 

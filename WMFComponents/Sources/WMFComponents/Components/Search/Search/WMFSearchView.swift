@@ -13,18 +13,10 @@ public struct WMFSearchView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            searchBar
             content
         }
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .onAppear { viewModel.fetchData() }
-    }
-
-    private var searchBar: some View {
-        TextField("Search Wikipedia", text: $viewModel.searchQuery)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .padding()
-            .accessibilityLabel("Search Wikipedia")
     }
 
     @ViewBuilder
