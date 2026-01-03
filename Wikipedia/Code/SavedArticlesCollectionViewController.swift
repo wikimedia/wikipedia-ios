@@ -182,11 +182,13 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
             for entry in entries {
                 if article.inMemoryKey == entry.inMemoryKey {
                     entriesToDelete.append(entry)
+                    entries.removeAll { $0.inMemoryKey == entry.inMemoryKey }
                 }
             }
         }
         
         applyChanges(deleted: entriesToDelete, inserted: [], updated: [])
+        
         
         // Then update data store
         let url: URL? = articles.first?.url
