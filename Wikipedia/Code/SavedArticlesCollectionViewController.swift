@@ -121,17 +121,17 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
         guard let editController = self.editController else { return }
 
         // Loop over visible cells
-        for cell in collectionView.visibleCells {
-            guard let indexPath = collectionView.indexPath(for: cell),
-                  let savedCell = cell as? SavedArticlesCollectionViewCell else { continue }
-
+        // for cell in collectionView.visibleCells {
+        for (index, _) in entries.enumerated() {
+            let indexPath = IndexPath(item: index, section: 0)
+            
+            guard let savedCell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else { continue }
+            
             // Remove old swipe state keyed by index path
             editController.deconfigureSwipeableCell(savedCell, forItemAt: indexPath)
 
             // Re-configure fresh for the new index path
-            if let entry = entry(at: indexPath) {
-                editController.configureSwipeableCell(savedCell, forItemAt: indexPath, layoutOnly: false)
-            }
+            editController.configureSwipeableCell(savedCell, forItemAt: indexPath, layoutOnly: false)
         }
     }
     
