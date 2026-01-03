@@ -130,8 +130,7 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
 
             // Re-configure fresh for the new index path
             if let entry = entry(at: indexPath) {
-                configure(cell: savedCell, for: entry, at: indexPath, layoutOnly: false)
-                // editController.configureSwipeableCell(savedCell, forItemAt: indexPath, layoutOnly: false)
+                editController.configureSwipeableCell(savedCell, forItemAt: indexPath, layoutOnly: false)
             }
         }
     }
@@ -178,25 +177,17 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
     
     override func snapshotDelete(articles: [WMFArticle]) {
         // First update UI
+        var entriesToDelete: [ReadingListEntry] = []
         for article in articles {
             for entry in entries {
                 if article.inMemoryKey == entry.inMemoryKey {
-                    // entriesToDelete.append(entry)
+                    entriesToDelete.append(entry)
                     entries.removeAll { $0.inMemoryKey == entry.inMemoryKey }
                 }
             }
         }
         
-        let anchorIndexPath = collectionView.indexPathsForVisibleItems.min()
-        collectionView.reloadData() // optional but brutal
-        if let indexPath = anchorIndexPath {
-            collectionView.scrollToItem(
-                    at: indexPath,
-                    at: .top,
-                    animated: false
-                )
-        }
-        updateEmptyState()
+        applyChanges(deleted: entriesToDelete, inserted: [], updated: [])
         
         
         // Then update data store
@@ -226,7 +217,6 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
         
         var snapshot = dataSource.snapshot()
         
-        var needsOffsetRetention: Bool = false
         if deleted.count > 0 {
             snapshot.deleteItems(deleted.map { $0.objectID })
         }
@@ -239,17 +229,11 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
             snapshot.reloadItems(updated.map { $0.objectID })
         }
         
-        var offsetBefore = CGPoint.zero
-        if deleted.count > 0 {
-            offsetBefore = collectionView.contentOffset
-            needsOffsetRetention = true
-        }
+        let offsetBefore = collectionView.contentOffset
         dataSource.apply(snapshot, animatingDifferences: false) { [weak self] in
             self?.resetSwipeStatesAfterSnapshot()
             self?.updateEmptyState()
-            if needsOffsetRetention {
-                self?.collectionView.setContentOffset(offsetBefore, animated: false)
-            }
+            self?.collectionView.setContentOffset(offsetBefore, animated: false)
         }
     }
 
