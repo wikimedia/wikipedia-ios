@@ -135,7 +135,16 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         completion(true)
     }
     
+    func snapshotDelete(articles: [WMFArticle]) {
+        // subclass if needed
+    }
+    
     func delete(_ articles: [WMFArticle]) {
+        guard !bypassLegacyCollectionViewUpdates else {
+            snapshotDelete(articles: articles)
+            return
+        }
+        
         let url: URL? = articles.first?.url
         let articlesCount = articles.count
         do {

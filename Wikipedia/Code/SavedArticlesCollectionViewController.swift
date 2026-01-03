@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import CocoaLumberjackSwift
 
 class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewController {
 
@@ -62,8 +63,8 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
 
         // WMFArticle changes
         
-        let relevantArticleKeys: [String] = [NSUpdatedObjectsKey]
-        let changedArticles: Set<WMFArticle> = relevantArticleKeys.compactMap { key -> Set<WMFArticle>? in
+        let updatedKeys: [String] = [NSUpdatedObjectsKey]
+        let changedArticles: Set<WMFArticle> = updatedKeys.compactMap { key -> Set<WMFArticle>? in
             guard let objects = userInfo[key] as? Set<NSManagedObject> else { return nil }
             return Set(objects.compactMap { object in
                 if let article = object as? WMFArticle {
@@ -76,27 +77,24 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
         }.reduce(into: Set<WMFArticle>()) { $0.formUnion($1) }
         let changedArticleKeys = changedArticles.map { $0.inMemoryKey }
 
-        let objectIDsToReload = entries
+        let entriesToReload = entries
             .filter { changedArticleKeys.contains($0.inMemoryKey) }
-            .map { $0.objectID }
-        
-        if !objectIDsToReload.isEmpty {
-            var snapshot = dataSource.snapshot()
-            snapshot.reloadItems(objectIDsToReload)
-            dataSource.apply(snapshot, animatingDifferences: false)
-        }
         
         // ReadingListEntry changes
 
-        let relevantEntryKeys: [String] = [NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey]
-        let changedEntries: Set<ReadingListEntry> = relevantEntryKeys.compactMap { key -> Set<ReadingListEntry>? in
-            guard let objects = userInfo[key] as? Set<NSManagedObject> else { return nil }
-            return Set(objects.compactMap { $0 as? ReadingListEntry })
-        }.reduce(into: Set<ReadingListEntry>()) { $0.formUnion($1) }
+//        let insertedKeys: [String] = [NSInsertedObjectsKey]
+//        let insertedEntries: Set<ReadingListEntry> = insertedKeys.compactMap { key -> Set<ReadingListEntry>? in
+//            guard let objects = userInfo[key] as? Set<NSManagedObject> else { return nil }
+//            return Set(objects.compactMap { $0 as? ReadingListEntry })
+//        }.reduce(into: Set<ReadingListEntry>()) { $0.formUnion($1) }
+//
+//        let deletedKeys: [String] = [NSDeletedObjectsKey]
+//        let deletedEntries: Set<ReadingListEntry> = deletedKeys.compactMap { key -> Set<ReadingListEntry>? in
+//            guard let objects = userInfo[key] as? Set<NSManagedObject> else { return nil }
+//            return Set(objects.compactMap { $0 as? ReadingListEntry })
+//        }.reduce(into: Set<ReadingListEntry>()) { $0.formUnion($1) }
 
-        guard !changedEntries.isEmpty else { return }
-
-        fetchAndApply(animated: true)
+        applyChanges(deleted: [], inserted: [], updated: entriesToReload)
     }
 
     // MARK: - Setup Diffable DataSource
@@ -157,52 +155,99 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
             let fetched = try context.fetch(request)
             let deduped = dedupe(fetched)
             
-            // Sort entries according to the current sort descriptors
-            let sortedEntries = deduped.sorted { entry1, entry2 in
-                if let date1 = entry1.createdDate,
-                   let date2 = entry2.createdDate {
-                    return (date1 as Date) < (date2 as Date)
-                }
-                return false
-            }
-            
-            for sortedEntry in sortedEntries {
-                if let title = sortedEntry.displayTitle {
-                    print(title)
-                }
-                if let date = sortedEntry.createdDate {
-                    print(date)
-                }
-            }
-            
-            entries = sortedEntries
+            entries = deduped
 
-            print("😡doin stuff")
+            print("😅fresh fetch")
             var snapshot = NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>()
             snapshot.appendSections([0])
-            snapshot.appendItems(sortedEntries.map { $0.objectID }, toSection: 0)
+            snapshot.appendItems(deduped.map { $0.objectID }, toSection: 0)
             
+            let offsetBefore = collectionView.contentOffset
             dataSource.apply(snapshot, animatingDifferences: animated) { [weak self] in
                 self?.resetSwipeStatesAfterSnapshot()
                 self?.updateEmptyState()
+                self?.collectionView.setContentOffset(offsetBefore, animated: false)
             }
-
-//            resetSwipeStatesAfterSnapshot()
-//            updateEmptyState()
         } catch {
             assertionFailure("Fetch failed: \(error)")
         }
     }
-
-    private func dedupe(_ items: [ReadingListEntry]) -> [ReadingListEntry] {
-        let grouped = Dictionary(grouping: items) { $0.articleKey }
-        return grouped.compactMap { _, entries in
-            entries.max {
-                let lhs = $0.createdDate as Date? ?? .distantPast
-                let rhs = $1.createdDate as Date? ?? .distantPast
-                return lhs < rhs
+    
+    override func snapshotDelete(articles: [WMFArticle]) {
+        // First update UI
+        var entriesToDelete: [ReadingListEntry] = []
+        for article in articles {
+            for entry in entries {
+                if article.inMemoryKey == entry.inMemoryKey {
+                    entriesToDelete.append(entry)
+                }
             }
         }
+        
+        applyChanges(deleted: entriesToDelete, inserted: [], updated: [])
+        
+        // Then update data store
+        let url: URL? = articles.first?.url
+        let articlesCount = articles.count
+        do {
+            try dataStore.readingListsController.remove(articles: articles, readingList: readingList)
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
+        } catch {
+            DDLogError("Error removing entries from a reading list: \(error)")
+        }
+        guard let articleURL = url, dataStore.savedPageList.entry(for: articleURL) == nil else {
+            return
+        }
+        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: articleURL.wmf_languageCode)
+    }
+    
+    func applyChanges(deleted: [ReadingListEntry], inserted: [ReadingListEntry], updated: [ReadingListEntry]) {
+        
+        guard deleted.count > 0 ||
+        inserted.count > 0 ||
+                updated.count > 0 else {
+            return
+        }
+        
+        print("😅applying changes")
+        
+        var snapshot = dataSource.snapshot()
+        
+        if deleted.count > 0 {
+            snapshot.deleteItems(deleted.map { $0.objectID })
+        }
+        
+        if inserted.count > 0 {
+            snapshot.appendItems(inserted.map { $0.objectID }, toSection: 0)
+        }
+        
+        if updated.count > 0 {
+            snapshot.reloadItems(updated.map { $0.objectID })
+        }
+        
+        let offsetBefore = collectionView.contentOffset
+        dataSource.apply(snapshot, animatingDifferences: false) { [weak self] in
+            self?.resetSwipeStatesAfterSnapshot()
+            self?.updateEmptyState()
+            self?.collectionView.setContentOffset(offsetBefore, animated: false)
+        }
+    }
+
+    private func dedupe(_ items: [ReadingListEntry]) -> [ReadingListEntry] {
+        var grouped: [String: ReadingListEntry] = [:]
+        var deduped: [ReadingListEntry] = []
+        for item in items {
+            guard let articleKey = item.articleKey else {
+                continue
+            }
+            
+            if grouped[articleKey] == nil {
+                deduped.append(item)
+                grouped[articleKey] = item
+            }
+        }
+        
+        return deduped
     }
 
     // MARK: - Override superclass accessors
