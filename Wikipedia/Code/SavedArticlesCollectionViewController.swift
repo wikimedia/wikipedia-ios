@@ -27,7 +27,7 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchAndApply(animated: false)
+        fetchAndApply(animated: false, fromPullToRefresh: false)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(contextDidChange),
@@ -47,7 +47,7 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
             self.retryFailedArticleDownloads {
                 DispatchQueue.main.async {
                     self.endRefreshing()
-                    self.fetchAndApply(animated: true)
+                    self.fetchAndApply(animated: true, fromPullToRefresh: true)
                 }
             }
         }
@@ -144,7 +144,7 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
     }
 
     // MARK: - Fetch and Apply
-    private func fetchAndApply(animated: Bool) {
+    private func fetchAndApply(animated: Bool, fromPullToRefresh: Bool) {
         // editController.reset()
         let context = dataStore.viewContext
         let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
@@ -166,7 +166,9 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
             dataSource.apply(snapshot, animatingDifferences: animated) { [weak self] in
                 self?.resetSwipeStatesAfterSnapshot()
                 self?.updateEmptyState()
-                self?.collectionView.setContentOffset(offsetBefore, animated: false)
+                if !fromPullToRefresh {
+                    self?.collectionView.setContentOffset(offsetBefore, animated: false)
+                }
             }
         } catch {
             assertionFailure("Fetch failed: \(error)")
