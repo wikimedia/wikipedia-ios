@@ -49,7 +49,7 @@ public struct WMFSearchResultsView: View {
                 }
             }
         }
-       // .background(Color(theme.colors.midBackground))
+        .background(Color(theme.destructive))
     }
 }
 

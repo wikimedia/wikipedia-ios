@@ -102,17 +102,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private func loadRecentSearchTerms() async {
         do {
             let terms = try await recentSearchesDataController.fetchRecentSearches()
-            // TODO GREY wmfSearchViewModel.recentSearches = terms.map { WMFSearchViewModel.RecentSearchTerm(text: $0) }
+            wmfSearchViewModel.recentSearches = terms.map { RecentSearchTerm(text: $0) }
         } catch {
             DDLogError("Failed to fetch recent searches: \(error)")
-            // TODO GREY wmfSearchViewModel.recentSearches = []
+            wmfSearchViewModel.recentSearches = []
         }
     }
 
     // MARK: - SwiftUI Search View
 
     private lazy var searchSwiftUIView: WMFSearchResultsView = WMFSearchResultsView(viewModel: wmfSearchViewModel)
-    private lazy var searchHostingController: UIHostingController<WMFSearchResultsView> = {
+    private lazy var searchResultsHostingController: UIHostingController<WMFSearchResultsView> = {
         let host = UIHostingController(rootView: searchSwiftUIView)
         host.view.backgroundColor = .clear
         return host
@@ -161,8 +161,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        embedSearchSwiftUIView()
-        embedResultsViewController()
+        embedSearchResultsSwiftUIView()
         updateLanguageBarVisibility()
     }
 
@@ -195,7 +194,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let topPadding = searchLanguageBarViewController?.view.bounds.height ?? 0
-        resultsViewController.collectionView.contentInset.top = topPadding
+        wmfSearchViewModel.topPadding = topPadding
     }
 
     @objc var shouldBecomeFirstResponder: Bool = false
@@ -242,31 +241,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - Embed Views
 
-    private func embedSearchSwiftUIView() {
-        addChild(searchHostingController)
-        view.addSubview(searchHostingController.view)
-        searchHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+    private func embedSearchResultsSwiftUIView() {
+        addChild(searchResultsHostingController)
+        view.addSubview(searchResultsHostingController.view)
+        searchResultsHostingController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchHostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            searchHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchHostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            searchHostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            searchResultsHostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            searchResultsHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchResultsHostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchResultsHostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        searchHostingController.didMove(toParent: self)
-    }
-
-    lazy var resultsViewController: SearchResultsViewController = {
-        let vc = SearchResultsViewController()
-        vc.dataStore = dataStore
-        vc.apply(theme: theme)
-        return vc
-    }()
-
-    private func embedResultsViewController() {
-        addChild(resultsViewController)
-        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
-        resultsViewController.didMove(toParent: self)
-        updateRecentlySearchedVisibility(searchText: nil)
+        searchResultsHostingController.didMove(toParent: self)
     }
 
     // MARK: - Search
@@ -316,9 +301,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                     NSUserActivity.wmf_makeActive(
                         NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm)
                     )
-                    self.resultsViewController.results = results.results
-                    self.resultsViewController.searchSiteURL = siteURL
-                    self.resultsViewController.emptyViewType = results.results.isEmpty ? .noSearchResults : .none
+                    self.wmfSearchViewModel.results = results.results
+                    self.wmfSearchViewModel.searchSiteURL = siteURL
+                   // self.wmfSearchViewModel.emptyViewType = results.results.isEmpty ? .noSearchResults : .none
 
                     guard !suggested else { return }
                     SearchFunnel.shared.logSearchResults(
@@ -339,7 +324,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
                     DispatchQueue.main.async { [weak self] in
                         guard let self else { return }
-                        self.resultsViewController.results.append(contentsOf: fullTextResults.results)
+                        self.wmfSearchViewModel.results.append(contentsOf: fullTextResults.results)
                         SearchFunnel.shared.logSearchResults(
                             with: .full,
                             resultCount: fullTextResults.results.count,
@@ -352,8 +337,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
-                    self.resultsViewController.results = []
+                    // self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+                    self.wmfSearchViewModel.results = []
                     SearchFunnel.shared.logShowSearchError(
                         with: .prefix,
                         elapsedTime: Date().timeIntervalSince(start),
@@ -377,19 +362,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     func resetSearchResults() {
-        resultsViewController.emptyViewType = .none
-        resultsViewController.results = []
+        wmfSearchViewModel.results = []
     }
 
     func didCancelSearch() {
-        resultsViewController.emptyViewType = .none
-        resultsViewController.results = []
+        wmfSearchViewModel.results = []
         navigationItem.searchController?.searchBar.text = nil
     }
 
     public func updateRecentlySearchedVisibility(searchText: String?) {
         let showRecent = searchText?.isEmpty ?? true
-        resultsViewController.view.isHidden = showRecent
+        // GREY TODO GREY wmfSearchViewModel.view.isHidden = showRecent
     }
 
     func saveLastSearch() {
@@ -403,7 +386,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     @MainActor
     private func reloadRecentSearches() async {
         let terms = (try? await recentSearchesDataController.fetchRecentSearches()) ?? []
-        // TODO GREY wmfSearchViewModel.recentSearches = terms.map { WMFRecentlySearchedViewModel.RecentSearchTerm(text: $0)}
+        wmfSearchViewModel.recentSearches = terms.map { RecentSearchTerm(text: $0)}
     }
 
     var searchTerm: String?
@@ -478,7 +461,7 @@ extension SearchViewController: UISearchResultsUpdating {
         let text = searchController.searchBar.text ?? ""
 
         searchTerm = text
-        // GREY TODO GREY wmfSearchViewModel.searchQuery = text
+        wmfSearchViewModel.searchQuery = text
 
         updateRecentlySearchedVisibility(searchText: text)
     }

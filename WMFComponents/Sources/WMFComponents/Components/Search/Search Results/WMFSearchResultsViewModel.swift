@@ -27,6 +27,9 @@ public final class WMFSearchResultsViewModel: ObservableObject {
 
     @Published public var results: [SearchResult] = []
     @Published public var topPadding: CGFloat = 0
+    @Published public var recentSearches: [RecentSearchTerm] = []
+    @Published public var searchQuery: String? = nil
+    public var searchSiteURL: URL? = nil
 
     // MARK: - Configuration
 

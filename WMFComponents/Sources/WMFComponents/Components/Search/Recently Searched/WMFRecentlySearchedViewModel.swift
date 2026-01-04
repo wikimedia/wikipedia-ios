@@ -19,18 +19,6 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         }
     }
 
-    public struct RecentSearchTerm: Identifiable, Equatable {
-        public let text: String
-
-        public init(text: String) {
-            self.text = text
-        }
-
-        public var id: Int {
-            return text.hash
-        }
-    }
-
     @Published public var recentSearchTerms: [RecentSearchTerm] = []
     @Published public var topPadding: CGFloat = 0
     public let localizedStrings: LocalizedStrings

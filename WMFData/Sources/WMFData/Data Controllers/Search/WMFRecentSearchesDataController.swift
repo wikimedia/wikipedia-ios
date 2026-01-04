@@ -88,3 +88,15 @@ extension WMFRecentSearchesDataController {
         }
     }
 }
+
+public struct RecentSearchTerm: Identifiable, Equatable {
+    public let text: String
+
+    public init(text: String) {
+        self.text = text
+    }
+
+    public var id: Int {
+        return text.hash
+    }
+}
