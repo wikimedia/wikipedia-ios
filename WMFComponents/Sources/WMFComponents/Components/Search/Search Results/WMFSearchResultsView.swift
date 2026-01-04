@@ -17,6 +17,11 @@ public struct WMFSearchResultsView: View {
     public var body: some View {
         Group {
             if viewModel.results.isEmpty {
+                if viewModel.shouldShowRecentSearches {
+                    WMFRecentlySearchedView(
+                        viewModel: viewModel.recentSearchesViewModel
+                    )
+                }
                 Text(viewModel.localizedStrings.emptyText)
                     .foregroundStyle(.secondary)
                     .padding()

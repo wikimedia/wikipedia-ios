@@ -29,6 +29,9 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published public var topPadding: CGFloat = 0
     @Published public var recentSearches: [RecentSearchTerm] = []
     @Published public var searchQuery: String? = nil
+    @Published public var shouldShowRecentSearches: Bool = true // todo grey
+    @Published public var recentSearchesViewModel: WMFRecentlySearchedViewModel
+    
     public var searchSiteURL: URL? = nil
 
     // MARK: - Configuration
@@ -47,11 +50,13 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     public init(
         localizedStrings: LocalizedStrings,
         results: [SearchResult] = [],
-        topPadding: CGFloat = 0
+        topPadding: CGFloat = 0,
+        recentSearchesViewModel: WMFRecentlySearchedViewModel
     ) {
         self.localizedStrings = localizedStrings
         self.results = results
         self.topPadding = topPadding
+        self.recentSearchesViewModel = recentSearchesViewModel
     }
 
     // MARK: - Updates (called by SearchViewController)
