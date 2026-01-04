@@ -4,7 +4,7 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 
-final class SearchHostingController: WMFComponentHostingController<WMFSearchView> {}
+final class SearchHostingController: WMFComponentHostingController<WMFSearchResultsView> {}
 
 class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     @objc enum EventLoggingSource: Int {
@@ -102,46 +102,29 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private func loadRecentSearchTerms() async {
         do {
             let terms = try await recentSearchesDataController.fetchRecentSearches()
-            wmfSearchViewModel.recentSearches = terms.map { WMFSearchViewModel.RecentSearchTerm(text: $0) }
+            // TODO GREY wmfSearchViewModel.recentSearches = terms.map { WMFSearchViewModel.RecentSearchTerm(text: $0) }
         } catch {
             DDLogError("Failed to fetch recent searches: \(error)")
-            wmfSearchViewModel.recentSearches = []
+            // TODO GREY wmfSearchViewModel.recentSearches = []
         }
     }
 
     // MARK: - SwiftUI Search View
 
-    private lazy var searchSwiftUIView: WMFSearchView = WMFSearchView(viewModel: wmfSearchViewModel)
-    private lazy var searchHostingController: UIHostingController<WMFSearchView> = {
+    private lazy var searchSwiftUIView: WMFSearchResultsView = WMFSearchResultsView(viewModel: wmfSearchViewModel)
+    private lazy var searchHostingController: UIHostingController<WMFSearchResultsView> = {
         let host = UIHostingController(rootView: searchSwiftUIView)
         host.view.backgroundColor = .clear
         return host
     }()
 
     @MainActor
-    private lazy var wmfSearchViewModel: WMFSearchViewModel = {
-        let vm = WMFSearchViewModel(
-            dataController: dataController,
-            localizedStrings: WMFSearchViewModel.LocalizedStrings(
-                recentTitle: CommonStrings.recentlySearchedTitle,
-                noSearches: CommonStrings.recentlySearchedEmpty,
-                clearAll: CommonStrings.clearRecentSearchesDialogTitle,
-                deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
-            )
-        )
-
-        vm.didTapSearchResult = { [weak self] result in
-            guard let self, let url = result.articleURL else { return }
-            self.saveLastSearch()
-
-            if let navigateToSearchResultAction {
-                navigateToSearchResultAction(url)
-            } else if let customNav = self.customArticleCoordinatorNavigationController ?? self.navigationController {
-                let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
-                let coordinator = LinkCoordinator(navigationController: customNav, url: url, dataStore: self.dataStore, theme: self.theme, articleSource: .search, tabConfig: tabConfig)
-                _ = coordinator.start()
-            }
-        }
+    private lazy var wmfSearchViewModel: WMFSearchResultsViewModel = {
+        let vm = WMFSearchResultsViewModel(localizedStrings:
+            WMFSearchResultsViewModel.LocalizedStrings(
+                emptyText: "empty",
+                openInNewTab: "open in new",
+                preview: "preview"))
 
         return vm
     }()
@@ -420,7 +403,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     @MainActor
     private func reloadRecentSearches() async {
         let terms = (try? await recentSearchesDataController.fetchRecentSearches()) ?? []
-        wmfSearchViewModel.recentSearches = terms.map { WMFSearchViewModel.RecentSearchTerm(text: $0) }
+        // TODO GREY wmfSearchViewModel.recentSearches = terms.map { WMFRecentlySearchedViewModel.RecentSearchTerm(text: $0)}
     }
 
     var searchTerm: String?
@@ -495,7 +478,7 @@ extension SearchViewController: UISearchResultsUpdating {
         let text = searchController.searchBar.text ?? ""
 
         searchTerm = text
-        wmfSearchViewModel.searchQuery = text
+        // GREY TODO GREY wmfSearchViewModel.searchQuery = text
 
         updateRecentlySearchedVisibility(searchText: text)
     }

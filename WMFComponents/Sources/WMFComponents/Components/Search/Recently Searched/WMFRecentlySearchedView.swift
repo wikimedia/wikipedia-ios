@@ -71,7 +71,7 @@ public struct WMFRecentlySearchedView: View {
                 .listStyle(.plain)
             }
         }
-        .background(Color(theme.destructive))
+        .background(Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
 
     }
