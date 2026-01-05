@@ -5,6 +5,8 @@
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 
+@import WMFData;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFFeedImage
@@ -29,8 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
             NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(urlString);
-            if (sizePrefix < WMFImageWidthExtraLarge) {
-                urlString = WMFChangeImageSourceURLSizePrefix(urlString, WMFImageWidthExtraLarge);
+            NSInteger proposedWidth = [ImageUtils standardizeWidthToMediaWiki:sizePrefix];
+            NSInteger maxedWidth = [ImageUtils standardizeWidthToMediaWiki:OriginalWidthExtraLarge];
+            
+            if (proposedWidth < maxedWidth) {
+                urlString = WMFChangeImageSourceURLSizePrefix(urlString, maxedWidth);
             }
             return [NSURL wmf_optionalURLWithString:urlString];
         }
@@ -94,7 +99,10 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         thumbnailBucketSize = WMFImageWidthExtraExtraLarge;
     }
-    NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, thumbnailBucketSize);
+    // standardize to MW sizes
+    NSInteger standardiedSize = [ImageUtils standardizeWidthToMediaWiki:thumbnailBucketSize];
+    
+    NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, standardiedSize);
     NSURL *adjustedURL = [NSURL URLWithString:adjustedString];
     return adjustedURL ?: self.imageThumbURL ?: self.imageURL;
 }

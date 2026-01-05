@@ -11,6 +11,8 @@
 
 #import <WMF/WMF-Swift.h>
 
+@import WMFData;
+
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fetcher Implementation
@@ -109,7 +111,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             @"gsrlimit": @(numberOfResults),
             @"piprop": @"thumbnail",
             //@"pilicense": @"any",
-            @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
+            @"pithumbsize": [NSNumber numberWithInteger:[ImageUtils nearbyThumbnailWidth]],
             @"pilimit": @(numberOfResults),
             @"ppprop": @"displaytitle",
             @"format": @"json",
@@ -137,7 +139,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             @"prop": @"coordinates|pageimages|description|pageprops|extracts",
             @"coprop": @"type|dim",
             @"colimit": @(numberOfResults),
-            @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
+            @"pithumbsize": [NSNumber numberWithInteger:[ImageUtils nearbyThumbnailWidth]],
             @"pilimit": @(numberOfResults),
             //@"pilicense": @"any",
             @"ppprop": @"displaytitle",

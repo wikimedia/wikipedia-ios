@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import WMFData
 
 public struct Header {
     public static let persistentCacheItemType = "Persistent-Cache-Item-Type"
