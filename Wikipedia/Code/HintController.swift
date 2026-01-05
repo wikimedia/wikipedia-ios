@@ -104,9 +104,10 @@ class HintController: NSObject {
 
         NSLayoutConstraint.activate([containerViewConstraint.top!, leadingConstraint, trailingConstraint])
 
-        if presenter.isKind(of: SearchResultsViewController.self) {
-            presenter.wmf_hideKeyboard()
-        }
+//        if presenter.isKind(of: SearchResultsViewController.self) {
+//            presenter.wmf_hideKeyboard()
+//        }
+        // TODO GREY?
 
         hintViewController.view.setContentHuggingPriority(.required, for: .vertical)
         hintViewController.view.setContentCompressionResistancePriority(.required, for: .vertical)

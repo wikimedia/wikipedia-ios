@@ -235,18 +235,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 preview: "preview"),
                                            recentSearchesViewModel: recentSearchesViewModel)
         
-//        vm.didTapSearchResult = { [weak self] result in
-//            guard let self, let url = result.articleURL else { return }
-//            self.saveLastSearch()
-//
-//            if let navigateToSearchResultAction {
-//                navigateToSearchResultAction(url)
-//            } else if let customNav = self.customArticleCoordinatorNavigationController ?? self.navigationController {
-//                let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
-//                let coordinator = LinkCoordinator(navigationController: customNav, url: url, dataStore: self.dataStore, theme: self.theme, articleSource: .search, tabConfig: tabConfig)
-//                _ = coordinator.start()
-//            }
-//        }
+        vm.tappedSearchResultAction = { [weak self] url in
+            guard let self else { return }
+            self.saveLastSearch()
+
+            if let navigateToSearchResultAction {
+                navigateToSearchResultAction(url)
+            } else if let customNav = self.customArticleCoordinatorNavigationController ?? self.navigationController {
+                let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
+                let coordinator = LinkCoordinator(navigationController: customNav, url: url, dataStore: self.dataStore, theme: self.theme, articleSource: .search, tabConfig: tabConfig)
+                _ = coordinator.start()
+            }
+        }
 
         return vm
     }()

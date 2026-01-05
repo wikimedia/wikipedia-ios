@@ -29,7 +29,6 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     @Published public var topPadding: CGFloat = 0
     @Published public var recentSearches: [RecentSearchTerm] = []
     @Published public var searchQuery: String? = nil
-    @Published public var shouldShowRecentSearches: Bool = true // todo grey
     @Published public var recentSearchesViewModel: WMFRecentlySearchedViewModel
     
     public var searchSiteURL: URL? = nil
@@ -57,6 +56,28 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         self.results = results
         self.topPadding = topPadding
         self.recentSearchesViewModel = recentSearchesViewModel
+    }
+    
+    func description(for result: SearchResult) -> String {
+        guard let html = result.description else { return "" }
+
+        if let data = html.data(using: .utf8) {
+            if let attributed = try? AttributedString(
+                markdown: data
+            ) {
+                return String(attributed.characters).capitalized
+            }
+        }
+
+        return html
+    }
+
+    public var shouldShowResults: Bool {
+        !results.isEmpty
+    }
+
+    public var shouldShowRecentSearches: Bool {
+        searchQuery?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true
     }
 
     // MARK: - Updates (called by SearchViewController)

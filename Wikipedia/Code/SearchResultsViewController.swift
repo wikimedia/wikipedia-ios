@@ -235,3 +235,4 @@ final class SearchResultsViewController: ArticleCollectionViewController {
         }
     }
 }
+
