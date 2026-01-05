@@ -2,6 +2,7 @@ import UIKit
 import MobileCoreServices
 import CoreSpotlight
 import CocoaLumberjackSwift
+import WMFData
 
 extension URL {
     var searchableItemAttributes: CSSearchableItemAttributeSet? {
@@ -53,7 +54,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         let searchableItem = article.url?.searchableItemAttributes ?? CSSearchableItemAttributeSet(contentType: .internetLocation)
         searchableItem.subject = article.wikidataDescription
         searchableItem.contentDescription = article.snippet
-        if let imageURL = article.imageURL(forWidth: WMFImageWidth.medium.rawValue) {
+        if let imageURL = article.imageURL(forWidth: ImageUtils.standardizeWidthToMediaWiki(ImageUtils.OriginalWidth.medium.rawValue)) {
             searchableItem.thumbnailData = dataStore.cacheController.imageCache.data(withURL: imageURL)?.data
         }
         return searchableItem

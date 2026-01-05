@@ -1,7 +1,6 @@
 #import <WMF/WMFLocationSearchFetcher.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMFLocalization.h>
-#import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/WMFLegacySerializer.h>
 

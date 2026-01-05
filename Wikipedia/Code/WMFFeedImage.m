@@ -3,7 +3,6 @@
 #import <WMF/WMFImageURLParsing.h>
 #import <WMF/NSURL+WMFExtras.h>
 #import <WMF/MWKLanguageLinkController.h>
-#import <WMF/UIScreen+WMFImageWidth.h>
 
 @import WMFData;
 
@@ -82,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSInteger targetHeight = imageHeight * maxScale;
     // The thumbnail service only constrains the width. In the case of a vertical panorama this
     // could lead to downloading a very large image. To work around this, limit the maximum height.
-    NSInteger heightLimit = 1.5 * WMFImageWidthExtraExtraLarge;
+    NSInteger heightLimit = 1.5 * OriginalWidthExtraExtraLarge;
     if (targetHeight >  heightLimit) {
         double scaleDownForTooTallImage = (double)heightLimit / targetHeight;
         targetWidth = targetWidth * scaleDownForTooTallImage;
@@ -92,12 +91,12 @@ NS_ASSUME_NONNULL_BEGIN
         return self.imageURL;
     }
     NSInteger thumbnailBucketSize;
-    if (targetWidth <= WMFImageWidthLarge) {
-        thumbnailBucketSize = WMFImageWidthLarge;
-    } else if (targetWidth <= WMFImageWidthExtraLarge) {
-        thumbnailBucketSize = WMFImageWidthExtraLarge;
+    if (targetWidth <= OriginalWidthLarge) {
+        thumbnailBucketSize = OriginalWidthLarge;
+    } else if (targetWidth <= OriginalWidthExtraLarge) {
+        thumbnailBucketSize = OriginalWidthExtraLarge;
     } else {
-        thumbnailBucketSize = WMFImageWidthExtraExtraLarge;
+        thumbnailBucketSize = OriginalWidthExtraExtraLarge;
     }
     // standardize to MW sizes
     NSInteger standardiedSize = [ImageUtils standardizeWidthToMediaWiki:thumbnailBucketSize];

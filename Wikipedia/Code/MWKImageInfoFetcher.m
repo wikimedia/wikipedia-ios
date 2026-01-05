@@ -1,6 +1,5 @@
 #import <WMF/MWKImageInfoFetcher.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/WMF-Swift.h>
 
 @import WMFData;
