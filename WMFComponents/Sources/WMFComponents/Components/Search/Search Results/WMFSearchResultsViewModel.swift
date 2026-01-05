@@ -10,15 +10,15 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     public struct LocalizedStrings {
         public let emptyText: String
         public let openInNewTab: String
+        public let openInBackgroundTab: String
+        public let saveForLater: (String?) -> String
         public let preview: String
 
-        public init(
-            emptyText: String,
-            openInNewTab: String,
-            preview: String
-        ) {
+        public init(emptyText: String, openInNewTab: String, openInBackgroundTab: String, saveForLater: @escaping (String?) -> String, preview: String) {
             self.emptyText = emptyText
             self.openInNewTab = openInNewTab
+            self.openInBackgroundTab = openInBackgroundTab
+            self.saveForLater = saveForLater
             self.preview = preview
         }
     }
@@ -73,11 +73,11 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     }
 
     public var shouldShowResults: Bool {
-        !results.isEmpty
+        !results.isEmpty && !(searchQuery?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? false)
     }
 
     public var shouldShowRecentSearches: Bool {
-        searchQuery?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true
+        searchQuery?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? false
     }
 
     // MARK: - Updates (called by SearchViewController)

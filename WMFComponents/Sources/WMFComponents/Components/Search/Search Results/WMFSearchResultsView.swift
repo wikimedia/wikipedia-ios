@@ -48,9 +48,16 @@ public struct WMFSearchResultsView: View {
             } else if viewModel.shouldShowRecentSearches {
                 WMFRecentlySearchedView(viewModel: viewModel.recentSearchesViewModel)
             } else {
-                Text("Empty?")
+                HStack {
+                    Spacer()
+                    Text(viewModel.localizedStrings.emptyText)
+                        .font(Font(WMFFont.for(.callout)))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    Spacer()
+                }
             }
         }
+        .frame(maxHeight: .infinity)
         .background(Color(theme.midBackground))
     }
 }
@@ -60,9 +67,29 @@ struct WMFSearchResultRow: View {
     let result: SearchResult
     let description: String
     let siteURL: URL?
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+
+    private var theme: WMFTheme {
+        appEnvironment.theme
+    }
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                if let html = result.displayTitleHTML {
+                    WMFHtmlText(html: html, styles: styles)
+                } else {
+                    Text(result.title)
+                        .font(Font(WMFFont.for(.headline)))
+                }
+                Text(description)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .lineLimit(3)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
             if let thumbnailURL = result.thumbnailURL {
                 AsyncImage(url: thumbnailURL) { phase in
                     switch phase {
@@ -76,21 +103,16 @@ struct WMFSearchResultRow: View {
                         Color.gray.opacity(0.2)
                     }
                 }
-                .frame(width: 60, height: 60)
-                .cornerRadius(8)
+                .scaledToFill()
+                .frame(width: 40, height: 40)
+                .cornerRadius(4)
             }
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(result.displayTitleHTML ?? result.title)
-                    .font(.headline)
-                Text(description)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(3)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.vertical, 8)
         .padding(.horizontal)
+    }
+    
+    private var styles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.boldHeadline), italicsFont: WMFFont.for(.italicSubheadline), boldItalicsFont: WMFFont.for(.boldItalicSubheadline), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 }

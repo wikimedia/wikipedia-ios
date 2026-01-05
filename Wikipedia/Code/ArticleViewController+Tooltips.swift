@@ -111,11 +111,7 @@ extension ArticleViewController {
     }
 
     private func makeOpenInTabStrings() -> WMFTooltipViewModel.LocalizedStrings {
-        let title = WMFLocalizedString(
-            "open-in-tab-tooltip-title",
-            value: "Open in new tab",
-            comment: "Title for tooltip explaining the open in new tab functionality"
-        )
+        let title = CommonStrings.openInNewTab
         let body = WMFLocalizedString(
             "open-in-tab-tooltip-body",
             value: "Long-press an article title or blue link to open it in a new tab.",

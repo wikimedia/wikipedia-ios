@@ -702,6 +702,12 @@ public class CommonStrings: NSObject {
     // Lockscreen Search Widget strings
     public static let lockscreenSearchWidgetDescription = WMFLocalizedString("lockscreen-search-widget-description", value: "Quick access to search Wikipedia from your lock screen.", comment: "Text for description of lockscreen search widget displayed when adding to lock screen.")
     
+    public static let openInNewTab = WMFLocalizedString(
+        "open-in-tab-tooltip-title",
+        value: "Open in new tab",
+        comment: "Title for tooltip explaining the open in new tab functionality"
+    )
+    
     // Temp accs
     public static let tempAccountsReadMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
     

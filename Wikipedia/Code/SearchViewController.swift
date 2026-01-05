@@ -230,11 +230,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private lazy var wmfSearchViewModel: WMFSearchResultsViewModel = {
         let vm = WMFSearchResultsViewModel(localizedStrings:
             WMFSearchResultsViewModel.LocalizedStrings(
-                emptyText: "empty",
-                openInNewTab: "open in new",
+                emptyText: WMFLocalizedString("search-no-results", value: "No results found", comment: "No results found."),
+                openInNewTab: CommonStrings.openInNewTab,
+                openInBackgroundTab: CommonStrings.articleTabsOpenInBackgroundTab,
+                saveForLater: { languageCode in
+                    CommonStrings.saveTitle(languageCode: languageCode)
+                },
                 preview: "preview"),
-                                           recentSearchesViewModel: recentSearchesViewModel)
+            recentSearchesViewModel: recentSearchesViewModel)
         
+        // Open
         vm.tappedSearchResultAction = { [weak self] url in
             guard let self else { return }
             self.saveLastSearch()
@@ -247,10 +252,26 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 _ = coordinator.start()
             }
         }
+        
+        // Open in new tab
+        vm.longPressOpenInNewTabAction = { [weak self] url in
+            guard let self else { return }
+
+            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: url, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignCurrentTab)
+            articleCoordinator.start()
+        }
+        
+        // ?
+        vm.longPressSearchResultAction = { [weak self] url in
+            guard let self, let dataStore = self.dataStore else { return }
+            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: url, dataStore: dataStore, theme: self.theme, source: .search)
+            coordinator.start()
+        }
 
         return vm
     }()
-    
 
     // MARK: - General Properties
 
@@ -390,6 +411,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         search(for: searchTerm, suggested: false)
         navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
+    
+    private var searchTask: Task<Void, Never>?
+    private let searchDebounceNanoseconds: UInt64 = 750_000_000 // 350ms
     
     private func search(for searchTerm: String?, suggested: Bool) {
         guard let siteURL = siteURL else {
@@ -585,8 +609,22 @@ extension SearchViewController: UISearchResultsUpdating {
 
         searchTerm = text
         wmfSearchViewModel.searchQuery = text
-
         updateRecentlySearchedVisibility(searchText: text)
+
+        searchTask?.cancel()
+
+        guard text.wmf_hasNonWhitespaceText else {
+            wmfSearchViewModel.reset()
+            return
+        }
+
+        searchTask = Task {
+            try? await Task.sleep(nanoseconds: searchDebounceNanoseconds)
+            guard !Task.isCancelled else { return }
+            await MainActor.run {
+                search()
+            }
+        }
     }
 }
 
