@@ -57,7 +57,7 @@ fileprivate extension Int {
         for mwWidth in standardMediaWikiWidths {
             chosenStandardWidth = mwWidth
             
-            if self < mwWidth {
+            if self <= mwWidth {
                 break
             }
         }

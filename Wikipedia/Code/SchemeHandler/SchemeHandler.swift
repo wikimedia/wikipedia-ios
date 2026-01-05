@@ -1,4 +1,5 @@
 import WebKit
+import WMFData
 
 enum SchemeHandlerError: Error {
     case invalidParameters
@@ -142,6 +143,20 @@ private extension SchemeHandler {
         
         for (key, value) in additionalHeaders {
             mutableRequest.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if isMimeTypeImage(type: (newURL as NSURL).wmf_mimeTypeForExtension()) {
+            
+            // Standardize image url if needed. Ideally this would be fixed at the endpoint layer.
+            let sizePrefix = WMFParseSizePrefixFromSourceURL(newURL)
+            let standardizedSize = ImageUtils.standardizeWidthToMediaWiki(sizePrefix)
+            
+            var betterImageURL: URL = newURL
+            if let betterUrlString = WMFChangeImageSourceURLSizePrefix(newURL.absoluteString, standardizedSize) {
+                betterImageURL = URL(string: betterUrlString) ?? newURL
+            }
+            
+            mutableRequest.url = betterImageURL
         }
         
         return mutableRequest
