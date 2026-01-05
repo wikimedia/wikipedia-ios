@@ -1053,7 +1053,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self.navigationStateController restoreLastArticleFor:self
                                                                in:self.dataStore.viewContext
                                                              with:self.theme
-                                                     linkDelegate:self
                                                        completion:^{
                                                            [self hideSplashView];
 

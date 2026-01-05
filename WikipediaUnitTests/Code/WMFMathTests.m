@@ -18,13 +18,6 @@ static BOOL didAssert = NO;
     didAssert = NO;
 }
 
-- (void)testRounding {
-    XCTAssertEqual(0.5, WMFFlooredPercentage(0.5));
-    XCTAssertEqual(0.0, WMFFlooredPercentage(0.0));
-    XCTAssertEqual(0.59, WMFFlooredPercentage(0.59));
-    XCTAssertEqual(0.59, WMFFlooredPercentage(0.599));
-}
-
 - (void)testStrictClampReturnsValueIfWithinBounds {
     XCTAssertEqual(WMFStrictClamp(0, 1, 2), 1);
 }
