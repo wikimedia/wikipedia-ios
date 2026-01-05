@@ -54,7 +54,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         let searchableItem = article.url?.searchableItemAttributes ?? CSSearchableItemAttributeSet(contentType: .internetLocation)
         searchableItem.subject = article.wikidataDescription
         searchableItem.contentDescription = article.snippet
-        if let imageURL = article.imageURL(forWidth: ImageUtils.standardizeWidthToMediaWiki(ImageUtils.OriginalWidth.medium.rawValue)) {
+        if let imageURL = article.imageURL(forWidth: ImageUtils.standardizeWidthToMediaWiki(ImageUtils.LegacyWidth.medium.rawValue)) {
             searchableItem.thumbnailData = dataStore.cacheController.imageCache.data(withURL: imageURL)?.data
         }
         return searchableItem

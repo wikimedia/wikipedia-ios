@@ -1,7 +1,8 @@
 import Foundation
 
 @objc public final class ImageUtils: NSObject {
-    @objc public enum OriginalWidth: Int {
+    // Note these were the original legacy thumbnail request sizes. All code requesting thumbnails should now flow  through the `standardizeToMediaWiki` helper method to reorient to backend expectations.
+    @objc public enum LegacyWidth: Int {
         // Original values * scale of 2 (legacy code)
         case extraSmall = 120
         case small = 240
@@ -12,27 +13,27 @@ import Foundation
     }
     
     @objc public static func listThumbnailWidth() -> Int {
-        return OriginalWidth.extraSmall.rawValue.standardizeToMediaWiki()
+        return LegacyWidth.extraSmall.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func nearbyThumbnailWidth() -> Int {
-        return OriginalWidth.small.rawValue.standardizeToMediaWiki()
+        return LegacyWidth.small.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func leadImageWidth() -> Int {
-        return OriginalWidth.large.rawValue.standardizeToMediaWiki()
+        return LegacyWidth.large.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func potdImageWidth() -> Int {
-        return OriginalWidth.medium.rawValue.standardizeToMediaWiki()
+        return LegacyWidth.medium.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func galleryImageWidth() -> Int {
-        return OriginalWidth.large.rawValue.standardizeToMediaWiki()
+        return LegacyWidth.large.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func articleImageWidth() -> Int {
-        return OriginalWidth.medium.rawValue.standardizeToMediaWiki()
+        return LegacyWidth.medium.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func standardizeWidthToMediaWiki(_ width: Int) -> Int {

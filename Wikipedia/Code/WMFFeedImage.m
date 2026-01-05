@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
                                               NSError *__autoreleasing *error) {
             NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(urlString);
             NSInteger proposedWidth = [ImageUtils standardizeWidthToMediaWiki:sizePrefix];
-            NSInteger maxedWidth = [ImageUtils standardizeWidthToMediaWiki:OriginalWidthExtraLarge];
+            NSInteger maxedWidth = [ImageUtils standardizeWidthToMediaWiki:LegacyWidthExtraLarge];
             
             if (proposedWidth < maxedWidth) {
                 urlString = WMFChangeImageSourceURLSizePrefix(urlString, maxedWidth);
@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSInteger targetHeight = imageHeight * maxScale;
     // The thumbnail service only constrains the width. In the case of a vertical panorama this
     // could lead to downloading a very large image. To work around this, limit the maximum height.
-    NSInteger heightLimit = 1.5 * OriginalWidthExtraExtraLarge;
+    NSInteger heightLimit = 1.5 * LegacyWidthExtraExtraLarge;
     if (targetHeight >  heightLimit) {
         double scaleDownForTooTallImage = (double)heightLimit / targetHeight;
         targetWidth = targetWidth * scaleDownForTooTallImage;
@@ -91,12 +91,12 @@ NS_ASSUME_NONNULL_BEGIN
         return self.imageURL;
     }
     NSInteger thumbnailBucketSize;
-    if (targetWidth <= OriginalWidthLarge) {
-        thumbnailBucketSize = OriginalWidthLarge;
-    } else if (targetWidth <= OriginalWidthExtraLarge) {
-        thumbnailBucketSize = OriginalWidthExtraLarge;
+    if (targetWidth <= LegacyWidthLarge) {
+        thumbnailBucketSize = LegacyWidthLarge;
+    } else if (targetWidth <= LegacyWidthExtraLarge) {
+        thumbnailBucketSize = LegacyWidthExtraLarge;
     } else {
-        thumbnailBucketSize = OriginalWidthExtraExtraLarge;
+        thumbnailBucketSize = LegacyWidthExtraExtraLarge;
     }
     // standardize to MW sizes
     NSInteger standardiedSize = [ImageUtils standardizeWidthToMediaWiki:thumbnailBucketSize];
