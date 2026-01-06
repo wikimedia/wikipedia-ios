@@ -232,7 +232,7 @@ import Contacts
         let request = WMFBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
         service?.performDecodablePOST(request: request, completion: { (result: Result<WMFPaymentSubmissionResponse, Error>) in
             switch result {
-            case .success(let response):
+            case .success:
                 completion(.success(()))
                 return
             case .failure(let error):
