@@ -50,7 +50,6 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     }
     
     func getEditCount(startDate: String, endDate: String, username: String, project: WMFProject) async throws -> Int? {
-        
         let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: startDate, endDate: endDate)
         
         return edits

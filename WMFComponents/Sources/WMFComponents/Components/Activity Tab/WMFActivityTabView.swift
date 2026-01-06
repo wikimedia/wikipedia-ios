@@ -549,7 +549,12 @@ struct TimelineRowView: View {
             contextMenuOpenAction: contextMenuOpenAction,
             contextMenuOpenText: activityViewModel.localizedStrings.openArticle,
             deleteItemAction: deleteItemAction,
-            deleteAccessibilityLabel: activityViewModel.localizedStrings.deleteAccessibilityLabel)
+            deleteAccessibilityLabel: activityViewModel.localizedStrings.deleteAccessibilityLabel,
+            bottomButtonTitle: item.itemType == .edit ? "title" : nil,
+            bottomButtonAction: item.itemType == .edit ? {
+                // todo grey
+                print("ah")
+            } : nil)
     }
     
     public var body: some View {
