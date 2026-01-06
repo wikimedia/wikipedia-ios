@@ -2,13 +2,14 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableMoreDynamicTabsV2GroupB: Bool { get }
     var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
     var showYiRV3: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
     var showActivityTab: Bool { get }
+    var forceActivityTabControl: Bool { get }
+    var forceActivityTabExperiment: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -63,75 +64,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceEmailAuth.rawValue, value: newValue)
         }
     }
-
-    @objc public var setActivityTabGroupA: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupA.rawValue)) ?? false
-        }
-        set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: newValue)
-            if newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: false)
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: false)
-            }
-        }
-    }
-
-    public var setActivityTabGroupB: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupB.rawValue)) ?? false
-        }
-        set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: newValue)
-            if newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: false)
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: false)
-            }
-        }
-    }
-
-    public var setActivityTabGroupC: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupC.rawValue)) ?? false
-        }
-        set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: newValue)
-            if newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: false)
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: false)
-            }
-        }
-    }
     
     public var forceMaxArticleTabsTo5: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue)
-        }
-    }
-
-    public var enableMoreDynamicTabsGroupB: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupB.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupB.rawValue, value: newValue)
-        }
-    }
-
-    public var enableMoreDynamicTabsGroupC: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue)
-        }
-    }
-    
-    public var enableMoreDynamicTabsV2GroupB: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupB.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupB.rawValue, value: newValue)
         }
     }
 
@@ -172,6 +110,22 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
+        }
+    }
+
+    @objc public var forceActivityTabControl: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue, value: newValue)
+        }
+    }
+
+    @objc public var forceActivityTabExperiment: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue, value: newValue)
         }
     }
 

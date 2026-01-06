@@ -63,6 +63,7 @@
 "action-unsave" = "UR yettwasekles ara";
 "action-unsaved-accessibility-notification" = "Amagrad ur yettwasekles ara";
 "activity-tab-add-images-title" = "Rnu tugniwin";
+"activity-tab-articles-read-graph-label" = "Imagraden";
 "alert-temporary-account-learn-more" = "Issin ugar.";
 "announcements-dismiss" = "Zgel";
 "app-store-subtitle" = "Tasanayt tilellit";
@@ -392,5 +393,4 @@
 "wikitext-upload-result-unknown" = "Urizmir ara ad d-yaf agmuḍ n usali n uḍris n uwiki.";
 "wikitext-upload-save" = "Asuffeɣ...";
 "wikitext-upload-save-anonymously-warning" = "Asnifel ad ittunefk i tensa IP n terbaɛt-ik. Ma yella kečč $1, ad yili ɣur-k ugar n tbaḍnit.";
-"wikitext-upload-save-sign-in" = "Qqen";
 "wikitext-upload-save-terms-name" = "Tiwtilin n useqdec";

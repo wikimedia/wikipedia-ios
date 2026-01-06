@@ -232,6 +232,10 @@ public class WMFMockBasicService: WMFService {
         
         return nil
     }
+    
+    public func clearCachedData() {
+        // no-op
+    }
 }
 
 #endif

@@ -79,8 +79,9 @@
 "activity-tab-add-images-title" = "Wewehin gambar";
 "activity-tab-additional-thoughts" = "Napi wénten pikayunan wewehan?";
 "activity-tab-generic-no-edits" = "Ragané durung kauahin ring wuku puniki. Kawitin mangkin anggén ngelacak pituut ragané.";
-"activity-tab-greeting" = "$1 Hai $2 $3 👋 Puniki ringkesan Wikipédia ngawuku ragané.";
+// Fuzzy
 "activity-tab-logged-out-subtitle" = "Lacak napi sané sampun kawacén lan cingakin pituut ragané langkung galah nganggén cara anyar";
+// Fuzzy
 "activity-tab-logged-out-title" = "Ngranjing utawi karyanin akun anggén nyingakin parilaksana nguahin lan ngawacén.";
 "activity-tab-neutral" = "Nétral";
 "activity-tab-start-editing" = "Ngawit nguahin";
@@ -454,4 +455,3 @@
 "welcome-languages-description" = "Iraga sampun nemuin basa puniki ring piranti ragané:";
 "welcome-languages-search-title" = "Rereh ring langkung 300 basa";
 "wikitext-preview-link-external-preview-description" = "Pranala puniki nuju situs wéb jaba: $1";
-"wikitext-upload-save-sign-in" = "Manjing log";

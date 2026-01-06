@@ -27,6 +27,10 @@ final class WMFMockSuccessURLSession: WMFURLSession {
         completionHandler(data, response, nil)
         return WMFMockURLSessionDataTask()
     }
+    
+    func clearCachedData() {
+        // no-op
+    }
 }
 
 final class WMFMockServerErrorSession: WMFURLSession {
@@ -37,6 +41,10 @@ final class WMFMockServerErrorSession: WMFURLSession {
         completionHandler(nil, response, nil)
         return WMFMockURLSessionDataTask()
     }
+    
+    func clearCachedData() {
+        // no-op
+    }
 }
 
 final class WMFMockNoInternetConnectionSession: WMFURLSession {
@@ -45,6 +53,10 @@ final class WMFMockNoInternetConnectionSession: WMFURLSession {
         let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
         completionHandler(nil, nil, error)
         return WMFMockURLSessionDataTask()
+    }
+    
+    func clearCachedData() {
+        // no-op
     }
 }
 
@@ -55,5 +67,9 @@ final class WMFMockMissingDataSession: WMFURLSession {
         
         completionHandler(nil, response, nil)
         return WMFMockURLSessionDataTask()
+    }
+    
+    func clearCachedData() {
+        // no-op
     }
 }

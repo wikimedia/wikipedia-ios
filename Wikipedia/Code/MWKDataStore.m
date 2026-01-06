@@ -263,6 +263,23 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                 } else {
                     [nc postNotificationName:WMFArticleUpdatedNotification object:article];
                 }
+
+                if ([key isEqualToString:NSUpdatedObjectsKey] &&
+                    article.hasChangedValuesForCurrentEventThatAffectSavedState) {
+
+                    if (article.savedDate != nil && !article.isSavedMigrated) {
+                        DDLogInfo(@"[SavedMigration] Incremental hook firing for key=%@ savedDate=%@", article.key, article.savedDate);
+                        [WMFArticleSavedStateMigrationManager.shared migrateIncrementalObjC];
+                    }
+
+                    if (article.savedDate == nil && article.isSavedMigrated) {
+                        if (articleURL != nil) {
+                            DDLogInfo(@"[SavedMigration] Revert hook firing for key=%@ (unsave)", article.key);
+                            NSArray<NSURL *> *urls = @[ articleURL ];
+                            [WMFArticleSavedStateMigrationManager.shared removeFromSavedWithURLs:urls];
+                        }
+                    }
+                }
             }
         }
     }
@@ -509,7 +526,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 19) {
         [self importViewedArticlesIntoWMFDataWithDataStoreMOC:moc];
         [moc wmf_setValue:@(19) forKey:WMFLibraryVersionKey];
@@ -890,16 +907,16 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
                          }];
     // Remote Feature config
     [taskGroup enter];
-    [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (error) {
-                    updateError = error;
-                    [taskGroup leave];
-                    return;
-                }
-                
+    [[WMFDeveloperSettingsDataController shared] fetchFeatureConfigWithCompletion:^(NSError *_Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                updateError = error;
                 [taskGroup leave];
-            });
+                return;
+            }
+
+            [taskGroup leave];
+        });
     }];
 
     [taskGroup waitInBackgroundWithCompletion:^{

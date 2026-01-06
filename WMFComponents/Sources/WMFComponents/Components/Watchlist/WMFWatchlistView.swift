@@ -33,9 +33,9 @@ struct WMFWatchlistView: View {
             if viewModel.sections.count > 0 {
                 WMFWatchlistContentView(viewModel: viewModel, delegate: delegate, menuButtonDelegate: menuButtonDelegate)
             } else if viewModel.sections.count == 0 && viewModel.activeFilterCount > 0 {
-                WMFEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .filter)
+                WMFEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .filter, isScrollable: true)
             } else {
-                WMFEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .noItems)
+                WMFEmptyView(viewModel: emptyViewModel, delegate: emptyViewDelegate, type: .noItems, isScrollable: true)
             }
         } else {
             ProgressView()

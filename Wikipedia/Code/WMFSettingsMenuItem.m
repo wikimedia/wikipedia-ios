@@ -28,7 +28,7 @@
             WMFAuthenticationManager *authManager = [MWKDataStore shared].authenticationManager;
             NSString *userName = authManager.authStatePermanentUsername;
 
-            NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in. {{Identical|Log in}}");
+            NSString *loginString = (userName) ? WMFCommonStrings.account : WMFCommonStrings.logIn;
 
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
@@ -140,10 +140,10 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
-        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
+        case WMFSettingsMenuItemType_DatabasePopulation: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:@"Reading list danger zone"
+                                                    title:@"Database Population"
                                                  iconName:@"settings-zero"
                                                 iconColor:[UIColor wmf_blue_700]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController

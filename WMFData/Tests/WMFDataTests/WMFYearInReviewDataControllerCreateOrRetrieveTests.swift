@@ -58,7 +58,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         }
         
         dataController.shouldCreateOrRetrieve = false
-        let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
         XCTAssertNil(report, "Expected nil when shouldCreateOrRetrieveYearInReview returns false")
 
     }
@@ -69,7 +69,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
             throw TestsError.missingDataController
         }
         
-        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
         
         dataController.shouldCreateOrRetrieve = true
 
@@ -84,11 +84,11 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         try await dataController.saveYearInReviewReport(existingReport)
 
-        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
 
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 3)
+        XCTAssertEqual(report?.slides.count, 6)
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
@@ -97,15 +97,15 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
             throw TestsError.missingDataController
         }
 
-        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
 
         try await dataController.deleteYearInReviewReport(year: year)
 
-        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, globalUserID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 0)
+        XCTAssertEqual(report?.slides.count, 3)
     }
 }
 

@@ -146,7 +146,6 @@
 "article-revision-history" = "Lịch sử sửa đổi bài viết";
 "article-save-error-not-enough-space" = "Bạn không có đủ dung lượng trống trên bộ nhớ để lưu bài viết này";
 "article-share" = "Chia sẻ";
-"article-tabs-did-you-know-title" = "Bạn có biết";
 "article-tabs-open" = "Mở";
 "article-talk-page" = "Trang thảo luận bài viết";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Điều khiển Giao diện Đọc bài";
@@ -213,8 +212,6 @@
 "description-welcome-descriptions-title" = "Tóm lược bài viết";
 "description-welcome-promise-title" = "Với việc bắt đầu sửa đổi lời tóm lược, tôi hứa sẽ không lạm dụng tính năng này";
 "description-welcome-start-editing-button" = "Bắt đầu sửa đổi";
-// Fuzzy
-"did-you-know" = "Bạn có biết";
 "diff-article-revision-history" = "Lịch sử sửa đổi bài viết";
 "diff-compare-header-from-info-heading" = "Sửa đổi trước";
 "diff-compare-header-heading" = "So sánh các Phiên bản";
@@ -605,6 +602,7 @@
 "notifications-center-more-action-accessibility-label" = "Thêm";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
 "notifications-center-onboarding-modal-push-notifications-title" = "Thông báo đẩy";
+"notifications-center-onboarding-panel-secondary-button" = "Không, cảm ơn";
 "notifications-center-status-all" = "Tất cả";
 "notifications-center-status-read" = "Đã đọc";
 "notifications-center-status-unread" = "Chưa đọc";
@@ -1009,6 +1007,7 @@
 "watchlist-filter-automated-contributions-options-human" = "Con người (không phải bot)";
 "watchlist-filter-latest-revisions-header" = "Phiên bản mới nhất";
 "watchlist-filters-add-language" = "Thêm ngôn ngữ...";
+"watchlist-thanks-success" = "\"Lời cảm ơn\" của bạn đã được gửi tới $1";
 "watchlist-user-button-thank" = "Cảm ơn";
 "watchlist-user-button-user-contributions" = "Đóng góp của người dùng";
 "watchlist-user-button-user-page" = "Trang cá nhân";
@@ -1050,7 +1049,6 @@
 "wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-anonymously-or-login" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1Đăng nhập$2 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
-"wikitext-upload-save-sign-in" = "Đăng nhập";
 "wikitext-upload-save-terms-name" = "Điều khoản sử dụng";
 "year-in-review-day-friday" = "Thứ sáu";
 "year-in-review-day-monday" = "Thứ hai";
@@ -1061,4 +1059,5 @@
 "year-in-review-day-wednesday" = "Thứ tư";
 "year-in-review-donate" = "Quyên góp";
 "year-in-review-donate-now" = "Quyên góp ngay";
+"year-in-review-personalized-edit-views-subtitle-format-updated" = "Độc giả trên khắp thế giới trân trọng những đóng góp của bạn. Trong 2 tháng qua, các bài viết mà bạn đã chỉnh sửa đã nhận được {{PLURAL:$1|$1 lượt xem}}. Nhờ có những biên tập viên như bạn, Wikipedia đang không ngừng cải thiện và trở thành nguồn tri thức dựa trên thực tế đáng tin cậy cho toàn thế giới.";
 "yesterday-title" = "Hôm qua";

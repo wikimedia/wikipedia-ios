@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
- public final class WMFPage {
+public final class WMFPage: Hashable, Equatable {
    public let namespaceID: Int
    public let projectID: String
    public let title: String
@@ -11,6 +11,20 @@ import CoreData
        self.projectID = projectID
        self.title = title
    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(namespaceID)
+        hasher.combine(projectID)
+        hasher.combine(title)
+    }
+    
+    public static func == (lhs: WMFPage, rhs: WMFPage) -> Bool {
+        return
+            lhs.namespaceID == rhs.namespaceID &&
+            lhs.projectID == rhs.projectID &&
+            lhs.title == rhs.title
+    }
+
  }
 
 public final class WMFPageViewCount: Identifiable {
@@ -70,6 +84,11 @@ public final class WMFPageViewTime: Codable {
     }
 }
 
+public struct WMFPageWithTimestamp {
+    public let page: WMFPage
+    public let timestamp: Date
+}
+
 public final class WMFLegacyPageView: Codable {
     public let title: String
     let project: WMFProject
@@ -100,7 +119,7 @@ public final class WMFPageViewsDataController {
         self.coreDataStore = coreDataStore
     }
     
-    public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?) async throws -> NSManagedObjectID? {
+    public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?, timestamp: Date? = nil) async throws -> NSManagedObjectID? {
         
         let coreDataTitle = title.normalizedForCoreData
         
@@ -111,17 +130,17 @@ public final class WMFPageViewsDataController {
             
             guard let self else { return nil }
             
-            let currentDate = Date()
-            let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
+            let timestamp = timestamp ?? Date()
+            let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
             let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
             page?.title = coreDataTitle
             page?.namespaceID = namespaceID
-            page?.projectID = project.coreDataIdentifier
-            page?.timestamp = currentDate
+            page?.projectID = project.id
+            page?.timestamp = timestamp
             
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
             viewedPage.page = page
-            viewedPage.timestamp = currentDate
+            viewedPage.timestamp = timestamp
             
             if let previousPageViewObjectID,
                let previousPageView = backgroundContext.object(with: previousPageViewObjectID) as? CDPageView {
@@ -166,7 +185,7 @@ public final class WMFPageViewsDataController {
             
             guard let self else { return }
             
-            let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
+            let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.id, namespaceID, coreDataTitle])
             guard let page = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: 1, in: backgroundContext)?.first else {
                 return
             }
@@ -219,12 +238,12 @@ public final class WMFPageViewsDataController {
             for request in requests {
                 
                 let coreDataTitle = request.title.normalizedForCoreData
-                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.coreDataIdentifier, 0, coreDataTitle])
+                let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [request.project.id, 0, coreDataTitle])
                 
                 let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: predicate, in: backgroundContext)
                 page?.title = coreDataTitle
                 page?.namespaceID = 0
-                page?.projectID = request.project.coreDataIdentifier
+                page?.projectID = request.project.id
                 page?.timestamp = request.viewedDate
                 
                 let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
@@ -396,5 +415,40 @@ public final class WMFPageViewsDataController {
         }
 
         return result
+    }
+    
+    public func fetchTimelinePages() async throws -> [WMFPageWithTimestamp] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+        let results: [WMFPageWithTimestamp] = try await backgroundContext.perform {
+            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            fetchRequest.fetchLimit = 1000
+
+            let pageViews = try backgroundContext.fetch(fetchRequest)
+            var result: [WMFPageWithTimestamp] = []
+
+            for pageView in pageViews {
+                guard
+                    let page = pageView.page,
+                    let projectID = page.projectID,
+                    let title = page.title,
+                    let timestamp = pageView.timestamp
+                else { continue }
+
+                let wmfPage = WMFPage(
+                    namespaceID: Int(page.namespaceID),
+                    projectID: projectID,
+                    title: title
+                )
+
+                result.append(WMFPageWithTimestamp(page: wmfPage, timestamp: timestamp))
+            }
+
+            return result
+        }
+
+        return results
     }
 }

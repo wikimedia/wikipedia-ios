@@ -91,24 +91,55 @@
 "activity-tab-add-images-subtitle" = "Tilføj foreslåede billeder til Wikipedia-artikler for at forbedre forståelsen.";
 "activity-tab-add-images-title" = "Tilføj billeder";
 "activity-tab-additional-thoughts" = "Yderligere tanker?";
+"activity-tab-articles-read" = "Artikler læst denne måned";
+"activity-tab-articles-read-graph-label" = "Artikler";
+"activity-tab-email-fifth-line" = "[Skærmbilleder eller links]";
+"activity-tab-email-first-line" = "Jeg har oplevet et problem med funktionen Aktivitetsfane:";
+"activity-tab-email-fourth-line" = "[Beskriv ønsket adfærd]";
+"activity-tab-email-second-line" = "- [Beskriv specifikt problem]";
+"activity-tab-email-third-line" = "Den adfærd jeg gerne vil se er:";
+"activity-tab-email-title" = "Problemrapport - Aktivitetsfanen";
+"activity-tab-empty-subtitle" = "Begynd at læse og redigere for at opbygge din historik";
+"activity-tab-empty-title" = "Intet at vise";
 "activity-tab-generic-no-edits" = "Du har ikke redigeret i denne uge. Start nu med at spore dine bidrag.";
-"activity-tab-greeting" = "$1Hej $2$3 👋 Her er din ugentlige Wikipedia-oversigt.";
-"activity-tab-logged-out-subtitle" = "Spor, hvad du har læst, og se dine bidrag over tid på en ny måde";
-"activity-tab-logged-out-title" = "Log ind eller opret en konto for at se mere redigerings- og læseaktivitet.";
+"activity-tab-hours-minutes-read" = "$1 time $2 min";
+"activity-tab-hours-on-wikipedia-ios" = "PÅ WIKIPEDIA iOS";
+"activity-tab-log-in-or-create-account" = "Log ind eller opret en konto for at se mere redigerings- og læseaktivitet.";
+"activity-tab-logged-out-subtitle" = "Log ind eller opret en konto for at se dine aktiviteter i Wikipedia appen.";
+"activity-tab-logged-out-title" = "Se mere redigerings- og læseaktivitet";
+"activity-tab-logged-out-track-what-youve-read" = "Spor, hvad du har læst, og se dine bidrag over tid på en ny måde";
+"activity-tab-menu-clear-history" = "Ryd læsehistorik";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "Du har ikke redigeret i denne uge. Tilføj billeder for at forbedre forståelsen af ​​artiklen.";
+"activity-tab-no-username-reading-title" = "Din læsning";
+"activity-tab-onboarding-first-item-subtitle" = "Se hvor meget tid du har brugt på at læse, og hvilke artikler eller emner du har udforsket over tid.";
+"activity-tab-onboarding-first-item-title" = "Læsemønstre";
+"activity-tab-onboarding-fourth-item-subtitle" = "Vælg hvilke moduler der skal vises. Alle personlige data forbliver private på din enhed, og din browserhistorik kan til enhver tid ryddes.";
+"activity-tab-onboarding-fourth-item-title" = "Bevar kontrollen";
+"activity-tab-onboarding-header" = "Introduktion til aktivitet";
+"activity-tab-onboarding-second-button-title" = "Få mere at vide om aktivitet";
+"activity-tab-onboarding-second-item-subtitle" = "Få indsigt i dine bidrag og rækkevidden af den viden, du har delt.";
+"activity-tab-onboarding-second-item-title" = "Højdepunkter";
+"activity-tab-onboarding-third-item-subtitle" = "Udforsk statistikker for gemte artikler og andre aktiviteter, der forbinder dig dybere med Wikipedia.";
+"activity-tab-onboarding-third-item-title" = "Flere måder at engagere sig på";
 "activity-tab-read-title" = "Se læsehistorik";
 "activity-tab-satisfied" = "Tilfreds";
+"activity-tab-saved" = "Artikler gemt denne måned";
 "activity-tab-start-editing" = "Begynd at redigere";
-"activity-tab-survey" = "Er du tilfreds med din \"Aktivitets\"-skærm? Hvad vil du ellers gerne se her i fremtiden?";
+"activity-tab-survey-subtitle" = "Hjælp med at forbedre Aktivitet. Er du tilfreds med denne funktion?";
 "activity-tab-survey-title" = "Tilfredshedsundersøgelse";
+"activity-tab-time-spent-reading" = "Tid brugt på at læse i denne uge";
 "activity-tab-title" = "Aktivitet";
+"activity-tab-top-categories" = "Mest læste kategorier denne måned";
+"activity-tab-total-edits" = "Samlede redigeringer på tværs af projekter";
 "activity-tab-unsatisfied" = "Utilfreds";
+"activity-tab-usernames-reading-title" = "$1s læsning";
 "activity-tab-very-satisfied" = "Meget tilfreds";
 "activity-tab-very-unsatisfied" = "Meget utilfreds";
 "activity-tab-view-editing-history" = "Se redigeringshistorik";
 "activity-tab-view-reading-history" = "Se læsehistorik";
 "activity-tab-view-saved-articles" = "Se gemte artikler";
+"activity-tab-week-graph-label" = "Uge";
 "activity-tab-you-edited" = "Du redigerede {{PLURAL:$1|$1 gang|$1 gange}} i denne uge.";
 "activity-tab-you-read" = "Du læste {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
 "activity-tab-you-saved" = "Du gemte {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
@@ -128,6 +159,8 @@
 "appearance-settings-image-dimming-footer" = "Sænk synligheden for billeder på mørke og sorte temaer";
 "appearance-settings-reading-themes" = "Læsetemaer";
 "appearance-settings-set-automatic-table-opening" = "Tabelindstillinger";
+"appearance-settings-set-icon-footer" = "Bidragyderikonet hylder dine bidrag til Wikipedia i appen i 2025. Det forbliver indtil næste år i tilbageblik.";
+"appearance-settings-set-icon-header" = "App-ikon";
 "appearance-settings-text-sizing-example-text" = "Træk skyderen oven over for at ændre artiklens tekststørrelse. Udnyt din tekststørrelse fra systemet til at ændre størrelse på andre tekstområder i appen.";
 "appearance-settings-theme-options" = "Temaindstillinger";
 "article-about-title" = "Om denne artikel";
@@ -143,6 +176,7 @@
 "article-revision-history" = "Artiklens redigeringshistorik";
 "article-save-error-not-enough-space" = "Du har ikke nok plads ledig på din enhed for at lagre denne artikel";
 "article-share" = "Del";
+"article-tabs-button-accessibility-label" = "Artikelfaner";
 "article-tabs-max-reached" = "Fanegrænsen er nået ($1). Artiklen blev åbnet i den aktuelle fane. Luk venligst en eller flere faner.";
 "article-tabs-navigation" = "Fanebladsnavigation";
 "article-tabs-onboarding-tooltip" = "Værktøjstips til onboarding af faner";
@@ -228,9 +262,6 @@
 "description-welcome-start-editing-button" = "Start med at redigere";
 "developer-force-email-auth" = "Tving e-mailgodkendelse";
 "developer-settings" = "Indstillinger for Udvikler";
-"developer-settings-activity-tab-group-A" = "Indstil aktivitetsfanen til gruppe A";
-"developer-settings-activity-tab-group-B" = "Indstil aktivitetsfanen til gruppe B";
-"developer-settings-activity-tab-group-C" = "Indstil aktivitetsfanen til gruppe C";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-enable-year-in-review" = "Aktiver År i gennemgang";
 "developer-settings-send-analytics-to-wmflabs" = "Send analyser til wmflabs.";
@@ -347,6 +378,7 @@
 "edit-summary-short-description-updated" = "Opdaterede kort beskrivelse";
 "edit-watch-list-learn-more-text" = "Lær mere om din overvågningsliste";
 "edit-watch-this-page-text" = "Overvåg denne side";
+"edited-article" = "Redigeret";
 "editing-welcome-be-bold-subtitle" = "Vær modig, men ikke letsindig, når du opdaterer artikler. Vær ikke bange for at lave fejl: alle tidligere versioner af en side er lagret, så fejl kan nemt korrigeres af andre.";
 "editing-welcome-be-bold-title" = "Dit bidrag er vigtigt";
 "editing-welcome-citations-subtitle" = "Alt indhold skal kunne verificeres. Når du tilføjer ny information i en artikel, bør du indsætte en reference til en pålidelig kilde som direkte understøtter denne information.";
@@ -692,21 +724,15 @@
 "main-menu-terms-of-use" = "Vilkår for anvendelse";
 "main-menu-title" = "Mere";
 "main-menu-zero-faq" = "Ofte stillede spørgsmål om Wikipedia Zero";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "4 milliarder bytes tilføjet";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "Bidragere lavede 98 millioner ændringer dette år";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "Det anslås at folk har brugt 2,9 milliarder timer – over 331.000 år! – på at læse engelsk Wikipedia i 2024. Wikipedia er der, når du vil lære om vores foranderlige verden, vinde et væddemål blandt venner eller besvare et nysgerrigt barns spørgsmål.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "Vi brugte 2,9 milliarder timer på at læse";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Aktive iOS App-brugere havde over 62,2 millioner læselister. Tilføjelse af artikler til læselister giver dig adgang til artikler, selv når du er offline. Du kan også logge ind for at synkronisere læselister på tværs af enheder.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "Vi havde over 62,2 millioner læselister";
-// Fuzzy
-"microsite-yir-english-top-read-slide-subtitle" = "De 5 mest besøgte artikler på engelsk Wikipedia var:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nLæs mere i $6 vores dedikerede blogindlæg $7 .";
-"microsite-yir-english-top-read-slide-title" = "Engelsk Wikipedias mest populære artikler";
+"main-page" = "Forside";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 byte|$1 bytes}} tilføjet";
+"microsite-yir-english-edits-slide-title-updated" = "Bidragere lavede {{PLURAL:$1|$1 ændring|$1 ændringer}} dette år";
+"microsite-yir-english-reading-slide-subtitle-updated" = "Det anslås at folk har brugt {{PLURAL:$1|$1 time|$1 timer}} – over {{PLURAL:$2|år}}! – på at læse engelsk Wikipedia i $3. Wikipedia er der, når du vil lære om vores foranderlige verden, vinde et væddemål blandt venner eller besvare et nysgerrigt barns spørgsmål.";
+"microsite-yir-english-reading-slide-title-updated" = "Vi brugte {{PLURAL:$1|$1 time|$1 timer}} på at læse";
+"microsite-yir-english-saved-reading-slide-subtitle-updated" = "Aktive iOS App-brugere havde over {{PLURAL:$1|$1 gemt artikel|$1 gemte artikler}}. Tilføjelse af artikler til læselister giver dig adgang til artikler, selv når du er offline. Du kan også logge ind for at synkronisere læselister på tværs af enheder.";
+"microsite-yir-english-saved-reading-slide-title-updated" = "Vi havde over {{PLURAL:$1|$1 gemt artikel|$1 gemte artikler}}";
+"microsite-yir-english-top-read-slide-subtitle-updated" = "De 5 mest besøgte artikler på engelsk Wikipedia var:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \n\nLæs mere i $6vores dedikerede blogindlæg $7 .";
+"microsite-yir-english-top-read-slide-title" = "Engelsk Wikipedias mest læste artikler";
 "more-languages-tooltip-description" = "Søg Wikipedia på mere end 300 sprog";
 "more-languages-tooltip-title" = "Tilføj sprog";
 "more-menu" = "Mere";
@@ -718,6 +744,7 @@
 "nearby-distance-label-miles" = "$1 amerikanske mil";
 "new-password-instructions" = "Du loggede på med en midlertidig adgangskode. Angiv en ny adgangskode her for at færdiggøre login.";
 "new-password-title" = "Sæt din adgangskode";
+"new-tab" = "Ny fane";
 "next-action-title" = "Næste";
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
 "no-internet-connection" = "Ingen internetforbindelse";
@@ -822,7 +849,10 @@
 "on-this-day-no-internet-error" = "Ingen tilgængelige data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra $2 Wikipedia";
 "on-this-day-title" = "På denne dag";
+"open-article" = "Vis artikel";
+"open-in-tab-tooltip-title" = "Åbn i ny fane";
 "original-tab-button-popover-description" = "Tryk på «W» for at gå tilbage til fanen du startede fra";
+"page-history-bot-edits" = "bot";
 "page-history-compare-title" = "Sammenlign";
 "page-history-minor-edits" = "mindre redigeringer";
 "page-history-revision-author-accessibility-label" = "Forfatter: $1";
@@ -991,7 +1021,10 @@
 "return-button-title" = "Tilbage";
 "return-to-article" = "Tilbage til artikel";
 "reverted-edit-title" = "Omgjort redigering";
+"save-all-tabs" = "Gem alle faner";
 "saved-all-articles-title" = "Alle artikler";
+"saved-all-tabs" = "Gemte alle faner.";
+"saved-all-tabs-view-reading-list" = "Gemte alle faner. Se læseliste.";
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
 "saved-pages-progress-syncing" = "Artikel download i gang...";
@@ -1015,8 +1048,7 @@
 "serbian-variants-alert-body" = "Wikipedia-appen understøtter nu følgende serbiske varianter som primære eller sekundære sprog i appen, hvilket gør det nemmere at læse, søge og redigere i dine foretrukne varianter:\n\nсрпски ћирилица serbisk, kyrillisk (sr-ec)\nsrpski latinica serbisk, latin (sr-el)";
 "serbian-variants-alert-title" = "Opdateringer til understøttelse af serbisk variant";
 "settings-account" = "Konto";
-// Fuzzy
-"settings-appearance" = "Læsepræferencer";
+"settings-appearance" = "App-tema";
 "settings-clear-cache" = "Ryd cachede data";
 "settings-clear-cache-are-you-sure-message" = "Rydning af cachede data vil frigøre omkring $1 plads. Det vil ikke slette dine gemte sider.";
 "settings-clear-cache-are-you-sure-title" = "Ryd cachede data?";
@@ -1075,6 +1107,8 @@
 "table-of-contents-heading" = "Indhold";
 "table-of-contents-hide-button-label" = "Skjul indholdsfortegnelsen";
 "table-of-contents-subheading-label" = "Underoverskrift $1";
+"tabs-navbar-title-format" = "{{PLURAL:$1| $1 fane| $1 faner}}";
+"tabs-open-tab" = "Åbn fane";
 "tachelhit-variants-alert-body" = "Wikipedia-appen understøtter nu følgende Tachelhit-varianter som primære eller sekundære sprog i appen, hvilket gør det lettere at læse, søge og redigere i dine foretrukne varianter:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachellatn,) Latin";
 "tachelhit-variants-alert-title" = "Opdateringer til Tachelhit variant support";
 "tajik-variants-alert-body" = "Wikipedia-appen understøtter nu følgende tadsjikiske varianter som primære eller sekundære sprog i appen, hvilket gør det nemmere at læse, søge og redigere i dine foretrukne varianter:\n\nтоҷикӣ кирилликӣ Tajik, kyrillisk (tg-cyrl)\ntojikī lotinī tajikisk, (latin)";
@@ -1127,17 +1161,22 @@
 "theme-default-display-name" = "Standard";
 "theme-light-display-name" = "Lys";
 "theme-sepia-display-name" = "Sepia";
+"today-title" = "I dag";
 "top-read-widget-description" = "Se, hvad verden læser i dag på Wikipedia.";
 "top-read-widget-readers-count" = "$1 læsere";
 "top-read-widget-title" = "Mest læst";
 "try-now-title" = "Prøv nu";
 "tutorial-title" = "Guide";
+"two-factor-email-login-continue" = "Fortsæt login";
+"two-factor-email-login-instructions" = "Indtast venligst e-mailbekræftelseskoden";
 "two-factor-login-continue" = "Fortsæt login";
 "two-factor-login-instructions" = "Indtast venligst to-faktor-bekræftelseskode";
 "two-factor-login-title" = "Log ind på din konto";
 "two-factor-login-with-backup-code" = "Brug en af dine reservekoder";
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
+"unable-to-load-talk-page-title" = "Kunne ikke indlæse diskussionsside";
 "unknown-generic-text" = "Ukendt";
+"unwatch" = "Fjern overvågning";
 "user-title" = "Bruger";
 "vanish-account-continue-button-title" = "Fortsæt";
 "vanish-account-warning-title" = "Advarsel";
@@ -1230,22 +1269,14 @@
 "wikitext-upload-result-unknown" = "Ude af stand til at afgøre resultatet af wikitext upload.";
 "wikitext-upload-save" = "Udgiver...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
-"wikitext-upload-save-sign-in" = "Log på";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
-// Fuzzy
-"year-in-review-base-editors-title" = "Redaktører på iOS-appen foretog mere end $1 redigeringer";
-"year-in-review-base-edits-title" = "Wikipedia blev redigeret $1 gange i minuttet";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "Wikipedia havde mere end $1 millioner artikler på tværs af $2 aktive sprog. Du sluttede dig til millioner i at udvide viden og udforske forskellige emner.";
-// Fuzzy
-"year-in-review-base-reading-title" = "Wikipedia var tilgængelig på mere end 300 sprog";
-// Fuzzy
-"year-in-review-base-saved-title" = "Vi havde over $1 million læselister";
-// Fuzzy
-"year-in-review-base-viewed-subtitle" = "iOS-appbrugere har set Wikipedia-artikler $1 milliarder gange. For mange mennesker verden over, er Wikipedia det første stop, når de besvarer et spørgsmål, finder informationer til skole eller arbejde eller får ny viden.";
-// Fuzzy
-"year-in-review-base-viewed-title" = "Vi har set Wikipedia-artikler $1 milliarder gange";
-"year-in-review-collective-zero-ads" = "Wikimedia logo";
+"year-in-review-base-editors-title-updated" = "Redaktører på iOS-appen foretog mere end {{PLURAL:$1|$1 redigering|$1 redigeringer}}";
+"year-in-review-base-edits-title-updated" = "Wikipedia blev redigeret {{PLURAL:$1|$1 gang|$1 gange}} i minuttet";
+"year-in-review-base-reading-subtitle-updated" = "Wikipedia havde {{PLURAL:$1| $1 artikel| $1 artikler}} på tværs af over {{PLURAL:$2| $2 aktivt sprog| $2 aktive sprog}}. Du sluttede dig til millioner af andre i at udvide din viden og udforske forskellige emner.";
+"year-in-review-base-reading-title-updated" = "Wikipedia var tilgængelig på mere end {{PLURAL:$1|sprog}}";
+"year-in-review-base-saved-title-updated" = "Brugere af appen havde mere end{{PLURAL:$1|$1 gemt artikel|$1 gemte artikler}}";
+"year-in-review-base-viewed-subtitle" = "For folk over hele verden er Wikipedia ofte det første stop, når de skal besvare et spørgsmål, søge information til skole eller arbejde eller lære en ny kendsgerning.";
+"year-in-review-base-viewed-title-updated" = "App-brugere har set Wikipedia-artikler {{PLURAL:$1| $1 gang| $1 gange}}";
 "year-in-review-day-friday" = "Fredage";
 "year-in-review-day-monday" = "Mandage";
 "year-in-review-day-saturday" = "Lørdage";
@@ -1255,20 +1286,51 @@
 "year-in-review-day-wednesday" = "Onsdage";
 "year-in-review-donate" = "Donér";
 "year-in-review-donate-now" = "Donér nu";
-"year-in-review-english-edits" = "En graf, der viser de 10 mest redigerede Wikipedia-sprogudgaver i 2024: engelsk med over 31 millioner redigeringer, tysk med 5.508.570 redigeringer, fransk med 5.276.385 redigeringer, spansk med 4.786.205 redigeringer, russisk med 3.603.060 redigeringer, italiensk med 3.603.906. redigeringer, japansk med 2.973.657 redigeringer, kinesisk med 2.505.032 redigeringer, polsk med 1.383.808 redigeringer og ukrainsk med 1.376.980 redigeringer. Det samlede antal redigeringer på tværs af alle Wikipedia-udgaver i 2024 er 81.987.181.";
 "year-in-review-feature-announcement-body" = "Se indsigt i, hvilke artikler vi læste og redigerede, og del højdepunkter fra vores år på Wikipedia.";
+"year-in-review-feature-announcement-title-personalized" = "Udforsk din Wikipedia-årsoversigt";
 "year-in-review-finish" = "Afslut";
+"year-in-review-highlights-articles-read" = "Læste artikler";
+"year-in-review-highlights-articles-viewed" = "Antal læste artikler";
+"year-in-review-highlights-button-title" = "Del højdepunkter";
+"year-in-review-highlights-categories" = "Kategorier der interesserede mig";
+"year-in-review-highlights-collective-time-spent" = "Timer brugt på læsning";
+"year-in-review-highlights-created-lists" = "Antal oprettede læselister";
+"year-in-review-highlights-edit-frequency" = "Hvor ofte Wikipedia blev redigeret";
+"year-in-review-highlights-edit-frequency-value" = "{{PLURAL:$1| $1 gang| $1 gange}} i minuttet";
+"year-in-review-highlights-english-articles" = "Mest læste artikler på engelsk Wikipedia";
+"year-in-review-highlights-favorite-day" = "Yndlingsdag at læse";
+"year-in-review-highlights-number-app-editors" = "Redigeringer i appen";
+"year-in-review-highlights-personalized-articles" = "Artikler jeg læser mest";
+"year-in-review-highlights-reading-time" = "Læste minutter";
+"year-in-review-highlights-share-logo-caption" = "Wikipedia logo";
+"year-in-review-highlights-subtitle" = "Vi glæder os til næste år!";
+"year-in-review-highlights-times-edited" = "Antal redigeringer";
+"year-in-review-highlights-title" = "Tak for at du har brugt et år med Wikipedia.";
+"year-in-review-intro-exit-toast-title" = "Du kan få adgang til dit årsoverblik senere under Profil.";
+"year-in-review-intro-login-title" = "Log ind for personalisering";
+"year-in-review-most-read-categories-title" = "Dine mest interessante kategorier";
+"year-in-review-non-contributor-slide-title" = "Lås op for din bidragyderbelønning til næste år!";
+"year-in-review-noncontributor-slide-subtitle-updated" = "Vi er glade for, at Wikipedia var en del af din $1 ! Lås op for en særlig belønning i din $2 Årsoversigt ved at blive bidragyder – enten ved at [redigere Wikipedia]( $3 ) eller ved at donere fra appen til [Wikimedia Foundation]( $4 ), den nonprofitorganisation, der står bag den. Hvis Wikipedia er nyttig for dig, så overvej venligst at donere for at hjælpe med at opretholde dens fremtid og holde den gratis, reklamefri, troværdig og tilgængelig for alle. Hvis du har doneret et andet sted, er din støtte dybt værdsat.";
+"year-in-review-personalized-date-day-footer-v3" = "Yndlingsdag at læse";
+"year-in-review-personalized-date-month-footer-v3" = "Måned du læste mest";
+"year-in-review-personalized-date-time-footer-v3" = "Yndlingstidspunkt at læse";
+"year-in-review-personalized-date-title-v3" = "Du har klare læsemønstre";
 "year-in-review-personalized-donate-subtitle" = "Tak fordi du investerer i fremtiden for fri og gratis viden. I år forbedrede Wikimedia Foundation teknologien for at kunne betjene enhver læser og frivillige bedre, udviklede værktøjer, der styrker samarbejdet, og understøttede Wikipedia på flere sprog. [Få mere at vide om vores arbejde]($1).";
 "year-in-review-personalized-donate-title" = "Din generøsitet hjalp med at holde Wikipedia i gang";
-"year-in-review-personalized-donation-thank-you" = "Wikimedia logo";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, fået $1 visninger i alt. Takket være bidragere som dig, er Wikipedia en konstant forbedret, faktabaseret og pålidelig videnressource for verden";
-// Fuzzy
-"year-in-review-personalized-edit-views-title-format" = "Dine redigeringer er blevet set mere end $1 gange for nylig";
-"year-in-review-personalized-editing-title-format" = "Du har redigeret Wikipedia {{PLURAL:$1|$1 gang|$1 gange}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Du har redigeret Wikipedia mere end 500 gange";
+"year-in-review-personalized-edit-views-subtitle-format-updated" = "Læsere over hele verden sætter pris på dine bidrag. I de sidste 2 måneder har artikler, du har redigeret, modtaget {{PLURAL:$1| $1 visning| $1 visninger}}. Takket være redaktører som dig er Wikipedia en stadigt forbedret, faktabaseret og pålidelig vidensressource for verden.";
+"year-in-review-personalized-edit-views-title-format-updated" = "Dine redigeringer er blevet vist mere end {{PLURAL:$1| $1 gang| $1 gange}} for nylig";
+"year-in-review-personalized-editing-subtitle-1" = "Tak fordi du er en af de frivillige bidragsydere, der gør en forskel på Wikimedia-projekter rundt om i verden.";
+"year-in-review-personalized-editing-subtitle-2-updated" = "Frivillige som dig har lavet {{PLURAL:$1| $1 ændring| $1 ændringer}} på tværs af {{PLURAL:$2| $2 sprogudgave| $2 forskellige sprogudgaver}} af Wikipedia.";
+"year-in-review-personalized-editing-title-format-updated" = "Du redigerede {{PLURAL:$1|$1 gang|$1 gange}} i denne uge.";
 "year-in-review-personalized-explore" = "En animeret illustration af en hånd, der holder Wikipedia-kloden, som gradvist forvandles til en lille puslespilsbrik, der symboliserer individuelle bidrag til platformen.";
-"year-in-review-personalized-saved-articles" = "Illustration af en puslespilsbrik iført en sikkerhedshjelm med computerskærme i ryggen.";
+"year-in-review-personalized-location-subtitle-format-1" = "Du læste om $2$1$3.";
+"year-in-review-personalized-location-subtitle-format-2" = "Du læste om $3$1$4 og $3$2$4.";
+"year-in-review-personalized-location-subtitle-format-3" = "Du læste om $4$1$5, $4$2$5 og $4$3$5.";
+"year-in-review-personalized-location-title-format-updated" = "Artikler, du læser, er tættest på $1";
+"year-in-review-personalized-most-read-articles-title" = "Dine vigtigste artikler";
+"year-in-review-personalized-reading-subtitle-format-v3-updated" = "Vi anslår, at det placerer dig i den øverste **PROCENT** af Wikipedia-læsere globalt. Den gennemsnitlige person læser {{PLURAL:$1| $1 artikel| $1 artikler}} om året.";
+"year-in-review-personalized-reading-title-v3-format-updated" = "Du brugte {{PLURAL:$1| $1 minut| $1 minutter}} på at læse {{PLURAL:$2| $2 artikel| $2 artikler}} i $3";
+"year-in-review-personalized-saved-subtitle-format-v3-updated" = "Disse artikler omfattede $1, $2 og $3 . Hver gemt artikel afspejler dine interesser og hjælper med at opbygge en personlig vidensbase på Wikipedia.\n\nAktive app-brugere havde {{PLURAL:$4| $4 gemt artikel| $4 gemte artikler}} i år.";
 "year-in-review-personalized-saved-title-format" = "Du har gemt {{PLURAL:$1| $1 artikel| $1 artikler}}";
 "year-in-review-personalized-user-edits" = "En animeret illustration, der viser bytes, der stables oven på hinanden, hvilket symboliserer den kontinuerlige skabelse af fri viden.";
 "year-in-review-personalized-weekday" = "Et ur, der tikker, symboliserer den tid, folk bruger på at læse Wikipedia.";
@@ -1283,5 +1345,12 @@
 "year-in-review-survey-unsatisfied" = "Utilfreds";
 "year-in-review-survey-very-satisfied" = "Meget tilfreds";
 "year-in-review-survey-very-unsatisfied" = "Meget utilfreds";
+"year-in-review-time-afternoon" = "Eftermiddag";
+"year-in-review-time-evening" = "Aften";
+"year-in-review-time-late-night" = "Sent på natten";
+"year-in-review-time-midday" = "Middag";
+"year-in-review-time-morning" = "Morgen";
+"year-in-review-time-night" = "Nat";
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w-logo";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";
+"yesterday-title" = "I går";

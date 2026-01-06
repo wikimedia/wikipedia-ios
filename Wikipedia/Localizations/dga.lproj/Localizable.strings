@@ -210,6 +210,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Neɛ gbɛre ayi a soŋ kyuuri sommo.";
 "donate-accessibility-textfield-hint" = "Eŋ lɛ fo boɔrɔ ka fo tere.";
 "donate-accessibility-transaction-fee-hint" = "Neɛ gbɛre ayi a eŋ lɛ fo naŋ tere ana e la mɔlɔ.";
+// Fuzzy
 "donate-already-donated" = "Bareka, te-terɛ! Yɛ zuiŋ la ka Wikipiideɛ na baara.";
 "donate-apple-fine-print" = "Apple ŋa naane sɔ a libie yɛlɛ.";
 "donate-email-opt-in-text" = "Ooo, a Wikipiideɛ tondeme na koma la a yuoni baaroo duoro bie.";
@@ -982,5 +983,4 @@
 "wikitext-upload-save" = "De yiibu...";
 "wikitext-upload-save-anonymously-or-login" = "Maaloo ŋa na gaa la IP addresses zie a fo taŋgaraa zu. Ka fooŋ $1 kpɔ$2 fo naŋ taa la kaarba yaga.";
 "wikitext-upload-save-anonymously-warning" = "Maaloo ŋa na gaa la IP addresses zie a fo taŋgaraa zu. Ka fooŋ $1 fo naŋ taa la kaarba yaga.";
-"wikitext-upload-save-sign-in" = "Kpɛ";
 "wikitext-upload-save-terms-name" = "Yɛlɛ na fo naŋ ba de";

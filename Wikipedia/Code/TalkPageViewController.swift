@@ -1170,7 +1170,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         
                         self.handleNewTopicOrCommentAlert(isNewTopic: false, needsFollowupTempAccountToast: wasIP && isTemp)
                         if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID)
+                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID, project: WikimediaProject(siteURL: talkPageURL))
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
@@ -1261,7 +1261,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
                         if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: viewModel.latestRevisionID)
+                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: viewModel.latestRevisionID, project: WikimediaProject(siteURL: pageURL))
                         }
                     case .failure:
                         if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
@@ -1346,7 +1346,7 @@ extension TalkPageViewController {
         static let newTopicFailedAlertTitle = WMFLocalizedString("talk-page-publish-topic-error-title", value: "Unable to publish new topic.", comment: "Title for new topic post error alert")
         static let failureAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
         static let unexpectedErrorAlertTitle = CommonStrings.unexpectedErrorAlertTitle
-        static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
+        static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app received an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
         static let overflowMenuAccessibilityLabel = WMFLocalizedString("talk-page-overflow-menu-accessibility", value: "More Talk Page Options", comment: "Accessibility label for the talk page overflow menu button, which displays more navigation options to the user.")
     }
 }
