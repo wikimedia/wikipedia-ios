@@ -134,25 +134,53 @@ public struct WMFActivityTabView: View {
         }
     }
 
+    @ViewBuilder
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
-        List {
-            if viewModel.shouldShowLogInPrompt {
-                Section {
-                    loggedOutView
-                        .accessibilityElement(children: .contain)
-                        .listRowInsets(EdgeInsets())
+        if viewModel.sections.count == 0 {
+            VStack {
+                if viewModel.shouldShowLogInPrompt {
+                    Section {
+                        loggedOutView
+                            .accessibilityElement(children: .contain)
+                            .listRowInsets(EdgeInsets())
+                    }
+                    .listRowSeparator(.hidden)
                 }
-                .listRowSeparator(.hidden)
+                HStack {
+                    Spacer()
+                    WMFEmptyView(
+                        appEnvironment: appEnvironment,
+                        viewModel: viewModel.emptyViewModel,
+                        type: .noItems,
+                        isScrollable: false)
+                    Spacer()
+                }
             }
-
-            timelineSectionsList()
-        }
-        .scrollContentBackground(.hidden)
-        .listStyle(.grouped)
-        .listCustomSectionSpacing(0)
-        .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
-        .onAppear {
-            viewModel.fetchData(fromAppearance: true)
+            .frame(maxHeight: .infinity)
+            .listRowSeparator(.hidden)
+            .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+            .onAppear {
+                viewModel.fetchData(fromAppearance: true)
+            }
+        } else {
+            List {
+                if viewModel.shouldShowLogInPrompt {
+                    Section {
+                        loggedOutView
+                            .accessibilityElement(children: .contain)
+                            .listRowInsets(EdgeInsets())
+                    }
+                    .listRowSeparator(.hidden)
+                }
+                timelineSectionsList()
+            }
+            .scrollContentBackground(.hidden)
+            .listStyle(.grouped)
+            .listCustomSectionSpacing(0)
+            .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
+            .onAppear {
+                viewModel.fetchData(fromAppearance: true)
+            }
         }
     }
     

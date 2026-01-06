@@ -116,9 +116,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var shouldShowLogInPrompt: Bool = false
     @Published var sections: [TimelineViewModel.TimelineSection] = [] {
         didSet {
-            shouldShowEmptyState =
-                sections.count == 1 &&
-                (sections.first?.items.isEmpty ?? true)
+            recomputeShouldShowEmptyState()
         }
     }
 
@@ -272,6 +270,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             globalEditCount = nil
         }
         self.customizeViewModel.isLoggedIn = authState == .loggedIn
+        recomputeShouldShowEmptyState()
     }
 
     public var hoursMinutesRead: String {
@@ -288,6 +287,24 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     // MARK: - Helpers
+    
+    private func recomputeShouldShowEmptyState() {
+        switch authenticationState {
+        case .loggedIn:
+            if sections.count == 1, let section = sections.first {
+                shouldShowEmptyState = section.items.isEmpty
+            } else {
+                shouldShowEmptyState = false
+            }
+        case .loggedOut, .temp:
+            if sections.count == 0 {
+                shouldShowEmptyState = true
+            } else {
+                let hasReadItem = sections.first?.items.contains { $0.itemType == .read }
+                shouldShowEmptyState = !(hasReadItem ?? false)
+            }
+        }
+    }
 
     func formatDateTime(_ dateTime: Date) -> String {
         DateFormatter.wmfLastReadFormatter(for: dateTime)
