@@ -300,8 +300,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
             if sections.count == 0 {
                 shouldShowEmptyState = true
             } else {
-                let hasReadItem = sections.first?.items.contains { $0.itemType == .read }
-                shouldShowEmptyState = !(hasReadItem ?? false)
+                let hasReadItem = sections.contains { section in
+                    section.items.contains { $0.itemType == .read }
+                }
+                shouldShowEmptyState = !hasReadItem
             }
         }
     }
