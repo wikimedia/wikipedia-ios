@@ -184,8 +184,6 @@
 "description-welcome-promise-title" = "शुरू करने से, मैं यह वादा करता हूँ कि इस सुविधा का दुरुपयोग नहीं करूँगा(गी)।";
 "description-welcome-start-editing-button" = "संपादन शुरू करें";
 // Fuzzy
-"did-you-know" = "क्या आप जानते हैं";
-// Fuzzy
 "diff-compare-header-from-info-heading" = "मूल";
 "diff-compare-header-heading" = "अवतरणों की तुलना करें";
 // Fuzzy
@@ -324,7 +322,6 @@
 "nearby-distance-label-km" = "$1 कि.मी.";
 "nearby-distance-label-meters" = "$1 मीटर";
 "nearby-distance-label-miles" = "$1 माइल्स";
-"new-article-tab-settings-did-you-know" = "क्या आप जानते हैं?";
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "next-action-title" = "अगला";
@@ -517,6 +514,5 @@
 "wikitext-upload-result-unknown" = "विकिटेक्सट के अपलोड परिणाम बताने में असमर्थ।";
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
-"wikitext-upload-save-sign-in" = "प्रवेश";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "year-in-review-donate" = "दान करें";

@@ -281,7 +281,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         let linkAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor : theme.colors.link
         ]
-        return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.editSignIn], substitutionAttributes: [linkAttributes])
+        return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.logIn], substitutionAttributes: [linkAttributes])
     }
     
     @IBAction private func descriptionPlaceholderLabelTapped() {

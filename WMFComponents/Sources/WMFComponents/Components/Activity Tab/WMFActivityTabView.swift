@@ -21,91 +21,109 @@ public struct WMFActivityTabView: View {
     public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.authenticationState == .loggedIn {
-                loggedInList(proxy: proxy)
+                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
+                    customizedEmptyState()
+                } else {
+                    loggedInList(proxy: proxy)
+                }
             } else {
-                loggedOutList(proxy: proxy)
+                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn {
+                    customizedEmptyState()
+                } else {
+                    loggedOutList(proxy: proxy)
+                }
             }
         }
     }
 
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
-            Section {
-                VStack(spacing: 16) {
-                    headerView
-                        .accessibilityElement()
-                        .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
-                        .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
+            if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {
+                Section {
+                    VStack(spacing: 16) {
+                        
+                        if viewModel.customizeViewModel.isTimeSpentReadingOn {
+                            headerView
+                                .accessibilityElement()
+                                .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
+                                .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
 
-                    VStack(alignment: .center, spacing: 8) {
-                        hoursMinutesRead
-                            .accessibilityLabel(viewModel.hoursMinutesRead)
-                        Text(viewModel.localizedStrings.timeSpentReading)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .accessibilityHidden(true)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .accessibilityElement()
-                    .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
-
-                    articlesReadModule(proxy: proxy)
-                        .padding(.horizontal, 16)
-                    savedArticlesModule
-                        .padding(.horizontal, 16)
-
-                    if !viewModel.articlesReadViewModel.topCategories.isEmpty {
-                        topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
-                            .padding(.horizontal, 16)
+                            VStack(alignment: .center, spacing: 8) {
+                                hoursMinutesRead
+                                    .accessibilityLabel(viewModel.hoursMinutesRead)
+                                Text(viewModel.localizedStrings.timeSpentReading)
+                                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                                    .foregroundColor(Color(uiColor: theme.text))
+                                    .accessibilityHidden(true)
+                            }
+                            .frame(maxWidth: .infinity)
                             .accessibilityElement()
-                            .accessibilityLabel(viewModel.localizedStrings.topCategories)
-                            .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
-                    }
-                    
-                    if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
-                        HStack {
-                            YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                            Spacer()
+                            .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                         }
-                        .padding(.top, 12)
-                                    
-                        totalEditsView(amount: animatedGlobalEditCount)
-                            .padding(.horizontal, 16)
-                            .onAppear {
-                                if !hasShownGlobalEditsCard {
-                                    hasShownGlobalEditsCard = true
-                                    animatedGlobalEditCount = 0
-                                    withAnimation(.easeOut(duration: 0.6)) {
+                        
+
+                        if viewModel.customizeViewModel.isReadingInsightsOn {
+                            articlesReadModule(proxy: proxy)
+                                .padding(.horizontal, 16)
+                            savedArticlesModule
+                                .padding(.horizontal, 16)
+
+                            if !viewModel.articlesReadViewModel.topCategories.isEmpty {
+                                topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
+                                    .padding(.horizontal, 16)
+                                    .accessibilityElement()
+                                    .accessibilityLabel(viewModel.localizedStrings.topCategories)
+                                    .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
+                            }
+                        }
+                        
+                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0, viewModel.customizeViewModel.isEditingInsightsOn {
+                            HStack {
+                                YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
+                                Spacer()
+                            }
+                            .padding(.top, 12)
+                            
+                            totalEditsView(amount: animatedGlobalEditCount)
+                                .padding(.horizontal, 16)
+                                .onAppear {
+                                    if !hasShownGlobalEditsCard {
+                                        hasShownGlobalEditsCard = true
+                                        animatedGlobalEditCount = 0
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = globalEditCount
+                                        }
+                                    } else {
                                         animatedGlobalEditCount = globalEditCount
                                     }
-                                } else {
-                                    animatedGlobalEditCount = globalEditCount
                                 }
-                            }
-                            .onChange(of: globalEditCount) { newValue in
-                                withAnimation(.easeOut(duration: 0.6)) {
-                                    animatedGlobalEditCount = newValue
+                                .onChange(of: globalEditCount) { newValue in
+                                    withAnimation(.easeOut(duration: 0.6)) {
+                                        animatedGlobalEditCount = newValue
+                                    }
                                 }
-                            }
+                        }
                     }
-                }
-                .padding(.bottom, 16)
-                .listRowInsets(EdgeInsets())
-                .background(
-                    LinearGradient(
-                        stops: [
-                            Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
-                            Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
+                    .padding(.bottom, 16)
+                    .listRowInsets(EdgeInsets())
+                    .background(
+                        LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
                     )
-                )
+                }
+                .listRowSeparator(.hidden)
             }
-            .listRowSeparator(.hidden)
-
-            timelineSectionsList()
-                .id("timelineSection")
+            
+            if viewModel.customizeViewModel.isTimelineOfBehaviorOn {
+                timelineSectionsList()
+                    .id("timelineSection")
+            }
         }
         .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         .scrollContentBackground(.hidden)
@@ -139,16 +157,25 @@ public struct WMFActivityTabView: View {
     }
     
     private func totalEditsView(amount: Int) -> some View {
-        WMFActivityTabInfoCardView(
+
+        let formattedAmount = amountAccessibilityLabel(for: amount)
+        
+        return WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.totalEdits,
             dateText: nil,
-            amount: amount,
+            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 viewModel.onTapGlobalEdits?()
+            }, content: {
+                HStack(alignment: .bottom) {
+                    Text("\(amount)")
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                    Spacer()
+                }
             }
         )
-        // .padding(.top, 20)
     }
 
     private func timelineSectionsList() -> some View {
@@ -253,45 +280,60 @@ public struct WMFActivityTabView: View {
     }
 
     private func articlesReadModule(proxy: ScrollViewProxy) -> some View {
-        WMFActivityTabInfoCardView(
+
+        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
+
+        return WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.totalArticlesRead,
             dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
-            amount: viewModel.articlesReadViewModel.totalArticlesRead,
+            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 withAnimation(.easeInOut) {
                     proxy.scrollTo("timelineSection", anchor: .top)
                 }
             },
             content: {
-                articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
+                HStack(alignment: .bottom) {
+                    Text("\(viewModel.articlesReadViewModel.totalArticlesRead)")
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                    Spacer()
+                    articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
+                }
+                
             }
         )
     }
 
     private var savedArticlesModule: some View {
 
-        Group {
-            let thumbURLs = viewModel.articlesSavedViewModel.articlesSavedThumbURLs
-            let displayCount = min(thumbURLs.count, 3)
-            let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
+        let thumbURLs = viewModel.articlesSavedViewModel.articlesSavedThumbURLs
+        let displayCount = min(thumbURLs.count, 3)
+        let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
 
-            WMFActivityTabInfoCardView(
-                icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
-                title: viewModel.localizedStrings.articlesSavedTitle,
-                dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
-                amount: viewModel.articlesSavedViewModel.articlesSavedAmount,
-                onTapModule: {
-                    viewModel.articlesSavedViewModel.onTapSaved?()
-                },
-                content: {
+        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
 
+        return WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.articlesSavedTitle,
+            dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
+            additionalAccessibilityLabel: formattedAmount,
+            onTapModule: {
+                viewModel.articlesSavedViewModel.onTapSaved?()
+            },
+            content: {
+                HStack(alignment: .bottom) {
+                    Text("\(viewModel.articlesSavedViewModel.articlesSavedAmount)")
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                    Spacer()
                     if !thumbURLs.isEmpty {
                         savedArticlesImages(thumbURLs: thumbURLs, totalSavedCount: viewModel.articlesSavedViewModel.articlesSavedAmount, remaining: remaining)
                     }
                 }
-            )
-        }
+            }
+        )
     }
 
     private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {
@@ -360,45 +402,49 @@ public struct WMFActivityTabView: View {
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
-        VStack(alignment: .leading, spacing: 24) {
-            HStack {
-                if let icon = WMFSFSymbolIcon.for(symbol: .rectangle3) {
-                    Image(uiImage: icon)
-                }
-                Text(viewModel.localizedStrings.topCategories)
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
-            ForEach(categories.indices, id: \.self) { index in
-                let category = categories[index]
+        
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .rectangle3, font: WMFFont.boldCaption1),
+            title: viewModel.localizedStrings.topCategories,
+            dateText: nil,
+            additionalAccessibilityLabel: nil,
+            onTapModule: nil,
+            content: {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text(category)
-                        .foregroundStyle(Color(theme.text))
-                        .font(Font(WMFFont.for(.callout)))
-                        .lineLimit(2)
+                    ForEach(categories.indices, id: \.self) { index in
+                        let category = categories[index]
+                        Text(category)
+                            .foregroundStyle(Color(theme.text))
+                            .font(Font(WMFFont.for(.callout)))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .lineLimit(2)
 
-                    if index < categories.count - 1 {
-                        Divider()
-                            .frame(height: 1)
-                            .overlay(
-                                Rectangle()
-                                    .fill(Color(uiColor: theme.baseBackground))
-                                    .frame(height: 1)
-                            )
-                            .padding(0)
+                        if index < categories.count - 1 {
+                            Divider()
+                                .frame(height: 1)
+                                .overlay(
+                                    Rectangle()
+                                        .fill(Color(uiColor: theme.baseBackground))
+                                        .frame(height: 1)
+                                )
+                                .padding(0)
+                        }
                     }
                 }
             }
-        }
-        .padding(16)
-        .background(Color(theme.paperBackground))
-        .cornerRadius(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color(theme.baseBackground), lineWidth: 0.5)
         )
+    }
+    
+    private func amountAccessibilityLabel(for amount: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        return numberFormatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
+    }
+    
+    private func customizedEmptyState() -> some View {
+        WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
+            .frame(maxWidth: .infinity)
     }
 }
 
@@ -585,11 +631,217 @@ struct YourImpactHeaderView: View {
     }
     
     var body: some View {
-        Text(title)
-            .font(Font(WMFFont.for(.boldHeadline)))
-            .foregroundColor(Color(uiColor: theme.text))
-            .textCase(.none)
-            .padding(.horizontal, 16)
-        .accessibilityAddTraits(.isHeader)
+            Text(title)
+                .font(Font(WMFFont.for(.boldHeadline)))
+                .foregroundColor(Color(uiColor: theme.text))
+                .textCase(.none)
+                .padding(.horizontal, 16)
+                .accessibilityAddTraits(.isHeader)
+    }
+}
+
+private struct MostViewedArticlesView: View {
+    let viewModel: MostViewedArticlesViewModel
+    
+    var body: some View {
+        
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .lineDiagonalArrow, font: WMFFont.boldCaption1),
+            title: "Most viewed since your edit", // TODO: localize
+            dateText: nil,
+            additionalAccessibilityLabel: nil,
+            onTapModule: nil,
+            content: {
+                // TODO: TEMP UI
+                VStack {
+                    ForEach(viewModel.topViewedArticles.map(\.title), id: \.self) { title in
+                        Text(title)
+                    }
+                }
+            }
+        )
+        
+        
+    }
+}
+
+private struct ContributionsView: View {
+    let viewModel: ContributionsViewModel
+    
+    var body: some View {
+        
+        WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .personFilled, font: WMFFont.boldCaption1), // TODO: Correct icon
+            title: "Contributions this month", // TODO: localize
+            dateText: nil,
+            additionalAccessibilityLabel: nil,
+            onTapModule: nil,
+            content: {
+                // TODO: TEMP UI
+                VStack {
+                    Text("Contributions")
+                        .bold()
+                    Text("This month: \(viewModel.thisMonthCount)")
+                    Text("Last month: \(viewModel.lastMonthCount)")
+                }
+            }
+        )
+    }
+}
+
+private struct CombinedImpactView: View {
+    let allTimeImpactViewModel: AllTimeImpactViewModel?
+    let recentActivityViewModel: RecentActivityViewModel?
+    let articleViewsViewModel: ArticleViewsViewModel?
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    var body: some View {
+        
+        VStack(spacing: 16) {
+            if let allTimeImpactViewModel {
+                AllTimeImpactView(viewModel: allTimeImpactViewModel)
+                
+                Divider()
+                    .frame(height: 1)
+                    .overlay(
+                        Rectangle()
+                            .fill(Color(uiColor: theme.baseBackground))
+                            .frame(height: 1)
+                    )
+                    .padding(0)
+            }
+            
+            if let recentActivityViewModel {
+                RecentActivityView(viewModel: recentActivityViewModel)
+                
+                Divider()
+                    .frame(height: 1)
+                    .overlay(
+                        Rectangle()
+                            .fill(Color(uiColor: theme.baseBackground))
+                            .frame(height: 1)
+                    )
+                    .padding(0)
+            }
+            
+            if let articleViewsViewModel {
+                ArticleViewsView(viewModel: articleViewsViewModel)
+            }
+        }
+        .padding(16)
+        .background(Color(theme.paperBackground))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(theme.baseBackground), lineWidth: 0.5)
+        )
+    }
+}
+
+private struct AllTimeImpactView: View {
+    let viewModel: AllTimeImpactViewModel
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("All time impact") // TODO: Localize
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+                Spacer()
+            }
+            .padding(.bottom, 16)
+            
+            // TODO: TEMP UI
+            if let totalEdits = viewModel.totalEdits {
+                Text("Total edits: \(totalEdits)")
+            } else {
+                Text("Total edits: 0")
+            }
+            if let thanks = viewModel.thanksCount {
+                Text("Thanks count: \(thanks)")
+            } else {
+                Text("Thanks count: 0")
+            }
+            if let streak = viewModel.bestStreak {
+                Text("Best streak: \(streak)")
+            } else {
+                Text("Best streak: -")
+            }
+            if let lastEdited = viewModel.lastEdited {
+                Text("Last edited: \(lastEdited)")
+            } else {
+                Text("Last edited: -")
+            }
+        }
+    }
+}
+
+private struct RecentActivityView: View {
+    let viewModel: RecentActivityViewModel
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    var body: some View {
+        
+        VStack {
+            HStack {
+                Text("Recent Activity") // TODO: Localize
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+                Spacer()
+            }
+            .padding(.bottom, 16)
+            
+            // TODO: TEMP UI
+            Text("Edit count: \(viewModel.editCount)")
+            Text("Start date: \(viewModel.startDate)")
+            Text("End count: \(viewModel.endDate)")
+        }
+    }
+}
+
+private struct ArticleViewsView: View {
+    let viewModel: ArticleViewsViewModel
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Views on articles you've edited") // TODO: Localize
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+                Spacer()
+            }
+            .padding(.bottom, 16)
+            
+            // TODO: TEMP UI
+            Text("Views count: \(viewModel.totalViewsCount)")
+        }
     }
 }

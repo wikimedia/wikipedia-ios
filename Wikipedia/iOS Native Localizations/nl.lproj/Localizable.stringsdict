@@ -298,7 +298,7 @@
 			<string>%1$d niet bewerkte regels</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>In %1$@ voegden vrijwilligers %#@v2@ toe aan de Engelstalige Wikipedia. Door al hun gezamenlijke werk krijgt de hele wereld een gestaag beter wordende, op feiten gebaseerde en betrouwbare kennisbron. We hebben allemaal kennis om te delen. [Lees hier hoe u ook kunt meedoen](%3$@).</string>
@@ -314,7 +314,7 @@
 			<string>%2$lld bytes</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@ toegevoegd</string>
@@ -330,7 +330,7 @@
 			<string>%1$lld bytes</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vrijwilligers hebben  %#@v1@ aangebracht in  %#@v2@ van Wikipedia. Er  %#@v3@ aangebracht op de Engelstalige Wikipedia. Elk uur van elke dag werken vrijwilligers aan het verbeteren van Wikipedia.</string>
@@ -368,7 +368,7 @@
 			<string>zijn %3$lld wijzigingen</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-title</key>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Bewerkers hebben dit jaar %#@v1@ doorgevoerd</string>
@@ -384,23 +384,7 @@
 			<string>%1$lld wijzigingen</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Naar schatting hebben mensen in %3$@ wel {{PLURAL:%1$lld|één uur"%1$lld uur{{ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.</string>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>één jaar</string>
-			<key>other</key>
-			<string>%2$lld jaar</string>
-		</dict>
-	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Naar schatting hebben mensen in %3$@ wel {{PLURAL:%1$lld|één uur"%1$lld uur{{ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia.</string>
@@ -416,7 +400,23 @@
 			<string>%2$lld jaar</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-title</key>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Naar schatting hebben mensen in %3$@ wel {{PLURAL:%1$lld|één uur"%1$lld uur{{ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>één jaar</string>
+			<key>other</key>
+			<string>%2$lld jaar</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>We hebben %#@v1@ lang gelezen</string>
@@ -432,7 +432,7 @@
 			<string>%1$lld uur</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Gebruikers van de app hebben dit jaar %#@v1@ opgeslagen. Pagina's die u aan leeslijsten hebt toegevoegd kunt u ook offline raadplegen. Daarnaast kunt u, na aanmelden, leeslijsten op verschillende apparaten synchroniseren.</string>
@@ -448,7 +448,7 @@
 			<string>%1$lld pagina's</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>We hebben %#@v1@ opgeslagen</string>
@@ -1049,7 +1049,7 @@
 			<string>%1$d filters</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Redacteuren op de officiële Wikipedia-apps hebben %#@v1@ aangebracht</string>
@@ -1065,7 +1065,7 @@
 			<string>%1$lld bewerkingen</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia is %#@v1@ per minuut bewerkt</string>
@@ -1079,7 +1079,7 @@
 			<string>%1$d keer</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-subtitle</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia had %#@v1@ in meer dan %#@v2@. U hebt zich aangesloten bij miljoenen anderen om kennis uit te breiden en diverse onderwerpen te verkennen.</string>
@@ -1106,7 +1106,7 @@
 			<string>%2$d actieve talen</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia was beschikbaar in meer dan %#@v1@</string>
@@ -1122,7 +1122,7 @@
 			<string>%1$d talen</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>App-gebruikers hebben %#@v1@ opgeslagen</string>
@@ -1138,7 +1138,7 @@
 			<string>%1$lld pagina's</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Appgebruikers hebben Wikipedia-pagina's %#@v1@ bekeken</string>
@@ -1166,7 +1166,7 @@
 			<string>keer</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Over de hele wereld waarderen lezers uw bijdragen. In de afgelopen twee maanden zijn de pagina's die u hebt bewerkt %#@v1@ bekeken. Dankzij bewerkers zoals u is Wikipedia een steeds betere, op feiten gebaseerde en betrouwbare kennisbron voor de wereld.</string>
@@ -1182,7 +1182,7 @@
 			<string>in totaal %1$lld keer</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Uw bewerkingen zijn onlangs meer dan %#@v1@ bekeken</string>
@@ -1196,7 +1196,7 @@
 			<string>%1$lld keer</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vrijwilligers zoals u hebben %#@v1@ aangebracht in %#@v2@ van Wikipedia.</string>
@@ -1223,7 +1223,7 @@
 			<string>%2$d verschillende taalversies</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>U hebt %#@v1@ bewerkt</string>
@@ -1237,7 +1237,7 @@
 			<string>%1$d keer</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Hiermee behoort u naar onze schatting wereldwijd tot de top **PERCENT** van Wikipedia-lezers. De gemiddelde persoon leest %1$d %#@v1@ per jaar.</string>
@@ -1253,7 +1253,7 @@
 			<string>pagina's</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>In %3$@ hebt u %1$d %#@v1@ besteed aan het lezen van %2$d %#@v2@</string>
@@ -1280,7 +1280,7 @@
 			<string>pagina's</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Deze pagina's zijn o.a. %1$@, %2$@ en %3$@. Elke opgeslagen pagina weerspiegelt uw interesses en helpt bij het opbouwen van uw eigen kennisbank op Wikipedia.

@@ -171,6 +171,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     private let merchantID: String
     private let metricsID: String?
     private let appVersion: String?
+    private let appInstallID: String?
     
     @Published var buttonViewModels: [AmountButtonViewModel]
     @Published var textfieldViewModel: AmountTextFieldViewModel
@@ -198,7 +199,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
     // MARK: - Lifecycle
 
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, metricsID: String?, appVersion: String?, coordinatorDelegate: DonateCoordinatorDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, metricsID: String?, appVersion: String?, appInstallID: String?, coordinatorDelegate: DonateCoordinatorDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
@@ -208,6 +209,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         self.merchantID = merchantID
         self.metricsID = metricsID
         self.appVersion = appVersion
+        self.appInstallID = appInstallID
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
 
@@ -551,7 +553,6 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
         let application = UIApplication.shared
-
         submitPaymentBackgroundTask = application.beginBackgroundTask(
             withName: submitPaymentBackgroundTaskName
         ) { [weak self] in
@@ -563,7 +564,7 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         }
         
         let dataController = WMFDonateDataController.shared
-        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion) { result in
+        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID) { result in
 
             switch result {
             case .success:

@@ -14,7 +14,7 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     private let languageCode: String?
     private let project: WMFProject?
     
-    private let service = WMFDataEnvironment.current.mediaWikiService
+    private let dataController = WMFUserImpactDataController.shared
     
     init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
@@ -41,68 +41,13 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
         return config.isActive(for: Date()) && userInfo.userID != nil
     }
     
-    private func fetchEditViews(project: WMFProject?, userId: Int, language: String) async throws -> (Int) {
-        return try await withCheckedThrowingContinuation { continuation in
-            fetchEditViews(project: project, userId: userId, language: language) { result in
-                switch result {
-                case .success(let views):
-                    continuation.resume(returning: views)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
-    }
-
-    private func fetchEditViews(project: WMFProject?, userId: Int, language: String, completion: @escaping (Result<Int, Error>) -> Void) {
-
-        guard let service else {
-            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-            return
-        }
+    private func fetchEditViews(project: WMFProject?, userId: Int, language: String) async throws -> (Int?) {
         
         guard let project = project else {
-            completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-            return
+            throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
         
-        let prefixedUserID = "#" + String(userId)
-        
-        guard let baseUrl = URL.mediaWikiRestAPIURL(project: project, additionalPathComponents: ["growthexperiments", "v0", "user-impact", prefixedUserID]) else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
-        }
-
-        var urlComponents = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)
-        urlComponents?.queryItems = [URLQueryItem(name: "lang", value: language)]
-        
-        guard let url = urlComponents?.url else {
-            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-            return
-        }
-
-        let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWikiREST, tokenType: .none, parameters: nil)
-
-        let completionHandler: (Result<[String: Any]?, Error>) -> Void = { result in
-            switch result {
-            case .success(let data):
-                guard let jsonData = data else {
-                    completion(.failure(WMFDataControllerError.unexpectedResponse))
-                    return
-                }
-
-                if let totalPageviews = jsonData["totalPageviewsCount"] as? Int {
-                    let totalViews = totalPageviews
-                    completion(.success(totalViews))
-                } else {
-                    // If for any reason we don't get anything
-                    completion(.success(0))
-                }
-
-            case .failure(let error):
-                completion(.failure(WMFDataControllerError.serviceError(error)))
-            }
-        }
-        service.perform(request: request, completion: completionHandler)
+        let response = try await dataController.fetch(userID: userId, project: project, language: language)
+        return response.totalPageviewsCount
     }
 }

@@ -34,7 +34,6 @@ public struct WMFOnboardingView: View {
                 VStack {
                     WMFOnboardingCell(viewModel: viewModel.cells[cell - 1])
                         .padding(.bottom, 24)
-                        .padding(.trailing, 20)
                 }
             }
         }
