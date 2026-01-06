@@ -192,6 +192,9 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     
     private(set) weak var coordinatorDelegate: DonateCoordinatorDelegate?
     private(set) weak var loggingDelegate: WMFDonateLoggingDelegate?
+    
+    private var submitPaymentBackgroundTask: UIBackgroundTaskIdentifier = .invalid
+    private let submitPaymentBackgroundTaskName = "com.wikipedia.background.task.submit.payment"
 
     // MARK: - Lifecycle
 
@@ -250,6 +253,10 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         addButtonSelectionListener()
         addTextfieldChangeListener()
         addTransactionFeeSelectionListener()
+    }
+    
+    deinit {
+        print("WMFDonateViewModel dinit")
     }
     
     // MARK: - Internal
@@ -515,19 +522,19 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         loggingDelegate?.handleDonateLoggingAction(.nativeFormDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, metricsID: metricsID))
 
         let paymentToken: String
-//        if !WMFDeveloperSettingsDataController.shared.bypassDonation {
-//            guard !payment.token.paymentData.isEmpty,
-//                  let token = String(data: payment.token.paymentData, encoding: .utf8) else {
-//                let error = Error.invalidToken
-//                self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
-//                loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
-//                completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
-//                return
-//            }
-//            paymentToken = token
-//        } else {
+        if !WMFDeveloperSettingsDataController.shared.bypassDonation {
+            guard !payment.token.paymentData.isEmpty,
+                  let token = String(data: payment.token.paymentData, encoding: .utf8) else {
+                let error = Error.invalidToken
+                self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
+                loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
+                return
+            }
+            paymentToken = token
+        } else {
             paymentToken = ""
-  //      }
+        }
         
         guard let donorNameComponents = payment.billingContact?.name,
               let donorEmail = payment.shippingContact?.emailAddress,
@@ -543,6 +550,18 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
+        let application = UIApplication.shared
+
+        submitPaymentBackgroundTask = application.beginBackgroundTask(
+            withName: submitPaymentBackgroundTaskName
+        ) { [weak self] in
+            // Expiration handler — system is about to suspend us
+            if let task = self?.submitPaymentBackgroundTask {
+                application.endBackgroundTask(task)
+                self?.submitPaymentBackgroundTask = .invalid
+            }
+        }
+        
         let dataController = WMFDonateDataController.shared
         dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion) { result in
 
@@ -550,7 +569,6 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             case .success:
                 self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
             case .failure(let error):
-                
                 // Only log errors, don't show to user since we are assuming success.
                 if let dataControllerError = error as? WMFDonateDataControllerError {
                     switch dataControllerError {
@@ -560,6 +578,12 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                 } else {
                     self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                 }
+            }
+            
+            // Always end the background task
+            if self.submitPaymentBackgroundTask != .invalid {
+                application.endBackgroundTask(self.submitPaymentBackgroundTask)
+                self.submitPaymentBackgroundTask = .invalid
             }
         }
         

@@ -119,7 +119,7 @@ import Contacts
             case .success(let response):
                 paymentMethods = response
             case .failure(let error):
-                paymentMethods = WMFPaymentMethods(response: WMFPaymentMethods.Response(paymentMethods: [WMFPaymentMethods.Response.PaymentMethod(brands: ["visa", "mc", "amex", "discover", "maestro"], name: "Apple Pay", type: "applepay")]))
+                errors.append(error)
             }
         }
         
@@ -171,66 +171,64 @@ import Contacts
     
     public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
 
-//        guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
-//            completion(.success(()))
-//            return
-//        }
-//        
-//        guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
-//            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
-//            return
-//        }
-//        
-//        var parameters: [String: String] = [
-//            "action": "submitPayment",
-//            "amount": (amount as NSNumber).stringValue,
-//            "currency": currencyCode,
-//            "recurring": recurring ? "1" : "0",
-//            "country": countryCode,
-//            "language": languageCode,
-//            "payment_token": paymentToken,
-//            "pay_the_fee": transactionFee ? "1" : "0",
-//            "full_name": donorNameComponents.formatted(.name(style: .long)),
-//            "email": donorEmail,
-//            "street_address": donorAddressComponents.street,
-//            "city": donorAddressComponents.city,
-//            "state_province": donorAddressComponents.state,
-//            "donor_country": donorAddressComponents.isoCountryCode,
-//            "postal_code": donorAddressComponents.postalCode,
-//            "payment_method": "applepay",
-//            "format": "json"
-//        ]
-//        
-//        if let emailOptIn {
-//            parameters["opt_in"] = emailOptIn ? "1" : "0"
-//        }
-//        
-//        if let firstName = donorNameComponents.givenName {
-//            parameters["first_name"] = firstName
-//        }
-//        
-//        if let lastName = donorNameComponents.familyName {
-//            parameters["last_name"] = lastName
-//        }
-//        
-//        if let paymentNetwork {
-//            parameters["payment_network"] = paymentNetwork
-//        }
-//        
-//        if let metricsID {
-//            parameters["banner"] = metricsID
-//        }
-//        
-//        if let appVersion {
-//            parameters["app_version"] = appVersion
-//        }
+        guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
+            completion(.success(()))
+            return
+        }
+        
+        guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
+            completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
+            return
+        }
+        
+        var parameters: [String: String] = [
+            "action": "submitPayment",
+            "amount": (amount as NSNumber).stringValue,
+            "currency": currencyCode,
+            "recurring": recurring ? "1" : "0",
+            "country": countryCode,
+            "language": languageCode,
+            "payment_token": paymentToken,
+            "pay_the_fee": transactionFee ? "1" : "0",
+            "full_name": donorNameComponents.formatted(.name(style: .long)),
+            "email": donorEmail,
+            "street_address": donorAddressComponents.street,
+            "city": donorAddressComponents.city,
+            "state_province": donorAddressComponents.state,
+            "donor_country": donorAddressComponents.isoCountryCode,
+            "postal_code": donorAddressComponents.postalCode,
+            "payment_method": "applepay",
+            "format": "json"
+        ]
+        
+        if let emailOptIn {
+            parameters["opt_in"] = emailOptIn ? "1" : "0"
+        }
+        
+        if let firstName = donorNameComponents.givenName {
+            parameters["first_name"] = firstName
+        }
+        
+        if let lastName = donorNameComponents.familyName {
+            parameters["last_name"] = lastName
+        }
+        
+        if let paymentNetwork {
+            parameters["payment_network"] = paymentNetwork
+        }
+        
+        if let metricsID {
+            parameters["banner"] = metricsID
+        }
+        
+        if let appVersion {
+            parameters["app_version"] = appVersion
+        }
          
-        let url = URL(string: "http://localhost:3000/slow")! // 10 second delay
-        let request = WMFBasicServiceRequest(url: url, method: .POST, parameters: nil, contentType: .json, acceptType: .json)
-        service?.performDecodablePOST(request: request, completion: { (result: Result<FakeDelayedResponse, Error>) in
+        let request = WMFBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
+        service?.performDecodablePOST(request: request, completion: { (result: Result<WMFPaymentSubmissionResponse, Error>) in
             switch result {
             case .success(let response):
-                print(response)
                 completion(.success(()))
                 return
             case .failure(let error):

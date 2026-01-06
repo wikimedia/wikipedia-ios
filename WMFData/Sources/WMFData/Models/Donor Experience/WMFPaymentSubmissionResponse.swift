@@ -15,8 +15,3 @@ final public class WMFPaymentSubmissionResponse: Codable {
     
     let response: Response
 }
-
-
-final public class FakeDelayedResponse: Codable {
-    let success: Bool
-}
