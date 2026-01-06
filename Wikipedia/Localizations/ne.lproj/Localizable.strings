@@ -154,6 +154,7 @@
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
 "edit-summary-choice-fixed-typos" = "विवरण ठीक गरियो";
 "edit-summary-choice-linked-words" = "थप गरिएका लिङ्कहरू";
+"edited-article" = "सम्पादन गरिएको";
 "editing-welcome-set-knowledge-free-subtitle" = "विश्वको ज्ञानमा सबैलाई पहुँच दिनको लागि, हामीले तपाईलाई सबैभन्दा महत्त्वपूर्ण विषयहरू पढेर, सम्पादन गरेर र योगदान गरेर यसको सिर्जनामा सहभागी हुन आवश्यक छ।";
 "empty-no-article-message" = "माफ गर्नुहोस् लेख खोल्न सकिएन";
 "empty-no-feed-action-message" = "तपाईँले सङ्ग्रह गरिसकिएका पृष्ठहरू पढ्न सक्नुहुने छ";
@@ -451,7 +452,6 @@
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनहरू तपाईँको उपकरणको आईपी ठेगानामा श्रेय दिइनेछ। यदि तपाईँ $1 गर्नुहुन्छ भने तपाईँसँग थप गोपनीयता हुनेछ।";
-"wikitext-upload-save-sign-in" = "प्रवेश गर्नुहोस्";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
 "year-in-review-highlights-articles-read" = "पढिएका लेखहरू";
 "year-in-review-highlights-personalized-articles" = "मैले सबैभन्दा धेरै पढेका लेखहरू";

@@ -79,6 +79,9 @@
 "activity-tab-additional-thoughts" = "Wëllt Dir nach eppes soen?";
 "activity-tab-articles-read" = "Artikelen, déi dëse Mount gelies goufen";
 "activity-tab-articles-read-graph-label" = "Artikelen";
+"activity-tab-customize-editing-insights" = "Ännerungsablécker";
+"activity-tab-customize-reading-insights" = "Liesablécker";
+"activity-tab-customize-time-spent-reading" = "Lieszäit";
 "activity-tab-email-fifth-line" = "[Screenshotten oder Linken]";
 // Fuzzy
 "activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
@@ -89,6 +92,7 @@
 "activity-tab-survey-title" = "Zefriddenheetsëmfro";
 "activity-tab-title" = "Aktivitéit";
 "activity-tab-top-categories" = "Top-Kategorien dëse Mount";
+"activity-tab-total-edits" = "Ännerungen op alle Projeten insgesamt";
 "activity-tab-unsatisfied" = "Onzefridden";
 "activity-tab-very-satisfied" = "Ganz zefridden";
 "activity-tab-very-unsatisfied" = "Ganz onzefridden";
@@ -99,6 +103,7 @@
 "activity-tab-you-edited" = "Dir hutt dës Woch {{PLURAL:$1|$1 Ännerung|$1 Ännerunge}} gemaach.";
 "activity-tab-you-read" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies.";
 "activity-tab-you-saved" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert.";
+"activity-tab-your-impact" = "Ären Impakt";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
 "advanced-settings-title" = "Erweidert Astellungen";
 "alert-temporary-account" = "Dir benotzt en temporäre Kont. De Kont leeft an 90 Deeg of.";
@@ -121,7 +126,6 @@
 "article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
-"article-tabs-did-you-know-title" = "Wousst Dir";
 "article-tabs-feature-announcement-item-2-subtitle" = "Tabs erënnere sech automatesch un Är Scrollpositioun.";
 "article-tabs-feature-announcement-item-2-title" = "Fuert do virun, wou Dir opgehal hutt";
 "article-tabs-feature-announcement-item-3-subtitle" = "Maacht Linken an Hannergrondtabs op, ouni Är Positioun ze verléieren.";
@@ -165,7 +169,6 @@
 "continue-button-title" = "Virufueren";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
-"create-account" = "Kont uleeën";
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
@@ -197,7 +200,6 @@
 "description-welcome-start-editing-button" = "Ufänke mat Änneren";
 "developer-settings" = "Entwécklerastellungen";
 "developer-settings-enable-year-in-review" = "Joresréckbléck aktivéieren";
-"did-you-know" = "Wousst Dir schonn?";
 "diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
 "diff-compare-header-to-info-heading" = "Gewisen Ännerung";
@@ -279,6 +281,7 @@
 "edit-summary-short-description-updated" = "Kuerzbeschreiwung aktualiséiert";
 "edit-watch-list-learn-more-text" = "Méi iwwer Är Iwwerwaachungslëscht gewuer ginn";
 "edit-watch-this-page-text" = "Dës Säit iwwerwaachen";
+"edited-article" = "Geännert";
 "editing-welcome-be-bold-title" = "Är Stëmm ass wichteg";
 "editor-edit-published" = "Är Ännerung gouf verëffentlecht.";
 "editor-edit-source" = "Quelltext änneren";
@@ -551,8 +554,8 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-page" = "Haaptsäit";
-"microsite-yir-english-edits-bytes-slide-title" = "{{PLURAL:$1|$1 Byte}} derbäigesat";
-"microsite-yir-english-top-read-slide-subtitle" = "Wann d'Leit eppes iwwer d'Welt gewuer gi wëllen, da ginn se Wikipedia. Déi 5 meeschtbesicht Artikelen op der Wikipedia op Englesch waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLiest méi an $6eisem Blogantrag$7.";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 Byte}} derbäigesat";
+"microsite-yir-english-top-read-slide-subtitle-updated" = "Wann d'Leit eppes iwwer d'Welt gewuer gi wëllen, da ginn se Wikipedia. Déi 5 meeschtbesicht Artikelen op der Wikipedia op Englesch waren:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLiest méi an $6eisem Blogantrag$7.";
 "microsite-yir-english-top-read-slide-title" = "Déi meeschtgelies Artikelen op der Wikipedia op Englesch";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
@@ -563,9 +566,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
-"new-article-tab-from-wikipedia-default" = "vu Wikipedia";
-"new-article-tab-settings-did-you-know" = "Wousst Dir schonn?";
-"new-article-tab-settings-recommendations" = "Recommandatiounen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
 "new-password-title" = "Leet Äert Passwuert fest";
 "new-tab" = "Neien Tab";
@@ -666,6 +666,7 @@
 "on-this-day-no-internet-error" = "Keng Donnéeën disponibel";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
+"open-article" = "Artikel opmaachen";
 "open-in-tab-tooltip-body" = "Haalt en Artikeltitel oder e bloe Link laang gedréckt fir en an engem neien Tab opzemaachen.";
 "open-in-tab-tooltip-title" = "An neiem Tab opmaachen";
 "page-history-bot-edits" = "Bot";
@@ -1060,10 +1061,9 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréiwung obligatoresch.";
 "wikitext-upload-save" = "Verëffentlechen...";
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
-"wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
-"year-in-review-base-edits-title" = "D'Wikipedia gouf {{PLURAL:$1|$1 Mol}} pro Minutt geännert";
-"year-in-review-base-reading-title" = "Wikipedia war a méi wéi {{PLURAL:$1|$1 Sprooch|$1 Sproochen}} disponibel";
+"year-in-review-base-edits-title-updated" = "D'Wikipedia gouf {{PLURAL:$1|$1 Mol}} pro Minutt geännert";
+"year-in-review-base-reading-title-updated" = "Wikipedia war a méi wéi {{PLURAL:$1|$1 Sprooch|$1 Sproochen}} disponibel";
 "year-in-review-button-title" = "Joresréckbléck";
 "year-in-review-collective-edits" = "Eng Illustratioun vun zwee Wikipedia-Puzzelstécker, allebéid mat engem Deel vun Informatiounen.";
 "year-in-review-contributor-gift-title" = "Neit Symbol vun der App aktivéieren";
@@ -1089,9 +1089,7 @@
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
-"year-in-review-personalized-reading-subtitle-format-v3" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
+"year-in-review-personalized-reading-subtitle-format-v3-updated" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
 "year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
 "year-in-review-share-text" = "Hei ass mäi Wikipedia-Joresréckbléck. Mat der Wikipedia-iOS-App erstallt";
 "year-in-review-survey-additional-thoughts" = "Wëllt Dir nach eppes soen?";

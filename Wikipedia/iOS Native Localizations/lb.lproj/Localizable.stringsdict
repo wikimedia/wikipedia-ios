@@ -222,7 +222,7 @@
 			<string>%1$d Zeilen net geännert</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@ derbäigesat</string>
@@ -723,7 +723,7 @@
 			<string>%1$d Byte</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>D'Wikipedia gouf %#@v1@ pro Minutt geännert</string>
@@ -737,7 +737,7 @@
 			<string>%1$d Mol</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia war a méi wéi %#@v1@ disponibel</string>
@@ -767,21 +767,7 @@
 			<string>%1$d Mol</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt d'Wikipedia %#@v1@ geännert</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d Mol</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest %#@v1@ am Joer.</string>

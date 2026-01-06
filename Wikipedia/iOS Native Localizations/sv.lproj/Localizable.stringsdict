@@ -288,7 +288,7 @@
 			<string>%1$d oredigerade rader</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Under %1$@ lade volontärer till %#@v2@ på engelskspråkiga Wikipedia. Summan av deras arbete leder tillsammans till en faktabaserad och pålitlig kunskapsresurs för omvärlden som ständigt förbättras. Alla har kunskap att dela med sig, så [läs om hur man deltar](%3$@).</string>
@@ -302,7 +302,7 @@
 			<string>%2$lld byte</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@ lades till</string>
@@ -316,7 +316,7 @@
 			<string>%1$lld byte</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Volontärer gjorde %#@v1@ på över %#@v2@ av Wikipedia. %#@v3@ gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.</string>
@@ -354,7 +354,7 @@
 			<string>%3$lld ändringar</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-title</key>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Redigerare gjorde %#@v1@ i år</string>
@@ -370,32 +370,7 @@
 			<string>%1$lld ändringar</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Folk tillbringade uppskattningsvis %#@v1@ (omkring %#@v2@!) på att läsa på engelskspråkiga Wikipedia under %3$@. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%1$lld timme</string>
-			<key>other</key>
-			<string>%1$lld timmar</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>other</key>
-			<string>%2$lld år</string>
-		</dict>
-	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Folk spenderade uppskattningsvis %#@v1@ (omkring %#@v2@!) på att läsa på engelskspråkiga Wikipedia under %3$@.</string>
@@ -420,7 +395,32 @@
 			<string>%2$lld år</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-title</key>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Folk tillbringade uppskattningsvis %#@v1@ (omkring %#@v2@!) på att läsa på engelskspråkiga Wikipedia under %3$@. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld timme</string>
+			<key>other</key>
+			<string>%1$lld timmar</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld år</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vi spenderade %#@v1@ på att läsa</string>
@@ -436,7 +436,7 @@
 			<string>%1$lld timmar</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Aktiva användare hade %#@v1@ i år. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.</string>
@@ -452,7 +452,7 @@
 			<string>%1$lld sparade läslistor</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vi hade %#@v1@</string>
@@ -1041,7 +1041,7 @@
 			<string>%1$d filter</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Redigerare i de officiella Wikipedia-apparna har gjort fler än %#@v1@</string>
@@ -1057,7 +1057,7 @@
 			<string>%1$lld redigeringar</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia redigerades %#@v1@ per minut</string>
@@ -1073,7 +1073,7 @@
 			<string>%1$d gånger</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-subtitle</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia hade %#@v1@ på över %#@v2@. Du anslöt dig till miljontals andra för att utöka kunskapen och utforska olika ämnen.</string>
@@ -1100,7 +1100,7 @@
 			<string>%2$d aktiva språk</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia gjordes tillgänglig på fler än %#@v1@</string>
@@ -1114,7 +1114,7 @@
 			<string>%1$d språk</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Appanvändare hade %#@v1@</string>
@@ -1130,7 +1130,7 @@
 			<string>%1$lld sparade artiklar</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Appanvändare besökte Wikipedia-artiklar %#@v1@</string>
@@ -1162,7 +1162,7 @@
 			<string>%1$d gånger</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Läsare runt om i världen uppskattar dina bidrag. Under de senaste två månaderna har artiklarna som du redigerade fått totalt %#@v1@. Tack vare redigerare som dig är Wikipedia en faktabaserad och pålitlig kunskapsresurs för hela världen som ständigt förbättras.</string>
@@ -1178,7 +1178,7 @@
 			<string>%1$lld visningar</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Dina redigeringar har nyligen visats mer än %#@v1@</string>
@@ -1194,7 +1194,7 @@
 			<string>%1$lld gånger</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Volontärer som dig gjorde %#@v1@ på %#@v2@ av Wikipedia.</string>
@@ -1221,7 +1221,7 @@
 			<string>%2$d olika språkutgåvor</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Du har redigerat Wikipedia %#@v1@</string>
@@ -1237,7 +1237,7 @@
 			<string>%1$d gånger</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vi uppskattar att detta placerar dig bland de **PERCENT** mest aktiva av alla Wikipedia-läsare globalt. En person läser i genomsnitt %#@v1@ per år.</string>
@@ -1253,7 +1253,7 @@
 			<string>%1$d artiklar</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Du har tillbringat %#@v1@ med att läsa %#@v2@ under %3$@</string>
@@ -1280,7 +1280,7 @@
 			<string>%2$d artiklar</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Dessa artiklar inkluderade %1$@, %2$@ och %3$@. Varje sparad artikel återspeglar dina intressen och hjälper till att bygga en personlig kunskapsbas på Wikipedia.

@@ -22,6 +22,80 @@ public actor WMFActivityTabDataController {
             self.experimentsDataController = nil
         }
     }
+    
+    // MARK: - Activity Tab Customization Toggles
+
+    public var isTimeSpentReadingOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isReadingInsightsOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isEditingInsightsOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isTimelineOfBehaviorOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+    
+    public func updateIsTimeSpentReadingOn(_ value: Bool) {
+        isTimeSpentReadingOn = value
+    }
+    
+    public func updateIsReadingInsightsOn(_ value: Bool) {
+        isReadingInsightsOn = value
+    }
+    
+    public func updateIsEditingInsightsOn(_ value: Bool) {
+        isEditingInsightsOn = value
+    }
+    
+    public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
+        isTimelineOfBehaviorOn = value
+    }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current
@@ -214,20 +288,61 @@ public actor WMFActivityTabDataController {
     }
 
     public func getTimelineItems() async throws -> [Date: [TimelineItem]] {
-        var allItems: [Date: [TimelineItem]] = [:]
-
-        let savedItems = try await fetchTimelineSavedArticles()
+        let rawSavedItems = try await fetchTimelineSavedArticles()
         let readItems = try await fetchTimelineReadArticles()
 
-        allItems.merge(savedItems) { old, new in
-            return old + new
+        let dedupedSavedItems = Self.deduplicatedSavedItems(rawSavedItems)
+
+        var allItems: [Date: [TimelineItem]] = [:]
+
+        allItems.merge(dedupedSavedItems) { old, new in
+            old + new
         }
 
         allItems.merge(readItems) { old, new in
-            return old + new
+            old + new
         }
 
         return allItems
+    }
+
+    private static func deduplicatedSavedItems(_ savedItems: [Date: [TimelineItem]]) -> [Date: [TimelineItem]] {
+
+        struct ArticleKey: Hashable {
+            let projectID: String
+            let title: String
+        }
+
+        var latestByArticle: [ArticleKey: (sectionDate: Date, item: TimelineItem)] = [:]
+
+        for (sectionDate, items) in savedItems {
+            for item in items {
+                guard item.itemType == .saved else {
+                    continue
+                }
+
+                let key = ArticleKey(
+                    projectID: item.projectID,
+                    title: item.pageTitle
+                )
+
+                if let existing = latestByArticle[key] {
+                    if item.date > existing.item.date {
+                        latestByArticle[key] = (sectionDate, item)
+                    }
+                } else {
+                    latestByArticle[key] = (sectionDate, item)
+                }
+            }
+        }
+
+        var result: [Date: [TimelineItem]] = [:]
+
+        for (sectionDate, item) in latestByArticle.values {
+            result[sectionDate, default: []].append(item)
+        }
+
+        return result
     }
 
     public func fetchTimelineSavedArticles() async throws -> [Date: [TimelineItem]] {
@@ -243,7 +358,7 @@ public actor WMFActivityTabDataController {
             let dayBucket = calendar.startOfDay(for: savedDate)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
             
-            let identifier = String(item.timestamp.timeIntervalSince1970)
+            let identifier = String("saved~\(page.projectID)~\(page.title)~\(item.timestamp.timeIntervalSince1970)")
 
             let timelineItem = TimelineItem(
                 id: identifier,
@@ -285,7 +400,7 @@ public actor WMFActivityTabDataController {
                 todaysPages = Set(existingItems.map { $0.pageTitle })
             }
             
-            let identifier = String(record.timestamp.timeIntervalSince1970)
+            let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
 
             guard !todaysPages.contains(page.title) else { continue }
 
@@ -347,6 +462,18 @@ public actor WMFActivityTabDataController {
         } catch {
             throw CustomError.unexpectedError(error)
         }
+    }
+    
+    public func getUserImpactData(userID: Int) async throws -> WMFUserImpactData {
+        
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            throw WMFDataControllerError.failureCreatingRequestURL
+        }
+        let project = WMFProject.wikipedia(primaryAppLanguage)
+        
+        let dataController = WMFUserImpactDataController.shared
+        
+        return try await dataController.fetch(userID: userID, project: project, language: primaryAppLanguage.languageCode)
     }
 
     // MARK: - Experiment

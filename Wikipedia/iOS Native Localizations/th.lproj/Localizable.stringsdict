@@ -709,7 +709,7 @@
 			<string>%1$d ไบต์</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ผู้แก้ไขบทแอปอย่างเป็นทางการของวิกิพีเดียแก้ไขรวมทั้งสิ้น %#@v1@</string>
@@ -723,7 +723,7 @@
 			<string>%1$lld ครั้ง</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>วิกิพีเดียถูกแก้ไข %#@v1@ต่อนาที</string>
@@ -737,7 +737,7 @@
 			<string>%1$d ครั้ง</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-subtitle</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>วิกิพีเดียมี %#@v1@ในกว่า %#@v2@ที่ยังเปิดให้บริการอยู่ คุณได้ร่วมกับคนอีกนับล้านเพื่อเพิ่มพูนและสำรวจหัวข้อที่หลากหลาย</string>
@@ -760,7 +760,7 @@
 			<string>%2$d ภาษา</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>วิกิพีเดียมีมากกว่า %#@v1@</string>
@@ -774,7 +774,7 @@
 			<string>%1$d ภาษา</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ผู้ใช้แอปได้บันทึกบทความไว้กว่า %#@v1@</string>
@@ -788,7 +788,7 @@
 			<string>%1$lld รายการ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ผู้ใช้แอปอ่านบทความวิกิพีเดีย %#@v1@</string>
@@ -816,7 +816,7 @@
 			<string>%1$d ครั้ง</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ผู้อ่านทั่วโลกต่างซาบซึ้งในผลงานของคุณ ในช่วง 2 เดือนที่ผ่านมา บทความที่คุณแก้ไขถูกอ่านไป %#@v1@ ผู้แก้ไขเช่นคุณช่วยให้วิกิพีเดียมีการปรับปรุง ตรวจสอบความถูกต้อง และเป็นแหล่งความรู้ที่เชื่อถือได้ ต้องขอบคุณคุณจริง ๆ</string>
@@ -830,7 +830,7 @@
 			<string> %1$lld ครั้ง</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ไม่นานมานี้การแก้ไขของคุณถูกเห็นแล้ว %#@v1@</string>
@@ -844,7 +844,7 @@
 			<string>%1$lld ครั้ง</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>อาสาสมัครเช่นคุณได้แก้ไข %#@v1@ในกว่า %#@v2@ของวิกิพีเดีย</string>
@@ -867,7 +867,7 @@
 			<string>%2$d ภาษา</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>คุณแก้ไขไปทั้งสิ้น %#@v1@</string>
@@ -881,7 +881,7 @@
 			<string>%1$d ครั้ง</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>เราประมาณได้ว่าคุณใช้เวลาอ่านวิกิพีเดียใน **PERCENT** แรกของผู้อ่านทั่วโลก โดยประมาณแล้วแต่ละคนมักอ่านราว %#@v1@ต่อปี</string>
@@ -895,7 +895,7 @@
 			<string>%1$d บทความ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>คุณใช้เวลาไป%#@v1@ เพื่ออ่าน %#@v2@ในปี %3$@</string>
@@ -918,7 +918,7 @@
 			<string>%2$d บทความ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ซึ่งรวมถึงบทความ %1$@, %2$@, และ %3$@ บทความที่คุณบันทึกไว้แสดงถึงความสนใจและช่วยสร้างฐานความรู้ส่วนตัวบนวิกิพีเดีย

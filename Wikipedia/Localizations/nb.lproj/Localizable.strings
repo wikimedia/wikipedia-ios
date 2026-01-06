@@ -22,6 +22,7 @@
 // Author: Telaneo
 // Author: Tsaetre
 // Author: Tsevener
+// Author: Yupik
 
 "about-content-license" = "Innholdslisens";
 "about-content-license-details" = "Om ikke annet er angitt, er innhold tilgjengelig under $1.";
@@ -96,12 +97,13 @@
 "activity-tab-add-images-subtitle" = "Legg til foreslåtte bilder i Wikipedia-artikler for å gjøre dem enklere å forstå.";
 "activity-tab-add-images-title" = "Legg til bilder";
 "activity-tab-generic-no-edits" = "Du har ikke redigert denne uka. Begynn nå for å spore bidragene dine.";
-// Fuzzy
-"activity-tab-logged-out-subtitle" = "Spor hva du har lest, og vis bidragene dine over tid på en ny måte";
-// Fuzzy
-"activity-tab-logged-out-title" = "Logg inn eller opprett en konto for å se mer redigerings- og leseaktivitet.";
+"activity-tab-logged-out-subtitle" = "Logg inn eller opprett en konto for å se aktiviteten din i Wikipedia-appen.";
+"activity-tab-logged-out-title" = "Se mer lese- og redigeringsinnsikter";
 "activity-tab-no-edits-title" = "Du har ikke redigert denne uka. Legg til bilder for å gjøre artikler enklere å forstå.";
 "activity-tab-read-title" = "Vis lesehistorikk";
+"activity-tab-view-editing-history" = "Vis redigeringshistorikk";
+"activity-tab-view-reading-history" = "Vis lesehistorikk";
+"activity-tab-view-saved-articles" = "Se lagrede artikler";
 "add-articles-to-reading-list" = "Legg til {{PLURAL:$1|$1 artikkel|$1 artikler}} i leselisten";
 "advanced-settings-title" = "Avanserte innstillinger";
 "announcements-dismiss" = "Lukk";
@@ -636,6 +638,7 @@
 "insert-media-title" = "Sett inn media";
 "inuktitut-variants-alert-body" = "Wikipedia-appen støtter nå følgende inuktitut-varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut med stavelsesskrift (ike-cans)\nInuktitut ilisautik, inuktitut med latinsk skrift (ike-latn)";
 "inuktitut-variants-alert-title" = "Oppdateringer i støtte for inkutitut-varianter";
+"ip-account-cta-top" = "Logg inn eller opprett konto";
 "kazakh-variants-alert-body" = "Wikipedia-appen støtter nå følgende kasakhiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nҚазақша kasakhisk (kk)\nҚазақша Кирил kyrillisk kasakhisk (kk-cyrl)\nqazaqşa latin latinsk kasakhisk (kk-latn)\nتوتە قازاقشا arabisk kasakhisk (kk-arab)";
 "kazakh-variants-alert-title" = "Oppdateringer i støtte for kasakhiske varianter";
 "kurdish-variants-alert-body" = "Wikipedia-appen støtter nå følgende kurdiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nKurdî Latînî latinsk kurdisk (ku-latn)\nكوردی arabisk kurdisk (kk-arab)";
@@ -820,8 +823,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
-// Fuzzy
-"page-history-bot-edits" = "botredigeringer";
+"page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Trykk for å velge to revisjoner å sammenligne";
 "page-history-compare-title" = "Sammenlign";
 "page-history-graph-accessibility-label" = "Graf over redigeringer over tid";
@@ -1027,8 +1029,7 @@
 "serbian-variants-alert-body" = "Wikipedia-appen støtter nå følgende serbiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nсрпски ћирилица kyrillisk serbisk (sr-ec)\nsrpski latinica Serbian, latinsk serbisk (sr-el)";
 "serbian-variants-alert-title" = "Oppdateringer i støtte for serbiske varianter";
 "settings-account" = "Konto";
-// Fuzzy
-"settings-appearance" = "Leseinnstillinger";
+"settings-appearance" = "Appdrakt";
 "settings-clear-cache" = "Tøm mellomlager";
 "settings-clear-cache-are-you-sure-message" = "Ved å tømme mellomlageret frigjør du rundt $1 med plass. Eventuelle lagrede sider vil ikke bli fjernet.";
 "settings-clear-cache-are-you-sure-title" = "Tøm mellomlager?";
@@ -1170,6 +1171,7 @@
 "talk-pages-user-groups" = "Brukergrupper";
 "talk-pages-user-logs" = "Logger";
 "talk-pages-view-title" = "Diskusjon";
+"temp-account-edit-sheet-cta-top" = "Logg inn eller opprett konto";
 "terms-of-use-title" = "Bruksvilkår";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mørk";
@@ -1304,6 +1306,5 @@
 "wikitext-upload-save" = "Publiserer...";
 "wikitext-upload-save-anonymously-or-login" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 logger inn$2 vil du få bedre personvern.";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
-"wikitext-upload-save-sign-in" = "Logg inn";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ved å publisere endringene samtykker du i $1bruksvilkårene$2, og samtykker i å ugjenkallelig utgi bidraget ditt under lisensene $3CC BY-SA 4.0$4 og $5GFDL$6. Du samtykker til at en hyperlenke eller URL er tilstrekkelig attribuering under Creative Commons-lisensen.";
 "wikitext-upload-save-terms-name" = "bruksvilkårene";

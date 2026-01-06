@@ -20,7 +20,6 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
     case articleTabsDidShowSurveyBandC = "article-tabs-did-show-survey-b-and-c"
-    case developerSettingsMoreDynamicTabsV2GroupB = "more-dynamic-tabs-group-b-v2"
     case developerSettingsMoreDynamicTabsV2GroupC = "more-dynamic-tabs-group-c-v2"
     case developerSettingsShowYiRV3 = "dev-settings-yir-show-v3"
     case developerSettingsYiRV3LoginExperimentControl = "dev-settings-yir-login-experiment-control"
@@ -37,4 +36,8 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsForceActivityTabControl = "developer-settings-force-activity-tab-control"
     case developerSettingsForceActivityTabExperiment = "developer-settings-force-activity-tab-experiment"
     case activityTabVisitCount = "activity-tab-visit-count"
+    case activityTabIsTimeSpentReadingOn = "activity-tab-time-spent-reading"
+    case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
+    case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
+    case activityTabIsTimelineOfBehaviorOn = "activity-tab-timeline-of-behavior"
 }

@@ -194,6 +194,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         super.viewDidAppear(animated)
         
         ArticleTabsFunnel.shared.logIconImpression(interface: .history, project: nil)
+        ActivityTabFunnel.shared.logHistoryImpression()
     }
 
     // MARK: - Methods
@@ -246,6 +247,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     }
 
     func tappedArticle(_ item: HistoryItem) {
+        ActivityTabFunnel.shared.logHistoryArticleClick()
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
             articleCoordinator.start()
