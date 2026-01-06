@@ -257,10 +257,6 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         addTransactionFeeSelectionListener()
     }
     
-    deinit {
-        print("WMFDonateViewModel dinit")
-    }
-    
     // MARK: - Internal
     
     var accessibilityDonateButtonHint: String? {

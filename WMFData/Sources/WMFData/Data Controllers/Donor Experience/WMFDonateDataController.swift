@@ -232,8 +232,15 @@ import Contacts
         let request = WMFBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
         service?.performDecodablePOST(request: request, completion: { (result: Result<WMFPaymentSubmissionResponse, Error>) in
             switch result {
-            case .success:
-                completion(.success(()))
+            case .success(let response):
+                switch response.response.status.lowercased() {
+                case "success":
+                    completion(.success(()))
+                case "error":
+                    completion(.failure(WMFDonateDataControllerError.paymentsWikiResponseError(reason: response.response.errorMessage, orderID: response.response.orderID)))
+                default:
+                    completion(.failure(WMFServiceError.unexpectedResponse))
+                }
                 return
             case .failure(let error):
                 completion(.failure(error))
