@@ -38,10 +38,9 @@ public struct WMFActivityTabView: View {
 
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
-            if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {
+            if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn || viewModel.customizeViewModel.isEditingInsightsOn {
                 Section {
                     VStack(spacing: 16) {
-                        
                         if viewModel.customizeViewModel.isTimeSpentReadingOn {
                             headerView
                                 .accessibilityElement()
