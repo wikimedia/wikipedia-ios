@@ -135,6 +135,7 @@ import WMFData
         case imageRecommendation = "android.image_recommendation_event"
         case articleLinkInteraction = "ios.article_link_interaction"
         case appTabsInteraction = "app_tabs_interaction"
+        case appActivityTab = "app_activity_tab"
     }
     
     /**
@@ -155,8 +156,8 @@ import WMFData
         case search = "/analytics/mobile_apps/ios_search/2.3.1"
         case sessions = "/analytics/mobile_apps/app_session/1.1.0"
         case settings = "/analytics/mobile_apps/ios_setting_action/1.1.0"
-        case login = "/analytics/mobile_apps/ios_login_action/1.1.1"
-        case navigation = "/analytics/mobile_apps/ios_navigation_events/1.1.0"
+        case login = "/analytics/mobile_apps/ios_login_action/1.1.2"
+        case navigation = "/analytics/mobile_apps/ios_navigation_events/1.1.1"
         case editAttempt = "/analytics/legacy/editattemptstep/2.0.3"
         case watchlist = "/analytics/mobile_apps/ios_watchlists/4.1.0"
         case appInteraction = "/analytics/mobile_apps/app_interaction/1.1.0"

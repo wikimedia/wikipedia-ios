@@ -31,7 +31,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         format = viewModel.localizedStrings.navBarTitleFormat
         viewModel.updateNavigationBarTitleAction = { [weak self] numTabs in
             let newNavigationBarTitle = String.localizedStringWithFormat(self?.format ?? "", numTabs)
-            self?.configureNavigationBar(newNavigationBarTitle)
+            self?.configureNavigationBar(newNavigationBarTitle.lowercased())
         }
     }
     
@@ -45,7 +45,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         configureNavigationBar()
         
         if dataController.shouldShowMoreDynamicTabsV2 {
-            navigationItem.rightBarButtonItems = [overflowButton, addTabButton]
+            navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
         } else {
             navigationItem.rightBarButtonItem = addTabButton
         }
@@ -89,35 +89,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             }
         })
         
-        let hideArticleSuggestions = UIAction(title: viewModel.localizedStrings.hideSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eyeSlash), handler: { [weak self] _ in
-            guard let self else { return }
-            self.dataController.userHasHiddenArticleSuggestionsTabs = true
-            self.overflowButton.menu = self.overflowMenu
-            viewModel.didToggleSuggestedArticles()
-            viewModel.refreshShouldShowSuggestionsFromDataController()
-            viewModel.loggingDelegate?.logArticleTabsOverviewTappedHideSuggestions()
-        })
-        
-        let showArticleSuggestions = UIAction(title: viewModel.localizedStrings.showSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eye), handler: { [weak self] _ in
-            guard let self else { return }
-            self.dataController.userHasHiddenArticleSuggestionsTabs = false
-            self.overflowButton.menu = self.overflowMenu
-            viewModel.didToggleSuggestedArticles()
-            viewModel.refreshShouldShowSuggestionsFromDataController()
-            viewModel.loggingDelegate?.logArticleTabsOverviewTappedShowSuggestions()
-        })
-        
-        var children: [UIMenuElement]
-        if dataController.shouldShowMoreDynamicTabsV2 {
-            if dataController.userHasHiddenArticleSuggestionsTabs {
-                children = [showArticleSuggestions, closeAllTabs]
-            } else {
-                children = [hideArticleSuggestions, closeAllTabs]
-            }
-        } else {
-            children = [closeAllTabs]
-        }
-        let mainMenu = UIMenu(title: String(), children: children)
+        let mainMenu = UIMenu(title: String(), children: [closeAllTabs])
 
         return mainMenu
     }

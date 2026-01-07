@@ -249,7 +249,7 @@ extension RemoteNotificationsFilterState.ReadStatus {
         case .unread:
             return WMFLocalizedString("notifications-center-filters-read-status-item-title-unread", value: "Unread", comment: "Title of Unread option in the read status section of the notifications center filter view. Selecting this only displays unread notifications in the notifications center.")
         case .read:
-            return WMFLocalizedString("notifications-center-filters-read-status-item-title-read", value: "Read", comment: "Title of Read option in the read status section of the notifications center filter view. Selecting this only displays read notifications in the notifications center.")
+            return CommonStrings.readString
         }
     }
 }

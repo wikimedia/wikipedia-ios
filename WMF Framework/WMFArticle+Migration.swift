@@ -49,7 +49,7 @@ import CocoaLumberjackSwift
     }
 
     public func shouldRunMigration() -> Bool {
-        return WMFActivityTabDataController.activityAssignmentForObjC() == 1
+        return WMFActivityTabDataController.activityAssignmentForObjC() == .activityTab
     }
 
     // MARK: - Migration
@@ -131,7 +131,10 @@ import CocoaLumberjackSwift
 
     @MainActor
     @objc private func migrateSyncedArticles(withURLs urls: [URL]) {
-        guard !urls.isEmpty else { return }
+        
+        let dedupedURLs = Array(Set(urls))
+        
+        guard !dedupedURLs.isEmpty else { return }
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
             DDLogError("[SavedPagesMirror] Missing WMFData store")
             return
@@ -144,9 +147,9 @@ import CocoaLumberjackSwift
                     wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
                     var localSnaps: [SavedArticleSnapshot] = []
-                    localSnaps.reserveCapacity(urls.count)
+                    localSnaps.reserveCapacity(dedupedURLs.count)
 
-                    for url in urls {
+                    for url in dedupedURLs {
                         autoreleasepool {
                             guard let ids = Self.getPageIDs(from: url) else {
                                 DDLogWarn("[Mirror] Skipping URL (cannot derive PageIDs): \(url.absoluteString)")

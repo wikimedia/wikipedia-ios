@@ -112,6 +112,7 @@ public enum WMFSFSymbolIcon {
     case textPage
     case leave
     case gear
+    case gearShape
     case calendar
     case share
     case infoCircleFill
@@ -126,6 +127,8 @@ public enum WMFSFSymbolIcon {
     case rectangle3
     case clockBadgeX
     case bubbleRightFill
+    case globeAmericas
+    case lineDiagonalArrow
 
     public var name: String? {
         switch self {
@@ -282,6 +285,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .gearShape:
+            image = UIImage(systemName: "gearshape", withConfiguration: configuration)
         case .heartFilled:
             image = UIImage(systemName: "heart.fill", withConfiguration: configuration)
         case .calendar:
@@ -315,6 +320,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "text.page", withConfiguration: configuration)
         case .bubbleRightFill:
             image = UIImage(systemName: "bubble.right.fill", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
+        case .globeAmericas:
+            image = UIImage(systemName: "globe.americas.fill", withConfiguration: configuration)
+        case .lineDiagonalArrow:
+            image = UIImage(systemName: "line.diagonal.arrow", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
@@ -325,5 +334,4 @@ public enum WMFSFSymbolIcon {
         
         return image
     }
-
 }

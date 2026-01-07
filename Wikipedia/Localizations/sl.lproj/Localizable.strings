@@ -228,6 +228,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dvakrat tapnite, da omogočite samodejne mesečne donacije tega zneska.";
 "donate-accessibility-textfield-hint" = "Vnesite znesek po meri za donacijo.";
 "donate-accessibility-transaction-fee-hint" = "Dvakrat tapnite, da znesku donacije dodate provizijo za transakcijo.";
+// Fuzzy
 "donate-already-donated" = "Hvala, spoštovani donator! Vaša velikodušnost pomaga ohranjati uspeh Wikipedije in njenih sorodnih spletišč.";
 "donate-apple-fine-print" = "Apple ni zadolžen za zbiranje denarja v ta namen.";
 "donate-email-opt-in-text" = "Da, Fundacija Wikimedia mi lahko občasno pošlje e-pošto.";
@@ -1233,7 +1234,6 @@
 "wikitext-upload-save" = "Objavljanje ...";
 "wikitext-upload-save-anonymously-or-login" = "Urejanja bodo pripisana IP-naslovu vaše naprave. Več zasebnosti boste imeli, če se boste $1prijavili$2.";
 "wikitext-upload-save-anonymously-warning" = "Urejanja bodo pripisana naslovu IP-naslovu vaše naprave. Če boste izbrali $1, boste imeli več zasebnosti.";
-"wikitext-upload-save-sign-in" = "Prijava";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Z objavo sprememb izražate strinjanje s $1Pogoji uporabe$2 ter svoj prispevek nepreklicno objavljate pod licencama $3CC BY-SA.0$4 in $5GDFL$6. Strinjate se, da kot navedba avtorja pod licenco Creative Commons zadostuje hiperpovezava ali URL.";
 "wikitext-upload-save-terms-name" = "Pogoji uporabe";
 "year-in-review-donate" = "Doniraj";

@@ -270,7 +270,7 @@
 			<string>%1$d düzenlenmemiş çizgi</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%1$@ tarihinde gönüllüler İngilizce Vikipedi'ye %#@v2@ ekledi. Tüm çalışmalarının toplamı, dünyaya sundukları, sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağına dönüşüyor. Hepimizin paylaşacak bilgisi var, [nasıl katılacağını bilgi edinin](%3$@).</string>
@@ -284,7 +284,7 @@
 			<string>%2$lld bayt</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@ eklendi</string>
@@ -298,7 +298,7 @@
 			<string>%1$lld bayt</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Gönüllüler, Vikipedi'nin %#@v2@ %#@v1@ yaptı. İngilizce Vikipedi'de %#@v3@ yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.</string>
@@ -330,7 +330,7 @@
 			<string>%3$lld değişiklik</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-title</key>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Düzenleyiciler bu yıl %#@v1@ yaptı</string>
@@ -344,30 +344,7 @@
 			<string>%1$lld değişiklik</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>İnsanlar %3$@ yılında yaklaşık %#@v1@ -yaklaşık %#@v2@!- İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak ya da meraklı bir çocuğun sorusunu yanıtlamak istediğinizde Vikipedi yanınızda.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>other</key>
-			<string>%1$lld saati</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>other</key>
-			<string>%2$lld yıl</string>
-		</dict>
-	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>İnsanlar %3$@ yılında %#@v1@ -yaklaşık %#@v2@!- İngilizce Vikipedi'yi okuyarak geçirdiler.</string>
@@ -390,7 +367,30 @@
 			<string>%2$lld yıl</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-title</key>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>İnsanlar %3$@ yılında yaklaşık %#@v1@ -yaklaşık %#@v2@!- İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak ya da meraklı bir çocuğun sorusunu yanıtlamak istediğinizde Vikipedi yanınızda.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld saati</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%2$lld yıl</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Okumaya %#@v1@ harcadık</string>
@@ -404,7 +404,7 @@
 			<string>%1$lld saat</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Bu yıl, etkin uygulama kullanıcılarının %#@v1@ vardı. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.</string>
@@ -418,7 +418,7 @@
 			<string>%1$lld saklanan maddesi</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@ oldu</string>
@@ -976,7 +976,7 @@
 			<string>%1$d süzgeci</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Resmi Vikipedi uygulamasındaki düzenleyiciler %#@v1@ yaptı</string>
@@ -990,7 +990,7 @@
 			<string>%1$lld düzenleme</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vikipedi dakikada %#@v1@ düzenlendi</string>
@@ -1004,7 +1004,7 @@
 			<string>%1$d kez</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-subtitle</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vikipedi'de %#@v2@ %#@v1@ vardı. Bilgiyi genişletmek ve çeşitli konuları keşfetmek için milyonlara katıldınız.</string>
@@ -1027,7 +1027,7 @@
 			<string>%2$d etkin dilde</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vikipedi %#@v1@ vardır</string>
@@ -1041,7 +1041,7 @@
 			<string>%1$d ve daha fazla dilde</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Uygulama kullanıcılarının %#@v1@ vardı</string>
@@ -1055,7 +1055,7 @@
 			<string>%1$lld saklanan maddesi</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Uygulama kullanıcıları Vikipedi maddelerini %#@v1@ görüntüledi</string>
@@ -1083,7 +1083,7 @@
 			<string>%1$d kez</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Dünya çapındaki okuyucular katkılarınızı takdir ediyor. Son 2 ayda düzenlediğiniz maddeler %#@v1@ aldı. Sizin gibi düzenleyiciler sayesinde Vikipedi; dünya için sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağıdır.</string>
@@ -1099,7 +1099,7 @@
 			<string>toplam %1$lld görüntüleme</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Düzenlemeleriniz son zamanlarda %#@v1@ görüntülendi</string>
@@ -1115,7 +1115,7 @@
 			<string>%1$lld ve daha fazla kez</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Sizin gibi gönüllüler, Vikipedi'nin %#@v2@ %#@v1@ yaptı.</string>
@@ -1138,7 +1138,7 @@
 			<string>%2$d ve daha fazla farklı dil sürümünde</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@ değişiklik yaptınız</string>
@@ -1152,7 +1152,7 @@
 			<string>%1$d kez</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Bunun, sizi küresel Vikipedi okuyucularının en üst **PERCENT** arasına soktuğunu tahmin ediyoruz. Ortalama bir kişi yılda %#@v1@ okur.</string>
@@ -1166,7 +1166,7 @@
 			<string>%1$d madde</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%3$@ yılında %#@v2@ okuyarak %#@v1@ geçirdiniz</string>
@@ -1189,7 +1189,7 @@
 			<string>%2$d madde</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Bu maddelerden bir kaçı: %1$@, %2$@ ve %3$@. Saklanan her madde ilgi alanlarınızı yansıtır ve Vikipedi'de kişiselleştirilmiş bir bilgi tabanı oluşturmanıza yardımcı olur.

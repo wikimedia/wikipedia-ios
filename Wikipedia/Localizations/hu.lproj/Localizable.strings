@@ -99,7 +99,6 @@
 "activity-tab-satisfied" = "Elégedett";
 "activity-tab-saved" = "Ebben a hónapban elmentett szócikkek";
 "activity-tab-start-editing" = "Szerkesztés elkezdése";
-"activity-tab-survey" = "Elégedett vagy az „Tevékenység” képernyőddel? Mit szeretnél még látni itt a jövőben?";
 "activity-tab-survey-title" = "Elégedettségi felmérés";
 "activity-tab-time-spent-reading" = "Ezen a héten olvasással töltött idő";
 "activity-tab-title" = "Tevékenység";
@@ -141,7 +140,6 @@
 "article-save-error-not-enough-space" = "Nincs elég hely az eszközön a szócikk mentéséhez";
 "article-share" = "Megosztás";
 "article-tabs-button-accessibility-label" = "Szócikk lapok";
-"article-tabs-did-you-know-title" = "Tudtad-e";
 "article-tabs-feature-announcement-item-1-title" = "Böngéssz lapokkal";
 "article-tabs-feature-announcement-item-2-subtitle" = "A lapok megjegyzik meddig görgettél.";
 "article-tabs-feature-announcement-item-2-title" = "Folytasd ott, ahol abbahagytad";
@@ -224,7 +222,6 @@
 "description-welcome-promise-title" = "Mielőtt nekifognék, megígérem, hogy nem élek vissza ezzel a funkcióval";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
 "developer-settings" = "Fejlesztői beállítások";
-"did-you-know" = "Tudtad-e?";
 "diff-compare-header-from-info-heading" = "Előző szerkesztés";
 "diff-compare-header-heading" = "Változatok összehasonlítása";
 "diff-compare-header-to-info-heading" = "Megjelenített szerkesztés";
@@ -552,9 +549,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mérföld";
-"new-article-tab-from-wikipedia-default" = "A Wikipédiából";
-"new-article-tab-settings-did-you-know" = "Tudtad-e?";
-"new-article-tab-settings-recommendations" = "Ajánlások";
 "new-password-instructions" = "Ideiglenes jelszóval jelentkeztél be. A bejelentkezés befejezéséhez állíts be itt egy új jelszót.";
 "new-password-title" = "Jelszó beállítása";
 "new-tab" = "Új lap";
@@ -839,7 +833,6 @@
 "table-of-contents-subheading-label" = "Alcím $1";
 "tabs-close-tab" = "Lap bezárása";
 "tabs-open-tab" = "Lap megnyitása";
-"tabs-overview-recommendations-title" = "A legutóbbi lapjaid alapján";
 "tabs-title" = "Lapok";
 "tajik-variants-alert-title" = "A tadzsik nyelvi változat támogatásának frissítése";
 "talk-page-discussion-read-accessibility-label" = "Olvasott";
@@ -959,7 +952,6 @@
 "wikitext-upload-save" = "Közzététel…";
 "wikitext-upload-save-anonymously-or-login" = "A szerkesztéseid az eszközöd IP-címéhez lesznek társítva. Ha $1bejelentkezel$2, nagyobb adatvédelmet élvezhetsz.";
 "wikitext-upload-save-anonymously-warning" = "A szerkesztéseid az eszközöd IP-címéhez lesznek társítva. A $1 nagyobb adatvédelmet biztosít.";
-"wikitext-upload-save-sign-in" = "Bejelentkezés";
 "wikitext-upload-save-terms-name" = "Felhasználási feltételek";
 "year-in-review-donate" = "Adományozás";
 "year-in-review-donate-now" = "Adományozz most";

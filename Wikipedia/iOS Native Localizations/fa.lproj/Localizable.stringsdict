@@ -757,7 +757,7 @@
 			<string>%1$d پالایه</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>ویکی‌پدیا در بیش از %#@v1@ در دسترس بوده است</string>
@@ -771,7 +771,7 @@
 			<string>%1$d زبان</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>شما %#@v1@ ویرایش انجام داده‌اید</string>

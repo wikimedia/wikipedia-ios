@@ -26,22 +26,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     @Published var shouldShowCloseButton: Bool
     @Published public var hasMultipleTabs: Bool = false
-
-    @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
-    @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel? {
-        didSet {
-            recLoaded = recommendedArticlesViewModel != nil
-        }
-    }
-    @Published var recLoaded: Bool = false
-
-    @Published public var loadDidYouKnowViewModel: (@MainActor () async -> WMFTabsOverviewDidYouKnowViewModel?)?
-    @Published public var loadRecommendationsViewModel: (@MainActor () async -> WMFTabsOverviewRecommendationsViewModel?)?
-
-    // Flags to prevent the loading tasks run more than once, since we call them in two spots
-    @MainActor private var startedDYK = false
-    @MainActor private var startedRecs = false
-
     @Published var currentTabID: String?
 
     let shouldShowCurrentTabBorder: Bool
@@ -187,27 +171,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
 
-    @MainActor
-    func maybeStartSecondaryLoads() {
-        updateHasMultipleTabs()
-        if hasMultipleTabs {
-            guard !startedRecs else { return }
-            startedRecs = true
-            Task { [weak self] in
-                guard let self, let loader = self.loadRecommendationsViewModel,
-                      self.recommendedArticlesViewModel == nil else { return }
-                self.recommendedArticlesViewModel = await loader()
-            }
-        } else {
-            guard !startedDYK else { return }
-            startedDYK = true
-            Task { [weak self] in
-                guard let self, let loader = self.loadDidYouKnowViewModel,
-                      self.didYouKnowViewModel == nil else { return }
-                self.didYouKnowViewModel = await loader()
-            }
-        }
-    }
     // MARK: - Public funcs
     
     @MainActor
@@ -301,11 +264,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
                     articleTabs.removeAll { $0 == tab }
                     updateHasMultipleTabs()
-                    maybeStartSecondaryLoads()
                     if dataController.shouldShowMoreDynamicTabsV2 {
                         shouldShowCloseButton = true
-                    } else {
-                        shouldShowCloseButton = articleTabs.count > 1
                     }
                     await refreshCurrentTab()
                     updateNavigationBarTitleAction?(articleTabs.count)
@@ -389,7 +349,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             for input in inputs {
                 group.addTask {
                     do {
-                        let dc = WMFArticleSummaryDataController()
+                        let dc = WMFArticleSummaryDataController.shared
                         let summary = try await dc.fetchArticleSummary(project: input.project, title: input.title)
 
                         let subtitle = input.isMain ? mainSubtitle     : summary.description
@@ -435,7 +395,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             guard let self else { return }
             defer { Task { @MainActor in self.incomingTabIDs.remove(tab.id) } }
             do {
-                let dc = WMFArticleSummaryDataController()
+                let dc = WMFArticleSummaryDataController.shared
                 let summary = try await dc.fetchArticleSummary(project: last.project, title: last.title)
                 let subtitle = last.isMain ? self.localizedStrings.mainPageSubtitle : summary.description
                 let snippet = last.isMain ? self.localizedStrings.mainPageDescription : summary.extract
