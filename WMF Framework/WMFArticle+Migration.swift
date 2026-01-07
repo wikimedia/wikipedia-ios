@@ -142,19 +142,21 @@ import CocoaLumberjackSwift
                 localSnaps.reserveCapacity(articles.count)
 
                 for article in articles {
-                    guard let savedDate = article.savedDate,
-                          let url = article.url,
-                          let ids = Self.getPageIDs(from: url)
-                    else { continue }
-
-                    localSnaps.append(
-                        SavedArticleSnapshot(
-                            ids: ids,
-                            savedDate: savedDate,
-                            viewedDate: article.viewedDate
+                    autoreleasepool {
+                        guard let savedDate = article.savedDate,
+                              let url = article.url,
+                              let ids = Self.getPageIDs(from: url)
+                        else { return }
+                        
+                        localSnaps.append(
+                            SavedArticleSnapshot(
+                                ids: ids,
+                                savedDate: savedDate,
+                                viewedDate: article.viewedDate
+                            )
                         )
-                    )
-                    article.isSavedMigrated = true
+                        article.isSavedMigrated = true
+                    }
                 }
 
                 if wikipediaContext.hasChanges {
@@ -179,11 +181,17 @@ import CocoaLumberjackSwift
         do {
             try await wmfContext.perform {
                 for snap in snapshots {
-                    try Self.applySavedStateOnWMFContext(
-                        snapshot: snap,
-                        in: wmfContext,
-                        wmfDataStore: wmfDataStore
-                    )
+                    autoreleasepool {
+                        do {
+                            try Self.applySavedStateOnWMFContext(
+                                snapshot: snap,
+                                in: wmfContext,
+                                wmfDataStore: wmfDataStore
+                            )
+                        } catch {
+                            DDLogError("[SavedPagesMigration] Failed to apply saved state: \(error)")
+                        }
+                    }
                 }
                 if wmfContext.hasChanges { try wmfContext.save() }
             }
