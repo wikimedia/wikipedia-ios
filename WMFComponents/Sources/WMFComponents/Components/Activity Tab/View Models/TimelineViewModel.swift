@@ -25,42 +25,91 @@ public final class TimelineViewModel: ObservableObject {
 
     public var onTapArticle: ((TimelineItem) -> Void)?
 
-    public init(dataController: WMFActivityTabDataController) {
+    /// Optional user info for fetching edits
+    private var username: String?
+    private var project: WMFProject?
+
+    public init(dataController: WMFActivityTabDataController, username: String? = nil, project: WMFProject? = nil) {
         self.dataController = dataController
+        self.username = username
+        self.project = project
+    }
+
+    public func setUser(username: String) {
+        self.username = username
+    }
+    
+    public func setProject(project: WMFProject) {
+        self.project = project
     }
 
     public func fetch() async {
         do {
             let result = try await dataController.getTimelineItems()
-            
             var sections = [TimelineSection]()
+
+            // Fetch edits if user is logged in
+            var editItems: [TimelineItem] = []
+            editItems = await fetchEditedArticles()
             
+            // Combine timeline result with edits
+            var combinedResult = result
+            for editItem in editItems {
+                let day = Calendar.current.startOfDay(for: editItem.date)
+                combinedResult[day, default: []].append(editItem)
+            }
+
             // Business rule: if there are no items, we still want a section that says "Today"
             // https://phabricator.wikimedia.org/T409200
-            if result.isEmpty {
+            if combinedResult.isEmpty {
                 sections.append(TimelineSection(date: Date(), items: []))
             } else {
-                for (key, value) in result {
-                    
+                for (key, value) in combinedResult {
                     var filteredValues = value
-                    
+
                     // If user is logged out, only show viewed items
                     if let activityTabViewModel, activityTabViewModel.authenticationState != .loggedIn {
                         filteredValues = value.filter { $0.itemType != .edit && $0.itemType != .saved }
                     }
-                    
+
                     let sortedFilteredValues = filteredValues.sorted { $0.date > $1.date }
-                    
                     if !sortedFilteredValues.isEmpty {
                         sections.append(TimelineSection(date: key, items: sortedFilteredValues))
                     }
                 }
             }
-            
+
             let sortedSections = sections.sorted { $0.date > $1.date }
             self.activityTabViewModel?.sections = sortedSections
         } catch {
             debugPrint("error fetching timeline: \(error)")
+        }
+    }
+
+    func fetchEditedArticles() async -> [TimelineItem] {
+        guard let username, let project else { return [] }
+
+        do {
+            let edits = try await UserContributionsDataController.shared.fetchRecentArticleEdits(
+                username: username,
+                project: project
+            )
+
+            return edits.map { edit in
+                TimelineItem(
+                    id: "edit~\(edit.projectID)~\(edit.title)~\(edit.timestamp.timeIntervalSince1970)",
+                    date: edit.timestamp,
+                    titleHtml: edit.title,
+                    projectID: edit.projectID,
+                    pageTitle: edit.title,
+                    url: edit.articleURL,
+                    namespaceID: 0,
+                    itemType: .edit
+                )
+            }
+        } catch {
+            debugPrint("Failed to fetch user edits: \(error)")
+            return []
         }
     }
 

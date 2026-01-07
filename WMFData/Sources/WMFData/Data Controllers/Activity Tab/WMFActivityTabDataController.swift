@@ -165,6 +165,20 @@ public actor WMFActivityTabDataController {
         }
     }
     
+    public func fetchRecentArticleEditsForActivityTab(username: String) async throws -> [UserArticleEdit] {
+
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            throw CustomError.missingLanguage
+        }
+
+        let project = WMFProject.wikipedia(appLanguage)
+
+        return try await UserContributionsDataController.shared.fetchRecentArticleEdits(
+            username: username,
+            project: project
+        )
+    }
+    
     public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false

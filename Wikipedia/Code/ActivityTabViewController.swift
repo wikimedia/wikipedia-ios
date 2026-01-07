@@ -106,6 +106,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
+            viewModel.timelineViewModel.setUser(username: username)
         }
     }
 
@@ -191,6 +192,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
+            viewModel.timelineViewModel.setUser(username: username)
         }
 
         viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
@@ -515,7 +517,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
         }
     }
-
 }
 
 // MARK: - Extensions

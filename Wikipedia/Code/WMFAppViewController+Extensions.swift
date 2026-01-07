@@ -1023,6 +1023,8 @@ extension WMFAppViewController {
             viewModel: viewModel,
             dataController: activityTabDataController
         )
+        
+        // todo grey viewModel.timelineViewModel.setProject(project: project)
 
         return controller
     }

@@ -550,7 +550,7 @@ struct TimelineRowView: View {
             contextMenuOpenText: activityViewModel.localizedStrings.openArticle,
             deleteItemAction: deleteItemAction,
             deleteAccessibilityLabel: activityViewModel.localizedStrings.deleteAccessibilityLabel,
-            bottomButtonTitle: item.itemType == .edit ? "title" : nil,
+            bottomButtonTitle: item.itemType == .edit ? "view changes" : nil,
             bottomButtonAction: item.itemType == .edit ? {
                 // todo grey
                 print("ah")
