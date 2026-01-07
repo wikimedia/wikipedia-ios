@@ -127,6 +127,7 @@ import CocoaLumberjackSwift
         } catch {
             DDLogError("WMFData saved-article migration error: \(error)")
         }
+        
     }
 
     @MainActor
@@ -360,7 +361,7 @@ import CocoaLumberjackSwift
     private func resetMigrationFlagForLegacyArticles(with urls: [URL]) {
         guard !urls.isEmpty else { return }
 
-        Task { @MainActor in
+        Task {
             do {
                 try await dataStore.performBackgroundCoreDataOperationAsync { context in
                     context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -414,6 +415,7 @@ import CocoaLumberjackSwift
 
         let title = (articleURL.wmf_title ?? "").normalizedForCoreData
         let namespaceID = Int16(articleURL.namespace?.rawValue ?? 0)
+        
         return PageIDs(projectID: wmfProject.id, namespaceID: namespaceID, title: title)
     }
 
@@ -434,6 +436,7 @@ import CocoaLumberjackSwift
             DDLogError("[Mirror] ReadingListEntry fetch failed for key=\(key): \(error)")
             return nil
         }
+        
     }
 }
 
@@ -441,15 +444,31 @@ import CocoaLumberjackSwift
 
 extension MWKDataStore {
     /// Async wrapper that begins the background op from the main actor
-    @MainActor
     func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) throws -> T) async throws -> T {
-        try await withCheckedThrowingContinuation { continuation in
-            self.performBackgroundCoreDataOperation { context in
-                do {
-                    let value = try block(context)
-                    continuation.resume(returning: value)
-                } catch {
-                    continuation.resume(throwing: error)
+        
+        // Ensure we're on main thread for the Obj-C call, but don't use @MainActor
+        // which would suspend the entire async context
+        return try await withCheckedThrowingContinuation { continuation in
+            // Dispatch to main if needed, but don't await it
+            if Thread.isMainThread {
+                self.performBackgroundCoreDataOperation { context in
+                    do {
+                        let value = try block(context)
+                        continuation.resume(returning: value)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.performBackgroundCoreDataOperation { context in
+                        do {
+                            let value = try block(context)
+                            continuation.resume(returning: value)
+                        } catch {
+                            continuation.resume(throwing: error)
+                        }
+                    }
                 }
             }
         }
