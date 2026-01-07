@@ -165,7 +165,7 @@ public actor WMFActivityTabDataController {
         }
     }
     
-    public func fetchRecentArticleEditsForActivityTab(username: String) async throws -> [UserArticleEdit] {
+    public func fetchRecentArticleEditsForActivityTab(username: String) async throws -> [TimelineItem] {
 
         guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             throw CustomError.missingLanguage
@@ -681,6 +681,10 @@ public struct TimelineItem: Identifiable, Equatable {
     public var snippet: String?
     public let namespaceID: Int
     
+    // Edit-specific properties
+    public let revisionID: Int?
+    public let parentRevisionID: Int?
+    
     public let itemType: TimelineItemType
 
     public init(id: String,
@@ -693,6 +697,8 @@ public struct TimelineItem: Identifiable, Equatable {
                 imageURLString: String? = nil,
                 snippet: String? = nil,
                 namespaceID: Int,
+                revisionID: Int? = nil,
+                parentRevisionID: Int? = nil,
                 itemType: TimelineItemType = .standard) {
         self.id = id
         self.date = date
@@ -704,6 +710,8 @@ public struct TimelineItem: Identifiable, Equatable {
         self.imageURLString = imageURLString
         self.snippet = snippet
         self.namespaceID = namespaceID
+        self.revisionID = revisionID
+        self.parentRevisionID = parentRevisionID
         self.itemType = itemType
     }
 

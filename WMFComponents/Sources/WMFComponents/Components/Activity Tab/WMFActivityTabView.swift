@@ -531,8 +531,15 @@ struct TimelineRowView: View {
             }
         }
         
-        let tapAction: () -> Void = {
-            self.activityViewModel.timelineViewModel.onTap(item)
+        let tapAction: () -> Void
+        if item.itemType == .edit {
+            tapAction = {
+                self.activityViewModel.timelineViewModel.onTapEdit(item)
+            }
+        } else {
+            tapAction = {
+                self.activityViewModel.timelineViewModel.onTap(item)
+            }
         }
         
         let contextMenuOpenAction: () -> Void = {
@@ -553,7 +560,6 @@ struct TimelineRowView: View {
             bottomButtonTitle: item.itemType == .edit ? "view changes" : nil,
             bottomButtonAction: item.itemType == .edit ? {
                 // todo grey
-                print("ah")
             } : nil)
     }
     

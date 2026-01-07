@@ -24,6 +24,7 @@ public final class TimelineViewModel: ObservableObject {
     weak var activityTabViewModel: WMFActivityTabViewModel?
 
     public var onTapArticle: ((TimelineItem) -> Void)?
+    public var onTapEditArticle: ((TimelineItem) -> Void)?
 
     /// Optional user info for fetching edits
     private var username: String?
@@ -81,22 +82,8 @@ public final class TimelineViewModel: ObservableObject {
         guard let username else { return [] }
 
         do {
-            let edits = try await UserContributionsDataController.shared.fetchRecentArticleEdits(
-                username: username
-            )
-
-            return edits.map { edit in
-                TimelineItem(
-                    id: "edit~\(edit.projectID)~\(edit.title)~\(edit.timestamp.timeIntervalSince1970)",
-                    date: edit.timestamp,
-                    titleHtml: edit.title,
-                    projectID: edit.projectID,
-                    pageTitle: edit.title,
-                    url: edit.articleURL,
-                    namespaceID: 0,
-                    itemType: .edit
-                )
-            }
+            let edits = try await UserContributionsDataController.shared.fetchRecentArticleEdits(username: username)
+            return edits
         } catch {
             debugPrint("Failed to fetch user edits: \(error)")
             return []
@@ -147,5 +134,9 @@ public final class TimelineViewModel: ObservableObject {
 
     func onTap(_ item: TimelineItem) {
         onTapArticle?(item)
+    }
+    
+    func onTapEdit(_ item: TimelineItem) {
+        onTapEditArticle?(item)
     }
 }

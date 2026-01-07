@@ -131,8 +131,13 @@ struct WMFAsyncPageRow: View {
                 Button(action: {
                     action()
                 }, label: {
-                    Text(bottomButtonText)
+                    HStack {
+                        Text(bottomButtonText)
+                            .font(WMFSwiftUIFont.font(.subheadline))
+                    }
+                    .foregroundStyle(Color(theme.link))
                 })
+                .background(Color(theme.baseBackground))
             }
         }
     }
