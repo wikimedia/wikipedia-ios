@@ -1,6 +1,6 @@
 import Foundation
 import CoreData
-import WMFData
+@preconcurrency import WMFData
 import CocoaLumberjackSwift
 
 @objc public final class WMFArticleSavedStateMigrationManager: NSObject, @unchecked Sendable {
@@ -53,8 +53,7 @@ import CocoaLumberjackSwift
     @objc(removeFromSavedWithURLs:)
     public func removeFromSaved(withUrls urls: [URL]) {
         guard shouldRunMigration() else { return }
-        
-        // Serialize all operations on this queue
+
         serialQueue.async {
             self.unsave(urls: urls)
             
@@ -103,7 +102,7 @@ import CocoaLumberjackSwift
         serialQueue.async {
             let semaphore = DispatchSemaphore(value: 0)
             Task {
-                await self.migrateSyncedArticles(withURLs: urls)  // ← Add await
+                await self.migrateSyncedArticles(withURLs: urls)
                 semaphore.signal()
             }
             semaphore.wait()
@@ -302,7 +301,7 @@ import CocoaLumberjackSwift
                 autoreleasepool {
                     guard let ids = Self.getPageIDs(from: url) else {
                         DDLogError("[SavedPagesMigration] Unsave aborted: could not derive PageIDs from URL \(url.absoluteString)")
-                        return  // ← Just return from the autoreleasepool closure
+                        return
                     }
 
                     do {
@@ -313,7 +312,6 @@ import CocoaLumberjackSwift
                 }
             }
             
-            // Save once at the end
             if wmfContext.hasChanges {
                 do {
                     try wmfContext.save()
@@ -396,7 +394,6 @@ import CocoaLumberjackSwift
         }
         wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-        // Use perform (async) with await
         await wmfContext.perform {
             do {
                 let pagesFR: NSFetchRequest<CDPage> = CDPage.fetchRequest()
