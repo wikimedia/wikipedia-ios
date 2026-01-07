@@ -27,20 +27,14 @@ public final class TimelineViewModel: ObservableObject {
 
     /// Optional user info for fetching edits
     private var username: String?
-    private var project: WMFProject?
 
-    public init(dataController: WMFActivityTabDataController, username: String? = nil, project: WMFProject? = nil) {
+    public init(dataController: WMFActivityTabDataController, username: String? = nil) {
         self.dataController = dataController
         self.username = username
-        self.project = project
     }
 
     public func setUser(username: String) {
         self.username = username
-    }
-    
-    public func setProject(project: WMFProject) {
-        self.project = project
     }
 
     public func fetch() async {
@@ -48,11 +42,9 @@ public final class TimelineViewModel: ObservableObject {
             let result = try await dataController.getTimelineItems()
             var sections = [TimelineSection]()
 
-            // Fetch edits if user is logged in
             var editItems: [TimelineItem] = []
             editItems = await fetchEditedArticles()
             
-            // Combine timeline result with edits
             var combinedResult = result
             for editItem in editItems {
                 let day = Calendar.current.startOfDay(for: editItem.date)
@@ -67,7 +59,6 @@ public final class TimelineViewModel: ObservableObject {
                 for (key, value) in combinedResult {
                     var filteredValues = value
 
-                    // If user is logged out, only show viewed items
                     if let activityTabViewModel, activityTabViewModel.authenticationState != .loggedIn {
                         filteredValues = value.filter { $0.itemType != .edit && $0.itemType != .saved }
                     }
@@ -87,12 +78,11 @@ public final class TimelineViewModel: ObservableObject {
     }
 
     func fetchEditedArticles() async -> [TimelineItem] {
-        guard let username, let project else { return [] }
+        guard let username else { return [] }
 
         do {
             let edits = try await UserContributionsDataController.shared.fetchRecentArticleEdits(
-                username: username,
-                project: project
+                username: username
             )
 
             return edits.map { edit in

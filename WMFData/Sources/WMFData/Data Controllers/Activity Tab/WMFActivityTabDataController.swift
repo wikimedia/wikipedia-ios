@@ -171,11 +171,8 @@ public actor WMFActivityTabDataController {
             throw CustomError.missingLanguage
         }
 
-        let project = WMFProject.wikipedia(appLanguage)
-
         return try await UserContributionsDataController.shared.fetchRecentArticleEdits(
-            username: username,
-            project: project
+            username: username
         )
     }
     

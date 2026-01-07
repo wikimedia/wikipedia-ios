@@ -25,12 +25,18 @@ public final class UserContributionsDataController {
         }
     }
     
-    public func fetchRecentArticleEdits(username: String, project: WMFProject) async throws -> [UserArticleEdit] {
+    public func fetchRecentArticleEdits(username: String) async throws -> [UserArticleEdit] {
 
         let service = WMFDataEnvironment.current.mediaWikiService
         guard let service else {
             throw WMFDataControllerError.mediaWikiServiceUnavailable
         }
+        
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+             throw WMFDataControllerError.failureCreatingRequestURL
+        }
+
+        let project = WMFProject.wikipedia(primaryAppLanguage)
 
         guard let url = URL.mediaWikiAPIURL(project: project) else {
             throw WMFDataControllerError.failureCreatingRequestURL
@@ -71,8 +77,8 @@ public final class UserContributionsDataController {
         }
 
         let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-
+        isoFormatter.formatOptions = [.withInternetDateTime]
+        
         return contribs.compactMap { contrib -> UserArticleEdit? in
             guard let timestamp = isoFormatter.date(from: contrib.timestamp) else {
                 return nil
