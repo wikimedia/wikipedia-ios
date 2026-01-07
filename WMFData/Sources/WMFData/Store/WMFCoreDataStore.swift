@@ -17,7 +17,6 @@ public final class WMFCoreDataStore {
         self.appContainerURL = appContainerURL
         
         let dataModelName = "WMFData"
-        
         let databaseFileName = "WMFData.sqlite"
         var databaseFileURL = appContainerURL
         databaseFileURL.appendPathComponent(databaseFileName, isDirectory: false)
@@ -26,9 +25,13 @@ public final class WMFCoreDataStore {
             throw WMFCoreDataStoreError.setupMissingDataModelFileURL
         }
         
-        guard let dataModel = NSManagedObjectModel(contentsOf: dataModelFileURL) else {
-            throw WMFCoreDataStoreError.setupMissingDataModel
-        }
+        // Explicitly move model loading to background
+        let dataModel = try await Task.detached {
+            guard let model = NSManagedObjectModel(contentsOf: dataModelFileURL) else {
+                throw WMFCoreDataStoreError.setupMissingDataModel
+            }
+            return model
+        }.value
         
         let description = NSPersistentStoreDescription(url: databaseFileURL)
         description.shouldAddStoreAsynchronously = true
@@ -44,27 +47,24 @@ public final class WMFCoreDataStore {
     }
     
     private func loadPersistentStores() async throws {
-        
         guard let persistentContainer else {
             throw WMFCoreDataStoreError.setupMissingPersistentContainer
         }
         
         return try await withCheckedThrowingContinuation { continuation in
-            self.persistentContainer?.loadPersistentStores(completionHandler: { _, error in
+            persistentContainer.loadPersistentStores(completionHandler: { _, error in
                 if let error {
                     continuation.resume(throwing: error)
                 } else {
+                    // Access viewContext on background thread to trigger lazy init
+                    let context = persistentContainer.viewContext
+                    context.automaticallyMergesChangesFromParent = true
+                    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
                     
-                    DispatchQueue.main.async {
-                        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-                        persistentContainer.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-                        
-                        continuation.resume()
-                    }
+                    continuation.resume()
                 }
             })
         }
-        
     }
     
     public var newBackgroundContext: NSManagedObjectContext {
