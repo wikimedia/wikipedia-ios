@@ -413,7 +413,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
     
     private var searchTask: Task<Void, Never>?
-    private let searchDebounceNanoseconds: UInt64 = 750_000_000 // 350ms
+    private let searchDebounceNanoseconds: UInt64 = 350_000_000 // 350ms
     
     private func search(for searchTerm: String?, suggested: Bool) {
         guard let siteURL = siteURL else {
@@ -422,6 +422,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         self.lastSearchSiteURL = siteURL
+        
+        if searchTerm == "" || searchTerm == nil {
+            wmfSearchViewModel.reset(clearQuery: true)
+            wmfSearchViewModel.searchQuery = searchTerm
+        }
 
         guard let searchTerm = searchTerm, searchTerm.wmf_hasNonWhitespaceText else {
             didCancelSearch()
@@ -433,10 +438,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         resetSearchResults()
-        if searchTerm == "" {
-            wmfSearchViewModel.searchQuery = searchTerm
-            wmfSearchViewModel.reset(clearQuery: true)
-        }
+        wmfSearchViewModel.searchQuery = searchTerm
         let start = Date()
 
         Task {
@@ -524,7 +526,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     public func updateRecentlySearchedVisibility(searchText: String?) {
+        wmfSearchViewModel.searchQuery = searchText
+        if searchText == nil || searchText == "" {
+            wmfSearchViewModel.reset(clearQuery: true)
+        }
         let showRecent = searchText?.isEmpty ?? true
+        recentSearchesViewController.view.isHidden = !showRecent
     }
 
     func saveLastSearch() {
