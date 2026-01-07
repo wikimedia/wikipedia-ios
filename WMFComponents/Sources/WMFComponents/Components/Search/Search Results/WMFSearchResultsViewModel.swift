@@ -22,12 +22,32 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             self.preview = preview
         }
     }
+    
+    public enum DisplayState {
+        case recentSearches
+        case results
+        case noResults
+    }
+    
+    public var displayState: DisplayState {
+        let trimmedQuery = searchQuery?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
+        if trimmedQuery.isEmpty {
+            return .recentSearches
+        }
+
+        if !results.isEmpty {
+            return .results
+        }
+
+        return .noResults
+    }
 
     // MARK: - Published State
 
     @Published public var results: [SearchResult] = []
     @Published public var topPadding: CGFloat = 0
-    @Published public var recentSearches: [RecentSearchTerm] = []
     @Published public var searchQuery: String? = nil
     @Published public var recentSearchesViewModel: WMFRecentlySearchedViewModel
     
@@ -72,14 +92,6 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         return html
     }
 
-    public var shouldShowResults: Bool {
-        !results.isEmpty && !(searchQuery?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? false)
-    }
-
-    public var shouldShowRecentSearches: Bool {
-        searchQuery?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? false
-    }
-
     // MARK: - Updates (called by SearchViewController)
 
     public func setResults(_ newResults: [SearchResult]) {
@@ -90,7 +102,10 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         results.append(contentsOf: additionalResults)
     }
 
-    public func reset() {
+    public func reset(clearQuery: Bool = false) {
         results = []
+        if clearQuery {
+            searchQuery = nil
+        }
     }
 }

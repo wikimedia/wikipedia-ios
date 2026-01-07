@@ -102,10 +102,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private func loadRecentSearchTerms() async {
         do {
             let terms = try await recentSearchesDataController.fetchRecentSearches()
-            wmfSearchViewModel.recentSearches = terms.map { RecentSearchTerm(text: $0) }
+            wmfSearchViewModel.recentSearchesViewModel.recentSearchTerms = terms.map { RecentSearchTerm(text: $0) }
         } catch {
             DDLogError("Failed to fetch recent searches: \(error)")
-            wmfSearchViewModel.recentSearches = []
+            wmfSearchViewModel.recentSearchesViewModel.recentSearchTerms = []
         }
     }
 
@@ -433,6 +433,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         resetSearchResults()
+        if searchTerm == "" {
+            wmfSearchViewModel.searchQuery = searchTerm
+            wmfSearchViewModel.reset(clearQuery: true)
+        }
         let start = Date()
 
         Task {
@@ -514,12 +518,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     func didCancelSearch() {
         wmfSearchViewModel.results = []
+        wmfSearchViewModel.searchQuery = nil
+        wmfSearchViewModel.reset(clearQuery: true)
         navigationItem.searchController?.searchBar.text = nil
     }
 
     public func updateRecentlySearchedVisibility(searchText: String?) {
         let showRecent = searchText?.isEmpty ?? true
-        // GREY TODO GREY wmfSearchViewModel.view.isHidden = showRecent
     }
 
     func saveLastSearch() {
@@ -533,7 +538,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     @MainActor
     private func reloadRecentSearches() async {
         let terms = (try? await recentSearchesDataController.fetchRecentSearches()) ?? []
-        wmfSearchViewModel.recentSearches = terms.map { RecentSearchTerm(text: $0)}
+        wmfSearchViewModel.recentSearchesViewModel.recentSearchTerms = terms.map { RecentSearchTerm(text: $0)}
     }
 
     var searchTerm: String?
@@ -614,7 +619,7 @@ extension SearchViewController: UISearchResultsUpdating {
         searchTask?.cancel()
 
         guard text.wmf_hasNonWhitespaceText else {
-            wmfSearchViewModel.reset()
+            wmfSearchViewModel.reset(clearQuery: false)
             return
         }
 

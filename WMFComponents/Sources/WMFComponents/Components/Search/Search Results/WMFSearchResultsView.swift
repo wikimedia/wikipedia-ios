@@ -13,52 +13,65 @@ public struct WMFSearchResultsView: View {
     public init(viewModel: WMFSearchResultsViewModel) {
         self.viewModel = viewModel
     }
-
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            if viewModel.shouldShowResults {
-                ScrollView {
-                    LazyVStack(spacing: 0) {
-                        ForEach(viewModel.results, id: \.articleURL) { result in
-                            WMFSearchResultRow(
-                                result: result,
-                                description: viewModel.description(for: result),
-                                siteURL: viewModel.siteURL
-                            )
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                if let url = result.articleURL {
-                                    viewModel.tappedSearchResultAction?(url)
-                                }
-                            }
-                            .contextMenu {
-                                if let url = result.articleURL {
-                                    Button(viewModel.localizedStrings.openInNewTab) {
-                                        viewModel.longPressOpenInNewTabAction?(url)
-                                    }
-                                    Button(viewModel.localizedStrings.preview) {
-                                        viewModel.longPressSearchResultAction?(url)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, viewModel.topPadding)
-                }
-            } else if viewModel.shouldShowRecentSearches {
-                WMFRecentlySearchedView(viewModel: viewModel.recentSearchesViewModel)
-            } else {
-                HStack {
-                    Spacer()
-                    Text(viewModel.localizedStrings.emptyText)
-                        .font(Font(WMFFont.for(.callout)))
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    Spacer()
-                }
+            switch viewModel.displayState {
+            case .results:
+                resultsView
+
+            case .recentSearches:
+                WMFRecentlySearchedView(
+                    viewModel: viewModel.recentSearchesViewModel
+                )
+
+            case .noResults:
+                noResultsView
             }
         }
         .frame(maxHeight: .infinity)
         .background(Color(theme.midBackground))
+    }
+    
+    private var resultsView: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(viewModel.results, id: \.articleURL) { result in
+                    WMFSearchResultRow(
+                        result: result,
+                        description: viewModel.description(for: result),
+                        siteURL: viewModel.siteURL
+                    )
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if let url = result.articleURL {
+                            viewModel.tappedSearchResultAction?(url)
+                        }
+                    }
+                    .contextMenu {
+                        if let url = result.articleURL {
+                            Button(viewModel.localizedStrings.openInNewTab) {
+                                viewModel.longPressOpenInNewTabAction?(url)
+                            }
+                            Button(viewModel.localizedStrings.preview) {
+                                viewModel.longPressSearchResultAction?(url)
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.top, viewModel.topPadding)
+        }
+    }
+
+    private var noResultsView: some View {
+        HStack {
+            Spacer()
+            Text(viewModel.localizedStrings.emptyText)
+                .font(Font(WMFFont.for(.callout)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            Spacer()
+        }
     }
 }
 
