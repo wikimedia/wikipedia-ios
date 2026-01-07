@@ -1013,7 +1013,8 @@ extension WMFAppViewController {
                     customizeLastInAppDonation: customizeLastInAppDonation,
                     customizeTimelineOfBehavior: customizeTimelineOfBehavior,
                     customizeFooter: customizeFooter,
-                    customizeEmptyState: customizeEmptyState()),
+                    customizeEmptyState: customizeEmptyState(),
+                    viewChanges: WMFLocalizedString("view-changes", value: "View changes", comment: "View changes button title")),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 

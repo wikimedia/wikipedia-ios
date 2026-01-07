@@ -1371,6 +1371,7 @@
 "vanish-account-warning-title" = "Title of vanish account warning view.";
 "variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about variant support.";
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
+"view-changes" = "View changes button title";
 "watch" = "Title for watch toolbar button.";
 "watchlist" = "Title for watchlist feature.";
 "watchlist-added-toast-one-month" = "Title in toast after a user successfully adds an article to their watchlist, which expires in one month.";

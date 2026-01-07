@@ -108,37 +108,47 @@ struct WMFAsyncPageRow: View {
 
     var rowContent: some View {
         VStack {
-            HStack(alignment: .top, spacing: 4) {
-                if let iconImage = viewModel.iconImage {
-                    Image(uiImage: iconImage)
-                        .frame(width: 40, height: 40, alignment: .top)
-                        .foregroundColor(Color(uiColor: theme.secondaryText))
-                }
-                regularTextView
-                Spacer()
-                if let uiImage = viewModel.uiImage {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 40, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                    
-                }
-            }
-            .background(Color(theme.paperBackground))
-            .padding(.vertical, 10)
-            if let bottomButtonText = viewModel.bottomButtonTitle, let action = viewModel.bottomButtonAction {
-                Button(action: {
-                    action()
-                }, label: {
-                    HStack {
-                        Text(bottomButtonText)
-                            .font(WMFSwiftUIFont.font(.subheadline))
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .top, spacing: 4) {
+                    if let iconImage = viewModel.iconImage {
+                        Image(uiImage: iconImage)
+                            .frame(width: 40, height: 40, alignment: .top)
+                            .foregroundColor(Color(uiColor: theme.secondaryText))
                     }
-                    .foregroundStyle(Color(theme.link))
-                })
-                .background(Color(theme.baseBackground))
+                    regularTextView
+                    Spacer()
+                    if let uiImage = viewModel.uiImage {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 40, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                        
+                    }
+                }
+                .background(Color(theme.paperBackground))
+                if let bottomButtonText = viewModel.bottomButtonTitle, let action = viewModel.bottomButtonAction {
+                    VStack {
+                        Button(action: {
+                            action()
+                        }, label: {
+                            HStack {
+                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .textPage) ?? UIImage())
+                                Text(bottomButtonText)
+                            }
+                            .font(Font(WMFFont.for(.mediumSubheadline)))
+                            .foregroundStyle(Color(theme.link))
+                        })
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color(theme.baseBackground))
+                        .cornerRadius(8)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 44)
+                }
             }
+            .padding(.vertical, 10)
         }
     }
 

@@ -1371,6 +1371,7 @@
 "vanish-account-warning-title" = "Warning";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
+"view-changes" = "View changes";
 "watch" = "Watch";
 "watchlist" = "Watchlist";
 "watchlist-added-toast-one-month" = "Added to your Watchlist for 1 month.";

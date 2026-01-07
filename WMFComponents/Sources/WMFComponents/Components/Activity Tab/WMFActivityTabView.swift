@@ -553,11 +553,11 @@ struct TimelineRowView: View {
             iconImage: iconImage,
             iconAccessibilityLabel: iconAccessiblityLabel,
             tapAction: tapAction,
-            contextMenuOpenAction: contextMenuOpenAction,
-            contextMenuOpenText: activityViewModel.localizedStrings.openArticle,
+            contextMenuOpenAction: item.itemType == .edit ? nil : contextMenuOpenAction,
+            contextMenuOpenText: item.itemType == .edit ? nil : activityViewModel.localizedStrings.openArticle,
             deleteItemAction: deleteItemAction,
             deleteAccessibilityLabel: activityViewModel.localizedStrings.deleteAccessibilityLabel,
-            bottomButtonTitle: item.itemType == .edit ? "view changes" : nil,
+            bottomButtonTitle: item.itemType == .edit ? activityViewModel.localizedStrings.viewChanges : nil,
             bottomButtonAction: item.itemType == .edit ? {
                 // todo grey
             } : nil)
