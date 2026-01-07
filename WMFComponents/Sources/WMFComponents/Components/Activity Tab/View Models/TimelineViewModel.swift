@@ -26,7 +26,6 @@ public final class TimelineViewModel: ObservableObject {
     public var onTapArticle: ((TimelineItem) -> Void)?
     public var onTapEditArticle: ((TimelineItem) -> Void)?
 
-    /// Optional user info for fetching edits
     private var username: String?
 
     public init(dataController: WMFActivityTabDataController, username: String? = nil) {
