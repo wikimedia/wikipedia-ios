@@ -3,7 +3,7 @@ import CoreData
 import WMFData
 import CocoaLumberjackSwift
 
-@objc public final class WMFArticleSavedStateMigrationManager: NSObject {
+@objc public final class WMFArticleSavedStateMigrationManager: NSObject, @unchecked Sendable {
 
     @objc public static let shared = WMFArticleSavedStateMigrationManager()
     let dataStore = MWKDataStore.shared()
