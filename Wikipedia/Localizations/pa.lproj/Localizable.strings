@@ -105,7 +105,7 @@
 "activity-tab-empty-subtitle" = "ਆਪਣਾ ਇਤਿਹਾਸ ਬਣਾਉਣ ਲਈ ਪੜ੍ਹਨਾ ਅਤੇ ਸੋਧਨਾ ਸ਼ੁਰੂ ਕਰੋ";
 "activity-tab-empty-title" = "ਦਿਖਾਉਣ ਲਈ ਕੁਝ ਵੀ ਨਹੀਂ";
 "activity-tab-generic-no-edits" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ ਕੁਝ ਵੀ ਨਹੀਂ ਸੋਧਿਆ। ਆਪਣੇ ਯੋਗਦਾਨ ਦੀ ਪੈੜ ਨੂੰ ਵੇਖਣ ਲਈ ਹੁਣੇ ਸ਼ੁਰੂ ਕਰੋ।";
-"activity-tab-hours-minutes-read" = "$1 {{PLURAL:$1|ਘੰਟਾ|ਘੰਟੇ}} $2 ਮਿੰਟ";
+"activity-tab-hours-minutes-read" = "$1 ਘੰਟਾ $2 ਮਿੰਟ";
 "activity-tab-hours-on-wikipedia-ios" = "ਵਿਕੀਪੀਡੀਆ iOS ਤੇ";
 "activity-tab-log-in-or-create-account" = "ਹੋਰ ਸੋਧ ਅਤੇ ਪੜ੍ਹਨ-ਸਬੰਧੀ ਸਰਗਰਮੀ ਵੇਖਣ ਲਈ ਦਾਖਲ ਹੋਵੋ ਜਾਂ ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ।";
 "activity-tab-logged-out-subtitle" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਆਪਣੀ ਸਰਗਰਮੀ ਵੇਖਣ ਲਈ ਦਾਖਲ ਹੋਵੋ ਜਾਂ ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ।";

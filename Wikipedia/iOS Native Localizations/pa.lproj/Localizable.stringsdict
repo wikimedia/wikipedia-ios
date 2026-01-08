@@ -2,22 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>activity-tab-hours-minutes-read</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$@ %#@v1@ %2$@ ਮਿੰਟ</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>one</key>
-			<string>ਘੰਟਾ</string>
-			<key>other</key>
-			<string>ਘੰਟੇ</string>
-		</dict>
-	</dict>
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
