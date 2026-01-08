@@ -186,6 +186,48 @@
 			<string>편집되지 않은 줄 %1$d개</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ 추가됨</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld 바이트</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>편집자들은 올해 %#@v1@ 건의 편집을 수행했습니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>읽기 목록 %#@v1@가 존재합니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld개</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -698,6 +740,62 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d개 필터</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-editors-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>iOS 앱의 편집자는 %#@v1@ 편집을 했습니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld번</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>위키백과의 분당 편집 수는 %#@v1@입니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d회</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>앱 사용자들의 위키백과 문서 조회 수는 %#@v1@입니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld 회</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>당신은 %#@v1@ 편집했습니다</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d회</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

@@ -608,11 +608,10 @@ extension WMFAppViewController {
     @objc func setupWMFDataCoreDataStore() {
         WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
         
-        Task {
+        Task(priority: .userInitiated) {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
-                await migrateSavedArticleInfoWithBackgroundTask()
-
+                await self.migrateSavedArticleInfoWithBackgroundTask()
             } catch let error {
                 DDLogError("Error setting up WMFCoreDataStore: \(error)")
             }
