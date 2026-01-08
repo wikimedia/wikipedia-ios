@@ -347,7 +347,6 @@ import CocoaLumberjackSwift
         if page.timestamp == nil {
             DDLogInfo("[SavedPagesMigration] Deleting CDPage for \(pageIDs.title) — timestamp nil after unsave")
         }
-        print("😅unsaveInWMFData - end")
     }
 
     private static func applySavedStateOnWMFContext(snapshot: SavedArticleSnapshot, in wmfContext: NSManagedObjectContext, wmfDataStore: WMFCoreDataStore) throws {
@@ -431,8 +430,6 @@ import CocoaLumberjackSwift
                 DDLogError("[SavedPagesMigration] Batch clear in WMFData failed: \(error)")
             }
         }
-        
-        print("😅clearAllSavedData - end")
     }
 
     // MARK: - Legacy helpers
