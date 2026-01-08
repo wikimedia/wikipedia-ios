@@ -25,13 +25,9 @@ public final class WMFCoreDataStore {
             throw WMFCoreDataStoreError.setupMissingDataModelFileURL
         }
         
-        // Explicitly move model loading to background
-        let dataModel = try await Task.detached {
-            guard let model = NSManagedObjectModel(contentsOf: dataModelFileURL) else {
-                throw WMFCoreDataStoreError.setupMissingDataModel
-            }
-            return model
-        }.value
+        guard let dataModel = NSManagedObjectModel(contentsOf: dataModelFileURL) else {
+            throw WMFCoreDataStoreError.setupMissingDataModel
+        }
         
         let description = NSPersistentStoreDescription(url: databaseFileURL)
         description.shouldAddStoreAsynchronously = true
