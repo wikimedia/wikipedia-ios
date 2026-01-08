@@ -520,7 +520,7 @@ import CocoaLumberjackSwift
 extension MWKDataStore {
     func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) throws -> T) async throws -> T {
         return try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.performBackgroundCoreDataOperation { context in
                     do {
                         let value = try block(context)
