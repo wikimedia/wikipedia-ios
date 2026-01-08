@@ -54,15 +54,4 @@ final class WMFGlobalEditCountDataController {
             }
         }
     }
-    
-    func fetchEditCount(maxLimit: Int = 500) async throws -> Int {
-        let calendar = Calendar(identifier: .gregorian)
-        let endDate = Date()
-        guard let startDate = calendar.date(byAdding: .month, value: -1, to: endDate) else {
-            return 0
-        }
-
-        let count = try await fetchEditCount(startDate: startDate, endDate: endDate)
-        return min(count, maxLimit)
-    }
 }

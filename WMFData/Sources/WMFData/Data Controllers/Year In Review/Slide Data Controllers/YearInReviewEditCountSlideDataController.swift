@@ -25,24 +25,17 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
-        defer { isEvaluated = true }
-
-        guard let globalUserID else {
-            editCount = nil
-            return
-        }
-
+        guard let globalUserID else { return }
+        
         guard let startDate = yirConfig.dataStartDate,
-              let endDate = yirConfig.dataEndDate else {
-            editCount = nil
+        let endDate = yirConfig.dataEndDate else {
             return
         }
+        
+        let editCountDataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
+        self.editCount = try await editCountDataController.fetchEditCount(startDate: startDate, endDate: endDate)
 
-        editCount = try? await UserContributionsDataController.shared.fetchEditCount(
-            globalUserID: globalUserID,
-            startDate: startDate,
-            endDate: endDate
-        )
+        isEvaluated = true
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {

@@ -120,6 +120,7 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
         self.containerViewModel.stateHandler = { [weak self] oldState in
             self?.evaluateState(oldState: oldState)
         }
+        self.hidesBottomBarWhenPushed = true
     }
     
     init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {

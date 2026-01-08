@@ -7,25 +7,6 @@ public final class UserContributionsDataController {
     
     private init() {}
     
-    public func fetchEditCount(
-        globalUserID: Int,
-        startDate: Date? = nil,
-        endDate: Date? = nil,
-        maxLimit: Int = 500
-    ) async throws -> Int {
-        
-        let dataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
-        
-        if let startDate, let endDate {
-            return try await dataController.fetchEditCount(
-                startDate: startDate,
-                endDate: endDate
-            )
-        } else {
-            return try await dataController.fetchEditCount()
-        }
-    }
-    
     public func fetchRecentArticleEdits(username: String) async throws -> [TimelineItem] {
         
         let service = WMFDataEnvironment.current.mediaWikiService
@@ -97,6 +78,18 @@ public final class UserContributionsDataController {
                 itemType: .edit
             )
         }
+    }
+    
+    func fetchEditCount(maxLimit: Int = 500, globalUserID: Int) async throws -> Int {
+        let calendar = Calendar(identifier: .gregorian)
+        let endDate = Date()
+        guard let startDate = calendar.date(byAdding: .month, value: -1, to: endDate) else {
+            return 0
+        }
+
+        let editDC = WMFGlobalEditCountDataController(globalUserID: globalUserID)
+        let count = try await editDC.fetchEditCount(startDate: startDate, endDate: endDate)
+        return min(count, maxLimit)
     }
     
     public func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {

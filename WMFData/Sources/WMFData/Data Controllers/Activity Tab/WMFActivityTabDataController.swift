@@ -165,17 +165,6 @@ public actor WMFActivityTabDataController {
         }
     }
     
-    public func fetchRecentArticleEditsForActivityTab(username: String) async throws -> [TimelineItem] {
-
-        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
-            throw CustomError.missingLanguage
-        }
-
-        return try await UserContributionsDataController.shared.fetchRecentArticleEdits(
-            username: username
-        )
-    }
-    
     public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false
@@ -298,20 +287,36 @@ public actor WMFActivityTabDataController {
             .map { $0.key.categoryName }
     }
 
-    public func getTimelineItems() async throws -> [Date: [TimelineItem]] {
+    public func getTimelineItems(username: String?) async throws -> [Date: [TimelineItem]] {
+        var edits: [TimelineItem] = []
+
+        if let username {
+            do {
+                edits = try await UserContributionsDataController.shared
+                    .fetchRecentArticleEdits(username: username)
+            } catch {
+                debugPrint("Failed to fetch user edits: \(error)")
+            }
+        }
+
         let rawSavedItems = try await fetchTimelineSavedArticles()
         let readItems = try await fetchTimelineReadArticles()
-
         let dedupedSavedItems = Self.deduplicatedSavedItems(rawSavedItems)
 
         var allItems: [Date: [TimelineItem]] = [:]
 
-        allItems.merge(dedupedSavedItems) { old, new in
-            old + new
-        }
+        allItems.merge(dedupedSavedItems) { $0 + $1 }
+        allItems.merge(readItems) { $0 + $1 }
 
-        allItems.merge(readItems) { old, new in
-            old + new
+        if !edits.isEmpty {
+            var editsByDay: [Date: [TimelineItem]] = [:]
+
+            for edit in edits {
+                let day = Calendar.current.startOfDay(for: edit.date)
+                editsByDay[day, default: []].append(edit)
+            }
+
+            allItems.merge(editsByDay) { $0 + $1 }
         }
 
         return allItems

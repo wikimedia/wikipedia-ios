@@ -39,24 +39,15 @@ public final class TimelineViewModel: ObservableObject {
 
     public func fetch() async {
         do {
-            let result = try await dataController.getTimelineItems()
+            let result = try await dataController.getTimelineItems(username: username)
             var sections = [TimelineSection]()
-
-            var editItems: [TimelineItem] = []
-            editItems = await fetchEditedArticles()
-            
-            var combinedResult = result
-            for editItem in editItems {
-                let day = Calendar.current.startOfDay(for: editItem.date)
-                combinedResult[day, default: []].append(editItem)
-            }
 
             // Business rule: if there are no items, we still want a section that says "Today"
             // https://phabricator.wikimedia.org/T409200
-            if combinedResult.isEmpty {
+            if result.isEmpty {
                 sections.append(TimelineSection(date: Date(), items: []))
             } else {
-                for (key, value) in combinedResult {
+                for (key, value) in result {
                     var filteredValues = value
 
                     if let activityTabViewModel, activityTabViewModel.authenticationState != .loggedIn {
@@ -74,18 +65,6 @@ public final class TimelineViewModel: ObservableObject {
             self.activityTabViewModel?.sections = sortedSections
         } catch {
             debugPrint("error fetching timeline: \(error)")
-        }
-    }
-
-    func fetchEditedArticles() async -> [TimelineItem] {
-        guard let username else { return [] }
-
-        do {
-            let edits = try await UserContributionsDataController.shared.fetchRecentArticleEdits(username: username)
-            return edits
-        } catch {
-            debugPrint("Failed to fetch user edits: \(error)")
-            return []
         }
     }
 
