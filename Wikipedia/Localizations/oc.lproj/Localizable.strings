@@ -92,7 +92,6 @@
 "forgot-password-title" = "Reïnicializar lo senhal";
 "forgot-password-username-or-email-title" = "O";
 "history-clear-all" = "Escafar";
-"history-clear-cancel" = "Anullar";
 "history-clear-delete-all" = "Òc, suprimir tot";
 "history-title" = "Istoric";
 "home-button-explore-accessibility-label" = "Wikipèdia, tornar a Explorar";
@@ -153,9 +152,7 @@
 // Fuzzy
 "saved-pages-progress-syncing" = "Sincronizacion de l'article en cors...";
 "saved-title" = "Enregistrat";
-"search-did-you-mean" = "Volètz dire $1 ?";
 "search-field-placeholder-text" = "Recercar dins Wikipèdia";
-"search-recent-clear-cancel" = "Anullar";
 "search-recent-clear-confirmation-heading" = "Escafar totas las recèrcas recentas ?";
 "search-recent-clear-delete-all" = "Suprimir tot";
 "search-recent-title" = "Recercats recentament";
@@ -192,5 +189,4 @@
 "welcome-languages-add-button" = "Apondre una autra lenga";
 "welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
 "wikitext-upload-save" = "Publicacion en cors…";
-"wikitext-upload-save-sign-in" = "Se connectar";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";

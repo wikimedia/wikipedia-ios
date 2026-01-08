@@ -17,6 +17,10 @@ public final class WMFDataEnvironment: ObservableObject {
 
     @Published public var appData = WMFAppData(appLanguages: [])
     
+    public var primaryAppLanguage: WMFLanguage? {
+        return appData.appLanguages.first
+    }
+    
     public var mediaWikiService: WMFService?
     public internal(set) var basicService: WMFService? = WMFBasicService()
     

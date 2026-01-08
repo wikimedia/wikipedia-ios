@@ -1,5 +1,6 @@
 // Messages for Vietnamese (Tiếng Việt)
 // Exported from translatewiki.net
+// Author: Bapham123
 // Author: Brion
 // Author: Băng Tỏa
 // Author: Darcy Le
@@ -72,8 +73,10 @@
 "action-add-to-reading-list" = "Thêm vào danh sách đọc";
 "action-add-to-reading-list-short" = "Thêm vào danh sách";
 "action-cancel" = "Hủy bỏ";
+"action-discard-edit" = "Từ bỏ sửa đổi";
 "action-discard-edits" = "Từ bỏ các sửa đổi";
 "action-find-in-page" = "Tìm trong trang";
+"action-keep-editing" = "Sửa tiếp";
 "action-language-accessibility" = "Thay đổi ngôn ngữ";
 "action-move-to" = "Chuyển tới…";
 "action-move-to-reading-list" = "Di chuyển tới danh sách đọc";
@@ -95,7 +98,28 @@
 "action-unsave" = "Bỏ lưu";
 "action-unsaved-accessibility-notification" = "Bài viết đã bị xóa khỏi thiết bị.";
 "action-update" = "Cập nhật";
+"activity-tab-add-images-subtitle" = "Thêm hình ảnh gợi ý vào bài viết Wikipedia để tăng khả năng nhận diện.";
+"activity-tab-add-images-title" = "Thêm hình ảnh";
+"activity-tab-additional-thoughts" = "Bạn có suy nghĩ nào muốn chia sẻ không?";
+"activity-tab-generic-no-edits" = "Bạn chưa sửa đổi bài viết nào trong tuần này. Hãy bắt đầu ngay để theo dõi bài viết của bạn.";
+"activity-tab-neutral" = "Trung lập";
+"activity-tab-no-edits-title" = "Bạn chưa sửa đổi tuần này. Hãy thêm hình ảnh để hiểu rõ hơn về bài viết.";
+"activity-tab-read-title" = "Xem lịch sử đọc";
+"activity-tab-satisfied" = "Hài lòng";
+"activity-tab-start-editing" = "Bắt đầu sửa đổi";
+"activity-tab-very-satisfied" = "Rất hài lòng";
+"activity-tab-very-unsatisfied" = "Rất không hài lòng";
+"activity-tab-view-editing-history" = "Xem lịch sử sửa đổi";
+"activity-tab-view-reading-history" = "Xem lịch sử đọc";
+"activity-tab-view-saved-articles" = "Xem các bài viết đã lưu";
+"activity-tab-you-edited" = "Bạn đã sửa đổi {{PLURAL:$1|$1 lần}} trong tuần này.";
+"activity-tab-you-read" = "Bạn đã đọc {{PLURAL:$1|$1 bài viết}} trong tuần này.";
+"activity-tab-you-saved" = "Bạn đã lưu {{PLURAL:$1|$1 bài viết}} trong tuần này.";
 "add-articles-to-reading-list" = "Thêm $1 bài viết vào danh sách đọc";
+"advanced-settings-title" = "Tùy chọn nâng cao";
+"alert-temporary-account" = "Bạn đang sử dụng tài khoản tạm thời. Tài khoản này sẽ hết hạn sau 90 ngày.";
+"alert-temporary-account-learn-more" = "Tìm hiểu thêm.";
+"alt-text-feedback-survey-toast-title" = "Đã gửi phản hồi";
 "announcements-dismiss" = "Thôi";
 "app-store-keywords" = "Wikipedia, tham khảo, wiki, bách khoa toàn thư, bktt, bách khoa thư, từ điển bách khoa, tđbk, thông tin, kiến thức, tri thức, nghiên cứu, tham hiểm, học hành, tìm hiểu";
 "app-store-release-notes" = "Nguồn cấp Thám hiểm có thể tùy biến hoàn toàn và đọc dễ dàng hơn. Địa phương hóa, tối ưu hóa, và sửa lỗi.";
@@ -122,6 +146,7 @@
 "article-revision-history" = "Lịch sử sửa đổi bài viết";
 "article-save-error-not-enough-space" = "Bạn không có đủ dung lượng trống trên bộ nhớ để lưu bài viết này";
 "article-share" = "Chia sẻ";
+"article-tabs-open" = "Mở";
 "article-talk-page" = "Trang thảo luận bài viết";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Điều khiển Giao diện Đọc bài";
 "back-button-accessibility-label" = "Quay lại";
@@ -192,6 +217,7 @@
 "diff-compare-header-heading" = "So sánh các Phiên bản";
 "diff-compare-header-to-info-heading" = "Sửa đổi được Hiển thị";
 "diff-compare-title" = "So sánh các Phiên bản";
+"diff-content-removed" = "Nội dung đã bị xóa, $1";
 "diff-context-lines-collapsed-button-title" = "Hiện";
 "diff-context-lines-expanded-button-title" = "Ẩn";
 "diff-header-revision-accessibility-text" = "Phiên bản được tạo lúc";
@@ -427,7 +453,6 @@
 "gan-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các biến thể chữ Hán cho tiếng Cám là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong biến thể của bạn:\n\n贛語 原文 Cám (gan)\n赣语 简体 Cám giản thể (gan-hans)\n贛語 繁體 Cám phồn thể (gan-hant)";
 "gan-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán trong tiếng Cám";
 "history-clear-all" = "Xóa sạch";
-"history-clear-cancel" = "Hủy bỏ";
 "history-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các mục gần đây của bạn?";
 "history-clear-delete-all" = "Có, xóa toàn bộ";
 "history-title" = "Lịch sử";
@@ -449,7 +474,6 @@
 "image-gallery-unknown-owner" = "Tác giả không rõ.";
 "image-recs-no-title" = "Không";
 "import-shared-reading-list-default-title" = "Danh sách đọc của tôi";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Để sau";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Thực hiện khảo sát";
 "import-shared-reading-list-survey-prompt-footer" = "Xem $1tuyên bố về quyền riêng tư$2 của chúng tôi. Khảo sát do bên thứ ba cung cấp. Xem $3chính sách bảo mật$4 của họ.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Chia sẻ danh sách đọc\" là một tính năng thử nghiệm và chúng tôi cần phản hồi của bạn để cải thiện hoặc xóa tính năng này.";
@@ -529,6 +553,7 @@
 "no-internet-connection" = "Không có kết nối Internet";
 "no-internet-connection-article-reload" = "Bài viết này có thể có một phiên bản mới hơn nhưng không thể tải nó vì không có kết nối Internet";
 "no-internet-connection-article-reload-button" = "Quay về phiên bản cuối cùng được lưu";
+"not-now-title" = "Để sau";
 "notifications-center-agent-description-from-format" = "Từ $1";
 "notifications-center-alert" = "Nhắc nhở";
 "notifications-center-applied-filters-accessibility-label" = "Bộ lọc thông báo - đã áp dụng bộ lọc";
@@ -548,7 +573,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|Bộ lọc $1}}";
 "notifications-center-feed-card-title" = "Chỉnh sửa thông báo hiện có sẵn";
 "notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Không phải bây giờ";
 "notifications-center-feed-news-notification-text" = "Thông báo chỉnh sửa cho tất cả các dự án Wikimedia hiện có sẵn thông qua ứng dụng. Chọn nhận thông báo đẩy để cập nhật tin nhắn của bạn trên Wikipedia khi đang di chuyển.";
 "notifications-center-filters-accessibility-label" = "Bộ lọc thông báo";
 "notifications-center-filters-read-status-item-title-all" = "Tất cả";
@@ -578,6 +602,7 @@
 "notifications-center-more-action-accessibility-label" = "Thêm";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
 "notifications-center-onboarding-modal-push-notifications-title" = "Thông báo đẩy";
+"notifications-center-onboarding-panel-secondary-button" = "Không, cảm ơn";
 "notifications-center-status-all" = "Tất cả";
 "notifications-center-status-read" = "Đã đọc";
 "notifications-center-status-unread" = "Chưa đọc";
@@ -642,8 +667,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia $2";
 "on-this-day-title" = "Ngày này năm xưa";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
-// Fuzzy
-"page-history-bot-edits" = "sửa đổi bot";
+"page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Chạm để chọn hai phiên bản để so sánh";
 "page-history-compare-title" = "So sánh";
 "page-history-graph-accessibility-label" = "Biểu đồ các sửa đổi qua thời gian";
@@ -832,10 +856,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Xóa {{PLURAL:$1|bài|các bài}} đã lưu?";
 "search-button-accessibility-label" = "Tìm trong Wikipedia";
 "search-clear-title" = "Xóa sạch";
-"search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
 "search-field-placeholder-text" = "Tìm trong Wikipedia";
 "search-reading-list-placeholder-text" = "Tìm trong danh sách đọc";
-"search-recent-clear-cancel" = "Hủy bỏ";
 "search-recent-clear-confirmation-heading" = "Xóa các tìm kiếm gần đây?";
 "search-recent-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "search-recent-clear-delete-all" = "Xóa Toàn bộ";
@@ -846,7 +868,7 @@
 "serbian-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Serbia là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nсрпски ћирилица Serbia chữ Kirin (sr-ec)\nsrpski latinica Serbia chữ Latinh (sr-el)";
 "serbian-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Serbia";
 "settings-account" = "Tài khoản";
-"settings-appearance" = "Tùy chọn đọc";
+"settings-appearance" = "Chủ đề ứng dụng";
 "settings-clear-cache" = "Xóa dữ liệu đệm";
 "settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";
 "settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
@@ -866,6 +888,8 @@
 "settings-notifications-push-notifications" = "Thông báo đẩy";
 "settings-notifications-system-turn-on" = "Bật Thông báo";
 "settings-notifications-trending" = "Thời sự thịnh hành";
+"settings-off" = "Tắt";
+"settings-on" = "Bật";
 "settings-primary-language" = "Chính";
 "settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng.";
 "settings-search-footer-text" = "Hiển thị thẻ Tìm kiếm thay vì thẻ Thám hiểm khi mở ứng dụng";
@@ -972,6 +996,22 @@
 "vanish-account-warning-title" = "Cảnh báo";
 "variants-alert-dismiss-button" = "Thôi";
 "variants-alert-preferences-button" = "Xem tùy chọn cá nhân của bạn";
+"watchlist-change-expiry-option-one-month" = "1 tháng";
+"watchlist-change-expiry-option-one-week" = "1 tuần";
+"watchlist-change-expiry-option-one-year" = "1 năm";
+"watchlist-change-expiry-option-permanent" = "Vô thời hạn";
+"watchlist-change-expiry-option-six-months" = "6 tháng";
+"watchlist-change-expiry-option-three-months" = "3 tháng";
+"watchlist-filter" = "Bộ lọc";
+"watchlist-filter-automated-contributions-options-bot" = "Bot";
+"watchlist-filter-automated-contributions-options-human" = "Con người (không phải bot)";
+"watchlist-filter-latest-revisions-header" = "Phiên bản mới nhất";
+"watchlist-filters-add-language" = "Thêm ngôn ngữ...";
+"watchlist-thanks-success" = "\"Lời cảm ơn\" của bạn đã được gửi tới $1";
+"watchlist-user-button-thank" = "Cảm ơn";
+"watchlist-user-button-user-contributions" = "Đóng góp của người dùng";
+"watchlist-user-button-user-page" = "Trang cá nhân";
+"watchlist-user-button-user-talk-page" = "Trang thảo luận người dùng";
 "welcome-exploration-explore-feed-description" = "Các bài đọc được cộng đồng gợi ý hằng ngày";
 "welcome-exploration-explore-feed-title" = "Nguồn cấp Thám hiểm";
 "welcome-exploration-on-this-day-description" = "Quay về quá khứ để tìm hiểu về các sự kiện ngày nay năm xưa";
@@ -1009,5 +1049,15 @@
 "wikitext-upload-save" = "Đang đăng tải…";
 "wikitext-upload-save-anonymously-or-login" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1Đăng nhập$2 để bảo vệ quyền riêng tư của bạn một chút hơn.";
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
-"wikitext-upload-save-sign-in" = "Đăng nhập";
 "wikitext-upload-save-terms-name" = "Điều khoản sử dụng";
+"year-in-review-day-friday" = "Thứ sáu";
+"year-in-review-day-monday" = "Thứ hai";
+"year-in-review-day-saturday" = "Thứ bảy";
+"year-in-review-day-sunday" = "Chủ nhật";
+"year-in-review-day-thursday" = "Thứ năm";
+"year-in-review-day-tuesday" = "Thứ ba";
+"year-in-review-day-wednesday" = "Thứ tư";
+"year-in-review-donate" = "Quyên góp";
+"year-in-review-donate-now" = "Quyên góp ngay";
+"year-in-review-personalized-edit-views-subtitle-format-updated" = "Độc giả trên khắp thế giới trân trọng những đóng góp của bạn. Trong 2 tháng qua, các bài viết mà bạn đã chỉnh sửa đã nhận được {{PLURAL:$1|$1 lượt xem}}. Nhờ có những biên tập viên như bạn, Wikipedia đang không ngừng cải thiện và trở thành nguồn tri thức dựa trên thực tế đáng tin cậy cho toàn thế giới.";
+"yesterday-title" = "Hôm qua";

@@ -289,7 +289,6 @@
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
 "history-clear-all" = "Llimpiar";
-"history-clear-cancel" = "Zarrar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
 "history-title" = "Historial";
@@ -486,10 +485,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "¿Dexar de guardar {{PLURAL:$1|l'artículu|los artículos}}?";
 "search-button-accessibility-label" = "Guetar na Wikipedia";
 "search-clear-title" = "Llimpiar";
-"search-did-you-mean" = "¿Quixisti dicir $1?";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
 "search-reading-list-placeholder-text" = "Guetar na llista de llectura";
-"search-recent-clear-cancel" = "Zarrar";
 "search-recent-clear-confirmation-heading" = "¿Desaniciar toles guetes de recién?";
 "search-recent-clear-confirmation-sub-heading" = "¡Esta aición nun puede desfacese!";
 "search-recent-clear-delete-all" = "Desaniciar too";
@@ -497,6 +494,7 @@
 "search-recent-title" = "Guetao de recién";
 "search-result-redirected-from" = "Redirixío dende: $1";
 "search-title" = "Guetar";
+// Fuzzy
 "settings-appearance" = "Preferencies de llectura";
 "settings-clear-cache" = "Borrar los datos de la caché";
 "settings-clear-cache-are-you-sure-message" = "Si se borren los datos de la caché lliberaránse cerca de $1 d'espaciu. Nun se borrarán les páxines guardaes.";
@@ -588,5 +586,4 @@
 "wikitext-upload-result-unknown" = "Nun pudo determinase'l resultáu del unviu del testu wiki.";
 "wikitext-upload-save" = "Espublizando...";
 "wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
-"wikitext-upload-save-sign-in" = "Aniciar sesión";
 "wikitext-upload-save-terms-name" = "Condiciones d'usu";

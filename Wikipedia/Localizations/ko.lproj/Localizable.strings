@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Alex00728
 // Author: Apzp79
+// Author: Bisang
 // Author: Bluemersen
 // Author: CYAN
 // Author: Codenstory
@@ -157,6 +158,10 @@
 "article-revision-history" = "문서 편집 역사";
 "article-save-error-not-enough-space" = "장치에 이 문서를 저장할 공간이 충분하지 않습니다";
 "article-share" = "공유";
+"article-tabs-button-accessibility-label" = "문서 탭";
+"article-tabs-feature-announcement-item-3-title" = "나중을 위해 링크 저장";
+"article-tabs-feature-announcement-sub-cta" = "탭에 관해 더 알아보기";
+"article-tabs-feature-announcement-title" = "탭 소개";
 // Fuzzy
 "article-tabs-max-reached" = "탭 제한에 도달했습니다. ($1개) 하나 이상의 탭을 닫아 주십시오.";
 "article-tabs-navigation" = "탭 둘러보기";
@@ -188,10 +193,12 @@
 "clearing-cache-in-progress" = "캐시를 지우는 중입니다.";
 "close-all-tabs" = "모든 탭 닫기";
 "close-all-tabs-confirmation-number" = "$1개 탭을 모두 닫으시겠습니까?";
+"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|탭 $1개}}를 닫으시겠습니까?";
 "close-button-accessibility-label" = "닫기";
 "close-other-tabs" = "다른 탭 닫기";
 "close-tab-confirmation" = "탭을 닫으시겠습니까?";
 "close-tabs" = "탭 닫기";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|탭 $1개}}가 닫혔습니다.";
 "compass-direction" = "$1시에";
 "confirm-donation-history-deletion-subtitle" = "이 장치를 통해 이루어진 기부에만 적용됩니다.";
 "confirm-donation-history-deletion-title" = "삭제 확인";
@@ -241,10 +248,6 @@
 "description-welcome-start-editing-button" = "편집 시작";
 "developer-force-email-auth" = "이메일 인증 강제";
 "developer-settings" = "개발자 설정";
-"developer-settings-activity-tab-group-A" = "활동 탭을 그룹 A로 설정";
-"developer-settings-activity-tab-group-B" = "활동 탭을 그룹 B로 설정";
-"developer-settings-activity-tab-group-C" = "활동 탭을 그룹 C로 설정";
-"developer-settings-activity-tabs" = "활동 탭 활성화";
 "developer-settings-bypass-donation" = "기부 건너뛰기";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
@@ -302,6 +305,7 @@
 "donate-accessibility-monthly-recurring-hint" = "이 금액의 자동 월간 기부를 활성화하려면 두 번 탭하세요.";
 "donate-accessibility-textfield-hint" = "기부용 맞춤 금액을 입력하세요.";
 "donate-accessibility-transaction-fee-hint" = "기부 금액에 거래 수수료를 추가하려면 두 번 탭하세요.";
+// Fuzzy
 "donate-already-donated" = "기부해 주셔서 감사합니다! 당신의 관대한 선택으로 위키백과와 자매 사이트의 발전에 큰 힘이 되었습니다.";
 "donate-apple-fine-print" = "애플은 이 목적으로 자금을 모으는 일을 맡지 않습니다.";
 "donate-email-opt-in-text" = "네, 위키미디어 재단에서 가끔 이메일을 보내드릴 수 있게 됩니다.";
@@ -578,7 +582,6 @@
 "gan-variants-alert-body" = "이제 위키백과 앱에서 아래의 간어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\n贛語 原文 간어 (gan)\n赣语 简体 간어 간체 (gan-hans)\n贛語 繁體 간어 번체 (gan-hant)";
 "gan-variants-alert-title" = "간어 변이형 지원 업데이트";
 "history-clear-all" = "지우기";
-"history-clear-cancel" = "취소";
 "history-clear-confirmation-heading" = "최근의 모든 항목을 삭제하겠습니까?";
 "history-clear-delete-all" = "예, 모두 삭제합니다";
 "history-title" = "역사";
@@ -640,7 +643,6 @@
 "image-recs-time-warning-message" = "주제를 이해하고 이미지를 점검하기 위해 문서를 검토해 주십시오";
 "image-recs-yes-title" = "예";
 "import-shared-reading-list-default-title" = "내 읽기 목록";
-"import-shared-reading-list-survey-prompt-button-cancel" = "지금은 괜찮습니다";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "설문 조사에 참가하기";
 "import-shared-reading-list-survey-prompt-footer" = "저희의 $1개인정보 정책$2을 확인하세요. 설문조사는 제3자가 제공합니다. 제3자의 $3개인정보 정책$4을 확인하세요.";
 "import-shared-reading-list-survey-prompt-title" = "\"읽기 목록 공유\" 개선에 도움을 주시겠습니까?";
@@ -714,11 +716,8 @@
 "main-menu-terms-of-use" = "이용 약관";
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
-"microsite-yir-english-edits-bytes-slide-title" = "40억 바이트 추가됨";
-"microsite-yir-english-edits-slide-title" = "편집자들은 올해 9,800만 건의 변경을 수행했습니다";
-"microsite-yir-english-non-donor-slide-title" = "위키백과에 게재된 광고는 0개입니다";
-"microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
-"microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
+"main-page" = "대문";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "영어 위키백과의 가장 인기 있는 문서";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
@@ -737,6 +736,7 @@
 "no-internet-connection" = "인터넷 연결 없음";
 "no-internet-connection-article-reload" = "이 문서의 더 새로운 판을 볼 수 있으나 인터넷에 연결되지 않으면 불러올 수 없습니다";
 "no-internet-connection-article-reload-button" = "마지막으로 저장한 판으로 돌아가기";
+"not-now-title" = "지금은 괜찮습니다";
 "notifications-center-agent-description-from-format" = "$1에서";
 "notifications-center-alert" = "중요 알림";
 "notifications-center-applied-filters-accessibility-label" = "알림 필터 - 필터 적용됨";
@@ -756,7 +756,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1개 필터}}";
 "notifications-center-feed-card-title" = "지금 편집 알림을 사용할 수 있습니다";
 "notifications-center-feed-news-notification-button-text" = "푸시 알림 켜기";
-"notifications-center-feed-news-notification-dismiss-button-text" = "지금은 괜찮습니다";
 "notifications-center-feed-news-notification-text" = "모든 위키미디어 프로젝트의 편집 알림을 이제 앱을 통해 사용할 수 있습니다. 위키백과에서 계속 들어오는 메시지와 최신화를 유지하려면 푸시 알림을 활성화하십시오.";
 "notifications-center-filters-accessibility-label" = "알림 필터";
 "notifications-center-filters-read-status-item-title-all" = "모두";
@@ -1081,10 +1080,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|문서}}의 저장을 취소하시겠습니까?";
 "search-button-accessibility-label" = "위키백과 검색";
 "search-clear-title" = "지우기";
-"search-did-you-mean" = "$1 문서를 찾고 있었나요?";
 "search-field-placeholder-text" = "위키백과 검색";
 "search-reading-list-placeholder-text" = "읽기 목록 검색";
-"search-recent-clear-cancel" = "취소";
 "search-recent-clear-confirmation-heading" = "최근의 검색 항목을 모두 삭제하겠습니까?";
 "search-recent-clear-confirmation-sub-heading" = "이 동작은 취소할 수 없습니다!";
 "search-recent-clear-delete-all" = "모두 삭제";
@@ -1092,12 +1089,12 @@
 "search-recent-title" = "최근 검색한 항목";
 "search-result-redirected-from" = "($1에서 넘어옴)";
 "search-title" = "검색";
-"search-widget-title" = "검색";
+"search-widget-announcement-title" = "새로운 검색 위젯을 사용할 수 있습니다";
 "search-widget-wikipedia-title" = "위키백과";
 "serbian-variants-alert-body" = "이제 위키백과 앱에서 아래의 세르비아어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nсрпски ћирилица 세르비아어 키릴 (sr-ec)\nsrpski latinica 세르비아어 라틴 (sr-el)";
 "serbian-variants-alert-title" = "세르비아어 변이형 지원 업데이트";
 "settings-account" = "계정";
-"settings-appearance" = "읽기 환경 설정";
+"settings-appearance" = "앱 테마";
 "settings-clear-cache" = "캐시된 데이터 지우기";
 "settings-clear-cache-are-you-sure-message" = "캐시된 데이터를 지우면 약 $1의 공간을 확보할 것입니다. 당신이 저장한 문서를 삭제하지는 않습니다.";
 "settings-clear-cache-are-you-sure-title" = "캐시된 데이터를 지우시겠습니까?";
@@ -1108,6 +1105,7 @@
 "settings-language-bar" = "검색 결과에 표시할 언어";
 "settings-languages-feed-customization" = "탐색 피드 설정의 사용자 지정을 통해 어느 언어가 탐색 피드에 표시될지 관리할 수 있습니다.";
 "settings-my-languages" = "내 언어";
+"settings-new-article-tab-header-text" = "새 탭 테마";
 "settings-notifications" = "푸시 알림";
 "settings-notifications-echo-failure-message" = "계정과 관련된 알림 구독을 확인하는 동안 오류가 발생했습니다.";
 "settings-notifications-echo-failure-try-again" = "다시 시도";
@@ -1164,6 +1162,8 @@
 "tabs-close-tab" = "탭 닫기";
 "tabs-navbar-title-format" = "{{PLURAL:$1|탭 $1개}}";
 "tabs-open-tab" = "탭 열기";
+"tabs-overview-tooltip-title" = "탭 개요";
+"tabs-title" = "탭";
 "tachelhit-variants-alert-body" = "이제 위키백과 앱에서 아래의 타셸히트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nⵜⴰⵛⵍⵃⵉⵜ 타셸히트어 티피나그 (shi-tfng)\nTaclḥit 타셸히트어 라틴 (shi-latn)";
 "tachelhit-variants-alert-title" = "타셸히트어 변이형 지원 업데이트";
 "tajik-variants-alert-body" = "이제 위키백과 앱에서 아래의 타지크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nтоҷикӣ кирилликӣ 타지크어 키릴 (tg-cyrl)\ntojikī lotinī 타지크어 라틴 (tg-latn)";
@@ -1243,6 +1243,7 @@
 "temp-account-toast-read-more-title" = "더 읽어보기";
 "temp-account-toast-title" = "$1현재 임시 계정을 사용하고 있습니다.$2 임시 계정으로 편집했습니다...";
 "temp-account-warning-title" = "임시 계정을 사용하고 있습니다";
+"temp-warning-subtitle-format" = "편집이 $1 이름으로 표시됩니다";
 "temporary-account" = "임시 계정";
 "terms-of-use-title" = "이용 약관";
 "theme-black-display-name" = "블랙";
@@ -1251,6 +1252,7 @@
 "theme-default-explanation" = "시스템 테마에 일치시킵니다";
 "theme-light-display-name" = "밝음";
 "theme-sepia-display-name" = "세피아";
+"today-title" = "오늘";
 "top-read-widget-description" = "세상 사람들이 위키백과에서 오늘 무엇을 읽고 있는지 알아보세요.";
 "top-read-widget-readers-count" = "$1명의 독자";
 "top-read-widget-title" = "가장 많이 읽은 글";
@@ -1379,14 +1381,7 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-or-login" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1로그인$2하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
-"wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
-"year-in-review-base-donate-title" = "위키백과에 게재된 광고는 0개입니다";
-"year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
-"year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
-"year-in-review-base-saved-title" = "$1백만 개가 넘는 읽기 목록이 있습니다";
-"year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
-"year-in-review-collective-zero-ads" = "위키미디어 로고";
 "year-in-review-day-friday" = "금요일";
 "year-in-review-day-monday" = "월요일";
 "year-in-review-day-saturday" = "토요일";
@@ -1397,13 +1392,10 @@
 "year-in-review-donate" = "기부";
 "year-in-review-donate-now" = "지금 기부하기";
 "year-in-review-finish" = "완료";
-"year-in-review-personalized-day-subtitle-format" = "$1에 가장 많은 문서를 읽었습니다. $1이 새로운 콘텐츠를 둘러보기에 가장 좋은 날이라는 것은 분명합니다. 읽는 시간을 최대한 활용해주셔서 고맙습니다!";
-"year-in-review-personalized-day-title-format" = "읽기에 가장 많이 할애한 날은 $1입니다.";
+"year-in-review-intro-login-title" = "개인화를 위해선 로그인하세요";
+"year-in-review-personalized-date-month-footer-v3" = "가장 많이 읽은 달";
 "year-in-review-personalized-donate-title" = "귀하의 기부 덕분에 위키백과의 번영 유지에 도움이 되었습니다";
-"year-in-review-personalized-donation-thank-you" = "위키미디어 로고";
-"year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
-"year-in-review-personalized-editing-title-format-500plus" = "당신은 위키백과를 500회 이상 편집했습니다";
-"year-in-review-personalized-reading-title-format" = "{{PLURAL:$1|$1개 문서}}를 읽었습니다";
+"year-in-review-personalized-most-read-articles-title" = "인기 기사";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|문서 $1개}}를 저장했습니다";
 "year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";
 "year-in-review-survey-neutral" = "중립";
@@ -1412,5 +1404,12 @@
 "year-in-review-survey-unsatisfied" = "불만족";
 "year-in-review-survey-very-satisfied" = "매우 만족";
 "year-in-review-survey-very-unsatisfied" = "매우 불만족";
+"year-in-review-time-afternoon" = "오후";
+"year-in-review-time-evening" = "저녁";
+"year-in-review-time-late-night" = "늦은 밤";
+"year-in-review-time-midday" = "대낮";
+"year-in-review-time-morning" = "아침";
+"year-in-review-time-night" = "밤";
 "year-in-review-wikipedia-w-accessibility-label" = "위키백과 w 로고";
 "year-in-review-wmf-logo-accessibility-label" = "위키미디어 재단 로고";
+"yesterday-title" = "어제";

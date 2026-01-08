@@ -348,7 +348,6 @@
 "forgot-password-title" = "កំណត់ពាក្យសម្ងាត់ឡើងវិញ";
 "forgot-password-username-or-email-title" = "ឬ";
 "history-clear-all" = "សម្អាត";
-"history-clear-cancel" = "បោះបង់";
 "history-clear-confirmation-heading" = "តើអ្នកពិតជាងចង់លុបចោលរបស់ថ្មីៗទាំងអស់ឬ?";
 "history-clear-delete-all" = "លុបចោលទាំងអស់";
 "history-title" = "ប្រវត្តិ";
@@ -437,7 +436,6 @@
 "notifications-center-empty-checking-for-notifications" = "កំពុងពិនិត្យមើលសារជូនដំណឹង...";
 "notifications-center-empty-no-messages" = "អ្នកគ្មានសារទេ";
 "notifications-center-feed-news-notification-button-text" = "បើកប្រើសារជូនដំណឹងបែបជម្រុញ";
-"notifications-center-feed-news-notification-dismiss-button-text" = "មិនមែន​ឥឡូវ​ទេ";
 "notifications-center-filters-accessibility-label" = "តម្រងសារជូនដំណឹង";
 "notifications-center-filters-read-status-item-title-all" = "ទាំងអស់";
 "notifications-center-filters-read-status-item-title-read" = "អានរួច";
@@ -640,10 +638,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ឈប់រក្សាទុក{{PLURAL:$1|អត្ថបទ|អត្ថបទ}}ឬ?";
 "search-button-accessibility-label" = "ស្វែងរកក្នុងវិគីភីឌា";
 "search-clear-title" = "ជម្រះ";
-"search-did-you-mean" = "ប្រហែលជាអ្នកចង់រក $1";
 "search-field-placeholder-text" = "ស្វែងរកក្នុងវិគីភីឌា";
 "search-reading-list-placeholder-text" = "ស្វែងរកបញ្ជីអត្ថបទចង់អាន";
-"search-recent-clear-cancel" = "បោះបង់";
 "search-recent-clear-confirmation-heading" = "លុបចោលការស្វែងរកថ្មីៗនេះទាំងអស់ឬ?";
 "search-recent-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "search-recent-clear-delete-all" = "លុបចោលទាំងអស់";
@@ -652,6 +648,7 @@
 "search-result-redirected-from" = "បានបញ្ជូនបន្តពី៖$1";
 "search-title" = "ស្វែងរក";
 "settings-account" = "គណនី";
+// Fuzzy
 "settings-appearance" = "ចំណង់ចំណូលចិត្តអំណាន";
 "settings-clear-cache-cancel" = "បោះបង់";
 "settings-help-and-feedback" = "ជំនួយនិងមតិយោបល់";
@@ -756,5 +753,4 @@
 "wikitext-upload-captcha-needed" = "ត្រូវការផ្ទៀងផ្ទាត់ CAPTCHA។";
 "wikitext-upload-save" = "កំពុងបោះផ្សាយ...";
 "wikitext-upload-save-anonymously-warning" = "ការកែប្រែនឹងត្រូវភ្ជាប់ព័ត៌មានជាមួយអាសយដ្ឋាន IP របស់ឧបករណ៍របស់អ្នក។ ប្រសិនបើអ្នក$1 នោះអ្នកនឹងអាចរក្សាឯកជនភាពរបស់អ្នកបានប្រសើរជាងនេះ។";
-"wikitext-upload-save-sign-in" = "កត់ឈ្មោះចូល";
 "wikitext-upload-save-terms-name" = "លក្ខខណ្ឌប្រើប្រាស់";

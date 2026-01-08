@@ -1,3 +1,5 @@
+import WMFData
+
 private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
 
 @objc public final class UserHistoryFunnel: NSObject {
@@ -162,14 +164,15 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
-        let savedArticlesCount = dataStore.savedPageList.numberOfItems()
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
-        let readingListCount = try? dataStore.viewContext.allReadingListsCount()
         let status = authorizationStatus?.getAuthorizationStatusString()
-        let yirEnabled = userDefaults.wmf_yirSettingToggleShouldShow ? userDefaults.wmf_yirSettingToggleIsEnabled : nil
+        let yirDataController = try? WMFYearInReviewDataController()
+        let yirEnabled = yirDataController?.yearInReviewSettingsIsEnabled ?? false
+        let readingListListCount = try? dataStore.viewContext.allReadingListsCount()
+        let readingListItemCount = dataStore.savedPageList.numberOfItems()
 
-        let event = Event(measure_readinglist_listcount: savedArticlesCount, measure_readinglist_itemcount: readingListCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status, test_group: nil, yir_enabled: yirEnabled)
+        let event = Event(measure_readinglist_listcount: readingListListCount, measure_readinglist_itemcount: readingListItemCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status, test_group: nil, yir_enabled: yirEnabled)
         return event
     }
     

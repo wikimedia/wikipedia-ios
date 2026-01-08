@@ -281,7 +281,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         let linkAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor : theme.colors.link
         ]
-        return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.editSignIn], substitutionAttributes: [linkAttributes])
+        return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.logIn], substitutionAttributes: [linkAttributes])
     }
     
     @IBAction private func descriptionPlaceholderLabelTapped() {
@@ -371,7 +371,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                             revisionID = Int(uintRevisionID)
                         }
                         
-                        EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: revisionID)
+                        EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: revisionID, project: WikimediaProject(siteURL: articleURL))
                     }
                     var needsNewTempAccountToast = false
                     guard let dataStore = self.dataStore else { return }

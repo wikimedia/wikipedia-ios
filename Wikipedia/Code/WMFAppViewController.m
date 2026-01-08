@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType) {
     WMFAppTabTypeMain = 0,
     WMFAppTabTypePlaces = 1,
     WMFAppTabTypeSaved = 2,
-    WMFAppTabTypeRecent = 3, //Activity tab
+    WMFAppTabTypeRecent = 3, // Activity tab
     WMFAppTabTypeSearch = 4
 };
 
@@ -115,7 +115,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @end
 
-
 @implementation WMFAppViewController
 @synthesize exploreViewController = _exploreViewController;
 @synthesize searchViewController = _searchViewController;
@@ -141,6 +140,35 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return self;
 }
 
+- (void)updateFourthTab {
+    WMFActivityTabExperimentAssignment assignment = [self getAssignmentForActivityTab];
+
+    // Don't change unnecessarily or else we'll get a crash
+    if (self.viewControllers.count >= 4 && ([self.viewControllers[3] isKindOfClass:[UINavigationController class]])) {
+        UINavigationController *fourthNavVC = self.viewControllers[3];
+        if (fourthNavVC.viewControllers.count >= 1) {
+            UIViewController *rootVC = fourthNavVC.viewControllers[0];
+            if (assignment == WMFActivityTabExperimentAssignmentActivityTab && [rootVC isKindOfClass:[WMFActivityTabViewController class]]) {
+                return;
+            } else if (assignment == WMFActivityTabExperimentAssignmentControl && [rootVC isKindOfClass:[WMFHistoryViewController class]]) {
+                return;
+            }
+        }
+    }
+
+    WMFComponentNavigationController *newNav4 = [self setupFourthTab:assignment];
+
+    NSInteger selectedIndex = self.selectedIndex;
+
+    NSMutableArray *viewControllers = [self.viewControllers mutableCopy];
+    if (viewControllers.count >= 4) {
+        viewControllers[3] = newNav4;
+        [self setViewControllers:viewControllers animated:NO];
+    }
+
+    self.selectedIndex = selectedIndex;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
@@ -155,7 +183,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self applyTheme:self.theme];
 
     [self updateAppEnvironmentWithTheme:self.theme traitCollection:self.traitCollection];
-    
+
     self.imageRecommendationsViewModelWrapper = nil;
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
@@ -228,6 +256,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(userWasLoggedIn:)
                                                  name:[WMFAuthenticationManager didLogInNotification]
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authManagerDidHandlePrimaryLanguageChange:)
@@ -308,9 +338,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if ([self uiIsLoaded]) {
         return;
     }
-
-    [self assignAndLogActivityTabExperiment];
-
     [self configureTabController];
 
     self.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -319,7 +346,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
 
-    self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
 
@@ -327,15 +353,15 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 }
 
-- (WMFComponentNavigationController *)setupFourthTab:(NSInteger)assignment {
-
+- (WMFComponentNavigationController *)setupFourthTab:(WMFActivityTabExperimentAssignment)assignment {
     WMFComponentNavigationController *nav4;
-    if (assignment == 0) {
-        nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
-    } else {
+    
+    if (assignment == WMFActivityTabExperimentAssignmentActivityTab) {
         nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
+    } else {
+        nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
     }
-
+    
     return nav4;
 }
 
@@ -354,14 +380,29 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
     }
 
-    NSInteger assignment = [self getAssignmentForActivityTabExperiment];
+    WMFActivityTabExperimentAssignment assignment = [self getAssignmentForActivityTab];
 
     WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
     WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
     WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
-    WMFComponentNavigationController *nav4 = [self setupFourthTab: assignment];
+    WMFComponentNavigationController *nav4 = [self setupFourthTab:assignment];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
+    if (@available(iOS 18.0, *)) {
+        // A magic fix for https://phabricator.wikimedia.org/T403896
+        for (WMFComponentNavigationController *nav in @[nav1, nav2, nav3, nav4, nav5]) {
+            UITab *tab = [[UITab alloc] initWithTitle:nav.viewControllers[0].title
+                                                image:nav.viewControllers[0].tabBarItem.image
+                                           identifier:nav.viewControllers[0].title
+                               viewControllerProvider:^UIViewController *_Nonnull(__kindof UITab *tab) {
+                                   return nav;
+                               }];
+            tab.preferredPlacement = UITabPlacementFixed;
+            self.tabs = [self.tabs arrayByAddingObject:tab];
+            // Once set, `UITabBarController.viewControllers` and related properties and methods will not be called.
+        }
+    }
+    // This should be called all the time for backward compatibility
     [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
 
     [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
@@ -376,7 +417,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (WMFComponentNavigationController *)rootNavigationControllerWithRootViewController:(UIViewController *)rootViewController {
-    WMFComponentNavigationController *navigationController = [[WMFComponentNavigationController alloc] initWithRootViewController:rootViewController modalPresentationStyle:UIModalPresentationOverFullScreen];
+    WMFComponentNavigationController *navigationController = [[WMFComponentNavigationController alloc] initWithRootViewController:rootViewController modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
     navigationController.delegate = self;
     return navigationController;
 }
@@ -416,8 +457,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self updatePrimaryWikiHasTempAccountsStatusIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
-    [self updateActivityTabLoginStateWithActivityTabViewController:self.activityTabViewController];
-    [self checkAndCreateInitialArticleTab];
+    [self assignMoreDynamicTabsV2ExperimentIfNeeded];
+    [AppIconUtility.shared checkAndRevertIfExpired];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -473,7 +514,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self updateExploreFeedPreferencesIfNecessaryForChange:note];
     [self.dataStore.feedContentController updateContentSources];
     [self updateWMFDataEnvironmentFromLanguagesDidChange];
-    [self updateActivityTabProjectWithActivityTabViewController:self.activityTabViewController];
 }
 
 /**
@@ -670,6 +710,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     /// Housekeeping for the new talk page cache
     [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelLow];
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.didYouKnowCache cleanupLevel:WMFCleanupLevelLow];
 
     /// Housekeeping for WMFData
     [self performWMFDataHousekeeping];
@@ -846,6 +887,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedContentControllerBusyStateDidChange:) name:WMFExploreFeedContentControllerBusyStateDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(activityTabDidChange:)
+                                                 name:WMFNSNotificationBridge.ActivityTabDidChangeNotificationName
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preferredLanguagesDidChange:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
 
@@ -878,6 +923,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #else
     return nil;
 #endif
+}
+
+- (void)activityTabDidChange:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateFourthTab];
+    });
 }
 
 - (void)migrateIfNecessary {
@@ -1002,6 +1053,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self.navigationStateController restoreLastArticleFor:self
                                                                in:self.dataStore.viewContext
                                                              with:self.theme
+                                                     linkDelegate:self
                                                        completion:^{
                                                            [self hideSplashView];
 
@@ -1012,6 +1064,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
                                                            done();
                                                        }];
+            [self.dataStore.authenticationManager authStateIsTemporary];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self hideSplashView];
             [self showExplore];
@@ -1029,8 +1082,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
-            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
-
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
@@ -1304,11 +1355,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self setSelectedIndex:WMFAppTabTypeSaved];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
             break;
-        case WMFUserActivityTypeHistory:
+        case WMFUserActivityTypeHistory: {
             [self dismissPresentedViewControllers];
+
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
-            break;
+
+        } break;
         case WMFUserActivityTypeSearch:
             [self switchToSearchAnimated:animated];
             [self.searchViewController makeSearchBarBecomeFirstResponder];
@@ -1483,7 +1536,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (SearchViewController *)searchViewController {
     if (!_searchViewController) {
-        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil];
+        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil isMainRootView:YES];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
         _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
@@ -1506,9 +1559,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (WMFHistoryViewController *)recentArticlesViewController {
     if (!_recentArticlesViewController) {
-        _recentArticlesViewController = [[WMFHistoryViewController alloc] init];
-        [_recentArticlesViewController applyTheme:self.theme];
-        _recentArticlesViewController.dataStore = self.dataStore;
+        _recentArticlesViewController = [self generateHistoryTab];
         _recentArticlesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
         _recentArticlesViewController.title = [WMFCommonStrings historyTabTitle];
     }
@@ -1517,15 +1568,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (WMFActivityTabViewController *)activityTabViewController {
     if (!_activityTabViewController) {
-        _activityTabViewController = [self generateActivityTabWithExploreViewController:self.exploreViewController];
-        _activityTabViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
+        _activityTabViewController = [self generateActivityTab];
+        _activityTabViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
         _activityTabViewController.title = [WMFCommonStrings activityTitle];
     }
     return _activityTabViewController;
-}
-
-- (void)updateActivityTabLoginStateObjC {
-    [self updateActivityTabLoginStateWithActivityTabViewController:self.activityTabViewController];
 }
 
 - (WMFPlacesViewController *)placesViewController {
@@ -1699,13 +1746,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     [self wmf_hideKeyboard];
-}
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    [self logTappedTabBarItem:item inTabBar:tabBar];
+    [self logDidSelectViewController:viewController];
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
+    UIViewController *current = tabBarController.selectedViewController;
+    UIViewController *selected = viewController;
+    
     if (viewController == tabBarController.selectedViewController) {
         switch (tabBarController.selectedIndex) {
             case WMFAppTabTypeMain: {
@@ -1717,9 +1765,35 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [searchViewController makeSearchBarBecomeFirstResponder];
             } break;
         }
-        // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
-        return NO;
+
+        if (self.currentTabNavigationController.viewControllers.count > 1) {
+            [self logTabBarSelectionsForActivityTabWithCurrentTabSelection:current newTabSelection:selected];
+            return YES;
+        } else {
+            // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
+            return NO;
+        }
     }
+    
+    [self logTabBarSelectionsForActivityTabWithCurrentTabSelection:current newTabSelection:selected];
+    
+    // When switching to Explore via tab bar button, we want to flag Explore to show survey prompt
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)viewController;
+        if (navVC.viewControllers.count == 1 && [navVC.viewControllers[0] isKindOfClass:[ExploreViewController class]]) {
+            ExploreViewController *exploreVC = (ExploreViewController *)navVC.viewControllers[0];
+            exploreVC.checkForSurveyUponAppear = YES;
+        }
+    }
+    
+    // When switching to Activity via tab bar button, we want to increment the visit count
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)viewController;
+        if (navVC.viewControllers.count == 1 && [navVC.viewControllers[0] isKindOfClass:[WMFActivityTabViewController class]]) {
+            [self incrementActivityTabVisitCount];
+        }
+    }
+    
     return YES;
 }
 
@@ -2044,7 +2118,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC clear]; // clear search VC before bringing it forward
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
-        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc];
+        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc isMainRootView:NO];
         searchVC.shouldBecomeFirstResponder = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
@@ -2080,7 +2154,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (nonnull WMFComponentNavigationController *)settingsNavigationController {
     if (!_settingsNavigationController) {
-        WMFComponentNavigationController *navController = [[WMFComponentNavigationController alloc] initWithRootViewController:self.settingsViewController modalPresentationStyle:UIModalPresentationOverFullScreen];
+        WMFComponentNavigationController *navController = [[WMFComponentNavigationController alloc] initWithRootViewController:self.settingsViewController modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
         _settingsNavigationController.delegate = self;
@@ -2134,28 +2208,28 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Navigation logging
 
-- (void)logTappedTabBarItem:(UITabBarItem *)item inTabBar:(UITabBar *)tabBar {
-    if (tabBar.items.count != self.viewControllers.count || self.tabBar != tabBar) {
-        NSAssert(false, @"Unexpected tab bar setup for logging tap events.");
-        return;
-    }
-
-    NSInteger index = [self.tabBar.items indexOfObject:item];
-    if (index != NSNotFound) {
-        UIViewController *selectedViewController = self.viewControllers[index];
-
-        if ([selectedViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
-            [[WMFNavigationEventsFunnel shared] logTappedExplore];
-        } else if ([selectedViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
-            [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
-        } else if ([selectedViewController isKindOfClass:[WMFPlacesViewController class]]) {
-            [[WMFNavigationEventsFunnel shared] logTappedPlaces];
-        } else if ([selectedViewController isKindOfClass:[WMFSavedViewController class]]) {
-            [[WMFNavigationEventsFunnel shared] logTappedSaved];
-        } else if ([selectedViewController isKindOfClass:[WMFHistoryViewController class]]) {
-            [[WMFNavigationEventsFunnel shared] logTappedHistory];
-        } else if ([selectedViewController isKindOfClass:[SearchViewController class]]) {
-            [[WMFNavigationEventsFunnel shared] logTappedSearch];
+- (void)logDidSelectViewController:(UIViewController *)viewController {
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)viewController;
+        
+        if (navVC.viewControllers.count > 0) {
+            UIViewController *rootViewController = navVC.viewControllers[0];
+            
+            if ([rootViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
+                [[WMFNavigationEventsFunnel shared] logTappedExplore];
+            } else if ([rootViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+                [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
+            } else if ([rootViewController isKindOfClass:[WMFPlacesViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedPlaces];
+            } else if ([rootViewController isKindOfClass:[WMFSavedViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedSaved];
+            } else if ([rootViewController isKindOfClass:[WMFHistoryViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedHistory];
+            } else if ([rootViewController isKindOfClass:[WMFActivityTabViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedActivityTab];
+            } else if ([rootViewController isKindOfClass:[SearchViewController class]]) {
+                [[WMFNavigationEventsFunnel shared] logTappedSearch];
+            }
         }
     }
 }
@@ -2173,7 +2247,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
-            [self updateActivityTabLoginStateObjC];
         }
 
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
@@ -2181,7 +2254,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                        completion:nil];
     });
 
-    [self deleteYearInReviewPersonalizedEditingData];
+    [self deleteYearInReviewPersonalizedNetworkData];
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {
@@ -2193,14 +2266,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
-            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
-            [self updateActivityTabLoginStateObjC];
         }
 
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
                                                             force:YES
                                                        completion:nil];
     });
+}
+
+- (void)handleAppLanguageDidChangeNotification:(NSNotification *)note {
+    [self deleteYearInReviewPersonalizedNetworkData];
 }
 
 - (void)authManagerDidHandlePrimaryLanguageChange:(NSNotification *)note {

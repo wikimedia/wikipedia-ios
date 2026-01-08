@@ -1,5 +1,7 @@
 import WMF
+import WMFData
 
+@MainActor
 final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     let navigationController: UINavigationController
     private(set) var articleURL: URL?
@@ -9,12 +11,12 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     private let source: ArticleSource
     private let animated: Bool
     private let replaceLastViewControllerInNavStack: Bool
-    
+
     // Article Tabs Properties
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
-    
+
     init(navigationController: UINavigationController, articleURL: URL?, siteURL: URL?, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, animated: Bool, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, replaceLastViewControllerInNavStack: Bool = false) {
         self.navigationController = navigationController
         self.articleURL = articleURL
@@ -27,7 +29,7 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
         self.tabConfig = tabConfig
     }
     
-    @discardableResult
+    @MainActor @discardableResult
     func start() -> Bool {
         
         // We want to push on a particular random article.
@@ -41,14 +43,20 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
                 return false
             }
             
-            trackArticleTab(articleViewController: vc)
+            prepareToShowTabsOverview(articleViewController: vc, dataStore)
             
-            if replaceLastViewControllerInNavStack {
-                var viewControllers = navigationController.viewControllers
-                viewControllers[viewControllers.count - 1] = vc
-                navigationController.setViewControllers(viewControllers, animated: animated)
-            } else {
-                navigationController.pushViewController(vc, animated: animated)
+            Task {
+                await trackArticleTab(articleViewController: vc)
+                
+                Task { @MainActor in
+                    if replaceLastViewControllerInNavStack {
+                        var viewControllers = navigationController.viewControllers
+                        viewControllers[viewControllers.count - 1] = vc
+                        navigationController.setViewControllers(viewControllers, animated: animated)
+                    } else {
+                        navigationController.pushViewController(vc, animated: animated)
+                    }
+                }
             }
             
         // Push on FirstRandomViewController (which fetches a random article on load) instead

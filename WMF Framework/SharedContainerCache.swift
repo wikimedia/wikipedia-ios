@@ -4,6 +4,7 @@ import Foundation
     @objc public static let pushNotificationsCache = "Push Notifications Cache"
     @objc public static let talkPageCache = "Talk Page Cache"
     public static let widgetCache = "Widget Cache"
+    @objc public static let didYouKnowCache = "Did You Know Cache"
 }
 
 public final class SharedContainerCache: SharedContainerCacheHousekeepingProtocol {
@@ -77,7 +78,6 @@ public final class SharedContainerCache: SharedContainerCacheHousekeepingProtoco
                 }
             }
         }
-
     }
 }
 

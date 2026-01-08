@@ -14,13 +14,12 @@ fileprivate extension WMFData.WMFServiceRequest {
         switch WMFDataEnvironment.current.serviceEnvironment {
         case .production:
             guard let url,
-                  url.host == "donate.wikimedia.org",
-                  url.path == "/wiki/MediaWiki:AppsFeatureConfig.json",
-                  let action = parameters?["action"] as? String else {
+                  url.host == "en.wikipedia.org",
+                  url.path == "/api/rest_v1/feed/configuration" else {
                 return false
             }
             
-            return method == .GET && action == "raw"
+            return method == .GET
         case .staging:
             guard let url,
                   url.host == "test.wikipedia.org",
@@ -232,6 +231,10 @@ public class WMFMockBasicService: WMFService {
         }
         
         return nil
+    }
+    
+    public func clearCachedData() {
+        // no-op
     }
 }
 

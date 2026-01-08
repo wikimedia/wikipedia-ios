@@ -455,7 +455,6 @@
 "gan-variants-alert-body" = "Ara l’aplicació Wikipedia admet les següents variants Gan com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\n贛 語 原文 Gan (gan)\n赣 语 简体 Gan, simplificat (gan-hans)\n贛 語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualitzacions del suport a les variants Gan";
 "history-clear-all" = "Neteja";
-"history-clear-cancel" = "Cancel·la";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
 "history-clear-delete-all" = "Sí, esborra-ho tot";
 "history-title" = "Historial";
@@ -496,7 +495,6 @@
 "image-recs-not-sure-title" = "No ho sé";
 "image-recs-yes-title" = "Sí";
 "import-shared-reading-list-default-title" = "La meva llista de lectura";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ara no";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Feu l'enquesta";
 "import-shared-reading-list-survey-prompt-footer" = "Mostra la $1declaració de privadesa$2. Enquesta creada amb tecnologia de tercers. Vegeu llur $3política de privadesa$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Comparteix llistes de lectura» és una funcionalitat en proves i ens calen comentaris per a millorar-la o treure-la.";
@@ -579,6 +577,7 @@
 "no-internet-connection" = "Sense connexió a Internet";
 "no-internet-connection-article-reload" = "Podria haver-hi una nova versió de l'article, però no pot carregar-se perquè no hi ha connexió a Internet.";
 "no-internet-connection-article-reload-button" = "Torna a la darrera versió desada";
+"not-now-title" = "Ara no";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtre de notificacions - té filtres aplicats";
@@ -598,7 +597,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
 "notifications-center-feed-card-title" = "Les notificacions d'edició ja són disponibles";
 "notifications-center-feed-news-notification-button-text" = "Activa les notificacions emergents";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ara no";
 "notifications-center-feed-news-notification-text" = "Les notificacions d'edició de tots els projectes Wikimedia ja es troben disponibles des de l'aplicació. Accepteu les notificacions emergents per a estar al dia dels vostres missatges de la Viquipèdia des de qualsevol lloc.";
 "notifications-center-filters-accessibility-label" = "Filtre de notificacions";
 "notifications-center-filters-read-status-item-title-all" = "Tots";
@@ -911,10 +909,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Voleu deixar de tenir desats {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Cerca a la Viquipèdia";
 "search-clear-title" = "Esborra";
-"search-did-you-mean" = "Volíeu dir: $1?";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
 "search-reading-list-placeholder-text" = "Cerca a la llista de lectura";
-"search-recent-clear-cancel" = "Cancel·la";
 "search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "search-recent-clear-delete-all" = "Suprimeix-ho tot";
@@ -925,6 +921,7 @@
 "serbian-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants sèrbies com a llengües primàries o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides:\n\nсрпски ћирилица Serbi, ciríl·lic (sr-ec)\nsrpski latinica serbi, llatí (sr-el)";
 "serbian-variants-alert-title" = "Actualitzacions per a l'admissió de variants sèrbies";
 "settings-account" = "Compte";
+// Fuzzy
 "settings-appearance" = "Preferències de lectura";
 "settings-clear-cache" = "Neteja les dades en cau";
 "settings-clear-cache-are-you-sure-message" = "En netejar la memòria cau s'alliberaran fins a $1 d'espai. No s'eliminaran les pàgines que heu desat.";
@@ -1198,5 +1195,4 @@
 "wikitext-upload-save" = "S'està desant...";
 "wikitext-upload-save-anonymously-or-login" = "Les edicions s'atribuiran a la adreça IP del vostre dispositiu. Si $1inicieu una sessió$2, tindreu més privadesa.";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
-"wikitext-upload-save-sign-in" = "Inicia una sessió";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";

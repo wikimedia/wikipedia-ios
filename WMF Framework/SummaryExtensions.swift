@@ -58,6 +58,10 @@ extension WMFArticle {
             imageURLString = original.source
             imageWidth = NSNumber(value: original.width)
             imageHeight = NSNumber(value: original.height)
+        } else if let thumbnail = summary.thumbnail {
+            imageURLString = thumbnail.source
+            imageWidth = NSNumber(value: thumbnail.width)
+            imageHeight = NSNumber(value: thumbnail.height)
         } else {
             imageURLString = nil
             imageWidth = NSNumber(value: 0)

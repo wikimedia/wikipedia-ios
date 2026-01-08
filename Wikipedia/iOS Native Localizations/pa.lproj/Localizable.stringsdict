@@ -5,7 +5,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ %#@v1@ ਸੋਧੇ ਹਨ।</string>
+		<string>ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ %#@v1@ ਸੰਪਾਦਨ ਕੀਤਾ ਹੈ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%1$d ਲੇਖ</string>
+			<string>%1$d ਵਾਰ</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
@@ -138,6 +138,22 @@
 			<string> %1$d ਲਕੀਰ ਨਹੀਂ ਸੋਧੀ</string>
 			<key>other</key>
 			<string> %1$d ਲਕੀਰਾਂ ਨਹੀਂ ਸੋਧੀਆਂ</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ਜੋੜੇ ਗਏ</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld ਬਾਈਟ</string>
+			<key>other</key>
+			<string>%1$lld ਬਾਈਟਸ</string>
 		</dict>
 	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
@@ -522,10 +538,40 @@
 			<string>%1$d ਬਾਈਟਾਂ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ %#@v1@ ਸੋਧਿਆ। ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਵਿਕੀਮੀਡੀਆ ਪ੍ਰੋਜੈਕਟਾਂ ਵਿੱਚ ਇੱਕ ਫਰਕ ਲਿਆਉਣ ਵਾਲੇ ਸਵੈ-ਸੇਵੀ ਸੋਧਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੋਣ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ।</string>
+		<string>ਅਧਿਕਾਰਤ ਵਿਕੀਪੀਡੀਆ ਐਪ ਉੱਤੇ ਸੋਧਕਾਂ ਨੇ %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld ਸੋਧ ਕੀਤਾ ਹੈ</string>
+			<key>other</key>
+			<string>%1$lld ਸੋਧਾਂ ਕੀਤੀਆਂ ਹਨ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ਵਿਕੀਪੀਡੀਆ ਨੂੰ %#@v1@ ਪ੍ਰਤੀ ਮਿੰਟ ਸੋਧਿਆ ਗਿਆ ਸੀ</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d ਵਾਰ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ਵਿਕੀਪੀਡੀਆ %#@v1@ ਤੋਂ ਵੱਧ ਵਿੱਚ ਉਪਲਬਧ ਸੀ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -533,55 +579,83 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string> %1$d ਵਾਰ</string>
+			<string>%1$d ਭਾਸ਼ਾ</string>
 			<key>other</key>
-			<string> %1$d ਵਾਰੀ</string>
+			<string>%1$d ਭਾਸ਼ਾਵਾਂ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ %#@v1@ ਸੋਧਿਆ</string>
+		<string>ਐਪ ਵਰਤੋਂਕਾਰਾਂ ਕੋਲ %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string> %1$d ਵਾਰ</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ %#@v1@। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
 			<key>one</key>
-			<string>%1$d ਲੇਖ ਪੜ੍ਹਿਆ ਹੈ</string>
+			<string>%1$lld ਸੰਭਾਲੇ ਲੇਖ ਸੀ</string>
 			<key>other</key>
-			<string>%1$d ਲੇਖ ਪੜ੍ਹੇ ਹਨ</string>
+			<string>%1$lld ਸੰਭਾਲੇ ਲੇਖ ਸਨ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ %#@v1@</string>
+		<string>ਐਪ ਵਰਤੋਂਕਾਰਾਂ ਨੇ %#@v1@ ਵਿਕੀਪੀਡੀਆ ਲੇਖ ਦੇਖੇ।</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld ਵਾਰ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ਦੁਨੀਆ ਭਰ ਦੇ ਪਾਠਕ ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਦੀ ਸ਼ਲਾਘਾ ਕਰਦੇ ਹਨ। ਪਿਛਲੇ 2 ਮਹੀਨਿਆਂ ਵਿੱਚ, ਤੁਹਾਡੇ ਵੱਲੋਂ ਸੋਧੇ ਲੇਖਾਂ ਨੂੰ %#@v1@ ਵਾਰ ਦੇਖਿਆ ਗਿਆ ਸੀ।। ਤੁਹਾਡੇ ਵਰਗੇ ਸੋਧਕਾਂ ਦਾ ਧੰਨਵਾਦ, ਵਿਕੀਪੀਡੀਆ ਦੁਨੀਆ ਲਈ ਇੱਕ ਨਿਰੰਤਰ ਸੁਧਾਰ, ਤੱਥ-ਅਧਾਰਤ ਅਤੇ ਭਰੋਸੇਯੋਗ ਗਿਆਨ ਸਰੋਤ ਹੈ।</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld</string>
+			<key>other</key>
+			<string>ਕੁੱਲ %1$lld</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ਤੁਹਾਡੇ ਸੋਧਾਂ ਨੂੰ ਹਾਲ ਹੀ ਵਿੱਚ %#@v1@ ਤੋਂ ਵੱਧ ਵਾਰ ਵੇਖਿਆ ਗਿਆ ਸੀ</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ਤੁਸੀਂ %#@v1@ ਸੋਧਿਆ ਹੈ</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string> %1$d ਲੇਖ ਪੜ੍ਹਿਆ ਏ</string>
 			<key>other</key>
-			<string> %1$d ਲੇਖ ਪੜ੍ਹੇ ਹਨ</string>
+			<string>%1$d ਵਾਰ</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

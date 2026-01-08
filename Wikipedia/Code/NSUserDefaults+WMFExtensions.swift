@@ -30,14 +30,13 @@ let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificatio
 let WMFUserHasOnboardedToContributingToTalkPages = "WMFUserHasOnboardedToContributingToTalkPages"
 let WMFUserHasOnboardedToWatchlists = "WMFUserHasOnboardedToWatchlists"
 let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
+let WMFDidShowSearchWidgetFeatureAnnouncementKey = "WMFDidShowSearchWidgetFeatureAnnouncementKey"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingListSurvey"
 public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
 let WMFSessionBackgroundDate =  "WMFSessionBackgroundDate"
 let WMFSessionStartDate =  "WMFSessionStartDate"
 let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
-let WMFYiRSettingsToggleIsEnabled = "WMFYiRSettingsToggleIsEnabled"
-let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -268,6 +267,15 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
         }
     }
     
+    @objc var wmf_showActivityTab: Bool {
+        get {
+            return bool(forKey: "developer-settings-show-activity-tab")
+        }
+        set {
+            set(newValue, forKey: "developer-settings-show-activity-tab")
+        }
+    }
+    
     @objc func wmf_currentSearchContentLanguageCode() -> String? {
         self.string(forKey: WMFSearchLanguageKey)
     }
@@ -447,6 +455,15 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
         }
     }
 
+    @objc var wmf_didShowSearchWidgetFeatureAnnouncement: Bool {
+        get {
+            return bool(forKey: WMFDidShowSearchWidgetFeatureAnnouncementKey)
+        }
+        set {
+            set(newValue, forKey: WMFDidShowSearchWidgetFeatureAnnouncementKey)
+        }
+    }
+
     var isUserUnawareOfLogout: Bool {
         get {
             return bool(forKey: UserDefaults.Key.isUserUnawareOfLogout)
@@ -565,25 +582,5 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
         set {
             set(newValue, forKey: WMFYearToSessionSecondsMapping)
         }
-    }
-
-    @objc var wmf_yirSettingToggleIsEnabled: Bool {
-        get {
-            if object(forKey: WMFYiRSettingsToggleIsEnabled) == nil {
-                return true
-            }
-            return bool(forKey: WMFYiRSettingsToggleIsEnabled)
-        }
-        set {
-            set(newValue, forKey: WMFYiRSettingsToggleIsEnabled)
-        }
-    }
-
-    @objc var wmf_yirSettingToggleShouldShow: Bool {
-        return bool(forKey: WMFYiRSettingsToggleShouldShow)
-    }
-
-    @objc func wmf_setShowYirSettingToggle(_ enabled: Bool) {
-        self.set(NSNumber(value: enabled as Bool), forKey: WMFYiRSettingsToggleShouldShow)
     }
 }

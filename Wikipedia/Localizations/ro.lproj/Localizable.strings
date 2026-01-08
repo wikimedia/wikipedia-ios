@@ -4,6 +4,7 @@
 // Author: Alesaru
 // Author: Andreyyshore
 // Author: Cleinman
+// Author: Dimitrie569
 // Author: Firilacroco
 // Author: GabiBil
 // Author: Kyouko
@@ -15,6 +16,7 @@
 // Author: Nemo bis
 // Author: Paloi Sciurala
 // Author: Rapiteanu
+// Author: SZ475
 // Author: Strainu
 // Author: Valentin JJ.
 // Author: WebSourceContentRO
@@ -112,6 +114,7 @@
 "article-reference-view-title" = "Referință $1";
 "article-save-error-not-enough-space" = "Nu aveți suficient spațiu pe dispozitiv pentru a salva acest articol";
 "article-share" = "Distribuie";
+"article-tabs-open-new-tab" = "Deschide în filă nouă";
 "article-talk-page" = "Pagina de discuție a articolului";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlul temelor de citire";
 "back-button-accessibility-label" = "Înapoi";
@@ -227,9 +230,8 @@
 "edit-summary-choice-fixed-typos" = "Corectat greșeli ortografice";
 "edit-summary-choice-linked-words" = "Adăugat legături";
 "edit-summary-placeholder-text" = "Cum ai îmbunătățit articolul?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Aflați mai multe despre listele de urmărire";
-"edit-watch-this-page-text" = "Urmăriți această pagină";
+"edit-watch-list-learn-more-text" = "Aflați mai multe despre lista dvs. de pagini urmărite";
+"edit-watch-this-page-text" = "Urmărește această pagină";
 "editing-welcome-be-bold-subtitle" = "Fii îndrăzneț, dar nu nesăbuit în actualizarea articolelor. Nu agoniza dacă ai făcut greșeli: fiecare versiune anterioară a unei pagini este salvată, astfel încât greșelile pot fi ușor corectate de comunitatea noastră.";
 "editing-welcome-be-bold-title" = "Vocea ta este importantă";
 "editing-welcome-citations-subtitle" = "Tot conținutul trebuie să fie verificabil. Atunci când adăugați informații noi la un articol, editorii ar trebui să furnizeze o citare în rând către o sursă de încredere care să susțină direct afirmația.";
@@ -281,7 +283,7 @@
 "explore-feed-preferences-card-hidden-title" = "Card ascuns";
 "explore-feed-preferences-continue-reading-description" = "Legătură rapid înapoi la citirea unui articol deschis";
 "explore-feed-preferences-customize-explore-feed" = "Personalizează Explorare flux";
-"explore-feed-preferences-customize-explore-feed-action-title" = "Personalizați fluxul Explorează";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Personalizează fluxul Explorează";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Ascunderea unui tip de card va opri acest tip de card să apară în fluxul Explore.";
 "explore-feed-preferences-explore-tab" = "Fila Explore";
 "explore-feed-preferences-featured-article-description" = "Articol de calitate zilnic pe Wikipedia";
@@ -351,7 +353,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De la Wikipedia";
 "explore-randomizer" = "Aleatorizare";
 "featured-widget-content-failure-for-date" = "Un articol de calitate nu este disponibil pentru această dată.";
-"featured-widget-description" = "Descoperă cele mai bune articole de pe Wikipedia, selectate zilnic de comunitatea noastră.";
+"featured-widget-description" = "Descoperiți cele mai bune articole de pe Wikipedia, selectate zilnic de comunitatea noastră.";
 "featured-widget-from-language-wikipedia" = "De la $1 Wikipedia";
 "featured-widget-from-wikipedia" = "De la Wikipedia";
 "featured-widget-language-failure" = "Limba dvs. principală Wikipedia nu susține articolul de calitate. Puteți actualiza Wikipedia principală în meniul Setări al aplicației.";
@@ -395,7 +397,6 @@
 "gan-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante Gan ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplificat (gan-hans)\n贛語 繁體 Gan, Tradiţional (gan-hant)";
 "gan-variants-alert-title" = "Actualizări ale suportului pentru varianta Gan";
 "history-clear-all" = "Curăță";
-"history-clear-cancel" = "Revocare";
 "history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
 "history-clear-delete-all" = "Da, șterge tot";
 "history-title" = "Istoric";
@@ -415,7 +416,6 @@
 "icon-shortcut-random-title" = "Articol aleatoriu";
 "icon-shortcut-search-title" = "Căutare în Wikipedia";
 "image-gallery-unknown-owner" = "Autor necunoscut.";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Nu acum";
 "in-the-news-sub-title-from-language-wikipedia" = "De la $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "De la Wikipedia";
 "in-the-news-title" = "Știri";
@@ -490,6 +490,7 @@
 "no-internet-connection" = "Fără conexiune internet";
 "no-internet-connection-article-reload" = "O versiune mai recentă a acestui articol poate fi disponibilă, dar nu poate fi încărcată fără o conexiune la internet";
 "no-internet-connection-article-reload-button" = "Reveniți la ultima versiune salvată";
+"not-now-title" = "Nu acum";
 "notifications-center-agent-description-from-format" = "De la $1";
 "notifications-center-alert" = "Alerte";
 "notifications-center-applied-filters-accessibility-label" = "Filtru de notificări - are filtre aplicate";
@@ -508,7 +509,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtru|$1 filtre}}";
 "notifications-center-feed-card-title" = "Editarea notificărilor acum disponibilă";
 "notifications-center-feed-news-notification-button-text" = "Activați notificările push";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Nu acum";
 "notifications-center-feed-news-notification-text" = "Notificările de editare pentru toate proiectele Wikimedia sunt acum disponibile prin intermediul aplicației. Înscrieți-vă pentru notificări push pentru a fi la curent cu mesajele dvs. de pe Wikipedia în timp ce sunteți în deplasare.";
 "notifications-center-filters-accessibility-label" = "Filtru de notificări";
 "notifications-center-filters-read-status-item-title-all" = "Toate";
@@ -628,8 +628,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";
-// Fuzzy
-"page-history-bot-edits" = "modificări robot";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Atingeți pentru a selecta două versiuni pentru a compara";
 "page-history-compare-title" = "Compară";
 "page-history-graph-accessibility-label" = "Grafic al modificărilor de-a lungul timpului";
@@ -815,10 +814,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Desalvează {{PLURAL:$1|articol|articole}}?";
 "search-button-accessibility-label" = "Caută pe Wikipedia";
 "search-clear-title" = "Șterge";
-"search-did-you-mean" = "V-ați referit la $1?";
 "search-field-placeholder-text" = "Căutare în Wikipedia";
 "search-reading-list-placeholder-text" = "Caută în lista de citire";
-"search-recent-clear-cancel" = "Revocare";
 "search-recent-clear-confirmation-heading" = "Ștergeți toate căutările recente?";
 "search-recent-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "search-recent-clear-delete-all" = "Șterge tot";
@@ -829,7 +826,7 @@
 "serbian-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante sârbești ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Actualizări ale suportului pentru varianta sârbească";
 "settings-account" = "Cont";
-"settings-appearance" = "Preferințe de citire";
+"settings-appearance" = "Tema aplicației";
 "settings-clear-cache" = "Ștergeți datele din cache";
 "settings-clear-cache-are-you-sure-message" = "Ștergerea datelor din cache va elibera aproximativ $1 din spațiul. Nu va va șterge paginile salvate.";
 "settings-clear-cache-are-you-sure-title" = "Ștergeți datele din cache?";
@@ -1008,5 +1005,4 @@
 "wikitext-upload-save" = "Publicare...";
 "wikitext-upload-save-anonymously-or-login" = "Modificările vor fi atribuite adresei IP a dispozitivului. Dacă vă autentificați $1Log in$2, veți avea mai multă confidențialitate.";
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
-"wikitext-upload-save-sign-in" = "Autentificare";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";

@@ -147,7 +147,6 @@
 "forgot-password-title" = "Setél ulang kecap sandi";
 "forgot-password-username-or-email-title" = "Atawa";
 "history-clear-all" = "Bersihkeun";
-"history-clear-cancel" = "Bolay";
 "history-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh poin kiwari anjeun?";
 "history-clear-delete-all" = "Nya, hapus sadayana";
 "history-title" = "Jujutan";
@@ -261,9 +260,7 @@
 "saved-search-default-text" = "Paluruh artikel kasimpen";
 "saved-title" = "Kasimpen";
 "search-button-accessibility-label" = "Paluruh Wikipédia";
-"search-did-you-mean" = "Maksud anjeun ''$1'' lain?";
 "search-field-placeholder-text" = "Paluruh Wikipédia";
-"search-recent-clear-cancel" = "Bolay";
 "search-recent-clear-confirmation-heading" = "Pupus sakabéh pamaluruhan kiwari?";
 "search-recent-clear-confirmation-sub-heading" = "Ieu tarékah teu bisa dibolaykeun!";
 "search-recent-clear-delete-all" = "Pupus kabéh";
@@ -352,5 +349,4 @@
 "wikitext-upload-result-unknown" = "Teu bisa nangtukeun hasil unjalan téks wiki.";
 "wikitext-upload-save" = "Midangkeun...";
 "wikitext-upload-save-anonymously-warning" = "Éditan bakal ditepungkeun kana alamat IP parangkat. Mun anjeun $1 anjeun bakal mibanda privasi leuwih.";
-"wikitext-upload-save-sign-in" = "Asup log";
 "wikitext-upload-save-terms-name" = "Katangtuan Pamakéan";

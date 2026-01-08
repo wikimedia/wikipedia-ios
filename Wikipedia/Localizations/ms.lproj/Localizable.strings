@@ -79,6 +79,11 @@
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana ternyahsimpan";
 "action-update" = "Kemaskini";
+"activity-tab-start-editing" = "Mula menyunting";
+"activity-tab-title" = "Kegiatan";
+"activity-tab-unsatisfied" = "Tidak puas hati";
+"activity-tab-very-satisfied" = "Sangat berpuas hati";
+"activity-tab-very-unsatisfied" = "Sangat tidak berpuas hati";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke senarai bacaan";
 "announcements-dismiss" = "Abaikan";
 "app-store-keywords" = "Wikipedia, rujukan, wiki, ensiklopedia, info, pengetahuan, penyelidikan, maklumat, meneroka, belajar";
@@ -256,7 +261,7 @@
 "explore-feed-preferences-global-card-footer-text" = "Kad ini bukan bahasa khusus, mematikan kad ini akan mengeluarkannya dari suapan Teroka anda.";
 "explore-feed-preferences-global-cards-description" = "Kad khusus non-bahasa";
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
-"explore-feed-preferences-global-cards-title" = "Kad global";
+"explore-feed-preferences-global-cards-title" = "Kad sejagat";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kad ini";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua kad “$1”";
 "explore-feed-preferences-in-the-news-description" = "Rencana mengenai peristiwa semasa";
@@ -351,7 +356,6 @@
 "forgot-password-title" = "Set semula kata laluan";
 "forgot-password-username-or-email-title" = "Atau";
 "history-clear-all" = "Padamkan";
-"history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Adakah anda benar-benar ingin memadamkan semua butir terbaru anda?";
 "history-clear-delete-all" = "Ya, padamkan semua";
 "history-title" = "Sejarah";
@@ -667,10 +671,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Batal simpan {{PLURAL:$1|rencana|rencana}}?";
 "search-button-accessibility-label" = "Cari dalam Wikipedia";
 "search-clear-title" = "Padamkan";
-"search-did-you-mean" = "Maksud anda, $1?";
 "search-field-placeholder-text" = "Cari dalam Wikipedia";
 "search-reading-list-placeholder-text" = "Cari senarai bacaan";
-"search-recent-clear-cancel" = "Batalkan";
 "search-recent-clear-confirmation-heading" = "Hapuskan semua carian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "search-recent-clear-delete-all" = "Hapuskan Semua";
@@ -679,6 +681,7 @@
 "search-result-redirected-from" = "Dilencongkan dari: $1";
 "search-title" = "Cari";
 "settings-account" = "Akaun";
+// Fuzzy
 "settings-appearance" = "Keutamaan membaca";
 "settings-clear-cache" = "Padamkan data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Mengosongkan data cache akan membebaskan kira-kira $1 ruang. Ia tidak akan memadamkan halaman anda disimpan.";
@@ -795,6 +798,5 @@
 "wikitext-upload-save" = "Sedang menerbitkan...";
 "wikitext-upload-save-anonymously-or-login" = "Suntingan akan dikaitkan dengan alamat IP peranti anda. Jika anda $1Log masuk$2, anda akan mempunyai lebih banyak privasi.";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
-"wikitext-upload-save-sign-in" = "Log masuk";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
 "year-in-review-donate" = "Derma";

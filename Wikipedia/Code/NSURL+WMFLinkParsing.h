@@ -87,13 +87,6 @@ extern NSString *const WMFEditPencil;
 + (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleQueryAndFragment:(NSString *)escapedDenormalizedTitleQueryAndFragment;
 
 /**
- *  Return a URL for the mobile API Endpoint for the current URL
- *
- *  @return return value description
- */
-+ (nullable NSURL *)wmf_mobileAPIURLForURL:(NSURL *)URL;
-
-/**
  *  Return a URL for the desktop API Endpoint for the current URL
  *
  *  @return return value description
@@ -101,22 +94,11 @@ extern NSString *const WMFEditPencil;
 + (nullable NSURL *)wmf_desktopAPIURLForURL:(NSURL *)URL;
 
 /**
- *  Return the mobile version of the given URL
- *  by adding a m. subdomian
- *
- *  @param url The URL
- *
- *  @return Mobile version of the URL
- */
-+ (nullable NSURL *)wmf_mobileURLForURL:(NSURL *)url;
-
-/**
  *  Return the desktop version of the given URL
- *  by removing a m. subdomian
  *
  *  @param url The URL
  *
- *  @return Mobile version of the URL
+ *  @return Desktop version of the URL
  */
 + (nullable NSURL *)wmf_desktopURLForURL:(NSURL *)url;
 
@@ -156,12 +138,12 @@ extern NSString *const WMFEditPencil;
  *
  * @return A new URL based on the URL you call this method on with the given path.
  **/
-- (nullable NSURL *)wmf_URLWithPath:(NSString *)path isMobile:(BOOL)isMobile;
+- (nullable NSURL *)wmf_URLWithPath:(NSString *)path;
 
 #pragma mark - URL Components
 
 /**
- *  Return a URL with just the domain, language, and mobile subdomain of the reciever.
+ *  Return a URL with just the domain and language of the receiver.
  *  Everything but the path
  *
  *  @return The site URL
@@ -198,11 +180,6 @@ extern NSString *const WMFEditPencil;
  *  Return YES if the receiver should be peekable via 3d touch
  */
 @property (nonatomic, readonly) BOOL wmf_isPeekable;
-
-/**
- *  Return YES if the URL has a .m subdomain
- */
-@property (nonatomic, readonly) BOOL wmf_isMobile;
 
 /**
  *  Return YES if the URL does not have a language subdomain

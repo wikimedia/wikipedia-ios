@@ -55,12 +55,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     // Tootltips
     public var tooltipViewModels: [WMFTooltipViewModel] = []
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: self.dataStore
+        )
+    }()
 
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
@@ -167,8 +169,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var coordinator: ArticleTabCoordinating?
     var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
+    let tabDataController = WMFArticleTabsDataController.shared
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
+    private let needsFocusOnSearch: Bool
+    
+    private var isMainPage: Bool {
+        articleURL.wmf_title == "Main Page"
+    }
+
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -184,6 +193,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
+        
+        self.needsFocusOnSearch = needsFocusOnSearch
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -226,6 +237,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     lazy var webView: WKWebView = {
         let webView = WMFWebView(frame: .zero, configuration: webViewConfiguration)
         webView.translatesAutoresizingMaskIntoConstraints = false
+#if DEBUG
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        }
+#endif
         return webView
     }()
     
@@ -440,7 +456,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         setupForStateRestorationIfNecessary()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
@@ -452,12 +468,25 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     var isFirstAppearance = true
+    var needsTabsIconImpressonOnCancel = false
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
+        
+        var focusingOnSearch = false
+        
+        if let project {
+            if isMainPage {
+                if !focusingOnSearch {
+                    ArticleTabsFunnel.shared.logIconImpression(interface: .mainPage, project: project)
+                }
+            } else {
+                ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: project)
+            }
+        }
     }
     
     @objc func userDidTapProfile() {
@@ -472,12 +501,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var showTabsOverview: (() -> Void)?
 
     @objc func userDidTapTabs() {
-        showTabsOverview?()
+        tabsCoordinator?.start()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
-            ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+            if isMainPage {
+                ArticleTabsFunnel.shared.logIconClick(interface: .mainPage, project: wikimediaProject)
+            } else {
+                ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+            }
         }
     }
-    
+
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
 
@@ -516,6 +549,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         persistPageViewedSecondsForWikipediaInReview()
+        
+        if let tooltips = presentedViewController as? WMFTooltipViewController {
+            tooltips.dismiss(animated: true)
+        }
+        
+        
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
+        
+        self.tabBarController?.setTabBarHidden(false, animated: true)
     }
 
     // MARK: Article load
@@ -581,7 +626,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 return
         }
         
-        let needsCategories = self.articleURL.wmf_title != "Main Page"
+        let needsCategories = !isMainPage
         guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: self.dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
             self.needsWatchButton = false
             self.needsUnwatchFullButton = false
@@ -618,10 +663,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     func loadNextAndPreviousArticleTabs() {
         Task { [weak self] in
             guard let self else { return }
-            let tabDataController = WMFArticleTabsDataController.shared
-            
-            if tabDataController.shouldShowArticleTabs,
-               let tabIdentifier = self.coordinator?.tabIdentifier {
+
+            if let tabIdentifier = self.coordinator?.tabIdentifier {
                 self.previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
                 self.nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
             }
@@ -750,7 +793,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
         
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
@@ -1178,15 +1221,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         updateTableOfContentsHighlightIfNecessary()
 
         calculateNavigationBarHiddenState(scrollView: webView.scrollView)
+        
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
 
-        if #available(iOS 18.0, *) {
-            let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
 
-            if velocity < 0 { // Scrolling down
-                tabBarController?.setTabBarHidden(true, animated: true)
-            } else if velocity > 0 { // Scrolling up
-                tabBarController?.setTabBarHidden(false, animated: true)
-            }
+        if velocity < 0 { // Scrolling down
+            tabBarController?.setTabBarHidden(true, animated: true)
+        } else if velocity > 0 { // Scrolling up
+            tabBarController?.setTabBarHidden(false, animated: true)
         }
     }
     
@@ -1276,7 +1322,9 @@ private extension ArticleViewController {
 
         // Sometimes there is a race condition where the Core Data store isn't yet ready to persist tabs information (for example, deep linking to an article when in a terminated state). We are trying again here.
         if coordinator?.tabIdentifier == nil || coordinator?.tabItemIdentifier == nil {
-            coordinator?.trackArticleTab(articleViewController: self)
+            Task {
+                await coordinator?.trackArticleTab(articleViewController: self)
+            }
         }
     }
     
@@ -1567,5 +1615,6 @@ extension ArticleViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
+        SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }

@@ -258,7 +258,6 @@
 "forgot-password-title" = "Hesło wróćo stajić";
 "forgot-password-username-or-email-title" = "abo";
 "history-clear-all" = "Wuprózdnić";
-"history-clear-cancel" = "Přetorhnyć";
 "history-clear-confirmation-heading" = "Chceš woprawdźe wšě swoje poslednje objekty wušmórnyć?";
 "history-clear-delete-all" = "Haj, wšě wušmórnyć";
 "history-title" = "Stawizny";
@@ -362,9 +361,7 @@
 "places-filter-top-read-articles" = "Najhusćišo čitane zapiski";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dźensa|1=Wčera|2=Předwčerawšim|Před $1 dnjemi}}";
 "search-button-accessibility-label" = "Wikipediju přepytać";
-"search-did-you-mean" = "Měnješe ty $1?";
 "search-field-placeholder-text" = "Wikipediju přepytać";
-"search-recent-clear-cancel" = "Přetorhnyć";
 "search-recent-clear-confirmation-heading" = "Zašłe pytanja wušmórnyć?";
 "search-recent-clear-confirmation-sub-heading" = "Njemóžeš tule akciju wróćo wzać!";
 "search-recent-clear-delete-all" = "Wšě wušmórnyć";
@@ -391,5 +388,4 @@
 // Fuzzy
 "wikitext-upload-save" = "Składuje so...";
 "wikitext-upload-save-anonymously-warning" = "Přinoški so IP-adresy twojeho aparata přirjaduja. Zo by měł(a) lěpši datowy škit, wubjer „$1“.";
-"wikitext-upload-save-sign-in" = "Přizjewić";
 "wikitext-upload-save-terms-name" = "Wužiwanske wuměnjenja";

@@ -137,7 +137,6 @@
 "find-textfield-accessibility" = "বিচাৰক";
 "forgot-password-username-or-email-title" = "অথবা";
 "history-clear-all" = "পৰিষ্কাৰ কৰক";
-"history-clear-cancel" = "বাতিল কৰক";
 "history-clear-confirmation-heading" = "আপুনি আপোনাৰ সকলো শেহতীয়া বস্তু মচিবলৈ বিচৰাটো নিশ্চিতনে?";
 "history-clear-delete-all" = "হয়, সকলো মচক";
 "history-title" = "ইতিহাস";
@@ -222,9 +221,7 @@
 "saved-default-reading-list-tag" = "এই প্ৰবন্ধ মচিব নোৱাৰি";
 "search-button-accessibility-label" = "ৱিকিপিডিয়াত সন্ধান কৰক";
 "search-clear-title" = "পৰিষ্কাৰ";
-"search-did-you-mean" = "আপুনি $1 বুজাব খুজিছে নেকি?";
 "search-field-placeholder-text" = "ৱিকিপিডিয়াত সন্ধান কৰক";
-"search-recent-clear-cancel" = "বাতিল";
 "search-recent-clear-confirmation-heading" = "শেহতীয়া সকলো সন্ধান বিলোপ কৰিব?";
 "search-recent-clear-confirmation-sub-heading" = "এই কাৰ্য্য নোহোৱা কৰিব নোৱাৰি!";
 "search-recent-clear-delete-all" = "সকলো বিলোপ কৰক";
@@ -272,5 +269,4 @@
 "wikitext-preview-link-not-found-preview-description" = "এই নামৰ সৈতে হুবহু মিলা কোনো প্ৰবন্ধ ৱিকিপিডিয়াত নাই";
 "wikitext-upload-save" = "প্ৰকাশ কৰি থকা হৈছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনাসমূহ আপোনাৰ আই পি ঠিকনাত আৰোপ কৰা হ'ব। যদি আপুনি $1 কৰে তেন্তে আপুনি অধিক গোপনীয়তা লাভ কৰিব।";
-"wikitext-upload-save-sign-in" = "প্ৰৱেশ";
 "wikitext-upload-save-terms-name" = "ব্যৱহাৰৰ চৰ্তাৱলী";

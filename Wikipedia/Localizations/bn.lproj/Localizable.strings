@@ -73,6 +73,7 @@
 "action-share" = "বণ্টন";
 "action-unsave" = "অসংরক্ষিত";
 "action-update" = "হালনাগাদ করুন";
+"activity-tab-saved" = "এই মাসে সংরক্ষিত নিবন্ধসমূহ";
 "add-articles-to-reading-list" = "পড়ার তালিকায় {{PLURAL:$1|$1টি নিবন্ধ}} যোগ করুন";
 "announcements-dismiss" = "খারিজ";
 "app-store-subtitle" = "একটি মুক্ত বিশ্বকোষ";
@@ -204,7 +205,6 @@
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
 "forgot-password-username-or-email-title" = "অথবা";
 "history-clear-all" = "পরিষ্কার করুন";
-"history-clear-cancel" = "বাতিল";
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
 "history-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
 "history-title" = "ইতিহাস";
@@ -223,7 +223,6 @@
 "icon-shortcut-search-title" = "উইকিপিডিয়া অনুসন্ধান";
 "image-gallery-unknown-owner" = "লেখক অজানা।";
 "image-rec-view-article" = "নিবন্ধ দেখুন";
-"import-shared-reading-list-survey-prompt-button-cancel" = "এখন না";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "জরিপে অংশ নিন";
 "import-shared-reading-list-survey-prompt-footer" = "আমাদের $1গোপনীয়তা বিবৃতি$2 দেখুন। সমীক্ষাটি তৃতীয় পক্ষ দ্বারা চালিত। তাদের $3গোপনীয়তা নীতি$4 দেখুন।";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"পড়ার তালিকা শেয়ার\" একটি পরীক্ষামূলক ফিচার এবং এটি উন্নত বা অপসারণ করতে আমাদের আপনার প্রতিক্রিয়া প্রয়োজন।";
@@ -263,6 +262,7 @@
 "new-password-title" = "আপনার পাসওয়ার্ড স্থাপন করুন";
 "new-tab" = "নতুন ট্যাব";
 "no-email-account-alert" = "দয়া করে আপনার ডিভাসে একটি ইমেইল অ্যাকাউন্ট নির্ধারণ করুন এবং আবার চেষ্টা করুন।";
+"not-now-title" = "এখন না";
 "notifications-center-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-empty-checking-for-notifications" = "বিজ্ঞপ্তির জন্য অনুসন্ধান করা হচ্ছে...";
 "notifications-center-empty-not-subscribed" = "আপনি বর্তমানে কোনো উইকিপিডিয়া বিজ্ঞপ্তির সদস্যতা গ্রহণ করেননি";
@@ -374,17 +374,15 @@
 "saved-title" = "সংরক্ষিত";
 "search-button-accessibility-label" = "উইকিপিডিয়া অনুসন্ধান";
 "search-clear-title" = "পরিষ্কার করুন";
-"search-did-you-mean" = "আপনি কি $1 বুঝাচ্ছেন?";
 "search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
-"search-recent-clear-cancel" = "বাতিল";
 "search-recent-clear-confirmation-heading" = "সাম্প্রতিক সব অনুসন্ধান মুছে ফেলবেন?";
 "search-recent-clear-confirmation-sub-heading" = "এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না!";
 "search-recent-clear-delete-all" = "সব মুছে ফেলুন";
 "search-recent-title" = "সম্প্রতি অনুসন্ধানকৃত";
 "search-result-redirected-from" = "$1 থেকে পুনর্নির্দেশিত";
 "search-title" = "অনুসন্ধান";
-"search-widget-title" = "অনুসন্ধান";
 "search-widget-wikipedia-title" = "উইকিপিডিয়া";
+// Fuzzy
 "settings-appearance" = "পড়ার পছন্দ";
 "settings-clear-cache-cancel" = "বাতিল";
 "settings-donate" = "দান করুন";
@@ -453,10 +451,7 @@
 "wikitext-upload-result-unknown" = "উইকিটেক্সট আপলোডের ফলাফল নির্ণয় করা যায়নি।";
 "wikitext-upload-save" = "প্রকাশ করা হচ্ছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
-"wikitext-upload-save-sign-in" = "প্রবেশ";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
-// Fuzzy
-"year-in-review-base-reading-title" = "পড়া আমাদের একত্রিত করেছে";
 "year-in-review-day-friday" = "শুক্রবার";
 "year-in-review-day-monday" = "সোমবার";
 "year-in-review-day-saturday" = "শনিবার";
@@ -467,5 +462,5 @@
 "year-in-review-donate" = "অনুদান";
 // Fuzzy
 "year-in-review-feature-announcement-title" = "আপনার উইকিপিডিয়া বছরের পর্যালোচনা দেখুন";
-// Fuzzy
-"year-in-review-feature-explore-body-personalized" = "উইকিপিডিয়া অ্যাপে আপনি কোন নিবন্ধগুলি পড়েন এবং যে সম্পাদনাগুলি করেছেন সে সম্পর্কে অন্তর্দৃষ্টি দেখুন। আপনার যাত্রা ভাগ করে নিন এবং আবিষ্কার করুন যে এই বছর আপনার জন্য কী আলাদা ছিল। আপনার পড়ার ইতিহাস গোপন রাখা হয়েছে। আপনার ডিভাইসে স্থানীয়ভাবে সংরক্ষিত ডেটা ব্যবহার করে পঠন অন্তর্দৃষ্টি গণনা করা হয়।";
+"year-in-review-time-evening" = "সন্ধ্যা";
+"year-in-review-time-morning" = "সকাল";

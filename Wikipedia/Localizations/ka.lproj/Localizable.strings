@@ -18,7 +18,7 @@
 "about-send-feedback" = "შეაფასეთ აპლიკაცია";
 "about-testers" = "ტესტერები";
 "about-testers-details" = "QA დატესტილი $1-ის მიერ";
-"about-title" = "შესახებ";
+"about-title" = "პროექტის შესახებ";
 "about-translators" = "მთარგმნელები";
 "about-translators-details" = "ეს აპლიკაცია ნათარგმნია მოხალისეების მიერ $1-ზე";
 "about-wikimedia-foundation" = "ფონდი ვიკიმედია";
@@ -91,7 +91,6 @@
 "field-username-placeholder" = "შეიყვანეთ მომხმარებლის სახელი";
 "field-username-title" = "მომხმარებლის სახელი";
 "history-clear-all" = "გასუფთავება";
-"history-clear-cancel" = "გაუქმება";
 "history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";
 "history-clear-delete-all" = "დიახ, ყველას წაშლა";
 "history-title" = "ისტორია";
@@ -143,15 +142,14 @@
 "reference-title" = "სქოლიო $1";
 "saved-pages-image-download-error" = "შეუძლებელია სურათების ჩაწერა ამ შენახული გვერდისთვის.";
 "saved-title" = "შენახულია";
-"search-did-you-mean" = "ხომ არ იგულისხმეთ $1?";
 "search-field-placeholder-text" = "ძიება ვიკიპედიაში";
-"search-recent-clear-cancel" = "გაუქმება";
 "search-recent-clear-confirmation-heading" = "წავშალოთ ყველა ბოლოს მოძიებულები?";
 "search-recent-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "search-recent-clear-delete-all" = "ყველას წაშლა";
 "search-recent-title" = "ბოლოს მოძიებული";
 "search-result-redirected-from" = "გადამისამართებულია $1-დან";
 "search-title" = "ძიება";
+// Fuzzy
 "settings-appearance" = "წაკითხვის დაყენება";
 "settings-help-and-feedback" = "დახმარება და უკუკავშირი";
 "settings-language-bar" = "ენების ჩვენება ძიებისას";
@@ -179,5 +177,4 @@
 "wikitext-upload-result-unknown" = "ვიკიტექსტის ატვირთვის შედეგის განსაზღვრა შეუძლებელია.";
 "wikitext-upload-save" = "გამოქვეყნება...";
 "wikitext-upload-save-anonymously-warning" = "რედაქტორებს მიენიჭებათ თქვენი მოწყობილობის IP მისამართი. თუ თქვენ $1, იქნებით ინფორმაციულად უფრო დაცული.";
-"wikitext-upload-save-sign-in" = "შესვლა";
 "wikitext-upload-save-terms-name" = "გამოყენების პირობები";

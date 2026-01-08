@@ -44,7 +44,9 @@ public struct WMFTheme: Equatable {
     public let editorKeyboardShadow: UIColor
     public let chromeBackground: UIColor
     public let navigationBarTintColor: UIColor
+    public let secondaryAction: UIColor
     public let darkBorder: UIColor
+    public let toastShadow: UIColor
 
     public var preferredColorScheme: ColorScheme {
     return (self == WMFTheme.light || self == WMFTheme.sepia) ? .light : .dark
@@ -95,7 +97,9 @@ public struct WMFTheme: Equatable {
         editorKeyboardShadow: WMFColor.gray200,
         chromeBackground: WMFColor.white,
         navigationBarTintColor: WMFColor.blue600,
-        darkBorder: WMFColor.borderDark5
+        secondaryAction: WMFColor.blue700,
+        darkBorder: WMFColor.borderDark5,
+        toastShadow: WMFColor.gray400
     )
 
     public static let sepia = WMFTheme(
@@ -139,7 +143,9 @@ public struct WMFTheme: Equatable {
         editorKeyboardShadow: WMFColor.taupe200,
         chromeBackground: WMFColor.beige100,
         navigationBarTintColor: WMFColor.blue600,
-        darkBorder: WMFColor.borderDark5
+        secondaryAction: WMFColor.blue700,
+        darkBorder: WMFColor.borderDark5,
+        toastShadow: WMFColor.taupe200
     )
 
     public static let dark = WMFTheme(
@@ -183,7 +189,9 @@ public struct WMFTheme: Equatable {
         editorKeyboardShadow: WMFColor.gray800,
         chromeBackground: WMFColor.gray650,
         navigationBarTintColor: WMFColor.blue300,
-        darkBorder: WMFColor.borderDark0
+        secondaryAction: WMFColor.blue700,
+        darkBorder: WMFColor.borderDark0,
+        toastShadow: WMFColor.gray800
     )
 
     public static let black = WMFTheme(
@@ -227,7 +235,9 @@ public struct WMFTheme: Equatable {
         editorKeyboardShadow: WMFColor.gray700,
         chromeBackground: WMFColor.gray650,
         navigationBarTintColor: WMFColor.blue300,
-        darkBorder: WMFColor.borderDark0
+        secondaryAction: WMFColor.blue700,
+        darkBorder: WMFColor.borderDark0,
+        toastShadow: WMFColor.gray600
     )
 
 }

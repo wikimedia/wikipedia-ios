@@ -132,7 +132,6 @@
 "close-other-tabs" = "Башха салгъычланы джаб";
 "close-tab-confirmation" = "Салгъыч джабылсынмы?";
 "close-tabs" = "Салгъычланы джаб";
-"closed-all-tabs-confirmation" = "Бютеу $1 салгъыч джабылды.";
 "compass-direction" = "сагъат $1 табада";
 "continue-button-title" = "Бардыр";
 "continue-reading-empty-description" = "Аслам статья окъур ючюн Википедияны тинтигиз";
@@ -235,6 +234,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Бу суммада автомат халда багъыш этиуню джандырыр ючюн эки кере бас.";
 "donate-accessibility-textfield-hint" = "Багъыш этер ючюн энчи сумманы киргиз.";
 "donate-accessibility-transaction-fee-hint" = "Багъыш суммагъа транзакция коммиссия къошар ючюн эки кере бас.";
+// Fuzzy
 "donate-already-donated" = "Сау бол, багъалы багъышчы! Чомартлыгъыгъыз Википедияны эмда эгеч сайтланы маджаллашдырыуларны болушурукъду.";
 "donate-apple-fine-print" = "Apple бу нюзюр ючюн ачха джыяр борчу джокъду.";
 "donate-email-opt-in-text" = "Хоу, Викимедиа Фонд меннге анда мында электрон джиберирге боллукъду.";
@@ -510,7 +510,6 @@
 "gan-variants-alert-body" = "Wikipedia къошакъ энди энишгедеги Gan вариантланы биринчи недаэкинчи тил болуб къошакъны ичинде дагъан береди, алай бла сайлагъан вариантла андан да тынч окъуялырча, тинтелирча эмда тюзеталырча болады:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Къысхартылгъан (gan-hans)\n贛語 繁體 Gan, Адетдеги (gan-hant)";
 "gan-variants-alert-title" = "Gan вариантларыны дагъаныны джангыртыулары";
 "history-clear-all" = "Тазала";
-"history-clear-cancel" = "Ызына ал";
 "history-clear-confirmation-heading" = "Кёб болмагъан бютеу элементленеи кетерирге излегенигизге ишексизмисиз?";
 "history-clear-delete-all" = "Хоу, барысын да кетер";
 "history-title" = "Тарих";
@@ -568,7 +567,6 @@
 "image-recs-not-sure-title" = "Ишексиз тюлме";
 "image-recs-yes-title" = "Хоу";
 "import-shared-reading-list-default-title" = "Окъуу Тизмем";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Бусагъатда тюл";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Соруулаугъа къошул";
 "import-shared-reading-list-survey-prompt-footer" = "$1privacy Ташалыкъны юсюнден билдириу бла танышыгъыз$2. Соруулауну ючюнчю джаны къурагъанды. Аланы $3 ташалыкъ политикаларына къара$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Окъургъа тизмелени джайыу\"  — тест функцияды, аны маджаллашдырырча неда кетерирча, бизге сизни багъаларыгъыз керекди.";
@@ -653,6 +651,7 @@
 "no-internet-connection" = "Интернет байлам джокъду";
 "no-internet-connection-article-reload" = "Бу статьяны андан да джангы версиясы болургъа болур, алай а интернет байлам болмаса джюкленалмаз.";
 "no-internet-connection-article-reload-button" = "Эм арт сакъланнган версиягъа къайт";
+"not-now-title" = "Бусагъатда тюл";
 "notifications-center-agent-description-from-format" = "Джиберген $1";
 "notifications-center-alert" = "Эсгертриу";
 "notifications-center-applied-filters-accessibility-label" = "Хапарландырыу Фильтр - хайырланнган фильтрле барды";
@@ -672,7 +671,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фильтр}}";
 "notifications-center-feed-card-title" = "Хапарландыруланы тюзетиу энди ачыкъды";
 "notifications-center-feed-news-notification-button-text" = "Push-хапарландырыуланы джандыр";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Бусагъатда тюл";
 "notifications-center-feed-news-notification-text" = "Бютеу Викимедиа проектле ючюн тюзетиу хапарландырыула энди къошакъны болушлугъу бла хайырланырчады. Гузаба заманыгъызда Википедиядагъы билдириулеригизден хапарлы болур ючюн пуш-хапарландырыуланы сайлагъыз.";
 "notifications-center-filters-accessibility-label" = "Хапарландырыу Фильтр";
 "notifications-center-filters-read-status-item-title-all" = "Барысы да";
@@ -989,10 +987,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Статьяны|Статьяланы}} сакъландырыулары кери алынсынмы?";
 "search-button-accessibility-label" = "Википедияда излеу";
 "search-clear-title" = "Тазала";
-"search-did-you-mean" = "$1 излене болурму?";
 "search-field-placeholder-text" = "Википедияда излеу";
 "search-reading-list-placeholder-text" = "Окъуу тизмеде изле";
-"search-recent-clear-cancel" = "Ызына ал";
 "search-recent-clear-confirmation-heading" = "Ахыр излеулени бютеую кетерилсинми?";
 "search-recent-clear-confirmation-sub-heading" = "Бу этиу кери аллыналмаз!";
 "search-recent-clear-delete-all" = "Барысын да кетер";
@@ -1003,6 +999,7 @@
 "serbian-variants-alert-body" = "Википедия къошакъ энди энишгедеги Сербчаны вариантларын биринчи неда экинчи тил болуб къошакъ ичинде дагъан береди, бу шекелде сайлагъан вариант бла андан да тынч окъурча, излерча эмда тюзетиу этерчасыз:\n\nсрпски ћирилица Сербча, Кирил (sr-ec)\nsrpski latinica Сербча, Латин (sr-el)";
 "serbian-variants-alert-title" = "Сербча вариантларыны дагъаныны джангыртыулары";
 "settings-account" = "Хыйсаб";
+// Fuzzy
 "settings-appearance" = "Окъууну джарашдырыулары";
 "settings-clear-cache" = "Кэш этилген билгилени тазала";
 "settings-clear-cache-are-you-sure-message" = "Кэшни этилген билгилени тазалау $1 чакълы бир джер бош этерикди. Сакъланнган бетлеригиз кетериллик тюлдюле.";
@@ -1279,6 +1276,5 @@
 "wikitext-upload-save" = "Басмаланады...";
 "wikitext-upload-save-anonymously-or-login" = "Тюрлениуле девайсыгъызны IP-адреси бла джаздырыллыкъдыла. $1Крисегиз$2 андан аслам ташалыкъгъа ие боллукъсуз.";
 "wikitext-upload-save-anonymously-warning" = "Тюрлениуле девайсыгъызны IP-адреси бла басмаланыр. $1 эсегиз, аслам ташалыкъгъа ие болургъа болукъсуз.";
-"wikitext-upload-save-sign-in" = "Кир";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Тюрлениулени басмалаб $1Хайырланыу Шартланы$2 къабыл этер эмда къошумугъузну $3CC BY-SA 4.0$4 Лицензиясы эмда $5GFDL$6 тамалында басмалау кери алынмаз шекелде къабыл этерсиз. Creative Commons лицензия бла, джибериуню неда URL джетерли болгъанын къабыл этериксиз.";
 "wikitext-upload-save-terms-name" = "Хайырланыу Шартла";

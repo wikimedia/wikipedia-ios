@@ -2,7 +2,7 @@ import Foundation
 import CocoaLumberjackSwift
 
 protocol ArticleWebMessageHandling: AnyObject {
-    func didRecieve(action: ArticleWebMessagingController.Action)
+    func didReceive(action: ArticleWebMessagingController.Action)
 }
 
 class ArticleWebMessagingController: NSObject {
@@ -116,7 +116,7 @@ class ArticleWebMessagingController: NSObject {
     }
 
     func getPageContentServiceMargins(from insets: UIEdgeInsets, leadImageHeight: CGFloat = 0) -> PageContentService.Setup.Parameters.Margins {
-        return PageContentService.Setup.Parameters.Margins(top: "\(insets.top + leadImageHeight)px", right: "\(insets.right)px", bottom: "\(insets.bottom)px", left: "\(insets.left)px")
+        return PageContentService.Setup.Parameters.Margins(top: "\(insets.top + leadImageHeight)px", bottom: "\(insets.bottom)px")
     }
     
     func updateMargins(with layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat) {
@@ -396,10 +396,10 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             // Fallback on href for future unknown event types
             if let href = data?["href"] as? String {
                 let action = ArticleWebMessagingController.Action.unknown(href: href)
-                delegate?.didRecieve(action: action)
+                delegate?.didReceive(action: action)
             }
             return
         }
-        delegate?.didRecieve(action: action)
+        delegate?.didReceive(action: action)
     }
 }

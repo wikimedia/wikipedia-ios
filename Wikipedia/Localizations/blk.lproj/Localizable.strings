@@ -218,7 +218,6 @@
 "forgot-password-title" = "ခိန်ႏသော့ꩻယင်း ငဝ်းဗိဉ်ႏပလို့ꩻ";
 "forgot-password-username-or-email-title" = "မွေးတဝ်းလဲ့";
 "history-clear-all" = "သျင်ꩻထိုꩻ";
-"history-clear-cancel" = "မာꩻတဝ်းဒွုမ်";
 "history-clear-delete-all" = "မွေး၊ ယားကုဲင်လို့သြ";
 "history-title" = "ရာႏဇာႏဝင်ႏ";
 "home-button-explore-accessibility-label" = "ဝီခီပီးဒီးယား၊ လွေꩻချာထိုမ်ႏလွူꩻထွားမုꩻထျꩻ";
@@ -409,10 +408,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "သိမ်ꩻတဝ်းဒွုမ် {{PLURAL:$1|ရောမ်ဖြုဲင်ꩻ|ရောမ်ဖြုဲင်ꩻဖိုင်ႏ}}?";
 "search-button-accessibility-label" = "ထိုမ်ႏထွား ဝီခီပီးဒီးယားကို";
 "search-clear-title" = "သျင်ꩻထိုꩻ";
-"search-did-you-mean" = "နာꩻမိဉ်ရိုꩻ $1 ယိုနဲ့ဟောင်း။";
 "search-field-placeholder-text" = "ထိုမ်ႏထွား ဝီခီပီးဒီးယားကို";
 "search-reading-list-placeholder-text" = "ထိုမ်ႏ ဟော်ꩻထွားစာႏရင်ꩻ";
-"search-recent-clear-cancel" = "မာꩻတဝ်းဒွုမ်";
 "search-recent-clear-confirmation-heading" = "လတ်တလောထိုမ်ႏခါꩻမုꩻဖုံႏ ကားကအဝ်ႏယို ယားကုဲင်ချာနဲ့?";
 "search-recent-clear-confirmation-sub-heading" = "ခွုမ်မာꩻချက်ယိုနဝ်ꩻ မာꩻချာနွောင်ꩻတဝ်းဒုမ်!";
 "search-recent-clear-delete-all" = "ယားကုဲင်လို့";
@@ -421,6 +418,7 @@
 "search-result-redirected-from" = "$1 ယီးနယ်ချာခါꩻဒျာႏသွူ";
 "search-title" = "ထိုမ်ႏ";
 "settings-account" = "အကောက်";
+// Fuzzy
 "settings-appearance" = "ဟော်ꩻလိတ် အပွိုင်အဆင်ဖိုင်ႏ";
 "settings-clear-cache" = "သျင်ꩻထိုꩻ cachedဒေတာ";
 "settings-clear-cache-are-you-sure-title" = "သျင်ꩻထိုꩻသွူ cachedဒေတာနဲ့?";
@@ -505,5 +503,4 @@
 "wikitext-upload-captcha-error" = "CAPTCHA အွောန်ႏတီႏမုꩻ အမာႏ။";
 "wikitext-upload-captcha-needed" = "အဝ်ႏလိုႏ CAPTCHA အွောန်ႏတီႏချက်သွူ။";
 "wikitext-upload-save" = "အဝ်ႏဒင်ႏထင်ႏကျာꩻ...";
-"wikitext-upload-save-sign-in" = "နွို့အကောက်";
 "wikitext-upload-save-terms-name" = "သုင်ꩻအီခရာႏအွောန်ႏထွော့ချက်ဖုံႏ";

@@ -4,18 +4,17 @@ import CoreData
 
 public protocol WMFArticleTabsDataControlling {
     func tabsCount() async throws -> Int
-    func checkAndCreateInitialArticleTabIfNeeded() async throws
     func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func deleteArticleTab(identifier: UUID) async throws
     func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID, needsCleanoutOfFutureArticles: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
     func setTabAsCurrent(tabIdentifier: UUID) async throws
-    func currentTabIdentifier() async throws -> UUID
+    func currentTabIdentifier() async throws -> UUID?
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
-public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
-
+@objc public class WMFArticleTabsDataController: NSObject, WMFArticleTabsDataControlling {
+    
     // MARK: - Nested Public Types
     
     public enum CustomError: Error {
@@ -33,7 +32,9 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         case unexpectedAssignment
         case missingAssignment
         case doesNotQualifyForExperiment
+        case alreadyAssignedExperiment
         case pastAssignmentEndDate
+        case missingURL
     }
     
     public struct WMFArticle: Codable {
@@ -43,14 +44,16 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         public let extract: String?
         public let imageURL: URL?
         public let project: WMFProject
-        
-        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject) {
+        public let articleURL: URL?
+
+        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject, articleURL: URL?) {
             self.identifier = identifier
             self.title = title
             self.description = description
             self.extract = extract
             self.imageURL = imageURL
             self.project = project
+            self.articleURL = articleURL
         }
         
         public var isMain: Bool {
@@ -86,31 +89,32 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    public enum ArticleTabsExperimentAssignment {
-        case control
-        case test
+    public enum MoreDynamicTabsExperimentAssignment {
+        case groupC
     }
-
+    
     // MARK: Nested internal types
-
+    
     struct OnboardingStatus: Codable {
         var hasPresentedOnboardingTooltips: Bool
-
+        
         static var `default`: OnboardingStatus {
             return OnboardingStatus(hasPresentedOnboardingTooltips: false)
         }
     }
 
     // MARK: - Properties
-    
+
+    @objc(sharedInstance)
     public static let shared = WMFArticleTabsDataController()
-    
+
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     
     private let experimentsDataController: WMFExperimentsDataController?
-    private var assignmentCache: ArticleTabsExperimentAssignment?
-    private let articleTabsExperimentPercentage: Int = 50
+    private var assignmentCache: MoreDynamicTabsExperimentAssignment?
+    
+    private let moreDynamicTabsExperimentPercentage: Int = 33
     
     // This setup allows us to try instantiation multiple times in case the first attempt fails (like for example, if coreDataStore is not available yet).
     private var _backgroundContext: NSManagedObjectContext?
@@ -130,12 +134,21 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     private var coreDataStore: WMFCoreDataStore? {
         return _coreDataStore ?? WMFDataEnvironment.current.coreDataStore
     }
+
+    public var userHasHiddenArticleSuggestionsTabs: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue, value: newValue)
+        }
+    }
     
     // MARK: - Lifecycle
     
-    init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-         experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
+                developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+    ) {
         self._coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
         if let experimentStore {
@@ -145,26 +158,15 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    // MARK: Entry point
+    // MARK: - Experiment
 
-    public var shouldShowArticleTabs: Bool {
-        guard !developerSettingsDataController.enableArticleTabs else {
-            return true
-        }
-        
-        guard let assignment = try? getArticleTabsExperimentAssignment() else {
-            return false
-        }
-        
-        switch assignment {
-        case .test:
-            return true
-        case .control:
-            return false
-        }
+    private func shouldAssignToBucketV2() -> Bool {
+        return experimentsDataController?.bucketForExperiment(.moreDynamicTabsV2) == nil
     }
     
-    // MARK: Experiment
+    public var shouldShowMoreDynamicTabsV2: Bool {
+        return true
+    }
     
     private var primaryAppLanguageProject: WMFProject? {
         if let language = WMFDataEnvironment.current.appData.appLanguages.first {
@@ -174,19 +176,11 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         return nil
     }
     
-    public func qualifiesForExperiment() -> Bool {
-        guard let primaryAppLanguageProject else {
-            return false
-        }
-        
-        return Locale.current.qualifiesForExperiment && primaryAppLanguageProject.qualifiesForExperiment
-    }
-    
     private var isBeforeAssignmentEndDate: Bool {
         var dateComponents = DateComponents()
-        dateComponents.year = 2025
-        dateComponents.month = 7
-        dateComponents.day = 31
+        dateComponents.year = 2026
+        dateComponents.month = 1
+        dateComponents.day = 15
         guard let endDate = Calendar.current.date(from: dateComponents) else {
             return false
         }
@@ -194,8 +188,28 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         return endDate >= Date()
     }
     
-    public func assignExperiment() throws -> ArticleTabsExperimentAssignment {
+    private func qualifiesForExperiment() -> Bool {
+        guard let primaryAppLanguageProject else {
+            return false
+        }
         
+        return Locale.current.qualifiesForExperiment && primaryAppLanguageProject.qualifiesForExperiment
+    }
+
+    public func getMoreDynamicTabsExperimentAssignmentV2() throws -> MoreDynamicTabsExperimentAssignment {
+        
+        guard qualifiesForExperiment() else {
+            throw CustomError.doesNotQualifyForExperiment
+        }
+
+        let assignment: MoreDynamicTabsExperimentAssignment
+        assignment = .groupC
+        
+        self.assignmentCache = assignment
+        return assignment
+    }
+    
+    public func assignExperimentV2IfNeeded() throws -> MoreDynamicTabsExperimentAssignment {
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
         }
@@ -203,66 +217,23 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         guard isBeforeAssignmentEndDate else {
             throw CustomError.pastAssignmentEndDate
         }
-        
-        guard let experimentsDataController else {
-            throw CustomError.missingExperimentsDataController
-        }
 
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.articleTabs, withPercentage: articleTabsExperimentPercentage)
-
-        let assignment: ArticleTabsExperimentAssignment
-
-        switch bucketValue {
-        case .articleTabsControl:
-            assignment = .control
-        case .articleTabsTest:
-            assignment = .test
-        default:
-            throw CustomError.unexpectedAssignment
-        }
-
+        let assignment: MoreDynamicTabsExperimentAssignment
+        assignment = .groupC
         self.assignmentCache = assignment
         return assignment
+    }
+
+    public var moreDynamicTabsGroupCEnabled: Bool {
+        return true
     }
     
-    public func getArticleTabsExperimentAssignment() throws -> ArticleTabsExperimentAssignment {
-        
-        guard qualifiesForExperiment() else {
-            throw CustomError.doesNotQualifyForExperiment
-        }
-        
-        guard let experimentsDataController else {
-            throw CustomError.missingExperimentsDataController
-        }
-
-        if let assignmentCache {
-            return assignmentCache
-        }
-
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.articleTabs) else {
-            throw CustomError.missingAssignment
-        }
-
-        let assignment: ArticleTabsExperimentAssignment
-        switch bucketValue {
-        case .articleTabsControl:
-            assignment = .control
-        case .articleTabsTest:
-            assignment = .test
-        default:
-            throw CustomError.unexpectedAssignment
-        }
-
-        self.assignmentCache = assignment
-        return assignment
-    }
-
     // MARK: Onboarding
-
+    
     internal var onboardingStatus: OnboardingStatus {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
     }
-
+    
     public var hasPresentedTooltips: Bool {
         get {
             return onboardingStatus.hasPresentedOnboardingTooltips
@@ -272,7 +243,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
         }
     }
-
+    
     // MARK: - Tabs Manipulation Methods
     
     public func tabsCount() async throws -> Int {
@@ -284,13 +255,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         return try await moc.perform {
             let fetchRequest = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
             return try moc.count(for: fetchRequest)
-        }
-    }
-    
-    public func checkAndCreateInitialArticleTabIfNeeded() async throws {
-        let count = try await tabsCount()
-        if count == 0 {
-            _ = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
         }
     }
     
@@ -315,12 +279,18 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         } else {
             if let primaryAppLanguage = WMFDataEnvironment.current.appData.appLanguages.first {
                 let project = WMFProject.wikipedia(primaryAppLanguage)
-                article = WMFArticle(identifier: nil, title: "Main_Page", project: project)
+                let title = "Main_Page"
+                guard let siteURL = project.siteURL,
+                      let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                    throw CustomError.missingURL
+                }
+
+                article = WMFArticle(identifier: nil, title: title, project: project, articleURL: articleURL)
             } else {
                 throw CustomError.missingAppLanguage
             }
         }
-        
+
         return try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
@@ -369,9 +339,21 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
-
+            
             try self.deleteArticleTab(identifier: identifier, moc: moc)
             try coreDataStore.saveIfNeeded(moc: moc)
+        }
+    }
+    
+    public func deleteAllTabs() async throws {
+
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
+        try await moc.perform { [weak self] in
+            guard let self else { throw CustomError.missingSelf }
+            try self.deleteAllTabs(moc: moc)
         }
     }
     
@@ -405,7 +387,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 let safeCurrentItems = currentItems.compactMap { $0 as? CDArticleTabItem }
                 for tabItem in safeCurrentItems {
-
+                    
                     if tabItem.isCurrent {
                         tabItem.isCurrent = false
                         newItems.append(tabItem)
@@ -480,11 +462,11 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             var adjacentArticle: Any?
             for (index, item) in items.enumerated() {
                 guard let articleItem = item as? CDArticleTabItem else { continue }
-
+                
                 if articleItem.isCurrent {
                     if isPrev,
-                        (index - 1) >= 0,
-                        items.count > index - 1 {
+                       (index - 1) >= 0,
+                       items.count > index - 1 {
                         adjacentArticle = items[index - 1]
                         break
                     } else if
@@ -496,13 +478,19 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                     }
                 }
             }
-            
+
+
             if let cdArticleItem = adjacentArticle as? CDArticleTabItem,
                let title = cdArticleItem.page?.title,
                let identifier = cdArticleItem.identifier,
-               let coreDataIdentifier = cdArticleItem.page?.projectID,
-               let wmfProject = WMFProject(coreDataIdentifier: coreDataIdentifier) {
-                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject)
+               let projectID = cdArticleItem.page?.projectID,
+               let wmfProject = WMFProject(id: projectID) {
+
+                guard let siteURL = wmfProject.siteURL,
+                      let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                    throw CustomError.missingURL
+                }
+                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject, articleURL: articleURL)
                 return wmfArticle
             }
             
@@ -511,7 +499,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         
         let result: WMFArticle? = try await moc.perform(block)
         return result
-            
     }
     
     public func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws {
@@ -580,41 +567,20 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
+    // MARK: - Survey
+    
     public func updateSurveyDataTabsOverviewSeenCount() {
-        var seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
+        var seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
         
         seenCount += 1
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue, value: seenCount)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue, value: seenCount)
     }
-    
+
     public func updateSurveyDataTappedLongPressFlag() {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue, value: true)
     }
     
     public func shouldShowSurvey() -> Bool {
-        // Make sure it's before July 31, 2025
-        let now = Date()
-        let calendar = Calendar.current
-        let deadlineComponents = DateComponents(year: 2025, month: 7, day: 31)
-
-        guard let deadline = calendar.date(from: deadlineComponents),
-              now <= deadline else {
-            return false
-        }
-        
-        let seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
-        let didTapLongPress = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue)) ?? false
-        let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue)) ?? false
-
-        if seenSurvey {
-            return false
-        }
-        
-        if seenCount >= 3 && didTapLongPress {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue, value: true)
-            return true
-        }
-        
         return false
     }
     
@@ -631,7 +597,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
         
         let coreDataTitle = article.title.normalizedForCoreData
-        let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [article.project.coreDataIdentifier, 0, coreDataTitle])
+        let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [article.project.id, 0, coreDataTitle])
         
         let page = try coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: pagePredicate, in: moc)
         
@@ -641,7 +607,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         
         page.title = coreDataTitle
         page.namespaceID = 0
-        page.projectID = article.project.coreDataIdentifier
+        page.projectID = article.project.id
         if page.timestamp == nil {
             page.timestamp = Date()
         }
@@ -673,7 +639,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         
         let tabsCount = try tabsCount(moc: moc)
         
-        if tabsCount <= 1 {
+        if tabsCount <= 1 && !shouldShowMoreDynamicTabsV2 {
             throw CustomError.cannotDeleteLastTab
         }
         
@@ -714,7 +680,40 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         )
     }
     
-    public func currentTabIdentifier() async throws -> UUID {
+    private func deleteAllTabs(moc: NSManagedObjectContext) throws {
+        guard let coreDataStore else {
+            throw WMFDataControllerError.coreDataStoreUnavailable
+        }
+        
+        let tabs = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: nil, fetchLimit: nil, in: moc) ?? []
+        
+        if tabs.isEmpty {
+            return
+        }
+        
+        for tab in tabs {
+            guard let identifier = tab.identifier else { return }
+            NotificationCenter.default.post(
+                name: WMFNSNotification.articleTabDeleted,
+                object: nil,
+                userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: identifier]
+            )
+            
+            if let items = tab.items {
+                let safeItems = items.compactMap { $0 as? CDArticleTabItem }
+                for item in safeItems {
+                    item.tab = nil
+                    moc.delete(item)
+                }
+            }
+            
+            moc.delete(tab)
+        }
+        
+        try coreDataStore.saveIfNeeded(moc: moc)
+    }
+    
+    public func currentTabIdentifier() async throws -> UUID? {
         
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -723,17 +722,30 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
-        
-        return try await moc.perform {
-            let predicate = NSPredicate(format: "isCurrent == YES")
-            guard let currentTab = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first,
-                  let identifier = currentTab.identifier else {
-                throw CustomError.missingTab
-            }
-            return identifier
+
+        if let existingID = try await fetchCurrentTabID(coreDataStore: coreDataStore, moc: moc) {
+            return existingID
         }
+
+        return nil
     }
-    
+
+        // MARK: - Helpers
+
+        /// Reads the current tab's UUID from Core Data on the context's queue.
+        private func fetchCurrentTabID(coreDataStore: WMFCoreDataStore, moc: NSManagedObjectContext) async throws -> UUID? {
+            try await moc.perform {
+                let predicate = NSPredicate(format: "isCurrent == YES")
+                let tab = try coreDataStore
+                    .fetch(entityType: CDArticleTab.self,
+                           predicate: predicate,
+                           fetchLimit: 1,
+                           in: moc)?
+                    .first
+                return tab?.identifier
+            }
+        }
+
     public func setTabAsCurrent(tabIdentifier: UUID) async throws {
         
         guard let coreDataStore else {
@@ -811,11 +823,16 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                           let identifier = articleTabItem.identifier,
                           let title = page.title,
                           let projectID = page.projectID,
-                          let project = WMFProject(coreDataIdentifier: projectID) else {
+                          let project = WMFProject(id: projectID) else {
                         throw CustomError.unexpectedType
                     }
-                    
-                    let article = WMFArticle(identifier: identifier, title: title, project: project)
+
+                    guard let siteURL = project.siteURL,
+                          let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                        throw CustomError.missingURL
+                    }
+
+                    let article = WMFArticle(identifier: identifier, title: title, project: project, articleURL: articleURL)
                     articles.append(article)
                     
                     // don't append any more after current article.
@@ -839,34 +856,37 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
-
+        
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
-
-       try await moc.perform { [weak self] in
+        
+        try await moc.perform { [weak self] in
             guard let self else { return }
             let currentPredicate = NSPredicate(format: "isCurrent == YES")
             guard let cdTab = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: currentPredicate, fetchLimit: 1, in: moc)?.first,
-            let tabIdentifier = cdTab.identifier,
-            let tabTimestamp = cdTab.timestamp else {
+                  let tabIdentifier = cdTab.identifier,
+                  let tabTimestamp = cdTab.timestamp else {
                 throw CustomError.missingTab
             }
             
             let cdItems = cdTab.items?.compactMap { $0 as? CDArticleTabItem }
-           let cdItem = cdItems?.first(where: { $0.isCurrent == true })
-           guard let cdItem,
-                let articleIdentifier = cdItem.identifier,
-                let page = cdItem.page,
-                let title = page.title,
-                let projectID = page.projectID,
-                 let project = WMFProject(coreDataIdentifier: projectID) else {
+            let cdItem = cdItems?.first(where: { $0.isCurrent == true })
+            guard let cdItem,
+                  let articleIdentifier = cdItem.identifier,
+                  let page = cdItem.page,
+                  let title = page.title,
+                  let projectID = page.projectID,
+                  let project = WMFProject(id: projectID) else {
                 throw CustomError.missingTabItem
             }
-            
-           let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project)])
-           
-           try userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
+            guard let siteURL = project.siteURL,
+                  let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                throw CustomError.missingURL
+            }
+            let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project, articleURL: articleURL)])
+
+            try userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
         }
     }
     
@@ -885,10 +905,12 @@ private extension WMFProject {
     var qualifiesForExperiment: Bool {
         switch self {
         case .wikipedia(let language):
-            return language.languageCode.lowercased() == "en" || language.languageCode.lowercased() == "ar" || language.languageCode.lowercased() == "ja"
+            return language.languageCode.lowercased() == "en" || language.languageCode.lowercased() == "ar" || language.languageCode.lowercased() == "de"
         case .wikidata:
             return false
         case .commons:
+            return false
+        case .mediawiki:
             return false
         }
     }
@@ -899,14 +921,16 @@ private extension Locale {
         guard let identifier = region?.identifier.lowercased() else {
             return false
         }
-        
         switch identifier {
-        case "au", "hk", "id", "jp", "my", "mm", "nz", "ph", "sg", "kr", "tw", "th", "vn":
+        case "au", "hk", "id", "jp", "my", "mm", "nz", "ph", "sg", "kr", "tw", "th", "vn": // eseap
             return true
-        case "dz", "bh", "eg", "jo", "kw", "lb", "ly", "ma", "om", "qa", "sa", "tn", "ae", "ye":
+        case "dz", "bh", "eg", "jo", "kw", "lb", "ly", "ma", "om", "qa", "sa", "tn", "ae", "ye": // mena
+            return true
+        case "de": // germany
             return true
         default:
             return false
         }
     }
 }
+

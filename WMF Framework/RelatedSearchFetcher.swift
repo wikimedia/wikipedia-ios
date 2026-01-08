@@ -1,9 +1,16 @@
 import Foundation
 
 @objc(WMFRelatedSearchFetcher)
-final class RelatedSearchFetcher: Fetcher {
+public final class RelatedSearchFetcher: Fetcher {
+    
+    @objc public func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
+        fetchRelatedArticles(forArticleWithURL: articleURL, limit: nil, completion: completion)
+    }
 
-    @objc func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
+    public func fetchRelatedArticles(forArticleWithURL articleURL: URL?, limit: Int? = nil, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
+        
+        let limit = limit ?? 20
+        
         guard
             let articleURL = articleURL,
             let articleTitle = articleURL.wmf_title,
@@ -17,7 +24,7 @@ final class RelatedSearchFetcher: Fetcher {
             "action": "query",
             "formatversion": 2,
             "generator": "search",
-            "gsrlimit": 20,
+            "gsrlimit": limit,
             "gsrnamespace": 0,
             "gsrqiprofile": "classic_noboostlinks",
             "gsrsearch": "morelike:\(articleTitle)",
@@ -25,11 +32,13 @@ final class RelatedSearchFetcher: Fetcher {
             "pilimit": 20,
             "piprop": "thumbnail",
             "pithumbsize": 160,
-            "prop": "pageimages|description|info",
+            "prop": "pageimages|description|info|extracts",
             "inprop": "varianttitles",
             "smaxage": "86400",
             "maxage": "86400",
-            "format": "json"
+            "format": "json",
+            "exintro": "1",
+            "explaintext": "1"
         ]
 
         performDecodableMediaWikiAPIGET(for: articleURL, with: queryParams) { (result: Result<RelatedResponse, Error>) in
@@ -82,7 +91,7 @@ final class RelatedSearchFetcher: Fetcher {
                 pageTitle = page.title
             }
             
-            let item = RelatedPage(pageId: page.pageid, ns: page.ns, title: pageTitle, index: page.index, thumbnail: page.thumbnail, articleDescription: page.description, descriptionSource: page.descriptionsource, contentModel: page.contentmodel, pageLanguage: page.pagelanguage, pageLanguageHtmlCode: page.pagelanguagehtmlcode, pageLanguageDir: page.pagelanguagedir, touched: page.touched, lastRevId: page.lastrevid, length: page.length)
+            let item = RelatedPage(pageId: page.pageid, ns: page.ns, title: pageTitle, index: page.index, thumbnail: page.thumbnail, articleDescription: page.description, descriptionSource: page.descriptionsource, contentModel: page.contentmodel, pageLanguage: page.pagelanguage, pageLanguageHtmlCode: page.pagelanguagehtmlcode, pageLanguageDir: page.pagelanguagedir, touched: page.touched, lastRevId: page.lastrevid, length: page.length, extract: page.extract)
             item.articleURL = getArticleURLFromTitle(title: page.title, siteURL: siteURL)
             item.languageVariantCode = siteURL.wmf_languageVariantCode
             pages.append(item)
@@ -147,6 +156,6 @@ private extension ArticleSummary {
         }
         let desktopURLs = ArticleSummaryURLs(page: relatedPage.articleURL?.absoluteString)
 
-        self.init(id: Int64(relatedPage.pageId), wikidataID: nil, revision: nil, timestamp: relatedPage.touched, index: relatedPage.index, namespace: namespace, title: relatedPage.title, displayTitle: relatedPage.title, articleDescription: relatedPage.articleDescription, extract: nil, extractHTML: nil, thumbnail: thumbnail, original: nil, coordinates: nil, languageVariantCode: relatedPage.languageVariantCode, contentURLs: ArticleSummaryContentURLs(desktop: desktopURLs, mobile: nil))
+        self.init(id: Int64(relatedPage.pageId), wikidataID: nil, revision: nil, timestamp: relatedPage.touched, index: relatedPage.index, namespace: namespace, title: relatedPage.title, displayTitle: relatedPage.title, articleDescription: relatedPage.articleDescription, extract: relatedPage.extract, extractHTML: nil, thumbnail: thumbnail, original: nil, coordinates: nil, languageVariantCode: relatedPage.languageVariantCode, contentURLs: ArticleSummaryContentURLs(desktop: desktopURLs, mobile: nil))
     }
 }

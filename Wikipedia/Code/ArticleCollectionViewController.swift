@@ -14,6 +14,11 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, addPlaceholder: true)
+#if DEBUG
+       if dataStore == nil {
+           assertionFailure("ArticleCollectionViewController.dataStore is nil. Inject MWKDataStore before presenting.")
+       }
+#endif
         setupEditController()
     }
     
@@ -230,7 +235,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 return true
             }
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         }
         return false
     }

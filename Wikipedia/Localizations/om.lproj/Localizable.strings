@@ -21,7 +21,6 @@
 "description-welcome-descriptions-title" = "Ibsa keeyyataa";
 "explore-continue-reading-heading" = "Dubbisuu itti fufi";
 "explore-potd-heading" = "Suura har'aa";
-"history-clear-cancel" = "Dhiisi";
 "history-clear-delete-all" = "Eeyyee, hunda balleessi";
 "icon-shortcut-search-title" = "Wiikippiidiyaa keessa barbaadi";
 "image-gallery-unknown-owner" = "Aangawaan hin beekamu.";
@@ -36,12 +35,9 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "Maayilii $1";
 "page-protected-can-not-edit" = "Fuula kana jijjiiruuf mirga hin qabdu";
-"search-did-you-mean" = "$1 jechuu keetii?";
 "search-field-placeholder-text" = "Wiikippiidiyaa keessa barbaadi";
-"search-recent-clear-cancel" = "Haqi";
 "search-recent-clear-delete-all" = "Hunda haqi";
 "table-of-contents-button-label" = "Gabatee qabiyyeewwanii";
 "table-of-contents-heading" = "Qabiyyeewwan";
 "wikitext-upload-save" = "Uummataawaara...";
-"wikitext-upload-save-sign-in" = "Seeni";
 "wikitext-upload-save-terms-name" = "Waliigaltee fayyadamaa";

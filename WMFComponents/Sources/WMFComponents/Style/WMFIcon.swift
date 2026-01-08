@@ -25,6 +25,7 @@ public enum WMFIcon {
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let error = UIImage(named: "error", in: .module, with: nil)
     public static let personCircleX = UIImage(named: "person-circle-x", in: .module, with: nil) // Use SFSymbol once target is iOS17+
+
     // Settings icons
     public static let settingsLanguage = UIImage(named: "settings-language", in: .module, with: nil)
     public static let settingsExplore = UIImage(named: "settings-explore", in: .module, with: nil)
@@ -32,6 +33,8 @@ public enum WMFIcon {
     public static let settingsClearCache = UIImage(named: "settings-clear-cache", in: .module, with: nil)
     public static let settingsPrivacy = UIImage(named: "settings-privacy.pdf", in: .module, with: nil)
 
+    public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
+    public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -99,6 +102,7 @@ public enum WMFSFSymbolIcon {
     case infoCircle
     case squareTextSquare
     case eye
+    case eyeSlash
     case ellipsisBubble
     case flag
     case lightbulbMin
@@ -108,17 +112,21 @@ public enum WMFSFSymbolIcon {
     case bookmark
     case bookmarkFill
     case book
+    case bookPages
     case map
     case squareAndArrowUp
     case circleFill
     case bellFill
     case chatBubbleFilled
     case textBadgeStar
+    case textPage
     case leave
     case gear
+    case gearShape
     case calendar
     case share
     case infoCircleFill
+    case trash
     case temporaryAccountIcon
     case tabsIcon
     case tabsIconBackground
@@ -128,6 +136,13 @@ public enum WMFSFSymbolIcon {
     case handRaisedFill
     case textJustify
     case lifePreserver
+    case questionMarkBubble
+    case lock
+    case rectangle3
+    case clockBadgeX
+    case bubbleRightFill
+    case globeAmericas
+    case lineDiagonalArrow
 
     public var name: String? {
         switch self {
@@ -248,6 +263,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.text.square", withConfiguration: configuration)
         case .eye:
             image = UIImage(systemName: "eye", withConfiguration: configuration)
+        case .eyeSlash:
+            image = UIImage(systemName: "eye.slash", withConfiguration: configuration)
         case.ellipsisBubble:
             image = UIImage(systemName: "ellipsis.bubble", withConfiguration: configuration)
         case .flag:
@@ -266,6 +283,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "bookmark.fill", withConfiguration: configuration)
         case .book:
             image = UIImage(systemName: "book", withConfiguration: configuration)
+        case .bookPages:
+            image = UIImage(systemName: "book.pages", withConfiguration: configuration)
         case .map:
             image = UIImage(systemName: "map", withConfiguration: configuration)
         case .squareAndArrowUp:
@@ -282,6 +301,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
         case .gear:
             image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .gearShape:
+            image = UIImage(systemName: "gearshape", withConfiguration: configuration)
         case .heartFilled:
             image = UIImage(systemName: "heart.fill", withConfiguration: configuration)
         case .calendar:
@@ -290,6 +311,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.and.arrow.up", withConfiguration: configuration)
         case .infoCircleFill:
             image = UIImage(systemName: "info.circle.fill", withConfiguration: configuration)
+        case .trash:
+            image = UIImage(systemName: "trash", withConfiguration: configuration)
         case .temporaryAccountIcon:
             image = UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: configuration)
         case .tabsIcon:
@@ -308,6 +331,22 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "text.justify", withConfiguration: configuration)
         case .lifePreserver:
             image = UIImage(systemName: "lifepreserver", withConfiguration: configuration)
+        case .questionMarkBubble:
+            image = UIImage(systemName: "questionmark.bubble", withConfiguration: configuration)
+        case .lock:
+            image = UIImage(systemName: "lock", withConfiguration: configuration)
+        case .rectangle3:
+            image = UIImage(systemName: "rectangle.3.group", withConfiguration: configuration)
+        case .clockBadgeX:
+            image = UIImage(systemName: "clock.badge.xmark", withConfiguration: configuration)
+        case .textPage:
+            image = UIImage(systemName: "text.page", withConfiguration: configuration)
+        case .bubbleRightFill:
+            image = UIImage(systemName: "bubble.right.fill", withConfiguration: configuration)?.imageFlippedForRightToLeftLayoutDirection()
+        case .globeAmericas:
+            image = UIImage(systemName: "globe.americas.fill", withConfiguration: configuration)
+        case .lineDiagonalArrow:
+            image = UIImage(systemName: "line.diagonal.arrow", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
@@ -318,5 +357,4 @@ public enum WMFSFSymbolIcon {
         
         return image
     }
-
 }

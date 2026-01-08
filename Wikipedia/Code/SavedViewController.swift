@@ -1,4 +1,5 @@
 import WMFComponents
+import CocoaLumberjackSwift
 import WMFData
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
@@ -70,13 +71,15 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         return existingYirCoordinator
     }
     
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController, let dataStore else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
-    
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController, let dataStore else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: dataStore
+        )
+    }()
+
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
         
@@ -230,10 +233,8 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
-            ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
-        }
+        super.viewDidAppear(animated)
+        ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -296,12 +297,12 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
     }
-    
+
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .saved, project: nil)
     }
-    
+
     @objc func userDidTapProfile() {
         
         guard let dataStore else {

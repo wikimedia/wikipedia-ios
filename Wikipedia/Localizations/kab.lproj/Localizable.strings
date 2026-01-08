@@ -59,9 +59,11 @@
 "action-saved-accessibility" = "Yettwasekles. Rmed akken ad tekkseḍ asekles.";
 "action-saved-accessibility-notification" = "Amagrad yettwasekles i ticki";
 "action-share" = "Bḍu";
+"action-share-accessibility" = "Bḍu";
 "action-unsave" = "UR yettwasekles ara";
 "action-unsaved-accessibility-notification" = "Amagrad ur yettwasekles ara";
 "activity-tab-add-images-title" = "Rnu tugniwin";
+"activity-tab-articles-read-graph-label" = "Imagraden";
 "alert-temporary-account-learn-more" = "Issin ugar.";
 "announcements-dismiss" = "Zgel";
 "app-store-subtitle" = "Tasanayt tilellit";
@@ -161,7 +163,6 @@
 "forgot-password-title" = "Ales awennez n wawal uffir";
 "forgot-password-username-or-email-title" = "Neɣ";
 "history-clear-all" = "Sfeḍ";
-"history-clear-cancel" = "Sefsex";
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
 "history-clear-delete-all" = "Ih, kkes akk";
 "history-title" = "Amazray";
@@ -213,14 +214,18 @@
 "new-password-instructions" = "Teqqneḍ s wawal uffir askudan. Akken ad fakeḍ tuqqna, sekcem awal-nniḍen uffir dagi.";
 "new-password-title" = "Sbadu awal-ik uffir";
 "no-email-account-alert" = "Swel amiḍan n yiznan deg usagu-ik sakin ɛreḍ tikelt-nniḍen.";
+"notifications-center-empty-no-messages" = "Ulac ɣur-k·m iznan";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Rmed ilɣa";
 "notifications-center-filters-read-status-item-title-all" = "Akk";
 "notifications-center-go-to-article" = "Amagrad";
 "notifications-center-more-action-accessibility-label" = "Ugar";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 n yizen|$1 n yiznan}}";
 "notifications-center-status-all" = "Akk";
 "notifications-center-type-title-thanks" = "Tanemmirt";
 "notifications-center-type-title-welcome" = "Ansuf";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 n yizen amaynut|$1 n yiznan imaynuten}} ɣef $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|n yizen amaynut|n yiznan imaynuten}}";
 "number-billions" = "$1AṬ";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -292,9 +297,7 @@
 "saved-pages-image-download-error" = "Ur izmir ara ad d-isali tugniwin n usebter-agi yettwaskelsen.";
 "saved-title" = "Yettwasekles";
 "search-button-accessibility-label" = "Nadi di Wikipedia";
-"search-did-you-mean" = "Tebɣiḍ ad tiniḍ $1?";
 "search-field-placeholder-text" = "Nadi di Wikipedia";
-"search-recent-clear-cancel" = "Sefsex";
 "search-recent-clear-confirmation-heading" = "Kkes akk inadiyen n melmi kan?";
 "search-recent-clear-confirmation-sub-heading" = "Tigawt-agi ur tettwasefsax ara!";
 "search-recent-clear-delete-all" = "Kkes i meṛṛa";
@@ -390,5 +393,4 @@
 "wikitext-upload-result-unknown" = "Urizmir ara ad d-yaf agmuḍ n usali n uḍris n uwiki.";
 "wikitext-upload-save" = "Asuffeɣ...";
 "wikitext-upload-save-anonymously-warning" = "Asnifel ad ittunefk i tensa IP n terbaɛt-ik. Ma yella kečč $1, ad yili ɣur-k ugar n tbaḍnit.";
-"wikitext-upload-save-sign-in" = "Qqen";
 "wikitext-upload-save-terms-name" = "Tiwtilin n useqdec";

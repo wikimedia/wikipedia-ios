@@ -95,6 +95,7 @@
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
 "action-update" = "अद्यतन";
 "activity-tab-title" = "गतिविधि";
+"activity-tab-week-graph-label" = "सप्ताह";
 "add-articles-to-reading-list" = "पठन सूची में{{PLURAL:$1|$1 लेख}} जोड़ें";
 "alt-text-feedback-survey-toast-title" = "प्रतिक्रिया प्रस्तुत की गई";
 "announcements-dismiss" = "रद्द करें";
@@ -269,7 +270,6 @@
 "forgot-password-title" = "पासवर्ड रिसेट करें";
 "forgot-password-username-or-email-title" = "या";
 "history-clear-all" = "साफ करें";
-"history-clear-cancel" = "रद्द करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
 "history-clear-delete-all" = "हाँ, सभी मिटायें";
 "history-title" = "इतिहास";
@@ -289,7 +289,6 @@
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "image-gallery-unknown-owner" = "अज्ञात लेखक";
 "image-rec-error-subtitle" = "कोई त्रुटि आई।";
-"import-shared-reading-list-survey-prompt-button-cancel" = "अभी नहीं";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "सर्वे लें";
 "import-shared-reading-list-survey-prompt-footer" = "हमारी $1गोपनीयता स्टेटमेंट$2 देखें. सर्वे एक थर्ड पार्टी के ज़रिए पावर किया गया है. उनकी $3गोपनीयता नीति$4 देखें.";
 // Fuzzy
@@ -327,12 +326,12 @@
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "next-action-title" = "अगला";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
+"not-now-title" = "अभी नहीं";
 "notifications-center-alert" = "चेतावनी";
 "notifications-center-change-password" = "पासवर्ड बदलें";
 "notifications-center-destination-app" = "ऐप में";
 "notifications-center-destination-web" = "वेब पर";
 "notifications-center-feed-news-notification-button-text" = "पुश नोटिफिकेशन चालू करें";
-"notifications-center-feed-news-notification-dismiss-button-text" = "अभी नहीं";
 "notifications-center-go-to-article" = "लेख";
 "notifications-center-go-to-diff" = "अन्तर";
 "notifications-center-more-action-accessibility-label" = "और";
@@ -412,17 +411,15 @@
 "saved-pages-progress-syncing" = "लेख डाउनलोड हो रहा है...";
 "saved-title" = "सहेजा गया";
 "search-button-accessibility-label" = "विकिपीडिया में खोजें";
-"search-did-you-mean" = "क्या आपका मतलब $1 था?";
 "search-field-placeholder-text" = "विकिपीडिया में खोजें";
 "search-reading-list-placeholder-text" = "पठन सूची खोजें";
-"search-recent-clear-cancel" = "रद्द करें";
 "search-recent-clear-confirmation-heading" = "हाल की सभी खोजों को मिटायें?";
 "search-recent-clear-confirmation-sub-heading" = "इस क्रिया को वापस नहीं लिया जा सकता!";
 "search-recent-clear-delete-all" = "सभी हटाएँ";
 "search-recent-title" = "हाल ही में खोजा गया";
 "search-result-redirected-from" = "$1 से अनुप्रेषित";
 "search-title" = "खोजें";
-"search-widget-title" = "खोजें";
+// Fuzzy
 "settings-appearance" = "पढ़ने की वरीयताएँ";
 "settings-clear-cache" = "कैश डेटा खाली करें";
 "settings-clear-cache-are-you-sure-message" = "कैश डेटा खाली करने से $1 स्पेस खाली होगी। इससे आपके सहेजे गए पेज नहीं डिलीट होंगे।";
@@ -517,6 +514,5 @@
 "wikitext-upload-result-unknown" = "विकिटेक्सट के अपलोड परिणाम बताने में असमर्थ।";
 "wikitext-upload-save" = "प्रकाशित किया जा रहा है...";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
-"wikitext-upload-save-sign-in" = "प्रवेश";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "year-in-review-donate" = "दान करें";

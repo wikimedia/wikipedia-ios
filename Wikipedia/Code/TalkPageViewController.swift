@@ -582,7 +582,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     fileprivate func pushToDesktopWeb() {
-        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)", isMobile: false) else {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/\(viewModel.pageTitle)") else {
             showGenericError()
             return
         }
@@ -609,7 +609,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
     
     fileprivate func pushToWhatLinksHere() {
-        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)", isMobile: true) else {
+        guard let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:WhatLinksHere/\(viewModel.pageTitle)") else {
             showGenericError()
             return
         }
@@ -619,7 +619,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     
     fileprivate func pushToContributions() {
         guard let username = usernameFromPageTitle(),
-              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
+              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)") else {
             showGenericError()
             return
         }
@@ -631,7 +631,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     
     fileprivate func pushToUserGroups() {
         guard let username = usernameFromPageTitle(),
-              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)", isMobile: true) else {
+              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:UserRights/\(username)") else {
             showGenericError()
             return
         }
@@ -641,7 +641,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     
     fileprivate func pushToLogs() {
         guard let username = usernameFromPageTitle(),
-              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)", isMobile: true) else {
+              let url = viewModel.siteURL.wmf_URL(withPath: "/wiki/Special:Log/\(username)") else {
             showGenericError()
             return
         }
@@ -666,8 +666,8 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     fileprivate func pushToPermanentLink() {
         
         guard let latestRevisionID = viewModel.latestRevisionID,
-              let mobileSiteURL = viewModel.siteURL.wmf_URL(withPath: "", isMobile: true),
-              let host = mobileSiteURL.host,
+              let siteURL = viewModel.siteURL.wmf_URL(withPath: ""),
+              let host = siteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "oldid": latestRevisionID]) else {
             showGenericError()
@@ -1170,7 +1170,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         
                         self.handleNewTopicOrCommentAlert(isNewTopic: false, needsFollowupTempAccountToast: wasIP && isTemp)
                         if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID)
+                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID, project: WikimediaProject(siteURL: talkPageURL))
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
@@ -1261,7 +1261,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         self?.talkPageView.collectionView.reloadData()
                         self?.scrollToLastTopic()
                         if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
-                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: viewModel.latestRevisionID)
+                            EditAttemptFunnel.shared.logSaveSuccess(pageURL: pageURL, revisionId: viewModel.latestRevisionID, project: WikimediaProject(siteURL: pageURL))
                         }
                     case .failure:
                         if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
@@ -1346,7 +1346,7 @@ extension TalkPageViewController {
         static let newTopicFailedAlertTitle = WMFLocalizedString("talk-page-publish-topic-error-title", value: "Unable to publish new topic.", comment: "Title for new topic post error alert")
         static let failureAlertSubtitle = WMFLocalizedString("talk-page-publish-reply-error-subtitle", value: "Please check your internet connection.", comment: "Subtitle for topic reply error alert")
         static let unexpectedErrorAlertTitle = CommonStrings.unexpectedErrorAlertTitle
-        static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app recieved an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
+        static let unexpectedErrorAlertSubtitle = WMFLocalizedString("talk-page-error-alert-subtitle", value: "The app received an unexpected response from the server. Please try again later.", comment: "Subtitle for unexpected error alert")
         static let overflowMenuAccessibilityLabel = WMFLocalizedString("talk-page-overflow-menu-accessibility", value: "More Talk Page Options", comment: "Accessibility label for the talk page overflow menu button, which displays more navigation options to the user.")
     }
 }

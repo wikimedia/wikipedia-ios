@@ -279,7 +279,6 @@
 "forgot-password-title" = "Adderaouekaat ar ger-tremen";
 "forgot-password-username-or-email-title" = "Pe";
 "history-clear-all" = "Diverkañ";
-"history-clear-cancel" = "Nullañ";
 "history-clear-confirmation-heading" = "Ha sur eo ho peus c'hoant da lemel ho holl elfennoù nevez ?";
 "history-clear-delete-all" = "Ya, lemel pep tra";
 "history-title" = "Istor";
@@ -308,7 +307,6 @@
 "image-recs-not-sure-title" = "N'on ket sur";
 "image-recs-yes-title" = "Ya";
 "import-shared-reading-list-default-title" = "Ma roll lenn";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ket bremañ";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Kemer perzh er sontadeg";
 "in-the-news-sub-title-from-language-wikipedia" = "Eus $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Eus Wikipedia";
@@ -373,6 +371,7 @@
 "no-email-account-alert" = "Kendalc'hit, mar plij da gefluniañ ur gemennadenn en hoc'h ardivink ha klaskit en-dro.";
 "no-internet-connection" = "Kevreadur ebet ouzh ar Genrouedad";
 "no-internet-connection-article-reload-button" = "Distreiñ d'an doare diwezhañ enrollet";
+"not-now-title" = "Ket bremañ";
 "notifications-center-agent-description-from-format" = "Digant $1";
 "notifications-center-alert" = "Kemennoù-diwall";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 kemenn";
@@ -382,7 +381,6 @@
 "notifications-center-empty-no-messages" = "N'hoc'h eus kemennadenn nevez ebet";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 sil}}";
 "notifications-center-feed-news-notification-button-text" = "Gweredekaat ar c'hemennadennoù bountet";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ket bremañ";
 "notifications-center-filters-read-status-item-title-all" = "Pep tra";
 "notifications-center-filters-read-status-item-title-read" = "Lennet";
 "notifications-center-filters-read-status-item-title-unread" = "Anlennet";
@@ -548,9 +546,7 @@
 "saved-title" = "Enrollet";
 "search-button-accessibility-label" = "Klask e Wikipedia";
 "search-clear-title" = "Riñsañ";
-"search-did-you-mean" = "N'ho poa ket soñjet kentoc'h e : $1";
 "search-field-placeholder-text" = "Klask e Wikipedia";
-"search-recent-clear-cancel" = "Nullañ";
 "search-recent-clear-confirmation-heading" = "Lemel an holl enklaskoù nevez";
 "search-recent-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
 "search-recent-clear-delete-all" = "Lemel pep tra";
@@ -558,6 +554,7 @@
 "search-result-redirected-from" = "Adkaset eus:$1";
 "search-title" = "Klask";
 "settings-account" = "Kont";
+// Fuzzy
 "settings-appearance" = "Penndibaboù lenn";
 "settings-clear-cache" = "Diverkañ ar roadennoù krubuilhet";
 "settings-clear-cache-are-you-sure-message" = "Diverkañ roadennoù krubuilhet a ziac'hubo war-dro $1 a blas. Ne ziverko ket ho pajennoù enrollet.";
@@ -702,5 +699,4 @@
 "wikitext-upload-result-unknown" = "N'haller ket termenañ disoc'h pellgargañ ar wikitestenn.";
 "wikitext-upload-save" = "Oc'h embann...";
 "wikitext-upload-save-anonymously-warning" = "Ar c'hemmoù a vo roet da chomlec'h IP hoc'h ardivink. M'ho peus $1 ho po muioc'h a zegasadennoù e kuzhut.";
-"wikitext-upload-save-sign-in" = "Kevreañ";
 "wikitext-upload-save-terms-name" = "Termenoù implijout";

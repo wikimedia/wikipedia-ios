@@ -57,6 +57,7 @@
 "activity-tab-very-satisfied" = "ݙاڈھا تسلی بخش";
 "activity-tab-very-unsatisfied" = "ݙاڈھا تسلی بخش";
 "activity-tab-view-editing-history" = " تبدیلی دا تاریخچہ ݙیکھو";
+"activity-tab-week-graph-label" = "ہفتہ";
 // Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "alt-text-feedback-survey-toast-title" = "فیڈبیک جمع تھی ڳئی";
@@ -89,6 +90,7 @@
 "cc-zero" = "کریٹیو کامنز سی سی صفر";
 "clear-title-accessibility-label" = "صاف";
 "close-all-tabs" = "سارے ٹیب بند کرو";
+"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 ٹیب|$1 ٹیباں}} بند کروں؟";
 "close-button-accessibility-label" = "بند کرو";
 "close-tab-confirmation" = "ٹیب بند کروں؟";
 "close-tabs" = "ٹیباں بند کرو";
@@ -202,7 +204,6 @@
 "forgot-password-title" = "پاس ورڈ ولدا ٹھیک کرو";
 "forgot-password-username-or-email-title" = "یا";
 "history-clear-all" = "صاف";
-"history-clear-cancel" = "مکاؤ";
 "history-clear-delete-all" = "جیا سبھ مٹاؤ";
 "history-title" = "تاریخچہ";
 "home-more-like-footer" = "$1 وانگوں ٻئے";
@@ -217,7 +218,6 @@
 "image-rec-survey-title" = "سبب";
 "image-recs-no-title" = "کو";
 "image-recs-yes-title" = "جیا";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ہُݨ نہ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وکیپیڈیا کنوں";
 "in-the-news-sub-title-from-wikipedia" = "وکیپیڈیا کنوں";
 "in-the-news-title" = "خبراں وچ";
@@ -270,6 +270,7 @@
 "new-password-title" = "پاس ورڈ درج کرو";
 "new-tab" = "نویں ٹیب";
 "next-action-title" = "اڳلا";
+"not-now-title" = "ہُݨ نہ";
 "notifications-center-agent-description-from-format" = "$1 کنوں";
 "notifications-center-alert" = "الرٹ";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 اطلاعہ نامہ";
@@ -277,7 +278,6 @@
 "notifications-center-destination-app" = "ایپ وچ";
 "notifications-center-destination-web" = "ویب تے";
 "notifications-center-empty-no-messages" = "تہاݙے کیتے کوئی سنیہے کائنی";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ہُݨ نہ";
 "notifications-center-filters-read-status-item-title-all" = "یکے";
 "notifications-center-filters-read-status-item-title-read" = "پڑھا ہویا";
 "notifications-center-filters-read-status-item-title-unread" = "کائنی پڑھا";
@@ -390,14 +390,13 @@
 "saved-title" = "محفوظ";
 "search-button-accessibility-label" = "وکیپیڈیا وچ ڳولو";
 "search-clear-title" = "صاف";
-"search-did-you-mean" = "بھلا تہاݙا مطلب ہائی $1؟";
 "search-field-placeholder-text" = "وکیپیڈیا وچ ڳولو";
-"search-recent-clear-cancel" = "منسوخ";
 "search-recent-clear-confirmation-sub-heading" = "اے کم واپس نی تھی سڳدا";
 "search-recent-clear-delete-all" = "سارے مٹاؤ";
 "search-title" = "ڳولو";
 "search-widget-wikipedia-title" = "وکیپیڈیا";
 "settings-account" = "کھاتہ";
+// Fuzzy
 "settings-appearance" = "پڑھݨ ترجیحاں";
 "settings-clear-cache-cancel" = "منسوخ";
 "settings-clear-cache-ok" = "کیشی صاف کرو";
@@ -428,6 +427,7 @@
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
 "tabs-close-tab" = "ٹیب بند کرو";
+"tabs-title" = "ٹیباں";
 "talk-page-add-topic-button" = "موضوع شامل کرو";
 "talk-page-archives" = "آرکائیواں";
 "talk-page-article-about" = "ڳالھ مہاڑ ورقیاں بارے";
@@ -472,6 +472,7 @@
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";
 "theme-light-display-name" = "پھکّا";
 "theme-sepia-display-name" = "بھورا";
+"today-title" = "اڄ";
 "top-read-widget-readers-count" = "$1 قارئین";
 "tutorial-title" = "ٹیٹوریل";
 "two-factor-login-continue" = "لاگ ان جاری رکھو";
@@ -505,12 +506,14 @@
 "wikitext-preview-link-not-found-preview-title" = "کوئی اندرلا لنک کائنی لبھا";
 "wikitext-preview-save-changes-title" = "تبدیلیاں محفوظ کرو";
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
-"wikitext-upload-save-sign-in" = "لاگ ان تھیوو";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
 "year-in-review-donate" = "عطیہ";
-"year-in-review-personalized-edit-views-subtitle-format" = "دنیا بھر دے پڑھݨ ہار تہاݙی ہتھ بھرائی کوں سُلاہیندن۔  پچھلے 2 مہیناں وچ، تُہاݙے وٹا پھیر کردہ مضامین کوں $1 کل ملاحظات ملے ہِن۔  تہاݙے سویں ایڈیٹرز دا شکریہ، ویکیپیڈیا دنیا کیتے ہک پکا بہتر کرݨ آالا، حقائق تے مبنی، اَتے قابلِ اعتماد علمی وسیلہ ہے۔";
 "year-in-review-survey-neutral" = "غیر جانبدار";
 "year-in-review-survey-satisfied" = "مطمئن";
 "year-in-review-survey-unsatisfied" = "غیر مطمئن";
 "year-in-review-survey-very-satisfied" = "ݙاڈھا تسلی بخش";
 "year-in-review-survey-very-unsatisfied" = "ݙاڈھا تسلی بخش";
+"year-in-review-time-evening" = "شام";
+"year-in-review-time-morning" = "سویر";
+"year-in-review-time-night" = "رات";
+"yesterday-title" = "کل";

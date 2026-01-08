@@ -6,7 +6,7 @@ import CocoaLumberjackSwift
 
 // Helper class to access donate coordinator logic from Obj-c
 @objc class WMFDonateCoordinatorWrapper: NSObject {
-    @objc static func metricsIDForSettingsProfileDonateSource(languageCode: String?) -> String? {
+    @MainActor @objc static func metricsIDForSettingsProfileDonateSource(languageCode: String?) -> String? {
         return DonateCoordinator.metricsID(for: .settingsProfile, languageCode: languageCode)
     }
 }
@@ -24,11 +24,12 @@ class DonateCoordinator: Coordinator {
         case settingsProfile
         case exploreProfile
         case articleProfile(ArticleURL)
-        case yearInReview // TODO: Do it properly T376062
+        case yearInReview(slideLoggingID: String)
         case placesProfile
         case savedProfile
         case historyProfile
         case searchProfile
+        case activityTabProfile
     }
     
     enum NavigationStyle {
@@ -40,12 +41,14 @@ class DonateCoordinator: Coordinator {
     // MARK: Properties
     
     var navigationController: UINavigationController
-    private let donateButtonGlobalRect: CGRect
     private let source: Source
     private let navigationStyle: NavigationStyle
     
     // Code to run when we are fetching donate configs. Typically this changes some donate button into a spinner.
     private let setLoadingBlock: (Bool) -> Void
+    
+    private let getDonateButtonGlobalRect: (() -> CGRect)
+    private let donateSuccessAction: (() -> Void)?
     
     private let dataStore: MWKDataStore
     private let theme: Theme
@@ -64,7 +67,7 @@ class DonateCoordinator: Coordinator {
             }
             
             return wikimediaProject
-        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile, .activityTabProfile:
             return nil
         }
     }()
@@ -96,19 +99,21 @@ class DonateCoordinator: Coordinator {
         }
         
         let appVersion = Bundle.main.wmf_debugVersion()
-        return URL(string: urlString)?.appendingAppVersion(appVersion: appVersion)
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
+        return URL(string: urlString)?.appendingAppVersionAndAppInstallID(appVersion: appVersion, appInstallID: appInstallID)
     }
     
     // MARK: Lifecycle
     
-    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, navigationStyle: NavigationStyle, setLoadingBlock: @escaping (Bool) -> Void) {
+    init(navigationController: UINavigationController, source: Source, dataStore: MWKDataStore, theme: Theme, navigationStyle: NavigationStyle, setLoadingBlock: @escaping (Bool) -> Void, getDonateButtonGlobalRect: @escaping () -> CGRect, donateSuccessAction: (() -> Void)? = nil) {
         self.navigationController = navigationController
-        self.donateButtonGlobalRect = donateButtonGlobalRect
         self.source = source
         self.dataStore = dataStore
         self.theme = theme
         self.navigationStyle = navigationStyle
         self.setLoadingBlock = setLoadingBlock
+        self.getDonateButtonGlobalRect = getDonateButtonGlobalRect
+        self.donateSuccessAction = donateSuccessAction
     }
     
     static func metricsID(for donateSource: Source, languageCode: String?) -> String? {
@@ -122,12 +127,19 @@ class DonateCoordinator: Coordinator {
             }
             
             return "\(languageCode)\(countryCode)_appmenu_iOS"
-        case .yearInReview:
+        case .activityTabProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
                 return nil
             }
-            return "\(languageCode)\(countryCode)_appmenu_yir_iOS"
+            
+            return "\(languageCode)\(countryCode)_appmenu_activity_iOS"
+        case .yearInReview(let slideLoggingID):
+            guard let languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+            return "\(languageCode)\(countryCode)_appmenu_yir_\(slideLoggingID)_iOS"
         }
     }
     
@@ -208,8 +220,8 @@ class DonateCoordinator: Coordinator {
                }
                 
                 DonateFunnel.shared.logArticleDidTapCancel(project: project, metricsID: metricsID)
-            case .yearInReview:
-                DonateFunnel.shared.logYearInReviewDidTapDonateCancel(metricsID: metricsID)
+            case .yearInReview(let slideLoggingID):
+                DonateFunnel.shared.logYearInReviewDidTapDonateCancel(metricsID: metricsID, slideLoggingID: slideLoggingID)
             case .placesProfile:
                 DonateFunnel.shared.logPlacesProfileDonateCancel(metricsID: metricsID)
             case .savedProfile:
@@ -218,6 +230,8 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logHistoryProfileDonateCancel(metricsID: metricsID)
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateCancel(metricsID: metricsID)
+            case .activityTabProfile:
+                DonateFunnel.shared.logActivityProfileDonateCancel(metricsID: metricsID)
             }
         }))
         
@@ -240,8 +254,8 @@ class DonateCoordinator: Coordinator {
                    return
                }
                 DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: project, metricsID: metricsID)
-            case .yearInReview:
-                DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID)
+            case .yearInReview(let slideLoggingID):
+                DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID, slideLoggingID: slideLoggingID)
             case .placesProfile:
                 DonateFunnel.shared.logPlacesProfileDonateApplePay(metricsID: metricsID)
             case .savedProfile:
@@ -250,6 +264,8 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logHistoryProfileDonateApplePay(metricsID: metricsID)
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
+            case .activityTabProfile:
+                DonateFunnel.shared.logActivityProfileDonateApplePay(metricsID: metricsID)
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -274,8 +290,8 @@ class DonateCoordinator: Coordinator {
                     return
                 }
                 DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: project, metricsID: metricsID)
-            case .yearInReview:
-                DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID)
+            case .yearInReview(let slideLoggingID):
+                DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID, slideLoggingID: slideLoggingID)
             case .placesProfile:
                 DonateFunnel.shared.logPlacesProfileDonateWebPay(metricsID: metricsID)
             case .savedProfile:
@@ -284,6 +300,8 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logHistoryProfileDonateWebPay(metricsID: metricsID)
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
+            case .activityTabProfile:
+                DonateFunnel.shared.logActivityProfileDonateWebPay(metricsID: metricsID)
             }
             navigateToOtherPaymentMethod()
         }))
@@ -292,7 +310,8 @@ class DonateCoordinator: Coordinator {
         alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
 
         alert.popoverPresentationController?.sourceView = navigationController.view
-        alert.popoverPresentationController?.sourceRect = donateButtonGlobalRect
+        let sourceRect = getDonateButtonGlobalRect()
+        alert.popoverPresentationController?.sourceRect = sourceRect
         
         viewControllerToPresentActionSheet?.present(alert, animated: true)
     }
@@ -308,6 +327,7 @@ class DonateCoordinator: Coordinator {
         }
         
         let appVersion = Bundle.main.wmf_debugVersion()
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
         
         let donateDataController = WMFDonateDataController.shared
         let donateData = donateDataController.loadConfigs()
@@ -386,7 +406,7 @@ class DonateCoordinator: Coordinator {
 
         let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, cancelTitle: cancel, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
-        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, coordinatorDelegate: self, loggingDelegate: self) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID, coordinatorDelegate: self, loggingDelegate: self) else {
             return nil
         }
         
@@ -423,7 +443,7 @@ class DonateCoordinator: Coordinator {
         switch source {
         case .articleCampaignModal, .articleProfile:
             completeButtonTitle = CommonStrings.returnToArticle
-        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile, .activityTabProfile:
             completeButtonTitle = CommonStrings.returnButtonTitle
         }
         let donateConfig = SinglePageWebViewController.DonateConfig(url: webViewURL, dataController: WMFDonateDataController.shared, coordinatorDelegate: self, loggingDelegate: self, completeButtonTitle: completeButtonTitle)
@@ -465,10 +485,12 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
             showTaxDeductibilityInformation()
         case .nativeFormDidTriggerPaymentSuccess:
             popAndShowSuccessToastFromNativeForm()
+            donateSuccessAction?()
         case .webViewFormThankYouDidTapReturn:
             popFromWebFormThankYouPage()
         case .webViewFormThankYouDidDisappear:
             displayThankYouToastAfterDelay()
+            donateSuccessAction?()
         }
     }
     
@@ -524,7 +546,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func popAndShowSuccessToastFromNativeForm() {
         
         let showToastBlock: () -> Void = {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
             }
@@ -569,7 +591,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     }
     
     private func displayThankYouToastAfterDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
@@ -707,8 +729,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleCampaignDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
-        case .yearInReview:
-            DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+        case .yearInReview(let slideLoggingID):
+            DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID, slideLoggingID: slideLoggingID)
         case .placesProfile:
             DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .savedProfile:
@@ -717,6 +739,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             DonateFunnel.shared.logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .searchProfile:
             DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+        case .activityTabProfile:
+            DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         }
     }
     
@@ -788,7 +812,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
             
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
-        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile, .activityTabProfile:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
         }
     }
@@ -822,8 +846,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-            case .yearInReview:
-                DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .yearInReview(let slideLoggingID):
+                DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID, slideLoggingID: slideLoggingID)
             case .placesProfile:
                 DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .savedProfile:
@@ -832,6 +856,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .activityTabProfile:
+                DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             }
         }
     }
@@ -840,16 +866,17 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
 // MARK: URL Extensions
 
 fileprivate extension URL {
-    func appendingAppVersion(appVersion: String?) -> URL {
+    func appendingAppVersionAndAppInstallID(appVersion: String?, appInstallID: String?) -> URL {
         
         guard let appVersion,
+              let appInstallID,
               var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
         var queryItems = components.queryItems else {
             return self
         }
         
-        
         queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        queryItems.append(URLQueryItem(name: "app_install_id", value: appInstallID))
         components.queryItems = queryItems
         
         guard let url = components.url else {

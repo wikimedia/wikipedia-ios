@@ -2,8 +2,14 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableArticleTabs: Bool { get }
+    var enableMoreDynamicTabsV2GroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
+    var showYiRV3: Bool { get }
+    var enableYiRLoginExperimentControl: Bool { get }
+    var enableYiRLoginExperimentB: Bool { get }
+    var showActivityTab: Bool { get }
+    var forceActivityTabControl: Bool { get }
+    var forceActivityTabExperiment: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -58,63 +64,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceEmailAuth.rawValue, value: newValue)
         }
     }
-
-    @objc public var setActivityTabGroupA: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupA.rawValue)) ?? false
-        }
-        set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: newValue)
-            if newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: false)
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: false)
-            }
-        }
-    }
-
-    public var setActivityTabGroupB: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupB.rawValue)) ?? false
-        }
-        set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: newValue)
-            if newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: false)
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: false)
-            }
-        }
-    }
-
-    public var setActivityTabGroupC: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupC.rawValue)) ?? false
-        }
-        set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: newValue)
-            if newValue {
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: false)
-                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: false)
-            }
-        }
-    }
-    
-    public var enableArticleTabs: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue, value: newValue)
-            
-            if newValue {
-                Task {
-                    do {
-                        try await WMFArticleTabsDataController.shared.checkAndCreateInitialArticleTabIfNeeded()
-                    } catch {
-                        debugPrint("Failed to check or create initial article tab: \(error)")
-                    }
-                }
-            }
-        }
-    }
     
     public var forceMaxArticleTabsTo5: Bool {
         get {
@@ -124,7 +73,63 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
-    // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
+    public var enableMoreDynamicTabsV2GroupC: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue, value: newValue)
+        }
+    }
+
+    public var showYiRV3: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue)
+        }
+    }
+    
+    public var enableYiRLoginExperimentControl: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue)
+        }
+    }
+    
+    public var enableYiRLoginExperimentB: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue)
+        }
+    }
+    
+    @objc public var showActivityTab: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
+        }
+    }
+
+    @objc public var forceActivityTabControl: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue, value: newValue)
+        }
+    }
+
+    @objc public var forceActivityTabExperiment: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue, value: newValue)
+        }
+    }
+
+    // MARK: - Remote Settings from https://en.wikipedia.org/api/rest_v1/configuration
     
     public func loadFeatureConfig() -> WMFFeatureConfigResponse? {
         
@@ -157,16 +162,13 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             return
         }
 
-        guard let featureConfigURL = URL.featureConfigURL() else {
-            completion(WMFDataControllerError.basicServiceUnavailable)
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+            let featureConfigURL = URL.featureConfigURL(project: WMFProject.wikipedia(primaryAppLanguage)) else {
+            completion(WMFDataControllerError.failureCreatingRequestURL)
             return
         }
 
-        let featureConfigParameters: [String: Any] = [
-            "action": "raw"
-        ]
-
-        let featureConfigRequest = WMFBasicServiceRequest(url: featureConfigURL, method: .GET, parameters: featureConfigParameters, acceptType: .json)
+        let featureConfigRequest = WMFBasicServiceRequest(url: featureConfigURL, method: .GET, acceptType: .json)
         service.performDecodableGET(request: featureConfigRequest) { [weak self] (result: Result<WMFFeatureConfigResponse, Error>) in
 
             guard let self else {

@@ -204,19 +204,13 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     NSString *forceEmailAuth = WMFLocalizedStringWithDefaultValue(@"developer-force-email-auth", nil, nil, @"Force email auth", @"Title for option to force email auth in developer settings menu.");
 
-    NSString *setActivityTabGroupA =  WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-A", nil, nil, @"Set activity tab to group A", @"Title for option to set activity tab experiment to group A");
+    NSString *enableMoreDynamicTabsV2GroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-group-C-v2", nil, nil, @"Enable tabs V2 with group C", @"Title for option to enable for Group C V2");
 
-    NSString *setActivityTabGroupB = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-B", nil, nil, @"Set activity tab to group B", @"Title for option to set activity tab experiment to group B");
-
-    NSString *setActivityTabGroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-C", nil, nil, @"Set activity tab to group C", @"Title for option to set activity tab experiment to group C");
-    
-    NSString *enableArticleTab = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tabs", nil, nil, @"Enable activity tabs", @"Title for option to enable activity tabs");
-
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableArticleTab:enableArticleTab enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableMoreDynamicTabsV2GroupC:enableMoreDynamicTabsV2GroupC enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth done:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
-    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationOverFullScreen];
+    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
     [self presentViewController:navVC animated:YES completion:nil];
 }
 
@@ -324,7 +318,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
         [vc applyTheme:self.theme];
         vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 
-        WMFComponentNavigationController *nc = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen];
+        WMFComponentNavigationController *nc = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
         [self presentViewController:nc animated:YES completion:nil];
 
         decisionHandler(WKNavigationActionPolicyCancel);

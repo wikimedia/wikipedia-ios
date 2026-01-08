@@ -1,133 +1,125 @@
 import Foundation
 
 public struct WMFFeatureConfigResponse: Codable {
-    public struct IOS: Codable {
+    
+    public struct Common: Codable {
+        public let yir: [YearInReview]
         
         public struct YearInReview: Codable {
             
-            public struct PersonalizedSlides: Codable {
-                let readCount: SlideSettings
-                let editCount: SlideSettings
-                let donateCount: SlideSettings
-                let saveCount: SlideSettings
-                let mostReadDay: SlideSettings
-                let viewCount: SlideSettings
+            public struct TopReadPercentage: Codable {
+                public let identifier: String
+                public let min: Int
+                public let max: Int?
             }
             
-            public struct SlideSettings: Codable {
-                public let isEnabled: Bool
-            }
-            
-            public let yearID: String
-            public let isEnabled: Bool
-            public let countryCodes: [String]
-            public let primaryAppLanguageCodes: [String]
-            public let dataPopulationStartDateString: String
-            public let dataPopulationEndDateString: String
-            public let personalizedSlides: PersonalizedSlides
+            public let year: Int
+            public let activeStartDateString: String
+            public let activeEndDateString: String
+            public let dataStartDateString: String
+            public let dataEndDateString: String
+            public let languages: Int
+            public let articles: Int
+            public let savedArticlesApps: Int
+            public let viewsApps: Int
+            public let editsApps: Int
+            public let editsPerMinute: Int
+            public let averageArticlesReadPerYear: Int
+            public let edits: Int
+            public let editsEN: Int
+            public let hoursReadEN: Int
+            public let yearsReadEN: Int
+            public let topReadEN: [String]
+            public let topReadPercentages: [TopReadPercentage]
+            public let bytesAddedEN: Int
+            public let hideCountryCodes: [String]
             public let hideDonateCountryCodes: [String]
+            
+            enum CodingKeys: String, CodingKey {
+                case year
+                case activeStartDateString = "activeStartDate"
+                case activeEndDateString = "activeEndDate"
+                case dataStartDateString = "dataStartDate"
+                case dataEndDateString = "dataEndDate"
+                case languages
+                case articles
+                case savedArticlesApps
+                case viewsApps
+                case editsApps
+                case editsPerMinute
+                case averageArticlesReadPerYear
+                case edits
+                case editsEN
+                case hoursReadEN
+                case yearsReadEN
+                case topReadEN
+                case topReadPercentages
+                case bytesAddedEN
+                case hideCountryCodes
+                case hideDonateCountryCodes
+            }
 
-            var dataPopulationStartDate: Date? {
+            var activeStartDate: Date? {
                 let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
-                return dateFormatter.date(from: dataPopulationStartDateString)
+                return dateFormatter.date(from: activeStartDateString)
             }
             
-            var dataPopulationEndDate: Date? {
+            var activeEndDate: Date? {
                 let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
-                return dateFormatter.date(from: dataPopulationEndDateString)
+                return dateFormatter.date(from: activeEndDateString)
             }
-        }
-
-        let version: Int
-
-        public let yir: [YearInReview]
-        
-        public func yir(yearID: String) -> YearInReview? {
-            return yir.first { $0.yearID == yearID }
-        }
-        
-        public init(version: Int, yir: [YearInReview]) {
-            self.version = version
-            self.yir = yir
-        }
-        
-        public init(from decoder: Decoder) throws {
-            let overallContainer = try decoder.container(keyedBy: CodingKeys.self)
             
-            var yearInReviewContainer = try overallContainer.nestedUnkeyedContainer(forKey: .yir)
+            var dataStartDate: Date? {
+                let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+                return dateFormatter.date(from: dataStartDateString)
+            }
             
-            var validYiRs: [YearInReview] = []
+            var dataEndDate: Date? {
+                let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+                return dateFormatter.date(from: dataEndDateString)
+            }
             
-            while !yearInReviewContainer.isAtEnd {
+            func isActive(for date: Date) -> Bool {
                 
-                let yir: YearInReview
-                do {
-                    yir = try yearInReviewContainer.decode(YearInReview.self)
-                } catch {
-                    // Skip
-                    _ = try? yearInReviewContainer.decode(WMFDiscardedElement.self)
-                    continue
+                // Overwrite date check if developer settings flag is on. This allows us to test outside of active date range.
+                let developerSettingsDataController = WMFDeveloperSettingsDataController.shared
+                if developerSettingsDataController.showYiRV3 {
+                    return true
                 }
                 
-                validYiRs.append(yir)
+                guard let activeStartDate = activeStartDate, let activeEndDate = activeEndDate else {
+                    return false 
+                }
+                return date >= activeStartDate && date <= activeEndDate
             }
-            
-            self.yir = validYiRs
-            self.version = try overallContainer.decode(Int.self, forKey: .version)
+        }
+        
+        public func yir(year: Int) -> YearInReview? {
+            return yir.first { $0.year == year }
+        }
+        
+        public init(yir: [YearInReview]) {
+            self.yir = yir
         }
     }
     
-    public let ios: [IOS]
+    public struct IOS: Codable {
+        
+    }
+    
+    public let common: Common
+    public let ios: IOS
     var cachedDate: Date?
     
-    private let currentFeatureConfigVersion = 1
-    
-    public init(ios: [WMFFeatureConfigResponse.IOS], cachedDate: Date? = nil) {
-        self.ios = ios
-        self.cachedDate = cachedDate
+    enum CodingKeys: String, CodingKey {
+        case common = "commonv1"
+        case ios = "iosv1"
+        case cachedDate
     }
     
-    public init(from decoder: Decoder) throws {
-        
-        // Custom decoding to filter out invalid versions
-        
-        let overallContainer = try decoder.container(keyedBy: CodingKeys.self)
-        
-        var versionContainer = try overallContainer.nestedUnkeyedContainer(forKey: .ios)
-        var iosContainer = try overallContainer.nestedUnkeyedContainer(forKey: .ios)
-        
-        var validConfigs: [IOS] = []
-        while !versionContainer.isAtEnd {
-            
-            let wmfVersion: WMFConfigVersion
-            let config: IOS
-            do {
-                wmfVersion = try versionContainer.decode(WMFConfigVersion.self)
-            } catch {
-                // Skip
-                _ = try? versionContainer.decode(WMFDiscardedElement.self)
-                _ = try? iosContainer.decode(WMFDiscardedElement.self)
-                continue
-            }
-            
-            guard wmfVersion.version == currentFeatureConfigVersion else {
-                // Skip
-                _ = try? iosContainer.decode(WMFDiscardedElement.self)
-                continue
-            }
-                
-            do {
-                config = try iosContainer.decode(IOS.self)
-            } catch {
-                // Skip
-                _ = try? iosContainer.decode(WMFDiscardedElement.self)
-                continue
-            }
-            
-            validConfigs.append(config)
-        }
-        
-        self.ios = validConfigs
-        self.cachedDate = try? overallContainer.decode(Date.self, forKey: .cachedDate)
+    public init(common: WMFFeatureConfigResponse.Common, ios: WMFFeatureConfigResponse.IOS, cachedDate: Date? = nil) {
+        self.common = common
+        self.ios = ios
+        self.cachedDate = cachedDate
     }
 }

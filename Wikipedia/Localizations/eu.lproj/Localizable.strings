@@ -87,7 +87,7 @@
 "appearance-settings-text-sizing-example-text" = "Arrastatu kontrolatzailea testuaren tamaina aldatzeko. Erabili zure sistemaren testuaren tamaina aplikazioaren beste testu-eremu batzuk aldatzeko.";
 "appearance-settings-theme-options" = "Gaien aukerak";
 "article-delete" = "Ezabatu";
-"article-deleted-accessibility-notification" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezabatuta";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikulu bat ezabatu da|$1 artikulu ezabatu dira}}";
 "article-languages-filter-placeholder" = "Aurkitu hizkuntza";
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-others" = "Beste hizkuntzak";
@@ -224,7 +224,6 @@
 "forgot-password-title" = "Pasahitza berrezarri";
 "forgot-password-username-or-email-title" = "Edo";
 "history-clear-all" = "Garbitu";
-"history-clear-cancel" = "Utzi";
 "history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
 "history-clear-delete-all" = "Bai, dena ezabatu";
 "history-title" = "Historia";
@@ -282,7 +281,7 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "$1tik $2ra";
-"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 gertakizun historikoa|$1 gertakizun historikoak}}";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|Gertakizun historiko bat|$1 gertakizun historiko}}";
 "on-this-day-footer" = "Egun honetako ekintza historiko gehiago";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
@@ -306,7 +305,7 @@
 "places-filter-no-saved-places" = "Ez duzu gordetako kokapenik";
 "places-filter-saved-articles" = "Gordetako artikuluak";
 "places-filter-top-articles" = "Irakurrienak";
-"places-filter-top-articles-count" = "{{PLURAL:$1|artikulu $1|$1 artikulu}}";
+"places-filter-top-articles-count" = "{{PLURAL:$1|artikulu bat|$1 artikulu}}";
 "places-filter-top-read-articles" = "Artikulu irakurrienak";
 "places-location-enabled" = "Kokapena gaitua";
 "places-no-saved-articles-have-location" = "Zure gordetako artikuluetatik batek ere ez du kokapenari buruzko informazioa";
@@ -386,11 +385,11 @@
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Hustu espazio pixka bat zure gailuan eta berriz saiatu";
 "reading-lists-articles-not-synced-limit-exceeded" = "Artikulu batzuk ez dira sinkronizatu, muga gainditu da";
 "reading-lists-conflicting-reading-list-name-updated" = "Zure '$1' zerrenda '$2' berrizendatu da";
-"reading-lists-count" = "{{PLURAL:$1|irakurketa zerrenda $1|$1 irakurketa zerrenda}}";
+"reading-lists-count" = "{{PLURAL:$1|irakurketa zerrenda bat|$1 irakurketa zerrenda}}";
 "reading-lists-default-list-description" = "Zerrenda lehenetsia gordetako artikuluentzat";
 "reading-lists-default-list-title" = "Gordeta";
 "reading-lists-delete-reading-list-alert-message" = "Ekintza hau ezin da desegin. Bakarrik {{PLURAL:$1|zerrenda honetan|zerrenda hauetan}} gordetako artikuluak desagertuko dira.";
-"reading-lists-delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrendak}}?";
+"reading-lists-delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda bat|$1 zerrenda}}?";
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|Artikulu $1|$1 artikulu}} eta {{PLURAL:$2|irakurketa zerrenda $2|$2 irakurketa zerrenda}} sinkronizatu dira zure kontutik";
 "reading-lists-list-not-synced-limit-exceeded" = "Zerrenda ez da sinkronikaztu, muga gainditu da";
 "reading-lists-sort-saved-articles" = "Sailkatu gordetako artikuluak";
@@ -415,13 +414,11 @@
 "saved-search-default-text" = "Gordetako artikuluetan bilatu";
 "saved-title" = "Gordea";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ezabatzekotan {{PLURAL:$1|artikulu honek ezabatuko du|artikulu hauek ezabatuko dute}} asoziatutako irakurketa zerrenda guztietatik";
-"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|artikulu $1|$1 artikuluak}} ezabatu?";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikulu bat|$1 artikulu}} gordetzeari utzi?";
 "search-button-accessibility-label" = "Bilatu Wikipedian";
 "search-clear-title" = "Garbitu";
-"search-did-you-mean" = "$1 esan nahi zenuen?";
 "search-field-placeholder-text" = "Bilatu Wikipedian";
 "search-reading-list-placeholder-text" = "Irakurketa zerrenda bilatu";
-"search-recent-clear-cancel" = "Utzi";
 "search-recent-clear-confirmation-heading" = "Ezabatu azken bilaketa guztiak?";
 "search-recent-clear-confirmation-sub-heading" = "Ekintza hau ezin da desegin!";
 "search-recent-clear-delete-all" = "Denak ezabatu";
@@ -429,6 +426,7 @@
 "search-recent-title" = "Azken bilaketak";
 "search-result-redirected-from" = "$1(e)tik birzuzenduta";
 "search-title" = "Bilatu";
+// Fuzzy
 "settings-appearance" = "Irakurtzeko lehentasunak";
 "settings-clear-cache" = "Garbitu katxeratutako datuak";
 "settings-clear-cache-are-you-sure-message" = "Cached datuen ezabaketak $1 inguruko espazioa libratuko du. Ez dira gordetako orrialdeak ezabatuko.";
@@ -519,5 +517,4 @@
 "wikitext-upload-result-unknown" = "Ezin da wikitext kargaren emaitza zehaztu.";
 "wikitext-upload-save" = "Argitaratzen...";
 "wikitext-upload-save-anonymously-warning" = "Aldaketak zure gailuko IP helbideari egotziko zaizkio. Zuk $1 egiten baduzu, pribautasun gehiago edukiko duzu.";
-"wikitext-upload-save-sign-in" = "Hasi saioa";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";

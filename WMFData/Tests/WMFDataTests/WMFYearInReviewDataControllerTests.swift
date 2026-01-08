@@ -13,22 +13,12 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     var store: WMFCoreDataStore?
     var dataController: WMFYearInReviewDataController?
     
-    private var enProject: WMFProject {
-        let language = WMFLanguage(languageCode: "en", languageVariantCode: nil)
-        return WMFProject.wikipedia(language)
-    }
-    
     private var usCountryCode: String? {
         return Locale(identifier: "en_US").region?.identifier
     }
     
-    private var frCountryCode: String? {
-        return Locale(identifier: "fr_FR").region?.identifier
-    }
-    
-    private var frProject: WMFProject {
-        let language = WMFLanguage(languageCode: "fr", languageVariantCode: nil)
-        return WMFProject.wikipedia(language)
+    private var ruCountryCode: String? {
+        return Locale(identifier: "ru_RU").region?.identifier
     }
 
     override func setUp() async throws {
@@ -52,8 +42,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, display: true, data: nil)
+        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, data: nil)
 
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide1, slide2])
 
@@ -75,7 +65,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount, data: nil)
         let report = WMFYearInReviewReport(year: 2024, slides: [slide])
 
         try await dataController.saveYearInReviewReport(report)
@@ -99,8 +89,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2024, id: .readCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2024, id: .readCount, data: nil)
         let report = WMFYearInReviewReport(year: 2024, slides: [slide, slide2])
 
         try await dataController.saveYearInReviewReport(report)
@@ -119,8 +109,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingDataController
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount, evaluated: true, display: true)
-        let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount, evaluated: false, display: true)
+        let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount)
+        let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount)
 
         let report = WMFYearInReviewReport(year: 2021, slides: [slide1, slide2])
         try await dataController.saveYearInReviewReport(report)
@@ -153,7 +143,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2021, id: .readCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2021, id: .readCount, data: nil)
         try await dataController.createNewYearInReviewReport(year: 2021, slides: [slide])
 
         var reports: [CDYearInReviewReport]?
@@ -180,8 +170,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, display: true, data: nil)
+        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, data: nil)
 
         try await dataController.createNewYearInReviewReport(year: 2024, slides: [slide1])
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide2])
@@ -202,19 +192,34 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
     }
     
+    var config: WMFFeatureConfigResponse {
+        let common = WMFFeatureConfigResponse.Common(yir: [WMFFeatureConfigResponse.Common.YearInReview.testConfig])
+        return WMFFeatureConfigResponse(common: common, ios: WMFFeatureConfigResponse.IOS())
+    }
+    
+    var october17: Date {
+        var components = DateComponents()
+        components.year = 2025
+        components.month = 10
+        components.day = 17
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return Calendar.current.date(from: components)!
+    }
+    
+    var december15: Date {
+        var components = DateComponents()
+        components.year = 2025
+        components.month = 12
+        components.day = 15
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return Calendar.current.date(from: components)!
+    }
+    
     func testYearInReviewEntryPointFeatureDisabled() throws {
-        
-        // Create mock developer settings config
-        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: ["AE", "AF", "AX", "BY", "CD", "CI"])
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
-        let config = WMFFeatureConfigResponse(ios: [ios])
         
         // Create mock developer settings data controller
         let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
@@ -222,30 +227,18 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         // Create year in review data controller to test
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
-        guard let frCountryCode else {
+        guard let usCountryCode else {
             XCTFail("Missing expected country codes")
             return
         }
         
-        let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
+        let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, currentDate: october17)
         
-        XCTAssertFalse(shouldShowEntryPoint, "FR should not show entry point for mock config of with disabled YiR feature.")
+        XCTAssertFalse(shouldShowEntryPoint, "Should not show entry point for mock config outside of active dates.")
     }
     
     func testYearInReviewEntryPointCountryCode() async throws {
-        
-        // Create mock developer settings config
-        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: ["AE", "AF", "AX", "BY", "CD", "CI"])
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
-        let config = WMFFeatureConfigResponse(ios: [ios])
-        
+
         // Create mock developer settings data controller
         let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
         
@@ -253,134 +246,112 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
-        try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
+        let slides = WMFYearInReviewSlide(year: 2025, id: .readCount)
+        try await yearInReviewDataController.createNewYearInReviewReport(year: 2025, slides: [slides])
         
-        guard let usCountryCode, let frCountryCode else {
+        guard let usCountryCode, let ruCountryCode else {
             XCTFail("Missing expected country codes")
             return
         }
         
         await MainActor.run {
-            let shouldShowEntryPointUS = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, primaryAppLanguageProject: frProject)
+            let shouldShowEntryPointUS = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: usCountryCode, currentDate: december15)
             
-            XCTAssertFalse(shouldShowEntryPointUS, "US should not show entry point for mock YiR config of [FR, IT] country codes.")
+            XCTAssertTrue(shouldShowEntryPointUS, "US should show entry point for mock YiR config.")
 
-            let shouldShowEntryPointFR = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
+            let shouldShowEntryPointRU = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: ruCountryCode, currentDate: december15)
             
-            XCTAssertTrue(shouldShowEntryPointFR, "FR should show entry point for mock YiR config of [FR, IT] country codes.")
+            XCTAssertFalse(shouldShowEntryPointRU, "RU should not show entry point for mock YiR config.")
         }
+    }
+}
+
+extension WMFFeatureConfigResponse.Common.YearInReview {
+    
+    static var testTopReadEN: [String] {
+        [
+            "Deaths in 2024",
+            "Kamala Harris",
+            "2024 United States presidential election",
+            "Lyle and Erik Menendez",
+            "Donald Trump"
+        ]
     }
     
-    func testYearInReviewEntryPointPrimaryAppLanguageProject() async throws {
-        
-        // Create mock developer settings config
-        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: ["AE", "AF", "AX", "BY", "CD", "CI"])
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
-        let config = WMFFeatureConfigResponse(ios: [ios])
-        
-        // Create mock developer settings data controller
-        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
-        
-        // Create year in review data controller to test
-        let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
-        
-        // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
-        try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
-        
-        guard let frCountryCode else {
-            XCTFail("Missing expected country codes")
-            return
-        }
-        
-        await MainActor.run {
-            let shouldShowEntryPointENProject = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: enProject)
-            
-            XCTAssertFalse(shouldShowEntryPointENProject, "Primary app language EN project should not show entry point for mock YiR config of [FR, IT] primary app language projects.")
-
-            let shouldShowEntryPointFRProject = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
-            
-            XCTAssertTrue(shouldShowEntryPointFRProject, "Primary app language FR project should show entry point for mock YiR config of [FR, IT] primary app language projects.")
-        }
+    static var testTopReadPercentages: [WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage] {
+        [
+            WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage(identifier: "0.01", min: 43740, max: nil),
+            WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage(identifier: "1", min: 23456, max: 43739),
+            WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage(identifier: "5", min: 12345, max: 23455),
+            WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage(identifier: "10", min: 8901, max: 12344),
+            WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage(identifier: "20", min: 4567, max: 8900),
+            WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage(identifier: "30", min: 2456, max: 4566),
+            WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage(identifier: "40", min: 1234, max: 2455),
+            WMFFeatureConfigResponse.Common.YearInReview.TopReadPercentage(identifier: "50", min: 336, max: 1233)
+        ]
     }
     
-    func testYearInReviewEntryPointDisabledPersonalizedSlides() async throws {
-
-        // Create mock developer settings config
-        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
-        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
-        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: ["AE", "AF", "AX", "BY", "CD", "CI"])
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
-        let config = WMFFeatureConfigResponse(ios: [ios])
-
-        // Create mock developer settings data controller
-        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
-
-        // Create year in review data controller to test
-        let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
-        
-        // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
-        try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
-
-        guard let frCountryCode else {
-            XCTFail("Missing expected country codes")
-            return
-        }
-
-        await MainActor.run {
-            let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
-            
-            XCTAssertTrue(shouldShowEntryPoint, "Should show entry point even when both personalized slides are disabled (will fall back to collective).")
-        }
+    static var testHideCountryCodes: [String] {
+        [
+                  "RU",
+                  "IR",
+                  "CN",
+                  "HK",
+                  "MO",
+                  "SA",
+                  "CU",
+                  "MM",
+                  "BY",
+                  "EG",
+                  "PS",
+                  "GN",
+                  "PK",
+                  "KH",
+                  "VN",
+                  "SD",
+                  "AE",
+                  "BY",
+                  "SY",
+                  "JO",
+                  "VE",
+                  "AF"
+                ]
     }
-
-    func testYearInReviewEntryPointOneEnabledPersonalizedSlide() async throws {
-
-        // Create mock developer settings config
-        let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
-        let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: ["AE", "AF", "AX", "BY", "CD", "CI"])
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
-        let config = WMFFeatureConfigResponse(ios: [ios])
-
-        // Create mock developer settings data controller
-        let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
-
-        // Create year in review data controller to test
-        let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
-        
-        // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
-        try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
-
-        guard let frCountryCode else {
-            XCTFail("Missing expected country codes")
-            return
-        }
-        
-        await MainActor.run {
-            let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
-
-            XCTAssertTrue(shouldShowEntryPoint, "Should show entry point when one personalized slide is enabled.")
-        }
+    
+    static var testHideDonateCountryCodes: [String] {
+        [ "AE",
+          "AF",
+          "AX",
+          "BY",
+          "CD",
+          "CI",
+          "CU",
+          "FI",
+          "ID",
+          "IQ",
+          "IR",
+          "KP",
+          "KR",
+          "LB",
+          "LY",
+          "MM",
+          "PY",
+          "RU",
+          "SA",
+          "SD",
+          "SO",
+          "SS",
+          "SY",
+          "TM",
+          "TR",
+          "UA",
+          "UZ",
+          "XK",
+          "YE",
+          "ZW"]
+    }
+    
+    static var testConfig: WMFFeatureConfigResponse.Common.YearInReview {
+        WMFFeatureConfigResponse.Common.YearInReview(year: 2025, activeStartDateString: "2025-12-01T00:00:00Z", activeEndDateString: "2026-02-01T00:00:00Z", dataStartDateString: "2025-01-01T00:00:00Z", dataEndDateString: "2025-12-01T00:00:00Z", languages: 300, articles: 10000000, savedArticlesApps: 37574993, viewsApps: 1000000000, editsApps: 124356, editsPerMinute: 342, averageArticlesReadPerYear: 335, edits: 81987181, editsEN: 31000000, hoursReadEN: 2423171000, yearsReadEN: 275000, topReadEN: testTopReadEN, topReadPercentages:testTopReadPercentages, bytesAddedEN: 1000000000, hideCountryCodes: testHideCountryCodes, hideDonateCountryCodes: testHideDonateCountryCodes)
     }
 }

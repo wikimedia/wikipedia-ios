@@ -4,6 +4,7 @@ public enum EventCategoryMEP: String, Codable {
     case feed
     case feedDetail = "feed_detail"
     case history
+    case activity = "activity_tab"
     case places
     case search
     case addToList = "add_to_list"
@@ -16,6 +17,7 @@ public enum EventCategoryMEP: String, Codable {
     case loginToSyncPopover = "login_to_sync_popover"
     case diff
     case unknown
+    case yir
 }
 
 public enum EventLabelMEP: String, Codable {

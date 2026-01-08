@@ -12,8 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString *const WMFSettingsURLZeroFAQ = @"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
-static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.org/wiki/Terms_of_Use/en";
+static NSString *const WMFSettingsURLZeroFAQ = @"https://foundation.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
+static NSString *const WMFSettingsURLTerms = @"https://foundation.wikimedia.org/wiki/Terms_of_Use/en";
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
@@ -83,6 +83,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [super viewDidAppear:animated];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
     [self.dataStore.remoteNotificationsController triggerLoadNotificationsWithForce:NO];
+    
+    if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode]) {
+        [[WMFDonateFunnel shared] logYearInReviewSettingsDidAppear];
+    }
 }
 
 - (UIScrollView *_Nullable)scrollView {
@@ -184,7 +188,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_StorageAndSyncing:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsArticleStorageAndSyncing];
             break;
-        case WMFSettingsMenuItemType_StorageAndSyncingDebug:
+        case WMFSettingsMenuItemType_DatabasePopulation:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsReadingListDangerZone];
             break;
         case WMFSettingsMenuItemType_Support:
@@ -244,8 +248,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self showStorageAndSyncing];
             break;
         }
-        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
-            [self showStorageAndSyncingDebug];
+        case WMFSettingsMenuItemType_DatabasePopulation: {
+            [self showDatabasePopulation];
             break;
         }
         case WMFSettingsMenuItemType_Support: {
@@ -314,7 +318,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Presentation
 
 - (void)presentViewControllerWrappedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
-    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationOverFullScreen];
+    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
     [self presentViewController:navVC animated:YES completion:nil];
 }
 
@@ -425,6 +429,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }];
 
     [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelHigh];
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.didYouKnowCache cleanupLevel:WMFCleanupLevelHigh];
 }
 
 - (void)showClearCacheInProgressBanner {
@@ -490,6 +495,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Year in Review
 
 - (void)showYearInReview {
+    [[WMFDonateFunnel shared] logYearInReviewSettingsDidTapItem];
     WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
     [self.navigationController pushViewController:yearInReviewSettingsVC animated:YES];
 }
@@ -517,10 +523,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
 }
 
-- (void)showStorageAndSyncingDebug {
+- (void)showDatabasePopulation {
 #if DEBUG
-    DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-    [self presentViewControllerWrappedInNavigationController:vc];
+    [self tappedDatabasePopulation];
 #endif
 }
 
@@ -591,11 +596,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
 
-    if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
+    if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
-        [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:YES];
-    } else {
-        [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:NO];
     }
 
     BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataController shared] primaryWikiHasTempAccountsEnabled];
@@ -606,7 +608,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];
 #if DEBUG
-    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]];
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DatabasePopulation]];
 #endif
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items headerTitle:nil footerText:nil];

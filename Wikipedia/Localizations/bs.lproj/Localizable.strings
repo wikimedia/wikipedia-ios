@@ -104,10 +104,10 @@
 "article-languages-yours" = "Vaši jezici";
 "article-read-more-title" = "Detaljnije";
 "article-reference-view-title" = "Referenca $1";
-"article-revision-history" = "Historija revizije članka";
+"article-revision-history" = "Historija izmjena";
 "article-save-error-not-enough-space" = "Nemate dovoljno prostora na uređaju da biste sačuvali članak";
 "article-share" = "Podijeli";
-"article-talk-page" = "Stranica za razgovor o članku";
+"article-talk-page" = "Stranica za razgovor";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrole tema za čitanje";
 "back-button-accessibility-label" = "Nazad";
 "back-button-popover-title" = "Dodirnite za povratak";
@@ -171,7 +171,7 @@
 "description-welcome-descriptions-title" = "Opisi članaka";
 "description-welcome-promise-title" = "Započinjanjem, obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počni uređivati";
-"diff-article-revision-history" = "Historija revizije članka";
+"diff-article-revision-history" = "Historija izmjena";
 "diff-change-added" = "Dodavanje, $1, kraj dodavanja.";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "Od:";
@@ -226,7 +226,6 @@
 "edit-summary-choice-fixed-typos" = "Popravljen tipfeler";
 "edit-summary-choice-linked-words" = "Dodani linkovi";
 "edit-summary-placeholder-text" = "Kako ste poboljšali članak?";
-// Fuzzy
 "edit-watch-list-learn-more-text" = "Saznaj više o spisku praćenja";
 "edit-watch-this-page-text" = "Prati ovu stranicu";
 "editing-welcome-be-bold-subtitle" = "Budite hrabri, ali ne i nemarni u ažuriranju članaka. Ne brinite se oko pravljenja grešaka: svaka prošla verzija stranice je sačuvana, tako da naša zajednica lako može ispraviti greške.";
@@ -417,7 +416,6 @@
 "gan-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante gan jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\n贛語 原文 gan (gan)\n赣语 简体 gan, pojednostavljeni (gan-hans)\n贛語 繁體 gan, tradicionalni (gan-hant)";
 "gan-variants-alert-title" = "Ažuriranja podrške za varijantu gan jezika";
 "history-clear-all" = "Očisti";
-"history-clear-cancel" = "Odustani";
 "history-clear-confirmation-heading" = "Jeste li sigurni da želite izbrisati sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Historija";
@@ -446,7 +444,6 @@
 "image-recs-not-sure-title" = "Nisam siguran";
 "image-recs-yes-title" = "Da";
 "import-shared-reading-list-default-title" = "Moj spisak za čitanje";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ne sada";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Popuni anketu";
 "in-the-news-sub-title-from-language-wikipedia" = "s Wikipedije ($1)";
 "in-the-news-sub-title-from-wikipedia" = "s Wikipedije";
@@ -507,6 +504,7 @@
 "main-menu-terms-of-use" = "Uslovi korištenja";
 "main-menu-title" = "Više";
 "main-menu-zero-faq" = "ČPP o Wikipediji Zero";
+"main-page" = "Početna strana";
 "more-languages-tooltip-description" = "Pretražujte Wikipediju na preko 300 jezika";
 "more-languages-tooltip-title" = "Dodaj jezike";
 "move-articles-to-reading-list" = "Premjesti {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na spisak za čitanje";
@@ -521,6 +519,7 @@
 "no-internet-connection" = "Nema internetske veze";
 "no-internet-connection-article-reload" = "Moguće da je novija verzija ovog članka dostupna, ali se ne može učitati bez veze s internetom";
 "no-internet-connection-article-reload-button" = "Povratak na posljednju sačuvanu verziju";
+"not-now-title" = "Ne sada";
 "notifications-center-agent-description-from-format" = "Od $1";
 "notifications-center-alert" = "Upozorenje";
 "notifications-center-applied-filters-accessibility-label" = "Filter obavještenja - ima primijenjene filtere";
@@ -539,7 +538,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtera}}";
 "notifications-center-feed-card-title" = "Uređivanje obavještenja je sada dostupno";
 "notifications-center-feed-news-notification-button-text" = "Uključi push obavještenja";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ne sada";
 "notifications-center-feed-news-notification-text" = "Uređivanje obavještenja svih Wikimedijinih projekata sada je dostupno putem aplikacije. Uključite push obavještenja da budete u toku sa svojim porukama na Wikipediji dok ste u pokretu.";
 "notifications-center-filters-accessibility-label" = "Filter obavještenja";
 "notifications-center-filters-read-status-item-title-all" = "Sve";
@@ -820,10 +818,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ukloni {{PLURAL:$1|članak|članke}}?";
 "search-button-accessibility-label" = "Pretraži Wikipediju";
 "search-clear-title" = "Očisti";
-"search-did-you-mean" = "Jeste li mislili $1?";
 "search-field-placeholder-text" = "Pretraži Wikipediju";
 "search-reading-list-placeholder-text" = "Pretraži spisak za čitanje";
-"search-recent-clear-cancel" = "Otkaži";
 "search-recent-clear-confirmation-heading" = "Izbrisati sve nedavne pretrage?";
 "search-recent-clear-confirmation-sub-heading" = "Ovu radnju nije moguće poništiti!";
 "search-recent-clear-delete-all" = "Izbriši sve";
@@ -834,6 +830,7 @@
 "serbian-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante srpskog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nсрпски ћирилица srpski, ćirilica (sr-ec)\nsrpski latinica srpski, latinica (sr-el)";
 "serbian-variants-alert-title" = "Ažuriranja podrške za varijantu srpskog jezika";
 "settings-account" = "Račun";
+// Fuzzy
 "settings-appearance" = "Postavke čitanja";
 "settings-clear-cache" = "Očisti keširane podatke";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodit ćete otprilike $1 prostora. Ovim se neće izbrisati sačuvane stranice.";
@@ -907,7 +904,7 @@
 "talk-page-new-reply-success-text" = "Vaš odgovor je uspješno objavljen";
 "talk-page-new-topic-success-text" = "Vaša rasprava je uspješno objavljena";
 "talk-page-permanent-link" = "Trajni link";
-"talk-page-title-article-talk" = "stranica za razgovor članka";
+"talk-page-title-article-talk" = "Stranica za razgovor o članku";
 "talk-page-title-user-talk" = "Razgovor s korisnikom";
 "theme-black-display-name" = "Crna";
 "theme-dark-display-name" = "Tamna";
@@ -929,6 +926,8 @@
 "uzbek-variants-alert-title" = "Ažuriranja podrške za varijantu uzbečkog jezika";
 "variants-alert-dismiss-button" = "Ne, hvala";
 "variants-alert-preferences-button" = "Pregledajte svoja podešavanja";
+"watch" = "Prati";
+"watchlist" = "Spisak praćenja";
 "welcome-exploration-explore-feed-description" = "Preporučena literatura i dnevni članci iz naše zajednice";
 "welcome-exploration-explore-feed-title" = "Stranica Istraži";
 "welcome-exploration-on-this-day-description" = "Putujte u prošlost kako biste saznali šta se danas dogodilo u historiji";
@@ -967,5 +966,4 @@
 "wikitext-upload-save" = "Objavljujem...";
 "wikitext-upload-save-anonymously-or-login" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako se $1Prijavite$2, imat ćete više privatnosti.";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
-"wikitext-upload-save-sign-in" = "Prijava";
 "wikitext-upload-save-terms-name" = "uslove korištenja";

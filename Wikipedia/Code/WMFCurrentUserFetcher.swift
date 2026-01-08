@@ -17,15 +17,17 @@ public enum WMFUserFetcherError: LocalizedError {
     }
     
     @objc public let userID: Int
+    @objc public let globalUserID: Int
     @objc public let name: String
     @objc public let groups: [String]
     @objc public let editCount: UInt64
     @objc public let isBlocked: Bool
     @objc public let authState: AuthState
     @objc public let registrationDateString: String?
-    init(userID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool, isIP: Bool, isTemp: Bool, registrationDateString: String?) {
+    init(userID: Int, globalUserID: Int, name: String, groups: [String], editCount: UInt64, isBlocked: Bool, isIP: Bool, isTemp: Bool, registrationDateString: String?) {
         assert(!(isTemp && isIP), "Invalid values. A user cannot both be IP and Temp.")
         self.userID = userID
+        self.globalUserID = globalUserID
         self.name = name
         self.groups = groups
         self.editCount = editCount
@@ -45,7 +47,7 @@ public class WMFCurrentUserFetcher: Fetcher {
     public func fetch(siteURL: URL, success: @escaping (WMFCurrentUser) -> Void, failure: @escaping WMFErrorHandler) {
         let parameters = [
             "action": "query",
-            "meta": "userinfo",
+            "meta": "userinfo|globaluserinfo",
             "uiprop": "groups|blockinfo|editcount|registrationdate",
             "format": "json"
         ]
@@ -58,7 +60,9 @@ public class WMFCurrentUserFetcher: Fetcher {
             guard
                 let query = result?["query"] as? [String : Any],
                 let userinfo = query["userinfo"] as? [String : Any],
+                let globalUserInfo = query["globaluserinfo"] as? [String : Any],
                 let userID = userinfo["id"] as? Int,
+                let globalUserID = globalUserInfo["id"] as? Int,
                 let userName = userinfo["name"] as? String
                 else {
                     failure(WMFUserFetcherError.cannotExtractUserInfo)
@@ -80,7 +84,7 @@ public class WMFCurrentUserFetcher: Fetcher {
             }
             
             let groups = userinfo["groups"] as? [String] ?? []
-            success(WMFCurrentUser.init(userID: userID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked, isIP: isIP, isTemp: isTemp, registrationDateString: registrationDateString))
+            success(WMFCurrentUser.init(userID: userID, globalUserID: globalUserID, name: userName, groups: groups, editCount: editCount, isBlocked: isBlocked, isIP: isIP, isTemp: isTemp, registrationDateString: registrationDateString))
         }
     }
 }

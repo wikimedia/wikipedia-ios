@@ -72,7 +72,6 @@
 "explore-potd-heading" = "आजचे चित्र";
 "explore-random-article-heading" = "अविशिष्ट लेख";
 "history-clear-all" = "स्वछ करा";
-"history-clear-cancel" = "रद्द करा";
 "history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
 "history-clear-delete-all" = "होय, सर्व वगळा";
 "history-title" = "इतिहास";
@@ -124,9 +123,7 @@
 "saved-pages-image-download-error" = "या जतन केलेल्या पानासाठीच्या संचिका अधिभारण अयशस्वी";
 "saved-title" = "जतन केले";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "साठवू नका {{PLURAL:$1|लेख|लेख}}?";
-"search-did-you-mean" = "तुम्हाला $1 म्हणायचे आहे काय?";
 "search-field-placeholder-text" = "विकिपीडिया मध्ये शोधा";
-"search-recent-clear-cancel" = "रद्द करा";
 "search-recent-clear-confirmation-heading" = "सध्याचे सर्व शोध वगळु?";
 "search-recent-clear-confirmation-sub-heading" = "ही क्रिया परतवू शकत नाही!";
 "search-recent-clear-delete-all" = "सर्व वगळा";
@@ -157,5 +154,4 @@
 "wikitext-upload-result-unknown" = "विकिमजकूर अपभारण निकाल नक्की करण्यास अक्षम.";
 "wikitext-upload-save" = "प्रकाशन करीत आहे...";
 "wikitext-upload-save-anonymously-warning" = "आपल्या उपकरणाच्या अंकपत्त्यास ही संपादने संलग्न होतील. जर आपण $1 केले तर आपणास अधिक एकांत मिळू शकतो.";
-"wikitext-upload-save-sign-in" = "सनोंद-प्रवेश";
 "wikitext-upload-save-terms-name" = "वापराच्या अटी";

@@ -220,6 +220,7 @@
 "donate-accessibility-keyboard-done-hint" = "Кок гана темдалат гын клавиатур гоч пуртымо суммо ок кой.";
 "donate-accessibility-textfield-hint" = "Кеч-могай полыш кугытым пурто.";
 "donate-accessibility-transaction-fee-hint" = "Полыш суммо дек транзакций комиссийым ешарашлан кок гана темдал.";
+// Fuzzy
 "donate-already-donated" = "Тау, шергакан полшышо! Тыйын кумыллыкет Википедий да тудын родо сайт-влаклан кушкаш полша.";
 "donate-apple-fine-print" = "Apple тиде пашалан шийвундым ок пого.";
 "donate-email-opt-in-text" = "Да,  Wikimedia Foundation жапын-жапын мыланем серышым колтен кертеш.";
@@ -470,7 +471,6 @@
 "forgot-password-title" = "Шолыпмутым кудалташ";
 "forgot-password-username-or-email-title" = "Але";
 "history-clear-all" = "Эрыкташ";
-"history-clear-cancel" = "Чараш";
 "history-clear-confirmation-heading" = "Тый чынжымак чыла шкендын шукерте огылсо элемент-влакым кораҥдынет?";
 "history-clear-delete-all" = "Туге, чыла кораҥдаш";
 "history-title" = "Историй";
@@ -492,7 +492,6 @@
 "image-rec-error-subtitle" = "Ала-могай йоҥылыш.";
 "image-rec-error-title" = "Велыжым почаш ок лий";
 "import-shared-reading-list-default-title" = "Лудашлан мыйын спискем";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Кызыт огыл";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Йодыштмашыш ушнаш";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Википедий ужаш гыч";
 "in-the-news-sub-title-from-wikipedia" = "Википедий гыч";
@@ -551,6 +550,7 @@
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-title" = "Шолыпмутым шынде";
+"not-now-title" = "Кызыт огыл";
 "notifications-center-agent-description-from-format" = "$1 деч";
 "notifications-center-alert" = "Увертарымаш";
 "notifications-center-cell-notification-type-accessibility-label-format" = "«$1» шижтарымаш";
@@ -560,7 +560,6 @@
 "notifications-center-destination-web" = "Интернетыште";
 "notifications-center-empty-checking-for-notifications" = "Шижтарымашым тергымаш…";
 "notifications-center-empty-no-messages" = "Тыйын серыш уке";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Кызыт огыл";
 "notifications-center-filters-accessibility-label" = "Шижтарымаш фильтр";
 "notifications-center-filters-read-status-item-title-all" = "Чыла";
 "notifications-center-filters-read-status-item-title-read" = "Лудаш";
@@ -612,7 +611,6 @@
 "reading-lists-default-list-title" = "Аралыме";
 "saved-title" = "Аралыме";
 "search-clear-title" = "Эрыкташ";
-"search-recent-clear-cancel" = "Чараш";
 "search-recent-clear-delete-all" = "Чыла кораҥдаш";
 "search-title" = "Кычалаш";
 "settings-account" = "Аккаунт";
@@ -635,4 +633,3 @@
 "watchlist-filter" = "Фильтр-влак";
 "watchlist-filter-automated-contributions-options-bot" = "Бот";
 "watchlist-filter-automated-contributions-options-human" = "Айдеме (бот огыл)";
-"wikitext-upload-save-sign-in" = "Пураш";

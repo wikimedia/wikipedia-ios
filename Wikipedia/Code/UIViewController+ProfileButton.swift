@@ -1,10 +1,11 @@
 import WMFComponents
 import WMFData
+import WMF
 
 extension UIViewController {
     
     func tabsButtonConfig(target: Any, action: Selector, dataStore: MWKDataStore, leadingBarButtonItem: UIBarButtonItem? = nil, trailingBarButtonItem: UIBarButtonItem? = nil) -> WMFNavigationBarTabsButtonConfig {
-        return WMFNavigationBarTabsButtonConfig(accessibilityLabel: "", accessibilityHint: "", target: target, action: action, leadingBarButtonItem: leadingBarButtonItem, trailingBarButtonItem: trailingBarButtonItem)
+        return WMFNavigationBarTabsButtonConfig(accessibilityLabel: CommonStrings.tabsButtonAccessibilityLabel, accessibilityHint: CommonStrings.tabsButtonAccessibilityHint, target: target, action: action, leadingBarButtonItem: leadingBarButtonItem, trailingBarButtonItem: trailingBarButtonItem)
     }
     
     func profileButtonConfig(target: Any, action: Selector, dataStore: MWKDataStore, yirDataController: WMFYearInReviewDataController?, leadingBarButtonItem: UIBarButtonItem?) -> WMFNavigationBarProfileButtonConfig {
@@ -20,9 +21,8 @@ extension UIViewController {
         }
 
         var needsYiRNotification = false
-        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent, isTemporaryAccount: isTemporaryAccount)
+        if let yirDataController {
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent, isTemporaryAccount: isTemporaryAccount)
         }
         // do not override `hasUnreadNotifications` completely
         if needsYiRNotification {

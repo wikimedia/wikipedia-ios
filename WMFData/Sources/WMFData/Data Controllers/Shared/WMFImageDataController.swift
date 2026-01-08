@@ -1,6 +1,7 @@
 import Foundation
 
 public final class WMFImageDataController {
+    public static let shared = WMFImageDataController()
     private var basicService: WMFService?
     private var mediaWikiService: WMFService?
     private let imageCache = NSCache<NSURL, NSData>()
@@ -8,6 +9,19 @@ public final class WMFImageDataController {
     public init(basicService: WMFService? = WMFDataEnvironment.current.basicService, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self.basicService = basicService
         self.mediaWikiService = mediaWikiService
+    }
+    
+    public func fetchImageData(url: URL) async throws -> Data {
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchImageData(url: url) { result in
+                switch result {
+                case .success(let data):
+                    continuation.resume(returning: data)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
     
     public func fetchImageData(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {

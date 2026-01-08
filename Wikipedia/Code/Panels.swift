@@ -120,8 +120,8 @@ class ReadingListImportSurveyPanelViewController : ScrollableEducationPanelViewC
         super.viewDidLoad()
         heading = WMFLocalizedString("import-shared-reading-list-survey-prompt-title", languageCode: languageCode, value:"Could you help us improve \"Share reading lists\"?", comment:"Title of prompt to take a survey, displayed after user successfully imports a shared reading list.")
         subheading = WMFLocalizedString("import-shared-reading-list-survey-prompt-subtitle", languageCode: languageCode, value:"\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.", comment:"Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.")
-        primaryButtonTitle = WMFLocalizedString("import-shared-reading-list-survey-prompt-button-take-survey", languageCode: languageCode, value:"Take survey", comment:"Title of action button on import reading list survey prompt, which takes user to external survey.")
-        secondaryButtonTitle = WMFLocalizedString("import-shared-reading-list-survey-prompt-button-cancel", languageCode: languageCode, value:"Not now", comment:"Title of cancel button on import shared reading list survey prompt, which dismisses the prompt.")
+        primaryButtonTitle = CommonStrings.takeSurveyTitle(languageCode: languageCode)
+        secondaryButtonTitle = CommonStrings.notNowTitle
         
         // TODO: Fix footer colors
         let footerFormat = WMFLocalizedString("import-shared-reading-list-survey-prompt-footer", languageCode: languageCode, value: "View our %1$@privacy statement%2$@. Survey powered by a third-party. View their %3$@privacy policy%4$@.", comment: "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting")

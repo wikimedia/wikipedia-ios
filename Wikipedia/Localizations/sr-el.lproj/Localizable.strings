@@ -208,6 +208,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tapnite dvaput da dozvolite automatske mesečne donacije sa ovim iznosom.";
 "donate-accessibility-textfield-hint" = "Drugi iznos donacije.";
 "donate-accessibility-transaction-fee-hint" = "Tapnite dvaput da dodate proviziju za transakciju iznosu donacije.";
+// Fuzzy
 "donate-already-donated" = "Hvala, dragi donatore! Vaša velikodušnost pomaže da Vikipedija i njeni sestrinski sajtovi budu uspešni.";
 "donate-apple-fine-print" = "Epl nije zadužen za prikupljanje novca u ove svrhe.";
 "donate-email-opt-in-text" = "Da, neka mi Zadužbina Vikimedija periodično šalje imejlove.";
@@ -413,7 +414,6 @@
 "forgot-password-title" = "Resetovanje lozinke";
 "forgot-password-username-or-email-title" = "Ili";
 "history-clear-all" = "Obriši";
-"history-clear-cancel" = "Otkaži";
 "history-clear-confirmation-heading" = "Želite li zaista da izbrišete sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Istorija";
@@ -434,7 +434,6 @@
 "icon-shortcut-search-title" = "Pretraži Vikipediju";
 "image-gallery-unknown-owner" = "Otpremalac je nepoznat.";
 "import-shared-reading-list-default-title" = "Moja lista za čitanje";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ne sada";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Popuni anketu";
 "import-shared-reading-list-survey-prompt-footer" = "Vidite našu $1politiku privatnosti$2. Anketu pruža treća strana. Vidite njihovu $3politiku privatnosti$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Deljenje listi za čitanje\" je testna mogućnost i potrebne su nam vaše povratne informacije da bi smo je unapredili ili uklonili.";
@@ -508,6 +507,7 @@
 "no-internet-connection" = "Nema internet veze";
 "no-internet-connection-article-reload" = "Novija verzija ovog članka je možda dostupna, ali ne može biti učitana bez internet konekcije.";
 "no-internet-connection-article-reload-button" = "Vrati se na prethodno sačuvanu verziju";
+"not-now-title" = "Ne sada";
 "notifications-center-agent-description-from-format" = "Od $1";
 "notifications-center-alert" = "Obaveštenja";
 "notifications-center-applied-filters-accessibility-label" = "Filter obaveštenja - ima primenjene filtere";
@@ -527,7 +527,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtera}}";
 "notifications-center-feed-card-title" = "Obaveštenja o uređivanju su sada dostupna";
 "notifications-center-feed-news-notification-button-text" = "Uključi obaveštenja";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ne sada";
 "notifications-center-feed-news-notification-text" = "Obaveštenja o uređivanju za sve Vikimedijine projekte su sada dostupna. Omogućite push obaveštenja da bi ste ostali u toku sa vašim porukama na Vikipediji, u pokretu.";
 "notifications-center-filters-accessibility-label" = "Filter obaveštenja";
 "notifications-center-filters-read-status-item-title-all" = "Sve";
@@ -837,10 +836,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ukloniti {{PLURAL:$1|članak|članke}} iz sačuvanih?";
 "search-button-accessibility-label" = "Pretraži Vikipediju";
 "search-clear-title" = "Obriši";
-"search-did-you-mean" = "Da li ste mislili na „$1”?";
 "search-field-placeholder-text" = "Pretraga Vikipedije";
 "search-reading-list-placeholder-text" = "Pretraga po listi za čitanje";
-"search-recent-clear-cancel" = "Otkaži";
 "search-recent-clear-confirmation-heading" = "Izbrisati sve nedavne pretrage?";
 "search-recent-clear-confirmation-sub-heading" = "Ova radnja je nepovratna.";
 "search-recent-clear-delete-all" = "Izbriši sve";
@@ -851,6 +848,7 @@
 "serbian-variants-alert-body" = "Aplikacija Vikipedija odsad podržava sledeće varijante srpskog jezika kao glavne ili sporedne jezike olakšavajući čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nsrpski ćirilica (sr-ec)\nsrpski latinica (sr-el)";
 "serbian-variants-alert-title" = "Ažuriranja podrške za varijante srpskog jezika";
 "settings-account" = "Nalog";
+// Fuzzy
 "settings-appearance" = "Podešavanja za čitanje";
 "settings-clear-cache" = "Brisanje keširanih podataka";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodićete oko $1 prostora. Vaše sačuvane stranice se neće izbrisati.";
@@ -1107,5 +1105,4 @@
 "wikitext-upload-save" = "Objavljujem…";
 "wikitext-upload-save-anonymously-or-login" = "Izmene će biti pripisane IP adresi vašeg uređaja. Ako se $1prijavite$2, imaćete više privatnosti.";
 "wikitext-upload-save-anonymously-warning" = "Izmene će biti pripisane IP adresi vašeg uređaja. Ako se prijavite, imaćete više privatnosti.";
-"wikitext-upload-save-sign-in" = "Prijava";
 "wikitext-upload-save-terms-name" = "uslove korišćenja";

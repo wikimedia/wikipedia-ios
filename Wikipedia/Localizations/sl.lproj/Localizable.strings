@@ -228,6 +228,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Dvakrat tapnite, da omogočite samodejne mesečne donacije tega zneska.";
 "donate-accessibility-textfield-hint" = "Vnesite znesek po meri za donacijo.";
 "donate-accessibility-transaction-fee-hint" = "Dvakrat tapnite, da znesku donacije dodate provizijo za transakcijo.";
+// Fuzzy
 "donate-already-donated" = "Hvala, spoštovani donator! Vaša velikodušnost pomaga ohranjati uspeh Wikipedije in njenih sorodnih spletišč.";
 "donate-apple-fine-print" = "Apple ni zadolžen za zbiranje denarja v ta namen.";
 "donate-email-opt-in-text" = "Da, Fundacija Wikimedia mi lahko občasno pošlje e-pošto.";
@@ -500,7 +501,6 @@
 "gan-variants-alert-body" = "Aplikacija Wikipedija zdaj podpira naslednje različice jezika gan kot osnovnega ali sekundarnega jezika v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\n贛語 原文 Gan (gan)\n赣语简体 Gan, poenostavljeno (gan-hans)\n贛語 繁體 Gan, tradicionalno (gan-hant)";
 "gan-variants-alert-title" = "Posodobitve podpore za različice jezika gan";
 "history-clear-all" = "Počisti";
-"history-clear-cancel" = "Prekliči";
 "history-clear-confirmation-heading" = "Ali res želite izbrisati vse svoje nedavne predmete?";
 "history-clear-delete-all" = "Da, izbriši vse";
 "history-title" = "Zgodovina";
@@ -535,7 +535,6 @@
 "image-rec-title" = "Dodaj sliko";
 "image-rec-view-article" = "Ogled članka";
 "import-shared-reading-list-default-title" = "Moj bralni seznam";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ne zdaj";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Izpolni anketo";
 "import-shared-reading-list-survey-prompt-footer" = "Oglejte si našo $1izjavo o zasebnosti$2. Anketo poganja tretja oseba. Oglejte si njen  $3pravilnik o zasebnosti$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "»Deli bralne sezname« je preizkusna možnoste, zato vas prosimo za vaše mnenje, da jo izboljšamo ali odstranimo.";
@@ -616,6 +615,7 @@
 "no-internet-connection" = "Ni internetne povezave";
 "no-internet-connection-article-reload" = "Morda je na voljo novejša redakcija tega članka, vendar je ni mogoče naložiti brez povezave z internetom";
 "no-internet-connection-article-reload-button" = "Nazaj na zadnjo shranjeno redakcijo";
+"not-now-title" = "Ne zdaj";
 "notifications-center-agent-description-from-format" = "Iz $1";
 "notifications-center-alert" = "Opomnik";
 "notifications-center-applied-filters-accessibility-label" = "Filter obvestil – ima uporabljene filtre";
@@ -635,7 +635,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtra|$1 filtri|$1 filtrov}}";
 "notifications-center-feed-card-title" = "Zdaj je na voljo urejanje obvestil";
 "notifications-center-feed-news-notification-button-text" = "Vklopi potisna obvestila";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ne zdaj";
 "notifications-center-feed-news-notification-text" = "V aplikaciji je zdaj na voljo urejanje obvestil za vse projekte Wikimedie. Prijavite se za potisna obvestila, da boste na tekočem s svojimi sporočili v Wikipediji, ko ste na poti.";
 "notifications-center-filters-accessibility-label" = "Filter obvestil";
 "notifications-center-filters-read-status-item-title-all" = "Vsa";
@@ -951,10 +950,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Odshranim $1 {{PLURAL:$1|članek|članka|članke|člankov}}?";
 "search-button-accessibility-label" = "Preišči Wikipedijo";
 "search-clear-title" = "Počisti";
-"search-did-you-mean" = "Ste mislili $1?";
 "search-field-placeholder-text" = "Preiščite Wikipedijo";
 "search-reading-list-placeholder-text" = "Proiščite bralni seznam";
-"search-recent-clear-cancel" = "Prekliči";
 "search-recent-clear-confirmation-heading" = "Želite izbrisati vsa nedavna iskanja?";
 "search-recent-clear-confirmation-sub-heading" = "Tega dejanja ni mogoče razveljaviti!";
 "search-recent-clear-delete-all" = "izbriši vse";
@@ -965,6 +962,7 @@
 "serbian-variants-alert-body" = "Aplikacija Wikipedia zdaj podpira naslednji različici srbščine kot osnovni ali sekundarni jezik v aplikaciji, kar omogoča lažje branje, iskanje in urejanje v vaših želenih različicah:\n\nсрпски ћирилица – srbščina, cirilica (sr-ec)\nsrpski latinica – srbščina, latinica (sr-el)";
 "serbian-variants-alert-title" = "Posodobitve podpore za srbske različice";
 "settings-account" = "Račun";
+// Fuzzy
 "settings-appearance" = "Nastavitve za branje";
 "settings-clear-cache" = "Počisti predpomnjene podatke";
 "settings-clear-cache-are-you-sure-message" = "Počiščenje predpomnjenih podatkov bo sprostilo približno $1 prostora. Vaše shranjene strani ne bodo izbrisane.";
@@ -1018,6 +1016,7 @@
 "share-social-mention-format" = "»$1« iz Wikipedije: $2";
 "sort-by-recently-added-action" = "Pred kratkim dodano";
 "sort-by-title-action" = "Naslov";
+"suggested-edits-title" = "Predlagana urejanja";
 "table-of-contents-button-label" = "Kazalo vsebine";
 "table-of-contents-close-accessibility-hint" = "Zapri";
 "table-of-contents-close-accessibility-label" = "Zapri kazalo";
@@ -1235,7 +1234,6 @@
 "wikitext-upload-save" = "Objavljanje ...";
 "wikitext-upload-save-anonymously-or-login" = "Urejanja bodo pripisana IP-naslovu vaše naprave. Več zasebnosti boste imeli, če se boste $1prijavili$2.";
 "wikitext-upload-save-anonymously-warning" = "Urejanja bodo pripisana naslovu IP-naslovu vaše naprave. Če boste izbrali $1, boste imeli več zasebnosti.";
-"wikitext-upload-save-sign-in" = "Prijava";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Z objavo sprememb izražate strinjanje s $1Pogoji uporabe$2 ter svoj prispevek nepreklicno objavljate pod licencama $3CC BY-SA.0$4 in $5GDFL$6. Strinjate se, da kot navedba avtorja pod licenco Creative Commons zadostuje hiperpovezava ali URL.";
 "wikitext-upload-save-terms-name" = "Pogoji uporabe";
 "year-in-review-donate" = "Doniraj";

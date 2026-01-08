@@ -421,7 +421,6 @@
 "forgot-password-username-or-email-title" = "eða";
 "gan-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Gan";
 "history-clear-all" = "Hreinsa";
-"history-clear-cancel" = "Hætta við";
 "history-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "history-clear-delete-all" = "Já, eyða öllu";
 "history-title" = "Ferilskrá";
@@ -442,7 +441,6 @@
 "icon-shortcut-search-title" = "Leita á Wikipedia";
 "image-gallery-unknown-owner" = "Óþekktur höfundur.";
 "import-shared-reading-list-default-title" = "Leslistinn minn";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ekki núna";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Taka þátt í könnun";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Deila leslistum\" er prófunareiginleiki og við þurfum álit þitt til að bæta eða fjarlægja hann.";
 "import-shared-reading-list-survey-prompt-title" = "Gætirðu hjálpað okkur að bæta „Deila leslistum“?";
@@ -517,6 +515,7 @@
 "no-internet-connection" = "Engin internettenging";
 "no-internet-connection-article-reload" = "Nýrri útgáfa af þessari grein gæti verið tiltæk, en ekki er hægt að ná í hana án internettengingar";
 "no-internet-connection-article-reload-button" = "Fara til baka í síðustu vistuðu útgáfu";
+"not-now-title" = "Ekki núna";
 "notifications-center-agent-description-from-format" = "Frá $1";
 "notifications-center-alert" = "Aðvörun";
 "notifications-center-applied-filters-accessibility-label" = "Tilkynningasía - er með virkar síur";
@@ -535,7 +534,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 sía|$1 síur}}";
 "notifications-center-feed-card-title" = "Núna er hægt að fá tilkynningar vegna breytinga";
 "notifications-center-feed-news-notification-button-text" = "Kveikja á ýti-tilkynningum";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ekki núna";
 "notifications-center-filters-accessibility-label" = "Tilkynningasía";
 "notifications-center-filters-read-status-item-title-all" = "Allt";
 "notifications-center-filters-read-status-item-title-read" = "Lesið";
@@ -837,10 +835,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Afturkalla vistun á {{PLURAL:$|$ grein|$1 greinar}}?";
 "search-button-accessibility-label" = "Leita á Wikipedia";
 "search-clear-title" = "Hreinsa";
-"search-did-you-mean" = "Áttir þú við $1?";
 "search-field-placeholder-text" = "Leita í Wikipedia";
 "search-reading-list-placeholder-text" = "Leita í leslista";
-"search-recent-clear-cancel" = "Hætta við";
 "search-recent-clear-confirmation-heading" = "Á að eyða öllum nýlegum leitum?";
 "search-recent-clear-confirmation-sub-heading" = "Þessa aðgerð er ekki hægt að afturkalla!";
 "search-recent-clear-delete-all" = "Eyða öllu";
@@ -850,6 +846,7 @@
 "search-title" = "Leita";
 "serbian-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði serbnesku";
 "settings-account" = "Aðgangur";
+// Fuzzy
 "settings-appearance" = "Kjörstillingar við lestur";
 "settings-clear-cache" = "Hreinsa gögn úr skyndiminni";
 "settings-clear-cache-are-you-sure-message" = "Hreinsun gagna úr skyndiminni losar um það bil $1 af plássi. Það eyðir ekki vistuðu síðunum þínum.";
@@ -1075,5 +1072,4 @@
 "wikitext-upload-save" = "Gef út...";
 "wikitext-upload-save-anonymously-or-login" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi sitt er best að $1skrá sig inn$2.";
 "wikitext-upload-save-anonymously-warning" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi þitt er best að $1.";
-"wikitext-upload-save-sign-in" = "Innskrá";
 "wikitext-upload-save-terms-name" = "Notkunarskilmálar";

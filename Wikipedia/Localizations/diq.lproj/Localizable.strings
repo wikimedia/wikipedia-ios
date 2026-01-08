@@ -72,7 +72,6 @@
 "forgot-password-button-title" = "Raçarne";
 "forgot-password-title" = "Parola newe ke";
 "history-clear-all" = "Pak ke";
-"history-clear-cancel" = "Bıtexelne";
 "history-clear-confirmation-heading" = "Şıma qayılê vêrdey xo pêro besterê?";
 "history-clear-delete-all" = "Eya, pêro bestere";
 "history-title" = "Tarix";
@@ -125,9 +124,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Emseri|1=Par|$1 serri raver}}";
 "saved-search-default-text" = "Meqalanê qeydkerdeyan cı geyre";
 "saved-title" = "Qeyd bi";
-"search-did-you-mean" = "To ker kı vacê $1?";
 "search-field-placeholder-text" = "Wikipediya de cı geyre";
-"search-recent-clear-cancel" = "Bıtexelne";
 "search-recent-clear-confirmation-heading" = "Wa cı geyrayışi peyêni pêron esteri yê?";
 "search-recent-clear-confirmation-sub-heading" = "Ena kerden peyd nêgêrên na!";
 "search-recent-clear-delete-all" = "Pêron estern";
@@ -156,5 +153,4 @@
 "wikitext-preview-changes" = "Verqaytê vıriyayış dê şıma yo arêno...";
 "wikitext-preview-save-changes-title" = "Vurnayışan qeyd ke";
 "wikitext-upload-save" = "Weşaniyeno...";
-"wikitext-upload-save-sign-in" = "Cı kewe";
 "wikitext-upload-save-terms-name" = "Şertê gurenayışi";

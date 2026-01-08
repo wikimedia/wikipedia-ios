@@ -62,7 +62,6 @@
 "explore-potd-heading" = "Belld vum Daach";
 "explore-random-article-heading" = "Ene zohfälleje Atikel";
 "history-clear-all" = "Läddesch maache";
-"history-clear-cancel" = "Ophühre!";
 "history-clear-confirmation-heading" = "Wells De veraftesch all Ding neujere Saache fott schmiiße?";
 "history-clear-delete-all" = "Joh, donn alle fottschmieße";
 "history-title" = "Väsjohne";
@@ -103,9 +102,7 @@
 "preference-summary-eventlogging-opt-in" = "Donn de Wikkimehdija-Schteffong älaube, Enfommazjuhne drövver opzesammelle, wi De heh di Äpp bruchs, öme se bäßer maache ze künne.";
 "saved-pages-image-download-error" = "Mer kunnte kein Bellder för heh di faßjehallde Sigg eronger lahde.";
 "saved-title" = "Faßjehallde";
-"search-did-you-mean" = "Häß De „$1“ jemeint?";
 "search-field-placeholder-text" = "En de Wikkipehdija söhke";
-"search-recent-clear-cancel" = "Ophühre";
 "search-recent-clear-confirmation-heading" = "Wells De verhaftesch alle Söhke verjäße maache?";
 "search-recent-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "search-recent-clear-delete-all" = "Alle fottschmieße";
@@ -139,5 +136,4 @@
 // Fuzzy
 "wikitext-upload-save" = "Aam Affschpeijschere …";
 "wikitext-upload-save-anonymously-warning" = "Ding Änderonge wähde dä IP-Adräß vun Dingem Apparaht zohjeschrevve. Wann De $1, beß De jät prevahter.";
-"wikitext-upload-save-sign-in" = "Enlogge";
 "wikitext-upload-save-terms-name" = "Bedengonge för der Jebruch";

@@ -56,7 +56,6 @@
 "forgot-password-title" = "Иқәгатәуп ажәамаӡа";
 "forgot-password-username-or-email-title" = "Ма";
 "history-clear-all" = "Ирыцқьатәуп";
-"history-clear-cancel" = "Аҟәыхра";
 "history-clear-delete-all" = "Ааи, ианыхтәуп зегьы";
 "history-title" = "Аҭоурых";
 "home-title" = "Иҭышәҵаала!";
@@ -86,7 +85,6 @@
 "reference-title" = "Азгәаҭа $1";
 "saved-title" = "Еиқәырхоуп";
 "search-button-accessibility-label" = "Википедиа аҟны аԥшаара";
-"search-recent-clear-cancel" = "Аҟәыхра";
 "search-recent-clear-delete-all" = "Ианыхтәуп зегьы";
 "search-title" = "Аԥшаара";
 "settings-clear-cache-cancel" = "Аҟәыхра";

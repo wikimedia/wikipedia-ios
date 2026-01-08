@@ -852,10 +852,10 @@
 			<string>%1$d filtros</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Editaste Wikipedia %#@v1@. Gracias por ser uno de los editores voluntarios que hacen la diferencia en los proyectos de Wikimedia en todo el mundo.</string>
+		<string>Editaste %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -866,59 +866,6 @@
 			<string>%1$d vez</string>
 			<key>other</key>
 			<string>%1$d veces</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Editaste Wikipedia %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d vez</string>
-			<key>other</key>
-			<string>%1$d veces</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Este año, leíste {{PLURAL:%1$d|%1$d artículo|%1$d artículos}. Wikipedia tuvo más de %2$@ millones de artículos disponibles en más de %3$@ idiomas. Acompañaste a millones de personas en la expansión del conocimiento y la exploración de diversos temas.</string>
-	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Leíste %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d artículo</string>
-			<key>other</key>
-			<string>%1$d artículos</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Guardaste %#@v1@ este año, entre ellos %2$@, %3$@ y %4$@. Cada artículo guardado es reflejo de tus intereses y te ayuda a generar una base de conocimientos personalizada en Wikipedia.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d artículo</string>
-			<key>other</key>
-			<string>%1$d artículos</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

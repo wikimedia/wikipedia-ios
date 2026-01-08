@@ -17,17 +17,16 @@ open class WMFComponentNavigationController: UINavigationController {
         return WMFAppEnvironment.current.theme
     }
     
+    private let customBarBackgroundColor: UIColor?
+    
     var forcePortrait = false
 
     // MARK: - Public
     
-    @objc public convenience init(rootViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle) {
-        self.init(rootViewController: rootViewController)
-        self.modalPresentationStyle = modalPresentationStyle
-    }
-    
-    public override init(rootViewController: UIViewController) {
+    @objc public init(rootViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle, customBarBackgroundColor: UIColor? = nil) {
+        self.customBarBackgroundColor = customBarBackgroundColor
         super.init(rootViewController: rootViewController)
+        self.modalPresentationStyle = modalPresentationStyle
         subscribeToAppEnvironmentChanges()
         setup()
     }
@@ -87,7 +86,11 @@ open class WMFComponentNavigationController: UINavigationController {
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithOpaqueBackground()
         
-        if modalPresentationStyle == .pageSheet {
+        if let customBarBackgroundColor {
+            barAppearance.backgroundColor = customBarBackgroundColor
+            let backgroundImage = UIImage.roundedRectImage(with: customBarBackgroundColor, cornerRadius: 1)
+            barAppearance.backgroundImage = backgroundImage
+        } else if modalPresentationStyle == .pageSheet {
             barAppearance.backgroundColor = theme.midBackground
             let backgroundImage = UIImage.roundedRectImage(with: theme.midBackground, cornerRadius: 1)
             barAppearance.backgroundImage = backgroundImage
@@ -123,14 +126,17 @@ open class WMFComponentNavigationController: UINavigationController {
 
 extension WMFComponentNavigationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 0
+        guard viewControllers.count > 1,
+              transitionCoordinator == nil else {
+            return false
+        }
+        return true
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer is UIScreenEdgePanGestureRecognizer {
+        if gestureRecognizer == interactivePopGestureRecognizer {
             return false
         }
-        
         return true
     }
 }

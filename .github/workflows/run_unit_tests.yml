@@ -1,0 +1,48 @@
+name: Run Unit Tests
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+env:
+  XCODE_VERSION: "16.4"
+  IOS_VERSION: "18.5"
+  SCHEMES: "Wikipedia WMFComponents WMFData"
+  
+concurrency:
+  group: "unit-tests-${{ github.ref }}"  # One group per branch
+  cancel-in-progress: true                # Cancel older runs in the same group
+
+jobs:
+  run-unit-tests:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        scheme: ["Wikipedia", "WMFComponents", "WMFData"]
+
+    name: Test ${{ matrix.scheme }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_$XCODE_VERSION.app
+
+      - name: Test ${{ matrix.scheme }} scheme
+        run: |
+          xcrun simctl list
+          SIMULATORS=("iPhone 16")
+          for SIMULATOR in "${SIMULATORS[@]}"; do
+            echo "Running scheme: ${{ matrix.scheme }} on $SIMULATOR iOS $IOS_VERSION with Xcode $XCODE_VERSION"
+            xcodebuild test \
+              -scheme ${{ matrix.scheme }} \
+              -project Wikipedia.xcodeproj \
+              -destination "platform=iOS Simulator,name=$SIMULATOR,OS=$IOS_VERSION" \
+              | xcpretty
+            EXIT_CODE=${PIPESTATUS[0]}
+            if [ $EXIT_CODE -ne 0 ]; then
+              exit $EXIT_CODE
+            fi
+          done

@@ -58,17 +58,26 @@
 "action-redo" = "पुन: कायम गर्नुहाेस्";
 "action-remove" = "हटाउनुहोस्";
 "action-retry" = "पुनः प्रयास गर्नुहोस्";
-"action-save" = "संग्रह गर्नुहोस्";
+"action-save" = "सङ्ग्रह गर्नुहोस्";
 "action-saved" = "सुरक्षित गरिएको";
 "action-saved-accessibility-notification" = "पछिको लागि लेख साँचियो";
-"action-share" = "आदान-प्रदान गर्नुहोस्";
-"action-share-accessibility" = "साझेदारी गर्नुहोस्";
+"action-share" = "साझा गर्नुहोस्";
+"action-share-accessibility" = "साझा गर्नुहोस्";
 "action-sort" = "क्रम मिलाउनुहोस्";
 "action-thank-user-accessibility" = "प्रयाेगकर्तालाई धन्यवाद दिनुहाेस्";
 "action-undo" = "पुर्ववत गर्नुहोस्";
 "action-unsave" = "संग्रहबाट हटाउनुहोस्";
 "action-unsaved-accessibility-notification" = "लेख सङ्ग्रहबाट हटाइयो";
 "action-update" = "अद्यावधिक गर्नुहोस्";
+"activity-tab-articles-read" = "यस महिना पढिएका लेखहरू";
+"activity-tab-articles-read-graph-label" = "लेखहरू";
+"activity-tab-onboarding-first-item-subtitle" = "तपाईंले कति समय पढ्नुभएको छ र कुन लेख वा विषयहरू समयसँगै अन्वेषण गर्नुभएको छ हेर्नुहोस्।";
+"activity-tab-onboarding-first-item-title" = "पढ्ने ढाँचाहरू";
+"activity-tab-onboarding-fourth-item-subtitle" = "कुन मोड्युलहरू प्रदर्शन गर्ने छनौट गर्नुहोस्। सबै व्यक्तिगत डेटा तपाईंको उपकरणमा निजी रहन्छ र ब्राउजिङ इतिहास जुनसुकै बेला खाली गर्न सकिन्छ।";
+"activity-tab-onboarding-third-item-title" = "संलग्न हुने थप तरिकाहरू";
+"activity-tab-saved" = "यस महिना सुरक्षित गरिएका लेखहरू";
+"activity-tab-top-categories" = "यस महिनाका शीर्ष श्रेणीहरू";
+"activity-tab-week-graph-label" = "हप्ता";
 "add-articles-to-reading-list" = "पठन सूचीमा {{PLURAL:$1|$1 लेख|$1 लेखहरू}} थप्नुहाेस्";
 "announcements-dismiss" = "खारेज गर्नुहोस्";
 "app-store-keywords" = "विकिपिडिया, सन्दर्भ, विकि, विश्वकाेश, जानकारी, ज्ञान, अनुसन्धान, जानकारी, अन्वेषण, सिक्नुहाेस्";
@@ -84,12 +93,12 @@
 "article-languages-yours" = "तपाईंको भाषा";
 "article-read-more-title" = "थप पढ्नुहोस्";
 "article-reference-view-title" = "सन्दर्भ $1";
-"article-share" = "आदान-प्रदान गर्नुहोस्";
+"article-share" = "साझा गर्नुहोस्";
 "back-button-accessibility-label" = "पछाडि";
 "back-button-popover-title" = "पछाडि जानको लागि ट्याप गर्नुहोस्";
 "button-next" = "अर्को";
 "button-ok" = "ठीक छ";
-"button-publish" = "प्रकाशन गर्नुहोस्";
+"button-publish" = "प्रकाशित गर्नुहोस्";
 "button-report-a-bug" = "बग उजुरी गर्ने";
 "button-save-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "button-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
@@ -130,7 +139,7 @@
 "diff-paragraph-moved-direction-down" = "तल";
 "diff-paragraph-moved-direction-up" = "माथि";
 "diff-revision-error-title" = "संशोधन खोल्न सकिएन";
-"diff-rollback" = "पूर्ववत्";
+"diff-rollback" = "पूर्ववत गर्नुहोस्";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 सम्पादन|$1 सम्पादनहरू}}";
 "diff-single-header-editor-title" = "सम्पादक जानकारी";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 बाइट थपियो|$1 बाइटहरू थपिए}}";
@@ -145,6 +154,7 @@
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
 "edit-summary-choice-fixed-typos" = "विवरण ठीक गरियो";
 "edit-summary-choice-linked-words" = "थप गरिएका लिङ्कहरू";
+"edited-article" = "सम्पादन गरिएको";
 "editing-welcome-set-knowledge-free-subtitle" = "विश्वको ज्ञानमा सबैलाई पहुँच दिनको लागि, हामीले तपाईलाई सबैभन्दा महत्त्वपूर्ण विषयहरू पढेर, सम्पादन गरेर र योगदान गरेर यसको सिर्जनामा सहभागी हुन आवश्यक छ।";
 "empty-no-article-message" = "माफ गर्नुहोस् लेख खोल्न सकिएन";
 "empty-no-feed-action-message" = "तपाईँले सङ्ग्रह गरिसकिएका पृष्ठहरू पढ्न सक्नुहुने छ";
@@ -200,7 +210,7 @@
 "field-password-confirm-placeholder" = "प्रवेश शब्द फेरि लेख्नुहोस्";
 "field-password-confirm-title" = "पासवर्ड निश्चित गर्नुहोस्";
 "field-password-placeholder" = "प्रवेश शब्द लेख्नुहोस्";
-"field-password-title" = "पासवर्ड";
+"field-password-title" = "प्रवेश शब्द";
 "field-token-title" = "प्रमाणिकरण कोड";
 "field-username-placeholder" = "प्रयोगकर्ता नाम प्रविष्टि गर्नुहोस्";
 "field-username-title" = "प्रयोगकर्ताको नाम";
@@ -211,7 +221,6 @@
 "forgot-password-title" = "पासवर्ड पूर्वनिर्धारित गर्नुहोस्";
 "forgot-password-username-or-email-title" = "अथवा";
 "history-clear-all" = "खाली गर्नुहोस्";
-"history-clear-cancel" = "रद्द गर्नुहोस्";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
 "history-title" = "इतिहास";
 "home-more-like-footer" = "$1 जस्तो अरु";
@@ -253,7 +262,7 @@
 "login-title" = "खातामा प्रवेश गर्नुहोस्";
 "main-menu-about" = "विकिपिडिया अनुप्रयोगको बारेमा";
 "main-menu-account-login" = "प्रवेश गर्नुहोस्";
-"main-menu-account-logout" = "निर्गमन";
+"main-menu-account-logout" = "निर्गमन गर्नुहोस्";
 "main-menu-account-logout-are-you-sure" = "के तपाईं निर्गमन गर्न चहानुहुन्छ?";
 "main-menu-account-title-logged-in" = "$1 का रूपमा लगइन गरियो";
 "main-menu-heading-legal" = "गोपनीयता र सर्तहरू";
@@ -279,7 +288,6 @@
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 सूचना";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "जानकारीहरू बन्द गर्नुहोस्";
-"notifications-center-feed-news-notification-dismiss-button-text" = "अहिले हैन";
 "notifications-center-filters-read-status-item-title-all" = "सबै";
 "notifications-center-go-to-diff" = "अन्तर";
 "notifications-center-go-to-user-page" = "$1को प्रयोगकर्ता पृष्ठ";
@@ -310,6 +318,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
+"open-article" = "लेख खोल्नुहोस्";
 // Fuzzy
 "page-history-bot-edits" = "यन्त्रका सम्पादनहरू";
 "page-history-compare-title" = "तुलना गर्नुहोस्";
@@ -338,7 +347,7 @@
 "places-unknown-distance" = "अज्ञात दूरी";
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगलाई अझ राम्रो बनाउनका लागि तपाईंले अनुप्रयोगको उपयोग कसरी गर्नुहुन्छ भन्नेबारे विकिपिडियालाई जानकारी सङ्कलन गर्ने अनुमति दिनुहोस्";
 "privacy-policy-title" = "गोपनीयता नीति";
-"project-name-mediawiki" = "मिडियाविकी";
+"project-name-mediawiki" = "मिडियाविकि";
 "project-name-wikibooks" = "विकिपुस्तक";
 "project-name-wikidata" = "विकिडाटा";
 "project-name-wikimedia-commons" = "विकिमिडिया कमन्स";
@@ -368,14 +377,13 @@
 "saved-title" = "सङ्ग्रह गर्ने";
 "search-button-accessibility-label" = "विकिपिडियामा खोज्नुहोस्";
 "search-clear-title" = "खाली";
-"search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
 "search-field-placeholder-text" = "विकिपिडियामा खोज्नुहोस्";
-"search-recent-clear-cancel" = "रद्द गर्नुहोस्";
 "search-recent-clear-delete-all" = "सबै मेट्ने";
 "search-recent-title" = "भर्खरैका खोजहरू";
 "search-result-redirected-from" = "$1: बाट अनुप्रेषित";
 "search-title" = "खोज्नुहोस्";
 "settings-account" = "खाता";
+// Fuzzy
 "settings-appearance" = "अध्ययन अभिरूचिहरू";
 "settings-clear-cache-cancel" = "रद्द गर्नुहोस्";
 "settings-my-languages" = "मेरा भाषाहरू";
@@ -394,6 +402,7 @@
 "share-open-in-maps" = "नक्सामा खोल्नुहोस्";
 "sort-by-recently-added-action" = "भर्खरै थपिएका";
 "sort-by-title-action" = "शीर्षक";
+"suggested-edits-title" = "सुझाइएका सम्पादनहरू";
 "table-of-contents-button-label" = "विषयसूची";
 "table-of-contents-close-accessibility-hint" = "बन्द गर्नुहोस्";
 "table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";
@@ -443,5 +452,7 @@
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनहरू तपाईँको उपकरणको आईपी ठेगानामा श्रेय दिइनेछ। यदि तपाईँ $1 गर्नुहुन्छ भने तपाईँसँग थप गोपनीयता हुनेछ।";
-"wikitext-upload-save-sign-in" = "प्रवेश गर्नुहोस्";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
+"year-in-review-highlights-articles-read" = "पढिएका लेखहरू";
+"year-in-review-highlights-personalized-articles" = "मैले सबैभन्दा धेरै पढेका लेखहरू";
+"year-in-review-highlights-title" = "विकिपिडियामा वर्ष बिताउनु भएकोमा धन्यवाद।";

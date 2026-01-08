@@ -3,7 +3,7 @@
 // Author: Aram
 // Author: Arya sarhan
 // Author: Asoxor
-// Author: Diyariq
+// Author: Deleted user
 // Author: Halbast
 // Author: Kushared
 // Author: Lost Whispers
@@ -235,7 +235,6 @@
 "forgot-password-title" = "ڕێکخستنەوەی تێپەڕوشە";
 "forgot-password-username-or-email-title" = "یان";
 "history-clear-all" = "سڕینەوە";
-"history-clear-cancel" = "ھەڵوەشاندنەوە";
 "history-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕەکانت بسڕیتەوە؟";
 "history-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
 "history-title" = "مێژوو";
@@ -318,7 +317,6 @@
 "notifications-center-destination-web" = "لە وێب";
 "notifications-center-empty-no-messages" = "ھیچ پەیامێکت نییە";
 "notifications-center-feed-news-notification-button-text" = "ئاگادارییەکان کار پێ بکە";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ئێستا نا";
 "notifications-center-filters-read-status-item-title-all" = "ھەموو";
 "notifications-center-filters-read-status-item-title-read" = "خوێندراوە";
 "notifications-center-filters-read-status-item-title-unread" = "نەخوێندراوە";
@@ -428,15 +426,14 @@
 "saved-pages-image-download-error" = "داگرتنی وێنەکان بۆ ئەم وتارە خەزن کراوە شکستی ھێنا";
 "saved-title" = "پاشەکەوت کرا";
 "search-button-accessibility-label" = "گەڕان بە ویکیپیدیادا";
-"search-did-you-mean" = "ئایا مەبەستت ئەمە بوو: $1؟";
 "search-field-placeholder-text" = "گەڕان بە ویکیپیدیادا";
-"search-recent-clear-cancel" = "ھەڵوەشاندنەوە";
 "search-recent-clear-confirmation-heading" = "دڵنیایت دەتەوێت ھەموو تازە گەڕانەکانت بسڕیتەوە؟";
 "search-recent-clear-confirmation-sub-heading" = "ئەم فرمانە ناتوانرێت بگەڕێندرێتەوە!";
 "search-recent-clear-delete-all" = "هەمووی بسڕەوە";
 "search-recent-title" = "گەڕانە نوێکان";
 "search-result-redirected-from" = "ڕەوانەکراوە لە: $1";
 "search-title" = "گەڕان";
+// Fuzzy
 "settings-appearance" = "ھەڵبژاردەکانی خوێندنەوە";
 "settings-clear-cache" = "کاشی دراوە پاک بکەرەوە";
 "settings-clear-cache-are-you-sure-message" = "پاککردنەوەی دراوەی کاش $1 لە مێمۆریت بۆ دەگەڕێنێتەوە. پەڕە پاشەکەوتکراوەکانت ناسڕێتەوە.";
@@ -564,5 +561,4 @@
 "wikitext-upload-result-unknown" = "نەتواندر ئەنجامی ویکیدەقی بارکراو بەدەست بھێندرێت.";
 "wikitext-upload-save" = "بڵاوکردنەوە...";
 "wikitext-upload-save-anonymously-warning" = "دەستکارییەکان دەدرێنە پاڵ ناونیشانی ئای پییەکەی مۆبایلەکەت. ئەگەر $1 ئای پییەکەت دەشاردرێتەوە.";
-"wikitext-upload-save-sign-in" = "بچۆ ژوورەوە";
 "wikitext-upload-save-terms-name" = "مەرجەکانی بەکارھێنان";

@@ -210,6 +210,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Neɛ gbɛre ayi a soŋ kyuuri sommo.";
 "donate-accessibility-textfield-hint" = "Eŋ lɛ fo boɔrɔ ka fo tere.";
 "donate-accessibility-transaction-fee-hint" = "Neɛ gbɛre ayi a eŋ lɛ fo naŋ tere ana e la mɔlɔ.";
+// Fuzzy
 "donate-already-donated" = "Bareka, te-terɛ! Yɛ zuiŋ la ka Wikipiideɛ na baara.";
 "donate-apple-fine-print" = "Apple ŋa naane sɔ a libie yɛlɛ.";
 "donate-email-opt-in-text" = "Ooo, a Wikipiideɛ tondeme na koma la a yuoni baaroo duoro bie.";
@@ -414,7 +415,6 @@
 "gan-variants-alert-body" = "\nA Wikipiideɛ app pampana sage la a Gan aŋa paramare bee Sakondare kɔkɔɛ a app, na vɛŋ ka kannoo e mɔlɔ, bɔ ane maaloo:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Leɛ e Gan sommo";
 "history-clear-all" = "Iri";
-"history-clear-cancel" = "Sãã";
 "history-clear-confirmation-heading" = "Fo serve boɔrɔ ka fo iri fo pampana boma bare?";
 "history-clear-delete-all" = "Ooo, iri a zaa";
 "history-title" = "Yipɔge";
@@ -435,7 +435,6 @@
 "icon-shortcut-search-title" = "Bɔ Wikipiideɛ";
 "image-gallery-unknown-owner" = "Ba baŋ sɛgerɛ";
 "import-shared-reading-list-default-title" = "N kannoo gama";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ba e pampana";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "De leɛ kaa";
 "import-shared-reading-list-survey-prompt-footer" = "Kaa te $1yɛlɛ$2.kaa a yel-ennɛ $3yɛlɛ merɛ$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Poɔ kannoo gama\" e la ŋmaaroo kyɛ te boɔrɔ la fo teɛroo bee iri o bare.";
@@ -509,6 +508,7 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-title" = "Maale fo gu-bie";
+"not-now-title" = "Ba e pampana";
 "notifications-center-agent-description-from-format" = "A yi $1";
 "notifications-center-alert" = "Kpegere";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 leɛ teɛre ma";
@@ -524,7 +524,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
 "notifications-center-feed-card-title" = "Teɛroo fo naŋ maale Bebe la";
 "notifications-center-feed-news-notification-button-text" = "You a nyɛ teɛroo";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Pampana ŋa naane";
 "notifications-center-filters-accessibility-label" = "Teɛroo ma gampɛle";
 "notifications-center-filters-read-status-item-title-all" = "Zaa";
 "notifications-center-filters-read-status-item-title-read" = "Kanne";
@@ -794,10 +793,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = " Ba tõɔ biŋ {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Bɔ Wikipiideɛ";
 "search-clear-title" = "Sãã";
-"search-did-you-mean" = "Fo yeli ka $1?";
 "search-field-placeholder-text" = "Bɔ Wikipiideɛ";
 "search-reading-list-placeholder-text" = "Bɔ kannoo gama";
-"search-recent-clear-cancel" = "Sãã bare";
 "search-recent-clear-confirmation-heading" = "Iri pampana ŋa bɔɔbu?";
 "search-recent-clear-confirmation-sub-heading" = "A Aatekel ŋa koŋ la baŋ leɛ e!";
 "search-recent-clear-delete-all" = "Iri a zaa";
@@ -808,6 +805,7 @@
 "serbian-variants-alert-body" = "A Wikipiideɛ app pampana ŋa tuuro la a Serbian paramare bee sakondere Kɔkɔɛ a app poɔ, lɛ vɛŋɛ a kannoo, bɔɔbu, ane maaloo e mɔlɔ:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Eŋ a Serbian sommo";
 "settings-account" = "Yɛlɛ bezie";
+// Fuzzy
 "settings-appearance" = "Kannoo sommo yizie";
 "settings-clear-cache" = "Sãã cached\n data";
 "settings-clear-cache-are-you-sure-message" = "Sãã cached data kyɛ bare zie te ta $1. O koŋ iri bonzaa bare a gampɛle biŋ zie.";
@@ -985,5 +983,4 @@
 "wikitext-upload-save" = "De yiibu...";
 "wikitext-upload-save-anonymously-or-login" = "Maaloo ŋa na gaa la IP addresses zie a fo taŋgaraa zu. Ka fooŋ $1 kpɔ$2 fo naŋ taa la kaarba yaga.";
 "wikitext-upload-save-anonymously-warning" = "Maaloo ŋa na gaa la IP addresses zie a fo taŋgaraa zu. Ka fooŋ $1 fo naŋ taa la kaarba yaga.";
-"wikitext-upload-save-sign-in" = "Kpɛ";
 "wikitext-upload-save-terms-name" = "Yɛlɛ na fo naŋ ba de";

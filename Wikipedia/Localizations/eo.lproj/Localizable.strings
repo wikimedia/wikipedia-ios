@@ -13,6 +13,7 @@
 // Author: Robin van der Vliet
 // Author: Spenĉjo
 // Author: Surfo
+// Author: Tymewalk
 // Author: YvesNevelsteen
 
 "about-content-license" = "Enhavopermesilo";
@@ -176,8 +177,7 @@
 "edit-summary-choice-fixed-typos" = "Ĝustigis ortografion";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
 "edit-summary-placeholder-text" = "Kiel ĝi plibonigis la artikolon?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Lerni pli pri atentaro";
+"edit-watch-list-learn-more-text" = "Lerni pli pri via Atentaro";
 "edit-watch-this-page-text" = "Atenti ĉi tiun paĝon";
 "editing-welcome-be-bold-subtitle" = "Aŭdacu sed ne malzorgu pri ĝisdatigado de artikoloj. Ne angoru pri misoj: ĉiu versio de paĝo konserviĝas; ajna miso estas facile korektebla far nia komunumo.";
 "editing-welcome-be-bold-title" = "Via voĉo gravas";
@@ -187,6 +187,7 @@
 "editing-welcome-impartial-tone-title" = "Verki senpartie";
 "editing-welcome-set-knowledge-free-subtitle" = "Por doni al ĉiu la scion de la mondo, ni bezonas vin partopreni per legado, redaktado, kaj kontribuado pri temoj interesantaj vin.";
 "editing-welcome-set-knowledge-free-title" = "Liberigu scion";
+"editor-edit-source" = "Redakti fonton";
 "empty-insert-media-title" = "Elekti dosieron en Vikimedia Komunejo";
 "empty-no-article-message" = "Pardonon, ne povis ŝargi la artikolon";
 "empty-no-feed-action-message" = "Vi daŭre povas legi konservitajn paĝojn";
@@ -226,15 +227,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Ĉiuj ŝaltitaj";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Ŝaltita";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Ŝaltita $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Ĉiuj %@ kartoj kaŝitaj";
+"explore-feed-preferences-feed-cards-hidden-title" = "Ĉiuj $1 kartoj kaŝitaj";
 "explore-feed-preferences-global-card-footer-text" = "Ĉi tiu karto ne estas lingvospecifa, malŝaltanta ĉi tiun karton forigos ĝin de via Esplorfluo.";
 "explore-feed-preferences-global-cards-description" = "Ne lingvospecifaj kartoj";
 "explore-feed-preferences-global-cards-subtitle" = "Ne lingvospecifa";
 "explore-feed-preferences-global-cards-title" = "Tutmondaj kartoj";
 "explore-feed-preferences-hide-card-action-title" = "Kaŝi ĉi tiun karton";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Kaŝi ĉiujn kartojn de tipo “%@”";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Kaŝi ĉiujn kartojn de tipo “$1”";
 "explore-feed-preferences-in-the-news-description" = "Artikoloj pri nunaj eventoj";
 "explore-feed-preferences-languages-footer-text" = "Se vi kaŝas ĉiujn kartojn sur la Esplorfluo en via lingvo, la Esplortaba folio estos malŝaltita.";
 "explore-feed-preferences-on-this-day-description" = "Historiaj eventoj en tiu ĉi tago";
@@ -325,7 +324,6 @@
 "forgot-password-title" = "Restarigi pasvorton";
 "forgot-password-username-or-email-title" = "Aŭ";
 "history-clear-all" = "Malplenigi";
-"history-clear-cancel" = "Nuligi";
 "history-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn lastajn erojn?";
 "history-clear-delete-all" = "Jes, forigi ĉion";
 "history-title" = "Historio";
@@ -345,6 +343,9 @@
 "icon-shortcut-random-title" = "Hazarda artikolo";
 "icon-shortcut-search-title" = "Serĉi tra Vikipedio";
 "image-gallery-unknown-owner" = "Aŭtoro estas nekonata.";
+"image-recs-no-title" = "Ne";
+"image-recs-yes-title" = "Jes";
+"import-shared-reading-list-default-title" = "Mia Legolisto";
 "in-the-news-sub-title-from-language-wikipedia" = "De $1 Vikipedio";
 "in-the-news-sub-title-from-wikipedia" = "De Vikipedio";
 "in-the-news-title" = "En la novaĵoj";
@@ -430,6 +431,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de $2 Vikipedio";
 "on-this-day-title" = "En ĉi tiu tago";
 "original-tab-button-popover-description" = "Tuŝetu sur 'W' por reveni al la taba folio de kiu vi startis";
+"page-history-revision-author-accessibility-label" = "Aŭtoro: $1";
 "page-protected-can-not-edit" = "Vi ne rajtas redakti ĉi tiun paĝon";
 "page-protected-can-not-edit-title" = "Ĉi tiu paĝo estas protektita";
 "pictured" = "bildigita";
@@ -467,6 +469,7 @@
 "places-unknown-distance" = "nekonata distanco";
 "potd-description-prefix" = "Bildo de la tago por $1";
 "potd-empty-error-description" = "Malsukcesis ricevi bildon de la tago por $1";
+"potd-widget-title" = "Bildo de la tago";
 "preference-summary-eventlogging-opt-in" = "Permesi al Vikipedio kolekti informojn pri kiel vi uzas la aplikaĵon por helpi ĝin plibonigi";
 "reading-list-add-generic-hint-title" = "Ĉu aldoni ĉi tiun artikolon al legolisto?";
 "reading-list-add-hint-title" = "Ĉu aldoni \"$1\" al legolisto?";
@@ -481,6 +484,7 @@
 "reading-list-create-new-list-reading-list-name" = "Nomo de la legolisto";
 "reading-list-create-new-list-title" = "Krei novan liston";
 "reading-list-deleted-accessibility-notification" = "Legolisto forigita";
+"reading-list-detail-search-placeholder" = "Serĉi tra legolisto";
 "reading-list-do-not-keep-button-title" = "Ne, forigi artikolojn de la aparato";
 "reading-list-entry-limit-exceeded-message" = "Bonvolu malpliigi la nombron de artikoloj en ĉi tiu listo al $1 por daŭrigi la sinkronigadon de ĉiuj artikoloj en ĉi tiu listo.";
 "reading-list-entry-limit-exceeded-title" = "Vi preterpasis la limon de po {{PLURAL:$1|$1 artikolo|$1 artikoloj}} por konto.";
@@ -534,8 +538,7 @@
 "reading-lists-default-list-title" = "Konservitaj";
 "reading-lists-delete-reading-list-alert-message" = "Ĉi tiu ago ne povas esti malfarita. Ajnaj artikoloj konservitaj nur al {{PLURAL:$1|ĉi tiu listo|ĉi tiuj listoj}} estas malkonservotaj.";
 "reading-lists-delete-reading-list-alert-title" = "Ĉu forigi la {{PLURAL:$1|liston|listojn}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artikoloj kaj $2 legolistoj sinkronigitaj de via konto";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artikolo|$1 artikoloj}} kaj {{PLURAL:$2|$2 legolisto|$2 legolistoj}} sinkronigitaj de via konto";
 "reading-lists-list-not-synced-limit-exceeded" = "Listo ne sinkronigita, limo preterpasita";
 "reading-lists-sort-saved-articles" = "Ordigi konservitajn artikolojn";
 "reading-lists-split-notification" = "Estas limo de po $1 artikoloj por legolisto. Ekzistantaj listoj pli longaj ol ĉi tiu estas dividitaj en plurajn listojn.";
@@ -574,10 +577,8 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ĉu malkonservi {{PLURAL:$1|la artikolon|la artikolojn}}?";
 "search-button-accessibility-label" = "Serĉi tra Vikipedio";
 "search-clear-title" = "Malplenigi";
-"search-did-you-mean" = "Ĉu vi celis $1?";
 "search-field-placeholder-text" = "Serĉi tra Vikipedio";
 "search-reading-list-placeholder-text" = "Serĉi tra legolisto";
-"search-recent-clear-cancel" = "Nuligi";
 "search-recent-clear-confirmation-heading" = "Ĉu forigi ĉiujn lastajn serĉojn?";
 "search-recent-clear-confirmation-sub-heading" = "Tiu ĉi ago ne povas esti malfarita!";
 "search-recent-clear-delete-all" = "Forigi ĉiujn";
@@ -586,6 +587,7 @@
 "search-result-redirected-from" = "Alidirektita el: $1";
 "search-title" = "Serĉi";
 "settings-account" = "Konto";
+// Fuzzy
 "settings-appearance" = "Legopreferoj";
 "settings-clear-cache" = "Malplenigi la kaŝmemorigitajn datumojn";
 "settings-clear-cache-are-you-sure-message" = "Malplenigi la kaŝmemorigitajn datumojn liberigos ĉirkaŭ $1 da spaco. Tio ne forigos viajn konservitajn paĝojn.";
@@ -662,6 +664,8 @@
 "two-factor-login-with-backup-code" = "Uzi unu el viaj rezervaj kodoj";
 "two-factor-login-with-regular-code" = "Uzi la kontrolkodon";
 "unable-to-load-talk-page-title" = "Ne povas ŝargi diskutpaĝon";
+"watchlist-byte-change" = "({{PLURAL:$1|$1 bajto|$1 bajtoj}})";
+"watchlist-user-button-user-page" = "Uzantopaĝo";
 "welcome-exploration-explore-feed-description" = "Rekomendataj legaĵoj kaj ĉiutagaj artikoloj de nia komunumo";
 "welcome-exploration-explore-feed-title" = "Esplorfluo";
 "welcome-exploration-on-this-day-description" = "Vojaĝu al la pasinteco por ekscii kio okazis hodiaŭ en historio";
@@ -671,8 +675,7 @@
 "welcome-explore-continue-button" = "Komenci";
 "welcome-explore-new-ways-title" = "Novaj manieroj por esplori";
 "welcome-explore-tell-me-more-done-button" = "Komprenite";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Vikipedio estas kunlabore verkita de volontuloj kaj konsistas de pli ol 40 milionoj da artikoloj en preskaŭ 300 lingvoj.";
+"welcome-intro-free-encyclopedia-description" = "Vikipedio estas kunlabore verkita de volontuloj kaj konsistas de pli ol 40 milionoj da artikoloj en pli ol 300 lingvoj.";
 "welcome-intro-free-encyclopedia-more" = "Ekscii pli pri Vikipedio";
 "welcome-intro-free-encyclopedia-more-about" = "Pri Vikipedio";
 "welcome-intro-free-encyclopedia-more-description" = "Vikipedio estas tutmonda projekto por konstrui liberajn enciklopediojn en ĉiuj lingvoj de la mondo. Preskaŭ ĉiu ajn kun retaliro estas libera por kontribui per neŭtralaj informojn, citante fontojn.";
@@ -680,8 +683,7 @@
 "welcome-languages-add-button" = "Aldoni alian lingvon";
 "welcome-languages-add-or-edit-button" = "Aldoni aŭ redakti preferatajn lingvojn";
 "welcome-languages-description" = "Ni trovis la sekvajn lingvojn sur via aparato:";
-// Fuzzy
-"welcome-languages-search-title" = "Serĉi en preskaŭ 300 lingvoj";
+"welcome-languages-search-title" = "Serĉi en pli ol 300 lingvoj";
 "welcome-notifications-tell-me-more-creation" = "Sciigoj estas kreitaj kaj liveritaj sur via aparato per la aplikaĵo, ne de nia servilo (aŭ de servilo de ekstera provizanto).";
 "welcome-notifications-tell-me-more-storage" = "Sciigaj preferoj estas konservitaj sur aparatoj kaj ne estas bazitaj sur personaj informoj aŭ persona agado.";
 "welcome-notifications-tell-me-more-title" = "Ekscii pli pri sciigoj";
@@ -699,5 +701,5 @@
 "wikitext-upload-save" = "Publikigas...";
 "wikitext-upload-save-anonymously-or-login" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1Ensalutas$2, vi havos pli da privateco.";
 "wikitext-upload-save-anonymously-warning" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1, vi havos pli da privateco.";
-"wikitext-upload-save-sign-in" = "Ensaluti";
 "wikitext-upload-save-terms-name" = "Uzkondiĉoj";
+"yesterday-title" = "Hieraŭ";

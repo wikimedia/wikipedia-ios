@@ -6,6 +6,7 @@ import UIKit
 /// - navigationController: The navigation controller that the coordinator uses to manage view controllers.
 /// Methods:
 /// start():  Starts the coordinator's navigation flow. Should be called to trigger the presentation of the View Controllers. Returns boolean of whether navigation succeeded or not.
+@MainActor
 protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get }
 

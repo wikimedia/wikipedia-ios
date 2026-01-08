@@ -2,6 +2,48 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>activity-tab-you-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast %#@v1@ diese Woche bearbeitet.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Mal</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-read</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast %#@v1@ diese Woche gelesen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Artikel</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-saved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast %#@v1@ diese Woche gespeichert.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Artikel</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -30,6 +72,126 @@
 			<string>d</string>
 			<key>other</key>
 			<string>Artikel</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Möchtest du %#@v1@ schließen? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Tab</string>
+			<key>other</key>
+			<string>%1$d Tabs</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ schließen?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Tab</string>
+			<key>other</key>
+			<string>%1$d Tabs</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ geschlossen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Tab</string>
+			<key>other</key>
+			<string>%1$d Tabs</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Absatz %#@v1@ nach unten verschoben. Zur neuen Position gehen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Zeile</string>
+			<key>other</key>
+			<string>%1$d Zeilen</string>
+			<key>zero</key>
+			<string>0 Zeilen</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Absatz %#@v1@ nach oben verschoben. Zur neuen Position gehen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Zeile</string>
+			<key>other</key>
+			<string>%1$d Zeilen</string>
+			<key>zero</key>
+			<string>0 Zeilen</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Absatz %#@v1@ nach unten verschoben. Zur neuen Position gehen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Abschnitt</string>
+			<key>other</key>
+			<string>%1$d Abschnitte</string>
+			<key>zero</key>
+			<string>0 Abschnitte</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Absatz %#@v1@ nach oben verschoben. Zur neuen Position gehen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Abschnitt</string>
+			<key>other</key>
+			<string>%1$d Abschnitte</string>
+			<key>zero</key>
+			<string>0 Abschnitte</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
@@ -128,6 +290,194 @@
 			<string>Zeilen</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Im Jahr %1$@ haben Freiwillige %#@v2@ zur englischen Wikipedia hinzugefügt. Die Summe ihrer gemeinsamen Arbeit führt zu einer kontinuierlich verbesserten, faktenbasierten und verlässlichen Wissensquelle, die sie der Welt zur Verfügung stellen. Wir alle haben Wissen zu teilen, [erfahre, wie du mitmachen kannst](%3$@).</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld Byte</string>
+			<key>other</key>
+			<string>%2$lld Bytes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ hinzugefügt</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Byte</string>
+			<key>other</key>
+			<string>%1$lld Bytes</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Freiwillige haben %#@v1@ in über %#@v2@ der Wikipedia vorgenommen. %#@v3@ wurden in der englischen Wikipedia durchgeführt. Zu jeder Stunde jeden Tages arbeiten Freiwillige daran, Wikipedia zu verbessern.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Änderung</string>
+			<key>other</key>
+			<string>%1$lld Änderungen</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d Sprachversion</string>
+			<key>other</key>
+			<string>%2$d verschiedenen Sprachversionen</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%3$lld Änderung</string>
+			<key>other</key>
+			<string>%3$lld Änderungen</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Bearbeiter haben dieses Jahr %#@v1@ vorgenommen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Änderung</string>
+			<key>other</key>
+			<string>%1$lld Änderungen</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Menschen verbrachten geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der Englischsprachigen Wikipedia im Jahr %3$@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Stunde</string>
+			<key>other</key>
+			<string>%1$lld Stunden</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld Jahr</string>
+			<key>other</key>
+			<string>%2$lld Jahre</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Menschen verbrachten geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der Englischsprachigen Wikipedia im Jahr %3$@. Wikipedia ist da, wenn du über unsere sich verändernde Welt lernst, eine Wette unter Freunden gewinnen oder die Frage eines neugierigen Kindes beantworten möchtest.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Stunde</string>
+			<key>other</key>
+			<string>%1$lld Stunden</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld Jahr</string>
+			<key>other</key>
+			<string>%2$lld Jahre</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wir verbrachten %#@v1@ mit Lesen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Stunde</string>
+			<key>other</key>
+			<string>%1$lld Stunden</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Aktive App-Nutzer hatten in diesem Jahr %#@v1@. Das Hinzufügen von Artikeln zu Leselisten ermöglicht es dir, auf Artikel auch offline zuzugreifen. Du kannst dich auch anmelden, um Leselisten zwischen Geräten zu synchronisieren.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld gespeicherten Artikel</string>
+			<key>other</key>
+			<string>%1$lld gespeicherte Artikel</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wir hatten %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld gespeicherten Artikel</string>
+			<key>other</key>
+			<string>%1$lld gespeicherte Artikel</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -156,6 +506,22 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d Filter</string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Sind Sie sicher, dass Sie alle %#@v1@ Ihrer Benachrichtigungen als gelesen markieren möchten? Ihre Benachrichtigungen werden auf all Ihren Geräten als gelesen markiert.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Nachricht</string>
+			<key>other</key>
+			<string>%1$d Nachrichten</string>
 		</dict>
 	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
@@ -268,6 +634,22 @@
 			<string>Ein historisches Ereignis</string>
 			<key>other</key>
 			<string>%1$d historische Ereignisse</string>
+		</dict>
+	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ an diesem Tag</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d weiteres historisches Ereignis</string>
+			<key>other</key>
+			<string>%1$d weitere historische Ereignisse</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>
@@ -602,6 +984,38 @@
 			<string>Artikel</string>
 		</dict>
 	</dict>
+	<key>tabs-navbar-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Tab</string>
+			<key>other</key>
+			<string>%1$d Tabs</string>
+		</dict>
+	</dict>
+	<key>talk-page-active-users-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d aktiver Benutzer</string>
+			<key>other</key>
+			<string>%1$d aktive Benutzer</string>
+		</dict>
+	</dict>
 	<key>talk-page-replies-count-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -618,10 +1032,56 @@
 			<string>%1$d Antworten</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
+	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du hast Wikipedia %#@v1@ bearbeitet. Vielen Dank, dass du einer der freiwilligen Editoren bist, die bei Wikimedia-Projekten auf der ganzen Welt etwas bewirken.</string>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Byte</string>
+			<key>other</key>
+			<string>%1$d Bytes</string>
+		</dict>
+	</dict>
+	<key>watchlist-number-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>[%#@v1@](wikipedia://watchlist/filter) ändern, um mehr Beobachtungslistenelemente zu sehen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Filter</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-editors-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Bearbeiter der offiziellen Wikipedia-Apps haben %#@v1@ vorgenommen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Bearbeitung</string>
+			<key>other</key>
+			<string>%1$lld Bearbeitungen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia wurde %#@v1@ pro Minute bearbeitet</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -631,10 +1091,160 @@
 			<key>one</key>
 			<string>einmal</string>
 			<key>other</key>
-			<string>%1$d mal</string>
+			<string>%1$d Mal</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia hatte %#@v1@ in über %#@v2@. Gemeinsam mit Millionen anderen hast du Wissen erweitert und vielfältige Themen erkundet.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$llden Artikel</string>
+			<key>other</key>
+			<string>%1$lld Artikel</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$der Sprache</string>
+			<key>other</key>
+			<string>%2$d aktiven Sprachen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Wikipedia war in mehr als %#@v1@ verfügbar.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>einer Sprache</string>
+			<key>other</key>
+			<string>%1$d Sprachen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>App-Nutzer hatten %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld gespeicherten Artikel</string>
+			<key>other</key>
+			<string>%1$lld gespeicherte Artikel</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>App-Nutzer haben Wikipedia-Artikel %#@v1@ angesehen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>einmal</string>
+			<key>other</key>
+			<string>%1$lld Mal</string>
+		</dict>
+	</dict>
+	<key>year-in-review-highlights-edit-frequency-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ pro Minute</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>einmal</string>
+			<key>other</key>
+			<string>%1$d Mal</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Leser auf der ganzen Welt schätzen Ihre Beiträge. In den letzten zwei Monaten wurden die von dir bearbeiteten Artikel %#@v1@ aufgerufen. Dank Bearbeitern wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die ganze Welt.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Mal</string>
+			<key>other</key>
+			<string>%1$lld Mal insgesamt</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Deine Bearbeitungen wurden in letzter Zeit %#@v1@ angesehen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>einmal</string>
+			<key>other</key>
+			<string>mehr als %1$lld Mal</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Freiwillige wie du haben %#@v1@ in %#@v2@ der Wikipedia vorgenommen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Änderung</string>
+			<key>other</key>
+			<string>%1$lld Änderungen</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$der Sprachversion</string>
+			<key>other</key>
+			<string>%2$d verschiedenen Sprachversionen</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Du hast Wikipedia %#@v1@ bearbeitet</string>
@@ -650,10 +1260,10 @@
 			<string>%1$d mal</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dieses Jahr hast du %#@v1@ gelesen. Bei Wikipedia sind %2$@ Millionen Artikel in über %3$@ aktiven Sprachen verfügbar. Du hast dich Millionen von Menschen angeschlossen, die ihr Wissen erweitern und verschiedene Themen erforschen wollen.</string>
+		<string>Das bringt dich in die Top **PERCENT** der Wikipedia-Leser weltweit. Die durchschnittliche Person liest %#@v1@ pro Jahr.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -664,32 +1274,47 @@
 			<string>%1$d Artikel</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du hast dieses Jahr %#@v1@ gelesen</string>
+		<string>Du hast %#@v1@ damit verbracht, %#@v2@ im Jahr %3$@ zu lesen</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d Minute</string>
 			<key>other</key>
-			<string>%1$d Artikel</string>
+			<string>%1$d Minuten</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d Artikel</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du hast dieses Jahr %#@v1@ gespeichert, darunter %2$@, %3$@, und %4$@. Jeder gespeicherte Artikel spiegelt deine Interessen wider und hilft dabei, eine personalisierte Wissensbasis auf Wikipedia aufzubauen.</string>
-		<key>v1</key>
+		<string>Diese Artikel umfassten %1$@, %2$@ und %3$@. Jeder gespeicherte Artikel spiegelt deine Interessen wider und hilft beim Aufbau einer personalisierten Wissensbasis auf Wikipedia.
+
+Aktive App-Nutzer hatten dieses Jahr %#@v4@.</string>
+		<key>v4</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>lld</string>
+			<key>one</key>
+			<string>%4$lld gespeicherten Artikel</string>
 			<key>other</key>
-			<string>%1$d Artikel</string>
+			<string>%4$lld gespeicherte Artikel</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

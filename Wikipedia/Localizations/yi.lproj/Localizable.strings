@@ -50,7 +50,6 @@
 "forgot-password-button-title" = "צוריקשטעלן";
 "forgot-password-title" = "צוריקשטעלן פאַסווארט";
 "history-clear-all" = "אפליידיגן";
-"history-clear-cancel" = "אַנולירן";
 "history-clear-confirmation-heading" = "איר ווילט טאקע אויסמעקן אלע אייערע לעצטיקע אביעקטן?";
 "history-clear-delete-all" = "יא, אויסמעקן אלץ";
 "history-title" = "היסטאָריע";
@@ -92,14 +91,13 @@
 "reading-lists-default-list-title" = "אויפֿגעהיטן";
 "reference-title" = "רעפערענץ $1";
 "saved-title" = "אויפֿגעהיטן";
-"search-did-you-mean" = "צי האט איר געמיינט $1?";
 "search-field-placeholder-text" = "זוכן וויקיפעדיע";
-"search-recent-clear-cancel" = "אַנולירן";
 "search-recent-clear-confirmation-heading" = "אויסמעקן אלע לעצטיקע זוכן?";
 "search-recent-clear-delete-all" = "אויסמעקן אלץ";
 "search-recent-title" = "לעצטנס געזוכט";
 "search-result-redirected-from" = "אַריבערגעפֿירט פון $1";
 "search-title" = "זוכן";
+// Fuzzy
 "settings-appearance" = "ליינען פרעפֿערענצן";
 "settings-clear-cache-cancel" = "אַנולירן";
 "settings-help-and-feedback" = "הילף און פֿידבעק";
@@ -118,5 +116,4 @@
 "theme-default-display-name" = "גרונטלעך";
 "wikitext-preview-changes" = "רופן פאראויסקוק פון אייערע ענדערונגען…";
 "wikitext-upload-save" = "פֿארעפֿנטלעכן…";
-"wikitext-upload-save-sign-in" = "אַרײַנלאגירן";
 "wikitext-upload-save-terms-name" = "ניצבאדינגונגען";
