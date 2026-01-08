@@ -608,8 +608,7 @@ extension WMFAppViewController {
     @objc func setupWMFDataCoreDataStore() {
         WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
         
-        // Explicitly run on a background thread
-        Task.detached(priority: .high) {
+        Task(priority: .userInitiated) {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
                 await self.migrateSavedArticleInfoWithBackgroundTask()
