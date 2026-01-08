@@ -89,9 +89,6 @@ class WMFHCaptchaViewController: ThemeableViewController {
     // MARK: - HCaptcha Setup
     private func setupHCaptcha() {
         do {
-            // "f1f21d64-6384-4114-b7d0-d9d23e203b4a" //doesn't always challenge
-            // "45205f58-be1c-40f0-b286-07a4498ea3da" //always challenge
-            
             guard let config = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha else {
                 errorAction?(CustomError.hCaptchaMissingConfig)
                 return
