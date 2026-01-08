@@ -126,19 +126,13 @@ struct WMFAsyncPageRow: View {
             .background(Color(theme.paperBackground))
             if let bottomButtonText = viewModel.bottomButtonTitle {
                 VStack {
-                    HStack {
-                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .textPage) ?? UIImage())
-                        Text(bottomButtonText)
-                    }
-                    .font(Font(WMFFont.for(.mediumSubheadline)))
-                    .foregroundStyle(Color(theme.link))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color(theme.baseBackground))
-                    .cornerRadius(8)
+                    WMFSmallButton(configuration: .init(style: .neutral), title: bottomButtonText, image: (WMFSFSymbolIcon.for(symbol: .textPage) ?? nil), action: {
+                        // do nothing purposefully
+                    })
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 44)
+                .padding(.top, 4)
             }
         }
         .padding(.vertical, 10)
