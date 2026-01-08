@@ -148,8 +148,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Check if captcha is required right away. Things could be configured so captcha is required at all times.
-        getCaptcha(checkHCaptcha: false) { captcha in
+        // Check if any captcha is required right away. Things could be configured so captcha is required at all times.
+        getCaptcha() { captcha in
             if captcha?.classicInfo != nil {
                 self.captchaViewController?.captcha = captcha
             }
@@ -169,7 +169,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
-    fileprivate func getCaptcha(checkHCaptcha: Bool, completion: @escaping (WMFCaptcha?) -> Void) {
+    fileprivate func getCaptcha(completion: @escaping (WMFCaptcha?) -> Void) {
         let failure: WMFErrorHandler = {error in }
         let siteURL = dataStore.primarySiteURL
         accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { [weak self] info in
@@ -190,7 +190,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         hcaptchaVC.successAction = { token in
             hcaptchaVC.dismiss(animated: true) { [weak self] in
                 self?.hCaptchaToken = token
-                self?.createAccount(fakeSuccess: true)
+                self?.createAccount()
             }
         }
         
@@ -403,17 +403,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         })
     }
 
-    fileprivate func createAccount(fakeSuccess: Bool = false) {
-        
-        // Fake creation
-        if fakeSuccess {
-            let presenter = self.presentingViewController
-            self.dismiss(animated: true, completion: {
-                presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
-            })
-            return
-        }
-
+    fileprivate func createAccount() {
         
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
@@ -439,7 +429,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     case .wrongCaptcha:
                         isCaptchaError = true
                         
-                        self.getCaptcha(checkHCaptcha: true) { [weak self] captcha in
+                        self.getCaptcha() { [weak self] captcha in
                             
                             guard let self else { return }
                             if captcha?.classicInfo != nil {
