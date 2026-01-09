@@ -808,8 +808,8 @@
 "microsite-yir-english-edits-bytes-slide-title-updated" = "增加了 {{PLURAL:$1|$1}} 位元組";
 "microsite-yir-english-edits-slide-subtitle-updated" = "志工們對維基百科的 {{PLURAL:$2|$2}} 多種不同語言版本做出了 {{PLURAL:$1|$1}} 次修改。英文維基百科則進行了 {{PLURAL:$3|$3}} 次修改。每一天、每一刻、每一秒，志工們都在努力改進維基百科。";
 "microsite-yir-english-edits-slide-title-updated" = "編輯者今年做出了 {{PLURAL:$1|$1}} 次修改";
-"microsite-yir-english-reading-slide-subtitle-updated" = "在 $3 年，人們花了 {{PLURAL:$1|$1}} 小時（約 {{PLURAL:$2|$2}} 年！）閱讀英文維基百科。當您想了解我們不斷變化的世界、在朋友之間贏得對事物了解的賭注、或是回答孩子好奇的問題時，維基百科都在您身邊。";
 "microsite-yir-english-reading-slide-subtitle-short-updated" = "在 $3 年，人們花了 {{PLURAL:$1|$1}} 小時（約 {{PLURAL:$2|$2}} 年！）閱讀英文維基百科。";
+"microsite-yir-english-reading-slide-subtitle-updated" = "在 $3 年，人們花了 {{PLURAL:$1|$1}} 小時（約 {{PLURAL:$2|$2}} 年！）閱讀英文維基百科。當您想了解我們不斷變化的世界、在朋友之間贏得對事物了解的賭注、或是回答孩子好奇的問題時，維基百科都在您身邊。";
 "microsite-yir-english-reading-slide-title-updated" = "大家花了 {{PLURAL:$1|$1}} 小時閱讀維基百科";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "應用程式的活躍使用者今年儲存了 {{PLURAL:$1|$1}} 篇條目。將條目增加到閱讀清單可讓您即使在離線時也能查看條目。此外，您還可以透過登入將閱讀清單同步到不同裝置裡。";
 "microsite-yir-english-saved-reading-slide-title-updated" = "我們擁有 {{PLURAL:$1|$1}} 篇已存條目";
@@ -1544,8 +1544,8 @@
 "year-in-review-contributor-gift-subtitle" = "如果您現在不啟用，您可以事後在主題下方的設定裡存取它。";
 "year-in-review-contributor-gift-title" = "啟動新的應用程式圖示";
 "year-in-review-contributor-slide-subtitle-donor-updated" = "感謝您投入自由知識的未來。\n\n您作為 $1 年捐款者的貢獻，幫助到鋪往自由資訊世界的道路，因此您在主畫面上解鎖了維基百科的「自訂貢獻者圖示」。";
-"year-in-review-contributor-slide-subtitle-editor-updated" = "感謝您投入自由知識的未來。\n\n您作為 $1 年編輯者的貢獻，幫助到鋪往自由資訊世界的道路，因此您在主畫面上解鎖了維基百科的「自訂貢獻者圖示」。";
 "year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "感謝您投入自由知識的未來。\n\n您作為 $1 年捐款者與編輯者的貢獻，幫助到鋪往自由資訊世界的道路，因此您在主畫面上解鎖了維基百科的「自訂貢獻者圖示」。";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "感謝您投入自由知識的未來。\n\n您作為 $1 年編輯者的貢獻，幫助到鋪往自由資訊世界的道路，因此您在主畫面上解鎖了維基百科的「自訂貢獻者圖示」。";
 "year-in-review-contributor-slide-title" = "已為您的主畫面解鎖新的應用程式圖示";
 "year-in-review-day-friday" = "星期五";
 "year-in-review-day-monday" = "星期一";

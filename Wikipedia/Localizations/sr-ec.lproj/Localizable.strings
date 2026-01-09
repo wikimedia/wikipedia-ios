@@ -96,6 +96,7 @@
 "activity-tab-add-images-subtitle" = "Додајте предложене слике у чланке на Википедији да би сте побољшали њихово разумевање.";
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-articles-read-graph-label" = "Чланци";
+"activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈИ ЗА iOS";
 "activity-tab-logged-out-title" = "Видите више уређивачких и читалачких активности";
 "activity-tab-neutral" = "Неутралан";
 "activity-tab-no-edits-title" = "Још нисте направили измене ове недеље. Додајте слике да би сте побољшали разумевање чланка.";
@@ -191,6 +192,7 @@
 "description-edit-title" = "Уређивање описа";
 "description-edit-warning" = "Покушајте да задржите описе кратким тако да корисници могу да разумеју тему чланка на први поглед";
 "description-edit-warning-casing" = "Само властите именице треба писати великим словима, чак и на почетку реченице.";
+"description-editing-temp-account-created-subtitle" = "Привремени налог $1 је направљен после објављивања Ваше измене. Привремени налог ће истећи за 90 дана.";
 "description-help-about-description" = "Описи чланака резимирају чланак како би читаоци на први поглед разумели његову тему.";
 "description-help-about-title" = "О";
 "description-help-about-wikidata" = "О Википодацима";
@@ -493,6 +495,7 @@
 "field-alert-token-invalid" = "Неважећи кôд";
 "field-alert-username-unavailable" = "Корисничко име није доступно";
 "field-backup-token-title" = "Резервни кôд";
+"field-backup-token-title-email" = "Код из имејла";
 "field-captcha-placeholder" = "CAPTCHA текст";
 "field-captcha-title" = "Унесите горенаведени текст";
 "field-email-placeholder" = "primer@example.org";
