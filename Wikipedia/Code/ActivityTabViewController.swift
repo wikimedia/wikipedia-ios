@@ -40,6 +40,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateLoginState()
         
         viewModel.openCustomize = userDidTapCustomize
+        viewModel.pushToContributions = pushToContributions
         
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
@@ -67,6 +68,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let view = WMFToastViewBasicView(viewModel: viewModel)
             WMFToastPresenter.shared.presentToastView(view: view)
         }
+    }
+    
+    public func pushToContributions() {
+        guard let url =  userContributionsURL else { return }
+        navigate(to: url)
     }
 
     override func viewDidAppear(_ animated: Bool) {

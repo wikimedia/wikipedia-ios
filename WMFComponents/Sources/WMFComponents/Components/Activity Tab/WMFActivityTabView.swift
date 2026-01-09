@@ -720,17 +720,17 @@ private struct ContributionsView: View {
     var body: some View {
         WMFActivityTabInfoCardView(
             icon: UIImage(named: "user_contributions", in: .module, with: nil),
-            title: "Contributions this month", // TODO: localize
+            title: activityViewModel.localizedStrings.contributionsThisMonth,
             dateText: dateText,
             additionalAccessibilityLabel: nil,
-            onTapModule: nil,
+            onTapModule: activityViewModel.navigateToContributions,
             content: {
                 VStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(String(viewModel.thisMonthCount))
                             .font(Font(WMFFont.for(.boldTitle1)))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text("edits this month")
+                        Text(activityViewModel.localizedStrings.thisMonth)
                             .font(Font(WMFFont.for(.boldCaption1)))
                             .foregroundStyle(Color(uiColor: theme.secondaryText))
                         if viewModel.thisMonthCount > 0 {
@@ -746,7 +746,7 @@ private struct ContributionsView: View {
                         Text(String(viewModel.lastMonthCount))
                             .font(Font(WMFFont.for(.boldTitle1)))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text("edits last month")
+                        Text(activityViewModel.localizedStrings.lastMonth)
                             .font(Font(WMFFont.for(.boldCaption1)))
                             .foregroundStyle(Color(uiColor: theme.secondaryText))
                         if viewModel.lastMonthCount > 0 {
