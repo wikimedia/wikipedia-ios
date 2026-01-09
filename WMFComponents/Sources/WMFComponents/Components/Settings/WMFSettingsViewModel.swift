@@ -169,7 +169,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         })
 
         let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: nil), action: {
-            self.coordinatorDelegate?.handleSettingsAction(.readingListDangerZone)
+            self.coordinatorDelegate?.handleSettingsAction(.databasePopulation)
         })
 
         let clearCache = SettingsItem(image: WMFIcon.settingsClearCache, color: WMFColor.yellow600, title: localizedStrings.clearCacheTitle, subtitle: nil, accessory: .none, action: {

@@ -110,8 +110,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             print("read pref ⭐️")
         case .articleSyncing:
             print("sync ⭐️")
-        case .readingListDangerZone:
-            print("danger ⭐️")
+        case .databasePopulation:
+            tappedDatabasePopulation()
         case .clearCachedData:
             print("clear data ⭐️")
         case .privacyPolicy:
@@ -161,6 +161,16 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         hostingController.title = strings.title
         settingsNav.pushViewController(hostingController, animated: true)
+    }
+
+    private func tappedDatabasePopulation() {
+        let vc = DatabasePopulationHostingController()
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        settingsNav.present(navVC, animated: true)
     }
 
 }
