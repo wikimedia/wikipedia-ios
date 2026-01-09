@@ -115,9 +115,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         case .clearCachedData:
             print("clear data ⭐️")
         case .privacyPolicy:
-            print("privacy ⭐️")
+            tappedExternalLink(with: CommonStrings.privacyPolicyURLString)
         case .termsOfUse:
-            print("terms ⭐️")
+            tappedExternalLink(with: CommonStrings.termsOfUseURLString)
         case .rateTheApp:
             print("rate ⭐️")
         case .helpAndFeedback:
@@ -171,6 +171,20 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         }
 
         settingsNav.present(navVC, animated: true)
+    }
+
+    private func tappedExternalLink(with urlString: String) {
+        guard let presentedViewController = navigationController.presentedViewController else {
+            return
+        }
+
+        if let url = URL(string: urlString) {
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            let newNavigationVC =
+            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .fullScreen)
+            presentedViewController.present(newNavigationVC, animated: true)
+        }
     }
 
 }
