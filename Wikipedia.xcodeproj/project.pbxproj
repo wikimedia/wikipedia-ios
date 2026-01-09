@@ -16907,7 +16907,7 @@
 			repositoryURL = "https://github.com/hCaptcha/HCaptcha-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.9.5;
+				minimumVersion = 2.10.0;
 			};
 		};
 		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
