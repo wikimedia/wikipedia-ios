@@ -204,6 +204,12 @@
                                                             <action selector="createAccountButtonTappedWithSender:" destination="LsX-JK-bT6" eventType="touchUpInside" id="2eM-jE-1dZ"/>
                                                         </connections>
                                                     </button>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This service is protected by hCaptcha and its Privacy Policy and Terms of Service apply." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4T-so-uKq" userLabel="hCaptcha Fine Print Label">
+                                                        <rect key="frame" x="0.0" y="831" width="288" height="0.0"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="288" id="M4c-mw-YoD"/>
@@ -242,6 +248,7 @@
                         <outlet property="createAccountButton" destination="BGo-og-pKt" id="cwu-l0-bc0"/>
                         <outlet property="emailField" destination="rKI-nq-3p7" id="FdI-zs-zky"/>
                         <outlet property="emailTitleLabel" destination="wKv-6f-CQD" id="nqt-aE-srb"/>
+                        <outlet property="hCaptchaFinePrintLabel" destination="j4T-so-uKq" id="YRk-RL-yac"/>
                         <outlet property="loginButton" destination="cbH-8H-z54" id="1kU-fd-7qK"/>
                         <outlet property="passwordField" destination="PCr-0J-fBj" id="8aR-Qi-zWN"/>
                         <outlet property="passwordRepeatAlertLabel" destination="WpL-Ao-1ot" id="byQ-HB-n7W"/>
@@ -251,6 +258,7 @@
                         <outlet property="scrollContainer" destination="8Qz-4P-2EZ" id="lPP-0j-BIc"/>
                         <outlet property="scrollContainerTopConstraint" destination="NOm-wi-xac" id="8ym-6K-h5A"/>
                         <outlet property="scrollView" destination="dKm-Zn-TSm" id="gEZ-Pp-aUZ"/>
+                        <outlet property="stackView" destination="7AC-EW-rPT" id="eTs-P0-Sb4"/>
                         <outlet property="titleLabel" destination="c3c-PU-Exz" id="ave-jg-bBY"/>
                         <outlet property="usernameAlertLabel" destination="yEV-bO-oF2" id="Fpl-4z-yMC"/>
                         <outlet property="usernameField" destination="5cT-2Y-0Ie" id="ldu-Gg-yqR"/>

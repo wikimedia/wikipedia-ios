@@ -16,6 +16,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordRepeatTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordRepeatAlertLabel: UILabel!
     @IBOutlet fileprivate var emailTitleLabel: UILabel!
+    @IBOutlet var hCaptchaFinePrintLabel: UILabel!
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: WMFAuthLinkLabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
@@ -93,6 +94,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field {{Identical|Password}}")
         passwordRepeatTitleLabel.text = WMFLocalizedString("field-password-confirm-title", value:"Confirm password", comment:"Title for confirm password field")
         emailTitleLabel.text = WMFLocalizedString("field-email-title-optional", value:"Email (optional)", comment:"Noun. Title for optional email address field.")
+        hCaptchaFinePrintLabel.text = "This service is protected by hCaptcha and its Privacy Policy and Terms of Service apply." // TODO: Localize
+        stackView.setCustomSpacing(20, after: createAccountButton)
+        hCaptchaFinePrintLabel.font = WMFFont.for(.caption1)
         passwordRepeatAlertLabel.text = WMFLocalizedString("field-alert-password-confirm-mismatch", value:"Passwords do not match", comment:"Alert shown if password confirmation did not match password")
 
         loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-have-account", value:"Already have an account? %1$@", comment:"Text for button which shows login interface. %1$@ is the message {{msg-wikimedia|account-creation-log-in}}"), substitutionString: WMFLocalizedString("account-creation-log-in", value:"Log in.", comment:"Log in text to be used as part of a log in button {{Identical|Log in}}"))
@@ -152,6 +156,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         getCaptcha { captcha in
             if captcha?.classicInfo != nil {
                 self.captchaViewController?.captcha = captcha
+            } else if (captcha?.hCaptchaInfo?.needsHCaptcha) ?? false {
+                self.hCaptchaFinePrintLabel.isHidden = false
             }
             
             self.updateEmailFieldReturnKeyType()
@@ -482,7 +488,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         titleLabel.textColor = theme.colors.primaryText
-        for label in [usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
+        for label in [usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel, hCaptchaFinePrintLabel] {
             label?.textColor = theme.colors.secondaryText
         }
         usernameAlertLabel.textColor = theme.colors.error
