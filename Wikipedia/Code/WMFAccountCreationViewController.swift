@@ -178,8 +178,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     fileprivate func getCaptcha(completion: @escaping (WMFCaptcha?) -> Void) {
         let failure: WMFErrorHandler = {error in }
         let siteURL = dataStore.primarySiteURL
-        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { [weak self] info in
-            guard let self else { return }
+        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
             DispatchQueue.main.async {
                 completion(info.captcha)
             }
