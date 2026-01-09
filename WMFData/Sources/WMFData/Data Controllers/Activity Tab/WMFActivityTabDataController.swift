@@ -480,6 +480,25 @@ public actor WMFActivityTabDataController {
         }
     }
     
+    public func getEditCountByMonth(userID: Int, startDate: Date, endDate: Date) async throws -> Int {
+        let impactData = try await getUserImpactData(userID: userID)
+        let calendar = Calendar.current
+
+        var monthlyCounts: [Date: Int] = [:]
+
+        for (date, count) in impactData.editCountByDay {
+            guard date >= startDate && date <= endDate else { continue }
+
+            let monthStart = calendar.date(
+                from: calendar.dateComponents([.year, .month], from: date)
+            )!
+
+            monthlyCounts[monthStart, default: 0] += count
+        }
+
+        return monthlyCounts.count
+    }
+
     public func getUserImpactData(userID: Int) async throws -> WMFUserImpactData {
         
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {

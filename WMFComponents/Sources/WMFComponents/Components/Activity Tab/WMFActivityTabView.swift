@@ -76,6 +76,8 @@ public struct WMFActivityTabView: View {
                             }
                         }
                         
+                        contributionsThisMonthView(icon: "user_contributions", title: "Contributions this month", dateText: "")
+                        
                         if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0, viewModel.customizeViewModel.isEditingInsightsOn {
                             HStack {
                                 YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
@@ -472,6 +474,45 @@ public struct WMFActivityTabView: View {
     private func customizedEmptyState() -> some View {
         WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
             .frame(maxWidth: .infinity)
+    }
+    
+    private func contributionsThisMonthView(icon: String?, title: String, dateText: String?) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                if let icon, let image = UIImage(named: icon, in: .module, with: nil) {
+                    Image(uiImage: image)
+                }
+                Text(title)
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+                Spacer()
+                if let dateText {
+                    HStack {
+                        Text("\(dateText)")
+                            .foregroundStyle(Color(theme.secondaryText))
+                            .font(Font(WMFFont.for(.caption1)))
+                        Image(systemName: "chevron.right")
+                            .foregroundStyle(Color(theme.secondaryText))
+                            .font(Font(WMFFont.for(.caption1)))
+                    }
+                }
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Edits this month: \(viewModel.editsThisMonth)")
+                Text("Edits this month: \(viewModel.editsLastMonth)")
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(16)
+        .background(Color(theme.paperBackground))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(theme.baseBackground), lineWidth: 0.5)
+        )
+        .padding(.horizontal, 16)
     }
 }
 

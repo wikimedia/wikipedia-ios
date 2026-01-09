@@ -125,6 +125,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published private(set) var shouldShowEmptyState: Bool = false
 
     @Published var globalEditCount: Int?
+    @Published var editsThisMonth: Int?
+    @Published var editsLastMonth: Int?
     public var isEmpty: Bool = false
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
@@ -220,7 +222,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             debugPrint("Error getting global edit count: \(error)")
         }
     }
-    
+
     private func fetchUserImpact() async {
         guard case .loggedIn = authenticationState else { return }
         guard let userID else { return }
@@ -231,6 +233,40 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
             self.recentActivityViewModel = RecentActivityViewModel(data: data)
             self.articleViewsViewModel = ArticleViewsViewModel(data: data)
+            
+            let calendar = Calendar.current
+            let now = Date()
+
+            let thisMonthStart = calendar.date(
+                from: calendar.dateComponents([.year, .month], from: now)
+            )!
+
+            let thisMonthEnd = now
+            
+            let lastMonthStart = calendar.date(
+                byAdding: .month,
+                value: -1,
+                to: thisMonthStart
+            )!
+
+            let lastMonthEnd = calendar.date(
+                byAdding: .second,
+                value: -1,
+                to: thisMonthStart
+            )!
+
+            self.editsThisMonth = try await dataController.getEditCountByMonth(
+                userID: userID,
+                startDate: thisMonthStart,
+                endDate: thisMonthEnd
+            )
+            
+            self.editsLastMonth = try await dataController.getEditCountByMonth(
+                userID: userID,
+                startDate: lastMonthStart,
+                endDate: lastMonthEnd
+            )
+
         } catch {
             debugPrint("Error getting user impact: \(error)")
         }
