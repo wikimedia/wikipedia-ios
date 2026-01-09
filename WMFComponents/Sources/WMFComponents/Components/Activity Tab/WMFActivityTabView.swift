@@ -76,7 +76,10 @@ public struct WMFActivityTabView: View {
                             }
                         }
                         
-                        contributionsThisMonthView(icon: "user_contributions", title: "Contributions this month", dateText: "")
+                        if let contributionsViewModel = viewModel.contributionsViewModel {
+                            ContributionsView(viewModel: contributionsViewModel, activityViewModel: viewModel)
+                                .padding(.horizontal, 16)
+                        }
                         
                         if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0, viewModel.customizeViewModel.isEditingInsightsOn {
                             HStack {
@@ -475,45 +478,6 @@ public struct WMFActivityTabView: View {
         WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
             .frame(maxWidth: .infinity)
     }
-    
-    private func contributionsThisMonthView(icon: String?, title: String, dateText: String?) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                if let icon, let image = UIImage(named: icon, in: .module, with: nil) {
-                    Image(uiImage: image)
-                }
-                Text(title)
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4)
-                Spacer()
-                if let dateText {
-                    HStack {
-                        Text("\(dateText)")
-                            .foregroundStyle(Color(theme.secondaryText))
-                            .font(Font(WMFFont.for(.caption1)))
-                        Image(systemName: "chevron.right")
-                            .foregroundStyle(Color(theme.secondaryText))
-                            .font(Font(WMFFont.for(.caption1)))
-                    }
-                }
-            }
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Edits this month: \(viewModel.editsThisMonth)")
-                Text("Edits this month: \(viewModel.editsLastMonth)")
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding(16)
-        .background(Color(theme.paperBackground))
-        .cornerRadius(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color(theme.baseBackground), lineWidth: 0.5)
-        )
-        .padding(.horizontal, 16)
-    }
 }
 
 struct TimelineSectionView: View {
@@ -742,28 +706,99 @@ private struct MostViewedArticlesView: View {
 }
 
 private struct ContributionsView: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
     let viewModel: ContributionsViewModel
+    let activityViewModel: WMFActivityTabViewModel
+    
+    var fullWidth: Int {
+        max(viewModel.lastMonthCount, viewModel.thisMonthCount)
+    }
     
     var body: some View {
-        
         WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .personFilled, font: WMFFont.boldCaption1), // TODO: Correct icon
+            icon: UIImage(named: "user_contributions", in: .module, with: nil),
             title: "Contributions this month", // TODO: localize
-            dateText: nil,
+            dateText: dateText,
             additionalAccessibilityLabel: nil,
             onTapModule: nil,
             content: {
-                // TODO: TEMP UI
-                VStack {
-                    Text("Contributions")
-                        .bold()
-                    Text("This month: \(viewModel.thisMonthCount)")
-                    Text("Last month: \(viewModel.lastMonthCount)")
+                VStack(spacing: 16) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(String(viewModel.thisMonthCount))
+                            .font(Font(WMFFont.for(.boldTitle1)))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                        Text("edits this month")
+                            .font(Font(WMFFont.for(.boldCaption1)))
+                            .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        if viewModel.thisMonthCount > 0 {
+                            ContributionBar(
+                                count: viewModel.thisMonthCount,
+                                maxCount: fullWidth,
+                                color: theme.accent
+                            )
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(String(viewModel.lastMonthCount))
+                            .font(Font(WMFFont.for(.boldTitle1)))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                        Text("edits last month")
+                            .font(Font(WMFFont.for(.boldCaption1)))
+                            .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        if viewModel.lastMonthCount > 0 {
+                            ContributionBar(
+                                count: viewModel.lastMonthCount,
+                                maxCount: fullWidth,
+                                color: theme.baseBackground
+                            )
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         )
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    var dateText: String {
+        guard let lastEdited = viewModel.lastEdited else { return ""}
+        let calendar = Calendar.current
+
+        let title: String
+        if calendar.isDateInToday(lastEdited) {
+            title = activityViewModel.localizedStrings.todayTitle
+        } else if calendar.isDateInYesterday(lastEdited) {
+            title = activityViewModel.localizedStrings.yesterdayTitle
+        } else {
+            title = activityViewModel.formatDate(lastEdited)
+        }
+        
+        return title
     }
 }
+
+private struct ContributionBar: View {
+    let count: Int
+    let maxCount: Int
+    let color: UIColor
+
+    var body: some View {
+        GeometryReader { geometry in
+            let ratio = maxCount > 0 ? CGFloat(count) / CGFloat(maxCount) : 0
+
+            Rectangle()
+                .fill(Color(uiColor: color))
+                .frame(width: geometry.size.width * ratio)
+        }
+        .frame(height: 20)
+        .clipShape(RoundedRectangle(cornerRadius: 3))
+    }
+}
+
 
 private struct CombinedImpactView: View {
     let allTimeImpactViewModel: AllTimeImpactViewModel?
