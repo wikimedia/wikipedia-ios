@@ -1,67 +1,85 @@
-import Foundation
+import SwiftUI
+import WMFData
 
 @MainActor
-final class WMFYearInReviewSettingsViewModel: ObservableObject {
+public final class WMFYearInReviewSettingsViewModel: ObservableObject {
 
-    struct LocalizedStrings {
-        let title: String
-        let description: String
-        let toggleTitle: String
+    public struct LocalizedStrings {
+        public let title: String
+        public let description: String
+        public let toggleTitle: String
 
-        static let `default` = LocalizedStrings(
-            title: "Resumo do ano",
-            description: "Desativar o resumo do ano apagará todas as informações personalizadas armazenadas e ocultará o Resumo do ano.",
-            toggleTitle: "Resumo do ano"
-        )
+        public init(title: String, description: String, toggleTitle: String) {
+            self.title = title
+            self.description = description
+            self.toggleTitle = toggleTitle
+        }
     }
 
-    @Published var isEnabled: Bool = false
-    @Published var isLoading: Bool = true
-    @Published var errorMessage: String?
+    @Published public private(set) var sections: [SettingsSection] = []
+    @Published public var isEnabled: Bool = false
+    @Published public var isLoading: Bool = true
 
-    private let strings: LocalizedStrings
-    private let dataController: WMFYearInReviewDataController
+    public let localizedStrings: LocalizedStrings
 
-    var title: String { strings.title }
-    var descriptionText: String { strings.description }
-    var toggleTitle: String { strings.toggleTitle }
+    private let dataController: WMFSettingsDataController
 
-    init(
-        dataController: WMFYearInReviewDataController,
-        strings: LocalizedStrings = .default
-    ) {
+    public init(dataController: WMFSettingsDataController, localizedStrings: LocalizedStrings) {
         self.dataController = dataController
-        self.strings = strings
+        self.localizedStrings = localizedStrings
 
-        Task { await load() }
+        Task { await loadAndBuild() }
     }
 
-    func load() async {
+    public func loadAndBuild() async {
         isLoading = true
         defer { isLoading = false }
 
-        // If this is sync, it’s still fine to read on MainActor.
-        isEnabled = dataController.yearInReviewSettingsIsEnabled
+        isEnabled = await dataController.yirIsActive() == true
+
+        buildSections()
     }
 
-    func setEnabled(_ newValue: Bool) async {
-        errorMessage = nil
+    private func buildSections() {
+        sections = [
+            SettingsSection(
+                header: localizedStrings.description,
+                footer: nil,
+                items: [yearInReviewToggleItem()]
+            )
+        ]
+    }
 
-        // Optimistic UI update
-        let oldValue = isEnabled
+    private func yearInReviewToggleItem() -> SettingsItem {
+        SettingsItem(
+            image: WMFSFSymbolIcon.for(symbol: .calendar),
+            color: WMFColor.blue700,
+            title: localizedStrings.toggleTitle,
+            subtitle: nil,
+            accessory: .toggle(toggleBinding),
+            action: nil
+        )
+    }
+
+    private var toggleBinding: Binding<Bool> {
+        Binding(
+            get: { self.isEnabled },
+            set: { newValue in
+                Task { @MainActor in
+                    await self.setEnabled(newValue)
+                }
+            }
+        )
+    }
+
+    public func setEnabled(_ newValue: Bool) async {
+        // optimistic update
+        let old = isEnabled
         isEnabled = newValue
 
-        do {
-            // ✅ Prefer an async setter if you have one (recommended).
-            // try await dataController.setYearInReviewSettingsEnabled(newValue)
-
-            // ✅ If you only have a sync setter, call it directly.
-            // dataController.yearInReviewSettingsIsEnabled = newValue
-
-            // If you don't have either yet, add one (see section 4).
-        } catch {
-            isEnabled = oldValue
-            errorMessage = error.localizedDescription
+        let success = await dataController.setYirActive(newValue)
+        if success == false {
+            isEnabled = old
         }
     }
 }

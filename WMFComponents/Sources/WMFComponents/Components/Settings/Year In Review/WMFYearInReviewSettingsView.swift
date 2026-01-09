@@ -1,73 +1,64 @@
-//
-//  WMFYearInReviewSettingsView.swift
-//  WMFComponents
-//
-//  Created by Marina Azevedo on 08/01/26.
-//
-
-
 import SwiftUI
-import WMFComponents
+import WMFData
 
-struct WMFYearInReviewSettingsView: View {
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    var theme: WMFTheme { appEnvironment.theme }
+// MARK: - Year in Review Settings View
 
-    @StateObject var viewModel: WMFYearInReviewSettingsViewModel
+public struct WMFYearInReviewSettingsView: View {
+    @ObservedObject private var appEnvironment = WMFAppEnvironment.current
+    private var theme: WMFTheme { appEnvironment.theme }
 
-    var body: some View {
+    @StateObject private var viewModel: WMFYearInReviewSettingsViewModel
+
+    public init(viewModel: WMFYearInReviewSettingsViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+
+    public var body: some View {
         ZStack {
-            Color(uiColor: theme.midBackground).ignoresSafeArea()
+            Color(uiColor: theme.midBackground)
+                .ignoresSafeArea()
 
             List {
-                Section {
-                    Text(viewModel.descriptionText)
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundStyle(Color(uiColor: theme.secondaryText))
-                        .padding(.vertical, 8)
-                }
-                .textCase(nil)
-                .listRowBackground(Color(uiColor: theme.chromeBackground))
+                ForEach(viewModel.sections) { section in
+                    Section(
+                        header: section.header.map { headerText in
+                            Text(headerText)
+                                .font(Font(WMFFont.for(.footnote)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        },
 
-                Section {
-                    HStack(spacing: 12) {
-                        Image(systemName: "calendar")
-                            .font(.system(size: 16, weight: .semibold))
-                            .frame(width: 32, height: 32)
-                            .foregroundStyle(Color(uiColor: theme.chromeBackground))
-                            .background(
-                                RoundedRectangle(cornerRadius: 6)
-                                    .fill(Color.blue) // keep simple; swap to WMFColor if preferred
-                            )
-
-                        Text(viewModel.toggleTitle)
-                            .font(Font(WMFFont.for(.headline)))
-                            .foregroundStyle(Color(uiColor: theme.text))
-
-                        Spacer()
-
-                        if viewModel.isLoading {
-                            ProgressView()
-                        } else {
-                            Toggle("", isOn: Binding(
-                                get: { viewModel.isEnabled },
-                                set: { newValue in
-                                    Task { @MainActor in
-                                        await viewModel.setEnabled(newValue)
-                                    }
-                                }
-                            ))
-                            .labelsHidden()
+                        footer: section.footer.map { footerText in
+                            Text(footerText)
+                                .font(Font(WMFFont.for(.footnote)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        }
+                    ) {
+                        ForEach(section.items) { item in
+                            row(for: item)
                         }
                     }
-                    .padding(.vertical, 6)
                 }
-                .listRowBackground(Color(uiColor: theme.chromeBackground))
             }
             .scrollContentBackground(.hidden)
         }
-        .navigationTitle(viewModel.title)
+        .navigationTitle(viewModel.localizedStrings.title)
         .navigationBarTitleDisplayMode(.inline)
         .environment(\.colorScheme, theme.preferredColorScheme)
+    }
+
+    // MARK: - Rows
+
+    @ViewBuilder
+    private func row(for item: SettingsItem) -> some View {
+        switch item.accessory {
+        case .toggle:
+            SettingsRow(item: item)
+                .contentShape(Rectangle())
+                .listRowBackground(Color(uiColor: theme.chromeBackground))
+                .listRowSeparator(.hidden)
+
+        case .none, .icon, .chevron:
+            Text("") // can't break
+        }
     }
 }

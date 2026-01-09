@@ -42,6 +42,7 @@ public struct SettingsSection: Identifiable {
     }
 }
 
+@MainActor
 final public class WMFSettingsViewModel: ObservableObject {
 
     // MARK: - Nested Types
@@ -61,7 +62,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let pushNotificationsTitle: String
         let readingpreferences: String
         let articleSyncing: String
-        let dangerZoneTitle: String
+        let databasePopulation: String
         let clearCacheTitle: String
         let privacyHeader: String
         let privacyPolicyTitle: String
@@ -70,7 +71,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let helpTitle: String
         let aboutTitle: String
 
-        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, storageAndSync: String, dangerZoneTitle: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String) {
+        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, storageAndSync: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String) {
             self.settingTitle = settingTitle
             self.doneButtonTitle = doneButtonTitle
             self.cancelButtonTitle = cancelButtonTitle
@@ -85,7 +86,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.pushNotificationsTitle = pushNotificationsTitle
             self.readingpreferences = readingpreferences
             self.articleSyncing = storageAndSync
-            self.dangerZoneTitle = dangerZoneTitle
+            self.databasePopulation = databasePopulation
             self.clearCacheTitle = clearCacheTitle
             self.privacyHeader = privacyHeader
             self.privacyPolicyTitle = privacyPolicyTitle
@@ -100,38 +101,43 @@ final public class WMFSettingsViewModel: ObservableObject {
 
     @Published private(set) var sections: [SettingsSection] = []
 
+    let URLZeroFAQ = "https://foundation.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ"
+    let URLTerms = "https://foundation.wikimedia.org/wiki/Terms_of_Use/en"
+    let URLRating = "itms-apps://itunes.apple.com/app/id324715238"
+    let URLDonation = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>"
+
     let localizedStrings: LocalizedStrings
     private let username: String?
     private let tempUsername: String?
     private let isTempAccount: Bool
     private let mainLanguage: String
     private let exploreFeedStatus: Bool
-    private let yirStatus: Bool
     private let readingPreferenceTheme: String
     public weak var coordinatorDelegate: SettingsCoordinatorDelegate?
+    private let dataController: WMFSettingsDataController
 
     // MARK: - Lifecycle
 
-    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, exploreFeedStatus: Bool, yirStatus: Bool, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil) {
+    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil, dataController: WMFSettingsDataController) async {
         self.localizedStrings = localizedStrings
         self.username = username
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
         self.mainLanguage = primaryLanguage
         self.exploreFeedStatus = exploreFeedStatus
-        self.yirStatus = yirStatus
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
-        buildSections()
+        self.dataController = dataController
+        await buildSections()
     }
 
     // MARK: - Private methods
 
-    private func buildSections() {
-        sections = [getAccountSection(), getMainSection(), getTermsSection(), getHelpSection()]
+    private func buildSections() async {
+        sections = await [getAccountSection(), getMainSection(), getTermsSection(), getHelpSection()]
     }
 
-    private func getMainSection() -> SettingsSection {
+    private func getMainSection() async -> SettingsSection {
         let myLanguages = SettingsItem(image: WMFIcon.settingsLanguage, color: WMFColor.blue300, title: localizedStrings.myLanguagesTitle, subtitle: nil, accessory: .chevron(label: mainLanguage), action: {
             self.coordinatorDelegate?.handleSettingsAction(.myLanguages)
         })
@@ -143,8 +149,10 @@ final public class WMFSettingsViewModel: ObservableObject {
         let exploreFeed = SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
             self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
         })
+       
+        let label = await dataController.yirIsActive() == true ? localizedStrings.onTitle : localizedStrings.offTitle
 
-        let yearInReview = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .calendar), color: WMFColor.blue700, title: localizedStrings.yirTitle, subtitle: nil, accessory: .chevron(label: "On"), action: {
+        let yearInReview = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .calendar), color: WMFColor.blue700, title: localizedStrings.yirTitle, subtitle: nil, accessory: .chevron(label: label), action: {
             self.coordinatorDelegate?.handleSettingsAction(.yearInReview)
         })
 
@@ -160,7 +168,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.articleSyncing)
         })
 
-        let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.dangerZoneTitle, subtitle: nil, accessory: .chevron(label: nil), action: {
+        let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: nil), action: {
             self.coordinatorDelegate?.handleSettingsAction(.readingListDangerZone)
         })
 
@@ -168,7 +176,11 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.clearCachedData)
         })
 
-        var section = SettingsSection(header: nil, footer: nil, items: [myLanguages, search, exploreFeed, yearInReview, pushNotifications, readingPrefs, articleStorage, clearCache])
+        var section = SettingsSection(header: nil, footer: nil, items: [myLanguages, search, exploreFeed, pushNotifications, readingPrefs, articleStorage, clearCache])
+
+        if await dataController.shouldShowYiRSettingsItem() {
+            section.items.insert(yearInReview, at: 3)
+        }
 #if DEBUG
         section.items.insert(dangerZone, at: 7)
 #endif
@@ -244,4 +256,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         }
         return SettingsSection(header: nil, footer: nil, items: [item])
     }
+
+
 }

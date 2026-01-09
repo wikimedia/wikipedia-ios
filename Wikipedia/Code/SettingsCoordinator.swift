@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
@@ -14,14 +15,15 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private let theme: Theme
     private let dataStore: MWKDataStore
 
-    private let dataController = try? WMFYearInReviewDataController()
+    private let dataController: WMFSettingsDataController
 
     // MARK: Lifecycle
 
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFSettingsDataController = WMFSettingsDataController()) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        self.dataController = dataController
     }
 
     // MARK: Coordinator Protocol Methods
@@ -101,7 +103,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         case .exploreFeed:
             print("explore ⭐️")
         case .yearInReview:
-            print("yir ⭐️")
+            self.goToYearInReviewSettings()
         case .notifications:
             print("notif ⭐️")
         case .readingPreferences:
@@ -124,4 +126,41 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             print("about ⭐️")
         }
     }
+
+    @MainActor
+    private func asyncDismissSettings() async {
+        await withCheckedContinuation { continuation in
+            navigationController.dismiss(animated: true) {
+                continuation.resume()
+            }
+        }
+    }
+
+    private func dismissSettings(completion: @escaping () -> Void) {
+        navigationController.dismiss(animated: true) {
+            completion()
+        }
+    }
+
+    @MainActor
+    private func goToYearInReviewSettings() {
+
+        let strings = WMFYearInReviewSettingsViewModel.LocalizedStrings(title: CommonStrings.yirTitle, description: WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature."), toggleTitle: CommonStrings.yirTitle)
+
+        let viewModel = WMFYearInReviewSettingsViewModel(
+            dataController: dataController,
+            localizedStrings: strings
+        )
+
+        let rootView = WMFYearInReviewSettingsView(viewModel: viewModel)
+        let hostingController = UIHostingController(rootView: rootView)
+
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        hostingController.title = strings.title
+        settingsNav.pushViewController(hostingController, animated: true)
+    }
+
 }

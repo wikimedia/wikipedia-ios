@@ -38,7 +38,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNa
     
     private let dataController = try? WMFYearInReviewDataController()
 
-    fileprivate let headerText = WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature.") + "\n"
+    fileprivate let headerText = "Delete this view "
 
     // MARK: - Lifecycle
     
