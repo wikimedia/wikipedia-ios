@@ -558,8 +558,15 @@ struct TimelineRowView: View {
             }
         }
         
-        let tapAction: () -> Void = {
-            self.activityViewModel.timelineViewModel.onTap(item)
+        let tapAction: () -> Void
+        if item.itemType == .edit {
+            tapAction = {
+                self.activityViewModel.timelineViewModel.onTapEdit(item)
+            }
+        } else {
+            tapAction = {
+                self.activityViewModel.timelineViewModel.onTap(item)
+            }
         }
         
         let contextMenuOpenAction: () -> Void = {
@@ -573,10 +580,11 @@ struct TimelineRowView: View {
             iconImage: iconImage,
             iconAccessibilityLabel: iconAccessiblityLabel,
             tapAction: tapAction,
-            contextMenuOpenAction: contextMenuOpenAction,
-            contextMenuOpenText: activityViewModel.localizedStrings.openArticle,
+            contextMenuOpenAction: item.itemType == .edit ? nil : contextMenuOpenAction,
+            contextMenuOpenText: item.itemType == .edit ? nil : activityViewModel.localizedStrings.openArticle,
             deleteItemAction: deleteItemAction,
-            deleteAccessibilityLabel: activityViewModel.localizedStrings.deleteAccessibilityLabel)
+            deleteAccessibilityLabel: activityViewModel.localizedStrings.deleteAccessibilityLabel,
+            bottomButtonTitle: item.itemType == .edit ? activityViewModel.localizedStrings.viewChanges : nil)
     }
     
     public var body: some View {

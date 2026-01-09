@@ -24,39 +24,43 @@ public final class TimelineViewModel: ObservableObject {
     weak var activityTabViewModel: WMFActivityTabViewModel?
 
     public var onTapArticle: ((TimelineItem) -> Void)?
+    public var onTapEditArticle: ((TimelineItem) -> Void)?
 
-    public init(dataController: WMFActivityTabDataController) {
+    private var username: String?
+
+    public init(dataController: WMFActivityTabDataController, username: String? = nil) {
         self.dataController = dataController
+        self.username = username
+    }
+
+    public func setUser(username: String) {
+        self.username = username
     }
 
     public func fetch() async {
         do {
-            let result = try await dataController.getTimelineItems()
-            
+            let result = try await dataController.getTimelineItems(username: username)
             var sections = [TimelineSection]()
-            
+
             // Business rule: if there are no items, we still want a section that says "Today"
             // https://phabricator.wikimedia.org/T409200
             if result.isEmpty {
                 sections.append(TimelineSection(date: Date(), items: []))
             } else {
                 for (key, value) in result {
-                    
                     var filteredValues = value
-                    
-                    // If user is logged out, only show viewed items
+
                     if let activityTabViewModel, activityTabViewModel.authenticationState != .loggedIn {
                         filteredValues = value.filter { $0.itemType != .edit && $0.itemType != .saved }
                     }
-                    
+
                     let sortedFilteredValues = filteredValues.sorted { $0.date > $1.date }
-                    
                     if !sortedFilteredValues.isEmpty {
                         sections.append(TimelineSection(date: key, items: sortedFilteredValues))
                     }
                 }
             }
-            
+
             let sortedSections = sections.sorted { $0.date > $1.date }
             self.activityTabViewModel?.sections = sortedSections
         } catch {
@@ -108,5 +112,9 @@ public final class TimelineViewModel: ObservableObject {
 
     func onTap(_ item: TimelineItem) {
         onTapArticle?(item)
+    }
+    
+    func onTapEdit(_ item: TimelineItem) {
+        onTapEditArticle?(item)
     }
 }

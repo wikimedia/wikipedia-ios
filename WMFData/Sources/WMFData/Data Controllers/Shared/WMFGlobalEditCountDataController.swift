@@ -11,9 +11,9 @@ final class WMFGlobalEditCountDataController {
         self.service = service
     }
     
-    func fetchEditCount(globalUserID: Int, startDate: Date, endDate: Date) async throws -> Int {
+    func fetchEditCount(startDate: Date, endDate: Date) async throws -> Int {
         return try await withCheckedThrowingContinuation { continuation in
-            fetchEditCount(globalUserID: globalUserID, startDate: startDate, endDate: endDate) { result in
+            fetchEditCount(startDate: startDate, endDate: endDate) { result in
                 switch result {
                 case .success(let successResult):
                     continuation.resume(returning: successResult)
@@ -24,7 +24,7 @@ final class WMFGlobalEditCountDataController {
         }
     }
     
-    func fetchEditCount(globalUserID: Int, startDate: Date, endDate: Date, completion: @escaping (Result<Int, Error>) -> Void) {
+    func fetchEditCount(startDate: Date, endDate: Date, completion: @escaping (Result<Int, Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.basicServiceUnavailable))
             return

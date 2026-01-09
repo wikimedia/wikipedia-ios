@@ -22,11 +22,13 @@ public struct WMFSmallButton: View {
     let configuration: Configuration
     let title: String
     let action: (() -> Void)?
+    let image: UIImage?
     
-    public init(configuration: Configuration, title: String, action: (() -> Void)?) {
+    public init(configuration: Configuration, title: String, image: UIImage? = nil, action: (() -> Void)?) {
         self.configuration = configuration
         self.title = title
         self.action = action
+        self.image = image
     }
 
     public var body: some View {
@@ -34,8 +36,11 @@ public struct WMFSmallButton: View {
             action?()
         }, label: {
             HStack(spacing: 4) {
+                if let image = image {
+                    Image(uiImage: image)
+                }
                 Text(title)
-                    .font(Font(WMFFont.for(.semiboldHeadline)))
+                    .font(Font(WMFFont.for(.mediumSubheadline)))
                     .foregroundColor(Color(appEnvironment.theme.link))
                 
                 if let trailingIcon = configuration.trailingIcon {
@@ -43,7 +48,7 @@ public struct WMFSmallButton: View {
                         .foregroundColor(Color(appEnvironment.theme.link))
                 }
             }
-            .padding([.top, .bottom], 12)
+            .padding([.top, .bottom], 4)
             .padding([.leading, .trailing], 8)
             
         })

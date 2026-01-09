@@ -37,7 +37,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
            let endDate = yirConfig.dataEndDate {
             do {
                 let dataController = WMFGlobalEditCountDataController(globalUserID: globalUserID)
-                editCount = try await dataController.fetchEditCount(globalUserID: globalUserID, startDate: startDate, endDate: endDate)
+                editCount = try await dataController.fetchEditCount(startDate: startDate, endDate: endDate)
                 isEvaluated = true
             } catch {
                 isEvaluated = false
@@ -47,13 +47,6 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     
     func getDonateCount(startDate: Date, endDate: Date) -> Int? {
         return WMFDonateDataController.shared.loadLocalDonationHistory(startDate: startDate, endDate: endDate)?.count
-    }
-    
-    func getEditCount(startDate: String, endDate: String, username: String, project: WMFProject) async throws -> Int? {
-        
-        let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: startDate, endDate: endDate)
-        
-        return edits
     }
     
     func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String) async throws -> (Int, Bool) {
