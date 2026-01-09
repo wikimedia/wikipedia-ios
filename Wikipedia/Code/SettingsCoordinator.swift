@@ -119,7 +119,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         case .termsOfUse:
             tappedExternalLink(with: CommonStrings.termsOfUseURLString)
         case .rateTheApp:
-            print("rate ⭐️")
+            tappedRateApp()
         case .helpAndFeedback:
             print("help ⭐️")
         case .about:
@@ -184,6 +184,12 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .fullScreen)
             presentedViewController.present(newNavigationVC, animated: true)
+        }
+    }
+
+    private func tappedRateApp() {
+        if let url = URL(string: "itms-apps://itunes.apple.com/app/id324715238") {
+            self.navigationController.navigate(to: url, useSafari: true)
         }
     }
 

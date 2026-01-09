@@ -102,7 +102,7 @@ final public class WMFSettingsViewModel: ObservableObject {
     @Published private(set) var sections: [SettingsSection] = []
 
     let URLTerms = "https://foundation.wikimedia.org/wiki/Terms_of_Use/en"
-    let URLRating = "itms-apps://itunes.apple.com/app/id324715238"
+   
     let URLDonation = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>"
 
     let localizedStrings: LocalizedStrings
