@@ -124,7 +124,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     // MARK: - ProfileCoordinatorDelegate Methods
     
-    public func handleProfileAction(_ action: ProfileAction) {
+    public func handleProfileAction(_ action: ProfileAction) async {
         switch action {
         case .showNotifications:
             dismissProfile {
@@ -174,12 +174,21 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                 self.showUserTalkPageTempAccount()
             }
         case .tempNewSettings: // DO NOT COMMIT
-            dismissProfile {
-                self.tempNewSettings()
+            await asyncDismissProfile()
+            await self.tempNewSettings()
+
+        }
+    }
+
+    @MainActor
+    private func asyncDismissProfile() async {
+        await withCheckedContinuation { continuation in
+            navigationController.dismiss(animated: true) {
+                continuation.resume()
             }
         }
     }
-    
+
     private func dismissProfile(completion: @escaping () -> Void) {
         navigationController.dismiss(animated: true) {
             completion()

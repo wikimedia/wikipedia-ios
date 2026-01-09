@@ -57,7 +57,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             pushNotificationsTitle: CommonStrings.pushNotifications,
             readingpreferences: CommonStrings.readingPreferences,
             storageAndSync: CommonStrings.settingsStorageAndSyncing,
-            dangerZoneTitle: "Reading lists danger zone",
+            databasePopulation: "Database population",
             clearCacheTitle: CommonStrings.clearCachedDataSettings,
             privacyHeader: CommonStrings.privacyTermsHeader,
             privacyPolicyTitle: CommonStrings.privacyPolicyTitle,
@@ -67,8 +67,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             aboutTitle: CommonStrings.aboutTitle)
     }
 
-    func tempNewSettings() { // TEST CODE
-        let yirEnabledStatus = self.dataController?.yearInReviewSettingsIsEnabled
+    func tempNewSettings() async { // TEST CODE
 
         let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
@@ -80,7 +79,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
 
-        let viewModel = WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, yirStatus: yirEnabledStatus ?? false, readingPreferenceTheme: themeName)
+        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: WMFSettingsDataController())
         let settingsViewController =  WMFSettingsViewControllerNEW(viewModel: viewModel, coordinatorDelegate: self)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
         navigationController.present(navVC, animated: true)
