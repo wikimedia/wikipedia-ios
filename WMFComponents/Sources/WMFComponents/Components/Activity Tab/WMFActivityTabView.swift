@@ -76,17 +76,17 @@ public struct WMFActivityTabView: View {
                             }
                         }
                         
-                        if let contributionsViewModel = viewModel.contributionsViewModel {
-                            ContributionsView(viewModel: contributionsViewModel, activityViewModel: viewModel)
-                                .padding(.horizontal, 16)
-                        }
-                        
                         if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0, viewModel.customizeViewModel.isEditingInsightsOn {
                             HStack {
                                 YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
                                 Spacer()
                             }
                             .padding(.top, 12)
+                            
+                            if let contributionsViewModel = viewModel.contributionsViewModel {
+                                ContributionsView(viewModel: contributionsViewModel, activityViewModel: viewModel)
+                                    .padding(.horizontal, 16)
+                            }
                             
                             totalEditsView(amount: animatedGlobalEditCount)
                                 .padding(.horizontal, 16)
