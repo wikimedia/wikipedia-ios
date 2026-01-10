@@ -16,4 +16,6 @@ public struct WMFUserImpactData {
     public let longestEditingStreak: Int?
     public let lastEditTimestamp: Date?
     public let dailyTotalViews: [Date: Int]
+    public let lastMonthsEdits: Int?
+    public let thisMonthsEdits: Int?
 }

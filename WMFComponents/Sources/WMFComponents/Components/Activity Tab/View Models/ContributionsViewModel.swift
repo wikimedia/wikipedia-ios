@@ -5,6 +5,7 @@ import SwiftUI
 final class ContributionsViewModel: ObservableObject {
     let thisMonthCount: Int
     let lastMonthCount: Int
+    let lastEdited: Date?
 
     init(data: WMFUserImpactData) {
         let calendar = Calendar.current
@@ -34,5 +35,6 @@ final class ContributionsViewModel: ObservableObject {
         
         self.thisMonthCount = thisMonthCount
         self.lastMonthCount = lastMonthCount
+        self.lastEdited = data.lastEditTimestamp
     }
 }
