@@ -26,6 +26,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     private var theme: WMFTheme { appEnvironment.theme }
+    @ScaledMetric(relativeTo: .subheadline) private var iconSize: CGFloat = 12
 
     var body: some View {
         Button(action: { onTapModule?() }) {
@@ -33,6 +34,10 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                 HStack {
                     if let icon {
                         Image(uiImage: icon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .frame(width: iconSize, height: iconSize)
                     }
                     Text(title)
                         .foregroundStyle(Color(theme.text))
