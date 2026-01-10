@@ -7,6 +7,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     private let additionalAccessibilityLabel: String?
     private let onTapModule: (() -> Void)?
     private let content: () -> Content
+    private let showArrowAnyways: Bool
 
     init(
         icon: UIImage?,
@@ -14,7 +15,8 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
         dateText: String?,
         additionalAccessibilityLabel: String?,
         onTapModule: (() -> Void)?,
-        @ViewBuilder content: @escaping () -> Content = { EmptyView() }
+        @ViewBuilder content: @escaping () -> Content = { EmptyView()},
+        showArrowAnyways: Bool = false
     ) {
         self.icon = icon
         self.title = title
@@ -22,11 +24,12 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
         self.additionalAccessibilityLabel = additionalAccessibilityLabel
         self.content = content
         self.onTapModule = onTapModule
+        self.showArrowAnyways = showArrowAnyways
     }
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     private var theme: WMFTheme { appEnvironment.theme }
-    @ScaledMetric(relativeTo: .subheadline) private var iconSize: CGFloat = 12
+    @ScaledMetric(relativeTo: .caption) private var iconSize: CGFloat = 12
 
     var body: some View {
         Button(action: { onTapModule?() }) {
@@ -51,9 +54,19 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                                 .foregroundStyle(Color(theme.secondaryText))
                                 .font(Font(WMFFont.for(.caption1)))
                             Image(systemName: "chevron.right")
+                                .resizable()
+                                .renderingMode(.template)
+                                .scaledToFit()
+                                .frame(width: iconSize, height: iconSize)
                                 .foregroundStyle(Color(theme.secondaryText))
-                                .font(Font(WMFFont.for(.caption1)))
                         }
+                    } else if showArrowAnyways {
+                        Image(systemName: "chevron.right")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .frame(width: iconSize, height: iconSize)
+                            .foregroundStyle(Color(theme.secondaryText))
                     }
                 }
 

@@ -58,7 +58,7 @@ public struct ContributionsView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-            }
+            }, showArrowAnyways: true
         )
         .frame(maxWidth: .infinity, alignment: .leading)
     }
