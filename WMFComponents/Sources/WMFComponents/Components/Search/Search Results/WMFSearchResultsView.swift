@@ -14,6 +14,17 @@ public struct WMFSearchResultsView: View {
         self.viewModel = viewModel
     }
     
+    private func previewViewModel(url: URL?, titleHtml: String, description: String, imageURL: URL?, isSaved: Bool, snippet: String?) -> WMFArticlePreviewViewModel {
+        WMFArticlePreviewViewModel(
+            url: url,
+            titleHtml: titleHtml,
+            description: description,
+            imageURL: imageURL,
+            isSaved: isSaved,
+            snippet: snippet
+        )
+    }
+
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             switch viewModel.displayState {
@@ -48,7 +59,7 @@ public struct WMFSearchResultsView: View {
                             viewModel.tappedSearchResultAction?(url)
                         }
                     }
-                    .contextMenu {
+                    .contextMenu(menuItems: {
                         if let url = result.articleURL {
                             Button(viewModel.localizedStrings.openInNewTab) {
                                 viewModel.longPressOpenInNewTabAction?(url)
@@ -57,7 +68,18 @@ public struct WMFSearchResultsView: View {
                                 viewModel.longPressSearchResultAction?(url)
                             }
                         }
-                    }
+                    }, preview: {
+                        WMFArticlePreviewView(
+                            viewModel: previewViewModel(
+                                url: result.articleURL,
+                                titleHtml: result.displayTitleHTML ?? result.displayTitle ?? "",
+                                description: result.description ?? "",
+                                imageURL: result.thumbnailURL,
+                                isSaved: false,
+                                snippet: result.extract
+                            )
+                        )
+                    })
                 }
             }
             .padding(.top, viewModel.topPadding)

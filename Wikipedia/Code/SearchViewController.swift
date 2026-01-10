@@ -230,7 +230,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private lazy var wmfSearchViewModel: WMFSearchResultsViewModel = {
         let vm = WMFSearchResultsViewModel(localizedStrings:
             WMFSearchResultsViewModel.LocalizedStrings(
-                emptyText: WMFLocalizedString("search-no-results", value: "No results found", comment: "No results found."),
+                emptyText: CommonStrings.noResultsFound,
                 openInNewTab: CommonStrings.openInNewTab,
                 openInBackgroundTab: CommonStrings.articleTabsOpenInBackgroundTab,
                 saveForLater: { languageCode in
@@ -456,8 +456,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                     )
                     self.wmfSearchViewModel.results = results.results
                     self.wmfSearchViewModel.searchSiteURL = siteURL
-                   // self.wmfSearchViewModel.emptyViewType = results.results.isEmpty ? .noSearchResults : .none
-
+                    
                     guard !suggested else { return }
                     SearchFunnel.shared.logSearchResults(
                         with: .prefix,
@@ -490,7 +489,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    // self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                     self.wmfSearchViewModel.results = []
                     SearchFunnel.shared.logShowSearchError(
                         with: .prefix,
@@ -501,7 +499,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
     }
-
 
     @objc func makeSearchBarBecomeFirstResponder() {
         if !(navigationItem.searchController?.searchBar.isFirstResponder ?? false) {

@@ -123,6 +123,8 @@ public class CommonStrings: NSObject {
         return WMFLocalizedString("button-save-for-later", languageCode: languageCode, value: "Save for later", comment: "Longer button text for save button used in various places.")
     }
     
+    public static let noResultsFound = WMFLocalizedString("search-no-results", value: "No results found", comment: "No results found.")
+    
     @objc public static let shortShareTitle = WMFLocalizedString("action-share", value: "Share", comment: "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}")
     @objc public static let accessibilityShareTitle = WMFLocalizedString("action-share-accessibility", value: "Share", comment: "Accessibility title for the 'Share' action")
 

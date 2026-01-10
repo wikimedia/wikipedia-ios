@@ -1,3 +1,9 @@
+import UIKit
+import WMFComponents
+import WMFData
+import CocoaLumberjackSwift
+import SwiftUI
+
 @objc(WMFHintPresenting)
 protocol HintPresenting: AnyObject {
     var hintController: HintController? { get set }
@@ -104,10 +110,9 @@ class HintController: NSObject {
 
         NSLayoutConstraint.activate([containerViewConstraint.top!, leadingConstraint, trailingConstraint])
 
-//        if presenter.isKind(of: SearchResultsViewController.self) {
-//            presenter.wmf_hideKeyboard()
-//        }
-        // TODO GREY?
+        if presenter.isKind(of: WMFComponentHostingController<WMFSearchResultsView>.self) {
+            presenter.wmf_hideKeyboard()
+        }
 
         hintViewController.view.setContentHuggingPriority(.required, for: .vertical)
         hintViewController.view.setContentCompressionResistancePriority(.required, for: .vertical)
