@@ -36,6 +36,8 @@ final class TalkPageViewModel {
     private(set) var projectLanguage: String?
     private(set) var latestRevisionID: Int?
     
+    static let leadImageSideLength = 80
+
     var theme: Theme = .light
     private(set) var topics: [TalkPageCellViewModel] = []
     private(set) var shouldShowErrorState: Bool = false
