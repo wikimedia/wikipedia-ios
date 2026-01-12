@@ -16,6 +16,7 @@
 // Author: Impartial just
 // Author: Kanashimi
 // Author: Kc kennylau
+// Author: Key0121
 // Author: Kly
 // Author: LEEJACK
 // Author: LNDDYL
@@ -143,7 +144,7 @@
 "activity-tab-log-in-or-create-account" = "登入或建立帳號來查看更多編輯和閱讀活動。";
 "activity-tab-logged-out-subtitle" = "登入或建立帳號來查看您在維基百科應用程式上的活動。";
 "activity-tab-logged-out-title" = "查看更多閱讀和編輯方面的分析";
-"activity-tab-logged-out-track-what-youve-read" = "以全新的方式追蹤您的閱，並查看您隨著時間的貢獻。";
+"activity-tab-logged-out-track-what-youve-read" = "以全新的方式追蹤您的閱讀紀錄，並查看您隨著時間的貢獻。";
 "activity-tab-menu-clear-history" = "清除閱讀歷史";
 "activity-tab-neutral" = "中立";
 "activity-tab-no-edits-title" = "您本週尚未動手編輯，請新增圖片以增強對條目的理解。";
