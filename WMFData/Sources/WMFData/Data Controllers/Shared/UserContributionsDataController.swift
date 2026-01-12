@@ -7,7 +7,7 @@ public final class UserContributionsDataController {
     
     private init() {}
     
-    public func fetchRecentArticleEdits(username: String) async throws -> [TimelineItem] {
+    public func fetchRecentArticleEdits(username: String) async throws -> [ArticleEdit] {
         
         let service = WMFDataEnvironment.current.mediaWikiService
         guard let service else {
@@ -63,33 +63,19 @@ public final class UserContributionsDataController {
         
         return contribs.compactMap { contrib in
             guard let timestamp = isoFormatter.date(from: contrib.timestamp) else { return nil }
+            
             let articleURL = project.siteURL?.wmfURL(withTitle: contrib.title)
             
-            return TimelineItem(
-                id: "\(contrib.pageid)-\(contrib.revid)",
-                date: timestamp,
-                titleHtml: contrib.title,
-                projectID: project.id,
-                pageTitle: contrib.title,
-                url: articleURL,
-                namespaceID: 0,
+            return ArticleEdit(
+                pageID: contrib.pageid,
                 revisionID: contrib.revid,
                 parentRevisionID: contrib.parentid,
-                itemType: .edit
+                title: contrib.title,
+                date: timestamp,
+                projectID: project.id,
+                url: articleURL
             )
         }
-    }
-    
-    func fetchEditCount(maxLimit: Int = 500, globalUserID: Int) async throws -> Int {
-        let calendar = Calendar(identifier: .gregorian)
-        let endDate = Date()
-        guard let startDate = calendar.date(byAdding: .month, value: -1, to: endDate) else {
-            return 0
-        }
-
-        let editDC = WMFGlobalEditCountDataController(globalUserID: globalUserID)
-        let count = try await editDC.fetchEditCount(startDate: startDate, endDate: endDate)
-        return min(count, maxLimit)
     }
     
     public func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
@@ -147,5 +133,27 @@ public final class UserContributionsDataController {
                 completion(.failure(error))
             }
         }
+    }
+}
+
+public struct ArticleEdit: Identifiable, Hashable {
+    public let id: String
+    public let title: String
+    public let projectID: String
+    public let date: Date
+    public let pageID: Int
+    public let revisionID: Int
+    public let parentRevisionID: Int?
+    public let url: URL?
+    
+    public init(pageID: Int, revisionID: Int, parentRevisionID: Int?, title: String, date: Date, projectID: String, url: URL? ) {
+        self.id = "\(pageID)-\(revisionID)"
+        self.pageID = pageID
+        self.revisionID = revisionID
+        self.parentRevisionID = parentRevisionID
+        self.title = title
+        self.date = date
+        self.projectID = projectID
+        self.url = url
     }
 }
