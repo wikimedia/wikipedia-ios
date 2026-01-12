@@ -25,11 +25,9 @@ public struct TopViewedEditsView: View {
             additionalAccessibilityLabel: nil,
             onTapModule: viewModel.navigateToContributions,
             content: {
-                ForEach(mostViewedViewModel.topViewedArticles) { article in
-                    HStack {
-                        VStack {
-                            Text(article.title)
-                        }
+                if let projectID = mostViewedViewModel.projectID {
+                    ForEach(mostViewedViewModel.topViewedArticles) { article in
+                        WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(id: article.id, title: article.title, projectID: projectID, iconAccessibilityLabel: ""))
                     }
                 }
             }, shiftFirstIcon: true
