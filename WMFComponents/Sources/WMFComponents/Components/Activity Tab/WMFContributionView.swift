@@ -16,8 +16,7 @@ public struct ContributionsView: View {
     
     public var body: some View {
         WMFActivityTabInfoCardView(
-            icon:
-                (UIImage(named: "user_contributions", in: .module, with: nil)),
+            icon: WMFIcon.contributionsIcon,
             title: viewModel.activityViewModel.localizedStrings.contributionsThisMonth,
             dateText: viewModel.dateText,
             additionalAccessibilityLabel: nil,
