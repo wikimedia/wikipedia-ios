@@ -16,7 +16,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordRepeatTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordRepeatAlertLabel: UILabel!
     @IBOutlet fileprivate var emailTitleLabel: UILabel!
-    @IBOutlet var hCaptchaFinePrintLabel: UILabel!
+    @IBOutlet var hcaptchaFinePrintTextView: UITextView!
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: WMFAuthLinkLabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
@@ -94,9 +94,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field {{Identical|Password}}")
         passwordRepeatTitleLabel.text = WMFLocalizedString("field-password-confirm-title", value:"Confirm password", comment:"Title for confirm password field")
         emailTitleLabel.text = WMFLocalizedString("field-email-title-optional", value:"Email (optional)", comment:"Noun. Title for optional email address field.")
-        hCaptchaFinePrintLabel.text = "This service is protected by hCaptcha and its Privacy Policy and Terms of Service apply." // TODO: Localize
+        
+        setupHCaptchaFinePrintText()
+        
         stackView.setCustomSpacing(20, after: createAccountButton)
-        hCaptchaFinePrintLabel.font = WMFFont.for(.caption1)
         passwordRepeatAlertLabel.text = WMFLocalizedString("field-alert-password-confirm-mismatch", value:"Passwords do not match", comment:"Alert shown if password confirmation did not match password")
 
         loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-have-account", value:"Already have an account? %1$@", comment:"Text for button which shows login interface. %1$@ is the message {{msg-wikimedia|account-creation-log-in}}"), substitutionString: WMFLocalizedString("account-creation-log-in", value:"Log in.", comment:"Log in text to be used as part of a log in button {{Identical|Log in}}"))
@@ -144,6 +145,31 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
     }
     
+    private func setupHCaptchaFinePrintText() {
+        
+        hcaptchaFinePrintTextView.delegate = self
+        hcaptchaFinePrintTextView.isEditable = false
+        hcaptchaFinePrintTextView.isSelectable = true
+        hcaptchaFinePrintTextView.backgroundColor = .clear
+        
+        let openingPrivacyLink = "<a href=\"https://www.hcaptcha.com/privacy\">"
+        let openingTermsLink = "<a href=\"https://www.hcaptcha.com/terms\">"
+        let closingLink = "</a>"
+        let format = WMFLocalizedString("hcaptcha-fine-print", value:"This service is protected by hCaptcha and its %1$@Privacy Policy%3$@ and %2$@Terms of Service%3$@ apply.", comment:"HCaptcha fine print displayed at the bottom of the Create Account form. $1 is the opening privacy HTML link, $2 is the opening terms HTML link, $3 is the closing link.")
+        let localizedString = String.localizedStringWithFormat(format, openingPrivacyLink, openingTermsLink, closingLink)
+        let font = WMFFont.for(.caption1)
+        let color = theme.colors.secondaryText
+        let linkColor = theme.colors.link
+        let styles = HtmlUtils.Styles(font: font, boldFont: font, italicsFont: font, boldItalicsFont: font, color: color, linkColor: linkColor, lineSpacing: 1)
+        if let attributedText = try? HtmlUtils.nsAttributedStringFromHtml(localizedString, styles: styles) {
+            hcaptchaFinePrintTextView.attributedText = attributedText
+        } else {
+            hcaptchaFinePrintTextView.text = localizedString
+        }
+        
+        
+    }
+    
     override func viewDidLayoutSubviews() {
          super.viewDidLayoutSubviews()
         scrollContainerTopConstraint.constant = toastView?.frame.height ?? 0
@@ -156,8 +182,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         getCaptcha { captcha in
             if captcha?.classicInfo != nil {
                 self.captchaViewController?.captcha = captcha
+                self.hcaptchaFinePrintTextView.isHidden = true
             } else if (captcha?.hCaptchaInfo?.needsHCaptcha) ?? false {
-                self.hCaptchaFinePrintLabel.isHidden = false
+                self.hcaptchaFinePrintTextView.isHidden = false
             }
             
             self.updateEmailFieldReturnKeyType()
@@ -487,7 +514,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         titleLabel.textColor = theme.colors.primaryText
-        for label in [usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel, hCaptchaFinePrintLabel] {
+        for label in [usernameTitleLabel, passwordTitleLabel, passwordRepeatTitleLabel, emailTitleLabel] {
             label?.textColor = theme.colors.secondaryText
         }
         usernameAlertLabel.textColor = theme.colors.error
@@ -502,5 +529,16 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         createAccountButton.apply(theme: theme)
         captchaContainer.backgroundColor = theme.colors.paperBackground
         captchaViewController?.apply(theme: theme)
+        setupHCaptchaFinePrintText()
+    }
+}
+
+extension WMFAccountCreationViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        let config = SinglePageWebViewController.StandardConfig(url: URL, useSimpleNavigationBar: true)
+        let inAppWebView = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        let navVC = WMFComponentNavigationController(rootViewController: inAppWebView, modalPresentationStyle: .pageSheet)
+        present(navVC, animated: true)
+        return false
     }
 }

@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -204,12 +205,13 @@
                                                             <action selector="createAccountButtonTappedWithSender:" destination="LsX-JK-bT6" eventType="touchUpInside" id="2eM-jE-1dZ"/>
                                                         </connections>
                                                     </button>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This service is protected by hCaptcha and its Privacy Policy and Terms of Service apply." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4T-so-uKq" userLabel="hCaptcha Fine Print Label">
+                                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="`" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Y4P-N5-fte" userLabel="hCaptcha Fine Print Text View">
                                                         <rect key="frame" x="0.0" y="831" width="288" height="0.0"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="textColor" systemColor="labelColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="288" id="M4c-mw-YoD"/>
@@ -248,7 +250,7 @@
                         <outlet property="createAccountButton" destination="BGo-og-pKt" id="cwu-l0-bc0"/>
                         <outlet property="emailField" destination="rKI-nq-3p7" id="FdI-zs-zky"/>
                         <outlet property="emailTitleLabel" destination="wKv-6f-CQD" id="nqt-aE-srb"/>
-                        <outlet property="hCaptchaFinePrintLabel" destination="j4T-so-uKq" id="YRk-RL-yac"/>
+                        <outlet property="hcaptchaFinePrintTextView" destination="Y4P-N5-fte" id="noE-uW-r9J"/>
                         <outlet property="loginButton" destination="cbH-8H-z54" id="1kU-fd-7qK"/>
                         <outlet property="passwordField" destination="PCr-0J-fBj" id="8aR-Qi-zWN"/>
                         <outlet property="passwordRepeatAlertLabel" destination="WpL-Ao-1ot" id="byQ-HB-n7W"/>
@@ -270,4 +272,12 @@
             <point key="canvasLocation" x="-227.19999999999999" y="-6258.1709145427294"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
