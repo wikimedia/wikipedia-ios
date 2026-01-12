@@ -57,8 +57,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let customizeTimelineOfBehavior: String
         public let customizeFooter: String
         public let customizeEmptyState: String
+        public let viewChanges: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -94,6 +95,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.customizeTimelineOfBehavior = customizeTimelineOfBehavior
             self.customizeFooter = customizeFooter
             self.customizeEmptyState = customizeEmptyState
+            self.viewChanges = viewChanges
         }
     }
 

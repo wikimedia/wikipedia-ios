@@ -23,10 +23,10 @@ struct UserContribution: Codable {
     let ns: Int
     let title: String
     let timestamp: String
-    let isNew: Bool
-    let isMinor: Bool
-    let isTop: Bool
-    let tags: [String]
+    let isNew: Bool?
+    let isMinor: Bool?
+    let isTop: Bool?
+    let tags: [String]?
 
     enum CodingKeys: String, CodingKey {
         case userid, user, pageid, revid, parentid, ns, title, timestamp, tags
