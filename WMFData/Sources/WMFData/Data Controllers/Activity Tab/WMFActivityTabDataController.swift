@@ -292,8 +292,11 @@ public actor WMFActivityTabDataController {
 
         if let username {
             do {
-                edits = try await UserContributionsDataController.shared
+                let articleEdits = try await UserContributionsDataController.shared
                     .fetchRecentArticleEdits(username: username)
+
+                edits = articleEdits.map { TimelineItem(articleEdit: $0) }
+
             } catch {
                 debugPrint("Failed to fetch user edits: \(error)")
             }
@@ -755,4 +758,22 @@ public enum LoginState: Int {
     case loggedOut = 0
     case temp = 1
     case loggedIn = 2
+}
+
+extension TimelineItem {
+    
+    init(articleEdit: ArticleEdit) {
+        self.init(
+            id: articleEdit.id,
+            date: articleEdit.date,
+            titleHtml: articleEdit.title,
+            projectID: articleEdit.projectID,
+            pageTitle: articleEdit.title,
+            url: articleEdit.url,
+            namespaceID: 0,
+            revisionID: articleEdit.revisionID,
+            parentRevisionID: articleEdit.parentRevisionID,
+            itemType: .edit
+        )
+    }
 }
