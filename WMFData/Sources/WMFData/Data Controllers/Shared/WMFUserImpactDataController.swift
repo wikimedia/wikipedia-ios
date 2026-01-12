@@ -90,40 +90,7 @@ public actor WMFUserImpactDataController {
                         finalEditCountByDay[date] = value
                     }
                 }
-                
-                let calendar = Calendar.current
-                let now = Date()
 
-                let thisMonthStart = calendar.date(
-                    from: calendar.dateComponents([.year, .month], from: now)
-                )
-
-                let lastMonthStart = calendar.date(
-                    byAdding: .month,
-                    value: -1,
-                    to: thisMonthStart ?? now
-                )
-
-                let lastMonthEnd = calendar.date(
-                    byAdding: .second,
-                    value: -1,
-                    to: thisMonthStart ?? now
-                )
-
-                var thisMonthsEdits = 0
-                var lastMonthsEdits = 0
-
-                for (date, count) in finalEditCountByDay {
-                    if let thisMonthStart, date >= thisMonthStart {
-                        thisMonthsEdits += count
-                    } else if
-                        let lastMonthStart,
-                        let lastMonthEnd,
-                        date >= lastMonthStart && date <= lastMonthEnd {
-                        lastMonthsEdits += count
-                    }
-                }
-                
                 let totalEditsCount = jsonData["totalEditsCount"] as? Int
                 let receivedThanksCount = jsonData["receivedThanksCount"] as? Int
                 
@@ -150,7 +117,7 @@ public actor WMFUserImpactDataController {
                     }
                 }
                 
-                completion(.success(WMFUserImpactData(totalPageviewsCount: totalPageviewsCount, topViewedArticles: finalTopViewedArticles, editCountByDay: finalEditCountByDay, totalEditsCount: totalEditsCount, receivedThanksCount: receivedThanksCount, longestEditingStreak: longestEditingStreak, lastEditTimestamp: lastEditTimestamp, dailyTotalViews: finalDailyTotalViews, lastMonthsEdits: lastMonthsEdits, thisMonthsEdits: thisMonthsEdits)))
+                completion(.success(WMFUserImpactData(totalPageviewsCount: totalPageviewsCount, topViewedArticles: finalTopViewedArticles, editCountByDay: finalEditCountByDay, totalEditsCount: totalEditsCount, receivedThanksCount: receivedThanksCount, longestEditingStreak: longestEditingStreak, lastEditTimestamp: lastEditTimestamp, dailyTotalViews: finalDailyTotalViews)))
 
             case .failure(let error):
                 completion(.failure(WMFDataControllerError.serviceError(error)))

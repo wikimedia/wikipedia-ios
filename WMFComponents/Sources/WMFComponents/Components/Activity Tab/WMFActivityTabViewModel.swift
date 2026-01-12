@@ -233,7 +233,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         do {
             let data = try await dataController.getUserImpactData(userID: userID)
             self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data)
-            self.contributionsViewModel = ContributionsViewModel(data: data)
+            self.contributionsViewModel = ContributionsViewModel(data: data, activityViewModel: self)
             self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
             self.recentActivityViewModel = RecentActivityViewModel(data: data)
             self.articleViewsViewModel = ArticleViewsViewModel(data: data)

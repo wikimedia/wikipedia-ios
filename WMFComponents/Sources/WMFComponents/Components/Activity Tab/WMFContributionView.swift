@@ -9,7 +9,6 @@ public struct ContributionsView: View {
         return appEnvironment.theme
     }
     let viewModel: ContributionsViewModel
-    let activityViewModel: WMFActivityTabViewModel
     
     var fullWidth: Int {
         max(viewModel.lastMonthCount, viewModel.thisMonthCount)
@@ -19,17 +18,17 @@ public struct ContributionsView: View {
         WMFActivityTabInfoCardView(
             icon:
                 (UIImage(named: "user_contributions", in: .module, with: nil)),
-            title: activityViewModel.localizedStrings.contributionsThisMonth,
-            dateText: dateText,
+            title: viewModel.activityViewModel.localizedStrings.contributionsThisMonth,
+            dateText: viewModel.dateText,
             additionalAccessibilityLabel: nil,
-            onTapModule: activityViewModel.navigateToContributions,
+            onTapModule: viewModel.activityViewModel.navigateToContributions,
             content: {
                 VStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(String(viewModel.thisMonthCount))
                             .font(Font(WMFFont.for(.boldTitle1)))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text(activityViewModel.localizedStrings.thisMonth)
+                        Text(viewModel.activityViewModel.localizedStrings.thisMonth)
                             .font(Font(WMFFont.for(.boldCaption1)))
                             .foregroundStyle(Color(uiColor: theme.secondaryText))
                         if viewModel.thisMonthCount > 0 {
@@ -45,7 +44,7 @@ public struct ContributionsView: View {
                         Text(String(viewModel.lastMonthCount))
                             .font(Font(WMFFont.for(.boldTitle1)))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text(activityViewModel.localizedStrings.lastMonth)
+                        Text(viewModel.activityViewModel.localizedStrings.lastMonth)
                             .font(Font(WMFFont.for(.boldCaption1)))
                             .foregroundStyle(Color(uiColor: theme.secondaryText))
                         if viewModel.lastMonthCount > 0 {
@@ -61,22 +60,6 @@ public struct ContributionsView: View {
             }, showArrowAnyways: true
         )
         .frame(maxWidth: .infinity, alignment: .leading)
-    }
-    
-    var dateText: String {
-        guard let lastEdited = viewModel.lastEdited else { return ""}
-        let calendar = Calendar.current
-
-        let title: String
-        if calendar.isDateInToday(lastEdited) {
-            title = activityViewModel.localizedStrings.todayTitle
-        } else if calendar.isDateInYesterday(lastEdited) {
-            title = activityViewModel.localizedStrings.yesterdayTitle
-        } else {
-            title = activityViewModel.formatDate(lastEdited)
-        }
-        
-        return title
     }
 }
 

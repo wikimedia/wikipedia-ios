@@ -84,7 +84,7 @@ public struct WMFActivityTabView: View {
                             .padding(.top, 12)
                             
                             if let contributionsViewModel = viewModel.contributionsViewModel {
-                                ContributionsView(viewModel: contributionsViewModel, activityViewModel: viewModel)
+                                ContributionsView(viewModel: contributionsViewModel)
                                     .padding(.horizontal, 16)
                             }
                             
@@ -503,7 +503,7 @@ private struct MostViewedArticlesView: View {
     }
 }
 
-public struct RecentActivityView: View {
+struct RecentActivityView: View {
     let viewModel: RecentActivityViewModel
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
