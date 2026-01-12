@@ -379,6 +379,9 @@
 		370C97FA2EA17F8200642A08 /* ActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */; };
 		370C97FB2EA17F8200642A08 /* ActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */; };
 		370C97FC2EA17F8200642A08 /* ActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */; };
+		3712FD6A2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */; };
+		3712FD6B2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */; };
+		3712FD6C2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */; };
 		3717C38C2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38D2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38E2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
@@ -392,9 +395,6 @@
 		37B0D0162E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
 		37B0D0172E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
 		37B0D0182E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
-		37C4A98D2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */; };
-		37C4A98E2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */; };
-		37C4A98F2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */; };
 		37C5C1FB2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
 		37C5C1FC2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
 		37C5C1FD2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
@@ -3213,12 +3213,12 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabViewController.swift; sourceTree = "<group>"; };
+		3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabFunnel.swift; sourceTree = "<group>"; };
 		3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCoordinator.swift; sourceTree = "<group>"; };
 		372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountsSettingsViewController.swift; sourceTree = "<group>"; };
 		372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountExpiryViewController.swift; sourceTree = "<group>"; };
 		373BF9092E32A34E000F6643 /* WMFFeedDidYouKnowFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFFeedDidYouKnowFetcher.swift; sourceTree = "<group>"; };
 		37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconUtility.swift; sourceTree = "<group>"; };
-		37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFActivityTabExperimentOldViewController.swift; sourceTree = "<group>"; };
 		37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsOverviewCoordinator.swift; sourceTree = "<group>"; };
 		37FAFB342E45382000EEFEC5 /* DidYouKnowCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidYouKnowCache.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
@@ -3614,6 +3614,7 @@
 		7AFA21BA20110D7900E957E7 /* HintViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HintViewController.xib; sourceTree = "<group>"; };
 		7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Peekable.swift"; sourceTree = "<group>"; };
 		7AFEB3F41FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewCell.swift; sourceTree = "<group>"; };
+		81B26C372E6D757400EADB09 /* OpenSourceDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OpenSourceDebug.xcconfig; sourceTree = "<group>"; };
 		830177F91FBF3E490005681C /* ReadingListsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsAPIController.swift; path = "WMF Framework/ReadingListsAPIController.swift"; sourceTree = SOURCE_ROOT; };
 		830177FB1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+WMFUtilities.swift"; sourceTree = "<group>"; };
 		83023C0420E51DDF00EC7592 /* SearchLanguagesBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLanguagesBarViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -5889,6 +5890,7 @@
 		0E7AAEEA1C21F4160046B5B6 /* Wikimedia Event Logging */ = {
 			isa = PBXGroup;
 			children = (
+				3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */,
 				83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */,
 				67B278EE2D47CEEC00E2DF8A /* ArticleLinkInteractionFunnel.swift */,
 				7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */,
@@ -6792,6 +6794,14 @@
 				7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		81B26C352E6D733A00EADB09 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				81B26C372E6D757400EADB09 /* OpenSourceDebug.xcconfig */,
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 		83023C1720E6581A00EC7592 /* Transitions */ = {
@@ -7876,6 +7886,7 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
+				81B26C352E6D733A00EADB09 /* Configurations */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				67F47C0E2AAA6E16006E17FA /* Packages */,
 				D844D96D1D6CB2600042D692 /* WMF Framework */,
@@ -8028,7 +8039,6 @@
 				83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */,
 				83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */,
 				83DE45B72449C09B00671878 /* SplashScreenViewController.swift */,
-				37C4A98C2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -10368,6 +10378,7 @@
 				67ADEE9623A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */,
 				0042813925E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
+				3712FD6C2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
 				7AFEB3F51FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				B08624341F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
@@ -10420,7 +10431,6 @@
 				678D79E4235E592F006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				B0BCF0AB2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
 				67165C602ECFD3EB0078098D /* DatabasePopulationViewModel.swift in Sources */,
-				37C4A98D2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */,
 				7AB209F922FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				B0E804DA1C0CE0B40065EBC0 /* NSString+FormattedAttributedString.m in Sources */,
 				B01CFC5F1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift in Sources */,
@@ -11009,6 +11019,7 @@
 				D8CE25051E698E2400DAE2E0 /* WMFDatabaseHousekeeper.swift in Sources */,
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
 				7A0FF2CD230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
+				3712FD6A2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */,
 				00BCB72426DEEB1C002C3F72 /* RoundedImageView.swift in Sources */,
 				7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */,
 				83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
@@ -11146,7 +11157,6 @@
 				B0524B70214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				675826742D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
-				37C4A98E2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */,
 				6730FD1028998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				83250BED2CDA7CED00DA42DC /* WMFDonateDataControllerWrapper.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
@@ -11569,6 +11579,7 @@
 				830795272C9DE92200E453BD /* LoginCoordinator.swift in Sources */,
 				83FDE79A293564AC006D55FE /* Link.swift in Sources */,
 				7A20AE0A2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
+				3712FD6B2EDF76860096DF71 /* ActivityTabFunnel.swift in Sources */,
 				7A0FF2CE230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
 				00BCB72326DEEB1C002C3F72 /* RoundedImageView.swift in Sources */,
 				7A610CB9220A30C900C266AE /* HintViewController.swift in Sources */,
@@ -11706,7 +11717,6 @@
 				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				675826762D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
-				37C4A98F2DB95FE000AD7141 /* WMFActivityTabExperimentOldViewController.swift in Sources */,
 				83250BEC2CDA7CED00DA42DC /* WMFDonateDataControllerWrapper.swift in Sources */,
 				6730FD0F28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,
@@ -12494,7 +12504,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -12511,7 +12520,7 @@
 				MARKETING_VERSION = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(SIGNING_DISAMBIGUATOR).Widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -12804,7 +12813,6 @@
 				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -12820,7 +12828,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(SIGNING_DISAMBIGUATOR).ContinueReadingWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -13498,7 +13506,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -13512,7 +13519,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.Wikipedia.WikipediaUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.Wikipedia$(SIGNING_DISAMBIGUATOR).WikipediaUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -13770,7 +13777,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13787,7 +13793,7 @@
 				MARKETING_VERSION = "";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.NotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(SIGNING_DISAMBIGUATOR).NotificationServiceExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -14060,7 +14066,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -14133,6 +14138,7 @@
 		};
 		D4991468181D51DF00E6073C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81B26C372E6D757400EADB09 /* OpenSourceDebug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
@@ -14198,7 +14204,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
-				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
+				WMF_APP_GROUP_IDENTIFIER = "group.org.wikimedia.wikipedia$(SIGNING_DISAMBIGUATOR)";
 			};
 			name = Debug;
 		};
@@ -14281,7 +14287,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -14293,7 +14298,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(SIGNING_DISAMBIGUATOR)";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = Wikipedia;
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -14468,7 +14473,6 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -14476,7 +14480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.WikipediaStickers;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(SIGNING_DISAMBIGUATOR).WikipediaStickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -15388,7 +15392,6 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -16040,7 +16043,6 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -16252,7 +16254,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -16264,7 +16265,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(SIGNING_DISAMBIGUATOR)";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -16434,7 +16435,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -16445,7 +16445,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(SIGNING_DISAMBIGUATOR)";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;

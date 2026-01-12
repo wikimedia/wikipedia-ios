@@ -290,7 +290,7 @@
 			<string>Zeilen</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Im Jahr %1$@ haben Freiwillige %#@v2@ zur englischen Wikipedia hinzugefügt. Die Summe ihrer gemeinsamen Arbeit führt zu einer kontinuierlich verbesserten, faktenbasierten und verlässlichen Wissensquelle, die sie der Welt zur Verfügung stellen. Wir alle haben Wissen zu teilen, [erfahre, wie du mitmachen kannst](%3$@).</string>
@@ -306,7 +306,7 @@
 			<string>%2$lld Bytes</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@ hinzugefügt</string>
@@ -322,7 +322,7 @@
 			<string>%1$lld Bytes</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Freiwillige haben %#@v1@ in über %#@v2@ der Wikipedia vorgenommen. %#@v3@ wurden in der englischen Wikipedia durchgeführt. Zu jeder Stunde jeden Tages arbeiten Freiwillige daran, Wikipedia zu verbessern.</string>
@@ -360,7 +360,7 @@
 			<string>%3$lld Änderungen</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-title</key>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Bearbeiter haben dieses Jahr %#@v1@ vorgenommen</string>
@@ -376,34 +376,7 @@
 			<string>%1$lld Änderungen</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Menschen verbrachten geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der Englischsprachigen Wikipedia im Jahr %3$@. Wikipedia ist da, wenn du über unsere sich verändernde Welt lernst, eine Wette unter Freunden gewinnen oder die Frage eines neugierigen Kindes beantworten möchtest.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%1$lld Stunde</string>
-			<key>other</key>
-			<string>%1$lld Stunden</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%2$lld Jahr</string>
-			<key>other</key>
-			<string>%2$lld Jahre</string>
-		</dict>
-	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Menschen verbrachten geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der Englischsprachigen Wikipedia im Jahr %3$@.</string>
@@ -430,7 +403,34 @@
 			<string>%2$lld Jahre</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-title</key>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Menschen verbrachten geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der Englischsprachigen Wikipedia im Jahr %3$@. Wikipedia ist da, wenn du über unsere sich verändernde Welt lernst, eine Wette unter Freunden gewinnen oder die Frage eines neugierigen Kindes beantworten möchtest.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld Stunde</string>
+			<key>other</key>
+			<string>%1$lld Stunden</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld Jahr</string>
+			<key>other</key>
+			<string>%2$lld Jahre</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wir verbrachten %#@v1@ mit Lesen</string>
@@ -446,7 +446,7 @@
 			<string>%1$lld Stunden</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Aktive App-Nutzer hatten in diesem Jahr %#@v1@. Das Hinzufügen von Artikeln zu Leselisten ermöglicht es dir, auf Artikel auch offline zuzugreifen. Du kannst dich auch anmelden, um Leselisten zwischen Geräten zu synchronisieren.</string>
@@ -462,7 +462,7 @@
 			<string>%1$lld gespeicherte Artikel</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wir hatten %#@v1@</string>
@@ -1062,7 +1062,7 @@
 			<string>%1$d Filter</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Bearbeiter der offiziellen Wikipedia-Apps haben %#@v1@ vorgenommen.</string>
@@ -1078,7 +1078,7 @@
 			<string>%1$lld Bearbeitungen</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia wurde %#@v1@ pro Minute bearbeitet</string>
@@ -1094,7 +1094,7 @@
 			<string>%1$d Mal</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-subtitle</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia hatte %#@v1@ in über %#@v2@. Gemeinsam mit Millionen anderen hast du Wissen erweitert und vielfältige Themen erkundet.</string>
@@ -1121,7 +1121,7 @@
 			<string>%2$d aktiven Sprachen</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Wikipedia war in mehr als %#@v1@ verfügbar.</string>
@@ -1137,7 +1137,7 @@
 			<string>%1$d Sprachen</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>App-Nutzer hatten %#@v1@</string>
@@ -1153,7 +1153,7 @@
 			<string>%1$lld gespeicherte Artikel</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>App-Nutzer haben Wikipedia-Artikel %#@v1@ angesehen</string>
@@ -1185,7 +1185,7 @@
 			<string>%1$d Mal</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Leser auf der ganzen Welt schätzen Ihre Beiträge. In den letzten zwei Monaten wurden die von dir bearbeiteten Artikel %#@v1@ aufgerufen. Dank Bearbeitern wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die ganze Welt.</string>
@@ -1201,7 +1201,7 @@
 			<string>%1$lld Mal insgesamt</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Deine Bearbeitungen wurden in letzter Zeit %#@v1@ angesehen</string>
@@ -1217,7 +1217,7 @@
 			<string>mehr als %1$lld Mal</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Freiwillige wie du haben %#@v1@ in %#@v2@ der Wikipedia vorgenommen.</string>
@@ -1244,7 +1244,7 @@
 			<string>%2$d verschiedenen Sprachversionen</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Du hast Wikipedia %#@v1@ bearbeitet</string>
@@ -1260,7 +1260,7 @@
 			<string>%1$d mal</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Das bringt dich in die Top **PERCENT** der Wikipedia-Leser weltweit. Die durchschnittliche Person liest %#@v1@ pro Jahr.</string>
@@ -1274,7 +1274,7 @@
 			<string>%1$d Artikel</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Du hast %#@v1@ damit verbracht, %#@v2@ im Jahr %3$@ zu lesen</string>
@@ -1299,7 +1299,7 @@
 			<string>%2$d Artikel</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Diese Artikel umfassten %1$@, %2$@ und %3$@. Jeder gespeicherte Artikel spiegelt deine Interessen wider und hilft beim Aufbau einer personalisierten Wissensbasis auf Wikipedia.

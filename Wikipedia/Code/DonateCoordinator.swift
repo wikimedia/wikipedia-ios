@@ -99,7 +99,8 @@ class DonateCoordinator: Coordinator {
         }
         
         let appVersion = Bundle.main.wmf_debugVersion()
-        return URL(string: urlString)?.appendingAppVersion(appVersion: appVersion)
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
+        return URL(string: urlString)?.appendingAppVersionAndAppInstallID(appVersion: appVersion, appInstallID: appInstallID)
     }
     
     // MARK: Lifecycle
@@ -119,13 +120,20 @@ class DonateCoordinator: Coordinator {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
-        case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .historyProfile, .searchProfile, .activityTabProfile:
+        case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
                 return nil
             }
             
             return "\(languageCode)\(countryCode)_appmenu_iOS"
+        case .activityTabProfile:
+            guard let languageCode,
+                  let countryCode = Locale.current.region?.identifier else {
+                return nil
+            }
+            
+            return "\(languageCode)\(countryCode)_appmenu_activity_iOS"
         case .yearInReview(let slideLoggingID):
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
@@ -223,8 +231,7 @@ class DonateCoordinator: Coordinator {
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateCancel(metricsID: metricsID)
             case .activityTabProfile:
-                // TODO: Logging
-                return
+                DonateFunnel.shared.logActivityProfileDonateCancel(metricsID: metricsID)
             }
         }))
         
@@ -258,8 +265,7 @@ class DonateCoordinator: Coordinator {
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
             case .activityTabProfile:
-                // TODO: Logging
-                return
+                DonateFunnel.shared.logActivityProfileDonateApplePay(metricsID: metricsID)
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -295,8 +301,7 @@ class DonateCoordinator: Coordinator {
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
             case .activityTabProfile:
-                // TODO: Logging
-                return
+                DonateFunnel.shared.logActivityProfileDonateWebPay(metricsID: metricsID)
             }
             navigateToOtherPaymentMethod()
         }))
@@ -322,6 +327,7 @@ class DonateCoordinator: Coordinator {
         }
         
         let appVersion = Bundle.main.wmf_debugVersion()
+        let appInstallID = UserDefaults.standard.wmf_appInstallId
         
         let donateDataController = WMFDonateDataController.shared
         let donateData = donateDataController.loadConfigs()
@@ -400,7 +406,7 @@ class DonateCoordinator: Coordinator {
 
         let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, cancelTitle: cancel, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
-        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, coordinatorDelegate: self, loggingDelegate: self) else {
+        guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID, coordinatorDelegate: self, loggingDelegate: self) else {
             return nil
         }
         
@@ -540,7 +546,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func popAndShowSuccessToastFromNativeForm() {
         
         let showToastBlock: () -> Void = {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
             }
@@ -585,7 +591,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     }
     
     private func displayThankYouToastAfterDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .custom, customTypeName: "donate-success", duration: -1, dismissPreviousAlerts: true)
         }
     }
@@ -734,8 +740,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         case .searchProfile:
             DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .activityTabProfile:
-            // TODO: Logging
-            return
+            DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         }
     }
     
@@ -852,8 +857,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .activityTabProfile:
-                // TODO: Logging
-                return
+                DonateFunnel.shared.logActivityProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             }
         }
     }
@@ -862,16 +866,17 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
 // MARK: URL Extensions
 
 fileprivate extension URL {
-    func appendingAppVersion(appVersion: String?) -> URL {
+    func appendingAppVersionAndAppInstallID(appVersion: String?, appInstallID: String?) -> URL {
         
         guard let appVersion,
+              let appInstallID,
               var components = URLComponents(url: self, resolvingAgainstBaseURL: false),
         var queryItems = components.queryItems else {
             return self
         }
         
-        
         queryItems.append(URLQueryItem(name: "app_version", value: appVersion))
+        queryItems.append(URLQueryItem(name: "app_install_id", value: appInstallID))
         components.queryItems = queryItems
         
         guard let url = components.url else {

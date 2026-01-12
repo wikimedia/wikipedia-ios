@@ -362,7 +362,7 @@
 "insert-media-image-position-setting-right" = "Dereita";
 "insert-media-image-position-settings-title" = "Posición da imaxe";
 "insert-media-image-preview-more-information-action-title" = "Máis información";
-"insert-media-image-preview-select-image-action-title" = "Seleccionar imaxe";
+"insert-media-image-preview-select-image-action-title" = "Seleccionar unha imaxe";
 "insert-media-image-size-setting-custom" = "Personalizado";
 "insert-media-image-size-setting-default" = "Por defecto";
 "insert-media-image-size-settings-px-unit-name" = "px";
@@ -689,5 +689,4 @@
 "wikitext-upload-save" = "Publicando...";
 "wikitext-upload-save-anonymously-or-login" = "As edicións serán atribuídas ao enderezo IP do seu dispositivo. Se vostede $1inicia a sesión$2, terá máis privacidade.";
 "wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse ao enderezo IP do dispositivo. Se $1 terá máis privacidade.";
-"wikitext-upload-save-sign-in" = "Acceda ao sistema";
 "wikitext-upload-save-terms-name" = "Termos de uso";

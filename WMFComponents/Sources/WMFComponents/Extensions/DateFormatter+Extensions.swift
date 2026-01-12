@@ -29,8 +29,9 @@ public extension DateFormatter {
     /// Month and Day only: e.g. `August 22`
     static var wmfMonthDayDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
         dateFormatter.timeStyle = .none
-        dateFormatter.dateFormat = "MMMM d"
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM d")
         return dateFormatter
     }()
     
@@ -38,7 +39,8 @@ public extension DateFormatter {
     static var wmfMonthDayYearDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .none
-        dateFormatter.dateFormat = "MMMM d, YYYY"
+        dateFormatter.locale = .current
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM d yyyy")
         return dateFormatter
     }()
 

@@ -897,7 +897,7 @@
 			<string>%1$d filtres</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vous avez modifié Wikipédia %#@v1@ fois</string>
@@ -913,7 +913,7 @@
 			<string>%1$d</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Vous êtes dans les **PERCENT** des plus grands lecteurs de Wikipédia au monde. En moyenne, une personne lit %#@v1@ par an.</string>

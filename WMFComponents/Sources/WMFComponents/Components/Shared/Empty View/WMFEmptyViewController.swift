@@ -23,7 +23,7 @@ final public class WMFEmptyViewController: WMFCanvasViewController {
 final class WMFEmptyViewHostingController: WMFComponentHostingController<WMFEmptyView> {
 
     init(viewModel: WMFEmptyViewModel, type: WMFEmptyViewStateType, delegate: WMFEmptyViewDelegate?) {
-        super.init(rootView: WMFEmptyView(viewModel: viewModel, delegate: delegate, type: type))
+        super.init(rootView: WMFEmptyView(viewModel: viewModel, delegate: delegate, type: type, isScrollable: true))
 
     }
 

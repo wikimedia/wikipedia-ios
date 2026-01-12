@@ -61,8 +61,8 @@
 "action-save" = "सङ्ग्रह गर्नुहोस्";
 "action-saved" = "सुरक्षित गरिएको";
 "action-saved-accessibility-notification" = "पछिको लागि लेख साँचियो";
-"action-share" = "आदान-प्रदान गर्नुहोस्";
-"action-share-accessibility" = "साझेदारी गर्नुहोस्";
+"action-share" = "साझा गर्नुहोस्";
+"action-share-accessibility" = "साझा गर्नुहोस्";
 "action-sort" = "क्रम मिलाउनुहोस्";
 "action-thank-user-accessibility" = "प्रयाेगकर्तालाई धन्यवाद दिनुहाेस्";
 "action-undo" = "पुर्ववत गर्नुहोस्";
@@ -93,7 +93,7 @@
 "article-languages-yours" = "तपाईंको भाषा";
 "article-read-more-title" = "थप पढ्नुहोस्";
 "article-reference-view-title" = "सन्दर्भ $1";
-"article-share" = "आदान-प्रदान गर्नुहोस्";
+"article-share" = "साझा गर्नुहोस्";
 "back-button-accessibility-label" = "पछाडि";
 "back-button-popover-title" = "पछाडि जानको लागि ट्याप गर्नुहोस्";
 "button-next" = "अर्को";
@@ -139,7 +139,7 @@
 "diff-paragraph-moved-direction-down" = "तल";
 "diff-paragraph-moved-direction-up" = "माथि";
 "diff-revision-error-title" = "संशोधन खोल्न सकिएन";
-"diff-rollback" = "पूर्ववत्";
+"diff-rollback" = "पूर्ववत गर्नुहोस्";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 सम्पादन|$1 सम्पादनहरू}}";
 "diff-single-header-editor-title" = "सम्पादक जानकारी";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 बाइट थपियो|$1 बाइटहरू थपिए}}";
@@ -154,6 +154,7 @@
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
 "edit-summary-choice-fixed-typos" = "विवरण ठीक गरियो";
 "edit-summary-choice-linked-words" = "थप गरिएका लिङ्कहरू";
+"edited-article" = "सम्पादन गरिएको";
 "editing-welcome-set-knowledge-free-subtitle" = "विश्वको ज्ञानमा सबैलाई पहुँच दिनको लागि, हामीले तपाईलाई सबैभन्दा महत्त्वपूर्ण विषयहरू पढेर, सम्पादन गरेर र योगदान गरेर यसको सिर्जनामा सहभागी हुन आवश्यक छ।";
 "empty-no-article-message" = "माफ गर्नुहोस् लेख खोल्न सकिएन";
 "empty-no-feed-action-message" = "तपाईँले सङ्ग्रह गरिसकिएका पृष्ठहरू पढ्न सक्नुहुने छ";
@@ -209,7 +210,7 @@
 "field-password-confirm-placeholder" = "प्रवेश शब्द फेरि लेख्नुहोस्";
 "field-password-confirm-title" = "पासवर्ड निश्चित गर्नुहोस्";
 "field-password-placeholder" = "प्रवेश शब्द लेख्नुहोस्";
-"field-password-title" = "पासवर्ड";
+"field-password-title" = "प्रवेश शब्द";
 "field-token-title" = "प्रमाणिकरण कोड";
 "field-username-placeholder" = "प्रयोगकर्ता नाम प्रविष्टि गर्नुहोस्";
 "field-username-title" = "प्रयोगकर्ताको नाम";
@@ -317,6 +318,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
+"open-article" = "लेख खोल्नुहोस्";
 // Fuzzy
 "page-history-bot-edits" = "यन्त्रका सम्पादनहरू";
 "page-history-compare-title" = "तुलना गर्नुहोस्";
@@ -450,5 +452,7 @@
 "wikitext-preview-save-changes-title" = "परिवर्तन प्रकाशित गर्नुहोस्";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनहरू तपाईँको उपकरणको आईपी ठेगानामा श्रेय दिइनेछ। यदि तपाईँ $1 गर्नुहुन्छ भने तपाईँसँग थप गोपनीयता हुनेछ।";
-"wikitext-upload-save-sign-in" = "प्रवेश गर्नुहोस्";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
+"year-in-review-highlights-articles-read" = "पढिएका लेखहरू";
+"year-in-review-highlights-personalized-articles" = "मैले सबैभन्दा धेरै पढेका लेखहरू";
+"year-in-review-highlights-title" = "विकिपिडियामा वर्ष बिताउनु भएकोमा धन्यवाद।";

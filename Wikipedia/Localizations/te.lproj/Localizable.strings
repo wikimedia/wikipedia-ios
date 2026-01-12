@@ -415,9 +415,9 @@
 "main-menu-title" = "మరింత";
 "main-menu-zero-faq" = "వికీపీడియా సున్నా ఎఫ్ఎక్యూ";
 // Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "2025 లో ఇంగ్లీషు వికీపీడియా చదవడానికి ప్రజలు దాదాపు 2.4 బిలియన్ల గంటలు - 275,000 సంవత్సరాలకు పైగా - వెచ్చించారని అంచనా. మారుతున్న మన ప్రపంచం గురించి తెలుసుకోవాలనుకున్నప్పుడు, స్నేహితుల మధ్య పందెం గెలవాలనుకున్నప్పుడు లేదా ఆసక్తికరమైన పిల్లల ప్రశ్నకు సమాధానం చెప్పాలనుకున్నప్పుడూ వికీపీడియా తోడుగా ఉంటుంది.";
+"microsite-yir-english-reading-slide-subtitle-short-updated" = "2025 లో ఇంగ్లీషు వికీపీడియా చదవడానికి ప్రజలు దాదాపు 2.4 బిలియన్ల గంటలు - 275,000 సంవత్సరాలకు పైగా! - వెచ్చించారని అంచనా.";
 // Fuzzy
-"microsite-yir-english-reading-slide-subtitle-short" = "2025 లో ఇంగ్లీషు వికీపీడియా చదవడానికి ప్రజలు దాదాపు 2.4 బిలియన్ల గంటలు - 275,000 సంవత్సరాలకు పైగా! - వెచ్చించారని అంచనా.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "2025 లో ఇంగ్లీషు వికీపీడియా చదవడానికి ప్రజలు దాదాపు 2.4 బిలియన్ల గంటలు - 275,000 సంవత్సరాలకు పైగా - వెచ్చించారని అంచనా. మారుతున్న మన ప్రపంచం గురించి తెలుసుకోవాలనుకున్నప్పుడు, స్నేహితుల మధ్య పందెం గెలవాలనుకున్నప్పుడు లేదా ఆసక్తికరమైన పిల్లల ప్రశ్నకు సమాధానం చెప్పాలనుకున్నప్పుడూ వికీపీడియా తోడుగా ఉంటుంది.";
 "more-languages-tooltip-description" = "వికీపీడియాను 300 భాషల్లో వెతకండి";
 "more-languages-tooltip-title" = "భాషలను చేర్చు";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 వ్యాసాన్ని|$1 వ్యాసాలను}} చదివే జాబితాకు చేర్చు";
@@ -798,7 +798,6 @@
 "wikitext-upload-save" = "ప్రచురిస్తున్నాం...";
 "wikitext-upload-save-anonymously-or-login" = "దిద్దుబాట్ల శ్రేయస్సు మీ డివైసు ఐపీ చిరునామాకు చెందుతుంది. $1లాగినైతే$2, మీకు మరింత గోప్యత ఉంటుంది.";
 "wikitext-upload-save-anonymously-warning" = "దిద్దుబాట్ల శ్రేయస్సు మీ డివైసు ఐపీ చిరునామాకు చెందుతుంది. $1, మీకు మరింత గోప్యత ఉంటుంది.";
-"wikitext-upload-save-sign-in" = "ప్రవేశించండి";
 "wikitext-upload-save-terms-name" = "వాడుక నియమాలు";
 "year-in-review-personalized-date-day-footer-v3" = "చదవడానికి ఇష్టపడే రోజు";
 "year-in-review-personalized-date-month-footer-v3" = "మీరు ఎక్కువగా చదివిన నెల";
@@ -806,9 +805,9 @@
 "year-in-review-personalized-location-subtitle-format-1" = "మీరు $2$1$3 గురించి చదివారు.";
 "year-in-review-personalized-location-subtitle-format-3" = "మీరు $4$1$5, $4$2$5, $4$3$5 ల గురించి చదివారు.";
 // Fuzzy
-"year-in-review-personalized-reading-subtitle-format-v3" = "ప్రపంచవ్యాప్తంగా వికీపీడియా పాఠకుల్లో మీరు తొలి **PERCENT** లో ఉన్నారు. సగటున ఒక్కో పాఠకుడు సంవత్సరానికి {{PLURAL:$1|$1 వ్యాసం|$1 వ్యాసాలు}} చదువుతారు.";
+"year-in-review-personalized-reading-subtitle-format-v3-updated" = "ప్రపంచవ్యాప్తంగా వికీపీడియా పాఠకుల్లో మీరు తొలి **PERCENT** లో ఉన్నారు. సగటున ఒక్కో పాఠకుడు సంవత్సరానికి {{PLURAL:$1|$1 వ్యాసం|$1 వ్యాసాలు}} చదువుతారు.";
 // Fuzzy
-"year-in-review-personalized-reading-title-v3-format" = "2025 లో మీరు, {{PLURAL:$2|$2 వ్యాసాన్ని|$2 వ్యాసాలను}} చదవడానికి {{PLURAL:$1|$1 నిమిషం|$1 నిమిషాలు}} వెచ్చించారు";
+"year-in-review-personalized-reading-title-v3-format-updated" = "2025 లో మీరు, {{PLURAL:$2|$2 వ్యాసాన్ని|$2 వ్యాసాలను}} చదవడానికి {{PLURAL:$1|$1 నిమిషం|$1 నిమిషాలు}} వెచ్చించారు";
 "year-in-review-time-afternoon" = "అపరాహ్ణం";
 "year-in-review-time-evening" = "సాయంత్రం";
 "year-in-review-time-late-night" = "అర్థరాత్రి";

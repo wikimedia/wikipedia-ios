@@ -228,7 +228,7 @@
 			<string>%1$d линија неуређено</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%1$lld %#@v1@ додато</string>
@@ -242,7 +242,7 @@
 			<string>бајтова</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-title</key>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Уредници су ове године начинили скоро %1$lld %#@v1@</string>
@@ -256,7 +256,7 @@
 			<string>измена</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-title</key>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%1$lld сати смо %#@v1@</string>
@@ -270,7 +270,7 @@
 			<string>читали</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Сачували само %1$lld %#@v1@</string>
@@ -886,7 +886,7 @@
 			<string>%1$d филтера</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Преко званичних апликације за Википедију је начињено %1$lld %#@v1@</string>
@@ -900,7 +900,7 @@
 			<string>измена</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Википедија се уређује %1$d пута у %#@v1@</string>
@@ -914,7 +914,7 @@
 			<string>минуту</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Википедија је доступна на више од %1$d %#@v1@</string>

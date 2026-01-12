@@ -1,4 +1,5 @@
 import SwiftUI
+import WMFData
 
 /// A reusable component for displaying a page row (typically an article) with optional swipe actions. These should be embedded inside of a List.
 struct WMFPageRow: View {
@@ -53,17 +54,26 @@ struct WMFPageRow: View {
     var iconImage: UIImage?
 
     var rowContent: some View {
-        HStack(alignment: .top, spacing: 4) {
+        HStack(alignment: .top, spacing: 12) {
             if let iconImage {
                 Image(uiImage: iconImage)
-                    .frame(width: 40, height: 40, alignment: .top)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
                     .foregroundColor(Color(uiColor: theme.secondaryText))
             }
 
-            if needsLimitedFontSize {
-                textViewLimitedFontSize
-            } else {
-                regularTextView
+            VStack(alignment: .leading, spacing: 4) {
+                Text(titleHtml)
+                    .font(WMFSwiftUIFont.font(.callout))
+                    .foregroundColor(Color(theme.text))
+                    .lineLimit(titleLineLimit)
+                if let description = articleDescription {
+                    Text(description)
+                        .font(WMFSwiftUIFont.font(.subheadline))
+                        .foregroundColor(Color(theme.secondaryText))
+                        .lineLimit(1)
+                }
             }
             
             Spacer()
@@ -74,9 +84,14 @@ struct WMFPageRow: View {
                     .scaledToFill()
                     .frame(width: 40, height: 40)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
-
+            } else {
+                Spacer()
             }
         }
+        .padding(0)
+        .frame(maxWidth: .infinity, alignment: .leading)
+
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(theme.paperBackground))
         .overlay(
             GeometryReader { geometry in
@@ -97,7 +112,7 @@ struct WMFPageRow: View {
             }
         }
     }
-
+    
     @ViewBuilder
     var textViewLimitedFontSize: some View {
         VStack(alignment: .leading, spacing: 4) {

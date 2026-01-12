@@ -226,7 +226,7 @@
 			<string>%1$d行未被编辑</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>在%1$@年，志愿者们为英文维基百科增添了%#@v2@字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。](%3$@)</string>
@@ -240,7 +240,7 @@
 			<string>%2$lld</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>增加了{{PLURAL:%1$lld|%1$lld}字节</string>
@@ -761,7 +761,7 @@
 			<string> %1$d 过滤器</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>您编辑了维基百科 %#@v1@</string>

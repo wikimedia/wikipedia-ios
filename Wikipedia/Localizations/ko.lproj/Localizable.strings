@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Alex00728
 // Author: Apzp79
+// Author: Aspere
 // Author: Bisang
 // Author: Bluemersen
 // Author: CYAN
@@ -112,7 +113,14 @@
 "activity-tab-add-images-subtitle" = "이해를 높이기 위해 위키백과의 문서에 제안된 이미지를 추가하십시오.";
 "activity-tab-add-images-title" = "이미지 추가";
 "activity-tab-additional-thoughts" = "추가 의견이 있으신가요?";
+"activity-tab-articles-read-graph-label" = "문서";
+"activity-tab-customize-last-in-app-donation" = "마지막 인앱 기부";
+"activity-tab-empty-title" = "표시할 항목이 없습니다";
+"activity-tab-hours-minutes-read" = "$1시간 $2분";
+"activity-tab-menu-clear-history" = "읽기 역사 지우기";
 "activity-tab-neutral" = "중립";
+"activity-tab-no-edits-title" = "이번 주에는 편집을 하지 않으셨습니다. 문서의 이해를 돕기 위해 이미지를 추가하세요.";
+"activity-tab-onboarding-first-item-title" = "읽기 패턴";
 "activity-tab-read-title" = "읽기 역사 보기";
 "activity-tab-satisfied" = "만족";
 "activity-tab-start-editing" = "편집 시작";
@@ -124,6 +132,7 @@
 "activity-tab-view-editing-history" = "편집 역사 보기";
 "activity-tab-view-reading-history" = "읽기 역사 보기";
 "activity-tab-view-saved-articles" = "저장된 문서 참조";
+"activity-tab-week-graph-label" = "주";
 "activity-tab-you-edited" = "이번 주에 {{PLURAL:$1|$1번}} 편집했습니다.";
 "activity-tab-you-read" = "이번 주에 {{PLURAL:$1|$1개 문서}}를 읽었습니다.";
 "activity-tab-you-saved" = "이번 주에 {{PLURAL:$1|문서 $1개}}를 저장했습니다.";
@@ -143,6 +152,7 @@
 "appearance-settings-image-dimming-footer" = "어둡고 검은 테마에서 그림의 투명도를 줄입니다";
 "appearance-settings-reading-themes" = "읽기 테마";
 "appearance-settings-set-automatic-table-opening" = "테이블 설정";
+"appearance-settings-set-icon-header" = "앱 아이콘";
 "appearance-settings-text-sizing-example-text" = "문서의 텍스트 크기를 변경하려면 슬라이더를 드래그하십시오. 시스템 텍스트 크기를 사용하여 앱의 다른 텍스트 영역의 크기를 바꿀 수 있습니다.";
 "appearance-settings-theme-options" = "테마 옵션";
 "article-about-title" = "이 문서의 정보";
@@ -159,12 +169,10 @@
 "article-save-error-not-enough-space" = "장치에 이 문서를 저장할 공간이 충분하지 않습니다";
 "article-share" = "공유";
 "article-tabs-button-accessibility-label" = "문서 탭";
-"article-tabs-did-you-know-title" = "알고 계십니까";
 "article-tabs-feature-announcement-item-3-title" = "나중을 위해 링크 저장";
 "article-tabs-feature-announcement-sub-cta" = "탭에 관해 더 알아보기";
 "article-tabs-feature-announcement-title" = "탭 소개";
-// Fuzzy
-"article-tabs-max-reached" = "탭 제한에 도달했습니다. ($1개) 하나 이상의 탭을 닫아 주십시오.";
+"article-tabs-max-reached" = "탭 제한에 도달했습니다. ($1개) 현재 탭에서 문서를 열었습니다. 하나 이상의 탭을 닫아 주십시오.";
 "article-tabs-navigation" = "탭 둘러보기";
 "article-tabs-open" = "열기";
 "article-tabs-open-background-tab" = "백그라운드 탭에서 열기";
@@ -209,6 +217,7 @@
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
 "crimean-tatar-variants-alert-body" = "이제 위키백과 앱에서 아래의 크림 타타르어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nQırımtatarca, Latin 크림 타타르어 라틴 (chr-latn)\nкъырымтатарджа, Кирил 크림 타타르어 키릴 (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "크림 타타르어 변이형 지원 업데이트";
+"customize-action-title" = "사용자 지정";
 "data-migration-status" = "업데이트 중...";
 "description-add-title" = "설명 추가";
 "description-article-introduction-warning-message" = "편집 뷰와 문서 뷰에서 요소의 순서가 다릅니다.";
@@ -249,13 +258,9 @@
 "description-welcome-start-editing-button" = "편집 시작";
 "developer-force-email-auth" = "이메일 인증 강제";
 "developer-settings" = "개발자 설정";
-"developer-settings-activity-tab-group-A" = "활동 탭을 그룹 A로 설정";
-"developer-settings-activity-tab-group-B" = "활동 탭을 그룹 B로 설정";
-"developer-settings-activity-tab-group-C" = "활동 탭을 그룹 C로 설정";
 "developer-settings-bypass-donation" = "기부 건너뛰기";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
-"did-you-know" = "알고 계십니까?";
 "diff-article-revision-history" = "문서 편집 역사";
 "diff-change-added" = "추가, $1, 추가 끝.";
 "diff-change-paragraph-moved" = "문단이 이동되었습니다. 이전 위치로 이동합니다.";
@@ -310,6 +315,7 @@
 "donate-accessibility-monthly-recurring-hint" = "이 금액의 자동 월간 기부를 활성화하려면 두 번 탭하세요.";
 "donate-accessibility-textfield-hint" = "기부용 맞춤 금액을 입력하세요.";
 "donate-accessibility-transaction-fee-hint" = "기부 금액에 거래 수수료를 추가하려면 두 번 탭하세요.";
+// Fuzzy
 "donate-already-donated" = "기부해 주셔서 감사합니다! 당신의 관대한 선택으로 위키백과와 자매 사이트의 발전에 큰 힘이 되었습니다.";
 "donate-apple-fine-print" = "애플은 이 목적으로 자금을 모으는 일을 맡지 않습니다.";
 "donate-email-opt-in-text" = "네, 위키미디어 재단에서 가끔 이메일을 보내드릴 수 있게 됩니다.";
@@ -721,16 +727,12 @@
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "main-page" = "대문";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 바이트}} 추가됨";
+"microsite-yir-english-edits-slide-title-updated" = "편집자들은 올해 {{PLURAL:$1|$1}} 건의 편집을 수행했습니다";
 // Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "34억 바이트 추가됨";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "편집자들은 올해 8,200만 건의 변경을 수행했습니다";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "읽기에 24억 시간이 할애됐습니다";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "3,700만 개가 넘는 읽기 목록이 있습니다";
-// Fuzzy
-"microsite-yir-english-top-read-slide-title" = "영어 위키백과의 가장 인기 있는 문서";
+"microsite-yir-english-reading-slide-title-updated" = "읽기에 24억 시간이 할애됐습니다";
+"microsite-yir-english-saved-reading-slide-title-updated" = "읽기 목록 {{PLURAL:$1|$1개}}가 존재합니다";
+"microsite-yir-english-top-read-slide-title" = "영어 위키백과에서 가장 많이 읽은 문서";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
 "more-menu" = "더 보기";
@@ -740,8 +742,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 마일";
-"new-article-tab-settings-did-you-know" = "알고 계십니까?";
-"new-article-tab-settings-recommendations" = "권장";
 "new-password-instructions" = "임시 비밀번호로 로그인하였습니다. 로그인을 마치려면 여기에 새로운 비밀번호를 설정하십시오.";
 "new-password-title" = "비밀번호 설정";
 "new-tab" = "새 탭";
@@ -886,6 +886,7 @@
 "on-this-day-no-internet-error" = "이용 가능한 데이터 없음";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 위키백과에서 $1";
 "on-this-day-title" = "오늘의 역사";
+"open-article" = "문서 열기";
 "open-in-tab-tooltip-title" = "새 탭에서 열기";
 "original-tab-button-popover-description" = "시작한 탭으로 돌아가려면 'W'를 탭하세요";
 "page-history-bot-edits" = "봇";
@@ -1174,9 +1175,14 @@
 "table-of-contents-hide-button-label" = "목차 숨기기";
 "table-of-contents-subheading-label" = "$1단계 하위 문단";
 "tabs-close-tab" = "탭 닫기";
+"tabs-empty-view-title" = "여기에 탭이 표시됩니다";
+"tabs-hide-suggested-articles" = "문서 분류 숨기기";
 "tabs-navbar-title-format" = "{{PLURAL:$1|탭 $1개}}";
 "tabs-open-tab" = "탭 열기";
 "tabs-overview-tooltip-title" = "탭 개요";
+"tabs-show-suggested-articles" = "문서 제안 표시";
+"tabs-suggested-articles-hide-suggestions-confirmation" = "제안이 이제 숨겨집니다";
+"tabs-thumbnail-subtitle" = "여기에서 검색을 시작하세요";
 "tabs-title" = "탭";
 "tachelhit-variants-alert-body" = "이제 위키백과 앱에서 아래의 타셸히트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nⵜⴰⵛⵍⵃⵉⵜ 타셸히트어 티피나그 (shi-tfng)\nTaclḥit 타셸히트어 라틴 (shi-latn)";
 "tachelhit-variants-alert-title" = "타셸히트어 변이형 지원 업데이트";
@@ -1395,16 +1401,13 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-or-login" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1로그인$2하면 개인정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인정보를 더 보호할 수 있습니다.";
-"wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
+"year-in-review-base-editors-title-updated" = "iOS 앱의 편집자는 {{PLURAL:$1|$1번}} 편집을 했습니다";
+"year-in-review-base-edits-title-updated" = "위키백과의 분당 편집 수는 {{PLURAL:$1|$1회}}입니다";
 // Fuzzy
-"year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
-// Fuzzy
-"year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
-// Fuzzy
-"year-in-review-base-saved-title" = "$1백만 개가 넘는 읽기 목록이 있습니다";
-// Fuzzy
-"year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
+"year-in-review-base-saved-title-updated" = "$1백만 개가 넘는 읽기 목록이 있습니다";
+"year-in-review-base-viewed-title-updated" = "앱 사용자들의 위키백과 문서 조회 수는 {{PLURAL:$1|$1 회}}입니다";
+"year-in-review-button-title" = "올해를 돌아보면서";
 "year-in-review-day-friday" = "금요일";
 "year-in-review-day-monday" = "월요일";
 "year-in-review-day-saturday" = "토요일";
@@ -1415,11 +1418,19 @@
 "year-in-review-donate" = "기부";
 "year-in-review-donate-now" = "지금 기부하기";
 "year-in-review-finish" = "완료";
+"year-in-review-highlights-collective-time-spent" = "읽기에 소요한 시간";
+"year-in-review-highlights-created-lists" = "만든 읽기 목록 수";
+"year-in-review-highlights-edit-frequency" = "위키백과의 편집 주기";
+"year-in-review-highlights-number-app-editors" = "앱에서 한 편집";
+"year-in-review-highlights-personalized-articles" = "가장 많이 읽은 문서";
+"year-in-review-highlights-share-logo-caption" = "위키백과 로고";
+"year-in-review-highlights-subtitle" = "내년이 기대됩니다!";
+"year-in-review-highlights-times-edited" = "편집한 시간";
+"year-in-review-highlights-title" = "위키백과와 함께 한 해를 보내주셔서 감사합니다.";
 "year-in-review-intro-login-title" = "개인화를 위해선 로그인하세요";
 "year-in-review-personalized-date-month-footer-v3" = "가장 많이 읽은 달";
 "year-in-review-personalized-donate-title" = "귀하의 기부 덕분에 위키백과의 번영 유지에 도움이 되었습니다";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
+"year-in-review-personalized-editing-title-format-updated" = "당신은 {{PLURAL:$1|$1회}} 편집했습니다";
 "year-in-review-personalized-most-read-articles-title" = "인기 기사";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|문서 $1개}}를 저장했습니다";
 "year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";

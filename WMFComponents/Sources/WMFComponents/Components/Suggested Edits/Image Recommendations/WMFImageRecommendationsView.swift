@@ -26,7 +26,7 @@ struct WMFImageRecommendationsView: View {
                         if viewModel.loadingError != nil {
                             WMFErrorView(viewModel: WMFErrorViewModel(localizedStrings: viewModel.localizedStrings.errorLocalizedStrings, image: WMFIcon.error), tryAgainAction: errorTryAgainAction)
                         } else {
-                            WMFEmptyView(viewModel: WMFEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WMFIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems)
+                            WMFEmptyView(viewModel: WMFEmptyViewModel(localizedStrings: viewModel.localizedStrings.emptyLocalizedStrings, image: WMFIcon.checkPhoto, imageColor: appEnvironment.theme.link, numberOfFilters: nil), type: .noItems, isScrollable: true)
                                 .onAppear {
                                     emptyViewAppearanceAction()
                                 }

@@ -28,7 +28,7 @@
             WMFAuthenticationManager *authManager = [MWKDataStore shared].authenticationManager;
             NSString *userName = authManager.authStatePermanentUsername;
 
-            NSString *loginString = (userName) ? WMFCommonStrings.account : WMFLocalizedStringWithDefaultValue(@"main-menu-account-login", nil, nil, @"Log in", @"Button text for logging in. {{Identical|Log in}}");
+            NSString *loginString = (userName) ? WMFCommonStrings.account : WMFCommonStrings.logIn;
 
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

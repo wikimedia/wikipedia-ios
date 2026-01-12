@@ -167,8 +167,8 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         self.surveyOptions = surveyOptions
         self.needsSuppressPosting = needsSuppressPosting
         self.growthTasksDataController = WMFGrowthTasksDataController(project: project)
-        self.articleSummaryDataController = WMFArticleSummaryDataController()
-        self.imageDataController = WMFImageDataController()
+        self.articleSummaryDataController = WMFArticleSummaryDataController.shared
+        self.imageDataController = WMFImageDataController.shared
         self.imageRecommendationsDataController = WMFImageRecommendationsDataController()
         
         $loading
@@ -329,14 +329,12 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
 
     private func populateCurrentArticleSummary(for imageRecommendation: ImageRecommendation, completion: @escaping (Error?) -> Void) {
         
-        articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title) { result in
-            
-            switch result {
-            case .success(let summary):
+        Task {
+            do {
+                let summary = try await articleSummaryDataController.fetchArticleSummary(project: project, title: imageRecommendation.title)
                 imageRecommendation.articleSummary = summary
                 completion(nil)
-                
-            case .failure(let error):
+            } catch {
                 completion(error)
             }
         }

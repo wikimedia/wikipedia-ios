@@ -852,11 +852,9 @@
 "wikitext-upload-save" = "Zveřejňuje se…";
 "wikitext-upload-save-anonymously-or-login" = "Editace budou přiřazeny IP adrese vašeho zařízení. Pokud se $1přihlásíte$2, budete mít více soukromí.";
 "wikitext-upload-save-anonymously-warning" = "Jako autor editace bude uvedena IP adresa vašeho zařízení. Pokud kliknete na $1, budete mít více možností ochránit své soukromí.";
-"wikitext-upload-save-sign-in" = "Přihlásit se";
 "wikitext-upload-save-terms-name" = "Podmínkami užití";
 "year-in-review-articles-slide-subtitle" = "Zde jsou články, které jste v roce 2025 navštívili nejčastěji: \n$1";
-// Fuzzy
-"year-in-review-categories-slide-subtitle" = "Kategorie seskupují články na podobná témata. V roce 2025 jste články v těchto zajímavých kategoriích navštívili několikrát\n$1";
+"year-in-review-categories-slide-subtitle" = "Kategorie seskupují články na podobná témata. V roce 2025 jste články v těchto zajímavých kategoriích navštívili několikrát.\n\n$1";
 "year-in-review-highlights-articles-read" = "Přečtené články";
 "year-in-review-highlights-personalized-articles" = "Články, které čtu nejvíce";
 "year-in-review-highlights-title" = "Děkujeme, že jste strávili rok s Wikipedií.";

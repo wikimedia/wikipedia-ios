@@ -1,9 +1,101 @@
 import Foundation
 
+@objc public enum WMFActivityTabExperimentAssignment: Int {
+    case unknown = -1
+    case control = 0
+    case activityTab = 1
+}
+
 public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-    public init() {}
+
+    private let experimentsDataController: WMFExperimentsDataController?
+    private var assignmentCache: WMFActivityTabExperimentAssignment?
+    private let activityTabExperimentPercentage: Int = 50
+
+    public init(developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+        if let experimentStore {
+            self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+        } else {
+            self.experimentsDataController = nil
+        }
+    }
+    
+    // MARK: - Activity Tab Customization Toggles
+
+    public var isTimeSpentReadingOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimeSpentReadingOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isReadingInsightsOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsReadingInsightsOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isEditingInsightsOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsEditingInsightsOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
+    public var isTimelineOfBehaviorOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue
+            )) ?? true
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.activityTabIsTimelineOfBehaviorOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+    
+    public func updateIsTimeSpentReadingOn(_ value: Bool) {
+        isTimeSpentReadingOn = value
+    }
+    
+    public func updateIsReadingInsightsOn(_ value: Bool) {
+        isReadingInsightsOn = value
+    }
+    
+    public func updateIsEditingInsightsOn(_ value: Bool) {
+        isEditingInsightsOn = value
+    }
+    
+    public func updateIsTimelineOfBehaviorOn(_ value: Bool) {
+        isTimelineOfBehaviorOn = value
+    }
 
     public func getTimeReadPast7Days() async throws -> (Int, Int)? {
         let calendar = Calendar.current
@@ -62,19 +154,42 @@ public actor WMFActivityTabDataController {
         return Array(weeklyCounts.reversed())
     }
 
-    public func getActivityAssignment() -> Int {
-        shouldShowActivityTab ? 1 : 0
-    }
-
-    public var shouldShowActivityTab: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
+    public func shouldShowLoginPrompt(for state: LoginState) -> Bool {
+        switch state {
+        case .loggedIn:
+            return false
+        case .temp:
+            return !tempAccountUserHasDismissedActivityTabLogInPrompt
+        case .loggedOut:
+            return !loggedOutUserHasDismissedActivityTabLogInPrompt
         }
     }
+    
+    public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue, value: newValue)
+        }
+    }
+    
+    public var tempAccountUserHasDismissedActivityTabLogInPrompt: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue, value: newValue)
+        }
+    }
+    
+    public func setLoggedOutUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
+        loggedOutUserHasDismissedActivityTabLogInPrompt = value
+    }
 
-    private var hasSeenActivityTab: Bool {
+    public func setTempAccountUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
+        tempAccountUserHasDismissedActivityTabLogInPrompt = value
+    }
+    
+    public var hasSeenActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
         } set {
@@ -88,6 +203,54 @@ public actor WMFActivityTabDataController {
 
     public func getHasSeenActivityTab() -> Bool {
         return hasSeenActivityTab
+    }
+    
+    public func setHasSeenSurvey(value: Bool) {
+        self.hasSeenSurvey = value
+    }
+    
+    private var hasSeenSurvey: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActiviyTabSurvey.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActiviyTabSurvey.rawValue, value: newValue)
+        }
+    }
+    
+    public func shouldShowSurvey() -> Bool {
+        let visitCount = activityTabVisitCount
+        let alreadySeenSurvey = hasSeenSurvey
+        
+        guard visitCount >= 3 && !alreadySeenSurvey else {
+            return false
+        }
+        
+        if let surveyEndDate {
+            return surveyEndDate >= Date()
+        }
+        
+        return false
+    }
+    
+    private var surveyEndDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2026
+        dateComponents.month = 1
+        dateComponents.day = 15
+        return Calendar.current.date(from: dateComponents)
+    }
+    
+    private var activityTabVisitCount: Int {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabVisitCount.rawValue)) ?? 0
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabVisitCount.rawValue, value: newValue)
+        }
+    }
+    
+    public func incrementActivityTabVisitCount() {
+        let visitCount = self.activityTabVisitCount + 1
+        self.activityTabVisitCount = visitCount
     }
 
     public func getMostRecentReadDateTime() async throws -> Date? {
@@ -124,7 +287,101 @@ public actor WMFActivityTabDataController {
             .map { $0.key.categoryName }
     }
 
-    public func fetchTimeline() async throws -> [Date: [TimelineItem]] {
+    public func getTimelineItems() async throws -> [Date: [TimelineItem]] {
+        let rawSavedItems = try await fetchTimelineSavedArticles()
+        let readItems = try await fetchTimelineReadArticles()
+
+        let dedupedSavedItems = Self.deduplicatedSavedItems(rawSavedItems)
+
+        var allItems: [Date: [TimelineItem]] = [:]
+
+        allItems.merge(dedupedSavedItems) { old, new in
+            old + new
+        }
+
+        allItems.merge(readItems) { old, new in
+            old + new
+        }
+
+        return allItems
+    }
+
+    private static func deduplicatedSavedItems(_ savedItems: [Date: [TimelineItem]]) -> [Date: [TimelineItem]] {
+
+        struct ArticleKey: Hashable {
+            let projectID: String
+            let title: String
+        }
+
+        var latestByArticle: [ArticleKey: (sectionDate: Date, item: TimelineItem)] = [:]
+
+        for (sectionDate, items) in savedItems {
+            for item in items {
+                guard item.itemType == .saved else {
+                    continue
+                }
+
+                let key = ArticleKey(
+                    projectID: item.projectID,
+                    title: item.pageTitle
+                )
+
+                if let existing = latestByArticle[key] {
+                    if item.date > existing.item.date {
+                        latestByArticle[key] = (sectionDate, item)
+                    }
+                } else {
+                    latestByArticle[key] = (sectionDate, item)
+                }
+            }
+        }
+
+        var result: [Date: [TimelineItem]] = [:]
+
+        for (sectionDate, item) in latestByArticle.values {
+            result[sectionDate, default: []].append(item)
+        }
+
+        return result
+    }
+
+    public func fetchTimelineSavedArticles() async throws -> [Date: [TimelineItem]] {
+        let dataController = WMFSavedArticlesDataController()
+        let savedPages = try await dataController.fetchTimelinePages()
+        guard !savedPages.isEmpty else { return [:] }
+        var dailyTimeline: [Date: [TimelineItem]] = [:]
+        let calendar = Calendar.current
+
+        for item in savedPages {
+            let savedDate = item.timestamp
+            let page = item.page
+            let dayBucket = calendar.startOfDay(for: savedDate)
+            let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
+            
+            let identifier = String("saved~\(page.projectID)~\(page.title)~\(item.timestamp.timeIntervalSince1970)")
+
+            let timelineItem = TimelineItem(
+                id: identifier,
+                date: savedDate,
+                titleHtml: page.title,
+                projectID: page.projectID,
+                pageTitle: page.title,
+                url: articleURL,
+                namespaceID: page.namespaceID,
+                itemType: .saved
+            )
+            
+            dailyTimeline[dayBucket, default: []].append(timelineItem)
+        }
+
+        let sortedTimeline = dailyTimeline.mapValues { items in
+            items.sorted { $0.date < $1.date }
+        }
+
+        return sortedTimeline
+    }
+
+    public func fetchTimelineReadArticles() async throws -> [Date: [TimelineItem]] {
         let dataController = try WMFPageViewsDataController()
         let pageRecords = try await dataController.fetchTimelinePages()
         guard !pageRecords.isEmpty else { return [:] }
@@ -142,11 +399,13 @@ public actor WMFActivityTabDataController {
             if let existingItems = dailyTimeline[dayBucket] {
                 todaysPages = Set(existingItems.map { $0.pageTitle })
             }
+            
+            let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
 
             guard !todaysPages.contains(page.title) else { continue }
 
             let item = TimelineItem(
-                id: UUID().uuidString,
+                id: identifier,
                 date: timestamp,
                 titleHtml: page.title,
                 projectID: page.projectID,
@@ -155,7 +414,7 @@ public actor WMFActivityTabDataController {
                 description: nil,
                 imageURLString: nil,
                 snippet: nil,
-                page: page,
+                namespaceID: page.namespaceID,
                 itemType: .read
             )
 
@@ -176,30 +435,224 @@ public actor WMFActivityTabDataController {
     }
     
     public func deletePageView(for item: TimelineItem) async throws {
-        guard let project = WMFProject(id: item.page.projectID) else { return }
+        guard let project = WMFProject(id: item.projectID) else { return }
         try await deletePageView(
-            title: item.page.title,
-            namespaceID: Int16(item.page.namespaceID),
+            title: item.pageTitle,
+            namespaceID: Int16(item.namespaceID),
             project: project
         )
     }
     
-    public func fetchSummary(for page: WMFPage) async throws -> WMFArticleSummary? {
-        let articleSummaryController = WMFArticleSummaryDataController()
-        guard let project = WMFProject(id: page.projectID) else { return nil }
-        return try await articleSummaryController.fetchArticleSummary(project: project, title: page.title)
+    public func fetchSummary(for pageTitle: String, projectID: String) async throws -> WMFArticleSummary? {
+        let articleSummaryController = WMFArticleSummaryDataController.shared
+        guard let project = WMFProject(id: projectID) else { return nil }
+        return try await articleSummaryController.fetchArticleSummary(project: project, title: pageTitle)
+    }
+
+    public func getGlobalEditCount() async throws -> Int? {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            throw CustomError.missingLanguage
+        }
+        let proj = WMFProject.wikipedia(appLanguage)
+
+        do {
+            let userInfoDataController = WMFGlobalUserInfoDataController(project: proj)
+            let globalUserInfo = try await userInfoDataController.fetchGlobalUserInfo()
+            return globalUserInfo.editcount
+        } catch {
+            throw CustomError.unexpectedError(error)
+        }
+    }
+    
+    public func getUserImpactData(userID: Int) async throws -> WMFUserImpactData {
+        
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            throw WMFDataControllerError.failureCreatingRequestURL
+        }
+        let project = WMFProject.wikipedia(primaryAppLanguage)
+        
+        let dataController = WMFUserImpactDataController.shared
+        
+        return try await dataController.fetch(userID: userID, project: project, language: primaryAppLanguage.languageCode)
+    }
+
+    // MARK: - Experiment
+
+    public func assignOrFetchExperimentAssignment() throws -> WMFActivityTabExperimentAssignment {
+        if isForceControlDevSettingOn {
+            return .control
+        }
+        if isForceExperimentDevSettingOn {
+            return .activityTab
+        }
+
+        guard isDevSettingOn || hasExperimentStarted() else {
+            throw CustomError.beforeStartDate
+        }
+
+        if let assignmentCache {
+            return assignmentCache
+        }
+
+        if let bucketValue = experimentsDataController?.bucketForExperiment(.activityTab) {
+            let assignment: WMFActivityTabExperimentAssignment
+
+            switch bucketValue {
+            case .activityTabControl:
+                assignment = .control
+            case .activityTabExperiment:
+                assignment = .activityTab
+            default:
+                assignment = .unknown
+            }
+
+            self.assignmentCache = assignment
+            return assignment
+        }
+
+        // return assigment if existing, do not assign new if past experiment end date
+        guard isDevSettingOn || !hasExperimentEnded() else {
+            throw CustomError.pastAssignmentEndDate
+        }
+
+        let newAssignment = try assignExperiment()
+        self.assignmentCache = newAssignment
+        return newAssignment
+    }
+
+    private func assignExperiment() throws -> WMFActivityTabExperimentAssignment {
+
+        guard isDevSettingOn || hasExperimentStarted() else {
+            throw CustomError.beforeStartDate
+        }
+
+        guard isDevSettingOn || !hasExperimentEnded() else {
+            throw CustomError.pastAssignmentEndDate
+        }
+
+        guard !alreadyAssigned else {
+            throw CustomError.alreadyAssignedExperiment
+        }
+
+        guard let experimentsDataController else {
+            throw CustomError.missingExperimentsDataController
+        }
+
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.activityTab, withPercentage: activityTabExperimentPercentage)
+
+        var assignment: WMFActivityTabExperimentAssignment
+
+        switch bucketValue {
+        case .activityTabControl:
+            assignment = .control
+        case .activityTabExperiment:
+            assignment = .activityTab
+        default:
+            throw CustomError.unexpectedAssignment
+        }
+        assignmentCache = assignment
+        return assignment
+    }
+
+     public var isDevSettingOn: Bool {
+         get {
+             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
+         } set {
+             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
+         }
+     }
+
+    public var isForceControlDevSettingOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue, value: newValue)
+        }
+    }
+
+    public var isForceExperimentDevSettingOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue, value: newValue)
+        }
+    }
+
+    public var alreadyAssigned: Bool {
+       return experimentsDataController?.bucketForExperiment(.activityTab) != nil
+    }
+
+    private var experimentEndDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2026
+        dateComponents.month = 1
+        dateComponents.day = 15
+        return Calendar.current.date(from: dateComponents)
+    }
+
+    private var experimentStartDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2025
+        dateComponents.month = 12
+        dateComponents.day = 1
+        return Calendar.current.date(from: dateComponents)
+    }
+
+    private func hasExperimentStarted() -> Bool {
+        guard let experimentStartDate else {
+            return false
+        }
+        return experimentStartDate <= Date()
+    }
+
+    private func hasExperimentEnded() -> Bool {
+        guard let experimentEndDate else {
+            return false
+        }
+        return experimentEndDate <= Date()
+    }
+
+    public enum CustomError: Error {
+
+        case missingExperimentsDataController
+        case unexpectedAssignment
+        case missingAssignment
+        case alreadyAssignedExperiment
+        case pastAssignmentEndDate
+        case beforeStartDate
+        case errorFetchingAssigment
+        case missingLanguage
+        case unexpectedError(Error)
     }
 
 }
 
 extension WMFActivityTabDataController {
-    @objc public nonisolated static func activityAssignmentForObjC() -> Int {
-        let key = WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue
-        let value = (try? WMFDataEnvironment.current.userDefaultsStore?.load(key: key)) ?? false
-        return value ? 1 : 0
-    }
-}
 
+    public nonisolated static func activityAssignmentForObjC() -> WMFActivityTabExperimentAssignment {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: WMFActivityTabExperimentAssignment = .unknown
+
+        Task {
+            let controller = WMFActivityTabDataController.shared
+
+            let assignment: WMFActivityTabExperimentAssignment?
+            do {
+                assignment = try await controller.assignOrFetchExperimentAssignment()
+            } catch {
+                debugPrint("Error in activityAssignmentForObjC: \(error)")
+                assignment = nil
+            }
+
+            result = assignment ?? .unknown
+            semaphore.signal()
+        }
+
+        semaphore.wait()
+        return result
+    }
+
+}
 
 public protocol SavedArticleModuleDataDelegate: AnyObject {
     func getSavedArticleModuleData(from startDate: Date, to endDate: Date) async -> SavedArticleModuleData
@@ -215,8 +668,7 @@ public struct TimelineItem: Identifiable, Equatable {
     public var description: String?
     public var imageURLString: String?
     public var snippet: String?
-    
-    public let page: WMFPage
+    public let namespaceID: Int
     
     public let itemType: TimelineItemType
 
@@ -229,7 +681,7 @@ public struct TimelineItem: Identifiable, Equatable {
                 description: String? = nil,
                 imageURLString: String? = nil,
                 snippet: String? = nil,
-                page: WMFPage,
+                namespaceID: Int,
                 itemType: TimelineItemType = .standard) {
         self.id = id
         self.date = date
@@ -240,7 +692,7 @@ public struct TimelineItem: Identifiable, Equatable {
         self.description = description
         self.imageURLString = imageURLString
         self.snippet = snippet
-        self.page = page
+        self.namespaceID = namespaceID
         self.itemType = itemType
     }
 
@@ -253,5 +705,11 @@ public enum TimelineItemType {
     case standard // no icon, logged out users, etc.
     case edit
     case read
-    case save
+    case saved
+}
+
+public enum LoginState: Int {
+    case loggedOut = 0
+    case temp = 1
+    case loggedIn = 2
 }

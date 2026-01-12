@@ -298,7 +298,7 @@
 			<string>%1$d рядків не змінилось</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-subtitle</key>
+	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>У %1$@ році волонтери додали до англійської Вікіпедії %#@v2@. Уся їхня спільна робота разом веде до стабільно вдосконалюваного, заснованого на фактах і надійного ресурсу знань, який вони дають світові. Усі ми маємо знання, якими можемо поділитися, [дізнайтеся, як взяти участь](%3$@).</string>
@@ -314,7 +314,7 @@
 			<string>%2$lld байтів</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-bytes-slide-title</key>
+	<key>microsite-yir-english-edits-bytes-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Додано %#@v1@</string>
@@ -330,7 +330,7 @@
 			<string>%1$lld байтів</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-subtitle</key>
+	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Волонтери внесли %#@v1@ у понад %#@v2@ Вікіпедії. В англійській Вікіпедії було зроблено %#@v3@. Щогодини щодня волонтери працюють над покращенням Вікіпедії.</string>
@@ -368,7 +368,7 @@
 			<string>%3$lld змін</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-edits-slide-title</key>
+	<key>microsite-yir-english-edits-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Цього року редактори внесли майже %#@v1@</string>
@@ -384,34 +384,7 @@
 			<string>%1$lld змін</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>У %3$@ році, за підрахунками, люди витратили %#@v1@ — понад %#@v2@! — на читання англомовної Вікіпедії. Вікіпедія тут, коли ви хочете дізнатися про наш мінливий світ, виграти парі серед друзів або відповісти на запитання допитливої дитини.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%1$lld годину</string>
-			<key>other</key>
-			<string>%1$lld годин</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%2$lld рік</string>
-			<key>other</key>
-			<string>%2$lld років</string>
-		</dict>
-	</dict>
-	<key>microsite-yir-english-reading-slide-subtitle-short</key>
+	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>У %3$@ році, за підрахунками, люди витратили %#@v1@ — понад %#@v2@! — на читання англомовної Вікіпедії.</string>
@@ -438,7 +411,34 @@
 			<string>%2$lld років</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-reading-slide-title</key>
+	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>У %3$@ році, за підрахунками, люди витратили %#@v1@ — понад %#@v2@! — на читання англомовної Вікіпедії. Вікіпедія тут, коли ви хочете дізнатися про наш мінливий світ, виграти парі серед друзів або відповісти на запитання допитливої дитини.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld годину</string>
+			<key>other</key>
+			<string>%1$lld годин</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld рік</string>
+			<key>other</key>
+			<string>%2$lld років</string>
+		</dict>
+	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Ми витратили %#@v1@ на читання</string>
@@ -454,7 +454,7 @@
 			<string>%1$lld годин</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-subtitle</key>
+	<key>microsite-yir-english-saved-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Активні користувачі застосунку зберегли цього року %#@v1@. Додавання статей до списків читання дає вам доступ до статей навіть у режимі офлайн. Ви також можете увійти в систему, щоб синхронізувати списки читання на різних пристроях.</string>
@@ -470,7 +470,7 @@
 			<string>%1$lld статей</string>
 		</dict>
 	</dict>
-	<key>microsite-yir-english-saved-reading-slide-title</key>
+	<key>microsite-yir-english-saved-reading-slide-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>У нас було %#@v1@</string>
@@ -1083,7 +1083,7 @@
 			<string>%1$d фільтрів</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-editors-title</key>
+	<key>year-in-review-base-editors-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Редактори офіційних застосунків Вікіпедії зробили %#@v1@</string>
@@ -1099,7 +1099,7 @@
 			<string>%1$lld редагувань</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-edits-title</key>
+	<key>year-in-review-base-edits-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Вікіпедію редагували %#@v1@ на хвилину</string>
@@ -1115,7 +1115,7 @@
 			<string>%1$d разів</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-subtitle</key>
+	<key>year-in-review-base-reading-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>У Вікіпедії було %#@v1@ понад %#@v2@. Ви приєдналися до мільйонів у розширенні знань і дослідженні різноманітних тем.</string>
@@ -1144,7 +1144,7 @@
 			<string>%2$d активною мовою</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-reading-title</key>
+	<key>year-in-review-base-reading-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Вікіпедія була доступна понад %#@v1@</string>
@@ -1160,7 +1160,7 @@
 			<string>%1$d мовами</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-saved-title</key>
+	<key>year-in-review-base-saved-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Користувачі програмки мали %#@v1@</string>
@@ -1176,7 +1176,7 @@
 			<string>%1$lld збережених статей</string>
 		</dict>
 	</dict>
-	<key>year-in-review-base-viewed-title</key>
+	<key>year-in-review-base-viewed-title-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Користувачі програмки переглянули статті Вікіпедії %#@v1@</string>
@@ -1208,7 +1208,7 @@
 			<string>%1$d разів</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-subtitle-format</key>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Читачі в усьому світі цінують ваш внесок. За минулі два місяці редаговані вами статті разом переглянули %#@v1@. Завдяки таким редакторам, як ви, Вікіпедія є постійно вдосконалюваним, заснованим на фактах і надійним ресурсом знань для світу.</string>
@@ -1224,7 +1224,7 @@
 			<string>%1$lld разів</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Останнім часом ваші зміни переглянули понад %#@v1@</string>
@@ -1240,7 +1240,7 @@
 			<string>%1$lld разів</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-2</key>
+	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Такі волонтери, як ви, внесли %#@v1@ у понад %#@v2@ Вікіпедії.</string>
@@ -1267,7 +1267,7 @@
 			<string>%2$d різних мовних версій</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
+	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Ви редагували %#@v1@</string>
@@ -1283,7 +1283,7 @@
 			<string>%1$d разів</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<key>year-in-review-personalized-reading-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Ми підрахували, що ви належите до **PERCENT** найактивніших читачів Вікіпедії у світі. Середньостатистична людина читає %#@v1@ на рік.</string>
@@ -1299,7 +1299,7 @@
 			<string>%1$d статей</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-v3-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Ви витратили %#@v1@ на читання %#@v2@ у %3$@ році</string>
@@ -1326,7 +1326,7 @@
 			<string>%2$d статей</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format-v3</key>
+	<key>year-in-review-personalized-saved-subtitle-format-v3-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Серед цих статей були %1$@, %2$@ і %3$@. Кожна збережена стаття відображає ваші інтереси та допомагає створити персоналізовану базу знань у Вікіпедії. 

@@ -43,10 +43,6 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(theme.midBackground))
-
-                if viewModel.shouldShowSuggestions {
-                    bottomSection
-                }
             }
         }
         .onReceive(viewModel.$articleTabs) { tabs in
@@ -61,48 +57,8 @@ public struct WMFArticleTabsView: View {
 
                 await MainActor.run { isReady = true }
             }
-            viewModel.maybeStartSecondaryLoads()
         }
         .background(Color(theme.midBackground))
-        .onAppear {
-            viewModel.maybeStartSecondaryLoads()
-        }
-    }
-
-    // MARK: - Bottom Section
-
-    @ViewBuilder
-    private var bottomSection: some View {
-        let recReady = (viewModel.recommendedArticlesViewModel != nil)
-        let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
-        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs && recReady
-        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs && dykReady
-
-        if shouldShowRecs || shouldShowDYK {
-            VStack(spacing: 0) {
-                Rectangle()
-                    .fill(Color(theme.secondaryText).opacity(0.5))
-                    .frame(height: 1 / UIScreen.main.scale)
-                    .frame(maxWidth: .infinity)
-                
-                if shouldShowRecs, let recVM = viewModel.recommendedArticlesViewModel {
-                    WMFTabsOverviewRecommendationsView(viewModel: recVM)
-                        .frame(maxHeight: viewHeight)
-                        .clipped()
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                } else if shouldShowDYK, let dykVM = viewModel.didYouKnowViewModel {
-                    WMFTabsOverviewDidYouKnowView(
-                        viewModel: dykVM
-                    )
-                    .fixedSize(horizontal: false, vertical: true)
-                    .clipped()
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .background(Color(theme.midBackground))
-            .animation(.default, value: shouldShowRecs || shouldShowDYK)
-        }
     }
     
     // MARK: - Loading / Empty
@@ -130,7 +86,7 @@ public struct WMFArticleTabsView: View {
                         imageColor: nil,
                         numberOfFilters: 0
                     )
-                    WMFEmptyView(viewModel: emptyViewModel, type: .noItems)
+                    WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true)
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
@@ -243,14 +199,6 @@ public struct WMFArticleTabsView: View {
                         if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .center)
                         }
-                    }
-                }
-            }
-            .onChange(of: viewModel.recLoaded) { recLoaded in
-                guard recLoaded else { return }
-                Task { @MainActor in
-                    if let id = viewModel.currentTabID {
-                        proxy.scrollTo(id, anchor: .center)
                     }
                 }
             }

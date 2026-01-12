@@ -6,7 +6,8 @@ public final class ArticlesSavedViewModel: ObservableObject {
     @Published public var articlesSavedAmount: Int = 0
     @Published public var dateTimeLastSaved: String = ""
     @Published public var articlesSavedThumbURLs: [URL?] = []
-    public var navigateToSaved: (() -> Void)?
+    @Published public var articleTitles: [String] = []
+    public var onTapSaved: (() -> Void)?
 
     private var dataController: WMFSavedArticlesDataController
     private let dateFormatter: (Date) -> String
@@ -33,6 +34,7 @@ public final class ArticlesSavedViewModel: ObservableObject {
                 self.articlesSavedAmount = data.savedArticlesCount
                 self.dateTimeLastSaved = data.dateLastSaved.map(self.dateFormatter) ?? ""
                 self.articlesSavedThumbURLs = data.articleThumbURLs
+                self.articleTitles = data.articleTitles
             }
         }
     }

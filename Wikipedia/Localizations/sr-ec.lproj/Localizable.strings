@@ -96,6 +96,7 @@
 "activity-tab-add-images-subtitle" = "Додајте предложене слике у чланке на Википедији да би сте побољшали њихово разумевање.";
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-articles-read-graph-label" = "Чланци";
+"activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈИ ЗА iOS";
 "activity-tab-logged-out-title" = "Видите више уређивачких и читалачких активности";
 "activity-tab-neutral" = "Неутралан";
 "activity-tab-no-edits-title" = "Још нисте направили измене ове недеље. Додајте слике да би сте побољшали разумевање чланка.";
@@ -141,7 +142,6 @@
 "article-revision-history" = "Историја чланка";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
-"article-tabs-did-you-know-title" = "Да ли сте знали";
 "article-tabs-open" = "Отвори";
 "article-tabs-open-new-tab" = "Отвори у новој картици";
 "article-talk-page" = "Страница за разговор чланка";
@@ -180,7 +180,6 @@
 "continue-button-title" = "Настави";
 "continue-reading-empty-description" = "Истражите Википедију да бисте нашли још чланака за читање";
 "continue-reading-empty-title" = "Нема недавно прочитаних чланака";
-"create-account" = "Отвори налог";
 "data-migration-status" = "Ажурирање...";
 "description-add-title" = "Додавање описа";
 "description-edit-for-article" = "Опис чланка за страницу $1";
@@ -193,6 +192,7 @@
 "description-edit-title" = "Уређивање описа";
 "description-edit-warning" = "Покушајте да задржите описе кратким тако да корисници могу да разумеју тему чланка на први поглед";
 "description-edit-warning-casing" = "Само властите именице треба писати великим словима, чак и на почетку реченице.";
+"description-editing-temp-account-created-subtitle" = "Привремени налог $1 је направљен после објављивања Ваше измене. Привремени налог ће истећи за 90 дана.";
 "description-help-about-description" = "Описи чланака резимирају чланак како би читаоци на први поглед разумели његову тему.";
 "description-help-about-title" = "О";
 "description-help-about-wikidata" = "О Википодацима";
@@ -220,7 +220,6 @@
 "developer-settings" = "Подешавања за програмере";
 "developer-settings-bypass-donation" = "Заобилажење донирања";
 "developer-settings-send-analytics-to-wmflabs" = "Пошаљи аналитику wmflabs-у.";
-"did-you-know" = "Да ли сте знали?";
 "diff-article-revision-history" = "Историја чланка";
 "diff-change-added" = "Додато, $1, додавање завршено.";
 "diff-change-removal" = "Уклоњено, $1, уклањање завршено.";
@@ -496,6 +495,7 @@
 "field-alert-token-invalid" = "Неважећи кôд";
 "field-alert-username-unavailable" = "Корисничко име није доступно";
 "field-backup-token-title" = "Резервни кôд";
+"field-backup-token-title-email" = "Код из имејла";
 "field-captcha-placeholder" = "CAPTCHA текст";
 "field-captcha-title" = "Унесите горенаведени текст";
 "field-email-placeholder" = "primer@example.org";
@@ -649,10 +649,10 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Wikipedia Zero";
 "main-page" = "Почетна";
-"microsite-yir-english-edits-bytes-slide-title" = "$1 {{PLURAL:$1|бајтова}} додато";
-"microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили скоро $1 {{PLURAL:$1|измена}}";
-"microsite-yir-english-reading-slide-title" = "$1 сати смо {{PLURAL:$1|читали}}";
-"microsite-yir-english-saved-reading-slide-title" = "Сачували само $1 {{PLURAL:$1|чланака}}";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "$1 {{PLURAL:$1|бајтова}} додато";
+"microsite-yir-english-edits-slide-title-updated" = "Уредници су ове године начинили скоро $1 {{PLURAL:$1|измена}}";
+"microsite-yir-english-reading-slide-title-updated" = "$1 сати смо {{PLURAL:$1|читали}}";
+"microsite-yir-english-saved-reading-slide-title-updated" = "Сачували само $1 {{PLURAL:$1|чланака}}";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "more-menu" = "Више";
@@ -662,9 +662,6 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миља";
-"new-article-tab-from-wikipedia-default" = "са Википедије";
-"new-article-tab-settings-did-you-know" = "Да ли сте знали?";
-"new-article-tab-settings-recommendations" = "Предлози";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
 "new-password-title" = "Поставите лозинку";
 "new-tab" = "Нова картица";
@@ -1309,12 +1306,11 @@
 "wikitext-upload-save" = "Објављујем…";
 "wikitext-upload-save-anonymously-or-login" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се $1пријавите$2, имаћете више приватности.";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
-"wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
-"year-in-review-base-editors-title" = "Преко званичних апликације за Википедију је начињено $1 {{PLURAL:$1|измена}}";
-"year-in-review-base-edits-title" = "Википедија се уређује $1 пута у {{PLURAL:$1|минуту}}";
-"year-in-review-base-reading-title" = "Википедија је доступна на више од $1 {{PLURAL:$1|језика}}";
+"year-in-review-base-editors-title-updated" = "Преко званичних апликације за Википедију је начињено $1 {{PLURAL:$1|измена}}";
+"year-in-review-base-edits-title-updated" = "Википедија се уређује $1 пута у {{PLURAL:$1|минуту}}";
+"year-in-review-base-reading-title-updated" = "Википедија је доступна на више од $1 {{PLURAL:$1|језика}}";
 "year-in-review-base-viewed-subtitle" = "За људе широм света Википедија је почетна тачка за одговор на неко питање, тражење информација за школу или посао или једноставно учење нове чињенице.";
 "year-in-review-day-friday" = "петак";
 "year-in-review-day-monday" = "понедељак";
