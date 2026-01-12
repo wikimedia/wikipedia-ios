@@ -83,6 +83,11 @@ public struct WMFActivityTabView: View {
                             }
                             .padding(.top, 12)
                             
+                            if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
+                                TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
+                                    .padding(.horizontal, 16)
+                            }
+                            
                             if let contributionsViewModel = viewModel.contributionsViewModel {
                                 ContributionsView(viewModel: contributionsViewModel, activityViewModel: viewModel)
                                     .padding(.horizontal, 16)
@@ -477,29 +482,6 @@ public struct WMFActivityTabView: View {
     private func customizedEmptyState() -> some View {
         WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
             .frame(maxWidth: .infinity)
-    }
-}
-
-private struct MostViewedArticlesView: View {
-    let viewModel: MostViewedArticlesViewModel
-    
-    var body: some View {
-        
-        WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .lineDiagonalArrow, font: WMFFont.boldCaption1),
-            title: "Most viewed since your edit", // TODO: localize
-            dateText: nil,
-            additionalAccessibilityLabel: nil,
-            onTapModule: nil,
-            content: {
-                // TODO: TEMP UI
-                VStack {
-                    ForEach(viewModel.topViewedArticles.map(\.title), id: \.self) { title in
-                        Text(title)
-                    }
-                }
-            }
-        )
     }
 }
 
