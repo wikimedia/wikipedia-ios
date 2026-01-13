@@ -777,12 +777,7 @@ extension WMFAppViewController {
  extension WMFAppViewController {
      
      @objc func assignMoreDynamicTabsV2ExperimentIfNeeded() {
-         do {
-             let assignment = try WMFArticleTabsDataController.shared.assignExperimentV2IfNeeded()
-             ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_c")
-         } catch {
-             DDLogError("Failed to assign more dynamic tabs v2 experiment: \(error)")
-         }
+         ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_c")
      }
      
      @objc func observeArticleTabsNSNotifications() {
@@ -967,12 +962,6 @@ extension WMFAppViewController {
             authdValue = .temp
         } else {
             authdValue = .loggedOut
-        }
-        
-        var userID: Int?
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let permanentUser = dataStore.authenticationManager.permanentUser(siteURL: siteURL) {
-            userID = permanentUser.userID
         }
         
         let viewModel = WMFActivityTabViewModel(
