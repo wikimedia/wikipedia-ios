@@ -819,7 +819,7 @@
 "main-menu-title" = "Plus";
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "main-page" = "Accueil";
-"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "En $1, les bénévoles ont ajouté {{PLURAL:$2|$2 octet|$2 octets}} à Wikipédia en anglais. L’ensemble de leur travail constitue une ressource de connaissance fiable, factuelle et en constante amélioration qu’ils offrent au monde entier. Chacun·e a des connaissances à partager : <a href=\"$3\">apprenez comment participer</a>.";
+"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "En $1, les bénévoles ont ajouté {{PLURAL:$2|$2 octet|$2 octets}} à Wikipédia en anglais. L’ensemble de leur travail constitue une ressource de connaissance fiable, factuelle et en constante amélioration qu’ils offrent au monde entier. Chacun·e a des connaissances à partager : [apprenez comment participer]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 octet ajouté|$1 octets ajoutés}}";
 // Fuzzy
 "microsite-yir-english-edits-slide-subtitle-updated" = "Les bénévoles ont apporté 98 222 407 modifications dans plus de 300 versions linguistiques différentes de Wikipédia. Plus de 37 millions de modifications ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l'amélioration de Wikipédia.";
