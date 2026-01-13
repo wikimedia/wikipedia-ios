@@ -482,7 +482,7 @@ public actor WMFActivityTabDataController {
             throw CustomError.unexpectedError(error)
         }
     }
-    
+
     public func getUserImpactData(userID: Int) async throws -> WMFUserImpactData {
         
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {

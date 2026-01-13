@@ -58,8 +58,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let customizeFooter: String
         public let customizeEmptyState: String
         public let viewChanges: String
+        public let contributionsThisMonth: String
+        public let thisMonth: String
+        public let lastMonth: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -96,6 +99,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.customizeFooter = customizeFooter
             self.customizeEmptyState = customizeEmptyState
             self.viewChanges = viewChanges
+            self.contributionsThisMonth = contributionsThisMonth
+            self.thisMonth = thisMonth
+            self.lastMonth = lastMonth
         }
     }
 
@@ -220,14 +226,14 @@ public final class WMFActivityTabViewModel: ObservableObject {
             debugPrint("Error getting global edit count: \(error)")
         }
     }
-    
+
     private func fetchUserImpact() async {
         guard case .loggedIn = authenticationState else { return }
         guard let userID else { return }
         do {
             let data = try await dataController.getUserImpactData(userID: userID)
             self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data)
-            self.contributionsViewModel = ContributionsViewModel(data: data)
+            self.contributionsViewModel = ContributionsViewModel(data: data, activityViewModel: self)
             self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
             self.recentActivityViewModel = RecentActivityViewModel(data: data)
             self.articleViewsViewModel = ArticleViewsViewModel(data: data)
@@ -289,6 +295,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     // MARK: - Helpers
+    public var pushToContributions: (() -> Void)?
+    
+    public func navigateToContributions() {
+        pushToContributions?()
+    }
     
     private func recomputeShouldShowEmptyState() {
         switch authenticationState {
