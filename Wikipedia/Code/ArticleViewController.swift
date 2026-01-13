@@ -476,7 +476,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
         
-        var focusingOnSearch = false
+        let focusingOnSearch = false
         
         if let project {
             if isMainPage {

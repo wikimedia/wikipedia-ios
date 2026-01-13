@@ -194,7 +194,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
     
     var config: WMFFeatureConfigResponse {
         let common = WMFFeatureConfigResponse.Common(yir: [WMFFeatureConfigResponse.Common.YearInReview.testConfig])
-        return WMFFeatureConfigResponse(common: common, ios: WMFFeatureConfigResponse.IOS())
+        return WMFFeatureConfigResponse(common: common, ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
     }
     
     var october17: Date {

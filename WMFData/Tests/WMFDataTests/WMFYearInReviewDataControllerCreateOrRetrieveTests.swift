@@ -9,7 +9,7 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
     override init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: (any WMFKeyValueStore)? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: any WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared, experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) throws {
 
         let common = WMFFeatureConfigResponse.Common(yir: [WMFFeatureConfigResponse.Common.YearInReview.testConfig])
-        let config = WMFFeatureConfigResponse(common: common, ios: WMFFeatureConfigResponse.IOS())
+        let config = WMFFeatureConfigResponse(common: common, ios: WMFFeatureConfigResponse.IOS(hCaptcha: nil))
         
         let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
 

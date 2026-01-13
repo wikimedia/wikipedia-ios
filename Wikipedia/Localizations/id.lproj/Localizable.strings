@@ -111,8 +111,10 @@
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
 "action-update" = "Perbarui";
-"activity-tab-customize-editing-insights" = "Wawasan penyuntingan";
+"activity-tab-customize-editing-insights" = "Wawasan suntingan";
+"activity-tab-customize-empty-state" = "Modul aktivitas dimatikan. $1Nyalakan$2 untuk melihat pembaruan di tab ini.";
 "activity-tab-menu-clear-history" = "Hapus riwayat bacaan";
+"activity-tab-title" = "Aktivitas";
 "activity-tab-you-edited" = "Anda menyunting {{PLURAL:$1|$1 kali}} minggu ini.";
 "activity-tab-your-impact" = "Dampak Anda";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
@@ -424,7 +426,7 @@
 "explore-feed-preferences-on-this-day-description" = "Peristiwa bersejarah pada hari ini";
 "explore-feed-preferences-places-description" = "Artikel Wikipedia di dekat lokasi Anda";
 "explore-feed-preferences-potd-description" = "Gambar pilihan harian dari Commons";
-"explore-feed-preferences-randomizer-description" = "Menghasilkan sembarang artikel untuk dibaca";
+"explore-feed-preferences-randomizer-description" = "Menghasilkan artikel acak untuk dibaca";
 "explore-feed-preferences-related-pages-description" = "Saran berdasarkan riwayat pembacaan";
 "explore-feed-preferences-show-continue-reading-title" = "Tampilkan kartu Lanjutkan membaca";
 "explore-feed-preferences-show-featured-article-footer-text" = "Mematikan kartu Artikel pilihan akan mematikan kartu dalam semua bahasa yang tersedia.";
@@ -436,8 +438,8 @@
 "explore-feed-preferences-show-picture-of-the-day-title" = "Tampilkan kartu Gambar pilihan";
 "explore-feed-preferences-show-places-footer-text" = "Mematikan kartu Tempat akan mematikan kartu dalam semua bahasa yang tersedia.";
 "explore-feed-preferences-show-places-title" = "Tampilkan kartu Tempat";
-"explore-feed-preferences-show-randomizer-footer-text" = "Mematikan kartu Artikel sembarang akan mematikan kartu dalam semua bahasa yang tersedia.";
-"explore-feed-preferences-show-randomizer-title" = "Tampilkan kartu Artikel sembarang";
+"explore-feed-preferences-show-randomizer-footer-text" = "Mematikan kartu Pengacak akan mematikan kartu dalam semua bahasa yang tersedia.";
+"explore-feed-preferences-show-randomizer-title" = "Tampilkan kartu Pengacak";
 "explore-feed-preferences-show-related-pages-title" = "Tampilkan kartu Karena Anda membaca";
 "explore-feed-preferences-show-top-read-footer-text" = "Mematikan kartu Bacaan teratas akan mematikan kartu dalam semua bahasa yang tersedia.";
 "explore-feed-preferences-show-top-read-title" = "Tampilkan kartu Bacaan teratas";
@@ -472,7 +474,7 @@
 "explore-random-article-heading" = "Artikel acak";
 "explore-random-article-sub-heading-from-language-wikipedia" = "Dari Wikipedia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Dari Wikipedia";
-"explore-randomizer" = "Artikel sembarang";
+"explore-randomizer" = "Pengacak";
 "export-user-data-confirmation-message" = "Berbagi pustaka aplikasi Anda berarti membagikan data tentang daftar dan riwayat Bacaan, preferensi, dan konten umpan Jelajahi Anda. Berkas data ini hanya boleh dibagikan dengan penerima tepercaya untuk digunakan untuk tujuan diagnostik teknis.";
 "export-user-data-confirmation-title" = "Bagikan pustaka aplikasi?";
 "export-user-data-generic-error" = "Terjadi kesalahan saat mengekspor data Anda. Silakan coba lagi nanti.";
@@ -972,6 +974,8 @@
 "search-recent-title" = "Dicari baru-baru ini";
 "search-result-redirected-from" = "Dialihkan dari: $1";
 "search-title" = "Cari";
+"search-widget-announcement-body" = "Tambahkan gawit Pencarian Wikipedia ke Layar Utama atau Layar Kunci Anda untuk mendapatkan jawaban lebih cepat, langsung di ujung jari Anda.";
+"search-widget-announcement-title" = "Gawit Pencarian baru tersedia";
 "serbian-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Serbia berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nсрпски ћирилица Serbian, Sirilik (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Serbia";
 "settings-account" = "Akun";

@@ -40,6 +40,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateLoginState()
         
         viewModel.openCustomize = userDidTapCustomize
+        viewModel.pushToContributions = pushToContributions
         
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
@@ -67,6 +68,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let view = WMFToastViewBasicView(viewModel: viewModel)
             WMFToastPresenter.shared.presentToastView(view: view)
         }
+    }
+    
+    public func pushToContributions() {
+        guard let url =  userContributionsURL else { return }
+        navigate(to: url)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -106,6 +112,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
+            viewModel.timelineViewModel.setUser(username: username)
         }
     }
 
@@ -191,10 +198,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
+            viewModel.timelineViewModel.setUser(username: username)
         }
 
         viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
         viewModel.timelineViewModel.onTapArticle = onTapArticle
+        viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
 
 
@@ -467,11 +476,33 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
 
-   private  func onTapArticle(item: TimelineItem) {
+   private func onTapArticle(item: TimelineItem) {
        ActivityTabFunnel.shared.logActivityTabArticleTap()
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
+        }
+    }
+    
+    private func onTapEditArticle(item: TimelineItem) {
+        ActivityTabFunnel.shared.logActivityTabArticleTap()
+        
+        guard let articleURL = item.url,
+              let revID = item.revisionID,
+              let parentID = item.parentRevisionID else {
+            return
+        }
+
+        var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
+        components?.path = "/w/index.php"
+        components?.queryItems = [
+            URLQueryItem(name: "title", value: articleURL.wmf_title),
+            URLQueryItem(name: "diff", value: "\(revID)"),
+            URLQueryItem(name: "oldid", value: "\(parentID)")
+        ]
+
+        if let diffURL = components?.url {
+            navigate(to: diffURL)
         }
     }
     
@@ -515,7 +546,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
         }
     }
-
 }
 
 // MARK: - Extensions
