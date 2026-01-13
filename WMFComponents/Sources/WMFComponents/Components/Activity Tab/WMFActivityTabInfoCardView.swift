@@ -57,20 +57,24 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                             Text("\(dateText)")
                                 .foregroundStyle(Color(theme.secondaryText))
                                 .font(Font(WMFFont.for(.caption1)))
-                            Image(systemName: "chevron.right")
+                            if let uiImage = WMFSFSymbolIcon.for(symbol: .chevronForward) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .scaledToFit()
+                                    .frame(width: iconSize, height: iconSize)
+                                    .foregroundStyle(Color(theme.secondaryText))
+                            }
+                        }
+                    } else if showArrowAnyways {
+                        if let uiImage = WMFSFSymbolIcon.for(symbol: .chevronForward) {
+                            Image(uiImage: uiImage)
                                 .resizable()
                                 .renderingMode(.template)
                                 .scaledToFit()
                                 .frame(width: iconSize, height: iconSize)
                                 .foregroundStyle(Color(theme.secondaryText))
                         }
-                    } else if showArrowAnyways {
-                        Image(systemName: "chevron.right")
-                            .resizable()
-                            .renderingMode(.template)
-                            .scaledToFit()
-                            .frame(width: iconSize, height: iconSize)
-                            .foregroundStyle(Color(theme.secondaryText))
                     }
                 }
 

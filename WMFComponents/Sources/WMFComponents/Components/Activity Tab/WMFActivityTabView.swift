@@ -89,7 +89,7 @@ public struct WMFActivityTabView: View {
                             }
                             
                             if let contributionsViewModel = viewModel.contributionsViewModel {
-                                ContributionsView(viewModel: contributionsViewModel, activityViewModel: viewModel)
+                                ContributionsView(viewModel: contributionsViewModel)
                                     .padding(.horizontal, 16)
                             }
                             
@@ -485,7 +485,7 @@ public struct WMFActivityTabView: View {
     }
 }
 
-public struct RecentActivityView: View {
+struct RecentActivityView: View {
     let viewModel: RecentActivityViewModel
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -494,8 +494,7 @@ public struct RecentActivityView: View {
         return appEnvironment.theme
     }
     
-    public var body: some View {
-        
+    var body: some View {
         VStack {
             HStack {
                 Text("Recent Activity") // TODO: Localize
@@ -515,7 +514,7 @@ public struct RecentActivityView: View {
     }
 }
 
-public struct ArticleViewsView: View {
+struct ArticleViewsView: View {
     let viewModel: ArticleViewsViewModel
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -524,7 +523,7 @@ public struct ArticleViewsView: View {
         return appEnvironment.theme
     }
     
-    public var body: some View {
+    var body: some View {
         VStack {
             HStack {
                 Text("Views on articles you've edited") // TODO: Localize

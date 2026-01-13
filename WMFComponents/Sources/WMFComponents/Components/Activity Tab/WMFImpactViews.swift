@@ -3,7 +3,7 @@ import WMFData
 import Charts
 import Foundation
 
-public struct CombinedImpactView: View {
+struct CombinedImpactView: View {
     let allTimeImpactViewModel: AllTimeImpactViewModel?
     let recentActivityViewModel: RecentActivityViewModel?
     let articleViewsViewModel: ArticleViewsViewModel?
@@ -14,8 +14,7 @@ public struct CombinedImpactView: View {
         return appEnvironment.theme
     }
     
-    public var body: some View {
-        
+    var body: some View {
         VStack(spacing: 16) {
             if let allTimeImpactViewModel {
                 AllTimeImpactView(viewModel: allTimeImpactViewModel)
