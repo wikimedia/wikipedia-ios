@@ -622,7 +622,6 @@
 "forgot-password-username-or-email-title" = "Or";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Updates to Gan variant support";
-"hcaptcha-fine-print" = "This service is protected by hCaptcha and its $1Privacy Policy$3 and $2Terms of Service$3 apply.";
 "history-clear-all" = "Clear";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-delete-all" = "Yes, delete all";

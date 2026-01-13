@@ -2,6 +2,7 @@ import UIKit
 import WMFComponents
 import CocoaLumberjackSwift
 import HCaptcha
+import WMFData
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable, WMFNavigationBarConfiguring {
     @IBOutlet fileprivate var usernameField: ThemeableTextField!
@@ -45,6 +46,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     private var checkingUsernameAvailability: Bool = false
     
     private var hCaptchaToken: String?
+    private var hCaptchaFinePrintText: String?
     
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)
@@ -53,7 +55,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
         save()
     }
-
+    
     @objc func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
@@ -94,8 +96,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field {{Identical|Password}}")
         passwordRepeatTitleLabel.text = WMFLocalizedString("field-password-confirm-title", value:"Confirm password", comment:"Title for confirm password field")
         emailTitleLabel.text = WMFLocalizedString("field-email-title-optional", value:"Email (optional)", comment:"Noun. Title for optional email address field.")
-        
-        setupHCaptchaFinePrintText()
         
         stackView.setCustomSpacing(20, after: createAccountButton)
         passwordRepeatAlertLabel.text = WMFLocalizedString("field-alert-password-confirm-mismatch", value:"Passwords do not match", comment:"Alert shown if password confirmation did not match password")
@@ -146,24 +146,23 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     private func setupHCaptchaFinePrintText() {
+        guard let hCaptchaFinePrintText,
+              !hCaptchaFinePrintText.isEmpty else {
+            return
+        }
         hcaptchaFinePrintTextView.delegate = self
         hcaptchaFinePrintTextView.isEditable = false
         hcaptchaFinePrintTextView.isSelectable = true
         hcaptchaFinePrintTextView.backgroundColor = .clear
-        
-        let openingPrivacyLink = "<a href=\"https://www.hcaptcha.com/privacy\">"
-        let openingTermsLink = "<a href=\"https://www.hcaptcha.com/terms\">"
-        let closingLink = "</a>"
-        let format = WMFLocalizedString("hcaptcha-fine-print", value:"This service is protected by hCaptcha and its %1$@Privacy Policy%3$@ and %2$@Terms of Service%3$@ apply.", comment:"HCaptcha fine print displayed at the bottom of the Create Account form. $1 is the opening privacy HTML link, $2 is the opening terms HTML link, $3 is the closing link.")
-        let localizedString = String.localizedStringWithFormat(format, openingPrivacyLink, openingTermsLink, closingLink)
+
         let font = WMFFont.for(.caption1)
         let color = theme.colors.secondaryText
         let linkColor = theme.colors.link
         let styles = HtmlUtils.Styles(font: font, boldFont: font, italicsFont: font, boldItalicsFont: font, color: color, linkColor: linkColor, lineSpacing: 1)
-        if let attributedText = try? HtmlUtils.nsAttributedStringFromHtml(localizedString, styles: styles) {
+        if let attributedText = try? HtmlUtils.nsAttributedStringFromHtml(hCaptchaFinePrintText, styles: styles) {
             hcaptchaFinePrintTextView.attributedText = attributedText
         } else {
-            hcaptchaFinePrintTextView.text = localizedString
+            hcaptchaFinePrintTextView.text = hCaptchaFinePrintText
         }
     }
     
@@ -176,21 +175,52 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         super.viewWillAppear(animated)
         
         // Check if any captcha is required right away. Things could be configured so captcha is required at all times.
-        getCaptcha { captcha in
+        getCaptcha { [weak self] captcha in
+            
+            guard let self else { return }
+            
             if captcha?.classicInfo != nil {
                 self.captchaViewController?.captcha = captcha
                 self.hcaptchaFinePrintTextView.isHidden = true
+                self.updateEmailFieldReturnKeyType()
+                self.enableProgressiveButtonIfNecessary()
             } else if (captcha?.hCaptchaInfo?.needsHCaptcha) ?? false {
-                self.hcaptchaFinePrintTextView.isHidden = false
+                self.fetchAndSetupHCaptchaFinePrint()
+            }
+        }
+        
+        updateEmailFieldReturnKeyType()
+        enableProgressiveButtonIfNecessary()
+        configureNavigationBar()
+    }
+    
+    private func fetchAndSetupHCaptchaFinePrint() {
+        let appLanguage = dataStore.languageLinkController.appLanguage
+        Task { [weak self] in
+            
+            guard let self else { return }
+            
+            let languageCode = appLanguage?.languageCode ?? "en"
+            let languageVariantCode = appLanguage?.languageVariantCode
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+            do {
+                let finePrintText = try await MessagesDataController().fetchMessages(keys: ["hcaptcha-privacy-policy"], parseLinks: true, project: project).first?.content
+
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+                    self.hCaptchaFinePrintText = finePrintText
+                    self.setupHCaptchaFinePrintText()
+                    self.hcaptchaFinePrintTextView.isHidden = false
+                }
+            } catch {
+                self.hcaptchaFinePrintTextView.isHidden = true
             }
             
             self.updateEmailFieldReturnKeyType()
             self.enableProgressiveButtonIfNecessary()
         }
         
-        updateEmailFieldReturnKeyType()
-        enableProgressiveButtonIfNecessary()
-        configureNavigationBar()
+        
     }
     
     private func configureNavigationBar() {
