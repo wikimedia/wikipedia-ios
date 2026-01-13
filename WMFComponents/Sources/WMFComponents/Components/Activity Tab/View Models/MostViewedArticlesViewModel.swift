@@ -7,12 +7,16 @@ public final class MostViewedArticlesViewModel: ObservableObject {
     public var projectID: String?
     
     public init?(data: WMFUserImpactData) {
-        let topViewedArticles = Array(data.topViewedArticles.prefix(3))
-        guard !topViewedArticles.isEmpty else {
+        let topViewedArticles = data.topViewedArticles
+            .sorted { $0.viewsCount > $1.viewsCount }
+            .prefix(3)
+
+        let topThree = Array(topViewedArticles)
+        guard !topThree.isEmpty else {
             return nil
         }
-        
-        self.topViewedArticles = topViewedArticles
+
+        self.topViewedArticles = topThree
         try? getProject()
     }
     

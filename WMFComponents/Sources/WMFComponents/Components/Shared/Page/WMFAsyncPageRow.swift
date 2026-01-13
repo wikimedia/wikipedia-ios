@@ -137,7 +137,7 @@ struct WMFAsyncPageRow: View {
                 .padding(.top, 4)
             }
         }
-        .padding(.vertical, 10)
+        .padding(.vertical, viewModel.viewsString == nil ? 10 : 0)
     }
 
     @ViewBuilder

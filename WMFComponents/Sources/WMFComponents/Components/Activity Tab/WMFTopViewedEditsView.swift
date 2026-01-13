@@ -27,7 +27,17 @@ public struct TopViewedEditsView: View {
             content: {
                 if let projectID = mostViewedViewModel.projectID {
                     ForEach(mostViewedViewModel.topViewedArticles) { article in
-                        WMFAsyncPageRow(viewModel: WMFAsyncPageRowViewModel(id: article.id, title: article.title, projectID: projectID, iconAccessibilityLabel: "", viewsString: viewModel.localizedStrings.viewsString(article.viewsCount)))
+                        let cleanTitle = article.title.replacingOccurrences(of: "_", with: " ")
+
+                        WMFAsyncPageRow(
+                            viewModel: WMFAsyncPageRowViewModel(
+                                id: article.id,
+                                title: cleanTitle,
+                                projectID: projectID,
+                                iconAccessibilityLabel: "",
+                                viewsString: viewModel.localizedStrings.viewsString(article.viewsCount)
+                            )
+                        )
                     }
                 }
             }, shiftFirstIcon: true
