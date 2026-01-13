@@ -513,30 +513,3 @@ struct RecentActivityView: View {
         }
     }
 }
-
-struct ArticleViewsView: View {
-    let viewModel: ArticleViewsViewModel
-    
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Views on articles you've edited") // TODO: Localize
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4)
-                Spacer()
-            }
-            .padding(.bottom, 16)
-            
-            // TODO: TEMP UI
-            Text("Views count: \(viewModel.totalViewsCount)")
-        }
-    }
-}

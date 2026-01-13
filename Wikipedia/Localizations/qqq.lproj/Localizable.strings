@@ -71,6 +71,7 @@
 "activity-tab-add-images-subtitle" = "Subtitle for add images feature.";
 "activity-tab-add-images-title" = "Title for add images feature suggestion.";
 "activity-tab-additional-thoughts" = "Asking user if they have any comments";
+"activity-tab-amount-article-views" = "$1 is the amount of views that an article has had since a user has edited it.";
 "activity-tab-articles-read" = "Title for module about articles read this month, displayed below the time spent reading this week";
 "activity-tab-articles-read-graph-label" = "Activity tab articles read graph axis label";
 "activity-tab-customize-all-time-impact" = "Title for all time impact";

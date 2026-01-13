@@ -41,10 +41,6 @@ struct CombinedImpactView: View {
                     )
                     .padding(0)
             }
-            
-            if let articleViewsViewModel {
-                ArticleViewsView(viewModel: articleViewsViewModel)
-            }
         }
         .padding(16)
         .background(Color(theme.paperBackground))

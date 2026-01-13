@@ -17,12 +17,13 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     let deleteAccessibilityLabel: String?
     
     let bottomButtonTitle: String?
+    let viewsString: String?
     
     private var summary: WMFArticleSummary?
     @Published var articleDescription: String?
     @Published var uiImage: UIImage?
     
-    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil, bottomButtonTitle: String? = nil) {
+    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil, bottomButtonTitle: String? = nil, viewsString: String? = nil) {
         self.id = id
         self.title = title
         self.projectID = projectID
@@ -37,6 +38,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         self.deleteAccessibilityLabel = deleteAccessibilityLabel
         self.summary = nil
         self.bottomButtonTitle = bottomButtonTitle
+        self.viewsString = viewsString
         
         Task {
             try await loadDescriptionAndImage()
@@ -150,6 +152,12 @@ struct WMFAsyncPageRow: View {
                     .font(WMFSwiftUIFont.font(.subheadline))
                     .foregroundColor(Color(theme.secondaryText))
                     .lineLimit(1)
+            }
+            if let viewsString = viewModel.viewsString {
+                Text(viewsString)
+                    .foregroundStyle(Color(uiColor: theme.link))
+                    .font(WMFSwiftUIFont.font(.caption1))
+                    .padding(.bottom, 0)
             }
         }
     }
