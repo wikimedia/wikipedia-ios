@@ -3,7 +3,7 @@ import WMFData
 import Charts
 import Foundation
 
-struct WMFActivityTabView: View {
+public struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
 
@@ -14,11 +14,11 @@ struct WMFActivityTabView: View {
         return appEnvironment.theme
     }
 
-    init(viewModel: WMFActivityTabViewModel) {
+    public init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
     }
 
-    var body: some View {
+    public var body: some View {
         ScrollViewReader { proxy in
             if viewModel.authenticationState == .loggedIn {
                 if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {

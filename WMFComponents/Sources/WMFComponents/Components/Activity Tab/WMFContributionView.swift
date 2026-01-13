@@ -17,19 +17,21 @@ struct ContributionsView: View {
     var body: some View {
         WMFActivityTabInfoCardView(
             icon: WMFIcon.contributionsIcon,
-            title: viewModel.activityViewModel.localizedStrings.contributionsThisMonth,
+            title: viewModel.activityViewModel?.localizedStrings.contributionsThisMonth ?? "",
             dateText: viewModel.dateText,
             additionalAccessibilityLabel: nil,
-            onTapModule: viewModel.activityViewModel.navigateToContributions,
+            onTapModule: viewModel.activityViewModel?.navigateToContributions,
             content: {
                 VStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(String(viewModel.thisMonthCount))
                             .font(Font(WMFFont.for(.boldTitle1)))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text(viewModel.activityViewModel.localizedStrings.thisMonth)
-                            .font(Font(WMFFont.for(.boldCaption1)))
-                            .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        if let thisMonthCount = viewModel.activityViewModel?.localizedStrings.contributionsThisMonth {
+                            Text(thisMonthCount)
+                                .font(Font(WMFFont.for(.boldCaption1)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        }
                         if viewModel.thisMonthCount > 0 {
                             ContributionBar(
                                 count: viewModel.thisMonthCount,
@@ -43,9 +45,11 @@ struct ContributionsView: View {
                         Text(String(viewModel.lastMonthCount))
                             .font(Font(WMFFont.for(.boldTitle1)))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text(viewModel.activityViewModel.localizedStrings.lastMonth)
-                            .font(Font(WMFFont.for(.boldCaption1)))
-                            .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        if let lastMonthCount = viewModel.activityViewModel?.localizedStrings.contributionsThisMonth {
+                            Text(lastMonthCount)
+                                .font(Font(WMFFont.for(.boldCaption1)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        }
                         if viewModel.lastMonthCount > 0 {
                             ContributionBar(
                                 count: viewModel.lastMonthCount,
