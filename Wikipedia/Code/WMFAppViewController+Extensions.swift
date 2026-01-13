@@ -1012,7 +1012,11 @@ extension WMFAppViewController {
                     customizeLastInAppDonation: customizeLastInAppDonation,
                     customizeTimelineOfBehavior: customizeTimelineOfBehavior,
                     customizeFooter: customizeFooter,
-                    customizeEmptyState: customizeEmptyState()),
+                    customizeEmptyState: customizeEmptyState(),
+                    viewChanges: WMFLocalizedString("view-changes", value: "View changes", comment: "View changes button title"),
+                    contributionsThisMonth: WMFLocalizedString("contributions-this-month", value: "Contributions this month", comment: "Title for section of contributions this month"),
+                    thisMonth: WMFLocalizedString("edits-this-month", value: "edits this month", comment: "Title for edits this month section"),
+                    lastMonth: WMFLocalizedString("edits-last-month", value: "edits last month", comment: "Title for edits last month section")),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
