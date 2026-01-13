@@ -146,7 +146,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     private func setupHCaptchaFinePrintText() {
-        
         hcaptchaFinePrintTextView.delegate = self
         hcaptchaFinePrintTextView.isEditable = false
         hcaptchaFinePrintTextView.isSelectable = true
@@ -166,8 +165,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         } else {
             hcaptchaFinePrintTextView.text = localizedString
         }
-        
-        
     }
     
     override func viewDidLayoutSubviews() {
