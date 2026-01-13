@@ -1,5 +1,8 @@
 import UIKit
 import WMFComponents
+import CocoaLumberjackSwift
+import HCaptcha
+import WMFData
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable, WMFNavigationBarConfiguring {
     @IBOutlet fileprivate var usernameField: ThemeableTextField!
@@ -14,6 +17,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var passwordRepeatTitleLabel: UILabel!
     @IBOutlet fileprivate var passwordRepeatAlertLabel: UILabel!
     @IBOutlet fileprivate var emailTitleLabel: UILabel!
+    @IBOutlet var hcaptchaFinePrintTextView: UITextView!
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: WMFAuthLinkLabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
@@ -41,6 +45,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     private var checkingUsernameAvailability: Bool = false
     
+    private var hCaptchaToken: String?
+    private var hCaptchaFinePrintText: String?
+    
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)
     }
@@ -48,7 +55,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
         save()
     }
-
+    
     @objc func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
@@ -89,6 +96,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordTitleLabel.text = WMFLocalizedString("field-password-title", value:"Password", comment:"Title for password field {{Identical|Password}}")
         passwordRepeatTitleLabel.text = WMFLocalizedString("field-password-confirm-title", value:"Confirm password", comment:"Title for confirm password field")
         emailTitleLabel.text = WMFLocalizedString("field-email-title-optional", value:"Email (optional)", comment:"Noun. Title for optional email address field.")
+        
+        stackView.setCustomSpacing(20, after: createAccountButton)
         passwordRepeatAlertLabel.text = WMFLocalizedString("field-alert-password-confirm-mismatch", value:"Passwords do not match", comment:"Alert shown if password confirmation did not match password")
 
         loginButton.strings = WMFAuthLinkLabelStrings(dollarSignString: WMFLocalizedString("account-creation-have-account", value:"Already have an account? %1$@", comment:"Text for button which shows login interface. %1$@ is the message {{msg-wikimedia|account-creation-log-in}}"), substitutionString: WMFLocalizedString("account-creation-log-in", value:"Log in.", comment:"Log in text to be used as part of a log in button {{Identical|Log in}}"))
@@ -136,6 +145,27 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
     }
     
+    private func setupHCaptchaFinePrintText() {
+        guard let hCaptchaFinePrintText,
+              !hCaptchaFinePrintText.isEmpty else {
+            return
+        }
+        hcaptchaFinePrintTextView.delegate = self
+        hcaptchaFinePrintTextView.isEditable = false
+        hcaptchaFinePrintTextView.isSelectable = true
+        hcaptchaFinePrintTextView.backgroundColor = .clear
+
+        let font = WMFFont.for(.caption1)
+        let color = theme.colors.secondaryText
+        let linkColor = theme.colors.link
+        let styles = HtmlUtils.Styles(font: font, boldFont: font, italicsFont: font, boldItalicsFont: font, color: color, linkColor: linkColor, lineSpacing: 1)
+        if let attributedText = try? HtmlUtils.nsAttributedStringFromHtml(hCaptchaFinePrintText, styles: styles) {
+            hcaptchaFinePrintTextView.attributedText = attributedText
+        } else {
+            hcaptchaFinePrintTextView.text = hCaptchaFinePrintText
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
          super.viewDidLayoutSubviews()
         scrollContainerTopConstraint.constant = toastView?.frame.height ?? 0
@@ -144,12 +174,53 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Check if captcha is required right away. Things could be configured so captcha is required at all times.
-        getCaptcha()
+        // Check if any captcha is required right away. Things could be configured so captcha is required at all times.
+        getCaptcha { [weak self] captcha in
+            
+            guard let self else { return }
+            
+            if captcha?.classicInfo != nil {
+                self.captchaViewController?.captcha = captcha
+                self.hcaptchaFinePrintTextView.isHidden = true
+                self.updateEmailFieldReturnKeyType()
+                self.enableProgressiveButtonIfNecessary()
+            } else if (captcha?.hCaptchaInfo?.needsHCaptcha) ?? false {
+                self.fetchAndSetupHCaptchaFinePrint()
+            }
+        }
         
         updateEmailFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
         configureNavigationBar()
+    }
+    
+    private func fetchAndSetupHCaptchaFinePrint() {
+        let appLanguage = dataStore.languageLinkController.appLanguage
+        Task { [weak self] in
+            
+            guard let self else { return }
+            
+            let languageCode = appLanguage?.languageCode ?? "en"
+            let languageVariantCode = appLanguage?.languageVariantCode
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+            do {
+                let finePrintText = try await MessagesDataController().fetchMessages(keys: ["hcaptcha-privacy-policy"], parseLinks: true, project: project).first?.content
+
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+                    self.hCaptchaFinePrintText = finePrintText
+                    self.setupHCaptchaFinePrintText()
+                    self.hcaptchaFinePrintTextView.isHidden = false
+                }
+            } catch {
+                self.hcaptchaFinePrintTextView.isHidden = true
+            }
+            
+            self.updateEmailFieldReturnKeyType()
+            self.enableProgressiveButtonIfNecessary()
+        }
+        
+        
     }
     
     private func configureNavigationBar() {
@@ -158,19 +229,40 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
-    fileprivate func getCaptcha() {
+    fileprivate func getCaptcha(completion: @escaping (WMFCaptcha?) -> Void) {
         let failure: WMFErrorHandler = {error in }
         let siteURL = dataStore.primarySiteURL
         accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
             DispatchQueue.main.async {
-                self.captchaViewController?.captcha = info.captcha
-                if info.captcha != nil {
-                }
-                self.updateEmailFieldReturnKeyType()
-                self.enableProgressiveButtonIfNecessary()
+                completion(info.captcha)
             }
         }, failure:failure)
         enableProgressiveButtonIfNecessary()
+    }
+    
+    private func displayHCaptcha() {
+        let hcaptchaVC = WMFHCaptchaViewController()
+        hcaptchaVC.theme = theme
+        hcaptchaVC.modalTransitionStyle = .crossDissolve
+        hcaptchaVC.modalPresentationStyle = .overFullScreen
+        
+        hcaptchaVC.successAction = { token in
+            hcaptchaVC.dismiss(animated: true) { [weak self] in
+                self?.hCaptchaToken = token
+                self?.createAccount()
+            }
+        }
+        
+        hcaptchaVC.errorAction = { error in
+            hcaptchaVC.dismiss(animated: true) { [weak self] in
+                self?.hCaptchaToken = nil
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
+            }
+        }
+        
+        present(hcaptchaVC, animated: true) {
+            hcaptchaVC.validate()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -324,6 +416,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             return
         }
         wmf_hideKeyboard()
+        
         createAccount()
     }
     
@@ -370,17 +463,19 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func createAccount() {
+        
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         let siteURL = dataStore.primarySiteURL
         
         let creationFailure: WMFErrorHandler = {error in
             DispatchQueue.main.async {
+                
+                self.hCaptchaToken = nil
+                
                 self.setViewControllerUserInteraction(enabled: true)
                 
-                // Captcha's appear to be one-time, so always try to get a new one on failure.
-                self.getCaptcha()
-                
+                var isCaptchaError = false
                 if let error = error as? WMFAccountCreatorError {
                     switch error {
                     case .usernameUnavailable:
@@ -391,7 +486,22 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         WMFAlertManager.sharedInstance.dismissAlert()
                         return
                     case .wrongCaptcha:
-                        self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+                        isCaptchaError = true
+                        
+                        self.getCaptcha { [weak self] captcha in
+                            
+                            guard let self else { return }
+                            if captcha?.classicInfo != nil {
+                                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                                self.captchaViewController?.captcha = captcha
+                                self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+                                self.updateEmailFieldReturnKeyType()
+                            } else if let hCaptcha = captcha?.hCaptchaInfo,
+                               hCaptcha.needsHCaptcha {
+                                self.displayHCaptcha()
+                            }
+                        }
+                        break
                     case .blockedError(let parsedMessage):
                         
                         guard let linkBaseURL = siteURL else {
@@ -400,23 +510,24 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         
                         WMFAlertManager.sharedInstance.dismissAlert()
                         
-                            self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
+                        self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
 
-                        self.enableProgressiveButtonIfNecessary()
-                        return
-                        
                     default:
                         break
                     }
                 }
                 
                 self.enableProgressiveButtonIfNecessary()
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                
+                if !isCaptchaError {
+                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                }
+                
             }
         }
         
         self.setViewControllerUserInteraction(enabled: false)
-        accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, siteURL: siteURL!, success: {_ in
+        accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, classicCaptchaID: captchaViewController?.captcha?.classicInfo?.captchaID, classicCaptchaWord: captchaViewController?.solution, hCaptchaToken: hCaptchaToken, siteURL: siteURL!, success: {_ in
             DispatchQueue.main.async {
                 self.login()
             }
@@ -445,5 +556,16 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         createAccountButton.apply(theme: theme)
         captchaContainer.backgroundColor = theme.colors.paperBackground
         captchaViewController?.apply(theme: theme)
+        setupHCaptchaFinePrintText()
+    }
+}
+
+extension WMFAccountCreationViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        let config = SinglePageWebViewController.StandardConfig(url: URL, useSimpleNavigationBar: true)
+        let inAppWebView = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        let navVC = WMFComponentNavigationController(rootViewController: inAppWebView, modalPresentationStyle: .pageSheet)
+        present(navVC, animated: true)
+        return false
     }
 }
