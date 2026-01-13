@@ -33,7 +33,9 @@ public final class WMFDataEnvironment: ObservableObject {
     public var coreDataStore: WMFCoreDataStore? {
         didSet {
             if coreDataStore != nil {
-                NotificationCenter.default.post(name: WMFNSNotification.coreDataStoreSetup, object: nil)
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: WMFNSNotification.coreDataStoreSetup, object: nil)
+                }
             }
         }
     }
