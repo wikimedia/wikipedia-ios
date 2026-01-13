@@ -3,7 +3,7 @@ import WMFData
 import Charts
 import Foundation
 
-public struct WMFActivityTabView: View {
+struct WMFActivityTabView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject public var viewModel: WMFActivityTabViewModel
 
@@ -14,11 +14,11 @@ public struct WMFActivityTabView: View {
         return appEnvironment.theme
     }
 
-    public init(viewModel: WMFActivityTabViewModel) {
+    init(viewModel: WMFActivityTabViewModel) {
         self.viewModel = viewModel
     }
 
-    public var body: some View {
+    var body: some View {
         ScrollViewReader { proxy in
             if viewModel.authenticationState == .loggedIn {
                 if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
@@ -512,8 +512,7 @@ struct RecentActivityView: View {
         return appEnvironment.theme
     }
     
-    public var body: some View {
-        
+    var body: some View {
         VStack {
             HStack {
                 Text("Recent Activity") // TODO: Localize
@@ -533,7 +532,7 @@ struct RecentActivityView: View {
     }
 }
 
-public struct ArticleViewsView: View {
+struct ArticleViewsView: View {
     let viewModel: ArticleViewsViewModel
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -542,7 +541,7 @@ public struct ArticleViewsView: View {
         return appEnvironment.theme
     }
     
-    public var body: some View {
+    var body: some View {
         VStack {
             HStack {
                 Text("Views on articles you've edited") // TODO: Localize

@@ -6,7 +6,7 @@ final class ContributionsViewModel: ObservableObject {
     let thisMonthCount: Int
     let lastMonthCount: Int
     let lastEdited: Date?
-    let activityViewModel: WMFActivityTabViewModel
+    weak var activityViewModel: WMFActivityTabViewModel?
 
     init(data: WMFUserImpactData, activityViewModel: WMFActivityTabViewModel) {
         self.activityViewModel = activityViewModel
@@ -46,12 +46,16 @@ final class ContributionsViewModel: ObservableObject {
         let calendar = Calendar.current
 
         let title: String
-        if calendar.isDateInToday(lastEdited) {
-            title = activityViewModel.localizedStrings.todayTitle
-        } else if calendar.isDateInYesterday(lastEdited) {
-            title = activityViewModel.localizedStrings.yesterdayTitle
+        if let activityViewModel {
+            if calendar.isDateInToday(lastEdited) {
+                title = activityViewModel.localizedStrings.todayTitle
+            } else if calendar.isDateInYesterday(lastEdited) {
+                title = activityViewModel.localizedStrings.yesterdayTitle
+            } else {
+                title = activityViewModel.formatDate(lastEdited)
+            }
         } else {
-            title = activityViewModel.formatDate(lastEdited)
+            return ""
         }
         
         return title

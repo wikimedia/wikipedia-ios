@@ -3,7 +3,7 @@ import WMFData
 import Charts
 import Foundation
 
-public struct ContributionsView: View {
+struct ContributionsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -14,7 +14,7 @@ public struct ContributionsView: View {
         max(viewModel.lastMonthCount, viewModel.thisMonthCount)
     }
     
-    public var body: some View {
+    var body: some View {
         WMFActivityTabInfoCardView(
             icon: WMFIcon.contributionsIcon,
             title: viewModel.activityViewModel.localizedStrings.contributionsThisMonth,

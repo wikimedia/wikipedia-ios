@@ -14,7 +14,7 @@ struct TimelineSectionView: View {
         return appEnvironment.theme
     }
     
-    public var body: some View {
+    var body: some View {
         return Section(
             header:
                 TimelineHeaderView(activityViewModel: activityViewModel, section: section)
@@ -115,7 +115,7 @@ struct TimelineRowView: View {
             bottomButtonTitle: item.itemType == .edit ? activityViewModel.localizedStrings.viewChanges : nil)
     }
     
-    public var body: some View {
+    var body: some View {
         return WMFAsyncPageRow(viewModel: pageRowViewModel)
     }
 }
