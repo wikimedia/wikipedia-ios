@@ -299,7 +299,7 @@
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>En %1$@, les bénévoles ont ajouté %#@v2@ à Wikipédia en anglais. L’ensemble de leur travail constitue une ressource de connaissance fiable, factuelle et en constante amélioration qu’ils offrent au monde entier. Chacun·e a des connaissances à partager : &lt;a href="%3$@"&gt;apprenez comment participer&lt;/a&gt;.</string>
+		<string>En %1$@, les bénévoles ont ajouté %#@v2@ à Wikipédia en anglais. L’ensemble de leur travail constitue une ressource de connaissance fiable, factuelle et en constante amélioration qu’ils offrent au monde entier. Chacun·e a des connaissances à partager : [apprenez comment participer](%3$@).</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
