@@ -1,6 +1,7 @@
 import Foundation
 import WidgetKit
 import CocoaLumberjackSwift
+import WMFData
 
 @objc(WMFWidgetController)
 public final class WidgetController: NSObject {
@@ -419,6 +420,7 @@ public extension WidgetController {
             switch result {
             case .success(var featuredContent):
                 if var imageSource = featuredContent.pictureOfTheDay?.originalImageSource {
+                    let standardizedSize = ImageUtils.standardizeWidthToMediaWiki(Int(self.potdTargetImageSize.width))
                     imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, Int(self.potdTargetImageSize.width))
                     featuredContent.pictureOfTheDay?.originalImageSource = imageSource
                     fetcher.fetchImageDataFrom(imageSource: imageSource) { imageResult in

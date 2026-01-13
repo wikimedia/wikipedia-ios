@@ -99,9 +99,9 @@ NS_ASSUME_NONNULL_BEGIN
         thumbnailBucketSize = LegacyWidthExtraExtraLarge;
     }
     // standardize to MW sizes
-    NSInteger standardiedSize = [ImageUtils standardizeWidthToMediaWiki:thumbnailBucketSize];
+    NSInteger standardizedSize = [ImageUtils standardizeWidthToMediaWiki:thumbnailBucketSize];
     
-    NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, standardiedSize);
+    NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, standardizedSize);
     NSURL *adjustedURL = [NSURL URLWithString:adjustedString];
     return adjustedURL ?: self.imageThumbURL ?: self.imageURL;
 }
