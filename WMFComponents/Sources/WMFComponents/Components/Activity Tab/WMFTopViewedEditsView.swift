@@ -23,22 +23,24 @@ public struct TopViewedEditsView: View {
             title: viewModel.localizedStrings.contributionsThisMonth,
             dateText: nil,
             additionalAccessibilityLabel: nil,
-            onTapModule: viewModel.navigateToContributions,
+            onTapModule: nil,
             content: {
-                if let projectID = mostViewedViewModel.projectID {
-                    ForEach(mostViewedViewModel.topViewedArticles) { article in
-                        let cleanTitle = article.title.replacingOccurrences(of: "_", with: " ")
+                ForEach(mostViewedViewModel.topViewedArticles) { article in
+                    let cleanTitle = article.title.replacingOccurrences(of: "_", with: " ")
 
-                        WMFAsyncPageRow(
-                            viewModel: WMFAsyncPageRowViewModel(
-                                id: article.id,
-                                title: cleanTitle,
-                                projectID: projectID,
-                                iconAccessibilityLabel: "",
-                                viewsString: viewModel.localizedStrings.viewsString(article.viewsCount)
-                            )
+                    WMFAsyncPageRow(
+                        viewModel: WMFAsyncPageRowViewModel(
+                            id: article.id,
+                            title: cleanTitle,
+                            projectID: mostViewedViewModel.projectID,
+                            iconAccessibilityLabel: "",
+                            tapAction: {
+                                let url = mostViewedViewModel.getArticleURL(for: article)
+                                guard let url else { return }
+                                viewModel.onTapArticle?(url)
+                            }, viewsString: viewModel.localizedStrings.viewsString(article.viewsCount)
                         )
-                    }
+                    )
                 }
             }, shiftFirstIcon: true
         )

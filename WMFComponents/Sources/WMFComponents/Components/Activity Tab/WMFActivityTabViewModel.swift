@@ -18,6 +18,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.customizeViewModel.presentLoggedInToastAction = self.presentCustomizeLogInToastAction
         }
     }
+    public var onTapArticle: ((URL) -> Void)?
 
     // MARK: - Localization
 
@@ -137,6 +138,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
     public var openCustomize: () -> Void = { }
+    public var getURL: ((WMFUserImpactData.TopViewedArticle, WMFProject) -> URL?)? = nil
     
     private var cancellables = Set<AnyCancellable>()
 
@@ -234,7 +236,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
         guard let userID else { return }
         do {
             let data = try await dataController.getUserImpactData(userID: userID)
-            self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data)
+            if let getURL = getURL {
+                self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
+            }
             self.contributionsViewModel = ContributionsViewModel(data: data, activityViewModel: self)
             self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
             self.recentActivityViewModel = RecentActivityViewModel(data: data)

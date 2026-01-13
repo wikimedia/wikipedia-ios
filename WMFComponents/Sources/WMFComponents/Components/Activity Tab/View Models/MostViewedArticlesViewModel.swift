@@ -3,29 +3,40 @@ import SwiftUI
 
 @MainActor
 public final class MostViewedArticlesViewModel: ObservableObject {
-    let topViewedArticles: [WMFUserImpactData.TopViewedArticle]
-    public var projectID: String?
-    
-    public init?(data: WMFUserImpactData) {
-        let topViewedArticles = data.topViewedArticles
+
+    public let topViewedArticles: [WMFUserImpactData.TopViewedArticle]
+    public let project: WMFProject
+    public let projectID: String
+
+    private let getURL: (WMFUserImpactData.TopViewedArticle, WMFProject) -> URL?
+
+    public init?(
+        data: WMFUserImpactData,
+        getURL: @escaping (WMFUserImpactData.TopViewedArticle, WMFProject) -> URL?
+    ) {
+        let topThree = data.topViewedArticles
             .sorted { $0.viewsCount > $1.viewsCount }
             .prefix(3)
 
-        let topThree = Array(topViewedArticles)
         guard !topThree.isEmpty else {
             return nil
         }
 
-        self.topViewedArticles = topThree
-        try? getProject()
-    }
-    
-    public func getProject() throws {
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
-             throw WMFDataControllerError.failureCreatingRequestURL
+            return nil
         }
 
         let project = WMFProject.wikipedia(primaryAppLanguage)
-        projectID = project.id
+
+        self.topViewedArticles = Array(topThree)
+        self.project = project
+        self.projectID = project.id
+        self.getURL = getURL
+    }
+
+    public func getArticleURL(
+        for article: WMFUserImpactData.TopViewedArticle
+    ) -> URL? {
+        getURL(article, project)
     }
 }
