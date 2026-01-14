@@ -1,39 +1,43 @@
 import Foundation
 
 @objc public final class ImageUtils: NSObject {
-    // Note these were the original legacy thumbnail request sizes. All code requesting thumbnails should now flow  through the `standardizeToMediaWiki` helper method to reorient to backend expectations.
-    @objc public enum LegacyWidth: Int {
-        // Original values * scale of 2 (legacy code)
-        case extraSmall = 120
-        case small = 240
-        case medium = 640
-        case large = 1280
-        case extraLarge = 2560
-        case extraExtraLarge = 3840
+    
+    @objc public enum ImageWidth: Int {
+        case w20 = 20
+        case w40 = 40
+        case w60 = 60
+        case w120 = 120
+        case w250 = 250
+        case w330 = 330
+        case w500 = 500
+        case w960 = 960
+        case w1280 = 1280
+        case w1920 = 1920
+        case w3840 = 3840
     }
     
     @objc public static func listThumbnailWidth() -> Int {
-        return LegacyWidth.extraSmall.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w120.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func nearbyThumbnailWidth() -> Int {
-        return LegacyWidth.small.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w250.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func leadImageWidth() -> Int {
-        return LegacyWidth.large.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w1280.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func potdImageWidth() -> Int {
-        return LegacyWidth.medium.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w500.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func galleryImageWidth() -> Int {
-        return LegacyWidth.large.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w1280.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func articleImageWidth() -> Int {
-        return LegacyWidth.medium.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w500.rawValue.standardizeToMediaWiki()
     }
     
     @objc public static func standardizeWidthToMediaWiki(_ width: Int) -> Int {
@@ -54,7 +58,7 @@ fileprivate extension Int {
             960,
             1280,
             1920,
-            3840 
+            3840
         ]
         
         var chosenStandardWidth: Int = 20
