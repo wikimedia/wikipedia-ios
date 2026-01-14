@@ -170,7 +170,7 @@ import Contacts
     }
     
     public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, appInstallID: String?, completion: @escaping (Result<Void, Error>) -> Void) {
-        
+
         guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
             completion(.success(()))
             return
@@ -224,11 +224,11 @@ import Contacts
         if let appVersion {
             parameters["app_version"] = appVersion
         }
-        
+
         if let appInstallID {
             parameters["app_install_id"] = appInstallID
         }
-            
+
         let request = WMFBasicServiceRequest(url: donatePaymentSubmissionURL, method: .POST, parameters: parameters, contentType: .form, acceptType: .json)
         service?.performDecodablePOST(request: request, completion: { (result: Result<WMFPaymentSubmissionResponse, Error>) in
             switch result {
