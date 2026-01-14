@@ -2,14 +2,10 @@ import Foundation
 
 public extension String {
     var spacesToUnderscores: String {
-        return self.replacingOccurrences(of: " ", with: "_").precomposedStringWithCanonicalMapping
+        return self.replacingOccurrences(of: " ", with: "_")
     }
     
     var underscoresToSpaces: String {
-        return self.replacingOccurrences(of: "_", with: " ").precomposedStringWithCanonicalMapping
-    }
-    
-    var unescapedUnderscoresToSpaces: String? {
-        return removingPercentEncoding?.underscoresToSpaces
+        return self.replacingOccurrences(of: "_", with: " ")
     }
 }
