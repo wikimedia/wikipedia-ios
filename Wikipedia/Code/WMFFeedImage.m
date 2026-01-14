@@ -30,11 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
             NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(urlString);
-            NSInteger proposedWidth = [ImageUtils standardizeWidthToMediaWiki:sizePrefix];
-            NSInteger maxedWidth = ImageWidthW3840;
-            
-            if (proposedWidth < maxedWidth) {
-                urlString = WMFChangeImageSourceURLSizePrefix(urlString, maxedWidth);
+            if (sizePrefix < ImageWidthW3840) {
+                        urlString = WMFChangeImageSourceURLSizePrefix(urlString, ImageWidthW3840);
             }
             return [NSURL wmf_optionalURLWithString:urlString];
         }
@@ -90,17 +87,15 @@ NS_ASSUME_NONNULL_BEGIN
         // We can't request a width larger than the original width, so return the original image URL
         return self.imageURL;
     }
-    NSInteger thumbnailBucketSize;
+    NSInteger standardizedSize;
     if (targetWidth <= ImageWidthW1280) {
-        thumbnailBucketSize = ImageWidthW1280;
+        standardizedSize = ImageWidthW1280;
     } else if (targetWidth <= ImageWidthW1920) {
-        thumbnailBucketSize = ImageWidthW1920;
+        standardizedSize = ImageWidthW1920;
     } else {
-        thumbnailBucketSize = ImageWidthW3840;
+        standardizedSize = ImageWidthW3840;
     }
-    // standardize to MW sizes
-    NSInteger standardizedSize = [ImageUtils standardizeWidthToMediaWiki:thumbnailBucketSize];
-    
+
     NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, standardizedSize);
     NSURL *adjustedURL = [NSURL URLWithString:adjustedString];
     return adjustedURL ?: self.imageThumbURL ?: self.imageURL;

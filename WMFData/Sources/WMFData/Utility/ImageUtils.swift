@@ -17,27 +17,27 @@ import Foundation
     }
     
     @objc public static func listThumbnailWidth() -> Int {
-        return ImageWidth.w120.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w120.rawValue
     }
     
     @objc public static func nearbyThumbnailWidth() -> Int {
-        return ImageWidth.w250.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w250.rawValue
     }
     
     @objc public static func leadImageWidth() -> Int {
-        return ImageWidth.w1280.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w1280.rawValue
     }
     
     @objc public static func potdImageWidth() -> Int {
-        return ImageWidth.w500.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w500.rawValue
     }
     
     @objc public static func galleryImageWidth() -> Int {
-        return ImageWidth.w1280.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w1280.rawValue
     }
     
     @objc public static func articleImageWidth() -> Int {
-        return ImageWidth.w500.rawValue.standardizeToMediaWiki()
+        return ImageWidth.w500.rawValue
     }
     
     @objc public static func standardizeWidthToMediaWiki(_ width: Int) -> Int {
