@@ -97,18 +97,9 @@ public final class ImageCacheController: CacheController {
                 return
             }
             let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
-            
-            // Standardize image url if needed. Ideally this would be fixed at the endpoint layer.
-            let sizePrefix = WMFParseSizePrefixFromSourceURL(schemedURL)
-            let standardizedSize = ImageUtils.standardizeWidthToMediaWiki(sizePrefix)
-            
-            var betterImageURL: URL = url
-            if let betterUrlString = WMFChangeImageSourceURLSizePrefix(schemedURL.absoluteString, standardizedSize) {
-                betterImageURL = URL(string: betterUrlString) ?? url
-            }
            
             let acceptAnyContentType = ["Accept": "*/*"]
-            let task = self.imageFetcher.dataForURL(betterImageURL, persistType: .image, headers: acceptAnyContentType) { [weak self] (result) in
+            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: acceptAnyContentType) { [weak self] (result) in
                 guard let self = self else {
                     return
                 }

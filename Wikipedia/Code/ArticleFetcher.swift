@@ -99,16 +99,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                             return nil
                     }
                     
-                    // Standardize image url if needed. Ideally this would be fixed at the endpoint layer.
-                    let sizePrefix = WMFParseSizePrefixFromSourceURL(url)
-                    let standardizedSize = ImageUtils.standardizeWidthToMediaWiki(sizePrefix)
-                                
-                    var betterImageURL: URL = url
-                    if let betterUrlString = WMFChangeImageSourceURLSizePrefix(url.absoluteString, standardizedSize) {
-                        betterImageURL = URL(string: betterUrlString) ?? url
-                    }
-                    
-                    return MediaListItem(imageURL: betterImageURL, imageTitle: title)
+                    return MediaListItem(imageURL: url, imageTitle: title)
                 }
                 
                 // Process original items (math formulas)
