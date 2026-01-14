@@ -144,6 +144,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var getURL: ((WMFUserImpactData.TopViewedArticle, WMFProject) -> URL?)?
     
     private var cancellables = Set<AnyCancellable>()
+    private var isFirstTimeLoading: Bool = true
 
     // MARK: - Init
 
@@ -198,7 +199,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     public func fetchData(fromAppearance: Bool = false) {
         Task { @MainActor in
-            isLoading = true
+            if isFirstTimeLoading {
+                isLoading = true
+            }
             let start = ContinuousClock.now
 
             async let readTask: Void = articlesReadViewModel.fetch()
@@ -230,6 +233,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             }
 
             isLoading = false
+            isFirstTimeLoading = false
             fetchDataCompleteAction?(fromAppearance)
         }
     }
