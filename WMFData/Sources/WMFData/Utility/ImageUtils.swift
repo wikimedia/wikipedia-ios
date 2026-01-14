@@ -51,7 +51,10 @@ fileprivate extension Int {
             250,
             330,
             500,
-            960
+            960,
+            1280,
+            1920,
+            3840 
         ]
         
         var chosenStandardWidth: Int = 20
