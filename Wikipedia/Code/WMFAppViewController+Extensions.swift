@@ -1006,7 +1006,8 @@ extension WMFAppViewController {
                     contributionsThisMonth: WMFLocalizedString("contributions-this-month", value: "Contributions this month", comment: "Title for section of contributions this month"),
                     thisMonth: WMFLocalizedString("edits-this-month", value: "edits this month", comment: "Title for edits this month section"),
                     lastMonth: WMFLocalizedString("edits-last-month", value: "edits last month", comment: "Title for edits last month section"),
-                    viewsString: viewsString(views:)),
+                    viewsString: viewsString(views:),
+                    mostViewed: WMFLocalizedString("activity-tab-most-viewed", value: "Most viewed since your edit", comment: "Title for section for most viewed articles since an edit")),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 

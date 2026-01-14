@@ -20,7 +20,7 @@ public struct TopViewedEditsView: View {
     public var body: some View {
         WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .lineDiagonalArrow),
-            title: viewModel.localizedStrings.contributionsThisMonth,
+            title: viewModel.localizedStrings.mostViewed,
             dateText: nil,
             additionalAccessibilityLabel: nil,
             onTapModule: nil,
