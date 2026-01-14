@@ -87,8 +87,8 @@ final class CacheFileWriter: CacheTaskTracking {
                 return
         }
         
-        var responseHeaderRemoveError: Error?
-        var responseRemoveError: Error?
+        var responseHeaderRemoveError: Error? = nil
+        var responseRemoveError: Error? = nil
 
         // remove response from file system
         let responseCachedFileURL = CacheFileWriterHelper.fileURL(for: fileName)

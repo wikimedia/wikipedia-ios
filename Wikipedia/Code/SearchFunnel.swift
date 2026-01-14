@@ -44,7 +44,7 @@ import WMFData
     func logEvent(action: Action, actionData: [String: String]? = nil, source: String, position: Int? = nil, searchType: WMFSearchType? = nil, numberOfResults: Int? = nil, timeToDisplay: Int? = nil, wikiId: String?) {
         guard let searchSessionToken else { return }
 
-        var actionDataString: String?
+        var actionDataString: String? = nil
         if let actionData {
             actionDataString = ""
             for (key, value) in actionData {

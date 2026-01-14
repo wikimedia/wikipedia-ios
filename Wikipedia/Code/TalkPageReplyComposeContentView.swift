@@ -102,7 +102,7 @@ class TalkPageReplyComposeContentView: SetupView {
     private(set) lazy var ipTempButton: UIButton = {
         let button = UIButton(type: .custom)
         
-        var image: UIImage?
+        var image: UIImage? = nil
         if authState == .ip {
             image = WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon)
         } else if authState == .temp {

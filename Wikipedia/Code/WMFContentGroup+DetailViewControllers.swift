@@ -30,7 +30,7 @@ extension WMFContentGroup {
     }
     
     public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
-        var vc: UIViewController?
+        var vc: UIViewController? = nil
         switch moreType {
         case .pageList:
             guard let articleURLs = contentURLs else {

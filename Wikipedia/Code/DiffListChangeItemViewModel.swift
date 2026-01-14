@@ -209,7 +209,7 @@ final class DiffListChangeItemViewModel {
             text = " "
         }
         
-        var highlightRange: DiffHighlightRangeType?
+        var highlightRange: DiffHighlightRangeType? = nil
         switch diffItemType {
         case .addLine:
             highlightRange = .add

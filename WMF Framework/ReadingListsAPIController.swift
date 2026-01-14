@@ -281,7 +281,7 @@ public class ReadingListsAPIController: Fetcher {
             }
             completion(batch.compactMap {
                 let id = $0["id"] as? Int64
-                var error: Error?
+                var error: Error? = nil
                 if let errorString = $0["error"] as? String {
                     error = APIReadingListError(rawValue: errorString) ?? APIReadingListError.generic
                 }
@@ -390,7 +390,7 @@ public class ReadingListsAPIController: Fetcher {
 
             completion(batch.compactMap {
                 let id = $0["id"] as? Int64
-                var error: Error?
+                var error: Error? = nil
                 if let errorString = $0["error"] as? String {
                     error = APIReadingListError(rawValue: errorString) ?? APIReadingListError.generic
                 }
@@ -470,7 +470,7 @@ public class ReadingListsAPIController: Fetcher {
         - error: Any error
      */
     func updatedListsAndEntries(since: String, next: String? = nil, nextSince: String? = nil, lists: [APIReadingList] = [], entries: [APIReadingListEntry] = [], completion: @escaping (_ lists: [APIReadingList], _ entries: [APIReadingListEntry], _ since: String?, _ error: Error?) -> Swift.Void ) {
-        var queryParameters: [String: Any]?
+        var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
         }
@@ -510,7 +510,7 @@ public class ReadingListsAPIController: Fetcher {
          - error: Any error
      */
     public func getAllReadingLists(next: String? = nil, nextSince: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], String?, Error?) -> Swift.Void ) {
-        var queryParameters: [String: Any]?
+        var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
         }
@@ -532,7 +532,7 @@ public class ReadingListsAPIController: Fetcher {
     }
     
     public func getAllEntriesForReadingListWithID(next: String? = nil, entries: [APIReadingListEntry] = [], readingListID: Int64, completion: @escaping ([APIReadingListEntry], Error?) -> Swift.Void ) {
-        var queryParameters: [String: Any]?
+        var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
         }

@@ -185,7 +185,7 @@ class WMFReferencePageViewController: ReferenceViewController, UIPageViewControl
         currentReference = lastClickedReferencesGroup[index]
     }
     
-    var currentReference: WMFLegacyReference? {
+    var currentReference: WMFLegacyReference? = nil {
         didSet {
             referenceId = currentReference?.anchor.removingPercentEncoding
             referenceLinkText = currentReference?.text

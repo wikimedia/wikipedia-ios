@@ -327,7 +327,7 @@ private extension WMFWatchlistFilterViewModel {
         }
         
         for project in otherProjects {
-            var icon: UIImage?
+            var icon: UIImage? = nil
             switch project {
             case .commons:
                 icon = WMFIcon.commons

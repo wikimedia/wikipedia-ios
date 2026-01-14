@@ -93,7 +93,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
         undoLabel.isHidden = true
     }
     
-    public var cardContent: (CardContent & Themeable)? {
+    public var cardContent: (CardContent & Themeable)? = nil {
         didSet {
             oldValue?.view?.removeFromSuperview()
             guard let view = cardContent?.view else {

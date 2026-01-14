@@ -310,7 +310,7 @@ private extension WMFDonateViewModel.LocalizedStrings {
         let transactionFeeFormat = "I’ll generously add %1$@ to cover the transaction fees so you can keep 100 percent of my donation."
         
         var minimumString: String = ""
-        var maximumString: String?
+        var maximumString: String? = nil
         if currencyCode == "USD" {
             minimumString = usdMinimumString
             maximumString = usdMaximumString

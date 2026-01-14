@@ -221,12 +221,12 @@ fileprivate final class WMFWatchlistHostingViewController: WMFComponentHostingCo
 
 	let viewModel: WMFWatchlistViewModel
     let emptyViewModel: WMFEmptyViewModel
-    weak var emptyViewDelegate: WMFEmptyViewDelegate? {
+    weak var emptyViewDelegate: WMFEmptyViewDelegate? = nil {
         didSet {
             rootView.emptyViewDelegate = emptyViewDelegate
         }
     }
-    weak var loggingDelegate: WMFWatchlistLoggingDelegate? {
+    weak var loggingDelegate: WMFWatchlistLoggingDelegate? = nil {
         didSet {
             rootView.loggingDelegate = loggingDelegate
         }

@@ -504,7 +504,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return ""
         }
         
-        var identifier: String?
+        var identifier: String? = nil
         for topReadPercentage in config.topReadPercentages {
             
             guard let max = topReadPercentage.max else {

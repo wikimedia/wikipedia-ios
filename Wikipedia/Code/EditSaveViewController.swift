@@ -61,7 +61,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var languageCode: String?
     var dataStore: MWKDataStore?
     var source: EditorViewController.Source?
-    var authState: AuthState?
+    var authState: AuthState? = nil
     
     var wikitext = ""
     var theme: Theme = .standard

@@ -36,7 +36,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             guard let alertType = alertType else {
                 return
             }
-            var alertLabelText: String?
+            var alertLabelText: String? = nil
             let alertImage: UIImage? = UIImage(named: "error-icon")
             
             switch alertType {

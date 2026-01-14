@@ -25,7 +25,7 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
     
     private var theme: Theme = Theme.standard
     
-    private var firstResponder: UITextField?
+    private var firstResponder: UITextField? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -22,7 +22,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
     @IBOutlet private var scrollView:WMFWelcomePanelGradientScrollView!
     @IBOutlet private var nextButtonContainerView:UIView!
 
-    private var viewControllerForContainerView:UIViewController?
+    private var viewControllerForContainerView:UIViewController? = nil
     var welcomePageType:WMFWelcomePageType = .intro
 
     override func viewDidLoad() {

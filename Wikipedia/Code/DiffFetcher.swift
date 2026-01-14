@@ -113,7 +113,7 @@ class DiffFetcher: Fetcher {
     func fetchRevisionModel(_ siteURL: URL, articleTitle: String, request: FetchRevisionModelRequest, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
         
         let requestRevisionID: Int
-        var requestDirection: FetchRevisionModelRequestDirection?
+        var requestDirection: FetchRevisionModelRequestDirection? = nil
         let requestNumberOfRevisions: Int
         
         switch request {

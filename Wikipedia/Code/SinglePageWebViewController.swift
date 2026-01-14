@@ -192,7 +192,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     
     private func configureNavigationBar() {
         
-        var closeConfig: WMFNavigationBarCloseButtonConfig?
+        var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
         
         if useSimpleNavigationBar {
             let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)

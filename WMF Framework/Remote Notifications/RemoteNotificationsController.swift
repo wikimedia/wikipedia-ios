@@ -457,7 +457,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return nil
         }
         
-        var combinedOffTypePredicate: NSPredicate?
+        var combinedOffTypePredicate: NSPredicate? = nil
         if typePredicates.count > 0 {
             if otherIsOff {
                 combinedOffTypePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: typePredicates)
@@ -466,7 +466,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             }
         }
         
-        var combinedOffProjectPredicate: NSPredicate?
+        var combinedOffProjectPredicate: NSPredicate? = nil
         if offProjectPredicates.count > 0 {
             combinedOffProjectPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: offProjectPredicates)
         }

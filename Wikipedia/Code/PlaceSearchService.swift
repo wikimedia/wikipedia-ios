@@ -46,7 +46,7 @@ class PlaceSearchService {
     public func performSearch(_ search: PlaceSearch, defaultSiteURL: URL, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void) {
         var result: PlaceSearchResult?
         let siteURL =  search.siteURL ?? defaultSiteURL
-        var searchTerm: String?
+        var searchTerm: String? = nil
         let sortStyle = search.sortStyle
 
         let done = {

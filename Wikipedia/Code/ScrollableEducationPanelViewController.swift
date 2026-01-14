@@ -239,8 +239,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
 
-    var footerLinkAction: ((URL) -> Void)?
-    var subheadingLinkAction: ((URL) -> Void)?
+    var footerLinkAction: ((URL) -> Void)? = nil
+    var subheadingLinkAction: ((URL) -> Void)? = nil
     
     var subheadingParagraphStyle: NSParagraphStyle? {
         let pStyle = NSMutableParagraphStyle()

@@ -77,7 +77,7 @@ final class EditInteractionFunnel {
    
     private func logEvent(activeInterface: ActiveInterface?, action: Action, actionData: [String: String]? = nil, project: WikimediaProject) {
         
-        var actionDataString: String?
+        var actionDataString: String? = nil
         if let actionData {
             actionDataString = ""
             for (key, value) in actionData {
@@ -124,7 +124,7 @@ final class EditInteractionFunnel {
     }
     
     func logArticleEditorDidTapClose(problemSource: ProblemSource?, project: WikimediaProject) {
-        var actionData: [String: String]?
+        var actionData: [String: String]? = nil
         if let problemSource {
             actionData = ["abort_source": problemSource.rawValue]
         }
@@ -132,7 +132,7 @@ final class EditInteractionFunnel {
     }
     
     func logArticleEditorDidTapPanelLink(problemSource: ProblemSource?, project: WikimediaProject) {
-        var actionData: [String: String]?
+        var actionData: [String: String]? = nil
         if let problemSource {
             actionData = ["abort_source": problemSource.rawValue]
         }
@@ -140,7 +140,7 @@ final class EditInteractionFunnel {
     }
     
     func logTalkEditorDidTapPanelLink(problemSource: ProblemSource?, project: WikimediaProject) {
-        var actionData: [String: String]?
+        var actionData: [String: String]? = nil
         if let problemSource {
             actionData = ["abort_source": problemSource.rawValue]
         }
@@ -148,7 +148,7 @@ final class EditInteractionFunnel {
     }
     
     func logArticleEditorConfirmDidTapDiscardEdit(problemSource: ProblemSource?, project: WikimediaProject) {
-        var actionData: [String: String]?
+        var actionData: [String: String]? = nil
         if let problemSource {
             actionData = ["abort_source": problemSource.rawValue]
         }
@@ -160,7 +160,7 @@ final class EditInteractionFunnel {
     }
     
     func logTalkEditorDidTapClose(problemSource: ProblemSource?, project: WikimediaProject) {
-        var actionData: [String: String]?
+        var actionData: [String: String]? = nil
         if let problemSource {
             actionData = ["abort_source": problemSource.rawValue]
         }
@@ -169,7 +169,7 @@ final class EditInteractionFunnel {
     }
     
     func logTalkEditorConfirmDidTapDiscardEdit(problemSource: ProblemSource?, project: WikimediaProject) {
-        var actionData: [String: String]?
+        var actionData: [String: String]? = nil
         if let problemSource {
             actionData = ["abort_source": problemSource.rawValue]
         }
@@ -224,7 +224,7 @@ final class EditInteractionFunnel {
     }
     
     func logArticlePublishFail(problemSource: ProblemSource?, project: WikimediaProject) {
-        var actionData: [String: String]?
+        var actionData: [String: String]? = nil
         if let problemSource {
             actionData = ["fail_source": problemSource.rawValue]
         }
@@ -233,7 +233,7 @@ final class EditInteractionFunnel {
     }
     
     func logTalkPublishFail(problemSource: ProblemSource?, project: WikimediaProject) {
-        var actionData: [String: String]?
+        var actionData: [String: String]? = nil
         if let problemSource {
             actionData = ["fail_source": problemSource.rawValue]
         }

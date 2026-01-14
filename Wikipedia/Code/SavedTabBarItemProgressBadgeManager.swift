@@ -2,7 +2,7 @@
     private var progressObjectWasSetObservation: NSKeyValueObservation?
     private var progressFractionCompletedObservation: NSKeyValueObservation?
     
-    weak var tabBarItem: UITabBarItem?
+    weak var tabBarItem: UITabBarItem? = nil
 
     @objc(initWithTabBarItem:)
     public required init(with tabBarItem: UITabBarItem) {

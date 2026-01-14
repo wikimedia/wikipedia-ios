@@ -9,7 +9,7 @@ struct WMFWatchlistView: View {
     var emptyViewModel: WMFEmptyViewModel
     weak var delegate: WMFWatchlistDelegate?
 	weak var loggingDelegate: WMFWatchlistLoggingDelegate?
-    weak var emptyViewDelegate: WMFEmptyViewDelegate?
+    weak var emptyViewDelegate: WMFEmptyViewDelegate? = nil
     weak var menuButtonDelegate: WMFSmallMenuButtonDelegate?
     
     // MARK: - Lifecycle

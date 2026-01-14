@@ -127,7 +127,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     private var leadImageHeight: CGFloat = 210
 
-    private var contentSizeObservation: NSKeyValueObservation?
+    private var contentSizeObservation: NSKeyValueObservation? = nil
     
     /// Current ETag of the web content response. Used to verify when content has changed on the server.
     var currentETag: String?
@@ -167,8 +167,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // Article Tabs-related properties
     var coordinator: ArticleTabCoordinating?
-    var previousArticleTab: WMFArticleTabsDataController.WMFArticle?
-    var nextArticleTab: WMFArticleTabsDataController.WMFArticle?
+    var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
+    var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
     
     private let needsFocusOnSearch: Bool

@@ -17,7 +17,7 @@ class ReadingListHintViewController: HintViewController {
     }
     
     private var hintButtonTitle: String {
-        var maybeArticleTitle: String?
+        var maybeArticleTitle: String? = nil
         if let article = article {
             if let displayTitle = article.displayTitle, displayTitle.wmf_hasNonWhitespaceText {
                 maybeArticleTitle = displayTitle

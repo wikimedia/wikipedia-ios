@@ -114,7 +114,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     private(set) lazy var ipTempButton: UIButton = {
         let button = UIButton(type: .custom)
         
-        var image: UIImage?
+        var image: UIImage? = nil
         if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, wikiHasTempAccounts {
             if authState == .ip {
                 image = WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon)

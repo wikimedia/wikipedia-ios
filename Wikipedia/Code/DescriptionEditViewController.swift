@@ -24,8 +24,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     private var theme = Theme.standard
     private var editType: ArticleDescriptionEditType = .add
 
-    var delegate: DescriptionEditViewControllerDelegate?
-    var authState: AuthState?
+    var delegate: DescriptionEditViewControllerDelegate? = nil
+    var authState: AuthState? = nil
     var wikiHasTempAccounts: Bool?
 
     private var articleDescriptionController: ArticleDescriptionControlling!

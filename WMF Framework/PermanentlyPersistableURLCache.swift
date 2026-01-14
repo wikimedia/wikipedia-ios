@@ -330,8 +330,8 @@ extension PermanentlyPersistableURLCache {
         let dispatchGroup = DispatchGroup()
         
         dispatchGroup.enter()
-        var headerSaveError: Error?
-        var contentSaveError: Error?
+        var headerSaveError: Error? = nil
+        var contentSaveError: Error? = nil
         
         CacheFileWriterHelper.saveResponseHeader(httpUrlResponse: httpUrlResponse, toNewFileName: headerFileName) { (result) in
             
@@ -661,7 +661,7 @@ private extension PermanentlyPersistableURLCache {
         
         // lookup fallback itemKey/variant in DB (language fallback logic for article item type, size fallback logic for image item type)
 
-        var response: CachedURLResponse?
+        var response: CachedURLResponse? = nil
         moc.performAndWait {
             var allVariantItems = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc)
             

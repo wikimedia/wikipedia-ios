@@ -313,7 +313,7 @@ public protocol WMFArticleTabsDataControlling {
             newArticleTab.identifier = tabIdentifier
             
             // Create CDArticleTabItem and add to newArticleTab
-            var tabItemIdentifier: UUID?
+            var tabItemIdentifier: UUID? = nil
             if let page {
                 let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
                 tabItemIdentifier = articleTabItem.identifier

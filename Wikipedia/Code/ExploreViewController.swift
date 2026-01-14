@@ -184,7 +184,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
 
-                var customLargeTitleFont: UIFont?
+                var customLargeTitleFont: UIFont? = nil
                 if let logoFont = UIFont(name: "icomoon", size: 24) {
                     customLargeTitleFont = logoFont
                     titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
@@ -1032,7 +1032,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-    var addArticlesToReadingListVCDidDisappear: (() -> Void)?
+    var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
 }
 
 // MARK: - Modal Presentation Logic
@@ -1794,7 +1794,7 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
             return
         }
         
-        var timeSpent: Int?
+        var timeSpent: Int? = nil
         if let suggestionAcceptDate = currentRecommendation.suggestionAcceptDate {
             timeSpent = Int(Date().timeIntervalSince(suggestionAcceptDate))
         }

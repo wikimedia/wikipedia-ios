@@ -22,7 +22,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             guard let alertType = alertType else {
                 return
             }
-            var alertLabelText: String?
+            var alertLabelText: String? = nil
             switch alertType {
             case .listLimitExceeded:
                 alertLabelText = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")

@@ -20,7 +20,7 @@ class WMFWelcomeContainerViewController: ThemeableViewController {
     @IBOutlet private var bottomContainerViewHeightConstraint:NSLayoutConstraint!
 
     var welcomePageType:WMFWelcomePageType = .intro
-    weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate?
+    weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
     private var hasAlreadyFadedInAndUp = false
     private var needsDeviceAdjustments = true

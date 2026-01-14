@@ -201,8 +201,8 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
 
     private func configureNavigationBar() {
         let deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history {{Identical|Clear}}")
-        var profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        var tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
+        var profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil
+        var tabsButtonConfig: WMFNavigationBarTabsButtonConfig? = nil
         deleteButton = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
         deleteButton?.isEnabled = !viewModel.isEmpty
         let hideNavigationBarOnScroll = !viewModel.isEmpty

@@ -12,8 +12,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
-    private var _titleHTML: String?
-    private var _titleBoldedString: String?
+    private var _titleHTML: String? = nil
+    private var _titleBoldedString: String? = nil
 
     public var theme: Theme = Theme.standard
 

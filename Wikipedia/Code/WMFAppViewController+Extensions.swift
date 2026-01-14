@@ -1052,7 +1052,7 @@ extension WMFAppViewController {
         
         let newVC = newTabNavVC.viewControllers[0]
         
-        var action: ActivityTabFunnel.Action?
+        var action: ActivityTabFunnel.Action? = nil
         if newVC is WMFActivityTabViewController {
             action = .activityNavClick
         } else if newVC is WMFHistoryViewController {

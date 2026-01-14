@@ -282,7 +282,7 @@ open class Fetcher: NSObject {
     }
     
     private func blockedDateForDisplay(iso8601DateString: String, siteURL: URL) -> String {
-        var formattedDateString: String?
+        var formattedDateString: String? = nil
         if let date = (iso8601DateString as NSString).wmf_iso8601Date() {
             
             let dateFormatter = DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: siteURL.wmf_languageCode))

@@ -125,7 +125,7 @@ public final class WMFArticleDataController {
                 let watched = firstPage.watched ?? false
                 let userHasRollbackRights = response.query.userinfo?.rights.contains("rollback")
                  
-                var watchlistExpiry: Date?
+                var watchlistExpiry: Date? = nil
                 if let watchlistExpiryString = firstPage.watchlistexpiry {
                   watchlistExpiry = DateFormatter.mediaWikiAPIDateFormatter.date(from: watchlistExpiryString)
                 }

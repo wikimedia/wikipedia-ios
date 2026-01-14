@@ -9,8 +9,8 @@ protocol ReferenceViewControllerDelegate: AnyObject {
 class ReferenceViewController: ThemeableViewController {
     weak var delegate: ReferenceViewControllerDelegate?
     
-    var referenceId: String?
-    var referenceLinkText: String? {
+    var referenceId: String? = nil
+    var referenceLinkText: String? = nil {
         didSet {
             updateTitle()
         }
