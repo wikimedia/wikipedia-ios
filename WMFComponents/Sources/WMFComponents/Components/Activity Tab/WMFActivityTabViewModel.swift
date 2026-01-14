@@ -295,6 +295,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
     
     public func updateAuthenticationState(authState: LoginState) {
+        if self.authenticationState != authState {
+            isFirstTimeLoading = true
+        }
+        
         self.authenticationState = authState
         Task {
             await self.updateShouldShowLoginPrompt()
