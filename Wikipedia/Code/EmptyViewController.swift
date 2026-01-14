@@ -10,7 +10,7 @@ class EmptyViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var emptyContainerView: UIView!
-    private var emptyView: WMFEmptyView? = nil
+    private var emptyView: WMFEmptyView?
     var canRefresh: Bool = false
     weak var delegate: EmptyViewControllerDelegate?
     var theme: Theme = .standard

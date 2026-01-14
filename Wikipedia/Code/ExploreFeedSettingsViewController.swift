@@ -6,7 +6,7 @@ private class FeedCard: ExploreFeedSettingsItem {
     let title: String
     var subtitle: String?
     let disclosureType: WMFSettingsMenuItemDisclosureType
-    var disclosureText: String? = nil
+    var disclosureText: String?
     let iconName: String?
     let iconColor: UIColor?
     let iconBackgroundColor: UIColor?
@@ -180,7 +180,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
     
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreFeedTitle, customView: nil, alignment: .centerCompact)
-        var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
+        var closeConfig: WMFNavigationBarCloseButtonConfig?
         
         if showCloseButton {
             closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .leading)

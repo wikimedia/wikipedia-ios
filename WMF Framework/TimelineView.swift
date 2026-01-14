@@ -44,7 +44,7 @@ public class TimelineView: UIView {
     }
     public var shouldAnimateDots: Bool = false
     public var minimizeUnanimatedDots: Bool = false
-    public var timelineColor: UIColor? = nil {
+    public var timelineColor: UIColor? {
         didSet {
             refreshColors()
         }

@@ -86,8 +86,8 @@ struct TopReadEntry: TimelineEntry {
 
         let title: String
         let description: String
-        var articleURL: URL? = nil
-        var image: UIImage? = nil
+        var articleURL: URL?
+        var image: UIImage?
         let viewCounts: [NSNumber]
     }
 
@@ -95,7 +95,7 @@ struct TopReadEntry: TimelineEntry {
 
     let date: Date // for Timeline Entry
     var rankedElements: [RankedElement] = Array(repeating: RankedElement.init(title: "–", description: "–", image: nil, viewCounts: [.init(floatLiteral: 0)]), count: 4)
-    var groupURL: URL? = nil
+    var groupURL: URL?
     var contentLayoutDirection: LayoutDirection = .leftToRight
 }
 

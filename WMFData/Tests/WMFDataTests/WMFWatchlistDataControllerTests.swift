@@ -277,8 +277,8 @@ final class WMFWatchlistDataControllerTests: XCTestCase {
         
         let expectation1 = XCTestExpectation(description: "Fetch Watchlist with Internet Connection")
         let expectation2 = XCTestExpectation(description: "Fetch Watchlist without Internet Connection")
-        var connectedWatchlistReturned: WMFWatchlist? = nil
-        var disconnectedAndCachedWatchlistReturned: WMFWatchlist? = nil
+        var connectedWatchlistReturned: WMFWatchlist?
+        var disconnectedAndCachedWatchlistReturned: WMFWatchlist?
         
         controller.fetchWatchlist { result in
             switch result {

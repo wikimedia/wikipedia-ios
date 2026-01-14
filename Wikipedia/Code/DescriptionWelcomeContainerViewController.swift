@@ -11,7 +11,7 @@ class DescriptionWelcomeContainerViewController: UIViewController, Themeable {
     @IBOutlet private var topContainerViewHeightConstraint:NSLayoutConstraint!
 
     var pageType:DescriptionWelcomePageType = .intro
-    weak var welcomeNavigationDelegate:DescriptionWelcomeNavigationDelegate? = nil
+    weak var welcomeNavigationDelegate:DescriptionWelcomeNavigationDelegate?
     
     private var hasAlreadyFadedInAndUp = false
     private var needsDeviceAdjustments = true

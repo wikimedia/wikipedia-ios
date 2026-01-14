@@ -105,7 +105,7 @@ public extension NSManagedObjectContext {
     }
     
     func performWaitAndReturn<T>(_ block: () -> T?) -> T? {
-        var result: T? = nil
+        var result: T?
         performAndWait {
             result = block()
         }

@@ -3,7 +3,7 @@ class WMFWelcomeAnimationViewController: ThemeableViewController {
     var welcomePageType:WMFWelcomePageType = .intro
     private var hasAlreadyAnimated = false
     
-    private(set) var animationView: WMFWelcomeAnimationView? = nil
+    private(set) var animationView: WMFWelcomeAnimationView?
     
     override func viewDidLoad() {
         super.viewDidLoad()

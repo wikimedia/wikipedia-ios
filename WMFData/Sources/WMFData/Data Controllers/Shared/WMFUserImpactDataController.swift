@@ -94,14 +94,14 @@ public actor WMFUserImpactDataController {
                 let totalEditsCount = jsonData["totalEditsCount"] as? Int
                 let receivedThanksCount = jsonData["receivedThanksCount"] as? Int
                 
-                var longestEditingStreak: Int? = nil
+                var longestEditingStreak: Int?
                 if let streak = jsonData["longestEditingStreak"] as? [String: Any],
                    let datePeriod = streak["datePeriod"] as? [String: Any],
                    let days = datePeriod["days"] as? Int {
                     longestEditingStreak = days
                 }
                 
-                var lastEditTimestamp: Date? = nil
+                var lastEditTimestamp: Date?
                 if let lastEditTimestampInterval = jsonData["lastEditTimestamp"] as? TimeInterval {
                     lastEditTimestamp = Date(timeIntervalSince1970: lastEditTimestampInterval)
                 }

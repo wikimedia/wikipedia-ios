@@ -79,10 +79,10 @@ struct PictureOfTheDayEntry: TimelineEntry {
     
 	let date: Date // for Timeline Entry
     let kind: Kind
-	var contentURL: URL? = nil
+	var contentURL: URL?
 	var image: UIImage?
-	var imageDescription: String? = nil
-	var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
+	var imageDescription: String?
+	var licenseCode: String? // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
 
     // MARK: License Image Parsing
 

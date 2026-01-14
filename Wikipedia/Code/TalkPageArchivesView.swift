@@ -16,7 +16,7 @@ struct TalkPageArchivesView: View {
     @SwiftUI.State private var nextPageFetchTask: Task<Void, Never>?
     @SwiftUI.State private var didFetchFirstPage = false
     @SwiftUI.State private var items: [TalkPageArchivesItem] = []
-    @SwiftUI.State private var firstPageFetchError: Error? = nil
+    @SwiftUI.State private var firstPageFetchError: Error?
     
     let didTapItem: (TalkPageArchivesItem) -> Void
     

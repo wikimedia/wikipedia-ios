@@ -236,7 +236,7 @@ import WMFData
             }
         }
     }
-    private var _streamConfigurations: [Stream: StreamConfiguration]? = nil
+    private var _streamConfigurations: [Stream: StreamConfiguration]?
 
 
     private var isAnon: Bool {

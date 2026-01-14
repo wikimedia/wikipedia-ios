@@ -8,7 +8,7 @@ public struct TextViewWrapper: UIViewRepresentable {
 
     @Binding var dynamicHeight: CGFloat
 
-    var maxLines: Int? = nil
+    var maxLines: Int?
     var truncation: NSLineBreakMode = .byTruncatingTail
 
     var theme: WMFTheme {

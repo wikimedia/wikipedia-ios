@@ -69,7 +69,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         let isPermanent = dataStore.authenticationManager.authStateIsPermanent
     
         if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && isPermanent {
-            var disableReadingListsError: Error? = nil
+            var disableReadingListsError: Error?
             taskGroup.enter()
             apiController.teardownReadingLists(completion: { (error) in
                 disableReadingListsError = error
@@ -174,7 +174,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         guard syncState != [] else {
             if syncEndpointsAreAvailable {
                 // make an update call to see if the user has enabled sync on another device
-                var updateError: Error? = nil
+                var updateError: Error?
                 taskGroup.enter()
                 let iso8601String = DateFormatter.wmf_iso8601().string(from: Date())
                 apiController.updatedListsAndEntries(since: iso8601String, completion: { (lists, entries, since, error) in
@@ -208,7 +208,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         }
         
         if syncState.contains(.needsRemoteEnable) {
-            var enableReadingListsError: Error? = nil
+            var enableReadingListsError: Error?
             taskGroup.enter()
             apiController.setupReadingLists(completion: { (error) in
                 enableReadingListsError = error
@@ -255,7 +255,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         let taskGroup = WMFTaskGroup()
         var allAPIReadingLists: [APIReadingList] = []
         var getAllAPIReadingListsError: Error?
-        var nextSince: String? = nil
+        var nextSince: String?
         taskGroup.enter()
         readingListsController.apiController.getAllReadingLists { (readingLists, since, error) in
             getAllAPIReadingListsError = error
@@ -919,7 +919,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation, @unchecked Send
         // Arrange remote lists by ID and name for merging with local lists
         var remoteReadingListsByID: [Int64: APIReadingList] = [:]
         var remoteReadingListsByName: [String: [Int64: APIReadingList]] = [:] // server still allows multiple lists with the same name
-        var remoteDefaultReadingList: APIReadingList? = nil
+        var remoteDefaultReadingList: APIReadingList?
         for remoteReadingList in remoteReadingLists {
             if remoteReadingList.isDefault {
                 remoteDefaultReadingList = remoteReadingList

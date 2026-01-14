@@ -44,10 +44,10 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         return true
     }
     
-    var deleteAllButtonText: String? = nil
-    var deleteAllConfirmationText: String? = nil
-    var deleteAllCancelText: String? = nil
-    var deleteAllText: String? = nil
+    var deleteAllButtonText: String?
+    var deleteAllConfirmationText: String?
+    var deleteAllCancelText: String?
+    var deleteAllText: String?
     
     open func deleteAll() {
         

@@ -47,12 +47,12 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     private let wikitextFetcher: WikitextFetcher
     private let editNoticesFetcher: EditNoticesFetcher
-    private var editNoticesViewModel: EditNoticesViewModel? = nil
+    private var editNoticesViewModel: EditNoticesViewModel?
     
     private var sourceEditor: WMFSourceEditorViewController?
     private var editorTopConstraint: NSLayoutConstraint?
     
-    private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
+    private var editConfirmationSavedData: EditSaveViewController.SaveData?
     private var editCloseProblemSource: EditInteractionFunnel.ProblemSource?
 
     private var wikiHasTempAccounts: Bool?

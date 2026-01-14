@@ -321,7 +321,7 @@ final class RemoteNotificationsModelController {
     
     // MARK: WMFLibraryValue Helpers
     func libraryValue(forKey key: String) -> NSCoding? {
-        var result: NSCoding? = nil
+        var result: NSCoding?
         let backgroundContext = newBackgroundContext()
         backgroundContext.performAndWait {
             result = backgroundContext.wmf_keyValue(forKey: key)?.value

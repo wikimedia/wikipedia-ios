@@ -235,7 +235,7 @@ public class Router: NSObject {
             return .articleDiff(url, fromRevID: fromRevID, toRevID: nil)
         } else if let diff = maybeDiff,
                   let toRevID = Int(diff) {
-            var fromRevID: Int? = nil
+            var fromRevID: Int?
             if let maybeOldID {
                 fromRevID = Int(maybeOldID)
             }

@@ -10,7 +10,7 @@ import Foundation
                     continue
                 }
                 let resourceValueForKey: (URLResourceKey) -> NSNumber? = { key in
-                    var value: AnyObject? = nil
+                    var value: AnyObject?
                     try? itemURL.getResourceValue(&value, forKey: key)
                     return value as? NSNumber
                 }

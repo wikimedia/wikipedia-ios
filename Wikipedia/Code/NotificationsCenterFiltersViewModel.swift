@@ -35,7 +35,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         let id = UUID()
         let title: String
         let selectionType: SelectionType
-        weak var delegate: NotificationsCenterFiltersItemViewModelDelegate? = nil
+        weak var delegate: NotificationsCenterFiltersItemViewModelDelegate?
         
         @Published var isSelected: Bool
         

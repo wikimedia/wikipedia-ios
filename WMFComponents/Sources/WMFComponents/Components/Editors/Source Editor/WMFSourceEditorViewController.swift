@@ -43,7 +43,7 @@ public class WMFSourceEditorViewController: WMFComponentViewController {
     private let viewModel: WMFSourceEditorViewModel
     private weak var delegate: WMFSourceEditorViewControllerDelegate?
     private let textFrameworkMediator: WMFSourceEditorTextFrameworkMediator
-    private var scrollingToMatchCount: Int? = nil
+    private var scrollingToMatchCount: Int?
     private var preselectedTextRange: UITextRange?
     
     var textView: UITextView {
@@ -102,7 +102,7 @@ public class WMFSourceEditorViewController: WMFComponentViewController {
             textView.reloadInputViews()
         }
     }
-    var inputAccessoryViewType: InputAccessoryViewType? = nil {
+    var inputAccessoryViewType: InputAccessoryViewType? {
         didSet {
             
             guard let inputAccessoryViewType,

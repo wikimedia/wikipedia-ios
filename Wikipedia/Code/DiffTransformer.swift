@@ -129,7 +129,7 @@ class DiffTransformer {
                 
                 let groupedIndex = groupedMoveIndexes[moveInfo.id]
                 
-                var moveDistance: TransformMoveDistance? = nil
+                var moveDistance: TransformMoveDistance?
                 
                 if let correspondingMoveItem = correspondingMoveItems[moveInfo.id] {
                     
@@ -188,8 +188,8 @@ class DiffTransformer {
         let firstFrom = fromSections.first
         let firstTo = toSections.first
         
-        var lastFrom: DiffSection? = nil
-        var lastTo: DiffSection? = nil
+        var lastFrom: DiffSection?
+        var lastTo: DiffSection?
         
         var lastFromIndex = -1
         var lastToIndex = -1

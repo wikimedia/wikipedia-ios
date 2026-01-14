@@ -7,7 +7,7 @@ private struct Section {
     
     init(for type: ItemType, with items: [Item]) {
         
-        var footerText: String? = nil
+        var footerText: String?
         
         switch type {
         case .syncSavedArticlesAndLists:
@@ -36,7 +36,7 @@ private struct Item {
         self.type = type
         self.isSwitchOn = isSwitchOn
         
-        var disclosureType: WMFSettingsMenuItemDisclosureType? = nil
+        var disclosureType: WMFSettingsMenuItemDisclosureType?
         let title: String
 
         switch type {

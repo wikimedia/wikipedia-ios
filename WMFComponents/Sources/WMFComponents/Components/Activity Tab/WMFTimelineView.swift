@@ -79,7 +79,7 @@ struct TimelineRowView: View {
             iconAccessiblityLabel = ""
         }
         
-        var deleteItemAction: (() -> Void)? = nil
+        var deleteItemAction: (() -> Void)?
         if item.itemType == .read {
             deleteItemAction = {
                 self.activityViewModel.timelineViewModel.deletePage(item: item, section: section)

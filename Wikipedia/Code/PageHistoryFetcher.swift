@@ -65,8 +65,8 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     }
     
     private func parsePagingInfo(_ responseDict: [String: Any]) -> (continueKey: String?, rvContinueKey: String?, batchComplete: Bool) {
-        var continueKey: String? = nil
-        var rvContinueKey: String? = nil
+        var continueKey: String?
+        var rvContinueKey: String?
         if let continueInfo = responseDict["continue"] as? [String: Any] {
             continueKey = continueInfo["continue"] as? String
             rvContinueKey = continueInfo["rvcontinue"] as? String

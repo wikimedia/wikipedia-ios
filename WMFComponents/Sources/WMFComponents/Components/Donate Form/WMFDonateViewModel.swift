@@ -269,7 +269,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
     func logTappedApplePayButton() {
         
-        var emailOptInNSNumber: NSNumber? = nil
+        var emailOptInNSNumber: NSNumber?
         if let emailOptIn = emailOptInViewModel?.isSelected {
             emailOptInNSNumber = NSNumber(booleanLiteral: emailOptIn)
         }
