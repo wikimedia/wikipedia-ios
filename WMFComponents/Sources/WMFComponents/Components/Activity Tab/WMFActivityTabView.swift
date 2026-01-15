@@ -83,10 +83,10 @@ public struct WMFActivityTabView: View {
                             }
                             .padding(.top, 12)
                             
-                            if let contributionsViewModel = viewModel.contributionsViewModel {
-                                ContributionsView(viewModel: contributionsViewModel)
-                                    .padding(.horizontal, 16)
-                            }
+//                            if let contributionsViewModel = viewModel.contributionsViewModel {
+//                                ContributionsView(viewModel: contributionsViewModel)
+//                                    .padding(.horizontal, 16)
+//                            }
                             
                             totalEditsView(amount: animatedGlobalEditCount)
                                 .padding(.horizontal, 16)
