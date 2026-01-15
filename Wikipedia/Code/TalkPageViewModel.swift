@@ -1,6 +1,7 @@
 import Foundation
 import WMF
 import CocoaLumberjackSwift
+import WMFData
 
 final class TalkPageViewModel {
     
@@ -187,7 +188,7 @@ final class TalkPageViewModel {
         headerTitle = pageTitle.namespaceAndTitleOfWikiResourcePath(with: project.languageCode ?? "en").title
         headerDescription = articleSummary?.wikidataDescription
 
-        let leadImageWidth = UIScreen.main.wmf_listThumbnailWidthForScale().intValue
+        let leadImageWidth = ImageUtils.leadImageWidth()
         leadImageURL = articleSummary?.imageURL(forWidth: leadImageWidth)
         
         if let coffeeRollResult = coffeeRollFromItems(items) {

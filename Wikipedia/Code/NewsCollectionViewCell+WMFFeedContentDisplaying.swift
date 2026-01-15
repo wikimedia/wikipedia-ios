@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 extension NewsCollectionViewCell {
     public func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, showArticles: Bool = true, theme: Theme, layoutOnly: Bool) {
@@ -16,7 +17,7 @@ extension NewsCollectionViewCell {
         descriptionLabel.accessibilityLanguage = firstArticleURL?.wmf_languageCode
         semanticContentAttributeOverride = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: firstArticleURL?.wmf_contentLanguageCode)
         
-        let imageWidthToRequest = traitCollection.wmf_potdImageWidth
+        let imageWidthToRequest = ImageUtils.potdImageWidth()
         if let articleURL = story.featuredArticlePreview?.articleURL ?? previews.first?.articleURL, let article = dataStore.fetchArticle(with: articleURL), let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
