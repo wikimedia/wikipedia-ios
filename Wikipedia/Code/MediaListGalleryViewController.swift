@@ -1,3 +1,5 @@
+import WMFData
+
 class MediaListGalleryViewController: WMFImageGalleryViewController {
     let imageController: ImageCacheController
     let imageInfoFetcher: MWKImageInfoFetcher
@@ -73,7 +75,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
             updateOverlayInformation()
         }
         // Gallery image width is based on the trait collection
-        let width = traitCollection.wmf_galleryImageWidth
+        let width = ImageUtils.galleryImageWidth()
         guard let imageURL = imageInfo.imageURL(forTargetWidth: width) else {
             self.wmf_showAlertWithError(RequestError.unexpectedResponse as NSError)
             return
