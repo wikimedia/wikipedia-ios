@@ -1,5 +1,4 @@
 import Foundation
-import WMFData
 
 enum ImageCacheControllerError: Error {
     case failureGeneratingUniqueKey
