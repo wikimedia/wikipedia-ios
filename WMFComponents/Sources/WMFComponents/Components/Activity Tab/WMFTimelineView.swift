@@ -4,7 +4,6 @@ import Charts
 import Foundation
 
 struct TimelineSectionView: View {
-    
     let activityViewModel: WMFActivityTabViewModel
     @ObservedObject var section: TimelineViewModel.TimelineSection
     
@@ -45,7 +44,6 @@ struct TimelineSectionView: View {
 }
 
 struct TimelineRowView: View {
-    
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme {
         return appEnvironment.theme
