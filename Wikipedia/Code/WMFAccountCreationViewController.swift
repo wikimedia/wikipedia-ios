@@ -156,9 +156,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         hcaptchaFinePrintTextView.backgroundColor = .clear
 
         let font = WMFFont.for(.caption1)
+        let boldFont = WMFFont.for(.semiboldCaption1)
         let color = theme.colors.secondaryText
         let linkColor = theme.colors.link
-        let styles = HtmlUtils.Styles(font: font, boldFont: font, italicsFont: font, boldItalicsFont: font, color: color, linkColor: linkColor, lineSpacing: 1)
+        let styles = HtmlUtils.Styles(font: font, boldFont: boldFont, italicsFont: font, boldItalicsFont: font, linkFont: boldFont, color: color, linkColor: linkColor, lineSpacing: 1)
         if let attributedText = try? HtmlUtils.nsAttributedStringFromHtml(hCaptchaFinePrintText, styles: styles) {
             hcaptchaFinePrintTextView.attributedText = attributedText
         } else {
