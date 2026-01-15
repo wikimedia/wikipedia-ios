@@ -725,7 +725,7 @@ extension WMFAppViewController {
                 var articles: [HistoryRecord] = []
                 let articleFetchRequest = try dataStore.viewContext.fetch(request)
                 
-                let thumbnailImageWidth = UIScreen.main.wmf_listThumbnailWidthForScale().intValue
+                let thumbnailImageWidth = ImageUtils.listThumbnailWidth()
 
                 for article in articleFetchRequest {
                     if let viewedDate = article.viewedDate, let pageID = article.pageID {

@@ -3,7 +3,8 @@
 #import <WMF/WMFImageURLParsing.h>
 #import <WMF/NSURL+WMFExtras.h>
 #import <WMF/MWKLanguageLinkController.h>
-#import <WMF/UIScreen+WMFImageWidth.h>
+
+@import WMFData;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,8 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
             NSInteger sizePrefix = WMFParseSizePrefixFromSourceURL(urlString);
-            if (sizePrefix < WMFImageWidthExtraLarge) {
-                urlString = WMFChangeImageSourceURLSizePrefix(urlString, WMFImageWidthExtraLarge);
+            if (sizePrefix < ImageWidthW3840) {
+                        urlString = WMFChangeImageSourceURLSizePrefix(urlString, ImageWidthW3840);
             }
             return [NSURL wmf_optionalURLWithString:urlString];
         }
@@ -77,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSInteger targetHeight = imageHeight * maxScale;
     // The thumbnail service only constrains the width. In the case of a vertical panorama this
     // could lead to downloading a very large image. To work around this, limit the maximum height.
-    NSInteger heightLimit = 1.5 * WMFImageWidthExtraExtraLarge;
+    NSInteger heightLimit = 1.5 * ImageWidthW3840;
     if (targetHeight >  heightLimit) {
         double scaleDownForTooTallImage = (double)heightLimit / targetHeight;
         targetWidth = targetWidth * scaleDownForTooTallImage;
@@ -86,15 +87,16 @@ NS_ASSUME_NONNULL_BEGIN
         // We can't request a width larger than the original width, so return the original image URL
         return self.imageURL;
     }
-    NSInteger thumbnailBucketSize;
-    if (targetWidth <= WMFImageWidthLarge) {
-        thumbnailBucketSize = WMFImageWidthLarge;
-    } else if (targetWidth <= WMFImageWidthExtraLarge) {
-        thumbnailBucketSize = WMFImageWidthExtraLarge;
+    NSInteger standardizedSize;
+    if (targetWidth <= ImageWidthW1280) {
+        standardizedSize = ImageWidthW1280;
+    } else if (targetWidth <= ImageWidthW1920) {
+        standardizedSize = ImageWidthW1920;
     } else {
-        thumbnailBucketSize = WMFImageWidthExtraExtraLarge;
+        standardizedSize = ImageWidthW3840;
     }
-    NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, thumbnailBucketSize);
+
+    NSString *adjustedString = WMFChangeImageSourceURLSizePrefix(self.imageThumbURL.absoluteString, standardizedSize);
     NSURL *adjustedURL = [NSURL URLWithString:adjustedString];
     return adjustedURL ?: self.imageThumbURL ?: self.imageURL;
 }
