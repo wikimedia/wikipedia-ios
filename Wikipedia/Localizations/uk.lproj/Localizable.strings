@@ -253,6 +253,7 @@
 "continue-button-title" = "Продовжити";
 "continue-reading-empty-description" = "Дослідіть Вікіпедію, аби знайти більше статей для читання";
 "continue-reading-empty-title" = "Немає нещодавно прочитаних статей";
+"contributions-this-month" = "Внесок цього місяця";
 "crimean-tatar-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти кримськотатарської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nQırımtatarca кримськотатарська, латинка (chr-latn)\nкъырымтатарджа кримськотатарська, кирилиця (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Оновлення щодо підтримки варіантів кримськотатарської";
 "customize-action-title" = "Налаштувати";
@@ -485,6 +486,8 @@
 "editor-toolbar-template-accessibility" = "Форматування тексту шаблоном";
 "editor-wikitext-loading-accessibility" = "Завантаження редактора";
 "editor-wikitext-textview-accessibility" = "Редактор вікітексту";
+"edits-last-month" = "редагування минулого місяця";
+"edits-this-month" = "редагування цього місяця";
 "empty-diff-compare-title" = "Немає різниці між версіями";
 "empty-diff-single-title" = "Немає редагувань, які можна переглянути";
 "empty-edit-summary" = "Порожній опис редагування";
@@ -1399,6 +1402,7 @@
 "vanish-account-warning-title" = "Попередження";
 "variants-alert-dismiss-button" = "Ні, дякую";
 "variants-alert-preferences-button" = "Переглянути свої налаштування";
+"view-changes" = "Переглянути зміни";
 "watch" = "Спостерігати";
 "watchlist" = "Список спостереження";
 "watchlist-added-toast-one-month" = "Додано до вашого списку спостереження на 1 місяць.";

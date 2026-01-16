@@ -89,6 +89,13 @@
 "activity-tab-articles-read-graph-label" = "Məqalələr";
 "activity-tab-customize-all-time-impact" = "Ümumi təsir";
 "activity-tab-customize-editing-insights" = "Redaktə statistikaları";
+"activity-tab-customize-empty-state" = "Fəaliyyət modulları söndürülüb. Bu vərəqədə yeniləmələri görmək üçün $1onları aktivləşdirin$2.";
+"activity-tab-customize-footer" = "Oxuma statistikası parametrlərdəki tətbiq dillərinizə əsaslanır, redaktə statistikası isə əsas tətbiq dilinizlə məhdudlaşır. Statistikalar ictimai olan redaktələr istisna olmaqla, lokal datadan istifadə edir.";
+"activity-tab-customize-last-in-app-donation" = "Tətbiqdə sonuncu ianə";
+"activity-tab-customize-logout-warning" = "Bunu aktivləşdirmək üçün daxil olmalısınız.";
+"activity-tab-customize-reading-insights" = "Oxuma statistikaları";
+"activity-tab-customize-time-spent-reading" = "Oxumağa sərf olunan vaxt";
+"activity-tab-customize-timeline-of-behavior" = "Davranış qrafiki";
 "activity-tab-email-fifth-line" = "[Skrinşotlar və ya Linklər]";
 "activity-tab-email-first-line" = "Fəaliyyət Vərəqəsi Xüsusiyyəti ilə bağlı problemlə qarşılaşdım:";
 "activity-tab-email-fourth-line" = "[İstədiyiniz davranışı təsvir edin]";
@@ -230,8 +237,10 @@
 "continue-button-title" = "Davam et";
 "continue-reading-empty-description" = "Daha çox məqalə oxumaq üçün Vikipediyanı kəşf et";
 "continue-reading-empty-title" = "Bu yaxınlarda oxunmuş məqalə yoxdur";
+"contributions-this-month" = "Bu ay verilən töhfələr";
 "crimean-tatar-variants-alert-body" = "Vikipediya proqramı indi tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Krım tatar variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarışı və redaktə etməyi asanlaşdırır:\n\nQırımtatarca, Latın Krım Tatar Latın (chr-latn) \nкъырымтатарджа, Кирил Krım Tatar Kiril (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Krım tatar variant dəstəyi üçün yeniləmələr";
+"customize-action-title" = "Fərdiləşdir";
 "data-migration-status" = "Yenilənir...";
 "description-add-title" = "İzah əlavə et";
 "description-article-introduction-warning-message" = "Redaktə görünüşündə mlementlərin sıralanması məqaləninkindən fərqli olacaq.";
@@ -460,6 +469,8 @@
 "editor-toolbar-template-accessibility" = "Şablon mətn formatı";
 "editor-wikitext-loading-accessibility" = "Redaktor mətni yüklənir";
 "editor-wikitext-textview-accessibility" = "Viki mətn redaktoru";
+"edits-last-month" = "keçən ay edilən düzəlişlər";
+"edits-this-month" = "bu ay edilən düzəlişlər";
 "empty-diff-compare-title" = "Versiyalar arasında fərq yoxdur";
 "empty-diff-single-title" = "Görünə bilən dəyişiklik edilmədi";
 "empty-edit-summary" = "Boş redaktə izahı";
@@ -1362,6 +1373,7 @@
 "vanish-account-warning-title" = "Xəbərdarlıq";
 "variants-alert-dismiss-button" = "Xeyr, təşəkkürlər";
 "variants-alert-preferences-button" = "Nizamlamalarınıza baxmaq";
+"view-changes" = "Dəyişikliklərə bax";
 "watch" = "İzlə";
 "watchlist" = "İzləmə siyahısı";
 "watchlist-added-toast-one-month" = "1 ay müddətinə izləmə siyahınıza əlavə edildi.";

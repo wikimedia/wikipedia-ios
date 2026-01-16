@@ -257,6 +257,7 @@
 "continue-button-title" = "Fortsätt";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
+"contributions-this-month" = "Bidrag denna månad";
 "crimean-tatar-variants-alert-body" = "Wikipediaappen stödjer följande krimtatariska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nQırımtatarca, Latin krimtatariska latinska (chr-latn)\nкъырымтатарджа, Кирил krimtatariska kyrilliska (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Uppdaterades till stöd för krimtatariska varianter";
 "customize-action-title" = "Anpassa";
@@ -489,6 +490,8 @@
 "editor-toolbar-template-accessibility" = "Textformatering för mallar";
 "editor-wikitext-loading-accessibility" = "Läser in textredigerare";
 "editor-wikitext-textview-accessibility" = "Wikitextredigerare";
+"edits-last-month" = "redigeringar förra månaden";
+"edits-this-month" = "redigeringar denna månad";
 "empty-diff-compare-title" = "Ingen skillnad mellan versionerna";
 "empty-diff-single-title" = "Inga synliga ändringar gjordes";
 "empty-edit-summary" = "Tom redigeringssammanfattning";

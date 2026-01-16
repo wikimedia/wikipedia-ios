@@ -86,7 +86,10 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     }
     
     var accessibilityLabelParts: String {
-        [iconAccessibilityLabel, title, articleDescription].compactMap { $0 }.joined(separator: " - ")
+        if let bottomButtonTitle {
+            return [iconAccessibilityLabel, title, articleDescription, bottomButtonTitle].compactMap { $0 }.joined(separator: " - ")
+        }
+        return [iconAccessibilityLabel, title, articleDescription].compactMap { $0 }.joined(separator: " - ")
     }
         
 }
