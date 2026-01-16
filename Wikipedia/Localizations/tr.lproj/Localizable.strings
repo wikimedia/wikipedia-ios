@@ -277,6 +277,7 @@
 "continue-button-title" = "Devam et";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
+"contributions-this-month" = "Bu ayki katkılar";
 "crimean-tatar-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kırım Tatarcası biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nQırımtatarca, Latin Kırım Tatarcası Latin (chr-latn)\nкъырымтатарджа, Кирил Kırım Tatarcası Kiril (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Kırım Tatarcası biçim desteği güncellemeleri";
 "customize-action-title" = "Özelleştir";
@@ -509,6 +510,8 @@
 "editor-toolbar-template-accessibility" = "Şablon metni biçimlendirmesi";
 "editor-wikitext-loading-accessibility" = "Düzenleyici metni yükleniyor";
 "editor-wikitext-textview-accessibility" = "Viki metin düzenleyicisi";
+"edits-last-month" = "geçen ayki düzenlemeler";
+"edits-this-month" = "bu ayki düzenlemeler";
 "empty-diff-compare-title" = "Revizyonlar arasında fark yok";
 "empty-diff-single-title" = "Görüntülenebilir değişiklik yapılmadı";
 "empty-edit-summary" = "Boş düzenleme özeti";
@@ -1416,6 +1419,7 @@
 "vanish-account-warning-title" = "Uyarı";
 "variants-alert-dismiss-button" = "Hayır teşekkürler";
 "variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
+"view-changes" = "Değişiklikleri görüntüle";
 "watch" = "İzle";
 "watchlist" = "İzleme listesi";
 "watchlist-added-toast-one-month" = "1 ay boyunca İzleme Listenize eklendi.";

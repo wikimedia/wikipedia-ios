@@ -237,6 +237,7 @@
 "continue-button-title" = "Continua";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
+"contributions-this-month" = "Contributi questo mese";
 "crimean-tatar-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti del tataro di Crimea come lingua principale o secondaria all'interno dell'applicazione, rendendo più semplice la lettura, la ricerca e la modifica nelle varianti preferite:\n\nQırımtatarca, latino tataro di Crimea latino (chr-latn)\nкъырымтатарджа, Кирил tataro di Crimea cirillico (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Aggiorna al supporto della variante Tatara della Crimea";
 "customize-action-title" = "Personalizza";
@@ -990,6 +991,7 @@
 "vanish-account-username-field" = "Nome utente e pagina utente";
 "vanish-account-warning-title" = "Attenzione";
 "variants-alert-dismiss-button" = "No, grazie";
+"view-changes" = "Vedi modifiche";
 "watch" = "Segui";
 "watchlist" = "Osservati speciali";
 "watchlist-added-toast-one-month" = "Aggiunta ai tuoi osservati speciali per 1 mese.";
