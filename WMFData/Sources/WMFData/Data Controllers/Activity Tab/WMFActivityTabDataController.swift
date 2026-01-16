@@ -414,16 +414,12 @@ public actor WMFActivityTabDataController {
             let dayBucket = calendar.startOfDay(for: timestamp)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
 
-            var todaysPages = Set<String>()
-            if let existingItems = dailyTimeline[dayBucket] {
-                todaysPages = Set(existingItems.map { $0.pageTitle })
-            }
+            let existingItems = dailyTimeline[dayBucket]
             
             let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
-
-            guard !todaysPages.contains(page.title) else { continue }
-
-            let item = TimelineItem(
+            
+           
+            let newItem = TimelineItem(
                 id: identifier,
                 date: timestamp,
                 titleHtml: page.title,
@@ -436,8 +432,17 @@ public actor WMFActivityTabDataController {
                 namespaceID: page.namespaceID,
                 itemType: .read
             )
-
-            dailyTimeline[dayBucket, default: []].append(item)
+            
+            // prefer first visit to same article over last
+            if var existingItems,
+               let index = existingItems.firstIndex(where: { item in
+                    record.page.title == item.pageTitle
+               }) {
+                existingItems[index] = newItem
+                dailyTimeline[dayBucket] = existingItems
+            } else {
+                dailyTimeline[dayBucket, default: []].append(newItem)
+            }
         }
 
         let sortedTimeline = dailyTimeline.mapValues { items in
@@ -445,7 +450,6 @@ public actor WMFActivityTabDataController {
         }
 
         return sortedTimeline
-
     }
     
     public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {

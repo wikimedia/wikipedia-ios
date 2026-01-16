@@ -238,6 +238,7 @@
 "continue-button-title" = "Продолжи";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
+"contributions-this-month" = "Придонеси овој месец";
 "crimean-tatar-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на кримскотатарски како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nQırımtatarca, Latin — кримскотатарски на латиница (chr-latn)\nкъырымтатарджа, Кирил — кримскотатарски на кирилица (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Новост за поддршка на кримскотатарски варијанти";
 "customize-action-title" = "Прилагоди";
@@ -470,6 +471,8 @@
 "editor-toolbar-template-accessibility" = "Форматирање на текст на предлошка";
 "editor-wikitext-loading-accessibility" = "Се вчитува текстот во уредувачот";
 "editor-wikitext-textview-accessibility" = "Уредувач на викитекст";
+"edits-last-month" = "уредувања минатиот месец";
+"edits-this-month" = "уредувања за овој месец";
 "empty-diff-compare-title" = "Нема разлики помеѓу преработките";
 "empty-diff-single-title" = "Нема направено видливи промени";
 "empty-edit-summary" = "Празен опис на измени";
@@ -1384,6 +1387,7 @@
 "vanish-account-warning-title" = "Предупредување";
 "variants-alert-dismiss-button" = "Не, благодарам";
 "variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
+"view-changes" = "Погл. промени";
 "watch" = "Набљудувај";
 "watchlist" = "Набљудувања";
 "watchlist-added-toast-one-month" = "Додадено во вашите набљудувани 1 месец.";
