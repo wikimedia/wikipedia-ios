@@ -238,7 +238,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
         locationManager.stopMonitoringLocation()
-        mapView.showsUserLocation = false
+        mapView?.showsUserLocation = false
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
