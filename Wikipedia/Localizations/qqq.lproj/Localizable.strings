@@ -225,6 +225,7 @@
 "continue-button-title" = "Continue button title";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"contributions-this-month" = "Title for section of contributions this month";
 "crimean-tatar-variants-alert-body" = "Body text of alert used to inform users about Crimean Tatar variant support. Please do not translate the newlines (\n) or Crimean Tatar characters (къырымтатарджа, etc.).";
 "crimean-tatar-variants-alert-title" = "Title of alert used to inform users about Crimean Tatar variant support.";
 "customize-action-title" = "Title for action that allows users to customize their preferences.";
@@ -457,6 +458,8 @@
 "editor-toolbar-template-accessibility" = "Accessibility label for template toolbar button on the editor.";
 "editor-wikitext-loading-accessibility" = "Accessibility announcement when the editor textview is activated. This will be spoken with VoiceOver if loading takes a while.";
 "editor-wikitext-textview-accessibility" = "Accessibility label for the wikitext editor textview.";
+"edits-last-month" = "Title for edits last month section";
+"edits-this-month" = "Title for edits this month section";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
 "empty-edit-summary" = "Label when looking at a particular article revision. Indicates that the user did not add a summary.";
@@ -1371,6 +1374,7 @@
 "vanish-account-warning-title" = "Title of vanish account warning view.";
 "variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about variant support.";
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
+"view-changes" = "View changes button title";
 "watch" = "Title for watch toolbar button.";
 "watchlist" = "Title for watchlist feature.";
 "watchlist-added-toast-one-month" = "Title in toast after a user successfully adds an article to their watchlist, which expires in one month.";

@@ -1,6 +1,7 @@
 import Foundation
 import WidgetKit
 import CocoaLumberjackSwift
+import WMFData
 
 @objc(WMFWidgetController)
 public final class WidgetController: NSObject {

@@ -1,4 +1,5 @@
 import WebKit
+import WMFData
 
 enum SchemeHandlerError: Error {
     case invalidParameters
