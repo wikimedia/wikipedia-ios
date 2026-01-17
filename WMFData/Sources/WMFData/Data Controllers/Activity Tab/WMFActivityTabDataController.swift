@@ -579,6 +579,7 @@ public actor WMFActivityTabDataController {
 
      public var isDevSettingOn: Bool {
          get {
+             return true
              return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
          } set {
              try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
@@ -595,6 +596,7 @@ public actor WMFActivityTabDataController {
 
     public var isForceExperimentDevSettingOn: Bool {
         get {
+            return true
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue, value: newValue)

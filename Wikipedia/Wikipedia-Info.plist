@@ -156,5 +156,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+    <key>UIDesignRequiresCompatibility</key>
+    <true/>
 </dict>
 </plist>

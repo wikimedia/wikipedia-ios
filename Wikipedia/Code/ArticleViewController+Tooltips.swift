@@ -35,6 +35,8 @@ extension ArticleViewController {
     }
     
     func needsTooltips() -> Bool {
+        return false
+        
         if !WMFArticleTabsDataController.shared.hasPresentedTooltips || shouldShowWIconPopover {
             return true
         }

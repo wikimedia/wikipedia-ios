@@ -745,7 +745,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func personalizedMostReadArticlesSlideSubtitle(items: [String]) -> String {
-        let format = WMFLocalizedString("year-in-review-articles-slide-subtitle", value: "Here were the articles you visited the most in 2025:\n%1$@", comment: "Year in review articles slide subtitle, $1 is the list of top articles.")
+        let format = WMFLocalizedString("year-in-review-articles-slide-subtitle", value: "Here were the articles you visited the most in 2025:\n\n%1$@", comment: "Year in review articles slide subtitle, $1 is the list of top articles.")
         return String.localizedStringWithFormat(format, personalizedListSlideSubtitle(items: items))
     }
     

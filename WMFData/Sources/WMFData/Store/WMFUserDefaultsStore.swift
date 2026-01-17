@@ -1,18 +1,18 @@
 import Foundation
 
-class WMFUserDefaultsStore: WMFKeyValueStore {
+public class WMFUserDefaultsStore: WMFKeyValueStore {
 
-    func load<T: Codable>(key: String...) throws -> T? {
+    public func load<T: Codable>(key: String...) throws -> T? {
         let defaultsKey = key.joined(separator: ".")
         return try load(defaultsKey: defaultsKey)
     }
     
-    func save<T: Codable>(key: String..., value: T) throws {
+    public func save<T: Codable>(key: String..., value: T) throws {
         let defaultsKey = key.joined(separator: ".")
         try save(defaultsKey: defaultsKey, value: value)
     }
 
-    func remove(key: String...) throws {
+    public func remove(key: String...) throws {
            let defaultsKey = key.joined(separator: ".")
            UserDefaults.standard.removeObject(forKey: defaultsKey)
        }

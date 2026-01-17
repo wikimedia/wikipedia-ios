@@ -9,6 +9,7 @@ public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewDidTapNext(slideLoggingID: String)
     func logYearInReviewDidTapDonate(slideLoggingID: String)
     func logYearInReviewDidTapShare(slideLoggingID: String)
+    var introSlideLoggingID: String { get }
 }
 
 public class WMFYearInReviewViewModel: ObservableObject {
@@ -1114,7 +1115,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     private func markFirstSlideAsSeen() {
-        if let dataController {
+        if let dataController, introSlideLoggingID == "profile" {
             dataController.hasSeenYiRIntroSlide = true
             badgeDelegate?.updateYIRBadgeVisibility()
         }

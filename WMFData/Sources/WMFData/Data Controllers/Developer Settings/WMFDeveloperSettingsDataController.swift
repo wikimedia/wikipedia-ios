@@ -83,6 +83,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     public var showYiRV3: Bool {
         get {
+            return true
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue)
@@ -91,6 +92,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     
     public var enableYiRLoginExperimentControl: Bool {
         get {
+            return true
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue, value: newValue)
@@ -99,6 +101,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     
     public var enableYiRLoginExperimentB: Bool {
         get {
+            return false
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue)
@@ -107,6 +110,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     
     @objc public var showActivityTab: Bool {
         get {
+            return true
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
@@ -115,6 +119,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     @objc public var forceActivityTabControl: Bool {
         get {
+            return false
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue, value: newValue)
@@ -123,6 +128,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     @objc public var forceActivityTabExperiment: Bool {
         get {
+            return true
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue, value: newValue)

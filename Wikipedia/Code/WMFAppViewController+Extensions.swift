@@ -662,6 +662,14 @@ extension WMFAppViewController {
         
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
+        
+        // yir demo stuff
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore as? WMFUserDefaultsStore
+        
+        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReviewFeatureAnnouncement.rawValue, value: false)
+        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewSurveyPresented.rawValue, value: false)
+        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue, value: WMFYearInReviewDataController.YiRNotificationAnnouncementStatus.init(hasSeenYiRIntroSlide: false))
+        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedYIR.rawValue, value: false)
     }
     
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {

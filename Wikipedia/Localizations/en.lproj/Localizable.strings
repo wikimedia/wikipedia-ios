@@ -1482,7 +1482,7 @@
 "wikitext-upload-save-anonymously-warning" = "Edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0$4 License and the $5GFDL$6. You agree that a hyperlink or URL is sufficient attribution under the Creative Commons license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
-"year-in-review-articles-slide-subtitle" = "Here were the articles you visited the most in 2025:\n$1";
+"year-in-review-articles-slide-subtitle" = "Here were the articles you visited the most in 2025:\n\n$1";
 "year-in-review-base-editors-subtitle" = "The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
 "year-in-review-base-editors-title-updated" = "Editors on the official Wikipedia apps made {{PLURAL:$1|$1 edit|$1 edits}}";
 "year-in-review-base-edits-subtitle-updated" = "Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate]($1).";

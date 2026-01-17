@@ -1863,6 +1863,8 @@ extension ExploreViewController: UISearchControllerDelegate {
 private extension ExploreViewController {
     private var shouldShowExploreSurvey: Bool {
         
+        return false
+        
         guard checkForSurveyUponAppear else {
             return false
         }

@@ -31,10 +31,14 @@ import CoreData
         }
     }
 
-    struct YiRNotificationAnnouncementStatus: Codable {
-        var hasSeenYiRIntroSlide: Bool
+    public struct YiRNotificationAnnouncementStatus: Codable {
+        public var hasSeenYiRIntroSlide: Bool
         static var `default`: YiRNotificationAnnouncementStatus {
             return YiRNotificationAnnouncementStatus(hasSeenYiRIntroSlide: false)
+        }
+        
+        public init(hasSeenYiRIntroSlide: Bool) {
+            self.hasSeenYiRIntroSlide = hasSeenYiRIntroSlide
         }
     }
 
@@ -278,6 +282,7 @@ import CoreData
     }
     
     public var bypassLoginForPersonalizedFlow: Bool {
+        return false
         if developerSettingsDataController.enableYiRLoginExperimentB {
             return true
         }

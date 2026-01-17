@@ -60,6 +60,7 @@ import CocoaLumberjackSwift
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
     
     @objc public var authStateTemporaryUsername: String? {
+        return nil
         if authStateIsTemporary {
             return session.getCentralAuthUserCookie()
         } else {
@@ -139,6 +140,7 @@ import CocoaLumberjackSwift
     }
     
     @objc public var authStateIsTemporary: Bool {
+        return false
         // To match Android, is_temp = existence of central auth username cookie, but missing an entry in the local credential store
         return session.hasCentralAuthUserCookie() && KeychainCredentialsManager.shared.username == nil && KeychainCredentialsManager.shared.password == nil
     }

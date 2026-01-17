@@ -65,6 +65,9 @@ public struct WMFFeatureConfigResponse: Codable {
             }
             
             var activeEndDate: Date? {
+                // 1 week from now
+                let week = 60 * 60 * 24 * 7
+                return Date().addingTimeInterval(TimeInterval(week))
                 let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
                 return dateFormatter.date(from: activeEndDateString)
             }
@@ -75,6 +78,9 @@ public struct WMFFeatureConfigResponse: Codable {
             }
             
             var dataEndDate: Date? {
+                // 1 week from now
+                let week = 60 * 60 * 24 * 7
+                return Date().addingTimeInterval(TimeInterval(week))
                 let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
                 return dateFormatter.date(from: dataEndDateString)
             }
