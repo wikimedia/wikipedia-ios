@@ -98,7 +98,7 @@
 "action-update" = "עדכון";
 "activity-tab-add-images-subtitle" = "הוספת תמונות מוצעות לערכי ויקיפדיה כדי לשפר את ההבנה.";
 "activity-tab-add-images-title" = "הוספת תמונות";
-"activity-tab-additional-thoughts" = "משהו נוסף?";
+"activity-tab-additional-thoughts" = "עוד מחשבות?";
 "activity-tab-articles-read" = "ערכים שנקראו החודש";
 "activity-tab-articles-read-graph-label" = "ערכים";
 "activity-tab-customize-all-time-impact" = "השפעה מאז ומעולם";
@@ -138,7 +138,7 @@
 "appearance-settings-image-dimming-footer" = "הפחתת העמימות של התמונות בערכות הנושא החשוכה והשחורה";
 "appearance-settings-reading-themes" = "ערכות נושא לקריאה";
 "appearance-settings-set-automatic-table-opening" = "הגדרות טבלה";
-"appearance-settings-set-icon-header" = "סמל היישומון";
+"appearance-settings-set-icon-header" = "סמל היישום";
 "appearance-settings-text-sizing-example-text" = "יש לגרור את המחלק כדי לשנות את גודל טקסט הערך. ניתן להשתמש בגודל הטקסט של המערכת כדי לקבוע את גודל הטקסט באזורים אחרים של היישום.";
 "appearance-settings-theme-options" = "אפשרויות ערכת נושא";
 "article-about-title" = "מידע על הערך הזה";
@@ -157,11 +157,11 @@
 "article-tabs-button-accessibility-hint" = "מנווט לסקירת הלשוניות";
 "article-tabs-button-accessibility-label" = "לשוניות ערכים";
 "article-tabs-feature-announcement-item-1-subtitle" = "אפשר לפתוח כמה ערכים ולהחליף ביניהם בקלות.";
-"article-tabs-feature-announcement-item-1-title" = "עיון עם לשוניות";
-"article-tabs-feature-announcement-item-2-subtitle" = "לשוניות זוכרות את המקום אליו גללת אוטומטית.";
+"article-tabs-feature-announcement-item-1-title" = "גלישה עם לשוניות";
+"article-tabs-feature-announcement-item-2-subtitle" = "לשוניות זוכרות אוטומטית את המקום שגללת אליו.";
 "article-tabs-feature-announcement-item-2-title" = "אפשר לחזור לנקודה בה הפסקת";
-"article-tabs-feature-announcement-item-3-subtitle" = "אפשר לפתוח קישורים בלשוניות רקע מבלי לאבד את המקום שבו היית";
-"article-tabs-feature-announcement-item-3-title" = "שמירת קישורים לאחר כך";
+"article-tabs-feature-announcement-item-3-subtitle" = "אפשר לפתוח קישורים בלשוניות רקע מבלי לאבד את המקום שהיית בו";
+"article-tabs-feature-announcement-item-3-title" = "שמירת קישורים לאחר־כך";
 "article-talk-page" = "דף שיחה של ערך";
 "article-toolbar-reading-themes-controls-toolbar-item" = "בקרי ערכות נושא לקריאה";
 "back-button-accessibility-label" = "חזרה";
@@ -184,7 +184,7 @@
 "clearing-cache-complete" = "ניקוי המטמון הושלם.";
 "clearing-cache-in-progress" = "ניקוי המטמון מתבצע.";
 "close-all-tabs" = "סגירת כל הלשוניות";
-"close-all-tabs-confirmation" = "לסגור את כל $1 הלשוניות? זאת פעולה בלתי הפיכה.";
+"close-all-tabs-confirmation" = "לסגור את כל $1 הלשוניות? זאת פעולה בלתי־הפיכה.";
 "close-all-tabs-confirmation-number" = "לסגור את כל $1 הלשוניות?";
 "close-button-accessibility-label" = "סגירה";
 "close-other-tabs" = "סגירת הלשוניות האחרות";
@@ -1280,7 +1280,7 @@
 "talk-pages-view-title" = "שיחה";
 "temp-account-toast-read-more-title" = "מידע נוסף";
 "temp-account-warning-title" = "החשבון שלך חולף";
-"temporary-account" = "חשבון זמני";
+"temporary-account" = "חשבון חולף";
 "terms-of-use-title" = "תנאי שימוש";
 "theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
@@ -1420,7 +1420,7 @@
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "פרסום השינויים מהווה את הסכמתך ל$1תנאי השימוש$2, ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך לפי תנאי הרישיונות $3CC BY-SA 4.0$4 ו־$5GFDL$6. זוהי גם הסכמתך לכך שקישור או כתובת מספקים אותך כייחוס לפי תנאי רישיון קריאייטיב קומונז.";
 "wikitext-upload-save-terms-name" = "תנאי שימוש";
-"year-in-review-articles-slide-subtitle" = "הנה הערכים שביקרת בהם הכי הרבה ב־2025:\n$1";
+"year-in-review-articles-slide-subtitle" = "הינה הערכים שביקרת בהם הכי הרבה ב־2025:\n$1";
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "קהילת העורכים המתנדבים של ויקיפדיה עשתה יותר מ-555,647 עריכות ביישום iOS. הלב והנשמה של ויקיפדיה היא הקהילה הגלובלית שלנו של העורכים המתנדבים, התורמים ומיליארדי קוראים כמוך – כולם מאוחדים כדי לשתף גישה בלתי־מוגבלת למידע אמין.";
 // Fuzzy
@@ -1466,7 +1466,7 @@
 "year-in-review-highlights-articles-viewed" = "מספר הערכים שנצפו";
 "year-in-review-highlights-button-title" = "שיתוף רגעי שיא";
 "year-in-review-highlights-categories" = "קטגוריות שעניינו אותי";
-"year-in-review-highlights-changes" = "שינויים שעורכים ביצעו";
+"year-in-review-highlights-changes" = "שינויים שעורכים עשו";
 "year-in-review-highlights-collective-time-spent" = "שעות שהושקעו בקריאה";
 "year-in-review-highlights-created-lists" = "מספר רשימות הקריאה שנוצרו";
 "year-in-review-highlights-edit-frequency" = "מה תכיפות העריכה בוויקיפדיה";
@@ -1499,7 +1499,7 @@
 "year-in-review-time-afternoon" = "אחר הצוהריים";
 "year-in-review-time-evening" = "ערב";
 "year-in-review-time-late-night" = "מאוחר בלילה";
-"year-in-review-time-midday" = "בחצות היום";
+"year-in-review-time-midday" = "באמצע היום";
 "year-in-review-time-morning" = "בוקר";
 "year-in-review-time-night" = "לילה";
 "year-in-review-wikipedia-w-accessibility-label" = "סמל w של ויקיפדיה";

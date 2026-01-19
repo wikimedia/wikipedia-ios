@@ -163,7 +163,7 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Mandarin berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Cina, Sederhana (zh-hans)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
+"chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Tionghoa berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Tionghoa, Sederhana (zh-hans)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
 "chinese-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tionghoa";
 "clear-title-accessibility-label" = "Hapus";
 "clearing-cache-complete" = "Pembersihan tembolok selesai.";
