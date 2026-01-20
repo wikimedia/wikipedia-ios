@@ -140,8 +140,8 @@ public struct WMFWikiSnapView: View {
                     .foregroundStyle(Color(uiColor: theme.paperBackground))
                 
                 // Remaining results
-                ForEach(wikiResults.dropFirst()) { result in
-                    HStack(spacing: 0) {
+                VStack {
+                    ForEach(wikiResults.dropFirst()) { result in
                         Button {
                             onArticleTap(result.articleURL)
                         } label: {
@@ -149,7 +149,7 @@ public struct WMFWikiSnapView: View {
                                 VStack(alignment: .leading, spacing: 4) {
                                     HStack {
                                         Text(result.title)
-                                            .font(.headline)
+                                            .font(.subheadline)
                                         if result.isLocationBased {
                                             Image(systemName: "mappin.circle.fill")
                                                 .foregroundStyle(Color(uiColor: WMFColor.blue700))
@@ -163,28 +163,27 @@ public struct WMFWikiSnapView: View {
                                     Text(result.summary)
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
-                                        .lineLimit(2)
-                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(1)
                                 }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                Spacer()
+                                
+                                Button {
+                                    shareURL = result.articleURL
+                                } label: {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(.secondary)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .padding()
-                            .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        
-                        Button {
-                            shareURL = result.articleURL
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                                .font(.system(size: 16))
-                                .foregroundStyle(.secondary)
-                                .padding()
                         }
                         .buttonStyle(.plain)
                     }
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(12)
                 }
+                .padding()
+                .background(.ultraThinMaterial)
+                .cornerRadius(12)
             }
         }
         .padding()
