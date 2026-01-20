@@ -12,18 +12,14 @@ public struct WMFWikiSnapView: View {
     @SwiftUI.State private var shareURL: URL?
     @Environment(\.dismiss) private var dismiss
     
+    @StateObject private var cameraManager = CameraManager()
+    
     private let onArticleTap: (URL) -> Void
     
     var theme: WMFTheme {
         return appEnvironment.theme
     }
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    // Hardcoded coordinates (Montreal Olympic Stadium area)
-    private let imageCoordinates: CLLocationCoordinate2D? = CLLocationCoordinate2D(
-        latitude: 45.558,
-        longitude: -73.552
-    )
     
     public init(onArticleTap: @escaping (URL) -> Void) {
         self.onArticleTap = onArticleTap
@@ -32,10 +28,8 @@ public struct WMFWikiSnapView: View {
     public var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // MARK: Full-screen background image
-                Image("montreal")
-                    .resizable()
-                    .scaledToFill()
+                // MARK: Live camera feed
+                CameraPreviewView(session: cameraManager.session)
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .clipped()
                 
@@ -52,7 +46,11 @@ public struct WMFWikiSnapView: View {
         }
         .ignoresSafeArea()
         .onAppear {
-            classifyImage()
+            cameraManager.startSession()
+            startClassificationLoop()
+        }
+        .onDisappear {
+            cameraManager.stopSession()
         }
         .sheet(item: $shareURL) { url in
             ShareSheet(activityItems: [url])
@@ -79,14 +77,23 @@ public struct WMFWikiSnapView: View {
     
     private var centerContent: some View {
         VStack(spacing: 12) {
-            if isClassifying {
+            if isClassifying && wikiResults.isEmpty {
                 ProgressView()
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
             } else if let errorMessage {
                 Text(errorMessage)
                     .foregroundStyle(.red)
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
             } else if wikiResults.isEmpty {
                 Text("Point your camera at something")
                     .foregroundStyle(.secondary)
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
             } else {
                 // First result (featured)
                 if let result = wikiResults.first {
@@ -135,55 +142,57 @@ public struct WMFWikiSnapView: View {
                     .cornerRadius(12)
                 }
                 
-                Text("Related articles")
-                    .font(Font((WMFFont.for(.semiboldCaption1))))
-                    .foregroundStyle(Color(uiColor: theme.paperBackground))
-                
-                // Remaining results
-                VStack {
-                    ForEach(wikiResults.dropFirst()) { result in
-                        Button {
-                            onArticleTap(result.articleURL)
-                        } label: {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    HStack {
-                                        Text(result.title)
-                                            .font(.subheadline)
-                                        if result.isLocationBased {
-                                            Image(systemName: "mappin.circle.fill")
-                                                .foregroundStyle(Color(uiColor: WMFColor.blue700))
+                if wikiResults.count > 1 {
+                    Text("Related articles")
+                        .font(Font((WMFFont.for(.semiboldCaption1))))
+                        .foregroundStyle(Color(uiColor: theme.paperBackground))
+                    
+                    // Remaining results
+                    VStack {
+                        ForEach(wikiResults.dropFirst()) { result in
+                            Button {
+                                onArticleTap(result.articleURL)
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        HStack {
+                                            Text(result.title)
+                                                .font(.subheadline)
+                                            if result.isLocationBased {
+                                                Image(systemName: "mappin.circle.fill")
+                                                    .foregroundStyle(Color(uiColor: WMFColor.blue700))
+                                            }
+                                            if let confidence = result.confidence {
+                                                Text("\(Int(confidence * 100))%")
+                                                    .font(.caption)
+                                                    .foregroundStyle(.secondary)
+                                            }
                                         }
-                                        if let confidence = result.confidence {
-                                            Text("\(Int(confidence * 100))%")
-                                                .font(.caption)
-                                                .foregroundStyle(.secondary)
-                                        }
+                                        Text(result.summary)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                            .lineLimit(1)
                                     }
-                                    Text(result.summary)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                        .lineLimit(1)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    Spacer()
+                                    
+                                    Button {
+                                        shareURL = result.articleURL
+                                    } label: {
+                                        Image(systemName: "square.and.arrow.up")
+                                            .font(.system(size: 14))
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    .buttonStyle(.plain)
                                 }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                Spacer()
-                                
-                                Button {
-                                    shareURL = result.articleURL
-                                } label: {
-                                    Image(systemName: "square.and.arrow.up")
-                                        .font(.system(size: 14))
-                                        .foregroundStyle(.secondary)
-                                }
-                                .buttonStyle(.plain)
                             }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
                 }
-                .padding()
-                .background(.ultraThinMaterial)
-                .cornerRadius(12)
             }
         }
         .padding()
@@ -191,45 +200,53 @@ public struct WMFWikiSnapView: View {
         .cornerRadius(16)
     }
     
-    private func classifyImage() {
+    // MARK: - Classification Loop
+    
+    private func startClassificationLoop() {
         Task {
-            isClassifying = true
-            errorMessage = nil
-            wikiResults = []
+            // Initial delay to let camera warm up
+            try? await Task.sleep(nanoseconds: 500_000_000)
             
-            guard let image = UIImage(named: "montreal") else {
-                errorMessage = "Could not load image"
-                isClassifying = false
-                return
+            while !Task.isCancelled {
+                await classifyCurrentFrame()
+                // Wait before next classification (adjust interval as needed)
+                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
             }
-            
-            do {
-                // Vision classification
-                if let observations = try await classify(image) {
-                    let filtered = observations.filter { $0.confidence > 0.1 }
-                    
-                    for observation in filtered.prefix(5) {
-                        if let result = try await fetchWikiSummary(for: observation.identifier, confidence: observation.confidence) {
-                            wikiResults.append(result)
-                        }
-                    }
-                }
-                
-                self.wikiResults = Array(wikiResults.prefix(4))
-                
-            } catch {
-                errorMessage = error.localizedDescription
-            }
-            
-            isClassifying = false
         }
     }
     
-    private func classify(_ image: UIImage) async throws -> [ClassificationObservation]? {
-        guard let ciImage = CIImage(image: image) else {
-            return nil
+    private func classifyCurrentFrame() async {
+        guard let pixelBuffer = cameraManager.currentFrame else {
+            return
         }
         
+        isClassifying = true
+        errorMessage = nil
+        
+        do {
+            if let observations = try await classify(pixelBuffer) {
+                let filtered = observations.filter { $0.confidence > 0.1 }
+                
+                var newResults: [WikiResult] = []
+                for observation in filtered.prefix(5) {
+                    if let result = try await fetchWikiSummary(for: observation.identifier, confidence: observation.confidence) {
+                        newResults.append(result)
+                    }
+                }
+                
+                if !newResults.isEmpty {
+                    wikiResults = Array(newResults.prefix(4))
+                }
+            }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
+        isClassifying = false
+    }
+    
+    private func classify(_ pixelBuffer: CVPixelBuffer) async throws -> [ClassificationObservation]? {
+        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
         let request = ClassifyImageRequest()
         return try await request.perform(on: ciImage)
     }
@@ -280,6 +297,101 @@ public struct WMFWikiSnapView: View {
             isLocationBased: isLocationBased,
             confidence: confidence
         )
+    }
+}
+
+// MARK: - Camera Manager
+
+@available(iOS 18.0, *)
+class CameraManager: NSObject, ObservableObject {
+    let session = AVCaptureSession()
+    private let videoOutput = AVCaptureVideoDataOutput()
+    private let sessionQueue = DispatchQueue(label: "camera.session.queue")
+    
+    @Published var currentFrame: CVPixelBuffer?
+    
+    override init() {
+        super.init()
+        setupSession()
+    }
+    
+    private func setupSession() {
+        session.sessionPreset = .high
+        
+        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+              let input = try? AVCaptureDeviceInput(device: camera) else {
+            print("Failed to access camera")
+            return
+        }
+        
+        if session.canAddInput(input) {
+            session.addInput(input)
+        }
+        
+        videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "video.output.queue"))
+        videoOutput.alwaysDiscardsLateVideoFrames = true
+        videoOutput.videoSettings = [
+            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA
+        ]
+        
+        if session.canAddOutput(videoOutput) {
+            session.addOutput(videoOutput)
+        }
+        
+        // Set video orientation
+        if let connection = videoOutput.connection(with: .video) {
+            if connection.isVideoRotationAngleSupported(90) {
+                connection.videoRotationAngle = 90
+            }
+        }
+    }
+    
+    func startSession() {
+        sessionQueue.async { [weak self] in
+            self?.session.startRunning()
+        }
+    }
+    
+    func stopSession() {
+        sessionQueue.async { [weak self] in
+            self?.session.stopRunning()
+        }
+    }
+}
+
+@available(iOS 18.0, *)
+extension CameraManager: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.currentFrame = pixelBuffer
+        }
+    }
+}
+
+// MARK: - Camera Preview View
+
+struct CameraPreviewView: UIViewRepresentable {
+    let session: AVCaptureSession
+    
+    func makeUIView(context: Context) -> CameraPreviewUIView {
+        let view = CameraPreviewUIView()
+        view.previewLayer.session = session
+        view.previewLayer.videoGravity = .resizeAspectFill
+        return view
+    }
+    
+    func updateUIView(_ uiView: CameraPreviewUIView, context: Context) {}
+}
+
+class CameraPreviewUIView: UIView {
+    override class var layerClass: AnyClass {
+        AVCaptureVideoPreviewLayer.self
+    }
+    
+    var previewLayer: AVCaptureVideoPreviewLayer {
+        layer as! AVCaptureVideoPreviewLayer
     }
 }
 

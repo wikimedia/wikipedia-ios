@@ -156,5 +156,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+    <key>NSCameraUsageDescription</key>
+    <string>Allow Wikipedia to watch your camera feed for detecting articles live.</string>
 </dict>
 </plist>
