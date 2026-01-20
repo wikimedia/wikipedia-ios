@@ -115,6 +115,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
         ArticleTabsFunnel.shared.logIconImpression(interface: .feed, project: nil)
+        
+//        if #available(iOS 18.0, *) {
+//            let navVC = WMFComponentNavigationController(rootViewController: ImageClassificationViewController(), modalPresentationStyle: .pageSheet, customBarBackgroundColor: nil)
+//            present(navVC, animated: true)
+//        } else {
+//            // Fallback on earlier versions
+//        }
+        
     }
 
     override func viewWillHaveFirstAppearance(_ animated: Bool) {

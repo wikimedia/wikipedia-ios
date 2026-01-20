@@ -182,12 +182,17 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showVisualSearch() {
-        let view = WMFWikiSnapView()
+        if #available(iOS 18.0, *) {
+            let view = WMFWikiSnapView()
+            let hostingController = UIHostingController(rootView: view)
+            hostingController.modalPresentationStyle = .fullScreen
+            
+            navigationController.present(hostingController, animated: true)
+        } else {
+            // Fallback on earlier versions
+        }
         
-        let hostingController = UIHostingController(rootView: view)
-        hostingController.modalPresentationStyle = .fullScreen
         
-        navigationController.present(hostingController, animated: true)
     }
     
     private func dismissProfile(completion: @escaping () -> Void) {

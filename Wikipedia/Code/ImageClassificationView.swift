@@ -1,21 +1,14 @@
-import AVFoundation
 import Vision
 import SwiftUI
 
 @available(iOS 18.0, *)
-public struct WMFWikiSnapView: View {
+struct ImageClassifierView: View {
     
     @SwiftUI.State private var classifications = [String]()
     @SwiftUI.State private var isClassifying = false
     @SwiftUI.State private var errorMessage: String?
-    @Environment(\.dismiss) private var dismiss
     
-    public init() {
-        
-    }
-    
-    public var body: some View {
-         
+    var body: some View {
         NavigationStack {
             Form {
                 Section {
@@ -60,15 +53,7 @@ public struct WMFWikiSnapView: View {
                     }
                 }
             }
-            .navigationTitle("WikiSnap")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        dismiss()
-                    }
-                }
-            }
+            .navigationTitle("Image Classifier")
         }
     }
     
@@ -109,5 +94,4 @@ public struct WMFWikiSnapView: View {
             .filter { $0.confidence > 0.1 }
             .map { $0.identifier }
     }
-
 }
