@@ -5,7 +5,6 @@ import MapKit
 
 @available(iOS 18.0, *)
 public struct WMFWikiSnapView: View {
-    
     @SwiftUI.State private var classifications = [String]()
     @SwiftUI.State private var isClassifying = false
     @SwiftUI.State private var errorMessage: String?
@@ -25,78 +24,104 @@ public struct WMFWikiSnapView: View {
     }
     
     public var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    Image("montreal")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .listRowInsets(EdgeInsets())
+        GeometryReader { geometry in
+            ZStack {
+                // MARK: Full-screen background image
+                Image("montreal")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .clipped()
+                
+                // MARK: Overlay content
+                VStack {
+                    topBar
+                    Spacer()
+                    centerContent
+                    Spacer()
+                }
+                .padding()
+                .frame(width: geometry.size.width)
+            }
+        }
+        .ignoresSafeArea()
+        .onAppear {
+            classifyImage()
+        }
+    }
+    
+    private var topBar: some View {
+        ZStack {
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.headline)
+                        .padding(10)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
                 }
                 
-                Section {
+                Spacer()
+            }
+            
+            Text("WikiSnap")
+                .font(.headline)
+                .foregroundStyle(.primary)
+        }
+    }
+    
+    private var centerContent: some View {
+        VStack(spacing: 12) {
+            Text("Related articles")
+                .font(.title2)
+                .fontWeight(.semibold)
+            
+            if isClassifying {
+                ProgressView()
+            } else if let errorMessage {
+                Text(errorMessage)
+                    .foregroundStyle(.red)
+            } else if wikiResults.isEmpty {
+                Text("Point your camera at something")
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(wikiResults) { result in
                     Button {
-                        classifyImage()
+                        onArticleTap(result.articleURL)
                     } label: {
                         HStack {
-                            Text("Classify Image")
-                            if isClassifying {
-                                Spacer()
-                                ProgressView()
-                            }
-                        }
-                    }
-                    .disabled(isClassifying)
-                }
-                
-                if let error = errorMessage {
-                    Section {
-                        Text(error)
-                            .foregroundStyle(.red)
-                    }
-                } else if wikiResults.isEmpty && classifications.isEmpty {
-                    Section {
-                        Text("Image not classified yet")
-                            .foregroundStyle(.secondary)
-                    }
-                } else {
-                    Section {
-                        ForEach(wikiResults) { result in
-                            Button {
-                                onArticleTap(result.articleURL)
-                            } label: {
-                                VStack(alignment: .leading, spacing: 8) {
-                                    HStack {
-                                        Text(result.title)
-                                            .font(.headline)
-                                        if result.isLocationBased {
-                                            Image(systemName: "mappin.circle.fill")
-                                                .foregroundStyle(.red)
-                                        }
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack {
+                                    Text(result.title)
+                                        .font(.headline)
+                                    if result.isLocationBased {
+                                        Image(systemName: "mappin.circle.fill")
+                                            .foregroundStyle(.red)
                                     }
-                                    Text(result.summary)
-                                        .font(.subheadline)
-                                        .foregroundStyle(.secondary)
                                 }
-                                .padding(.vertical, 4)
+                                Text(result.summary)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(2)
                             }
-                            .buttonStyle(.plain)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.secondary)
                         }
-                    } header: {
-                        Text("This image contains:")
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(12)
                     }
-                }
-            }
-            .navigationTitle("WikiSnap")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        dismiss()
-                    }
+                    .buttonStyle(.plain)
                 }
             }
         }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(.ultraThinMaterial)
+        .cornerRadius(16)
     }
     
     private func classifyImage() {
@@ -136,7 +161,6 @@ public struct WMFWikiSnapView: View {
                     let nearbyPlaces = await searchNearbyPointsOfInterest(at: coordinates)
                     for place in nearbyPlaces.prefix(5) {
                         if let result = try await fetchWikiSummary(for: place, isLocationBased: true) {
-                            // Avoid duplicates
                             if !wikiResults.contains(where: { $0.title.lowercased() == result.title.lowercased() }) {
                                 wikiResults.append(result)
                             }

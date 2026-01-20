@@ -190,14 +190,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                 }
             }
             let hostingController = UIHostingController(rootView: view)
-            hostingController.modalPresentationStyle = .fullScreen
+            hostingController.modalPresentationStyle = .pageSheet
             
             navigationController.present(hostingController, animated: true)
         } else {
             // Fallback on earlier versions
         }
-        
-        
     }
     
     private func dismissProfile(completion: @escaping () -> Void) {
