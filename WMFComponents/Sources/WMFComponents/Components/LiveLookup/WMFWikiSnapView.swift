@@ -9,6 +9,7 @@ public struct WMFWikiSnapView: View {
     @SwiftUI.State private var isClassifying = false
     @SwiftUI.State private var errorMessage: String?
     @SwiftUI.State private var wikiResults: [WikiResult] = []
+    @SwiftUI.State private var shareURL: URL?
     @Environment(\.dismiss) private var dismiss
     
     private let onArticleTap: (URL) -> Void
@@ -48,10 +49,9 @@ public struct WMFWikiSnapView: View {
         .onAppear {
             classifyImage()
         }
-    }
-    
-    private var foundArticle: some View {
-        Text("")
+        .sheet(item: $shareURL) { url in
+            ShareSheet(activityItems: [url])
+        }
     }
     
     private var topBar: some View {
@@ -65,7 +65,6 @@ public struct WMFWikiSnapView: View {
             }
 
             Spacer()
-            
             
             Text("WikiSnap")
                 .font(.headline)
@@ -89,33 +88,47 @@ public struct WMFWikiSnapView: View {
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(wikiResults) { result in
-                    Button {
-                        onArticleTap(result.articleURL)
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                HStack {
-                                    Text(result.title)
-                                        .font(.headline)
-                                    if result.isLocationBased {
-                                        Image(systemName: "mappin.circle.fill")
-                                            .foregroundStyle(.red)
+                    HStack(spacing: 0) {
+                        Button {
+                            onArticleTap(result.articleURL)
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack {
+                                        Text(result.title)
+                                            .font(.headline)
+                                        if result.isLocationBased {
+                                            Image(systemName: "mappin.circle.fill")
+                                                .foregroundStyle(.red)
+                                        }
                                     }
+                                    Text(result.summary)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                        .lineLimit(2)
+                                        .multilineTextAlignment(.leading)
                                 }
-                                Text(result.summary)
-                                    .font(.caption)
+                                Spacer()
+                                Image(systemName: "chevron.right")
                                     .foregroundStyle(.secondary)
-                                    .lineLimit(2)
                             }
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.secondary)
+                            .padding()
+                            .contentShape(Rectangle())
                         }
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(12)
+                        .buttonStyle(.plain)
+                        
+                        Button {
+                            shareURL = result.articleURL
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.secondary)
+                                .padding()
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
                 }
             }
         }
@@ -131,8 +144,6 @@ public struct WMFWikiSnapView: View {
             errorMessage = nil
             wikiResults = []
             
-            let  tempResults = []
-            
             guard let image = UIImage(named: "montreal") else {
                 errorMessage = "Could not load image"
                 isClassifying = false
@@ -140,7 +151,6 @@ public struct WMFWikiSnapView: View {
             }
             
             do {
-                
                 // Hardcoded: Montreal Olympic Stadium
                 if let olympicStadium = try await fetchWikiSummary(for: "Olympic Stadium (Montreal)", isLocationBased: true) {
                     if !wikiResults.contains(where: { $0.title.lowercased() == olympicStadium.title.lowercased() }) {
@@ -243,6 +253,24 @@ public struct WMFWikiSnapView: View {
             isLocationBased: isLocationBased
         )
     }
+}
+
+// MARK: - Share Sheet
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+// MARK: - URL + Identifiable
+
+extension URL: @retroactive Identifiable {
+    public var id: String { absoluteString }
 }
 
 // MARK: - Models
