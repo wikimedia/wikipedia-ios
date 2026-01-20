@@ -485,6 +485,31 @@
     }
 }
 
+- (void)testTranslationsDoNotIntroducePluralWithDollarTokens {
+    NSDictionary *enStrings = [self getTranslationStringsDictFromLprogAtPath:[[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"en.lproj"] stringByAppendingPathComponent:@"Localizable.strings"]];
+    NSRegularExpression *dollarPluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:\\$[0-9]+\\|.*?\\}\}" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSRegularExpression *percentPluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:%[0-9]+\\$.*?\\}\}" options:NSRegularExpressionCaseInsensitive error:nil];
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        if ([lprojFileName isEqualToString:@"en.lproj"] || [lprojFileName isEqualToString:@"qqq.lproj"]) {
+            continue;
+        }
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"]];
+        for (NSString *key in stringsDict) {
+            NSString *localizedString = stringsDict[key];
+            NSArray<NSTextCheckingResult *> *matches = [dollarPluralRegex matchesInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)];
+            if (matches.count > 0) {
+                NSString *enString = enStrings[key];
+                BOOL foundCorrespondingPlural = NO;
+                if (enString) {
+                    NSArray<NSTextCheckingResult *> *enMatches = [percentPluralRegex matchesInString:enString options:0 range:NSMakeRange(0, enString.length)];
+                    foundCorrespondingPlural = (enMatches.count > 0);
+                }
+                XCTAssertTrue(foundCorrespondingPlural, @"Translation for key '%@' in %@ introduces '{{PLURAL:$n|$n}}' but English does not have a corresponding plural: \nEN: %@\nTranslation: %@", key, lprojFileName, enStrings[key], localizedString);
+            }
+        }
+    }
+}
+
 - (void)tearDown {
     [super tearDown];
 }
