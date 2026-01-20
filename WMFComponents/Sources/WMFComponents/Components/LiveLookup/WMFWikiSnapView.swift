@@ -14,6 +14,11 @@ public struct WMFWikiSnapView: View {
     
     private let onArticleTap: (URL) -> Void
     
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
     // Hardcoded coordinates (Montreal Olympic Stadium area)
     private let imageCoordinates: CLLocationCoordinate2D? = CLLocationCoordinate2D(
         latitude: 45.558,
@@ -39,8 +44,8 @@ public struct WMFWikiSnapView: View {
                     topBar
                     Spacer()
                     centerContent
-                    Spacer()
                 }
+                .frame(height: .infinity)
                 .padding()
                 .frame(width: geometry.size.width)
             }
@@ -63,21 +68,17 @@ public struct WMFWikiSnapView: View {
                     .font(.title)
                     .foregroundStyle(.white)
             }
-
-            Spacer()
             
             Text("WikiSnap")
-                .font(.headline)
+                .font(.title)
                 .foregroundStyle(.primary)
+            
+            Spacer()
         }
     }
     
     private var centerContent: some View {
         VStack(spacing: 12) {
-            Text("Related articles")
-                .font(.title2)
-                .fontWeight(.semibold)
-            
             if isClassifying {
                 ProgressView()
             } else if let errorMessage {
@@ -87,7 +88,8 @@ public struct WMFWikiSnapView: View {
                 Text("Point your camera at something")
                     .foregroundStyle(.secondary)
             } else {
-                ForEach(wikiResults) { result in
+                // First result (featured)
+                if let result = wikiResults.first {
                     HStack(spacing: 0) {
                         Button {
                             onArticleTap(result.articleURL)
@@ -99,7 +101,12 @@ public struct WMFWikiSnapView: View {
                                             .font(.headline)
                                         if result.isLocationBased {
                                             Image(systemName: "mappin.circle.fill")
-                                                .foregroundStyle(.red)
+                                                .foregroundStyle(Color(uiColor: WMFColor.blue700))
+                                        }
+                                        if let confidence = result.confidence {
+                                            Text("\(Int(confidence * 100))%")
+                                                .font(.caption)
+                                                .foregroundStyle(.secondary)
                                         }
                                     }
                                     Text(result.summary)
@@ -108,9 +115,57 @@ public struct WMFWikiSnapView: View {
                                         .lineLimit(2)
                                         .multilineTextAlignment(.leading)
                                 }
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundStyle(.secondary)
+                            }
+                            .padding()
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        
+                        Button {
+                            shareURL = result.articleURL
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.secondary)
+                                .padding()
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
+                }
+                
+                Text("Related articles")
+                    .font(Font((WMFFont.for(.semiboldCaption1))))
+                    .foregroundStyle(Color(uiColor: theme.paperBackground))
+                
+                // Remaining results
+                ForEach(wikiResults.dropFirst()) { result in
+                    HStack(spacing: 0) {
+                        Button {
+                            onArticleTap(result.articleURL)
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack {
+                                        Text(result.title)
+                                            .font(.headline)
+                                        if result.isLocationBased {
+                                            Image(systemName: "mappin.circle.fill")
+                                                .foregroundStyle(Color(uiColor: WMFColor.blue700))
+                                        }
+                                        if let confidence = result.confidence {
+                                            Text("\(Int(confidence * 100))%")
+                                                .font(.caption)
+                                                .foregroundStyle(.secondary)
+                                        }
+                                    }
+                                    Text(result.summary)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                        .lineLimit(2)
+                                        .multilineTextAlignment(.leading)
+                                }
                             }
                             .padding()
                             .contentShape(Rectangle())
@@ -134,7 +189,6 @@ public struct WMFWikiSnapView: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(.ultraThinMaterial)
         .cornerRadius(16)
     }
     
@@ -151,32 +205,12 @@ public struct WMFWikiSnapView: View {
             }
             
             do {
-                // Hardcoded: Montreal Olympic Stadium
-                if let olympicStadium = try await fetchWikiSummary(for: "Olympic Stadium (Montreal)", isLocationBased: true) {
-                    if !wikiResults.contains(where: { $0.title.lowercased() == olympicStadium.title.lowercased() }) {
-                        wikiResults.append(olympicStadium)
-                    }
-                }
-                
-                // Location-based search fallback
-                if let coordinates = imageCoordinates {
-                    let nearbyPlaces = await searchNearbyPointsOfInterest(at: coordinates)
-                    for place in nearbyPlaces.prefix(5) {
-                        if let result = try await fetchWikiSummary(for: place, isLocationBased: true) {
-                            if !wikiResults.contains(where: { $0.title.lowercased() == result.title.lowercased() }) {
-                                wikiResults.append(result)
-                            }
-                        }
-                    }
-                }
-                
                 // Vision classification
                 if let observations = try await classify(image) {
-                    classifications = filterIdentifiers(from: observations)
+                    let filtered = observations.filter { $0.confidence > 0.1 }
                     
-                    let topClassifications = Array(classifications.prefix(5))
-                    for identifier in topClassifications {
-                        if let result = try await fetchWikiSummary(for: identifier) {
+                    for observation in filtered.prefix(5) {
+                        if let result = try await fetchWikiSummary(for: observation.identifier, confidence: observation.confidence) {
                             wikiResults.append(result)
                         }
                     }
@@ -199,12 +233,6 @@ public struct WMFWikiSnapView: View {
         
         let request = ClassifyImageRequest()
         return try await request.perform(on: ciImage)
-    }
-    
-    private func filterIdentifiers(from observations: [ClassificationObservation]) -> [String] {
-        observations
-            .filter { $0.confidence > 0.1 }
-            .map { $0.identifier }
     }
     
     // MARK: - MapKit Search
@@ -232,7 +260,7 @@ public struct WMFWikiSnapView: View {
     
     // MARK: - Wikipedia API
     
-    private func fetchWikiSummary(for searchTerm: String, isLocationBased: Bool = false) async throws -> WikiResult? {
+    private func fetchWikiSummary(for searchTerm: String, isLocationBased: Bool = false, confidence: Float? = nil) async throws -> WikiResult? {
         let encoded = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? searchTerm
         let urlString = "https://en.wikipedia.org/api/rest_v1/page/summary/\(encoded)"
         
@@ -250,7 +278,8 @@ public struct WMFWikiSnapView: View {
             title: decoded.title,
             summary: decoded.extract,
             articleURL: decoded.contentUrls.desktop.page,
-            isLocationBased: isLocationBased
+            isLocationBased: isLocationBased,
+            confidence: confidence
         )
     }
 }
@@ -281,6 +310,7 @@ struct WikiResult: Identifiable {
     let summary: String
     let articleURL: URL
     var isLocationBased: Bool = false
+    var confidence: Float?
 }
 
 struct WikiSummaryResponse: Decodable {
