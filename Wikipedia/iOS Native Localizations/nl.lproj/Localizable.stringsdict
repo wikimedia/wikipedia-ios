@@ -387,7 +387,16 @@
 	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Naar schatting hebben mensen in %3$@ wel {{PLURAL:%1$lld|één uur"%1$lld uur{{ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia.</string>
+		<string>Naar schatting hebben mensen in %3$@ wel %#@v1@ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>één uur"%1$lld uur</string>
+		</dict>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -403,7 +412,16 @@
 	<key>microsite-yir-english-reading-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Naar schatting hebben mensen in %3$@ wel {{PLURAL:%1$lld|één uur"%1$lld uur{{ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.</string>
+		<string>Naar schatting hebben mensen in %3$@ wel %#@v1@ (ongeveer %#@v2@!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>één uur"%1$lld uur</string>
+		</dict>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

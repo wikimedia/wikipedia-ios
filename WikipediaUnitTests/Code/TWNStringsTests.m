@@ -558,12 +558,6 @@
 - (void)testTranslationsForMalformedPluralSyntax {
     // Regex to find {{PLURAL: that is NOT properly closed with }}
     // This pattern finds {{PLURAL:$n| followed by content that ends with only } instead of }}
-    NSError *error = nil;
-    NSRegularExpression *malformedPluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:[^}]*\\}(?!\\})"
-                                                                                          options:NSRegularExpressionCaseInsensitive
-                                                                                            error:&error];
-    XCTAssertNil(error, @"Failed to create regex: %@", error);
-    
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         if ([lprojFileName isEqualToString:@"qqq.lproj"]) {
             continue;
