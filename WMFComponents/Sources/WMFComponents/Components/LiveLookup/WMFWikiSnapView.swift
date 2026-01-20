@@ -21,7 +21,7 @@ public struct WMFWikiSnapView: View {
         NavigationStack {
             Form {
                 Section {
-                    Image("tomatoes")
+                    Image("montreal")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .listRowInsets(EdgeInsets())
@@ -92,7 +92,7 @@ public struct WMFWikiSnapView: View {
             errorMessage = nil
             wikiResults = []
             
-            guard let image = UIImage(named: "tomatoes") else {
+            guard let image = UIImage(named: "montreal") else {
                 errorMessage = "Could not load image"
                 isClassifying = false
                 return
