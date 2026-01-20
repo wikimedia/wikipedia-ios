@@ -183,7 +183,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     private func showVisualSearch() {
         if #available(iOS 18.0, *) {
-            let view = WMFWikiSnapView()
+            let view = WMFWikiSnapView { articleURL in
+                print("Tapped article: \(articleURL)")
+                self.navigationController.dismiss(animated: true) {
+                    self.navigationController.navigate(to: articleURL)
+                }
+            }
             let hostingController = UIHostingController(rootView: view)
             hostingController.modalPresentationStyle = .fullScreen
             
