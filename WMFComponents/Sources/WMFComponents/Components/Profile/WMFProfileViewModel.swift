@@ -200,6 +200,17 @@ enum ProfileState {
                 }
             )
             
+            let wikiSnapItem = ProfileListItem(
+                text: "WikiSnap",
+                image: nil,
+                imageColor: nil,
+                hasNotifications: false,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showVisualSearch)
+                })
+            
             var section3Items = [donateItem]
             if let yearInReviewDependencies,
                yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode) {
@@ -242,7 +253,8 @@ enum ProfileState {
                         settingsItem
                     ],
                     subtext: nil
-                )
+                ),
+                ProfileSection(listItems: [wikiSnapItem], subtext: nil)
             ]
         } else if isTemporaryAccount {
             let notificationsItem = ProfileListItem(

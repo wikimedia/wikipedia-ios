@@ -3,6 +3,7 @@ import PassKit
 import SwiftUI
 import WMFComponents
 import WMFData
+import AVFoundation
 
 @objc
 enum ProfileCoordinatorSource: Int {
@@ -173,7 +174,20 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserTalkPageTempAccount()
             }
+        case .showVisualSearch:
+            dismissProfile {
+                self.showVisualSearch()
+            }
         }
+    }
+    
+    private func showVisualSearch() {
+        let view = WMFWikiSnapView()
+        
+        let hostingController = UIHostingController(rootView: view)
+        hostingController.modalPresentationStyle = .fullScreen
+        
+        navigationController.present(hostingController, animated: true)
     }
     
     private func dismissProfile(completion: @escaping () -> Void) {
