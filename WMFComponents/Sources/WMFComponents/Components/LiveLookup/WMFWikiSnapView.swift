@@ -13,6 +13,11 @@ public struct WMFWikiSnapView: View {
     
     private let onArticleTap: (URL) -> Void
     
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
     // Hardcoded coordinates (Montreal Olympic Stadium area)
     private let imageCoordinates: CLLocationCoordinate2D? = CLLocationCoordinate2D(
         latitude: 45.558,
@@ -38,8 +43,8 @@ public struct WMFWikiSnapView: View {
                     topBar
                     Spacer()
                     centerContent
-                    Spacer()
                 }
+                .frame(height: .infinity)
                 .padding()
                 .frame(width: geometry.size.width)
             }
@@ -48,10 +53,6 @@ public struct WMFWikiSnapView: View {
         .onAppear {
             classifyImage()
         }
-    }
-    
-    private var foundArticle: some View {
-        Text("")
     }
     
     private var topBar: some View {
@@ -63,22 +64,17 @@ public struct WMFWikiSnapView: View {
                     .font(.title)
                     .foregroundStyle(.white)
             }
-
-            Spacer()
-            
             
             Text("WikiSnap")
-                .font(.headline)
+                .font(.title)
                 .foregroundStyle(.primary)
+            
+            Spacer()
         }
     }
     
     private var centerContent: some View {
         VStack(spacing: 12) {
-            Text("Related articles")
-                .font(.title2)
-                .fontWeight(.semibold)
-            
             if isClassifying {
                 ProgressView()
             } else if let errorMessage {
@@ -88,7 +84,36 @@ public struct WMFWikiSnapView: View {
                 Text("Point your camera at something")
                     .foregroundStyle(.secondary)
             } else {
-                ForEach(wikiResults) { result in
+                if let result = wikiResults.first {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Text(result.title)
+                                    .font(.headline)
+                                if result.isLocationBased {
+                                    Image(systemName: "mappin.circle.fill")
+                                        .foregroundStyle(.red)
+                                }
+                            }
+                            Text(result.summary)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .lineLimit(2)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
+                }
+                
+                Text("Related articles")
+                    .font(Font((WMFFont.for(.semiboldCaption1))))
+                    .foregroundStyle(Color(uiColor: theme.paperBackground))
+                
+                ForEach(wikiResults.dropFirst()) { result in
                     Button {
                         onArticleTap(result.articleURL)
                     } label: {
@@ -121,7 +146,6 @@ public struct WMFWikiSnapView: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(.ultraThinMaterial)
         .cornerRadius(16)
     }
     
