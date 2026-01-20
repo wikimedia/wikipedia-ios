@@ -848,7 +848,7 @@
 "notifications-center-mark" = "Означи";
 "notifications-center-mark-all-as-read" = "Означи ги сите како прочитани";
 "notifications-center-mark-all-as-read-confirmation-format" = "Дали сигурно сакате да {{PLURAL:$1|ја означите оваа $1 порака|ги означите сите $1 пораки}} од вашите известувања како {{PLURAL:$1|прочитана|прочитани}}? Прочитаноста ќе се одрази на сите уреди.";
-"notifications-center-mark-all-as-read-missing-number" = "Дали сигурно сакате да и означите сите пораки од вашите известувања како {{PLURAL:$1|прочитана|прочитани}}? Прочитаноста ќе се одрази на сите уреди.";
+"notifications-center-mark-all-as-read-missing-number" = "Дали сигурно сакате да и означите сите пораки од вашите известувања како прочитани? Прочитаноста ќе се одрази на сите уреди.";
 "notifications-center-mark-as-read" = "Означи како прочитано";
 "notifications-center-mark-as-unread" = "Означи како непрочитано";
 "notifications-center-more-action-accessibility-label" = "Повеќе";
