@@ -494,8 +494,8 @@
     
     // Regex to find {{PLURAL:$n|...}} patterns and capture the variable number
     NSError *error = nil;
-    NSRegularExpression *pluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:\\$(\\d+)\\|[^}]*\\}\\}" 
-                                                                                 options:NSRegularExpressionCaseInsensitive 
+    NSRegularExpression *pluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:\\$(\\d+)\\|[^}]*\\}\\}"
+                                                                                 options:NSRegularExpressionCaseInsensitive
                                                                                    error:&error];
     XCTAssertNil(error, @"Failed to create regex: %@", error);
     XCTAssertNotNil(pluralRegex, @"Regex should not be nil");
@@ -505,8 +505,8 @@
         NSMutableSet<NSString *> *vars = [NSMutableSet set];
         if (!string) return vars;
         
-        NSArray<NSTextCheckingResult *> *matches = [pluralRegex matchesInString:string 
-                                                                        options:0 
+        NSArray<NSTextCheckingResult *> *matches = [pluralRegex matchesInString:string
+                                                                        options:0
                                                                           range:NSMakeRange(0, string.length)];
         for (NSTextCheckingResult *match in matches) {
             if (match.numberOfRanges > 1) {
@@ -543,13 +543,82 @@
             [extraVars minusSet:enPluralVars];
             
             // Fail if translation introduces new plural variables
-            XCTAssertTrue(extraVars.count == 0, 
-                @"Translation for key '%@' in %@ introduces PLURAL syntax for variable(s) $%@ not pluralized in English.\nEN: %@\nTranslation: %@", 
-                key, 
-                lprojFileName, 
+            XCTAssertTrue(extraVars.count == 0,
+                @"Translation for key '%@' in %@ introduces PLURAL syntax for variable(s) $%@ not pluralized in English.\nEN: %@\nTranslation: %@",
+                key,
+                lprojFileName,
                 [[extraVars allObjects] componentsJoinedByString:@", $"],
                 enString ?: @"(not found)",
                 translatedString);
+        }
+    }
+}
+
+// Test for malformed PLURAL syntax - missing closing braces like "{{PLURAL:$1|$1}" instead of "{{PLURAL:$1|$1}}"
+- (void)testTranslationsForMalformedPluralSyntax {
+    // Regex to find {{PLURAL: that is NOT properly closed with }}
+    // This pattern finds {{PLURAL:$n| followed by content that ends with only } instead of }}
+    NSError *error = nil;
+    NSRegularExpression *malformedPluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:[^}]*\\}(?!\\})"
+                                                                                          options:NSRegularExpressionCaseInsensitive
+                                                                                            error:&error];
+    XCTAssertNil(error, @"Failed to create regex: %@", error);
+    
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        if ([lprojFileName isEqualToString:@"qqq.lproj"]) {
+            continue;
+        }
+        
+        NSString *lprojPath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName];
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:lprojPath];
+        
+        for (NSString *key in stringsDict) {
+            NSString *localizedString = stringsDict[key];
+            
+            // Check for {{ without matching }}
+            NSUInteger openCount = [[localizedString componentsSeparatedByString:@"{{"] count] - 1;
+            NSUInteger closeCount = [[localizedString componentsSeparatedByString:@"}}"] count] - 1;
+            
+            XCTAssertEqual(openCount, closeCount,
+                @"Mismatched braces in key '%@' in %@. Found %lu '{{' and %lu '}}' occurrences.\nString: %@",
+                key,
+                lprojFileName,
+                (unsigned long)openCount,
+                (unsigned long)closeCount,
+                localizedString);
+        }
+    }
+}
+
+// Test for malformed markdown links - there should be no space between ] and ( like "] ($1)" should be "]($1)"
+- (void)testTranslationsForMalformedMarkdownLinks {
+    NSError *error = nil;
+    // Regex to find "] (" or "]  (" (bracket followed by space(s) then paren)
+    NSRegularExpression *malformedMarkdownRegex = [NSRegularExpression regularExpressionWithPattern:@"\\]\\s+\\("
+                                                                                            options:0
+                                                                                              error:&error];
+    XCTAssertNil(error, @"Failed to create regex: %@", error);
+    
+    for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        if ([lprojFileName isEqualToString:@"qqq.lproj"]) {
+            continue;
+        }
+        
+        NSString *lprojPath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName];
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:lprojPath];
+        
+        for (NSString *key in stringsDict) {
+            NSString *localizedString = stringsDict[key];
+            
+            NSTextCheckingResult *match = [malformedMarkdownRegex firstMatchInString:localizedString
+                                                                             options:0
+                                                                               range:NSMakeRange(0, localizedString.length)];
+            
+            XCTAssertNil(match,
+                @"Malformed markdown link in key '%@' in %@. Found '] (' which should be '](' with no space.\nString: %@",
+                key,
+                lprojFileName,
+                localizedString);
         }
     }
 }
