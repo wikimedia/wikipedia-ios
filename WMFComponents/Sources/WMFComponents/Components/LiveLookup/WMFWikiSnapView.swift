@@ -113,35 +113,38 @@ public struct WMFWikiSnapView: View {
                     .font(Font((WMFFont.for(.semiboldCaption1))))
                     .foregroundStyle(Color(uiColor: theme.paperBackground))
                 
-                ForEach(wikiResults.dropFirst()) { result in
-                    Button {
-                        onArticleTap(result.articleURL)
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                HStack {
-                                    Text(result.title)
-                                        .font(.headline)
-                                    if result.isLocationBased {
-                                        Image(systemName: "mappin.circle.fill")
-                                            .foregroundStyle(.red)
+                VStack {
+                    ForEach(wikiResults.dropFirst()) { result in
+                        Button {
+                            onArticleTap(result.articleURL)
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack {
+                                        Text(result.title)
+                                            .font(.subheadline)
+                                        if result.isLocationBased {
+                                            Image(systemName: "mappin.circle.fill")
+                                                .foregroundStyle(.red)
+                                        }
                                     }
+                                    Text(result.summary)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                        .lineLimit(1)
                                 }
-                                Text(result.summary)
-                                    .font(.caption)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                Spacer()
+                                Image(systemName: "chevron.right")
                                     .foregroundStyle(.secondary)
-                                    .lineLimit(2)
                             }
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.secondary)
                         }
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(12)
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
+                .padding()
+                .cornerRadius(12)
+                .background(.ultraThinMaterial)
             }
         }
         .padding()
