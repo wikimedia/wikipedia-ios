@@ -155,6 +155,8 @@ public struct WMFWikiSnapView: View {
             errorMessage = nil
             wikiResults = []
             
+            let  tempResults = []
+            
             guard let image = UIImage(named: "montreal") else {
                 errorMessage = "Could not load image"
                 isClassifying = false
@@ -162,17 +164,6 @@ public struct WMFWikiSnapView: View {
             }
             
             do {
-                // Vision classification
-                if let observations = try await classify(image) {
-                    classifications = filterIdentifiers(from: observations)
-                    
-                    let topClassifications = Array(classifications.prefix(5))
-                    for identifier in topClassifications {
-                        if let result = try await fetchWikiSummary(for: identifier) {
-                            wikiResults.append(result)
-                        }
-                    }
-                }
                 
                 // Hardcoded: Montreal Olympic Stadium
                 if let olympicStadium = try await fetchWikiSummary(for: "Olympic Stadium (Montreal)", isLocationBased: true) {
@@ -192,6 +183,21 @@ public struct WMFWikiSnapView: View {
                         }
                     }
                 }
+                
+                // Vision classification
+                if let observations = try await classify(image) {
+                    classifications = filterIdentifiers(from: observations)
+                    
+                    let topClassifications = Array(classifications.prefix(5))
+                    for identifier in topClassifications {
+                        if let result = try await fetchWikiSummary(for: identifier) {
+                            wikiResults.append(result)
+                        }
+                    }
+                }
+                
+                self.wikiResults = Array(wikiResults.prefix(4))
+                
             } catch {
                 errorMessage = error.localizedDescription
             }
