@@ -50,21 +50,22 @@ public struct WMFWikiSnapView: View {
         }
     }
     
+    private var foundArticle: some View {
+        Text("")
+    }
+    
     private var topBar: some View {
-        ZStack {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.headline)
-                        .padding(10)
-                        .background(.ultraThinMaterial)
-                        .clipShape(Circle())
-                }
-                
-                Spacer()
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Text("X")
+                    .font(.title)
+                    .foregroundStyle(.white)
             }
+
+            Spacer()
+            
             
             Text("WikiSnap")
                 .font(.headline)
