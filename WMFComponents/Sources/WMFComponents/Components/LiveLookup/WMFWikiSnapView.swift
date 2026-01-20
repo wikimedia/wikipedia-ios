@@ -22,35 +22,36 @@ public struct WMFWikiSnapView: View {
             Image("montreal")
                 .resizable()
                 .scaledToFill()
-                .ignoresSafeArea()
+                .ignoresSafeArea(.keyboard)
             
             // MARK: Overlay content
             VStack {
                 topBar
+                foundArticle
                 Spacer()
                 centerContent
                 Spacer()
             }
-            .padding()
         }
     }
     
+    private var foundArticle: some View {
+        Text("")
+    }
+    
     private var topBar: some View {
-        ZStack {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.headline)
-                        .padding(10)
-                        .background(.ultraThinMaterial)
-                        .clipShape(Circle())
-                }
-
-                Spacer()
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Text("X")
+                    .font(.title)
+                    .foregroundStyle(.white)
             }
 
+            Spacer()
+            
+            
             Text("WikiSnap")
                 .font(.headline)
                 .foregroundStyle(.primary)
@@ -63,23 +64,22 @@ public struct WMFWikiSnapView: View {
                 .font(.title2)
                 .fontWeight(.semibold)
 
-            if isClassifying {
-                ProgressView()
-            } else if let errorMessage {
-                Text(errorMessage)
-                    .foregroundStyle(.red)
-            } else if classifications.isEmpty {
-                Text("Point your camera at something")
-                    .foregroundStyle(.secondary)
-            } else {
-                ForEach(classifications, id: \.self) { result in
-                    Text(result)
-                        .font(.body)
-                }
-            }
+//            if isClassifying {
+//                ProgressView()
+//            } else if let errorMessage {
+//                Text(errorMessage)
+//                    .foregroundStyle(.red)
+//            } else if classifications.isEmpty {
+//                Text("Point your camera at something")
+//                    .foregroundStyle(.secondary)
+//            } else {
+//                ForEach(classifications, id: \.self) { result in
+//                    Text(result)
+//                        .font(.body)
+//                }
+//            }
         }
         .padding()
-        .background(.ultraThinMaterial)
         .cornerRadius(16)
     }
     
