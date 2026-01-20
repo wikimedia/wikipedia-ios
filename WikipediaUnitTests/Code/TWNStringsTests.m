@@ -485,27 +485,71 @@
     }
 }
 
+// Translations should not introduce {{PLURAL:$n|...}} for variables that are not pluralized in the English string.
+// For example, if EN has "in $3" (not pluralized) but a translation has "{{PLURAL:$3|$3}}", this is invalid and will crash.
 - (void)testTranslationsDoNotIntroducePluralWithDollarTokens {
-    NSDictionary *enStrings = [self getTranslationStringsDictFromLprogAtPath:[[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"en.lproj"] stringByAppendingPathComponent:@"Localizable.strings"]];
-    NSRegularExpression *dollarPluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:\\$[0-9]+\\|.*?\\}\}" options:NSRegularExpressionCaseInsensitive error:nil];
-    NSRegularExpression *percentPluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:%[0-9]+\\$.*?\\}\}" options:NSRegularExpressionCaseInsensitive error:nil];
+    // Load English strings from the Localizations directory
+    NSString *enLprojPath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"en.lproj"];
+    NSDictionary *enStrings = [self getTranslationStringsDictFromLprogAtPath:enLprojPath];
+    
+    // Regex to find {{PLURAL:$n|...}} patterns and capture the variable number
+    NSError *error = nil;
+    NSRegularExpression *pluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:\\$(\\d+)\\|[^}]*\\}\\}" 
+                                                                                 options:NSRegularExpressionCaseInsensitive 
+                                                                                   error:&error];
+    XCTAssertNil(error, @"Failed to create regex: %@", error);
+    XCTAssertNotNil(pluralRegex, @"Regex should not be nil");
+    
+    // Helper block to extract plural variable numbers from a string
+    NSSet<NSString *> * (^extractPluralVars)(NSString *) = ^NSSet<NSString *> *(NSString *string) {
+        NSMutableSet<NSString *> *vars = [NSMutableSet set];
+        if (!string) return vars;
+        
+        NSArray<NSTextCheckingResult *> *matches = [pluralRegex matchesInString:string 
+                                                                        options:0 
+                                                                          range:NSMakeRange(0, string.length)];
+        for (NSTextCheckingResult *match in matches) {
+            if (match.numberOfRanges > 1) {
+                NSRange varRange = [match rangeAtIndex:1];
+                if (varRange.location != NSNotFound) {
+                    NSString *varNum = [string substringWithRange:varRange];
+                    [vars addObject:varNum];
+                }
+            }
+        }
+        return vars;
+    };
+    
+    // Iterate through all translation files
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
+        // Skip English and QQQ (comments) files
         if ([lprojFileName isEqualToString:@"en.lproj"] || [lprojFileName isEqualToString:@"qqq.lproj"]) {
             continue;
         }
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"]];
-        for (NSString *key in stringsDict) {
-            NSString *localizedString = stringsDict[key];
-            NSArray<NSTextCheckingResult *> *matches = [dollarPluralRegex matchesInString:localizedString options:0 range:NSMakeRange(0, localizedString.length)];
-            if (matches.count > 0) {
-                NSString *enString = enStrings[key];
-                BOOL foundCorrespondingPlural = NO;
-                if (enString) {
-                    NSArray<NSTextCheckingResult *> *enMatches = [percentPluralRegex matchesInString:enString options:0 range:NSMakeRange(0, enString.length)];
-                    foundCorrespondingPlural = (enMatches.count > 0);
-                }
-                XCTAssertTrue(foundCorrespondingPlural, @"Translation for key '%@' in %@ introduces '{{PLURAL:$n|$n}}' but English does not have a corresponding plural: \nEN: %@\nTranslation: %@", key, lprojFileName, enStrings[key], localizedString);
-            }
+        
+        NSString *lprojPath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName];
+        NSDictionary *translationStrings = [self getTranslationStringsDictFromLprogAtPath:lprojPath];
+        
+        for (NSString *key in translationStrings) {
+            NSString *translatedString = translationStrings[key];
+            NSString *enString = enStrings[key];
+            
+            // Extract plural variables from both strings
+            NSSet<NSString *> *translationPluralVars = extractPluralVars(translatedString);
+            NSSet<NSString *> *enPluralVars = extractPluralVars(enString);
+            
+            // Find variables that are pluralized in translation but not in English
+            NSMutableSet<NSString *> *extraVars = [translationPluralVars mutableCopy];
+            [extraVars minusSet:enPluralVars];
+            
+            // Fail if translation introduces new plural variables
+            XCTAssertTrue(extraVars.count == 0, 
+                @"Translation for key '%@' in %@ introduces PLURAL syntax for variable(s) $%@ not pluralized in English.\nEN: %@\nTranslation: %@", 
+                key, 
+                lprojFileName, 
+                [[extraVars allObjects] componentsJoinedByString:@", $"],
+                enString ?: @"(not found)",
+                translatedString);
         }
     }
 }
