@@ -719,7 +719,7 @@
 "reading-list-do-not-keep-button-title" = "Ne, izbriši članke sa uređaja";
 "reading-list-entry-limit-exceeded-message" = "Smanjite broj članaka na ovom spisku na $1 kako bi nastavili sinhronizaciju svih članka na ovom spisku.";
 "reading-list-entry-limit-exceeded-title" = "Prekoračili ste ograničenje od {{PLURAL:$1|$1 članka|$1 članka|$1 članaka}} po računu.";
-"reading-list-entry-limit-reached" = "{{PLURAL:$1|Članak ne može biti dodan|Članci ne mogu biti dodani}} na ovaj spisak. Dostigli ste ograničenje od {{PLURAL:$2|$2 članka|$2 članka|$2 članaka}} po spisku za čitanje za $3";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Članak ne može biti dodan|Članci ne mogu biti dodani}} na ovaj spisak. Dostigli ste ograničenje od $2 članaka po spisku za čitanje za $3";
 "reading-list-exists-with-same-name" = "Naziv spiska za čitanje se već koristi";
 "reading-list-generic-error" = "Došlo je do neočekivane greške prilikom ažuriranja Vaših spiskova za čitanje.";
 "reading-list-keep-button-title" = "Da, sačuvaj članke na uređaju";
