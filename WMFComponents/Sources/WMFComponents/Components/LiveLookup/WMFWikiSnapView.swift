@@ -143,7 +143,7 @@ public struct WMFWikiSnapView: View {
                 }
                 
                 if wikiResults.count > 1 {
-                    Text("Related articles")
+                    Text("Other articles")
                         .font(Font((WMFFont.for(.semiboldCaption1))))
                         .foregroundStyle(Color(uiColor: theme.paperBackground))
                     
