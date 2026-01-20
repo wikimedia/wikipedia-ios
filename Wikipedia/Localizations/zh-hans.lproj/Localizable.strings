@@ -842,10 +842,10 @@
 "main-menu-zero-faq" = "维基百科Zero常见问题";
 "main-page" = "首页";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "在$1年，志愿者们为英文维基百科增添了{{PLURAL:$2|$2}}字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。]($3)";
-"microsite-yir-english-edits-bytes-slide-title-updated" = "增加了{{PLURAL:$1|$1}字节";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "增加了{{PLURAL:$1|$1}}字节";
 "microsite-yir-english-edits-slide-subtitle-updated" = "志愿者们在超过 {{PLURAL:$2|$2}} 种不同语言版本的维基百科上共完成了 {{PLURAL:$1|$1}} 次修改。其中，英文维基百科的修改次数就超过了 {{PLURAL:$3|$3}} 次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
 "microsite-yir-english-edits-slide-title-updated" = "编辑者们今年做出了 {{PLURAL:$1|$1}} 次修改";
-"microsite-yir-english-reading-slide-subtitle-updated" = "在 {{PLURAL:$3|$3}} 年，人们花费了大约 {{PLURAL:$1|$1}} 小时（相当于 {{PLURAL:$2|$2}} 年！）阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
+"microsite-yir-english-reading-slide-subtitle-updated" = "在 $3 年，人们花费了大约 {{PLURAL:$1|$1}} 小时（相当于 {{PLURAL:$2|$2}} 年！）阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
 "microsite-yir-english-reading-slide-title-updated" = "大家花了 {{PLURAL:$1|$1}} 小时阅读维基百科";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "活跃的应用程序用户今年保存了 {{PLURAL:$1|$1}} 篇条目。将条目加入阅读清单，即使在离线状态下也能随时查看。此外，登录后还能在不同设备上同步阅读清单。";
 "microsite-yir-english-saved-reading-slide-title-updated" = "我们拥有 {{PLURAL:$1|$1}} 篇已保存条目";
@@ -1605,7 +1605,7 @@
 "year-in-review-intro-login-title" = "登录以进行个性化";
 "year-in-review-most-read-categories-title" = "您最感兴趣的分类";
 "year-in-review-non-contributor-slide-title" = "解锁您明年的贡献者奖励！";
-"year-in-review-noncontributor-slide-subtitle-updated" = "我们很高兴维基百科成为您在$1年参与的活动！成为贡献者，即可在您的$2年度回顾解锁特别奖励—无论是借由应用程序[编辑维基百科]（$3）的行为，或是向其背后的非营利组织[维基媒体基金会]（$4）捐款。如果维基百科对您有所帮助，欢迎您考虑捐款，来帮助维基百科维持其未来发展，并保持免费、无广告、值得信赖且人人皆可用的运作状态。如果您是通过其他管道捐款，我们由衷感谢您的支持。";
+"year-in-review-noncontributor-slide-subtitle-updated" = "我们很高兴维基百科成为您在$1年参与的活动！成为贡献者，即可在您的$2年度回顾解锁特别奖励—无论是借由应用程序[编辑维基百科]($3) 的行为，或是向其背后的非营利组织[维基媒体基金会]($4) 捐款。如果维基百科对您有所帮助，欢迎您考虑捐款，来帮助维基百科维持其未来发展，并保持免费、无广告、值得信赖且人人皆可用的运作状态。如果您是通过其他管道捐款，我们由衷感谢您的支持。";
 "year-in-review-personalized-date-day-footer-v3" = "最喜欢阅读的日子";
 "year-in-review-personalized-date-month-footer-v3" = "你阅读最多次的月份";
 "year-in-review-personalized-date-time-footer-v3" = "最喜欢的阅读时间";
