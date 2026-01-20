@@ -101,7 +101,22 @@ public struct WMFWikiSnapView: View {
                         Button {
                             onArticleTap(result.articleURL)
                         } label: {
-                            HStack {
+                            HStack(spacing: 12) {
+                                // Thumbnail
+                                if let thumbnailURL = result.thumbnailURL {
+                                    AsyncImage(url: thumbnailURL) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                    } placeholder: {
+                                        Rectangle()
+                                            .fill(Color.secondary.opacity(0.3))
+                                    }
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(8)
+                                    .clipped()
+                                }
+                                
                                 VStack(alignment: .leading, spacing: 4) {
                                     HStack {
                                         Text(result.title)
@@ -153,7 +168,22 @@ public struct WMFWikiSnapView: View {
                             Button {
                                 onArticleTap(result.articleURL)
                             } label: {
-                                HStack {
+                                HStack(spacing: 12) {
+                                    // Thumbnail
+                                    if let thumbnailURL = result.thumbnailURL {
+                                        AsyncImage(url: thumbnailURL) { image in
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                        } placeholder: {
+                                            Rectangle()
+                                                .fill(Color.secondary.opacity(0.3))
+                                        }
+                                        .frame(width: 44, height: 44)
+                                        .cornerRadius(6)
+                                        .clipped()
+                                    }
+                                    
                                     VStack(alignment: .leading, spacing: 4) {
                                         HStack {
                                             Text(result.title)
@@ -294,6 +324,7 @@ public struct WMFWikiSnapView: View {
             title: decoded.title,
             summary: decoded.extract,
             articleURL: decoded.contentUrls.desktop.page,
+            thumbnailURL: decoded.thumbnail?.source,
             isLocationBased: isLocationBased,
             confidence: confidence
         )
@@ -420,6 +451,7 @@ struct WikiResult: Identifiable {
     let title: String
     let summary: String
     let articleURL: URL
+    var thumbnailURL: URL?
     var isLocationBased: Bool = false
     var confidence: Float?
 }
@@ -428,11 +460,18 @@ struct WikiSummaryResponse: Decodable {
     let title: String
     let extract: String
     let contentUrls: ContentUrls
+    let thumbnail: WikiThumbnail?
     
     enum CodingKeys: String, CodingKey {
-        case title, extract
+        case title, extract, thumbnail
         case contentUrls = "content_urls"
     }
+}
+
+struct WikiThumbnail: Decodable {
+    let source: URL
+    let width: Int
+    let height: Int
 }
 
 struct ContentUrls: Decodable {
