@@ -35,13 +35,9 @@ public struct WMFWikiSnapView: View {
                 
                 // MARK: Overlay content
                 VStack {
-                    topBar
                     Spacer()
-                    centerContent
+                    bottomContent(geometry: geometry)
                 }
-                .frame(height: .infinity)
-                .padding()
-                .frame(width: geometry.size.width)
             }
         }
         .ignoresSafeArea()
@@ -57,190 +53,57 @@ public struct WMFWikiSnapView: View {
         }
     }
     
-    private var topBar: some View {
-        HStack {
-            Button {
-                dismiss()
-            } label: {
-                Text("X")
-                    .font(.title)
-                    .foregroundStyle(.white)
-            }
-            
-            Text("WikiSnap")
-                .font(.title)
-                .foregroundStyle(.primary)
-            
-            Spacer()
-        }
-    }
-    
-    private var centerContent: some View {
-        VStack(spacing: 12) {
+    private func bottomContent(geometry: GeometryProxy) -> some View {
+        VStack(spacing: 0) {
             if isClassifying && wikiResults.isEmpty {
                 ProgressView()
                     .padding()
                     .background(.ultraThinMaterial)
                     .cornerRadius(12)
+                    .padding(.bottom, 40)
             } else if let errorMessage {
                 Text(errorMessage)
                     .foregroundStyle(.red)
                     .padding()
                     .background(.ultraThinMaterial)
                     .cornerRadius(12)
+                    .padding(.bottom, 40)
             } else if wikiResults.isEmpty {
                 Text("Point your camera at something")
                     .foregroundStyle(.secondary)
                     .padding()
                     .background(.ultraThinMaterial)
                     .cornerRadius(12)
+                    .padding(.bottom, 40)
             } else {
-                // First result (featured)
-                if let result = wikiResults.first {
-                    HStack(spacing: 0) {
-                        Button {
-                            onArticleTap(result.articleURL)
-                        } label: {
-                            HStack(spacing: 12) {
-                                // Thumbnail
-                                if let thumbnailURL = result.thumbnailURL {
-                                    AsyncImage(url: thumbnailURL) { image in
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                    } placeholder: {
-                                        Rectangle()
-                                            .fill(Color.secondary.opacity(0.3))
-                                    }
-                                    .frame(width: 60, height: 60)
-                                    .cornerRadius(8)
-                                    .clipped()
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    HStack {
-                                        Text(result.title)
-                                            .font(.headline)
-                                        if result.isLocationBased {
-                                            Image(systemName: "mappin.circle.fill")
-                                                .foregroundStyle(Color(uiColor: WMFColor.blue700))
-                                        }
-                                        if let confidence = result.confidence {
-                                            Text("\(Int(confidence * 100))%")
-                                                .font(.caption)
-                                                .foregroundStyle(.secondary)
-                                        }
-                                    }
-                                    Text(result.summary)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                        .lineLimit(2)
-                                        .multilineTextAlignment(.leading)
-                                }
-                            }
-                            .padding()
-                            .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        
-                        Button {
-                            shareURL = result.articleURL
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                                .font(.system(size: 16))
-                                .foregroundStyle(.secondary)
-                                .padding()
-                        }
-                        .buttonStyle(.plain)
-                    }
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(12)
-                }
-                
-                if wikiResults.count > 1 {
-                    Text("Other articles")
-                        .font(Font((WMFFont.for(.semiboldCaption1))))
-                        .foregroundStyle(Color(uiColor: theme.paperBackground))
-                    
-                    // Remaining results
-                    VStack {
-                        ForEach(wikiResults.dropFirst()) { result in
-                            Button {
-                                onArticleTap(result.articleURL)
-                            } label: {
-                                HStack(spacing: 12) {
-                                    // Thumbnail
-                                    if let thumbnailURL = result.thumbnailURL {
-                                        AsyncImage(url: thumbnailURL) { image in
-                                            image
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                        } placeholder: {
-                                            Rectangle()
-                                                .fill(Color.secondary.opacity(0.3))
-                                        }
-                                        .frame(width: 44, height: 44)
-                                        .cornerRadius(6)
-                                        .clipped()
-                                    }
-                                    
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        HStack {
-                                            Text(result.title)
-                                                .font(.subheadline)
-                                            if result.isLocationBased {
-                                                Image(systemName: "mappin.circle.fill")
-                                                    .foregroundStyle(Color(uiColor: WMFColor.blue700))
-                                            }
-                                            if let confidence = result.confidence {
-                                                Text("\(Int(confidence * 100))%")
-                                                    .font(.caption)
-                                                    .foregroundStyle(.secondary)
-                                            }
-                                        }
-                                        Text(result.summary)
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-                                            .lineLimit(1)
-                                    }
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    Spacer()
-                                    
-                                    Button {
-                                        shareURL = result.articleURL
-                                    } label: {
-                                        Image(systemName: "square.and.arrow.up")
-                                            .font(.system(size: 14))
-                                            .foregroundStyle(.secondary)
-                                    }
-                                    .buttonStyle(.plain)
-                                }
-                            }
-                            .buttonStyle(.plain)
+                // Horizontal scrolling cards
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(wikiResults) { result in
+                            ArticleCard(
+                                result: result,
+                                onReadArticle: { onArticleTap(result.articleURL) },
+                                onShare: { shareURL = result.articleURL }
+                            )
+                            .frame(width: geometry.size.width * 0.75, height: 280)
                         }
                     }
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(12)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 40)
                 }
             }
         }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .cornerRadius(16)
     }
     
     // MARK: - Classification Loop
     
     private func startClassificationLoop() {
         Task {
-            // Initial delay to let camera warm up
             try? await Task.sleep(nanoseconds: 500_000_000)
             
             while !Task.isCancelled {
                 await classifyCurrentFrame()
-                // Wait before next classification (adjust interval as needed)
-                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
             }
         }
     }
@@ -281,29 +144,6 @@ public struct WMFWikiSnapView: View {
         return try await request.perform(on: ciImage)
     }
     
-    // MARK: - MapKit Search
-    
-    private func searchNearbyPointsOfInterest(at coordinate: CLLocationCoordinate2D) async -> [String] {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = "landmark"
-        request.region = MKCoordinateRegion(
-            center: coordinate,
-            latitudinalMeters: 2000,
-            longitudinalMeters: 2000
-        )
-        request.resultTypes = .pointOfInterest
-        
-        let search = MKLocalSearch(request: request)
-        
-        do {
-            let response = try await search.start()
-            return response.mapItems.compactMap { $0.name }
-        } catch {
-            print("MapKit search error: \(error.localizedDescription)")
-            return []
-        }
-    }
-    
     // MARK: - Wikipedia API
     
     private func fetchWikiSummary(for searchTerm: String, isLocationBased: Bool = false, confidence: Float? = nil) async throws -> WikiResult? {
@@ -328,6 +168,91 @@ public struct WMFWikiSnapView: View {
             isLocationBased: isLocationBased,
             confidence: confidence
         )
+    }
+}
+
+// MARK: - Article Card
+
+@available(iOS 18.0, *)
+struct ArticleCard: View {
+    let result: WikiResult
+    let onReadArticle: () -> Void
+    let onShare: () -> Void
+    
+    private func confidenceColor(for confidence: Float) -> Color {
+        let percentage = Int(confidence * 100)
+        switch percentage {
+        case 0...29:
+            return Color(uiColor: WMFColor.red600)
+        case 30...80:
+            return Color(uiColor: WMFColor.orange600)
+        default:
+            return Color(uiColor: WMFColor.green600)
+        }
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // Title and confidence
+            HStack(alignment: .top) {
+                Text(result.title)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.primary)
+                    // .lineLimit(1)
+                
+                Spacer()
+                
+                if let confidence = result.confidence {
+                    Text("\(Int(confidence * 100))%")
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(confidenceColor(for: confidence))
+                        .cornerRadius(10)
+                }
+            }
+            
+            // Summary
+            Text(result.summary)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                // .lineLimit(5)
+                .multilineTextAlignment(.leading)
+            
+            Spacer()
+            
+            // Buttons
+            HStack(spacing: 12) {
+                Button(action: onReadArticle) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "doc.text")
+                        Text("Read article")
+                    }
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(Color.blue)
+                    .cornerRadius(18)
+                }
+                
+                Button(action: onShare) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "square.and.arrow.up")
+                        Text("Share")
+                    }
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.blue)
+                }
+            }
+        }
+        .padding(16)
+        .background(.regularMaterial)
+        .cornerRadius(16)
     }
 }
 
@@ -369,7 +294,6 @@ class CameraManager: NSObject, ObservableObject {
             session.addOutput(videoOutput)
         }
         
-        // Set video orientation
         if let connection = videoOutput.connection(with: .video) {
             if connection.isVideoRotationAngleSupported(90) {
                 connection.videoRotationAngle = 90
