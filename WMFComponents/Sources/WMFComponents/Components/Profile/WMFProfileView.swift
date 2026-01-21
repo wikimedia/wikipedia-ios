@@ -61,7 +61,7 @@ public struct WMFProfileView: View {
                 if let image = item.image {
                     Image(uiImage: image)
                         .frame(width: 16, height: 16)
-                        .foregroundStyle(Color(uiColor: theme.chromeBackground))
+                         .foregroundStyle(Color(uiColor: theme.chromeBackground))
                         .background(
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(Color(uiColor: item.imageColor ?? theme.border))

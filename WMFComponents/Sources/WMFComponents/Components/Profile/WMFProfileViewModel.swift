@@ -201,8 +201,8 @@ enum ProfileState {
             )
             
             let wikiSnapItem = ProfileListItem(
-                text: "WikiSnap",
-                image: nil,
+                text: "Snap Wiki",
+                image: UIImage(named: "Snapwiki"),
                 imageColor: nil,
                 hasNotifications: false,
                 isDonate: false,
