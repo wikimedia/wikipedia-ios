@@ -23,15 +23,6 @@ public struct WMFRabbitHoleView: View {
                         dismiss()
                     }
                 }
-//                ToolbarItem(placement: .primaryAction) {
-//                    ShareLink(
-//                        item: Image(uiImage: viewModel.makeShareImage(size: CGSize(width: 1080, height: 1920))),
-//                        preview: SharePreview(
-//                            "My Wikipedia Rabbit Hole",
-//                            image: Image(systemName: "doc.richtext")
-//                        )
-//                    )
-//                }
             }
         }
     }
@@ -56,21 +47,38 @@ struct RabbitHolePathView: View {
 
     let articles: [RabbitHoleArticle]
     @State private var pathProgress: CGFloat = 0
+    @State private var bubbleSizes: [CGFloat] = []
+    @State private var borderWidths: [CGFloat] = []
+    
+    func initializeSizes() {
+        guard bubbleSizes.isEmpty else { return }
+        bubbleSizes = articles.indices.map { index in
+            bubbleSize(for: index)
+        }
+        borderWidths = articles.indices.map { index in
+            bubbleBorderWidth(for: index)
+        }
+    }
     
     func bubbleSize(for index: Int) -> CGFloat {
         let count = articles.count
         if index == 0 || index == count - 1 {
-            // First and last are biggest (but smaller overall)
-            return CGFloat.random(in: 120...150)
+            return CGFloat.random(in: 80...120)
         } else {
-            // Middle bubbles are smaller
-            return CGFloat.random(in: 80...110)
+            return CGFloat.random(in: 30...50)
+        }
+    }
+    
+    func bubbleBorderWidth(for index: Int) -> CGFloat {
+        let count = articles.count
+        if index == 0 || index == count - 1 {
+            return CGFloat.random(in: 5...8)
+        } else {
+            return CGFloat.random(in: 2...4)
         }
     }
     
     func bubbleDelay(for index: Int) -> Double {
-        // Calculate delay based on path progress
-        // The line takes 2 seconds, so space out bubbles proportionally
         let totalDuration = 2.0
         let proportion = Double(index) / Double(max(articles.count - 1, 1))
         return totalDuration * proportion
@@ -78,8 +86,7 @@ struct RabbitHolePathView: View {
 
     var body: some View {
         ZStack {
-            // Draw the curvy path behind the bubbles with tracing animation and gradient width
-            CurvedPathShape(articleCount: articles.count)
+            CurvedPathShape(articleCount: articles.count, bubbleSizes: bubbleSizes)
                 .trim(from: 0, to: pathProgress)
                 .stroke(
                     Color.accentColor.opacity(0.3),
@@ -90,20 +97,24 @@ struct RabbitHolePathView: View {
                 )
                 .overlay(overlay)
                 .onAppear {
+                    initializeSizes()
                     withAnimation(.easeInOut(duration: 2.0)) {
                         pathProgress = 1.0
                     }
                 }
             
-            // Draw the bubbles on top with staggered animation
-            VStack(spacing: 60) {
+            VStack(spacing: 30) {
                 ForEach(Array(articles.enumerated()), id: \.element.id) { idx, article in
                     HStack {
                         if idx % 2 == 0 {
                             Spacer()
-                            RabbitHoleBubble(article: article, size: bubbleSize(for: idx), delay: bubbleDelay(for: idx))
+                            if idx < bubbleSizes.count && idx < borderWidths.count {
+                                RabbitHoleBubble(article: article, size: bubbleSizes[idx], borderWidth: borderWidths[idx], delay: bubbleDelay(for: idx))
+                            }
                         } else {
-                            RabbitHoleBubble(article: article, size: bubbleSize(for: idx), delay: bubbleDelay(for: idx))
+                            if idx < bubbleSizes.count && idx < borderWidths.count {
+                                RabbitHoleBubble(article: article, size: bubbleSizes[idx], borderWidth: borderWidths[idx], delay: bubbleDelay(for: idx))
+                            }
                             Spacer()
                         }
                     }
@@ -112,10 +123,13 @@ struct RabbitHolePathView: View {
             }
         }
         .padding(.horizontal, 32)
+        .onAppear {
+            initializeSizes()
+        }
     }
     
     private var overlay: some View {
-        CurvedPathShape(articleCount: articles.count)
+        CurvedPathShape(articleCount: articles.count, bubbleSizes: bubbleSizes)
             .trim(from: 0, to: pathProgress)
             .stroke(
                 LinearGradient(
@@ -154,34 +168,38 @@ struct RabbitHolePathView: View {
 
 struct CurvedPathShape: Shape {
     let articleCount: Int
+    let bubbleSizes: [CGFloat]
     
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
         guard articleCount > 0 else { return path }
         
-        let verticalSpacing: CGFloat = 60 + 180 // spacing + approximate bubble height
         let horizontalPadding: CGFloat = 32
-        let availableWidth = rect.width - (horizontalPadding * 2)
         
-        // Calculate positions for each bubble
         var points: [CGPoint] = []
+        var currentY: CGFloat = 0
+        
         for i in 0..<articleCount {
-            let y = CGFloat(i) * verticalSpacing
             let x: CGFloat
+            let currentBubbleSize = i < bubbleSizes.count ? bubbleSizes[i] : 50
             
             if i % 2 == 0 {
-                // Right side
                 x = rect.width - horizontalPadding
             } else {
-                // Left side
                 x = horizontalPadding
             }
             
-            points.append(CGPoint(x: x, y: y))
+            // Add half the bubble size to center the point in the bubble
+            let centerY = currentY + (currentBubbleSize / 2)
+            points.append(CGPoint(x: x, y: centerY))
+            
+            if i < articleCount - 1 {
+                // Account for bubble size + spacing (no text now)
+                currentY += currentBubbleSize + 30
+            }
         }
         
-        // Draw curved path through all points
         if points.count > 0 {
             path.move(to: points[0])
             
@@ -189,36 +207,22 @@ struct CurvedPathShape: Shape {
                 let previousPoint = points[i - 1]
                 let currentPoint = points[i]
                 
-                // Calculate control points for smooth curves
                 let midY = (previousPoint.y + currentPoint.y) / 2
+                let distance = abs(currentPoint.y - previousPoint.y)
                 
-                // Calculate curve intensity based on position
-                // Bigger curves at start and end, smaller in middle
-                let totalSegments = points.count - 1
-                let normalizedPosition = CGFloat(i) / CGFloat(totalSegments)
+                // Make curves more dramatic and organic
+                let curveIntensity = distance * 0.35
                 
-                // Create a curve that's bigger at 0 and 1, smaller at 0.5
-                let curveIntensity: CGFloat
-                if normalizedPosition < 0.5 {
-                    // First half: decrease from 50 to 20
-                    curveIntensity = 50 - (normalizedPosition * 2 * 30)
-                } else {
-                    // Second half: increase from 20 to 50
-                    curveIntensity = 20 + ((normalizedPosition - 0.5) * 2 * 30)
-                }
-                
-                // Create an S-curve by using two control points
                 let controlPoint1 = CGPoint(
                     x: previousPoint.x,
-                    y: midY - curveIntensity
+                    y: previousPoint.y + (distance * 0.3)
                 )
                 
                 let controlPoint2 = CGPoint(
                     x: currentPoint.x,
-                    y: midY + curveIntensity
+                    y: currentPoint.y - (distance * 0.3)
                 )
                 
-                // Draw cubic Bezier curve
                 path.addCurve(
                     to: currentPoint,
                     control1: controlPoint1,
@@ -237,13 +241,13 @@ struct RabbitHoleBubble: View {
 
     let article: RabbitHoleArticle
     let size: CGFloat
+    let borderWidth: CGFloat
     let delay: Double
     @State private var isVisible = false
 
     var body: some View {
         VStack(spacing: 8) {
             bubbleImage
-            bubbleTitle
         }
         .scaleEffect(isVisible ? 1 : 0.3)
         .opacity(isVisible ? 1 : 0)
@@ -261,11 +265,19 @@ struct RabbitHoleBubble: View {
                 RabbitHoleImageView(url: imageURL)
                     .frame(width: size, height: size)
                     .clipShape(Circle())
+                    .overlay(
+                        Circle()
+                            .stroke(Color.accentColor, lineWidth: borderWidth)
+                    )
                     .shadow(radius: 4)
             } else {
                 Circle()
                     .fill(Color.accentColor.opacity(0.3))
                     .frame(width: size, height: size)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.accentColor, lineWidth: borderWidth)
+                    )
             }
         }
     }
@@ -273,11 +285,11 @@ struct RabbitHoleBubble: View {
     private var bubbleTitle: some View {
         VStack(spacing: 2) {
             Text(article.title)
-                .font(.headline)
+                .font(.system(size: max(size * 0.15, 10)))
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
         }
-        .frame(maxWidth: size)
+        .frame(maxWidth: size + 20)
     }
 }
 
