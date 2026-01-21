@@ -37,84 +37,93 @@ public struct WMFRabbitHoleView: View {
     }
 }
 
+// MARK: - Infographic View
+
 struct RabbitHoleInfographicView: View {
 
     let articles: [RabbitHoleArticle]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 32) {
+        VStack(spacing: 24) {
             Text("My Wikipedia Rabbit Hole")
                 .font(.largeTitle.weight(.bold))
+                .padding(.bottom, 16)
 
-            ForEach(Array(articles.enumerated()), id: \.element.id) { index, article in
-                RabbitHoleArticleCard(
-                    index: index,
-                    article: article
-                )
-            }
+            RabbitHolePathView(articles: articles)
 
             Text("Generated from Wikipedia")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
                 .padding(.top, 24)
         }
-        .padding(32)
-        .background(
-            RoundedRectangle(cornerRadius: 24)
-                .fill(Color(uiColor: .secondarySystemBackground))
-        )
     }
 }
 
+// MARK: - Path View (Zig-Zag Layout)
 
-struct RabbitHoleArticleCard: View {
+struct RabbitHolePathView: View {
 
-    let index: Int
-    let article: RabbitHoleArticle
-
-    @State private var showImages = false
+    let articles: [RabbitHoleArticle]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack(alignment: .top, spacing: 16) {
-                Circle()
-                    .fill(Color.accentColor)
-                    .frame(width: 32, height: 32)
-                    .overlay(
-                        Text("\(index + 1)")
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    )
-
-                Text(article.title)
-                    .font(.title3.weight(.semibold))
-            }
-
-            if !article.images.isEmpty {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ForEach(Array(article.images.enumerated()), id: \.offset) { idx, url in
-                            RabbitHoleImageView(url: url)
-                                .frame(width: 180, height: 120)
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
-                                .opacity(showImages ? 1 : 0)
-                                .offset(y: showImages ? 0 : 12)
-                                .animation(
-                                    .spring(response: 0.5, dampingFraction: 0.8)
-                                    .delay(Double(idx) * 0.08),
-                                    value: showImages
-                                )
-                        }
+        VStack(spacing: 60) {
+            ForEach(Array(articles.enumerated()), id: \.element.id) { idx, article in
+                HStack {
+                    if idx % 2 == 0 {
+                        Spacer()
+                        RabbitHoleBubble(article: article, size: CGFloat.random(in: 120...180))
+                    } else {
+                        RabbitHoleBubble(article: article, size: CGFloat.random(in: 120...180))
+                        Spacer()
                     }
-                    .padding(.leading, 48)
                 }
+                .transition(.scale.combined(with: .opacity))
             }
         }
-        .onAppear {
-            showImages = true
-        }
+        .padding(.horizontal, 32)
     }
 }
+
+// MARK: - Bubble View
+
+struct RabbitHoleBubble: View {
+
+    let article: RabbitHoleArticle
+    let size: CGFloat
+
+    var body: some View {
+        VStack(spacing: 8) {
+            if let imageURL = article.images.randomElement() {
+                RabbitHoleImageView(url: imageURL)
+                    .frame(width: size, height: size)
+                    .clipShape(Circle())
+                    .shadow(radius: 4)
+            } else {
+                Circle()
+                    .fill(Color.accentColor.opacity(0.3))
+                    .frame(width: size, height: size)
+            }
+
+            VStack(spacing: 2) {
+                Text(article.title)
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+//                if let subtitle = article.subtitle {
+//                    Text(subtitle)
+//                        .font(.subheadline)
+//                        .foregroundColor(.secondary)
+//                        .multilineTextAlignment(.center)
+//                        .lineLimit(2)
+//                }
+            }
+            .frame(maxWidth: size)
+        }
+        .animation(.spring(response: 0.5, dampingFraction: 0.75), value: size)
+    }
+}
+
+// MARK: - Image View
 
 struct RabbitHoleImageView: View {
 

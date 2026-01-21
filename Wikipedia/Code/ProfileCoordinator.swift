@@ -186,14 +186,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             RabbitHoleArticle(
                 title: "Quantum Mechanics",
                 images: [
-                    URL(string: "https://en.wikipedia.org/wiki/Quantum_mechanics#/media/File:Hydrogen_Density_Plots.png"),
-                    URL(string: "https://en.wikipedia.org/wiki/Quantum_mechanics#/media/File:QuantumTunnel.jpg")
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Hydrogen_Density_Plots.png"),
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/5/5f/QuantumTunnel.jpg")
                 ].compactMap { $0 }
             ),
             RabbitHoleArticle(
                 title: "Schrödinger's Cat",
                 images: [
-                    URL(string: "https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg")
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg")
                 ].compactMap { $0 }
             ),
             RabbitHoleArticle(
@@ -203,7 +203,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             RabbitHoleArticle(
                 title: "Pembroke Welsh Corgi",
                 images: [
-                    URL(string: "https://en.wikipedia.org/wiki/Pembroke_Welsh_Corgi#/media/File:Welsh_Pembroke_Corgi.jpg")
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/99/Welsh_Pembroke_Corgi.jpg")
                 ].compactMap { $0 }
             )
         ]
