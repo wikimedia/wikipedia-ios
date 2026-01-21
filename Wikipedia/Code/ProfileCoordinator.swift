@@ -184,28 +184,33 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
         let articles: [RabbitHoleArticle] = [
             RabbitHoleArticle(
-                title: "Quantum Mechanics",
+                title: "Opera",
                 images: [
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Hydrogen_Density_Plots.png"),
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/5/5f/QuantumTunnel.jpg")
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/4/44/Macbeth_applause_at_Savonlinna_Opera_festival_in_2007_-_panoramio.jpg")
                 ].compactMap { $0 }
             ),
             RabbitHoleArticle(
-                title: "Schrödinger's Cat",
+                title: "Costume",
                 images: [
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg")
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/5/54/Samurai_actors.jpg")
                 ].compactMap { $0 }
             ),
             RabbitHoleArticle(
-                title: "Wave–Particle Duality",
+                title: "Costume design",
                 images: [
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/31/Rippletanksource1plus2superpositionBnW.png")
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/8/88/Charles_Ricketts03.jpg")
                 ].compactMap { $0 }
             ),
             RabbitHoleArticle(
-                title: "Pembroke Welsh Corgi",
+                title: "Batsuit",
                 images: [
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/99/Welsh_Pembroke_Corgi.jpg")
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Batsuit_from_The_Dark_Knight_Rises_film_-_closer_view.jpg")
+                ].compactMap { $0 }
+            ),
+            RabbitHoleArticle(
+                title: "Lightsaber",
+                images: [
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Lightsaber_Skywalker.png")
                 ].compactMap { $0 }
             )
         ]
