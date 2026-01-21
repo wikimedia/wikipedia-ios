@@ -214,7 +214,7 @@ struct RabbitHolePathView: View {
                     }
                 }
             
-            VStack(spacing: 30) {
+            VStack(spacing: 25) {
                 ForEach(Array(articles.enumerated()), id: \.element.id) { idx, article in
                     HStack {
                         if idx % 2 == 0 {
@@ -290,6 +290,9 @@ struct CurvedPathShape: Shape {
         
         var points: [CGPoint] = []
         var currentY: CGFloat = 0
+        let titleHeight: CGFloat = 35
+        let titleSpacing: CGFloat = 4
+        let betweenBubbleSpacing: CGFloat = 25
         
         for i in 0..<articleCount {
             let x: CGFloat
@@ -301,11 +304,13 @@ struct CurvedPathShape: Shape {
                 x = horizontalPadding
             }
             
+            // Center point should be at the middle of the bubble image only
             let centerY = currentY + (currentBubbleSize / 2)
             points.append(CGPoint(x: x, y: centerY))
             
             if i < articleCount - 1 {
-                currentY += currentBubbleSize + 30
+                // Move to next bubble: current bubble + spacing below image + title height + spacing to next bubble
+                currentY += currentBubbleSize + titleSpacing + titleHeight + betweenBubbleSpacing
             }
         }
         
@@ -351,8 +356,17 @@ struct RabbitHoleBubble: View {
     @State private var isVisible = false
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
             bubbleImage
+            
+            // Floating title below the bubble with fixed height container
+            Text(article.title)
+                .font(.system(size: max(size * 0.14, 9), weight: .medium))
+                .foregroundColor(.primary)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: size * 1.8)
+                .frame(height: 35) // Fixed height for title area
         }
         .scaleEffect(isVisible ? 1 : 0.3)
         .opacity(isVisible ? 1 : 0)

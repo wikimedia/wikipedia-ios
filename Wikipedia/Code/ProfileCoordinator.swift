@@ -182,10 +182,11 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     private func showRabbitHole() {
         let urls = [
-            "https://en.wikipedia.org/wiki/Quantum_mechanics",
-            "https://en.wikipedia.org/wiki/Schrödinger's_cat",
-            "https://en.wikipedia.org/wiki/Wave–particle_duality",
-            "https://en.wikipedia.org/wiki/Pembroke_Welsh_Corgi"
+            "https://en.wikipedia.org/wiki/Opera",
+            "https://en.wikipedia.org/wiki/Costume",
+            "https://en.wikipedia.org/wiki/Costume_design",
+            "https://en.wikipedia.org/wiki/Batsuit",
+            "https://en.wikipedia.org/wiki/Lightsaber"
         ].compactMap { URL(string: $0) }
         
         let viewModel = WMFRabbitHoleViewModel(urls: urls)
