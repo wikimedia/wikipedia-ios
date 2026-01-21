@@ -103,7 +103,7 @@ public class Router: NSObject {
                 let titles = results.split(separator: "|")
                 // first url
                 if let firstTitle = titles.first {
-                    let urls = titles.map { URL(string: "https://en.wikipedia.org/wiki/\($0)")! }
+                    let urls = Array(titles.map { URL(string: "https://en.wikipedia.org/wiki/\($0)")! }.reversed())
                     let firstURL = urls.first
                     let others = urls[1...urls.count - 1]
                     return .article(urls.first!, rabbitHole: Array(others))

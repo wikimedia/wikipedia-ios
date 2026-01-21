@@ -1,5 +1,32 @@
 import SwiftUI
 
+public class WMFRabbitHoleHostingController: UIHostingController<WMFRabbitHoleView> {
+    
+    public init(viewModel: WMFRabbitHoleViewModel, view: WMFRabbitHoleView) {
+        super.init(rootView: view)
+        
+        modalPresentationStyle = .pageSheet
+        
+        if let sheet = sheetPresentationController {
+            sheet.detents = [.large()]
+            sheet.prefersGrabberVisible = true
+        }
+        
+        hidesBottomBarWhenPushed = true
+    }
+    
+    public override func viewDidLoad() {
+        title = "🐰 Rabbit Hole"
+        super.viewDidLoad()
+        
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
+    @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 // MARK: - View Model
 
 @MainActor
@@ -8,9 +35,11 @@ public class WMFRabbitHoleViewModel: ObservableObject {
     @Published public var isLoading = true
     
     private let urls: [URL]
+    public var onArticleTapped: ((_ tappedURL: URL, _ remainingURLs: [URL]) -> Void)?
     
-    public init(urls: [URL]) {
+    public init(urls: [URL], onArticleTapped: ((_ tappedURL: URL, _ remainingURLs: [URL]) -> Void)? = nil) {
         self.urls = urls
+        self.onArticleTapped = onArticleTapped
         Task {
             await fetchArticles()
         }
@@ -65,12 +94,23 @@ public class WMFRabbitHoleViewModel: ObservableObject {
             
             return RabbitHoleArticle(
                 title: cleanTitle,
-                images: images
+                images: images,
+                url: url
             )
         } catch {
             print("Error fetching summary for \(title): \(error)")
             return nil
         }
+    }
+    
+    func articleTapped(at index: Int) {
+        guard index < articles.count else { return }
+        
+        let tappedArticle = articles[index]
+        let remainingArticles = Array(articles.dropFirst(index + 1))
+        let remainingURLs = remainingArticles.map { $0.url }
+        
+        onArticleTapped?(tappedArticle.url, remainingURLs)
     }
 }
 
@@ -90,10 +130,12 @@ public struct RabbitHoleArticle: Identifiable {
     public let id = UUID()
     public let title: String
     public let images: [URL]
+    public let url: URL
     
-    public init(title: String, images: [URL]) {
+    public init(title: String, images: [URL], url: URL) {
         self.title = title
         self.images = images
+        self.url = url
     }
 }
 
@@ -102,7 +144,7 @@ public struct RabbitHoleArticle: Identifiable {
 public struct WMFRabbitHoleView: View {
 
     @ObservedObject var viewModel: WMFRabbitHoleViewModel
-    @Environment(\.dismiss) private var dismiss
+    // @Environment(\.dismiss) private var dismiss
 
     public init(viewModel: WMFRabbitHoleViewModel) {
         self.viewModel = viewModel
@@ -121,20 +163,25 @@ public struct WMFRabbitHoleView: View {
                     }
                 } else {
                     ScrollView {
-                        RabbitHoleInfographicView(articles: viewModel.articles)
-                            .padding()
+                        RabbitHoleInfographicView(
+                            articles: viewModel.articles,
+                            onArticleTapped: { index in
+                                viewModel.articleTapped(at: index)
+                            }
+                        )
+                        .padding()
                     }
                 }
             }
-            .navigationTitle("🐰 Rabbit Hole")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
-                        dismiss()
-                    }
-                }
-            }
+            // .navigationTitle("🐰 Rabbit Hole")
+            // .navigationBarTitleDisplayMode(.inline)
+//            .toolbar {
+//                ToolbarItem(placement: .confirmationAction) {
+//                    Button("Done") {
+//                        dismiss()
+//                    }
+//                }
+//            }
         }
     }
 }
@@ -144,10 +191,11 @@ public struct WMFRabbitHoleView: View {
 struct RabbitHoleInfographicView: View {
 
     let articles: [RabbitHoleArticle]
+    let onArticleTapped: (Int) -> Void
 
     var body: some View {
         VStack(spacing: 24) {
-            RabbitHolePathView(articles: articles)
+            RabbitHolePathView(articles: articles, onArticleTapped: onArticleTapped)
         }
     }
 }
@@ -157,6 +205,7 @@ struct RabbitHoleInfographicView: View {
 struct RabbitHolePathView: View {
 
     let articles: [RabbitHoleArticle]
+    let onArticleTapped: (Int) -> Void
     @State private var pathProgress: CGFloat = 0
     @State private var bubbleSizes: [CGFloat] = []
     @State private var borderWidths: [CGFloat] = []
@@ -220,11 +269,23 @@ struct RabbitHolePathView: View {
                         if idx % 2 == 0 {
                             Spacer()
                             if idx < bubbleSizes.count && idx < borderWidths.count {
-                                RabbitHoleBubble(article: article, size: bubbleSizes[idx], borderWidth: borderWidths[idx], delay: bubbleDelay(for: idx))
+                                RabbitHoleBubble(
+                                    article: article,
+                                    size: bubbleSizes[idx],
+                                    borderWidth: borderWidths[idx],
+                                    delay: bubbleDelay(for: idx),
+                                    onTap: { onArticleTapped(idx) }
+                                )
                             }
                         } else {
                             if idx < bubbleSizes.count && idx < borderWidths.count {
-                                RabbitHoleBubble(article: article, size: bubbleSizes[idx], borderWidth: borderWidths[idx], delay: bubbleDelay(for: idx))
+                                RabbitHoleBubble(
+                                    article: article,
+                                    size: bubbleSizes[idx],
+                                    borderWidth: borderWidths[idx],
+                                    delay: bubbleDelay(for: idx),
+                                    onTap: { onArticleTapped(idx) }
+                                )
                             }
                             Spacer()
                         }
@@ -353,6 +414,7 @@ struct RabbitHoleBubble: View {
     let size: CGFloat
     let borderWidth: CGFloat
     let delay: Double
+    let onTap: () -> Void
     @State private var isVisible = false
 
     var body: some View {
@@ -375,6 +437,9 @@ struct RabbitHoleBubble: View {
             withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(delay)) {
                 isVisible = true
             }
+        }
+        .onTapGesture {
+            onTap()
         }
     }
     
@@ -425,6 +490,8 @@ struct RabbitHoleImageView: View {
         }
     }
 }
+
+// MARK: - URL Extension
 
 private extension URL {
     var wmf_title: String? {

@@ -395,17 +395,19 @@ extension ViewControllerRouter: WMFOnboardingViewDelegate {
     @MainActor
     private func showRabbitHole(firstURL: URL, rabbitHole: [URL]) {
         let allURLs = [firstURL] + rabbitHole
-        let viewModel = WMFRabbitHoleViewModel(urls: allURLs)
+        let viewModel = WMFRabbitHoleViewModel(urls: allURLs) { [weak self] tappedURL, remainingURLs in
+            self?.appViewController.dismiss(animated: true) {
+                
+                guard let self else { return }
+                if let articleVC = ArticleViewController(articleURL: tappedURL, dataStore: self.appViewController.dataStore, theme: .light, source: .activity, remainingRabbitHole: remainingURLs) {
+                    self.appViewController.currentTabNavigationController?.pushViewController(articleVC, animated: true)
+                }
+            }
+        }
         let view = WMFRabbitHoleView(viewModel: viewModel)
         
-        let hostingController = UIHostingController(rootView: view)
-        hostingController.modalPresentationStyle = .pageSheet
+        let hostingController = WMFRabbitHoleHostingController(viewModel: viewModel, view: view)
         
-        if let sheet = hostingController.sheetPresentationController {
-            sheet.detents = [.large()]
-            sheet.prefersGrabberVisible = true
-        }
-        
-        appViewController.present(hostingController, animated: true)
+        appViewController.currentTabNavigationController?.pushViewController(hostingController, animated: true)
     }
 }

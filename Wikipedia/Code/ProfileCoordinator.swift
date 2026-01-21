@@ -189,13 +189,23 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             "https://en.wikipedia.org/wiki/Lightsaber"
         ].compactMap { URL(string: $0) }
         
-        let viewModel = WMFRabbitHoleViewModel(urls: urls)
+        let viewModel = WMFRabbitHoleViewModel(urls: urls) { [weak self] tappedURL, remainingURLs in
+            self?.navigationController.dismiss(animated: true) {
+                // Navigate to the article with the remaining rabbit hole URLs
+                print("Tapped: \(tappedURL)")
+                print("Remaining: \(remainingURLs)")
+                
+                guard let self else { return }
+                if let articleVC = ArticleViewController(articleURL: tappedURL, dataStore: self.dataStore, theme: self.theme, source: .activity, remainingRabbitHole: remainingURLs) {
+                    self.navigationController.pushViewController(articleVC, animated: true)
+                }
+                
+            }
+        }
         
         let view = WMFRabbitHoleView(viewModel: viewModel)
-            .environmentObject(self.targetRects)
         
-        let hostingController = UIHostingController(rootView: view)
-        hostingController.modalPresentationStyle = .pageSheet
+        let hostingController = WMFRabbitHoleHostingController(viewModel: viewModel, view: view)
         
         if let sheet = hostingController.sheetPresentationController {
             sheet.detents = [.large()]
