@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Snapwiki_1x.png",
+      "filename" : "Snapwiki (1).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Snapwiki_2x.png",
+      "filename" : "Snapwiki (1) 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Snapwiki_3x.png",
+      "filename" : "Snapwiki_4x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

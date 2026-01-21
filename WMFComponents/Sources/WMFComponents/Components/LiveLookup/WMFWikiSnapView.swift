@@ -35,9 +35,11 @@ public struct WMFWikiSnapView: View {
                 
                 // MARK: Overlay content
                 VStack {
+                    topBar
                     Spacer()
                     bottomContent(geometry: geometry)
                 }
+                .padding(.top, 17)
             }
         }
         .ignoresSafeArea()
@@ -51,6 +53,38 @@ public struct WMFWikiSnapView: View {
         .sheet(item: $shareURL) { url in
             ShareSheet(activityItems: [url])
         }
+    }
+    
+    private var topBar: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                    .padding(10)
+                    .background(.ultraThinMaterial)
+                    .clipShape(Circle())
+            }
+            
+            Spacer()
+            
+            Text("Snap Wiki")
+                .font(.headline)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(.ultraThinMaterial)
+                .cornerRadius(20)
+            
+            Spacer()
+            
+            // Invisible spacer to balance the X button
+            Color.clear
+                .frame(width: 44, height: 44)
+        }
+        .padding(.horizontal, 20)
     }
     
     private func bottomContent(geometry: GeometryProxy) -> some View {
@@ -199,7 +233,6 @@ struct ArticleCard: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundStyle(.primary)
-                    // .lineLimit(1)
                 
                 Spacer()
                 
@@ -218,7 +251,6 @@ struct ArticleCard: View {
             Text(result.summary)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-                // .lineLimit(5)
                 .multilineTextAlignment(.leading)
             
             Spacer()
