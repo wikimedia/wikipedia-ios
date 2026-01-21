@@ -20,4 +20,5 @@ public enum ProfileAction {
     case logYearInReviewTap
     case showUserPageTempAccount
     case showUserTalkPageTempAccount
+    case rabbitHole
 }

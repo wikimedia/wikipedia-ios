@@ -173,9 +173,58 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserTalkPageTempAccount()
             }
+        case .rabbitHole:
+            dismissProfile {
+                self.showRabbitHole()
+            }
         }
     }
     
+    private func showRabbitHole() {
+
+        let articles: [RabbitHoleArticle] = [
+            RabbitHoleArticle(
+                title: "Quantum Mechanics",
+                images: [
+                    URL(string: "https://en.wikipedia.org/wiki/Quantum_mechanics#/media/File:Hydrogen_Density_Plots.png"),
+                    URL(string: "https://en.wikipedia.org/wiki/Quantum_mechanics#/media/File:QuantumTunnel.jpg")
+                ].compactMap { $0 }
+            ),
+            RabbitHoleArticle(
+                title: "Schrödinger's Cat",
+                images: [
+                    URL(string: "https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg")
+                ].compactMap { $0 }
+            ),
+            RabbitHoleArticle(
+                title: "Wave–Particle Duality",
+                images: []
+            ),
+            RabbitHoleArticle(
+                title: "Pembroke Welsh Corgi",
+                images: [
+                    URL(string: "https://en.wikipedia.org/wiki/Pembroke_Welsh_Corgi#/media/File:Welsh_Pembroke_Corgi.jpg")
+                ].compactMap { $0 }
+            )
+        ]
+
+        let viewModel = WMFRabbitHoleViewModel(articles: articles)
+
+        let view = WMFRabbitHoleView(viewModel: viewModel)
+            .environmentObject(self.targetRects)
+
+        let hostingController = UIHostingController(rootView: view)
+        hostingController.modalPresentationStyle = .pageSheet
+
+        if let sheet = hostingController.sheetPresentationController {
+            sheet.detents = [.large()]
+            sheet.prefersGrabberVisible = true
+        }
+
+        navigationController.present(hostingController, animated: true)
+    }
+
+
     private func dismissProfile(completion: @escaping () -> Void) {
         navigationController.dismiss(animated: true) {
             completion()

@@ -217,6 +217,19 @@ enum ProfileState {
                     coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
+            
+            let rabbitHole = ProfileListItem(
+                text: "Rabbit Holes",
+                image: WMFSFSymbolIcon.for(symbol: .gear),
+                imageColor: UIColor(Color.purple),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.rabbitHole)
+                }
+            )
+            
             return [
                 ProfileSection(
                     listItems: [
@@ -239,7 +252,8 @@ enum ProfileState {
                 ),
                 ProfileSection(
                     listItems: [
-                        settingsItem
+                        settingsItem,
+                        rabbitHole
                     ],
                     subtext: nil
                 )
