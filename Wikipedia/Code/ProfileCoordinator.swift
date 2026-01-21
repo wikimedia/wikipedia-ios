@@ -173,9 +173,60 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserTalkPageTempAccount()
             }
+        case .rabbitHole:
+            dismissProfile {
+                self.showRabbitHole()
+            }
         }
     }
     
+    private func showRabbitHole() {
+
+        let articles: [RabbitHoleArticle] = [
+            RabbitHoleArticle(
+                title: "Quantum Mechanics",
+                images: [
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Hydrogen_Density_Plots.png"),
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/5/5f/QuantumTunnel.jpg")
+                ].compactMap { $0 }
+            ),
+            RabbitHoleArticle(
+                title: "Schrödinger's Cat",
+                images: [
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg")
+                ].compactMap { $0 }
+            ),
+            RabbitHoleArticle(
+                title: "Wave–Particle Duality",
+                images: [
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/31/Rippletanksource1plus2superpositionBnW.png")
+                ].compactMap { $0 }
+            ),
+            RabbitHoleArticle(
+                title: "Pembroke Welsh Corgi",
+                images: [
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/99/Welsh_Pembroke_Corgi.jpg")
+                ].compactMap { $0 }
+            )
+        ]
+
+        let viewModel = WMFRabbitHoleViewModel(articles: articles)
+
+        let view = WMFRabbitHoleView(viewModel: viewModel)
+            .environmentObject(self.targetRects)
+
+        let hostingController = UIHostingController(rootView: view)
+        hostingController.modalPresentationStyle = .pageSheet
+
+        if let sheet = hostingController.sheetPresentationController {
+            sheet.detents = [.large()]
+            sheet.prefersGrabberVisible = true
+        }
+
+        navigationController.present(hostingController, animated: true)
+    }
+
+
     private func dismissProfile(completion: @escaping () -> Void) {
         navigationController.dismiss(animated: true) {
             completion()
