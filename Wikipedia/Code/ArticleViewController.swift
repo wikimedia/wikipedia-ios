@@ -182,8 +182,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var urlToSparkle: URL? {
         return remainingRabbitHole.first
     }
+    
+    var needsConfetti: Bool
 
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false, remainingRabbitHole: [URL] = []) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false, remainingRabbitHole: [URL] = [], needsConfetti: Bool = false) {
+        self.needsConfetti = needsConfetti
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -494,6 +497,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: project)
             }
         }
+        
+        showConfettiIfNeeded()
     }
     
     @objc func userDidTapProfile() {
@@ -1148,7 +1153,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             // capture rabbit hole
             if resolvedURL.wmf_title == urlToSparkle?.wmf_title ?? "" {
                 let remainingRabbitHole = remainingRabbitHole.dropFirst()
-                if let articleVC = ArticleViewController(articleURL: resolvedURL, dataStore: dataStore, theme: theme, source: .activity, remainingRabbitHole: Array(remainingRabbitHole)) {
+                let remaining = Array(remainingRabbitHole)
+                var needsConfetti = false
+                if remaining.isEmpty {
+                    needsConfetti = true
+                }
+                if let articleVC = ArticleViewController(articleURL: resolvedURL, dataStore: dataStore, theme: theme, source: .activity, remainingRabbitHole: Array(remainingRabbitHole), needsConfetti: needsConfetti) {
                     navigationController?.pushViewController(articleVC, animated: true)
                 }
                 
@@ -1633,5 +1643,141 @@ extension ArticleViewController: UISearchControllerDelegate {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
         SearchFunnel.shared.logSearchCancel(source: "article")
+    }
+}
+
+// MARK: - Confetti
+
+extension ArticleViewController {
+    
+    func showConfettiIfNeeded() {
+        guard needsConfetti else { return }
+        needsConfetti = false // Only show once
+        
+        let confettiView = ConfettiView(frame: view.bounds)
+        confettiView.translatesAutoresizingMaskIntoConstraints = false
+        confettiView.isUserInteractionEnabled = false
+        view.addSubview(confettiView)
+        
+        NSLayoutConstraint.activate([
+            confettiView.topAnchor.constraint(equalTo: view.topAnchor),
+            confettiView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            confettiView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            confettiView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        confettiView.startConfetti()
+        
+        // Remove after animation completes
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            confettiView.stopConfetti()
+            UIView.animate(withDuration: 0.3) {
+                confettiView.alpha = 0
+            } completion: { _ in
+                confettiView.removeFromSuperview()
+            }
+        }
+    }
+}
+
+// MARK: - Confetti View
+
+class ConfettiView: UIView {
+    
+    private var emitter: CAEmitterLayer?
+    
+    private let colors: [UIColor] = [
+        UIColor(red: 0.95, green: 0.40, blue: 0.27, alpha: 1.0), // Red
+        UIColor(red: 1.00, green: 0.78, blue: 0.36, alpha: 1.0), // Yellow
+        UIColor(red: 0.48, green: 0.78, blue: 0.64, alpha: 1.0), // Green
+        UIColor(red: 0.30, green: 0.76, blue: 0.85, alpha: 1.0), // Blue
+        UIColor(red: 0.58, green: 0.39, blue: 0.55, alpha: 1.0), // Purple
+        UIColor(red: 0.96, green: 0.65, blue: 0.72, alpha: 1.0), // Pink
+        UIColor(red: 1.00, green: 0.84, blue: 0.00, alpha: 1.0) // Gold
+    ]
+    
+    private let shapes: [ConfettiShape] = [.rectangle, .circle, .spiral]
+    
+    private enum ConfettiShape {
+        case rectangle
+        case circle
+        case spiral
+    }
+    
+    func startConfetti() {
+        let emitter = CAEmitterLayer()
+        emitter.emitterPosition = CGPoint(x: bounds.width / 2, y: -10)
+        emitter.emitterShape = .line
+        emitter.emitterSize = CGSize(width: bounds.width, height: 1)
+        
+        var cells: [CAEmitterCell] = []
+        
+        for color in colors {
+            for shape in shapes {
+                let cell = makeConfettiCell(color: color, shape: shape)
+                cells.append(cell)
+            }
+        }
+        
+        emitter.emitterCells = cells
+        layer.addSublayer(emitter)
+        self.emitter = emitter
+    }
+    
+    func stopConfetti() {
+        emitter?.birthRate = 0
+    }
+    
+    private func makeConfettiCell(color: UIColor, shape: ConfettiShape) -> CAEmitterCell {
+        let cell = CAEmitterCell()
+        
+        cell.birthRate = 4
+        cell.lifetime = 8
+        cell.velocity = CGFloat.random(in: 150...250)
+        cell.velocityRange = 50
+        cell.emissionLongitude = .pi
+        cell.emissionRange = .pi / 4
+        cell.spin = CGFloat.random(in: 2...5)
+        cell.spinRange = 3
+        cell.scale = CGFloat.random(in: 0.3...0.6)
+        cell.scaleRange = 0.2
+        cell.yAcceleration = 100
+        
+        cell.contents = makeConfettiImage(shape: shape, color: color)?.cgImage
+        cell.color = color.cgColor
+        
+        return cell
+    }
+    
+    private func makeConfettiImage(shape: ConfettiShape, color: UIColor) -> UIImage? {
+        let size = CGSize(width: 12, height: 12)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        
+        context.setFillColor(UIColor.white.cgColor)
+        
+        switch shape {
+        case .rectangle:
+            let rect = CGRect(x: 2, y: 0, width: 8, height: 12)
+            context.fill(rect)
+        case .circle:
+            let rect = CGRect(x: 1, y: 1, width: 10, height: 10)
+            context.fillEllipse(in: rect)
+        case .spiral:
+            let rect = CGRect(x: 0, y: 4, width: 12, height: 4)
+            context.fill(rect)
+        }
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        emitter?.emitterPosition = CGPoint(x: bounds.width / 2, y: -10)
+        emitter?.emitterSize = CGSize(width: bounds.width, height: 1)
     }
 }
