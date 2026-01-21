@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 
 protocol ArticleWebMessageHandling: AnyObject {
     func didReceive(action: ArticleWebMessagingController.Action)
+    var urlToSparkle: URL? { get }
 }
 
 class ArticleWebMessagingController: NSObject {
@@ -401,5 +402,131 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             return
         }
         delegate?.didReceive(action: action)
+    }
+    
+    func highlightSparklingLink() {
+        guard let urlToSparkle = delegate?.urlToSparkle else { return }
+        
+        // Extract the article title from the URL (assumes Wikipedia-style /wiki/Title format)
+        let targetPath = urlToSparkle.path
+        let targetTitle = targetPath
+            .replacingOccurrences(of: "/wiki/", with: "")
+            .replacingOccurrences(of: "_", with: " ")
+            .removingPercentEncoding ?? targetPath
+        
+        let javascript = makeSparkleJS(for: targetTitle, isFinalLink: false)
+        
+        webView?.evaluateJavaScript(javascript) { result, error in
+            if let error = error {
+                print("😆😆😆😆😆😆JS Error: \(error)")
+            }
+            if let result = result {
+                print("😆😆😆😆😆😆JS Result:\n\(result)")
+            }
+        }
+    }
+    
+    private func makeSparkleJS(for title: String, isFinalLink: Bool) -> String {
+        let escapedTitle = title
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "'", with: "\\'")
+            .replacingOccurrences(of: "\"", with: "\\\"")
+            .replacingOccurrences(of: "\n", with: "\\n")
+        
+        let linkClass = isFinalLink ? "sparkle-link-final" : "sparkle-link"
+        
+        return """
+        (function() {
+            if (!document.getElementById('sparkle-styles')) {
+                var style = document.createElement('style');
+                style.id = 'sparkle-styles';
+                style.innerHTML = `
+                    @keyframes sparkleGlow {
+                        0%, 100% {
+                            background: linear-gradient(135deg, rgba(255,107,107,0.6) 0%, rgba(255,154,158,0.6) 25%, rgba(250,208,196,0.6) 50%, rgba(255,154,158,0.6) 75%, rgba(255,107,107,0.6) 100%);
+                            background-size: 400% 400%;
+                            background-position: 0% 50%;
+                            box-shadow: 0 0 20px 8px rgba(255,107,107,0.7);
+                        }
+                        25% {
+                            background: linear-gradient(135deg, rgba(168,237,234,0.6) 0%, rgba(254,214,227,0.6) 25%, rgba(255,154,158,0.6) 50%, rgba(254,214,227,0.6) 75%, rgba(168,237,234,0.6) 100%);
+                            background-size: 400% 400%;
+                            background-position: 50% 100%;
+                            box-shadow: 0 0 25px 10px rgba(168,237,234,0.8);
+                        }
+                        50% {
+                            background: linear-gradient(135deg, rgba(132,250,176,0.6) 0%, rgba(143,211,244,0.6) 25%, rgba(168,237,234,0.6) 50%, rgba(143,211,244,0.6) 75%, rgba(132,250,176,0.6) 100%);
+                            background-size: 400% 400%;
+                            background-position: 100% 50%;
+                            box-shadow: 0 0 30px 12px rgba(132,250,176,0.7);
+                        }
+                        75% {
+                            background: linear-gradient(135deg, rgba(207,217,223,0.6) 0%, rgba(226,235,240,0.6) 25%, rgba(143,211,244,0.6) 50%, rgba(226,235,240,0.6) 75%, rgba(207,217,223,0.6) 100%);
+                            background-size: 400% 400%;
+                            background-position: 50% 0%;
+                            box-shadow: 0 0 25px 10px rgba(143,211,244,0.7);
+                        }
+                    }
+                    @keyframes sparkleGlowGold {
+                        0%, 100% {
+                            background: linear-gradient(135deg, rgba(255,215,0,0.7) 0%, rgba(255,193,7,0.7) 25%, rgba(255,235,59,0.7) 50%, rgba(255,193,7,0.7) 75%, rgba(255,215,0,0.7) 100%);
+                            background-size: 400% 400%;
+                            background-position: 0% 50%;
+                            box-shadow: 0 0 25px 10px rgba(255,215,0,0.8);
+                        }
+                        50% {
+                            background: linear-gradient(135deg, rgba(255,235,59,0.7) 0%, rgba(255,215,0,0.7) 25%, rgba(255,193,7,0.7) 50%, rgba(255,215,0,0.7) 75%, rgba(255,235,59,0.7) 100%);
+                            background-size: 400% 400%;
+                            background-position: 100% 50%;
+                            box-shadow: 0 0 35px 15px rgba(255,215,0,0.9);
+                        }
+                    }
+                    .sparkle-link {
+                        animation: sparkleGlow 4s ease-in-out infinite;
+                        border-radius: 6px;
+                        padding: 4px 8px;
+                        font-size: 1.15em;
+                        font-weight: 500;
+                        box-decoration-break: clone;
+                        -webkit-box-decoration-break: clone;
+                    }
+                    .sparkle-link-final {
+                        animation: sparkleGlowGold 3s ease-in-out infinite;
+                        border-radius: 6px;
+                        padding: 4px 8px;
+                        font-size: 1.15em;
+                        font-weight: 500;
+                        box-decoration-break: clone;
+                        -webkit-box-decoration-break: clone;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            var links = document.querySelectorAll('a[href]');
+            var targetTitle = '\(escapedTitle)'.replace(/_/g, ' ').toLowerCase();
+            var matchCount = 0;
+            
+            links.forEach(function(link) {
+                var href = link.getAttribute('href') || '';
+                var decodedHref = '';
+                try { decodedHref = decodeURIComponent(href); } catch(e) { decodedHref = href; }
+                
+                // Extract article name from ./Carnivore or /wiki/Carnivore
+                var hrefTitle = decodedHref
+                    .replace(/^\\.\\//g, '')
+                    .replace(/.*\\/wiki\\//i, '')
+                    .replace(/_/g, ' ')
+                    .toLowerCase();
+                
+                if (hrefTitle === targetTitle) {
+                    link.classList.add('\(linkClass)');
+                    matchCount++;
+                }
+            });
+            
+            return matchCount + ' link(s) sparkled';
+        })();
+        """
     }
 }

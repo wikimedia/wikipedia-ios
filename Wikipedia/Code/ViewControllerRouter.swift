@@ -94,8 +94,13 @@ class ViewControllerRouter: NSObject {
         
         let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
-        case .article:
-            assertionFailure("Use Article Coordinator instead")
+        case .article(let firstURL, let rabbitHole):
+            // probably from rabbit holes! maybe.
+            
+            if let article = ArticleViewController(articleURL: firstURL, dataStore: MWKDataStore.shared(), theme: appViewController.theme, source: .activity, remainingRabbitHole: rabbitHole) {
+                return presentOrPush(article, with: completion)
+            }
+            
             return false
         case .externalLink(let linkURL):
             appViewController.navigate(to: linkURL, useSafari: true)

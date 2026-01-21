@@ -32,6 +32,15 @@ extension ArticleViewController: ArticleToolbarHandling {
     
     
     func showTableOfContents(from controller: ArticleToolbarController) {
+//        
+//        if let nextURL = urlToSparkle {
+//            let remainingRabbitHole = remainingRabbitHole.dropFirst()
+//            if let newArticle = ArticleViewController(articleURL: nextURL, dataStore: dataStore, theme: theme, source: .activity, remainingRabbitHole: Array(remainingRabbitHole)) {
+//                navigationController?.pushViewController(newArticle, animated: true)
+//            }
+//            
+//        }
+        
         showTableOfContents()
         NavigationEventsFunnel.shared.logEvent(action: .articleToolbarTOC)
     }
