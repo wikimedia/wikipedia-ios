@@ -181,48 +181,26 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showRabbitHole() {
-
-        let articles: [RabbitHoleArticle] = [
-            RabbitHoleArticle(
-                title: "Quantum Mechanics",
-                images: [
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Hydrogen_Density_Plots.png"),
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/5/5f/QuantumTunnel.jpg")
-                ].compactMap { $0 }
-            ),
-            RabbitHoleArticle(
-                title: "Schrödinger's Cat",
-                images: [
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg")
-                ].compactMap { $0 }
-            ),
-            RabbitHoleArticle(
-                title: "Wave–Particle Duality",
-                images: [
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/31/Rippletanksource1plus2superpositionBnW.png")
-                ].compactMap { $0 }
-            ),
-            RabbitHoleArticle(
-                title: "Pembroke Welsh Corgi",
-                images: [
-                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/99/Welsh_Pembroke_Corgi.jpg")
-                ].compactMap { $0 }
-            )
-        ]
-
-        let viewModel = WMFRabbitHoleViewModel(articles: articles)
-
+        let urls = [
+            "https://en.wikipedia.org/wiki/Quantum_mechanics",
+            "https://en.wikipedia.org/wiki/Schrödinger's_cat",
+            "https://en.wikipedia.org/wiki/Wave–particle_duality",
+            "https://en.wikipedia.org/wiki/Pembroke_Welsh_Corgi"
+        ].compactMap { URL(string: $0) }
+        
+        let viewModel = WMFRabbitHoleViewModel(urls: urls)
+        
         let view = WMFRabbitHoleView(viewModel: viewModel)
             .environmentObject(self.targetRects)
-
+        
         let hostingController = UIHostingController(rootView: view)
         hostingController.modalPresentationStyle = .pageSheet
-
+        
         if let sheet = hostingController.sheetPresentationController {
             sheet.detents = [.large()]
             sheet.prefersGrabberVisible = true
         }
-
+        
         navigationController.present(hostingController, animated: true)
     }
 

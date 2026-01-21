@@ -2,6 +2,7 @@ import UIKit
 import AVKit
 import WMFComponents
 import WMFData
+import SwiftUI
 
 // Wrapper class for access in Objective-C
 @objc class WMFRoutingUserInfoKeys: NSObject {
@@ -86,6 +87,7 @@ class ViewControllerRouter: NSObject {
     }
     
     @objc(routeURL:userInfo:completion:)
+    @MainActor
     public func route(_ url: URL, userInfo: [AnyHashable: Any]? = nil, completion: @escaping () -> Void) -> Bool {
         let theme = appViewController.theme
         
@@ -97,9 +99,7 @@ class ViewControllerRouter: NSObject {
         case .article(let firstURL, let rabbitHole):
             // probably from rabbit holes! maybe.
             
-            if let article = ArticleViewController(articleURL: firstURL, dataStore: MWKDataStore.shared(), theme: appViewController.theme, source: .activity, remainingRabbitHole: rabbitHole) {
-                return presentOrPush(article, with: completion)
-            }
+            showRabbitHole(firstURL: firstURL, rabbitHole: rabbitHole)
             
             return false
         case .externalLink(let linkURL):
@@ -390,5 +390,22 @@ extension ViewControllerRouter: WMFOnboardingViewDelegate {
                 self?.appViewController.navigate(to: url)
             }
         }
+    }
+    
+    @MainActor
+    private func showRabbitHole(firstURL: URL, rabbitHole: [URL]) {
+        let allURLs = [firstURL] + rabbitHole
+        let viewModel = WMFRabbitHoleViewModel(urls: allURLs)
+        let view = WMFRabbitHoleView(viewModel: viewModel)
+        
+        let hostingController = UIHostingController(rootView: view)
+        hostingController.modalPresentationStyle = .pageSheet
+        
+        if let sheet = hostingController.sheetPresentationController {
+            sheet.detents = [.large()]
+            sheet.prefersGrabberVisible = true
+        }
+        
+        appViewController.present(hostingController, animated: true)
     }
 }
