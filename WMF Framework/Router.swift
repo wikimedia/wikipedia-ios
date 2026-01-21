@@ -3,7 +3,7 @@ public class Router: NSObject {
     public enum Destination: Equatable {
         case inAppLink(_: URL)
         case externalLink(_: URL)
-        case article(_: URL)
+        case article(_: URL, rabbitHole: [URL])
         case articleHistory(_: URL, articleTitle: String)
         case articleDiff(_: URL, fromRevID: Int?, toRevID: Int?)
         case talk(_: URL)
@@ -93,6 +93,25 @@ public class Router: NSObject {
                 return .login
             }
             
+            // todo: maybe title == RabbitHole
+            
+            if title == "RabbitHole",
+               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+               let firstQueryItem = components.queryItems?.first,
+               firstQueryItem.name == "titles",
+               let results = firstQueryItem.value {
+                let titles = results.split(separator: "|")
+                // first url
+                if let firstTitle = titles.first {
+                    let urls = titles.map { URL(string: "https://en.wikipedia.org/wiki/\($0)")! }
+                    let firstURL = urls.first
+                    let others = urls[1...urls.count - 1]
+                    return .article(urls.first!, rabbitHole: Array(others))
+                }
+                
+                return nil
+            }
+            
             if title == "ReadingLists",
                let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
                let firstQueryItem = components.queryItems?.first,
@@ -137,7 +156,7 @@ public class Router: NSObject {
                 return nil
             }
             
-            return WikipediaURLTranslations.isMainpageTitle(title, in: language) ? nil : Destination.article(url)
+            return WikipediaURLTranslations.isMainpageTitle(title, in: language) ? nil : Destination.article(url, rabbitHole: [])
         case .wikipedia:
             
             guard project.considersWResourcePathsForRouting else {

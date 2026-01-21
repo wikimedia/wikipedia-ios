@@ -50,7 +50,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
 
     func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
         switch destination {
-        case .article(let newArticleURL):
+        case .article(let newArticleURL, let rabbitHole):
             guard var currentArticleWithoutFragment = URLComponents(url: articleURL, resolvingAgainstBaseURL: false),
                   var newArticleWithoutFragment = URLComponents(url: newArticleURL, resolvingAgainstBaseURL: false) else {
                 // Not a valid URL

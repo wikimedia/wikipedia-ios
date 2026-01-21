@@ -244,6 +244,8 @@ extension EditPreviewViewController: UIGestureRecognizerDelegate {
 }
 
 extension EditPreviewViewController: ArticleWebMessageHandling {
+    var urlToSparkle: URL? { return nil }
+    
     func didReceive(action: ArticleWebMessagingController.Action) {
         switch action {
         case .unknown(let href):
@@ -305,7 +307,7 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
     func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
         let dataStore = MWKDataStore.shared()
         switch destination {
-        case .article(let articleURL):
+        case .article(let articleURL, let rabbitHole):
             return ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: nil, needsEmptyContextMenuItems: true)
         default:
             return nil

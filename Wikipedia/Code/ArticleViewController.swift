@@ -176,14 +176,21 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var isMainPage: Bool {
         articleURL.wmf_title == "Main Page"
     }
+    
+    var remainingRabbitHole: [URL] = []
+    
+    var urlToSparkle: URL? {
+        return remainingRabbitHole.first
+    }
 
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false, remainingRabbitHole: [URL] = []) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
         }
         let cacheController = dataStore.cacheController.articleCache
 
+        self.remainingRabbitHole = remainingRabbitHole
         self.articleURL = articleURL
         self.articleLanguageCode = articleURL.wmf_languageCode ?? Locale.current.language.languageCode?.identifier ?? "en"
         self.article = article
@@ -1136,6 +1143,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             let legacyNavigateAction = { [weak self] in
                 let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
                 self?.navigate(to: resolvedURL, userInfo: userInfo)
+            }
+            
+            // capture rabbit hole
+            if resolvedURL.wmf_title == urlToSparkle?.wmf_title ?? "" {
+                let remainingRabbitHole = remainingRabbitHole.dropFirst()
+                if let articleVC = ArticleViewController(articleURL: resolvedURL, dataStore: dataStore, theme: theme, source: .activity, remainingRabbitHole: Array(remainingRabbitHole)) {
+                    navigationController?.pushViewController(articleVC, animated: true)
+                }
+                
+                return
             }
             
             // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
