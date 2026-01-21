@@ -59,28 +59,112 @@ struct RabbitHoleInfographicView: View {
     }
 }
 
-// MARK: - Path View (Zig-Zag Layout)
+// MARK: - Path View (Zig-Zag Layout with Curves)
 
 struct RabbitHolePathView: View {
 
     let articles: [RabbitHoleArticle]
+    
+    func bubbleSize(for index: Int) -> CGFloat {
+        let count = articles.count
+        if index == 0 || index == count - 1 {
+            // First and last are biggest
+            return CGFloat.random(in: 160...200)
+        } else {
+            // Middle bubbles are smaller
+            return CGFloat.random(in: 100...140)
+        }
+    }
 
     var body: some View {
-        VStack(spacing: 60) {
-            ForEach(Array(articles.enumerated()), id: \.element.id) { idx, article in
-                HStack {
-                    if idx % 2 == 0 {
-                        Spacer()
-                        RabbitHoleBubble(article: article, size: CGFloat.random(in: 120...180))
-                    } else {
-                        RabbitHoleBubble(article: article, size: CGFloat.random(in: 120...180))
-                        Spacer()
+        ZStack {
+            // Draw the curvy path behind the bubbles
+            CurvedPathShape(articleCount: articles.count)
+                .stroke(Color.accentColor.opacity(0.3), style: StrokeStyle(lineWidth: 3, lineCap: .round))
+            
+            // Draw the bubbles on top
+            VStack(spacing: 60) {
+                ForEach(Array(articles.enumerated()), id: \.element.id) { idx, article in
+                    HStack {
+                        if idx % 2 == 0 {
+                            Spacer()
+                            RabbitHoleBubble(article: article, size: bubbleSize(for: idx))
+                        } else {
+                            RabbitHoleBubble(article: article, size: bubbleSize(for: idx))
+                            Spacer()
+                        }
                     }
+                    .transition(.scale.combined(with: .opacity))
                 }
-                .transition(.scale.combined(with: .opacity))
             }
         }
         .padding(.horizontal, 32)
+    }
+}
+
+// MARK: - Curved Path Shape
+
+struct CurvedPathShape: Shape {
+    let articleCount: Int
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        guard articleCount > 0 else { return path }
+        
+        let verticalSpacing: CGFloat = 60 + 180 // spacing + approximate bubble height
+        let horizontalPadding: CGFloat = 32
+        let availableWidth = rect.width - (horizontalPadding * 2)
+        
+        // Calculate positions for each bubble
+        var points: [CGPoint] = []
+        for i in 0..<articleCount {
+            let y = CGFloat(i) * verticalSpacing
+            let x: CGFloat
+            
+            if i % 2 == 0 {
+                // Right side
+                x = rect.width - horizontalPadding
+            } else {
+                // Left side
+                x = horizontalPadding
+            }
+            
+            points.append(CGPoint(x: x, y: y))
+        }
+        
+        // Draw curved path through all points
+        if points.count > 0 {
+            path.move(to: points[0])
+            
+            for i in 1..<points.count {
+                let previousPoint = points[i - 1]
+                let currentPoint = points[i]
+                
+                // Calculate control points for smooth curves
+                let midY = (previousPoint.y + currentPoint.y) / 2
+                
+                // Create an S-curve by using two control points
+                let controlPoint1 = CGPoint(
+                    x: previousPoint.x,
+                    y: midY - 30
+                )
+                
+                let controlPoint2 = CGPoint(
+                    x: currentPoint.x,
+                    y: midY + 30
+                )
+                
+                // Draw cubic Bezier curve
+                path.addCurve(
+                    to: currentPoint,
+                    control1: controlPoint1,
+                    control2: controlPoint2
+                )
+            }
+        }
+        
+        return path
     }
 }
 
