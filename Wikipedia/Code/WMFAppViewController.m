@@ -1633,6 +1633,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Splash
 
 - (void)showSplashView {
+    return;
     if (self.splashScreenViewController) {
         return;
     }
@@ -1645,6 +1646,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)hideSplashView {
+    return;
     WMFSplashScreenViewController *vc = self.splashScreenViewController;
     if (!vc) {
         return;

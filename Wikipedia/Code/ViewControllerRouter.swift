@@ -101,7 +101,7 @@ class ViewControllerRouter: NSObject {
             
             showRabbitHole(firstURL: firstURL, rabbitHole: rabbitHole)
             
-            return false
+            return true
         case .externalLink(let linkURL):
             appViewController.navigate(to: linkURL, useSafari: true)
             completion()
