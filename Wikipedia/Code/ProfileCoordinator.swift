@@ -198,7 +198,9 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             ),
             RabbitHoleArticle(
                 title: "Wave–Particle Duality",
-                images: []
+                images: [
+                    URL(string: "https://upload.wikimedia.org/wikipedia/commons/3/31/Rippletanksource1plus2superpositionBnW.png")
+                ].compactMap { $0 }
             ),
             RabbitHoleArticle(
                 title: "Pembroke Welsh Corgi",
