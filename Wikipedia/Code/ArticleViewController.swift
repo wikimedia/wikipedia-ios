@@ -463,8 +463,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
-
-        configureNavigationBar()
+        
+        if !(UIDevice.current.userInterfaceIdiom == .pad) || !(traitCollection.horizontalSizeClass == .regular) {
+            configureNavigationBar()
+        }
     }
     
     var isFirstAppearance = true
@@ -486,6 +488,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             } else {
                 ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: project)
             }
+        }
+        
+        if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+            configureNavigationBar()
         }
     }
     
