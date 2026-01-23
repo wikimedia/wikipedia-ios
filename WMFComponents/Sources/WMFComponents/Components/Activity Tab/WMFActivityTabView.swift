@@ -66,6 +66,11 @@ public struct WMFActivityTabView: View {
                                 .padding(.horizontal, 16)
                             savedArticlesModule
                                 .padding(.horizontal, 16)
+                            
+                            if viewModel.shouldShowExploreCTA {
+                                exploreCTA
+                                    .padding(.vertical, 12)
+                            }
 
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
@@ -136,6 +141,21 @@ public struct WMFActivityTabView: View {
         .onAppear {
             viewModel.fetchData(fromAppearance: true)
         }
+    }
+    
+    private var exploreCTA: some View {
+        VStack(alignment: .center, spacing: 12) {
+            Text(viewModel.localizedStrings.lookingForSomethingNew)
+                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                .foregroundStyle(Color(uiColor: theme.text))
+            WMFSmallButton(configuration: .init(style: .primary), title: viewModel.localizedStrings.exploreWikipedia, action: {
+                // viewModel.exploreWikipedia()
+            })
+        }
+        .onTapGesture {
+            viewModel.exploreWikipedia()
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 
     @ViewBuilder

@@ -41,6 +41,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         viewModel.openCustomize = userDidTapCustomize
         viewModel.pushToContributions = pushToContributions
+        viewModel.exploreWikipedia = presentExplore
         
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
@@ -247,6 +248,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
+    }
+    
+    private func presentExplore() {
+        navigationController?.popToRootViewController(animated: false)
+        
+        if let tabBar = self.tabBarController {
+            tabBar.selectedIndex = 0 
+        }
     }
 
     private let firstItemTitle = WMFLocalizedString("activity-tab-onboarding-first-item-title", value: "Reading patterns", comment: "Title for activity tabs first item")

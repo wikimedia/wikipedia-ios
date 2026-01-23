@@ -6,6 +6,7 @@ public struct WMFSmallButton: View {
         public enum Style {
             case neutral
             case quiet
+            case primary
         }
         
         public let style: Style
@@ -41,7 +42,7 @@ public struct WMFSmallButton: View {
                 }
                 Text(title)
                     .font(Font(WMFFont.for(.mediumSubheadline)))
-                    .foregroundColor(Color(appEnvironment.theme.link))
+                    .foregroundColor(Color(configuration.style == .primary ? appEnvironment.theme.paperBackground : appEnvironment.theme.link))
                 
                 if let trailingIcon = configuration.trailingIcon {
                     Image(uiImage: trailingIcon)
@@ -67,6 +68,10 @@ private extension View {
                 .cornerRadius(8)
         case .quiet:
             self
+        case .primary:
+            self
+                .background(Color(theme.link))
+                .cornerRadius(8)
         }
     }
 }

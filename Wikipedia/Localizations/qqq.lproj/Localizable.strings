@@ -572,6 +572,7 @@
 "explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
 "explore-survey-subtitle" = "Subtitle of one-time survey prompt displayed to users on the Explore feed.";
 "explore-survey-title" = "Title of one-time survey prompt displayed to users on the Explore feed.";
+"explore-wikipedia" = "Button title to explore Wikipedia";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
@@ -747,6 +748,8 @@
 "login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
 "login-title" = "Title for log in interface";
+"looking-for-something-new" = "Title prompting user to explore Wikipedia";
+"looks-like-you-havent-made-an-edit" = "Message encouraging user to make their first edit";
 "main-menu-about" = "Button for showing information about the app.";
 "main-menu-account-login" = "Button text for logging in.";
 "main-menu-account-logout" = "Button text for logging out.";
@@ -761,6 +764,7 @@
 "main-menu-title" = "Title for menu of secondary items. {{Identical|More}}";
 "main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
 "main-page" = "Title for the Wikipedia main page.";
+"make-an-edit" = "Button title to make an edit";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "Edits bytes slide subtitle for English Year in Review. $1 is replaced with the Year in Review target year (e.g. 2025). $2 is replaced with the number of bytes added to English Wikipedia, shown in numeric form (e.g. 1,000,000,000). $3 is replaced by link to learn to participate.";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "Edits bytes slide title for English Year in Review. $1 is replaced with the number of bytes added to English Wikipedia, shown in numeric form (e.g. 1,000,000,000).";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Edits slide subtitle for English Year in Review. $1 is replaced by the total number of edits on Wikipedia across platforms, shown in numeric form (e.g. 81,987,181). $2 is replaced by the total number of languages on Wikipedia (e.g. 300). $3 is replaced by the total number of edits on English Wikipedia across platforms, shown in numeric form (e.g. 31,000,000).";
@@ -1589,3 +1593,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Accessibility label for the Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Accessibility label for the Wikimedia Foundation logo";
 "yesterday-title" = "Title for yesterday section on article view history";
+"zero-edits-to-articles" = "Message showing zero recent edits";

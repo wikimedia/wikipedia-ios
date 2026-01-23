@@ -61,8 +61,13 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let contributionsThisMonth: String
         public let thisMonth: String
         public let lastMonth: String
+        public let lookingForSomethingNew: String
+        public let exploreWikipedia: String
+        public let zeroEditsToArticles: String
+        public let looksLikeYouHaventMadeAnEdit: String
+        public let makeAnEdit: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -102,6 +107,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.contributionsThisMonth = contributionsThisMonth
             self.thisMonth = thisMonth
             self.lastMonth = lastMonth
+            self.lookingForSomethingNew = lookingForSomethingNew
+            self.exploreWikipedia = exploreWikipedia
+            self.zeroEditsToArticles = zeroEditsToArticles
+            self.looksLikeYouHaventMadeAnEdit = looksLikeYouHaventMadeAnEdit
+            self.makeAnEdit = makeAnEdit
         }
     }
 
@@ -129,12 +139,15 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     @Published private(set) var shouldShowEmptyState: Bool = false
+    @Published public var shouldShowExploreCTA: Bool = false
 
     @Published var globalEditCount: Int?
     public var isEmpty: Bool = false
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
     public var openCustomize: () -> Void = { }
+    public var exploreWikipedia: () -> Void = { }
+    public var makeAnEdit: () -> Void = { }
     
     private var cancellables = Set<AnyCancellable>()
 
@@ -203,6 +216,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
+            
+            // TODO GREY SWITCH BACK TO 0 and 0
+            if articlesReadViewModel.totalArticlesRead != 0 && articlesSavedViewModel.articlesSavedAmount != 0 {
+                shouldShowExploreCTA = true
+            }
             
             isEmpty =
                 articlesReadViewModel.hoursRead == 0 &&

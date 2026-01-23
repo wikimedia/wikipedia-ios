@@ -1005,7 +1005,13 @@ extension WMFAppViewController {
                     viewChanges: WMFLocalizedString("view-changes", value: "View changes", comment: "View changes button title"),
                     contributionsThisMonth: WMFLocalizedString("contributions-this-month", value: "Contributions this month", comment: "Title for section of contributions this month"),
                     thisMonth: WMFLocalizedString("edits-this-month", value: "edits this month", comment: "Title for edits this month section"),
-                    lastMonth: WMFLocalizedString("edits-last-month", value: "edits last month", comment: "Title for edits last month section")),
+                    lastMonth: WMFLocalizedString("edits-last-month", value: "edits last month", comment: "Title for edits last month section"),
+                    lookingForSomethingNew: WMFLocalizedString("looking-for-something-new", value: "Looking for something new to read?", comment: "Title prompting user to explore Wikipedia"),
+                    exploreWikipedia: WMFLocalizedString("explore-wikipedia", value: "Explore Wikipedia", comment: "Button title to explore Wikipedia"),
+                    zeroEditsToArticles: WMFLocalizedString("zero-edits-to-articles", value: "0 edits to articles recently", comment: "Message showing zero recent edits"),
+                    looksLikeYouHaventMadeAnEdit: WMFLocalizedString("looks-like-you-havent-made-an-edit", value: "Looks like you haven't made an edit this month. Extend free knowledge by editing topics that matter most to you.", comment: "Message encouraging user to make their first edit"),
+                    makeAnEdit: WMFLocalizedString("make-an-edit", value: "Make an edit", comment: "Button title to make an edit")
+                ),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
