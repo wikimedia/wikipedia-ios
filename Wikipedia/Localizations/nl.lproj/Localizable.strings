@@ -119,6 +119,7 @@
 "activity-tab-additional-thoughts" = "Nog aanvullende gedachten?";
 "activity-tab-articles-read" = "Pagina's gelezen deze maand";
 "activity-tab-articles-read-graph-label" = "Pagina's";
+"activity-tab-email-fourth-line" = "[Beschrijf het gewenste gedrag]";
 "activity-tab-generic-no-edits" = "U hebt deze week nog niets bewerkt. Begin nu om uw bijdragen bij te houden.";
 "activity-tab-hours-minutes-read" = "$1u $2m";
 "activity-tab-hours-on-wikipedia-ios" = "OP WIKIPEDIA iOS";
@@ -782,8 +783,8 @@
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 byte|$1 bytes}} toegevoegd";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Vrijwilligers hebben  {{PLURAL:$1|$1 wijziging|$1 wijzigingen}} aangebracht in  {{PLURAL:$2|één taalversie|meer dan $2 verschillende taalversies}} van Wikipedia. Er  {{PLURAL:$3|is één wijziging|zijn $3 wijzigingen}} aangebracht op de Engelstalige Wikipedia. Elk uur van elke dag werken vrijwilligers aan het verbeteren van Wikipedia.";
 "microsite-yir-english-edits-slide-title-updated" = "Bewerkers hebben dit jaar {{PLURAL:$1|één wijziging|$1 wijzigingen}} doorgevoerd";
-"microsite-yir-english-reading-slide-subtitle-short-updated" = "Naar schatting hebben mensen in $3 wel {{PLURAL:$1|één uur\"$1 uur{{ (ongeveer {{PLURAL:$2|één jaar|$2 jaar}}!) besteed aan het lezen van de Engelstalige Wikipedia.";
-"microsite-yir-english-reading-slide-subtitle-updated" = "Naar schatting hebben mensen in $3 wel {{PLURAL:$1|één uur\"$1 uur{{ (ongeveer {{PLURAL:$2|één jaar|$2 jaar}}!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.";
+"microsite-yir-english-reading-slide-subtitle-short-updated" = "Naar schatting hebben mensen in $3 wel {{PLURAL:$1|één uur\"$1 uur}} (ongeveer {{PLURAL:$2|één jaar|$2 jaar}}!) besteed aan het lezen van de Engelstalige Wikipedia.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "Naar schatting hebben mensen in $3 wel {{PLURAL:$1|één uur\"$1 uur}} (ongeveer {{PLURAL:$2|één jaar|$2 jaar}}!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.";
 "microsite-yir-english-reading-slide-title-updated" = "We hebben {{PLURAL:$1|één uur|$1 uur}} lang gelezen";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "Gebruikers van de app hebben dit jaar {{PLURAL:$1|één pagina|$1 pagina's}} opgeslagen. Pagina's die u aan leeslijsten hebt toegevoegd kunt u ook offline raadplegen. Daarnaast kunt u, na aanmelden, leeslijsten op verschillende apparaten synchroniseren.";
 "microsite-yir-english-saved-reading-slide-title-updated" = "We hebben {{PLURAL:$1|één pagina|$1 pagina's}} opgeslagen";
