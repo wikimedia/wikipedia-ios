@@ -39,6 +39,7 @@ public struct WMFSmallButton: View {
             HStack(spacing: 4) {
                 if let image = image {
                     Image(uiImage: image)
+                        .foregroundColor(Color(configuration.style == .primary ? appEnvironment.theme.paperBackground : appEnvironment.theme.link))
                 }
                 Text(title)
                     .font(Font(WMFFont.for(.mediumSubheadline)))
@@ -46,7 +47,7 @@ public struct WMFSmallButton: View {
                 
                 if let trailingIcon = configuration.trailingIcon {
                     Image(uiImage: trailingIcon)
-                        .foregroundColor(Color(appEnvironment.theme.link))
+                        .foregroundColor(Color(configuration.style == .primary ? appEnvironment.theme.paperBackground : appEnvironment.theme.link))
                 }
             }
             .padding([.top, .bottom], 4)

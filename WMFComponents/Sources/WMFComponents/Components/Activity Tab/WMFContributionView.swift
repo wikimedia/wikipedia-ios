@@ -20,7 +20,7 @@ struct ContributionsView: View {
             title: viewModel.activityViewModel?.localizedStrings.contributionsThisMonth ?? "",
             dateText: viewModel.dateText,
             additionalAccessibilityLabel: nil,
-            onTapModule: viewModel.activityViewModel?.navigateToContributions,
+            onTapModule: viewModel.shouldShowEditCTA ? viewModel.activityViewModel?.navigateToContributions : viewModel.activityViewModel?.navigateToContributions,
             content: {
                 VStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 4) {
@@ -59,7 +59,31 @@ struct ContributionsView: View {
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    if let activityViewModel = viewModel.activityViewModel, viewModel.shouldShowEditCTA {
+                        VStack(alignment: .center, spacing: 8) {
+                            Divider()
+                                .background(Color(theme.baseBackground))
+                                .padding(.vertical, 8)
+                            Text(activityViewModel.localizedStrings.zeroEditsToArticles)
+                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .foregroundStyle(Color(theme.text))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .multilineTextAlignment(.center)
+                            Text(activityViewModel.localizedStrings.looksLikeYouHaventMadeAnEdit)
+                                .font(Font(WMFFont.for(.subheadline)))
+                                .foregroundStyle(Color(theme.text))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .multilineTextAlignment(.center)
+                            WMFSmallButton(configuration: .init(style: .primary), title: activityViewModel.localizedStrings.makeAnEdit, image: (WMFSFSymbolIcon.for(symbol: .pencil) ?? nil), action: {
+                                activityViewModel.makeAnEdit()
+                            })
+                            .padding(.vertical, 12)
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
                 }
+                .frame(maxWidth: .infinity)
             }, showArrowAnyways: true
         )
         .frame(maxWidth: .infinity, alignment: .leading)
