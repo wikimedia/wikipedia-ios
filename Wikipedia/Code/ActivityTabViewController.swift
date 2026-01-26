@@ -42,6 +42,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.openCustomize = userDidTapCustomize
         viewModel.pushToContributions = pushToContributions
         viewModel.exploreWikipedia = presentExplore
+        viewModel.makeAnEdit = makeAnEdit
         
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
@@ -69,6 +70,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let view = WMFToastViewBasicView(viewModel: viewModel)
             WMFToastPresenter.shared.presentToastView(view: view)
         }
+    }
+    
+    var editingFAQURLString: String {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return ""
+        }
+        
+        let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
+        return url?.absoluteString ?? ""
+    }
+    
+    public func makeAnEdit() {
+        guard let url = URL(string: editingFAQURLString) else { return }
+        navigate(to: url)
     }
     
     public func pushToContributions() {

@@ -20,7 +20,7 @@ struct ContributionsView: View {
             title: viewModel.activityViewModel?.localizedStrings.contributionsThisMonth ?? "",
             dateText: viewModel.dateText,
             additionalAccessibilityLabel: nil,
-            onTapModule: viewModel.shouldShowEditCTA ? viewModel.activityViewModel?.navigateToContributions : viewModel.activityViewModel?.navigateToContributions,
+            onTapModule: viewModel.shouldShowEditCTA ? viewModel.activityViewModel?.makeAnEdit : viewModel.activityViewModel?.navigateToContributions,
             content: {
                 VStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 4) {
@@ -70,14 +70,17 @@ struct ContributionsView: View {
                                 .foregroundStyle(Color(theme.text))
                                 .fixedSize(horizontal: false, vertical: true)
                                 .multilineTextAlignment(.center)
+                                .padding(.horizontal, 24)
                             Text(activityViewModel.localizedStrings.looksLikeYouHaventMadeAnEdit)
                                 .font(Font(WMFFont.for(.subheadline)))
                                 .foregroundStyle(Color(theme.text))
                                 .fixedSize(horizontal: false, vertical: true)
                                 .multilineTextAlignment(.center)
+                                .padding(.horizontal, 24)
                             WMFSmallButton(configuration: .init(style: .primary), title: activityViewModel.localizedStrings.makeAnEdit, image: (WMFSFSymbolIcon.for(symbol: .pencil) ?? nil), action: {
                                 activityViewModel.makeAnEdit()
                             })
+                            .padding(.horizontal, 24)
                             .padding(.vertical, 12)
                         }
                         .frame(maxWidth: .infinity)
