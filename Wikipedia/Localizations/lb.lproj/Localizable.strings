@@ -181,6 +181,7 @@
 "continue-button-title" = "Virufueren";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
+"contributions-this-month" = "Kontributiounen dëse Mount";
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
@@ -331,6 +332,8 @@
 "editor-title" = "Editeur";
 "editor-toolbar-find-accessibility" = "Op der Säit sichen";
 "editor-wikitext-textview-accessibility" = "Wikitext-Editeur";
+"edits-last-month" = "Ännerungen de leschte Mount";
+"edits-this-month" = "Ännerungen dëse Mount";
 "empty-diff-compare-title" = "Keen Ënnerscheed tëscht de Versiounen";
 "empty-edit-summary" = "Eidele Resümmee vun der Ännerung";
 "empty-insert-media-title" = "E Fichier op Wikimedia Commons eraussichen";
@@ -1003,6 +1006,7 @@
 "vanish-account-warning-title" = "Warnung";
 "variants-alert-dismiss-button" = "Nee, merci";
 "variants-alert-preferences-button" = "Kuckt Är Astellungen no";
+"view-changes" = "Ännerunge weisen";
 "watch" = "Iwwerwaachen";
 "watchlist" = "Iwwerwaachungslëscht";
 "watchlist-added-toast-one-month" = "Fir 1 Mount op Är Iwwerwaachungslëscht gesat.";

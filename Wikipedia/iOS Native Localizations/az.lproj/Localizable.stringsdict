@@ -295,7 +295,7 @@
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Könüllülər Vikipediyanın %#@v2@ %#@v1@ ediblər. İngiliscə Vikipediyada {{PLURAL:%3$lld|%3$lld dəyişiklik} edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.</string>
+		<string>Könüllülər Vikipediyanın %#@v2@ %#@v1@ ediblər. İngiliscə Vikipediyada %#@v3@ edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -313,6 +313,15 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%2$d müxtəlif dildə nəşrlərində</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%3$lld dəyişiklik</string>
 		</dict>
 	</dict>
 	<key>microsite-yir-english-edits-slide-title-updated</key>

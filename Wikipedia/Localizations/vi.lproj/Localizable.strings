@@ -245,7 +245,7 @@
 "diff-single-header-summary-heading" = "Tóm lược sửa đổi";
 "diff-single-intro-title" = "Giới thiệu";
 "diff-single-line-format" = "Dòng $1";
-"diff-thanks-anonymous-no-thanks" = "Người dùng vô danh không thể gửi lời cảm ơn";
+"diff-thanks-anonymous-no-thanks" = "Người dùng chưa đăng nhập không thể gửi lời cảm ơn";
 "diff-thanks-login-subtitle" = "Lời cảm ơn là một cách dễ dàng để thể hiện sự đánh giá cao đối với công việc của một người dùng trên Wikipedia. Bạn phải đăng nhập để gửi lời cảm ơn.";
 "diff-thanks-login-title" = "Đăng nhập để gửi lời cảm ơn";
 "diff-thanks-send-button-title" = "Gửi lời cảm ơn";

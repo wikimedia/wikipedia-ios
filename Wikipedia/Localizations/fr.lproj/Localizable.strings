@@ -414,7 +414,7 @@
 "donate-success-title" = "Merci !";
 "donate-title" = "Sélectionnez le montant";
 "donate-transaction-fee-opt-in-text" = "J'ajouterai généreusement $1 pour couvrir les frais de transaction afin de que vous puissiez conserver 100%% de mon don.";
-"donate-wikimedia-fine-print-1" = "Nous ne vendons ou échangeons vos renseignements à personne. En faisant un don, vous acceptez de partager vos informations personnelles avec la Fondation Wikimedia, l'organisation à but non lucratif qui héberge Wikipédia et d'autres projets Wikimedia, et ses fournisseurs de services conformément à notre [politique de confidentialité en matière de donation] ($1). La Fondation Wikimedia et ses fournisseurs de services sont situés aux États-Unis et dans d'autres pays dont les lois sur la vie privée peuvent ne pas être équivalentes à la vôtre. Pour plus d'informations, veuillez lire notre [politique de confidentialité en matière de donation] ($1).";
+"donate-wikimedia-fine-print-1" = "Nous ne vendons ou échangeons vos renseignements à personne. En faisant un don, vous acceptez de partager vos informations personnelles avec la Fondation Wikimedia, l'organisation à but non lucratif qui héberge Wikipédia et d'autres projets Wikimedia, et ses fournisseurs de services conformément à notre [politique de confidentialité en matière de donation]($1). La Fondation Wikimedia et ses fournisseurs de services sont situés aux États-Unis et dans d'autres pays dont les lois sur la vie privée peuvent ne pas être équivalentes à la vôtre. Pour plus d'informations, veuillez lire notre [politique de confidentialité en matière de donation]($1).";
 "donate-wikimedia-fine-print-2" = "Pour les donateurs mensualisés, un montant fixe vous sera prélevé par la Foundation Wikimedia le même jour chaque mois et ce jusqu’à ce que vous nous informiez que vous souhaitez y mettre fin. Pour les dons démarrés le 29, 30 ou 31 du mois, les prélèvements suivants seront effectués le dernier jour du mois pour les mois plus courts, à la date la plus proche possible de celle du premier don. Pour toutes questions, veuillez contacter donate@wikimedia.org.";
 "duplicate-tab" = "Dupliquer l'onglet";
 "edit-link-display-text-title" = "Texte affiché";
@@ -819,7 +819,7 @@
 "main-menu-title" = "Plus";
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "main-page" = "Accueil";
-"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "En $1, les bénévoles ont ajouté {{PLURAL:$2|$2 octet|$2 octets}} à Wikipédia en anglais. L’ensemble de leur travail constitue une ressource de connaissance fiable, factuelle et en constante amélioration qu’ils offrent au monde entier. Chacun·e a des connaissances à partager : [apprenez comment participer]($3).";
+"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "En $1, les bénévoles ont ajouté {{PLURAL:$2|$2 octet|$2 octets}} à Wikipédia en anglais. L’ensemble de leur travail constitue une ressource de connaissance fiable, factuelle et en constante amélioration qu’ils offrent au monde entier. Nous avons tous des connaissances à partager : [apprenez comment participer]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 octet ajouté|$1 octets ajoutés}}";
 // Fuzzy
 "microsite-yir-english-edits-slide-subtitle-updated" = "Les bénévoles ont apporté 98 222 407 modifications dans plus de 300 versions linguistiques différentes de Wikipédia. Plus de 37 millions de modifications ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l'amélioration de Wikipédia.";
@@ -1606,7 +1606,7 @@
 "year-in-review-intro-login-title" = "Connectez-vous pour la personnalisation";
 "year-in-review-most-read-categories-title" = "Vos catégories les plus intéressantes";
 "year-in-review-non-contributor-slide-title" = "Débloquez votre récompense de contributeur·rice pour l’année prochaine !";
-"year-in-review-noncontributor-slide-subtitle-updated" = "Nous sommes ravis que Wikipédia ait fait partie de votre don de $1 ! Débloquez une récompense spéciale dans votre bilan annuel de $2 en devenant contributeur : soit en [modifiant Wikipédia] ($3), soit en faisant un don depuis l’application à la [Fondation Wikimedia] ($4), l’organisation à but non lucratif qui la gère. Si Wikipédia vous est utile, pensez à faire un don pour contribuer à son avenir et la maintenir gratuite, sans publicité, fiable et accessible à tous. Si vous avez fait un don ailleurs, votre soutien nous est précieux.";
+"year-in-review-noncontributor-slide-subtitle-updated" = "Nous sommes ravis que Wikipédia ait fait partie de votre don de $1 ! Débloquez une récompense spéciale dans votre bilan annuel de $2 en devenant contributeur : soit en [modifiant Wikipédia]($3), soit en faisant un don depuis l’application à la [Fondation Wikimedia]($4), l’organisation à but non lucratif qui la gère. Si Wikipédia vous est utile, pensez à faire un don pour contribuer à son avenir et la maintenir gratuite, sans publicité, fiable et accessible à tous. Si vous avez fait un don ailleurs, votre soutien nous est précieux.";
 "year-in-review-personalized-date-day-footer-v3" = "Jour favori pour la lecture";
 "year-in-review-personalized-date-month-footer-v3" = "Mois où vous avez le plus lu";
 "year-in-review-personalized-date-time-footer-v3" = "Moment préféré pour lire";

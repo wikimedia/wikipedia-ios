@@ -60,7 +60,10 @@
 "action-unsave" = "Wotstronić";
 "action-unsaved-accessibility-notification" = "Zapisk wotstronjeny";
 "action-update" = "Aktualizować";
+"activity-tab-articles-read" = "W tutym měsacu čitane zapiski";
+"activity-tab-saved" = "W tutym měsacu składowane zapiski";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 zapisk|$1 zapiskaj|$1 zapiski|$1 zapiskow}} k čitanskej lisćinje přidać";
+"alert-temporary-account-learn-more" = "Dalše informacije.";
 "announcements-dismiss" = "Schować";
 "app-store-keywords" = "Wikipedija, referenca, wiki, encyklopedija, informacija, info, wěda, wědomosć, slědźenje, wotkrywać, wuknyć";
 "app-store-short-description" = "Sćehń sej Wikipedija-app za wotkrywanje městnow w twojej bliskosći, synchronizowanje zapiskow k offline-čitanju a přiměrjenju twojeho čitanskeho dožiwjenja.";
@@ -339,6 +342,7 @@
 "no-internet-connection-article-reload-button" = "Wróćo k poslednjej składowanej wersiji";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Zdźělenki zaswěčić";
+"notifications-center-filters-types-item-title-all" = "Wšě družiny";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 tys.";
@@ -376,6 +380,9 @@
 // Fuzzy
 "share-on-twitter-sign-off" = "přez @Wikipedia";
 "share-social-format" = "„$1“ přez Wikipediju: $2";
+"talk-pages-coffee-roll-read-more" = "Wjace čitać";
+"temp-account-toast-read-more-title" = "Wjace čitać";
+"today-title" = "Dźensa";
 "welcome-exploration-on-this-day-description" = "Pućuj w času wróćo, zo by {{GENDER:$1|zhonił|zhoniła|zhoniła}}, što je so na tutym dnju w stawiznach stało.";
 "welcome-exploration-on-this-day-title" = "Na tutym dnju";
 "welcome-intro-free-encyclopedia-more" = "Wjace wo Wikipediji zhonić";
@@ -389,3 +396,4 @@
 "wikitext-upload-save" = "Składuje so...";
 "wikitext-upload-save-anonymously-warning" = "Přinoški so IP-adresy twojeho aparata přirjaduja. Zo by měł(a) lěpši datowy škit, wubjer „$1“.";
 "wikitext-upload-save-terms-name" = "Wužiwanske wuměnjenja";
+"yesterday-title" = "Wčera";

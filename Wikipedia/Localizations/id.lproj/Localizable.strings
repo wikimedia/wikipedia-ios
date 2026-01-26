@@ -111,6 +111,7 @@
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
 "action-update" = "Perbarui";
+"activity-tab-add-images-subtitle" = "Tambahkan gambar yang disarankan ke artikel Wikipedia untuk meningkatkan pemahaman pembaca.";
 "activity-tab-customize-editing-insights" = "Wawasan suntingan";
 "activity-tab-customize-empty-state" = "Modul aktivitas dimatikan. $1Nyalakan$2 untuk melihat pembaruan di tab ini.";
 "activity-tab-menu-clear-history" = "Hapus riwayat bacaan";
@@ -162,7 +163,7 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Mandarin berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Cina, Sederhana (zh-hans)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
+"chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Tionghoa berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Tionghoa, Sederhana (zh-hans)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
 "chinese-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tionghoa";
 "clear-title-accessibility-label" = "Hapus";
 "clearing-cache-complete" = "Pembersihan tembolok selesai.";
@@ -475,6 +476,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Dari Wikipedia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Dari Wikipedia";
 "explore-randomizer" = "Pengacak";
+"explore-suggested-edits-image-recs-body" = "Tambahkan gambar yang disarankan ke artikel Wikipedia untuk meningkatkan pemahaman pembaca.";
 "export-user-data-confirmation-message" = "Berbagi pustaka aplikasi Anda berarti membagikan data tentang daftar dan riwayat Bacaan, preferensi, dan konten umpan Jelajahi Anda. Berkas data ini hanya boleh dibagikan dengan penerima tepercaya untuk digunakan untuk tujuan diagnostik teknis.";
 "export-user-data-confirmation-title" = "Bagikan pustaka aplikasi?";
 "export-user-data-generic-error" = "Terjadi kesalahan saat mengekspor data Anda. Silakan coba lagi nanti.";

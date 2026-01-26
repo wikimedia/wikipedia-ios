@@ -238,6 +238,7 @@
 "continue-button-title" = "Продолжи";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
+"contributions-this-month" = "Придонеси овој месец";
 "crimean-tatar-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на кримскотатарски како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nQırımtatarca, Latin — кримскотатарски на латиница (chr-latn)\nкъырымтатарджа, Кирил — кримскотатарски на кирилица (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Новост за поддршка на кримскотатарски варијанти";
 "customize-action-title" = "Прилагоди";
@@ -470,6 +471,8 @@
 "editor-toolbar-template-accessibility" = "Форматирање на текст на предлошка";
 "editor-wikitext-loading-accessibility" = "Се вчитува текстот во уредувачот";
 "editor-wikitext-textview-accessibility" = "Уредувач на викитекст";
+"edits-last-month" = "уредувања минатиот месец";
+"edits-this-month" = "уредувања за овој месец";
 "empty-diff-compare-title" = "Нема разлики помеѓу преработките";
 "empty-diff-single-title" = "Нема направено видливи промени";
 "empty-edit-summary" = "Празен опис на измени";
@@ -773,7 +776,7 @@
 "main-page" = "Главна страница";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "Во $1 г. доброволците додадоа {{PLURAL:$2|$2 бајт|$2 бајти}} на Википедија на англиски. Збирот на сета нивна заедничка работа е дар за светот кој води до веродостоен и фактографски извор на знаење кој постојано се подобрува. Сите ние имаме знаење за споделување, па затоа [дознајте како да учествувате]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
-"microsite-yir-english-edits-slide-subtitle-updated" = "Доброволците направија {PLURAL:$1|$1 промена|$1 промени}} на преку {{PLURAL:$2|$2 различно јазично издание|$2 различни јазични изданија}} на Википедија. На англиската Википедија беа направени преку $3 промени. Секој час од секој ден доброволците работат на подобрување на Википедија.";
+"microsite-yir-english-edits-slide-subtitle-updated" = "Доброволците направија {{PLURAL:$1|$1 промена|$1 промени}} на преку {{PLURAL:$2|$2 различно јазично издание|$2 различни јазични изданија}} на Википедија. На англиската Википедија беа направени преку $3 промени. Секој час од секој ден доброволците работат на подобрување на Википедија.";
 "microsite-yir-english-edits-slide-title-updated" = "Годинава уредниците направија {{PLURAL:$1|$1 промена|$1 промени}}";
 "microsite-yir-english-reading-slide-subtitle-short-updated" = "По нашата проценка, во $3 г. луѓето проведоа {{PLURAL:$1|$1 час|$1 часа}} — околу {{PLURAL:$2|$2 година|$2 години}}! — читајќи ја Википедија на англиски.";
 "microsite-yir-english-reading-slide-subtitle-updated" = "Во $3 г. луѓето проведоа околу {{PLURAL:$1|$1 час|$1 часа}} — околу {{PLURAL:$2|$2 година|$2 години}}! — читајќи ја Википедија на англиски. Википедија ви стои на располагање кога сакате да дознавате нешта за нашиот свет што се менува, да добиете облог меѓу пријателите или да одговорите на прашање на љубипитно дете.";
@@ -845,7 +848,7 @@
 "notifications-center-mark" = "Означи";
 "notifications-center-mark-all-as-read" = "Означи ги сите како прочитани";
 "notifications-center-mark-all-as-read-confirmation-format" = "Дали сигурно сакате да {{PLURAL:$1|ја означите оваа $1 порака|ги означите сите $1 пораки}} од вашите известувања како {{PLURAL:$1|прочитана|прочитани}}? Прочитаноста ќе се одрази на сите уреди.";
-"notifications-center-mark-all-as-read-missing-number" = "Дали сигурно сакате да и означите сите пораки од вашите известувања како {{PLURAL:$1|прочитана|прочитани}}? Прочитаноста ќе се одрази на сите уреди.";
+"notifications-center-mark-all-as-read-missing-number" = "Дали сигурно сакате да и означите сите пораки од вашите известувања како прочитани? Прочитаноста ќе се одрази на сите уреди.";
 "notifications-center-mark-as-read" = "Означи како прочитано";
 "notifications-center-mark-as-unread" = "Означи како непрочитано";
 "notifications-center-more-action-accessibility-label" = "Повеќе";
@@ -1384,6 +1387,7 @@
 "vanish-account-warning-title" = "Предупредување";
 "variants-alert-dismiss-button" = "Не, благодарам";
 "variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
+"view-changes" = "Погл. промени";
 "watch" = "Набљудувај";
 "watchlist" = "Набљудувања";
 "watchlist-added-toast-one-month" = "Додадено во вашите набљудувани 1 месец.";

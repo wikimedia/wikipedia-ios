@@ -5,6 +5,7 @@
 // Author: Nemo bis
 // Author: Papuass
 // Author: Peridot Nation
+// Author: Rusjanis
 // Author: Silraks
 
 "about-content-license" = "Satura licence";
@@ -76,6 +77,7 @@
 "edit-summary-choice-fixed-typos" = "Labota pareizrakstības kļūda";
 "edit-summary-choice-linked-words" = "Pievienotas saites";
 "edit-watch-this-page-text" = "Uzraudzīt šo lapu";
+"edits-last-month" = "labojumi pagājušajā mēnesī";
 "empty-insert-media-title" = "Izvēlēties failu no Wikimedia Commons";
 "empty-no-search-results-message" = "Nav atrasts neviens rezultāts";
 "explore-another-random" = "Vēl viens nejaušs raksts";
