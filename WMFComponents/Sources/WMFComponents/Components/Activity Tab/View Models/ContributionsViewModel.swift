@@ -36,7 +36,7 @@ final class ContributionsViewModel: ObservableObject {
             }
         }
         
-        if thisMonthCount == 0 && lastMonthCount == 0 {
+        if thisMonthCount == 0 {
             shouldShowEditCTA = true
         } else {
             shouldShowEditCTA = false
