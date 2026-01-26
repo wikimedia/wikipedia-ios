@@ -24,17 +24,17 @@ final class ContributionsViewModel: ObservableObject {
         var thisMonthCount: Int = 0
         var lastMonthCount: Int = 0
         
-//        for (date, count) in data.editCountByDay {
-//            let components = calendar.dateComponents([.year, .month], from: date)
-//            
-//            if components.year == thisMonthComponents.year &&
-//               components.month == thisMonthComponents.month {
-//                thisMonthCount += count
-//            } else if components.year == lastMonthComponents.year &&
-//                      components.month == lastMonthComponents.month {
-//                lastMonthCount += count
-//            }
-//        }
+        for (date, count) in data.editCountByDay {
+            let components = calendar.dateComponents([.year, .month], from: date)
+            
+            if components.year == thisMonthComponents.year &&
+               components.month == thisMonthComponents.month {
+                thisMonthCount += count
+            } else if components.year == lastMonthComponents.year &&
+                      components.month == lastMonthComponents.month {
+                lastMonthCount += count
+            }
+        }
         
         if thisMonthCount == 0 && lastMonthCount == 0 {
             shouldShowEditCTA = true

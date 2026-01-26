@@ -148,6 +148,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var openCustomize: () -> Void = { }
     public var exploreWikipedia: () -> Void = { }
     public var makeAnEdit: () -> Void = { }
+    public var isExploreFeedOn: Bool = true
     
     private var cancellables = Set<AnyCancellable>()
 
@@ -217,8 +218,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
             
-            // TODO GREY SWITCH BACK TO 0 and 0
-            if articlesReadViewModel.totalArticlesRead != 0 && articlesSavedViewModel.articlesSavedAmount != 0 {
+            if articlesReadViewModel.totalArticlesRead == 0 && articlesSavedViewModel.articlesSavedAmount == 0, isExploreFeedOn {
                 shouldShowExploreCTA = true
             }
             

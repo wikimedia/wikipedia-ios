@@ -149,7 +149,7 @@ public struct WMFActivityTabView: View {
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundStyle(Color(uiColor: theme.text))
             WMFSmallButton(configuration: .init(style: .primary), title: viewModel.localizedStrings.exploreWikipedia, action: {
-                // viewModel.exploreWikipedia()
+                // This is purposefully left empty because the whole container has an on tap
             })
         }
         .onTapGesture {

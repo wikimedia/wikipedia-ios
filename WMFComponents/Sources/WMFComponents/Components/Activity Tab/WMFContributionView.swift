@@ -18,7 +18,7 @@ struct ContributionsView: View {
         WMFActivityTabInfoCardView(
             icon: WMFIcon.contributionsIcon,
             title: viewModel.activityViewModel?.localizedStrings.contributionsThisMonth ?? "",
-            dateText: viewModel.dateText,
+            dateText: viewModel.shouldShowEditCTA ? "" : viewModel.dateText,
             additionalAccessibilityLabel: nil,
             onTapModule: viewModel.shouldShowEditCTA ? viewModel.activityViewModel?.makeAnEdit : viewModel.activityViewModel?.navigateToContributions,
             content: {

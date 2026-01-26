@@ -1014,6 +1014,8 @@ extension WMFAppViewController {
                 ),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
+        
+        viewModel.isExploreFeedOn = UserDefaults.standard.integer(forKey: "WMFDefaultTabTypeKey") == 0
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
