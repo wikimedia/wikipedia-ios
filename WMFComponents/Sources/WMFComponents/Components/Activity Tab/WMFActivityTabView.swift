@@ -88,6 +88,11 @@ public struct WMFActivityTabView: View {
                             }
                             .padding(.top, 12)
                             
+                            if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
+                                TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
+                                    .padding(.horizontal, 16)
+                            }
+                            
                             if let contributionsViewModel = viewModel.contributionsViewModel {
                                 ContributionsView(viewModel: contributionsViewModel)
                                     .padding(.horizontal, 16)
@@ -500,29 +505,6 @@ public struct WMFActivityTabView: View {
     }
 }
 
-private struct MostViewedArticlesView: View {
-    let viewModel: MostViewedArticlesViewModel
-    
-    var body: some View {
-        
-        WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .lineDiagonalArrow, font: WMFFont.boldCaption1),
-            title: "Most viewed since your edit", // TODO: localize
-            dateText: nil,
-            additionalAccessibilityLabel: nil,
-            onTapModule: nil,
-            content: {
-                // TODO: TEMP UI
-                VStack {
-                    ForEach(viewModel.topViewedArticles.map(\.title), id: \.self) { title in
-                        Text(title)
-                    }
-                }
-            }
-        )
-    }
-}
-
 struct RecentActivityView: View {
     let viewModel: RecentActivityViewModel
     
@@ -548,33 +530,6 @@ struct RecentActivityView: View {
             Text("Edit count: \(viewModel.editCount)")
             Text("Start date: \(viewModel.startDate)")
             Text("End count: \(viewModel.endDate)")
-        }
-    }
-}
-
-struct ArticleViewsView: View {
-    let viewModel: ArticleViewsViewModel
-    
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Views on articles you've edited") // TODO: Localize
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4)
-                Spacer()
-            }
-            .padding(.bottom, 16)
-            
-            // TODO: TEMP UI
-            Text("Views count: \(viewModel.totalViewsCount)")
         }
     }
 }

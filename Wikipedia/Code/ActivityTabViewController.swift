@@ -85,6 +85,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         guard let url = URL(string: editingFAQURLString) else { return }
         navigate(to: url)
     }
+
+    public func getURL(item: WMFUserImpactData.TopViewedArticle, project: WMFProject) -> URL? {
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: item.title) else {
+            return nil
+        }
+        return articleURL
+    }
     
     public func pushToContributions() {
         guard let url =  userContributionsURL else { return }
@@ -118,6 +126,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         
         viewModel.updateID(userID: userID)
+        viewModel.getURL = getURL
         
         if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
             viewModel.updateAuthenticationState(authState: .loggedIn)
@@ -219,6 +228,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
         viewModel.timelineViewModel.onTapArticle = onTapArticle
+        viewModel.onTapArticle = onTapArticleURL(articleURL:)
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
 
@@ -503,6 +513,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
    private func onTapArticle(item: TimelineItem) {
        ActivityTabFunnel.shared.logActivityTabArticleTap()
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
+            articleCoordinator.start()
+        }
+    }
+    
+    private func onTapArticleURL(articleURL: URL) {
+        if let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }

@@ -1010,7 +1010,9 @@ extension WMFAppViewController {
                     exploreWikipedia: WMFLocalizedString("explore-wikipedia", value: "Explore Wikipedia", comment: "Button title to explore Wikipedia"),
                     zeroEditsToArticles: WMFLocalizedString("zero-edits-to-articles", value: "0 edits to articles recently", comment: "Message showing zero recent edits"),
                     looksLikeYouHaventMadeAnEdit: WMFLocalizedString("looks-like-you-havent-made-an-edit", value: "Looks like you haven't made an edit this month. Extend free knowledge by editing topics that matter most to you.", comment: "Message encouraging user to make their first edit"),
-                    makeAnEdit: WMFLocalizedString("make-an-edit", value: "Make an edit", comment: "Button title to make an edit")
+                    makeAnEdit: WMFLocalizedString("make-an-edit", value: "Make an edit", comment: "Button title to make an edit"),
+                    viewsString: viewsString(views:),
+                    mostViewed: WMFLocalizedString("activity-tab-most-viewed", value: "Most viewed since your edit", comment: "Title for section for most viewed articles since an edit")
                 ),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
@@ -1023,6 +1025,11 @@ extension WMFAppViewController {
             viewModel: viewModel,
             dataController: activityTabDataController
         )
+        
+        func viewsString(views: Int) -> String {
+            let format = WMFLocalizedString("activity-tab-amount-article-views", value: "{{PLURAL:%1$d|%1$d view|%1$d views}}", comment: "$1 is the amount of views that an article has had since a user has edited it.")
+            return String.localizedStringWithFormat(format, views)
+        }
 
         return controller
     }
