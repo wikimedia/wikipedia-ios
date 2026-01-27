@@ -277,6 +277,7 @@
 "continue-button-title" = "Devam et";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
+"contributions-this-month" = "Bu ayki katkılar";
 "crimean-tatar-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kırım Tatarcası biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nQırımtatarca, Latin Kırım Tatarcası Latin (chr-latn)\nкъырымтатарджа, Кирил Kırım Tatarcası Kiril (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Kırım Tatarcası biçim desteği güncellemeleri";
 "customize-action-title" = "Özelleştir";
@@ -509,6 +510,8 @@
 "editor-toolbar-template-accessibility" = "Şablon metni biçimlendirmesi";
 "editor-wikitext-loading-accessibility" = "Düzenleyici metni yükleniyor";
 "editor-wikitext-textview-accessibility" = "Viki metin düzenleyicisi";
+"edits-last-month" = "geçen ayki düzenlemeler";
+"edits-this-month" = "bu ayki düzenlemeler";
 "empty-diff-compare-title" = "Revizyonlar arasında fark yok";
 "empty-diff-single-title" = "Görüntülenebilir değişiklik yapılmadı";
 "empty-edit-summary" = "Boş düzenleme özeti";
@@ -814,8 +817,8 @@
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 bayt}} eklendi";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Gönüllüler, Vikipedi'nin {{PLURAL:$2|$2 ve daha fazla farklı dil sürümünde}} {{PLURAL:$1|$1 değişiklik}} yaptı. İngilizce Vikipedi'de {{PLURAL:$3|$3 değişiklik}} yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.";
 "microsite-yir-english-edits-slide-title-updated" = "Düzenleyiciler bu yıl {{PLURAL:$1|$1 değişiklik}} yaptı";
-"microsite-yir-english-reading-slide-subtitle-updated" = "İnsanlar $3 yılında yaklaşık {{PLURAL:$1|$1 saati}} -yaklaşık {{PLURAL:$2|$2 yıl}}!- İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak ya da meraklı bir çocuğun sorusunu yanıtlamak istediğinizde Vikipedi yanınızda.";
 "microsite-yir-english-reading-slide-subtitle-short-updated" = "İnsanlar $3 yılında {{PLURAL:$1|$1 saati}} -yaklaşık {{PLURAL:$2|$2 yıl}}!- İngilizce Vikipedi'yi okuyarak geçirdiler.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "İnsanlar $3 yılında yaklaşık {{PLURAL:$1|$1 saati}} -yaklaşık {{PLURAL:$2|$2 yıl}}!- İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak ya da meraklı bir çocuğun sorusunu yanıtlamak istediğinizde Vikipedi yanınızda.";
 "microsite-yir-english-reading-slide-title-updated" = "Okumaya {{PLURAL:$1|$1 saat}} harcadık";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "Bu yıl, etkin uygulama kullanıcılarının {{PLURAL:$1|$1 saklanan maddesi}} vardı. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
 "microsite-yir-english-saved-reading-slide-title-updated" = "{{PLURAL:$1|$1 saklanan maddemiz}} oldu";
@@ -1416,6 +1419,7 @@
 "vanish-account-warning-title" = "Uyarı";
 "variants-alert-dismiss-button" = "Hayır teşekkürler";
 "variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
+"view-changes" = "Değişiklikleri görüntüle";
 "watch" = "İzle";
 "watchlist" = "İzleme listesi";
 "watchlist-added-toast-one-month" = "1 ay boyunca İzleme Listenize eklendi.";
@@ -1543,8 +1547,8 @@
 "year-in-review-contributor-gift-subtitle" = "Şimdi açmazsanız daha sonra Ayarlar'da Temalar kısmından ulaşabilirsiniz.";
 "year-in-review-contributor-gift-title" = "Yeni uygulama simgesini etkinleştir";
 "year-in-review-contributor-slide-subtitle-donor-updated" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz.\n\n$1 yılında bağışçı olarak yaptığınız katkılar, özgür bilginin olduğu bir dünyaya giden yolu açmaya yardımcı oluyor ve bunun sonucunda ana sayfanızdaki Vikipedi için özel bir katkıda bulunan simgesinin kilidini açtınız.";
-"year-in-review-contributor-slide-subtitle-editor-updated" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz.\n\n$1 yılında bir düzenleyici olarak yaptığınız katkılar, özgür bilginin olduğu bir dünyaya giden yolu açmaya yardımcı oluyor ve bunun sonucunda ana sayfanızdaki Vikipedi için özel bir katkıda bulunan simgesinin kilidini açtınız.";
 "year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz.\n\n$1 yılında bağışçı ve düzenleyici olarak yaptığınız katkılar, özgür bilginin olduğu bir dünyaya giden yolu açmaya yardımcı oluyor ve bunun sonucunda ana sayfanızdaki Vikipedi için özel bir katkıda bulunan simgesinin kilidini açtınız.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz.\n\n$1 yılında bir düzenleyici olarak yaptığınız katkılar, özgür bilginin olduğu bir dünyaya giden yolu açmaya yardımcı oluyor ve bunun sonucunda ana sayfanızdaki Vikipedi için özel bir katkıda bulunan simgesinin kilidini açtınız.";
 "year-in-review-contributor-slide-title" = "Ana sayfanız için yeni uygulama simgesi kilidi açıldı";
 "year-in-review-day-friday" = "Cuma günleri";
 "year-in-review-day-monday" = "Pazartesi günleri";

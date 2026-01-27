@@ -11,6 +11,7 @@
 // Author: Satdeep gill
 // Author: Sony dandiwal
 // Author: Tow
+// Author: Tsevener
 // Author: ਗੁਰਪ੍ਰੀਤ ਹੁੰਦਲ
 // Author: ਪ੍ਰਚਾਰਕ
 
@@ -39,7 +40,7 @@
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
 "account-creation-captcha-cannot-see-image" = "ਚਿੱਤਰ ਨਹੀਂ ਦੇਖ ਸਕਦੇ? $1";
 "account-creation-captcha-obtaining" = "ਨਵਾਂ ਕੈਪਚਾ ਲਿਆਉਂਦਾ ਜਾ ਰਿਹਾ ਹੈ...";
-"account-creation-captcha-request-account" = "ਅਕਾਊਂਟ ਬੇਨਤੀ";
+"account-creation-captcha-request-account" = "ਖਾਤੇ ਲਈ ਬੇਨਤੀ";
 "account-creation-captcha-title" = "ਕੈਪਚਾ ਸੁਰੱਖਿਆ ਜਾਂਚ";
 "account-creation-create-account" = "ਆਪਣਾ ਖਾਤਾ ਬਣਾਓ";
 "account-creation-have-account" = "ਪਹਿਲੋਂ ਹੀ ਖਾਤਾ ਹੈ? $1";
@@ -84,15 +85,57 @@
 "action-unsave" = "ਅਣ-ਸੰਭਾਲੋ";
 "action-unsaved-accessibility-notification" = "ਲੇਖ ਸੰਭਾਲਿਆ ਨਹੀਂ ਗਿਆ";
 "action-update" = "ਨਵਿਆਓ";
+"activity-tab-add-images-subtitle" = "ਵਿਕੀਪੀਡੀਆ ਲੇਖਾਂ ਵਿੱਚ ਸਮਝ ਵਧਾਉਣ ਲਈ ਸੁਝਾਏ ਗਏ ਚਿੱਤਰ ਜੋੜੋ।";
 "activity-tab-add-images-title" = "ਤਸਵੀਰ ਜੋੜੋ";
 "activity-tab-additional-thoughts" = "ਕੋਈ ਹੋਰ ਵਿਚਾਰ?";
+"activity-tab-articles-read" = "ਇਸ ਮਹੀਨੇ ਪੜ੍ਹੇ ਗਏ ਲੇਖ";
+"activity-tab-articles-read-graph-label" = "ਲੇਖ";
+"activity-tab-customize-all-time-impact" = "ਹੁਣ ਤੱਕ ਦੇ ਸਮੇਂ ਦਾ ਅਸਰ";
+"activity-tab-customize-editing-insights" = "ਸੋਧ-ਕਾਰਜ ਦੀਆਂ ਅੰਦਰੂਨੀ-ਝਾਤਾਂ";
+"activity-tab-customize-empty-state" = "ਸਰਗਰਮੀ ਇਕਾਈਆਂ ਬੰਦ ਕੀਤੀਆਂ ਗਈਆਂ ਨੇ। ਇਸ ਨਵੇਂ-ਵਰਕੇ (ਟੈਬ) ਵਿੱਚ ਤਾਜ਼ਾ ਜਾਣਕਾਰੀ ਵੇਖਣ ਲਈ ਉਹਨਾਂ ਨੂੰ $1 ਚਾਲੂ ਕਰੋ $2";
+"activity-tab-customize-footer" = "ਪੜ੍ਹਨ-ਸਬੰਧੀ ਅੰਦਰੂਨੀ-ਝਾਤਾਂ ਤੁਹਾਡੀ ਐਪ ਵਿੱਚ ਚੁਣੀਆਂ ਗਈਆਂ ਬੋਲੀਆਂ 'ਤੇ ਅਧਾਰਿਤ ਨੇ, ਜਦਕਿ ਸੋਧ-ਕਾਰਜ ਦੀਆਂ ਅੰਦਰੂਨੀ-ਝਾਤਾਂ ਸਿਰਫ਼ ਤੁਹਾਡੀ ਮੁੱਢਲੀ ਬੋਲੀ ਤੱਕ ਹੀ ਹੱਦਬੰਦ ਨੇ। ਇਹ ਅੰਦਰੂਨੀ-ਝਾਤਾਂ ਤੁਹਾਡੇ ਆਪਣੇ ਮੋਬਾਈਲ ਦੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰਦੀਆਂ ਨੇ, ਪਰ ਤੁਹਾਡੀਆਂ ਕੀਤੀਆਂ ਸੋਧਾਂ ਸਭ ਲਈ ਜਨਤਕ ਹੁੰਦੀਆਂ ਨੇ।";
+"activity-tab-customize-last-in-app-donation" = "ਐਪ ਵਿੱਚ ਆਖਰੀ ਦਾਨ";
+"activity-tab-customize-logout-warning" = "ਇਸ ਸਰਗਰਮੀ ਦੀ ਅੰਦਰੂਨੀ-ਝਾਤ ਨੂੰ ਚਾਲੂ ਕਰਨ ਲਈ ਤੁਹਾਡਾ ਦਾਖ਼ਲ ਹੋਣਾ ਲਾਜ਼ਮੀ ਏ।";
+"activity-tab-customize-reading-insights" = "ਪੜ੍ਹਨ ਦੀਆਂ ਅੰਦਰੂਨੀ-ਝਾਤਾਂ";
+"activity-tab-customize-time-spent-reading" = "ਪੜ੍ਹਨ ਵਿੱਚ ਬਿਤਾਇਆ ਸਮਾਂ";
+"activity-tab-customize-timeline-of-behavior" = "ਵਿਵਹਾਰ ਦੀ ਸਮਾਂਰੇਖਾ";
+"activity-tab-email-fourth-line" = "[ਲੋੜੀਂਦੇ ਵਿਹਾਰ ਦਾ ਵੇਰਵਾ ਦਿਓ]";
+"activity-tab-email-second-line" = "- [ਖਾਸ ਸਮੱਸਿਆ ਦਾ ਵੇਰਵਾ ਦਿਓ]";
+"activity-tab-email-third-line" = "ਮੈਂ ਜੋ ਵਿਹਾਰ ਵੇਖਣਾ ਚਾਹੁੰਦਾ/ਚਾਹੁੰਦੀ ਹਾਂ ਉਹ ਏ:";
+"activity-tab-email-title" = "ਅੜਿੱਕਾ ਇਤਲਾਹ - ਸਰਗਰਮੀ ਦਾ ਨਵਾਂ-ਵਰਕਾ";
+"activity-tab-empty-subtitle" = "ਆਪਣਾ ਇਤਿਹਾਸ ਬਣਾਉਣ ਲਈ ਪੜ੍ਹਨਾ ਅਤੇ ਸੋਧਨਾ ਸ਼ੁਰੂ ਕਰੋ";
+"activity-tab-empty-title" = "ਦਿਖਾਉਣ ਲਈ ਕੁਝ ਵੀ ਨਹੀਂ";
+"activity-tab-generic-no-edits" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ ਕੁਝ ਵੀ ਨਹੀਂ ਸੋਧਿਆ। ਆਪਣੇ ਯੋਗਦਾਨ ਦੀ ਪੈੜ ਨੂੰ ਵੇਖਣ ਲਈ ਹੁਣੇ ਸ਼ੁਰੂ ਕਰੋ।";
+"activity-tab-hours-minutes-read" = "$1 ਘੰਟਾ $2 ਮਿੰਟ";
+"activity-tab-hours-on-wikipedia-ios" = "ਵਿਕੀਪੀਡੀਆ iOS ਤੇ";
+"activity-tab-log-in-or-create-account" = "ਹੋਰ ਸੋਧ ਅਤੇ ਪੜ੍ਹਨ-ਸਬੰਧੀ ਸਰਗਰਮੀ ਵੇਖਣ ਲਈ ਦਾਖਲ ਹੋਵੋ ਜਾਂ ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ।";
+"activity-tab-logged-out-subtitle" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਆਪਣੀ ਸਰਗਰਮੀ ਵੇਖਣ ਲਈ ਦਾਖਲ ਹੋਵੋ ਜਾਂ ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ।";
+"activity-tab-logged-out-title" = "ਪੜ੍ਹਨ ਅਤੇ ਸੋਧ-ਕਾਰਜ ਦੀਆਂ ਹੋਰ ਅੰਦਰੂਨੀ-ਝਾਤਾਂ ਵੇਖੋ";
+"activity-tab-logged-out-track-what-youve-read" = "ਤੁਸੀਂ ਕੀ ਕੁਝ ਪੜ੍ਹਿਆ ਏ, ਉਸ ਦੀ ਪੈੜ ਰੱਖੋ ਅਤੇ ਸਮੇਂ ਦੇ ਨਾਲ ਆਪਣੇ ਯੋਗਦਾਨ ਨੂੰ ਇੱਕ ਨਵੇਂ ਨਜ਼ਰੀਏ ਤੋਂ ਵੇਖੋ।";
+"activity-tab-menu-clear-history" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸਾਫ਼ ਕਰੋ";
 "activity-tab-neutral" = "ਨਿਰਪੱਖ";
 "activity-tab-no-edits-title" = "ਤੁਸੀਂ ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੋਧ ਨਹੀਂ ਕੀਤੀ ਹੈ। ਲੇਖ ਦੀ ਸਮਝ ਨੂੰ ਵਧਾਉਣ ਲਈ ਚਿੱਤਰ ਸ਼ਾਮਲ ਕਰੋ।";
+"activity-tab-no-username-reading-title" = "ਤੁਹਾਡਾ ਪੜ੍ਹਨਾ";
+"activity-tab-onboarding-first-item-subtitle" = "ਵੇਖੋ ਕਿ ਤੁਸੀਂ ਪੜ੍ਹਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਬਿਤਾਇਆ ਏ ਅਤੇ ਸਮੇਂ ਦੇ ਨਾਲ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖਾਂ ਜਾਂ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕੀਤੀ ਏ।";
+"activity-tab-onboarding-first-item-title" = "ਪੜ੍ਹਨ ਦੇ ਨਮੂਨੇ";
+"activity-tab-onboarding-fourth-item-subtitle" = "ਚੁਣੋ ਕਿ ਕਿਹੜੀਆਂ ਇਕਾਈਆਂ ਵਿਖਾਉਣੀਆਂ ਹਨ। ਤੁਹਾਡਾ ਸਾਰਾ ਨਿੱਜੀ ਵੇਰਵਾ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਹੀ ਗੁਪਤ ਰਹੇਗਾ ਅਤੇ ਪੜ੍ਹਨ-ਲਿਖਣ ਦਾ ਇਤਿਹਾਸ ਕਿਸੇ ਵੀ ਸਮੇਂ ਮਿਟਾਇਆ ਜਾ ਸਕਦਾ ਏ।";
+"activity-tab-onboarding-fourth-item-title" = "ਸਭ ਤੁਹਾਡੇ ਕਾਬੂ ਵਿੱਚ ਏ";
+"activity-tab-onboarding-header" = "ਸਰਗਰਮੀ ਦੀ ਜਾਣ-ਪਛਾਣ";
+"activity-tab-onboarding-second-button-title" = "ਸਰਗਰਮੀ ਬਾਰੇ ਹੋਰ ਜਾਣੋ";
+"activity-tab-onboarding-second-item-subtitle" = "ਆਪਣੇ ਯੋਗਦਾਨ ਦੀ ਪੜਚੋਲ ਕਰੋ ਅਤੇ ਜਾਣੋ ਕਿ ਤੁਹਾਡੇ ਵੱਲੋਂ ਵੰਡਿਆ ਗਿਆ ਗਿਆਨ ਕਿੱਥੋਂ-ਕਿੱਥੋਂ ਤੱਕ ਪਹੁੰਚਿਆ ਏ।";
+"activity-tab-onboarding-second-item-title" = "ਅਸਰ ਦੀਆਂ ਝਾਤਾਂ";
+"activity-tab-onboarding-third-item-subtitle" = "ਆਪਣੇ ਸਾਂਭੇ ਹੋਏ ਲੇਖਾਂ ਅਤੇ ਹੋਰ ਸਰਗਰਮੀਆਂ ਦੀ ਪੈੜ ਨੱਪੋ, ਜੋ ਤੁਹਾਨੂੰ ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਹੋਰ ਵੀ ਗੂੜ੍ਹਾ ਜੋੜਦੀਆਂ ਨੇ।";
+"activity-tab-onboarding-third-item-title" = "ਰੁਝੇਵੇਂ ਦੇ ਹੋਰ ਤਰੀਕੇ";
+"activity-tab-read-title" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਵੇਖੋ";
+"activity-tab-saved" = "ਇਸ ਮਹੀਨੇ ਸੰਭਾਲੇ ਗਏ ਲੇਖ";
 "activity-tab-start-editing" = "ਸੋਧ ਸ਼ੁਰੂ ਕਰੋ";
 "activity-tab-title" = "ਸਰਗਰਮੀ";
 "activity-tab-view-editing-history" = "ਸੋਧ ਇਤਿਹਾਸ ਦਿਖਾਓ";
 "activity-tab-view-reading-history" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਵੇਖੋ";
+"activity-tab-view-saved-articles" = "ਸੰਭਾਲੇ ਲੇਖ ਵੇਖੋ";
+"activity-tab-week-graph-label" = "ਹਫ਼ਤਾ";
 "activity-tab-you-edited" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ {{PLURAL:$1|$1 ਵਾਰ}} ਸੰਪਾਦਨ ਕੀਤਾ ਹੈ।";
+"activity-tab-your-impact" = "ਤੁਹਾਡਾ ਅਸਰ";
 "add-articles-to-reading-list" = "{{PLURAL:$1| $1 ਲੇਖ}} ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ";
 "advanced-settings-title" = "ਵਧੇਰੇ ਤਰਜੀਹਾਂ";
 "alert-temporary-account" = "ਤੁਸੀਂ ਇੱਕ ਆਰਜ਼ੀ ਖਾਤਾ ਵਰਤ ਰਹੇ ਹੋ। ਖਾਤੇ ਦੀ ਮਿਆਦ 90 ਦਿਨਾਂ ਵਿੱਚ ਖ਼ਤਮ ਹੋ ਜਾਵੇਗੀ।";
@@ -119,6 +162,7 @@
 "article-revision-history" = "ਲੇਖ ਸੋਧ ਇਤਿਹਾਸ";
 "article-save-error-not-enough-space" = "ਇਸ ਲੇਖ ਨੂੰ ਸਾਭਣ ਲਈ ਤੁਹਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਲੋੜੀਂਦੀ ਜਗ੍ਹਾ ਨਹੀਂ ਹੈ";
 "article-share" = "ਸਾਂਝਾ ਕਰੋ";
+"article-tabs-open" = "ਖੋਲ੍ਹੋ";
 "article-talk-page" = "ਲੇਖ ਗੱਲਬਾਤ ਸਫ਼ਾ";
 "article-view-controller-editing-temp-account-created-title" = "ਆਰਜ਼ੀ ਖਾਤਾ ਬਣਾਇਆ ਗਿਆ";
 "back-button-accessibility-label" = "ਪਿਛਾਂਹ";
@@ -147,6 +191,7 @@
 "continue-button-title" = "ਜਾਰੀ ਰੱਖੋ";
 "continue-reading-empty-description" = "ਪਡ਼੍ਹਨ ਲਈ ਹੋਰ ਲੇਖਾਂ ਲਈ ਵਿਕੀਪੀਡੀਆ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
 "continue-reading-empty-title" = "ਕੋਈ ਹਾਲ ਹੀ ਵਿੱਚ ਪਡ਼੍ਹੇ ਗਏ ਲੇਖ ਨਹੀਂ ਹਨ";
+"customize-action-title" = "ਲੋੜ ਮੁਤਾਬਕ ਬਣਾਓ";
 "data-migration-status" = "ਨਵਿਆਈਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "description-add-title" = "ਵੇਰਵਾ ਜੋੜੋ";
 "description-article-introduction-warning-message" = "ਸੋਧ ਦਿੱਖ ਵਿੱਚ ਤੱਤਾਂ ਦੀ ਤਰਤੀਬ ਲੇਖ ਦੀ ਦਿੱਖ ਨਾਲੋਂ ਵੱਖਰੀ ਹੋਵੇਗੀ।";
@@ -159,7 +204,7 @@
 "description-help-about-title" = "ਬਾਬਤ";
 "description-help-about-wikidata" = "ਵਿਕੀਡਾਟਾ ਬਾਰੇ";
 "description-help-more-info-title" = "ਹੋਰ ਜਾਣਕਾਰੀ";
-"description-help-tips-example-title-one" = "ਲਿਓਨਾਰਡੋ ਦਾ ਵਿੰਚੀ ਦੀ ਪੇਂਟਿੰਗ";
+"description-help-tips-example-title-one" = "ਲਿਓਨਾਰਡੋ ਦਾ ਵਿੰਚੀ ਵੱਲੋਂ ਬਣਾਇਆ ਚਿੱਤਰ";
 "description-help-tips-example-title-two" = "ਧਰਤੀ ਦਾ ਸਭ ਤੋਂ ਉੱਚਾ ਪਹਾਡ਼";
 "description-help-tips-for-example" = "ਉਦਾਹਰਣ ਲਈ:";
 "description-help-tips-title" = "ਵਰਣਨ ਬਣਾਉਣ ਲਈ ਸੁਝਾਅ";
@@ -180,7 +225,7 @@
 "diff-change-removal" = "ਹਟਾਉਣਾ, $1 , ਹਟਾਉਣ ਦਾ ਅੰਤ।";
 "diff-compare-header-from-info-heading" = "ਪਿਛਲਾ ਸੋਧ";
 "diff-compare-header-heading" = "ਸੋਧਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ";
-"diff-compare-header-to-info-heading" = "ਪ੍ਰਦਰਸ਼ਿਤ ਸੋਧ";
+"diff-compare-header-to-info-heading" = "ਵਿਖਾਈ ਗਈ ਸੋਧ";
 "diff-compare-title" = "ਸੋਧਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ";
 "diff-content-added" = "ਸਮੱਗਰੀ ਜੋੜੀ, $1";
 "diff-content-removed" = "ਸਮੱਗਰੀ ਹਟਾਈ ਗਈ, $1";
@@ -486,6 +531,7 @@
 "main-menu-terms-of-use" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
 "main-menu-title" = "ਹੋਰ";
 "main-menu-zero-faq" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਬਾਬਤ ਆਮ ਸੁਆਲ";
+"main-page" = "ਮੁੱਢਲਾ ਵਰਕਾ";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 ਬਾਈਟ|$1 ਬਾਈਟਸ}} ਜੋੜੇ ਗਏ";
 // Fuzzy
 "microsite-yir-english-top-read-slide-title" = "ਅੰਗਰੇਜ਼ੀ ਵਿਕੀਪੀਡੀਆ ਉੱਤੇ ਸਭ ਤੋਂ ਵੱਧ ਪਡ਼੍ਹੇ ਜਾਣ ਵਾਲੇ ਲੇਖ";

@@ -44,6 +44,7 @@ public enum WMFFont {
     case semiboldHeadline
     case semiboldSubheadline
     case semiboldTitle3
+    case semiboldCaption1
     case subheadline
     case title1
     case title3
@@ -243,6 +244,11 @@ public enum WMFFont {
             let base = UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
             let font = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
             return UIFontMetrics(forTextStyle: .title3).scaledFont(for: font)
+            
+        case .semiboldCaption1:
+            let base = UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
+            let bold = UIFont.systemFont(ofSize: base.pointSize, weight: .semibold)
+            return UIFontMetrics(forTextStyle: .caption1).scaledFont(for: bold)
 
         case .subheadline:
             return UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traitCollection)

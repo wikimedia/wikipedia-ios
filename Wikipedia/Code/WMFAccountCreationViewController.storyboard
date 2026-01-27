@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23091" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LsX-JK-bT6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LsX-JK-bT6">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23079"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,10 +24,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qz-4P-2EZ" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="683"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="891"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="7AC-EW-rPT">
-                                                <rect key="frame" x="43.5" y="30" width="288" height="623"/>
+                                                <rect key="frame" x="43.5" y="30" width="288" height="831"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new account" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-PU-Exz" userLabel="Title">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="22"/>
@@ -176,10 +177,10 @@
                                                         </connections>
                                                     </textField>
                                                     <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkJ-ZP-8yL">
-                                                        <rect key="frame" x="0.0" y="359" width="288" height="192"/>
+                                                        <rect key="frame" x="0.0" y="359" width="288" height="400"/>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="192" placeholder="YES" id="S8T-dk-ANv"/>
+                                                            <constraint firstAttribute="height" constant="400" placeholder="YES" id="S8T-dk-ANv"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -188,13 +189,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </containerView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQ6-uR-ngF" userLabel="Spacer">
-                                                        <rect key="frame" x="0.0" y="554" width="288" height="26"/>
+                                                        <rect key="frame" x="0.0" y="762" width="288" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="26" id="ag4-uU-DMk"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="BGo-og-pKt" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="583" width="288" height="40"/>
+                                                        <rect key="frame" x="0.0" y="791" width="288" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="40" id="BKt-Lp-uXS"/>
                                                         </constraints>
@@ -204,6 +205,13 @@
                                                             <action selector="createAccountButtonTappedWithSender:" destination="LsX-JK-bT6" eventType="touchUpInside" id="2eM-jE-1dZ"/>
                                                         </connections>
                                                     </button>
+                                                    <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="`" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Y4P-N5-fte" userLabel="hCaptcha Fine Print Text View">
+                                                        <rect key="frame" x="0.0" y="831" width="288" height="0.0"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="textColor" systemColor="labelColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="288" id="M4c-mw-YoD"/>
@@ -242,6 +250,7 @@
                         <outlet property="createAccountButton" destination="BGo-og-pKt" id="cwu-l0-bc0"/>
                         <outlet property="emailField" destination="rKI-nq-3p7" id="FdI-zs-zky"/>
                         <outlet property="emailTitleLabel" destination="wKv-6f-CQD" id="nqt-aE-srb"/>
+                        <outlet property="hcaptchaFinePrintTextView" destination="Y4P-N5-fte" id="noE-uW-r9J"/>
                         <outlet property="loginButton" destination="cbH-8H-z54" id="1kU-fd-7qK"/>
                         <outlet property="passwordField" destination="PCr-0J-fBj" id="8aR-Qi-zWN"/>
                         <outlet property="passwordRepeatAlertLabel" destination="WpL-Ao-1ot" id="byQ-HB-n7W"/>
@@ -251,6 +260,7 @@
                         <outlet property="scrollContainer" destination="8Qz-4P-2EZ" id="lPP-0j-BIc"/>
                         <outlet property="scrollContainerTopConstraint" destination="NOm-wi-xac" id="8ym-6K-h5A"/>
                         <outlet property="scrollView" destination="dKm-Zn-TSm" id="gEZ-Pp-aUZ"/>
+                        <outlet property="stackView" destination="7AC-EW-rPT" id="eTs-P0-Sb4"/>
                         <outlet property="titleLabel" destination="c3c-PU-Exz" id="ave-jg-bBY"/>
                         <outlet property="usernameAlertLabel" destination="yEV-bO-oF2" id="Fpl-4z-yMC"/>
                         <outlet property="usernameField" destination="5cT-2Y-0Ie" id="ldu-Gg-yqR"/>
@@ -262,4 +272,12 @@
             <point key="canvasLocation" x="-227.19999999999999" y="-6258.1709145427294"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

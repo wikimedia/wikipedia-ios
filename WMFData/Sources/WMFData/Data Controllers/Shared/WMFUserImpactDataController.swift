@@ -90,7 +90,7 @@ public actor WMFUserImpactDataController {
                         finalEditCountByDay[date] = value
                     }
                 }
-                
+
                 let totalEditsCount = jsonData["totalEditsCount"] as? Int
                 let receivedThanksCount = jsonData["receivedThanksCount"] as? Int
                 

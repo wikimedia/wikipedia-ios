@@ -18,10 +18,10 @@ disabled_rules:
     - multiple_closures_with_trailing_closure
     - nesting
     - no_fallthrough_only
-    - operator_whitespace
+    - function_name_whitespace
     - private_over_fileprivate
     - redundant_objc_attribute
-    - redundant_optional_initialization
+    - implicit_optional_initialization
     - redundant_string_enum_value
     - shorthand_operator
     - todo

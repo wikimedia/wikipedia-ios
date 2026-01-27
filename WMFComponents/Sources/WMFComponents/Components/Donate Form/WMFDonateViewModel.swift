@@ -193,6 +193,9 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     
     private(set) weak var coordinatorDelegate: DonateCoordinatorDelegate?
     private(set) weak var loggingDelegate: WMFDonateLoggingDelegate?
+    
+    private var submitPaymentBackgroundTask: UIBackgroundTaskIdentifier = .invalid
+    private let submitPaymentBackgroundTaskName = "com.wikipedia.background.task.submit.payment"
 
     // MARK: - Lifecycle
 
@@ -545,44 +548,50 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
-        let dataController = WMFDonateDataController.shared
-        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID) { [weak self] result in
-            
-            guard let self else {
-                return
-            }
-            
-            switch result {
-            case .success:
-                completion(PKPaymentAuthorizationResult(status: .success, errors: []))
-                // Wait for payment sheet to dismiss
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
-
-                    guard let self else { return }
-
-                    self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
-                    self.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
-                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
-                })
-            case .failure(let error):
-                if let dataControllerError = error as? WMFDonateDataControllerError {
-                    switch dataControllerError {
-                    case .paymentsWikiResponseError(_, let orderID):
-                        DispatchQueue.main.async {
-                            self.errorViewModel = ErrorViewModel(localizedStrings: self.errorLocalizedStrings, error: error, orderID: orderID)
-                        }
-                        loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.errorViewModel = ErrorViewModel(localizedStrings: self.errorLocalizedStrings, error: error, orderID: nil)
-                    }
-                    loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
-                }
-                
-                completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
+        let application = UIApplication.shared
+        submitPaymentBackgroundTask = application.beginBackgroundTask(
+            withName: submitPaymentBackgroundTaskName
+        ) { [weak self] in
+            // Expiration handler — system is about to suspend us
+            if let task = self?.submitPaymentBackgroundTask {
+                application.endBackgroundTask(task)
+                self?.submitPaymentBackgroundTask = .invalid
             }
         }
+        
+        let dataController = WMFDonateDataController.shared
+        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID) { result in
+
+            switch result {
+            case .success:
+                self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
+            case .failure(let error):
+                // Only log errors, don't show to user since we are assuming success.
+                if let dataControllerError = error as? WMFDonateDataControllerError {
+                    switch dataControllerError {
+                    case .paymentsWikiResponseError:
+                        self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                    }
+                } else {
+                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                }
+            }
+            
+            // Always end the background task
+            if self.submitPaymentBackgroundTask != .invalid {
+                application.endBackgroundTask(self.submitPaymentBackgroundTask)
+                self.submitPaymentBackgroundTask = .invalid
+            }
+        }
+        
+        // Immediately assume success
+        completion(PKPaymentAuthorizationResult(status: .success, errors: []))
+        
+        // Wait for payment sheet to dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
+            self?.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
+            self?.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
+        })
     }
     
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectPaymentMethod paymentMethod: PKPaymentMethod, handler completion: @escaping (PKPaymentRequestPaymentMethodUpdate) -> Void) {

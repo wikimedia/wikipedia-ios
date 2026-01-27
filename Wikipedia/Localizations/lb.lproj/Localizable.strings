@@ -79,21 +79,33 @@
 "activity-tab-additional-thoughts" = "Wëllt Dir nach eppes soen?";
 "activity-tab-articles-read" = "Artikelen, déi dëse Mount gelies goufen";
 "activity-tab-articles-read-graph-label" = "Artikelen";
+"activity-tab-customize-all-time-impact" = "Gesamtimpakt";
 "activity-tab-customize-editing-insights" = "Ännerungsablécker";
+"activity-tab-customize-footer" = "D'Liesablécker ginn op Basis vun Ären App-Sproochen aus den Astellunge generéiert an d'Ännerungsablécker sinn op d'Haaptsprooch vun Ärer App limitéiert. D'Ablécker baséieren op lokalen Donnéeën, mat Ausnam vun den Ännerungen, déi ëffentlech sinn.";
+"activity-tab-customize-last-in-app-donation" = "Leschten Don iwwer d'App";
+"activity-tab-customize-logout-warning" = "Dir musst ageloggt sinn, fir dësen Aktivitéitsabléck z'aktivéieren.";
 "activity-tab-customize-reading-insights" = "Liesablécker";
 "activity-tab-customize-time-spent-reading" = "Lieszäit";
 "activity-tab-email-fifth-line" = "[Screenshotten oder Linken]";
+"activity-tab-empty-title" = "Näischt fir ze weisen";
 // Fuzzy
 "activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
+"activity-tab-menu-clear-history" = "Lieshistorique eidel maachen";
 "activity-tab-neutral" = "Neutral";
+"activity-tab-no-username-reading-title" = "Är Liesaktivitéit";
+"activity-tab-onboarding-first-item-title" = "Liesgewunnechten";
+"activity-tab-onboarding-second-item-title" = "Impakt-Highlights";
 "activity-tab-read-title" = "Lies-Historique weisen";
 "activity-tab-satisfied" = "Zefridden";
+"activity-tab-saved" = "Artikelen, déi dëse Mount gespäichert goufen";
 "activity-tab-start-editing" = "Ufänke mat Änneren";
 "activity-tab-survey-title" = "Zefriddenheetsëmfro";
+"activity-tab-time-spent-reading" = "Lieszäit dës Woch";
 "activity-tab-title" = "Aktivitéit";
 "activity-tab-top-categories" = "Top-Kategorien dëse Mount";
 "activity-tab-total-edits" = "Ännerungen op alle Projeten insgesamt";
 "activity-tab-unsatisfied" = "Onzefridden";
+"activity-tab-usernames-reading-title" = "Liesaktivitéit vum $1";
 "activity-tab-very-satisfied" = "Ganz zefridden";
 "activity-tab-very-unsatisfied" = "Ganz onzefridden";
 "activity-tab-view-editing-history" = "Historique vun den Ännerunge weisen";
@@ -169,6 +181,7 @@
 "continue-button-title" = "Virufueren";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
+"contributions-this-month" = "Kontributiounen dëse Mount";
 "data-migration-status" = "Aktualiséieren...";
 "description-add-title" = "Beschreiwung derbäisetzen";
 "description-edit-for-article" = "Artikelbeschreiwung fir $1";
@@ -319,6 +332,8 @@
 "editor-title" = "Editeur";
 "editor-toolbar-find-accessibility" = "Op der Säit sichen";
 "editor-wikitext-textview-accessibility" = "Wikitext-Editeur";
+"edits-last-month" = "Ännerungen de leschte Mount";
+"edits-this-month" = "Ännerungen dëse Mount";
 "empty-diff-compare-title" = "Keen Ënnerscheed tëscht de Versiounen";
 "empty-edit-summary" = "Eidele Resümmee vun der Ännerung";
 "empty-insert-media-title" = "E Fichier op Wikimedia Commons eraussichen";
@@ -530,6 +545,7 @@
 "insert-media-title" = "Medien drasetzen";
 "ip-account-cta-bottom" = "Virufueren ouni anzeloggen";
 "ip-account-cta-top" = "Loggt Iech an oder maacht e Kont op";
+"ip-account-warning-subtitle" = "Beim Verëffentleche gëtt en temporäre Kont fir Iech ugeluecht.";
 "ip-account-warning-title" = "Dir sidd net ageloggt";
 "languages-settings-title" = "Sproochen";
 "languages-title" = "Sprooch änneren";
@@ -990,6 +1006,7 @@
 "vanish-account-warning-title" = "Warnung";
 "variants-alert-dismiss-button" = "Nee, merci";
 "variants-alert-preferences-button" = "Kuckt Är Astellungen no";
+"view-changes" = "Ännerunge weisen";
 "watch" = "Iwwerwaachen";
 "watchlist" = "Iwwerwaachungslëscht";
 "watchlist-added-toast-one-month" = "Fir 1 Mount op Är Iwwerwaachungslëscht gesat.";
@@ -1089,6 +1106,8 @@
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
+// Fuzzy
+"year-in-review-personalized-editing-title-format-updated" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-reading-subtitle-format-v3-updated" = "Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest {{PLURAL:$1|$1 Artikel|$1 Artikelen}} am Joer.";
 "year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
 "year-in-review-share-text" = "Hei ass mäi Wikipedia-Joresréckbléck. Mat der Wikipedia-iOS-App erstallt";

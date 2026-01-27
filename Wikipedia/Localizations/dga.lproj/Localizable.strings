@@ -560,7 +560,7 @@
 "notifications-center-status-filtered-by" = "Kyoore ne";
 "notifications-center-status-in-projects" = "{{PLURAL:$1|1=In 1 project|In $1 projects}}";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 project|$1 projects}}";
-"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 type|$1 types";
+"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 type|$1 types}}";
 "notifications-center-status-read" = "Kanne";
 "notifications-center-status-triple-concatenation" = "$1 ane $2 yi $3";
 "notifications-center-status-unread" = "Ba tõɔ kanne";

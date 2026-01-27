@@ -10,12 +10,30 @@
       }
     },
     {
+      "identity" : "hcaptcha-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hCaptcha/HCaptcha-ios-sdk",
+      "state" : {
+        "revision" : "3f94cb815a992155247eadb599158c726c75627a",
+        "version" : "2.10.0"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift",
+      "state" : {
+        "revision" : "5004a18539bd68905c5939aa893075f578f4f03d",
+        "version" : "6.9.1"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "2053b120767c42a70bcba21095f34e4cfb54a75d",
-        "version" : "5.21.3"
+        "revision" : "36e79ba485e9bb4d3cd4e3318908866dac5e7b51",
+        "version" : "5.21.5"
       }
     },
     {
@@ -23,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log",
       "state" : {
-        "revision" : "ce592ae52f982c847a4efc0dd881cc9eb32d29f2",
-        "version" : "1.6.4"
+        "revision" : "bc386b95f2a16ccd0150a8235e7c69eab2b866ca",
+        "version" : "1.8.0"
       }
     }
   ],
