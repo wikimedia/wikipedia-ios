@@ -338,7 +338,7 @@
 "editor-keyboard-subheading2-button" = "ਉੱਪ-ਸਿਰਨਾਵਾਂ 2";
 "editor-keyboard-subheading3-button" = "ਉੱਪ-ਸਿਰਨਾਵਾਂ 3";
 "editor-keyboard-subheading4-button" = "ਉੱਪ-ਸਿਰਨਾਵਾਂ 4";
-"editor-keyboard-subscript-accessibility" = "ਹੇਠਲੀ ਲਿਖਤ";
+"editor-keyboard-subscript-accessibility" = "ਪੈਰੀ-ਲਿਖਤ";
 "editor-keyboard-superscript-accessibility" = "ਉਤਲੀ ਲਿਖਤ";
 "editor-keyboard-template-accessibility" = "ਫਰਮੇ";
 "editor-keyboard-text-formatting-title" = "ਟੈਕਸਟ ਫਾਰਮੈਟਿੰਗ";
@@ -627,7 +627,7 @@
 "page-history-compare-accessibility-hint" = "ਤੁਲਨਾ ਕਰਨ ਲਈ ਦੋ ਸੋਧਾਂ ਦੀ ਚੋਣ ਕਰਨ ਲਈ ਦੱਬੋ";
 "page-history-compare-title" = "ਤੁਲਨਾ ਕਰੋ";
 "page-history-minor-edits" = "ਛੋਟੀਆਂ ਸੋਧਾਂ";
-"page-history-revision-author-accessibility-label" = "ਲੇਖਕ: $1";
+"page-history-revision-author-accessibility-label" = "ਲਿਖਾਰੀ: $1";
 "page-history-revision-comment-accessibility-label" = "ਟਿੱਪਣੀ $1";
 "page-history-revision-history-title" = "ਦੁਹਰਾਅ ਦਾ ਇਤਿਹਾਸ";
 "page-history-revision-minor-edit-accessibility-label" = "ਛੋਟੀ ਸੋਧ";
