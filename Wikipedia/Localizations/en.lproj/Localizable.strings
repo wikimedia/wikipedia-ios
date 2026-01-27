@@ -71,6 +71,7 @@
 "activity-tab-add-images-subtitle" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "activity-tab-add-images-title" = "Add images";
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 view|$1 views}}";
 "activity-tab-articles-read" = "Articles read this month";
 "activity-tab-articles-read-graph-label" = "Articles";
 "activity-tab-customize-all-time-impact" = "All time impact";
@@ -98,6 +99,7 @@
 "activity-tab-logged-out-title" = "See more reading and editing insights";
 "activity-tab-logged-out-track-what-youve-read" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-menu-clear-history" = "Clear reading history";
+"activity-tab-most-viewed" = "Most viewed since your edit";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
