@@ -679,7 +679,7 @@
 "search-button-accessibility-label" = "వికీపీడియాలో వెతుకు";
 "search-clear-title" = "తీసివేయి";
 "search-field-placeholder-text" = "వికీపీడియాలో వెతకండి";
-"search-reading-list-placeholder-text" = "భద్రపరచిన {{PLURAL:$1|వ్యాసాన్ని|వ్యాసాలను}} తీసెయ్యాలా?";
+"search-reading-list-placeholder-text" = "భద్రపరచిన వ్యాసాలను తీసెయ్యాలా?";
 "search-recent-clear-confirmation-heading" = "ఇటీవలి వెతుకులాట లన్నిటినీ తొలగించాలా?";
 "search-recent-clear-confirmation-sub-heading" = "ఈ చర్యను వెనక్కి తీసుకోలేరు!";
 "search-recent-clear-delete-all" = "అన్నిటినీ తొలగించు";

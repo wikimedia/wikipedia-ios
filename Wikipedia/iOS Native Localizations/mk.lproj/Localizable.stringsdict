@@ -333,7 +333,18 @@
 	<key>microsite-yir-english-edits-slide-subtitle-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Доброволците направија {PLURAL:%1$lld|%1$lld промена|%1$lld промени}} на преку %#@v2@ на Википедија. На англиската Википедија беа направени преку %3$lld промени. Секој час од секој ден доброволците работат на подобрување на Википедија.</string>
+		<string>Доброволците направија %#@v1@ на преку %#@v2@ на Википедија. На англиската Википедија беа направени преку %3$lld промени. Секој час од секој ден доброволците работат на подобрување на Википедија.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld промена</string>
+			<key>other</key>
+			<string>%1$lld промени</string>
+		</dict>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
