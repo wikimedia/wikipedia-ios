@@ -173,7 +173,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
+        addComponent(hostingController, pinToEdges: true, respectSafeArea: false)
 
         viewModel.$isEmpty
             .receive(on: RunLoop.main)

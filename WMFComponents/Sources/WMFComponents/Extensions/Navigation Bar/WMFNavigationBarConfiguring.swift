@@ -157,15 +157,23 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             if let customTitleView = titleConfig.customView {
                 let button = UIBarButtonItem(customView: customTitleView)
                 button.accessibilityTraits = .staticText
+                if #available(iOS 26.0, *) {
+                    button.hidesSharedBackground = true
+                    button.sharesBackground = false
+                }
                 navigationItem.leftBarButtonItem = button
                 themeNavigationBarLeadingTitleView()
             } else {
                 let leadingTitleLabel = UILabel()
                 leadingTitleLabel.font = WMFFont.navigationBarLeadingCompactTitleFont
                 leadingTitleLabel.text = titleConfig.title
-                
-                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leadingTitleLabel)
-                
+                let button = UIBarButtonItem(customView: leadingTitleLabel)
+                if #available(iOS 26.0, *) {
+                    button.hidesSharedBackground = true
+                    button.sharesBackground = false
+                }
+                navigationItem.leftBarButtonItem = button
+
                 themeNavigationBarLeadingTitleView()
             }
         case .leadingLarge:
