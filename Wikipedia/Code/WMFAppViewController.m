@@ -1538,7 +1538,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil isMainRootView:YES];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
-        _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
+        _searchViewController.tabBarItem =
+            [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch
+                                                       tag:WMFAppTabTypeSearch];
         _searchViewController.title = [WMFCommonStrings searchTitle];
     }
     return _searchViewController;
