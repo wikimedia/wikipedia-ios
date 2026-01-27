@@ -1005,7 +1005,9 @@ extension WMFAppViewController {
                     viewChanges: WMFLocalizedString("view-changes", value: "View changes", comment: "View changes button title"),
                     contributionsThisMonth: WMFLocalizedString("contributions-this-month", value: "Contributions this month", comment: "Title for section of contributions this month"),
                     thisMonth: WMFLocalizedString("edits-this-month", value: "edits this month", comment: "Title for edits this month section"),
-                    lastMonth: WMFLocalizedString("edits-last-month", value: "edits last month", comment: "Title for edits last month section")),
+                    lastMonth: WMFLocalizedString("edits-last-month", value: "edits last month", comment: "Title for edits last month section"),
+                    viewsString: viewsString(views:),
+                    mostViewed: WMFLocalizedString("activity-tab-most-viewed", value: "Most viewed since your edit", comment: "Title for section for most viewed articles since an edit")),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
 
@@ -1015,6 +1017,11 @@ extension WMFAppViewController {
             viewModel: viewModel,
             dataController: activityTabDataController
         )
+        
+        func viewsString(views: Int) -> String {
+            let format = WMFLocalizedString("activity-tab-amount-article-views", value: "{{PLURAL:%1$d|%1$d view|%1$d views}}", comment: "$1 is the amount of views that an article has had since a user has edited it.")
+            return String.localizedStringWithFormat(format, views)
+        }
 
         return controller
     }

@@ -18,6 +18,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.customizeViewModel.presentLoggedInToastAction = self.presentCustomizeLogInToastAction
         }
     }
+    public var onTapArticle: ((URL) -> Void)?
 
     // MARK: - Localization
 
@@ -61,8 +62,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let contributionsThisMonth: String
         public let thisMonth: String
         public let lastMonth: String
+        public let viewsString: (Int) -> String
+        public let mostViewed: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, viewsString: @escaping (Int) -> String, mostViewed: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -102,6 +105,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.contributionsThisMonth = contributionsThisMonth
             self.thisMonth = thisMonth
             self.lastMonth = lastMonth
+            self.viewsString = viewsString
+            self.mostViewed = mostViewed
         }
     }
 
@@ -135,6 +140,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
     public var openCustomize: () -> Void = { }
+    public var getURL: ((WMFUserImpactData.TopViewedArticle, WMFProject) -> URL?)?
     
     private var cancellables = Set<AnyCancellable>()
 
@@ -232,7 +238,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
         guard let userID else { return }
         do {
             let data = try await dataController.getUserImpactData(userID: userID)
-            self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data)
+            if let getURL = getURL {
+                self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
+            }
             self.contributionsViewModel = ContributionsViewModel(data: data, activityViewModel: self)
             self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
             self.recentActivityViewModel = RecentActivityViewModel(data: data)
