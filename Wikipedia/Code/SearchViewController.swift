@@ -562,6 +562,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private lazy var deleteItemAction: (Int) -> Void = { [weak self] index in
         guard
             let self = self,
+            self.recentSearches?.entries.indices.contains(index) ?? false,
             let entry = self.recentSearches?.entries[index]
         else {
             return

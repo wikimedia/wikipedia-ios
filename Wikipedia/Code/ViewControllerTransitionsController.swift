@@ -3,6 +3,12 @@ import UIKit
 @objc(WMFViewControllerTransitionsController)
 class ViewControllerTransitionsController: NSObject, UINavigationControllerDelegate {
     @objc func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        // Don't use custom animations for interactive pops
+        if operation == .pop &&
+           navigationController.transitionCoordinator?.isInteractive == true {
+            return nil
+        }
 
         // If either participating view controller prefers standard animations, use a standard transition
         let participatingViewControllerPrefersStandardAnimationStyle = [fromVC, toVC].filter { vc in

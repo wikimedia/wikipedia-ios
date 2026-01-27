@@ -5,6 +5,7 @@
 // Author: Nemo bis
 // Author: Red Winged Duck
 // Author: Renessaince
+// Author: Ucukor
 
 "about-contributors" = "Аўтары";
 "about-libraries" = "Выкарыстаныя бібліятэкі";
@@ -16,7 +17,7 @@
 "about-testers-details" = "QA-тэставаньне ад $1";
 "about-title" = "Пра";
 "about-translators" = "Перакладчыкі";
-"about-translators-details" = "Перакладзенае дабраахвотнікамі на $1";
+"about-translators-details" = "Перакладзена дабраахвотнікамі на $1";
 "about-wikimedia-foundation" = "Фундацыя Вікімэдыя";
 "about-wikipedia" = "Вікіпэдыя";
 "account-creation-captcha-obtaining" = "Атрымліваем новую CAPTCHA…";
@@ -68,7 +69,7 @@
 "main-menu-nearby" = "Паблізу";
 "main-menu-privacy-policy" = "Правілы адносна прыватнасьці";
 "main-menu-rate-app" = "Ацаніць праграму";
-"main-menu-terms-of-use" = "Умовы выкарыстаньня";
+"main-menu-terms-of-use" = "Умовы ўжываньня";
 "main-menu-title" = "Болей";
 "main-menu-zero-faq" = "Частыя пытаньні па Вікіпэдыя Zero";
 "navbar-title-mode-edit-wikitext-preview" = "Папярэдні прагляд";
@@ -102,4 +103,4 @@
 "wikitext-upload-result-unknown" = "Не атрымліваецца вызначыць вынік загрузкі вікі-тэксту.";
 "wikitext-upload-save" = "Публікацыя…";
 "wikitext-upload-save-anonymously-warning" = "Рэдагаваньні будуць зьвязаны з IP-адрасам Вашага прыстасаваньня. Калі Вы $1, Вы атрымаеце больш высокі ўзровень прыватнасьці.";
-"wikitext-upload-save-terms-name" = "Умовы выкарыстаньня";
+"wikitext-upload-save-terms-name" = "Умовы ўжываньня";

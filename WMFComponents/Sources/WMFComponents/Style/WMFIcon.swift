@@ -35,6 +35,7 @@ public enum WMFIcon {
 
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
+    public static let contributionsIcon = (UIImage(named: "user_contributions", in: .module, with: nil))
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)

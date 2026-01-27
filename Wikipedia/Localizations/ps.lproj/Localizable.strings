@@ -81,13 +81,18 @@
 "activity-tab-add-images-subtitle" = "د پوهاوي لوړولو لپاره د ويکيپېډيا ليکنو ته وړانديز شوي انځورونه ورگډ کړئ.";
 "activity-tab-add-images-title" = "انځورونه ورگډول";
 "activity-tab-additional-thoughts" = "کوم زياتي اندونه لرئ؟";
+"activity-tab-articles-read" = "دې مياشت کې لوستل شوې ليکنې";
+"activity-tab-articles-read-graph-label" = "ليکنې";
+"activity-tab-customize-all-time-impact" = "ټول مهاله اغېز";
+"activity-tab-customize-editing-insights" = "اندلورو سمون";
+"activity-tab-customize-time-spent-reading" = "په لوستلو تېرشوی وخت";
+"activity-tab-customize-timeline-of-behavior" = "د چلند مهالوېش";
 "activity-tab-generic-no-edits" = "تاسو دا اوونۍ هېڅ ترميم نه دی کړی. د خپلو ونډو څارولو لپاره همدا اوس پيل کړئ.";
-// Fuzzy
-"activity-tab-logged-out-subtitle" = "هغه څه چې تاسو لوستي دي وڅارئ او خپلې ونډې د وخت په تېرېدو سره په نوي ډول وگورئ";
-// Fuzzy
-"activity-tab-logged-out-title" = "د نور سمون او لوست چارو کتلو لپاره غونډال ته ننوځئ يا نوی گڼون جوړ کړئ.";
+"activity-tab-logged-out-subtitle" = "په ويکي‌پېډيا کاريال کې د خپلو چارو کتلو لپاره غونډال ته ننوځئ يا يو گنون جوړ کړئ.";
+"activity-tab-logged-out-title" = "د لوستلو او سمون نور مالومات وگورئ";
 "activity-tab-neutral" = "بې‌پلو";
 "activity-tab-no-edits-title" = "تاسو دا اوونۍ هېڅ سمون نه دی کړی. د ليکنې د پوهېدو د ښه والي لپاره انځورونه ورگډ کړئ.";
+"activity-tab-no-username-reading-title" = "ستاسو لوست";
 "activity-tab-read-title" = "د لوست پېښليک کتل";
 "activity-tab-satisfied" = "ډاډمن";
 "activity-tab-start-editing" = "سمون پيلول";

@@ -16,11 +16,13 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     let deleteItemAction: (() -> Void)?
     let deleteAccessibilityLabel: String?
     
+    let bottomButtonTitle: String?
+    
     private var summary: WMFArticleSummary?
     @Published var articleDescription: String?
     @Published var uiImage: UIImage?
     
-    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil) {
+    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil, bottomButtonTitle: String? = nil) {
         self.id = id
         self.title = title
         self.projectID = projectID
@@ -34,6 +36,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         self.deleteItemAction = deleteItemAction
         self.deleteAccessibilityLabel = deleteAccessibilityLabel
         self.summary = nil
+        self.bottomButtonTitle = bottomButtonTitle
         
         Task {
             try await loadDescriptionAndImage()
@@ -81,7 +84,10 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     }
     
     var accessibilityLabelParts: String {
-        [iconAccessibilityLabel, title, articleDescription].compactMap { $0 }.joined(separator: " - ")
+        if let bottomButtonTitle {
+            return [iconAccessibilityLabel, title, articleDescription, bottomButtonTitle].compactMap { $0 }.joined(separator: " - ")
+        }
+        return [iconAccessibilityLabel, title, articleDescription].compactMap { $0 }.joined(separator: " - ")
     }
         
 }
@@ -102,24 +108,36 @@ struct WMFAsyncPageRow: View {
     }
 
     var rowContent: some View {
-        HStack(alignment: .top, spacing: 4) {
-            if let iconImage = viewModel.iconImage {
-                Image(uiImage: iconImage)
-                    .frame(width: 40, height: 40, alignment: .top)
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(alignment: .top, spacing: 4) {
+                if let iconImage = viewModel.iconImage {
+                    Image(uiImage: iconImage)
+                        .frame(width: 40, height: 40, alignment: .top)
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
+                }
+                regularTextView
+                Spacer()
+                if let uiImage = viewModel.uiImage {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                    
+                }
             }
-            regularTextView
-            Spacer()
-            if let uiImage = viewModel.uiImage {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40)
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
-
+            .background(Color(theme.paperBackground))
+            if let bottomButtonText = viewModel.bottomButtonTitle {
+                VStack {
+                    WMFSmallButton(configuration: .init(style: .neutral), title: bottomButtonText, image: (WMFSFSymbolIcon.for(symbol: .textPage) ?? nil), action: {
+                        // do nothing purposefully
+                    })
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 44)
+                .padding(.top, 4)
             }
         }
-        .background(Color(theme.paperBackground))
         .padding(.vertical, 10)
     }
 

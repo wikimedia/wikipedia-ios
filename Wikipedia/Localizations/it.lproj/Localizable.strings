@@ -53,6 +53,7 @@
 // Author: Superpes15
 // Author: Tsevener
 // Author: Vivbod
+// Author: Wheelygay
 // Author: Yacine Boussoufa
 
 "about-content-license" = "Licenza contenuto";
@@ -130,9 +131,14 @@
 "activity-tab-additional-thoughts" = "Qualcosa da aggiungere?";
 "activity-tab-articles-read" = "Voci lette questo mese";
 "activity-tab-articles-read-graph-label" = "Voci";
+"activity-tab-customize-time-spent-reading" = "Tempo trascorso a leggere";
+"activity-tab-customize-timeline-of-behavior" = "Cronologia del comportamento";
+"activity-tab-email-fifth-line" = "[Screenshot o Link]";
 "activity-tab-empty-title" = "Niente da mostrare";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
+"activity-tab-hours-on-wikipedia-ios" = "SU WIKIPEDIA iOS";
+"activity-tab-log-in-or-create-account" = "Accedi o crea un utenza per vedere altre attività di modifica e lettura.";
 "activity-tab-logged-out-subtitle" = "Accedi o crea un'utenza per vedere la tua attività sull'applicazione di Wikipedia.";
 "activity-tab-logged-out-title" = "Scopri di più su lettura e modifica";
 "activity-tab-neutral" = "Neutrale";
@@ -168,9 +174,9 @@
 "alt-text-feedback-survey-toast-title" = "Feedback inviato";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
-"app-store-short-description" = "Scarica l'app Wikipedia per esplorare i luoghi attorno a te, sincronizzare gli articoli per leggerli offline e personalizzare la tua esperienza di lettura.";
+"app-store-short-description" = "Scarica l'app Wikipedia per esplorare i luoghi attorno a te, sincronizzare le voci per leggerli offline e personalizzare la tua esperienza di lettura.";
 "app-store-subtitle" = "L'enciclopedia libera";
-"appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
+"appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo della voce";
 "appearance-settings-expand-tables" = "Espandi le tabelle";
 "appearance-settings-image-dimming-footer" = "Riduci opacità delle immagini con i temi scuri e neri";
 "appearance-settings-reading-themes" = "Temi di lettura";
@@ -186,7 +192,7 @@
 "article-read-more-title" = "Per saperne di più";
 "article-reference-view-title" = "Riferimento $1";
 "article-revision-history" = "Cronologia versioni voce";
-"article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
+"article-save-error-not-enough-space" = "Memoria insufficiente per salvare questa voce sul dispositivo";
 "article-share" = "Condividi";
 "article-tabs-button-accessibility-label" = "Schede voci";
 "article-tabs-open" = "Apri";
@@ -231,6 +237,7 @@
 "continue-button-title" = "Continua";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
+"contributions-this-month" = "Contributi questo mese";
 "crimean-tatar-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti del tataro di Crimea come lingua principale o secondaria all'interno dell'applicazione, rendendo più semplice la lettura, la ricerca e la modifica nelle varianti preferite:\n\nQırımtatarca, latino tataro di Crimea latino (chr-latn)\nкъырымтатарджа, Кирил tataro di Crimea cirillico (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Aggiorna al supporto della variante Tatara della Crimea";
 "customize-action-title" = "Personalizza";
@@ -265,6 +272,7 @@
 "description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-promise-title" = "Per iniziare, prometto di non abusare di questa funzione";
 "description-welcome-start-editing-button" = "Inizia a modificare";
+"developer-settings-enable-year-in-review" = "Abilita l'Anno in Rassegno";
 "diff-article-revision-history" = "Cronologia versioni voce";
 "diff-change-paragraph-lines-moved-down" = "Il paragrafo è stato spostato in basso di {{PLURAL:$1|0=0 righe|$1 riga|$1 righe}}. Vai alla nuova posizione.";
 "diff-change-paragraph-lines-moved-up" = "Il paragrafo è stato spostato in alto di {{PLURAL:$1|0=0 righe|$1 riga|$1 righe}}. Vai alla nuova posizione.";
@@ -362,6 +370,7 @@
 "editor-find-current-match-info-zero-results-accessibility" = "Nessun risultato trovato";
 "editor-find-textfield-accessibility" = "Trova";
 "editor-keyboard-bold-accessibility" = "Grassetto";
+"editor-keyboard-comment-accessibility" = "Commento";
 "editor-keyboard-heading-button" = "Intestazione";
 "editor-keyboard-italics-accessibility" = "Corsivo";
 "editor-keyboard-link-accessibility" = "Collegamento";
@@ -375,6 +384,7 @@
 "editor-keyboard-subheading4-button" = "Sottotitolo 4";
 "editor-keyboard-subscript-accessibility" = "Pedice";
 "editor-keyboard-superscript-accessibility" = "Apice";
+"editor-keyboard-template-accessibility" = "Template";
 "editor-keyboard-text-formatting-title" = "Formattazione del testo";
 "editor-keyboard-underline-accessibility" = "Sottolinea";
 "editor-replace-textfield-accessibility" = "Sostituisci";
@@ -448,10 +458,10 @@
 "explore-suggested-edits-footer" = "Aggiungi";
 "explore-suggested-edits-image-recs-body" = "Aggiungi immagini suggerite alle voci di Wikipedia per migliorarne la comprensione.";
 "explore-suggested-edits-image-recs-title" = "Aggiungi un'immagine";
-"featured-widget-content-failure-for-date" = "Nessun articolo in evidenza disponibile per questa data.";
-"featured-widget-description" = "Scopri i migliori articoli su Wikipedia, selezionati quotidianamente dalla nostra community.";
+"featured-widget-content-failure-for-date" = "Nessuna voce in evidenza disponibile per questa data.";
+"featured-widget-description" = "Scopri le migliore voci su Wikipedia, selezionati quotidianamente dalla nostra community.";
 "featured-widget-from-wikipedia" = "Da Wikipedia";
-"featured-widget-title" = "Articolo in primo piano";
+"featured-widget-title" = "Voce in primo piano";
 "fetcher-error-generic" = "Qualcosa è andato storto. Riprova più tardi.";
 "fetcher-error-unexpected-response" = "L'applicazione ha ricevuto una risposta inaspettata dal server. Si prega di riprovare più tardi.";
 "field-alert-captcha-invalid" = "CAPTCHA non valido";
@@ -729,7 +739,7 @@
 "places-empty-search-description" = "Esplora città, paesi, continenti, luoghi naturali, eventi storici, edifici e altro ancora.";
 "places-enable-location-action-button-title" = "Permetti localizzazione";
 "places-enable-location-description" = "L'accesso alla tua localizzazione è disponibile solo quando l'applicazione o una delle sue funzioni è visibile sul tuo schermo.";
-"places-enable-location-title" = "Esplora gli articoli vicino alla tua ubicazione abilitando l'accesso alla localizzazione";
+"places-enable-location-title" = "Esplora le voci vicino alla tua ubicazione abilitando l'accesso alla localizzazione";
 "places-filter-button-title" = "Filtro";
 "places-filter-no-saved-places" = "Non hai luoghi salvati";
 "places-filter-saved-articles" = "Voci salvate";
@@ -738,7 +748,7 @@
 "places-filter-top-read-articles" = "Voci più lette";
 "places-list-title'" = "Elenco";
 "places-map-title" = "Mappa";
-"places-no-saved-articles-have-location" = "Nessuno dei tuoi articoli salvati ha informazione di localizzazione";
+"places-no-saved-articles-have-location" = "Nessuno dei tuoi voci salvati ha informazione di localizzazione";
 "places-search-default-text" = "Cerca luoghi";
 "places-search-did-you-mean" = "Forse cercavi $1?";
 "places-search-recently-searched-header" = "Cercato recentemente";
@@ -981,6 +991,7 @@
 "vanish-account-username-field" = "Nome utente e pagina utente";
 "vanish-account-warning-title" = "Attenzione";
 "variants-alert-dismiss-button" = "No, grazie";
+"view-changes" = "Vedi modifiche";
 "watch" = "Segui";
 "watchlist" = "Osservati speciali";
 "watchlist-added-toast-one-month" = "Aggiunta ai tuoi osservati speciali per 1 mese.";
@@ -1089,12 +1100,12 @@
 "year-in-review-day-wednesday" = "Mercoledì";
 "year-in-review-donate" = "Dona";
 "year-in-review-donate-now" = "Dona ora";
-"year-in-review-feature-announcement-body" = "Guarda informazioni utili su quali articoli abbiamo letto e modificato, e condividi i momenti salienti del nostro anno su Wikipedia.";
+"year-in-review-feature-announcement-body" = "Guarda informazioni utili su quale voci abbiamo letto e modificato, e condividi i momenti salienti del nostro anno su Wikipedia.";
 "year-in-review-feature-announcement-body-personalized" = "Guarda informazioni utili sulle voci che hai letto sull'app di Wikipedia, condividi il tuo viaggio e scopri i momenti salienti del tuo anno.";
 "year-in-review-feature-announcement-title" = "Esplora Wikipedia in Rassegna";
 "year-in-review-feature-announcement-title-personalized" = "Esplora il tuo Anno in Rassegna su Wikipedia";
 "year-in-review-feature-explore-body" = "Wikipedia è la più grande risorsa di conoscenza mai raccolta nella storia mondiale, ed è disponibile gratuitamente a tutti ovunque. Guarda il 2024 passato tramite le lenti di Wikipedia.";
-"year-in-review-feature-explore-body-personalized-updated" = "Guarda informazioni utili su quali articoli hai letto sull'app di Wikipedia e sulle modifiche che hai effettuato nel 2024. La tua cronologia di lettura viene mantenuta al sicuro. Le informazioni utili sulla lettura sono calcolate usando dati archiviati localmente sul tuo dispositivo.";
+"year-in-review-feature-explore-body-personalized-updated" = "Guarda informazioni utili su quale voci hai letto sull'app di Wikipedia e sulle modifiche che hai effettuato nel 2024. La tua cronologia di lettura viene mantenuta al sicuro. Le informazioni utili sulla lettura sono calcolate usando dati archiviati localmente sul tuo dispositivo.";
 "year-in-review-finish" = "Termina";
 "year-in-review-highlights-articles-read" = "Voci lette";
 "year-in-review-highlights-articles-viewed" = "Numero di pagine visualizzate";

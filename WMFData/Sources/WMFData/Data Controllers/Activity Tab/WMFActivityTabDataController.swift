@@ -287,20 +287,39 @@ public actor WMFActivityTabDataController {
             .map { $0.key.categoryName }
     }
 
-    public func getTimelineItems() async throws -> [Date: [TimelineItem]] {
+    public func getTimelineItems(username: String?) async throws -> [Date: [TimelineItem]] {
+        var edits: [TimelineItem] = []
+
+        if let username {
+            do {
+                let articleEdits = try await UserContributionsDataController.shared
+                    .fetchRecentArticleEdits(username: username)
+
+                edits = articleEdits.map { TimelineItem(articleEdit: $0) }
+
+            } catch {
+                debugPrint("Failed to fetch user edits: \(error)")
+            }
+        }
+
         let rawSavedItems = try await fetchTimelineSavedArticles()
         let readItems = try await fetchTimelineReadArticles()
-
         let dedupedSavedItems = Self.deduplicatedSavedItems(rawSavedItems)
 
         var allItems: [Date: [TimelineItem]] = [:]
 
-        allItems.merge(dedupedSavedItems) { old, new in
-            old + new
-        }
+        allItems.merge(dedupedSavedItems) { $0 + $1 }
+        allItems.merge(readItems) { $0 + $1 }
 
-        allItems.merge(readItems) { old, new in
-            old + new
+        if !edits.isEmpty {
+            var editsByDay: [Date: [TimelineItem]] = [:]
+
+            for edit in edits {
+                let day = Calendar.current.startOfDay(for: edit.date)
+                editsByDay[day, default: []].append(edit)
+            }
+
+            allItems.merge(editsByDay) { $0 + $1 }
         }
 
         return allItems
@@ -395,16 +414,12 @@ public actor WMFActivityTabDataController {
             let dayBucket = calendar.startOfDay(for: timestamp)
             let articleURL = WMFProject(id: page.projectID)?.siteURL?.wmfURL(withTitle: page.title)
 
-            var todaysPages = Set<String>()
-            if let existingItems = dailyTimeline[dayBucket] {
-                todaysPages = Set(existingItems.map { $0.pageTitle })
-            }
+            let existingItems = dailyTimeline[dayBucket]
             
             let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
-
-            guard !todaysPages.contains(page.title) else { continue }
-
-            let item = TimelineItem(
+            
+           
+            let newItem = TimelineItem(
                 id: identifier,
                 date: timestamp,
                 titleHtml: page.title,
@@ -417,8 +432,17 @@ public actor WMFActivityTabDataController {
                 namespaceID: page.namespaceID,
                 itemType: .read
             )
-
-            dailyTimeline[dayBucket, default: []].append(item)
+            
+            // prefer first visit to same article over last
+            if var existingItems,
+               let index = existingItems.firstIndex(where: { item in
+                    record.page.title == item.pageTitle
+               }) {
+                existingItems[index] = newItem
+                dailyTimeline[dayBucket] = existingItems
+            } else {
+                dailyTimeline[dayBucket, default: []].append(newItem)
+            }
         }
 
         let sortedTimeline = dailyTimeline.mapValues { items in
@@ -426,7 +450,6 @@ public actor WMFActivityTabDataController {
         }
 
         return sortedTimeline
-
     }
     
     public func deletePageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
@@ -463,7 +486,7 @@ public actor WMFActivityTabDataController {
             throw CustomError.unexpectedError(error)
         }
     }
-    
+
     public func getUserImpactData(userID: Int) async throws -> WMFUserImpactData {
         
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
@@ -670,6 +693,10 @@ public struct TimelineItem: Identifiable, Equatable {
     public var snippet: String?
     public let namespaceID: Int
     
+    // Edit-specific properties
+    public let revisionID: Int?
+    public let parentRevisionID: Int?
+    
     public let itemType: TimelineItemType
 
     public init(id: String,
@@ -682,6 +709,8 @@ public struct TimelineItem: Identifiable, Equatable {
                 imageURLString: String? = nil,
                 snippet: String? = nil,
                 namespaceID: Int,
+                revisionID: Int? = nil,
+                parentRevisionID: Int? = nil,
                 itemType: TimelineItemType = .standard) {
         self.id = id
         self.date = date
@@ -693,6 +722,8 @@ public struct TimelineItem: Identifiable, Equatable {
         self.imageURLString = imageURLString
         self.snippet = snippet
         self.namespaceID = namespaceID
+        self.revisionID = revisionID
+        self.parentRevisionID = parentRevisionID
         self.itemType = itemType
     }
 
@@ -712,4 +743,22 @@ public enum LoginState: Int {
     case loggedOut = 0
     case temp = 1
     case loggedIn = 2
+}
+
+extension TimelineItem {
+    
+    init(articleEdit: ArticleEdit) {
+        self.init(
+            id: articleEdit.id,
+            date: articleEdit.date,
+            titleHtml: articleEdit.title,
+            projectID: articleEdit.projectID,
+            pageTitle: articleEdit.title,
+            url: articleEdit.url,
+            namespaceID: 0,
+            revisionID: articleEdit.revisionID,
+            parentRevisionID: articleEdit.parentRevisionID,
+            itemType: .edit
+        )
+    }
 }

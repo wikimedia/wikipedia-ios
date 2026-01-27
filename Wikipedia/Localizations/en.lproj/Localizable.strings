@@ -225,6 +225,7 @@
 "continue-button-title" = "Continue";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"contributions-this-month" = "Contributions this month";
 "crimean-tatar-variants-alert-body" = "The Wikipedia app now supports the following Crimean Tatar variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Updates to Crimean Tatar variant support";
 "customize-action-title" = "Customize";
@@ -457,6 +458,8 @@
 "editor-toolbar-template-accessibility" = "Template text formatting";
 "editor-wikitext-loading-accessibility" = "Loading editor text";
 "editor-wikitext-textview-accessibility" = "Wiki text editor";
+"edits-last-month" = "edits last month";
+"edits-this-month" = "edits this month";
 "empty-diff-compare-title" = "No differences between revisions";
 "empty-diff-single-title" = "No viewable changes made";
 "empty-edit-summary" = "Empty edit summary";
@@ -1371,6 +1374,7 @@
 "vanish-account-warning-title" = "Warning";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
+"view-changes" = "View changes";
 "watch" = "Watch";
 "watchlist" = "Watchlist";
 "watchlist-added-toast-one-month" = "Added to your Watchlist for 1 month.";
