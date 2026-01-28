@@ -20,19 +20,28 @@ public struct WMFActivityTabView: View {
 
     public var body: some View {
         ScrollViewReader { proxy in
-            if viewModel.authenticationState == .loggedIn {
-                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
-                    customizedEmptyState()
-                } else {
-                    loggedInList(proxy: proxy)
-                }
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn {
-                    customizedEmptyState()
+                if viewModel.authenticationState == .loggedIn {
+                    if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
+                        customizedEmptyState()
+                    } else {
+                        loggedInList(proxy: proxy)
+                    }
                 } else {
-                    loggedOutList(proxy: proxy)
+                    if !viewModel.customizeViewModel.isTimelineOfBehaviorOn {
+                        customizedEmptyState()
+                    } else {
+                        loggedOutList(proxy: proxy)
+                    }
                 }
             }
+        }
+        .onAppear {
+            viewModel.fetchData(fromAppearance: true)
         }
     }
 
@@ -143,9 +152,6 @@ public struct WMFActivityTabView: View {
         .scrollContentBackground(.hidden)
         .listStyle(.grouped)
         .listCustomSectionSpacing(0)
-        .onAppear {
-            viewModel.fetchData(fromAppearance: true)
-        }
     }
     
     private var exploreCTA: some View {
@@ -188,9 +194,6 @@ public struct WMFActivityTabView: View {
             .frame(maxHeight: .infinity)
             .listRowSeparator(.hidden)
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
-            .onAppear {
-                viewModel.fetchData(fromAppearance: true)
-            }
         } else {
             List {
                 if viewModel.shouldShowLogInPrompt {
@@ -207,9 +210,6 @@ public struct WMFActivityTabView: View {
             .listStyle(.grouped)
             .listCustomSectionSpacing(0)
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
-            .onAppear {
-                viewModel.fetchData(fromAppearance: true)
-            }
         }
     }
     

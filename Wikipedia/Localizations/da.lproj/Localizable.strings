@@ -177,6 +177,7 @@
 "article-save-error-not-enough-space" = "Du har ikke nok plads ledig på din enhed for at lagre denne artikel";
 "article-share" = "Del";
 "article-tabs-button-accessibility-label" = "Artikelfaner";
+"article-tabs-feature-announcement-item-3-title" = "Gem links til senere";
 "article-tabs-max-reached" = "Fanegrænsen er nået ($1). Artiklen blev åbnet i den aktuelle fane. Luk venligst en eller flere faner.";
 "article-tabs-navigation" = "Fanebladsnavigation";
 "article-tabs-onboarding-tooltip" = "Værktøjstips til onboarding af faner";
@@ -222,6 +223,7 @@
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
 "crimean-tatar-variants-alert-body" = "Wikipedia-appen understøtter nu følgende krimtatariske varianter som primære eller sekundære sprog i appen, hvilket gør det nemmere at læse, søge og redigere i dine foretrukne varianter:\n\nQırımtatarca, latin krimtatarisk latin (chr-latn) \nкъырымтатарджа, Кирил krimtatarisk kyrillisk (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Opdateringer til understøttelse af Krim-tatariske varianter";
+"customize-action-title" = "Tilpas";
 "data-migration-status" = "Opdaterer...";
 "description-add-title" = "Tilføj beskrivelse";
 "description-article-introduction-warning-message" = "Rækkefølgen af elementer vil være anderledes i redigeringsvisningen end artikelvisningen.";
@@ -1229,6 +1231,7 @@
 "watchlist-user-button-user-contributions" = "Brugerbidrag";
 "watchlist-user-button-user-page" = "Brugerside";
 "watchlist-user-button-user-talk-page" = "Brugers diskussionsside";
+"watchlist-watch-title" = "Se artikler";
 "welcome-data-privacy-title" = "Data & Privatliv";
 "welcome-exploration-explore-feed-description" = "Anbefalet læsning og daglige artikler fra vores fællesskab";
 "welcome-exploration-explore-feed-title" = "Udforsk nyhedskilde";
@@ -1277,6 +1280,11 @@
 "year-in-review-base-saved-title-updated" = "Brugere af appen havde mere end{{PLURAL:$1|$1 gemt artikel|$1 gemte artikler}}";
 "year-in-review-base-viewed-subtitle" = "For folk over hele verden er Wikipedia ofte det første stop, når de skal besvare et spørgsmål, søge information til skole eller arbejde eller lære en ny kendsgerning.";
 "year-in-review-base-viewed-title-updated" = "App-brugere har set Wikipedia-artikler {{PLURAL:$1| $1 gang| $1 gange}}";
+"year-in-review-contributor-gift-title" = "Aktivér nyt appikon";
+"year-in-review-contributor-slide-subtitle-donor-updated" = "Tak fordi du investerer i en fremtid for gratis viden.\n\nDine bidrag som donor på $1 er med til at bane vejen for en verden af gratis information, og som et resultat har du låst op for et brugerdefineret bidragyderikon til Wikipedia på din startskærm.";
+"year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "Tak fordi du investerer i fremtiden for fri viden.\n\nDine bidrag som donor og redaktør i $1 er med til at bane vejen for en verden af gratis information, og som et resultat har du låst op for et brugerdefineret bidragyderikon til Wikipedia på din startskærm.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "Tak fordi du investerer i fremtiden for fri viden.\n\nDine bidrag som redaktør i $1 er med til at bane vejen for en verden af gratis information, og som et resultat har du låst op for et brugerdefineret bidragyderikon til Wikipedia på din startskærm.";
+"year-in-review-contributor-slide-title" = "Nyt appikon låses op for din startskærm";
 "year-in-review-day-friday" = "Fredage";
 "year-in-review-day-monday" = "Mandage";
 "year-in-review-day-saturday" = "Lørdage";
@@ -1287,6 +1295,8 @@
 "year-in-review-donate" = "Donér";
 "year-in-review-donate-now" = "Donér nu";
 "year-in-review-feature-announcement-body" = "Se indsigt i, hvilke artikler vi læste og redigerede, og del højdepunkter fra vores år på Wikipedia.";
+"year-in-review-feature-announcement-body-personalized" = "Se indsigt i de artikler, du læser i Wikipedia-appen, del din rejse, og opdag højdepunkter fra dit år.";
+"year-in-review-feature-announcement-title" = "Udforsk Wikipedia i årsoversigt";
 "year-in-review-feature-announcement-title-personalized" = "Udforsk din Wikipedia-årsoversigt";
 "year-in-review-finish" = "Afslut";
 "year-in-review-highlights-articles-read" = "Læste artikler";

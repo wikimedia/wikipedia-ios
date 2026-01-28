@@ -147,6 +147,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var shouldShowExploreCTA: Bool = false
 
     @Published var globalEditCount: Int?
+    @Published public var isLoading: Bool = false
     public var isEmpty: Bool = false
     public var onTapGlobalEdits: (() -> Void)?
     public var fetchDataCompleteAction: ((Bool) -> Void)?
@@ -157,6 +158,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var isExploreFeedOn: Bool = true
     
     private var cancellables = Set<AnyCancellable>()
+    private var isFirstTimeLoading: Bool = true
 
     // MARK: - Init
 
@@ -210,15 +212,20 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Loading
 
     public func fetchData(fromAppearance: Bool = false) {
-        Task {
+        Task { @MainActor in
+            if isFirstTimeLoading {
+                isLoading = true
+            }
+            let start = ContinuousClock.now
+
             async let readTask: Void = articlesReadViewModel.fetch()
             async let savedTask: Void = articlesSavedViewModel.fetch()
             async let timelineTask: Void = timelineViewModel.fetch()
             async let editCountTask: Void = getGlobalEditCount()
             async let userImpactTask: Void = fetchUserImpact()
-            
+
             _ = await (readTask, savedTask, timelineTask, editCountTask, userImpactTask)
-            
+
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
@@ -234,10 +241,21 @@ public final class WMFActivityTabViewModel: ObservableObject {
                 articlesSavedViewModel.articlesSavedAmount == 0 &&
                 (globalEditCount == 0 || globalEditCount == nil) &&
                 shouldShowEmptyState
-            
+
+            // Minimum 500ms, parity with Android
+            let elapsed = start.duration(to: .now)
+            let minimum = Duration.milliseconds(500)
+
+            if elapsed < minimum {
+                try? await Task.sleep(for: minimum - elapsed)
+            }
+
+            isLoading = false
+            isFirstTimeLoading = false
             fetchDataCompleteAction?(fromAppearance)
         }
     }
+
 
     // MARK: - Updates
 
@@ -295,6 +313,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
     
     public func updateAuthenticationState(authState: LoginState) {
+        if self.authenticationState != authState {
+            isFirstTimeLoading = true
+        }
+        
         self.authenticationState = authState
         Task {
             await self.updateShouldShowLoginPrompt()

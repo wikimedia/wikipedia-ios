@@ -286,6 +286,7 @@
 "continue-button-title" = "Continuer";
 "continue-reading-empty-description" = "Explorer Wikipédia pour d’autres articles à lire";
 "continue-reading-empty-title" = "Aucun article lu récemment";
+"contributions-this-month" = "Contributions ce mois-ci";
 "crimean-tatar-variants-alert-body" = "L’application Wikipédia prend désormais en charge les variantes suivantes du tatar de Crimée comme langue primaire ou secondaire dans l’application, le rendant plus facile à lire, à rechercher et à modifier dans vos variantes préférées :\n\nQırımtatarca – tatar de Crimée latin (chr-latn)\nкъырымтатарджа, Кирил – tatar de Crimée cyrillique (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Mises à jour de la prise en charge des variantes du tatar de Crimée";
 "customize-action-title" = "Personnaliser";
@@ -518,6 +519,8 @@
 "editor-toolbar-template-accessibility" = "Formatage du texte du modèle";
 "editor-wikitext-loading-accessibility" = "Chargement du texte de l’éditeur";
 "editor-wikitext-textview-accessibility" = "Éditeur de texte wiki";
+"edits-last-month" = "Modifications le mois dernier";
+"edits-this-month" = "Modifications ce mois-ci";
 "empty-diff-compare-title" = "Aucune différence entre les versions";
 "empty-diff-single-title" = "Aucun changement visible réalisé";
 "empty-edit-summary" = "Résumé des modifications vide";
@@ -1431,6 +1434,7 @@
 "vanish-account-warning-title" = "Avertissement";
 "variants-alert-dismiss-button" = "Non merci";
 "variants-alert-preferences-button" = "Revoir vos préférences";
+"view-changes" = "Voir les modifications";
 "watch" = "Suivre";
 "watchlist" = "Liste de suivi";
 "watchlist-added-toast-one-month" = "Ajouté à votre liste de suivi pour 1 mois.";
@@ -1617,6 +1621,7 @@
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "Les lecteurs du monde entier apprécient vos contributions. Au cours des deux derniers mois, les articles que vous avez édités ont reçu un total de $1 de vues. Grâce à des éditeurs comme vous, Wikipédia est une ressource de connaissances fiable, basée sur des faits et en constante amélioration pour le monde entier.";
 // Fuzzy
 "year-in-review-personalized-edit-views-title-format-updated" = "Vos modifications ont été consultées récemment plus de $1 fois";
+"year-in-review-personalized-editing-subtitle-1" = "Merci de faire partie des contributeur·rices bénévoles qui changent Wikimedia à travers le monde.";
 // Fuzzy
 "year-in-review-personalized-editing-title-format-updated" = "Vous avez modifié Wikipédia {{PLURAL:$1|une|$1}} fois";
 "year-in-review-personalized-explore" = "Une illustration animée d'une main tenant le globe Wikipédia qui se transforme progressivement en une petite pièce de puzzle, symbolisant les contributions individuelles à la plateforme.";
