@@ -10,6 +10,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     let readingListNames: [String]
     
     @Published private(set) var description: String?
+    @Published private(set) var imageURL: URL?
     @Published private(set) var uiImage: UIImage?
     @Published private(set) var isLoading: Bool = false
     @Published public var alertType: WMFSavedArticleAlertType = .none
@@ -64,6 +65,8 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
             guard let thumbnailURL = summary.thumbnailURL else {
                 return
             }
+            self.imageURL = thumbnailURL
+            
             let data = try await imageDataController.fetchImageData(url: thumbnailURL)
             
             self.uiImage = UIImage(data: data)
