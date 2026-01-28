@@ -1,6 +1,7 @@
 import UIKit
 import WMFComponents
 import WMFData
+import CocoaLumberjackSwift
 
 final class AllArticlesCoordinator: NSObject, Coordinator {
 
@@ -63,6 +64,17 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         viewModel.didTapAddToList = { [weak self] articles in
             self?.showAddToListSheet(for: articles)
         }
+        
+        viewModel.didPullToRefresh = { [weak self] in
+            guard let self else { return }
+            
+            await self.fullSync()
+            await self.retryFailedArticleDownloads()
+            
+            await MainActor.run {
+                self.hostingController?.viewModel.loadArticles()
+            }
+        }
 
         let controller = WMFAllArticlesHostingController(viewModel: viewModel)
         self.hostingController = controller
@@ -100,6 +112,27 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
 
     private func showAddToListSheet(for articles: [WMFSavedArticle]) {
         // Present reading list selection UI
+    }
+    
+    private func retryFailedArticleDownloads(_ completion: @escaping () -> Void) {
+        dataStore.performBackgroundCoreDataOperation { (moc) in
+            defer {
+                completion()
+            }
+            let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+            request.predicate = NSPredicate(format: "isDeletedLocally == NO")
+            request.propertiesToFetch = ["articleKey"]
+            do {
+                let entries = try moc.fetch(request)
+                let keys = entries.compactMap { $0.articleKey }
+                guard !keys.isEmpty else {
+                    return
+                }
+                try moc.retryFailedArticleDownloads(with: keys)
+            } catch let error {
+                DDLogError("Error retrying failed articles: \(error)")
+            }
+        }
     }
     
     // MARK: - Private
@@ -180,6 +213,22 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         }
 
         return alertType
+    }
+    
+    private func fullSync() async {
+        await withCheckedContinuation { continuation in
+            dataStore.readingListsController.fullSync {
+                continuation.resume()
+            }
+        }
+    }
+
+    private func retryFailedArticleDownloads() async {
+        await withCheckedContinuation { continuation in
+            retryFailedArticleDownloads {
+                continuation.resume()
+            }
+        }
     }
 }
 

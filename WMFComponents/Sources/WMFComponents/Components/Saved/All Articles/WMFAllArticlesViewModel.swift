@@ -67,6 +67,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     public var didTapShare: ((WMFSavedArticle) -> Void)?
     public var didTapAddToList: (([WMFSavedArticle]) -> Void)?
     public var loggingDelegate: WMFAllArticlesLoggingDelegate?
+    public var didPullToRefresh: (() async -> Void)?
     
     // MARK: - Initialization
     

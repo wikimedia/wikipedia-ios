@@ -81,6 +81,9 @@ public struct WMFAllArticlesView: View {
                 }
             }
             .listStyle(.plain)
+            .refreshable {
+                await viewModel.didPullToRefresh?()
+            }
 
             if viewModel.isEditing {
                 editingToolbar
