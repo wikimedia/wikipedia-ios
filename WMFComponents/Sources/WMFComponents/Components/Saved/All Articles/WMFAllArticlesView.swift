@@ -5,6 +5,7 @@ public struct WMFAllArticlesView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFAllArticlesViewModel
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     public init(viewModel: WMFAllArticlesViewModel) {
         self.viewModel = viewModel
@@ -30,17 +31,19 @@ public struct WMFAllArticlesView: View {
     
     private var emptyStateView: some View {
         VStack(spacing: 16) {
-            Image("saved-empty-state", bundle: Bundle.module)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
+            if verticalSizeClass != .compact {
+                Image("saved-blank", bundle: Bundle.module)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
+            }
             
             Text(viewModel.localizedStrings.emptyStateTitle)
-                .font(Font(WMFFont.for(.boldTitle3)))
+                .font(Font(WMFFont.for(.semiboldHeadline)))
                 .foregroundColor(Color(uiColor: appEnvironment.theme.text))
             
             Text(viewModel.localizedStrings.emptyStateMessage)
-                .font(Font(WMFFont.for(.callout)))
+                .font(Font(WMFFont.for(.footnote)))
                 .foregroundColor(Color(uiColor: appEnvironment.theme.secondaryText))
                 .multilineTextAlignment(.center)
         }
@@ -73,7 +76,8 @@ public struct WMFAllArticlesView: View {
                         }
                     )
                     .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
+                    .listRowSeparator(.visible)
+                    .listRowSeparatorTint(Color(uiColor: appEnvironment.theme.newBorder))
                 }
             }
             .listStyle(.plain)

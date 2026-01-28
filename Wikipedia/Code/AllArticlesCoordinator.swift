@@ -38,9 +38,8 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
 
         let localizedStrings = WMFAllArticlesViewModel.LocalizedStrings(
             title: CommonStrings.savedTitle,
-            emptyStateTitle: WMFLocalizedString("saved-empty-title", value: "No saved pages yet", comment: "Title for empty saved articles state"),
-            emptyStateMessage: WMFLocalizedString("saved-empty-message", value: "Save pages to view them later, even offline", comment: "Message for empty saved articles state"),
-            searchPlaceholder: WMFLocalizedString("saved-search-placeholder", value: "Search saved articles", comment: "Placeholder for saved articles search"),
+            emptyStateTitle: CommonStrings.allArticlesEmptySavedTitle,
+            emptyStateMessage: CommonStrings.allArticlesEmptySavedSubtitle,
             cancel: CommonStrings.cancelActionTitle,
             addToList: WMFLocalizedString("saved-add-to-list", value: "Add to list", comment: "Add to reading list button"),
             unsave: WMFLocalizedString("saved-unsave", value: "Unsave", comment: "Unsave button"),

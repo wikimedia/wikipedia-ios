@@ -1143,14 +1143,11 @@
 "saved-all-tabs" = "Saved all tabs.";
 "saved-all-tabs-view-reading-list" = "Saved all tabs. View reading list.";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
-"saved-empty-message" = "Save pages to view them later, even offline";
-"saved-empty-title" = "No saved pages yet";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-pages-progress-syncing" = "Article download in progress...";
 "saved-reading-lists-search-placeholder" = "Search reading lists";
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search saved articles";
-"saved-search-placeholder" = "Search saved articles";
 "saved-title" = "Saved";
 "saved-unsave" = "Unsave";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";

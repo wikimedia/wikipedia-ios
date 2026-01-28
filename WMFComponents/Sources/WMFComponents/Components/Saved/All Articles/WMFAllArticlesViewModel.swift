@@ -11,7 +11,6 @@ public final class WMFAllArticlesViewModel: ObservableObject {
         let title: String
         let emptyStateTitle: String
         let emptyStateMessage: String
-        let searchPlaceholder: String
         let cancel: String
         let addToList: String
         let unsave: String
@@ -22,7 +21,6 @@ public final class WMFAllArticlesViewModel: ObservableObject {
             title: String,
             emptyStateTitle: String,
             emptyStateMessage: String,
-            searchPlaceholder: String,
             cancel: String,
             addToList: String,
             unsave: String,
@@ -32,7 +30,6 @@ public final class WMFAllArticlesViewModel: ObservableObject {
             self.title = title
             self.emptyStateTitle = emptyStateTitle
             self.emptyStateMessage = emptyStateMessage
-            self.searchPlaceholder = searchPlaceholder
             self.cancel = cancel
             self.addToList = addToList
             self.unsave = unsave

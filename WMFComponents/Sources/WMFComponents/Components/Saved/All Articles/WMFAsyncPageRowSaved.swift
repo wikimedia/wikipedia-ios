@@ -56,14 +56,15 @@ struct WMFAsyncPageRowSaved: View {
                         .font(Font(WMFFont.for(.semiboldHeadline)))
                         .foregroundColor(Color(uiColor: theme.text))
                         .lineLimit(2)
-                    
-                    // Alert view - isolated for minimal redraws
-                   WMFSavedArticleAlertView(alertType: viewModel.alertType)
 
-                    Text(viewModel.description ?? "")
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundColor(Color(uiColor: theme.secondaryText))
-                        .lineLimit(1)
+                    WMFSavedArticleAlertView(alertType: viewModel.alertType)
+
+                    if let description = viewModel.description {
+                        Text(description)
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundColor(Color(uiColor: theme.secondaryText))
+                            .lineLimit(1)
+                    }
 
                     if !viewModel.readingListNames.isEmpty {
                         readingListTags
@@ -98,7 +99,7 @@ struct WMFAsyncPageRowSaved: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 80, height: 80)
-                .cornerRadius(8)
+                .cornerRadius(3)
         }
     }
 

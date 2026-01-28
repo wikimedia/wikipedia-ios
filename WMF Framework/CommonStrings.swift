@@ -245,6 +245,9 @@ public class CommonStrings: NSObject {
     
     @objc public static let onGenericTitle = WMFLocalizedString("settings-on", value: "On", comment: "Text indicating a value is on in app Settings.")
     @objc public static let offGenericTitle = WMFLocalizedString("settings-off", value: "Off", comment: "Text indicating a value is off in app Settings.")
+    
+    @objc public static let allArticlesEmptySavedTitle = WMFLocalizedString("empty-no-saved-pages-title", value: "No saved pages yet", comment: "Title of a blank screen shown when a user has no saved pages")
+    @objc public static let allArticlesEmptySavedSubtitle = WMFLocalizedString("empty-no-saved-pages-message", value: "Save pages to view them later, even offline", comment: "Message of a blank screen shown when a user has no saved pages")
 
     
     @objc public static let turnOnExploreTabTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-title", value: "Turn on the Explore tab?", comment: "Title for alert that allows users to turn on the Explore tab")
