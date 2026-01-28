@@ -32,9 +32,121 @@ Stores and services should be strictly feature-agnostic.
 
 On top of stores and services sits a publicly accessible layer of classes called data controllers. These classes are usually feature-specific, but can be shared amongst multiple features as well. Data controllers are simple classes that contain references to the stores and services it needs to interact with all data related to that feature or function. Data controllers are meant to serve as an abstraction layer so that callers do not need to know where a particular piece of data is coming from (that is, remotely or locally). It should only return basic struct or class models to the callers, not Core Data NSManagedObjects.
 
-Sometimes data controllers serve up data that needs to be re-used across multiple features, such as saved article counts. When that occurs, we refactor into a shared data controller (which lives in the relative Shared subdirectory). Feature-specific data controllers then call into the shared data controllers to get their data.
+Sometimes data controllers serve up data that needs to be re-used across multiple features, such as saved article counts. When that occurs, we ensure the data controller is named in a generic manner (i.e. feature-agnostic), and it lives in the relative Shared subdirectory). Feature-specific data controllers then call into the shared data controllers to get their data.
 
-Ideally, data controllers use async throws as a method signature.
+Sometimes data controllers have simple built-in in-memory caching, so that repeated calls to fetch the same data do not trigger repeated network or database calls. In this instance, they will be set up as a singleton, with a .shared property. Ensure all usages of these data controllers lean on {DataController}.shared to avoid multiple instances.
+
+Ideally, public data controller methods use async throws as a method signature.
+
+#### Notable Shared data controllers
+
+There are a couple of shared data controllers are worth noting:
+
+**WMFImageDataController.shared**
+
+Use this singleton to fetch image data in WMFComponents. This data controller performs better than SwiftUI's AsyncImage. You can use them in your SwiftUI views like so:
+
+    final class ExampleViewModel: ObservableObject {
+        @Published var uiImage: Data?
+
+        init(imageURL: URL) {
+            Task {
+                try await loadImage(url: imageURL)
+            }
+        }
+        
+       private func loadImage(imageURL: URL) async throws {
+            let data = try await imageDataController.fetchImageData(url: imageURL)
+            self.uiImage = UIImage(data: data)
+        }
+    }
+
+    struct ExampleView: View {
+        @ObservedObject var viewModel: ExampleViewModel
+        
+        init (viewModel: ExampleViewModel) {
+            self.viewModel = viewModel
+        }
+        
+        var body: some View {
+            if let uiImage = viewModel.uiImage {
+            }
+        }
+    }
+    
+**WMFArticleSummaryDataController.shared**
+
+Use this singleton to fetch summary information in for a particular article. This is often used for fetching an article's description and image thumbnail, which are used in many places throughout the app. One pattern we like to use is fetching an article's summary internally in the granular row's view model upon instantiation. This ensures summary data is only fetched when the row is scrolled on screen in a SwiftUI List. Combined with image data fetching, it could look like this:
+
+    final class ExampleRowViewModel: ObservableObject {
+        @Published var description: String?
+        @Published var uiImage: Data?
+        
+        private let title: String
+        private let project: WMFProject
+        private var thumbnailURL: URL?
+
+        init(title: String, project: WMFProject) {
+            self.title = title
+            self.project = project
+            
+            Task {
+                try await loadSummary()
+                try await loadImage()
+            }
+        }
+        
+        private func loadSummary() async throws {
+            let summary = try await WMFArticleSummaryDataController.shared.fetchSummary(for: title, in: project)
+            self.description = summary.description
+            self.thumbnailURL = summary.thumbnailURL
+        }
+        
+        private func loadImage() async throws {
+            guard let thumbnailURL else { return }
+            let data = try await imageDataController.fetchImageData(url: imageURL)
+            self.uiImage = UIImage(data: data)
+        }
+        
+        private func loadImage(imageURL: URL) async throws {
+            let data = try await imageDataController.fetchImageData(url: imageURL)
+            self.uiImage = UIImage(data: data)
+        }
+    }
+
+    struct ExampleRowView: View {
+        @ObservedObject var viewModel: ExampleRowViewModel
+        
+        init (viewModel: ExampleRowViewModel) {
+            self.viewModel = viewModel
+        }
+        
+        var body: some View {
+            VStack {
+                Text(viewModel.title)
+                if let description = viewModel.description {
+                    Text(viewModel.description)
+                }
+                
+                if let uiImage = viewModel.uiImage {
+                    Image(uiImage: uiImage)
+                }
+            }
+        }
+    }
+    
+    struct ExampleListView: View {
+    
+        let listViewModel: ListViewModel
+    
+        var body: some View {
+            List {
+                ForEach(listViewModel.articles) { article in
+                    ExampleRowView(viewModel: ExampleRowViewModel(title: article.title, project: article.project))
+                }
+            }
+        }
+    }
 
 ### Shared Models
 `Sources > WMFData > Models > Shared`
