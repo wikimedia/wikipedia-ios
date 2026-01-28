@@ -29,8 +29,8 @@ public struct WMFSavedArticle: Identifiable, Equatable {
 
 public protocol WMFLegacySavedArticlesDataControllerDelegate: AnyObject {
     func fetchAllSavedArticles() -> [WMFSavedArticle]
-    func deleteSavedArticle(with id: String) async throws
-    func addArticleToReadingList(articleID: String, listName: String) async throws
+    func deleteSavedArticle(with id: String)
+    func addArticleToReadingList(articleID: String, listName: String)
 }
 
 public final class WMFLegacySavedArticlesDataController {
@@ -45,11 +45,11 @@ public final class WMFLegacySavedArticlesDataController {
         return delegate?.fetchAllSavedArticles() ?? []
     }
     
-    public func deleteSavedArticle(with id: String) async throws {
-        try await delegate?.deleteSavedArticle(with: id)
+    public func deleteSavedArticle(with id: String) {
+        delegate?.deleteSavedArticle(with: id)
     }
     
-    public func addArticleToReadingList(articleID: String, listName: String) async throws {
-        try await delegate?.addArticleToReadingList(articleID: articleID, listName: listName)
+    public func addArticleToReadingList(articleID: String, listName: String) {
+        delegate?.addArticleToReadingList(articleID: articleID, listName: listName)
     }
 }

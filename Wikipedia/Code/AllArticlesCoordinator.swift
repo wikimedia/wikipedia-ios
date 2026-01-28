@@ -240,7 +240,7 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
         }
     }
         
-    func deleteSavedArticle(with id: String) async throws {
+    func deleteSavedArticle(with id: String) {
         guard let url = URL(string: id),
               let objectID = dataStore.viewContext.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url),
               let entry = try? dataStore.viewContext.existingObject(with: objectID) as? ReadingListEntry,
@@ -252,7 +252,7 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
         dataStore.readingListsController.unsave([article], in: dataStore.viewContext)
     }
         
-    func addArticleToReadingList(articleID: String, listName: String) async throws {
+    func addArticleToReadingList(articleID: String, listName: String) {
         // Implementation for adding to a specific reading list
     }
 }

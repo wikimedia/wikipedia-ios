@@ -149,16 +149,11 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     }
     
     public func deleteArticle(_ article: WMFSavedArticle) {
-        Task { @MainActor in
-            do {
-                try await dataController.deleteSavedArticle(with: article.id)
-                articles.removeAll { $0.id == article.id }
-                filteredArticles.removeAll { $0.id == article.id }
-                state = articles.isEmpty ? .empty : .data
-            } catch {
-                // Handle error - could add error state
-            }
-        }
+        dataController.deleteSavedArticle(with: article.id)
+        
+        articles.removeAll { $0.id == article.id }
+        filteredArticles.removeAll { $0.id == article.id }
+        state = articles.isEmpty ? .empty : .data
     }
     
     public func deleteSelectedArticles() {
