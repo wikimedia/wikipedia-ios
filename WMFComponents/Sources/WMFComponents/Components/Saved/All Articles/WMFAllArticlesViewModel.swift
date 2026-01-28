@@ -1,0 +1,176 @@
+import Foundation
+import Combine
+import WMFData
+
+public final class WMFAllArticlesViewModel: ObservableObject {
+    
+    // MARK: - Nested Types
+    
+    public struct LocalizedStrings {
+        let title: String
+        let emptyStateTitle: String
+        let emptyStateMessage: String
+        let searchPlaceholder: String
+        let cancel: String
+        let addToList: String
+        let unsave: String
+        let share: String
+        let delete: String
+        
+        public init(
+            title: String,
+            emptyStateTitle: String,
+            emptyStateMessage: String,
+            searchPlaceholder: String,
+            cancel: String,
+            addToList: String,
+            unsave: String,
+            share: String,
+            delete: String
+        ) {
+            self.title = title
+            self.emptyStateTitle = emptyStateTitle
+            self.emptyStateMessage = emptyStateMessage
+            self.searchPlaceholder = searchPlaceholder
+            self.cancel = cancel
+            self.addToList = addToList
+            self.unsave = unsave
+            self.share = share
+            self.delete = delete
+        }
+    }
+    
+    public enum State {
+        case loading
+        case empty
+        case data
+    }
+    
+    // MARK: - Published Properties
+    
+    @Published public var articles: [WMFSavedArticle] = []
+    @Published public var filteredArticles: [WMFSavedArticle] = []
+    @Published public var state: State = .loading
+    @Published public var isEditing: Bool = false
+    @Published public var selectedArticleIDs: Set<String> = []
+    @Published public var searchText: String = ""
+    
+    // MARK: - Properties
+    
+    public let localizedStrings: LocalizedStrings
+    private let dataController: WMFLegacySavedArticlesDataController
+    
+    // MARK: - Closures
+    
+    public var didTapArticle: ((WMFSavedArticle) -> Void)?
+    public var didTapShare: ((WMFSavedArticle) -> Void)?
+    public var didTapAddToList: (([WMFSavedArticle]) -> Void)?
+    public var loggingDelegate: WMFAllArticlesLoggingDelegate?
+    
+    // MARK: - Initialization
+    
+    public init(
+        dataController: WMFLegacySavedArticlesDataController,
+        localizedStrings: LocalizedStrings
+    ) {
+        self.dataController = dataController
+        self.localizedStrings = localizedStrings
+        setupSearchBinding()
+    }
+    
+    private func setupSearchBinding() {
+        $searchText
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .sink { [weak self] text in
+                self?.filterArticles(with: text)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Public Methods
+    
+    public func loadArticles() {
+        state = .loading
+        articles = dataController.fetchAllSavedArticles()
+        filteredArticles = articles
+        state = articles.isEmpty ? .empty : .data
+    }
+    
+    public func toggleEditing() {
+        isEditing.toggle()
+        if !isEditing {
+            selectedArticleIDs.removeAll()
+        }
+    }
+    
+    public func toggleSelection(for article: WMFSavedArticle) {
+        if selectedArticleIDs.contains(article.id) {
+            selectedArticleIDs.remove(article.id)
+        } else {
+            selectedArticleIDs.insert(article.id)
+        }
+    }
+    
+    public func isSelected(_ article: WMFSavedArticle) -> Bool {
+        selectedArticleIDs.contains(article.id)
+    }
+    
+    public func deleteArticle(_ article: WMFSavedArticle) {
+        Task { @MainActor in
+            do {
+                try await dataController.deleteSavedArticle(with: article.id)
+                articles.removeAll { $0.id == article.id }
+                filteredArticles.removeAll { $0.id == article.id }
+                state = articles.isEmpty ? .empty : .data
+            } catch {
+                // Handle error - could add error state
+            }
+        }
+    }
+    
+    public func deleteSelectedArticles() {
+        let selectedArticles = articles.filter { selectedArticleIDs.contains($0.id) }
+        for article in selectedArticles {
+            deleteArticle(article)
+        }
+        selectedArticleIDs.removeAll()
+        isEditing = false
+    }
+    
+    public func shareSelectedArticles() {
+        guard let selected = articles.filter({ selectedArticleIDs.contains($0.id) }).first else {
+            return
+        }
+        didTapShare?(selected)
+    }
+    
+    public func addSelectedToList() {
+        let selected = articles.filter { selectedArticleIDs.contains($0.id) }
+        didTapAddToList?(selected)
+    }
+    
+    public var hasSelection: Bool {
+        !selectedArticleIDs.isEmpty
+    }
+    
+    // MARK: - Private Methods
+    
+    private func filterArticles(with searchText: String) {
+        if searchText.isEmpty {
+            filteredArticles = articles
+        } else {
+            filteredArticles = articles.filter { article in
+                article.title.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+    }
+}
+
+// MARK: - Logging Delegate
+
+public protocol WMFAllArticlesLoggingDelegate: AnyObject {
+    func logArticleTapped(_ article: WMFSavedArticle)
+    func logArticleDeleted(_ article: WMFSavedArticle)
+}
