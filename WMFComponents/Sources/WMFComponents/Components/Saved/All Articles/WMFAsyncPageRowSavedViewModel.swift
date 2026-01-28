@@ -12,6 +12,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     @Published private(set) var description: String?
     @Published private(set) var uiImage: UIImage?
     @Published private(set) var isLoading: Bool = false
+    @Published public var alertType: WMFSavedArticleAlertType = .none
     
     private let dataController: WMFArticleSummaryDataController
     
@@ -22,14 +23,26 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
         lhs.readingListNames == rhs.readingListNames
     }
     
-    init(id: String, title: String, project: WMFProject, readingListNames: [String]) {
+    public var isAlertHidden: Bool {
+        return alertType == .none
+    }
+    
+    init(id: String, title: String, project: WMFProject, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none) {
         self.id = id
         self.title = title
         self.project = project
         self.readingListNames = readingListNames
         self.dataController = WMFArticleSummaryDataController.shared
+        self.alertType = alertType
         Task {
             await self.fetchArticleDetails()
+        }
+    }
+    
+    // MARK: - Update Methods
+    public func updateAlertType(_ newAlertType: WMFSavedArticleAlertType) {
+        if alertType != newAlertType {
+            alertType = newAlertType
         }
     }
     

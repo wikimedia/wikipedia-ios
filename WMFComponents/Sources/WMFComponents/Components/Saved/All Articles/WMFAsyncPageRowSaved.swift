@@ -1,6 +1,39 @@
 import SwiftUI
 import WMFData
 
+struct WMFSavedArticleAlertView: View {
+    let alertType: WMFSavedArticleAlertType
+    
+    private var alertString: String? {
+        switch alertType {
+        case .listLimitExceeded:
+            return "List limit exceeded, unable to sync article"
+        case .entryLimitExceeded:
+            return "Article limit exceeded, unable to sync article"
+        case .genericNotSynced:
+            return "Not synced"
+        case .downloading:
+            return "Article queued to be downloaded"
+        case .articleError(let errorDescription):
+            return errorDescription
+        case .none:
+            return nil
+        }
+    }
+    
+    var body: some View {
+        if let alertString = alertString {
+            HStack(spacing: 4) {
+                Image(systemName: "exclamationmark.circle.fill")
+                    .font(.caption)
+                Text(alertString)
+                    .font(.caption)
+            }
+            .foregroundColor(.red)
+        }
+    }
+}
+
 struct WMFAsyncPageRowSaved: View {
 
     @ObservedObject var viewModel: WMFAsyncPageRowSavedViewModel
@@ -23,6 +56,9 @@ struct WMFAsyncPageRowSaved: View {
                         .font(Font(WMFFont.for(.semiboldHeadline)))
                         .foregroundColor(Color(uiColor: theme.text))
                         .lineLimit(2)
+                    
+                    // Alert view - isolated for minimal redraws
+                   WMFSavedArticleAlertView(alertType: viewModel.alertType)
 
                     Text(viewModel.description ?? "")
                         .font(Font(WMFFont.for(.subheadline)))

@@ -15,6 +15,8 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         self.dataStore = dataStore
         self.theme = theme
         super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
 
     // MARK: - Coordinator
@@ -100,6 +102,88 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
     private func showAddToListSheet(for articles: [WMFSavedArticle]) {
         // Present reading list selection UI
     }
+    
+    // MARK: - Private
+    
+    // MARK: - Article changes
+    
+    @objc func articleDidChange(_ note: Notification) {
+        guard
+            let article = note.object as? WMFArticle,
+            article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
+            let articleKey = article.inMemoryKey
+            else {
+                return
+        }
+        
+        print("🤔article did change: \(article.isDownloaded)")
+        
+        // fetch entry with the same key
+        let databaseKey = articleKey.databaseKey
+        let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "articleKey == %@", databaseKey)
+        do {
+            guard let readingListEntry = try dataStore.viewContext.fetch(fetchRequest).first,
+                  let list = readingListEntry.list else {
+                return
+            }
+            let id = readingListEntry.objectID.uriRepresentation().absoluteString
+            let alertType = determineAlertType(for: readingListEntry, article: article, readingList: list, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+            
+            hostingController?.viewModel.updateAlertType(id: id, alertType: alertType)
+            
+        } catch {
+            // nothing
+        }
+    }
+    
+    private func determineAlertType(
+        for entry: ReadingListEntry,
+        article: WMFArticle,
+        readingList: ReadingList,
+        listLimit: Int,
+        entryLimit: Int
+    ) -> WMFSavedArticleAlertType {
+        var alertType: WMFSavedArticleAlertType = .none
+
+        // 1. Check entry-level API errors
+        if let entryError = entry.APIError {
+            switch entryError {
+            case .entryLimit:
+                if readingList.isDefault {
+                    alertType = .genericNotSynced
+                } else {
+                    alertType = .entryLimitExceeded(limit: entryLimit)
+                }
+            default:
+                break
+            }
+        }
+
+        // 2. Check list-level API errors
+        if let listError = readingList.APIError {
+            switch listError {
+            case .listLimit:
+                alertType = .listLimitExceeded(limit: listLimit)
+            default:
+                break
+            }
+        }
+
+        // 3. Check article download state (only if no sync errors)
+        switch alertType {
+        case .none, .downloading, .articleError:
+            if article.error != .none {
+                return .articleError(article.error.localizedDescription)
+            } else if !article.isDownloaded {
+                return .downloading
+            }
+        default:
+            break
+        }
+
+        return alertType
+    }
 }
 
 // MARK: - WMFLegacySavedArticlesDataControllerDelegate
@@ -120,6 +204,24 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
                       let languageCode = siteURL.wmf_languageCode else {
                     return nil
                 }
+                
+                // Fetch the article for alert determination
+                let article = dataStore.fetchArticle(withKey: inMemoryKey.databaseKey, variant: inMemoryKey.languageVariantCode)
+
+                // Determine alert type
+                let alertType: WMFSavedArticleAlertType
+                if let article = article,
+                   let list = entry.list {
+                    alertType = determineAlertType(
+                        for: entry,
+                        article: article,
+                        readingList: list,
+                        listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser,
+                        entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue
+                    )
+                } else {
+                    alertType = .none
+                }
 
                 let languageVariantCode = inMemoryKey.languageVariantCode
                 
@@ -131,6 +233,7 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
                     project: project,
                     savedDate: entry.createdDate as Date?,
                     readingListNames: entry.list?.name.map { [$0] } ?? [],
+                    alertType: alertType
                 )
             }
         } catch {

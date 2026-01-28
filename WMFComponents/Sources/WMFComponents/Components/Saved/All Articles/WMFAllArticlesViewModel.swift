@@ -127,6 +127,30 @@ public final class WMFAllArticlesViewModel: ObservableObject {
         selectedArticleIDs.contains(article.id)
     }
     
+    public func updateAlertType(id: String, alertType: WMFSavedArticleAlertType) {
+        
+        let loopArticles = articles
+        for (index, article) in loopArticles.enumerated() {
+            var mutArticle = article
+            if article.id == id {
+                mutArticle.alertType = alertType
+            }
+            articles[index] = mutArticle
+        }
+        
+        let loopFilteredArticles = filteredArticles
+        for (index, article) in loopFilteredArticles.enumerated() {
+            var mutArticle = article
+            if article.id == id {
+                mutArticle.alertType = alertType
+            }
+            filteredArticles[index] = mutArticle
+        }
+        
+        let rowViewModel = rowViewModelCache[id]
+        rowViewModel?.alertType = alertType
+    }
+    
     public func deleteArticle(_ article: WMFSavedArticle) {
         Task { @MainActor in
             do {
@@ -169,7 +193,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
         if let cached = rowViewModelCache[article.id] {
             return cached
         }
-        let vm = WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames)
+        let vm = WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames, alertType: article.alertType)
         rowViewModelCache[article.id] = vm
         return vm
     }

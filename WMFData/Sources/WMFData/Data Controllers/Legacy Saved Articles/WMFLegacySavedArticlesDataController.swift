@@ -1,6 +1,13 @@
 import Foundation
 
-// WMFData/Sources/WMFData/Models/Saved Articles/WMFSavedArticle.swift
+public enum WMFSavedArticleAlertType: Equatable {
+    case listLimitExceeded(limit: Int)
+    case entryLimitExceeded(limit: Int)
+    case genericNotSynced
+    case downloading
+    case articleError(String)
+    case none
+}
 
 public struct WMFSavedArticle: Identifiable, Equatable {
     public let id: String // objectID URI string
@@ -8,13 +15,15 @@ public struct WMFSavedArticle: Identifiable, Equatable {
     public let project: WMFProject
     public let savedDate: Date?
     public let readingListNames: [String]
+    public var alertType: WMFSavedArticleAlertType
 
-    public init(id: String, title: String, project: WMFProject, savedDate: Date?, readingListNames: [String]) {
+    public init(id: String, title: String, project: WMFProject, savedDate: Date?, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none) {
         self.id = id
         self.title = title
         self.project = project
         self.savedDate = savedDate
         self.readingListNames = readingListNames
+        self.alertType = alertType
     }
 }
 
