@@ -52,40 +52,44 @@ struct WMFAsyncPageRowSaved: View {
                 if isEditing {
                     selectionIndicator
                 }
+                
+                HStack(spacing: 12) {
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(viewModel.title)
-                        .font(Font(WMFFont.for(.semiboldHeadline)))
-                        .foregroundColor(Color(uiColor: theme.text))
-                        .lineLimit(1)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(viewModel.title)
+                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .foregroundColor(Color(uiColor: theme.text))
+                            .lineLimit(1)
 
-                    
-                    Text(viewModel.description ?? " ")
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundColor(Color(uiColor: theme.secondaryText))
-                        .lineLimit(1)
-                    
+                        
+                        Text(viewModel.description ?? " ")
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundColor(Color(uiColor: theme.secondaryText))
+                            .lineLimit(1)
+                        
+                        Spacer()
+
+                        
+                        if viewModel.isAlertHidden {
+                            if !viewModel.readingListNames.isEmpty {
+                                readingListTags
+                            }
+                        } else {
+                            WMFSavedArticleAlertView(alertType: viewModel.alertType)
+                        }
+                        
+                    }
+
                     Spacer()
 
-                    
-                    if viewModel.isAlertHidden {
-                        if !viewModel.readingListNames.isEmpty {
-                            readingListTags
-                        }
-                    } else {
-                        WMFSavedArticleAlertView(alertType: viewModel.alertType)
-                    }
-                    
+                    thumbnailView
                 }
-
-                Spacer()
-
-                thumbnailView
+                .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
+            
         }
-        .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             
             if !isEditing {
