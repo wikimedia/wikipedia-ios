@@ -48,7 +48,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 if viewModel.isEmpty {
                     ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "empty")
                 } else {
-                    ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+                    let allModulesOff = !viewModel.customizeViewModel.isTimeSpentReadingOn &&
+                                       !viewModel.customizeViewModel.isReadingInsightsOn &&
+                                       !viewModel.customizeViewModel.isEditingInsightsOn &&
+                                       !viewModel.customizeViewModel.isTimelineOfBehaviorOn
+                    
+                    if allModulesOff {
+                        ActivityTabFunnel.shared.logActivityTabOffImpression()
+                    } else {
+                        ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+                    }
                 }
             }
         }
@@ -314,7 +323,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gearShape), handler: { _ in
             self.userDidTapCustomize()
-            // TODO: Log
+            ActivityTabFunnel.shared.logActivityTabCustomizeClick()
         })
         
         let mainMenu = UIMenu(title: String(), children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
@@ -323,6 +332,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     private func userDidTapCustomize() {
+        let allModulesOff = !viewModel.customizeViewModel.isTimeSpentReadingOn &&
+                           !viewModel.customizeViewModel.isReadingInsightsOn &&
+                           !viewModel.customizeViewModel.isEditingInsightsOn &&
+                           !viewModel.customizeViewModel.isTimelineOfBehaviorOn
+        
+        if allModulesOff {
+            ActivityTabFunnel.shared.logActivityTabOffCustomizeClick()
+        } else {
+            ActivityTabFunnel.shared.logActivityTabCustomizeClick()
+        }
+        
         let customizeVC = self.customizeViewController()
         navigationController?.present(customizeVC, animated: true)
     }
@@ -700,6 +720,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
     }
 
     @objc private func closeTapped() {
+        ActivityTabFunnel.shared.logActivityTabCustomizeExit(viewModel: rootView.viewModel)
         dismiss(animated: true)
     }
 }

@@ -1,4 +1,5 @@
 import WMF
+import WMFComponents
 
 @objc final class ActivityTabFunnel: NSObject {
     
@@ -17,6 +18,8 @@ import WMF
         case loginClick = "login_click"
         case activityNavClick = "activity_nav_click"
         case historyNavClick = "history_nav_click"
+        case customizeClick = "customize_click"
+        case customizeExitClick = "customize_exit_click"
     }
     
     public enum ActiveInterface: String {
@@ -26,6 +29,8 @@ import WMF
         case survey = "activity_tab_feedback"
         case activityTabLogin = "activity_tab_login"
         case historyTab = "history_tab"
+        case activityTabCustomize = "activity_tab_customize"
+        case activityTabOff = "activity_tab_off"
         
         // areas where the activity tab bar button could be tapped
         case feed = "feed"
@@ -117,6 +122,36 @@ import WMF
         logEvent(activeInterface: .survey, action: .surveyClose, project: nil)
     }
     
+    func logActivityTabCustomizeClick() {
+        logEvent(activeInterface: .activityTab, action: .customizeClick, project: nil)
+    }
+    
+    @MainActor
+    func logActivityTabCustomizeExit(viewModel: WMFActivityTabCustomizeViewModel) {
+        var actionData: [String: String] = [:]
+        
+        if viewModel.isLoggedIn {
+            actionData["time_spent"] = viewModel.isTimeSpentReadingOn ? "on" : "off"
+            actionData["reading_insight"] = viewModel.isReadingInsightsOn ? "on" : "off"
+            actionData["editing_insight"] = viewModel.isEditingInsightsOn ? "on" : "off"
+        } else {
+            actionData["time_spent"] = "off"
+            actionData["reading_insight"] = "off"
+            actionData["editing_insight"] = "off"
+        }
+        
+        actionData["timeline"] = viewModel.isTimelineOfBehaviorOn ? "on" : "off"
+        
+        let allOff = !viewModel.isTimeSpentReadingOn &&
+                     !viewModel.isReadingInsightsOn &&
+                     !viewModel.isEditingInsightsOn &&
+                     !viewModel.isTimelineOfBehaviorOn
+        
+        actionData["all"] = allOff ? "off" : "on"
+        
+        logEvent(activeInterface: .activityTabCustomize, action: .customizeExitClick, actionData: actionData, project: nil)
+    }
+    
     func logFeedbackSubmit(selectedItems: [String], comment: String?) {
 
         let selectedJoined = selectedItems.filter { $0 != "other" }.joined(separator: ",")
@@ -149,5 +184,16 @@ import WMF
     func logHistoryArticleClick() {
         logEvent(activeInterface: .historyTab, action: .articleClick)
     }
+    
+    func logActivityTabOffImpression() {
+        logEvent(activeInterface: .activityTabOff, action: .impression, project: nil)
+    }
+    
+    func logActivityTabOffCustomizeClick() {
+        logEvent(activeInterface: .activityTabOff, action: .customizeClick, project: nil)
+    }
+    
+    func logActivityTabOffNavClick(from sourceInterface: ActiveInterface) {
+        logEvent(activeInterface: sourceInterface, action: .activityNavClick, project: nil)
+    }
 }
-
