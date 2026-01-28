@@ -180,8 +180,10 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             return
         }
 
-        // Remove existing if any
-        removeAllArticlesContent()
+        // if already exists, exit early
+        guard allArticlesHostingController == nil else {
+            return
+        }
 
         let coordinator = AllArticlesCoordinator(
             navigationController: navigationController,
@@ -399,19 +401,6 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
         profileCoordinator?.theme = theme
         updateProfileButton()
-
-        // Update All Articles coordinator theme if active
-        if currentView == .savedArticles, let navigationController = navigationController, let dataStore = dataStore {
-            allArticlesCoordinator = AllArticlesCoordinator(
-                navigationController: navigationController,
-                dataStore: dataStore,
-                theme: theme
-            )
-            if allArticlesHostingController != nil {
-                removeAllArticlesContent()
-                setupAllArticlesContent()
-            }
-        }
     }
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {

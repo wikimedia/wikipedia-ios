@@ -53,9 +53,8 @@ public struct WMFAllArticlesView: View {
         VStack(spacing: 0) {
             List {
                 ForEach(viewModel.filteredArticles) { article in
-                    let cellViewModel = WMFSavedArticleCellViewModel(article: article)
-                    WMFSavedArticleCell(
-                        viewModel: cellViewModel,
+                    WMFAsyncPageRowSaved(
+                        viewModel: WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames),
                         isEditing: viewModel.isEditing,
                         isSelected: viewModel.isSelected(article),
                         theme: appEnvironment.theme,

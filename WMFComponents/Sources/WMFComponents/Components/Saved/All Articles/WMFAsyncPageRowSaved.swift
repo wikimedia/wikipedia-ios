@@ -1,9 +1,9 @@
 import SwiftUI
 import WMFData
 
-struct WMFSavedArticleCell: View {
+struct WMFAsyncPageRowSaved: View {
 
-    @ObservedObject var viewModel: WMFSavedArticleCellViewModel
+    @ObservedObject var viewModel: WMFAsyncPageRowSavedViewModel
     let isEditing: Bool
     let isSelected: Bool
     let theme: WMFTheme
@@ -24,15 +24,10 @@ struct WMFSavedArticleCell: View {
                         .foregroundColor(Color(uiColor: theme.text))
                         .lineLimit(2)
 
-                    if let description = viewModel.description {
-                        Text(description)
-                            .font(Font(WMFFont.for(.subheadline)))
-                            .foregroundColor(Color(uiColor: theme.secondaryText))
-                            .lineLimit(1)
-                    } else if viewModel.isLoading {
-                        ProgressView()
-                            .scaleEffect(0.8)
-                    }
+                    Text(viewModel.description ?? "")
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
+                        .lineLimit(1)
 
                     if !viewModel.readingListNames.isEmpty {
                         readingListTags
@@ -45,9 +40,6 @@ struct WMFSavedArticleCell: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-        }
-        .task {
-            await viewModel.fetchArticleDetails()
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             if !isEditing {
@@ -65,18 +57,10 @@ struct WMFSavedArticleCell: View {
 
     @ViewBuilder
     private var thumbnailView: some View {
-        if let thumbnailURL = viewModel.thumbnailURL {
-            AsyncImage(url: thumbnailURL) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                Color(uiColor: theme.border)
-            }
-            .frame(width: 80, height: 80)
-            .cornerRadius(8)
-        } else if viewModel.isLoading {
-            Color(uiColor: theme.border)
+        if let uiImage = viewModel.uiImage {
+            Image(uiImage: uiImage)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 80, height: 80)
                 .cornerRadius(8)
         }
