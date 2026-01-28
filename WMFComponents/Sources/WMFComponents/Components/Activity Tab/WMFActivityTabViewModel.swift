@@ -231,9 +231,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
             
-            if articlesReadViewModel.totalArticlesRead == 0 && articlesSavedViewModel.articlesSavedAmount == 0, isExploreFeedOn {
-                shouldShowExploreCTA = true
-            }
+            shouldShowExploreCTA = articlesReadViewModel.totalArticlesRead == 0 &&
+                                   articlesSavedViewModel.articlesSavedAmount == 0 &&
+                                   isExploreFeedOn
             
             isEmpty =
                 articlesReadViewModel.hoursRead == 0 &&
