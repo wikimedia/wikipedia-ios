@@ -41,6 +41,10 @@ Ideally, data controllers use async throws as a method signature.
 
 The models directory isn't consistently used, we often put feature-specific models as nested definitions in the data controllers themselves. But the Shared directory is important to reference. We often have models that, even if they originate from different backends, need to return the same basic model to the caller of the data controller. In this case it's helpful to lean on shared models so we don't have model explosion.
 
+WMFProject
+
+This is an important enum located in the shared models enum. It represents an app-supported MediaWiki project (such as Wikipedia, Commons, Wikidata, etc). For Wikipedia types, an associated WMFLanguage model value is passed along, which contains both the language code and language variant code (if applicable). With a WMFProject value, WMFData is capable of constructing the correct API urls for that project. In WMFData, avoid using raw urls as article identifiers as much as possible, and instead use WMFProject + (article AKA page) title values. WMFProject has an .id string property to uniquely represent itself in Core Data.
+
 ### Environment
 `Sources > WMFData > Environment`
 
@@ -265,3 +269,18 @@ Similar to strings, our instrumentation logging (which arguably belongs in WMFDa
 
 ### Legacy Persistence
 Some persistence still lives in the apps-side databases. For feature data that hasn't been migrated over to the WMFData database, we have the WMFData data controller call a closure or delegate method to obtain data from the app-side.
+
+### Article URLs
+The legacy app-side code often references articles by their full URL strings. Sometimes we need to translate WMFData's preferred WMFProject + title format to full article urls. To do this, on the app-side (such as in a Coordinator), you can translate like so:
+
+    // WMFProject + title to articleURL
+    let siteURL = project.siteURL
+    let articleURL = siteURL?.wmf_URL(withTitle: title)
+
+    // articleURL to WMFProject + title
+    let languageCode = articleURL.wmf_languageCode
+    let languageVariantCode = articleURL.wmf_languageVariantCode
+    let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+    let title = articleURL.wmf_title
+
+You will also see a legacy enum called WikimediaProject. This is a deprecated enum in favor of WMFProject. It should not be used in new features.
