@@ -7,7 +7,7 @@ public final class UserContributionsDataController {
     
     private init() {}
     
-    public func fetchRecentArticleEdits(username: String) async throws -> [ArticleEdit] {
+    public func fetchRecentEdits(username: String) async throws -> [ArticleEdit] {
         
         let service = WMFDataEnvironment.current.mediaWikiService
         guard let service else {
@@ -31,7 +31,6 @@ public final class UserContributionsDataController {
             "list": "usercontribs",
             "ucuser": username,
             "uclimit": "500",
-            "ucnamespace": "0",
             "ucprop": "ids|title|timestamp"
         ]
         
@@ -104,7 +103,6 @@ public final class UserContributionsDataController {
             "ucstart": ucStartDate,
             "ucend": ucEndDate,
             "ucuser": username,
-            "ucnamespace": "0",
             "ucprop": "ids|title|timestamp|tags|flags"
         ]
 

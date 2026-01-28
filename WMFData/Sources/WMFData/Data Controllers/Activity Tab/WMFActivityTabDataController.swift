@@ -293,7 +293,7 @@ public actor WMFActivityTabDataController {
         if let username {
             do {
                 let articleEdits = try await UserContributionsDataController.shared
-                    .fetchRecentArticleEdits(username: username)
+                    .fetchRecentEdits(username: username)
 
                 edits = articleEdits.map { TimelineItem(articleEdit: $0) }
 
