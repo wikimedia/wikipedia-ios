@@ -116,6 +116,15 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
         return components.url
     }
     
+    public var isRTL: Bool {
+        switch self {
+        case .wikipedia(let language):
+            return language.isRTL
+        default:
+            return false
+        }
+    }
+    
     
     /// Helper method to generate help or FAQ URLs for in-app web views.
     /// - Parameters:
