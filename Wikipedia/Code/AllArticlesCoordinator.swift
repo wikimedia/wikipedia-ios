@@ -114,9 +114,7 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             else {
                 return
         }
-        
-        print("🤔article did change: \(article.isDownloaded)")
-        
+
         // fetch entry with the same key
         let databaseKey = articleKey.databaseKey
         let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
@@ -190,61 +188,74 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
 extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
     func fetchAllSavedArticles() -> [WMFSavedArticle] {
         let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "list.isDefault == YES AND isDeletedLocally == NO")
+        fetchRequest.predicate = NSPredicate(format: "isDeletedLocally == NO")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
 
         do {
             let entries = try dataStore.viewContext.fetch(fetchRequest)
-            return entries.compactMap { entry -> WMFSavedArticle? in
+            
+            var articlesDict: [String: WMFSavedArticle] = [:]
+            
+            for entry in entries {
                 guard let inMemoryKey = entry.inMemoryKey,
                       let url = inMemoryKey.url,
                       let title = url.wmf_title,
                       let siteURL = url.wmf_site,
                       let languageCode = siteURL.wmf_languageCode else {
-                    return nil
+                    continue
                 }
                 
-                // Fetch the article for alert determination
-                let article = dataStore.fetchArticle(withKey: inMemoryKey.databaseKey, variant: inMemoryKey.languageVariantCode)
-
-                // Determine alert type
-                let alertType: WMFSavedArticleAlertType
-                if let article = article,
-                   let list = entry.list {
-                    alertType = determineAlertType(
-                        for: entry,
-                        article: article,
-                        readingList: list,
-                        listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser,
-                        entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue
-                    )
-                } else {
-                    alertType = .none
-                }
-
                 let languageVariantCode = inMemoryKey.languageVariantCode
-                
                 let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+                let id = "\(project.id)|\(title)"
+                
+                if var existingArticle = articlesDict[id] {
+                    // Merge reading list name
+                    if let listName = entry.list?.name, !existingArticle.readingListNames.contains(listName) {
+                        existingArticle.readingListNames.append(listName)
+                        articlesDict[id] = existingArticle
+                    }
+                } else {
+                    // Fetch the article for alert determination
+                    let article = dataStore.fetchArticle(withKey: inMemoryKey.databaseKey, variant: inMemoryKey.languageVariantCode)
 
-                return WMFSavedArticle(
-                    id: entry.objectID.uriRepresentation().absoluteString,
-                    title: title,
-                    project: project,
-                    savedDate: entry.createdDate as Date?,
-                    readingListNames: entry.list?.name.map { [$0] } ?? [],
-                    alertType: alertType
-                )
+                    let alertType: WMFSavedArticleAlertType
+                    if let article = article,
+                       let list = entry.list {
+                        alertType = determineAlertType(
+                            for: entry,
+                            article: article,
+                            readingList: list,
+                            listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser,
+                            entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue
+                        )
+                    } else {
+                        alertType = .none
+                    }
+
+                    let savedArticle = WMFSavedArticle(
+                        title: title,
+                        project: project,
+                        savedDate: entry.createdDate as Date?,
+                        readingListNames: entry.list?.name.map { [$0] } ?? [],
+                        alertType: alertType
+                    )
+                    articlesDict[id] = savedArticle
+                }
             }
+            
+            // Return sorted by savedDate (most recent first)
+            return articlesDict.values.sorted { ($0.savedDate ?? .distantPast) > ($1.savedDate ?? .distantPast) }
+            
         } catch {
             return []
         }
     }
         
-    func deleteSavedArticle(with id: String) {
-        guard let url = URL(string: id),
-              let objectID = dataStore.viewContext.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url),
-              let entry = try? dataStore.viewContext.existingObject(with: objectID) as? ReadingListEntry,
-              let articleKey = entry.articleKey,
+    func deleteSavedArticle(withProject project: WMFProject, title: String) {
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: title),
+              let articleKey = articleURL.wmf_inMemoryKey?.databaseKey,
               let article = dataStore.fetchArticle(withKey: articleKey) else {
             return
         }

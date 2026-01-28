@@ -10,15 +10,15 @@ public enum WMFSavedArticleAlertType: Equatable {
 }
 
 public struct WMFSavedArticle: Identifiable, Equatable {
-    public let id: String // objectID URI string
+    public let id: String
     public let title: String
     public let project: WMFProject
     public let savedDate: Date?
-    public let readingListNames: [String]
+    public var readingListNames: [String]
     public var alertType: WMFSavedArticleAlertType
 
-    public init(id: String, title: String, project: WMFProject, savedDate: Date?, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none) {
-        self.id = id
+    public init(title: String, project: WMFProject, savedDate: Date?, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none) {
+        self.id = "\(project.id)|\(title)"
         self.title = title
         self.project = project
         self.savedDate = savedDate
@@ -29,7 +29,7 @@ public struct WMFSavedArticle: Identifiable, Equatable {
 
 public protocol WMFLegacySavedArticlesDataControllerDelegate: AnyObject {
     func fetchAllSavedArticles() -> [WMFSavedArticle]
-    func deleteSavedArticle(with id: String)
+    func deleteSavedArticle(withProject project: WMFProject, title: String)
     func addArticleToReadingList(articleID: String, listName: String)
 }
 
@@ -45,8 +45,8 @@ public final class WMFLegacySavedArticlesDataController {
         return delegate?.fetchAllSavedArticles() ?? []
     }
     
-    public func deleteSavedArticle(with id: String) {
-        delegate?.deleteSavedArticle(with: id)
+    public func deleteSavedArticle(withProject project: WMFProject, title: String) {
+        delegate?.deleteSavedArticle(withProject: project, title: title)
     }
     
     public func addArticleToReadingList(articleID: String, listName: String) {

@@ -272,7 +272,6 @@ private extension SavedArticlesFetcher {
     
     func didFetchArticle(with managedObjectID: NSManagedObjectID) {
         operateOnArticle(with: managedObjectID) { (article) in
-            print("❤️❤️❤️❤️Downloaded: \(article.key)")
             article.isDownloaded = true
         }
     }

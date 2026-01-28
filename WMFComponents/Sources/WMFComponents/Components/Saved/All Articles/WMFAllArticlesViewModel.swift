@@ -149,7 +149,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     }
     
     public func deleteArticle(_ article: WMFSavedArticle) {
-        dataController.deleteSavedArticle(with: article.id)
+        dataController.deleteSavedArticle(withProject: article.project, title: article.title)
         
         articles.removeAll { $0.id == article.id }
         filteredArticles.removeAll { $0.id == article.id }

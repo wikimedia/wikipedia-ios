@@ -60,7 +60,7 @@ struct WMFAsyncPageRowSaved: View {
                         .lineLimit(1)
 
                     
-                    Text(viewModel.description ?? "")
+                    Text(viewModel.description ?? " ")
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundColor(Color(uiColor: theme.secondaryText))
                         .lineLimit(1)
@@ -107,17 +107,17 @@ struct WMFAsyncPageRowSaved: View {
 
     @ViewBuilder
     private var thumbnailView: some View {
-        if let uiImage = viewModel.uiImage {
-            Image(uiImage: uiImage)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 100)
-                .clipShape(RoundedRectangle(cornerRadius: 3))
-        } else if viewModel.imageURL != nil {
-            RoundedRectangle(cornerRadius: 3)
-                .fill(Color(uiColor: theme.midBackground))
-                .frame(width: 100, height: 100)
+        Group {
+            if let uiImage = viewModel.uiImage {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                Color(uiColor: theme.midBackground)
+            }
         }
+        .frame(width: 100, height: 100)
+        .clipShape(RoundedRectangle(cornerRadius: 3))
     }
 
     private var selectionIndicator: some View {
