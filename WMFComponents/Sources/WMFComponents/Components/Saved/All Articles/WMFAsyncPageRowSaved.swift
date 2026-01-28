@@ -2,6 +2,7 @@ import SwiftUI
 import WMFData
 
 struct WMFSavedArticleAlertView: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let alertType: WMFSavedArticleAlertType
     
     private var alertString: String? {
@@ -24,12 +25,13 @@ struct WMFSavedArticleAlertView: View {
     var body: some View {
         if let alertString = alertString {
             HStack(spacing: 4) {
-                Image(systemName: "exclamationmark.circle.fill")
-                    .font(.caption)
+                if let icon = WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangle, font: .semiboldCaption1) {
+                    Image(uiImage: icon)
+                }
                 Text(alertString)
-                    .font(.caption)
+                    .font(Font(WMFFont.for(.semiboldCaption1)))
             }
-            .foregroundColor(.red)
+            .foregroundColor(Color(uiColor: appEnvironment.theme.warning))
         }
     }
 }
@@ -57,16 +59,23 @@ struct WMFAsyncPageRowSaved: View {
                         .foregroundColor(Color(uiColor: theme.text))
                         .lineLimit(1)
 
-                    WMFSavedArticleAlertView(alertType: viewModel.alertType)
-
+                    
                     Text(viewModel.description ?? "")
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundColor(Color(uiColor: theme.secondaryText))
                         .lineLimit(1)
+                    
+                    Spacer()
 
-                    if !viewModel.readingListNames.isEmpty {
-                        readingListTags
+                    
+                    if viewModel.isAlertHidden {
+                        if !viewModel.readingListNames.isEmpty {
+                            readingListTags
+                        }
+                    } else {
+                        WMFSavedArticleAlertView(alertType: viewModel.alertType)
                     }
+                    
                 }
 
                 Spacer()
@@ -77,15 +86,21 @@ struct WMFAsyncPageRowSaved: View {
             .padding(.vertical, 12)
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            
             if !isEditing {
-                Button(role: .destructive, action: onDelete) {
-                    Image(systemName: "trash")
-                }
+                
+                if let shareIcon = WMFIcon.share,
+                   let deleteIcon = WMFIcon.delete {
+                    Button(action: onDelete) {
+                        Image(uiImage: deleteIcon)
+                    }
+                    .tint(Color(uiColor: theme.destructive))
 
-                Button(action: onShare) {
-                    Image(systemName: "square.and.arrow.up")
+                    Button(action: onShare) {
+                        Image(uiImage: shareIcon)
+                    }
+                    .tint(Color(uiColor: theme.secondaryAction))
                 }
-                .tint(Color(uiColor: theme.link))
             }
         }
     }
@@ -96,12 +111,12 @@ struct WMFAsyncPageRowSaved: View {
             Image(uiImage: uiImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 80, height: 80)
+                .frame(width: 100, height: 100)
                 .clipShape(RoundedRectangle(cornerRadius: 3))
         } else if viewModel.imageURL != nil {
             RoundedRectangle(cornerRadius: 3)
                 .fill(Color(uiColor: theme.midBackground))
-                .frame(width: 80, height: 80)
+                .frame(width: 100, height: 100)
         }
     }
 
