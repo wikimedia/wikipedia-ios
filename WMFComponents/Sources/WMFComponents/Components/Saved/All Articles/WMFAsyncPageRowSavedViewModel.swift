@@ -2,7 +2,7 @@ import SwiftUI
 import WMFData
 
 @MainActor
-final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable {
+final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
     
     let id: String
     let title: String
@@ -14,6 +14,13 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable {
     @Published private(set) var isLoading: Bool = false
     
     private let dataController: WMFArticleSummaryDataController
+    
+    nonisolated public static func == (lhs: WMFAsyncPageRowSavedViewModel, rhs: WMFAsyncPageRowSavedViewModel) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.title == rhs.title &&
+        lhs.project == rhs.project &&
+        lhs.readingListNames == rhs.readingListNames
+    }
     
     init(id: String, title: String, project: WMFProject, readingListNames: [String]) {
         self.id = id

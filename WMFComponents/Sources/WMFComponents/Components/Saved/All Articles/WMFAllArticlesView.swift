@@ -13,7 +13,7 @@ public struct WMFAllArticlesView: View {
     public var body: some View {
         Group {
             switch viewModel.state {
-            case .loading:
+            case .loading, .undefined:
                 ProgressView()
             case .empty:
                 emptyStateView
@@ -52,9 +52,9 @@ public struct WMFAllArticlesView: View {
     private var articleListView: some View {
         VStack(spacing: 0) {
             List {
-                ForEach(viewModel.filteredArticles) { article in
+                ForEach(viewModel.filteredArticles, id: \.id) { article in
                     WMFAsyncPageRowSaved(
-                        viewModel: WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames),
+                        viewModel: viewModel.rowViewModel(for: article),
                         isEditing: viewModel.isEditing,
                         isSelected: viewModel.isSelected(article),
                         theme: appEnvironment.theme,

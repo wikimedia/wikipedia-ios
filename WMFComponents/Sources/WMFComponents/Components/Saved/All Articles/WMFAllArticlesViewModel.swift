@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import WMFData
 
+@MainActor
 public final class WMFAllArticlesViewModel: ObservableObject {
     
     // MARK: - Nested Types
@@ -44,13 +45,14 @@ public final class WMFAllArticlesViewModel: ObservableObject {
         case loading
         case empty
         case data
+        case undefined
     }
     
     // MARK: - Published Properties
     
     @Published public var articles: [WMFSavedArticle] = []
     @Published public var filteredArticles: [WMFSavedArticle] = []
-    @Published public var state: State = .loading
+    @Published public var state: State = .undefined
     @Published public var isEditing: Bool = false
     @Published public var selectedArticleIDs: Set<String> = []
     @Published public var searchText: String = ""
@@ -59,6 +61,8 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     
     public let localizedStrings: LocalizedStrings
     private let dataController: WMFLegacySavedArticlesDataController
+    
+    private var rowViewModelCache: [String: WMFAsyncPageRowSavedViewModel] = [:]
     
     // MARK: - Closures
     
@@ -92,6 +96,12 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     // MARK: - Public Methods
     
     public func loadArticles() {
+        
+        // prevent duplicate loading
+        guard state != .loading else {
+            return
+        }
+        
         state = .loading
         articles = dataController.fetchAllSavedArticles()
         filteredArticles = articles
@@ -153,6 +163,15 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     
     public var hasSelection: Bool {
         !selectedArticleIDs.isEmpty
+    }
+    
+    func rowViewModel(for article: WMFSavedArticle) -> WMFAsyncPageRowSavedViewModel {
+        if let cached = rowViewModelCache[article.id] {
+            return cached
+        }
+        let vm = WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames)
+        rowViewModelCache[article.id] = vm
+        return vm
     }
     
     // MARK: - Private Methods
