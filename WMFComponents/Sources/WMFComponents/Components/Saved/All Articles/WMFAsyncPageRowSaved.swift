@@ -1,21 +1,20 @@
 import SwiftUI
 import WMFData
 
-struct WMFSavedArticleAlertView: View {
+struct WMFAsyncPageRowSavedAlertView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let alertType: WMFSavedArticleAlertType
+    let viewModel: WMFAsyncPageRowSavedViewModel
     
-    // TODO: localize
     private var alertString: String? {
-        switch alertType {
+        switch viewModel.alertType {
         case .listLimitExceeded:
-            return "List limit exceeded, unable to sync article"
+            return viewModel.localizedStrings.listLimitExceeded
         case .entryLimitExceeded:
-            return "Article limit exceeded, unable to sync article"
+            return viewModel.localizedStrings.entryLimitExceeded
         case .genericNotSynced:
-            return "Not synced"
+            return viewModel.localizedStrings.notSynced
         case .downloading:
-            return "Article queued to be downloaded"
+            return viewModel.localizedStrings.articleQueuedToBeDownloaded
         case .articleError(let errorDescription):
             return errorDescription
         case .none:
@@ -46,6 +45,8 @@ struct WMFAsyncPageRowSaved: View {
     let onTap: () -> Void
     let onDelete: () -> Void
     let onShare: (CGRect) -> Void
+    let onOpenInNewTab: () -> Void
+    let onOpenInBackgroundTab: () -> Void
 
     var body: some View {
         Button(action: onTap) {
@@ -76,7 +77,7 @@ struct WMFAsyncPageRowSaved: View {
                                 readingListTags
                             }
                         } else {
-                            WMFSavedArticleAlertView(alertType: viewModel.alertType)
+                            WMFAsyncPageRowSavedAlertView(viewModel: viewModel)
                         }
                         
                     }
@@ -103,6 +104,49 @@ struct WMFAsyncPageRowSaved: View {
             }
             .allowsHitTesting(false)
         )
+        .contextMenu {
+            Button {
+                onTap()
+            } label: {
+                Text(viewModel.localizedStrings.open)
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
+            }
+            .labelStyle(.titleAndIcon)
+            
+            Button {
+                onDelete()
+            } label: {
+                Text(viewModel.localizedStrings.removeFromSaved)
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+            }
+            .labelStyle(.titleAndIcon)
+ 
+            Button {
+                onOpenInNewTab()
+            } label: {
+                Text(viewModel.localizedStrings.openInNewTab)
+                // Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+            }
+            // .labelStyle(.titleAndIcon)
+            
+            Button {
+                onOpenInBackgroundTab()
+            } label: {
+                Text(viewModel.localizedStrings.openInBackgroundTab)
+                // Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+            }
+            // .labelStyle(.titleAndIcon)
+            
+            Button {
+                onShare(viewModel.geometryFrame)
+            } label: {
+                Text(viewModel.localizedStrings.share)
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+            }
+            .labelStyle(.titleAndIcon)
+        } preview: {
+            WMFArticlePreviewView(viewModel: getPreviewViewModel(from:viewModel))
+        }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             
             if !isEditing {
@@ -224,5 +268,16 @@ struct WMFAsyncPageRowSaved: View {
             .background(Color(uiColor: theme.link).opacity(0.1))
             .cornerRadius(4)
             .fixedSize(horizontal: true, vertical: true)
+    }
+    
+    private func getPreviewViewModel(from viewModel: WMFAsyncPageRowSavedViewModel) -> WMFArticlePreviewViewModel {
+        var url: URL? = nil
+        if let siteURL = viewModel.project.siteURL {
+            var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
+            components?.path = "/wiki/\(viewModel.title)"
+            url = components?.url
+        }
+        
+        return WMFArticlePreviewViewModel(url: url, titleHtml: viewModel.title, description: viewModel.description, imageURLString: viewModel.imageURL?.absoluteString, isSaved: true, snippet: viewModel.snippet)
     }
 }

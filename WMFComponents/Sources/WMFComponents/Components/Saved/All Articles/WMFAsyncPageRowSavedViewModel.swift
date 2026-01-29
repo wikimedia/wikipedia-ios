@@ -4,16 +4,31 @@ import WMFData
 @MainActor
 final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @MainActor Equatable {
     
+    struct LocalizedStrings {
+        let open: String
+        let openInNewTab: String
+        let openInBackgroundTab: String
+        let removeFromSaved: String
+        let share: String
+        let listLimitExceeded: String
+        let entryLimitExceeded: String
+        let notSynced: String
+        let articleQueuedToBeDownloaded: String
+    }
+    
     let id: String
     let title: String
     let project: WMFProject
+    let localizedStrings: LocalizedStrings
     
     @Published var readingListNames: [String]
     @Published private(set) var description: String?
     @Published private(set) var imageURL: URL?
     @Published private(set) var uiImage: UIImage?
     @Published var alertType: WMFSavedArticleAlertType = .none
+    
     var geometryFrame: CGRect = .zero
+    var snippet: String?
     
     private let dataController: WMFArticleSummaryDataController
     
@@ -28,13 +43,14 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
         return alertType == .none
     }
     
-    init(id: String, title: String, project: WMFProject, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none) {
+    init(id: String, title: String, project: WMFProject, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none, localizedStrings: LocalizedStrings) {
         self.id = id
         self.title = title
         self.project = project
         self.readingListNames = readingListNames
         self.dataController = WMFArticleSummaryDataController.shared
         self.alertType = alertType
+        self.localizedStrings = localizedStrings
         Task {
             await self.fetchArticleDetails()
         }
@@ -52,6 +68,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
         do {
             let summary = try await dataController.fetchArticleSummary(project: project, title: title)
             self.description = summary.description
+            self.snippet = summary.extract
             
             let imageDataController = WMFImageDataController()
             

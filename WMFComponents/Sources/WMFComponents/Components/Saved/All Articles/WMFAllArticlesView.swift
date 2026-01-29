@@ -73,6 +73,12 @@ public struct WMFAllArticlesView: View {
                         },
                         onShare: { cgRect in
                             viewModel.didTapShare?(article, cgRect)
+                        },
+                        onOpenInNewTab: {
+                            viewModel.didTapOpenInNewTab?(article)
+                        },
+                        onOpenInBackgroundTab: {
+                            viewModel.didTapOpenInBackgroundTab?(article)
                         }
                     )
                     .listRowInsets(EdgeInsets())

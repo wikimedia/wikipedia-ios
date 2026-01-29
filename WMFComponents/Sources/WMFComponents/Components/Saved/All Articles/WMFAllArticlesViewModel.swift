@@ -8,33 +8,42 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     // MARK: - Nested Types
     
     public struct LocalizedStrings {
-        let title: String
+        
+        // empty state
         let emptyStateTitle: String
         let emptyStateMessage: String
-        let cancel: String
+        
+        // bottom toolbar in editing mode
         let addToList: String
         let unsave: String
-        let share: String
-        let delete: String
         
-        public init(
-            title: String,
-            emptyStateTitle: String,
-            emptyStateMessage: String,
-            cancel: String,
-            addToList: String,
-            unsave: String,
-            share: String,
-            delete: String
-        ) {
-            self.title = title
+        // contextual menu
+        let open: String
+        let openInNewTab: String
+        let openInBackgroundTab: String
+        let removeFromSaved: String
+        let share: String
+        
+        // alert error messages
+        let listLimitExceeded: String
+        let entryLimitExceeded: String
+        let notSynced: String
+        let articleQueuedToBeDownloaded: String
+        
+        public init(emptyStateTitle: String, emptyStateMessage: String, addToList: String, unsave: String, open: String, openInNewTab: String, openInBackgroundTab: String, removeFromSaved: String, share: String, listLimitExceeded: String, entryLimitExceeded: String, notSynced: String, articleQueuedToBeDownloaded: String) {
             self.emptyStateTitle = emptyStateTitle
             self.emptyStateMessage = emptyStateMessage
-            self.cancel = cancel
             self.addToList = addToList
             self.unsave = unsave
+            self.open = open
+            self.openInNewTab = openInNewTab
+            self.openInBackgroundTab = openInBackgroundTab
+            self.removeFromSaved = removeFromSaved
             self.share = share
-            self.delete = delete
+            self.listLimitExceeded = listLimitExceeded
+            self.entryLimitExceeded = entryLimitExceeded
+            self.notSynced = notSynced
+            self.articleQueuedToBeDownloaded = articleQueuedToBeDownloaded
         }
     }
     
@@ -68,6 +77,8 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     public var didTapAddToList: (([WMFSavedArticle]) -> Void)?
     public var loggingDelegate: WMFAllArticlesLoggingDelegate?
     public var didPullToRefresh: (() async -> Void)?
+    public var didTapOpenInNewTab: ((WMFSavedArticle) -> Void)?
+    public var didTapOpenInBackgroundTab: ((WMFSavedArticle) -> Void)?
     
     // MARK: - Initialization
     
@@ -186,7 +197,20 @@ public final class WMFAllArticlesViewModel: ObservableObject {
             }
             return cached
         }
-        let vm = WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames, alertType: article.alertType)
+        
+        let localizedStrings = WMFAsyncPageRowSavedViewModel.LocalizedStrings(
+            open: localizedStrings.open,
+            openInNewTab: localizedStrings.openInNewTab,
+            openInBackgroundTab: localizedStrings.openInBackgroundTab,
+            removeFromSaved: localizedStrings.removeFromSaved,
+            share: localizedStrings.share,
+            listLimitExceeded: localizedStrings.listLimitExceeded,
+            entryLimitExceeded: localizedStrings.entryLimitExceeded,
+            notSynced: localizedStrings.notSynced,
+            articleQueuedToBeDownloaded: localizedStrings.articleQueuedToBeDownloaded)
+        
+        let vm = WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames, alertType: article.alertType, localizedStrings: localizedStrings)
+        
         rowViewModelCache[article.id] = vm
         return vm
     }

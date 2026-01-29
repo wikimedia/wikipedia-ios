@@ -41,15 +41,19 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         self.dataController = dataController
 
         let localizedStrings = WMFAllArticlesViewModel.LocalizedStrings(
-            title: CommonStrings.savedTitle,
             emptyStateTitle: CommonStrings.allArticlesEmptySavedTitle,
             emptyStateMessage: CommonStrings.allArticlesEmptySavedSubtitle,
-            cancel: CommonStrings.cancelActionTitle,
-            addToList: WMFLocalizedString("saved-add-to-list", value: "Add to list", comment: "Add to reading list button"),
-            unsave: WMFLocalizedString("saved-unsave", value: "Unsave", comment: "Unsave button"),
-            share: CommonStrings.shareActionTitle,
-            delete: CommonStrings.deleteActionTitle
-        )
+            addToList: CommonStrings.addToReadingListShortActionTitle,
+            unsave: CommonStrings.shortUnsaveTitle,
+            open: CommonStrings.articleTabsOpen,
+            openInNewTab: CommonStrings.articleTabsOpenInNewTab,
+            openInBackgroundTab: CommonStrings.articleTabsOpenInBackgroundTab,
+            removeFromSaved: CommonStrings.unsaveTitle,
+            share: CommonStrings.shortShareTitle,
+            listLimitExceeded: CommonStrings.readingListsErrorListLimitExceeded,
+            entryLimitExceeded: CommonStrings.readingListsErrorArticleLimitExceeded,
+            notSynced: CommonStrings.readingListsErrorNotSynced,
+            articleQueuedToBeDownloaded: CommonStrings.readingListsWarningArticleQueuedToBeDownloaded)
 
         let viewModel = WMFAllArticlesViewModel(
             dataController: dataController,
@@ -57,7 +61,15 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         )
 
         viewModel.didTapArticle = { [weak self] article in
-            self?.showArticle(title: article.title, project: article.project)
+            self?.showArticle(title: article.title, project: article.project, inNewTab: false)
+        }
+        
+        viewModel.didTapOpenInNewTab = { [weak self] article in
+            self?.showArticle(title: article.title, project: article.project, inNewTab: true)
+        }
+        
+        viewModel.didTapOpenInBackgroundTab = { [weak self] article in
+            self?.openArticleInBackgroundTab(title: article.title, project: article.project)
         }
 
         viewModel.didTapShare = { [weak self] article, cgRect in
@@ -86,11 +98,18 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
 
     // MARK: - Navigation
 
-    private func showArticle(title: String, project: WMFProject) {
+    private func showArticle(title: String, project: WMFProject, inNewTab: Bool) {
 
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: title) else {
             return
+        }
+        
+        let tabConfig: ArticleTabConfig = inNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
+        
+        if inNewTab {
+            WMFArticleTabsDataController.shared.didTapOpenNewTab()
+            ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
         }
         
         let articleCoordinator = ArticleCoordinator(
@@ -98,9 +117,49 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
-            source: .undefined
+            source: .undefined,
+            tabConfig: tabConfig
         )
         articleCoordinator.start()
+    }
+    
+    private func openArticleInBackgroundTab(title: String, project: WMFProject) {
+
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: title) else {
+            return
+        }
+        
+        Task {
+            do {
+                let articleTabsDataController = WMFArticleTabsDataController.shared
+                articleTabsDataController.didTapOpenNewTab()
+                
+                let tabsCount = try await articleTabsDataController.tabsCount()
+                let tabsMax = articleTabsDataController.tabsMax
+                let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: project, articleURL: articleURL)
+                if tabsCount >= tabsMax {
+                    
+                    if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {
+                        _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                    } else {
+                        _ = try await articleTabsDataController.createArticleTab(initialArticle: article)
+                    }
+                    
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                    }
+                } else {
+                    _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
+                    ArticleTabsFunnel.shared.logLongPressOpenInBackgroundTab()
+                }
+                
+            } catch {
+                DDLogError("Failed to create background tab: \(error)")
+            }
+        }
+        
     }
 
     private func shareArticle(_ savedArticle: WMFSavedArticle, cgRect: CGRect) {

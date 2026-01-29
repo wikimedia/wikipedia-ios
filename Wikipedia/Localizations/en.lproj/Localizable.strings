@@ -1138,7 +1138,6 @@
 "save-all-tabs" = "Save all tabs";
 "save-view-temp-account-notice" = "You are using a temporary account. Edits are being attributed to $1...";
 "save-view-temp-account-warning" = "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.";
-"saved-add-to-list" = "Add to list";
 "saved-all-articles-title" = "All articles";
 "saved-all-tabs" = "Saved all tabs.";
 "saved-all-tabs-view-reading-list" = "Saved all tabs. View reading list.";
@@ -1149,7 +1148,6 @@
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search saved articles";
 "saved-title" = "Saved";
-"saved-unsave" = "Unsave";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Search Wikipedia";

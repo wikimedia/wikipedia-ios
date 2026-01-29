@@ -1138,7 +1138,6 @@
 "save-all-tabs" = "Action to save all open tabs.";
 "save-view-temp-account-notice" = "$1 is the temporary username for the temporary account notice.";
 "save-view-temp-account-warning" = "Warning that a temporary account will be created";
-"saved-add-to-list" = "Add to reading list button";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-all-tabs" = "Message indicating all open tabs were saved.";
 "saved-all-tabs-view-reading-list" = "Message indicating all tabs were saved with option to view reading list.";
@@ -1149,7 +1148,6 @@
 "saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
 "saved-search-default-text" = "Placeholder text for the search bar in Saved. Displayed in All Articles list.";
 "saved-title" = "Title of the saved screen shown on the saved tab {{Identical|Saved}}";
-"saved-unsave" = "Unsave button";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles being unsaved.";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles to be unsaved.";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
