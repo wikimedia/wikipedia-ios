@@ -158,10 +158,17 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
                   let list = readingListEntry.list else {
                 return
             }
-            let id = readingListEntry.objectID.uriRepresentation().absoluteString
+            
+            guard let titleAndProject = readingListEntry.titleAndProject() else {
+                return
+            }
+            let title = titleAndProject.title
+            let project = titleAndProject.project
+            
             let alertType = determineAlertType(for: readingListEntry, article: article, readingList: list, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
             
-            hostingController?.viewModel.updateAlertType(id: id, alertType: alertType)
+            let identifier = identifier(for: title, project: project)
+            hostingController?.viewModel.updateAlertType(id: identifier, alertType: alertType)
             
         } catch {
             // nothing
@@ -231,6 +238,10 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             }
         }
     }
+    
+    private func identifier(for title: String, project: WMFProject) -> String {
+        return "\(project.id)|\(title)"
+    }
 }
 
 // MARK: - WMFLegacySavedArticlesDataControllerDelegate
@@ -246,17 +257,15 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
             var articlesDict: [String: WMFSavedArticle] = [:]
             
             for entry in entries {
+                
                 guard let inMemoryKey = entry.inMemoryKey,
-                      let url = inMemoryKey.url,
-                      let title = url.wmf_title,
-                      let siteURL = url.wmf_site,
-                      let languageCode = siteURL.wmf_languageCode else {
+                      let titleAndProject = entry.titleAndProject() else {
                     continue
                 }
                 
-                let languageVariantCode = inMemoryKey.languageVariantCode
-                let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
-                let id = "\(project.id)|\(title)"
+                let title = titleAndProject.title
+                let project = titleAndProject.project
+                let id = identifier(for: title, project: project)
                 
                 if var existingArticle = articlesDict[id] {
                     // Merge reading list name
@@ -282,7 +291,9 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
                         alertType = .none
                     }
 
+                    let identifier = identifier(for: title, project: project)
                     let savedArticle = WMFSavedArticle(
+                        id: identifier,
                         title: title,
                         project: project,
                         savedDate: entry.createdDate as Date?,
@@ -319,5 +330,21 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
         
     func addArticleToReadingList(articleID: String, listName: String) {
         // Implementation for adding to a specific reading list
+    }
+}
+
+private extension ReadingListEntry {
+    func titleAndProject() -> (title: String, project: WMFProject)? {
+        guard let inMemoryKey = inMemoryKey,
+              let url = inMemoryKey.url,
+              let title = url.wmf_title,
+              let siteURL = url.wmf_site,
+              let languageCode = siteURL.wmf_languageCode else {
+            return nil
+        }
+        
+        let languageVariantCode = inMemoryKey.languageVariantCode
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
+        return (title, project)
     }
 }

@@ -17,8 +17,8 @@ public struct WMFSavedArticle: Identifiable, Equatable {
     public var readingListNames: [String]
     public var alertType: WMFSavedArticleAlertType
 
-    public init(title: String, project: WMFProject, savedDate: Date?, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none) {
-        self.id = "\(project.id)|\(title)"
+    public init(id: String, title: String, project: WMFProject, savedDate: Date?, readingListNames: [String], alertType: WMFSavedArticleAlertType = .none) {
+        self.id = id
         self.title = title
         self.project = project
         self.savedDate = savedDate
