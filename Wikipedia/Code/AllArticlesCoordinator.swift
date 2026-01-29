@@ -101,9 +101,10 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
     private func showArticle(title: String, project: WMFProject, inNewTab: Bool) {
 
         guard let siteURL = project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title) else {
+              var articleURL = siteURL.wmf_URL(withTitle: title) else {
             return
         }
+        articleURL.wmf_languageVariantCode = project.languageVariantCode
         
         let tabConfig: ArticleTabConfig = inNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
         
@@ -126,9 +127,11 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
     private func openArticleInBackgroundTab(title: String, project: WMFProject) {
 
         guard let siteURL = project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title) else {
+              var articleURL = siteURL.wmf_URL(withTitle: title) else {
             return
         }
+        
+        articleURL.wmf_languageVariantCode = project.languageVariantCode
         
         Task {
             do {
@@ -421,11 +424,13 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
         
     func deleteSavedArticle(withProject project: WMFProject, title: String) {
         guard let siteURL = project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title),
+              var articleURL = siteURL.wmf_URL(withTitle: title),
               let articleKey = articleURL.wmf_inMemoryKey?.databaseKey,
               let article = dataStore.fetchArticle(withKey: articleKey) else {
             return
         }
+        
+        articleURL.wmf_languageVariantCode = project.languageVariantCode
         
         dataStore.readingListsController.unsave([article], in: dataStore.viewContext)
     }
