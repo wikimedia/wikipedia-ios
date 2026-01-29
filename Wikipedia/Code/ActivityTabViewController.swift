@@ -91,6 +91,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     public func makeAnEdit() {
+        ActivityTabFunnel.shared.logMakeEditClick()
         guard let url = URL(string: editingFAQURLString) else { return }
         navigate(to: url)
     }
@@ -284,6 +285,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     private func presentExplore() {
+        ActivityTabFunnel.shared.logExploreClick()
         navigationController?.popToRootViewController(animated: false)
         
         if let tabBar = self.tabBarController {

@@ -20,6 +20,8 @@ import WMFComponents
         case historyNavClick = "history_nav_click"
         case customizeClick = "customize_click"
         case customizeExitClick = "customize_exit_click"
+        case exploreClick = "explore_click"
+        case makeEditClick = "make_edit_click"
     }
     
     public enum ActiveInterface: String {
@@ -124,6 +126,14 @@ import WMFComponents
     
     func logActivityTabCustomizeClick() {
         logEvent(activeInterface: .activityTab, action: .customizeClick, project: nil)
+    }
+    
+    func logExploreClick() {
+        logEvent(activeInterface: .activityTab, action: .exploreClick, project: nil)
+    }
+    
+    func logMakeEditClick() {
+        logEvent(activeInterface: .activityTab, action: .makeEditClick, project: nil)
     }
     
     @MainActor
