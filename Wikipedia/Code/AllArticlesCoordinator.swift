@@ -350,10 +350,6 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
         
         dataStore.readingListsController.unsave([article], in: dataStore.viewContext)
     }
-        
-    func addArticleToReadingList(articleID: String, listName: String) {
-        // Implementation for adding to a specific reading list
-    }
 }
 
 private extension ReadingListEntry {
