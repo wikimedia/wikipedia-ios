@@ -5,6 +5,7 @@ struct WMFSavedArticleAlertView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let alertType: WMFSavedArticleAlertType
     
+    // TODO: localize
     private var alertString: String? {
         switch alertType {
         case .listLimitExceeded:

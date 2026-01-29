@@ -345,6 +345,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
         profileCoordinator?.start()
     }
+    
+    @objc func userDidTapCancelEditingAllArticles() {
+        allArticlesCoordinator?.contentViewController.viewModel.toggleEditing()
+        configureNavigationBar()
+    }
 
     private func updateProfileButton() {
 
@@ -415,10 +420,20 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             self.didTapSort()
         })
 
-        let editAction = UIAction(title: CommonStrings.editContextMenuTitle, image: nil, handler: { _ in
+        let editAction = UIAction(title: CommonStrings.editContextMenuTitle, image: nil, handler: { [weak self] _ in
+            
+            guard let self else { return }
+            
             switch self.currentView {
             case .savedArticles:
                 self.allArticlesCoordinator?.contentViewController.viewModel.toggleEditing()
+                if self.allArticlesCoordinator?.contentViewController.viewModel.isEditing == true {
+                    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.userDidTapCancelEditingAllArticles))
+                    cancelButton.tintColor = theme.colors.link
+                    self.navigationItem.rightBarButtonItems = [cancelButton]
+                } else {
+                    self.configureNavigationBar()
+                }
             case .readingLists:
                 self.readingListsViewController?.editController.changeEditingState(to: .open)
             }
