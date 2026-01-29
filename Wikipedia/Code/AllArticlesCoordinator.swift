@@ -10,6 +10,7 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
     private let theme: Theme
     private var dataController: WMFLegacySavedArticlesDataController?
     private weak var hostingController: WMFAllArticlesHostingController?
+    var sortType: SortActionType = .byRecentlyAdded
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
         self.navigationController = navigationController
@@ -238,7 +239,6 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
     func fetchAllSavedArticles() -> [WMFSavedArticle] {
         let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "isDeletedLocally == NO")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
 
         do {
             let entries = try dataStore.viewContext.fetch(fetchRequest)
@@ -293,8 +293,13 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
                 }
             }
             
-            // Return sorted by savedDate (most recent first)
-            return articlesDict.values.sorted { ($0.savedDate ?? .distantPast) > ($1.savedDate ?? .distantPast) }
+            // Return sorted
+            switch sortType {
+            case .byRecentlyAdded:
+                return articlesDict.values.sorted { ($0.savedDate ?? Date()) > ($1.savedDate ?? Date()) }
+            case .byTitle:
+                return articlesDict.values.sorted { $0.title < $1.title }
+            }
             
         } catch {
             return []

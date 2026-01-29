@@ -23,6 +23,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     private var allArticlesCoordinator: AllArticlesCoordinator?
     private weak var allArticlesHostingController: UIViewController?
+    private var allArticlesSortType: SortActionType = .byRecentlyAdded {
+        didSet {
+            allArticlesCoordinator?.sortType = allArticlesSortType
+        }
+    }
 
     @objc weak var tabBarDelegate: AppTabBarDelegate?
 
@@ -247,6 +252,8 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         if activeEditableCollection == nil {
             currentView = .savedArticles
         }
+        
+        allArticlesSortType = getDefaultReadingListSortType() ?? .byRecentlyAdded
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -452,7 +459,67 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }()
 
     func didTapSort() {
-        savedDelegate?.savedWillShowSortAlert(self, from: moreBarButtonItem)
+        switch self.currentView {
+        case .savedArticles:
+            presentAllArticlesSortAlert()
+        case .readingLists:
+            savedDelegate?.savedWillShowSortAlert(self, from: moreBarButtonItem)
+        }
+    }
+    
+    private func presentAllArticlesSortAlert() {
+        let alert = UIAlertController(title: CommonStrings.sortAlertTitle, message: nil, preferredStyle: .actionSheet)
+        
+        let titleAction = UIAlertAction(title: CommonStrings.sortAlertOptionByTitle, style: .default) { [weak self] action in
+            self?.allArticlesSortType = .byTitle
+            self?.updateDefaultReadingListSortType(sortType: .byTitle)
+            self?.allArticlesCoordinator?.contentViewController.viewModel.loadArticles()
+        }
+        alert.addAction(titleAction)
+        
+        let recentlyAddedAction = UIAlertAction(title: CommonStrings.sortAlertOptionByRecentlyAdded, style: .default) { [weak self] action in
+            self?.allArticlesSortType = .byRecentlyAdded
+            self?.updateDefaultReadingListSortType(sortType: .byRecentlyAdded)
+            self?.allArticlesCoordinator?.contentViewController.viewModel.loadArticles()
+        }
+        alert.addAction(recentlyAddedAction)
+        
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        alert.addAction(cancel)
+        
+        if let popoverController = popoverPresentationController {
+            popoverController.barButtonItem = moreBarButtonItem
+        }
+        present(alert, animated: true)
+        
+        let checkedKey = "checked"
+        switch allArticlesSortType {
+        case .byRecentlyAdded:
+            recentlyAddedAction.setValue(true, forKey: checkedKey)
+        case .byTitle:
+            titleAction.setValue(true, forKey: checkedKey)
+        }
+    }
+    
+    private func getDefaultReadingListSortType() -> SortActionType? {
+        guard let readingList = dataStore?.viewContext.defaultReadingList,
+              let sortOrder = readingList.sortOrder else {
+            return nil
+        }
+        
+        return SortActionType(rawValue: sortOrder.intValue)
+    }
+    
+    private func updateDefaultReadingListSortType(sortType: SortActionType) {
+        guard let dataStore,
+              let readingList = dataStore.viewContext.defaultReadingList else {
+            return
+        }
+        
+        readingList.sortOrder = NSNumber(value: sortType.rawValue)
+        if dataStore.viewContext.hasChanges {
+            try? dataStore.viewContext.save()
+        }
     }
 }
 
