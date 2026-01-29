@@ -39,6 +39,8 @@ struct WMFAsyncPageRowSavedAlertView: View {
 struct WMFAsyncPageRowSaved: View {
 
     @ObservedObject var viewModel: WMFAsyncPageRowSavedViewModel
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    
     let isEditing: Bool
     let isSelected: Bool
     let theme: WMFTheme
@@ -48,48 +50,71 @@ struct WMFAsyncPageRowSaved: View {
     let onOpenInNewTab: () -> Void
     let onOpenInBackgroundTab: () -> Void
 
+    private var maxReadableWidth: CGFloat {
+        switch dynamicTypeSize {
+        case .xSmall, .small, .medium, .large:
+            return 700
+        case .xLarge, .xxLarge, .xxxLarge:
+            return 800
+        case .accessibility1, .accessibility2:
+            return 900
+        case .accessibility3, .accessibility4, .accessibility5:
+            return .infinity // No limit for largest sizes
+        @unknown default:
+            return 700
+        }
+    }
+
     var body: some View {
         Button(action: onTap) {
-            HStack(spacing: 12) {
-                if isEditing {
-                    selectionIndicator
-                }
+            HStack(spacing: 0) {
+                Spacer(minLength: 0)
                 
                 HStack(spacing: 12) {
+                    if isEditing {
+                        selectionIndicator
+                    }
+                    
+                    HStack(spacing: 12) {
 
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(viewModel.title)
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                            .foregroundColor(Color(uiColor: theme.text))
-                            .lineLimit(1)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(viewModel.title)
+                                .font(Font(WMFFont.for(.semiboldHeadline)))
+                                .foregroundColor(Color(uiColor: theme.text))
+                                .lineLimit(1)
 
-                        
-                        Text(viewModel.description ?? " ")
-                            .font(Font(WMFFont.for(.subheadline)))
-                            .foregroundColor(Color(uiColor: theme.secondaryText))
-                            .lineLimit(1)
-                        
+                            
+                            Text(viewModel.description ?? " ")
+                                .font(Font(WMFFont.for(.subheadline)))
+                                .foregroundColor(Color(uiColor: theme.secondaryText))
+                                .lineLimit(1)
+                            
+                            Spacer()
+
+                            
+                            if viewModel.isAlertHidden {
+                                if !viewModel.readingListNames.isEmpty {
+                                    readingListTags
+                                }
+                            } else {
+                                WMFAsyncPageRowSavedAlertView(viewModel: viewModel)
+                            }
+                            
+                        }
+
                         Spacer()
 
-                        
-                        if viewModel.isAlertHidden {
-                            if !viewModel.readingListNames.isEmpty {
-                                readingListTags
-                            }
-                        } else {
-                            WMFAsyncPageRowSavedAlertView(viewModel: viewModel)
-                        }
-                        
+                        thumbnailView
                     }
-
-                    Spacer()
-
-                    thumbnailView
+                    .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
                 }
-                .environment(\.layoutDirection, viewModel.project.isRTL ? .rightToLeft : .leftToRight)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .frame(maxWidth: maxReadableWidth, alignment: .leading)
+                
+                Spacer(minLength: 0)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            
             
         }
         .overlay(
