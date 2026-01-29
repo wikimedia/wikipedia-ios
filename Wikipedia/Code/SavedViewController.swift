@@ -499,9 +499,10 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alert.addAction(cancel)
         
-        if let popoverController = popoverPresentationController {
+        if let popoverController = alert.popoverPresentationController {
             popoverController.barButtonItem = moreBarButtonItem
         }
+        
         present(alert, animated: true)
         
         let checkedKey = "checked"
