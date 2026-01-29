@@ -6,6 +6,7 @@ public struct WMFSmallButton: View {
         public enum Style {
             case neutral
             case quiet
+            case primary
         }
         
         public let style: Style
@@ -38,14 +39,15 @@ public struct WMFSmallButton: View {
             HStack(spacing: 4) {
                 if let image = image {
                     Image(uiImage: image)
+                        .foregroundColor(Color(configuration.style == .primary ? appEnvironment.theme.paperBackground : appEnvironment.theme.link))
                 }
                 Text(title)
                     .font(Font(WMFFont.for(.mediumSubheadline)))
-                    .foregroundColor(Color(appEnvironment.theme.link))
+                    .foregroundColor(Color(configuration.style == .primary ? appEnvironment.theme.paperBackground : appEnvironment.theme.link))
                 
                 if let trailingIcon = configuration.trailingIcon {
                     Image(uiImage: trailingIcon)
-                        .foregroundColor(Color(appEnvironment.theme.link))
+                        .foregroundColor(Color(configuration.style == .primary ? appEnvironment.theme.paperBackground : appEnvironment.theme.link))
                 }
             }
             .padding([.top, .bottom], 4)
@@ -67,6 +69,10 @@ private extension View {
                 .cornerRadius(8)
         case .quiet:
             self
+        case .primary:
+            self
+                .background(Color(theme.link))
+                .cornerRadius(8)
         }
     }
 }
