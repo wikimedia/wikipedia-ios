@@ -129,6 +129,7 @@
 "activity-tab-add-images-subtitle" = "Aggiungi immagini suggerite alle voci di Wikipedia per migliorarne la comprensione.";
 "activity-tab-add-images-title" = "Aggiungi immagini";
 "activity-tab-additional-thoughts" = "Qualcosa da aggiungere?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|visualizzazione|visualizzazioni}}";
 "activity-tab-articles-read" = "Voci lette questo mese";
 "activity-tab-articles-read-graph-label" = "Voci";
 "activity-tab-customize-time-spent-reading" = "Tempo trascorso a leggere";
@@ -141,6 +142,7 @@
 "activity-tab-log-in-or-create-account" = "Accedi o crea un utenza per vedere altre attività di modifica e lettura.";
 "activity-tab-logged-out-subtitle" = "Accedi o crea un'utenza per vedere la tua attività sull'applicazione di Wikipedia.";
 "activity-tab-logged-out-title" = "Scopri di più su lettura e modifica";
+"activity-tab-most-viewed" = "Più visualizzazioni dalla tua modifica";
 "activity-tab-neutral" = "Neutrale";
 "activity-tab-no-edits-title" = "Non hai fatto alcuna modifica questa settimana. Aggiungi immagini per migliorare la comprensione della voce.";
 "activity-tab-no-username-reading-title" = "La tua lettura";
