@@ -45,7 +45,7 @@ struct WMFAsyncPageRowSaved: View {
     let theme: WMFTheme
     let onTap: () -> Void
     let onDelete: () -> Void
-    let onShare: () -> Void
+    let onShare: (CGRect) -> Void
 
     var body: some View {
         Button(action: onTap) {
@@ -91,6 +91,18 @@ struct WMFAsyncPageRowSaved: View {
             .padding(.vertical, 12)
             
         }
+        .overlay(
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        viewModel.geometryFrame = geometry.frame(in: .global)
+                    }
+                    .onChange(of: geometry.frame(in: .global)) { newFrame in
+                        viewModel.geometryFrame = geometry.frame(in: .global)
+                    }
+            }
+            .allowsHitTesting(false)
+        )
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             
             if !isEditing {
@@ -102,7 +114,9 @@ struct WMFAsyncPageRowSaved: View {
                     }
                     .tint(Color(uiColor: theme.destructive))
 
-                    Button(action: onShare) {
+                    Button(action: {
+                        onShare(viewModel.geometryFrame)
+                    }) {
                         Image(uiImage: shareIcon)
                     }
                     .tint(Color(uiColor: theme.secondaryAction))

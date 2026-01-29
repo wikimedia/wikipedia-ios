@@ -12,8 +12,8 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
     @Published private(set) var description: String?
     @Published private(set) var imageURL: URL?
     @Published private(set) var uiImage: UIImage?
-    @Published private(set) var isLoading: Bool = false
-    @Published public var alertType: WMFSavedArticleAlertType = .none
+    @Published var alertType: WMFSavedArticleAlertType = .none
+    var geometryFrame: CGRect = .zero
     
     private let dataController: WMFArticleSummaryDataController
     
@@ -49,13 +49,6 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
     
     @MainActor
     private func fetchArticleDetails() async {
-        guard !isLoading else {
-            return
-        }
-        
-        isLoading = true
-        defer { isLoading = false }
-        
         do {
             let summary = try await dataController.fetchArticleSummary(project: project, title: title)
             self.description = summary.description

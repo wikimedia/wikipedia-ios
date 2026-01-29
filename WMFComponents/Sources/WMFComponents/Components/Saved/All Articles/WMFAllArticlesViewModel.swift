@@ -64,7 +64,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     // MARK: - Closures
     
     public var didTapArticle: ((WMFSavedArticle) -> Void)?
-    public var didTapShare: ((WMFSavedArticle) -> Void)?
+    public var didTapShare: ((WMFSavedArticle, CGRect) -> Void)?
     public var didTapAddToList: (([WMFSavedArticle]) -> Void)?
     public var loggingDelegate: WMFAllArticlesLoggingDelegate?
     public var didPullToRefresh: (() async -> Void)?
@@ -164,13 +164,6 @@ public final class WMFAllArticlesViewModel: ObservableObject {
         }
         selectedArticleIDs.removeAll()
         isEditing = false
-    }
-    
-    public func shareSelectedArticles() {
-        guard let selected = articles.filter({ selectedArticleIDs.contains($0.id) }).first else {
-            return
-        }
-        didTapShare?(selected)
     }
     
     public func addSelectedToList() {

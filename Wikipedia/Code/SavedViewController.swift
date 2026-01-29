@@ -363,8 +363,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
     
     private func cancelAllArticlesEditingMode() {
-        allArticlesCoordinator?.contentViewController.viewModel.toggleEditing()
-        configureNavigationBar()
+        if allArticlesCoordinator?.contentViewController.viewModel.isEditing == true {
+            allArticlesCoordinator?.contentViewController.viewModel.toggleEditing()
+            
+            configureNavigationBar()
+        }
     }
 
     private func updateProfileButton() {

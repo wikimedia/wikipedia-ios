@@ -71,8 +71,8 @@ public struct WMFAllArticlesView: View {
                         onDelete: {
                             viewModel.deleteArticle(article)
                         },
-                        onShare: {
-                            viewModel.didTapShare?(article)
+                        onShare: { cgRect in
+                            viewModel.didTapShare?(article, cgRect)
                         }
                     )
                     .listRowInsets(EdgeInsets())

@@ -60,8 +60,8 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             self?.showArticle(title: article.title, project: article.project)
         }
 
-        viewModel.didTapShare = { [weak self] article in
-            self?.shareArticle(article)
+        viewModel.didTapShare = { [weak self] article, cgRect in
+            self?.shareArticle(article, cgRect: cgRect)
         }
 
         viewModel.didTapAddToList = { [weak self] articles in
@@ -103,19 +103,32 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         articleCoordinator.start()
     }
 
-    private func shareArticle(_ article: WMFSavedArticle) {
-        guard let siteURL = article.project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
+    private func shareArticle(_ savedArticle: WMFSavedArticle, cgRect: CGRect) {
+        
+        guard let article = wmfArticlesFromSavedArticles([savedArticle]).first else {
             return
         }
         
-        let activityVC = UIActivityViewController(activityItems: [articleURL], applicationActivities: nil)
-        navigationController.present(activityVC, animated: true)
-    }
-
-    private func showAddToListSheet(for savedArticles: [WMFSavedArticle]) {
+        var customActivities: [UIActivity] = []
+        let addToReadingListActivity = AddToReadingListActivity { [weak self] in
+            guard let self else { return }
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
+            addArticlesToReadingListViewController.delegate = self
+            let navVC = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
+            navigationController.present(navVC, animated: true, completion: nil)
+        }
+        customActivities.append(addToReadingListActivity)
         
-        // convert WMFSavedArticle to WMFArticle
+        let shareActivityController = ShareActivityController(article: article, customActivities: customActivities)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            shareActivityController.popoverPresentationController?.sourceView = navigationController.view
+            shareActivityController.popoverPresentationController?.sourceRect = cgRect
+        }
+        navigationController.present(shareActivityController, animated: true, completion: nil)
+        
+    }
+    
+    private func wmfArticlesFromSavedArticles(_ savedArticles: [WMFSavedArticle]) -> [WMFArticle] {
         let articleURLs: [URL] = savedArticles.compactMap { savedArticle in
             guard let siteURL = savedArticle.project.siteURL,
                   var articleURL = siteURL.wmf_URL(withTitle: savedArticle.title) else {
@@ -129,8 +142,15 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         let inMemoryKeys = articleURLs.compactMap { WMFInMemoryURLKey(url: $0)}
         
         guard let articles = try? dataStore.viewContext.fetchArticlesWithInMemoryURLKeys(inMemoryKeys) else {
-            return
+            return []
         }
+        
+        return articles
+    }
+
+    private func showAddToListSheet(for savedArticles: [WMFSavedArticle]) {
+        
+        let articles = wmfArticlesFromSavedArticles(savedArticles)
         
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
         let navVC = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
@@ -374,10 +394,11 @@ extension AllArticlesCoordinator: AddArticlesToReadingListDelegate {
     }
     
     func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
-        exitEditingModeAction?()
+        // no-op
     }
     
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: WMF.ReadingList) {
+        exitEditingModeAction?()
         hostingController?.viewModel.loadArticles()
     }
 }
