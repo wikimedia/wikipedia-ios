@@ -195,6 +195,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             dataStore: dataStore,
             theme: theme
         )
+        
+        coordinator.exitEditingModeAction = { [weak self] in
+            self?.cancelAllArticlesEditingMode()
+        }
+        
         self.allArticlesCoordinator = coordinator
 
         let allArticlesVC = coordinator.contentViewController
@@ -354,6 +359,10 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
     
     @objc func userDidTapCancelEditingAllArticles() {
+        cancelAllArticlesEditingMode()
+    }
+    
+    private func cancelAllArticlesEditingMode() {
         allArticlesCoordinator?.contentViewController.viewModel.toggleEditing()
         configureNavigationBar()
     }

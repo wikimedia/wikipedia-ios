@@ -184,6 +184,8 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     
     func rowViewModel(for article: WMFSavedArticle) -> WMFAsyncPageRowSavedViewModel {
         if let cached = rowViewModelCache[article.id] {
+            // reading list names may have changed
+            cached.readingListNames = article.readingListNames
             return cached
         }
         let vm = WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames, alertType: article.alertType)

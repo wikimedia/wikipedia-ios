@@ -133,16 +133,82 @@ struct WMFAsyncPageRowSaved: View {
     }
 
     private var readingListTags: some View {
-        HStack(spacing: 4) {
-            ForEach(viewModel.readingListNames.prefix(2), id: \.self) { listName in
-                Text(listName)
-                    .font(Font(WMFFont.for(.caption1)))
-                    .foregroundColor(Color(uiColor: theme.link))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color(uiColor: theme.link).opacity(0.1))
-                    .cornerRadius(4)
+        let names = viewModel.readingListNames
+        
+        return ViewThatFits(in: .horizontal) {
+            // Try all tags
+            if names.count >= 1 {
+                HStack(spacing: 4) {
+                    ForEach(names, id: \.self) { name in
+                        tagView(for: name)
+                    }
+                }
+            }
+            
+            // Try all but one + overflow
+            if names.count >= 2 {
+                HStack(spacing: 4) {
+                    ForEach(names.dropLast(1), id: \.self) { name in
+                        tagView(for: name)
+                    }
+                    overflowTag(count: 1)
+                }
+            }
+            
+            // Try all but two + overflow
+            if names.count >= 3 {
+                HStack(spacing: 4) {
+                    ForEach(names.dropLast(2), id: \.self) { name in
+                        tagView(for: name)
+                    }
+                    overflowTag(count: 2)
+                }
+            }
+            
+            // Try first two + overflow
+            if names.count >= 3 {
+                HStack(spacing: 4) {
+                    tagView(for: names[0])
+                    tagView(for: names[1])
+                    overflowTag(count: names.count - 2)
+                }
+            }
+            
+            // Try first one + overflow
+            if names.count >= 2 {
+                HStack(spacing: 4) {
+                    tagView(for: names[0])
+                    overflowTag(count: names.count - 1)
+                }
+            }
+            
+            // Fallback: just overflow
+            if names.count >= 1 {
+                overflowTag(count: names.count)
             }
         }
+    }
+
+    private func tagView(for listName: String) -> some View {
+        Text(listName)
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundColor(Color(uiColor: theme.link))
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Color(uiColor: theme.link).opacity(0.1))
+            .cornerRadius(4)
+            .lineLimit(1)
+            .fixedSize(horizontal: true, vertical: true)
+    }
+
+    private func overflowTag(count: Int) -> some View {
+        Text("+\(count)")
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundColor(Color(uiColor: theme.link))
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Color(uiColor: theme.link).opacity(0.1))
+            .cornerRadius(4)
+            .fixedSize(horizontal: true, vertical: true)
     }
 }

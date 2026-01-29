@@ -11,6 +11,8 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
     private var dataController: WMFLegacySavedArticlesDataController?
     private weak var hostingController: WMFAllArticlesHostingController?
     var sortType: SortActionType = .byRecentlyAdded
+    
+    var exitEditingModeAction: (() -> Void)?
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
         self.navigationController = navigationController
@@ -111,8 +113,29 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         navigationController.present(activityVC, animated: true)
     }
 
-    private func showAddToListSheet(for articles: [WMFSavedArticle]) {
-        // Present reading list selection UI
+    private func showAddToListSheet(for savedArticles: [WMFSavedArticle]) {
+        
+        // convert WMFSavedArticle to WMFArticle
+        let articleURLs: [URL] = savedArticles.compactMap { savedArticle in
+            guard let siteURL = savedArticle.project.siteURL,
+                  var articleURL = siteURL.wmf_URL(withTitle: savedArticle.title) else {
+                return nil
+            }
+            
+            articleURL.wmf_languageVariantCode = savedArticle.project.languageVariantCode
+            return articleURL
+        }
+        
+        let inMemoryKeys = articleURLs.compactMap { WMFInMemoryURLKey(url: $0)}
+        
+        guard let articles = try? dataStore.viewContext.fetchArticlesWithInMemoryURLKeys(inMemoryKeys) else {
+            return
+        }
+        
+        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+        let navVC = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
+        addArticlesToReadingListViewController.delegate = self
+        self.navigationController.present(navVC, animated: true)
     }
     
     private func retryFailedArticleDownloads(_ completion: @escaping () -> Void) {
@@ -346,5 +369,19 @@ private extension ReadingListEntry {
         let languageVariantCode = inMemoryKey.languageVariantCode
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
         return (title, project)
+    }
+}
+
+extension AllArticlesCoordinator: AddArticlesToReadingListDelegate {
+    func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+        // no-op
+    }
+    
+    func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+        exitEditingModeAction?()
+    }
+    
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: WMF.ReadingList) {
+        hostingController?.viewModel.loadArticles()
     }
 }

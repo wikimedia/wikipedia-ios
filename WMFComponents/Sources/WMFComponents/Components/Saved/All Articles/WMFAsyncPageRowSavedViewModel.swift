@@ -2,13 +2,13 @@ import SwiftUI
 import WMFData
 
 @MainActor
-final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
+final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @MainActor Equatable {
     
     let id: String
     let title: String
     let project: WMFProject
-    let readingListNames: [String]
     
+    @Published var readingListNames: [String]
     @Published private(set) var description: String?
     @Published private(set) var imageURL: URL?
     @Published private(set) var uiImage: UIImage?
@@ -17,7 +17,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equat
     
     private let dataController: WMFArticleSummaryDataController
     
-    nonisolated public static func == (lhs: WMFAsyncPageRowSavedViewModel, rhs: WMFAsyncPageRowSavedViewModel) -> Bool {
+    public static func == (lhs: WMFAsyncPageRowSavedViewModel, rhs: WMFAsyncPageRowSavedViewModel) -> Bool {
         lhs.id == rhs.id &&
         lhs.title == rhs.title &&
         lhs.project == rhs.project &&
