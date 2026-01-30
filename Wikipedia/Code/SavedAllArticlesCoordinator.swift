@@ -497,7 +497,7 @@ extension SavedAllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDeleg
                     }
                 }
                 
-                switch self.sortType {
+                switch sortType {
                 case .byRecentlyAdded:
                     return articlesDict.values.sorted { ($0.savedDate ?? Date()) > ($1.savedDate ?? Date()) }
                 case .byTitle:
