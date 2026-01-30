@@ -100,6 +100,7 @@
 "activity-tab-add-images-subtitle" = "Додати пропоновані зображення до статей Вікіпедії, щоб покращити розуміння.";
 "activity-tab-add-images-title" = "Додати зображення";
 "activity-tab-additional-thoughts" = "Є ще якісь думки?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 перегляд|$1 перегляди|$1 переглядів}}";
 "activity-tab-articles-read" = "Статті, прочитані цього місяця";
 "activity-tab-articles-read-graph-label" = "Статті";
 "activity-tab-customize-all-time-impact" = "Вплив за весь час";
@@ -127,6 +128,7 @@
 "activity-tab-logged-out-title" = "Див. більше статистики читання та редагування";
 "activity-tab-logged-out-track-what-youve-read" = "У новий спосіб відстежувати те, що ви вже читали та переглядати ваш внесок протягом часу";
 "activity-tab-menu-clear-history" = "Очистити історію читання";
+"activity-tab-most-viewed" = "Найбільше переглядів з моменту вашого редагування";
 "activity-tab-neutral" = "Нейтрально";
 "activity-tab-no-edits-title" = "Ви ще не редагували цього тижня. Додайте зображення, щоб покращити розуміння статті.";
 "activity-tab-no-username-reading-title" = "Ваше читання";
