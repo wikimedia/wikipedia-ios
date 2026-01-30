@@ -225,7 +225,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
             filteredArticles = articles
         } else {
             filteredArticles = articles.filter { article in
-                article.title.contains(searchText)
+                article.title.localizedCaseInsensitiveContains(searchText)
             }
         }
     }
