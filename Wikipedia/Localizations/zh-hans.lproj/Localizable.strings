@@ -1629,7 +1629,7 @@
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑过的条目共获得了 {{PLURAL:$1|$1}} 次浏览。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
 "year-in-review-personalized-edit-views-title-format-updated" = "您的编辑最近已被浏览超过 {{PLURAL:$1|$1}} 次。";
 "year-in-review-personalized-editing-subtitle-1" = "感谢您作为志愿者编辑之一，为世界各地的维基媒体项目做出贡献。";
-"year-in-review-personalized-editing-subtitle-2-updated" = "像您这样的志愿者在维基百科的 {{PLURAL:$2| $2 不同语言版本}} 上做出了 {{PLURAL:$1| $1改变}}。";
+"year-in-review-personalized-editing-subtitle-2-updated" = "像您这样的志愿者在维基百科的 {{PLURAL:$2| $2 不同语言版本}} 上做出了 {{PLURAL:$1| $1 改变}}。";
 "year-in-review-personalized-editing-title-format-updated" = "您作出了 {{PLURAL:$1|$1}} 次编辑";
 "year-in-review-personalized-explore" = "一幅动画插画，一只手中握着维基百科的地球仪，它逐渐变成了一块小小的拼图碎片，寓意着众人拾柴火焰高，每个人都在为这个平台添砖加瓦。";
 "year-in-review-personalized-location-subtitle-format-1" = "您阅读过关于$2$1$3的内容。";
