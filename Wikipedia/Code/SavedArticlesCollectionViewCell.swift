@@ -42,13 +42,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             
             switch alertType {
             case .listLimitExceeded:
-                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-list-limit-exceeded", value: "List limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+                alertLabelText = CommonStrings.readingListsErrorListLimitExceeded
             case .entryLimitExceeded:
-                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-article-limit-exceeded", value: "Article limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+                alertLabelText = CommonStrings.readingListsErrorArticleLimitExceeded
             case .genericNotSynced:
-                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
+                alertLabelText = CommonStrings.readingListsErrorNotSynced
             case .downloading:
-                alertLabelText = WMFLocalizedString("reading-lists-article-queued-to-be-downloaded", value: "Article queued to be downloaded", comment: "Text of the alert label informing the user that article is queued to be downloaded.")
+                alertLabelText = CommonStrings.readingListsWarningArticleQueuedToBeDownloaded
             case .articleError(let articleError):
                 alertLabelText = articleError.localizedDescription
             }

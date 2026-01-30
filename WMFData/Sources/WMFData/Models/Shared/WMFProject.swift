@@ -63,7 +63,7 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
         }
     }
     
-    var languageVariantCode: String? {
+    public var languageVariantCode: String? {
         switch self {
         case .wikipedia(let language):
             return language.languageVariantCode
@@ -114,6 +114,15 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
         }
 
         return components.url
+    }
+    
+    public var isRTL: Bool {
+        switch self {
+        case .wikipedia(let language):
+            return language.isRTL
+        default:
+            return false
+        }
     }
     
     

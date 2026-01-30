@@ -67,7 +67,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
             self.articleDescription = nil
         }
         
-        let imageDataController = WMFImageDataController()
+        let imageDataController = WMFImageDataController.shared
         
         guard let thumbnailURL = summary?.thumbnailURL else {
             return

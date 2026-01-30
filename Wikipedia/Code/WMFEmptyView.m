@@ -100,8 +100,8 @@
 + (instancetype)noSavedPagesEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"saved-blank"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-title", nil, nil, @"No saved pages yet", @"Title of a blank screen shown when a user has no saved pages");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-message", nil, nil, @"Save pages to view them later, even offline", @"Message of a blank screen shown when a user has no saved pages");
+    view.titleLabel.text = [WMFCommonStrings allArticlesEmptySavedTitle];
+    view.messageLabel.text = [WMFCommonStrings allArticlesEmptySavedSubtitle];
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
