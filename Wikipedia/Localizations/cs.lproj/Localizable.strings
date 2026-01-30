@@ -855,7 +855,15 @@
 "wikitext-upload-save-terms-name" = "Podmínkami užití";
 "year-in-review-articles-slide-subtitle" = "Zde jsou články, které jste v roce 2025 navštívili nejčastěji: \n$1";
 "year-in-review-categories-slide-subtitle" = "Kategorie seskupují články na podobná témata. V roce 2025 jste články v těchto zajímavých kategoriích navštívili několikrát.\n\n$1";
+"year-in-review-feature-explore-footer-v3" = "Vaše historie čtení je chráněna. Statistiky čtení se vypočítávají na základě dat uložených lokálně ve vašem zařízení.";
 "year-in-review-highlights-articles-read" = "Přečtené články";
+"year-in-review-highlights-favorite-day" = "Oblíbený den na čtení";
 "year-in-review-highlights-personalized-articles" = "Články, které čtu nejvíce";
 "year-in-review-highlights-title" = "Děkujeme, že jste strávili rok s Wikipedií.";
 "year-in-review-most-read-categories-title" = "Vaše nejzajímavější kategorie";
+"year-in-review-personalized-date-day-footer-v3" = "Oblíbený den na čtení";
+"year-in-review-personalized-date-month-footer-v3" = "Měsíc, ve kterém jste četli nejvíce";
+"year-in-review-personalized-date-time-footer-v3" = "Oblíbený čas na čtení";
+"year-in-review-personalized-date-title-v3" = "Máte jasné čtenářské návyky";
+"year-in-review-time-evening" = "večer";
+"year-in-review-time-morning" = "ráno";

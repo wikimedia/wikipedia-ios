@@ -85,6 +85,7 @@
 "activity-tab-add-images-subtitle" = "Додавајте предложени слики во википедиски статии за да ја подобрите претставата за содржината.";
 "activity-tab-add-images-title" = "Додај слики";
 "activity-tab-additional-thoughts" = "Имате други размисли?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 посета|$1 посети}}";
 "activity-tab-articles-read" = "Прочитани статии овој месец";
 "activity-tab-articles-read-graph-label" = "Статии";
 "activity-tab-customize-all-time-impact" = "Севкупно влијание";
@@ -112,6 +113,7 @@
 "activity-tab-logged-out-title" = "Погледајте повеќе сознанија за читање и уредување";
 "activity-tab-logged-out-track-what-youve-read" = "Следете го она што сте го прочитале и гледајте ги вашите придонеси со текот на времето на нов начин";
 "activity-tab-menu-clear-history" = "Исчисти историја на читање";
+"activity-tab-most-viewed" = "Најпосетени од вашето уредување наваму";
 "activity-tab-neutral" = "Воздржан";
 "activity-tab-no-edits-title" = "Немате уредувано неделава. Додавајте слики за статиите да бидат полесни за разбирање.";
 "activity-tab-no-username-reading-title" = "Вашето читање";

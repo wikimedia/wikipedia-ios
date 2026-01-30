@@ -7,6 +7,7 @@ final class ContributionsViewModel: ObservableObject {
     let lastMonthCount: Int
     let lastEdited: Date?
     weak var activityViewModel: WMFActivityTabViewModel?
+    @Published public var shouldShowEditCTA: Bool = false
 
     init(data: WMFUserImpactData, activityViewModel: WMFActivityTabViewModel) {
         self.activityViewModel = activityViewModel
@@ -33,6 +34,12 @@ final class ContributionsViewModel: ObservableObject {
                       components.month == lastMonthComponents.month {
                 lastMonthCount += count
             }
+        }
+        
+        if thisMonthCount == 0 {
+            shouldShowEditCTA = true
+        } else {
+            shouldShowEditCTA = false
         }
         
         self.thisMonthCount = thisMonthCount
