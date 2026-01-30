@@ -452,7 +452,7 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
                     // Merge reading list name
                     if let listName = entry.list?.name, !existingArticle.readingListNames.contains(listName) {
                         if let nonDefaultName {
-                            existingArticle.readingListNames.append(listName)
+                            existingArticle.readingListNames.append(nonDefaultName)
                         }
                         articlesDict[id] = existingArticle
                     }
@@ -508,11 +508,12 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
     func deleteSavedArticles(articles: [WMFSavedArticle], completion: @escaping (Bool) -> Void) {
 
         let wmfArticles = wmfArticlesFromSavedArticles(articles)
+
         
         let alertController = ReadingListsAlertController()
         let unsave = ReadingListsAlertActionType.unsave.action { [weak self] in
             guard let self else { return }
-            dataStore.readingListsController.unsave(wmfArticles, in: dataStore.viewContext)
+            self.unsaveAndAnnounceAndLog(articles: wmfArticles)
             completion(true)
         }
         let cancel = ReadingListsAlertActionType.cancel.action {
@@ -522,11 +523,20 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
         alertController.showAlertIfNeeded(presenter: self.navigationController, for: wmfArticles, with: [cancel, unsave]) { [weak self] showed in
             guard let self else { return }
             if !showed {
-                dataStore.readingListsController.unsave(wmfArticles, in: dataStore.viewContext)
+                self.unsaveAndAnnounceAndLog(articles: wmfArticles)
                 completion(true)
             }
         }
         
+    }
+    
+    private func unsaveAndAnnounceAndLog(articles: [WMFArticle]) {
+        dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
+        
+        let articlesCount = articles.count
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
+        let language = articles.count == 1 ? articles.first?.url?.wmf_languageCode : nil
+        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
     }
 }
 
