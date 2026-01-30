@@ -101,26 +101,33 @@ public struct WMFAllArticlesView: View {
     // MARK: - Editing Toolbar
     
     private var editingToolbar: some View {
-        HStack {
-            Button(action: {
-                viewModel.addSelectedToList()
-            }) {
-                Text(viewModel.localizedStrings.addToList)
-                    .foregroundColor(viewModel.hasSelection ? Color(uiColor: appEnvironment.theme.link) : Color(uiColor: appEnvironment.theme.secondaryText))
+        VStack(spacing: 0) {
+            Divider()
+                .background(Color(uiColor: appEnvironment.theme.border))
+            HStack {
+                Button(action: {
+                    viewModel.addSelectedToList()
+                }) {
+                    Text(viewModel.localizedStrings.addToList)
+                        .foregroundColor(viewModel.hasSelection ? Color(uiColor: appEnvironment.theme.link) : Color(uiColor: appEnvironment.theme.secondaryText))
+                }
+                .disabled(!viewModel.hasSelection)
+                .frame(maxWidth: .infinity)
+                
+                Spacer()
+                
+                Button(action: {
+                    viewModel.deleteSelectedArticles()
+                }) {
+                    Text(viewModel.localizedStrings.unsave)
+                        .foregroundColor(viewModel.hasSelection ? Color(uiColor: appEnvironment.theme.link) : Color(uiColor: appEnvironment.theme.secondaryText))
+                }
+                .disabled(!viewModel.hasSelection)
+                .frame(maxWidth: .infinity)
             }
-            .disabled(!viewModel.hasSelection)
-            
-            Spacer()
-            
-            Button(action: {
-                viewModel.deleteSelectedArticles()
-            }) {
-                Text(viewModel.localizedStrings.unsave)
-                    .foregroundColor(viewModel.hasSelection ? Color(uiColor: appEnvironment.theme.link) : Color(uiColor: appEnvironment.theme.secondaryText))
-            }
-            .disabled(!viewModel.hasSelection)
+            .padding()
+            .background(Color(uiColor: appEnvironment.theme.midBackground))
         }
-        .padding()
-        .background(Color(uiColor: appEnvironment.theme.paperBackground))
+        
     }
 }
