@@ -1098,7 +1098,7 @@
 	<key>year-in-review-personalized-editing-subtitle-2-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>像您这样的志愿者在维基百科的 %#@v2@ 上做出了 {{ {{PLURAL:%2$d| %#@v1@。</string>
+		<string>像您这样的志愿者在维基百科的 %#@v2@ 上做出了 %#@v1@。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1106,7 +1106,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>other</key>
-			<string> %1$lld改变</string>
+			<string> %1$lld 改变</string>
 		</dict>
 		<key>v2</key>
 		<dict>
