@@ -104,6 +104,23 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             }
             presentArticleErrorRecovery(with: article)
         }
+        
+        viewModel.didTapReadingListTag = { [weak self] savedArticle, readingListName in
+            guard let self else { return }
+            
+            let readingLists = readingLists(for: savedArticle)
+            
+            let viewController: ThemeableViewController
+            if let name = readingListName,
+               let readingList = readingList(named: name, from: readingLists) {
+                viewController = ReadingListDetailViewController(for: readingList, with: dataStore)
+            } else {
+                viewController = ReadingListsViewController(with: dataStore, readingLists: readingLists)
+            }
+            
+            viewController.apply(theme: theme)
+            navigationController.pushViewController(viewController, animated: true)
+        }
 
         let controller = WMFAllArticlesHostingController(viewModel: viewModel)
         self.hostingController = controller
@@ -271,6 +288,26 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         }
     }
     
+    private func readingLists(for savedArticle: WMFSavedArticle) -> [ReadingList] {
+        guard let siteURL = savedArticle.project.siteURL,
+              var articleURL = siteURL.wmf_URL(withTitle: savedArticle.title) else {
+            return []
+        }
+        
+        articleURL.wmf_languageVariantCode = savedArticle.project.languageVariantCode
+        
+        guard let articleKey = articleURL.wmf_inMemoryKey?.databaseKey,
+              let article = dataStore.fetchArticle(withKey: articleKey) else {
+            return []
+        }
+        
+        return article.sortedNonDefaultReadingLists
+    }
+
+    private func readingList(named name: String, from readingLists: [ReadingList]) -> ReadingList? {
+        return readingLists.first { $0.name == name }
+    }
+    
     // MARK: - Article changes
     
     @objc func articleDidChange(_ note: Notification) {
@@ -400,10 +437,18 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
                 let project = titleAndProject.project
                 let id = identifier(for: title, project: project)
                 
+                // We don't want to show the default tag
+                var nonDefaultName: String? = entry.list?.name
+                if entry.list?.isDefault ?? false {
+                    nonDefaultName = nil
+                }
+                
                 if var existingArticle = articlesDict[id] {
                     // Merge reading list name
                     if let listName = entry.list?.name, !existingArticle.readingListNames.contains(listName) {
-                        existingArticle.readingListNames.append(listName)
+                        if let nonDefaultName {
+                            existingArticle.readingListNames.append(listName)
+                        }
                         articlesDict[id] = existingArticle
                     }
                 } else {
@@ -423,6 +468,11 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
                     } else {
                         alertType = .none
                     }
+                    
+                    var readingListNames: [String] = []
+                    if let nonDefaultName {
+                        readingListNames = [nonDefaultName]
+                    }
 
                     let identifier = identifier(for: title, project: project)
                     let savedArticle = WMFSavedArticle(
@@ -430,7 +480,7 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
                         title: title,
                         project: project,
                         savedDate: entry.createdDate as Date?,
-                        readingListNames: entry.list?.name.map { [$0] } ?? [],
+                        readingListNames: readingListNames,
                         alertType: alertType
                     )
                     articlesDict[id] = savedArticle

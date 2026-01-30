@@ -80,6 +80,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     public var didTapOpenInBackgroundTab: ((WMFSavedArticle) -> Void)?
     public var didUpdateEditingMode: ((Bool) -> Void)?
     public var didTapArticleAlert: ((WMFSavedArticle) -> Void)?
+    public var didTapReadingListTag: ((WMFSavedArticle, String?) -> Void)?
     
     // MARK: - Initialization
     
@@ -214,6 +215,10 @@ public final class WMFAllArticlesViewModel: ObservableObject {
         
         vm.didTapAlert = { [weak self] in
             self?.didTapArticleAlert?(article)
+        }
+        
+        vm.didTapReadingListTag = { [weak self] readingListName in
+            self?.didTapReadingListTag?(article, readingListName)
         }
         
         rowViewModelCache[article.id] = vm

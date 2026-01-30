@@ -286,15 +286,20 @@ struct WMFAsyncPageRowSaved: View {
         
         return Group {
             if let text {
-                Text(text)
-                    .font(Font(WMFFont.for(.caption1)))
-                    .foregroundColor(Color(uiColor: appEnvironment.theme.tagText))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color(uiColor: appEnvironment.theme.tagBackground))
-                    .cornerRadius(4)
-                    .lineLimit(1)
-                    .fixedSize(horizontal: true, vertical: true)
+                Button {
+                        viewModel.didTapReadingListTag?(listName)
+                } label: {
+                    Text(text)
+                        .font(Font(WMFFont.for(.caption1)))
+                        .foregroundColor(Color(uiColor: appEnvironment.theme.tagText))
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color(uiColor: appEnvironment.theme.tagBackground))
+                        .cornerRadius(4)
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: true)
+                }
+                .buttonStyle(.plain)
             }
         }
     }

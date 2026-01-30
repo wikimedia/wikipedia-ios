@@ -33,6 +33,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
     var snippet: String?
     
     public var didTapAlert: (() -> Void)?
+    public var didTapReadingListTag: ((_ readingListName: String?) -> Void)?
     
     private let dataController: WMFArticleSummaryDataController
     
