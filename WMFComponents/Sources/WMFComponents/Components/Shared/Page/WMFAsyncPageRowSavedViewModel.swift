@@ -2,7 +2,7 @@ import SwiftUI
 import WMFData
 
 @MainActor
-final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @MainActor Equatable {
+final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, Equatable {
     
     enum ImageLoadingState {
         case loading
