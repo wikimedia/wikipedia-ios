@@ -47,6 +47,8 @@ public struct WMFTheme: Equatable {
     public let secondaryAction: UIColor
     public let darkBorder: UIColor
     public let toastShadow: UIColor
+    public let tagBackground: UIColor
+    public let batchSelectionBackground: UIColor
 
     public var preferredColorScheme: ColorScheme {
     return (self == WMFTheme.light || self == WMFTheme.sepia) ? .light : .dark
@@ -99,7 +101,9 @@ public struct WMFTheme: Equatable {
         navigationBarTintColor: WMFColor.blue600,
         secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark5,
-        toastShadow: WMFColor.gray400
+        toastShadow: WMFColor.gray400,
+        tagBackground: WMFColor.blue600.withAlphaComponent(0.1),
+        batchSelectionBackground: WMFColor.blue100
     )
 
     public static let sepia = WMFTheme(
@@ -145,7 +149,9 @@ public struct WMFTheme: Equatable {
         navigationBarTintColor: WMFColor.blue600,
         secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark5,
-        toastShadow: WMFColor.taupe200
+        toastShadow: WMFColor.taupe200,
+        tagBackground: WMFColor.blue300,
+        batchSelectionBackground: WMFColor.blue100
     )
 
     public static let dark = WMFTheme(
@@ -191,7 +197,9 @@ public struct WMFTheme: Equatable {
         navigationBarTintColor: WMFColor.blue300,
         secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark0,
-        toastShadow: WMFColor.gray800
+        toastShadow: WMFColor.gray800,
+        tagBackground: WMFColor.blue300,
+        batchSelectionBackground: WMFColor.blue700
     )
 
     public static let black = WMFTheme(
@@ -237,7 +245,9 @@ public struct WMFTheme: Equatable {
         navigationBarTintColor: WMFColor.blue300,
         secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark0,
-        toastShadow: WMFColor.gray600
+        toastShadow: WMFColor.gray600,
+        tagBackground: WMFColor.blue300,
+        batchSelectionBackground: WMFColor.blue700
     )
 
 }

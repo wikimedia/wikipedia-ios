@@ -60,7 +60,6 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     @Published public var filteredArticles: [WMFSavedArticle] = []
     @Published public var state: State = .undefined
     @Published public var isEditing: Bool = false
-    @Published public var selectedArticleIDs: Set<String> = []
     @Published public var searchText: String = ""
     
     // MARK: - Properties
@@ -119,21 +118,25 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     
     public func toggleEditing() {
         isEditing.toggle()
-        if !isEditing {
-            selectedArticleIDs.removeAll()
+        rowViewModelCache.values.forEach {
+            $0.isEditing = isEditing
+            if !isEditing {
+                $0.isSelected = false
+            }
         }
     }
     
     public func toggleSelection(for article: WMFSavedArticle) {
-        if selectedArticleIDs.contains(article.id) {
-            selectedArticleIDs.remove(article.id)
-        } else {
-            selectedArticleIDs.insert(article.id)
-        }
+        guard let rowViewModel = rowViewModelCache[article.id] else { return }
+            rowViewModel.isSelected.toggle()
     }
     
-    public func isSelected(_ article: WMFSavedArticle) -> Bool {
-        selectedArticleIDs.contains(article.id)
+    public var hasSelection: Bool {
+        rowViewModelCache.values.contains { $0.isSelected }
+    }
+    
+    public var selectedArticles: [WMFSavedArticle] {
+        articles.filter { rowViewModelCache[$0.id]?.isSelected == true }
     }
     
     public func updateAlertType(id: String, alertType: WMFSavedArticleAlertType) {
@@ -169,21 +172,14 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     }
     
     public func deleteSelectedArticles() {
-        let selectedArticles = articles.filter { selectedArticleIDs.contains($0.id) }
         for article in selectedArticles {
             deleteArticle(article)
         }
-        selectedArticleIDs.removeAll()
         isEditing = false
     }
     
     public func addSelectedToList() {
-        let selected = articles.filter { selectedArticleIDs.contains($0.id) }
-        didTapAddToList?(selected)
-    }
-    
-    public var hasSelection: Bool {
-        !selectedArticleIDs.isEmpty
+        didTapAddToList?(selectedArticles)
     }
     
     func rowViewModel(for article: WMFSavedArticle) -> WMFAsyncPageRowSavedViewModel {

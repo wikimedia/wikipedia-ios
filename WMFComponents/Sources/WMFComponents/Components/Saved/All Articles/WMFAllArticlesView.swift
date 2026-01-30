@@ -56,11 +56,9 @@ public struct WMFAllArticlesView: View {
         VStack(spacing: 0) {
             List {
                 ForEach(viewModel.filteredArticles, id: \.id) { article in
+                    let rowModel = viewModel.rowViewModel(for: article)
                     WMFAsyncPageRowSaved(
-                        viewModel: viewModel.rowViewModel(for: article),
-                        isEditing: viewModel.isEditing,
-                        isSelected: viewModel.isSelected(article),
-                        theme: appEnvironment.theme,
+                        viewModel: rowModel,
                         onTap: {
                             if viewModel.isEditing {
                                 viewModel.toggleSelection(for: article)
@@ -84,6 +82,7 @@ public struct WMFAllArticlesView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.visible)
                     .listRowSeparatorTint(Color(uiColor: appEnvironment.theme.newBorder))
+                    .listRowBackground(Color(uiColor: rowModel.isSelected ? appEnvironment.theme.batchSelectionBackground : appEnvironment.theme.paperBackground))
                 }
             }
             .listStyle(.plain)
@@ -108,8 +107,7 @@ public struct WMFAllArticlesView: View {
                 Button(action: {
                     viewModel.addSelectedToList()
                 }) {
-                    Text(viewModel.localizedStrings.addToList)
-                        .foregroundColor(viewModel.hasSelection ? Color(uiColor: appEnvironment.theme.link) : Color(uiColor: appEnvironment.theme.secondaryText))
+                    editingToolbarText(text: viewModel.localizedStrings.addToList, isEnabled: viewModel.hasSelection)
                 }
                 .disabled(!viewModel.hasSelection)
                 .frame(maxWidth: .infinity)
@@ -119,15 +117,20 @@ public struct WMFAllArticlesView: View {
                 Button(action: {
                     viewModel.deleteSelectedArticles()
                 }) {
-                    Text(viewModel.localizedStrings.unsave)
-                        .foregroundColor(viewModel.hasSelection ? Color(uiColor: appEnvironment.theme.link) : Color(uiColor: appEnvironment.theme.secondaryText))
+                    editingToolbarText(text: viewModel.localizedStrings.unsave, isEnabled: viewModel.hasSelection)
                 }
                 .disabled(!viewModel.hasSelection)
                 .frame(maxWidth: .infinity)
             }
-            .padding()
+            .padding([.top, .bottom], 12)
             .background(Color(uiColor: appEnvironment.theme.midBackground))
         }
         
+    }
+    
+    private func editingToolbarText(text: String, isEnabled: Bool) -> some View {
+        Text(text)
+            .font(Font(WMFFont.for(.subheadline)))
+            .foregroundColor(isEnabled ? Color(uiColor: appEnvironment.theme.link) : Color(uiColor: appEnvironment.theme.secondaryText))
     }
 }

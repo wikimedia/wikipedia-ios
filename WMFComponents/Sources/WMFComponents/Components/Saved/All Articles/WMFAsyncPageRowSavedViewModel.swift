@@ -26,6 +26,8 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
     @Published private(set) var imageURL: URL?
     @Published private(set) var uiImage: UIImage?
     @Published var alertType: WMFSavedArticleAlertType = .none
+    @Published var isEditing: Bool = false
+    @Published var isSelected: Bool = false
     
     var geometryFrame: CGRect = .zero
     var snippet: String?

@@ -38,12 +38,10 @@ struct WMFAsyncPageRowSavedAlertView: View {
 
 struct WMFAsyncPageRowSaved: View {
 
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFAsyncPageRowSavedViewModel
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     
-    let isEditing: Bool
-    let isSelected: Bool
-    let theme: WMFTheme
     let onTap: () -> Void
     let onDelete: () -> Void
     let onShare: (CGRect) -> Void
@@ -71,7 +69,7 @@ struct WMFAsyncPageRowSaved: View {
                 Spacer(minLength: 0)
                 
                 HStack(spacing: 12) {
-                    if isEditing {
+                    if viewModel.isEditing {
                         selectionIndicator
                     }
                     
@@ -80,13 +78,13 @@ struct WMFAsyncPageRowSaved: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(viewModel.title)
                                 .font(Font(WMFFont.for(.semiboldHeadline)))
-                                .foregroundColor(Color(uiColor: theme.text))
+                                .foregroundColor(Color(uiColor: appEnvironment.theme.text))
                                 .lineLimit(1)
 
                             
                             Text(viewModel.description ?? " ")
                                 .font(Font(WMFFont.for(.subheadline)))
-                                .foregroundColor(Color(uiColor: theme.secondaryText))
+                                .foregroundColor(Color(uiColor: appEnvironment.theme.secondaryText))
                                 .lineLimit(1)
                             
                             Spacer()
@@ -150,17 +148,17 @@ struct WMFAsyncPageRowSaved: View {
                 onOpenInNewTab()
             } label: {
                 Text(viewModel.localizedStrings.openInNewTab)
-                // Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
             }
-            // .labelStyle(.titleAndIcon)
+            .labelStyle(.titleAndIcon)
             
             Button {
                 onOpenInBackgroundTab()
             } label: {
                 Text(viewModel.localizedStrings.openInBackgroundTab)
-                // Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
             }
-            // .labelStyle(.titleAndIcon)
+            .labelStyle(.titleAndIcon)
             
             Button {
                 onShare(viewModel.geometryFrame)
@@ -169,26 +167,27 @@ struct WMFAsyncPageRowSaved: View {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
+            
         } preview: {
             WMFArticlePreviewView(viewModel: getPreviewViewModel(from:viewModel))
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             
-            if !isEditing {
+            if !viewModel.isEditing {
                 
                 if let shareIcon = WMFIcon.share,
                    let deleteIcon = WMFIcon.delete {
                     Button(action: onDelete) {
                         Image(uiImage: deleteIcon)
                     }
-                    .tint(Color(uiColor: theme.destructive))
+                    .tint(Color(uiColor: appEnvironment.theme.destructive))
 
                     Button(action: {
                         onShare(viewModel.geometryFrame)
                     }) {
                         Image(uiImage: shareIcon)
                     }
-                    .tint(Color(uiColor: theme.secondaryAction))
+                    .tint(Color(uiColor: appEnvironment.theme.secondaryAction))
                 }
             }
         }
@@ -202,7 +201,7 @@ struct WMFAsyncPageRowSaved: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else {
-                Color(uiColor: theme.midBackground)
+                Color(uiColor: appEnvironment.theme.midBackground)
             }
         }
         .frame(width: 100, height: 100)
@@ -210,8 +209,8 @@ struct WMFAsyncPageRowSaved: View {
     }
 
     private var selectionIndicator: some View {
-        Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-            .foregroundColor(isSelected ? Color(uiColor: theme.link) : Color(uiColor: theme.secondaryText))
+        Image(systemName: viewModel.isSelected ? "checkmark.circle.fill" : "circle")
+            .foregroundColor(viewModel.isSelected ? Color(uiColor: appEnvironment.theme.link) : Color(uiColor: appEnvironment.theme.secondaryText))
             .font(.system(size: 22))
     }
 
@@ -275,10 +274,10 @@ struct WMFAsyncPageRowSaved: View {
     private func tagView(for listName: String) -> some View {
         Text(listName)
             .font(Font(WMFFont.for(.caption1)))
-            .foregroundColor(Color(uiColor: theme.link))
+            .foregroundColor(Color(uiColor: appEnvironment.theme.link))
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
-            .background(Color(uiColor: theme.link).opacity(0.1))
+            .background(Color(uiColor: appEnvironment.theme.tagBackground))
             .cornerRadius(4)
             .lineLimit(1)
             .fixedSize(horizontal: true, vertical: true)
@@ -287,10 +286,10 @@ struct WMFAsyncPageRowSaved: View {
     private func overflowTag(count: Int) -> some View {
         Text("+\(count)")
             .font(Font(WMFFont.for(.caption1)))
-            .foregroundColor(Color(uiColor: theme.link))
+            .foregroundColor(Color(uiColor: appEnvironment.theme.link))
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
-            .background(Color(uiColor: theme.link).opacity(0.1))
+            .background(Color(uiColor: appEnvironment.theme.link).opacity(0.1))
             .cornerRadius(4)
             .fixedSize(horizontal: true, vertical: true)
     }
