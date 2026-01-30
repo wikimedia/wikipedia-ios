@@ -41,6 +41,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         viewModel.openCustomize = userDidTapCustomize
         viewModel.pushToContributions = pushToContributions
+        viewModel.exploreWikipedia = presentExplore
+        viewModel.makeAnEdit = makeAnEdit
         
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
@@ -68,6 +70,28 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let view = WMFToastViewBasicView(viewModel: viewModel)
             WMFToastPresenter.shared.presentToastView(view: view)
         }
+    }
+    
+    var editingFAQURLString: String {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return ""
+        }
+        
+        let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
+        return url?.absoluteString ?? ""
+    }
+    
+    public func makeAnEdit() {
+        guard let url = URL(string: editingFAQURLString) else { return }
+        navigate(to: url)
+    }
+
+    public func getURL(item: WMFUserImpactData.TopViewedArticle, project: WMFProject) -> URL? {
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: item.title) else {
+            return nil
+        }
+        return articleURL
     }
     
     public func pushToContributions() {
@@ -102,6 +126,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         
         viewModel.updateID(userID: userID)
+        viewModel.getURL = getURL
         
         if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
             viewModel.updateAuthenticationState(authState: .loggedIn)
@@ -203,6 +228,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
         viewModel.timelineViewModel.onTapArticle = onTapArticle
+        viewModel.onTapArticle = onTapArticleURL(articleURL:)
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
 
@@ -213,15 +239,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     @MainActor
     private func presentModalsIfNeeded() {
         Task {
-            // TODO: Bring back onboarding screen in January 2026 (https://phabricator.wikimedia.org/T411424)
-//            let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
-//            if !hasSeenActivityTab {
-//                presentOnboarding()
-//                ActivityTabFunnel.shared.logOnboardingDidAppear()
-//                await dataController.setHasSeenActivityTab(true)
-//            } else {
-//                presentSurveyIfNeeded()
-//            }
+            let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
+            if !hasSeenActivityTab {
+                presentOnboarding()
+                ActivityTabFunnel.shared.logOnboardingDidAppear()
+                await dataController.setHasSeenActivityTab(true)
+            } else {
+                presentSurveyIfNeeded()
+            }
             presentSurveyIfNeeded()
         }
         
@@ -247,6 +272,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
+    }
+    
+    private func presentExplore() {
+        navigationController?.popToRootViewController(animated: false)
+        
+        if let tabBar = self.tabBarController {
+            tabBar.selectedIndex = 0 
+        }
     }
 
     private let firstItemTitle = WMFLocalizedString("activity-tab-onboarding-first-item-title", value: "Reading patterns", comment: "Title for activity tabs first item")
@@ -479,6 +512,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
    private func onTapArticle(item: TimelineItem) {
        ActivityTabFunnel.shared.logActivityTabArticleTap()
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
+            articleCoordinator.start()
+        }
+    }
+    
+    private func onTapArticleURL(articleURL: URL) {
+        if let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }

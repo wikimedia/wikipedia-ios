@@ -96,6 +96,7 @@
 "activity-tab-add-images-subtitle" = "Додајте предложене слике у чланке на Википедији да би сте побољшали њихово разумевање.";
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-articles-read-graph-label" = "Чланци";
+"activity-tab-empty-title" = "Ништа за приказ";
 "activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈИ ЗА iOS";
 "activity-tab-logged-out-title" = "Видите више уређивачких и читалачких активности";
 "activity-tab-neutral" = "Неутралан";
@@ -314,7 +315,7 @@
 "edit-summary-add-summary-text" = "Додај опис измене";
 "edit-summary-choice-added-image" = "Додата слика";
 "edit-summary-choice-added-image-and-caption" = "Додата слика и натпис";
-"edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
+"edit-summary-choice-fixed-grammar" = "Граматичке грешке";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
 "edit-summary-placeholder-text" = "Како сте побољшали чланак?";
@@ -1203,6 +1204,7 @@
 "vanish-account-warning-title" = "Упозорење";
 "variants-alert-dismiss-button" = "Не, хвала";
 "variants-alert-preferences-button" = "Прегледајте своја подешавања";
+"view-changes" = "Прикажи измене";
 "watch" = "Надгледај";
 "watchlist" = "Списак надгледања";
 "watchlist-added-toast-one-month" = "На списку надгледања 1 месец.";

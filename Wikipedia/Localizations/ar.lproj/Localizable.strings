@@ -278,6 +278,7 @@
 "continue-button-title" = "يكمل";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
+"contributions-this-month" = "المساهمات هذا الشهر";
 "crimean-tatar-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية للغة التتار القرمية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل قراءتها والبحث عنها وتحريرها بالمتغيرات المفضلة لديك:\n\nQırımtatarca، اللاتينية، اللاتينية التتارية القرمية (chr-latn)\nкъырымтатарджа، Кирил، السيريلية التتارية القرمية (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "تحديثات لدعم متغير تتار القرم";
 "customize-action-title" = "تخصيص";
@@ -510,6 +511,8 @@
 "editor-toolbar-template-accessibility" = "تنسيق نص القالب";
 "editor-wikitext-loading-accessibility" = "تحميل نص المحرر";
 "editor-wikitext-textview-accessibility" = "محرر نصوص الويكي";
+"edits-last-month" = "التعديلات التي أجريت الشهر الماضي";
+"edits-this-month" = "التعديلات التي أُجريت هذا الشهر";
 "empty-diff-compare-title" = "لا فروق بين المراجعات";
 "empty-diff-single-title" = "لم يتم إجراء تغييرات مرئية";
 "empty-edit-summary" = "ملخص التحرير الفارغ";
@@ -1424,6 +1427,7 @@
 "vanish-account-warning-title" = "تحذير";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
+"view-changes" = "عرض التغييرات";
 "watch" = "راقب";
 "watchlist" = "قائمة المراقبة";
 "watchlist-added-toast-one-month" = "تمت إضافته إلى قائمة مراقبتك لمدة شهر واحد.";
