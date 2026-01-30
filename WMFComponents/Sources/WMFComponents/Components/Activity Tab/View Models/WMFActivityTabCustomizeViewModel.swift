@@ -6,11 +6,11 @@ import Combine
 public final class WMFActivityTabCustomizeViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     
-    @Published var isTimeSpentReadingOn: Bool = true
-    @Published var isReadingInsightsOn: Bool = true
-    @Published var isEditingInsightsOn: Bool = true
-    @Published var isTimelineOfBehaviorOn: Bool = true
-    var isLoggedIn: Bool {
+    @Published public var isTimeSpentReadingOn: Bool = true
+    @Published public var isReadingInsightsOn: Bool = true
+    @Published public var isEditingInsightsOn: Bool = true
+    @Published public var isTimelineOfBehaviorOn: Bool = true
+    public var isLoggedIn: Bool {
         didSet {
             Task {
                await updateFromDataController()
