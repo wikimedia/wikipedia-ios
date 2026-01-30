@@ -6,18 +6,24 @@ import Foundation
 struct TimelineSectionView: View {
     let activityViewModel: WMFActivityTabViewModel
     @ObservedObject var section: TimelineViewModel.TimelineSection
-    
+    let isFirstSection: Bool
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
-    
+    var theme: WMFTheme { appEnvironment.theme }
+
     var body: some View {
-        return Section(
-            header:
-                TimelineHeaderView(activityViewModel: activityViewModel, section: section)
-        ) {
+        Section(header: EmptyView()) {
+            Group {
+                if isFirstSection {
+                    TimelineHeaderView(activityViewModel: activityViewModel, section: section)
+                } else {
+                    TimelineHeaderView(activityViewModel: activityViewModel, section: section)
+                }
+            }
+            .listRowInsets(EdgeInsets())
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color(uiColor: theme.paperBackground))
+
             if activityViewModel.shouldShowEmptyState {
                 emptyState
                     .listRowSeparator(.hidden)

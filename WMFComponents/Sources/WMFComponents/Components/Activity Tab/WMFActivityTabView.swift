@@ -236,8 +236,12 @@ public struct WMFActivityTabView: View {
     }
 
     private func timelineSectionsList() -> some View {
-        ForEach(viewModel.sections) { section in
-            TimelineSectionView(activityViewModel: viewModel, section: section)
+        ForEach(Array(viewModel.sections.enumerated()), id: \.offset) { index, section in
+            TimelineSectionView(
+                activityViewModel: viewModel,
+                section: section,
+                isFirstSection: index == 0
+            )
         }
     }
 
