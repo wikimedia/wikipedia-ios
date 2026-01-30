@@ -512,9 +512,7 @@ import CocoaLumberjackSwift
     }
 }
 
-// MARK: - Private extensions
-
-extension MWKDataStore {
+public extension MWKDataStore {
     func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) throws -> T) async throws -> T {
         return try await withCheckedThrowingContinuation { continuation in
             Task { @MainActor in

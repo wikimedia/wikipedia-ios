@@ -425,6 +425,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
         profileCoordinator?.theme = theme
         updateProfileButton()
+        allArticlesCoordinator?.theme = theme
     }
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {

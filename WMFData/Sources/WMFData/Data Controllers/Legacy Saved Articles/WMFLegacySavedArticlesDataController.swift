@@ -28,7 +28,7 @@ public struct WMFSavedArticle: Identifiable, Equatable {
 }
 
 public protocol WMFLegacySavedArticlesDataControllerDelegate: AnyObject {
-    func fetchAllSavedArticles() -> [WMFSavedArticle]
+    func fetchAllSavedArticles() async throws -> [WMFSavedArticle]
     func deleteSavedArticles(articles: [WMFSavedArticle], completion: @escaping (Bool) -> Void)
 }
 
@@ -40,8 +40,8 @@ public final class WMFLegacySavedArticlesDataController {
         self.delegate = delegate
     }
     
-    public func fetchAllSavedArticles() -> [WMFSavedArticle] {
-        return delegate?.fetchAllSavedArticles() ?? []
+    public func fetchAllSavedArticles() async -> [WMFSavedArticle] {
+        return (try? await delegate?.fetchAllSavedArticles() ?? []) ?? []
     }
     
     public func deleteSavedArticles(articles: [WMFSavedArticle], completion: @escaping (Bool) -> Void) {

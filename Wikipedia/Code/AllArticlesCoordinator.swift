@@ -7,7 +7,7 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
 
     var navigationController: UINavigationController
     private let dataStore: MWKDataStore
-    private let theme: Theme
+    var theme: Theme
     private var dataController: WMFLegacySavedArticlesDataController?
     private weak var hostingController: WMFAllArticlesHostingController?
     var sortType: SortActionType = .byRecentlyAdded
@@ -422,87 +422,99 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
 // MARK: - WMFLegacySavedArticlesDataControllerDelegate
 
 extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
-    func fetchAllSavedArticles() -> [WMFSavedArticle] {
-        let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "isDeletedLocally == NO")
-
-        do {
-            let entries = try dataStore.viewContext.fetch(fetchRequest)
+    func fetchAllSavedArticles() async throws -> [WMFSavedArticle] {
+        
+        let sortType = self.sortType
+        
+        return try await dataStore.performBackgroundCoreDataOperationAsync { [weak self] moc in
+            guard let self else { return [] }
             
-            var articlesDict: [String: WMFSavedArticle] = [:]
+            let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "isDeletedLocally == NO")
             
-            for entry in entries {
+            do {
+                let entries = try moc.fetch(fetchRequest)
                 
-                guard let inMemoryKey = entry.inMemoryKey,
-                      let titleAndProject = entry.titleAndProject() else {
-                    continue
-                }
+                var articlesDict: [String: WMFSavedArticle] = [:]
                 
-                let title = titleAndProject.title
-                let project = titleAndProject.project
-                let id = identifier(for: title, project: project)
+                let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
+                let entryLimit = moc.wmf_readingListsConfigMaxEntriesPerList.intValue
                 
-                // We don't want to show the default tag
-                var nonDefaultName: String? = entry.list?.name
-                if entry.list?.isDefault ?? false {
-                    nonDefaultName = nil
-                }
-                
-                if var existingArticle = articlesDict[id] {
-                    // Merge reading list name
-                    if let listName = entry.list?.name, !existingArticle.readingListNames.contains(listName) {
-                        if let nonDefaultName {
-                            existingArticle.readingListNames.append(nonDefaultName)
-                        }
-                        articlesDict[id] = existingArticle
-                    }
-                } else {
-                    // Fetch the article for alert determination
-                    let article = dataStore.fetchArticle(withKey: inMemoryKey.databaseKey, variant: inMemoryKey.languageVariantCode)
-
-                    let alertType: WMFSavedArticleAlertType
-                    if let article = article,
-                       let list = entry.list {
-                        alertType = determineAlertType(
-                            for: entry,
-                            article: article,
-                            readingList: list,
-                            listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser,
-                            entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue
-                        )
-                    } else {
-                        alertType = .none
+                for entry in entries {
+                    
+                    guard let inMemoryKey = entry.inMemoryKey,
+                          let titleAndProject = entry.titleAndProject() else {
+                        continue
                     }
                     
-                    var readingListNames: [String] = []
-                    if let nonDefaultName {
-                        readingListNames = [nonDefaultName]
+                    let title = titleAndProject.title
+                    let project = titleAndProject.project
+                    let id = self.identifier(for: title, project: project)
+                    
+                    var nonDefaultName: String? = entry.list?.name
+                    if entry.list?.isDefault ?? false {
+                        nonDefaultName = nil
                     }
-
-                    let identifier = identifier(for: title, project: project)
-                    let savedArticle = WMFSavedArticle(
-                        id: identifier,
-                        title: title,
-                        project: project,
-                        savedDate: entry.createdDate as Date?,
-                        readingListNames: readingListNames,
-                        alertType: alertType
-                    )
-                    articlesDict[id] = savedArticle
+                    
+                    if var existingArticle = articlesDict[id] {
+                        if let listName = entry.list?.name, !existingArticle.readingListNames.contains(listName) {
+                            if let nonDefaultName {
+                                existingArticle.readingListNames.append(nonDefaultName)
+                            }
+                            articlesDict[id] = existingArticle
+                        }
+                    } else {
+                        let article = self.fetchArticle(inContext: moc, databaseKey: inMemoryKey.databaseKey, languageVariantCode: inMemoryKey.languageVariantCode)
+                        
+                        let alertType: WMFSavedArticleAlertType
+                        if let article = article,
+                           let list = entry.list {
+                            alertType = self.determineAlertType(
+                                for: entry,
+                                article: article,
+                                readingList: list,
+                                listLimit: listLimit,
+                                entryLimit: entryLimit
+                            )
+                        } else {
+                            alertType = .none
+                        }
+                        
+                        var readingListNames: [String] = []
+                        if let nonDefaultName {
+                            readingListNames = [nonDefaultName]
+                        }
+                        
+                        let savedArticle = WMFSavedArticle(
+                            id: id,
+                            title: title,
+                            project: project,
+                            savedDate: entry.createdDate as Date?,
+                            readingListNames: readingListNames,
+                            alertType: alertType
+                        )
+                        articlesDict[id] = savedArticle
+                    }
                 }
+                
+                switch self.sortType {
+                case .byRecentlyAdded:
+                    return articlesDict.values.sorted { ($0.savedDate ?? Date()) > ($1.savedDate ?? Date()) }
+                case .byTitle:
+                    return articlesDict.values.sorted { $0.title < $1.title }
+                }
+                
+            } catch {
+                return []
             }
-            
-            // Return sorted
-            switch sortType {
-            case .byRecentlyAdded:
-                return articlesDict.values.sorted { ($0.savedDate ?? Date()) > ($1.savedDate ?? Date()) }
-            case .byTitle:
-                return articlesDict.values.sorted { $0.title < $1.title }
-            }
-            
-        } catch {
-            return []
         }
+    }
+    
+    private func fetchArticle(inContext moc: NSManagedObjectContext, databaseKey: String, languageVariantCode: String?) -> WMFArticle? {
+        let fetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "key == %@", databaseKey)
+        fetchRequest.fetchLimit = 1
+        return try? moc.fetch(fetchRequest).first
     }
         
     func deleteSavedArticles(articles: [WMFSavedArticle], completion: @escaping (Bool) -> Void) {

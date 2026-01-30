@@ -114,10 +114,12 @@ public final class WMFAllArticlesViewModel: ObservableObject {
             return
         }
         
-        state = .loading
-        articles = dataController.fetchAllSavedArticles()
-        filteredArticles = articles
-        state = articles.isEmpty ? .empty : .data
+        Task {
+            let fetchedArticles = await dataController.fetchAllSavedArticles()
+            self.articles = fetchedArticles
+            self.filterArticles(with: self.searchText)
+            self.state = fetchedArticles.isEmpty ? .empty : .data
+        }
     }
     
     public func toggleEditing() {
@@ -147,27 +149,15 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     }
     
     public func updateAlertType(id: String, alertType: WMFSavedArticleAlertType) {
-        
-        let loopArticles = articles
-        for (index, article) in loopArticles.enumerated() {
-            var mutArticle = article
-            if article.id == id {
-                mutArticle.alertType = alertType
-            }
-            articles[index] = mutArticle
+        if let index = articles.firstIndex(where: { $0.id == id }) {
+            articles[index].alertType = alertType
         }
         
-        let loopFilteredArticles = filteredArticles
-        for (index, article) in loopFilteredArticles.enumerated() {
-            var mutArticle = article
-            if article.id == id {
-                mutArticle.alertType = alertType
-            }
-            filteredArticles[index] = mutArticle
+        if let index = filteredArticles.firstIndex(where: { $0.id == id }) {
+            filteredArticles[index].alertType = alertType
         }
         
-        let rowViewModel = rowViewModelCache[id]
-        rowViewModel?.alertType = alertType
+        rowViewModelCache[id]?.alertType = alertType
     }
     
     public func deleteArticles(_ deletedArticles: [WMFSavedArticle]) {
@@ -235,7 +225,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
             filteredArticles = articles
         } else {
             filteredArticles = articles.filter { article in
-                article.title.localizedCaseInsensitiveContains(searchText)
+                article.title.contains(searchText)
             }
         }
     }
