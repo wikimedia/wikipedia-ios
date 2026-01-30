@@ -388,6 +388,7 @@ The legacy app-side code often references articles by their full URL strings. So
     // WMFProject + title to articleURL
     let siteURL = project.siteURL
     let articleURL = siteURL?.wmf_URL(withTitle: title)
+    articleURL.wmf_languageVariantCode = project.wmf_languageVariantCode
 
     // articleURL to WMFProject + title
     let languageCode = articleURL.wmf_languageCode
