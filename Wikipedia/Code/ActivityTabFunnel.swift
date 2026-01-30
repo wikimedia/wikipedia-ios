@@ -158,7 +158,7 @@ import WMFComponents
         
         actionData["all"] = allOff ? "off" : "on"
         
-        logEvent(activeInterface: .activityTabCustomize, action: .customizeExitClick, actionData: actionData, project: nil)
+        logEvent(activeInterface: .activityTabCustomize, action: .customizeClick, actionData: actionData, project: nil)
     }
     
     func logFeedbackSubmit(selectedItems: [String], comment: String?) {
