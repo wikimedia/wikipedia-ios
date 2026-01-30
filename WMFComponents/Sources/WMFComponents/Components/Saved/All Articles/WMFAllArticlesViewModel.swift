@@ -79,6 +79,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     public var didTapOpenInNewTab: ((WMFSavedArticle) -> Void)?
     public var didTapOpenInBackgroundTab: ((WMFSavedArticle) -> Void)?
     public var didUpdateEditingMode: ((Bool) -> Void)?
+    public var didTapArticleAlert: ((WMFSavedArticle) -> Void)?
     
     // MARK: - Initialization
     
@@ -210,6 +211,10 @@ public final class WMFAllArticlesViewModel: ObservableObject {
             articleQueuedToBeDownloaded: localizedStrings.articleQueuedToBeDownloaded)
         
         let vm = WMFAsyncPageRowSavedViewModel(id: article.id, title: article.title, project: article.project, readingListNames: article.readingListNames, alertType: article.alertType, localizedStrings: localizedStrings)
+        
+        vm.didTapAlert = { [weak self] in
+            self?.didTapArticleAlert?(article)
+        }
         
         rowViewModelCache[article.id] = vm
         return vm

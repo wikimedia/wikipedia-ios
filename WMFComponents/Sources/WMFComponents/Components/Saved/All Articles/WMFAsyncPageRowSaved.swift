@@ -23,17 +23,22 @@ struct WMFAsyncPageRowSavedAlertView: View {
     }
     
     var body: some View {
-        if let alertString = alertString {
-            HStack(spacing: 4) {
-                if let icon = WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangle, font: .semiboldCaption1) {
-                    Image(uiImage: icon)
+            if let alertString = alertString {
+                Button {
+                    viewModel.didTapAlert?()
+                } label: {
+                    HStack(spacing: 4) {
+                        if let icon = WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangle, font: .semiboldCaption1) {
+                            Image(uiImage: icon)
+                        }
+                        Text(alertString)
+                            .font(Font(WMFFont.for(.semiboldCaption1)))
+                    }
+                    .foregroundColor(Color(uiColor: appEnvironment.theme.warning))
                 }
-                Text(alertString)
-                    .font(Font(WMFFont.for(.semiboldCaption1)))
+                .buttonStyle(.plain)
             }
-            .foregroundColor(Color(uiColor: appEnvironment.theme.warning))
         }
-    }
 }
 
 struct WMFAsyncPageRowSaved: View {

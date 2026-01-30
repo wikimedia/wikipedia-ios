@@ -32,6 +32,8 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
     var geometryFrame: CGRect = .zero
     var snippet: String?
     
+    public var didTapAlert: (() -> Void)?
+    
     private let dataController: WMFArticleSummaryDataController
     
     public static func == (lhs: WMFAsyncPageRowSavedViewModel, rhs: WMFAsyncPageRowSavedViewModel) -> Bool {

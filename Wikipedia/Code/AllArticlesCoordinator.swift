@@ -96,6 +96,14 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
                 self.hostingController?.viewModel.loadArticles()
             }
         }
+        
+        viewModel.didTapArticleAlert = { [weak self] savedArticle in
+            guard let self,
+                  let article = self.wmfArticlesFromSavedArticles([savedArticle]).first else {
+                return
+            }
+            presentArticleErrorRecovery(with: article)
+        }
 
         let controller = WMFAllArticlesHostingController(viewModel: viewModel)
         self.hostingController = controller
@@ -247,7 +255,21 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         }
     }
     
-    // MARK: - Private
+    private func presentArticleErrorRecovery(with article: WMFArticle) {
+        switch article.error {
+        case .apiFailed:
+            let alert = UIAlertController(title: article.error.localizedDescription, message: nil, preferredStyle: .actionSheet)
+            let retry = UIAlertAction(title: CommonStrings.retryActionTitle, style: .default) { _ in
+                article.retryDownload()
+            }
+            alert.addAction(retry)
+            let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default)
+            alert.addAction(cancel)
+            navigationController.present(alert, animated: true)
+        default:
+            break
+        }
+    }
     
     // MARK: - Article changes
     
