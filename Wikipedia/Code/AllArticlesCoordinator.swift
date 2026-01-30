@@ -121,6 +121,11 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             viewController.apply(theme: theme)
             navigationController.pushViewController(viewController, animated: true)
         }
+        
+        viewModel.didShowDataStateOnAppearance = { [weak self] in
+            guard let self else { return }
+            navigationController.wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: theme)
+        }
 
         let controller = WMFAllArticlesHostingController(viewModel: viewModel)
         self.hostingController = controller
