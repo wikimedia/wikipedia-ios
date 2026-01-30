@@ -72,7 +72,7 @@ public struct WMFAllArticlesView: View {
                             }
                         },
                         onDelete: {
-                            viewModel.deleteArticle(article)
+                            viewModel.deleteArticles([article])
                         },
                         onShare: { cgRect in
                             viewModel.didTapShare?(article, cgRect)

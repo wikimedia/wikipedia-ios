@@ -29,7 +29,7 @@ public struct WMFSavedArticle: Identifiable, Equatable {
 
 public protocol WMFLegacySavedArticlesDataControllerDelegate: AnyObject {
     func fetchAllSavedArticles() -> [WMFSavedArticle]
-    func deleteSavedArticle(withProject project: WMFProject, title: String)
+    func deleteSavedArticles(articles: [WMFSavedArticle], completion: @escaping (Bool) -> Void)
 }
 
 public final class WMFLegacySavedArticlesDataController {
@@ -44,7 +44,7 @@ public final class WMFLegacySavedArticlesDataController {
         return delegate?.fetchAllSavedArticles() ?? []
     }
     
-    public func deleteSavedArticle(withProject project: WMFProject, title: String) {
-        delegate?.deleteSavedArticle(withProject: project, title: title)
+    public func deleteSavedArticles(articles: [WMFSavedArticle], completion: @escaping (Bool) -> Void) {
+        delegate?.deleteSavedArticles(articles: articles, completion: completion)
     }
 }

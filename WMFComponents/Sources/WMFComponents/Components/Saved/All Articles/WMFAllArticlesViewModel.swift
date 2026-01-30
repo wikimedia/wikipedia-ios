@@ -170,18 +170,20 @@ public final class WMFAllArticlesViewModel: ObservableObject {
         rowViewModel?.alertType = alertType
     }
     
-    public func deleteArticle(_ article: WMFSavedArticle) {
-        dataController.deleteSavedArticle(withProject: article.project, title: article.title)
-        
-        articles.removeAll { $0.id == article.id }
-        filteredArticles.removeAll { $0.id == article.id }
-        state = articles.isEmpty ? .empty : .data
+    public func deleteArticles(_ deletedArticles: [WMFSavedArticle]) {
+        let deletedIDs = deletedArticles.map { $0.id }
+        dataController.deleteSavedArticles(articles: deletedArticles, completion: { [weak self] confirmed in
+            guard let self else { return }
+            if confirmed {
+                articles.removeAll(where: { deletedIDs.contains($0.id) })
+                filteredArticles.removeAll(where: { deletedIDs.contains($0.id) })
+                state = articles.isEmpty ? .empty : .data
+            }
+        })
     }
     
     public func deleteSelectedArticles() {
-        for article in selectedArticles {
-            deleteArticle(article)
-        }
+        deleteArticles(selectedArticles)
         toggleEditing()
     }
     

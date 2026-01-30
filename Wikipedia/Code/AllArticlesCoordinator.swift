@@ -505,17 +505,28 @@ extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
         }
     }
         
-    func deleteSavedArticle(withProject project: WMFProject, title: String) {
-        guard let siteURL = project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: title),
-              let articleKey = articleURL.wmf_inMemoryKey?.databaseKey,
-              let article = dataStore.fetchArticle(withKey: articleKey) else {
-            return
+    func deleteSavedArticles(articles: [WMFSavedArticle], completion: @escaping (Bool) -> Void) {
+
+        let wmfArticles = wmfArticlesFromSavedArticles(articles)
+        
+        let alertController = ReadingListsAlertController()
+        let unsave = ReadingListsAlertActionType.unsave.action { [weak self] in
+            guard let self else { return }
+            dataStore.readingListsController.unsave(wmfArticles, in: dataStore.viewContext)
+            completion(true)
+        }
+        let cancel = ReadingListsAlertActionType.cancel.action {
+            completion(false)
         }
         
-        articleURL.wmf_languageVariantCode = project.languageVariantCode
+        alertController.showAlertIfNeeded(presenter: self.navigationController, for: wmfArticles, with: [cancel, unsave]) { [weak self] showed in
+            guard let self else { return }
+            if !showed {
+                dataStore.readingListsController.unsave(wmfArticles, in: dataStore.viewContext)
+                completion(true)
+            }
+        }
         
-        dataStore.readingListsController.unsave([article], in: dataStore.viewContext)
     }
 }
 
