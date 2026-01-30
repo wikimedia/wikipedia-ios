@@ -349,7 +349,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gearShape), handler: { _ in
             self.userDidTapCustomize()
-            ActivityTabFunnel.shared.logActivityTabCustomizeClick()
         })
         
         let mainMenu = UIMenu(title: String(), children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
@@ -706,7 +705,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
     }
 }
 
-final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring {
+final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring, UIAdaptivePresentationControllerDelegate {
     
     init(rootView: WMFActivityTabCustomizeView, theme: Theme) {
         self.theme = theme
@@ -727,6 +726,8 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             customView: nil,
             alignment: .centerCompact
         )
+        
+        presentationController?.delegate = self
 
         let closeConfig = WMFNavigationBarCloseButtonConfig(
             text: CommonStrings.doneTitle,
@@ -742,6 +743,12 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             tabsButtonConfig: nil,
             searchBarConfig: nil,
             hideNavigationBarOnScroll: false
+        )
+    }
+    
+    @objc func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        ActivityTabFunnel.shared.logActivityTabCustomizeExit(
+            viewModel: rootView.viewModel
         )
     }
 
