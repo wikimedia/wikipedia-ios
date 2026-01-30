@@ -117,9 +117,10 @@ struct WMFAsyncPageRowSaved: View {
                 
                 Spacer(minLength: 0)
             }
-            
-            
         }
+        .accessibilityElement()
+        .accessibilityLabel("\(viewModel.title) - \(viewModel.description ?? "")")
+        .accessibilityAddTraits(.isButton)
         .overlay(
             GeometryReader { geometry in
                 Color.clear
