@@ -222,7 +222,7 @@ struct WMFAsyncPageRowSaved: View {
             if names.count >= 1 {
                 HStack(spacing: 4) {
                     ForEach(names, id: \.self) { name in
-                        tagView(for: name)
+                        tagView(listName: name, overflowCount: nil)
                     }
                 }
             }
@@ -231,9 +231,9 @@ struct WMFAsyncPageRowSaved: View {
             if names.count >= 2 {
                 HStack(spacing: 4) {
                     ForEach(names.dropLast(1), id: \.self) { name in
-                        tagView(for: name)
+                        tagView(listName: name, overflowCount: nil)
                     }
-                    overflowTag(count: 1)
+                    tagView(listName: nil, overflowCount: 1)
                 }
             }
             
@@ -241,57 +241,57 @@ struct WMFAsyncPageRowSaved: View {
             if names.count >= 3 {
                 HStack(spacing: 4) {
                     ForEach(names.dropLast(2), id: \.self) { name in
-                        tagView(for: name)
+                        tagView(listName: name, overflowCount: nil)
                     }
-                    overflowTag(count: 2)
+                    tagView(listName: nil, overflowCount: 2)
                 }
             }
             
             // Try first two + overflow
             if names.count >= 3 {
                 HStack(spacing: 4) {
-                    tagView(for: names[0])
-                    tagView(for: names[1])
-                    overflowTag(count: names.count - 2)
+                    tagView(listName: names[0], overflowCount: nil)
+                    tagView(listName: names[1], overflowCount: nil)
+                    tagView(listName: nil, overflowCount: names.count - 2)
                 }
             }
             
             // Try first one + overflow
             if names.count >= 2 {
                 HStack(spacing: 4) {
-                    tagView(for: names[0])
-                    overflowTag(count: names.count - 1)
+                    tagView(listName: names[0], overflowCount: nil)
+                    tagView(listName: nil, overflowCount: names.count - 1)
                 }
             }
             
             // Fallback: just overflow
             if names.count >= 1 {
-                overflowTag(count: names.count)
+                tagView(listName: nil, overflowCount: names.count)
             }
         }
     }
-
-    private func tagView(for listName: String) -> some View {
-        Text(listName)
-            .font(Font(WMFFont.for(.caption1)))
-            .foregroundColor(Color(uiColor: appEnvironment.theme.link))
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(Color(uiColor: appEnvironment.theme.tagBackground))
-            .cornerRadius(4)
-            .lineLimit(1)
-            .fixedSize(horizontal: true, vertical: true)
-    }
-
-    private func overflowTag(count: Int) -> some View {
-        Text("+\(count)")
-            .font(Font(WMFFont.for(.caption1)))
-            .foregroundColor(Color(uiColor: appEnvironment.theme.link))
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(Color(uiColor: appEnvironment.theme.link).opacity(0.1))
-            .cornerRadius(4)
-            .fixedSize(horizontal: true, vertical: true)
+    
+    private func tagView(listName: String?, overflowCount: Int?) -> some View {
+        var text: String? = nil
+        if let listName {
+            text = listName
+        } else if let overflowCount {
+            text = "+\(overflowCount)"
+        }
+        
+        return Group {
+            if let text {
+                Text(text)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundColor(Color(uiColor: appEnvironment.theme.tagText))
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color(uiColor: appEnvironment.theme.tagBackground))
+                    .cornerRadius(4)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: true, vertical: true)
+            }
+        }
     }
     
     private func getPreviewViewModel(from viewModel: WMFAsyncPageRowSavedViewModel) -> WMFArticlePreviewViewModel {

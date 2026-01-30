@@ -22,6 +22,7 @@ public struct WMFAllArticlesView: View {
                 articleListView
             }
         }
+        .background(Color(uiColor: appEnvironment.theme.paperBackground))
         .onAppear {
             viewModel.loadArticles()
         }
@@ -48,6 +49,7 @@ public struct WMFAllArticlesView: View {
                 .multilineTextAlignment(.center)
         }
         .padding()
+        .background(Color(uiColor: appEnvironment.theme.paperBackground))
     }
     
     // MARK: - Article List
@@ -89,6 +91,7 @@ public struct WMFAllArticlesView: View {
             .refreshable {
                 await viewModel.didPullToRefresh?()
             }
+            .background(Color(uiColor: appEnvironment.theme.paperBackground))
 
             if viewModel.isEditing {
                 editingToolbar

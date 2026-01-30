@@ -60,6 +60,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     @Published public var filteredArticles: [WMFSavedArticle] = []
     @Published public var state: State = .undefined
     @Published public var isEditing: Bool = false
+    @Published public var hasSelection = false
     @Published public var searchText: String = ""
     
     // MARK: - Properties
@@ -74,10 +75,10 @@ public final class WMFAllArticlesViewModel: ObservableObject {
     public var didTapArticle: ((WMFSavedArticle) -> Void)?
     public var didTapShare: ((WMFSavedArticle, CGRect) -> Void)?
     public var didTapAddToList: (([WMFSavedArticle]) -> Void)?
-    public var loggingDelegate: WMFAllArticlesLoggingDelegate?
     public var didPullToRefresh: (() async -> Void)?
     public var didTapOpenInNewTab: ((WMFSavedArticle) -> Void)?
     public var didTapOpenInBackgroundTab: ((WMFSavedArticle) -> Void)?
+    public var didUpdateEditingMode: ((Bool) -> Void)?
     
     // MARK: - Initialization
     
@@ -124,15 +125,18 @@ public final class WMFAllArticlesViewModel: ObservableObject {
                 $0.isSelected = false
             }
         }
+        updateHasSelection()
+        didUpdateEditingMode?(isEditing)
     }
     
     public func toggleSelection(for article: WMFSavedArticle) {
         guard let rowViewModel = rowViewModelCache[article.id] else { return }
             rowViewModel.isSelected.toggle()
+        updateHasSelection()
     }
     
-    public var hasSelection: Bool {
-        rowViewModelCache.values.contains { $0.isSelected }
+    private func updateHasSelection() {
+        hasSelection = rowViewModelCache.values.contains { $0.isSelected }
     }
     
     public var selectedArticles: [WMFSavedArticle] {
@@ -175,7 +179,7 @@ public final class WMFAllArticlesViewModel: ObservableObject {
         for article in selectedArticles {
             deleteArticle(article)
         }
-        isEditing = false
+        toggleEditing()
     }
     
     public func addSelectedToList() {
@@ -222,11 +226,4 @@ public final class WMFAllArticlesViewModel: ObservableObject {
             }
         }
     }
-}
-
-// MARK: - Logging Delegate
-
-public protocol WMFAllArticlesLoggingDelegate: AnyObject {
-    func logArticleTapped(_ article: WMFSavedArticle)
-    func logArticleDeleted(_ article: WMFSavedArticle)
 }

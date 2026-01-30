@@ -13,4 +13,15 @@ public final class WMFAllArticlesHostingController: WMFComponentHostingControlle
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
+    }
+    
+    public override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
+        view.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
+    }
 }

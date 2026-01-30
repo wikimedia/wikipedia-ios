@@ -80,6 +80,12 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             self?.showAddToListSheet(for: articles)
         }
         
+        viewModel.didUpdateEditingMode = { [weak self] isEditing in
+            if !isEditing {
+                self?.exitEditingModeAction?()
+            }
+        }
+        
         viewModel.didPullToRefresh = { [weak self] in
             guard let self else { return }
             
@@ -462,6 +468,7 @@ extension AllArticlesCoordinator: AddArticlesToReadingListDelegate {
     }
     
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: WMF.ReadingList) {
+        hostingController?.viewModel.toggleEditing()
         exitEditingModeAction?()
         hostingController?.viewModel.loadArticles()
     }

@@ -363,10 +363,10 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
     
     private func cancelAllArticlesEditingMode() {
+        configureNavigationBar()
+        
         if allArticlesCoordinator?.contentViewController.viewModel.isEditing == true {
             allArticlesCoordinator?.contentViewController.viewModel.toggleEditing()
-            
-            configureNavigationBar()
         }
     }
 
@@ -621,6 +621,9 @@ extension SavedViewController: UISearchBarDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
+        if currentView == .savedArticles {
+            allArticlesCoordinator?.contentViewController.viewModel.loadArticles()
+        }
     }
 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {

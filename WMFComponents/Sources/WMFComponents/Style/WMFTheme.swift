@@ -47,6 +47,7 @@ public struct WMFTheme: Equatable {
     public let secondaryAction: UIColor
     public let darkBorder: UIColor
     public let toastShadow: UIColor
+    public let tagText: UIColor
     public let tagBackground: UIColor
     public let batchSelectionBackground: UIColor
 
@@ -102,6 +103,7 @@ public struct WMFTheme: Equatable {
         secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark5,
         toastShadow: WMFColor.gray400,
+        tagText: WMFColor.blue600,
         tagBackground: WMFColor.blue600.withAlphaComponent(0.1),
         batchSelectionBackground: WMFColor.blue100
     )
@@ -150,6 +152,7 @@ public struct WMFTheme: Equatable {
         secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark5,
         toastShadow: WMFColor.taupe200,
+        tagText: .white,
         tagBackground: WMFColor.blue300,
         batchSelectionBackground: WMFColor.blue100
     )
@@ -198,6 +201,7 @@ public struct WMFTheme: Equatable {
         secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark0,
         toastShadow: WMFColor.gray800,
+        tagText: .white,
         tagBackground: WMFColor.blue300,
         batchSelectionBackground: WMFColor.blue700
     )
@@ -246,6 +250,7 @@ public struct WMFTheme: Equatable {
         secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark0,
         toastShadow: WMFColor.gray600,
+        tagText: .white,
         tagBackground: WMFColor.blue300,
         batchSelectionBackground: WMFColor.blue700
     )
