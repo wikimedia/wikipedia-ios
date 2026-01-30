@@ -4,6 +4,12 @@ import WMFData
 @MainActor
 final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @MainActor Equatable {
     
+    enum ImageLoadingState {
+        case loading
+        case loaded
+        case noImage
+    }
+    
     struct LocalizedStrings {
         let open: String
         let openInNewTab: String
@@ -28,6 +34,7 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
     @Published var alertType: WMFSavedArticleAlertType = .none
     @Published var isEditing: Bool = false
     @Published var isSelected: Bool = false
+    @Published private(set) var imageLoadingState: ImageLoadingState = .loading
     
     var geometryFrame: CGRect = .zero
     var snippet: String?
@@ -72,21 +79,29 @@ final class WMFAsyncPageRowSavedViewModel: ObservableObject, Identifiable, @Main
     private func fetchArticleDetails() async {
         do {
             let summary = try await dataController.fetchArticleSummary(project: project, title: title)
-            self.description = summary.description
+            
+            if let description = summary.description,
+               !description.isEmpty {
+                self.description = description
+            } else {
+                self.description = summary.extract?.replacingOccurrences(of: "\n", with: "")
+            }
+            
             self.snippet = summary.extract
             
-            let imageDataController = WMFImageDataController()
-            
             guard let thumbnailURL = summary.thumbnailURL else {
+                self.imageLoadingState = .noImage
                 return
             }
             self.imageURL = thumbnailURL
             
+            let imageDataController = WMFImageDataController()
             let data = try await imageDataController.fetchImageData(url: thumbnailURL)
             
             self.uiImage = UIImage(data: data)
+            self.imageLoadingState = .loaded
         } catch {
-            // Silently fail - cell will display without description/image
+            self.imageLoadingState = .noImage
         }
     }
 }

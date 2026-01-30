@@ -113,7 +113,7 @@ struct WMFAsyncPageRowSaved: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
-                .frame(maxWidth: maxReadableWidth, alignment: .leading)
+                .frame(maxWidth: maxReadableWidth, minHeight: 124, alignment: .leading)
                 
                 Spacer(minLength: 0)
             }
@@ -200,17 +200,22 @@ struct WMFAsyncPageRowSaved: View {
 
     @ViewBuilder
     private var thumbnailView: some View {
-        Group {
+        switch viewModel.imageLoadingState {
+        case .loading:
+            Color(uiColor: appEnvironment.theme.midBackground)
+                .frame(width: 100, height: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 3))
+        case .loaded:
             if let uiImage = viewModel.uiImage {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-            } else {
-                Color(uiColor: appEnvironment.theme.midBackground)
+                    .frame(width: 100, height: 100)
+                    .clipShape(RoundedRectangle(cornerRadius: 3))
             }
+        case .noImage:
+            EmptyView()
         }
-        .frame(width: 100, height: 100)
-        .clipShape(RoundedRectangle(cornerRadius: 3))
     }
 
     private var selectionIndicator: some View {
