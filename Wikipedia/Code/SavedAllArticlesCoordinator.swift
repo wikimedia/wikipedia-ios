@@ -3,13 +3,13 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
-final class AllArticlesCoordinator: NSObject, Coordinator {
+final class SavedAllArticlesCoordinator: NSObject, Coordinator {
 
     var navigationController: UINavigationController
     private let dataStore: MWKDataStore
     var theme: Theme
     private var dataController: WMFLegacySavedArticlesDataController?
-    private weak var hostingController: WMFAllArticlesHostingController?
+    private weak var hostingController: WMFSavedAllArticlesHostingController?
     var sortType: SortActionType = .byRecentlyAdded
     
     var exitEditingModeAction: (() -> Void)?
@@ -32,7 +32,7 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
 
     // MARK: - Embedded View Controller
 
-    var contentViewController: WMFAllArticlesHostingController {
+    var contentViewController: WMFSavedAllArticlesHostingController {
         if let existingController = hostingController {
             return existingController
         }
@@ -40,7 +40,7 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
         let dataController = WMFLegacySavedArticlesDataController(delegate: self)
         self.dataController = dataController
 
-        let localizedStrings = WMFAllArticlesViewModel.LocalizedStrings(
+        let localizedStrings = WMFSavedAllArticlesViewModel.LocalizedStrings(
             emptyStateTitle: CommonStrings.allArticlesEmptySavedTitle,
             emptyStateMessage: CommonStrings.allArticlesEmptySavedSubtitle,
             addToList: CommonStrings.addToReadingListShortActionTitle,
@@ -55,7 +55,7 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             notSynced: CommonStrings.readingListsErrorNotSynced,
             articleQueuedToBeDownloaded: CommonStrings.readingListsWarningArticleQueuedToBeDownloaded)
 
-        let viewModel = WMFAllArticlesViewModel(
+        let viewModel = WMFSavedAllArticlesViewModel(
             dataController: dataController,
             localizedStrings: localizedStrings
         )
@@ -127,7 +127,7 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
             navigationController.wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: theme)
         }
 
-        let controller = WMFAllArticlesHostingController(viewModel: viewModel)
+        let controller = WMFSavedAllArticlesHostingController(viewModel: viewModel)
         self.hostingController = controller
         return controller
     }
@@ -421,7 +421,7 @@ final class AllArticlesCoordinator: NSObject, Coordinator {
 
 // MARK: - WMFLegacySavedArticlesDataControllerDelegate
 
-extension AllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
+extension SavedAllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDelegate {
     func fetchAllSavedArticles() async throws -> [WMFSavedArticle] {
         
         let sortType = self.sortType
@@ -568,7 +568,7 @@ private extension ReadingListEntry {
     }
 }
 
-extension AllArticlesCoordinator: AddArticlesToReadingListDelegate {
+extension SavedAllArticlesCoordinator: AddArticlesToReadingListDelegate {
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
         // no-op
     }

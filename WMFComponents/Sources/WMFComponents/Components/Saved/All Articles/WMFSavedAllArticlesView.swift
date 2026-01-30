@@ -1,13 +1,13 @@
 import SwiftUI
 import WMFData
 
-public struct WMFAllArticlesView: View {
+public struct WMFSavedAllArticlesView: View {
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFAllArticlesViewModel
+    @ObservedObject var viewModel: WMFSavedAllArticlesViewModel
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
-    public init(viewModel: WMFAllArticlesViewModel) {
+    public init(viewModel: WMFSavedAllArticlesViewModel) {
         self.viewModel = viewModel
     }
     

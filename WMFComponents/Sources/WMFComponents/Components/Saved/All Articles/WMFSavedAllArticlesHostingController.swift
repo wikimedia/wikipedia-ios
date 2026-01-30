@@ -1,13 +1,13 @@
 import UIKit
 import SwiftUI
 
-public final class WMFAllArticlesHostingController: WMFComponentHostingController<WMFAllArticlesView> {
+public final class WMFSavedAllArticlesHostingController: WMFComponentHostingController<WMFSavedAllArticlesView> {
     
-    public let viewModel: WMFAllArticlesViewModel
+    public let viewModel: WMFSavedAllArticlesViewModel
     
-    public init(viewModel: WMFAllArticlesViewModel) {
+    public init(viewModel: WMFSavedAllArticlesViewModel) {
         self.viewModel = viewModel
-        super.init(rootView: WMFAllArticlesView(viewModel: viewModel))
+        super.init(rootView: WMFSavedAllArticlesView(viewModel: viewModel))
     }
     
     required init?(coder aDecoder: NSCoder) {

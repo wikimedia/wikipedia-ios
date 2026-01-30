@@ -21,7 +21,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     // MARK: - All Articles Coordinator
 
-    private var allArticlesCoordinator: AllArticlesCoordinator?
+    private var allArticlesCoordinator: SavedAllArticlesCoordinator?
     private weak var allArticlesHostingController: UIViewController?
     private var allArticlesSortType: SortActionType = .byRecentlyAdded {
         didSet {
@@ -190,7 +190,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             return
         }
 
-        let coordinator = AllArticlesCoordinator(
+        let coordinator = SavedAllArticlesCoordinator(
             navigationController: navigationController,
             dataStore: dataStore,
             theme: theme

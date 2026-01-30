@@ -3,7 +3,7 @@ import Combine
 import WMFData
 
 @MainActor
-public final class WMFAllArticlesViewModel: ObservableObject {
+public final class WMFSavedAllArticlesViewModel: ObservableObject {
     
     // MARK: - Nested Types
     
