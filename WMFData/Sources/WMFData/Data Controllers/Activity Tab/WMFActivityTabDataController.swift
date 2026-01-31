@@ -235,7 +235,7 @@ public actor WMFActivityTabDataController {
     private var surveyEndDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2026
-        dateComponents.month = 1
+        dateComponents.month = 4
         dateComponents.day = 15
         return Calendar.current.date(from: dateComponents)
     }
