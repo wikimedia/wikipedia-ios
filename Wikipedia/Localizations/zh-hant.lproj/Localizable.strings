@@ -621,6 +621,7 @@
 "explore-suggested-edits-image-recs-title" = "新增圖片";
 "explore-survey-subtitle" = "請填寫一份關於探索摘要的簡短問卷。您的回饋將有助於我們改善往後的應用程式。";
 "explore-survey-title" = "協助我們改進探索功能";
+"explore-wikipedia" = "探索維基百科";
 "export-user-data-confirmation-message" = "分享您的應用程式庫，包括有關您的閱讀清單、歷史紀錄、偏好設定，以及探索提要內容的資料。此資料檔案應僅與受信任的接收者分享，以用於技術診斷目的。";
 "export-user-data-confirmation-title" = "分享應用程式庫？";
 "export-user-data-generic-error" = "匯出資料時發生錯誤。請稍後再試。";
@@ -796,6 +797,8 @@
 "login-join-wikipedia" = "加入維基百科。";
 "login-no-account" = "還沒有帳號？$1";
 "login-title" = "登入您的帳號";
+"looking-for-something-new" = "想要認識一些新東西嗎？";
+"looks-like-you-havent-made-an-edit" = "您本月似乎還沒做過任何編輯。您可以編輯您關心的主題，來擴充可自由取得的知識。";
 "main-menu-about" = "關於維基百科應用程式";
 "main-menu-account-login" = "登入";
 "main-menu-account-logout" = "登出";
@@ -810,6 +813,7 @@
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "維基百科零計劃常見問題";
 "main-page" = "首頁";
+"make-an-edit" = "進行編輯";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "在 $1 年，志工們為英文維基百科添加了多達 {{PLURAL:$2|$2}} 位元組內容。他們共同的努力，為世界帶來了不斷改進、基於事實、可靠的知識資源。我們每一個人，都有可分享的知識，[了解如何參與]（$3）。";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "增加了 {{PLURAL:$1|$1}} 位元組";
 "microsite-yir-english-edits-slide-subtitle-updated" = "志工們對維基百科的 {{PLURAL:$2|$2}} 多種不同語言版本做出了 {{PLURAL:$1|$1}} 次修改。英文維基百科則進行了 {{PLURAL:$3|$3}} 次修改。每一天、每一刻、每一秒，志工們都在努力改進維基百科。";
@@ -1638,3 +1642,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "維基百科 w 標誌";
 "year-in-review-wmf-logo-accessibility-label" = "維基媒體基金會標誌";
 "yesterday-title" = "昨日";
+"zero-edits-to-articles" = "最近對條目做出 0 次編輯";
