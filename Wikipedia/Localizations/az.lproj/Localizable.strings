@@ -585,6 +585,7 @@
 "explore-suggested-edits-image-recs-title" = "Şəkil əlavə edin";
 "explore-survey-subtitle" = "Zəhmət olmasa, Kəşf lenti haqqında qısa sorğuda iştirak edin. Rəyiniz qarşıdan gələn tətbiq təkmilləşdirmələrini formalaşdırmağa kömək edəcək.";
 "explore-survey-title" = "Kəşf səhifəsini təkmilləşdirməkdə bizə kömək edin";
+"explore-wikipedia" = "Vikipediyanı kəşf et";
 "export-user-data-confirmation-message" = "Tətbiq kitabxananızın paylaşılmasına Oxuma siyahılarınız və tarixçəniz, nizamlamalarınız və Kəşf et lenti məzmunu daxildir. Bu məlumat faylı texniki diaqnostika məqsədləri üçün istifadə etmək üçün yalnız etibarlı alıcı ilə paylaşılmalıdır.";
 "export-user-data-confirmation-title" = "Proqram kitabxanası paylaşılsın?";
 "export-user-data-generic-error" = "Məlumatlarınızı ixrac edərkən xəta baş verdi. Zəhmət olmasa, sonra yenidən cəhd edin.";
@@ -759,6 +760,8 @@
 "login-join-wikipedia" = "Vikipediyaya qoşul";
 "login-no-account" = "Hesabınız yoxdur? $1";
 "login-title" = "Hesabınıza daxil olun";
+"looking-for-something-new" = "Oxumaq üçün yeni bir şey axtarırsınız?";
+"looks-like-you-havent-made-an-edit" = "Görünür bu ay redaktə etməmisiniz. Sizə maraqlı olan mövzuları redaktə edərək azad bilik bazasını genişləndirin.";
 "main-menu-about" = "Tətbiqetmə haqqında";
 "main-menu-account-login" = "Daxil ol";
 "main-menu-account-logout" = "Hesabdan çıx";
@@ -773,6 +776,7 @@
 "main-menu-title" = "Daha çox";
 "main-menu-zero-faq" = "Wikipedia Zero TSS";
 "main-page" = "Ana səhifə";
+"make-an-edit" = "Redaktə et";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "$1-ci ildə könüllülər İngiliscə Vikipediyaya {{PLURAL:$2|$2 bayt}} əlavə ediblər. Birgə işin cəmi onların dünyaya verdiyi davamlı təkmilləşən, fakta əsaslanan və etibarlı bilik resursuna gətirib çıxarır. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 bayt}} əlavə edildi";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Könüllülər Vikipediyanın {{PLURAL:$2|$2 müxtəlif dildə nəşrlərində}} {{PLURAL:$1|$1 dəyişiklik}} ediblər. İngiliscə Vikipediyada {{PLURAL:$3|$3 dəyişiklik}} edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
@@ -1590,3 +1594,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipediya w loqosu";
 "year-in-review-wmf-logo-accessibility-label" = "Vikimedia Fondunun loqosu";
 "yesterday-title" = "Dünən";
+"zero-edits-to-articles" = "Bu yaxınlarda məqalələrə 0 düzəliş";
