@@ -282,6 +282,7 @@
 "icon-shortcut-search-title" = "Търсене в Уикипедия";
 "image-rec-onboarding-learn-more-button" = "Научете повече за предложените редакции";
 "image-rec-survey-instructions-1" = "Вашите отговори подобряват бъдещите предложения.";
+"image-rec-survey-title" = "Причина";
 "image-rec-tooltip-1-title" = "Проверка";
 "in-the-news-sub-title-from-language-wikipedia" = "От Уикипедия на $1";
 "in-the-news-sub-title-from-wikipedia" = "От Уикипедия";
@@ -521,6 +522,7 @@
 "share-social-mention-format" = "„1“ чрез Уикипедия: $2";
 "sort-by-recently-added-action" = "Наскоро добавено";
 "sort-by-title-action" = "Заглавие";
+"survey-title" = "Причина";
 "table-of-contents-button-label" = "Съдържание";
 "table-of-contents-close-accessibility-hint" = "Затваряне";
 "table-of-contents-heading" = "Съдържание";
