@@ -152,11 +152,17 @@ import WMFComponents
         actionData["timeline"] = viewModel.isTimelineOfBehaviorOn ? "on" : "off"
         
         let allOff = !viewModel.isTimeSpentReadingOn &&
-                     !viewModel.isReadingInsightsOn &&
-                     !viewModel.isEditingInsightsOn &&
-                     !viewModel.isTimelineOfBehaviorOn
-        
-        actionData["all"] = allOff ? "off" : "on"
+                             !viewModel.isReadingInsightsOn &&
+                             !viewModel.isEditingInsightsOn &&
+                             !viewModel.isTimelineOfBehaviorOn
+
+        let allOn = viewModel.isTimeSpentReadingOn &&
+                             viewModel.isReadingInsightsOn &&
+                             viewModel.isEditingInsightsOn &&
+                             viewModel.isTimelineOfBehaviorOn
+        if allOff || allOn {
+            actionData["all"] = allOff ? "off" : "on"
+        } 
         
         logEvent(activeInterface: .activityTabCustomize, action: .customizeClick, actionData: actionData, project: nil)
     }

@@ -727,7 +727,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             alignment: .centerCompact
         )
         
-        presentationController?.delegate = self
+        navigationController?.presentationController?.delegate = self
 
         let closeConfig = WMFNavigationBarCloseButtonConfig(
             text: CommonStrings.doneTitle,
@@ -746,7 +746,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
         )
     }
     
-    @objc func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         ActivityTabFunnel.shared.logActivityTabCustomizeExit(
             viewModel: rootView.viewModel
         )
