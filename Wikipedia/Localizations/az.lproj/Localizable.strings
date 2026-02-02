@@ -85,6 +85,7 @@
 "activity-tab-add-images-subtitle" = "Anlayışı artırmaq üçün təklif olunan şəkilləri Vikipediya məqalələrinə əlavə edin.";
 "activity-tab-add-images-title" = "Şəkil əlavə et";
 "activity-tab-additional-thoughts" = "Əlavə fikriniz var?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 oxunuş}}";
 "activity-tab-articles-read" = "Bu ay oxunan məqalələr";
 "activity-tab-articles-read-graph-label" = "Məqalələr";
 "activity-tab-customize-all-time-impact" = "Ümumi təsir";
@@ -112,6 +113,7 @@
 "activity-tab-logged-out-title" = "Daha çox oxuma və redaktə statistikalarına baxın";
 "activity-tab-logged-out-track-what-youve-read" = "Oxuduqlarınızı izləyin və zamanla töhfələrinizə yeni şəkildə baxın";
 "activity-tab-menu-clear-history" = "Oxuma tarixçəsini sil";
+"activity-tab-most-viewed" = "Redaktənizdən sonra ən çox oxunan";
 "activity-tab-neutral" = "Neytral";
 "activity-tab-no-edits-title" = "Siz bu həftə redaktə etməmisiniz. Məqaləni başa düşülməsini asanlaşdırmaq üçün şəkillər əlavə edin.";
 "activity-tab-no-username-reading-title" = "Oxuduqlarınız";

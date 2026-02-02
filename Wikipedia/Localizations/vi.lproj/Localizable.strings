@@ -64,7 +64,7 @@
 "account-creation-saving" = "Đang lưu…";
 "account-creation-title" = "Mở tài khoản mới";
 "account-group-title" = "Tài khoản của Bạn";
-"account-request-vanishing" = "Biến mất tài khoản";
+"account-request-vanishing" = "Hủy tài khoản";
 "account-talk-page-title" = "Trang thảo luận của bạn";
 "account-talk-preferences-auto-sign-discussions" = "Tự động ký thảo luận";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Tự động ký các cuộc thảo luận sẽ sử dụng chữ ký trong tùy chọn Chữ ký";
@@ -96,11 +96,12 @@
 "action-thank-user-accessibility" = "Cảm ơn Người dùng";
 "action-undo" = "Hoàn tác";
 "action-unsave" = "Bỏ lưu";
-"action-unsaved-accessibility-notification" = "Bài viết đã bị xóa khỏi thiết bị.";
+"action-unsaved-accessibility-notification" = "Đã bỏ lưu bài viết";
 "action-update" = "Cập nhật";
 "activity-tab-add-images-subtitle" = "Thêm hình ảnh gợi ý vào bài viết Wikipedia để tăng khả năng nhận diện.";
 "activity-tab-add-images-title" = "Thêm hình ảnh";
 "activity-tab-additional-thoughts" = "Bạn có suy nghĩ nào muốn chia sẻ không?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 lượt xem}}";
 "activity-tab-articles-read-graph-label" = "Bài viết";
 "activity-tab-generic-no-edits" = "Bạn chưa sửa đổi bài viết nào trong tuần này. Hãy bắt đầu ngay để theo dõi bài viết của bạn.";
 "activity-tab-neutral" = "Trung lập";
@@ -125,7 +126,7 @@
 "alert-temporary-account-learn-more" = "Tìm hiểu thêm.";
 "alt-text-feedback-survey-toast-title" = "Đã gửi phản hồi";
 "announcements-dismiss" = "Thôi";
-"app-store-keywords" = "Wikipedia, tham khảo, wiki, bách khoa toàn thư, bktt, bách khoa thư, từ điển bách khoa, tđbk, thông tin, kiến thức, tri thức, nghiên cứu, tham hiểm, học hành, tìm hiểu";
+"app-store-keywords" = "Wikipedia, tham khảo, wiki, bách khoa toàn thư, bktt, bách khoa thư, từ điển bách khoa, tđbk, thông tin, kiến thức, tri thức, nghiên cứu, khám phá, học hỏi, tìm hiểu";
 "app-store-release-notes" = "Nguồn cấp Thám hiểm có thể tùy biến hoàn toàn và đọc dễ dàng hơn. Địa phương hóa, tối ưu hóa, và sửa lỗi.";
 "app-store-short-description" = "Tải về ứng dụng Wikipedia để thám hiểm các địa điểm lân cận, đồng bộ hóa bài viết để đọc ngoại tuyến, và tùy biến trải nghiệm đọc bài.";
 "app-store-subtitle" = "Bách khoa toàn thư mở";
@@ -285,7 +286,7 @@
 "edit-summary-placeholder-text" = "Bạn đã cải thiện bài này như thế nào?";
 "edit-summary-short-description-added" = "Đã thêm mô tả ngắn";
 "edit-summary-short-description-updated" = "Đã cập nhật mô tả ngắn";
-"edit-watch-list-learn-more-text" = "Tìm hiểu thêm về Danh sách theo dõi của bạn";
+"edit-watch-list-learn-more-text" = "Tìm hiểu thêm về danh sách theo dõi của bạn";
 "edit-watch-this-page-text" = "Theo dõi trang này";
 "editing-welcome-be-bold-subtitle" = "Hãy mạnh dạn nhưng không liều lĩnh trong việc cập nhật bài viết. Đừng lo lắng khi mắc lỗi: mọi phiên bản trước đây của trang đều được lưu lại, do đó cộng đồng của chúng tôi có thể dễ dàng sửa lỗi.";
 "editing-welcome-be-bold-title" = "Bạn có tiếng nói quan trọng chứ";
@@ -554,7 +555,7 @@
 "main-menu-rate-app" = "Đánh giá ứng dụng";
 "main-menu-terms-of-use" = "Điều khoản sử dụng";
 "main-menu-title" = "Khác";
-"main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
+"main-menu-zero-faq" = "Câu hỏi thường gặp về Wikipedia Zero";
 "more-languages-tooltip-description" = "Tìm kiếm Wikipedia trong gần 300 ngôn ngữ";
 "more-languages-tooltip-title" = "Thêm ngôn ngữ";
 "more-menu" = "Thêm";
@@ -611,7 +612,7 @@
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Chỉ những dự án bạn đã tạo tài khoản mới xuất hiện ở đây";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Dự án Wikimedia";
 "notifications-center-language-project-name-format" = "$2 $1";
-"notifications-center-login-notifications" = "Thông báo Lần Đăng nhập";
+"notifications-center-login-notifications" = "Thông báo lần đăng nhập";
 "notifications-center-mark" = "Đánh dấu";
 "notifications-center-mark-all-as-read" = "Đánh dấu tất cả là đã đọc";
 "notifications-center-mark-as-read" = "Đánh dấu là Đã đọc";
@@ -653,7 +654,7 @@
 "notifications-center-type-title-connection-with-wikidata" = "Kết nối với Wikidata";
 "notifications-center-type-title-edit-milestone" = "Cột mốc sửa đổi";
 "notifications-center-type-title-edit-reverted" = "Đã lùi các sửa đổi.";
-"notifications-center-type-title-edit-summary-mention" = "Đề cập trong tóm tắt sửa dổi";
+"notifications-center-type-title-edit-summary-mention" = "Đề cập trong tóm lược sửa dổi";
 "notifications-center-type-title-email-from-other-user" = "Email từ người dùng khác";
 "notifications-center-type-title-login-attempts" = "Lần thử đăng nhập";
 "notifications-center-type-title-login-attempts-subtitle" = "Số lần đăng nhập không thành công vào tài khoản của bạn";
@@ -829,14 +830,14 @@
 "reading-lists-sort-saved-articles" = "Sắp xếp các bài đã lưu";
 "reading-lists-split-notification" = "Mỗi danh sách đọc có hạn chế $1 bài. Các danh sách đã tồn tại vượt quá hạn chế này đã được chia thành nhiều danh sách.";
 "reading-lists-sync-error-no-internet-connection" = "Sẽ tiếp tục đồng bộ hóa lúc khi kết nối với Internet";
-"reading-themes-controls-accessibility-black-theme-button" = "Giao diện Đen";
-"reading-themes-controls-accessibility-brightness-slider" = "Con trượt độ sáng";
+"reading-themes-controls-accessibility-black-theme-button" = "Giao diện đen";
+"reading-themes-controls-accessibility-brightness-slider" = "Thanh trượt độ sáng";
 "reading-themes-controls-accessibility-dark-theme-button" = "Giao diện tối";
 "reading-themes-controls-accessibility-light-theme-button" = "Giao diện sáng";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Giao diện nâu";
-"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Tô màu Cú pháp";
-"reading-themes-controls-accessibility-text-size-slider" = "Con trượt kích thước văn bản";
-"reading-themes-controls-syntax-highlighting" = "Tô màu Cú pháp";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Nổi bật Cú pháp";
+"reading-themes-controls-accessibility-text-size-slider" = "Thanh trượt kích thước văn bản";
+"reading-themes-controls-syntax-highlighting" = "Nổi bật Cú pháp";
 "reference-section-button-accessibility-label" = "Nhảy tới phần tham khảo";
 "reference-title" = "Chú thích $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hôm nay|1=Hôm qua|$1 ngày trước}}";
