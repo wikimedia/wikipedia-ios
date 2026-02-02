@@ -83,7 +83,7 @@
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Article%#@v1@ supprimé%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -91,9 +91,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>article supprimé</string>
 			<key>other</key>
-			<string>s</string>
+			<string>articles supprimés</string>
 		</dict>
 	</dict>
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
@@ -219,7 +219,7 @@
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d ligne%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -227,15 +227,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d ligne</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d lignes</string>
 		</dict>
 	</dict>
 	<key>diff-paragraph-moved-distance-section</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d section%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -243,9 +243,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d section</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d sections</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>
@@ -267,7 +267,7 @@
 	<key>diff-single-header-subtitle-bytes-added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d octet%#@v1@ ajouté%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -275,15 +275,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d octet ajouté</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d octets ajoutés</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d octet%#@v1@ enlevé%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -291,15 +291,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d octet supprimé</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d octets supprimés</string>
 		</dict>
 	</dict>
 	<key>diff-unedited-lines-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d ligne%#@v1@ restaurée%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -307,9 +307,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d ligne non éditée</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d lignes non éditées</string>
 		</dict>
 	</dict>
 	<key>microsite-yir-english-edits-bytes-slide-subtitle-updated</key>
