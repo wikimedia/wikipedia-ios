@@ -107,6 +107,10 @@ public struct WMFActivityTabView: View {
                                     .padding(.horizontal, 16)
                             }
                             
+                            if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
+                                CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
+                            }
+                            
                             totalEditsView(amount: animatedGlobalEditCount)
                                 .padding(.horizontal, 16)
                                 .onAppear {
@@ -502,34 +506,5 @@ public struct WMFActivityTabView: View {
     private func customizedEmptyState() -> some View {
         WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
             .frame(maxWidth: .infinity)
-    }
-}
-
-struct RecentActivityView: View {
-    let viewModel: RecentActivityViewModel
-    
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Recent Activity") // TODO: Localize
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4)
-                Spacer()
-            }
-            .padding(.bottom, 16)
-            
-            // TODO: TEMP UI
-            Text("Edit count: \(viewModel.editCount)")
-            Text("Start date: \(viewModel.startDate)")
-            Text("End count: \(viewModel.endDate)")
-        }
     }
 }

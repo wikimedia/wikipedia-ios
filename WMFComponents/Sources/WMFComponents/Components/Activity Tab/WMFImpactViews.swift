@@ -41,6 +41,10 @@ struct CombinedImpactView: View {
                     )
                     .padding(0)
             }
+            
+            if let articleViewsViewModel {
+                ArticleViewsView(viewModel: articleViewsViewModel)
+            }
         }
         .padding(16)
         .background(Color(theme.paperBackground))
@@ -54,65 +58,225 @@ struct CombinedImpactView: View {
 
 private struct AllTimeImpactView: View {
     let viewModel: AllTimeImpactViewModel
-    
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
+
     var body: some View {
-        VStack {
-            HStack {
-                Text("All time impact") // TODO: Localize
+        VStack(alignment: .leading, spacing: 16) {
+            Text("All time impact")
+                .foregroundStyle(Color(theme.text))
+                .font(Font(WMFFont.for(.boldCaption1)))
+
+            VStack(spacing: 16) {
+                HStack(spacing: 16) {
+                    impactMetric(
+                        icon: WMFSFSymbolIcon.for(symbol: .pencil),
+                        value: "\(viewModel.totalEdits ?? 0)",
+                        label: "total edits"
+                    )
+                    
+                    Spacer()
+                    
+                    impactMetric(
+                        icon: WMFSFSymbolIcon.for(symbol: .star),
+                        value: "\(viewModel.bestStreak ?? 0)",
+                        label: "best streak"
+                    )
+                }
+
+                HStack(spacing: 16) {
+                    impactMetric(
+                        icon: WMFSFSymbolIcon.for(symbol: .add), // chatBubble
+                        value: "\(viewModel.thanksCount ?? 0)",
+                        label: "thanks"
+                    )
+                    
+                    Spacer()
+                    
+                    impactMetric(
+                        icon: WMFSFSymbolIcon.for(symbol: .bellFill), // arrowClockwise
+                        value: formatLastEdited(viewModel.lastEdited),
+                        label: "last edited"
+                    )
+                }
+            }
+        }
+    }
+    
+    private func formatLastEdited(_ date: Date?) -> String {
+        guard let date else { return "-" }
+        return DateFormatter.lastEditedDateFormatter.string(from: date)
+    }
+
+    @ViewBuilder
+    private func impactMetric(icon: UIImage?, value: String, label: String) -> some View {
+        HStack(spacing: 8) {
+            if let icon {
+                Image(uiImage: icon)
+                    .foregroundStyle(Color(theme.link))
+                    .frame(width: 24, height: 24)
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(value)
+                    .font(Font(WMFFont.for(.boldHeadline)))
                     .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4)
-                Spacer()
-            }
-            .padding(.bottom, 16)
-            
-            // TODO: TEMP UI
-            if let totalEdits = viewModel.totalEdits {
-                Text("Total edits: \(totalEdits)")
-            } else {
-                Text("Total edits: 0")
-            }
-            if let thanks = viewModel.thanksCount {
-                Text("Thanks count: \(thanks)")
-            } else {
-                Text("Thanks count: 0")
-            }
-            if let streak = viewModel.bestStreak {
-                Text("Best streak: \(streak)")
-            } else {
-                Text("Best streak: -")
-            }
-            if let lastEdited = viewModel.lastEdited {
-                Text("Last edited: \(lastEdited)")
-            } else {
-                Text("Last edited: -")
+
+                Text(label)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.secondaryText))
             }
         }
     }
 }
 
-struct YourImpactHeaderView: View {
-    
+
+struct RecentActivityView: View {
+    let viewModel: RecentActivityViewModel
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let title: String
-    
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
+
     var body: some View {
-            Text(title)
-                .font(Font(WMFFont.for(.boldHeadline)))
-                .foregroundColor(Color(uiColor: theme.text))
-                .textCase(.none)
-                .padding(.horizontal, 16)
-                .accessibilityAddTraits(.isHeader)
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Your recent activity (last 30 days)")
+                .foregroundStyle(Color(theme.text))
+                .font(Font(WMFFont.for(.boldCaption1)))
+
+            VStack(alignment: .leading, spacing: 12) {
+                Text("\(viewModel.editCount)")
+                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .foregroundStyle(Color(theme.text))
+
+                Text("edits")
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.secondaryText))
+
+                if !viewModel.edits.isEmpty {
+                    BarChartView(data: viewModel.edits.map { $0.count })
+                        .frame(height: 60)
+                        .padding(.top, 8)
+                }
+
+                HStack {
+                    Text(DateFormatter.shortDateFormatter.string(from: viewModel.startDate))
+                        .font(Font(WMFFont.for(.caption2)))
+                        .foregroundStyle(Color(theme.secondaryText))
+
+                    Spacer()
+
+                    Text(DateFormatter.shortDateFormatter.string(from: viewModel.endDate))
+                        .font(Font(WMFFont.for(.caption2)))
+                        .foregroundStyle(Color(theme.secondaryText))
+                }
+            }
+        }
+    }
+    
+    struct BarChartView: View {
+        let data: [Int]
+
+        @ObservedObject var appEnvironment = WMFAppEnvironment.current
+
+        var theme: WMFTheme {
+            return appEnvironment.theme
+        }
+
+        var body: some View {
+            Chart {
+                ForEach(data.indices, id: \.self) { index in
+                    BarMark(
+                        x: .value("Day", index),
+                        y: .value("Edits", data[index])
+                    )
+                    .foregroundStyle(Color(theme.link))
+                }
+            }
+            .chartXAxis(.hidden)
+            .chartYAxis(.hidden)
+        }
+    }
+}
+
+struct ArticleViewsView: View {
+    let viewModel: ArticleViewsViewModel
+
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Views on articles you've edited")
+                .foregroundStyle(Color(theme.text))
+                .font(Font(WMFFont.for(.boldCaption1)))
+
+            VStack(alignment: .leading, spacing: 12) {
+                    Text(formatViewCount(viewModel.views.reduce(0) { $0 + $1.count }))
+                        .font(Font(WMFFont.for(.boldHeadline)))
+                        .foregroundStyle(Color(theme.text))
+
+                    if !viewModel.views.isEmpty {
+                        LineChartView(data: viewModel.views.map { $0.count })
+                            .frame(height: 80)
+                    }
+                }
+        }
+    }
+
+    private func formatViewCount(_ count: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: count)) ?? "\(count)"
+    }
+    
+    struct LineChartView: View {
+        let data: [Int]
+
+        @ObservedObject var appEnvironment = WMFAppEnvironment.current
+
+        var theme: WMFTheme {
+            return appEnvironment.theme
+        }
+
+        var body: some View {
+            Chart {
+                ForEach(data.indices, id: \.self) { index in
+                    LineMark(
+                        x: .value("Day", index),
+                        y: .value("Views", data[index])
+                    )
+                    .foregroundStyle(Color(theme.link))
+                }
+            }
+            .chartXAxis(.hidden)
+            .chartYAxis(.hidden)
+        }
+    }
+}
+
+struct YourImpactHeaderView: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    let title: String
+
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+
+    var body: some View {
+        Text(title)
+            .foregroundStyle(Color(theme.text))
+            .font(Font(WMFFont.for(.boldCaption1)))
+            .padding(.horizontal, 16)
+            .accessibilityAddTraits(.isHeader)
     }
 }
