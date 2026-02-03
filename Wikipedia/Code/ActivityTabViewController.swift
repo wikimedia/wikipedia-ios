@@ -50,7 +50,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 if viewModel.isEmpty {
                     ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "empty")
                 } else {
-                    ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+                    let allModulesOff = !viewModel.customizeViewModel.isTimeSpentReadingOn &&
+                                       !viewModel.customizeViewModel.isReadingInsightsOn &&
+                                       !viewModel.customizeViewModel.isEditingInsightsOn &&
+                                       !viewModel.customizeViewModel.isTimelineOfBehaviorOn
+                    
+                    if allModulesOff {
+                        ActivityTabFunnel.shared.logActivityTabOffImpression()
+                    } else {
+                        ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+                    }
                 }
             }
         }
@@ -82,6 +91,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     public func makeAnEdit() {
+        ActivityTabFunnel.shared.logMakeEditClick()
         guard let url = URL(string: editingFAQURLString) else { return }
         navigate(to: url)
     }
@@ -275,6 +285,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     private func presentExplore() {
+        ActivityTabFunnel.shared.logExploreClick()
         navigationController?.popToRootViewController(animated: false)
         
         if let tabBar = self.tabBarController {
@@ -338,7 +349,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gearShape), handler: { _ in
             self.userDidTapCustomize()
-            // TODO: Log
         })
         
         let mainMenu = UIMenu(title: String(), children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
@@ -347,6 +357,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     private func userDidTapCustomize() {
+        let allModulesOff = !viewModel.customizeViewModel.isTimeSpentReadingOn &&
+                           !viewModel.customizeViewModel.isReadingInsightsOn &&
+                           !viewModel.customizeViewModel.isEditingInsightsOn &&
+                           !viewModel.customizeViewModel.isTimelineOfBehaviorOn
+        
+        if allModulesOff {
+            ActivityTabFunnel.shared.logActivityTabOffCustomizeClick()
+        } else {
+            ActivityTabFunnel.shared.logActivityTabCustomizeClick()
+        }
+        
         let customizeVC = self.customizeViewController()
         navigationController?.present(customizeVC, animated: true)
     }
@@ -684,7 +705,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
     }
 }
 
-final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring {
+final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring, UIAdaptivePresentationControllerDelegate {
     
     init(rootView: WMFActivityTabCustomizeView, theme: Theme) {
         self.theme = theme
@@ -705,6 +726,8 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             customView: nil,
             alignment: .centerCompact
         )
+        
+        navigationController?.presentationController?.delegate = self
 
         let closeConfig = WMFNavigationBarCloseButtonConfig(
             text: CommonStrings.doneTitle,
@@ -722,8 +745,15 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             hideNavigationBarOnScroll: false
         )
     }
+    
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        ActivityTabFunnel.shared.logActivityTabCustomizeExit(
+            viewModel: rootView.viewModel
+        )
+    }
 
     @objc private func closeTapped() {
+        ActivityTabFunnel.shared.logActivityTabCustomizeExit(viewModel: rootView.viewModel)
         dismiss(animated: true)
     }
 }
