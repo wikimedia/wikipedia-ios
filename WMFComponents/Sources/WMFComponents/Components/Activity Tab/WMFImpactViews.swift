@@ -160,8 +160,7 @@ struct RecentActivityView: View {
                     .foregroundStyle(Color(theme.secondaryText))
 
                 if !viewModel.edits.isEmpty {
-                    BarChartView(data: viewModel.edits.map { $0.count })
-                        .frame(height: 60)
+                    EditActivityGrid(edits: viewModel.edits, theme: theme)
                         .padding(.top, 8)
                 }
 
@@ -179,28 +178,25 @@ struct RecentActivityView: View {
             }
         }
     }
-    
-    struct BarChartView: View {
-        let data: [Int]
 
-        @ObservedObject var appEnvironment = WMFAppEnvironment.current
-
-        var theme: WMFTheme {
-            return appEnvironment.theme
-        }
+    private struct EditActivityGrid: View {
+        let edits: [RecentActivityViewModel.Edit]
+        let theme: WMFTheme
 
         var body: some View {
-            Chart {
-                ForEach(data.indices, id: \.self) { index in
-                    BarMark(
-                        x: .value("Day", index),
-                        y: .value("Edits", data[index])
-                    )
-                    .foregroundStyle(Color(theme.link))
+            let squareSize: CGFloat = 8
+            let spacing: CGFloat = 4
+
+            HStack(spacing: spacing) {
+                ForEach(0..<30, id: \.self) { index in
+                    let hasEdits = index < edits.count && edits[index].count > 0
+
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(hasEdits ? Color(theme.link) : Color(theme.baseBackground))
+                        .frame(width: squareSize, height: squareSize)
                 }
             }
-            .chartXAxis(.hidden)
-            .chartYAxis(.hidden)
+            .frame(height: squareSize)
         }
     }
 }

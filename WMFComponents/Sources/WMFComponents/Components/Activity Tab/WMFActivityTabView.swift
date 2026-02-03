@@ -109,6 +109,7 @@ public struct WMFActivityTabView: View {
                             
                             if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
                                 CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
+                                    .padding(.horizontal, 16)
                             }
                             
                             totalEditsView(amount: animatedGlobalEditCount)
