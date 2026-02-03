@@ -776,6 +776,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let dataController = WMFHistoryDataController(
             recordsProvider: recordsProvider
         )
+
+        dataController.deleteRecordAction = deleteRecordAction
+        dataController.saveRecordAction = saveArticleAction
+        dataController.unsaveRecordAction = unsaveArticleAction
         return dataController
     }()
 
