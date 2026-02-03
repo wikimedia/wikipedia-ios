@@ -77,6 +77,7 @@ private struct CombinedImpactTitleView: View {
             .font(Font(WMFFont.for(.boldCaption1)))
             .multilineTextAlignment(.leading)
             .lineLimit(4)
+            .accessibilityAddTraits(.isHeader)
     }
 }
 
@@ -105,7 +106,7 @@ private struct AllTimeImpactView: View {
     
     var bestStreakValue: String {
         if let bestStreak = viewModel.bestStreak {
-            return "\(bestStreak)"
+            return viewModel.localizedStrings.bestStreakValue(bestStreak)
         }
         
         return "-"
@@ -122,6 +123,14 @@ private struct AllTimeImpactView: View {
     var lastEditedValue: String {
         if let lastEdited = viewModel.lastEdited {
             return formatLastEdited(lastEdited)
+        }
+        
+        return "-"
+    }
+    
+    var lastEditedAccessibilityValue: String {
+        if let lastEdited = viewModel.lastEdited {
+            return formatLastEditedForAccessibility(lastEdited)
         }
         
         return "-"
@@ -152,7 +161,8 @@ private struct AllTimeImpactView: View {
                     impactMetric(
                         icon: WMFIcon.editHistory,
                         value: lastEditedValue,
-                        label: viewModel.localizedStrings.lastEdited
+                        label: viewModel.localizedStrings.lastEdited,
+                        customAccessibilityValue: lastEditedAccessibilityValue
                     )
                 } else {
                     HStack(spacing: 8) {
@@ -181,7 +191,8 @@ private struct AllTimeImpactView: View {
                         impactMetric(
                             icon: WMFIcon.editHistory,
                             value: lastEditedValue,
-                            label: viewModel.localizedStrings.lastEdited
+                            label: viewModel.localizedStrings.lastEdited,
+                            customAccessibilityValue: lastEditedAccessibilityValue
                         )
                     }
                 }
@@ -193,9 +204,14 @@ private struct AllTimeImpactView: View {
         guard let date else { return "-" }
         return DateFormatter.lastEditedDateFormatter.string(from: date)
     }
+    
+    private func formatLastEditedForAccessibility(_ date: Date?) -> String {
+        guard let date else { return "" }
+        return DateFormatter.wmfMonthDayYearDateFormatter.string(from: date)
+    }
 
     @ViewBuilder
-    private func impactMetric(icon: UIImage?, value: String, label: String) -> some View {
+    private func impactMetric(icon: UIImage?, value: String, label: String, customAccessibilityValue: String? = nil) -> some View {
         HStack(spacing: 12) {
             if let icon {
                 Image(uiImage: icon)
@@ -213,6 +229,8 @@ private struct AllTimeImpactView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement()
+        .accessibilityLabel(label + ", " + (customAccessibilityValue ?? value))
     }
 }
 
@@ -225,19 +243,32 @@ struct RecentActivityView: View {
     var theme: WMFTheme {
         return appEnvironment.theme
     }
+    
+    var startDateString: String {
+        return DateFormatter.monthDayFormatter.string(from: viewModel.startDate)
+    }
+    
+    var endDateString: String {
+        return DateFormatter.monthDayFormatter.string(from: viewModel.endDate)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             CombinedImpactTitleView(text: viewModel.localizedStrings.yourRecentActivity)
 
             VStack(alignment: .leading, spacing: 0) {
-                Text("\(viewModel.editCount)")
-                    .font(Font(WMFFont.for(.boldTitle1)))
-                    .foregroundStyle(Color(theme.text))
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("\(viewModel.editCount)")
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                        .foregroundStyle(Color(theme.text))
 
-                Text(viewModel.localizedStrings.edits)
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .foregroundStyle(Color(theme.secondaryText))
+                    Text(viewModel.localizedStrings.edits)
+                        .font(Font(WMFFont.for(.boldCaption1)))
+                        .foregroundStyle(Color(theme.secondaryText))
+                }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("\(viewModel.editCount)" + viewModel.localizedStrings.edits)
 
                 if !viewModel.edits.isEmpty {
                     EditActivityGrid(edits: viewModel.edits, theme: theme)
@@ -245,17 +276,20 @@ struct RecentActivityView: View {
                 }
 
                 HStack {
-                    Text(DateFormatter.monthDayFormatter.string(from: viewModel.startDate))
+                    Text(startDateString)
                         .font(Font(WMFFont.for(.caption1)))
                         .foregroundStyle(Color(theme.secondaryText))
 
                     Spacer()
 
-                    Text(DateFormatter.monthDayFormatter.string(from: viewModel.endDate))
+                    Text(endDateString)
                         .font(Font(WMFFont.for(.caption1)))
                         .foregroundStyle(Color(theme.secondaryText))
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(viewModel.localizedStrings.startEndDatesAccessibilityLabel(startDateString, endDateString))
             }
+            
         }
     }
 
@@ -354,8 +388,9 @@ struct YourImpactHeaderView: View {
 
     var body: some View {
         Text(title)
-            .foregroundStyle(Color(theme.text))
-            .font(Font(WMFFont.for(.boldCaption1)))
+            .font(Font(WMFFont.for(.boldHeadline)))
+            .foregroundColor(Color(uiColor: theme.text))
+            .textCase(.none)
             .padding(.horizontal, 16)
             .accessibilityAddTraits(.isHeader)
     }

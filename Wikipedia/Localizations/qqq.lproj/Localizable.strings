@@ -100,6 +100,7 @@
 "activity-tab-impact-edits-label" = "Label in impact module for recent activity edit count";
 "activity-tab-impact-last-edited-label" = "Label in impact module for last edited date";
 "activity-tab-impact-recent-activity-title" = "Title for activity tab module about your recent editing activity";
+"activity-tab-impact-recent-startend-accessibility" = "Accessibility label in impact module for start / end date recent activity. $1 is replaced with start date, $2 is replaced with end date.";
 "activity-tab-impact-thanks-label" = "Label in impact module for thanks count";
 "activity-tab-impact-total-edits-label" = "Label in impact module for total edits count";
 "activity-tab-impact-views-day" = "Accessibility label for activity tab views line graph, y-axis.";

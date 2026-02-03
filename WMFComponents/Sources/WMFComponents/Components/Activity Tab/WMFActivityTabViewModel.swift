@@ -23,6 +23,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Localization
 
     public struct LocalizedStrings {
+
         public let userNamesReading: (String) -> String
         public let noUsernameReading: String
         public let totalHoursMinutesRead:  (Int, Int) -> String
@@ -77,11 +78,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let lastEditedLabel: String
         public let yourRecentActivityTitle: String
         public let editsLabel: String
+        public let startEndDatesAccessibilityLabel: (String, String) -> String
         public let viewsOnArticlesYouveEditedTitle: String
         public let lineGraphDay: String
         public let lineGraphViews: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEditsAcrossProjects: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String, allTimeImpactTitle: String, totalEditsLabel: String, bestStreakValue: @escaping (Int) -> String, bestStreakLabel: String, thanksLabel: String, lastEditedLabel: String, yourRecentActivityTitle: String, editsLabel: String, viewsOnArticlesYouveEditedTitle: String, lineGraphDay: String, lineGraphViews: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEditsAcrossProjects: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String, allTimeImpactTitle: String, totalEditsLabel: String, bestStreakValue: @escaping (Int) -> String, bestStreakLabel: String, thanksLabel: String, lastEditedLabel: String, yourRecentActivityTitle: String, editsLabel: String, startEndDatesAccessibilityLabel: @escaping (String, String) -> String, viewsOnArticlesYouveEditedTitle: String, lineGraphDay: String, lineGraphViews: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -136,6 +138,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.lastEditedLabel = lastEditedLabel
             self.yourRecentActivityTitle = yourRecentActivityTitle
             self.editsLabel = editsLabel
+            self.startEndDatesAccessibilityLabel = startEndDatesAccessibilityLabel
             self.viewsOnArticlesYouveEditedTitle = viewsOnArticlesYouveEditedTitle
             self.lineGraphDay = lineGraphDay
             self.lineGraphViews = lineGraphViews

@@ -100,6 +100,7 @@
 "activity-tab-impact-edits-label" = "edits";
 "activity-tab-impact-last-edited-label" = "last edited";
 "activity-tab-impact-recent-activity-title" = "Your recent activity (last 30 days)";
+"activity-tab-impact-recent-startend-accessibility" = "From $1 to $2";
 "activity-tab-impact-thanks-label" = "thanks";
 "activity-tab-impact-total-edits-label" = "total edits";
 "activity-tab-impact-views-day" = "Day";

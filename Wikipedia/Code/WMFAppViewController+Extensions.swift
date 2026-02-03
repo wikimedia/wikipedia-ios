@@ -967,6 +967,12 @@ extension WMFAppViewController {
         let yourRecentActivityTitle = WMFLocalizedString("activity-tab-impact-recent-activity-title", value: "Your recent activity (last 30 days)", comment: "Title for activity tab module about your recent editing activity")
         let editsLabel = WMFLocalizedString("activity-tab-impact-edits-label", value: "edits", comment: "Label in impact module for recent activity edit count")
         
+        let startEndDatesAccessibilityLabel: (String, String) -> String = { startDate, endDate in
+            let startEndDatesAccessibilityFormat = WMFLocalizedString("activity-tab-impact-recent-startend-accessibility", value: "From %1$@ to %2$@", comment: "Accessibility label in impact module for start / end date recent activity. %1$@ is replaced with start date, %2$@ is replaced with end date.")
+            
+            return String.localizedStringWithFormat(startEndDatesAccessibilityFormat, startDate, endDate)
+        }
+        
         let viewsOnArticlesYouveEditedTitle = WMFLocalizedString("activity-tab-impact-views-title", value: "Views on articles you’ve edited", comment: "Title for activity tab module about views on articles user edited")
         
         let lineGraphDay = WMFLocalizedString("activity-tab-impact-views-day", value: "Day", comment: "Accessibility label for activity tab views line graph, y-axis.")
@@ -1048,6 +1054,7 @@ extension WMFAppViewController {
                     lastEditedLabel: lastEditedLabel,
                     yourRecentActivityTitle: yourRecentActivityTitle,
                     editsLabel: editsLabel,
+                    startEndDatesAccessibilityLabel: startEndDatesAccessibilityLabel,
                     viewsOnArticlesYouveEditedTitle: viewsOnArticlesYouveEditedTitle,
                     lineGraphDay: lineGraphDay,
                     lineGraphViews: lineGraphViews

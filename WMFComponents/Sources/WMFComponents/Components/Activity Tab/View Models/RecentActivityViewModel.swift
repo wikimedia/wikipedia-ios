@@ -7,6 +7,7 @@ final class RecentActivityViewModel: ObservableObject {
     struct LocalizedStrings {
         let yourRecentActivity: String
         let edits: String
+        let startEndDatesAccessibilityLabel: (String, String) -> String
     }
     
     struct Edit: Identifiable {
@@ -24,7 +25,7 @@ final class RecentActivityViewModel: ObservableObject {
 
     init?(data: WMFUserImpactData, activityViewModel: WMFActivityTabViewModel) {
         
-        self.localizedStrings = LocalizedStrings(yourRecentActivity: activityViewModel.localizedStrings.yourRecentActivityTitle, edits: activityViewModel.localizedStrings.editsLabel)
+        self.localizedStrings = LocalizedStrings(yourRecentActivity: activityViewModel.localizedStrings.yourRecentActivityTitle, edits: activityViewModel.localizedStrings.editsLabel, startEndDatesAccessibilityLabel: activityViewModel.localizedStrings.startEndDatesAccessibilityLabel)
         
         let calendar = Calendar.current
 
