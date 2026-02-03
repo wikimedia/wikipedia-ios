@@ -11,7 +11,6 @@ import CocoaLumberjackSwift
     // Serial queue to prevent concurrent operations
     private let serialQueue = DispatchQueue(label: "org.wikimedia.savedstate.migration", qos: .utility)
 
-
     override private init() {
         super.init()
     }
@@ -118,7 +117,7 @@ import CocoaLumberjackSwift
 
     private func runMigration(limit: Int?) async {
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
-            DDLogError("Missing WMFData store")
+            DDLogError("[SavedPagesMigration] Missing WMFData store")
             return
         }
 
@@ -165,14 +164,14 @@ import CocoaLumberjackSwift
                 return localSnaps
             }
         } catch {
-            DDLogError("WMFArticle migration error (legacy read/save): \(error)")
+            DDLogError("[SavedPagesMigration] WMFArticle migration error (legacy read/save): \(error)")
             return
         }
 
         guard !snapshots.isEmpty else { return }
 
         guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-            DDLogError("Could not create WMFData background context")
+            DDLogError("[SavedPagesMigration] Could not create WMFData background context")
             return
         }
         wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -195,75 +194,81 @@ import CocoaLumberjackSwift
                 if wmfContext.hasChanges { try wmfContext.save() }
             }
         } catch {
-            DDLogError("WMFData saved-article migration error: \(error)")
+            DDLogError("[SavedPagesMigration] WMFData saved-article migration error: \(error)")
         }
     }
 
+    /// Mirrors "newly saved via reading list sync" URLs into WMFData.
     private func migrateSyncedArticles(withURLs urls: [URL]) async {
         let dedupedURLs = Array(Set(urls))
-        
+
         guard !dedupedURLs.isEmpty else { return }
         guard let wmfDataStore = WMFDataEnvironment.current.coreDataStore else {
-            DDLogError("[SavedPagesMirror] Missing WMFData store")
+            DDLogError("[SavedPagesMigration] Missing WMFData store")
             return
         }
 
-        let snapshots: [SavedArticleSnapshot]
+        let buildResult: (snapshots: [SavedArticleSnapshot], legacyArticleObjectIDsToMarkMigrated: [NSManagedObjectID])
         do {
-            snapshots = try await self.dataStore.performBackgroundCoreDataOperationAsync { (wikipediaContext: NSManagedObjectContext) -> [SavedArticleSnapshot] in
+            buildResult = try await self.dataStore.performBackgroundCoreDataOperationAsync { (wikipediaContext: NSManagedObjectContext) -> (snapshots: [SavedArticleSnapshot], legacyArticleObjectIDsToMarkMigrated: [NSManagedObjectID]) in
                 wikipediaContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
                 var localSnaps: [SavedArticleSnapshot] = []
                 localSnaps.reserveCapacity(dedupedURLs.count)
 
+                var objectIDsToMarkMigrated: [NSManagedObjectID] = []
+                objectIDsToMarkMigrated.reserveCapacity(dedupedURLs.count)
+
                 for url in dedupedURLs {
                     autoreleasepool {
                         guard let ids = Self.getPageIDs(from: url) else {
-                            DDLogWarn("[Mirror] Skipping URL (cannot derive PageIDs): \(url.absoluteString)")
+                            DDLogWarn("[SavedPagesMigration] Skipping URL (cannot derive PageIDs): \(url.absoluteString)")
                             return
                         }
 
-                        let article = self.dataStore.fetchArticle(with: url, in: wikipediaContext)
-                        let savedDate: Date = {
-                            if let sd = article?.savedDate { return sd }
+                        guard let article = self.dataStore.fetchArticle(with: url, in: wikipediaContext) else {
+                            DDLogWarn("[SavedPagesMigration] Skipping URL (no WMFArticle found): \(url.absoluteString)")
+                            return
+                        }
+                        let savedDate: Date? = {
+                            if let sd = article.savedDate { return sd }
                             if let entryDate = Self.getSavedDateFromReadingLists(for: url, in: wikipediaContext) {
                                 return entryDate
                             }
-                            DDLogInfo("[Mirror] Using fallback savedDate for \(url.absoluteString)")
-                            return Date()
+                            return nil
                         }()
 
-                        let viewedDate = article?.viewedDate
+                        guard let savedDate else {
+                            DDLogInfo("[SavedPagesMigration] Missing savedDate; will retry later for url: \(url.absoluteString)")
+                            return
+                        }
 
                         localSnaps.append(
                             SavedArticleSnapshot(
                                 ids: ids,
                                 savedDate: savedDate,
-                                viewedDate: viewedDate
+                                viewedDate: article.viewedDate
                             )
                         )
 
-                        if let article, article.isSavedMigrated == false {
-                            article.isSavedMigrated = true
-                        }
+                        objectIDsToMarkMigrated.append(article.objectID)
                     }
                 }
 
-                if wikipediaContext.hasChanges {
-                    try wikipediaContext.save()
-                }
-
-                return localSnaps
+                return (snapshots: localSnaps, legacyArticleObjectIDsToMarkMigrated: objectIDsToMarkMigrated)
             }
         } catch {
-            DDLogError("[SavedPagesMirror] Legacy snapshot build failed: \(error)")
+            DDLogError("[SavedPagesMigration] Legacy snapshot build failed: \(error)")
             return
         }
+
+        let snapshots = buildResult.snapshots
+        let legacyArticleObjectIDsToMarkMigrated = buildResult.legacyArticleObjectIDsToMarkMigrated
 
         guard !snapshots.isEmpty else { return }
 
         guard let wmfContext = try? wmfDataStore.newBackgroundContext else {
-            DDLogError("[SavedPagesMirror] Could not create WMFData background context")
+            DDLogError("[SavedPagesMigration] Could not create WMFData background context")
             return
         }
         wmfContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -279,8 +284,39 @@ import CocoaLumberjackSwift
                 }
                 if wmfContext.hasChanges { try wmfContext.save() }
             }
+
+            // Only after WMFData save succeeds, mark legacy articles as migrated
+            if !legacyArticleObjectIDsToMarkMigrated.isEmpty {
+                do {
+                    try await self.dataStore.performBackgroundCoreDataOperationAsync { legacyContext in
+                        legacyContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
+                        var didChange = false
+
+                        for objectID in legacyArticleObjectIDsToMarkMigrated {
+                            guard let article = try? legacyContext.existingObject(with: objectID) as? WMFArticle else {
+                                continue
+                            }
+
+                            if article.isSavedMigrated == false {
+                                article.isSavedMigrated = true
+                                didChange = true
+                            }
+                        }
+
+                        if didChange, legacyContext.hasChanges {
+                            try legacyContext.save()
+                        }
+                    }
+                } catch {
+                    // Articles not migrated now will be migrated when `migrateIncremental` ||` migrateAllIfNeeded` are called
+                    DDLogError("[SavedPagesMigration] Failed to mark legacy isSavedMigrated after WMFData save: \(error)")
+                }
+            }
+
         } catch {
-            DDLogError("[SavedPagesMirror] Failed mirroring to WMFData: \(error)")
+            // Articles not migrated now will be migrated when `migrateIncremental` ||` migrateAllIfNeeded` are called
+            DDLogError("[SavedPagesMigration] Failed mirroring to WMFData: \(error)")
         }
     }
 
@@ -491,7 +527,7 @@ import CocoaLumberjackSwift
     }
 
     private static func getSavedDateFromReadingLists(for url: URL, in moc: NSManagedObjectContext) -> Date? {
-        guard let key = url.wmf_inMemoryKey?.databaseKey ?? url.wmf_inMemoryKey?.databaseKey else {
+        guard let key = url.wmf_inMemoryKey?.databaseKey else {
             return nil
         }
 
@@ -505,16 +541,13 @@ import CocoaLumberjackSwift
             let returnValue = entries.first?.createdDate as Date?
             return returnValue
         } catch {
-            DDLogError("[Mirror] ReadingListEntry fetch failed for key=\(key): \(error)")
+            DDLogError("ReadingListEntry fetch failed for key=\(key): \(error)")
             return nil
         }
-        
     }
 }
 
-// MARK: - Private extensions
-
-extension MWKDataStore {
+public extension MWKDataStore {
     func performBackgroundCoreDataOperationAsync<T>(_ block: @escaping (NSManagedObjectContext) throws -> T) async throws -> T {
         return try await withCheckedThrowingContinuation { continuation in
             Task { @MainActor in

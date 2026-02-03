@@ -26,6 +26,7 @@
 // Author: Revi
 // Author: SeoJeongHo
 // Author: Suleiman the Magnificent Television
+// Author: Tensama0415
 // Author: Tsevener
 // Author: Twotwo2019
 // Author: Underbaaar
@@ -1228,7 +1229,7 @@
 "talk-page-subscribed-alert-title" = "구독하였습니다!";
 "talk-page-subscription-failed-alert" = "주제를 구독하지 못했습니다. 다시 시도해 주십시오.";
 "talk-page-title-article-talk" = "문서 토론";
-"talk-page-title-user-talk" = "사용자토론";
+"talk-page-title-user-talk" = "사용자 토론";
 "talk-page-unsubscribe-to-topic" = "구독 해지";
 "talk-page-unsubscribed-alert-subtitle" = "이 주제의 새 댓글에 관한 알림을 더 이상 받지 않게 됩니다.";
 "talk-page-unsubscribed-alert-title" = "구독을 해지했습니다.";

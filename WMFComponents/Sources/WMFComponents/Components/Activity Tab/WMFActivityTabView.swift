@@ -20,19 +20,28 @@ public struct WMFActivityTabView: View {
 
     public var body: some View {
         ScrollViewReader { proxy in
-            if viewModel.authenticationState == .loggedIn {
-                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
-                    customizedEmptyState()
-                } else {
-                    loggedInList(proxy: proxy)
-                }
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                if !viewModel.customizeViewModel.isTimelineOfBehaviorOn {
-                    customizedEmptyState()
+                if viewModel.authenticationState == .loggedIn {
+                    if !viewModel.customizeViewModel.isTimelineOfBehaviorOn, !viewModel.customizeViewModel.isTimeSpentReadingOn, !viewModel.customizeViewModel.isEditingInsightsOn, !viewModel.customizeViewModel.isReadingInsightsOn {
+                        customizedEmptyState()
+                    } else {
+                        loggedInList(proxy: proxy)
+                    }
                 } else {
-                    loggedOutList(proxy: proxy)
+                    if !viewModel.customizeViewModel.isTimelineOfBehaviorOn {
+                        customizedEmptyState()
+                    } else {
+                        loggedOutList(proxy: proxy)
+                    }
                 }
             }
+        }
+        .onAppear {
+            viewModel.fetchData(fromAppearance: true)
         }
     }
 
@@ -66,6 +75,11 @@ public struct WMFActivityTabView: View {
                                 .padding(.horizontal, 16)
                             savedArticlesModule
                                 .padding(.horizontal, 16)
+                            
+                            if viewModel.shouldShowExploreCTA {
+                                exploreCTA
+                                    .padding(.vertical, 12)
+                            }
 
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
@@ -76,36 +90,51 @@ public struct WMFActivityTabView: View {
                             }
                         }
                         
-                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0, viewModel.customizeViewModel.isEditingInsightsOn {
-                            HStack {
-                                YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                                Spacer()
+                        if viewModel.customizeViewModel.isEditingInsightsOn {
+                            
+                            if viewModel.shouldShowYourImpactHeader {
+                                HStack {
+                                    YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
+                                    Spacer()
+                                }
+                                .padding(.top, 12)
                             }
-                            .padding(.top, 12)
                             
-//                            if let contributionsViewModel = viewModel.contributionsViewModel {
-//                                ContributionsView(viewModel: contributionsViewModel)
-//                                    .padding(.horizontal, 16)
-//                            }
+                            if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
+                                TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
+                                    .padding(.horizontal, 16)
+                            }
                             
-                            totalEditsView(amount: animatedGlobalEditCount)
-                                .padding(.horizontal, 16)
-                                .onAppear {
-                                    if !hasShownGlobalEditsCard {
-                                        hasShownGlobalEditsCard = true
-                                        animatedGlobalEditCount = 0
-                                        withAnimation(.easeOut(duration: 0.6)) {
+                            if let contributionsViewModel = viewModel.contributionsViewModel {
+                                ContributionsView(viewModel: contributionsViewModel)
+                                    .padding(.horizontal, 16)
+                            }
+                            
+                            if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
+                                CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
+                                    .padding(.horizontal, 16)
+                            }
+                            
+                            if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                                totalEditsView(amount: animatedGlobalEditCount)
+                                    .padding(.horizontal, 16)
+                                    .onAppear {
+                                        if !hasShownGlobalEditsCard {
+                                            hasShownGlobalEditsCard = true
+                                            animatedGlobalEditCount = 0
+                                            withAnimation(.easeOut(duration: 0.6)) {
+                                                animatedGlobalEditCount = globalEditCount
+                                            }
+                                        } else {
                                             animatedGlobalEditCount = globalEditCount
                                         }
-                                    } else {
-                                        animatedGlobalEditCount = globalEditCount
                                     }
-                                }
-                                .onChange(of: globalEditCount) { newValue in
-                                    withAnimation(.easeOut(duration: 0.6)) {
-                                        animatedGlobalEditCount = newValue
+                                    .onChange(of: globalEditCount) { newValue in
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = newValue
+                                        }
                                     }
-                                }
+                            }
                         }
                     }
                     .padding(.bottom, 16)
@@ -133,9 +162,21 @@ public struct WMFActivityTabView: View {
         .scrollContentBackground(.hidden)
         .listStyle(.grouped)
         .listCustomSectionSpacing(0)
-        .onAppear {
-            viewModel.fetchData(fromAppearance: true)
+    }
+    
+    private var exploreCTA: some View {
+        VStack(alignment: .center, spacing: 12) {
+            Text(viewModel.localizedStrings.lookingForSomethingNew)
+                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                .foregroundStyle(Color(uiColor: theme.text))
+            WMFSmallButton(configuration: .init(style: .primary), title: viewModel.localizedStrings.exploreWikipedia, action: {
+                // This is purposefully left empty because the whole container has an on tap
+            })
         }
+        .onTapGesture {
+            viewModel.exploreWikipedia()
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 
     @ViewBuilder
@@ -163,9 +204,6 @@ public struct WMFActivityTabView: View {
             .frame(maxHeight: .infinity)
             .listRowSeparator(.hidden)
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
-            .onAppear {
-                viewModel.fetchData(fromAppearance: true)
-            }
         } else {
             List {
                 if viewModel.shouldShowLogInPrompt {
@@ -182,9 +220,6 @@ public struct WMFActivityTabView: View {
             .listStyle(.grouped)
             .listCustomSectionSpacing(0)
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
-            .onAppear {
-                viewModel.fetchData(fromAppearance: true)
-            }
         }
     }
     
@@ -194,7 +229,7 @@ public struct WMFActivityTabView: View {
         
         return WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
-            title: viewModel.localizedStrings.totalEdits,
+            title: viewModel.localizedStrings.totalEditsAcrossProjects,
             dateText: nil,
             additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
@@ -477,84 +512,5 @@ public struct WMFActivityTabView: View {
     private func customizedEmptyState() -> some View {
         WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
             .frame(maxWidth: .infinity)
-    }
-}
-
-private struct MostViewedArticlesView: View {
-    let viewModel: MostViewedArticlesViewModel
-    
-    var body: some View {
-        
-        WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .lineDiagonalArrow, font: WMFFont.boldCaption1),
-            title: "Most viewed since your edit", // TODO: localize
-            dateText: nil,
-            additionalAccessibilityLabel: nil,
-            onTapModule: nil,
-            content: {
-                // TODO: TEMP UI
-                VStack {
-                    ForEach(viewModel.topViewedArticles.map(\.title), id: \.self) { title in
-                        Text(title)
-                    }
-                }
-            }
-        )
-    }
-}
-
-struct RecentActivityView: View {
-    let viewModel: RecentActivityViewModel
-    
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Recent Activity") // TODO: Localize
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4)
-                Spacer()
-            }
-            .padding(.bottom, 16)
-            
-            // TODO: TEMP UI
-            Text("Edit count: \(viewModel.editCount)")
-            Text("Start date: \(viewModel.startDate)")
-            Text("End count: \(viewModel.endDate)")
-        }
-    }
-}
-
-struct ArticleViewsView: View {
-    let viewModel: ArticleViewsViewModel
-    
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Views on articles you've edited") // TODO: Localize
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4)
-                Spacer()
-            }
-            .padding(.bottom, 16)
-            
-            // TODO: TEMP UI
-            Text("Views count: \(viewModel.totalViewsCount)")
-        }
     }
 }

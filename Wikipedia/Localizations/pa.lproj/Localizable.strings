@@ -34,7 +34,7 @@
 "about-testers" = "ਟੈਸਟਰ";
 "about-testers-details" = "QA $1 ਵੱਲੋਂ ਪਰਖਿਆ ਗਿਆ";
 "about-title" = "ਬਾਰੇ";
-"about-translators" = "ਤਰਜਮੇਕਾਰ";
+"about-translators" = "ਉਲਥਾਕਾਰ";
 "about-translators-details" = "$1 ਦੇ ਸਵੈ-ਸੇਵਕਾ ਵੱਲੋਂ ਤਰਜਮਾ ਕੀਤਾ ਗਿਆ";
 "about-wikimedia-foundation" = "ਵਿਕੀਮੀਡੀਆ ਫ਼ਾਊਂਡੇਸ਼ਨ";
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
@@ -307,6 +307,7 @@
 "edit-summary-short-description-updated" = "ਛੋਟਾ ਵੇਰਵਾ ਨਵਿਆਈਆ ਗਿਆ";
 "edit-watch-list-learn-more-text" = "ਆਪਣੀ ਨਿਗਰਾਨੀ ਸੂਚੀ ਬਾਰੇ ਹੋਰ ਜਾਣੋ";
 "edit-watch-this-page-text" = "ਇਸ ਸਫ਼ੇ 'ਤੇ ਨਿਗਰਾਨੀ ਰੱਖੋ";
+"edited-article" = "ਸੋਧਿਆ ਗਿਆ";
 "editing-welcome-be-bold-title" = "ਤੁਹਾਡੀ ਆਵਾਜ਼ ਮਹੱਤਵਪੂਰਨ ਹੈ";
 "editing-welcome-citations-title" = "ਭਰੋਸੇਯੋਗ ਸਰੋਤਾਂ ਦਾ ਹਵਾਲਾ ਦਿਓ";
 "editing-welcome-impartial-tone-title" = "ਨਿਰਪੱਖ ਆਵਾਜ਼ ਵਿੱਚ ਲਿਖੋ";
@@ -338,7 +339,7 @@
 "editor-keyboard-subheading2-button" = "ਉੱਪ-ਸਿਰਨਾਵਾਂ 2";
 "editor-keyboard-subheading3-button" = "ਉੱਪ-ਸਿਰਨਾਵਾਂ 3";
 "editor-keyboard-subheading4-button" = "ਉੱਪ-ਸਿਰਨਾਵਾਂ 4";
-"editor-keyboard-subscript-accessibility" = "ਹੇਠਲੀ ਲਿਖਤ";
+"editor-keyboard-subscript-accessibility" = "ਪੈਰੀ-ਲਿਖਤ";
 "editor-keyboard-superscript-accessibility" = "ਉਤਲੀ ਲਿਖਤ";
 "editor-keyboard-template-accessibility" = "ਫਰਮੇ";
 "editor-keyboard-text-formatting-title" = "ਟੈਕਸਟ ਫਾਰਮੈਟਿੰਗ";
@@ -627,7 +628,7 @@
 "page-history-compare-accessibility-hint" = "ਤੁਲਨਾ ਕਰਨ ਲਈ ਦੋ ਸੋਧਾਂ ਦੀ ਚੋਣ ਕਰਨ ਲਈ ਦੱਬੋ";
 "page-history-compare-title" = "ਤੁਲਨਾ ਕਰੋ";
 "page-history-minor-edits" = "ਛੋਟੀਆਂ ਸੋਧਾਂ";
-"page-history-revision-author-accessibility-label" = "ਲੇਖਕ: $1";
+"page-history-revision-author-accessibility-label" = "ਲਿਖਾਰੀ: $1";
 "page-history-revision-comment-accessibility-label" = "ਟਿੱਪਣੀ $1";
 "page-history-revision-history-title" = "ਦੁਹਰਾਅ ਦਾ ਇਤਿਹਾਸ";
 "page-history-revision-minor-edit-accessibility-label" = "ਛੋਟੀ ਸੋਧ";

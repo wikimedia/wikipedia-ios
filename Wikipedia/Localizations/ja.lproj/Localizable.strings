@@ -45,6 +45,7 @@
 // Author: Wat
 // Author: Wicklo
 // Author: WwLMvmT
+// Author: X200b
 // Author: Yusuke1109
 // Author: おはぐろ蜻蛉
 // Author: かしわのはみん
@@ -1261,3 +1262,4 @@
 "year-in-review-survey-very-satisfied" = "とても満足している";
 "year-in-review-survey-very-unsatisfied" = "非常に不満だ";
 "year-in-review-wmf-logo-accessibility-label" = "ウィキメディア財団のロゴ";
+"zero-edits-to-articles" = "最近の記事への編集は0件です";

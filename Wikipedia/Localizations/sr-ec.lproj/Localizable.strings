@@ -96,6 +96,7 @@
 "activity-tab-add-images-subtitle" = "Додајте предложене слике у чланке на Википедији да би сте побољшали њихово разумевање.";
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-articles-read-graph-label" = "Чланци";
+"activity-tab-empty-title" = "Ништа за приказ";
 "activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈИ ЗА iOS";
 "activity-tab-logged-out-title" = "Видите више уређивачких и читалачких активности";
 "activity-tab-neutral" = "Неутралан";
@@ -314,7 +315,7 @@
 "edit-summary-add-summary-text" = "Додај опис измене";
 "edit-summary-choice-added-image" = "Додата слика";
 "edit-summary-choice-added-image-and-caption" = "Додата слика и натпис";
-"edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
+"edit-summary-choice-fixed-grammar" = "Граматичке грешке";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
 "edit-summary-placeholder-text" = "Како сте побољшали чланак?";
@@ -477,6 +478,7 @@
 "explore-randomizer" = "Случајни чланак";
 "explore-suggested-edits-footer" = "Додај";
 "explore-suggested-edits-image-recs-title" = "Додај слику";
+"explore-wikipedia" = "Истражи Википедију";
 "export-user-data-confirmation-message" = "Дељење ваше библиотеке апликације укључује податке о вашим Листама за читање и историји, подешавањама, и садржају фида за истраживање. Ова датотека са подацима би требало да буде дељена искључиво са примаоцем од поверења за коришћење у сврхе техничке дијагностике.";
 "export-user-data-confirmation-title" = "Дели библиотеку апликације?";
 "export-user-data-generic-error" = "Дошло је до грешке приликом извоза ваших података. Молимо покушајте поново касније.";
@@ -649,6 +651,7 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Wikipedia Zero";
 "main-page" = "Почетна";
+"make-an-edit" = "Начини измену";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "$1 {{PLURAL:$1|бајтова}} додато";
 "microsite-yir-english-edits-slide-title-updated" = "Уредници су ове године начинили скоро $1 {{PLURAL:$1|измена}}";
 "microsite-yir-english-reading-slide-title-updated" = "$1 сати смо {{PLURAL:$1|читали}}";
@@ -1203,6 +1206,7 @@
 "vanish-account-warning-title" = "Упозорење";
 "variants-alert-dismiss-button" = "Не, хвала";
 "variants-alert-preferences-button" = "Прегледајте своја подешавања";
+"view-changes" = "Прикажи измене";
 "watch" = "Надгледај";
 "watchlist" = "Списак надгледања";
 "watchlist-added-toast-one-month" = "На списку надгледања 1 месец.";
@@ -1340,3 +1344,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Википедијин W логотип";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Задужбине Викимедије";
 "yesterday-title" = "Јуче";
+"zero-edits-to-articles" = "0 измена чланака скорије";

@@ -235,7 +235,7 @@ public actor WMFActivityTabDataController {
     private var surveyEndDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2026
-        dateComponents.month = 1
+        dateComponents.month = 4
         dateComponents.day = 15
         return Calendar.current.date(from: dateComponents)
     }
@@ -293,7 +293,7 @@ public actor WMFActivityTabDataController {
         if let username {
             do {
                 let articleEdits = try await UserContributionsDataController.shared
-                    .fetchRecentArticleEdits(username: username)
+                    .fetchRecentEdits(username: username)
 
                 edits = articleEdits.map { TimelineItem(articleEdit: $0) }
 
