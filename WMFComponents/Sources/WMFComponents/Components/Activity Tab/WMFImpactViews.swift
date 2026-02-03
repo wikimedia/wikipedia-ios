@@ -184,19 +184,23 @@ struct RecentActivityView: View {
         let theme: WMFTheme
 
         var body: some View {
-            let squareSize: CGFloat = 8
-            let spacing: CGFloat = 4
+            GeometryReader { geometry in
+                let spacing: CGFloat = 4
+                let squareCount = 30
+                let totalSpacing = spacing * CGFloat(squareCount - 1)
+                let squareSize = (geometry.size.width - totalSpacing) / CGFloat(squareCount)
 
-            HStack(spacing: spacing) {
-                ForEach(0..<30, id: \.self) { index in
-                    let hasEdits = index < edits.count && edits[index].count > 0
+                HStack(spacing: spacing) {
+                    ForEach(0..<30, id: \.self) { index in
+                        let hasEdits = index < edits.count && edits[index].count > 0
 
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(hasEdits ? Color(theme.link) : Color(theme.baseBackground))
-                        .frame(width: squareSize, height: squareSize)
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(hasEdits ? Color(theme.link) : Color(theme.baseBackground))
+                            .frame(width: squareSize, height: squareSize)
+                    }
                 }
             }
-            .frame(height: squareSize)
+            .frame(height: 16)
         }
     }
 }
