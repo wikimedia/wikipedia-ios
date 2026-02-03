@@ -658,7 +658,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return resultsViewController
     }()
 
-    // MARK: - Embeded search history
+    // MARK: - Embedded search history
 
     func tappedArticle(_ item: HistoryItem) -> Void? {
         if let articleURL = item.url, let dataStore, let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history) {
@@ -666,7 +666,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         return nil
     }
-
 
     func share(item: HistoryItem, frame: CGRect?) {
         if let dataStore, let url = item.url {
@@ -782,22 +781,21 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     lazy var historyViewModel: WMFHistoryViewModel = {
 
-        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
-            guard let self else { return }
-            self.share(item:historyItem, frame: frame)
-        }
-
-        let onTapArticleAction: WMFHistoryViewModel.OnRecordTapAction = { [weak self] historyItem in
-            guard let self else { return }
-            self.tappedArticle(historyItem)
-        }
-
         let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
-
         let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
 
         let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: "Open article",saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
+
+
         let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
+
+        viewModel.onTapArticle = { [weak self] historyItem in
+            self?.tappedArticle(historyItem)
+        }
+
+        viewModel.shareRecordAction = { [weak self] frame, historyItem in
+            self?.share(item: historyItem, frame: frame)
+        }
         return viewModel
     }()
 
