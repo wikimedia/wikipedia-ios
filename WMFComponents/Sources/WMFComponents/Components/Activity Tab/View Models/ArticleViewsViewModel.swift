@@ -29,7 +29,10 @@ final class ArticleViewsViewModel: ObservableObject {
 
         // Normalize to start-of-day
         let endDate = calendar.startOfDay(for: Date())
-        let startDate = calendar.date(byAdding: .day, value: -29, to: endDate)!
+        
+        guard let startDate = calendar.date(byAdding: .day, value: -29, to: endDate) else {
+            return nil
+        }
 
         // Normalize response dates
         let normalizedCounts: [Date: Int] = Dictionary(
@@ -44,7 +47,10 @@ final class ArticleViewsViewModel: ObservableObject {
 
         // Generate last 30 days, filling missing days with 0
         for offset in 0..<30 {
-            let date = calendar.date(byAdding: .day, value: offset, to: startDate)!
+            guard let date = calendar.date(byAdding: .day, value: offset, to: startDate) else {
+                continue
+            }
+            
             let count = normalizedCounts[date] ?? 0
 
             views.append(View(date: date, count: count))
