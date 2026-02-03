@@ -13,10 +13,12 @@ public enum WMFIcon {
     static let media = UIImage(named: "media", in: .module, with: nil)
     static let more = UIImage(named: "more", in: .module, with: nil)
     public static let pencil = UIImage(named: "pencil", in: .module, with: nil)
+    static let editHistory = UIImage(named: "edit-history", in: .module, with: nil)
     static let plus = UIImage(named: "plus", in: .module, with: nil)
     static let plusCircle = UIImage(named: "plus-circle", in: .module, with: nil)
     static let replace = UIImage(named: "replace", in: .module, with: nil)
     static let thank = UIImage(named: "thank", in: .module, with: nil)
+    static let thankFill = UIImage(named: "thank-fill", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
     public static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
     static let bot = UIImage(named: "bot", in: .module, with: nil)
@@ -45,6 +47,7 @@ public enum WMFSFSymbolIcon {
     case checkmarkSquareFill
     case square
     case star
+    case starCircleFill
     case person
 	case personFilled
     case starLeadingHalfFilled
@@ -154,6 +157,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square", withConfiguration: configuration)
         case .star:
             image = UIImage(systemName: "star", withConfiguration: configuration)
+        case .starCircleFill:
+            image = UIImage(systemName: "star.circle.fill", withConfiguration: configuration)
         case .person:
             image = UIImage(systemName: "person", withConfiguration: configuration)
         case .personFilled:

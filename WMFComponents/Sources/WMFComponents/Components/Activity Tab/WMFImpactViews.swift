@@ -72,33 +72,31 @@ private struct AllTimeImpactView: View {
                 .font(Font(WMFFont.for(.boldCaption1)))
 
             VStack(spacing: 16) {
-                HStack(spacing: 16) {
+                HStack(spacing: 8) {
+                    
                     impactMetric(
-                        icon: WMFSFSymbolIcon.for(symbol: .pencil),
+                        icon: WMFSFSymbolIcon.for(symbol: .pencil, font: .title2),
                         value: "\(viewModel.totalEdits ?? 0)",
                         label: "total edits"
                     )
                     
-                    Spacer()
-                    
                     impactMetric(
-                        icon: WMFSFSymbolIcon.for(symbol: .star),
+                        icon: WMFSFSymbolIcon.for(symbol: .starCircleFill, font: .title2),
                         value: "\(viewModel.bestStreak ?? 0)",
                         label: "best streak"
                     )
                 }
 
-                HStack(spacing: 16) {
+                HStack(spacing: 8) {
+                    
                     impactMetric(
-                        icon: WMFSFSymbolIcon.for(symbol: .add), // chatBubble
+                        icon: WMFIcon.thankFill,
                         value: "\(viewModel.thanksCount ?? 0)",
                         label: "thanks"
                     )
                     
-                    Spacer()
-                    
                     impactMetric(
-                        icon: WMFSFSymbolIcon.for(symbol: .bellFill), // arrowClockwise
+                        icon: WMFIcon.editHistory,
                         value: formatLastEdited(viewModel.lastEdited),
                         label: "last edited"
                     )
@@ -114,16 +112,15 @@ private struct AllTimeImpactView: View {
 
     @ViewBuilder
     private func impactMetric(icon: UIImage?, value: String, label: String) -> some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 12) {
             if let icon {
                 Image(uiImage: icon)
                     .foregroundStyle(Color(theme.link))
-                    .frame(width: 24, height: 24)
             }
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(value)
-                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .font(Font(WMFFont.for(.boldCallout)))
                     .foregroundStyle(Color(theme.text))
 
                 Text(label)
@@ -131,6 +128,7 @@ private struct AllTimeImpactView: View {
                     .foregroundStyle(Color(theme.secondaryText))
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -150,29 +148,29 @@ struct RecentActivityView: View {
                 .foregroundStyle(Color(theme.text))
                 .font(Font(WMFFont.for(.boldCaption1)))
 
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text("\(viewModel.editCount)")
-                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(Color(theme.text))
 
                 Text("edits")
-                    .font(Font(WMFFont.for(.caption1)))
+                    .font(Font(WMFFont.for(.boldCaption1)))
                     .foregroundStyle(Color(theme.secondaryText))
 
                 if !viewModel.edits.isEmpty {
                     EditActivityGrid(edits: viewModel.edits, theme: theme)
-                        .padding(.top, 8)
+                        .padding(.vertical, 8)
                 }
 
                 HStack {
-                    Text(DateFormatter.shortDateFormatter.string(from: viewModel.startDate))
-                        .font(Font(WMFFont.for(.caption2)))
+                    Text(DateFormatter.monthDayFormatter.string(from: viewModel.startDate))
+                        .font(Font(WMFFont.for(.caption1)))
                         .foregroundStyle(Color(theme.secondaryText))
 
                     Spacer()
 
-                    Text(DateFormatter.shortDateFormatter.string(from: viewModel.endDate))
-                        .font(Font(WMFFont.for(.caption2)))
+                    Text(DateFormatter.monthDayFormatter.string(from: viewModel.endDate))
+                        .font(Font(WMFFont.for(.caption1)))
                         .foregroundStyle(Color(theme.secondaryText))
                 }
             }
@@ -185,7 +183,7 @@ struct RecentActivityView: View {
 
         var body: some View {
             GeometryReader { geometry in
-                let spacing: CGFloat = 4
+                let spacing: CGFloat = 1.5
                 let squareCount = 30
                 let totalSpacing = spacing * CGFloat(squareCount - 1)
                 let squareSize = (geometry.size.width - totalSpacing) / CGFloat(squareCount)
@@ -194,13 +192,13 @@ struct RecentActivityView: View {
                     ForEach(0..<30, id: \.self) { index in
                         let hasEdits = index < edits.count && edits[index].count > 0
 
-                        RoundedRectangle(cornerRadius: 2)
+                        Rectangle()
                             .fill(hasEdits ? Color(theme.link) : Color(theme.baseBackground))
-                            .frame(width: squareSize, height: squareSize)
+                            .frame(width: squareSize, height: 24)
                     }
                 }
             }
-            .frame(height: 16)
+            .frame(height: 24)
         }
     }
 }
@@ -222,12 +220,12 @@ struct ArticleViewsView: View {
 
             VStack(alignment: .leading, spacing: 12) {
                     Text(formatViewCount(viewModel.views.reduce(0) { $0 + $1.count }))
-                        .font(Font(WMFFont.for(.boldHeadline)))
+                        .font(Font(WMFFont.for(.boldTitle1)))
                         .foregroundStyle(Color(theme.text))
 
                     if !viewModel.views.isEmpty {
                         LineChartView(data: viewModel.views.map { $0.count })
-                            .frame(height: 80)
+                            .frame(height: 15)
                     }
                 }
         }

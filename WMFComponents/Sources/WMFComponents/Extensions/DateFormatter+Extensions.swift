@@ -62,9 +62,9 @@ public extension DateFormatter {
         return formatter
     }
     
-    static var shortDateFormatter: DateFormatter {
+    static let monthDayFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
+        formatter.dateFormat = "MMM d"
         return formatter
-    }
+    }()
 }

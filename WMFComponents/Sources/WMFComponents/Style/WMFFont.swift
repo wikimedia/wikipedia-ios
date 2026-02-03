@@ -47,6 +47,7 @@ public enum WMFFont {
     case semiboldCaption1
     case subheadline
     case title1
+    case title2
     case title3
     case xxlTitleBold
     case helveticaLargeHeadline
@@ -255,6 +256,9 @@ public enum WMFFont {
 
         case .title1:
             return UIFont.preferredFont(forTextStyle: .title1, compatibleWith: traitCollection)
+            
+        case .title2:
+            return UIFont.preferredFont(forTextStyle: .title2, compatibleWith: traitCollection)
 
         case .title3:
             return UIFont.preferredFont(forTextStyle: .title3, compatibleWith: traitCollection)
