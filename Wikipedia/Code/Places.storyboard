@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pK5-Ai-Kzp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pK5-Ai-Kzp">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,11 +13,11 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="pK5-Ai-Kzp" customClass="WMFPlacesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pBD-gM-dPf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="653"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EsT-De-Ary">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                                <rect key="frame" x="0.0" y="-250" width="414" height="1103"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
@@ -114,24 +114,24 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEe-dF-AFg" customClass="RoundedCornerView" customModule="Wikipedia" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="414" height="667"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="633"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hcr-LT-MnE">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="633"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hlf-3Y-4oq">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="633"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t27-Dz-PhB">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="633"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0l8-no-aYc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="666"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="632"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVq-Mn-HaA">
-                                                        <rect key="frame" x="0.0" y="666" width="414" height="1"/>
+                                                        <rect key="frame" x="0.0" y="632" width="414" height="1"/>
                                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="ShZ-Si-0vV"/>
@@ -155,7 +155,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0j-C1-Whj">
-                                                <rect key="frame" x="0.0" y="667" width="414" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="633" width="414" height="0.0"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-slider" translatesAutoresizingMaskIntoConstraints="NO" id="DJB-tT-pWW">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
@@ -224,7 +224,7 @@
                                 </variation>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mwy-SF-J1D">
-                                <rect key="frame" x="0.0" y="20" width="414" height="0.0"/>
+                                <rect key="frame" x="0.0" y="-14" width="414" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </containerView>
@@ -243,7 +243,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="mxh-CO-RQm" secondAttribute="trailing" id="Jrj-Yh-h1b"/>
                             <constraint firstItem="EsT-De-Ary" firstAttribute="leading" secondItem="MQo-ay-JlY" secondAttribute="leading" id="N4z-kS-Lfj"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="mxh-CO-RQm" secondAttribute="top" id="S5v-Rm-6Vf"/>
-                            <constraint firstAttribute="bottom" secondItem="EsT-De-Ary" secondAttribute="bottom" id="Y57-cG-ifd"/>
+                            <constraint firstAttribute="bottom" secondItem="EsT-De-Ary" secondAttribute="bottom" constant="-200" id="Y57-cG-ifd"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="top" secondItem="MQo-ay-JlY" secondAttribute="top" constant="17" placeholder="YES" id="ZmR-fp-6Jv"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" secondItem="z6h-da-ewO" secondAttribute="trailing" constant="15" id="bVF-HO-Onf"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="leading" secondItem="MQo-ay-JlY" secondAttribute="leading" id="dye-ab-bxM">
@@ -251,7 +251,7 @@
                             </constraint>
                             <constraint firstItem="5Dc-Qk-ppi" firstAttribute="top" secondItem="MQo-ay-JlY" secondAttribute="top" constant="17" placeholder="YES" id="gux-TO-cJM"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="MQo-ay-JlY" secondAttribute="top" constant="17" placeholder="YES" id="iw6-4r-a93"/>
-                            <constraint firstItem="EsT-De-Ary" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" id="je6-s5-KPy"/>
+                            <constraint firstItem="EsT-De-Ary" firstAttribute="top" secondItem="pBD-gM-dPf" secondAttribute="top" constant="-250" id="je6-s5-KPy"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="MQo-ay-JlY" secondAttribute="centerX" priority="999" id="kJv-Kd-ffk"/>
                             <constraint firstItem="5Dc-Qk-ppi" firstAttribute="centerX" secondItem="MQo-ay-JlY" secondAttribute="centerX" priority="999" id="mu2-bC-yEv"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Dc-Qk-ppi" secondAttribute="trailing" constant="15" id="ua0-k1-E4K"/>
