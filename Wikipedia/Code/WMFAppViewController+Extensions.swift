@@ -953,7 +953,7 @@ extension WMFAppViewController {
         
         
         let bestStreakValue: (Int) -> String = { count in
-            let bestStreakFormat = WMFLocalizedString("activity-tab-impact-best-streak-format", value: "{{PLURAL:%1$d|%1$d day|%1$d days}}", comment: "Count in impact module for best editing streak in number of days")
+            let bestStreakFormat = WMFLocalizedString("activity-tab-impact-best-streak-format", value: "{{PLURAL:%1$d|%1$d day|%1$d days}}", comment: "Count in impact module for best editing streak in number of days. %1$d is replaced with number of days.")
             
             return String.localizedStringWithFormat(bestStreakFormat, count)
         }
