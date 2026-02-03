@@ -3,8 +3,19 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
+import Combine
 
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
+
+    var hintController: HintController?
+
+    var eventLoggingCategory: EventCategoryMEP {
+        return .history
+    }
+
+    var eventLoggingLabel: EventLabelMEP? {
+        return nil
+    }
 
     @objc enum EventLoggingSource: Int {
         case searchTab
@@ -27,6 +38,22 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     @objc var dataStore: MWKDataStore?
+
+    var deleteButton: UIBarButtonItem?
+    private var cancellables = Set<AnyCancellable>()
+
+    var isSearchTab: Bool {
+        if let navigationController,
+           navigationController.viewControllers.count == 1 {
+            return true
+        }
+
+        return false
+    }
+
+    var isEditLinkOrArticleSearchButtonSearch: Bool {
+        return !isSearchTab && navigationController != nil
+    }
 
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
@@ -120,11 +147,30 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        embedRecentSearches()
-        embedResultsViewController()
         updateLanguageBarVisibility()
+
+        setupReadingListsHelpers()
+
+        if isSearchTab {
+            embedHistoryViewController()
+        } else if !isEditLinkOrArticleSearchButtonSearch { // Edit link & article magnifying glass add results via the navigation bar search controller, so no need to embed in those cases.
+            embedResultsViewController()
+        }
+
+        deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+
+        historyViewModel.$isEmpty
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isEmpty in
+                self?.deleteButton?.isEnabled = !isEmpty
+            }
+            .store(in: &cancellables)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -155,9 +201,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         super.viewDidLayoutSubviews()
 
         if let searchLanguageBarViewController {
-            recentSearchesViewModel.topPadding = searchLanguageBarViewController.view.bounds.height
-            resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
+            historyViewModel.topPadding = searchLanguageBarViewController.view.frame.height
+            if !isSearchTab && !isEditLinkOrArticleSearchButtonSearch {
+                recentSearchesViewModel.topPadding = searchLanguageBarViewController.view.bounds.height
+                resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
+            }
         } else {
+            historyViewModel.topPadding = 0
             recentSearchesViewModel.topPadding = 0
             resultsViewController.collectionView.contentInset.top = 0
         }
@@ -256,11 +306,53 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         ArticleTabsFunnel.shared.logIconClick(interface: .search, project: nil)
     }
 
+    @objc final func deleteButtonPressed(_ sender: UIBarButtonItem) {
+
+        let deleteAllConfirmationText = WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
+        let deleteAllText = WMFLocalizedString("history-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action")
+
+        let alertController = UIAlertController(title: deleteAllConfirmationText, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: deleteAllText, style: .destructive, handler: { (action) in
+            self.deleteAll()
+        }))
+        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
+        alertController.popoverPresentationController?.barButtonItem = sender
+        alertController.popoverPresentationController?.permittedArrowDirections = .any
+        present(alertController, animated: true, completion: nil)
+    }
+
+    private func deleteAll() {
+        guard let dataStore else { return }
+        do {
+            try dataStore.viewContext.clearReadHistory()
+            historyViewModel.sections = []
+
+        } catch let error {
+            showError(error)
+        }
+
+        Task {
+            do {
+                let dataController = try WMFPageViewsDataController()
+                try await dataController.deleteAllPageViewsAndCategories()
+
+            } catch {
+                DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+            }
+        }
+    }
+
     private func embedResultsViewController() {
         addChild(resultsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
         resultsViewController.didMove(toParent: self)
         updateRecentlySearchedVisibility(searchText: nil)
+    }
+
+    private func embedHistoryViewController() {
+        addChild(historyViewController)
+        view.wmf_addSubviewWithConstraintsToEdges(historyViewController.view)
+        historyViewController.didMove(toParent: self)
     }
 
     private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
@@ -501,6 +593,199 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return resultsViewController
     }()
 
+    // MARK: - Embeded search history
+
+    func tappedArticle(_ item: HistoryItem) -> Void? {
+        if let articleURL = item.url, let dataStore, let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history) {
+            return self.navigationController?.pushViewController(articleViewController, animated: true)
+        }
+        return nil
+    }
+
+
+    func share(item: HistoryItem, frame: CGRect?) {
+        if let dataStore, let url = item.url {
+            let article = dataStore.fetchArticle(with: url)
+            let dummyView = UIView(frame: frame ?? CGRect.zero)
+            _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: dummyView)
+        }
+    }
+
+    lazy var historyDataController: WMFHistoryDataController = {
+        let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
+
+            guard let self, let dataStore else {
+                return []
+            }
+
+            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "viewedDate != NULL")
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
+            ]
+
+            do {
+                var articles: [HistoryRecord] = []
+                let articleFetchRequest = try dataStore.viewContext.fetch(request)
+
+                for article in articleFetchRequest {
+                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
+
+                        let record = HistoryRecord(
+                            id: Int(truncating: pageID),
+                            title: article.displayTitle ?? article.displayTitleHTML,
+                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
+                            shortDescription: article.snippet,
+                            articleURL: article.url,
+                            imageURL: article.imageURLString,
+                            viewedDate: viewedDate,
+                            isSaved: article.isSaved,
+                            snippet: article.snippet,
+                            variant: article.variant
+                        )
+                        articles.append(record)
+                    }
+                }
+
+                return articles
+
+            } catch {
+                DDLogError("Error fetching history: \(error)")
+                return []
+            }
+        }
+
+        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historyItem in
+            guard let self, let dataStore = self.dataStore else { return }
+            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "pageID == %@", historyItem.id)
+            do {
+                if let article = try dataStore.viewContext.fetch(request).first {
+                    try article.removeFromReadHistory()
+                }
+
+            } catch {
+                showError(error)
+
+            }
+            guard let title = historyItem.url?.wmf_title,
+                  let languageCode = historyItem.url?.wmf_languageCode else {
+                return
+            }
+
+            let variant = historyItem.variant
+
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: variant))
+
+            Task {
+                do {
+                    let dataController = try WMFPageViewsDataController()
+                    try await dataController.deletePageView(title: title, namespaceID: 0, project: project)
+                } catch {
+                    DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+                }
+            }
+        }
+
+        let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historyItem in
+            guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
+            dataStore.savedPageList.addSavedPage(with: articleURL)
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(userDidSaveOrUnsaveArticle(_:)),
+                                                   name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+                                                   object: nil)
+            historyItem.isSaved = true
+        }
+
+        let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historyItem in
+            guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
+
+            dataStore.savedPageList.removeEntry(with: articleURL)
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(userDidSaveOrUnsaveArticle(_:)),
+                                                   name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+                                                   object: nil)
+            historyItem.isSaved = false
+        }
+
+        let dataController = WMFHistoryDataController(
+            recordsProvider: recordsProvider
+        )
+        return dataController
+    }()
+
+    lazy var historyViewModel: WMFHistoryViewModel = {
+
+        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
+            guard let self else { return }
+            self.share(item:historyItem, frame: frame)
+        }
+
+        let onTapArticleAction: WMFHistoryViewModel.OnRecordTapAction = { [weak self] historyItem in
+            guard let self else { return }
+            self.tappedArticle(historyItem)
+        }
+
+        let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
+
+        let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
+
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: "Open article",saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
+        let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
+        return viewModel
+    }()
+
+    lazy var historyViewController: UIViewController = {
+        let historyView = WMFHistoryView(viewModel: historyViewModel)
+        return UIHostingController(rootView: historyView)
+    }()
+
+    // MARK: - Reading lists hint controller
+
+    private func setupReadingListsHelpers() {
+        guard let dataStore else { return }
+        hintController = ReadingListHintController(dataStore: dataStore)
+        hintController?.apply(theme: theme)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(userDidSaveOrUnsaveArticle(_:)),
+                                               name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+                                               object: nil)
+    }
+
+    @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
+        guard let article = notification.object as? WMFArticle else {
+            return
+        }
+
+        showReadingListHint(for: article)
+    }
+
+    private func showReadingListHint(for article: WMFArticle) {
+
+        guard let presentingVC = visibleHintPresentingViewController() else {
+            return
+        }
+
+        let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
+        toggleHint(hintController, context: context, presentingIn: presentingVC)
+    }
+
+    func visibleHintPresentingViewController() -> (UIViewController & HintPresenting)? {
+        if let nav = self.tabBarController?.selectedViewController as? UINavigationController {
+            return nav.topViewController as? (UIViewController & HintPresenting)
+        }
+        return nil
+    }
+
+    private func toggleHint(_ hintController: HintController?, context: [String: Any], presentingIn presentingVC: UIViewController) {
+
+        if let presenting = presentingVC as? (UIViewController & HintPresenting) {
+            hintController?.toggle(presenter: presenting, context: context, theme: theme)
+        }
+    }
+
     // MARK: - Recent Search Saving
 
     func saveLastSearch() {
@@ -605,20 +890,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
     }()
 
-    private func embedRecentSearches() {
-        addChild(recentSearchesViewController)
-        view.addSubview(recentSearchesViewController.view)
-        recentSearchesViewController.view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            recentSearchesViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            recentSearchesViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recentSearchesViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recentSearchesViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
-        recentSearchesViewController.didMove(toParent: self)
-    }
 
     private func reloadRecentSearches() {
         let entries = recentSearches?.entries ?? []
