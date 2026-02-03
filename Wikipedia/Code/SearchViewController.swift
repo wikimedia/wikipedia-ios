@@ -385,37 +385,36 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         })
     }
 
+    private var activeSearchController: UISearchController? {
+        if let sc = navigationItem.searchController {
+            return sc
+        }
+
+        if let topItem = navigationController?.topViewController?.navigationItem,
+           let sc = topItem.searchController {
+            return sc
+        }
+
+        return nil
+    }
+
     private func updateEmbeddedContent(animated: Bool) {
-        // - Search inactive -> History (for Search tab)
-        // - Search active, empty -> Recent Searches
-        // - Search active, has text -> Results
-
-        let isSearchActive = navigationItem.searchController?.isActive ?? false
-        let text = navigationItem.searchController?.searchBar.text ?? ""
+        let searchController = activeSearchController
+        let text = searchController?.searchBar.text ?? ""
         let hasText = text.wmf_hasNonWhitespaceText
+        let isSearchActive = searchController?.isActive ?? false
 
-        if isSearchActive {
-            if hasText {
-                embedInContainer(resultsViewController, animated: animated)
+        if isSearchTab {
+            if isSearchActive {
+                embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
             } else {
-                embedInContainer(recentSearchesViewController, animated: animated)
-            }
-        } else {
-            if isSearchTab {
-                embedInContainer(historyViewController, animated: animated)
-            } else if !isEditLinkOrArticleSearchButtonSearch {
-                embedInContainer(resultsViewController, animated: animated)
-            } else {
-
                 embedInContainer(historyViewController, animated: animated)
             }
+        } else {
+            embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
         }
 
-        if currentEmbeddedViewController === historyViewController {
-            deleteButton?.isEnabled = !historyViewModel.isEmpty
-        } else {
-            deleteButton?.isEnabled = false
-        }
+        deleteButton?.isEnabled = (currentEmbeddedViewController === historyViewController) && !historyViewModel.isEmpty
     }
 
     // MARK: - Language bar
