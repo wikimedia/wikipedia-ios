@@ -90,12 +90,15 @@ public struct WMFActivityTabView: View {
                             }
                         }
                         
-                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0, viewModel.customizeViewModel.isEditingInsightsOn {
-                            HStack {
-                                YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                                Spacer()
+                        if viewModel.customizeViewModel.isEditingInsightsOn {
+                            
+                            if viewModel.shouldShowYourImpactHeader {
+                                HStack {
+                                    YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
+                                    Spacer()
+                                }
+                                .padding(.top, 12)
                             }
-                            .padding(.top, 12)
                             
                             if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
                                 TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
@@ -107,24 +110,31 @@ public struct WMFActivityTabView: View {
                                     .padding(.horizontal, 16)
                             }
                             
-                            totalEditsView(amount: animatedGlobalEditCount)
-                                .padding(.horizontal, 16)
-                                .onAppear {
-                                    if !hasShownGlobalEditsCard {
-                                        hasShownGlobalEditsCard = true
-                                        animatedGlobalEditCount = 0
-                                        withAnimation(.easeOut(duration: 0.6)) {
+                            if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
+                                CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
+                                    .padding(.horizontal, 16)
+                            }
+                            
+                            if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                                totalEditsView(amount: animatedGlobalEditCount)
+                                    .padding(.horizontal, 16)
+                                    .onAppear {
+                                        if !hasShownGlobalEditsCard {
+                                            hasShownGlobalEditsCard = true
+                                            animatedGlobalEditCount = 0
+                                            withAnimation(.easeOut(duration: 0.6)) {
+                                                animatedGlobalEditCount = globalEditCount
+                                            }
+                                        } else {
                                             animatedGlobalEditCount = globalEditCount
                                         }
-                                    } else {
-                                        animatedGlobalEditCount = globalEditCount
                                     }
-                                }
-                                .onChange(of: globalEditCount) { newValue in
-                                    withAnimation(.easeOut(duration: 0.6)) {
-                                        animatedGlobalEditCount = newValue
+                                    .onChange(of: globalEditCount) { newValue in
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = newValue
+                                        }
                                     }
-                                }
+                            }
                         }
                     }
                     .padding(.bottom, 16)
@@ -219,7 +229,7 @@ public struct WMFActivityTabView: View {
         
         return WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
-            title: viewModel.localizedStrings.totalEdits,
+            title: viewModel.localizedStrings.totalEditsAcrossProjects,
             dateText: nil,
             additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
@@ -502,34 +512,5 @@ public struct WMFActivityTabView: View {
     private func customizedEmptyState() -> some View {
         WMFSimpleEmptyStateView(imageName: "empty_activity_tab", openCustomize: viewModel.openCustomize, title: viewModel.localizedStrings.customizeEmptyState)
             .frame(maxWidth: .infinity)
-    }
-}
-
-struct RecentActivityView: View {
-    let viewModel: RecentActivityViewModel
-    
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Recent Activity") // TODO: Localize
-                    .foregroundStyle(Color(theme.text))
-                    .font(Font(WMFFont.for(.boldCaption1)))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4)
-                Spacer()
-            }
-            .padding(.bottom, 16)
-            
-            // TODO: TEMP UI
-            Text("Edit count: \(viewModel.editCount)")
-            Text("Start date: \(viewModel.startDate)")
-            Text("End count: \(viewModel.endDate)")
-        }
     }
 }
