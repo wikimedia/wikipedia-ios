@@ -56,50 +56,95 @@ struct CombinedImpactView: View {
     }
 }
 
-private struct AllTimeImpactView: View {
-    let viewModel: AllTimeImpactViewModel
-
+private struct CombinedImpactTitleView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    let text: String
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
+    
+    var body: some View {
+        Text(text)
+            .foregroundStyle(Color(theme.text))
+            .font(Font(WMFFont.for(.boldCaption1)))
+            .multilineTextAlignment(.leading)
+            .lineLimit(4)
+    }
+}
+
+private struct AllTimeImpactView: View {
+    let viewModel: AllTimeImpactViewModel
+
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.sizeCategory) var sizeCategory
+
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    var isCompactAndAccessible: Bool {
+        horizontalSizeClass == .compact && sizeCategory >= .extraExtraLarge
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("All time impact")
-                .foregroundStyle(Color(theme.text))
-                .font(Font(WMFFont.for(.boldCaption1)))
+            CombinedImpactTitleView(text: "All time impact")
 
             VStack(spacing: 16) {
-                HStack(spacing: 8) {
-                    
+                
+                if isCompactAndAccessible {
                     impactMetric(
                         icon: WMFSFSymbolIcon.for(symbol: .pencil, font: .title2),
                         value: "\(viewModel.totalEdits ?? 0)",
                         label: "total edits"
                     )
-                    
                     impactMetric(
                         icon: WMFSFSymbolIcon.for(symbol: .starCircleFill, font: .title2),
                         value: "\(viewModel.bestStreak ?? 0)",
                         label: "best streak"
                     )
-                }
-
-                HStack(spacing: 8) {
-                    
                     impactMetric(
                         icon: WMFIcon.thankFill,
                         value: "\(viewModel.thanksCount ?? 0)",
                         label: "thanks"
                     )
-                    
                     impactMetric(
                         icon: WMFIcon.editHistory,
                         value: formatLastEdited(viewModel.lastEdited),
                         label: "last edited"
                     )
+                } else {
+                    HStack(spacing: 8) {
+                        
+                        impactMetric(
+                            icon: WMFSFSymbolIcon.for(symbol: .pencil, font: .title2),
+                            value: "\(viewModel.totalEdits ?? 0)",
+                            label: "total edits"
+                        )
+                        
+                        impactMetric(
+                            icon: WMFSFSymbolIcon.for(symbol: .starCircleFill, font: .title2),
+                            value: "\(viewModel.bestStreak ?? 0)",
+                            label: "best streak"
+                        )
+                    }
+
+                    HStack(spacing: 8) {
+                        
+                        impactMetric(
+                            icon: WMFIcon.thankFill,
+                            value: "\(viewModel.thanksCount ?? 0)",
+                            label: "thanks"
+                        )
+                        
+                        impactMetric(
+                            icon: WMFIcon.editHistory,
+                            value: formatLastEdited(viewModel.lastEdited),
+                            label: "last edited"
+                        )
+                    }
                 }
             }
         }
@@ -144,9 +189,7 @@ struct RecentActivityView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Your recent activity (last 30 days)")
-                .foregroundStyle(Color(theme.text))
-                .font(Font(WMFFont.for(.boldCaption1)))
+            CombinedImpactTitleView(text: "Your recent activity (last 30 days)")
 
             VStack(alignment: .leading, spacing: 0) {
                 Text("\(viewModel.editCount)")
@@ -214,9 +257,7 @@ struct ArticleViewsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Views on articles you've edited")
-                .foregroundStyle(Color(theme.text))
-                .font(Font(WMFFont.for(.boldCaption1)))
+            CombinedImpactTitleView(text: "Views on articles you've edited")
 
             VStack(alignment: .leading, spacing: 12) {
                     Text(formatViewCount(viewModel.views.reduce(0) { $0 + $1.count }))
