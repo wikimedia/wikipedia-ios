@@ -42,6 +42,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     var deleteButton: UIBarButtonItem?
     private var cancellables = Set<AnyCancellable>()
 
+    private let contentContainerView = UIView()
+    private weak var currentEmbeddedViewController: UIViewController?
+
     var isSearchTab: Bool {
         if let navigationController,
            navigationController.viewControllers.count == 1 {
@@ -153,15 +156,20 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateLanguageBarVisibility()
 
+        view.addSubview(contentContainerView)
+        contentContainerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentContainerView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        updateLanguageBarVisibility()
         setupReadingListsHelpers()
 
-        if isSearchTab {
-            embedHistoryViewController()
-        } else if !isEditLinkOrArticleSearchButtonSearch { // Edit link & article magnifying glass add results via the navigation bar search controller, so no need to embed in those cases.
-            embedResultsViewController()
-        }
+        updateEmbeddedContent(animated: false)
 
         deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
 
@@ -178,6 +186,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         configureNavigationBar()
         updateLanguageBarVisibility()
         reloadRecentSearches()
+
+        updateEmbeddedContent(animated: false)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -200,17 +210,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if let searchLanguageBarViewController {
-            historyViewModel.topPadding = searchLanguageBarViewController.view.frame.height
-            if !isSearchTab && !isEditLinkOrArticleSearchButtonSearch {
-                recentSearchesViewModel.topPadding = searchLanguageBarViewController.view.bounds.height
-                resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
-            }
-        } else {
-            historyViewModel.topPadding = 0
-            recentSearchesViewModel.topPadding = 0
-            resultsViewController.collectionView.contentInset.top = 0
-        }
+        let topPad = searchLanguageBarViewController?.view.bounds.height ?? 0
+        historyViewModel.topPadding = topPad
+        recentSearchesViewModel.topPadding = topPad
+        resultsViewController.collectionView.contentInset.top = topPad
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -248,7 +251,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
         let wButton = UIButton(type: .custom)
-            wButton.setImage(UIImage(named: "W"), for: .normal)
+        wButton.setImage(UIImage(named: "W"), for: .normal)
 
         var titleConfig: WMFNavigationBarTitleConfig
         titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
@@ -264,12 +267,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: deleteButton)
         } else {
             profileButtonConfig = nil
             tabsButtonConfig = nil
         }
-        
+
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: nil, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
@@ -342,18 +345,80 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
     }
 
-    private func embedResultsViewController() {
-        addChild(resultsViewController)
-        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
-        resultsViewController.didMove(toParent: self)
-        updateRecentlySearchedVisibility(searchText: nil)
+    // MARK: - Embedded content container
+
+    private func embedInContainer(_ vc: UIViewController, animated: Bool) {
+        if currentEmbeddedViewController === vc { return }
+
+        let oldVC = currentEmbeddedViewController
+        oldVC?.willMove(toParent: nil)
+
+        addChild(vc)
+        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        contentContainerView.addSubview(vc.view)
+        NSLayoutConstraint.activate([
+            vc.view.topAnchor.constraint(equalTo: contentContainerView.topAnchor),
+            vc.view.leadingAnchor.constraint(equalTo: contentContainerView.leadingAnchor),
+            vc.view.trailingAnchor.constraint(equalTo: contentContainerView.trailingAnchor),
+            vc.view.bottomAnchor.constraint(equalTo: contentContainerView.bottomAnchor)
+        ])
+
+        let finish = {
+            oldVC?.view.removeFromSuperview()
+            oldVC?.removeFromParent()
+            vc.didMove(toParent: self)
+            self.currentEmbeddedViewController = vc
+        }
+
+        guard animated, let oldView = oldVC?.view else {
+            finish()
+            return
+        }
+
+        vc.view.alpha = 0
+        UIView.animate(withDuration: 0.2, animations: {
+            vc.view.alpha = 1
+            oldView.alpha = 0
+        }, completion: { _ in
+            oldView.alpha = 1
+            finish()
+        })
     }
 
-    private func embedHistoryViewController() {
-        addChild(historyViewController)
-        view.wmf_addSubviewWithConstraintsToEdges(historyViewController.view)
-        historyViewController.didMove(toParent: self)
+    private func updateEmbeddedContent(animated: Bool) {
+        // - Search inactive -> History (for Search tab)
+        // - Search active, empty -> Recent Searches
+        // - Search active, has text -> Results
+
+        let isSearchActive = navigationItem.searchController?.isActive ?? false
+        let text = navigationItem.searchController?.searchBar.text ?? ""
+        let hasText = text.wmf_hasNonWhitespaceText
+
+        if isSearchActive {
+            if hasText {
+                embedInContainer(resultsViewController, animated: animated)
+            } else {
+                embedInContainer(recentSearchesViewController, animated: animated)
+            }
+        } else {
+            if isSearchTab {
+                embedInContainer(historyViewController, animated: animated)
+            } else if !isEditLinkOrArticleSearchButtonSearch {
+                embedInContainer(resultsViewController, animated: animated)
+            } else {
+
+                embedInContainer(historyViewController, animated: animated)
+            }
+        }
+
+        if currentEmbeddedViewController === historyViewController {
+            deleteButton?.isEnabled = !historyViewModel.isEmpty
+        } else {
+            deleteButton?.isEnabled = false
+        }
     }
+
+    // MARK: - Language bar
 
     private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
         if let vc = self.searchLanguageBarViewController {
@@ -528,7 +593,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     @objc func clear() {
         didCancelSearch()
-        updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
+        updateEmbeddedContent(animated: false)
     }
 
     lazy var resultsViewController: SearchResultsViewController = {
@@ -898,18 +963,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         recentSearchesViewModel.recentSearchTerms = terms
-        updateRecentlySearchedVisibility(
-            searchText: navigationItem.searchController?.searchBar.text
-        )
-    }
 
-    public func updateRecentlySearchedVisibility(searchText: String?) {
-        guard let searchText = searchText else {
-            resultsViewController.view.isHidden = true
-            return
-        }
-
-        resultsViewController.view.isHidden = searchText.isEmpty
+        updateEmbeddedContent(animated: false)
     }
 
     // MARK: - Theme
@@ -940,10 +995,13 @@ extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text,
-        !text.isEmpty else {
+        let text = searchController.searchBar.text ?? ""
+
+        updateEmbeddedContent(animated: false)
+
+        guard text.wmf_hasNonWhitespaceText else {
             searchTerm = nil
-            updateRecentlySearchedVisibility(searchText: nil)
+            resetSearchResults()
             return
         }
 
@@ -953,15 +1011,24 @@ extension SearchViewController: UISearchResultsUpdating {
         }
 
         searchTerm = text
-        updateRecentlySearchedVisibility(searchText: text)
         search(for: text, suggested: false)
     }
+
+    public func updateRecentlySearchedVisibility(searchText: String?) {
+
+        if let text = searchText {
+            navigationItem.searchController?.searchBar.text = text
+        }
+
+        updateEmbeddedContent(animated: false)
+    }
+
 }
 
 extension SearchViewController: UISearchControllerDelegate {
     func didPresentSearchController(_ searchController: UISearchController) {
         if shouldBecomeFirstResponder {
-            DispatchQueue.main.async {[weak self] in
+            DispatchQueue.main.async { [weak self] in
                 self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
             }
         }
@@ -973,6 +1040,8 @@ extension SearchViewController: UISearchControllerDelegate {
         needsAnimateLanguageBarMovement = true
         navigationController?.hidesBarsOnSwipe = false
         presentingSearchResults = true
+
+        updateEmbeddedContent(animated: true)
     }
 
     func willDismissSearchController(_ searchController: UISearchController) {
@@ -984,12 +1053,18 @@ extension SearchViewController: UISearchControllerDelegate {
         navigationController?.hidesBarsOnSwipe = true
         presentingSearchResults = false
         SearchFunnel.shared.logSearchCancel(source: source.stringValue)
+
+        searchTerm = nil
+        resetSearchResults()
+        updateEmbeddedContent(animated: true)
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         navigationItem.searchController?.isActive = false
+
+        updateEmbeddedContent(animated: true)
     }
 }
 
