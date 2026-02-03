@@ -402,18 +402,22 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let searchController = activeSearchController
         let text = searchController?.searchBar.text ?? ""
         let hasText = text.wmf_hasNonWhitespaceText
-        let isSearchActive = searchController?.isActive ?? false
+        let isSearchActive = (searchController?.isActive ?? false)
 
         if isSearchTab {
             if isSearchActive {
+                showLanguageBar = true
                 embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
             } else {
                 embedInContainer(historyViewController, animated: animated)
+                showLanguageBar = false
             }
         } else {
+            showLanguageBar = true
             embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
         }
 
+        updateLanguageBarVisibility()
         deleteButton?.isEnabled = (currentEmbeddedViewController === historyViewController) && !historyViewModel.isEmpty
     }
 
@@ -1041,7 +1045,6 @@ extension SearchViewController: UISearchControllerDelegate {
         needsAnimateLanguageBarMovement = true
         navigationController?.hidesBarsOnSwipe = false
         presentingSearchResults = true
-
         updateEmbeddedContent(animated: true)
     }
 
