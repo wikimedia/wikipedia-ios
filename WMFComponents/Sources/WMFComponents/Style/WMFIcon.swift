@@ -30,6 +30,8 @@ public enum WMFIcon {
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
     public static let contributionsIcon = (UIImage(named: "user_contributions", in: .module, with: nil))
+    public static let share = UIImage(named: "swipe-action-share", in: .module, with: nil)
+    public static let delete = UIImage(named: "swipe-action-delete", in: .module, with: nil)
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -73,6 +75,7 @@ public enum WMFSFSymbolIcon {
     case italic
     case exclamationMarkCircle
     case exclamationMarkCircleFill
+    case exclamationMarkTriangle
     case exclamationMarkTriangleFill
     case textFormatSuperscript
     case textFormatSubscript
@@ -207,6 +210,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)
         case .exclamationMarkCircleFill:
             image = UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: configuration)
+        case .exclamationMarkTriangle:
+            image = UIImage(systemName: "exclamationmark.triangle", withConfiguration: configuration)
         case .exclamationMarkTriangleFill:
             image = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: configuration)
         case .textFormatSuperscript:

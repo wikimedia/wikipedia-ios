@@ -478,6 +478,7 @@
 "explore-randomizer" = "Случајни чланак";
 "explore-suggested-edits-footer" = "Додај";
 "explore-suggested-edits-image-recs-title" = "Додај слику";
+"explore-wikipedia" = "Истражи Википедију";
 "export-user-data-confirmation-message" = "Дељење ваше библиотеке апликације укључује податке о вашим Листама за читање и историји, подешавањама, и садржају фида за истраживање. Ова датотека са подацима би требало да буде дељена искључиво са примаоцем од поверења за коришћење у сврхе техничке дијагностике.";
 "export-user-data-confirmation-title" = "Дели библиотеку апликације?";
 "export-user-data-generic-error" = "Дошло је до грешке приликом извоза ваших података. Молимо покушајте поново касније.";
@@ -650,6 +651,7 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Wikipedia Zero";
 "main-page" = "Почетна";
+"make-an-edit" = "Начини измену";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "$1 {{PLURAL:$1|бајтова}} додато";
 "microsite-yir-english-edits-slide-title-updated" = "Уредници су ове године начинили скоро $1 {{PLURAL:$1|измена}}";
 "microsite-yir-english-reading-slide-title-updated" = "$1 сати смо {{PLURAL:$1|читали}}";
@@ -1342,3 +1344,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Википедијин W логотип";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Задужбине Викимедије";
 "yesterday-title" = "Јуче";
+"zero-edits-to-articles" = "0 измена чланака скорије";
