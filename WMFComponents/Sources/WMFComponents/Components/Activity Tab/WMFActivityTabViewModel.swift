@@ -184,6 +184,15 @@ public final class WMFActivityTabViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     private var isFirstTimeLoading: Bool = true
+    
+    var shouldShowYourImpactHeader: Bool {
+        return mostViewedArticlesViewModel != nil ||
+            contributionsViewModel != nil ||
+            allTimeImpactViewModel != nil ||
+            recentActivityViewModel != nil ||
+            articleViewsViewModel != nil ||
+            (globalEditCount != nil && (globalEditCount ?? 0) > 0)
+    }
 
     // MARK: - Init
 

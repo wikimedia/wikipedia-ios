@@ -92,12 +92,7 @@ public struct WMFActivityTabView: View {
                         
                         if viewModel.customizeViewModel.isEditingInsightsOn {
                             
-                            if viewModel.mostViewedArticlesViewModel != nil ||
-                                viewModel.contributionsViewModel != nil ||
-                                viewModel.allTimeImpactViewModel != nil ||
-                                viewModel.recentActivityViewModel != nil ||
-                                viewModel.articleViewsViewModel != nil ||
-                                (viewModel.globalEditCount != nil && (viewModel.globalEditCount ?? 0) > 0) {
+                            if viewModel.shouldShowYourImpactHeader {
                                 HStack {
                                     YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
                                     Spacer()
