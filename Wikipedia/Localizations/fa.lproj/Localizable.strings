@@ -116,6 +116,7 @@
 "action-unsave" = "عدم ذخیره";
 "action-unsaved-accessibility-notification" = "مقاله از ذخیره خارج شد";
 "action-update" = "روزآمدسازی";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 بازدید}}";
 "activity-tab-saved" = "مقاله‌های ذخیره‌شده در این ماه";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "advanced-settings-title" = "تنظیمات پیشرفته";
