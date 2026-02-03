@@ -90,7 +90,7 @@ private struct AllTimeImpactView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            CombinedImpactTitleView(text: "All time impact")
+            CombinedImpactTitleView(text: viewModel.localizedStrings.allTimeImpact)
 
             VStack(spacing: 16) {
                 
@@ -98,22 +98,22 @@ private struct AllTimeImpactView: View {
                     impactMetric(
                         icon: WMFSFSymbolIcon.for(symbol: .pencil, font: .title2),
                         value: "\(viewModel.totalEdits ?? 0)",
-                        label: "total edits"
+                        label: viewModel.localizedStrings.totalEdits
                     )
                     impactMetric(
                         icon: WMFSFSymbolIcon.for(symbol: .starCircleFill, font: .title2),
-                        value: "\(viewModel.bestStreak ?? 0)",
-                        label: "best streak"
+                        value: viewModel.localizedStrings.bestStreakValue(viewModel.bestStreak ?? 0),
+                        label: viewModel.localizedStrings.bestStreakLabel
                     )
                     impactMetric(
                         icon: WMFIcon.thankFill,
                         value: "\(viewModel.thanksCount ?? 0)",
-                        label: "thanks"
+                        label: viewModel.localizedStrings.thanks
                     )
                     impactMetric(
                         icon: WMFIcon.editHistory,
                         value: formatLastEdited(viewModel.lastEdited),
-                        label: "last edited"
+                        label: viewModel.localizedStrings.lastEdited
                     )
                 } else {
                     HStack(spacing: 8) {
@@ -121,13 +121,13 @@ private struct AllTimeImpactView: View {
                         impactMetric(
                             icon: WMFSFSymbolIcon.for(symbol: .pencil, font: .title2),
                             value: "\(viewModel.totalEdits ?? 0)",
-                            label: "total edits"
+                            label: viewModel.localizedStrings.totalEdits
                         )
                         
                         impactMetric(
                             icon: WMFSFSymbolIcon.for(symbol: .starCircleFill, font: .title2),
-                            value: "\(viewModel.bestStreak ?? 0)",
-                            label: "best streak"
+                            value: viewModel.localizedStrings.bestStreakValue(viewModel.bestStreak ?? 0),
+                            label: viewModel.localizedStrings.bestStreakLabel
                         )
                     }
 
@@ -136,13 +136,13 @@ private struct AllTimeImpactView: View {
                         impactMetric(
                             icon: WMFIcon.thankFill,
                             value: "\(viewModel.thanksCount ?? 0)",
-                            label: "thanks"
+                            label: viewModel.localizedStrings.thanks
                         )
                         
                         impactMetric(
                             icon: WMFIcon.editHistory,
                             value: formatLastEdited(viewModel.lastEdited),
-                            label: "last edited"
+                            label: viewModel.localizedStrings.lastEdited
                         )
                     }
                 }
@@ -189,14 +189,14 @@ struct RecentActivityView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            CombinedImpactTitleView(text: "Your recent activity (last 30 days)")
+            CombinedImpactTitleView(text: viewModel.localizedStrings.yourRecentActivity)
 
             VStack(alignment: .leading, spacing: 0) {
                 Text("\(viewModel.editCount)")
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(Color(theme.text))
 
-                Text("edits")
+                Text(viewModel.localizedStrings.edits)
                     .font(Font(WMFFont.for(.boldCaption1)))
                     .foregroundStyle(Color(theme.secondaryText))
 
@@ -257,7 +257,7 @@ struct ArticleViewsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            CombinedImpactTitleView(text: "Views on articles you've edited")
+            CombinedImpactTitleView(text: viewModel.localizedStrings.viewsOnArticlesYouveEdited)
 
             VStack(alignment: .leading, spacing: 12) {
                     Text(formatViewCount(viewModel.views.reduce(0) { $0 + $1.count }))
@@ -265,7 +265,7 @@ struct ArticleViewsView: View {
                         .foregroundStyle(Color(theme.text))
 
                     if !viewModel.views.isEmpty {
-                        LineChartView(data: viewModel.views.map { $0.count })
+                        LineChartView(data: viewModel.views.map { $0.count }, xLabel: viewModel.localizedStrings.lineGraphDay, yLabel: viewModel.localizedStrings.lineGraphViews)
                             .frame(height: 15)
                     }
                 }
@@ -280,6 +280,8 @@ struct ArticleViewsView: View {
     
     struct LineChartView: View {
         let data: [Int]
+        let xLabel: String
+        let yLabel: String
 
         @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -291,8 +293,8 @@ struct ArticleViewsView: View {
             Chart {
                 ForEach(data.indices, id: \.self) { index in
                     LineMark(
-                        x: .value("Day", index),
-                        y: .value("Views", data[index])
+                        x: .value(xLabel, index),
+                        y: .value(yLabel, data[index])
                     )
                     .foregroundStyle(Color(theme.link))
                 }

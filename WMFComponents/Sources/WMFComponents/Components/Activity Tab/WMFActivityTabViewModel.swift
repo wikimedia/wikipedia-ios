@@ -42,7 +42,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let yesterdayTitle: String
         public let openArticle: String
         public let deleteAccessibilityLabel: String
-        public let totalEdits: String
+        public let totalEditsAcrossProjects: String
         public let read: String
         public let edited: String
         public let saved: String
@@ -69,8 +69,19 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let makeAnEdit: String
         public let viewsString: (Int) -> String
         public let mostViewed: String
+        public let allTimeImpactTitle: String
+        public let totalEditsLabel: String
+        public let bestStreakValue: (Int) -> String
+        public let bestStreakLabel: String
+        public let thanksLabel: String
+        public let lastEditedLabel: String
+        public let yourRecentActivityTitle: String
+        public let editsLabel: String
+        public let viewsOnArticlesYouveEditedTitle: String
+        public let lineGraphDay: String
+        public let lineGraphViews: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEditsAcrossProjects: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String, allTimeImpactTitle: String, totalEditsLabel: String, bestStreakValue: @escaping (Int) -> String, bestStreakLabel: String, thanksLabel: String, lastEditedLabel: String, yourRecentActivityTitle: String, editsLabel: String, viewsOnArticlesYouveEditedTitle: String, lineGraphDay: String, lineGraphViews: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -90,7 +101,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.yesterdayTitle = yesterdayTitle
             self.openArticle = openArticle
             self.deleteAccessibilityLabel = deleteAccessibilityLabel
-            self.totalEdits = totalEdits
+            self.totalEditsAcrossProjects = totalEditsAcrossProjects
             self.read = read
             self.edited = edited
             self.saved = saved
@@ -117,6 +128,17 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.makeAnEdit = makeAnEdit
             self.viewsString = viewsString
             self.mostViewed = mostViewed
+            self.allTimeImpactTitle = allTimeImpactTitle
+            self.totalEditsLabel = totalEditsLabel
+            self.bestStreakValue = bestStreakValue
+            self.bestStreakLabel = bestStreakLabel
+            self.thanksLabel = thanksLabel
+            self.lastEditedLabel = lastEditedLabel
+            self.yourRecentActivityTitle = yourRecentActivityTitle
+            self.editsLabel = editsLabel
+            self.viewsOnArticlesYouveEditedTitle = viewsOnArticlesYouveEditedTitle
+            self.lineGraphDay = lineGraphDay
+            self.lineGraphViews = lineGraphViews
         }
     }
 
@@ -278,9 +300,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
                 self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
             }
             self.contributionsViewModel = ContributionsViewModel(data: data, activityViewModel: self)
-            self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
-            self.recentActivityViewModel = RecentActivityViewModel(data: data)
-            self.articleViewsViewModel = ArticleViewsViewModel(data: data)
+            self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data, activityViewModel: self)
+            self.recentActivityViewModel = RecentActivityViewModel(data: data, activityViewModel: self)
+            self.articleViewsViewModel = ArticleViewsViewModel(data: data, activityViewModel: self)
         } catch {
             debugPrint("Error getting user impact: \(error)")
         }

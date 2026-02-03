@@ -224,7 +224,7 @@ public struct WMFActivityTabView: View {
         
         return WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
-            title: viewModel.localizedStrings.totalEdits,
+            title: viewModel.localizedStrings.totalEditsAcrossProjects,
             dateText: nil,
             additionalAccessibilityLabel: formattedAmount,
             onTapModule: {

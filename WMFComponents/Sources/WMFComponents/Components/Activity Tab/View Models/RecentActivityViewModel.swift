@@ -4,6 +4,11 @@ import SwiftUI
 @MainActor
 final class RecentActivityViewModel: ObservableObject {
     
+    struct LocalizedStrings {
+        let yourRecentActivity: String
+        let edits: String
+    }
+    
     struct Edit: Identifiable {
         public let date: Date
         public let count: Int
@@ -11,12 +16,16 @@ final class RecentActivityViewModel: ObservableObject {
         public var id: Date { date }
     }
     
+    let localizedStrings: LocalizedStrings
     let editCount: Int
     let startDate: Date
     let endDate: Date
     let edits: [Edit]
 
-    init?(data: WMFUserImpactData) {
+    init?(data: WMFUserImpactData, activityViewModel: WMFActivityTabViewModel) {
+        
+        self.localizedStrings = LocalizedStrings(yourRecentActivity: activityViewModel.localizedStrings.yourRecentActivityTitle, edits: activityViewModel.localizedStrings.editsLabel)
+        
         let calendar = Calendar.current
 
         // Normalize to start-of-day so keys line up

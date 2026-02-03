@@ -4,6 +4,12 @@ import SwiftUI
 @MainActor
 final class ArticleViewsViewModel: ObservableObject {
     
+    struct LocalizedStrings {
+        let viewsOnArticlesYouveEdited: String
+        let lineGraphDay: String
+        let lineGraphViews: String
+    }
+    
     struct View: Identifiable {
         public let date: Date
         public let count: Int
@@ -11,10 +17,14 @@ final class ArticleViewsViewModel: ObservableObject {
         public var id: Date { date }
     }
     
+    let localizedStrings: LocalizedStrings
     let totalViewsCount: Int
     let views: [View]
 
-    init?(data: WMFUserImpactData) {
+    init?(data: WMFUserImpactData, activityViewModel: WMFActivityTabViewModel) {
+        
+        self.localizedStrings = LocalizedStrings(viewsOnArticlesYouveEdited: activityViewModel.localizedStrings.viewsOnArticlesYouveEditedTitle, lineGraphDay: activityViewModel.localizedStrings.lineGraphDay, lineGraphViews: activityViewModel.localizedStrings.lineGraphViews)
+        
         let calendar = Calendar.current
 
         // Normalize to start-of-day
