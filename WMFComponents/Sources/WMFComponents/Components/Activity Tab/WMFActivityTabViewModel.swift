@@ -288,6 +288,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             globalEditCount = count
         } catch {
             debugPrint("Error getting global edit count: \(error)")
+            globalEditCount = nil
         }
     }
 
@@ -305,6 +306,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.articleViewsViewModel = ArticleViewsViewModel(data: data, activityViewModel: self)
         } catch {
             debugPrint("Error getting user impact: \(error)")
+            self.mostViewedArticlesViewModel = nil
+            self.contributionsViewModel = nil
+            self.allTimeImpactViewModel = nil
+            self.recentActivityViewModel = nil
+            self.articleViewsViewModel = nil
         }
     }
 

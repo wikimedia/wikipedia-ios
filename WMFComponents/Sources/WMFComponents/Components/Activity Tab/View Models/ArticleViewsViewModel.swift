@@ -23,6 +23,10 @@ final class ArticleViewsViewModel: ObservableObject {
 
     init?(data: WMFUserImpactData, activityViewModel: WMFActivityTabViewModel) {
         
+        guard !data.dailyTotalViews.isEmpty else {
+            return nil
+        }
+        
         self.localizedStrings = LocalizedStrings(viewsOnArticlesYouveEdited: activityViewModel.localizedStrings.viewsOnArticlesYouveEditedTitle, lineGraphDay: activityViewModel.localizedStrings.lineGraphDay, lineGraphViews: activityViewModel.localizedStrings.lineGraphViews)
         
         let calendar = Calendar.current

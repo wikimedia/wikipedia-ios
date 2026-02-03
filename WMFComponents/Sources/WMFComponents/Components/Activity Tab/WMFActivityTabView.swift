@@ -90,12 +90,20 @@ public struct WMFActivityTabView: View {
                             }
                         }
                         
-                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0, viewModel.customizeViewModel.isEditingInsightsOn {
-                            HStack {
-                                YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                                Spacer()
+                        if viewModel.customizeViewModel.isEditingInsightsOn {
+                            
+                            if viewModel.mostViewedArticlesViewModel != nil ||
+                                viewModel.contributionsViewModel != nil ||
+                                viewModel.allTimeImpactViewModel != nil ||
+                                viewModel.recentActivityViewModel != nil ||
+                                viewModel.articleViewsViewModel != nil ||
+                                (viewModel.globalEditCount != nil && (viewModel.globalEditCount ?? 0) > 0) {
+                                HStack {
+                                    YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
+                                    Spacer()
+                                }
+                                .padding(.top, 12)
                             }
-                            .padding(.top, 12)
                             
                             if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
                                 TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
@@ -112,24 +120,26 @@ public struct WMFActivityTabView: View {
                                     .padding(.horizontal, 16)
                             }
                             
-                            totalEditsView(amount: animatedGlobalEditCount)
-                                .padding(.horizontal, 16)
-                                .onAppear {
-                                    if !hasShownGlobalEditsCard {
-                                        hasShownGlobalEditsCard = true
-                                        animatedGlobalEditCount = 0
-                                        withAnimation(.easeOut(duration: 0.6)) {
+                            if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                                totalEditsView(amount: animatedGlobalEditCount)
+                                    .padding(.horizontal, 16)
+                                    .onAppear {
+                                        if !hasShownGlobalEditsCard {
+                                            hasShownGlobalEditsCard = true
+                                            animatedGlobalEditCount = 0
+                                            withAnimation(.easeOut(duration: 0.6)) {
+                                                animatedGlobalEditCount = globalEditCount
+                                            }
+                                        } else {
                                             animatedGlobalEditCount = globalEditCount
                                         }
-                                    } else {
-                                        animatedGlobalEditCount = globalEditCount
                                     }
-                                }
-                                .onChange(of: globalEditCount) { newValue in
-                                    withAnimation(.easeOut(duration: 0.6)) {
-                                        animatedGlobalEditCount = newValue
+                                    .onChange(of: globalEditCount) { newValue in
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = newValue
+                                        }
                                     }
-                                }
+                            }
                         }
                     }
                     .padding(.bottom, 16)

@@ -14,19 +14,26 @@ struct CombinedImpactView: View {
         return appEnvironment.theme
     }
     
+    var needsAllTimeDiv: Bool {
+        return recentActivityViewModel != nil || articleViewsViewModel != nil
+    }
+    
     var body: some View {
         VStack(spacing: 16) {
             if let allTimeImpactViewModel {
                 AllTimeImpactView(viewModel: allTimeImpactViewModel)
                 
-                Divider()
-                    .frame(height: 1)
-                    .overlay(
-                        Rectangle()
-                            .fill(Color(uiColor: theme.baseBackground))
-                            .frame(height: 1)
-                    )
-                    .padding(0)
+                if needsAllTimeDiv {
+                    Divider()
+                        .frame(height: 1)
+                        .overlay(
+                            Rectangle()
+                                .fill(Color(uiColor: theme.baseBackground))
+                                .frame(height: 1)
+                        )
+                        .padding(0)
+                }
+                
             }
             
             if let recentActivityViewModel {
@@ -87,6 +94,38 @@ private struct AllTimeImpactView: View {
     var isCompactAndAccessible: Bool {
         horizontalSizeClass == .compact && sizeCategory >= .extraExtraLarge
     }
+    
+    var totalEditsValue: String {
+        if let totalEdits = viewModel.totalEdits {
+            return "\(totalEdits)"
+        }
+        
+        return "0"
+    }
+    
+    var bestStreakValue: String {
+        if let bestStreak = viewModel.bestStreak {
+            return "\(bestStreak)"
+        }
+        
+        return "-"
+    }
+    
+    var thanksValue: String {
+        if let thanks = viewModel.thanksCount {
+            return "\(thanks)"
+        }
+        
+        return "0"
+    }
+    
+    var lastEditedValue: String {
+        if let lastEdited = viewModel.lastEdited {
+            return formatLastEdited(lastEdited)
+        }
+        
+        return "-"
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -97,22 +136,22 @@ private struct AllTimeImpactView: View {
                 if isCompactAndAccessible {
                     impactMetric(
                         icon: WMFSFSymbolIcon.for(symbol: .pencil, font: .title2),
-                        value: "\(viewModel.totalEdits ?? 0)",
+                        value: totalEditsValue,
                         label: viewModel.localizedStrings.totalEdits
                     )
                     impactMetric(
                         icon: WMFSFSymbolIcon.for(symbol: .starCircleFill, font: .title2),
-                        value: viewModel.localizedStrings.bestStreakValue(viewModel.bestStreak ?? 0),
+                        value: bestStreakValue,
                         label: viewModel.localizedStrings.bestStreakLabel
                     )
                     impactMetric(
                         icon: WMFIcon.thankFill,
-                        value: "\(viewModel.thanksCount ?? 0)",
+                        value: thanksValue,
                         label: viewModel.localizedStrings.thanks
                     )
                     impactMetric(
                         icon: WMFIcon.editHistory,
-                        value: formatLastEdited(viewModel.lastEdited),
+                        value: lastEditedValue,
                         label: viewModel.localizedStrings.lastEdited
                     )
                 } else {
@@ -120,13 +159,13 @@ private struct AllTimeImpactView: View {
                         
                         impactMetric(
                             icon: WMFSFSymbolIcon.for(symbol: .pencil, font: .title2),
-                            value: "\(viewModel.totalEdits ?? 0)",
+                            value: totalEditsValue,
                             label: viewModel.localizedStrings.totalEdits
                         )
                         
                         impactMetric(
                             icon: WMFSFSymbolIcon.for(symbol: .starCircleFill, font: .title2),
-                            value: viewModel.localizedStrings.bestStreakValue(viewModel.bestStreak ?? 0),
+                            value: bestStreakValue,
                             label: viewModel.localizedStrings.bestStreakLabel
                         )
                     }
@@ -135,13 +174,13 @@ private struct AllTimeImpactView: View {
                         
                         impactMetric(
                             icon: WMFIcon.thankFill,
-                            value: "\(viewModel.thanksCount ?? 0)",
+                            value: thanksValue,
                             label: viewModel.localizedStrings.thanks
                         )
                         
                         impactMetric(
                             icon: WMFIcon.editHistory,
-                            value: formatLastEdited(viewModel.lastEdited),
+                            value: lastEditedValue,
                             label: viewModel.localizedStrings.lastEdited
                         )
                     }
