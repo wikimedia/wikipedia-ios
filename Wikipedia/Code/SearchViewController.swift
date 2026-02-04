@@ -741,6 +741,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
                 NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
             ]
+            request.fetchLimit = 1000
 
             do {
                 var articles: [HistoryRecord] = []
