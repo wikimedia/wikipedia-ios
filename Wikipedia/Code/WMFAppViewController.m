@@ -141,33 +141,23 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (void)updateFourthTab {
-    WMFActivityTabExperimentAssignment assignment = [self getAssignmentForActivityTab];
-
-    // Don't change unnecessarily or else we'll get a crash
-    if (self.viewControllers.count >= 4 && ([self.viewControllers[3] isKindOfClass:[UINavigationController class]])) {
-        UINavigationController *fourthNavVC = self.viewControllers[3];
-        if (fourthNavVC.viewControllers.count >= 1) {
-            UIViewController *rootVC = fourthNavVC.viewControllers[0];
-            if (assignment == WMFActivityTabExperimentAssignmentActivityTab && [rootVC isKindOfClass:[WMFActivityTabViewController class]]) {
-                return;
-            } else if (assignment == WMFActivityTabExperimentAssignmentControl && [rootVC isKindOfClass:[WMFHistoryViewController class]]) {
-                return;
-            }
-        }
+    if (self.viewControllers.count < 4) {
+        return;
     }
-
-    WMFComponentNavigationController *newNav4 = [self setupFourthTab:assignment];
 
     NSInteger selectedIndex = self.selectedIndex;
 
+    WMFComponentNavigationController *activityNav =
+        [self rootNavigationControllerWithRootViewController:self.activityTabViewController];
+
     NSMutableArray *viewControllers = [self.viewControllers mutableCopy];
-    if (viewControllers.count >= 4) {
-        viewControllers[3] = newNav4;
-        [self setViewControllers:viewControllers animated:NO];
-    }
+    viewControllers[3] = activityNav;
+
+    [self setViewControllers:viewControllers animated:NO];
 
     self.selectedIndex = selectedIndex;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -353,18 +343,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 }
 
-- (WMFComponentNavigationController *)setupFourthTab:(WMFActivityTabExperimentAssignment)assignment {
-    WMFComponentNavigationController *nav4;
-    
-    if (assignment == WMFActivityTabExperimentAssignmentActivityTab) {
-        nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
-    } else {
-        nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
-    }
-    
-    return nav4;
-}
-
 - (void)configureTabController {
     self.delegate = self;
 
@@ -380,12 +358,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
     }
 
-    WMFActivityTabExperimentAssignment assignment = [self getAssignmentForActivityTab];
-
     WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
     WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
     WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
-    WMFComponentNavigationController *nav4 = [self setupFourthTab:assignment];
+    WMFComponentNavigationController *nav4 = [self rootNavigationControllerWithRootViewController:self.activityTabViewController];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
     if (@available(iOS 18.0, *)) {
