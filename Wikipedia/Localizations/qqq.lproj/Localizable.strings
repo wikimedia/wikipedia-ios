@@ -123,8 +123,8 @@
 "activity-tab-onboarding-second-button-title" = "Activity tabs secondary button to learn more";
 "activity-tab-onboarding-second-item-subtitle" = "Activity tabs second item subtitle";
 "activity-tab-onboarding-second-item-title" = "Title for activity tabs second item";
-"activity-tab-onboarding-third-item-subtitle" = "Activity tabs third item subtitle";
-"activity-tab-onboarding-third-item-title" = "Title for activity tabs third item";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Activity tabs third item subtitle";
+"activity-tab-onboarding-third-item-title-updated" = "Title for activity tabs third item";
 "activity-tab-read-title" = "Title for the reading history activity tab";
 "activity-tab-remaining-articles" = "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3.";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
