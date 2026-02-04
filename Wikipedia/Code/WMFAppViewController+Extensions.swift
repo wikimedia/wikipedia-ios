@@ -1024,10 +1024,8 @@ extension WMFAppViewController {
         var action: ActivityTabFunnel.Action? = nil
         if newVC is WMFActivityTabViewController {
             action = .activityNavClick
-        } else if newVC is WMFHistoryViewController {
-            action = .historyNavClick
         }
-        
+
         guard let action else { return }
         
         if currentVC is ExploreViewController {
@@ -1036,8 +1034,6 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
         } else if currentVC is SavedViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
-        } else if currentVC is WMFHistoryViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab, action: action)
         } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
         } else if currentVC is SearchViewController {

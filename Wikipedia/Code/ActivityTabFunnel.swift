@@ -17,7 +17,6 @@ import WMFComponents
         case surveySubmit = "feedback_submit_click"
         case loginClick = "login_click"
         case activityNavClick = "activity_nav_click"
-        case historyNavClick = "history_nav_click"
         case customizeClick = "customize_click"
         case exploreClick = "explore_click"
         case makeEditClick = "make_edit_click"
@@ -29,7 +28,6 @@ import WMFComponents
         case overflowMenu = "activity_tab_overflow_menu"
         case survey = "activity_tab_feedback"
         case activityTabLogin = "activity_tab_login"
-        case historyTab = "history_tab"
         case activityTabCustomize = "activity_tab_customize"
         case activityTabOff = "activity_tab_off"
         
@@ -186,19 +184,11 @@ import WMFComponents
     }
     
     func logTabBarSelected(from activeInterface: ActiveInterface, action: Action) {
-        
-        guard action == .historyNavClick || action == .activityNavClick else { return }
-        
+        guard action == .activityNavClick else { return }
+
         logEvent(activeInterface: activeInterface, action: action, actionData: nil, project: nil)
     }
-    
-//    func logHistoryImpression() {
-//        logEvent(activeInterface: .historyTab, action: .impression)
-//    }
-    
-    func logHistoryArticleClick() {
-        logEvent(activeInterface: .historyTab, action: .articleClick)
-    }
+
     
     func logActivityTabOffImpression() {
         logEvent(activeInterface: .activityTabOff, action: .impression, project: nil)
