@@ -72,7 +72,8 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         }
 
         guard let existingProfileCoordinator = _profileCoordinator else {
-            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .historyProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.history, yirCoordinator: yirCoordinator)
+            // history only lives within search, so the sources for donate are search
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .searchProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.search, yirCoordinator: yirCoordinator)
             _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
@@ -232,11 +233,11 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         }
 
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-              let metricsID = DonateCoordinator.metricsID(for: .historyProfile, languageCode: languageCode) else {
+              let metricsID = DonateCoordinator.metricsID(for: .searchProfile, languageCode: languageCode) else {
             return
         }
 
-        DonateFunnel.shared.logHistoryProfile(metricsID: metricsID)
+        DonateFunnel.shared.logSearchProfile(metricsID: metricsID)
 
         profileCoordinator?.start()
     }

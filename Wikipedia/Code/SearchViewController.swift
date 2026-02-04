@@ -840,7 +840,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     lazy var historyViewModel: WMFHistoryViewModel = {
 
-        let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
+        let todayTitle = CommonStrings.todayTitle
         let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
 
         let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: "Open article",saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
