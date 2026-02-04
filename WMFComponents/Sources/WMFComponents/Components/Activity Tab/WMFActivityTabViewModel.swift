@@ -304,7 +304,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         }
     }
 
-    private func fetchUserImpact() async {
+    public func fetchUserImpact() async {
         guard case .loggedIn = authenticationState else { return }
         guard let userID else { return }
         do {
@@ -352,21 +352,47 @@ public final class WMFActivityTabViewModel: ObservableObject {
             numberOfFilters: 0)
     }
     
-    public func updateAuthenticationState(authState: LoginState) {
-        if self.authenticationState != authState {
-            isFirstTimeLoading = true
-        }
-        
+    public func updateAuthenticationState(authState: LoginState, needsRefetch: Bool) {
         self.authenticationState = authState
+        self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
+        self.customizeViewModel.isLoggedIn = authState == .loggedIn
+        
         Task {
             await self.updateShouldShowLoginPrompt()
         }
-        self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
+        
         if self.authenticationState != .loggedIn {
             globalEditCount = nil
+            mostViewedArticlesViewModel = nil
+            contributionsViewModel = nil
+            allTimeImpactViewModel = nil
+            recentActivityViewModel = nil
+            articleViewsViewModel = nil
+            Task {
+                self.sections = []
+                await timelineViewModel.fetch()
+                recomputeShouldShowEmptyState()
+            }
+        } else if needsRefetch {
+            // re-fetch anything that might change based on login state
+            Task {
+                isLoading = true
+                
+                globalEditCount = nil
+                mostViewedArticlesViewModel = nil
+                contributionsViewModel = nil
+                allTimeImpactViewModel = nil
+                recentActivityViewModel = nil
+                articleViewsViewModel = nil
+                
+                self.sections = []
+                await timelineViewModel.fetch()
+                await getGlobalEditCount()
+                await fetchUserImpact()
+                recomputeShouldShowEmptyState()
+                isLoading = false
+            }
         }
-        self.customizeViewModel.isLoggedIn = authState == .loggedIn
-        recomputeShouldShowEmptyState()
     }
 
     public var hoursMinutesRead: String {
