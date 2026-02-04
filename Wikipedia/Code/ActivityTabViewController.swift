@@ -305,7 +305,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let fourthItemTitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-title", value: "Stay in control", comment: "Title for activity tabs fourth item")
     private let fourthItemSubtitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-subtitle", value: "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.", comment: "Activity tabs fourth item subtitle")
 
-    private let activityOnboardingHeader = WMFLocalizedString("activity-tab-onboarding-header", value: "Introducing Activity", comment: "Activity tabs onboarding header")
+    private let activityOnboardingHeader = WMFLocalizedString("activity-tab-onboarding-header", value: "History is now Activity", comment: "Activity tabs onboarding header")
     private let learnMoreAboutActivity = WMFLocalizedString("activity-tab-onboarding-second-button-title", value: "Learn more about Activity", comment: "Activity tabs secondary button to learn more")
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
