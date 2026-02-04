@@ -39,7 +39,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     @objc var dataStore: MWKDataStore?
 
-    var deleteButton: UIBarButtonItem?
     private var cancellables = Set<AnyCancellable>()
 
     private let contentContainerView = UIView()
@@ -134,6 +133,15 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private var presentingSearchResults: Bool = false
 
+    private lazy var deleteButton: UIBarButtonItem = {
+        UIBarButtonItem(
+            title: CommonStrings.clearTitle,
+            style: .plain,
+            target: self,
+            action: #selector(deleteButtonPressed(_:))
+        )
+    }()
+
     // MARK: - Lifecycle
 
     @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil,  isMainRootView: Bool = false) {
@@ -153,6 +161,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+
+    private var contentTopConstraint: NSLayoutConstraint?
+    private var languageBarHeightConstraint: NSLayoutConstraint?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,9 +188,22 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         historyViewModel.$isEmpty
             .receive(on: RunLoop.main)
             .sink { [weak self] isEmpty in
-                self?.deleteButton?.isEnabled = !isEmpty
+                Task { @MainActor in
+                    self?.refreshDeleteButtonState()
+                }
             }
             .store(in: &cancellables)
+
+        NSLayoutConstraint.activate([
+            contentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        let top = contentContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        contentTopConstraint = top
+        top.isActive = true
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -267,7 +292,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: deleteButton)
+            let leadingItem: UIBarButtonItem? = (currentEmbeddedViewController === historyViewController) ? deleteButton : nil
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: leadingItem)
         } else {
             profileButtonConfig = nil
             tabsButtonConfig = nil
@@ -276,6 +302,24 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: nil, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+    }
+
+    @MainActor
+    private func refreshDeleteButtonState() {
+        let shouldShow = (currentEmbeddedViewController === historyViewController)
+        let enabled = shouldShow && !historyViewModel.isEmpty
+
+        deleteButton.isEnabled = enabled
+
+        if let item = navigationItem.leftBarButtonItem, item.action == #selector(deleteButtonPressed(_:)) {
+            item.isEnabled = enabled
+        } else if let items = navigationItem.leftBarButtonItems {
+            for item in items where item.action == #selector(deleteButtonPressed(_:)) {
+                item.isEnabled = enabled
+            }
+        }
+
+        configureNavigationBar()
     }
 
     private func updateProfileButton() {
@@ -418,7 +462,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         updateLanguageBarVisibility()
-        deleteButton?.isEnabled = (currentEmbeddedViewController === historyViewController) && !historyViewModel.isEmpty
+        deleteButton.isEnabled = (currentEmbeddedViewController === historyViewController) && !historyViewModel.isEmpty
+        Task { @MainActor in
+            refreshDeleteButtonState()
+        }
+        configureNavigationBar()
     }
 
     // MARK: - Language bar
