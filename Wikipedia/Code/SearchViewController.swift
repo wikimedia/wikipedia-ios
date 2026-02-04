@@ -484,7 +484,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     var searchLanguageBarTopConstraint: NSLayoutConstraint?
     private func updateLanguageBarVisibility() {
-        let showLanguageBar = self.showLanguageBar ?? UserDefaults.standard.wmf_showSearchLanguageBar()
+        let showLanguageBar = (self.showLanguageBar ?? true) && UserDefaults.standard.wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
             addChild(searchLanguageBarViewController)
