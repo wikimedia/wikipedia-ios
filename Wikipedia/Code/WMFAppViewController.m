@@ -140,34 +140,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return self;
 }
 
-- (void)updateFourthTab {
-    if (self.viewControllers.count < 4) {
-        return;
-    }
-
-    UIViewController *fourthVC = self.viewControllers[3];
-
-    if ([fourthVC isKindOfClass:[WMFComponentNavigationController class]]) {
-        UINavigationController *nav = (UINavigationController *)fourthVC;
-        UIViewController *root = nav.viewControllers.firstObject;
-
-        if (root == self.activityTabViewController) {
-            return;
-        }
-    }
-
-    NSInteger selectedIndex = self.selectedIndex;
-
-    WMFComponentNavigationController *activityNav =
-        [self rootNavigationControllerWithRootViewController:self.activityTabViewController];
-
-    NSMutableArray *viewControllers = [self.viewControllers mutableCopy];
-    viewControllers[3] = activityNav;
-
-    [self setViewControllers:viewControllers animated:NO];
-    self.selectedIndex = selectedIndex;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
@@ -904,12 +876,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #else
     return nil;
 #endif
-}
-
-- (void)activityTabDidChange:(NSNotification *)notification {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateFourthTab];
-    });
 }
 
 - (void)migrateIfNecessary {
