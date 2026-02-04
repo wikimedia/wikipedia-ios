@@ -713,7 +713,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     func tappedArticle(_ item: HistoryItem) -> Void? {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
-            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
             articleCoordinator.start()
         }
 

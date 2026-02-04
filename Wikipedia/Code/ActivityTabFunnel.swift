@@ -192,9 +192,9 @@ import WMFComponents
         logEvent(activeInterface: activeInterface, action: action, actionData: nil, project: nil)
     }
     
-    func logHistoryImpression() {
-        logEvent(activeInterface: .historyTab, action: .impression)
-    }
+//    func logHistoryImpression() {
+//        logEvent(activeInterface: .historyTab, action: .impression)
+//    }
     
     func logHistoryArticleClick() {
         logEvent(activeInterface: .historyTab, action: .articleClick)
