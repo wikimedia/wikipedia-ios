@@ -119,12 +119,12 @@
 "activity-tab-onboarding-first-item-title" = "Reading patterns";
 "activity-tab-onboarding-fourth-item-subtitle" = "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.";
 "activity-tab-onboarding-fourth-item-title" = "Stay in control";
-"activity-tab-onboarding-header" = "History is now Activity";
+"activity-tab-onboarding-header-new" = "History is now Activity";
 "activity-tab-onboarding-second-button-title" = "Learn more about Activity";
 "activity-tab-onboarding-second-item-subtitle" = "Discover insights about your contributions and the reach of the knowledge you've shared.";
 "activity-tab-onboarding-second-item-title" = "Impact highlights";
-"activity-tab-onboarding-third-item-subtitle" = "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.";
-"activity-tab-onboarding-third-item-title" = "Reading history is now in Search";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.";
+"activity-tab-onboarding-third-item-title-updated" = "Reading history is now in Search";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Satisfied";
