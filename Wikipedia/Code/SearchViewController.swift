@@ -749,6 +749,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
                 for article in articleFetchRequest {
                     if let viewedDate = article.viewedDate, let pageID = article.pageID {
+                        let thumbnailImageWidth = ImageUtils.listThumbnailWidth()
 
                         let record = HistoryRecord(
                             id: Int(truncating: pageID),
@@ -756,7 +757,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                             descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
                             shortDescription: article.snippet,
                             articleURL: article.url,
-                            imageURL: article.imageURLString,
+                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
                             viewedDate: viewedDate,
                             isSaved: article.isSaved,
                             snippet: article.snippet,
