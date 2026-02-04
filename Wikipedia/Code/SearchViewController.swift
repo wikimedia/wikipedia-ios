@@ -712,9 +712,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Embedded search history
 
     func tappedArticle(_ item: HistoryItem) -> Void? {
-        if let articleURL = item.url, let dataStore, let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history) {
-            return self.navigationController?.pushViewController(articleViewController, animated: true)
+        if let articleURL = item.url, let dataStore, let navVC = navigationController {
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
+            articleCoordinator.start()
         }
+
         return nil
     }
 
