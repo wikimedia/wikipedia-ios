@@ -118,24 +118,6 @@ extension WMFAppViewController {
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
-    
-    @objc func getAssignmentForActivityTab() -> WMFActivityTabExperimentAssignment {
-        let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
-        
-        let groupName: String?
-        switch assignment {
-        case .control: groupName = "ios_activity_a"
-        case .activityTab: groupName = "ios_activity_b"
-        case .unknown: groupName = nil
-        }
-        
-        // A nil group name probably indicates the user fresh installed past the experiment end date
-        if let groupName {
-            ActivityTabFunnel.shared.logGroupAssignment(group: groupName)
-        }
-        
-        return assignment
-    }
 }
 
 // MARK: - Notifications
