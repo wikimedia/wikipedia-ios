@@ -145,6 +145,17 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
+    UIViewController *fourthVC = self.viewControllers[3];
+
+    if ([fourthVC isKindOfClass:[WMFComponentNavigationController class]]) {
+        UINavigationController *nav = (UINavigationController *)fourthVC;
+        UIViewController *root = nav.viewControllers.firstObject;
+
+        if (root == self.activityTabViewController) {
+            return;
+        }
+    }
+
     NSInteger selectedIndex = self.selectedIndex;
 
     WMFComponentNavigationController *activityNav =
@@ -154,10 +165,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     viewControllers[3] = activityNav;
 
     [self setViewControllers:viewControllers animated:NO];
-
     self.selectedIndex = selectedIndex;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -1725,10 +1734,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    
+
     UIViewController *current = tabBarController.selectedViewController;
     UIViewController *selected = viewController;
-    
+
     if (viewController == tabBarController.selectedViewController) {
         switch (tabBarController.selectedIndex) {
             case WMFAppTabTypeMain: {
@@ -1749,9 +1758,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             return NO;
         }
     }
-    
+
     [self logTabBarSelectionsForActivityTabWithCurrentTabSelection:current newTabSelection:selected];
-    
+
     // When switching to Explore via tab bar button, we want to flag Explore to show survey prompt
     if ([viewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navVC = (UINavigationController *)viewController;
@@ -1760,7 +1769,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             exploreVC.checkForSurveyUponAppear = YES;
         }
     }
-    
+
     // When switching to Activity via tab bar button, we want to increment the visit count
     if ([viewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navVC = (UINavigationController *)viewController;
@@ -1768,7 +1777,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self incrementActivityTabVisitCount];
         }
     }
-    
+
     return YES;
 }
 
@@ -2186,10 +2195,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)logDidSelectViewController:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navVC = (UINavigationController *)viewController;
-        
+
         if (navVC.viewControllers.count > 0) {
             UIViewController *rootViewController = navVC.viewControllers[0];
-            
+
             if ([rootViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
                 [[WMFNavigationEventsFunnel shared] logTappedExplore];
             } else if ([rootViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
