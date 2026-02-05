@@ -214,7 +214,6 @@ public struct WMFActivityTabView: View {
                     }
                     .listRowSeparator(.hidden)
                 }
-                timelineSectionsList()
             }
             .scrollContentBackground(.hidden)
             .listStyle(.grouped)
