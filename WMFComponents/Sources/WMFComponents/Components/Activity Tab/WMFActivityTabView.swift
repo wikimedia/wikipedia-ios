@@ -103,7 +103,7 @@ public struct WMFActivityTabView: View {
                         
             if viewModel.customizeViewModel.isEditingInsightsOn && viewModel.shouldShowYourImpactHeader {
                 
-                Section(header: YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)) {
+                Section(header: YourImpactHeaderView(viewModel: viewModel)) {
                     
                     VStack(spacing: 16) {
                         

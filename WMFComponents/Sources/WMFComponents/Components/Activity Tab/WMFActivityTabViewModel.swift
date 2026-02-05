@@ -153,6 +153,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var authenticationState: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
+    
+    var yourImpactOnWikipediaSubtitle: String?
     @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
     @Published var contributionsViewModel: ContributionsViewModel?
     @Published var allTimeImpactViewModel: AllTimeImpactViewModel?
@@ -342,6 +344,10 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     public func updateID(userID: Int?) {
         self.userID = userID
+    }
+    
+    public func updateYourImpactOnWikipediaSubtitle(_ subtitle: String?) {
+        self.yourImpactOnWikipediaSubtitle = subtitle
     }
 
     private static func generateEmptyViewModel(localizedStrings: LocalizedStrings, isLoggedIn: Bool) -> WMFEmptyViewModel {

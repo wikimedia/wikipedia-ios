@@ -380,19 +380,27 @@ struct ArticleViewsView: View {
 
 struct YourImpactHeaderView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let title: String
-
+    @ObservedObject var viewModel: WMFActivityTabViewModel
+    
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
     var body: some View {
-        HStack {
-            Text(title)
+        VStack(alignment: .leading, spacing: 4) {
+            Text(viewModel.localizedStrings.yourImpact)
                 .font(Font(WMFFont.for(.boldHeadline)))
                 .foregroundColor(Color(uiColor: theme.text))
                 .textCase(.none)
                 .accessibilityAddTraits(.isHeader)
+            
+            if let subtitle = viewModel.yourImpactOnWikipediaSubtitle {
+                Text(subtitle)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .textCase(.none)
+            }
+            
         }
         .padding(.top, 12)
         .padding(.bottom, 16)

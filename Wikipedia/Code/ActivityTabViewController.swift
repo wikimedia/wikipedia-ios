@@ -135,7 +135,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             userID = permanentUser.userID
         }
         
+        let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode
+        
         viewModel.updateID(userID: userID)
+        viewModel.updateYourImpactOnWikipediaSubtitle(CommonStrings.onLangWikipedia(with: primaryAppLanguageCode))
         viewModel.getURL = getURL
         
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
