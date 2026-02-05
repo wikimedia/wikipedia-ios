@@ -300,16 +300,14 @@ struct RecentActivityView: View {
         var body: some View {
             GeometryReader { geometry in
                 let spacing: CGFloat = 1.5
-                let squareCount = 30
+                let squareCount = edits.count
                 let totalSpacing = spacing * CGFloat(squareCount - 1)
                 let squareSize = (geometry.size.width - totalSpacing) / CGFloat(squareCount)
 
                 HStack(spacing: spacing) {
-                    ForEach(0..<30, id: \.self) { index in
-                        let hasEdits = index < edits.count && edits[index].count > 0
-
+                    ForEach(edits) { edit in
                         Rectangle()
-                            .fill(hasEdits ? Color(theme.link) : Color(theme.newBorder))
+                            .fill(edit.count > 0 ? Color(theme.link) : Color(theme.newBorder))
                             .frame(width: squareSize, height: 24)
                     }
                 }
