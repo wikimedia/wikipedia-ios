@@ -138,19 +138,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.updateID(userID: userID)
         viewModel.getURL = getURL
         
-        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
-            viewModel.updateAuthenticationState(authState: .loggedIn, needsRefetch: needsRefetch)
-        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
-            viewModel.updateAuthenticationState(authState: .temp, needsRefetch: needsRefetch)
-        } else {
-            viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
-        }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
         } else {
             viewModel.updateUsername(username: nil)
             viewModel.timelineViewModel.setUser(username: nil)
+        }
+        
+        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
+            viewModel.updateAuthenticationState(authState: .loggedIn, needsRefetch: needsRefetch)
+        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
+            viewModel.updateAuthenticationState(authState: .temp, needsRefetch: needsRefetch)
+        } else {
+            viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
         }
     }
 

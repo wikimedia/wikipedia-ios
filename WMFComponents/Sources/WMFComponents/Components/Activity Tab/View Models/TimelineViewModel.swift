@@ -59,6 +59,10 @@ public final class TimelineViewModel: ObservableObject {
                         sections.append(TimelineSection(date: key, items: sortedFilteredValues))
                     }
                 }
+                
+                if sections.isEmpty {
+                    sections.append(TimelineSection(date: Date(), items: []))
+                }
             }
 
             let sortedSections = sections.sorted { $0.date > $1.date }

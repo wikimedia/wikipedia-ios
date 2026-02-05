@@ -366,6 +366,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         
         if self.authenticationState != .loggedIn {
             updateUsername(username: nil)
+            timelineViewModel.setUser(username: nil)
             globalEditCount = nil
             mostViewedArticlesViewModel = nil
             contributionsViewModel = nil
