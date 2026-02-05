@@ -309,7 +309,7 @@ struct RecentActivityView: View {
                         let hasEdits = index < edits.count && edits[index].count > 0
 
                         Rectangle()
-                            .fill(hasEdits ? Color(theme.link) : Color(theme.baseBackground))
+                            .fill(hasEdits ? Color(theme.link) : Color(theme.newBorder))
                             .frame(width: squareSize, height: 24)
                     }
                 }

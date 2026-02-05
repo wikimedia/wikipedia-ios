@@ -54,7 +54,7 @@ struct ContributionsView: View {
                             ContributionBar(
                                 count: viewModel.lastMonthCount,
                                 maxCount: fullWidth,
-                                color: theme.baseBackground
+                                color: theme.newBorder
                             )
                         }
                     }
