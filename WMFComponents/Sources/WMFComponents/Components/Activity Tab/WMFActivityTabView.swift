@@ -47,7 +47,7 @@ public struct WMFActivityTabView: View {
 
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
-            if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn || viewModel.customizeViewModel.isEditingInsightsOn {
+            if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {
                 Section {
                     VStack(spacing: 16) {
                         if viewModel.customizeViewModel.isTimeSpentReadingOn {
@@ -55,7 +55,7 @@ public struct WMFActivityTabView: View {
                                 .accessibilityElement()
                                 .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
                                 .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
-
+                            
                             VStack(alignment: .center, spacing: 8) {
                                 hoursMinutesRead
                                     .accessibilityLabel(viewModel.hoursMinutesRead)
@@ -69,71 +69,77 @@ public struct WMFActivityTabView: View {
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                         }
                         
-
+                        
                         if viewModel.customizeViewModel.isReadingInsightsOn {
                             articlesReadModule(proxy: proxy)
-                                .padding(.horizontal, 16)
                             savedArticlesModule
-                                .padding(.horizontal, 16)
                             
                             if viewModel.shouldShowExploreCTA {
                                 exploreCTA
                                     .padding(.vertical, 12)
                             }
-
+                            
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
-                                    .padding(.horizontal, 16)
-                            }
-                        }
-                        
-                        if viewModel.customizeViewModel.isEditingInsightsOn {
-                            
-                            if viewModel.shouldShowYourImpactHeader {
-                                HStack {
-                                    YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                                    Spacer()
-                                }
-                                .padding(.top, 12)
-                            }
-                            
-                            if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
-                                TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
-                                    .padding(.horizontal, 16)
-                            }
-                            
-                            if let contributionsViewModel = viewModel.contributionsViewModel {
-                                ContributionsView(viewModel: contributionsViewModel)
-                                    .padding(.horizontal, 16)
-                            }
-                            
-                            if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
-                                CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
-                                    .padding(.horizontal, 16)
-                            }
-                            
-                            if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
-                                totalEditsView(amount: animatedGlobalEditCount)
-                                    .padding(.horizontal, 16)
-                                    .onAppear {
-                                        if !hasShownGlobalEditsCard {
-                                            hasShownGlobalEditsCard = true
-                                            animatedGlobalEditCount = 0
-                                            withAnimation(.easeOut(duration: 0.6)) {
-                                                animatedGlobalEditCount = globalEditCount
-                                            }
-                                        } else {
-                                            animatedGlobalEditCount = globalEditCount
-                                        }
-                                    }
-                                    .onChange(of: globalEditCount) { newValue in
-                                        withAnimation(.easeOut(duration: 0.6)) {
-                                            animatedGlobalEditCount = newValue
-                                        }
-                                    }
                             }
                         }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                    .listRowInsets(EdgeInsets())
+                    .background(
+                        LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                }
+                .listRowSeparator(.hidden)
+            }
+                        
+            if viewModel.customizeViewModel.isEditingInsightsOn && viewModel.shouldShowYourImpactHeader {
+                
+                Section(header: YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)) {
+                    
+                    VStack(spacing: 16) {
+                        
+                        if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
+                            TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
+                        }
+                        
+                        if let contributionsViewModel = viewModel.contributionsViewModel {
+                            ContributionsView(viewModel: contributionsViewModel)
+                        }
+                        
+                        if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
+                            CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
+                        }
+                        
+                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                            totalEditsView(amount: animatedGlobalEditCount)
+                                .onAppear {
+                                    if !hasShownGlobalEditsCard {
+                                        hasShownGlobalEditsCard = true
+                                        animatedGlobalEditCount = 0
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = globalEditCount
+                                        }
+                                    } else {
+                                        animatedGlobalEditCount = globalEditCount
+                                    }
+                                }
+                                .onChange(of: globalEditCount) { newValue in
+                                    withAnimation(.easeOut(duration: 0.6)) {
+                                        animatedGlobalEditCount = newValue
+                                    }
+                                }
+                        }
+                    }
+                    .padding(.horizontal, 16)
                     .padding(.bottom, 16)
                     .listRowInsets(EdgeInsets())
                     .background(
