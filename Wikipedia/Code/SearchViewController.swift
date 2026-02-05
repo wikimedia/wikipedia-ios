@@ -163,8 +163,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private var contentTopConstraint: NSLayoutConstraint?
-    private var languageBarHeightConstraint: NSLayoutConstraint?
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,7 +201,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let top = contentContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         contentTopConstraint = top
         top.isActive = true
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
