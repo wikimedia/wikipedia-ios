@@ -163,16 +163,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private var contentTopConstraint: NSLayoutConstraint?
-    private var languageBarHeightConstraint: NSLayoutConstraint?
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.addSubview(contentContainerView)
         contentContainerView.translatesAutoresizingMaskIntoConstraints = false
+        contentTopConstraint = contentContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+
         NSLayoutConstraint.activate([
-            contentContainerView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentTopConstraint!,
             contentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -180,7 +180,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         updateLanguageBarVisibility()
         setupReadingListsHelpers()
-
         updateEmbeddedContent(animated: false)
 
         deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
@@ -193,17 +192,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 }
             }
             .store(in: &cancellables)
-
-        NSLayoutConstraint.activate([
-            contentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
-        let top = contentContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        contentTopConstraint = top
-        top.isActive = true
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -484,7 +472,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     var searchLanguageBarTopConstraint: NSLayoutConstraint?
     private func updateLanguageBarVisibility() {
-        let showLanguageBar = self.showLanguageBar ?? UserDefaults.standard.wmf_showSearchLanguageBar()
+        let showLanguageBar = (self.showLanguageBar ?? false) && UserDefaults.standard.wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
             addChild(searchLanguageBarViewController)
@@ -712,9 +700,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Embedded search history
 
     func tappedArticle(_ item: HistoryItem) -> Void? {
-        if let articleURL = item.url, let dataStore, let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history) {
-            return self.navigationController?.pushViewController(articleViewController, animated: true)
+        if let articleURL = item.url, let dataStore, let navVC = navigationController {
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
+            articleCoordinator.start()
         }
+
         return nil
     }
 
@@ -739,6 +729,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
                 NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
             ]
+            request.fetchLimit = 1000
 
             do {
                 var articles: [HistoryRecord] = []
@@ -746,6 +737,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
                 for article in articleFetchRequest {
                     if let viewedDate = article.viewedDate, let pageID = article.pageID {
+                        let thumbnailImageWidth = ImageUtils.listThumbnailWidth()
 
                         let record = HistoryRecord(
                             id: Int(truncating: pageID),
@@ -753,7 +745,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                             descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
                             shortDescription: article.snippet,
                             articleURL: article.url,
-                            imageURL: article.imageURLString,
+                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
                             viewedDate: viewedDate,
                             isSaved: article.isSaved,
                             snippet: article.snippet,
@@ -836,8 +828,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     lazy var historyViewModel: WMFHistoryViewModel = {
 
-        let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
-        let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
+        let todayTitle = CommonStrings.todayTitle
+        let yesterdayTitle = CommonStrings.yesterdayTitle
 
         let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: "Open article",saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
 
