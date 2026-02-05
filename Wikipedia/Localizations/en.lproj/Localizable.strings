@@ -123,8 +123,8 @@
 "activity-tab-onboarding-second-button-title" = "Learn more about Activity";
 "activity-tab-onboarding-second-item-subtitle" = "Discover insights about your contributions and the reach of the knowledge you've shared.";
 "activity-tab-onboarding-second-item-title" = "Impact highlights";
-"activity-tab-onboarding-third-item-subtitle" = "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.";
-"activity-tab-onboarding-third-item-title" = "More ways to engage";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.";
+"activity-tab-onboarding-third-item-title-updated" = "Reading history is now in Search";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Satisfied";
