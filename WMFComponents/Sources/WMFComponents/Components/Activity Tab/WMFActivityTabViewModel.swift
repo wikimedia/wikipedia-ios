@@ -326,11 +326,12 @@ public final class WMFActivityTabViewModel: ObservableObject {
         }
     }
 
-    public func updateUsername(username: String) {
-        articlesReadViewModel.username = username
-        articlesReadViewModel.usernamesReading = username.isEmpty
+    public func updateUsername(username: String?) {
+        let resolvedUsername = username ?? ""
+        articlesReadViewModel.username = resolvedUsername
+        articlesReadViewModel.usernamesReading = resolvedUsername.isEmpty
             ? localizedStrings.noUsernameReading
-            : localizedStrings.userNamesReading(username)
+            : localizedStrings.userNamesReading(resolvedUsername)
     }
 
     public func updateID(userID: Int?) {
@@ -353,6 +354,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
     
     public func updateAuthenticationState(authState: LoginState, needsRefetch: Bool) {
+        isLoading = true
+        
         self.authenticationState = authState
         self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
         self.customizeViewModel.isLoggedIn = authState == .loggedIn
@@ -362,6 +365,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         }
         
         if self.authenticationState != .loggedIn {
+            updateUsername(username: nil)
             globalEditCount = nil
             mostViewedArticlesViewModel = nil
             contributionsViewModel = nil
@@ -369,15 +373,15 @@ public final class WMFActivityTabViewModel: ObservableObject {
             recentActivityViewModel = nil
             articleViewsViewModel = nil
             Task {
-                self.sections = []
                 await timelineViewModel.fetch()
                 recomputeShouldShowEmptyState()
+                isLoading = false
             }
         } else if needsRefetch {
             // re-fetch anything that might change based on login state
             Task {
-                isLoading = true
                 
+                // first reset things
                 globalEditCount = nil
                 mostViewedArticlesViewModel = nil
                 contributionsViewModel = nil
@@ -385,13 +389,14 @@ public final class WMFActivityTabViewModel: ObservableObject {
                 recentActivityViewModel = nil
                 articleViewsViewModel = nil
                 
-                self.sections = []
                 await timelineViewModel.fetch()
                 await getGlobalEditCount()
                 await fetchUserImpact()
                 recomputeShouldShowEmptyState()
                 isLoading = false
             }
+        } else {
+            isLoading = false
         }
     }
 

@@ -148,6 +148,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
+        } else {
+            viewModel.updateUsername(username: nil)
+            viewModel.timelineViewModel.setUser(username: nil)
         }
     }
 
@@ -238,6 +241,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
+        } else {
+            viewModel.updateUsername(username: nil)
+            viewModel.timelineViewModel.setUser(username: nil)
         }
 
         viewModel.articlesSavedViewModel.onTapSaved = onTapSaved

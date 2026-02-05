@@ -33,7 +33,7 @@ public final class TimelineViewModel: ObservableObject {
         self.username = username
     }
 
-    public func setUser(username: String) {
+    public func setUser(username: String?) {
         self.username = username
     }
 
