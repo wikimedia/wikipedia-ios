@@ -139,6 +139,16 @@
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "SU WIKIPEDIA iOS";
+"activity-tab-impact-all-time-title" = "Impatto dall'inizio";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 giorno|$1 giorni}}";
+"activity-tab-impact-edits-label" = "modifiche";
+"activity-tab-impact-last-edited-label" = "ultima modifica";
+"activity-tab-impact-recent-activity-title" = "La tua attività recente (ultimi 30 giorni)";
+"activity-tab-impact-recent-startend-accessibility" = "Dal $1 a $2";
+"activity-tab-impact-thanks-label" = "ringraziamenti";
+"activity-tab-impact-total-edits-label" = "modifiche totali";
+"activity-tab-impact-views-day" = "Giorno";
+"activity-tab-impact-views-views" = "Visualizzazioni";
 "activity-tab-log-in-or-create-account" = "Accedi o crea un utenza per vedere altre attività di modifica e lettura.";
 "activity-tab-logged-out-subtitle" = "Accedi o crea un'utenza per vedere la tua attività sull'applicazione di Wikipedia.";
 "activity-tab-logged-out-title" = "Scopri di più su lettura e modifica";
