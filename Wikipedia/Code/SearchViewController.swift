@@ -169,8 +169,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         view.addSubview(contentContainerView)
         contentContainerView.translatesAutoresizingMaskIntoConstraints = false
+        contentTopConstraint = contentContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+
         NSLayoutConstraint.activate([
-            contentContainerView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentTopConstraint!,
             contentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -178,7 +180,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         updateLanguageBarVisibility()
         setupReadingListsHelpers()
-
         updateEmbeddedContent(animated: false)
 
         deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
@@ -191,16 +192,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 }
             }
             .store(in: &cancellables)
-
-        NSLayoutConstraint.activate([
-            contentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
-        let top = contentContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        contentTopConstraint = top
-        top.isActive = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -481,7 +472,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     var searchLanguageBarTopConstraint: NSLayoutConstraint?
     private func updateLanguageBarVisibility() {
-        let showLanguageBar = (self.showLanguageBar ?? true) && UserDefaults.standard.wmf_showSearchLanguageBar()
+        let showLanguageBar = (self.showLanguageBar ?? false) && UserDefaults.standard.wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
             addChild(searchLanguageBarViewController)
