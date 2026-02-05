@@ -277,10 +277,6 @@ public struct WMFActivityTabView: View {
                     .font(Font(WMFFont.for(.semiboldHeadline)))
                     .foregroundColor(Color(uiColor: theme.text))
                 Spacer()
-                WMFCloseButton(action: {
-                   viewModel.closeLoginPrompt()
-                })
-                .buttonStyle(BorderlessButtonStyle())
             }
             Text(viewModel.localizedStrings.loggedOutSubtitle)
                 .font(Font(WMFFont.for(.callout)))
