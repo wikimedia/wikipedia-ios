@@ -46,7 +46,8 @@ public final class TimelineViewModel: ObservableObject {
             
             if result.isEmpty {
                 // Check if we already have an empty "today" section
-                if let existingToday = existingSections.first(where: { Calendar.current.isDateInToday($0.date) && $0.items.isEmpty }) {
+                if existingSections.count == 1,
+                   let existingToday = existingSections.first(where: { Calendar.current.isDateInToday($0.date) && $0.items.isEmpty }) {
                     updatedSections.append(existingToday)
                 } else {
                     updatedSections.append(TimelineSection(date: Date(), items: []))
@@ -89,7 +90,8 @@ public final class TimelineViewModel: ObservableObject {
                 }
                 
                 if updatedSections.isEmpty {
-                    if let existingToday = existingSections.first(where: { Calendar.current.isDateInToday($0.date) && $0.items.isEmpty }) {
+                    if existingSections.count == 1,
+                       let existingToday = existingSections.first(where: { Calendar.current.isDateInToday($0.date) && $0.items.isEmpty }) {
                         updatedSections.append(existingToday)
                     } else {
                         updatedSections.append(TimelineSection(date: Date(), items: []))
