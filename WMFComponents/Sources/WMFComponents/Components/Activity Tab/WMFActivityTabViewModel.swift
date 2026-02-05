@@ -304,7 +304,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         }
     }
 
-    public func fetchUserImpact() async {
+    private func fetchUserImpact() async {
         guard case .loggedIn = authenticationState else { return }
         guard let userID else { return }
         do {
