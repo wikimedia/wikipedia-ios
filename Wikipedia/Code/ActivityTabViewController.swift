@@ -35,7 +35,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:NSNotification.Name.WMFAppLanguageDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
         setupLoginState(needsRefetch: false)
