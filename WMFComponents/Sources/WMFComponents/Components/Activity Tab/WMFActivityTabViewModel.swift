@@ -310,7 +310,13 @@ public final class WMFActivityTabViewModel: ObservableObject {
         do {
             let data = try await dataController.getUserImpactData(userID: userID)
             if let getURL = getURL {
-                self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
+                // Only recreate if data has actually changed
+                if let existing = self.mostViewedArticlesViewModel,
+                   existing.hasSameArticles(as: data) {
+                    // Keep existing view model
+                } else {
+                    self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
+                }
             }
             self.contributionsViewModel = ContributionsViewModel(data: data, activityViewModel: self)
             self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data, activityViewModel: self)
