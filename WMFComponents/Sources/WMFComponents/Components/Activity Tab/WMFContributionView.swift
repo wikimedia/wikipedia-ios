@@ -22,30 +22,21 @@ struct ContributionsView: View {
         viewModel.shouldShowEditCTA ? "" : viewModel.dateText
     }
     
-    var accessibilityLabel: String {
+    var contentAccessibilityLabel: String {
         var accessibilityLabel: String = ""
-        
-        if !title.isEmpty {
-            accessibilityLabel.append(title + ", ")
-        }
-        
-        if !dateText.isEmpty {
-            accessibilityLabel.append(dateText + ", ")
-        }
         
         if let editsThisMonthText = viewModel.activityViewModel?.localizedStrings.thisMonth,
            !editsThisMonthText.isEmpty {
+            accessibilityLabel.append(String(viewModel.thisMonthCount))
             accessibilityLabel.append(editsThisMonthText + ", ")
         }
         
-        accessibilityLabel.append(String(viewModel.thisMonthCount) + ", ")
-        
         if let editsLastMonthText = viewModel.activityViewModel?.localizedStrings.lastMonth,
            !editsLastMonthText.isEmpty {
+            
+            accessibilityLabel.append(String(viewModel.lastMonthCount))
             accessibilityLabel.append(editsLastMonthText + ", ")
         }
-        
-        accessibilityLabel.append(String(viewModel.lastMonthCount) + ", ")
         
         return accessibilityLabel
     }
@@ -58,42 +49,48 @@ struct ContributionsView: View {
             onTapModule: viewModel.shouldShowEditCTA ? viewModel.activityViewModel?.makeAnEdit : viewModel.activityViewModel?.navigateToContributions,
             content: {
                 VStack(spacing: 16) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(String(viewModel.thisMonthCount))
-                            .font(Font(WMFFont.for(.boldTitle1)))
-                            .foregroundStyle(Color(uiColor: theme.text))
-                        if let thisMonthCount = viewModel.activityViewModel?.localizedStrings.contributionsThisMonth {
-                            Text(thisMonthCount)
-                                .font(Font(WMFFont.for(.boldCaption1)))
-                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                    VStack(spacing: 16) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(String(viewModel.thisMonthCount))
+                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .foregroundStyle(Color(uiColor: theme.text))
+                            if let thisMonthCount = viewModel.activityViewModel?.localizedStrings.contributionsThisMonth {
+                                Text(thisMonthCount)
+                                    .font(Font(WMFFont.for(.boldCaption1)))
+                                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                            }
+                            if viewModel.thisMonthCount > 0 {
+                                ContributionBar(
+                                    count: viewModel.thisMonthCount,
+                                    maxCount: fullWidth,
+                                    color: theme.accent
+                                )
+                            }
                         }
-                        if viewModel.thisMonthCount > 0 {
-                            ContributionBar(
-                                count: viewModel.thisMonthCount,
-                                maxCount: fullWidth,
-                                color: theme.accent
-                            )
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(String(viewModel.lastMonthCount))
+                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .foregroundStyle(Color(uiColor: theme.text))
+                            if let lastMonthCount = viewModel.activityViewModel?.localizedStrings.contributionsThisMonth {
+                                Text(lastMonthCount)
+                                    .font(Font(WMFFont.for(.boldCaption1)))
+                                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                            }
+                            if viewModel.lastMonthCount > 0 {
+                                ContributionBar(
+                                    count: viewModel.lastMonthCount,
+                                    maxCount: fullWidth,
+                                    color: theme.newBorder
+                                )
+                            }
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(String(viewModel.lastMonthCount))
-                            .font(Font(WMFFont.for(.boldTitle1)))
-                            .foregroundStyle(Color(uiColor: theme.text))
-                        if let lastMonthCount = viewModel.activityViewModel?.localizedStrings.contributionsThisMonth {
-                            Text(lastMonthCount)
-                                .font(Font(WMFFont.for(.boldCaption1)))
-                                .foregroundStyle(Color(uiColor: theme.secondaryText))
-                        }
-                        if viewModel.lastMonthCount > 0 {
-                            ContributionBar(
-                                count: viewModel.lastMonthCount,
-                                maxCount: fullWidth,
-                                color: theme.newBorder
-                            )
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(contentAccessibilityLabel)
+                    .accessibilityAddTraits(.isButton)
                     
                     if let activityViewModel = viewModel.activityViewModel, viewModel.shouldShowEditCTA {
                         VStack(alignment: .center, spacing: 8) {
@@ -124,9 +121,6 @@ struct ContributionsView: View {
                 .frame(maxWidth: .infinity)
             }, showArrowAnyways: true
         )
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(accessibilityLabel)
-        .accessibilityAddTraits(.isButton)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

@@ -62,6 +62,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                                     .scaledToFit()
                                     .frame(width: iconSize, height: iconSize)
                                     .foregroundStyle(Color(theme.secondaryText))
+                                    .accessibilityHidden(true)
                             }
                         }
                     } else if showArrowAnyways {
@@ -72,6 +73,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                                 .scaledToFit()
                                 .frame(width: iconSize, height: iconSize)
                                 .foregroundStyle(Color(theme.secondaryText))
+                                .accessibilityHidden(true)
                         }
                     }
                 }
