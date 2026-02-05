@@ -84,9 +84,6 @@ public struct WMFActivityTabView: View {
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
                                     .padding(.horizontal, 16)
-                                    .accessibilityElement()
-                                    .accessibilityLabel(viewModel.localizedStrings.topCategories)
-                                    .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
                             }
                         }
                         
@@ -225,13 +222,10 @@ public struct WMFActivityTabView: View {
     
     private func totalEditsView(amount: Int) -> some View {
 
-        let formattedAmount = amountAccessibilityLabel(for: amount)
-        
-        return WMFActivityTabInfoCardView(
+        let cardView = WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.totalEditsAcrossProjects,
             dateText: nil,
-            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 viewModel.onTapGlobalEdits?()
             }, content: {
@@ -243,6 +237,14 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
+        
+        let formattedAmount = amountAccessibilityLabel(for: amount)
+        let accessibilityLabel: String = [viewModel.localizedStrings.totalEditsAcrossProjects, formattedAmount].joined(separator: ",")
+        
+        return cardView.accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityAddTraits(.isButton)
+        
     }
 
     private func timelineSectionsList() -> some View {
@@ -348,13 +350,10 @@ public struct WMFActivityTabView: View {
 
     private func articlesReadModule(proxy: ScrollViewProxy) -> some View {
 
-        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
-
-        return WMFActivityTabInfoCardView(
+        let cardView = WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.totalArticlesRead,
             dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
-            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 withAnimation(.easeInOut) {
                     proxy.scrollTo("timelineSection", anchor: .top)
@@ -368,9 +367,16 @@ public struct WMFActivityTabView: View {
                     Spacer()
                     articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
                 }
-                
             }
         )
+        
+        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
+        let accessibilityLabel: String = [viewModel.localizedStrings.totalArticlesRead, viewModel.articlesReadViewModel.dateTimeLastRead, formattedAmount].joined(separator: ",")
+        
+        return cardView
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityAddTraits(.isButton)
     }
 
     private var savedArticlesModule: some View {
@@ -379,13 +385,10 @@ public struct WMFActivityTabView: View {
         let displayCount = min(thumbURLs.count, 3)
         let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
 
-        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
-
-        return WMFActivityTabInfoCardView(
+        let cardView = WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.articlesSavedTitle,
             dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
-            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 viewModel.articlesSavedViewModel.onTapSaved?()
             },
@@ -401,6 +404,14 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
+        
+        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
+        let accessibilityLabel: String = [viewModel.localizedStrings.articlesSavedTitle, viewModel.articlesSavedViewModel.dateTimeLastSaved, formattedAmount].joined(separator: ",")
+        
+        return cardView
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityAddTraits(.isButton)
     }
 
     private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {
@@ -470,11 +481,10 @@ public struct WMFActivityTabView: View {
 
     private func topCategoriesModule(categories: [String]) -> some View {
         
-        WMFActivityTabInfoCardView(
+        let cardView = WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .rectangle3, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.topCategories,
             dateText: nil,
-            additionalAccessibilityLabel: nil,
             onTapModule: nil,
             content: {
                 VStack(alignment: .leading, spacing: 16) {
@@ -500,6 +510,14 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
+        
+        let accessibilityLabel = viewModel.localizedStrings.topCategories
+        let accessibilityValue = viewModel.articlesReadViewModel.topCategories.joined(separator: ", ")
+        
+        return cardView
+            .accessibilityElement()
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityValue(accessibilityValue)
     }
     
     private func amountAccessibilityLabel(for amount: Int) -> String {

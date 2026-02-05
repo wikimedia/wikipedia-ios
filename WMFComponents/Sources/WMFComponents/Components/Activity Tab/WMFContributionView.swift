@@ -14,12 +14,47 @@ struct ContributionsView: View {
         max(viewModel.lastMonthCount, viewModel.thisMonthCount)
     }
     
+    var title: String {
+        viewModel.activityViewModel?.localizedStrings.contributionsThisMonth ?? ""
+    }
+    
+    var dateText: String {
+        viewModel.shouldShowEditCTA ? "" : viewModel.dateText
+    }
+    
+    var accessibilityLabel: String {
+        var accessibilityLabel: String = ""
+        
+        if !title.isEmpty {
+            accessibilityLabel.append(title + ", ")
+        }
+        
+        if !dateText.isEmpty {
+            accessibilityLabel.append(dateText + ", ")
+        }
+        
+        if let editsThisMonthText = viewModel.activityViewModel?.localizedStrings.thisMonth,
+           !editsThisMonthText.isEmpty {
+            accessibilityLabel.append(editsThisMonthText + ", ")
+        }
+        
+        accessibilityLabel.append(String(viewModel.thisMonthCount) + ", ")
+        
+        if let editsLastMonthText = viewModel.activityViewModel?.localizedStrings.lastMonth,
+           !editsLastMonthText.isEmpty {
+            accessibilityLabel.append(editsLastMonthText + ", ")
+        }
+        
+        accessibilityLabel.append(String(viewModel.lastMonthCount) + ", ")
+        
+        return accessibilityLabel
+    }
+    
     var body: some View {
         WMFActivityTabInfoCardView(
             icon: WMFIcon.contributionsIcon,
-            title: viewModel.activityViewModel?.localizedStrings.contributionsThisMonth ?? "",
-            dateText: viewModel.shouldShowEditCTA ? "" : viewModel.dateText,
-            additionalAccessibilityLabel: nil,
+            title: title,
+            dateText: dateText,
             onTapModule: viewModel.shouldShowEditCTA ? viewModel.activityViewModel?.makeAnEdit : viewModel.activityViewModel?.navigateToContributions,
             content: {
                 VStack(spacing: 16) {
@@ -89,6 +124,9 @@ struct ContributionsView: View {
                 .frame(maxWidth: .infinity)
             }, showArrowAnyways: true
         )
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityAddTraits(.isButton)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
