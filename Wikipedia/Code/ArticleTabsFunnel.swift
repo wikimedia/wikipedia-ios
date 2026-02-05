@@ -37,7 +37,6 @@ import WMF
         case article = "article"
         case places = "places"
         case saved = "saved"
-//        case history = "history"
         case search = "search"
         case tabSearch = "tab_search"
         case tabsOverflow = "tabs_overflow"
