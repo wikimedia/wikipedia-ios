@@ -29,7 +29,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     @ScaledMetric(relativeTo: .caption) private var iconSize: CGFloat = 12
 
     var body: some View {
-            VStack(spacing: 24) {
+            VStack(spacing: 16) {
                 HStack {
                     if let icon {
                         Image(uiImage: icon)
@@ -45,6 +45,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                         .font(Font(WMFFont.for(.boldCaption1)))
                         .multilineTextAlignment(.leading)
                         .lineLimit(4)
+                        .fixedSize(horizontal: false, vertical: true)
                         .accessibilityAddTraits(.isHeader)
                     Spacer()
                     if let dateText {
