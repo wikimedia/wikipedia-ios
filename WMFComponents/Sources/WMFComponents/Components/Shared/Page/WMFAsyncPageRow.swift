@@ -188,7 +188,7 @@ struct WMFAsyncPageRow: View {
             if let viewsString = viewModel.footerText {
                 Text(viewsString)
                     .foregroundStyle(Color(uiColor: theme.link))
-                    .font(Font(WMFFont.for(.boldCaption1)))
+                    .font(Font(WMFFont.for(.semiboldCaption1)))
                     .padding(.bottom, 0)
             }
         }
