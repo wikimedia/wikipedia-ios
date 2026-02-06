@@ -140,6 +140,12 @@
 "activity-tab-generic-no-edits" = "Você não editou esta semana. Comece agora a acompanhar suas contribuições.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "NA WIKIPÉDIA iOS";
+"activity-tab-impact-edits-label" = "edições";
+"activity-tab-impact-last-edited-label" = "última edição";
+"activity-tab-impact-thanks-label" = "obrigado";
+"activity-tab-impact-total-edits-label" = "total de edições";
+"activity-tab-impact-views-day" = "Dia";
+"activity-tab-impact-views-views" = "Visualizações";
 "activity-tab-log-in-or-create-account" = "Entre ou crie uma conta para ver mais atividades de edição e leitura.";
 "activity-tab-logged-out-subtitle" = "Entre ou crie uma conta para visualizar sua atividade no aplicativo da Wikipédia.";
 "activity-tab-logged-out-title" = "Veja mais habilidades de leitura e de edição";
@@ -1409,6 +1415,7 @@
 "vanish-account-warning-title" = "Aviso";
 "variants-alert-dismiss-button" = "Não, obrigado";
 "variants-alert-preferences-button" = "Revise suas preferências";
+"view-changes" = "ver alterações";
 "watch" = "Vigiar";
 "watchlist" = "Páginas vigiadas";
 "watchlist-added-toast-one-month" = "Adicionado às suas páginas vigiadas durante 1 mês.";

@@ -288,6 +288,25 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        if #available(iOS 26, *) {
+            applySystemGlassNavBarAppearanceIfAvailable()
+        }
+    }
+
+    private func applySystemGlassNavBarAppearanceIfAvailable() {
+        guard let navBar = navigationController?.navigationBar else { return }
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = nil
+        appearance.shadowColor = nil
+
+        navBar.standardAppearance = appearance
+        navBar.scrollEdgeAppearance = appearance
+        navBar.compactAppearance = appearance
+        navBar.compactScrollEdgeAppearance = appearance
+
+        navBar.isTranslucent = true
     }
 
     private func updateScopeBarVisibility() {

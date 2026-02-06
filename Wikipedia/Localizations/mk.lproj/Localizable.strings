@@ -85,6 +85,7 @@
 "activity-tab-add-images-subtitle" = "Додавајте предложени слики во википедиски статии за да ја подобрите претставата за содржината.";
 "activity-tab-add-images-title" = "Додај слики";
 "activity-tab-additional-thoughts" = "Имате други размисли?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 посета|$1 посети}}";
 "activity-tab-articles-read" = "Прочитани статии овој месец";
 "activity-tab-articles-read-graph-label" = "Статии";
 "activity-tab-customize-all-time-impact" = "Севкупно влијание";
@@ -112,6 +113,7 @@
 "activity-tab-logged-out-title" = "Погледајте повеќе сознанија за читање и уредување";
 "activity-tab-logged-out-track-what-youve-read" = "Следете го она што сте го прочитале и гледајте ги вашите придонеси со текот на времето на нов начин";
 "activity-tab-menu-clear-history" = "Исчисти историја на читање";
+"activity-tab-most-viewed" = "Најпосетени од вашето уредување наваму";
 "activity-tab-neutral" = "Воздржан";
 "activity-tab-no-edits-title" = "Немате уредувано неделава. Додавајте слики за статиите да бидат полесни за разбирање.";
 "activity-tab-no-username-reading-title" = "Вашето читање";
@@ -126,6 +128,7 @@
 "activity-tab-onboarding-third-item-subtitle" = "Истражете статистика за зачувани статии и други активности што ве поврзуваат подлабоко со Википедија.";
 "activity-tab-onboarding-third-item-title" = "Повеќе начини на вклучување";
 "activity-tab-read-title" = "Погл. историја на читање";
+"activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Задоволен";
 "activity-tab-saved" = "Зачувани статии овој месец";
 "activity-tab-start-editing" = "Почнете со уредување";
@@ -585,6 +588,7 @@
 "explore-suggested-edits-image-recs-title" = "Додај слика";
 "explore-survey-subtitle" = "Пополнете кратка анкета за тековникот „Истражи“. Вашите мислења ќе ни помогнат да го подобриме во иднина.";
 "explore-survey-title" = "Помогнете ни да го подобриме „Истражи“";
+"explore-wikipedia" = "Истражете ја Википедија";
 "export-user-data-confirmation-message" = "Споделувањето на вашата библиотека на прилози вклучува податоци за вашите Списоци на читање и историја, вашите нагодувања, и содржината на тековникот Истражи. Оваа податочна податотека треба да се споделува само со доверлив примач и да се користи за техничка дијагностика.";
 "export-user-data-confirmation-title" = "Да се сподели библиотеката на прилози?";
 "export-user-data-generic-error" = "Се јави грешка при извозот на вашите податоци. Обидете се подоцна.";
@@ -760,6 +764,8 @@
 "login-join-wikipedia" = "Придружете ѝ се на Википедија.";
 "login-no-account" = "Немате корисничка сметка? $1.";
 "login-title" = "Најавете се со вашата сметка";
+"looking-for-something-new" = "Барате нешто ново за читање?";
+"looks-like-you-havent-made-an-edit" = "Изгледа дека немате направено уредување овој месец. Проширете го слободното знаење уредувајќи на теми што највеќе ви значат.";
 "main-menu-about" = "За прилогот";
 "main-menu-account-login" = "Најава";
 "main-menu-account-logout" = "Одјава";
@@ -774,6 +780,7 @@
 "main-menu-title" = "Повеќе";
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";
 "main-page" = "Главна страница";
+"make-an-edit" = "Направете уредување";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "Во $1 г. доброволците додадоа {{PLURAL:$2|$2 бајт|$2 бајти}} на Википедија на англиски. Збирот на сета нивна заедничка работа е дар за светот кој води до веродостоен и фактографски извор на знаење кој постојано се подобрува. Сите ние имаме знаење за споделување, па затоа [дознајте како да учествувате]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Доброволците направија {{PLURAL:$1|$1 промена|$1 промени}} на преку {{PLURAL:$2|$2 различно јазично издание|$2 различни јазични изданија}} на Википедија. На англиската Википедија беа направени преку $3 промени. Секој час од секој ден доброволците работат на подобрување на Википедија.";
@@ -1602,3 +1609,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Лого W на Википедија";
 "year-in-review-wmf-logo-accessibility-label" = "Лого на Фондацијата Викимедија";
 "yesterday-title" = "Вчера";
+"zero-edits-to-articles" = "0 уредувања на статии во последно време";

@@ -5,7 +5,6 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeExplore,
     WMFUserActivityTypePlaces,
     WMFUserActivityTypeSavedPages,
-    WMFUserActivityTypeHistory,
     WMFUserActivityTypeSearch,
     WMFUserActivityTypeSearchResults,
     WMFUserActivityTypeSettings,

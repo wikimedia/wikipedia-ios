@@ -635,8 +635,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let needsCategories = !isMainPage
         guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: self.dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
             self.needsWatchButton = false
-            self.needsUnwatchFullButton = false
             self.needsUnwatchHalfButton = false
+            self.needsUnwatchFullButton = false
             self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: self.previousArticleTab, nextArticleTab: self.nextArticleTab)
             return
         }
@@ -1015,8 +1015,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         toolbarContainerView.backgroundColor = theme.colors.paperBackground
-        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
-        toolbar.isTranslucent = false
+        if #available(iOS 26.0, *) {
+            // Align article toolbar with Liquid Glass tab bar styling on iOS 26+ (no chrome background or shadow).
+            toolbar.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+            toolbar.backgroundColor = theme.colors.paperBackground
+            toolbar.barTintColor = theme.colors.paperBackground
+            toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
+            toolbar.isTranslucent = false
+        } else {
+            // Preserve the opaque toolbar background for older OS versions to keep contrast.
+            toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+            toolbar.isTranslucent = false
+        }
         
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }

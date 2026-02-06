@@ -119,6 +119,7 @@
 "activity-tab-add-images-subtitle" = "將建議的圖片加到維基百科條目來加強理解。";
 "activity-tab-add-images-title" = "新增圖片";
 "activity-tab-additional-thoughts" = "還有其他想法嗎？";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|1}} 次瀏覽";
 "activity-tab-articles-read" = "本月閱讀的條目";
 "activity-tab-articles-read-graph-label" = "條目";
 "activity-tab-customize-all-time-impact" = "所有時間影響";
@@ -141,11 +142,24 @@
 "activity-tab-generic-no-edits" = "您本週尚未動手編輯，立即開始編輯來追蹤貢獻。";
 "activity-tab-hours-minutes-read" = "$1 時 $2 分";
 "activity-tab-hours-on-wikipedia-ios" = "在維基百科 iOS 版";
+"activity-tab-impact-all-time-title" = "所有時間影響";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1}} 天";
+"activity-tab-impact-best-streak-label" = "最長連續時間";
+"activity-tab-impact-edits-label" = "編輯次數";
+"activity-tab-impact-last-edited-label" = "上一次編輯";
+"activity-tab-impact-recent-activity-title" = "您最近的活動（過去 30 天）";
+"activity-tab-impact-recent-startend-accessibility" = "從 $1 到 $2";
+"activity-tab-impact-thanks-label" = "感謝次數";
+"activity-tab-impact-total-edits-label" = "總編輯次數";
+"activity-tab-impact-views-day" = "天";
+"activity-tab-impact-views-title" = "您編輯過的條目的瀏覽次數";
+"activity-tab-impact-views-views" = "瀏覽次數";
 "activity-tab-log-in-or-create-account" = "登入或建立帳號來查看更多編輯和閱讀活動。";
 "activity-tab-logged-out-subtitle" = "登入或建立帳號來查看您在維基百科應用程式上的活動。";
 "activity-tab-logged-out-title" = "查看更多閱讀和編輯方面的分析";
 "activity-tab-logged-out-track-what-youve-read" = "以全新的方式追蹤您的閱讀紀錄，並查看您隨著時間的貢獻。";
 "activity-tab-menu-clear-history" = "清除閱讀歷史";
+"activity-tab-most-viewed" = "自您編輯以來最多瀏覽次數";
 "activity-tab-neutral" = "中立";
 "activity-tab-no-edits-title" = "您本週尚未動手編輯，請新增圖片以增強對條目的理解。";
 "activity-tab-no-username-reading-title" = "您的閱讀";
@@ -619,6 +633,7 @@
 "explore-suggested-edits-image-recs-title" = "新增圖片";
 "explore-survey-subtitle" = "請填寫一份關於探索摘要的簡短問卷。您的回饋將有助於我們改善往後的應用程式。";
 "explore-survey-title" = "協助我們改進探索功能";
+"explore-wikipedia" = "探索維基百科";
 "export-user-data-confirmation-message" = "分享您的應用程式庫，包括有關您的閱讀清單、歷史紀錄、偏好設定，以及探索提要內容的資料。此資料檔案應僅與受信任的接收者分享，以用於技術診斷目的。";
 "export-user-data-confirmation-title" = "分享應用程式庫？";
 "export-user-data-generic-error" = "匯出資料時發生錯誤。請稍後再試。";
@@ -794,6 +809,8 @@
 "login-join-wikipedia" = "加入維基百科。";
 "login-no-account" = "還沒有帳號？$1";
 "login-title" = "登入您的帳號";
+"looking-for-something-new" = "想要認識一些新東西嗎？";
+"looks-like-you-havent-made-an-edit" = "您本月似乎還沒做過任何編輯。您可以編輯您關心的主題，來擴充可自由取得的知識。";
 "main-menu-about" = "關於維基百科應用程式";
 "main-menu-account-login" = "登入";
 "main-menu-account-logout" = "登出";
@@ -808,6 +825,7 @@
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "維基百科零計劃常見問題";
 "main-page" = "首頁";
+"make-an-edit" = "進行編輯";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "在 $1 年，志工們為英文維基百科添加了多達 {{PLURAL:$2|$2}} 位元組內容。他們共同的努力，為世界帶來了不斷改進、基於事實、可靠的知識資源。我們每一個人，都有可分享的知識，[了解如何參與]（$3）。";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "增加了 {{PLURAL:$1|$1}} 位元組";
 "microsite-yir-english-edits-slide-subtitle-updated" = "志工們對維基百科的 {{PLURAL:$2|$2}} 多種不同語言版本做出了 {{PLURAL:$1|$1}} 次修改。英文維基百科則進行了 {{PLURAL:$3|$3}} 次修改。每一天、每一刻、每一秒，志工們都在努力改進維基百科。";
@@ -1636,3 +1654,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "維基百科 w 標誌";
 "year-in-review-wmf-logo-accessibility-label" = "維基媒體基金會標誌";
 "yesterday-title" = "昨日";
+"zero-edits-to-articles" = "最近對條目做出 0 次編輯";

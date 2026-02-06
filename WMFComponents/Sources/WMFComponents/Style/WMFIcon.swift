@@ -13,10 +13,12 @@ public enum WMFIcon {
     static let media = UIImage(named: "media", in: .module, with: nil)
     static let more = UIImage(named: "more", in: .module, with: nil)
     public static let pencil = UIImage(named: "pencil", in: .module, with: nil)
+    static let editHistory = UIImage(named: "edit-history", in: .module, with: nil)
     static let plus = UIImage(named: "plus", in: .module, with: nil)
     static let plusCircle = UIImage(named: "plus-circle", in: .module, with: nil)
     static let replace = UIImage(named: "replace", in: .module, with: nil)
     static let thank = UIImage(named: "thank", in: .module, with: nil)
+    static let thankFill = UIImage(named: "thank-fill", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
     public static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
     static let bot = UIImage(named: "bot", in: .module, with: nil)
@@ -36,6 +38,8 @@ public enum WMFIcon {
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
     public static let contributionsIcon = (UIImage(named: "user_contributions", in: .module, with: nil))
+    public static let share = UIImage(named: "swipe-action-share", in: .module, with: nil)
+    public static let delete = UIImage(named: "swipe-action-delete", in: .module, with: nil)
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -55,6 +59,7 @@ public enum WMFSFSymbolIcon {
     case square
     case star
     case starFill
+    case starCircleFill
     case person
 	case personFilled
     case starLeadingHalfFilled
@@ -80,6 +85,7 @@ public enum WMFSFSymbolIcon {
     case italic
     case exclamationMarkCircle
     case exclamationMarkCircleFill
+    case exclamationMarkTriangle
     case exclamationMarkTriangleFill
     case textFormatSuperscript
     case textFormatSubscript
@@ -170,6 +176,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "star", withConfiguration: configuration)
         case .starFill:
             image = UIImage(systemName: "star.fill", withConfiguration: configuration)
+        case .starCircleFill:
+            image = UIImage(systemName: "star.circle.fill", withConfiguration: configuration)
         case .person:
             image = UIImage(systemName: "person", withConfiguration: configuration)
         case .personFilled:
@@ -218,6 +226,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)
         case .exclamationMarkCircleFill:
             image = UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: configuration)
+        case .exclamationMarkTriangle:
+            image = UIImage(systemName: "exclamationmark.triangle", withConfiguration: configuration)
         case .exclamationMarkTriangleFill:
             image = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: configuration)
         case .textFormatSuperscript:

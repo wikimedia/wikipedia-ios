@@ -7,6 +7,7 @@ final class ContributionsViewModel: ObservableObject {
     let lastMonthCount: Int
     let lastEdited: Date?
     weak var activityViewModel: WMFActivityTabViewModel?
+    @Published public var shouldShowEditCTA: Bool = false
 
     init(data: WMFUserImpactData, activityViewModel: WMFActivityTabViewModel) {
         self.activityViewModel = activityViewModel
@@ -35,6 +36,12 @@ final class ContributionsViewModel: ObservableObject {
             }
         }
         
+        if thisMonthCount == 0 {
+            shouldShowEditCTA = true
+        } else {
+            shouldShowEditCTA = false
+        }
+        
         self.thisMonthCount = thisMonthCount
         self.lastMonthCount = lastMonthCount
         self.lastEdited = data.lastEditTimestamp
@@ -52,7 +59,7 @@ final class ContributionsViewModel: ObservableObject {
             } else if calendar.isDateInYesterday(lastEdited) {
                 title = activityViewModel.localizedStrings.yesterdayTitle
             } else {
-                title = activityViewModel.formatDate(lastEdited)
+                title = activityViewModel.formatDateTime(lastEdited)
             }
         } else {
             return ""

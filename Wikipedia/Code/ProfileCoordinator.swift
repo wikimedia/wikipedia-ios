@@ -11,7 +11,6 @@ enum ProfileCoordinatorSource: Int {
     case article
     case places
     case saved
-    case history
     case search
     case activity
 }
@@ -325,8 +324,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             DonateFunnel.shared.logPlacesProfileDonate(metricsID: metricsID)
         case .saved:
             DonateFunnel.shared.logSavedProfileDonate(metricsID: metricsID)
-        case .history:
-            DonateFunnel.shared.logHistoryProfileDonate(metricsID: metricsID)
         case .search:
             DonateFunnel.shared.logSearchProfileDonate(metricsID: metricsID)
         case .activity:

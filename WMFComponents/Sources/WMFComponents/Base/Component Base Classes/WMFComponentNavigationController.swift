@@ -75,43 +75,35 @@ open class WMFComponentNavigationController: UINavigationController {
     }
     
     private var customLargeTitleFont: UIFont?
-    public func setBarAppearance(customLargeTitleFont: UIFont? = nil) {
-        
-        if let customLargeTitleFont {
-            self.customLargeTitleFont = customLargeTitleFont
-        } else {
-            self.customLargeTitleFont = nil
-        }
-        
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithOpaqueBackground()
-        
-        if let customBarBackgroundColor {
-            barAppearance.backgroundColor = customBarBackgroundColor
-            let backgroundImage = UIImage.roundedRectImage(with: customBarBackgroundColor, cornerRadius: 1)
-            barAppearance.backgroundImage = backgroundImage
-        } else if modalPresentationStyle == .pageSheet {
-            barAppearance.backgroundColor = theme.midBackground
-            let backgroundImage = UIImage.roundedRectImage(with: theme.midBackground, cornerRadius: 1)
-            barAppearance.backgroundImage = backgroundImage
-        } else {
-            barAppearance.backgroundColor = theme.paperBackground
-            let backgroundImage = UIImage.roundedRectImage(with: theme.paperBackground, cornerRadius: 1)
-            barAppearance.backgroundImage = backgroundImage
-        }
-        
-        barAppearance.shadowImage = UIImage()
-        barAppearance.shadowColor = .clear
-        
-        let largeTitleFont = self.customLargeTitleFont ?? WMFFont.navigationBarLeadingLargeTitleFont
-        barAppearance.largeTitleTextAttributes = [.font: largeTitleFont]
-        
-        navigationBar.tintColor = theme.navigationBarTintColor
-        navigationBar.standardAppearance = barAppearance
-        navigationBar.scrollEdgeAppearance = barAppearance
-        navigationBar.compactAppearance = barAppearance
+
+    func setBarAppearance(customLargeTitleFont: UIFont?) {
+        applySystemGlassAppearance(customLargeTitleFont: customLargeTitleFont)
     }
-    
+
+    private func applySystemGlassAppearance(customLargeTitleFont: UIFont?) {
+        let appearance = UINavigationBarAppearance()
+
+        appearance.configureWithDefaultBackground()
+        appearance.shadowColor = nil
+
+
+        let largeTitleFont = self.customLargeTitleFont ?? WMFFont.navigationBarLeadingLargeTitleFont
+
+        if let customLargeTitleFont {
+            appearance.largeTitleTextAttributes = [.font: customLargeTitleFont]
+        } else {
+            appearance.largeTitleTextAttributes = [.font: largeTitleFont]
+        }
+
+        navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
+        navigationBar.compactAppearance = appearance
+
+        if #available(iOS 18.0, *) {
+            navigationBar.compactScrollEdgeAppearance = appearance
+        }
+    }
+
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return theme.preferredStatusBarStyle
     }
