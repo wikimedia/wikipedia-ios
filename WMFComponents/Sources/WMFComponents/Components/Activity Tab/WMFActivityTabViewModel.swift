@@ -375,12 +375,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             articlesReadViewModel.minutesRead
         )
     }
-    
-    public func closeLoginPrompt() {
-        Task {
-            await dismissLoginPrompt()
-        }
-    }
 
     // MARK: - Helpers
     public var pushToContributions: (() -> Void)?
@@ -420,18 +414,5 @@ public final class WMFActivityTabViewModel: ObservableObject {
     func updateShouldShowLoginPrompt() async {
         let shouldShow = await dataController.shouldShowLoginPrompt(for: authenticationState)
         shouldShowLogInPrompt = shouldShow
-    }
-
-    func dismissLoginPrompt() async {
-        shouldShowLogInPrompt = false
-        
-        switch authenticationState {
-        case .loggedOut:
-            await dataController.setLoggedOutUserHasDismissedActivityTabLogInPrompt(true)
-        case .temp:
-            await dataController.setTempAccountUserHasDismissedActivityTabLogInPrompt(true)
-        case .loggedIn:
-            break
-        }
     }
 }

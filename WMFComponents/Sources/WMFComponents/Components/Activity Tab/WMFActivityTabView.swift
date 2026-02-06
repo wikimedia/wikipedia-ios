@@ -214,7 +214,6 @@ public struct WMFActivityTabView: View {
                     }
                     .listRowSeparator(.hidden)
                 }
-                timelineSectionsList()
             }
             .scrollContentBackground(.hidden)
             .listStyle(.grouped)
@@ -228,7 +227,7 @@ public struct WMFActivityTabView: View {
         let formattedAmount = amountAccessibilityLabel(for: amount)
         
         return WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
+            icon: WMFSFSymbolIcon.for(symbol: .globeAmericas),
             title: viewModel.localizedStrings.totalEditsAcrossProjects,
             dateText: nil,
             additionalAccessibilityLabel: formattedAmount,
@@ -278,10 +277,6 @@ public struct WMFActivityTabView: View {
                     .font(Font(WMFFont.for(.semiboldHeadline)))
                     .foregroundColor(Color(uiColor: theme.text))
                 Spacer()
-                WMFCloseButton(action: {
-                   viewModel.closeLoginPrompt()
-                })
-                .buttonStyle(BorderlessButtonStyle())
             }
             Text(viewModel.localizedStrings.loggedOutSubtitle)
                 .font(Font(WMFFont.for(.callout)))
@@ -351,7 +346,7 @@ public struct WMFActivityTabView: View {
         let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
 
         return WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
+            icon: WMFSFSymbolIcon.for(symbol: .bookPages),
             title: viewModel.localizedStrings.totalArticlesRead,
             dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
             additionalAccessibilityLabel: formattedAmount,
@@ -382,7 +377,7 @@ public struct WMFActivityTabView: View {
         let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
 
         return WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
+            icon: WMFSFSymbolIcon.for(symbol: .bookmark),
             title: viewModel.localizedStrings.articlesSavedTitle,
             dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
             additionalAccessibilityLabel: formattedAmount,

@@ -149,17 +149,17 @@ struct WMFAsyncPageRow: View {
             Text(viewModel.title)
                 .font(WMFSwiftUIFont.font(.callout))
                 .foregroundColor(Color(theme.text))
-                .lineLimit(1)
+                .lineLimit(nil)
             if let description = viewModel.articleDescription {
                 Text(description)
                     .font(WMFSwiftUIFont.font(.subheadline))
                     .foregroundColor(Color(theme.secondaryText))
-                    .lineLimit(1)
+                    .lineLimit(nil)
             }
             if let viewsString = viewModel.viewsString {
                 Text(viewsString)
                     .foregroundStyle(Color(uiColor: theme.link))
-                    .font(WMFSwiftUIFont.font(.caption1))
+                    .font(Font(WMFFont.for(.boldCaption1)))
                     .padding(.bottom, 0)
             }
         }

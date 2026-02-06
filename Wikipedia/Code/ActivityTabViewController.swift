@@ -299,8 +299,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let secondItemTitle = WMFLocalizedString("activity-tab-onboarding-second-item-title", value: "Impact highlights", comment: "Title for activity tabs second item")
     private let secondItemSubtitle = WMFLocalizedString("activity-tab-onboarding-second-item-subtitle", value: "Discover insights about your contributions and the reach of the knowledge you've shared.", comment: "Activity tabs second item subtitle")
 
-    private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title", value: "More ways to engage", comment: "Title for activity tabs third item")
-    private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle", value: "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.", comment: "Activity tabs third item subtitle")
+    private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title-updated", value: "Reading history is now in Search", comment: "Title for activity tabs third item")
+    private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle-updated", value: "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.", comment: "Activity tabs third item subtitle")
 
     private let fourthItemTitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-title", value: "Stay in control", comment: "Title for activity tabs fourth item")
     private let fourthItemSubtitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-subtitle", value: "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.", comment: "Activity tabs fourth item subtitle")

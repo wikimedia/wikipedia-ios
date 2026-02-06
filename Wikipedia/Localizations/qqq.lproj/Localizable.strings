@@ -123,8 +123,8 @@
 "activity-tab-onboarding-second-button-title" = "Activity tabs secondary button to learn more";
 "activity-tab-onboarding-second-item-subtitle" = "Activity tabs second item subtitle";
 "activity-tab-onboarding-second-item-title" = "Title for activity tabs second item";
-"activity-tab-onboarding-third-item-subtitle" = "Activity tabs third item subtitle";
-"activity-tab-onboarding-third-item-title" = "Title for activity tabs third item";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Activity tabs third item subtitle";
+"activity-tab-onboarding-third-item-title-updated" = "Title for activity tabs third item";
 "activity-tab-read-title" = "Title for the reading history activity tab";
 "activity-tab-remaining-articles" = "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3.";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
@@ -637,12 +637,10 @@
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
 "gan-variants-alert-body" = "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).";
 "gan-variants-alert-title" = "Title of alert used to inform users about Gan variant support.";
-"history-clear-all" = "Text of the button shown at the top of history which deletes all history {{Identical|Clear}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "history-clear-delete-all" = "Button text for confirming delete all action";
 "history-title" = "Title of the history screen shown on history tab {{Identical|History}}";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
-"home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";

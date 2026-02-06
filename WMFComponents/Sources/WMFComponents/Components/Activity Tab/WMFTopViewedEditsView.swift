@@ -42,7 +42,7 @@ public struct TopViewedEditsView: View {
                         )
                     )
                 }
-            }, shiftFirstIcon: true
+            }
         )
         .frame(maxWidth: .infinity, alignment: .leading)
     }
