@@ -169,6 +169,7 @@ public struct WMFActivityTabView: View {
             Text(viewModel.localizedStrings.lookingForSomethingNew)
                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                 .foregroundStyle(Color(uiColor: theme.text))
+                .multilineTextAlignment(.center)
             WMFSmallButton(configuration: .init(style: .primary), title: viewModel.localizedStrings.exploreWikipedia, action: {
                 // This is purposefully left empty because the whole container has an on tap
             })
@@ -439,28 +440,26 @@ public struct WMFActivityTabView: View {
     }
 
     private func articlesReadGraph(weeklyReads: [Int]) -> some View {
-        Chart {
+        let maxReads = weeklyReads.max() ?? 1
+        let chartHeight: CGFloat = 45
+        let minBarHeight: CGFloat = 4
+        
+        return HStack(alignment: .bottom, spacing: 6) {
             ForEach(weeklyReads.indices, id: \.self) { index in
-                BarMark(
-                    x: .value(viewModel.localizedStrings.week, index),
-                    y: .value(viewModel.localizedStrings.articlesRead, weeklyReads[index] + 1),
-                    width: 12
-                )
-                .foregroundStyle(
-                    weeklyReads[index] > 0
-                    ? Color(uiColor: theme.accent)
-                    : Color(uiColor: theme.newBorder)
-                )
-                .cornerRadius(1.5)
-                .accessibilityLabel("\(viewModel.localizedStrings.week) \(index + 1)")
-                .accessibilityValue("\(weeklyReads[index]) \(viewModel.localizedStrings.articlesRead)")
+                let percentage = maxReads > 0 ? CGFloat(weeklyReads[index]) / CGFloat(maxReads) : 0
+                let barHeight = weeklyReads[index] > 0 ? chartHeight * percentage : minBarHeight
+                
+                RoundedRectangle(cornerRadius: 1.5)
+                    .fill(weeklyReads[index] > 0
+                        ? Color(uiColor: theme.accent)
+                        : Color(uiColor: theme.newBorder))
+                    .frame(width: 12, height: barHeight)
+                    .accessibilityLabel("\(viewModel.localizedStrings.week) \(index + 1)")
+                    .accessibilityValue("\(weeklyReads[index]) \(viewModel.localizedStrings.articlesRead)")
             }
         }
         .accessibilityElement(children: .contain)
-        .frame(maxWidth: 54, maxHeight: 45)
-        .chartXAxis(.hidden)
-        .chartYAxis(.hidden)
-        .chartPlotStyle { $0.background(.clear) }
+        .frame(maxWidth: 54, maxHeight: chartHeight)
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {

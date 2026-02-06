@@ -36,7 +36,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
 
     var body: some View {
         Button(action: { onTapModule?() }) {
-            VStack(spacing: 24) {
+            VStack(spacing: 16) {
                 HStack {
                     if let icon {
                         Image(uiImage: icon)

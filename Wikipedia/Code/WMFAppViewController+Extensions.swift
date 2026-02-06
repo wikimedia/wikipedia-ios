@@ -959,7 +959,7 @@ extension WMFAppViewController {
                     exploreWikipedia: WMFLocalizedString("explore-wikipedia", value: "Explore Wikipedia", comment: "Button title to explore Wikipedia"),
                     zeroEditsToArticles: WMFLocalizedString("zero-edits-to-articles", value: "0 edits to articles recently", comment: "Message showing zero recent edits"),
                     looksLikeYouHaventMadeAnEdit: WMFLocalizedString("looks-like-you-havent-made-an-edit", value: "Looks like you haven't made an edit this month. Extend free knowledge by editing topics that matter most to you.", comment: "Message encouraging user to make their first edit"),
-                    makeAnEdit: WMFLocalizedString("make-an-edit", value: "Make an edit", comment: "Button title to make an edit"),
+                    makeAnEdit: WMFLocalizedString("learn-about-editing", value: "Learn about editing", comment: "Button title to learn about editing"),
                     viewsString: viewsString(views:),
                     mostViewed: WMFLocalizedString("activity-tab-most-viewed", value: "Most viewed since your edit", comment: "Title for section for most viewed articles since an edit"),
                     allTimeImpactTitle: allTimeImpactTitle,
