@@ -45,6 +45,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                         .font(Font(WMFFont.for(.boldCaption1)))
                         .multilineTextAlignment(.leading)
                         .lineLimit(4)
+                        .fixedSize(horizontal: false, vertical: true)
                         .accessibilityAddTraits(.isHeader)
                     Spacer()
                     if let dateText {
