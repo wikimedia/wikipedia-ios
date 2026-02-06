@@ -137,41 +137,6 @@ public actor WMFActivityTabDataController {
         
         return Array(weeklyCounts.reversed())
     }
-
-    public func shouldShowLoginPrompt(for state: LoginState) -> Bool {
-        switch state {
-        case .loggedIn:
-            return false
-        case .temp:
-            return !tempAccountUserHasDismissedActivityTabLogInPrompt
-        case .loggedOut:
-            return !loggedOutUserHasDismissedActivityTabLogInPrompt
-        }
-    }
-    
-    public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue, value: newValue)
-        }
-    }
-    
-    public var tempAccountUserHasDismissedActivityTabLogInPrompt: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue, value: newValue)
-        }
-    }
-    
-    public func setLoggedOutUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
-        loggedOutUserHasDismissedActivityTabLogInPrompt = value
-    }
-
-    public func setTempAccountUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
-        tempAccountUserHasDismissedActivityTabLogInPrompt = value
-    }
     
     public var hasSeenActivityTab: Bool {
         get {

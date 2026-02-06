@@ -188,14 +188,14 @@ public struct WMFActivityTabView: View {
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
         if viewModel.sections.count == 0 {
             VStack {
-                if viewModel.shouldShowLogInPrompt {
-                    Section {
-                        loggedOutView
-                            .accessibilityElement(children: .contain)
-                            .listRowInsets(EdgeInsets())
-                    }
-                    .listRowSeparator(.hidden)
+                
+                Section {
+                    loggedOutView
+                        .accessibilityElement(children: .contain)
+                        .listRowInsets(EdgeInsets())
                 }
+                .listRowSeparator(.hidden)
+                
                 HStack {
                     Spacer()
                     WMFEmptyView(
@@ -211,14 +211,12 @@ public struct WMFActivityTabView: View {
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         } else {
             List {
-                if viewModel.shouldShowLogInPrompt {
-                    Section {
-                        loggedOutView
-                            .accessibilityElement(children: .contain)
-                            .listRowInsets(EdgeInsets())
-                    }
-                    .listRowSeparator(.hidden)
+                Section {
+                    loggedOutView
+                        .accessibilityElement(children: .contain)
+                        .listRowInsets(EdgeInsets())
                 }
+                .listRowSeparator(.hidden)
             }
             .scrollContentBackground(.hidden)
             .listStyle(.grouped)

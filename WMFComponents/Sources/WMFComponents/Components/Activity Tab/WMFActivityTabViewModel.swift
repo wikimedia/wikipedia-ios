@@ -163,7 +163,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var timelineViewModel: TimelineViewModel
     @Published public var emptyViewModel: WMFEmptyViewModel
     @Published public var customizeViewModel: WMFActivityTabCustomizeViewModel
-    @Published public var shouldShowLogInPrompt: Bool = false
     @Published var sections: [TimelineViewModel.TimelineSection] = [] {
         didSet {
             recomputeShouldShowEmptyState()
@@ -239,10 +238,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
                     .store(in: &cancellables)
         
         self.timelineViewModel.activityTabViewModel = self
-        
-        Task {
-            await self.updateShouldShowLoginPrompt()
-        }
     }
 
     // MARK: - Loading
@@ -372,10 +367,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
         self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
         self.customizeViewModel.isLoggedIn = authState == .loggedIn
         
-        Task {
-            await self.updateShouldShowLoginPrompt()
-        }
-        
         if self.authenticationState != .loggedIn {
             updateUsername(username: nil)
             timelineViewModel.setUser(username: nil)
@@ -453,10 +444,5 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     func formatDate(_ dateTime: Date) -> String {
         DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
-    }
-    
-    func updateShouldShowLoginPrompt() async {
-        let shouldShow = await dataController.shouldShowLoginPrompt(for: authenticationState)
-        shouldShowLogInPrompt = shouldShow
     }
 }
