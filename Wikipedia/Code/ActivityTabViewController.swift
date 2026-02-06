@@ -35,9 +35,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
-        addComponent(hostingController, pinToEdges: true, respectSafeArea: false)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
+        addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
-        updateLoginState()
+        setupLoginState(needsRefetch: false)
         
         viewModel.openCustomize = userDidTapCustomize
         viewModel.pushToContributions = pushToContributions
@@ -125,9 +126,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         reachabilityNotifier.stop()
     }
-
-    @objc private func updateLoginState() {
-        
+    
+    private func setupLoginState(needsRefetch: Bool) {
         var userID: Int?
 
         if let siteURL = dataStore?.languageLinkController.appLanguage?.siteURL,
@@ -135,20 +135,31 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             userID = permanentUser.userID
         }
         
+        let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode
+        
         viewModel.updateID(userID: userID)
+        viewModel.updateYourImpactOnWikipediaSubtitle(CommonStrings.onLangWikipedia(with: primaryAppLanguageCode))
         viewModel.getURL = getURL
         
-        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
-            viewModel.updateAuthenticationState(authState: .loggedIn)
-        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
-            viewModel.updateAuthenticationState(authState: .temp)
-        } else {
-            viewModel.updateAuthenticationState(authState: .loggedOut)
-        }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
+        } else {
+            viewModel.updateUsername(username: nil)
+            viewModel.timelineViewModel.setUser(username: nil)
         }
+        
+        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
+            viewModel.updateAuthenticationState(authState: .loggedIn, needsRefetch: needsRefetch)
+        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
+            viewModel.updateAuthenticationState(authState: .temp, needsRefetch: needsRefetch)
+        } else {
+            viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
+        }
+    }
+
+    @objc private func updateLoginState() {
+        setupLoginState(needsRefetch: true)
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false) {
@@ -234,6 +245,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
+        } else {
+            viewModel.updateUsername(username: nil)
+            viewModel.timelineViewModel.setUser(username: nil)
         }
 
         viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
@@ -299,8 +313,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let secondItemTitle = WMFLocalizedString("activity-tab-onboarding-second-item-title", value: "Impact highlights", comment: "Title for activity tabs second item")
     private let secondItemSubtitle = WMFLocalizedString("activity-tab-onboarding-second-item-subtitle", value: "Discover insights about your contributions and the reach of the knowledge you've shared.", comment: "Activity tabs second item subtitle")
 
-    private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title", value: "More ways to engage", comment: "Title for activity tabs third item")
-    private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle", value: "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.", comment: "Activity tabs third item subtitle")
+    private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title-updated", value: "Reading history is now in Search", comment: "Title for activity tabs third item")
+    private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle-updated", value: "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.", comment: "Activity tabs third item subtitle")
 
     private let fourthItemTitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-title", value: "Stay in control", comment: "Title for activity tabs fourth item")
     private let fourthItemSubtitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-subtitle", value: "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.", comment: "Activity tabs fourth item subtitle")

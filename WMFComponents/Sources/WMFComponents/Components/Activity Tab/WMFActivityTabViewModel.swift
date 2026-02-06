@@ -153,6 +153,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var authenticationState: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
+    
+    var yourImpactOnWikipediaSubtitle: String?
     @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
     @Published var contributionsViewModel: ContributionsViewModel?
     @Published var allTimeImpactViewModel: AllTimeImpactViewModel?
@@ -310,7 +312,13 @@ public final class WMFActivityTabViewModel: ObservableObject {
         do {
             let data = try await dataController.getUserImpactData(userID: userID)
             if let getURL = getURL {
-                self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
+                // Only recreate if data has actually changed
+                if let existing = self.mostViewedArticlesViewModel,
+                   existing.hasSameArticles(as: data) {
+                    // Keep existing view model
+                } else {
+                    self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
+                }
             }
             self.contributionsViewModel = ContributionsViewModel(data: data, activityViewModel: self)
             self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data, activityViewModel: self)
@@ -326,15 +334,20 @@ public final class WMFActivityTabViewModel: ObservableObject {
         }
     }
 
-    public func updateUsername(username: String) {
-        articlesReadViewModel.username = username
-        articlesReadViewModel.usernamesReading = username.isEmpty
+    public func updateUsername(username: String?) {
+        let resolvedUsername = username ?? ""
+        articlesReadViewModel.username = resolvedUsername
+        articlesReadViewModel.usernamesReading = resolvedUsername.isEmpty
             ? localizedStrings.noUsernameReading
-            : localizedStrings.userNamesReading(username)
+            : localizedStrings.userNamesReading(resolvedUsername)
     }
 
     public func updateID(userID: Int?) {
         self.userID = userID
+    }
+    
+    public func updateYourImpactOnWikipediaSubtitle(_ subtitle: String?) {
+        self.yourImpactOnWikipediaSubtitle = subtitle
     }
 
     private static func generateEmptyViewModel(localizedStrings: LocalizedStrings, isLoggedIn: Bool) -> WMFEmptyViewModel {
@@ -352,21 +365,52 @@ public final class WMFActivityTabViewModel: ObservableObject {
             numberOfFilters: 0)
     }
     
-    public func updateAuthenticationState(authState: LoginState) {
-        if self.authenticationState != authState {
-            isFirstTimeLoading = true
-        }
+    public func updateAuthenticationState(authState: LoginState, needsRefetch: Bool) {
+        isLoading = true
         
         self.authenticationState = authState
+        self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
+        self.customizeViewModel.isLoggedIn = authState == .loggedIn
+        
         Task {
             await self.updateShouldShowLoginPrompt()
         }
-        self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
+        
         if self.authenticationState != .loggedIn {
+            updateUsername(username: nil)
+            timelineViewModel.setUser(username: nil)
             globalEditCount = nil
+            mostViewedArticlesViewModel = nil
+            contributionsViewModel = nil
+            allTimeImpactViewModel = nil
+            recentActivityViewModel = nil
+            articleViewsViewModel = nil
+            Task {
+                await timelineViewModel.fetch()
+                recomputeShouldShowEmptyState()
+                isLoading = false
+            }
+        } else if needsRefetch {
+            // re-fetch anything that might change based on login state
+            Task {
+                
+                // first reset things
+                globalEditCount = nil
+                mostViewedArticlesViewModel = nil
+                contributionsViewModel = nil
+                allTimeImpactViewModel = nil
+                recentActivityViewModel = nil
+                articleViewsViewModel = nil
+                
+                await timelineViewModel.fetch()
+                await getGlobalEditCount()
+                await fetchUserImpact()
+                recomputeShouldShowEmptyState()
+                isLoading = false
+            }
+        } else {
+            isLoading = false
         }
-        self.customizeViewModel.isLoggedIn = authState == .loggedIn
-        recomputeShouldShowEmptyState()
     }
 
     public var hoursMinutesRead: String {
@@ -374,12 +418,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             articlesReadViewModel.hoursRead,
             articlesReadViewModel.minutesRead
         )
-    }
-    
-    public func closeLoginPrompt() {
-        Task {
-            await dismissLoginPrompt()
-        }
     }
 
     // MARK: - Helpers
@@ -420,18 +458,5 @@ public final class WMFActivityTabViewModel: ObservableObject {
     func updateShouldShowLoginPrompt() async {
         let shouldShow = await dataController.shouldShowLoginPrompt(for: authenticationState)
         shouldShowLogInPrompt = shouldShow
-    }
-
-    func dismissLoginPrompt() async {
-        shouldShowLogInPrompt = false
-        
-        switch authenticationState {
-        case .loggedOut:
-            await dataController.setLoggedOutUserHasDismissedActivityTabLogInPrompt(true)
-        case .temp:
-            await dataController.setTempAccountUserHasDismissedActivityTabLogInPrompt(true)
-        case .loggedIn:
-            break
-        }
     }
 }

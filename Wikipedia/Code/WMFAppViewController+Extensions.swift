@@ -118,24 +118,6 @@ extension WMFAppViewController {
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
-    
-    @objc func getAssignmentForActivityTab() -> WMFActivityTabExperimentAssignment {
-        let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
-        
-        let groupName: String?
-        switch assignment {
-        case .control: groupName = "ios_activity_a"
-        case .activityTab: groupName = "ios_activity_b"
-        case .unknown: groupName = nil
-        }
-        
-        // A nil group name probably indicates the user fresh installed past the experiment end date
-        if let groupName {
-            ActivityTabFunnel.shared.logGroupAssignment(group: groupName)
-        }
-        
-        return assignment
-    }
 }
 
 // MARK: - Notifications
@@ -704,72 +686,6 @@ extension WMFAppViewController {
         return WMFAppEnvironment.current.traitCollection.hasDifferentColorAppearance(comparedTo: traitCollection)
     }
 
-    @objc func generateHistoryTab() -> WMFHistoryViewController {
-
-        // data controller properties
-        let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
-
-            guard let self else {
-                return []
-            }
-
-            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            request.predicate = NSPredicate(format: "viewedDate != NULL")
-            request.sortDescriptors = [
-                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
-                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
-            ]
-            request.fetchLimit = 1000
-
-            do {
-                var articles: [HistoryRecord] = []
-                let articleFetchRequest = try dataStore.viewContext.fetch(request)
-                
-                let thumbnailImageWidth = ImageUtils.listThumbnailWidth()
-
-                for article in articleFetchRequest {
-                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
-
-                        let record = HistoryRecord(
-                            id: Int(truncating: pageID),
-                            title: article.displayTitle ?? article.displayTitleHTML,
-                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
-                            shortDescription: article.snippet,
-                            articleURL: article.url,
-                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
-                            viewedDate: viewedDate,
-                            isSaved: article.isSaved,
-                            snippet: article.snippet,
-                            variant: article.variant
-                        )
-                        articles.append(record)
-                    }
-                }
-
-                return articles
-
-            } catch {
-                DDLogError("Error fetching history: \(error)")
-                return []
-            }
-        }
-
-        let historyDataController = WMFHistoryDataController(
-            recordsProvider: recordsProvider
-        )
-
-        // view model properties
-
-        let todayTitle = CommonStrings.todayTitle
-
-        let yesterdayTitle = CommonStrings.yesterdayTitle
-
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: CommonStrings.articleTabsOpen, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
-        let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
-
-        let viewController = WMFHistoryViewController(viewModel: viewModel, dataController: historyDataController, theme: theme, dataStore: dataStore)
-        return viewController
-    }
 }
 
 // MARK: - Tabs
@@ -1108,10 +1024,8 @@ extension WMFAppViewController {
         var action: ActivityTabFunnel.Action? = nil
         if newVC is WMFActivityTabViewController {
             action = .activityNavClick
-        } else if newVC is WMFHistoryViewController {
-            action = .historyNavClick
         }
-        
+
         guard let action else { return }
         
         if currentVC is ExploreViewController {
@@ -1120,8 +1034,6 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
         } else if currentVC is SavedViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
-        } else if currentVC is WMFHistoryViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab, action: action)
         } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
         } else if currentVC is SearchViewController {
