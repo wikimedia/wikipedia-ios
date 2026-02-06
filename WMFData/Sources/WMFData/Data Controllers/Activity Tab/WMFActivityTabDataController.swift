@@ -3,6 +3,7 @@ import Foundation
 public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    public var historyDataController: WMFHistoryDataController? = nil
 
     public init() {}
     
@@ -447,8 +448,14 @@ public actor WMFActivityTabDataController {
             namespaceID: Int16(item.namespaceID),
             project: project
         )
+
+        historyDataController?.deleteHistoryItem(timelineToHistoryItem(item))
     }
-    
+
+    private func timelineToHistoryItem(_ timelineItem: TimelineItem) -> HistoryItem {
+        return HistoryItem(id: timelineItem.id, url: timelineItem.url, titleHtml: timelineItem.titleHtml, description: timelineItem.description, shortDescription: timelineItem.snippet, imageURLString: timelineItem.imageURLString, isSaved: false, snippet: nil, variant: nil)
+    }
+
     public func fetchSummary(for pageTitle: String, projectID: String) async throws -> WMFArticleSummary? {
         let articleSummaryController = WMFArticleSummaryDataController.shared
         guard let project = WMFProject(id: projectID) else { return nil }
