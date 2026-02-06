@@ -1,7 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "NSUserActivity+WMFExtensions.h"
 
-
 @interface NSUserActivity_WMFExtensions_wmf_activityForWikipediaScheme_Test : XCTestCase
 @end
 
@@ -32,12 +31,6 @@
     XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeExplore);
 }
 
-- (void)testHistoryURL {
-    NSURL *url = [NSURL URLWithString:@"wikipedia://history"];
-    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
-    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeHistory);
-}
-
 - (void)testSavedURL {
     NSURL *url = [NSURL URLWithString:@"wikipedia://saved"];
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
@@ -53,4 +46,3 @@
 }
 
 @end
-

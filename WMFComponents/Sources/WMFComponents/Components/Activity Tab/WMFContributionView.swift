@@ -54,7 +54,7 @@ struct ContributionsView: View {
                             Text(String(viewModel.thisMonthCount))
                                 .font(Font(WMFFont.for(.boldTitle1)))
                                 .foregroundStyle(Color(uiColor: theme.text))
-                            if let thisMonthCount = viewModel.activityViewModel?.localizedStrings.contributionsThisMonth {
+                            if let thisMonthCount = viewModel.activityViewModel?.localizedStrings.thisMonth {
                                 Text(thisMonthCount)
                                     .font(Font(WMFFont.for(.boldCaption1)))
                                     .foregroundStyle(Color(uiColor: theme.secondaryText))
@@ -73,7 +73,7 @@ struct ContributionsView: View {
                             Text(String(viewModel.lastMonthCount))
                                 .font(Font(WMFFont.for(.boldTitle1)))
                                 .foregroundStyle(Color(uiColor: theme.text))
-                            if let lastMonthCount = viewModel.activityViewModel?.localizedStrings.contributionsThisMonth {
+                            if let lastMonthCount = viewModel.activityViewModel?.localizedStrings.lastMonth {
                                 Text(lastMonthCount)
                                     .font(Font(WMFFont.for(.boldCaption1)))
                                     .foregroundStyle(Color(uiColor: theme.secondaryText))
@@ -137,6 +137,7 @@ private struct ContributionBar: View {
             Rectangle()
                 .fill(Color(uiColor: color))
                 .frame(width: geometry.size.width * ratio)
+                .clipShape(RoundedRectangle(cornerRadius: 3))
         }
         .frame(height: 20)
         .clipShape(RoundedRectangle(cornerRadius: 3))

@@ -7,7 +7,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     private let onTapModule: (() -> Void)?
     private let content: () -> Content
     private let showArrowAnyways: Bool
-    private let shiftFirstIcon: Bool
 
     init(
         icon: UIImage?,
@@ -15,8 +14,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
         dateText: String?,
         onTapModule: (() -> Void)?,
         @ViewBuilder content: @escaping () -> Content = { EmptyView()},
-        showArrowAnyways: Bool = false,
-        shiftFirstIcon: Bool = false
+        showArrowAnyways: Bool = false
     ) {
         self.icon = icon
         self.title = title
@@ -24,7 +22,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
         self.content = content
         self.onTapModule = onTapModule
         self.showArrowAnyways = showArrowAnyways
-        self.shiftFirstIcon = shiftFirstIcon
     }
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -40,7 +37,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                             .renderingMode(.template)
                             .scaledToFit()
                             .frame(width: iconSize, height: iconSize)
-                            .padding(.leading, shiftFirstIcon ? 8 : 0)
+                            .padding(.leading, 0)
                             .accessibilityHidden(true)
                     }
                     Text(title)

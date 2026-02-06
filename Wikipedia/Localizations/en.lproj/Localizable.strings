@@ -123,8 +123,8 @@
 "activity-tab-onboarding-second-button-title" = "Learn more about Activity";
 "activity-tab-onboarding-second-item-subtitle" = "Discover insights about your contributions and the reach of the knowledge you've shared.";
 "activity-tab-onboarding-second-item-title" = "Impact highlights";
-"activity-tab-onboarding-third-item-subtitle" = "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.";
-"activity-tab-onboarding-third-item-title" = "More ways to engage";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.";
+"activity-tab-onboarding-third-item-title-updated" = "Reading history is now in Search";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Satisfied";
@@ -637,12 +637,10 @@
 "forgot-password-username-or-email-title" = "Or";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Updates to Gan variant support";
-"history-clear-all" = "Clear";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-delete-all" = "Yes, delete all";
 "history-title" = "History";
 "home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
-"home-button-history-accessibility-label" = "Wikipedia, return to History";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More places near your location";
