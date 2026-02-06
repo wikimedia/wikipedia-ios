@@ -39,4 +39,19 @@ public final class MostViewedArticlesViewModel: ObservableObject {
     ) -> URL? {
         getURL(article, project)
     }
+    
+    func hasSameArticles(as data: WMFUserImpactData) -> Bool {
+        let incomingTopThree = data.topViewedArticles
+            .sorted { $0.viewsCount > $1.viewsCount }
+            .prefix(3)
+        
+        guard incomingTopThree.count == topViewedArticles.count else {
+            return false
+        }
+        
+        let existingIds = topViewedArticles.map { $0.id }
+        let incomingIds = incomingTopThree.map { $0.id }
+        
+        return existingIds == incomingIds
+    }
 }

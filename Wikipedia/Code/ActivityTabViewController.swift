@@ -35,9 +35,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
-        updateLoginState()
+        setupLoginState(needsRefetch: false)
         
         viewModel.openCustomize = userDidTapCustomize
         viewModel.pushToContributions = pushToContributions
@@ -125,9 +126,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         reachabilityNotifier.stop()
     }
-
-    @objc private func updateLoginState() {
-        
+    
+    private func setupLoginState(needsRefetch: Bool) {
         var userID: Int?
 
         if let siteURL = dataStore?.languageLinkController.appLanguage?.siteURL,
@@ -135,20 +135,31 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             userID = permanentUser.userID
         }
         
+        let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode
+        
         viewModel.updateID(userID: userID)
+        viewModel.updateYourImpactOnWikipediaSubtitle(CommonStrings.onLangWikipedia(with: primaryAppLanguageCode))
         viewModel.getURL = getURL
         
-        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
-            viewModel.updateAuthenticationState(authState: .loggedIn)
-        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
-            viewModel.updateAuthenticationState(authState: .temp)
-        } else {
-            viewModel.updateAuthenticationState(authState: .loggedOut)
-        }
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
+        } else {
+            viewModel.updateUsername(username: nil)
+            viewModel.timelineViewModel.setUser(username: nil)
         }
+        
+        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
+            viewModel.updateAuthenticationState(authState: .loggedIn, needsRefetch: needsRefetch)
+        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
+            viewModel.updateAuthenticationState(authState: .temp, needsRefetch: needsRefetch)
+        } else {
+            viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
+        }
+    }
+
+    @objc private func updateLoginState() {
+        setupLoginState(needsRefetch: true)
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false) {
@@ -234,6 +245,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
+        } else {
+            viewModel.updateUsername(username: nil)
+            viewModel.timelineViewModel.setUser(username: nil)
         }
 
         viewModel.articlesSavedViewModel.onTapSaved = onTapSaved

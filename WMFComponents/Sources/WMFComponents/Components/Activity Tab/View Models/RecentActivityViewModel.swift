@@ -31,7 +31,10 @@ final class RecentActivityViewModel: ObservableObject {
 
         // Normalize to start-of-day so keys line up
         let endDate = calendar.startOfDay(for: Date())
-        let startDate = calendar.date(byAdding: .day, value: -29, to: endDate)!
+        
+        guard let startDate = calendar.date(byAdding: .day, value: -29, to: endDate) else {
+            return nil
+        }
 
         // Normalize response dates to start-of-day
         let normalizedCounts: [Date: Int] = Dictionary(
@@ -46,20 +49,20 @@ final class RecentActivityViewModel: ObservableObject {
         var totalCount = 0
 
         for offset in 0..<30 {
-            let date = calendar.date(byAdding: .day, value: offset, to: startDate)!
+            let date = calendar.date(byAdding: .day, value: offset, to: startDate) ?? startDate
             let count = normalizedCounts[date] ?? 0
 
             edits.append(Edit(date: date, count: count))
             totalCount += count
         }
         
-        guard totalCount > 0 else {
-            return nil
-        }
-
         self.startDate = startDate
         self.endDate = endDate
         self.edits = edits
         self.editCount = totalCount
+        
+        guard totalCount > 0 else {
+            return nil
+        }
     }
 }
