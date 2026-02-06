@@ -751,6 +751,7 @@
 "languages-settings-title" = "Languages";
 "languages-title" = "Change language";
 "languages-wikipedia" = "Wikipedia languages";
+"learn-about-editing" = "Learn about editing";
 "learn-more-title" = "Learn more";
 "lockscreen-search-widget-description" = "Quick access to search Wikipedia from your lock screen.";
 "logged-out-continue-without-logging-in-button-title" = "Continue without logging in";
@@ -777,7 +778,6 @@
 "main-menu-title" = "More";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-page" = "Main page";
-"make-an-edit" = "Make an edit";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "In $1, volunteers added {{PLURAL:$2|$2 byte|$2 bytes}} to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 byte|$1 bytes}} added";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Volunteers made {{PLURAL:$1|$1 change|$1 changes}} across over {{PLURAL:$2|$2 different language edition|$2 different language editions}} of Wikipedia. {{PLURAL:$3|$3 change|$3 changes}} were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.";

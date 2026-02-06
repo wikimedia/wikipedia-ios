@@ -59,7 +59,7 @@ final class ContributionsViewModel: ObservableObject {
             } else if calendar.isDateInYesterday(lastEdited) {
                 title = activityViewModel.localizedStrings.yesterdayTitle
             } else {
-                title = activityViewModel.formatDate(lastEdited)
+                title = activityViewModel.formatDateTime(lastEdited)
             }
         } else {
             return ""

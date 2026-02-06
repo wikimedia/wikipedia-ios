@@ -80,6 +80,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let view = WMFToastViewBasicView(viewModel: viewModel)
             WMFToastPresenter.shared.presentToastView(view: view)
         }
+
+        dataController.historyDataController = historyDataController
     }
     
     var editingFAQURLString: String {
@@ -621,6 +623,80 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
         }
     }
+
+    lazy var historyDataController: WMFHistoryDataController = {
+        let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
+            guard let self, let dataStore = self.dataStore else { return [] }
+
+            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "viewedDate != NULL")
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
+            ]
+            request.fetchLimit = 1 // we're not using the records provider here, just need it to build the data controller
+
+            do {
+                var articles: [HistoryRecord] = []
+                let fetched = try dataStore.viewContext.fetch(request)
+
+                for article in fetched {
+                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
+                        let thumbnailImageWidth = ImageUtils.listThumbnailWidth()
+                        let record = HistoryRecord(
+                            id: Int(truncating: pageID),
+                            title: article.displayTitle ?? article.displayTitleHTML,
+                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
+                            shortDescription: article.snippet,
+                            articleURL: article.url,
+                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
+                            viewedDate: viewedDate,
+                            isSaved: article.isSaved,
+                            snippet: article.snippet,
+                            variant: article.variant                        )
+                        articles.append(record)
+                    }
+                }
+                return articles
+            } catch {
+                DDLogError("Error fetching history: \(error)")
+                return []
+            }
+        }
+
+        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historyItem in
+
+            guard let self else { return }
+
+            guard let databaseKey = historyItem.url?.wmf_databaseKey else { return }
+
+            Task { @MainActor [weak self] in
+                guard let self, let dataStore = self.dataStore else { return }
+
+                let context = dataStore.viewContext
+                context.perform { [weak self] in
+                    guard let self else { return }
+
+                    let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+                    request.predicate = NSPredicate(format: "key == %@", databaseKey)
+                    request.fetchLimit = 1
+
+                    do {
+                        if let article = try context.fetch(request).first {
+                            try article.removeFromReadHistory()
+                        }
+                    } catch {
+                        self.showError(error)
+                    }
+                }
+            }
+        }
+
+        let controller = WMFHistoryDataController(recordsProvider: recordsProvider)
+        controller.deleteRecordAction = deleteRecordAction
+        return controller
+    }()
+
 }
 
 // MARK: - Extensions

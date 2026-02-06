@@ -765,8 +765,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historyItem in
             guard let self, let dataStore = self.dataStore else { return }
+            guard let databaseKey = historyItem.url?.wmf_databaseKey else { return }
             let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            request.predicate = NSPredicate(format: "pageID == %@", historyItem.id)
+            request.predicate = NSPredicate(format: "key == %@", databaseKey)
+            request.fetchLimit = 1
             do {
                 if let article = try dataStore.viewContext.fetch(request).first {
                     try article.removeFromReadHistory()
