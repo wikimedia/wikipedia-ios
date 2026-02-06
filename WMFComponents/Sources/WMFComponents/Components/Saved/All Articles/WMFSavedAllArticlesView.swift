@@ -62,31 +62,38 @@ public struct WMFSavedAllArticlesView: View {
             List {
                 ForEach(viewModel.filteredArticles, id: \.id) { article in
                     let rowModel = viewModel.rowViewModel(for: article)
-                    WMFAsyncPageRowSaved(
-                        viewModel: rowModel,
-                        onTap: {
-                            if viewModel.isEditing {
-                                viewModel.toggleSelection(for: article)
-                            } else {
-                                viewModel.didTapArticle?(article)
+                    
+                    VStack(spacing: 0) {
+                        WMFAsyncPageRowSaved(
+                            viewModel: rowModel,
+                            onTap: {
+                                if viewModel.isEditing {
+                                    viewModel.toggleSelection(for: article)
+                                } else {
+                                    viewModel.didTapArticle?(article)
+                                }
+                            },
+                            onDelete: {
+                                viewModel.deleteArticles([article])
+                            },
+                            onShare: { cgRect in
+                                viewModel.didTapShare?(article, cgRect)
+                            },
+                            onOpenInNewTab: {
+                                viewModel.didTapOpenInNewTab?(article)
+                            },
+                            onOpenInBackgroundTab: {
+                                viewModel.didTapOpenInBackgroundTab?(article)
                             }
-                        },
-                        onDelete: {
-                            viewModel.deleteArticles([article])
-                        },
-                        onShare: { cgRect in
-                            viewModel.didTapShare?(article, cgRect)
-                        },
-                        onOpenInNewTab: {
-                            viewModel.didTapOpenInNewTab?(article)
-                        },
-                        onOpenInBackgroundTab: {
-                            viewModel.didTapOpenInBackgroundTab?(article)
-                        }
-                    )
+                        )
+                        
+                        Divider()
+                            .background(Color(uiColor: appEnvironment.theme.border))
+                            .frame(height: max(1.0 / UIScreen.main.scale, 0.5))
+                    }
+                    
                     .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.visible)
-                    .listRowSeparatorTint(Color(uiColor: appEnvironment.theme.newBorder))
+                    .listRowSeparator(.hidden)
                     .listRowBackground(Color(uiColor: rowModel.isSelected ? appEnvironment.theme.batchSelectionBackground : appEnvironment.theme.paperBackground))
                 }
             }
