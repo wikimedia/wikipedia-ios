@@ -54,6 +54,12 @@ public actor WMFUserImpactDataController {
                     return
                 }
                 
+                // Set up calendars for conversion
+                let utcTimezone = TimeZone.gmt
+                var utcCalendar = Calendar.current
+                utcCalendar.timeZone = utcTimezone
+                let localCalendar = Calendar.current
+                
                 let totalPageviewsCount = jsonData["totalPageviewsCount"] as? Int
                 
                 var finalTopViewedArticles: [WMFUserImpactData.TopViewedArticle] = []
@@ -65,11 +71,16 @@ public actor WMFUserImpactDataController {
                         
                         var views: [Date: Int] = [:]
                         for (dateKey, dateValue) in dates {
-                            guard let date = DateFormatter.growthUserImpactAPIDateFormatter.date(from: dateKey) else {
+                            guard let utcDate = DateFormatter.growthUserImpactAPIDateFormatter.date(from: dateKey) else {
                                 continue
                             }
                             
-                            views[date] = dateValue
+                            // Convert UTC to local
+                            let normalizedUTCDate = utcCalendar.startOfDay(for: utcDate)
+                            let localDate = localCalendar.startOfDay(for: normalizedUTCDate)
+                            views[localDate] = dateValue
+                            
+                            views[localDate] = dateValue
                         }
                         
                         guard let viewsCount = value["viewsCount"] as? Int else {
@@ -80,14 +91,22 @@ public actor WMFUserImpactDataController {
                     }
                 }
                 
-                var finalEditCountByDay: [Date: Int] = [:]
+                var localEditCounts: [Date: Int] = [:]
                 if let editCountByDay = jsonData["editCountByDay"] as? [String: Int] {
                     for (key, value) in editCountByDay {
-                        guard let date = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else {
+                        guard let utcDate = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else {
                             continue
                         }
                         
-                        finalEditCountByDay[date] = value
+                        // Extract the date components (year, month, day) from UTC date
+                        let components = utcCalendar.dateComponents([.year, .month, .day], from: utcDate)
+                        
+                        // Create a new date with those same components but in local timezone
+                        guard let localDate = localCalendar.date(from: components) else {
+                            continue
+                        }
+                        
+                        localEditCounts[localDate, default: 0] += value
                     }
                 }
 
@@ -109,15 +128,18 @@ public actor WMFUserImpactDataController {
                 var finalDailyTotalViews: [Date: Int] = [:]
                 if let dailyTotalViews = jsonData["dailyTotalViews"] as? [String: Int] {
                     for (key, value) in dailyTotalViews {
-                        guard let date = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else {
+                        guard let utcDate = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else {
                             continue
                         }
                         
-                        finalDailyTotalViews[date] = value
+                        // Convert UTC to local
+                        let normalizedUTCDate = utcCalendar.startOfDay(for: utcDate)
+                        let localDate = localCalendar.startOfDay(for: normalizedUTCDate)
+                        finalDailyTotalViews[localDate, default: 0] += value
                     }
                 }
                 
-                completion(.success(WMFUserImpactData(totalPageviewsCount: totalPageviewsCount, topViewedArticles: finalTopViewedArticles, editCountByDay: finalEditCountByDay, totalEditsCount: totalEditsCount, receivedThanksCount: receivedThanksCount, longestEditingStreak: longestEditingStreak, lastEditTimestamp: lastEditTimestamp, dailyTotalViews: finalDailyTotalViews)))
+                completion(.success(WMFUserImpactData(totalPageviewsCount: totalPageviewsCount, topViewedArticles: finalTopViewedArticles, editCountByDay: localEditCounts, totalEditsCount: totalEditsCount, receivedThanksCount: receivedThanksCount, longestEditingStreak: longestEditingStreak, lastEditTimestamp: lastEditTimestamp, dailyTotalViews: finalDailyTotalViews)))
 
             case .failure(let error):
                 completion(.failure(WMFDataControllerError.serviceError(error)))

@@ -10,6 +10,31 @@ public class CommonStrings: NSObject {
     @objc public static func plainWikipediaName(with languageCode: String? = nil) -> String {
         WMFLocalizedString("about-wikipedia", languageCode: languageCode, value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
     }
+    
+    @objc public static func onLangWikipedia(with languageCode: String? = nil) -> String {
+        
+        var languageText: String?
+        
+        if languageCode == "test" {
+            languageText = "Test"
+        } else if languageCode == "test 2" {
+            languageText = "Text 2"
+        }
+        
+        if languageText == nil {
+            if let languageCode {
+                languageText = Locale.current.localizedString(forLanguageCode: languageCode)
+            }
+        }
+        
+        if let languageText {
+            let format = WMFLocalizedString("explore-most-read-sub-heading-on-language-wikipedia", value: "On %1$@ Wikipedia", comment: "Subtext beneath the 'Most read articles' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'On English Wikipedia'")
+            return String.localizedStringWithFormat(format, languageText)
+        } else {
+            return WMFLocalizedString("explore-most-read-sub-heading-on-wikipedia", value: "On Wikipedia", comment: "Subtext beneath the 'Most read articles' header when the specific language wikipedia is unknown.")
+        }
+        
+    }
 
     @objc public static let articleCountFormat = WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles")
     @objc public static let readingListCountFormat = WMFLocalizedString("reading-lists-count", value:"{{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}", comment: "Describes the number of reading lists - %1$d is replaced with the number of reading lists")

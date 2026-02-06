@@ -47,7 +47,7 @@ public struct WMFActivityTabView: View {
 
     private func loggedInList(proxy: ScrollViewProxy) -> some View {
         List {
-            if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn || viewModel.customizeViewModel.isEditingInsightsOn {
+            if viewModel.customizeViewModel.isTimeSpentReadingOn || viewModel.customizeViewModel.isReadingInsightsOn {
                 Section {
                     VStack(spacing: 16) {
                         if viewModel.customizeViewModel.isTimeSpentReadingOn {
@@ -55,7 +55,7 @@ public struct WMFActivityTabView: View {
                                 .accessibilityElement()
                                 .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
                                 .accessibilityHint(viewModel.localizedStrings.onWikipediaiOS)
-
+                            
                             VStack(alignment: .center, spacing: 8) {
                                 hoursMinutesRead
                                     .accessibilityLabel(viewModel.hoursMinutesRead)
@@ -69,74 +69,77 @@ public struct WMFActivityTabView: View {
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                         }
                         
-
+                        
                         if viewModel.customizeViewModel.isReadingInsightsOn {
                             articlesReadModule(proxy: proxy)
-                                .padding(.horizontal, 16)
                             savedArticlesModule
-                                .padding(.horizontal, 16)
                             
                             if viewModel.shouldShowExploreCTA {
                                 exploreCTA
                                     .padding(.vertical, 12)
                             }
-
+                            
                             if !viewModel.articlesReadViewModel.topCategories.isEmpty {
                                 topCategoriesModule(categories: viewModel.articlesReadViewModel.topCategories)
-                                    .padding(.horizontal, 16)
-                                    .accessibilityElement()
-                                    .accessibilityLabel(viewModel.localizedStrings.topCategories)
-                                    .accessibilityValue(viewModel.articlesReadViewModel.topCategories.joined(separator: ", "))
-                            }
-                        }
-                        
-                        if viewModel.customizeViewModel.isEditingInsightsOn {
-                            
-                            if viewModel.shouldShowYourImpactHeader {
-                                HStack {
-                                    YourImpactHeaderView(title: viewModel.localizedStrings.yourImpact)
-                                    Spacer()
-                                }
-                                .padding(.top, 12)
-                            }
-                            
-                            if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
-                                TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
-                                    .padding(.horizontal, 16)
-                            }
-                            
-                            if let contributionsViewModel = viewModel.contributionsViewModel {
-                                ContributionsView(viewModel: contributionsViewModel)
-                                    .padding(.horizontal, 16)
-                            }
-                            
-                            if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
-                                CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
-                                    .padding(.horizontal, 16)
-                            }
-                            
-                            if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
-                                totalEditsView(amount: animatedGlobalEditCount)
-                                    .padding(.horizontal, 16)
-                                    .onAppear {
-                                        if !hasShownGlobalEditsCard {
-                                            hasShownGlobalEditsCard = true
-                                            animatedGlobalEditCount = 0
-                                            withAnimation(.easeOut(duration: 0.6)) {
-                                                animatedGlobalEditCount = globalEditCount
-                                            }
-                                        } else {
-                                            animatedGlobalEditCount = globalEditCount
-                                        }
-                                    }
-                                    .onChange(of: globalEditCount) { newValue in
-                                        withAnimation(.easeOut(duration: 0.6)) {
-                                            animatedGlobalEditCount = newValue
-                                        }
-                                    }
                             }
                         }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                    .listRowInsets(EdgeInsets())
+                    .background(
+                        LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(uiColor: theme.paperBackground), location: 0),
+                                Gradient.Stop(color: Color(uiColor: theme.softEditorBlue), location: 1)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                }
+                .listRowSeparator(.hidden)
+            }
+                        
+            if viewModel.customizeViewModel.isEditingInsightsOn && viewModel.shouldShowYourImpactHeader {
+                
+                Section(header: YourImpactHeaderView(viewModel: viewModel)) {
+                    
+                    VStack(spacing: 16) {
+                        
+                        if let mostViewedArticlesViewModel = viewModel.mostViewedArticlesViewModel {
+                            TopViewedEditsView(viewModel: viewModel, mostViewedViewModel: mostViewedArticlesViewModel)
+                        }
+                        
+                        if let contributionsViewModel = viewModel.contributionsViewModel {
+                            ContributionsView(viewModel: contributionsViewModel)
+                        }
+                        
+                        if viewModel.allTimeImpactViewModel != nil || viewModel.recentActivityViewModel != nil || viewModel.articleViewsViewModel != nil {
+                            CombinedImpactView(allTimeImpactViewModel: viewModel.allTimeImpactViewModel, recentActivityViewModel: viewModel.recentActivityViewModel, articleViewsViewModel: viewModel.articleViewsViewModel)
+                        }
+                        
+                        if let globalEditCount = viewModel.globalEditCount, globalEditCount > 0 {
+                            totalEditsView(amount: animatedGlobalEditCount)
+                                .onAppear {
+                                    if !hasShownGlobalEditsCard {
+                                        hasShownGlobalEditsCard = true
+                                        animatedGlobalEditCount = 0
+                                        withAnimation(.easeOut(duration: 0.6)) {
+                                            animatedGlobalEditCount = globalEditCount
+                                        }
+                                    } else {
+                                        animatedGlobalEditCount = globalEditCount
+                                    }
+                                }
+                                .onChange(of: globalEditCount) { newValue in
+                                    withAnimation(.easeOut(duration: 0.6)) {
+                                        animatedGlobalEditCount = newValue
+                                    }
+                                }
+                        }
+                    }
+                    .padding(.horizontal, 16)
                     .padding(.bottom, 16)
                     .listRowInsets(EdgeInsets())
                     .background(
@@ -225,13 +228,10 @@ public struct WMFActivityTabView: View {
     
     private func totalEditsView(amount: Int) -> some View {
 
-        let formattedAmount = amountAccessibilityLabel(for: amount)
-        
-        return WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .globeAmericas, font: WMFFont.boldCaption1),
+        let cardView = WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .globeAmericas),
             title: viewModel.localizedStrings.totalEditsAcrossProjects,
             dateText: nil,
-            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 viewModel.onTapGlobalEdits?()
             }, content: {
@@ -243,6 +243,14 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
+        
+        let formattedAmount = amountAccessibilityLabel(for: amount)
+        let accessibilityLabel: String = [viewModel.localizedStrings.totalEditsAcrossProjects, formattedAmount].joined(separator: ",")
+        
+        return cardView.accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityAddTraits(.isButton)
+        
     }
 
     private func timelineSectionsList() -> some View {
@@ -344,13 +352,10 @@ public struct WMFActivityTabView: View {
 
     private func articlesReadModule(proxy: ScrollViewProxy) -> some View {
 
-        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
-
-        return WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .bookPages, font: WMFFont.boldCaption1),
+        let cardView = WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .bookPages),
             title: viewModel.localizedStrings.totalArticlesRead,
             dateText: viewModel.articlesReadViewModel.dateTimeLastRead,
-            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 withAnimation(.easeInOut) {
                     proxy.scrollTo("timelineSection", anchor: .top)
@@ -364,9 +369,16 @@ public struct WMFActivityTabView: View {
                     Spacer()
                     articlesReadGraph(weeklyReads: viewModel.articlesReadViewModel.weeklyReads)
                 }
-                
             }
         )
+        
+        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesReadViewModel.totalArticlesRead)
+        let accessibilityLabel: String = [viewModel.localizedStrings.totalArticlesRead, viewModel.articlesReadViewModel.dateTimeLastRead, formattedAmount].joined(separator: ",")
+        
+        return cardView
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityAddTraits(.isButton)
     }
 
     private var savedArticlesModule: some View {
@@ -375,13 +387,10 @@ public struct WMFActivityTabView: View {
         let displayCount = min(thumbURLs.count, 3)
         let remaining = viewModel.articlesSavedViewModel.articlesSavedAmount - displayCount
 
-        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
-
-        return WMFActivityTabInfoCardView(
-            icon: WMFSFSymbolIcon.for(symbol: .bookmark, font: WMFFont.boldCaption1),
+        let cardView = WMFActivityTabInfoCardView(
+            icon: WMFSFSymbolIcon.for(symbol: .bookmark),
             title: viewModel.localizedStrings.articlesSavedTitle,
             dateText: viewModel.articlesSavedViewModel.dateTimeLastSaved,
-            additionalAccessibilityLabel: formattedAmount,
             onTapModule: {
                 viewModel.articlesSavedViewModel.onTapSaved?()
             },
@@ -397,6 +406,14 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
+        
+        let formattedAmount = amountAccessibilityLabel(for: viewModel.articlesSavedViewModel.articlesSavedAmount)
+        let accessibilityLabel: String = [viewModel.localizedStrings.articlesSavedTitle, viewModel.articlesSavedViewModel.dateTimeLastSaved, formattedAmount].joined(separator: ",")
+        
+        return cardView
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityAddTraits(.isButton)
     }
 
     private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {
@@ -464,11 +481,10 @@ public struct WMFActivityTabView: View {
 
     private func topCategoriesModule(categories: [String]) -> some View {
         
-        WMFActivityTabInfoCardView(
+        let cardView = WMFActivityTabInfoCardView(
             icon: WMFSFSymbolIcon.for(symbol: .rectangle3, font: WMFFont.boldCaption1),
             title: viewModel.localizedStrings.topCategories,
             dateText: nil,
-            additionalAccessibilityLabel: nil,
             onTapModule: nil,
             content: {
                 VStack(alignment: .leading, spacing: 16) {
@@ -494,6 +510,14 @@ public struct WMFActivityTabView: View {
                 }
             }
         )
+        
+        let accessibilityLabel = viewModel.localizedStrings.topCategories
+        let accessibilityValue = viewModel.articlesReadViewModel.topCategories.joined(separator: ", ")
+        
+        return cardView
+            .accessibilityElement()
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityValue(accessibilityValue)
     }
     
     private func amountAccessibilityLabel(for amount: Int) -> String {
