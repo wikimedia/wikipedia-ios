@@ -174,9 +174,9 @@ public actor WMFActivityTabDataController {
     
     public var hasSeenActivityTab: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTab.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenActivityTabNewOnboarding.rawValue, value: newValue)
         }
     }
 

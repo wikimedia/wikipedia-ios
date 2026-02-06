@@ -66,7 +66,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) SearchViewController *searchViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
-@property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
@@ -119,7 +118,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @synthesize exploreViewController = _exploreViewController;
 @synthesize searchViewController = _searchViewController;
 @synthesize savedViewController = _savedViewController;
-@synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize activityTabViewController = _activityTabViewController;
 @synthesize placesViewController = _placesViewController;
 
@@ -1202,7 +1200,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         case WMFUserActivityTypeExplore:
         case WMFUserActivityTypePlaces:
         case WMFUserActivityTypeSavedPages:
-        case WMFUserActivityTypeHistory:
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
@@ -1301,13 +1298,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self setSelectedIndex:WMFAppTabTypeSaved];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
             break;
-        case WMFUserActivityTypeHistory: {
-            [self dismissPresentedViewControllers];
-
-            [self setSelectedIndex:WMFAppTabTypeRecent];
-            [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
-
-        } break;
         case WMFUserActivityTypeSearch:
             [self switchToSearchAnimated:animated];
             [self.searchViewController makeSearchBarBecomeFirstResponder];
@@ -1501,15 +1491,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _savedViewController.title = [WMFCommonStrings savedTabTitle];
     }
     return _savedViewController;
-}
-
-- (WMFHistoryViewController *)recentArticlesViewController {
-    if (!_recentArticlesViewController) {
-        _recentArticlesViewController = [self generateHistoryTab];
-        _recentArticlesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
-        _recentArticlesViewController.title = [WMFCommonStrings historyTabTitle];
-    }
-    return _recentArticlesViewController;
 }
 
 - (WMFActivityTabViewController *)activityTabViewController {
@@ -1753,8 +1734,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-explore-accessibility-label", nil, nil, @"Wikipedia, return to Explore", @"Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
         } else if (self.selectedIndex == WMFAppTabTypeSaved) {
             vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-saved-accessibility-label", nil, nil, @"Wikipedia, return to Saved", @"Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.");
-        } else if (self.selectedIndex == WMFAppTabTypeRecent) {
-            vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-history-accessibility-label", nil, nil, @"Wikipedia, return to History", @"Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.");
         }
     }
 }
@@ -1881,7 +1860,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.exploreViewController applyTheme:theme];
         [self.placesViewController applyTheme:theme];
         [self.savedViewController applyTheme:theme];
-        [self.recentArticlesViewController applyTheme:theme];
         [self.searchViewController applyTheme:theme];
 
         [self applyTheme:theme toPresentedViewController:self.presentedViewController];
@@ -2169,8 +2147,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [[WMFNavigationEventsFunnel shared] logTappedPlaces];
             } else if ([rootViewController isKindOfClass:[WMFSavedViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedSaved];
-            } else if ([rootViewController isKindOfClass:[WMFHistoryViewController class]]) {
-                [[WMFNavigationEventsFunnel shared] logTappedHistory];
             } else if ([rootViewController isKindOfClass:[WMFActivityTabViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedActivityTab];
             } else if ([rootViewController isKindOfClass:[SearchViewController class]]) {

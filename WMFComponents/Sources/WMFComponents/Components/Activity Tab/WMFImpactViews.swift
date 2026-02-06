@@ -300,16 +300,14 @@ struct RecentActivityView: View {
         var body: some View {
             GeometryReader { geometry in
                 let spacing: CGFloat = 1.5
-                let squareCount = 30
+                let squareCount = edits.count
                 let totalSpacing = spacing * CGFloat(squareCount - 1)
                 let squareSize = (geometry.size.width - totalSpacing) / CGFloat(squareCount)
 
                 HStack(spacing: spacing) {
-                    ForEach(0..<30, id: \.self) { index in
-                        let hasEdits = index < edits.count && edits[index].count > 0
-
+                    ForEach(edits) { edit in
                         Rectangle()
-                            .fill(hasEdits ? Color(theme.link) : Color(theme.baseBackground))
+                            .fill(edit.count > 0 ? Color(theme.link) : Color(theme.newBorder))
                             .frame(width: squareSize, height: 24)
                     }
                 }
@@ -380,18 +378,29 @@ struct ArticleViewsView: View {
 
 struct YourImpactHeaderView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let title: String
-
+    @ObservedObject var viewModel: WMFActivityTabViewModel
+    
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
     var body: some View {
-        Text(title)
-            .font(Font(WMFFont.for(.boldHeadline)))
-            .foregroundColor(Color(uiColor: theme.text))
-            .textCase(.none)
-            .padding(.horizontal, 16)
-            .accessibilityAddTraits(.isHeader)
+        VStack(alignment: .leading, spacing: 4) {
+            Text(viewModel.localizedStrings.yourImpact)
+                .font(Font(WMFFont.for(.boldHeadline)))
+                .foregroundColor(Color(uiColor: theme.text))
+                .textCase(.none)
+                .accessibilityAddTraits(.isHeader)
+            
+            if let subtitle = viewModel.yourImpactOnWikipediaSubtitle {
+                Text(subtitle)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                    .textCase(.none)
+            }
+            
+        }
+        .padding(.top, 12)
+        .padding(.bottom, 16)
     }
 }
