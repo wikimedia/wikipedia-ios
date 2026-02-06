@@ -477,6 +477,7 @@ public struct WMFActivityTabView: View {
         }
         .accessibilityElement(children: .contain)
         .frame(maxWidth: 54, maxHeight: chartHeight)
+        .padding(.trailing, 8)
     }
 
     private func topCategoriesModule(categories: [String]) -> some View {
