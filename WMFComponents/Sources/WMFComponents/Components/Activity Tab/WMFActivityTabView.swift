@@ -461,18 +461,21 @@ public struct WMFActivityTabView: View {
         let chartHeight: CGFloat = 45
         let minBarHeight: CGFloat = 4
         
-        return HStack(alignment: .bottom, spacing: 6) {
-            ForEach(weeklyReads.indices, id: \.self) { index in
-                let percentage = maxReads > 0 ? CGFloat(weeklyReads[index]) / CGFloat(maxReads) : 0
-                let barHeight = weeklyReads[index] > 0 ? chartHeight * percentage : minBarHeight
-                
-                RoundedRectangle(cornerRadius: 1.5)
-                    .fill(weeklyReads[index] > 0
-                        ? Color(uiColor: theme.accent)
-                        : Color(uiColor: theme.newBorder))
-                    .frame(width: 12, height: barHeight)
-                    .accessibilityLabel("\(viewModel.localizedStrings.week) \(index + 1)")
-                    .accessibilityValue("\(weeklyReads[index]) \(viewModel.localizedStrings.articlesRead)")
+        return VStack {
+            Spacer(minLength: 0)
+            HStack(alignment: .bottom, spacing: 6) {
+                ForEach(weeklyReads.indices, id: \.self) { index in
+                    let percentage = maxReads > 0 ? CGFloat(weeklyReads[index]) / CGFloat(maxReads) : 0
+                    let barHeight = weeklyReads[index] > 0 ? chartHeight * percentage : minBarHeight
+                    
+                    RoundedRectangle(cornerRadius: 1.5)
+                        .fill(weeklyReads[index] > 0
+                            ? Color(uiColor: theme.accent)
+                            : Color(uiColor: theme.newBorder))
+                        .frame(width: 12, height: barHeight)
+                        .accessibilityLabel("\(viewModel.localizedStrings.week) \(index + 1)")
+                        .accessibilityValue("\(weeklyReads[index]) \(viewModel.localizedStrings.articlesRead)")
+                }
             }
         }
         .accessibilityElement(children: .contain)
