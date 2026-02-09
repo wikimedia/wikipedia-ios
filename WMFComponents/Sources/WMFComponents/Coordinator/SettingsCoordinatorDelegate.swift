@@ -24,4 +24,5 @@ public enum SettingsAction {
     case rateTheApp
     case helpAndFeedback
     case about
+    case deleteDonationHistory
 }

@@ -1,6 +1,6 @@
 import WMFData
 
-@objc public class WMFDonateDataControllerWrapper: NSObject {
+@objc public class WMFDonateDataControllerWrapper: NSObject { // TODO - delete
 
     private let dataController = WMFDonateDataController.shared
 

@@ -16,6 +16,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private let dataStore: MWKDataStore
 
     private let dataController: WMFSettingsDataController
+    @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
 
     // MARK: Lifecycle
 
@@ -58,7 +59,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             yirTitle: CommonStrings.yirTitle,
             pushNotificationsTitle: CommonStrings.pushNotifications,
             readingpreferences: CommonStrings.readingPreferences,
-            storageAndSync: CommonStrings.settingsStorageAndSyncing,
+            articleSyncing: CommonStrings.settingsStorageAndSyncing,
             databasePopulation: "Database population",
             clearCacheTitle: CommonStrings.clearCachedDataSettings,
             privacyHeader: CommonStrings.privacyTermsHeader,
@@ -66,7 +67,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             termsOfUseTitle: CommonStrings.termsOfUseTitle,
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
-            aboutTitle: CommonStrings.aboutTitle)
+            aboutTitle: CommonStrings.aboutTitle,
+            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory)
     }
 
     func tempNewSettings() async { // TEST CODE
@@ -82,6 +84,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
 
         let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: WMFSettingsDataController())
+
+        self.settingsViewModel = viewModel
         let settingsViewController =  WMFSettingsViewControllerNEW(viewModel: viewModel, coordinatorDelegate: self)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
         navigationController.present(navVC, animated: true)
@@ -121,9 +125,11 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         case .rateTheApp:
             tappedRateApp()
         case .helpAndFeedback:
-            print("help ⭐️")
+            tappedHelpAndFeedback()
         case .about:
-            print("about ⭐️")
+            tappedAbout()
+        case .deleteDonationHistory:
+            clearDonationHistory()
         }
     }
 
@@ -191,6 +197,50 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         if let url = URL(string: "itms-apps://itunes.apple.com/app/id324715238") {
             self.navigationController.navigate(to: url, useSafari: true)
         }
+    }
+
+    private func tappedAbout() {
+        dismissSettings {
+            if let vc = AboutViewController(theme: self.theme) {
+                self.navigationController.pushViewController(vc, animated: true)
+            }
+        }
+
+    }
+
+    private func tappedHelpAndFeedback() {
+        dismissSettings {
+            if let vc = HelpViewController(dataStore: self.dataStore, theme: self.theme) {
+                self.navigationController.pushViewController(vc, animated: true)
+            }
+        }
+    }
+
+    private func clearDonationHistory() {
+        let alertController = UIAlertController(title: CommonStrings.confirmDeletionTitle, message: CommonStrings.confirmDeletionSubtitle, preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive) { _ in
+            Task {
+                await self.deleteLocalHistory()
+                await self.settingsViewModel?.refreshSections()
+                self.showDeletionConfirmation()
+
+            }
+        }
+        alertController.addAction(deleteAction)
+        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+        let presenter = (navigationController.presentedViewController ?? navigationController)
+        presenter.present(alertController, animated: true)
+    }
+
+    private func deleteLocalHistory() async {
+        await dataController.deleteLocalDonations()
+    }
+
+    private func showDeletionConfirmation() {
+        let alertController = UIAlertController(title: CommonStrings.confirmedDeletion, message: nil, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default))
+        let presenter = (navigationController.presentedViewController ?? navigationController)
+        presenter.present(alertController, animated: true)
     }
 
 }

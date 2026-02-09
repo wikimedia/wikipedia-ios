@@ -70,8 +70,9 @@ final public class WMFSettingsViewModel: ObservableObject {
         let rateTheAppTitle: String
         let helpTitle: String
         let aboutTitle: String
+        let clearDonationHistoryTitle: String
 
-        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, storageAndSync: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String) {
+        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String) {
             self.settingTitle = settingTitle
             self.doneButtonTitle = doneButtonTitle
             self.cancelButtonTitle = cancelButtonTitle
@@ -85,7 +86,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.yirTitle = yirTitle
             self.pushNotificationsTitle = pushNotificationsTitle
             self.readingpreferences = readingpreferences
-            self.articleSyncing = storageAndSync
+            self.articleSyncing = articleSyncing
             self.databasePopulation = databasePopulation
             self.clearCacheTitle = clearCacheTitle
             self.privacyHeader = privacyHeader
@@ -94,6 +95,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.rateTheAppTitle = rateTheAppTitle
             self.helpTitle = helpTitle
             self.aboutTitle = aboutTitle
+            self.clearDonationHistoryTitle = clearDonationHistoryTitle
         }
     }
 
@@ -134,6 +136,10 @@ final public class WMFSettingsViewModel: ObservableObject {
 
     private func buildSections() async {
         sections = await [getAccountSection(), getMainSection(), getTermsSection(), getHelpSection()]
+    }
+    
+    public func refreshSections() async {
+        await buildSections()
     }
 
     private func getMainSection() async -> SettingsSection {
@@ -183,11 +189,10 @@ final public class WMFSettingsViewModel: ObservableObject {
 #if DEBUG
         section.items.insert(dangerZone, at: 7)
 #endif
-
         return section
     }
 
-    private func getTermsSection() -> SettingsSection {
+    private func getTermsSection() async -> SettingsSection {
         let privacy = SettingsItem(image: WMFIcon.settingsPrivacy, color: WMFColor.purple600, title: localizedStrings.privacyPolicyTitle, subtitle: nil, accessory: .icon( WMFIcon.externalLink), action: {
             self.coordinatorDelegate?.handleSettingsAction(.privacyPolicy)
         })
@@ -195,7 +200,15 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.termsOfUse)
         })
 
-        return SettingsSection(header: localizedStrings.privacyHeader, footer: nil, items:[privacy, terms])
+        let deleteLocalDonations = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .heartFilled), color: WMFColor.gray300, title: localizedStrings.clearCacheTitle, subtitle: nil, accessory: .none, action: {
+            self.coordinatorDelegate?.handleSettingsAction(.deleteDonationHistory)
+        })
+
+        var section = SettingsSection(header: localizedStrings.privacyHeader, footer: nil, items:[privacy, terms])
+        if await dataController.hasLocalDonations() {
+            section.items.append(deleteLocalDonations)
+        }
+        return section
     }
 
     func getHelpSection() -> SettingsSection {
@@ -255,6 +268,5 @@ final public class WMFSettingsViewModel: ObservableObject {
         }
         return SettingsSection(header: nil, footer: nil, items: [item])
     }
-
 
 }

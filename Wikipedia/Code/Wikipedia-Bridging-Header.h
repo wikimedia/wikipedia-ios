@@ -42,6 +42,7 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFBarButtonItemPopoverMessageViewController.h"
 #import "WMFImageGalleryViewController.h"
+#import "AboutViewController.h"
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"
