@@ -56,11 +56,11 @@ public extension DateFormatter {
         }
     }
     
-    static var lastEditedDateFormatter: DateFormatter {
+    static let lastEditedDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         return formatter
-    }
+    }()
     
     static let monthDayFormatter: DateFormatter = {
         let formatter = DateFormatter()
