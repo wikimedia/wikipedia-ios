@@ -100,6 +100,21 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
             }
+            
+            // Cat Streak Section
+            if let catStreakViewModel = viewModel.catStreakModuleViewModel?.catStreakViewModel {
+                Section(header: Text("Reading Streak Challenge")
+                    .font(Font(WMFFont.for(.boldTitle3)))
+                    .foregroundColor(Color(uiColor: theme.text))
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
+                ) {
+                    WMFCatStreakView(viewModel: catStreakViewModel)
+                        .listRowInsets(EdgeInsets())
+                        .background(Color(uiColor: theme.paperBackground))
+                }
+                .listRowSeparator(.hidden)
+            }
                         
             if viewModel.customizeViewModel.isEditingInsightsOn && viewModel.shouldShowYourImpactHeader {
                 

@@ -451,4 +451,47 @@ public final class WMFPageViewsDataController {
 
         return results
     }
+    
+    /// Calculates the current reading streak (consecutive days with at least one page view)
+    /// - Parameter endDate: The date to calculate the streak up to (typically today)
+    /// - Returns: The number of consecutive days with at least one page view, capped at 7 days
+    public func fetchReadingStreak(endDate: Date = Date()) async throws -> Int {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        
+        let result: Int = try await backgroundContext.perform { () -> Int in
+            let calendar = Calendar.current
+            
+            // Normalize endDate to start of day
+            guard let normalizedEndDate = calendar.startOfDay(for: endDate) as Date? else {
+                return 0
+            }
+            
+            // Check up to 7 days back (max streak)
+            let maxStreakDays = 7
+            var streakCount = 0
+            
+            for daysBack in 0..<maxStreakDays {
+                guard let checkDate = calendar.date(byAdding: .day, value: -daysBack, to: normalizedEndDate),
+                      let startOfDay = calendar.startOfDay(for: checkDate) as Date?,
+                      let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay) else {
+                    break
+                }
+                
+                // Check if there are any page views on this day
+                let predicate = NSPredicate(format: "timestamp >= %@ && timestamp < %@", startOfDay as CVarArg, endOfDay as CVarArg)
+                let pageViews = try? self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: 1, in: backgroundContext)
+                
+                if let pageViews = pageViews, !pageViews.isEmpty {
+                    streakCount += 1
+                } else {
+                    // Streak is broken
+                    break
+                }
+            }
+            
+            return streakCount
+        }
+        
+        return result
+    }
 }

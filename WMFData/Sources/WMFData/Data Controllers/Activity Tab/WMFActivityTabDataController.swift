@@ -226,6 +226,11 @@ public actor WMFActivityTabDataController {
 
         return Array(topThreeCategories)
     }
+    
+    public func getReadingStreak() async throws -> Int {
+        let dataController = try WMFPageViewsDataController()
+        return try await dataController.fetchReadingStreak()
+    }
 
     public func fetchTopCategories(startDate: Date, endDate: Date) async throws -> [String] {
         let categoryCounts = try await WMFCategoriesDataController()

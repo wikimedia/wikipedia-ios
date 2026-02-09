@@ -19,6 +19,9 @@ extension ArticleViewController {
                     let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, previousPageViewObjectID: previousPageViewObjectID)
                     self.pageViewObjectID = objectID
                     self.trackBeganViewingDate()
+                    
+                    // Reload the reading streak widget to reflect the new page view
+                    WidgetController.shared.reloadReadingStreakWidgetIfNecessary()
                 } catch let error {
                     DDLogError("Error saving viewed page: \(error)")
                 }

@@ -10,6 +10,7 @@ struct WikipediaWidgets: WidgetBundle {
 		OnThisDayWidget()
         TopReadWidget()
         FeaturedArticleWidget()
+        ReadingStreakWidget()
         #if DEBUG
         SearchWidget()
         LockscreenSearchWidget()

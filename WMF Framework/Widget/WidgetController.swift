@@ -15,6 +15,7 @@ public final class WidgetController: NSObject {
         case topRead = "org.wikimedia.wikipedia.widgets.topRead"
         case search = "org.wikimedia.wikipedia.widgets.search"
         case lockscreenSearch = "org.wikimedia.wikipedia.widgets.lockscreen-search"
+        case readingStreak = "org.wikimedia.wikipedia.widgets.readingStreak"
 
         public var identifier: String {
             return self.rawValue
@@ -60,6 +61,14 @@ public final class WidgetController: NSObject {
         }
         
         WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.featuredArticle.rawValue)
+    }
+    
+    public func reloadReadingStreakWidgetIfNecessary() {
+        guard !Bundle.main.isAppExtension else {
+            return
+        }
+        
+        WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.readingStreak.rawValue)
     }
     
     /// For requesting background time from widgets
@@ -440,6 +449,47 @@ public extension WidgetController {
                 }
             case .failure(let error):
                 performCompletion(result: .failure(error))
+            }
+        }
+    }
+
+    // MARK: - Fetch Reading Streak Widget Content
+
+    func fetchReadingStreakContent(completion: @escaping (Result<(streakCount: Int, catImageData: Data?), Error>) -> Void) {
+        func performCompletion(result: Result<(streakCount: Int, catImageData: Data?), Error>) {
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+
+        startWidgetUpdateTask({ result in
+            performCompletion(result: result)
+        }) { dataStore, taskCompletion in
+            Task {
+                do {
+                    // Get the shared container URL for WMFData
+                    let appContainerURL = FileManager.default.wmf_containerURL()
+                    
+                    // Initialize Core Data store
+                    let coreDataStore = try await WMFCoreDataStore(appContainerURL: appContainerURL)
+                    
+                    // Get reading streak
+                    let pageViewsController = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+                    let streakCount = try await pageViewsController.fetchReadingStreak()
+                    
+                    // Get cat image URL for this streak
+                    guard let catImageURL = WMFCatStreakImageURLs.getCatImageURL(for: streakCount) else {
+                        taskCompletion(.success((streakCount: streakCount, catImageData: nil)))
+                        return
+                    }
+                    
+                    // Download cat image using WMFImageDataController
+                    let imageData = try await WMFImageDataController.shared.fetchImageData(url: catImageURL)
+                    
+                    taskCompletion(.success((streakCount: streakCount, catImageData: imageData)))
+                } catch {
+                    taskCompletion(.failure(error))
+                }
             }
         }
     }

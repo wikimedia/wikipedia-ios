@@ -153,6 +153,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var authenticationState: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
+    @Published public var catStreakModuleViewModel: CatStreakModuleViewModel?
     
     var yourImpactOnWikipediaSubtitle: String?
     @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
@@ -254,8 +255,9 @@ public final class WMFActivityTabViewModel: ObservableObject {
             async let timelineTask: Void = timelineViewModel.fetch()
             async let editCountTask: Void = getGlobalEditCount()
             async let userImpactTask: Void = fetchUserImpact()
+            async let catStreakTask: Void = fetchCatStreak()
 
-            _ = await (readTask, savedTask, timelineTask, editCountTask, userImpactTask)
+            _ = await (readTask, savedTask, timelineTask, editCountTask, userImpactTask, catStreakTask)
 
             self.articlesReadViewModel = articlesReadViewModel
             self.articlesSavedViewModel = articlesSavedViewModel
@@ -327,6 +329,39 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.recentActivityViewModel = nil
             self.articleViewsViewModel = nil
         }
+    }
+    
+    private func fetchCatStreak() async {
+        // Create localized strings for cat streak module
+        let catStreakLocalizedStrings = CatStreakModuleViewModel.LocalizedStrings(
+            streakTitle: "Reading Streak",
+            daysLabel: "days",
+            noStreakMessage: "Start reading to begin your streak!",
+            motivationalMessage: { streak in
+                switch streak {
+                case 1:
+                    return "Great start! Keep it up!"
+                case 2:
+                    return "Two days strong! 💪"
+                case 3:
+                    return "Three day streak! You're on fire!"
+                case 4:
+                    return "Four days! Halfway to a week!"
+                case 5:
+                    return "Five days! Amazing progress!"
+                case 6:
+                    return "Six days! Almost a full week!"
+                case 7...:
+                    return "7+ day streak! You're a champion! 🏆"
+                default:
+                    return ""
+                }
+            }
+        )
+        
+        let module = CatStreakModuleViewModel(dataController: dataController)
+        await module.fetch(localizedStrings: catStreakLocalizedStrings)
+        self.catStreakModuleViewModel = module
     }
 
     public func updateUsername(username: String?) {
