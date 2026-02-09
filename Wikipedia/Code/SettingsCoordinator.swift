@@ -161,14 +161,16 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let databaseHousekeeper = WMFDatabaseHousekeeper()
         let navigationStateController = NavigationStateController(dataStore: dataStore)
 
+        var cleanupError: Error? = nil
+
         self.dataStore.performBackgroundCoreDataOperation { moc in
             do {
                 try databaseHousekeeper.performHousekeepingOnManagedObjectContext(moc, navigationStateController: navigationStateController, cleanupLevel: .high)
 
             } catch {
-
+                cleanupError = error
                 DDLogError("Error on cleanup: \(error)")
-                self.showClearCacheErrorBanner()
+
             }
         }
 
@@ -183,6 +185,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         Task {
             try await Task.sleep(nanoseconds: 1_000_000_000)
+            if let error = cleanupError {
+                self.showClearCacheErrorBanner()
+            }
             self.showClearCacheComplete()
         }
     }
@@ -223,7 +228,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func showClearCacheErrorBanner() {
         let message = WMFLocalizedString("clearing-cache-error", value: "Error clearing cache.", comment: "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.")
-        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true) // maybe make error alert
+        WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
     }
 
     private func showClearCacheComplete() {
