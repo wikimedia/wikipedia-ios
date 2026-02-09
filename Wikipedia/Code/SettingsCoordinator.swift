@@ -3,7 +3,9 @@ import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
+import CocoaLumberjackSwift
 
+@MainActor
 final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     // MARK: Coordinator Protocol Properties
@@ -117,7 +119,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         case .databasePopulation:
             tappedDatabasePopulation()
         case .clearCachedData:
-            print("clear data ⭐️")
+            showClearCacheActionSheet()
         case .privacyPolicy:
             tappedExternalLink(with: CommonStrings.privacyPolicyURLString)
         case .termsOfUse:
@@ -146,6 +148,87 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         navigationController.dismiss(animated: true) {
             completion()
         }
+    }
+
+
+    private func clearCache() {
+        Task {
+            showClearCacheInProgressBanner()
+        }
+
+        dataStore.clearTemporaryCache()
+
+        let databaseHousekeeper = WMFDatabaseHousekeeper()
+        let navigationStateController = NavigationStateController(dataStore: dataStore)
+
+        self.dataStore.performBackgroundCoreDataOperation { moc in
+            do {
+                try databaseHousekeeper.performHousekeepingOnManagedObjectContext(moc, navigationStateController: navigationStateController, cleanupLevel: .high)
+
+            } catch {
+
+                DDLogError("Error on cleanup: \(error)")
+                self.showClearCacheErrorBanner()
+            }
+        }
+
+        SharedContainerCacheHousekeeping.deleteStaleCachedItems(
+            in: SharedContainerCacheCommonNames.talkPageCache,
+            cleanupLevel: .high
+        )
+        SharedContainerCacheHousekeeping.deleteStaleCachedItems(
+            in: SharedContainerCacheCommonNames.didYouKnowCache,
+            cleanupLevel: .high
+        )
+
+        Task {
+            try await Task.sleep(nanoseconds: 1_000_000_000)
+            self.showClearCacheComplete()
+        }
+    }
+
+    private func showClearCacheActionSheet() {
+
+        let baseMessage = WMFLocalizedString("settings-clear-cache-are-you-sure-message", value: "Clearing cached data will free up about %1$@ of space. It will not delete your saved pages.", comment: "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. %1$@ is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.")
+
+        let bytesString = ByteCountFormatter.string(
+            fromByteCount: Int64(URLCache.shared.currentDiskUsage),
+            countStyle: .file
+        )
+
+        let message = String.localizedStringWithFormat(baseMessage, bytesString)
+
+        let title = WMFLocalizedString("settings-clear-cache-are-you-sure-title", value: "Clear cached data?", comment: "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.")
+
+        let sheet = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let clearTitle = WMFLocalizedString("settings-clear-cache-ok", value: "Clear cache", comment: "Confirm action to clear cached data")
+
+        sheet.addAction(UIAlertAction(title: clearTitle, style: .destructive) { [weak self] _ in
+            self?.clearCache()
+        })
+
+        let cancelTitle = CommonStrings.cancelActionTitle
+
+        sheet.addAction(UIAlertAction(title: cancelTitle, style: .cancel))
+
+        let presenter = (navigationController.presentedViewController ?? navigationController)
+        presenter.present(sheet, animated: true)
+    }
+
+    private func showClearCacheInProgressBanner() {
+        let message = WMFLocalizedString("clearing-cache-in-progress", value: "Clearing cache in progress.", comment: "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.")
+        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+    }
+
+    private func showClearCacheErrorBanner() {
+        let message = WMFLocalizedString("clearing-cache-error", value: "Error clearing cache.", comment: "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.")
+        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true) // maybe make error alert
+    }
+
+    private func showClearCacheComplete() {
+        let message = WMFLocalizedString("clearing-cache-complete", value: "Clearing cache complete.", comment: "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.")
+        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
     }
 
     @MainActor

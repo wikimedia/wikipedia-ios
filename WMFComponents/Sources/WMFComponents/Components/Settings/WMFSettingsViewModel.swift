@@ -200,7 +200,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.coordinatorDelegate?.handleSettingsAction(.termsOfUse)
         })
 
-        let deleteLocalDonations = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .heartFilled), color: WMFColor.gray300, title: localizedStrings.clearCacheTitle, subtitle: nil, accessory: .none, action: {
+        let deleteLocalDonations = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .heartFilled), color: WMFColor.gray300, title: localizedStrings.clearDonationHistoryTitle, subtitle: nil, accessory: .none, action: {
             self.coordinatorDelegate?.handleSettingsAction(.deleteDonationHistory)
         })
 

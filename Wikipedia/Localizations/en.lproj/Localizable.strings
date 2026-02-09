@@ -221,6 +221,7 @@
 "chinese-variants-alert-title" = "Updates to Chinese variant support";
 "clear-title-accessibility-label" = "Clear";
 "clearing-cache-complete" = "Clearing cache complete.";
+"clearing-cache-error" = "Error clearing cache.";
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-all-tabs" = "Close all tabs";
 "close-all-tabs-confirmation" = "Do you want to close all $1 tabs? This action can’t be undone.";

@@ -221,6 +221,7 @@
 "chinese-variants-alert-title" = "Title of alert used to inform users about Chinese variant support.";
 "clear-title-accessibility-label" = "Accessibility label title for action that clears text";
 "clearing-cache-complete" = "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.";
+"clearing-cache-error" = "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.";
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-all-tabs" = "Action to close all open tabs.";
 "close-all-tabs-confirmation" = "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.";
