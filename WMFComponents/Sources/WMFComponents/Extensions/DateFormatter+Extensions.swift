@@ -64,7 +64,7 @@ public extension DateFormatter {
     
     static let monthDayFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d"
+        formatter.setLocalizedDateFormatFromTemplate("MMMd")
         return formatter
     }()
 }
