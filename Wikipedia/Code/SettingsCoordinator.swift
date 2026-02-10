@@ -36,9 +36,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     @discardableResult
     func start() -> Bool {
 
-        // If navigation controller already has WMFSettingsViewController as it's root view controller, no need to navigate anywhere
+        // If navigation controller already has SettingsViewController as it's root view controller, no need to navigate anywhere
         if navigationController.viewControllers.count == 1,
-           (navigationController.viewControllers.first as? OLDWMFSettingsViewController) != nil {
+           (navigationController.viewControllers.first as? SettingsViewController) != nil {
             return true
         }
         Task { @MainActor in

@@ -218,7 +218,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
             let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
                                 self.dataStore?.authenticationManager.authStateIsTemporary == true
 
-//             Update view model with new authentication state
+            // Update view model with new authentication state
             await self.viewModel.updateAuthenticationState(
                 username: username,
                 tempUsername: tempUsername,
@@ -230,7 +230,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
         }
     }
 
-    private func updateProfileButton() {
+    @objc func updateProfileButton() {
         guard let dataStore else {
             return
         }

@@ -132,6 +132,83 @@ final public class WMFSettingsViewModel: ObservableObject {
         await buildSections()
     }
 
+    /// Synchronous initializer for Objective-C compatibility
+    /// Sections will be empty initially and must be populated by calling refreshSections()
+    public static func __createSynchronously(
+        localizedStrings: LocalizedStrings,
+        username: String?,
+        tempUsername: String?,
+        isTempAccount: Bool,
+        primaryLanguage: String,
+        exploreFeedStatus: Bool,
+        readingPreferenceTheme: String,
+        coordinatorDelegate: SettingsCoordinatorDelegate?,
+        dataController: WMFSettingsDataController
+    ) -> WMFSettingsViewModel {
+        let viewModel = WMFSettingsViewModel.__createWithoutBuilding(
+            localizedStrings: localizedStrings,
+            username: username,
+            tempUsername: tempUsername,
+            isTempAccount: isTempAccount,
+            primaryLanguage: primaryLanguage,
+            exploreFeedStatus: exploreFeedStatus,
+            readingPreferenceTheme: readingPreferenceTheme,
+            coordinatorDelegate: coordinatorDelegate,
+            dataController: dataController
+        )
+        return viewModel
+    }
+
+    /// Private initializer without building sections
+    private init(
+        localizedStrings: LocalizedStrings,
+        username: String?,
+        tempUsername: String?,
+        isTempAccount: Bool,
+        primaryLanguage: String,
+        exploreFeedStatus: Bool,
+        readingPreferenceTheme: String,
+        coordinatorDelegate: SettingsCoordinatorDelegate?,
+        dataController: WMFSettingsDataController,
+        buildSections: Bool
+    ) {
+        self.localizedStrings = localizedStrings
+        self.username = username
+        self.tempUsername = tempUsername
+        self.isTempAccount = isTempAccount
+        self.mainLanguage = primaryLanguage
+        self.exploreFeedStatus = exploreFeedStatus
+        self.readingPreferenceTheme = readingPreferenceTheme
+        self.coordinatorDelegate = coordinatorDelegate
+        self.dataController = dataController
+        // Don't build sections in this initializer
+    }
+
+    private static func __createWithoutBuilding(
+        localizedStrings: LocalizedStrings,
+        username: String?,
+        tempUsername: String?,
+        isTempAccount: Bool,
+        primaryLanguage: String,
+        exploreFeedStatus: Bool,
+        readingPreferenceTheme: String,
+        coordinatorDelegate: SettingsCoordinatorDelegate?,
+        dataController: WMFSettingsDataController
+    ) -> WMFSettingsViewModel {
+        return WMFSettingsViewModel(
+            localizedStrings: localizedStrings,
+            username: username,
+            tempUsername: tempUsername,
+            isTempAccount: isTempAccount,
+            primaryLanguage: primaryLanguage,
+            exploreFeedStatus: exploreFeedStatus,
+            readingPreferenceTheme: readingPreferenceTheme,
+            coordinatorDelegate: coordinatorDelegate,
+            dataController: dataController,
+            buildSections: false
+        )
+    }
+
     // MARK: - Private methods
 
     private func buildSections() async {

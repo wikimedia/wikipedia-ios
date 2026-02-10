@@ -37,7 +37,6 @@
 #import "WMFLanguagesViewController.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
-#import "OLDWMFSettingsViewController.h"
 #import "WMFEmptyView.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFBarButtonItemPopoverMessageViewController.h"
