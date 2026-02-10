@@ -37,4 +37,6 @@ public enum WMFUserDefaultsKey: String {
     case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
     case activityTabIsTimelineOfBehaviorOn = "activity-tab-timeline-of-behavior"
     case autoSignTalkPageDiscussions = "auto-sign-talk-page-discussions"
+    case showSearchLanguageBar = "show-search-language-bar"
+    case openAppOnSearchTab = "open-app-on-search-tab"
 }

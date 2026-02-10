@@ -497,11 +497,87 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
             footerText: WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings")
         )
 
-        let viewModel = WMFSearchSettingsViewModel(localizedStrings: strings)
+        // Migrate both search settings
+        let showLanguageBar = migrateShowLanguageBar()
+        let openAppOnSearchTab = migrateOpenAppOnSearchTab()
+
+        let viewModel = WMFSearchSettingsViewModel(
+            localizedStrings: strings,
+            showLanguageBar: showLanguageBar,
+            openAppOnSearchTab: openAppOnSearchTab,
+            userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
+            onToggleShowLanguageBar: { [weak self] newValue in
+                self?.saveShowLanguageBar(newValue)
+            },
+            onToggleOpenAppOnSearchTab: { [weak self] newValue in
+                self?.saveOpenAppOnSearchTab(newValue)
+            }
+        )
+
         let rootView = WMFSearchSettingsView(viewModel: viewModel)
         let hostingController = UIHostingController(rootView: rootView)
         hostingController.title = strings.title
         settingsNav.pushViewController(hostingController, animated: true)
+    }
+
+    /// Migrates ShowLanguageBar from legacy UserDefaults key to WMFData store.
+    /// Once migrated, all future reads/writes use WMFData. Returns current value or default (false).
+    private func migrateShowLanguageBar() -> Bool {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+
+        // Check if already in new WMFData store
+        if let existingValue: Bool = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue) {
+            return existingValue
+        }
+
+        // Check old key (stored as NSNumber)
+        let oldKey = "ShowLanguageBar"
+        if let oldValue = UserDefaults.standard.object(forKey: oldKey) as? NSNumber {
+            let migratedValue = oldValue.boolValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: migratedValue)
+            UserDefaults.standard.removeObject(forKey: oldKey)
+            return migratedValue
+        }
+
+        // Default is false
+        let defaultValue = false
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: defaultValue)
+        return defaultValue
+    }
+
+    /// Migrates WMFOpenAppOnSearchTab from legacy UserDefaults key to WMFData store.
+    /// Once migrated, all future reads/writes use WMFData. Returns current value or default (false).
+    private func migrateOpenAppOnSearchTab() -> Bool {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+
+        // Check if already in new WMFData store
+        if let existingValue: Bool = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue) {
+            return existingValue
+        }
+
+        // Check old key
+        let oldKey = "WMFOpenAppOnSearchTab"
+        if UserDefaults.standard.object(forKey: oldKey) != nil {
+            let oldValue = UserDefaults.standard.bool(forKey: oldKey)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: oldValue)
+            UserDefaults.standard.removeObject(forKey: oldKey)
+            return oldValue
+        }
+
+        // Default is false
+        let defaultValue = false
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: defaultValue)
+        return defaultValue
+    }
+
+    private func saveShowLanguageBar(_ newValue: Bool) {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: newValue)
+    }
+
+    private func saveOpenAppOnSearchTab(_ newValue: Bool) {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: newValue)
     }
 
     // MARK: - Explore Feed

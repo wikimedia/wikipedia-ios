@@ -25,11 +25,17 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
 
     public let localizedStrings: LocalizedStrings
 
-    private let userDefaults: UserDefaults
+    private let userDefaultsStore: WMFKeyValueStore?
+    public var onToggleShowLanguageBar: ((Bool) -> Void)?
+    public var onToggleOpenAppOnSearchTab: ((Bool) -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, userDefaults: UserDefaults = .standard) {
+    public init(localizedStrings: LocalizedStrings, showLanguageBar: Bool, openAppOnSearchTab: Bool, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, onToggleShowLanguageBar: ((Bool) -> Void)? = nil, onToggleOpenAppOnSearchTab: ((Bool) -> Void)? = nil) {
         self.localizedStrings = localizedStrings
-        self.userDefaults = userDefaults
+        self.showLanguageBar = showLanguageBar
+        self.openAppOnSearchTab = openAppOnSearchTab
+        self.userDefaultsStore = userDefaultsStore
+        self.onToggleShowLanguageBar = onToggleShowLanguageBar
+        self.onToggleOpenAppOnSearchTab = onToggleOpenAppOnSearchTab
 
         Task { await loadAndBuild() }
     }
@@ -38,16 +44,7 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
-        // Load current values from UserDefaults using the same keys as the old implementation
-        // These are stored as plain Bool values, not JSON-encoded
-        if let showLanguageBarValue = userDefaults.object(forKey: "ShowLanguageBar") as? NSNumber {
-            showLanguageBar = showLanguageBarValue.boolValue
-        } else {
-            showLanguageBar = false
-        }
-
-        openAppOnSearchTab = userDefaults.bool(forKey: "WMFOpenAppOnSearchTab")
-
+        // Values are passed from coordinator after migration, no need to read here
         buildSections()
     }
 
@@ -90,9 +87,8 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
         Binding(
             get: { self.showLanguageBar },
             set: { newValue in
-                Task { @MainActor in
-                    await self.setShowLanguageBar(newValue)
-                }
+                self.showLanguageBar = newValue
+                self.onToggleShowLanguageBar?(newValue)
             }
         )
     }
@@ -101,21 +97,9 @@ public final class WMFSearchSettingsViewModel: ObservableObject {
         Binding(
             get: { self.openAppOnSearchTab },
             set: { newValue in
-                Task { @MainActor in
-                    await self.setOpenAppOnSearchTab(newValue)
-                }
+                self.openAppOnSearchTab = newValue
+                self.onToggleOpenAppOnSearchTab?(newValue)
             }
         )
-    }
-
-    public func setShowLanguageBar(_ newValue: Bool) async {
-        showLanguageBar = newValue
-        // Match the old implementation which stores as NSNumber
-        userDefaults.set(NSNumber(value: newValue), forKey: "ShowLanguageBar")
-    }
-
-    public func setOpenAppOnSearchTab(_ newValue: Bool) async {
-        openAppOnSearchTab = newValue
-        userDefaults.set(newValue, forKey: "WMFOpenAppOnSearchTab")
     }
 }
