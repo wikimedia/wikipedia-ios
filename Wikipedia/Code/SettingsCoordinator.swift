@@ -246,7 +246,10 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
 
         let viewModel = WMFYearInReviewSettingsViewModel(
             dataController: dataController,
-            localizedStrings: strings
+            localizedStrings: strings,
+            onToggle: { isOn in
+                DonateFunnel.shared.logYearInReviewSettingsDidToggle(isOn: isOn)
+            }
         )
 
         let rootView = WMFYearInReviewSettingsView(viewModel: viewModel)
@@ -256,6 +259,7 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
             return
         }
 
+        DonateFunnel.shared.logYearInReviewSettingsDidTapItem()
         hostingController.title = strings.title
         settingsNav.pushViewController(hostingController, animated: true)
     }

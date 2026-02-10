@@ -4,6 +4,7 @@ import WMF
 import WMFComponents
 import WMFData
 
+@MainActor
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {
     func accountViewControllerDidTapLogout(_ accountViewController: AccountViewController)

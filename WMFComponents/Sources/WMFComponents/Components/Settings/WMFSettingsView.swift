@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SettingsRow: View { // make new file
+struct SettingsRow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme { appEnvironment.theme }
 

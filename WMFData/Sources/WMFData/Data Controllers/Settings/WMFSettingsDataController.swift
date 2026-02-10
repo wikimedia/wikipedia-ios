@@ -46,8 +46,9 @@ public actor WMFSettingsDataController: ObservableObject {
 
 
     public func setYirActive(_ enabled: Bool) async -> Bool {
-        // TODO:
-        return true
+        yirDataController?.yearInReviewSettingsIsEnabled = enabled
+
+        return yirIsActive()
     }
 
 }
