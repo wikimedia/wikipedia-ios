@@ -32,11 +32,7 @@ public struct WMFActivityTabView: View {
                         loggedInList(proxy: proxy)
                     }
                 } else {
-                    if !viewModel.customizeViewModel.isTimelineOfBehaviorOn {
-                        customizedEmptyState()
-                    } else {
-                        loggedOutList(proxy: proxy)
-                    }
+                    loggedOutList(proxy: proxy)
                 }
             }
         }
@@ -188,7 +184,6 @@ public struct WMFActivityTabView: View {
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
         if viewModel.sections.count == 0 {
             VStack {
-                
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
