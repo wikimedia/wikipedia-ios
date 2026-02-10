@@ -113,16 +113,37 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
             object: nil
         )
 
-        // Add hosting controller as a child
+        // Observe push notification banner displays (to refresh notification badge)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)),
+            name: .pushNotificationBannerDidDisplayInForeground,
+            object: nil
+        )
+
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
-        // Configure navigation bar
         configureNavigationBar()
     }
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateProfileButton()
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Set user activity for Handoff/Spotlight
+        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_settingsView())
+
+        // Trigger notification load
+        dataStore?.remoteNotificationsController.triggerLoadNotifications(force: false)
+
+        if let yirDataController,
+           yirDataController.shouldShowYearInReviewSettingsItem(countryCode: Locale.current.region?.identifier) {
+            DonateFunnel.shared.logYearInReviewSettingsDidAppear()
+        }
     }
 
     deinit {
@@ -202,7 +223,6 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
 
         profileCoordinator?.start()
 
-        // Log metrics
         if let metricsID = DonateCoordinator.metricsID(for: .settingsProfile, languageCode: languageCode) {
             DonateFunnel.shared.logExploreOptOutProfileClick(metricsID: metricsID)
         }
@@ -212,20 +232,17 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
         Task { @MainActor [weak self] in
             guard let self = self else { return }
 
-            // Fetch current authentication state from dataStore
             let username = self.dataStore?.authenticationManager.authStatePermanentUsername
             let tempUsername = self.dataStore?.authenticationManager.authStateTemporaryUsername
             let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
                                 self.dataStore?.authenticationManager.authStateIsTemporary == true
 
-            // Update view model with new authentication state
             await self.viewModel.updateAuthenticationState(
                 username: username,
                 tempUsername: tempUsername,
                 isTempAccount: isTempAccount
             )
 
-            // Update profile button
             updateProfileButton()
         }
     }
@@ -248,6 +265,11 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
             needsBadgeLabel: CommonStrings.profileButtonBadgeTitle,
             noBadgeLabel: CommonStrings.profileButtonTitle
         )
+    }
+
+    @objc private func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
+        // Reload notifications when a banner is displayed in the foreground
+        dataStore?.remoteNotificationsController.triggerLoadNotifications(force: true)
     }
 
     // MARK: - Themeable
