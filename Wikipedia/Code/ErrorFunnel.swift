@@ -1,6 +1,6 @@
 import WMF
 
-@objc final class ErrorFunnel: NSObject {
+@objc(WMFErrorFunnel) public final class ErrorFunnel: NSObject {
     
     @objc static let shared = ErrorFunnel()
     
@@ -22,6 +22,10 @@ import WMF
             case platform = "platform"
             case wikiID = "wiki_id"
         }
+    }
+    
+    @objc public func logEvent(domain: String, code: String, category: String?, details: [String: String]? = nil) {
+        logEvent(domain: domain, code: code, category: category, details: details, project: nil)
     }
     
     public func logEvent(domain: String, code: String, category: String?, details: [String: String]? = nil, project: WikimediaProject? = nil) {
