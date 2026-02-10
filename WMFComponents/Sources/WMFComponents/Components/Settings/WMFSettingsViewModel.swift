@@ -104,13 +104,13 @@ final public class WMFSettingsViewModel: ObservableObject {
     @Published private(set) var sections: [SettingsSection] = []
 
     let URLTerms = "https://foundation.wikimedia.org/wiki/Terms_of_Use/en"
-   
+
     let URLDonation = "https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>"
 
     let localizedStrings: LocalizedStrings
-    private let username: String?
-    private let tempUsername: String?
-    private let isTempAccount: Bool
+    private var username: String?
+    private var tempUsername: String?
+    private var isTempAccount: Bool
     private let mainLanguage: String
     private let exploreFeedStatus: Bool
     private let readingPreferenceTheme: String
@@ -137,8 +137,20 @@ final public class WMFSettingsViewModel: ObservableObject {
     private func buildSections() async {
         sections = await [getAccountSection(), getMainSection(), getTermsSection(), getHelpSection()]
     }
-    
+
     public func refreshSections() async {
+        await buildSections()
+    }
+
+    /// Updates the authentication state and rebuilds sections
+    /// - Parameters:
+    ///   - username: The permanent username, if logged in
+    ///   - tempUsername: The temporary username, if using a temp account
+    ///   - isTempAccount: Whether the current user has a temporary account
+    public func updateAuthenticationState(username: String?, tempUsername: String?, isTempAccount: Bool) async {
+        self.username = username
+        self.tempUsername = tempUsername
+        self.isTempAccount = isTempAccount
         await buildSections()
     }
 
@@ -154,7 +166,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let exploreFeed = SettingsItem(image: WMFIcon.settingsExplore, color: WMFColor.blue300, title: localizedStrings.exploreFeedTitle, subtitle: nil, accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle), action: {
             self.coordinatorDelegate?.handleSettingsAction(.exploreFeed)
         })
-       
+
         let label = await dataController.yirIsActive() == true ? localizedStrings.onTitle : localizedStrings.offTitle
 
         let yearInReview = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .calendar), color: WMFColor.blue700, title: localizedStrings.yirTitle, subtitle: nil, accessory: .chevron(label: label), action: {

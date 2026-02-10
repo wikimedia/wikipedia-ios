@@ -64,13 +64,17 @@ struct SettingsRow: View {
     }
 }
 
-struct WMFSettingsView: View {
+public struct WMFSettingsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     var theme: WMFTheme { appEnvironment.theme }
 
     @ObservedObject var viewModel: WMFSettingsViewModel
 
-    var body: some View {
+    public init(viewModel: WMFSettingsViewModel) {
+        self.viewModel = viewModel
+    }
+
+    public var body: some View {
         ZStack {
             Color(uiColor: theme.midBackground)
                 .ignoresSafeArea()
