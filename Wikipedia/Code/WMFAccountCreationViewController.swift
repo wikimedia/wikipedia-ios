@@ -254,7 +254,16 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             }
         }
         
-        hcaptchaVC.errorAction = { error in
+        hcaptchaVC.errorAction = { [weak self] error in
+            guard let self else { return }
+            
+            let siteURL = captchaSiteURL()
+            
+            if let project = WikimediaProject(siteURL: siteURL) {
+                let domain = String(reflecting: type(of: error))
+                let code = String(describing: error)
+                ErrorFunnel.shared.logEvent(domain: domain, code: code, category: .AppSide, project: project)
+            }
             hcaptchaVC.dismiss(animated: true) { [weak self] in
                 self?.hCaptchaToken = nil
                 WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)

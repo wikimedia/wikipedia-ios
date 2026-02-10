@@ -136,6 +136,11 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     NSParameterAssert(configuration);
     if (!_contentSources) {
         NSArray<NSURL *>*siteURLs = self.preferredSiteURLs;
+        
+        if (!siteURLs) {
+            return @[];
+        }
+        
         NSParameterAssert(siteURLs);
         NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
@@ -464,6 +469,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
+    if (!moc) {
+        return nil;
+    }
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
     NSDictionary *exploreFeedPreferences = (NSDictionary *)keyValue.value;
     if (exploreFeedPreferences && [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey]) {

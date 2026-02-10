@@ -1,8 +1,22 @@
-import WMF
+@objc(WMFErrorCategory) public enum Category: Int {
+    case WMFData
+    case WMFComponents
+    case WMFFramework
+    case AppSide
+    
+    var description: String {
+        switch self {
+        case .WMFData: return "WMFData"
+        case .WMFComponents: return "WMFComponents"
+        case .WMFFramework: return "WMFFramework"
+        case .AppSide: return "AppSide"
+        }
+    }
+}
 
 @objc(WMFErrorFunnel) public final class ErrorFunnel: NSObject {
     
-    @objc static let shared = ErrorFunnel()
+    @objc public static let shared = ErrorFunnel()
     
     private struct Event: EventInterface {
         static let schema: WMF.EventPlatformClient.Schema = .appError
@@ -24,11 +38,11 @@ import WMF
         }
     }
     
-    @objc public func logEvent(domain: String, code: String, category: String?, details: [String: String]? = nil) {
+    @objc public func logEvent(domain: String, code: String, category: Category, details: [String: String]? = nil) {
         logEvent(domain: domain, code: code, category: category, details: details, project: nil)
     }
     
-    public func logEvent(domain: String, code: String, category: String?, details: [String: String]? = nil, project: WikimediaProject? = nil) {
+    public func logEvent(domain: String, code: String, category: Category, details: [String: String]? = nil, project: WikimediaProject? = nil) {
         var detailsString: String? = nil
         if let details {
             detailsString = ""
@@ -41,7 +55,7 @@ import WMF
                 detailsString?.removeLast(2)
             }
         }
-        let event = ErrorFunnel.Event(domain: domain, code: code, category: category, details: detailsString, platform: "ios", wikiID: project?.notificationsApiWikiIdentifier)
-        EventPlatformClient.shared.submit(stream: .appActivityTab, event: event)
+        let event = ErrorFunnel.Event(domain: domain, code: code, category: category.description, details: detailsString, platform: "ios", wikiID: project?.notificationsApiWikiIdentifier)
+        EventPlatformClient.shared.submit(stream: .appError, event: event)
     }
 }

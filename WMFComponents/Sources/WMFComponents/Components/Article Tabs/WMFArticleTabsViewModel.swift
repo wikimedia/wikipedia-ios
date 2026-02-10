@@ -13,6 +13,7 @@ public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewTappedCloseAllTabs()
     func logArticleTabsOverviewTappedCloseAllTabsConfirmCancel()
     func logArticleTabsOverviewTappedCloseAllTabsConfirmClose()
+    func logError(_ error: Error)
 }
 
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
@@ -70,7 +71,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public func didTapCloseAllTabs() {
         Task {
-            try? await dataController.deleteAllTabs()
+            do {
+                try await dataController.deleteAllTabs()
+            } catch {
+                await loggingDelegate?.logError(error)
+            }
+            
             Task { @MainActor in
                 await loadTabs()
             }

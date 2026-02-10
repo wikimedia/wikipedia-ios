@@ -337,6 +337,11 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 }
 
 extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
+    func logError(_ error: any Error) {
+        let domain = String(reflecting: type(of: error))
+        let code = String(describing: error)
+        ErrorFunnel.shared.logEvent(domain: domain, code: code, category: .WMFComponents)
+    }
 
     func logArticleTabsOverviewTappedDone() {
         ArticleTabsFunnel.shared.logTabsOverviewClose()

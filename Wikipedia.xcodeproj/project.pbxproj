@@ -534,9 +534,7 @@
 		675D875D2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */; };
 		675D875E2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */; };
 		675D875F2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675D875C2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift */; };
-		676026BE2F3BA59600C89A0E /* ErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676026BD2F3BA59400C89A0E /* ErrorFunnel.swift */; };
-		676026BF2F3BA59600C89A0E /* ErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676026BD2F3BA59400C89A0E /* ErrorFunnel.swift */; };
-		676026C02F3BA59600C89A0E /* ErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676026BD2F3BA59400C89A0E /* ErrorFunnel.swift */; };
+		676026C12F3BD3AF00C89A0E /* ErrorFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676026BD2F3BA59400C89A0E /* ErrorFunnel.swift */; };
 		6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */; };
 		6761AEDF2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEDE2704CF0000E47BAD /* WikimediaProject+RemoteNotifications.swift */; };
 		6761AEE12704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
@@ -10483,7 +10481,6 @@
 				6761AEE62704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				671DF9C125F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				677D8A602B75948200DD9B7D /* EditorButton.swift in Sources */,
-				676026BF2F3BA59600C89A0E /* ErrorFunnel.swift in Sources */,
 				67CEF26F2351113000D5CA6C /* DiffController.swift in Sources */,
 				B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */,
 				6782DBBB2343B861003FA21B /* DiffListViewController.swift in Sources */,
@@ -10606,6 +10603,7 @@
 				0042807A25E6E395004945B3 /* MTLJSONAdapter.m in Sources */,
 				D80A792A1F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m in Sources */,
 				D8543231218879D000E895B5 /* Configuration.swift in Sources */,
+				676026C12F3BD3AF00C89A0E /* ErrorFunnel.swift in Sources */,
 				D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */,
 				67D6C01C2405A4FB005709B1 /* CacheItem+CoreDataClass.swift in Sources */,
 				7A630F71217A400200FC93FC /* Array+Chunked.swift in Sources */,
@@ -11193,7 +11191,6 @@
 				D8CE25751E698E2400DAE2E0 /* UIView+Animations.swift in Sources */,
 				67861A18223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				832093332A61CA2200A43BAB /* DiffHeaderView.swift in Sources */,
-				676026BE2F3BA59600C89A0E /* ErrorFunnel.swift in Sources */,
 				00FCB2C526D839A500F5A47A /* NotificationsCenterCellViewModel.swift in Sources */,
 				00B0B3D22978745400DD7893 /* EditNoticesFetcher.swift in Sources */,
 				D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */,
@@ -11753,7 +11750,6 @@
 				0042813625E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */,
 				67861A19223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				D8EC3E641E9BDA35006712EB /* WMFAccountCreator.swift in Sources */,
-				676026C02F3BA59600C89A0E /* ErrorFunnel.swift in Sources */,
 				D8EC3E651E9BDA35006712EB /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				832093322A61CA2200A43BAB /* DiffHeaderView.swift in Sources */,
 				00FCB2C426D839A500F5A47A /* NotificationsCenterCellViewModel.swift in Sources */,

@@ -39,6 +39,7 @@ static uint64_t bundleHash(void) {
 }
 
 - (void)startSynchronizingContexts:(NSArray<NSManagedObjectContext *> *)contexts {
+    return;
     if (!self.identifier) {
         DDLogError(@"missing channel name");
         return;
