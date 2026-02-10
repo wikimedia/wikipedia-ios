@@ -413,9 +413,18 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
             return
         }
 
-        let searchSettingsVC = SearchSettingsViewController()
-        searchSettingsVC.apply(theme: theme)
-        settingsNav.pushViewController(searchSettingsVC, animated: true)
+        let strings = WMFSearchSettingsViewModel.LocalizedStrings(
+            title: CommonStrings.searchTitle,
+            showLanguagesTitle: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"),
+            openOnSearchTabTitle: WMFLocalizedString("settings-search-open-app-on-search", value: "Open app on Search tab", comment: "Title for setting that allows users to open app on Search tab"),
+            footerText: WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings")
+        )
+
+        let viewModel = WMFSearchSettingsViewModel(localizedStrings: strings)
+        let rootView = WMFSearchSettingsView(viewModel: viewModel)
+        let hostingController = UIHostingController(rootView: rootView)
+        hostingController.title = strings.title
+        settingsNav.pushViewController(hostingController, animated: true)
     }
 
     // MARK: - Explore Feed
