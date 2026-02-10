@@ -6,7 +6,7 @@ import WMFData
 import CocoaLumberjackSwift
 
 @MainActor
-final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
+final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDelegate {
 
     // MARK: Coordinator Protocol Properties
 
@@ -97,25 +97,25 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         switch action {
 
         case .account:
-            print("account ⭐️")
+            showAccount()
         case .tempAccount:
-            print("temp account ⭐️")
+            showTemporaryAccount()
         case .logIn:
-            print("login ⭐️")
+            showLogin()
         case .myLanguages:
-            print("lang ⭐️")
+            showLanguages()
         case .search:
-            print("search ⭐️")
+            showSearch()
         case .exploreFeed:
-            print("explore ⭐️")
+            showExploreFeedSettings()
         case .yearInReview:
             self.goToYearInReviewSettings()
         case .notifications:
-            print("notif ⭐️")
+            showNotifications()
         case .readingPreferences:
-            print("read pref ⭐️")
+            showReadingPreferences()
         case .articleSyncing:
-            print("sync ⭐️")
+            showArticleSyncing()
         case .databasePopulation:
             tappedDatabasePopulation()
         case .clearCachedData:
@@ -135,7 +135,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         }
     }
 
-    @MainActor
+    // MARK: - Private methods - Actions
+
     private func asyncDismissSettings() async {
         await withCheckedContinuation { continuation in
             navigationController.dismiss(animated: true) {
@@ -150,6 +151,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         }
     }
 
+    // MARK: - Clear cache
 
     private func clearCache() {
         Task {
@@ -185,7 +187,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         Task {
             try await Task.sleep(nanoseconds: 1_000_000_000)
-            if let error = cleanupError {
+            if cleanupError != nil {
                 self.showClearCacheErrorBanner()
             }
             self.showClearCacheComplete()
@@ -236,7 +238,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
     }
 
-    @MainActor
+    // MARK: - YiR
+
     private func goToYearInReviewSettings() {
 
         let strings = WMFYearInReviewSettingsViewModel.LocalizedStrings(title: CommonStrings.yirTitle, description: WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature."), toggleTitle: CommonStrings.yirTitle)
@@ -257,6 +260,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         settingsNav.pushViewController(hostingController, animated: true)
     }
 
+    // MARK: - Database population
+
     private func tappedDatabasePopulation() {
         let vc = DatabasePopulationHostingController()
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
@@ -266,6 +271,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         settingsNav.present(navVC, animated: true)
     }
+
+    // MARK: - External link Util
 
     private func tappedExternalLink(with urlString: String) {
         guard let presentedViewController = navigationController.presentedViewController else {
@@ -281,12 +288,15 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         }
     }
 
+    // MARK: - Rate App
+
     private func tappedRateApp() {
         if let url = URL(string: "itms-apps://itunes.apple.com/app/id324715238") {
             self.navigationController.navigate(to: url, useSafari: true)
         }
     }
 
+    // MARK: - About
     private func tappedAbout() {
         dismissSettings {
             if let vc = AboutViewController(theme: self.theme) {
@@ -296,6 +306,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     }
 
+    // MARK: - Help and feedback
+
     private func tappedHelpAndFeedback() {
         dismissSettings {
             if let vc = HelpViewController(dataStore: self.dataStore, theme: self.theme) {
@@ -303,6 +315,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             }
         }
     }
+
+    // MARK: - Donation History
 
     private func clearDonationHistory() {
         let alertController = UIAlertController(title: CommonStrings.confirmDeletionTitle, message: CommonStrings.confirmDeletionSubtitle, preferredStyle: .alert)
@@ -331,4 +345,146 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         presenter.present(alertController, animated: true)
     }
 
+    // MARK: - Account
+
+    private func showAccount() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let accountVC = AccountViewController()
+        accountVC.dataStore = dataStore
+        accountVC.delegate = self
+        accountVC.apply(theme: theme)
+        settingsNav.pushViewController(accountVC, animated: true)
+    }
+
+    // MARK: - Temporary Account
+
+    private func showTemporaryAccount() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let tempAccountVC = TempAccountsSettingsViewController(dataStore: dataStore)
+        tempAccountVC.apply(theme: theme)
+        settingsNav.pushViewController(tempAccountVC, animated: true)
+    }
+
+    // MARK: - Login
+
+    private func showLogin() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
+            return
+        }
+
+        loginVC.apply(theme: theme)
+        let loginNavVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen)
+        settingsNav.present(loginNavVC, animated: true)
+        LoginFunnel.shared.logLoginStartInSettings()
+    }
+
+    // MARK: - Languages
+
+    private func showLanguages() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languagesVC.showExploreFeedCustomizationSettings = true
+        languagesVC.apply(theme)
+        let languagesNavVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
+        settingsNav.present(languagesNavVC, animated: true)
+    }
+
+    // MARK: - Search
+
+    private func showSearch() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let searchSettingsVC = SearchSettingsViewController()
+        searchSettingsVC.apply(theme: theme)
+        settingsNav.pushViewController(searchSettingsVC, animated: true)
+    }
+
+    // MARK: - Explore Feed
+
+    private func showExploreFeedSettings() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let feedSettingsVC = ExploreFeedSettingsViewController()
+        feedSettingsVC.dataStore = dataStore
+        feedSettingsVC.apply(theme: theme)
+        settingsNav.pushViewController(feedSettingsVC, animated: true)
+    }
+
+    // MARK: - Notifications
+
+    private func showNotifications() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let pushSettingsVC = PushNotificationsSettingsViewController(authenticationManager: dataStore.authenticationManager, notificationsController: dataStore.notificationsController)
+        pushSettingsVC.apply(theme: theme)
+        settingsNav.pushViewController(pushSettingsVC, animated: true)
+    }
+
+    // MARK: - Reading Preferences
+
+    private func showReadingPreferences() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let appearanceSettingsVC = AppearanceSettingsViewController()
+        appearanceSettingsVC.apply(theme: theme)
+        settingsNav.pushViewController(appearanceSettingsVC, animated: true)
+    }
+
+    // MARK: - Article Syncing
+
+    private func showArticleSyncing() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let storageAndSyncingVC = StorageAndSyncingSettingsViewController()
+        storageAndSyncingVC.dataStore = dataStore
+        storageAndSyncingVC.apply(theme: theme)
+        settingsNav.pushViewController(storageAndSyncingVC, animated: true)
+    }
+
+    // MARK: - Logout
+
+    private func logout() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        settingsNav.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user) {
+                LoginFunnel.shared.logLogoutInSettings()
+            }
+        }
+    }
+
+}
+
+// MARK: - AccountViewControllerDelegate
+
+@MainActor
+extension SettingsCoordinator: @MainActor AccountViewControllerDelegate {
+    func accountViewControllerDidTapLogout(_ accountViewController: AccountViewController) {
+        logout()
+    }
 }
