@@ -358,11 +358,86 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
             return
         }
 
-        let accountVC = AccountViewController()
-        accountVC.dataStore = dataStore
-        accountVC.delegate = self
-        accountVC.apply(theme: theme)
-        settingsNav.pushViewController(accountVC, animated: true)
+        guard let username = dataStore.authenticationManager.authStatePermanentUsername else {
+            assertionFailure("Should not reach account settings if user isn't logged in.")
+            return
+        }
+
+        let strings = WMFAccountSettingsViewModel.LocalizedStrings(
+            title: CommonStrings.account,
+            accountGroupTitle: WMFLocalizedString("account-group-title", value: "Your Account", comment: "Title for account group on account settings screen."),
+            vanishAccountTitle: CommonStrings.vanishAccount,
+            autoSignDiscussionsTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"),
+            talkPagePreferencesTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"),
+            talkPagePreferencesFooter: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works")
+        )
+
+        // Migration: Check if old key exists and migrate to WMFData store
+        let currentAutoSignValue = migrateAutoSignTalkPageDiscussions()
+
+        let viewModel = WMFAccountSettingsViewModel(
+            localizedStrings: strings,
+            username: username,
+            autoSignDiscussions: currentAutoSignValue,
+            userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
+            onVanishAccount: { [weak self] in
+                self?.showVanishAccountWarning()
+            },
+            onToggleAutoSign: { [weak self] newValue in
+                self?.saveAutoSignTalkPageDiscussions(newValue)
+            }
+        )
+
+        let rootView = WMFAccountSettingsView(viewModel: viewModel)
+        let hostingController = UIHostingController(rootView: rootView)
+        hostingController.title = strings.title
+        settingsNav.pushViewController(hostingController, animated: true)
+    }
+
+    /// Migrates autoSignTalkPageDiscussions from legacy UserDefaults key to WMFData store.
+    /// Once migrated, all future reads/writes use WMFData. Returns current value or default (true).
+    private func migrateAutoSignTalkPageDiscussions() -> Bool {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+
+        // First check if we already have the value in the new WMFData store
+        if let existingValue: Bool = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue) {
+            return existingValue
+        }
+
+        // If not in new store, check if old key exists
+        let oldKey = "WMFAutoSignTalkPageDiscussions"
+        if UserDefaults.standard.object(forKey: oldKey) != nil {
+            // Migrate from old location
+            let oldValue = UserDefaults.standard.bool(forKey: oldKey)
+
+            // Save to new location in WMFData store
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: oldValue)
+
+            // Optionally remove old key after migration
+            UserDefaults.standard.removeObject(forKey: oldKey)
+
+            return oldValue
+        }
+
+        // Default value if neither exists (matches AppDelegate default of true)
+        let defaultValue = true
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: defaultValue)
+        return defaultValue
+    }
+
+    private func saveAutoSignTalkPageDiscussions(_ newValue: Bool) {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: newValue)
+    }
+
+    private func showVanishAccountWarning() {
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
+        warningViewController.delegate = self
+        settingsNav.present(warningViewController, animated: true)
     }
 
     // MARK: - Temporary Account
@@ -718,5 +793,27 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
 extension SettingsCoordinator: @MainActor AccountViewControllerDelegate {
     func accountViewControllerDidTapLogout(_ accountViewController: AccountViewController) {
         logout()
+    }
+}
+
+// MARK: - VanishAccountWarningViewDelegate
+
+extension SettingsCoordinator: VanishAccountWarningViewDelegate {
+    func userDidDismissVanishAccountWarningView(presentVanishView: Bool) {
+        guard presentVanishView else {
+            return
+        }
+
+        guard let url = URL(string: "https://meta.wikimedia.org/wiki/Special:GlobalVanishRequest") else {
+            return
+        }
+
+        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+            return
+        }
+
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+        let viewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        settingsNav.pushViewController(viewController, animated: true)
     }
 }
