@@ -75,7 +75,7 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
             clearDonationHistoryTitle: CommonStrings.deleteDonationHistory)
     }
 
-    func tempNewSettings() async { // TEST CODE
+    func setupSettings() async {
 
         let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
@@ -87,7 +87,7 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
 
         let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
 
-        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: WMFSettingsDataController())
+        let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: dataController)
 
         self.settingsViewModel = viewModel
         let settingsViewController =  WMFSettingsViewControllerNEW(viewModel: viewModel, coordinatorDelegate: self)

@@ -264,7 +264,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
 
     func tempNewSettings() async { 
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        await settingsCoordinator.tempNewSettings()
+        await settingsCoordinator.setupSettings()
     }
 
     private func showWatchlist() {
