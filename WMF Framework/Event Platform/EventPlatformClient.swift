@@ -136,6 +136,7 @@ import WMFData
         case articleLinkInteraction = "ios.article_link_interaction"
         case appTabsInteraction = "app_tabs_interaction"
         case appActivityTab = "app_activity_tab"
+        case appError = "app_error"
     }
     
     /**
@@ -163,6 +164,7 @@ import WMFData
         case appInteraction = "/analytics/mobile_apps/app_interaction/1.1.0"
         case imageRecommendation = "/analytics/mobile_apps/android_image_recommendation_event/1.1.0"
         case articleLinkInteraction = "/analytics/mobile_apps/ios_article_link_interaction/2.0.0"
+        case appError = "/analytics/mobile_apps/app_error/1.0.0"
     }
 
     /**
