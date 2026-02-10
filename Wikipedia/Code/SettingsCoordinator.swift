@@ -4,6 +4,7 @@ import WMF
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import UserNotifications
 
 @MainActor
 final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDelegate {
@@ -19,6 +20,7 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
 
     private let dataController: WMFSettingsDataController
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
+    @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
 
     // MARK: Lifecycle
 
@@ -447,9 +449,89 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
             return
         }
 
-        let pushSettingsVC = PushNotificationsSettingsViewController(authenticationManager: dataStore.authenticationManager, notificationsController: dataStore.notificationsController)
-        pushSettingsVC.apply(theme: theme)
-        settingsNav.pushViewController(pushSettingsVC, animated: true)
+        let strings = WMFPushNotificationsSettingsViewModel.LocalizedStrings(
+            title: CommonStrings.pushNotifications,
+            headerText: WMFLocalizedString("settings-notifications-header", value: "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.", comment: "Text informing user of benefits of enabling push notifications."),
+            pushNotificationsTitle: CommonStrings.pushNotifications
+        )
+
+        let viewModel = WMFPushNotificationsSettingsViewModel(
+            localizedStrings: strings,
+            onRequestPermissions: { [weak self] in
+                self?.requestPushPermissions()
+            },
+            onUnsubscribe: { [weak self] in
+                self?.unsubscribeFromEchoNotifications()
+            },
+            onOpenSystemSettings: {
+                UIApplication.shared.wmf_openAppSpecificSystemSettings()
+            }
+        )
+
+        self.pushNotificationsViewModel = viewModel
+
+        let rootView = WMFPushNotificationsSettingsView(viewModel: viewModel)
+        let hostingController = UIHostingController(rootView: rootView)
+        hostingController.title = strings.title
+        settingsNav.pushViewController(hostingController, animated: true)
+    }
+
+    private func requestPushPermissions() {
+        Task { @MainActor in
+            let settings = await UNUserNotificationCenter.current().notificationSettings()
+
+            switch settings.authorizationStatus {
+            case .authorized, .provisional, .ephemeral:
+                UIApplication.shared.registerForRemoteNotifications()
+                await subscribeToEchoNotifications()
+                await pushNotificationsViewModel?.refreshAfterPermissionRequest(granted: true)
+
+            case .notDetermined:
+                let result = await withCheckedContinuation { continuation in
+                    dataStore.notificationsController.requestPermissionsIfNecessary { authorized, error in
+                        continuation.resume(returning: (authorized: authorized, error: error))
+                    }
+                }
+
+                if result.authorized {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    await subscribeToEchoNotifications()
+                }
+                await pushNotificationsViewModel?.refreshAfterPermissionRequest(granted: result.authorized)
+
+            case .denied:
+                await pushNotificationsViewModel?.refreshAfterPermissionRequest(granted: false)
+
+            @unknown default:
+                await pushNotificationsViewModel?.refreshAfterPermissionRequest(granted: false)
+            }
+        }
+    }
+
+    private func subscribeToEchoNotifications() async {
+        await withCheckedContinuation { continuation in
+            dataStore.notificationsController.subscribeToEchoNotifications { error in
+                if let error {
+                    DDLogError("Error subscribing to echo notifications: \(error)")
+                }
+                continuation.resume()
+            }
+        }
+        await pushNotificationsViewModel?.loadAndBuild()
+    }
+
+    private func unsubscribeFromEchoNotifications() {
+        Task { @MainActor in
+            await withCheckedContinuation { continuation in
+                dataStore.notificationsController.unsubscribeFromEchoNotifications { error in
+                    if let error {
+                        DDLogError("Error unsubscribing from echo notifications: \(error)")
+                    }
+                    continuation.resume()
+                }
+            }
+            await pushNotificationsViewModel?.loadAndBuild()
+        }
     }
 
     // MARK: - Reading Preferences

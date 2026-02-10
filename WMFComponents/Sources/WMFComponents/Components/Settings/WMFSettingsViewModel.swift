@@ -13,13 +13,13 @@ public enum AccessoryType {
 public struct SettingsItem: Identifiable {
     public let id = UUID()
     let image: UIImage?
-    let color: UIColor
+    let color: UIColor?
     let title: String
     let subtitle: String?
     let accessory: AccessoryType
     let action: (() -> Void)?
 
-    public init(image: UIImage?, color: UIColor, title: String, subtitle: String?, accessory: AccessoryType, action: (() -> Void)?) {
+    public init(image: UIImage?, color: UIColor?, title: String, subtitle: String?, accessory: AccessoryType, action: (() -> Void)?) {
         self.image = image
         self.color = color
         self.title = title

@@ -8,13 +8,13 @@ struct SettingsRow: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            if let image = item.image {
+            if let image = item.image, let color = item.color {
                 Image(uiImage: image)
                     .frame(width: 16, height: 16)
                     .foregroundStyle(Color(uiColor: theme == .light ? theme.chromeBackground : theme.icon))
                     .background(
                         RoundedRectangle(cornerRadius: 6)
-                            .fill(Color(uiColor: theme == .light ? item.color : theme.iconBackground))
+                            .fill(Color(uiColor: theme == .light ? color : theme.iconBackground))
                             .frame(width: 32, height: 32)
                     )
                     .padding(.leading, 8)
