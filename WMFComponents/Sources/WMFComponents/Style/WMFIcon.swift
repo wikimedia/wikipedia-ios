@@ -62,6 +62,7 @@ public enum WMFSFSymbolIcon {
     case starCircleFill
     case person
 	case personFilled
+    case personFilledbadgeMinus
     case starLeadingHalfFilled
     case heart
     case heartFilled
@@ -182,6 +183,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "person", withConfiguration: configuration)
         case .personFilled:
             image = UIImage(systemName: "person.fill", withConfiguration: configuration)
+        case .personFilledbadgeMinus:
+            image = UIImage(systemName: "person.fill.badge.minus", withConfiguration: configuration)
         case .starLeadingHalfFilled:
             image = UIImage(systemName: "star.leadinghalf.filled", withConfiguration: configuration)
         case .heart:

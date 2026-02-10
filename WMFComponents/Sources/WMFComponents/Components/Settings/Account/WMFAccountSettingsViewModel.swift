@@ -71,7 +71,7 @@ public final class WMFAccountSettingsViewModel: ObservableObject {
 
     private func usernameItem() -> SettingsItem {
         SettingsItem(
-            image: WMFSFSymbolIcon.for(symbol: .personFill),
+            image: WMFSFSymbolIcon.for(symbol: .personFilled),
             color: WMFColor.orange600,
             title: username,
             subtitle: nil,
@@ -82,7 +82,7 @@ public final class WMFAccountSettingsViewModel: ObservableObject {
 
     private func vanishAccountItem() -> SettingsItem {
         SettingsItem(
-            image: WMFSFSymbolIcon.for(symbol: .personCropCircleBadgeMinus),
+            image: WMFSFSymbolIcon.for(symbol: .personFilledbadgeMinus),
             color: WMFColor.red600,
             title: localizedStrings.vanishAccountTitle,
             subtitle: nil,
