@@ -11,7 +11,7 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 // View Controllers
-#import "WMFSettingsViewController.h"
+#import "OLDWMFSettingsViewController.h"
 
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
@@ -61,7 +61,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
-@property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
+@property (nonatomic, strong) OLDWMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) SearchViewController *searchViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
@@ -2064,10 +2064,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.currentTabNavigationController pushViewController:detailVC animated:YES];
 }
 
-- (nonnull WMFSettingsViewController *)settingsViewController {
+- (nonnull OLDWMFSettingsViewController *)settingsViewController {
     if (!_settingsViewController) {
-        WMFSettingsViewController *settingsVC =
-            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore
+        OLDWMFSettingsViewController *settingsVC =
+            [OLDWMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore
                                                                      theme:self.theme];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
@@ -2143,7 +2143,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
             if ([rootViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
                 [[WMFNavigationEventsFunnel shared] logTappedExplore];
-            } else if ([rootViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+            } else if ([rootViewController isKindOfClass:[OLDWMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
                 [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
             } else if ([rootViewController isKindOfClass:[WMFPlacesViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedPlaces];

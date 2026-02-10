@@ -1,7 +1,7 @@
 import WMFComponents
 import WMFData
 
-@objc extension WMFSettingsViewController: WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+@objc extension OLDWMFSettingsViewController: WMFNavigationBarConfiguring, WMFNavigationBarHiding {
 
     @objc func configureNavigationBarFromObjC() {
         
@@ -99,7 +99,7 @@ import WMFData
     }
 }
 
-extension WMFSettingsViewController: LogoutCoordinatorDelegate {
+extension OLDWMFSettingsViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: self.theme) { [weak self] in
             self?.dataStore.authenticationManager.logout(initiatedBy: .user, completion: {

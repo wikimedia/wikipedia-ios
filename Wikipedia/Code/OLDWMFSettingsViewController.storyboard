@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LWA-GV-VZP">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LWA-GV-VZP">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Settings View Controller-->
         <scene sceneID="3OF-T7-jIf">
             <objects>
-                <viewController restorationIdentifier="SecondaryMenuViewController" storyboardIdentifier="SecondaryMenuViewController" extendedLayoutIncludesOpaqueBars="YES" id="LWA-GV-VZP" customClass="WMFSettingsViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="SecondaryMenuViewController" storyboardIdentifier="SecondaryMenuViewController" extendedLayoutIncludesOpaqueBars="YES" id="LWA-GV-VZP" customClass="OLDWMFSettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kn0-4d-Wca"/>
                         <viewControllerLayoutGuide type="bottom" id="gVo-Tk-NhT"/>
@@ -44,7 +42,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lwh-ga-zh6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-543" y="-2105"/>
+            <point key="canvasLocation" x="-868.79999999999995" y="-1893.5532233883059"/>
         </scene>
     </scenes>
 </document>

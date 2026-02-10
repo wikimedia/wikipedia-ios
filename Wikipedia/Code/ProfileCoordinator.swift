@@ -172,10 +172,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserTalkPageTempAccount()
             }
-        case .tempNewSettings: // DO NOT COMMIT
-            await asyncDismissProfile()
-            await self.tempNewSettings()
-
         }
     }
 
@@ -260,11 +256,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
             userTalkCoordinator.start()
         }
-    }
-
-    func tempNewSettings() async { 
-        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        await settingsCoordinator.setupSettings()
     }
 
     private func showWatchlist() {

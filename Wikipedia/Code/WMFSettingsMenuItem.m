@@ -1,6 +1,6 @@
 #import "WMFSettingsMenuItem.h"
 #import "Wikipedia-Swift.h"
-#import "WMFSettingsViewController.h"
+#import "OLDWMFSettingsViewController.h"
 @import WMFData;
 
 @interface WMFSettingsMenuItem ()

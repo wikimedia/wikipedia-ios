@@ -1,6 +1,7 @@
 import Foundation
 
 /// A delegate  for handling actions triggered from the Settings view, to comunicate with the Settings delegate.
+@MainActor
 public protocol SettingsCoordinatorDelegate: AnyObject {
     func handleSettingsAction(_ action: SettingsAction)
 }

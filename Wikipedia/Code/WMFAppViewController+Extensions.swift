@@ -1038,7 +1038,7 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
         } else if currentVC is SearchViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .search, action: action)
-        } else if currentVC is WMFSettingsViewController {
+        } else if currentVC is OLDWMFSettingsViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .settings, action: action)
         } else if let article = currentVC as? ArticleViewController {
             guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {

@@ -7,7 +7,7 @@ import CocoaLumberjackSwift
 import UserNotifications
 
 @MainActor
-final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDelegate {
+final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     // MARK: Coordinator Protocol Properties
 
@@ -38,14 +38,14 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
 
         // If navigation controller already has WMFSettingsViewController as it's root view controller, no need to navigate anywhere
         if navigationController.viewControllers.count == 1,
-           (navigationController.viewControllers.first as? WMFSettingsViewController) != nil {
+           (navigationController.viewControllers.first as? OLDWMFSettingsViewController) != nil {
             return true
         }
+        Task { @MainActor in
+            await self.asyncStart()
+        }
 
-        let settingsViewController = WMFSettingsViewController(dataStore: dataStore, theme: theme)
-        let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
-        navigationController.present(navVC, animated: true)
-        return true
+        return false
     }
 
     private func locStrings() -> WMFSettingsViewModel.LocalizedStrings {
@@ -75,7 +75,7 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
             clearDonationHistoryTitle: CommonStrings.deleteDonationHistory)
     }
 
-    func setupSettings() async {
+    func asyncStart() async {
 
         let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
         let themeName = UserDefaults.standard.themeDisplayName
@@ -90,7 +90,7 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
         let viewModel = await WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, readingPreferenceTheme: themeName, dataController: dataController)
 
         self.settingsViewModel = viewModel
-        let settingsViewController =  WMFSettingsViewControllerNEW(viewModel: viewModel, coordinatorDelegate: self)
+        let settingsViewController =  WMFSettingsViewController(viewModel: viewModel, coordinatorDelegate: self)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
         navigationController.present(navVC, animated: true)
     }
@@ -866,7 +866,7 @@ final class SettingsCoordinator: Coordinator, @MainActor SettingsCoordinatorDele
 // MARK: - AccountViewControllerDelegate
 
 @MainActor
-extension SettingsCoordinator: @MainActor AccountViewControllerDelegate {
+extension SettingsCoordinator: AccountViewControllerDelegate {
     func accountViewControllerDidTapLogout(_ accountViewController: AccountViewController) {
         logout()
     }

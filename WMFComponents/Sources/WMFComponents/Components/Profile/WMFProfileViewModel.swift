@@ -218,17 +218,6 @@ enum ProfileState {
                     await coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
-            let newSettings = ProfileListItem( // TEST CODE
-                text: "TEMP new settings test",
-                image: WMFSFSymbolIcon.for(symbol: .gear),
-                imageColor: UIColor(Color.gray),
-                hasNotifications: nil,
-                isDonate: false,
-                isLoadingDonateConfigs: false,
-                action: {
-                    await coordinatorDelegate?.handleProfileAction(.tempNewSettings)
-                }
-            )
             return [
                 ProfileSection(
                     listItems: [
@@ -251,8 +240,7 @@ enum ProfileState {
                 ),
                 ProfileSection(
                     listItems: [
-                        settingsItem,
-                        newSettings // TEST CODE
+                        settingsItem
                     ],
                     subtext: nil
                 )
@@ -327,17 +315,6 @@ enum ProfileState {
                     await coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
-            let newSettings = ProfileListItem( // TEST CODE
-                text: "TEMP new settings test",
-                image: WMFSFSymbolIcon.for(symbol: .gear),
-                imageColor: UIColor(Color.gray),
-                hasNotifications: nil,
-                isDonate: false,
-                isLoadingDonateConfigs: false,
-                action: {
-                    await coordinatorDelegate?.handleProfileAction(.tempNewSettings)
-                }
-            )
 
             let joinSection = ProfileSection(
                 listItems: [
@@ -354,7 +331,7 @@ enum ProfileState {
                 subtext: localizedStrings.donateSubtext
             )
             let notificationsSection = ProfileSection(listItems: [notificationsItem], subtext: nil)
-            let settingsSection = ProfileSection(listItems: [settingsItem, newSettings], subtext: nil) // TEST CODE
+            let settingsSection = ProfileSection(listItems: [settingsItem], subtext: nil)
 
             let sections = [notificationsSection, joinSection, donateSection, settingsSection]
             return sections

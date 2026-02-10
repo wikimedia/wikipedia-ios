@@ -4,7 +4,7 @@ import Combine
 
 fileprivate final class WMFSettingsHostingController: WMFComponentHostingController<WMFSettingsView> {}
 
-final public class WMFSettingsViewControllerNEW: WMFCanvasViewController, WMFNavigationBarConfiguring {
+final public class WMFSettingsViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
 
     private let viewModel: WMFSettingsViewModel
     private let hostingViewController: WMFSettingsHostingController

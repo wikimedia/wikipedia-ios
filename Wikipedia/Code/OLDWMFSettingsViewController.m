@@ -2,7 +2,7 @@
 @import WMF;
 #import "Wikipedia-Swift.h"
 
-#import "WMFSettingsViewController.h"
+#import "OLDWMFSettingsViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -17,7 +17,7 @@ static NSString *const WMFSettingsURLTerms = @"https://foundation.wikimedia.org/
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
+@interface OLDWMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -30,11 +30,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @end
 
-@implementation WMFSettingsViewController
+@implementation OLDWMFSettingsViewController
 
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store theme:(WMFTheme *)theme {
     NSParameterAssert(store);
-    WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
+    OLDWMFSettingsViewController *vc = [OLDWMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
     vc.donateDataController = [WMFDonateDataController sharedInstance];
     vc.theme = theme;
