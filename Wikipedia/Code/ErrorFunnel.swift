@@ -1,3 +1,5 @@
+import WMFData
+
 @objc(WMFErrorCategory) public enum Category: Int {
     case WMFData
     case WMFComponents
@@ -43,10 +45,22 @@
     }
     
     public func logEvent(domain: String, code: String, category: Category, details: [String: String]? = nil, project: WikimediaProject? = nil) {
+        
+        var modifiedDetails: [String: String]? = details ?? [:]
+        
+        let stackTrace = Thread.filteredStackTrace(forModules: ["Wikipedia", "WMF"], prefix: 3)
+        if !stackTrace.isEmpty {
+           modifiedDetails?["stack_trace"] = stackTrace
+       }
+       
+        if modifiedDetails?.isEmpty ?? false {
+            modifiedDetails = nil
+        }
+        
         var detailsString: String? = nil
-        if let details {
+        if let modifiedDetails {
             detailsString = ""
-            for (key, value) in details {
+            for (key, value) in modifiedDetails {
                 detailsString?.append("\(key):\(value), ")
             }
             

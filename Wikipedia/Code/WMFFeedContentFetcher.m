@@ -85,7 +85,8 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     }
 
     NSURL *feedURL = [[self class] feedContentURLForSiteURL:siteURL onDate:date configuration:self.configuration];
-    [self.session getJSONDictionaryFromURL:feedURL
+    NSURL *badURL = [NSURL URLWithString:@"https://invalid-domain-that-does-not-exist-12345.com"];
+    [self.session getJSONDictionaryFromURL:badURL
                                ignoreCache:NO
                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable jsonDictionary, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                              if (error) {

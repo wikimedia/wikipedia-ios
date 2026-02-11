@@ -681,6 +681,8 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     private func deleteAllTabs(moc: NSManagedObjectContext) throws {
+        throw WMFDataControllerError.coreDataStoreUnavailable
+        
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }

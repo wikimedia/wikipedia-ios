@@ -89,30 +89,30 @@ class WMFHCaptchaViewController: ThemeableViewController {
     // MARK: - HCaptcha Setup
     private func setupHCaptcha() {
         do {
-            guard let config = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha else {
+            // guard let config = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha else {
                 errorAction?(CustomError.hCaptchaMissingConfig)
                 return
-            }
+            // }
             
-            guard let baseURL = URL(string: config.baseURL),
-                  let jsSrc = URL(string: config.jsSrc),
-                  let endpoint = URL(string: config.endpoint),
-                  let reportapi = URL(string: config.reportapi),
-                  let assethost = URL(string: config.assethost),
-                  let imghost = URL(string: config.imghost) else {
-                      errorAction?(CustomError.hCaptchaInvalidURL)
-                      return
-                  }
-            
-            hCaptcha = try HCaptcha(apiKey: config.apiKey,
-                                     baseURL: baseURL,
-                                     jsSrc: jsSrc,
-                                     sentry: config.sentry,
-                                     endpoint: endpoint,
-                                     reportapi: reportapi,
-                                     assethost: assethost,
-                                     imghost: imghost,
-                                     theme: theme.isDark ? "dark" : "light")
+//            guard let baseURL = URL(string: config.baseURL),
+//                  let jsSrc = URL(string: config.jsSrc),
+//                  let endpoint = URL(string: config.endpoint),
+//                  let reportapi = URL(string: config.reportapi),
+//                  let assethost = URL(string: config.assethost),
+//                  let imghost = URL(string: config.imghost) else {
+//                      errorAction?(CustomError.hCaptchaInvalidURL)
+//                      return
+//                  }
+//            
+//            hCaptcha = try HCaptcha(apiKey: config.apiKey,
+//                                     baseURL: baseURL,
+//                                     jsSrc: jsSrc,
+//                                     sentry: config.sentry,
+//                                     endpoint: endpoint,
+//                                     reportapi: reportapi,
+//                                     assethost: assethost,
+//                                     imghost: imghost,
+//                                     theme: theme.isDark ? "dark" : "light")
         } catch let error {
             errorAction?(error)
             return

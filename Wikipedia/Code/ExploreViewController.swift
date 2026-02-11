@@ -393,10 +393,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var wantsDeleteInsertOnNextItemUpdate: Bool = false
 
     private func setupFetchedResultsController() {
-        guard dataStore.viewContext != nil else {
-            return
-        }
-        
         let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
         let today = NSDate().wmf_midnightUTCDateFromLocal as Date
         let oldestDate = Calendar.current.date(byAdding: .day, value: -WMFExploreFeedMaximumNumberOfDays, to: today) ?? today

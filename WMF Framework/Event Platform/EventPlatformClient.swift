@@ -645,18 +645,18 @@ import WMFData
             }
             #endif
             
-            guard let streamConfigs = streamConfigurations else {
-                appendEventToInputBuffer(data: data, stream: stream)
-                return
-            }
-            guard let config = streamConfigs[stream] else {
-                DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
-                return
-            }
-            guard samplingController.inSample(stream: stream, config: config) else {
-                DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
-                return
-            }
+//            guard let streamConfigs = streamConfigurations else {
+//                appendEventToInputBuffer(data: data, stream: stream)
+//                return
+//            }
+//            guard let config = streamConfigs[stream] else {
+//                DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
+//                return
+//            }
+//            guard samplingController.inSample(stream: stream, config: config) else {
+//                DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
+//                return
+//            }
             storageManager.push(data: data, stream: stream)
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")

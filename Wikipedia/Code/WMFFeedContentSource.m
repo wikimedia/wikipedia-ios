@@ -61,6 +61,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         date:date
         force:force
         failure:^(NSError *_Nonnull error) {
+        
+            [[WMFErrorFunnel shared] logEventWithDomain:error.domain code:[NSString stringWithFormat:@"%ld", (long)error.code] category:WMFErrorCategoryWMFFramework details:nil];
+        
             if (completion) {
                 completion(nil, nil);
             }

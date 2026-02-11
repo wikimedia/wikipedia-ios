@@ -181,10 +181,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 }
 
 - (void)startSynchronizingLibraryContexts {
-    if (self.viewContext) {
-        [self.librarySynchronizer startSynchronizingContexts:@[self.viewContext]];
-    }
-    
+    [self.librarySynchronizer startSynchronizingContexts:@[self.viewContext]];
 }
 
 - (void)startSynchronizingCacheContext:(NSManagedObjectContext *)moc {
@@ -212,7 +209,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
         NSPersistentContainer *container = [[NSPersistentContainer alloc] initWithName:modelName managedObjectModel:model];
         NSURL *coreDataDBURL = [containerURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
-        NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:[NSURL fileURLWithPath:@"/invalid/path/store.sqlite"]];
+        NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:coreDataDBURL];
         [description setOption:@YES forKey:NSMigratePersistentStoresAutomaticallyOption];
         [description setOption:@YES forKey:NSInferMappingModelAutomaticallyOption];
         description.shouldAddStoreAsynchronously = YES;
@@ -222,27 +219,8 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
             if (error) {
                 
                 DDLogError(@"Error adding persistent store: %@", error);
-                
-                NSMutableDictionary *details = [NSMutableDictionary dictionary];
-                            
-                // Add underlying error if present
-                NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
-                if (underlyingError) {
-                    details[@"underlying_domain"] = underlyingError.domain;
-                    details[@"underlying_code"] = [NSString stringWithFormat:@"%ld", (long)underlyingError.code];
-                }
-                
-                // Add file path if present
-                NSString *filePath = error.userInfo[NSFilePathErrorKey];
-                if (filePath) {
-                    details[@"file_path"] = filePath;
-                }
-                
-                // Add stack trace
-                details[@"stack_trace"] = [[NSThread callStackSymbols] componentsJoinedByString:@"\n"];
-                            
-                
-                [[WMFErrorFunnel shared] logEventWithDomain:error.domain code:[NSString stringWithFormat:@"%ld", (long)error.code] category:WMFErrorCategoryWMFFramework details:details];
+
+                [[WMFErrorFunnel shared] logEventWithDomain:error.domain code:[NSString stringWithFormat:@"%ld", (long)error.code] category:WMFErrorCategoryWMFFramework details:nil];
                 
                 if (completion) {
                     dispatch_async(dispatch_get_main_queue(), ^{
