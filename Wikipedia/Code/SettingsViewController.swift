@@ -14,7 +14,8 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
     private let dataStore: MWKDataStore?
     private let hostingController: WMFSettingsHostingController
     private let viewModel: WMFSettingsViewModel
-    private let coordinatorDelegate: SettingsCoordinatorDelegate?
+    private var coordinatorDelegate: SettingsCoordinatorDelegate?
+    private let dataController: WMFSettingsDataController?
 
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -78,11 +79,12 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
 
     // MARK: - Initialization
 
-    public init(viewModel: WMFSettingsViewModel, coordinatorDelegate: SettingsCoordinatorDelegate?, dataStore: MWKDataStore?, theme: Theme) {
+    public init(viewModel: WMFSettingsViewModel, coordinatorDelegate: SettingsCoordinatorDelegate? = nil, dataStore: MWKDataStore?, theme: Theme, dataController: WMFSettingsDataController? = nil) {
         self.viewModel = viewModel
         self.coordinatorDelegate = coordinatorDelegate
         self.dataStore = dataStore
         self.theme = theme
+        self.dataController = dataController
 
         let view = WMFSettingsView(viewModel: viewModel)
         self.hostingController = WMFSettingsHostingController(rootView: view)
@@ -98,6 +100,26 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        // If no coordinator was provided (tab bar context), create one now that we have a navigation controller
+        if coordinatorDelegate == nil,
+           let navigationController = self.navigationController,
+           let dataStore = self.dataStore,
+           let dataController = self.dataController {
+            let settingsCoordinator = SettingsCoordinator(
+                navigationController: navigationController,
+                theme: theme,
+                dataStore: dataStore,
+                dataController: dataController
+            )
+            self.coordinatorDelegate = settingsCoordinator
+            self.viewModel.coordinatorDelegate = settingsCoordinator
+
+            // Build sections now that we have a coordinator
+            Task { @MainActor in
+                await self.viewModel.refreshSections()
+            }
+        }
 
         // Observe authentication state changes
         NotificationCenter.default.addObserver(

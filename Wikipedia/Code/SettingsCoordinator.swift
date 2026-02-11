@@ -22,6 +22,16 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
 
+    /// Returns the appropriate navigation controller for both modal and embedded contexts
+    private var settingsNavigationController: UINavigationController? {
+        // Modal context (presented from Profile): Settings is presented modally
+        if let presentedNav = navigationController.presentedViewController as? UINavigationController {
+            return presentedNav
+        }
+        // Embedded context (tab bar): Settings IS the navigation controller
+        return navigationController
+    }
+
     // MARK: Lifecycle
 
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFSettingsDataController = WMFSettingsDataController()) {
@@ -257,7 +267,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let rootView = WMFYearInReviewSettingsView(viewModel: viewModel)
         let hostingController = UIHostingController(rootView: rootView)
 
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -271,7 +281,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     private func tappedDatabasePopulation() {
         let vc = DatabasePopulationHostingController()
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -281,7 +291,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - External link Util
 
     private func tappedExternalLink(with urlString: String) {
-        guard let presentedViewController = navigationController.presentedViewController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -290,7 +300,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .fullScreen)
-            presentedViewController.present(newNavigationVC, animated: true)
+            settingsNav.present(newNavigationVC, animated: true)
         }
     }
 
@@ -354,7 +364,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Account
 
     private func showAccount() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -431,7 +441,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     private func showVanishAccountWarning() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -443,7 +453,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Temporary Account
 
     private func showTemporaryAccount() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -455,7 +465,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Login
 
     private func showLogin() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -472,7 +482,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Languages
 
     private func showLanguages() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -486,7 +496,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Search
 
     private func showSearch() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -583,7 +593,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Explore Feed
 
     private func showExploreFeedSettings() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -596,7 +606,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Notifications
 
     private func showNotifications() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -688,7 +698,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Reading Preferences
 
     private func showReadingPreferences() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -700,7 +710,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Article Syncing
 
     private func showArticleSyncing() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -755,9 +765,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         if !isPermanent && isOn {
             // User needs to log in first
-            guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
-                return
-            }
+            guard let settingsNav = settingsNavigationController else {
+            return
+        }
 
             let dismissHandler = {
                 // Revert toggle if dismissed
@@ -780,9 +790,9 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             }
 
             if !isOn {
-                guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
-                    return
-                }
+                guard let settingsNav = settingsNavigationController else {
+            return
+        }
                 settingsNav.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .syncDisabled, theme: theme) {
                     setSyncEnabled()
                 }
@@ -793,7 +803,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     private func showEraseArticlesAlert() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -814,7 +824,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     private func handleSyncWithServer() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -841,7 +851,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     private func showSyncAlert() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
         settingsNav.wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
@@ -850,7 +860,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: - Logout
 
     private func logout() {
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 
@@ -884,7 +894,7 @@ extension SettingsCoordinator: VanishAccountWarningViewDelegate {
             return
         }
 
-        guard let settingsNav = navigationController.presentedViewController as? UINavigationController else {
+        guard let settingsNav = settingsNavigationController else {
             return
         }
 

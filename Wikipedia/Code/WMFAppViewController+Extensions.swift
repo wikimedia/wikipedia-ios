@@ -1048,29 +1048,15 @@ extension WMFAppViewController {
             dataController: dataController
         )
 
-        // Create the settings coordinator
-        let settingsCoordinator = SettingsCoordinator(
-            navigationController: UINavigationController(),
-            theme: theme,
-            dataStore: dataStore,
-            dataController: dataController
-        )
-
-        // Set the coordinator as the delegate
-        viewModel.coordinatorDelegate = settingsCoordinator
-
-        // Create the view controller
+        // Create the view controller without a coordinator
+        // The coordinator will be created in viewDidLoad when navigationController is available
         let controller = SettingsViewController(
             viewModel: viewModel,
-            coordinatorDelegate: settingsCoordinator,
+            coordinatorDelegate: nil,
             dataStore: dataStore,
-            theme: theme
+            theme: theme,
+            dataController: dataController
         )
-
-        // Build sections asynchronously after creation
-        Task { @MainActor in
-            await viewModel.refreshSections()
-        }
 
         return controller
     }
