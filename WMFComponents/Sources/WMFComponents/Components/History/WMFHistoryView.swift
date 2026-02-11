@@ -46,11 +46,11 @@ public struct WMFHistoryView: View {
                         numberOfFilters: 0
                     )
                     WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true)
+                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                 }
-                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
-            .background(Color(theme.paperBackground))
             .scrollBounceBehavior(.always)
+            .ignoresSafeArea()
         }
     }
 
@@ -134,20 +134,43 @@ public struct WMFHistoryView: View {
     }
 
     private func listView() -> some View {
-        List {
-            ForEach(viewModel.sections) { section in
-                Section(header: headerViewForSection(section)) {
-                    ForEach(section.items) { item in
-                        row(for: section, item)
+        if #available(iOS 17.0, *) {
+            return List {
+                
+                Section {
+                    Text(viewModel.localizedStrings.historyHeaderTitle)
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .padding(.top, viewModel.topPadding)
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color(theme.paperBackground))
+                
+                ForEach(viewModel.sections) { section in
+                    
+                    Section {
+                        
+                        // Header as a regular row so that they aren't sticky
+                        headerViewForSection(section)
+                            .listRowSeparator(.hidden)
                             .listRowBackground(Color(theme.paperBackground))
+                        
+                        ForEach(section.items) { item in
+                            row(for: section, item)
+                                .listRowBackground(Color(theme.paperBackground))
+                                .listRowSeparator(.hidden)
+                        }
                     }
                 }
             }
+            .listStyle(.plain)
+            .listSectionSpacing(0)
+            .scrollContentBackground(.hidden)
+            .background(Color(theme.paperBackground))
+            .ignoresSafeArea(edges: .top)
+        } else {
+            return EmptyView()
         }
-        .listStyle(.plain)
-        .padding(.top, viewModel.topPadding)
-        .scrollContentBackground(.hidden)
-        .background(Color(theme.paperBackground))
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
@@ -162,14 +185,7 @@ public struct WMFHistoryView: View {
                 .ignoresSafeArea()
 
             if !viewModel.isEmpty {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(viewModel.localizedStrings.historyHeaderTitle)
-                        .font(Font(WMFFont.for(.boldTitle3)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                        .padding(.horizontal)
-
                     listView()
-                }
             } else {
                 emptyView()
             }

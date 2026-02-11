@@ -5,7 +5,7 @@ import CocoaLumberjackSwift
 import SwiftUI
 import Combine
 
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
 
     var hintController: HintController?
 
@@ -69,9 +69,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var needsAnimateLanguageBarMovement = false
-
-    var topSafeAreaOverlayView: UIView?
-    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
 
     // Properties needed for Profile Button
 
@@ -169,7 +166,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         view.addSubview(contentContainerView)
         contentContainerView.translatesAutoresizingMaskIntoConstraints = false
-        contentTopConstraint = contentContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        contentTopConstraint = contentContainerView.topAnchor.constraint(equalTo: view.topAnchor)
 
         NSLayoutConstraint.activate([
             contentTopConstraint!,
@@ -223,10 +220,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let topPad = searchLanguageBarViewController?.view.bounds.height ?? 0
-        historyViewModel.topPadding = topPad
-        recentSearchesViewModel.topPadding = topPad
-        resultsViewController.collectionView.contentInset.top = topPad
+        let languagesBarHeight = searchLanguageBarViewController?.view.bounds.height ?? 0
+        let topSafeAreaHeight = view.safeAreaInsets.top
+        historyViewModel.topPadding = topSafeAreaHeight + languagesBarHeight
+        recentSearchesViewModel.topPadding = languagesBarHeight
+        resultsViewController.collectionView.contentInset.top = languagesBarHeight
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -238,14 +236,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                     configureNavigationBar()
                 }
             }
-        }
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-
-        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.calculateTopSafeAreaOverlayHeight()
         }
     }
 
@@ -263,8 +253,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
-        let wButton = UIButton(type: .custom)
-        wButton.setImage(UIImage(named: "W"), for: .normal)
 
         var titleConfig: WMFNavigationBarTitleConfig
         titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
@@ -847,9 +835,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return viewModel
     }()
 
+    // Then simplify your lazy var:
     lazy var historyViewController: UIViewController = {
         let historyView = WMFHistoryView(viewModel: historyViewModel)
-        return UIHostingController(rootView: historyView)
+        return WMFHistoryHostingController(rootView: historyView)
     }()
 
     // MARK: - Reading lists hint controller
@@ -1024,7 +1013,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        themeTopSafeAreaOverlay()
         updateProfileButton()
         profileCoordinator?.theme = theme
     }
@@ -1108,7 +1096,6 @@ extension SearchViewController: UISearchControllerDelegate {
 extension SearchViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         navigationItem.searchController?.isActive = false
-
         updateEmbeddedContent(animated: true)
     }
 }
