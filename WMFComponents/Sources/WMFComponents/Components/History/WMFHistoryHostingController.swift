@@ -2,9 +2,15 @@ import SwiftUI
 
 @available(iOS 16.4, *)
 final public class WMFHistoryHostingController: UIHostingController<WMFHistoryView> {
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        disableContentInsetAdjustments()
+    }
+    
+    // Helps to fix weird spacing at the top when Search is unfocused
+    public func disableContentInsetAdjustments() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             if let scrollView = findScrollView(in: self.view) {

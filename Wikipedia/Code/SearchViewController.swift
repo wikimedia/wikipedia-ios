@@ -264,15 +264,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
+        var profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil
+        var tabsButtonConfig: WMFNavigationBarTabsButtonConfig? = nil
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-            let leadingItem: UIBarButtonItem? = (currentEmbeddedViewController === historyViewController) ? deleteButton : nil
-            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: leadingItem)
-        } else {
-            profileButtonConfig = nil
-            tabsButtonConfig = nil
+            
+            if isSearchTab {
+                let leadingItem: UIBarButtonItem? = (currentEmbeddedViewController === historyViewController) ? deleteButton : nil
+                tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: leadingItem)
+            }
+            
         }
 
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
@@ -282,6 +283,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     @MainActor
     private func refreshDeleteButtonState() {
+        guard isSearchTab else {
+            return
+        }
+        
         let shouldShow = (currentEmbeddedViewController === historyViewController)
         let enabled = shouldShow && !historyViewModel.isEmpty
 
@@ -429,16 +434,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 showLanguageBar = true
                 embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
             } else {
+                historyViewController.disableContentInsetAdjustments()
                 embedInContainer(historyViewController, animated: animated)
                 showLanguageBar = false
             }
+            deleteButton.isEnabled = (currentEmbeddedViewController === historyViewController) && !historyViewModel.isEmpty
         } else {
             showLanguageBar = true
             embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
         }
 
         updateLanguageBarVisibility()
-        deleteButton.isEnabled = (currentEmbeddedViewController === historyViewController) && !historyViewModel.isEmpty
         Task { @MainActor in
             refreshDeleteButtonState()
         }
@@ -477,6 +483,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             ])
 
             searchLanguageBarViewController.didMove(toParent: self)
+            searchLanguageBarViewController.moveScrollViewToStart()
             searchLanguageBarViewController.view.isHidden = false
         } else if !showLanguageBar && searchLanguageBarViewController != nil {
 
@@ -836,7 +843,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }()
 
     // Then simplify your lazy var:
-    lazy var historyViewController: UIViewController = {
+    lazy var historyViewController: WMFHistoryHostingController = {
         let historyView = WMFHistoryView(viewModel: historyViewModel)
         return WMFHistoryHostingController(rootView: historyView)
     }()

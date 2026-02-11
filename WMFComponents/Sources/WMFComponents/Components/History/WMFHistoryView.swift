@@ -29,29 +29,21 @@ public struct WMFHistoryView: View {
     }
 
     private func emptyView() -> some View {
-        GeometryReader { geometry in
-            ScrollView(showsIndicators: true) {
-                VStack {
-                    let locStrings = WMFEmptyViewModel.LocalizedStrings(
-                        title: viewModel.localizedStrings.emptyViewTitle,
-                        subtitle: viewModel.localizedStrings.emptyViewSubtitle,
-                        titleFilter: nil,
-                        buttonTitle: nil,
-                        attributedFilterString: nil
-                    )
-                    let emptyViewModel = WMFEmptyViewModel(
-                        localizedStrings: locStrings,
-                        image: viewModel.emptyViewImage,
-                        imageColor: nil,
-                        numberOfFilters: 0
-                    )
-                    WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true)
-                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                }
-            }
-            .scrollBounceBehavior(.always)
-            .ignoresSafeArea()
-        }
+        let locStrings = WMFEmptyViewModel.LocalizedStrings(
+            title: viewModel.localizedStrings.emptyViewTitle,
+            subtitle: viewModel.localizedStrings.emptyViewSubtitle,
+            titleFilter: nil,
+            buttonTitle: nil,
+            attributedFilterString: nil
+        )
+        let emptyViewModel = WMFEmptyViewModel(
+            localizedStrings: locStrings,
+            image: viewModel.emptyViewImage,
+            imageColor: nil,
+            numberOfFilters: 0
+        )
+        return WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true)
+                .ignoresSafeArea()
     }
 
     private func rowView(for section: HistorySection, item: HistoryItem) -> some View {
