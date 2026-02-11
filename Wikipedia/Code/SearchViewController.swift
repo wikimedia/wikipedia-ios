@@ -1022,6 +1022,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         view.backgroundColor = theme.colors.paperBackground
         updateProfileButton()
         profileCoordinator?.theme = theme
+        contentContainerView.backgroundColor = theme.colors.paperBackground
+        recentSearchesViewController.view.backgroundColor = theme.colors.paperBackground
     }
 
 }

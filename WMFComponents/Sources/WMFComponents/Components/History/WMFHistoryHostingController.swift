@@ -1,12 +1,13 @@
 import SwiftUI
 
 @available(iOS 16.4, *)
-final public class WMFHistoryHostingController: UIHostingController<WMFHistoryView> {
+final public class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         disableContentInsetAdjustments()
+        view.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
     }
     
     // Helps to fix weird spacing at the top when Search is unfocused
@@ -30,5 +31,9 @@ final public class WMFHistoryHostingController: UIHostingController<WMFHistoryVi
             }
         }
         return nil
+    }
+    
+    public override func appEnvironmentDidChange() {
+        view.backgroundColor = theme.paperBackground
     }
 }
