@@ -160,8 +160,16 @@ public struct WMFHistoryView: View {
         ZStack {
             Color(theme.paperBackground)
                 .ignoresSafeArea()
+
             if !viewModel.isEmpty {
-                listView()
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(viewModel.localizedStrings.historyHeaderTitle)
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .padding(.horizontal)
+
+                    listView()
+                }
             } else {
                 emptyView()
             }
