@@ -359,7 +359,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
 
-    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
+    BOOL shouldOpenAppOnSearchTab = [self shouldOpenAppOnSearchTab];
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
         [[self searchViewController] makeSearchBarBecomeFirstResponder];
@@ -1377,7 +1377,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
-    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
+    BOOL shouldOpenAppOnSearchTab = [self shouldOpenAppOnSearchTab];
     if (shouldOpenAppOnSearchTab) {
         return NO;
     }

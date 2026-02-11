@@ -25,6 +25,12 @@ extension Notification.Name {
 
 extension WMFAppViewController {
 
+    /// Reads the "Open app on Search tab" setting from WMFData store (migrated key)
+    @objc func shouldOpenAppOnSearchTab() -> Bool {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+    }
+
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
 
         guard let linkURL = userActivity.wmf_linkURL() else {
