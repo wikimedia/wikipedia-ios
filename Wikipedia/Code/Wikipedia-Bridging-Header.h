@@ -37,11 +37,11 @@
 #import "WMFLanguagesViewController.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
-#import "WMFSettingsViewController.h"
 #import "WMFEmptyView.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFBarButtonItemPopoverMessageViewController.h"
 #import "WMFImageGalleryViewController.h"
+#import "AboutViewController.h"
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"

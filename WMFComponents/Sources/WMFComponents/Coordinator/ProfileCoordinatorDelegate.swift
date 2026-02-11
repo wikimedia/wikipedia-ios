@@ -2,7 +2,7 @@ import Foundation
 
 /// A delegate  for handling actions triggered from the Profile view, to comunicate with the Profile delegate.
 public protocol ProfileCoordinatorDelegate: AnyObject {
-    func handleProfileAction(_ action: ProfileAction)
+    func handleProfileAction(_ action: ProfileAction) async
 }
 
 /// Represents the various actions that can be performed from the Profile view.

@@ -238,6 +238,16 @@ public class CommonStrings: NSObject {
 
     @objc public static let settingsStorageAndSyncing = WMFLocalizedString("settings-storage-and-syncing-title", value: "Article storage and syncing", comment: "Title of the saved articles storage and syncing settings screen")
 
+    @objc public static let clearCachedDataSettings = WMFLocalizedString("settings-clear-cache", value: "Clear cached data", comment: "Title for the 'Clear cached data' settings row")
+
+    @objc public static let privacyTermsHeader = WMFLocalizedString("main-menu-heading-legal", value: "Privacy and Terms", comment: "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.")
+
+    @objc public static let rateTheAppTitle = WMFLocalizedString("main-menu-rate-app", value: "Rate the app", comment: "Button text for showing the app in the app store so user can rate the app")
+
+    @objc public static let helpAndfeedbackTitle = WMFLocalizedString("settings-help-and-feedback", value: "Help and feedback", comment: "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports")
+
+    @objc public static let aboutTitle = WMFLocalizedString("about-title", value: "About", comment: "Title for credits page {{Identical|About}}")
+
     @objc public static let inTheNewsTitle = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
 
     @objc public static let wikipediaLanguages = WMFLocalizedString("languages-wikipedia", value: "Wikipedia languages", comment: "Title for list of Wikipedia languages")

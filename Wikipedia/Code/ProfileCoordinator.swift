@@ -123,7 +123,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     // MARK: - ProfileCoordinatorDelegate Methods
     
-    public func handleProfileAction(_ action: ProfileAction) {
+    public func handleProfileAction(_ action: ProfileAction) async {
         switch action {
         case .showNotifications:
             dismissProfile {
@@ -174,7 +174,16 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         }
     }
-    
+
+    @MainActor
+    private func asyncDismissProfile() async {
+        await withCheckedContinuation { continuation in
+            navigationController.dismiss(animated: true) {
+                continuation.resume()
+            }
+        }
+    }
+
     private func dismissProfile(completion: @escaping () -> Void) {
         navigationController.dismiss(animated: true) {
             completion()
@@ -248,7 +257,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             userTalkCoordinator.start()
         }
     }
-    
+
     private func showWatchlist() {
         let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
         watchlistCoordinator.start()

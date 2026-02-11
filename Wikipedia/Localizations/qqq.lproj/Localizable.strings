@@ -221,6 +221,7 @@
 "chinese-variants-alert-title" = "Title of alert used to inform users about Chinese variant support.";
 "clear-title-accessibility-label" = "Accessibility label title for action that clears text";
 "clearing-cache-complete" = "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.";
+"clearing-cache-error" = "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.";
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-all-tabs" = "Action to close all open tabs.";
 "close-all-tabs-confirmation" = "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.";
@@ -1022,7 +1023,6 @@
 "potd-sample-entry-description" = "Text for sample entry image caption. It is displayed when app is unable to fetch Picture of the day data.";
 "potd-widget-description" = "Text for description of Picture of the day widget displayed when adding to home screen.";
 "potd-widget-title" = "Text for title of Picture of the day widget.";
-"preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "privacy-policy-title" = "Title for the privacy Policy";
 "problem-with-feature-title" = "Button title text that allows user to send feedback to the iOS support email about a particular feature.";
 "profile-button-accessibility-hint" = "Accessibility hint for the profile navigation bar button. Explains to the user what will happen upon button tap.";
@@ -1189,7 +1189,6 @@
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
-"settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-donate" = "Link to donate";
 "settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
