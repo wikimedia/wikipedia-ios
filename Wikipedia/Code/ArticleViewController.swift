@@ -16,6 +16,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     internal var toolbarController: ArticleToolbarController?
     
+    lazy var legacyToolbarContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var legacyToolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
     // Watchlist properies
     internal lazy var watchlistController: WatchlistController = {
         return WatchlistController(delegate: self, context: .article)
@@ -1351,11 +1363,17 @@ private extension ArticleViewController {
         tableOfContentsController.stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableOfContentsController.stackView)
         let stackViewTopConstraint = tableOfContentsController.stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+        let stackViewBottomConstraint: NSLayoutConstraint
+        if #available(iOS 26.0, *) {
+            stackViewBottomConstraint = view.bottomAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
+        } else {
+            stackViewBottomConstraint = legacyToolbarContainerView.topAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
+        }
         NSLayoutConstraint.activate([
             stackViewTopConstraint,
             view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: tableOfContentsController.stackView.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableOfContentsController.stackView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
+            stackViewBottomConstraint
         ])
         
         self.tocStackViewTopConstraint = stackViewTopConstraint
@@ -1419,8 +1437,24 @@ private extension ArticleViewController {
     }
     
     func setupToolbar() {
-        toolbarController = ArticleToolbarController(delegate: self)
-        navigationController?.setToolbarHidden(false, animated: false)
+        if #available(iOS 26.0, *) {
+            toolbarController = ArticleToolbarController(delegate: self)
+            navigationController?.setToolbarHidden(false, animated: false)
+        } else {
+            toolbarController = ArticleToolbarController(delegate: self)
+            legacyToolbarContainerView.addSubview(legacyToolbar)
+            view.addSubview(legacyToolbarContainerView)
+            
+            NSLayoutConstraint.activate([
+                legacyToolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: legacyToolbar.bottomAnchor),
+                legacyToolbarContainerView.leadingAnchor.constraint(equalTo: legacyToolbar.leadingAnchor),
+                legacyToolbarContainerView.trailingAnchor.constraint(equalTo: legacyToolbar.trailingAnchor),
+                legacyToolbarContainerView.topAnchor.constraint(equalTo: legacyToolbar.topAnchor),
+                view.bottomAnchor.constraint(equalTo: legacyToolbarContainerView.bottomAnchor),
+                view.leadingAnchor.constraint(equalTo: legacyToolbarContainerView.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: legacyToolbarContainerView.trailingAnchor)
+            ])
+        }
     }
     
     var isWidgetCachedFeaturedArticle: Bool {
