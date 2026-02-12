@@ -425,12 +425,10 @@
 "forgot-password-username-or-email-title" = "Alebo";
 "gan-variants-alert-body" = "Wikipédia teraz podporuje aj varianty jazyka gan ako primárny a sekundárny jazyk v aplikácii:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Aktualizácie podpory jazyka gan";
-"history-clear-all" = "Vyčistiť";
 "history-clear-confirmation-heading" = "Naozaj chcete vymazať vašu nedávnu históriu prehliadania?";
 "history-clear-delete-all" = "Áno, vymazať všetko";
 "history-title" = "História";
 "home-button-explore-accessibility-label" = "Wikipédie, späť na Objaviť";
-"home-button-history-accessibility-label" = "Wikipédia, späť do Histórie";
 "home-button-saved-accessibility-label" = "Wikipédia, späť na Uložené";
 "home-more-like-footer" = "Viac článkov ako $1";
 "home-nearby-footer" = "Viac miest z vášho okolia";
