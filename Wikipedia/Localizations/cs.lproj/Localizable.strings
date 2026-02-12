@@ -113,8 +113,6 @@
 "activity-tab-onboarding-fourth-item-title" = "Mějte vše pod kontrolou";
 "activity-tab-onboarding-second-item-subtitle" = "Objevte informace o svých příspěvcích a o dosahu znalostí, které jste sdíleli.";
 "activity-tab-onboarding-second-item-title" = "Dopady vlivu";
-"activity-tab-onboarding-third-item-subtitle" = "Prozkoumejte statistiky uložených článků a dalších aktivit, které vás více spojují s Wikipedií.";
-"activity-tab-onboarding-third-item-title" = "Další způsoby, jak se zapojit";
 "activity-tab-saved" = "Články uložené tento měsíc";
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "advanced-settings-title" = "Pokročilé nastavení";
@@ -411,12 +409,10 @@
 "forgot-password-instructions" = "Vyplňte jedno z níže uvedených polí a obdržíte pokyny pro obnovení hesla prostřednictvím e-mailu";
 "forgot-password-title" = "Přenastavit heslo";
 "forgot-password-username-or-email-title" = "Nebo";
-"history-clear-all" = "Vymazat";
 "history-clear-confirmation-heading" = "Jste si jisti, že chcete smazat všechny vaše poslední položky?";
 "history-clear-delete-all" = "Smazat vše";
 "history-title" = "Historie";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na kanál Objevit";
-"home-button-history-accessibility-label" = "Wikipedie, zpět do Historie";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
 "home-more-like-footer" = "Více podobných článku jako $1";
 "home-nearby-footer" = "Více míst z vašeho okolí";

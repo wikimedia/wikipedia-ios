@@ -411,12 +411,10 @@
 "forgot-password-title" = "Zresetuj hasło";
 "forgot-password-username-or-email-title" = "Lub";
 "gan-variants-alert-title" = "Aktualizacje obsługi wariantów Gan";
-"history-clear-all" = "Wyczyść";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
 "history-clear-delete-all" = "Tak, usuń wszystko";
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, wróć do Odkryj";
-"home-button-history-accessibility-label" = "Wikipedia, wróć do historii";
 "home-button-saved-accessibility-label" = "Wikipedia, wróć do Zapisane";
 "home-more-like-footer" = "Więcej jak $1";
 "home-nearby-footer" = "Więcej miejsc w pobliżu Twojej lokalizacji";
