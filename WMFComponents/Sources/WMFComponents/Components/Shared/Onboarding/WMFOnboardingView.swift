@@ -45,7 +45,7 @@ public struct WMFOnboardingView: View {
     var buttonArea: some View {
         VStack(spacing: 20) {
             WMFLargeButton(
-                configuration: .primary,
+                style: .primary,
                 title: viewModel.primaryButtonTitle,
                 action: (viewModel.primaryButtonAction ?? primaryButtonAction)
             )
