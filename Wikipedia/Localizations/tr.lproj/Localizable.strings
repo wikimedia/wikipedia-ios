@@ -124,6 +124,7 @@
 "activity-tab-add-images-subtitle" = "Wikipedia makalelerine önerilen resimleri ekleyerek daha iyi anlaşılmalarını sağlayın.";
 "activity-tab-add-images-title" = "Resimler ekle";
 "activity-tab-additional-thoughts" = "Eklemek istediğiniz başka düşünceleriniz var mı?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 görüntüleme}}";
 "activity-tab-articles-read" = "Bu ay okunan maddeler";
 "activity-tab-articles-read-graph-label" = "Maddeler";
 "activity-tab-customize-all-time-impact" = "Tüm zamanların etkisi";
@@ -146,11 +147,24 @@
 "activity-tab-generic-no-edits" = "Bu hafta düzenleme yapmadınız. Katkıları takip etmek için şimdi başlayın.";
 "activity-tab-hours-minutes-read" = "$1s $2d";
 "activity-tab-hours-on-wikipedia-ios" = "iOS VİKİPEDİ'DE";
+"activity-tab-impact-all-time-title" = "Tüm zamanların etkisi";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 gün}}";
+"activity-tab-impact-best-streak-label" = "en iyi seri";
+"activity-tab-impact-edits-label" = "düzenlemeler";
+"activity-tab-impact-last-edited-label" = "son düzenleme";
+"activity-tab-impact-recent-activity-title" = "Son etkinliğiniz (son 30 gün)";
+"activity-tab-impact-recent-startend-accessibility" = "$1 ile $2 arası";
+"activity-tab-impact-thanks-label" = "teşekkürler";
+"activity-tab-impact-total-edits-label" = "toplam düzenleme";
+"activity-tab-impact-views-day" = "Gün";
+"activity-tab-impact-views-title" = "Düzenlediğiniz maddelerin görüntülenmeleri";
+"activity-tab-impact-views-views" = "Görüntülenme";
 "activity-tab-log-in-or-create-account" = "Daha fazla düzenleme ve okuma etkinliği görmek için giriş yapın ya da hesap oluşturun.";
 "activity-tab-logged-out-subtitle" = "Vikipedi uygulamasındaki etkinliğinizi görüntülemek için oturum açın ya da bir hesap oluşturun.";
 "activity-tab-logged-out-title" = "Daha fazla okuma ve düzenleme içgörüsü görün";
 "activity-tab-logged-out-track-what-youve-read" = "Okuduklarınızı takip edin ve zaman içindeki katkılarınızı yeni bir şekilde görüntüleyin";
 "activity-tab-menu-clear-history" = "Okuma geçmişini temizle";
+"activity-tab-most-viewed" = "Düzenlemenizden bu yana en çok görüntülenen";
 "activity-tab-neutral" = "Kararsızım";
 "activity-tab-no-edits-title" = "Bu hafta düzenleme yapmadınız. Makalenin daha iyi anlaşılmasını sağlamak için resimler ekleyin";
 "activity-tab-no-username-reading-title" = "Okumanız";
@@ -162,8 +176,8 @@
 "activity-tab-onboarding-second-button-title" = "Etkinlik hakkında daha fazla bilgi edinin";
 "activity-tab-onboarding-second-item-subtitle" = "Katkılarınız ve paylaştığınız bilginin erişimi hakkında fikir edinin.";
 "activity-tab-onboarding-second-item-title" = "Etki önemli noktaları";
-"activity-tab-onboarding-third-item-subtitle" = "Saklanan maddelerin ve sizi Vikipedi ile daha derinden bağlayan diğer etkinliklerin istatistiklerini keşfedin.";
-"activity-tab-onboarding-third-item-title" = "Katılımın daha fazla yolu";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Bu etkinlik, okunan, saklanan ve düzenlenen maddelerin kapsamlı bir zaman çizelgesini içerir. Okuma geçmişiniz artık Arama sekmesinde yer almaktadır.";
+"activity-tab-onboarding-third-item-title-updated" = "Okuma geçmişi artık Aramada";
 "activity-tab-read-title" = "Okuma geçmişini görüntüle";
 "activity-tab-satisfied" = "Memnunum";
 "activity-tab-saved" = "Bu ay saklanan maddeler";
@@ -624,6 +638,7 @@
 "explore-suggested-edits-image-recs-title" = "Bir görsel ekle";
 "explore-survey-subtitle" = "Lütfen Keşfet akışı hakkında kısa bir ankete katılın. Geri bildiriminiz, uygulamadaki gelecekteki iyileştirmelerin şekillenmesine yardımcı olacaktır.";
 "explore-survey-title" = "Keşfet'i geliştirmemize yardımcı olun";
+"explore-wikipedia" = "Vikipedi'yi keşfedin";
 "export-user-data-confirmation-message" = "Uygulama kitaplığınızı paylaşmak, Okuma listeleriniz ve geçmişiniz, tercihleriniz ve Keşfet akışı içeriğinizle ilgili verileri içerir. Bu veri dosyası, teknik tanı amacıyla kullanılmak üzere yalnızca güvenilir bir alıcıyla paylaşılmalıdır.";
 "export-user-data-confirmation-title" = "Uygulama kütüphanesi paylaşılsın mı?";
 "export-user-data-generic-error" = "Verileriniz dışa aktarılırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
@@ -674,12 +689,10 @@
 "forgot-password-username-or-email-title" = "Veya";
 "gan-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Gan biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Basitleştirilmiş (gan-hans)\n贛語 繁體 Gan, Geleneksel (gan-hant)";
 "gan-variants-alert-title" = "Ganca biçim desteği güncellemeleri";
-"history-clear-all" = "Temizle";
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
 "history-clear-delete-all" = "Evet, tümünü sil";
 "history-title" = "Geçmiş";
 "home-button-explore-accessibility-label" = "Vikipedi, Keşfet'e dön";
-"home-button-history-accessibility-label" = "Vikipedi, Geçmiş'e dön";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
 "home-more-like-footer" = "$1 benzeri daha fazla madde";
 "home-nearby-footer" = "Konumunuza yakın daha fazla yer";
@@ -789,6 +802,7 @@
 "languages-settings-title" = "Diller";
 "languages-title" = "Dili değiştir";
 "languages-wikipedia" = "Vikipedi dilleri";
+"learn-about-editing" = "Düzenleme hakkında bilgi edinin";
 "learn-more-title" = "Daha fazla bilgi edin";
 "lockscreen-search-widget-description" = "Kilit ekranınızdan Vikipedi'de aramaya hızlı erişim.";
 "logged-out-continue-without-logging-in-button-title" = "Giriş yapmadan devam et";
@@ -799,6 +813,8 @@
 "login-join-wikipedia" = "Vikipedi'ye katıl.";
 "login-no-account" = "Bir hesabınız yok mu? $1";
 "login-title" = "Hesabınızda oturum açın";
+"looking-for-something-new" = "Okuyacak yeni bir şeyler mi arıyorsunuz?";
+"looks-like-you-havent-made-an-edit" = "Görünüşe göre bu ay hiç düzenleme yapmamışsınız. Sizin için en önemli olan konuları düzenleyerek özgür bilgiyi genişletin.";
 "main-menu-about" = "Uygulama hakkında";
 "main-menu-account-login" = "Oturum aç";
 "main-menu-account-logout" = "Oturumu kapat";
@@ -1634,3 +1650,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipedi v logosu";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Vakfı logosu";
 "yesterday-title" = "Dün";
+"zero-edits-to-articles" = "Yakın zamanda maddelere 0 düzenleme";

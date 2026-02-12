@@ -227,11 +227,9 @@
 "forgot-password-instructions" = "Συμπληρώστε ένα από τα παρακάτω πεδία για να λαμβάνετε οδηγίες επαναφοράς κωδικού πρόσβασης μέσω ηλεκτρονικού ταχυδρομείου";
 "forgot-password-title" = "Επαναφορά κωδικού";
 "forgot-password-username-or-email-title" = "Ή";
-"history-clear-all" = "Εκκαθάριση";
 "history-clear-delete-all" = "Ναι, διαγραφή όλων";
 "history-title" = "Ιστορικό";
 "home-button-explore-accessibility-label" = "Βικιπαίδεια, επιστροφή στην εξερεύνηση";
-"home-button-history-accessibility-label" = "Βικιπαίδεια, επιστροφή στο Ιστορικό";
 "home-button-saved-accessibility-label" = "Βικιπαίδεια, επιστροφή στα αποθηκευμένα";
 "home-more-like-footer" = "Περισσότερα σαν το $1";
 "home-nearby-footer" = "Περισσότερα μέρη κοντά στην τοποθεσία σας";
