@@ -262,21 +262,34 @@ class ArticleToolbarController: Themeable {
         
         let tocItem = delegate?.isTableOfContentsVisible ?? false ? hideTableOfContentsButton : showTableOfContentsButton
         
-        currentItems = [
-            flexibleSpaceToolbarItem,
-            tocItem,
-            flexibleSpaceToolbarItem,
-            languagesButton,
-            flexibleSpaceToolbarItem,
-            saveButton,
-            flexibleSpaceToolbarItem,
-            findInPageButton,
-            flexibleSpaceToolbarItem,
-            themeButton,
-            flexibleSpaceToolbarItem,
-            moreButton,
-            flexibleSpaceToolbarItem
-        ]
+        if #available(iOS 26.0, *) {
+            currentItems = [
+                tocItem,
+                flexibleSpaceToolbarItem,
+                languagesButton,
+                saveButton,
+                findInPageButton,
+                themeButton,
+                moreButton
+            ]
+        } else {
+            currentItems = [
+                flexibleSpaceToolbarItem,
+                tocItem,
+                flexibleSpaceToolbarItem,
+                languagesButton,
+                flexibleSpaceToolbarItem,
+                saveButton,
+                flexibleSpaceToolbarItem,
+                findInPageButton,
+                flexibleSpaceToolbarItem,
+                themeButton,
+                flexibleSpaceToolbarItem,
+                moreButton,
+                flexibleSpaceToolbarItem
+            ]
+        }
+        
         
         delegate?.updateToolbarItems()
     }

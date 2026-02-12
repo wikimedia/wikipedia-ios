@@ -537,6 +537,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.setToolbarHidden(true, animated: true)
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
@@ -1006,6 +1007,21 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
             searchVC.theme = theme
             searchVC.apply(theme: theme)
+        }
+        
+        if let toolbar = navigationController?.toolbar {
+            if #available(iOS 26.0, *) {
+                // Align article toolbar with Liquid Glass tab bar styling on iOS 26+ (no chrome background or shadow).
+                toolbar.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+                toolbar.backgroundColor = theme.colors.paperBackground
+                toolbar.barTintColor = theme.colors.paperBackground
+                toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
+                toolbar.isTranslucent = false
+            } else {
+                // Preserve the opaque toolbar background for older OS versions to keep contrast.
+                toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+                toolbar.isTranslucent = false
+            }
         }
         
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
