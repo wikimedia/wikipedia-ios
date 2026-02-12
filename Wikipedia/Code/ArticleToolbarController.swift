@@ -20,12 +20,14 @@ protocol ArticleToolbarHandling: AnyObject {
     func backInTab(article: WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController)
     func forwardInTab(article: WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
+    var navigationToolbar: UIToolbar? { get }
+    func updateToolbarItems()
 }
 
 class ArticleToolbarController: Themeable {
     weak var delegate: ArticleToolbarHandling?
     
-    let toolbar: UIToolbar
+    var currentItems: [UIBarButtonItem] = []
     
     lazy var saveButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "save", target: self, action: #selector(toggleSave), for: .touchUpInside)
@@ -151,22 +153,22 @@ class ArticleToolbarController: Themeable {
         update()
     }
     
-    var moreButtonSourceView: UIView {
-        return toolbar
+    var moreButtonSourceView: UIView? {
+        return delegate?.navigationToolbar
     }
     
     var moreButtonSourceRect: CGRect? {
         
-        guard let findInPageButtonView = findInPageButton.customView,
+        guard let navigationToolbar = delegate?.navigationToolbar,
+              let findInPageButtonView = findInPageButton.customView,
               let themeButtonView = themeButton.customView else {
             return nil
         }
         
-        return WatchlistController.calculateToolbarFifthButtonSourceRect(toolbarView: toolbar, thirdButtonView: findInPageButtonView, fourthButtonView: themeButtonView)
+        return WatchlistController.calculateToolbarFifthButtonSourceRect(toolbarView: navigationToolbar, thirdButtonView: findInPageButtonView, fourthButtonView: themeButtonView)
     }
 
-    init(toolbar: UIToolbar, delegate: ArticleToolbarHandling) {
-        self.toolbar = toolbar
+    init(delegate: ArticleToolbarHandling) {
         self.delegate = delegate
         update()
     }
@@ -243,18 +245,13 @@ class ArticleToolbarController: Themeable {
     var theme: Theme = Theme.standard
     
     func apply(theme: Theme) {
-        for item in toolbar.items ?? [] {
+        for item in currentItems {
             guard let item = item as? Themeable else {
                 continue
             }
             item.apply(theme: theme)
         }
         hideTableOfContentsButton.customView?.backgroundColor = theme.colors.midBackground
-    }
-    
-    func override(items: [UIBarButtonItem]) {
-        // disable updating here if that's ever a thing
-        toolbar.items = items
     }
     
     private var flexibleSpaceToolbarItem: UIBarButtonItem {
@@ -265,7 +262,7 @@ class ArticleToolbarController: Themeable {
         
         let tocItem = delegate?.isTableOfContentsVisible ?? false ? hideTableOfContentsButton : showTableOfContentsButton
         
-        toolbar.items = [
+        currentItems = [
             flexibleSpaceToolbarItem,
             tocItem,
             flexibleSpaceToolbarItem,
@@ -280,10 +277,12 @@ class ArticleToolbarController: Themeable {
             moreButton,
             flexibleSpaceToolbarItem
         ]
+        
+        delegate?.updateToolbarItems()
     }
 
     func setToolbarButtons(enabled: Bool) {
-        toolbar.items?.forEach { $0.isEnabled = enabled }
+        currentItems.forEach { $0.isEnabled = enabled }
     }
 
 }

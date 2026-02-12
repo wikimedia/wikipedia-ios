@@ -18,7 +18,7 @@ extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegat
     
     func hideTableOfContents() {
         tableOfContentsController.hide(animated: true)
-        toolbarController.update()
+        toolbarController?.update()
         if tableOfContentsController.viewController.displayMode == .inline {
             updateArticleMargins()
         }
@@ -26,7 +26,7 @@ extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegat
     
     func showTableOfContents() {
         tableOfContentsController.show(animated: true)
-        toolbarController.update()
+        toolbarController?.update()
         if tableOfContentsController.viewController.displayMode == .inline {
             updateArticleMargins()
         }
