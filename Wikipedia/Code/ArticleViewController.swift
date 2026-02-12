@@ -769,7 +769,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private func configureNavigationBar() {
 
         let wButton = UIButton(type: .custom)
-        wButton.setImage(UIImage(named: "W"), for: .normal)
+        if #available(iOS 26.0, *) {
+            var config = UIButton.Configuration.glass()
+            config.image = UIImage(named: "W")
+            config.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6)
+            wButton.configuration = config
+        } else {
+            wButton.setImage(UIImage(named: "W"), for: .normal)
+        }
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
