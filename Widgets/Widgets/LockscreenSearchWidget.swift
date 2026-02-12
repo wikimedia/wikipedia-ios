@@ -117,10 +117,6 @@ struct LockscreenSearchWidgetView: View {
 
 struct ContainerBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
-        if #available(iOS 17.0, *) {
-            content.containerBackground(Color.clear, for: .widget)
-        } else {
-            content
-        }
+        content.containerBackground(Color.clear, for: .widget)
     }
 }
