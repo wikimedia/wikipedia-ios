@@ -181,22 +181,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leadingCompact)
         extendedLayoutIncludesOpaqueBars = false
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
 
-                var customLargeTitleFont: UIFont? = nil
-                if let logoFont = UIFont(name: "icomoon", size: 24) {
-                    customLargeTitleFont = logoFont
-                    titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
-                } else {
-                    titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .hidden, customLargeTitleFont: nil)
-                }
-                
-                extendedLayoutIncludesOpaqueBars = true
-            }
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leadingCompact)
+            extendedLayoutIncludesOpaqueBars = true
         }
         
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
@@ -258,13 +249,23 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         longTitleButton.sizeToFit()
         longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
         longTitleButton.isAccessibilityElement = false
+        longTitleButton.translatesAutoresizingMaskIntoConstraints = false
         return longTitleButton
     }()
     
     lazy var titleView: UIView = {
-        let titleView = UIView(frame: longTitleButton.bounds)
+        let titleView = UIView()
+        titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.addSubview(longTitleButton)
         titleView.isAccessibilityElement = false
+
+        NSLayoutConstraint.activate([
+            longTitleButton.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
+            longTitleButton.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
+            longTitleButton.topAnchor.constraint(equalTo: titleView.topAnchor),
+            longTitleButton.bottomAnchor.constraint(equalTo: titleView.bottomAnchor)
+        ])
+        
         return titleView
     }()
 
@@ -891,7 +892,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
-		
+        
         guard needsReloadVisibleCells else {
             return
         }
