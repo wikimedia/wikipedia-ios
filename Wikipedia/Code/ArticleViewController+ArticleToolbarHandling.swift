@@ -3,22 +3,12 @@ import WMFData
 
 extension ArticleViewController: ArticleToolbarHandling {
     var navigationToolbar: UIToolbar? {
-        if #available(iOS 26.0, *) {
-            return navigationController?.toolbar
-        } else {
-            return legacyToolbar
-        }
+        return navigationController?.toolbar
     }
     
     func updateToolbarItems() {
-        if #available(iOS 26.0, *) {
-            if let items = toolbarController?.currentItems {
-                self.toolbarItems = items
-            }
-        } else {
-            if let items = toolbarController?.currentItems {
-                self.legacyToolbar.items = items
-            }
+        if let items = toolbarController?.currentItems {
+            self.toolbarItems = items
         }
     }
     
