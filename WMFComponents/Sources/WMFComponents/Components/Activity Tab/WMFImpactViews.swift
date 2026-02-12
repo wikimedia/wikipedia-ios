@@ -78,6 +78,7 @@ private struct CombinedImpactTitleView: View {
             .multilineTextAlignment(.leading)
             .lineLimit(4)
             .accessibilityAddTraits(.isHeader)
+            .fixedSize(horizontal: false, vertical: true)
     }
 }
 

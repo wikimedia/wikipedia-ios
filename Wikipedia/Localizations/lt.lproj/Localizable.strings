@@ -378,12 +378,10 @@
 "forgot-password-instructions" = "Užpildykite vieną iš laukelių žemiau, kad gautumėte slaptažodžio atstatymo instrukcijas el. paštu";
 "forgot-password-title" = "Atstatyti slaptažodį";
 "forgot-password-username-or-email-title" = "Arba";
-"history-clear-all" = "Išvalyti";
 "history-clear-confirmation-heading" = "Ar tikrai norite ištrinti visus naujus elementus?";
 "history-clear-delete-all" = "Taip, ištrinti viską";
 "history-title" = "Istorija";
 "home-button-explore-accessibility-label" = "Vikipedija, grįžti į Tyrinėjimą";
-"home-button-history-accessibility-label" = "Vikipedija, grįžti į Istoriją";
 "home-button-saved-accessibility-label" = "Vikipedija, grįžti į Išsaugota";
 "home-more-like-footer" = "Daugiau kaip $1";
 "home-nearby-footer" = "Daugiau vietų šalia jūsų vietovės";

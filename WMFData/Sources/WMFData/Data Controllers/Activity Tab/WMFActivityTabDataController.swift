@@ -3,6 +3,7 @@ import Foundation
 public actor WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    public var historyDataController: WMFHistoryDataController? = nil
 
     public init() {}
     
@@ -135,41 +136,6 @@ public actor WMFActivityTabDataController {
         }
         
         return Array(weeklyCounts.reversed())
-    }
-
-    public func shouldShowLoginPrompt(for state: LoginState) -> Bool {
-        switch state {
-        case .loggedIn:
-            return false
-        case .temp:
-            return !tempAccountUserHasDismissedActivityTabLogInPrompt
-        case .loggedOut:
-            return !loggedOutUserHasDismissedActivityTabLogInPrompt
-        }
-    }
-    
-    public var loggedOutUserHasDismissedActivityTabLogInPrompt: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabUserDismissLogin.rawValue, value: newValue)
-        }
-    }
-    
-    public var tempAccountUserHasDismissedActivityTabLogInPrompt: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabTempAccountUserDismissLogin.rawValue, value: newValue)
-        }
-    }
-    
-    public func setLoggedOutUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
-        loggedOutUserHasDismissedActivityTabLogInPrompt = value
-    }
-
-    public func setTempAccountUserHasDismissedActivityTabLogInPrompt(_ value: Bool) async {
-        tempAccountUserHasDismissedActivityTabLogInPrompt = value
     }
     
     public var hasSeenActivityTab: Bool {
@@ -447,8 +413,14 @@ public actor WMFActivityTabDataController {
             namespaceID: Int16(item.namespaceID),
             project: project
         )
+
+        historyDataController?.deleteHistoryItem(timelineToHistoryItem(item))
     }
-    
+
+    private func timelineToHistoryItem(_ timelineItem: TimelineItem) -> HistoryItem {
+        return HistoryItem(id: timelineItem.id, url: timelineItem.url, titleHtml: timelineItem.titleHtml, description: timelineItem.description, shortDescription: timelineItem.snippet, imageURLString: timelineItem.imageURLString, isSaved: false, snippet: nil, variant: nil)
+    }
+
     public func fetchSummary(for pageTitle: String, projectID: String) async throws -> WMFArticleSummary? {
         let articleSummaryController = WMFArticleSummaryDataController.shared
         guard let project = WMFProject(id: projectID) else { return nil }

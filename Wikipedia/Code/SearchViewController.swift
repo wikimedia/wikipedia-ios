@@ -765,8 +765,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historyItem in
             guard let self, let dataStore = self.dataStore else { return }
+            guard let databaseKey = historyItem.url?.wmf_databaseKey else { return }
             let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            request.predicate = NSPredicate(format: "pageID == %@", historyItem.id)
+            request.predicate = NSPredicate(format: "key == %@", databaseKey)
+            request.fetchLimit = 1
             do {
                 if let article = try dataStore.viewContext.fetch(request).first {
                     try article.removeFromReadHistory()
@@ -831,8 +833,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let todayTitle = CommonStrings.todayTitle
         let yesterdayTitle = CommonStrings.yesterdayTitle
 
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: "Open article",saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
-
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: "Open article",saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle, historyHeaderTitle: CommonStrings.historyTabTitle)
 
         let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
 

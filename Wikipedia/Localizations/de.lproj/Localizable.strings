@@ -143,8 +143,6 @@
 "activity-tab-onboarding-second-button-title" = "Mehr über Aktivität erfahren";
 "activity-tab-onboarding-second-item-subtitle" = "Entdecke Einblicke in deine Beiträge und die Reichweite des Wissens, das du geteilt hast.";
 "activity-tab-onboarding-second-item-title" = "Wirkungshöhepunkte";
-"activity-tab-onboarding-third-item-subtitle" = "Erkunde Statistiken zu gespeicherten Artikeln und anderen Aktivitäten, die dich enger mit Wikipedia verbinden.";
-"activity-tab-onboarding-third-item-title" = "Weitere Möglichkeiten zur Beteiligung";
 "activity-tab-read-title" = "Lesehistorie anzeigen";
 "activity-tab-satisfied" = "Zufrieden";
 "activity-tab-saved" = "Diesen Monat gespeicherte Artikel";
@@ -649,12 +647,10 @@
 "forgot-password-username-or-email-title" = "Oder";
 "gan-variants-alert-body" = "Die Wikipedia-App unterstützt nun die folgenden Gan-Varianten als primäre oder sekundäre Sprachen innerhalb der App, was das Lesen, Suchen und Bearbeiten in Ihren bevorzugten Varianten erleichtert:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Vereinfacht (gan-hans)\n贛語 繁體 Gan, Traditionell (gan-hant)";
 "gan-variants-alert-title" = "Updates zur Gan-Varianten-Unterstützung";
-"history-clear-all" = "Löschen";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
 "history-clear-delete-all" = "Ja, alle löschen";
 "history-title" = "Verlauf";
 "home-button-explore-accessibility-label" = "Wikipedia, zurück zu Entdecken";
-"home-button-history-accessibility-label" = "Wikipedia, zurück zu Verlauf";
 "home-button-saved-accessibility-label" = "Wikipedia, zurück zu Gespeichert";
 "home-more-like-footer" = "Mehr wie $1";
 "home-nearby-footer" = "Mehr Orte nahe deines Standortes";
