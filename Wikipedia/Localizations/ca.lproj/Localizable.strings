@@ -454,12 +454,10 @@
 "forgot-password-username-or-email-title" = "O";
 "gan-variants-alert-body" = "Ara l’aplicació Wikipedia admet les següents variants Gan com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\n贛 語 原文 Gan (gan)\n赣 语 简体 Gan, simplificat (gan-hans)\n贛 語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualitzacions del suport a les variants Gan";
-"history-clear-all" = "Neteja";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
 "history-clear-delete-all" = "Sí, esborra-ho tot";
 "history-title" = "Historial";
 "home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
-"home-button-history-accessibility-label" = "Viquipèdia, torna a l'historial";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
 "home-more-like-footer" = "Més com $1";
 "home-nearby-footer" = "Més llocs prop de la vostra ubicació";

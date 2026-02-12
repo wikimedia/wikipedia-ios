@@ -396,12 +396,10 @@
 "forgot-password-username-or-email-title" = "Sau";
 "gan-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante Gan ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplificat (gan-hans)\n贛語 繁體 Gan, Tradiţional (gan-hant)";
 "gan-variants-alert-title" = "Actualizări ale suportului pentru varianta Gan";
-"history-clear-all" = "Curăță";
 "history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
 "history-clear-delete-all" = "Da, șterge tot";
 "history-title" = "Istoric";
 "home-button-explore-accessibility-label" = "Wikipedia, reveniți la Explore";
-"home-button-history-accessibility-label" = "Wikipedia, reveniți la Istorie";
 "home-button-saved-accessibility-label" = "Wikipedia, reveniți la Salvat";
 "home-more-like-footer" = "Mai multe precum $1";
 "home-nearby-footer" = "Mai multe articole din aproMai multe locuri lângă locația dvs.pierea dumneavoastră";

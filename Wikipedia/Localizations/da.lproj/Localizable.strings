@@ -104,6 +104,7 @@
 "activity-tab-generic-no-edits" = "Du har ikke redigeret i denne uge. Start nu med at spore dine bidrag.";
 "activity-tab-hours-minutes-read" = "$1 time $2 min";
 "activity-tab-hours-on-wikipedia-ios" = "PÅ WIKIPEDIA iOS";
+"activity-tab-impact-views-views" = "Visninger";
 "activity-tab-log-in-or-create-account" = "Log ind eller opret en konto for at se mere redigerings- og læseaktivitet.";
 "activity-tab-logged-out-subtitle" = "Log ind eller opret en konto for at se dine aktiviteter i Wikipedia appen.";
 "activity-tab-logged-out-title" = "Se mere redigerings- og læseaktivitet";
@@ -120,8 +121,6 @@
 "activity-tab-onboarding-second-button-title" = "Få mere at vide om aktivitet";
 "activity-tab-onboarding-second-item-subtitle" = "Få indsigt i dine bidrag og rækkevidden af den viden, du har delt.";
 "activity-tab-onboarding-second-item-title" = "Højdepunkter";
-"activity-tab-onboarding-third-item-subtitle" = "Udforsk statistikker for gemte artikler og andre aktiviteter, der forbinder dig dybere med Wikipedia.";
-"activity-tab-onboarding-third-item-title" = "Flere måder at engagere sig på";
 "activity-tab-read-title" = "Se læsehistorik";
 "activity-tab-satisfied" = "Tilfreds";
 "activity-tab-saved" = "Artikler gemt denne måned";
@@ -610,12 +609,10 @@
 "forgot-password-username-or-email-title" = "Eller";
 "gan-variants-alert-body" = "Wikipedia-appen understøtter nu følgende Gan-varianter som primære eller sekundære sprog i appen, hvilket gør det nemmere at læse, søge og redigere i dine foretrukne varianter:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans, 誫 甞 甞 紛n) (gan-hant)";
 "gan-variants-alert-title" = "Opdateringer til Gan variant support";
-"history-clear-all" = "Ryd";
 "history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
 "history-clear-delete-all" = "Ja, slet alt";
 "history-title" = "Historik";
 "home-button-explore-accessibility-label" = "Wikipedia, vend tilbage til Udforsk";
-"home-button-history-accessibility-label" = "Wikipedia, vend tilbage til Historik";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbage til Gemt";
 "home-more-like-footer" = "Mere som $1";
 "home-nearby-footer" = "Flere steder i nærheden af din placering";

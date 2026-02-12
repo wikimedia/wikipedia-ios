@@ -20,6 +20,7 @@
 // Author: FakeGreenHand
 // Author: GoForceX
 // Author: Googology
+// Author: Gsdn
 // Author: GuoPC
 // Author: HNordeen (WMF)
 // Author: Hehua
@@ -176,6 +177,13 @@
 "activity-tab-generic-no-edits" = "您本周尚未进行编辑。马上开始编辑，以追踪贡献。";
 "activity-tab-hours-minutes-read" = "$1 小时 $2 分钟";
 "activity-tab-hours-on-wikipedia-ios" = "在维基百科iOS版";
+"activity-tab-impact-edits-label" = "编辑数";
+"activity-tab-impact-recent-activity-title" = "您最近的活动（过去30天）";
+"activity-tab-impact-thanks-label" = "感谢";
+"activity-tab-impact-total-edits-label" = "总编辑数";
+"activity-tab-impact-views-day" = "日";
+"activity-tab-impact-views-title" = "您已编辑的条目的浏览次数";
+"activity-tab-impact-views-views" = "浏览次数";
 "activity-tab-log-in-or-create-account" = "登录或创建账号以查看更多编辑和阅读活动。";
 "activity-tab-logged-out-subtitle" = "登录或创建账号来查看您在维基百科应用程序上的活动。";
 "activity-tab-logged-out-title" = "查看更多阅读和编辑方面的分析";
@@ -192,8 +200,6 @@
 "activity-tab-onboarding-second-button-title" = "了解更多关于活动的信息";
 "activity-tab-onboarding-second-item-subtitle" = "探索对于您的贡献、以及您所分享知识的影响的分析。";
 "activity-tab-onboarding-second-item-title" = "影响亮点";
-"activity-tab-onboarding-third-item-subtitle" = "探索已保存条目和其他活动的统计数据，让您与维基百科有更深入的联系。";
-"activity-tab-onboarding-third-item-title" = "更多参与方式";
 "activity-tab-read-title" = "查看阅读记录";
 "activity-tab-satisfied" = "满意";
 "activity-tab-saved" = "本月保存的条目";
@@ -654,6 +660,7 @@
 "explore-suggested-edits-image-recs-title" = "添加图片";
 "explore-survey-subtitle" = "请填写一份关于“探索”信息流的简短调查问卷。您的反馈将有助于我们未来的应用改进。";
 "explore-survey-title" = "帮助我们改进探索功能";
+"explore-wikipedia" = "浏览维基百科";
 "export-user-data-confirmation-message" = "共享您的应用程序库包括有关您的阅读列表和历史记录、设置以及探索订阅源内容的数据。此数据文件只与受信任的接收者共享，用于技术诊断目的。";
 "export-user-data-confirmation-title" = "共享应用程序库？";
 "export-user-data-generic-error" = "导出数据时发生错误。请稍后重试。";
@@ -704,12 +711,10 @@
 "forgot-password-username-or-email-title" = "或";
 "gan-variants-alert-body" = "维基百科应用现在支持以下赣语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "更新赣语变体支持";
-"history-clear-all" = "清除";
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目吗？";
 "history-clear-delete-all" = "是的，删除全部";
 "history-title" = "历史";
 "home-button-explore-accessibility-label" = "维基百科，返回到探索";
-"home-button-history-accessibility-label" = "维基百科，返回到历史";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
 "home-more-like-footer" = "更多$1相关条目";
 "home-nearby-footer" = "更多您所在位置附近的地点";
@@ -829,6 +834,7 @@
 "login-join-wikipedia" = "加入维基百科。";
 "login-no-account" = "还没有账号？$1";
 "login-title" = "登录您的账号";
+"looking-for-something-new" = "想读一些新东西吗？";
 "main-menu-about" = "关于应用";
 "main-menu-account-login" = "登录";
 "main-menu-account-logout" = "退出";

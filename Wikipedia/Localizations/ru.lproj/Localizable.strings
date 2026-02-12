@@ -643,12 +643,10 @@
 "forgot-password-username-or-email-title" = "Или";
 "gan-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Gan в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Упрощенный (gan-hans)\n贛語 繁體 Gan, Традиционный (gan-hant)";
 "gan-variants-alert-title" = "Обновление поддержки вариантов Gan";
-"history-clear-all" = "Очистить";
 "history-clear-confirmation-heading" = "Вы уверены, что хотите удалить все недавние элементы?";
 "history-clear-delete-all" = "Да, удалить всё";
 "history-title" = "История";
 "home-button-explore-accessibility-label" = "Вернуться к ленте";
-"home-button-history-accessibility-label" = "Википедия, вернуться к Истории";
 "home-button-saved-accessibility-label" = "Википедия, вернуться к Сохранённым";
 "home-more-like-footer" = "Ещё статей, похожих на $1";
 "home-nearby-footer" = "Больше мест вблизи";
