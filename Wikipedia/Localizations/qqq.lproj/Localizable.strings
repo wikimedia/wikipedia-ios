@@ -14,8 +14,6 @@
 "about-repositories-app-source-license" = "Text explaining the app source licensing. $1 is the message {{msg-wikimedia|about-repositories-app-source-license-mit}}.";
 "about-repositories-app-source-license-mit" = "Name of the \"MIT\" license";
 "about-send-feedback" = "Link text for sending app feedback";
-"about-testers" = "Header text for (software) testers section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
-"about-testers-details" = "Description of the Quality Assurance (QA) testers. $1 is specialistsguild.org, the website of the testing group.";
 "about-title" = "Title for credits page {{Identical|About}}";
 "about-translators" = "Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Translator}}";
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";

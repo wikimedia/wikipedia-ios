@@ -12,7 +12,6 @@ static NSString *const kWMFURLsKey = @"urls";
 static NSString *const kWMFURLsFeedbackKey = @"feedback";
 static NSString *const kWMFURLsTranslateWikiKey = @"twn";
 static NSString *const kWMFURLsWikimediaKey = @"wmf";
-static NSString *const kWMFURLsSpecialistGuildKey = @"tsg";
 static NSString *const kWMFURLsMITKey = @"mit";
 static NSString *const kWMFURLsShareAlikeKey = @"sharealike";
 static NSString *const kWMFURLsAppleMapsKey = @"applemaps";
@@ -267,7 +266,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
     setDivHTML(@"contributors_title", WMFLocalizedStringWithDefaultValue(@"about-contributors", nil, nil, @"Contributors", @"Header text for contributors section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Contributor}}"));
     setDivHTML(@"contributors_body", self.contributors);
     setDivHTML(@"translators_title", WMFLocalizedStringWithDefaultValue(@"about-translators", nil, nil, @"Translators", @"Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Translator}}"));
-    setDivHTML(@"testers_title", WMFLocalizedStringWithDefaultValue(@"about-testers", nil, nil, @"Testers", @"Header text for (software) testers section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations."));
     setDivHTML(@"libraries_title", WMFLocalizedStringWithDefaultValue(@"about-libraries", nil, nil, @"Libraries used", @"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations."));
     setDivHTML(@"libraries_body", [[self class] linkHTMLForURLString:@"wmflicense://licenses" title:WMFLocalizedStringWithDefaultValue(@"about-libraries-complete-list", nil, nil, @"Complete list", @"Title for link to complete list of libraries use by the app")]);
     setDivHTML(@"repositories_title", WMFLocalizedStringWithDefaultValue(@"about-repositories", nil, nil, @"Repositories", @"Header text for repositories section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.  {{Identical|Repository}}"));
@@ -285,7 +283,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
     setDivHTML(@"license_body", [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"about-content-license-details", nil, nil, @"Unless otherwise specified, content is available under a %1$@.", @"Text explaining license of app content. %1$@ is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}."), [[self class] linkHTMLForURLString:self.urls[kWMFURLsShareAlikeKey] title:WMFLocalizedStringWithDefaultValue(@"about-content-license-details-share-alike-license", nil, nil, @"Creative Commons Attribution-ShareAlike License", @"Name of the \"Creative Commons Attribution-ShareAlike\" license")]]);
 
     setDivHTML(@"translators_body", [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"about-translators-details", nil, nil, @"Translated by volunteers at %1$@", @"Description of volunteer translation. %1$@ is translatewiki url."), [[self class] linkHTMLForURLString:self.urls[kWMFURLsTranslateWikiKey] title:[self.urls[kWMFURLsTranslateWikiKey] substringFromIndex:7]]]);
-    setDivHTML(@"testers_body", [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"about-testers-details", nil, nil, @"QA tested by %1$@", @"Description of the Quality Assurance (QA) testers. %1$@ is specialistsguild.org, the website of the testing group."), [[self class] linkHTMLForURLString:self.urls[kWMFURLsSpecialistGuildKey] title:[self.urls[kWMFURLsSpecialistGuildKey] substringFromIndex:7]]]);
 
     setDivHTML(@"footer", [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"about-product-of", nil, nil, @"Made by the %1$@ with the help of volunteers like you", @"Description of who produced the app. %1$@ is the message {{msg-wikimedia|wikipedia-ios-about-wikimedia-foundation}}."), [[self class] linkHTMLForURLString:self.urls[kWMFURLsWikimediaKey] title:WMFLocalizedStringWithDefaultValue(@"about-wikimedia-foundation", nil, nil, @"Wikimedia Foundation", @"Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.")]]);
 
