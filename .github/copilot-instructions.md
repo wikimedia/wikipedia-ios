@@ -423,8 +423,7 @@ App-side:
 ```
 xcodebuild \
       -scheme Wikipedia \
-      -workspace Wikipedia.xcodeproj \
-      -sdk iphonesimulator \
+      -project Wikipedia.xcodeproj \
       -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.6' \
       build | xcbeautify
 ```
