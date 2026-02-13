@@ -459,6 +459,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var needsTabsIconImpressonOnCancel = false
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if (toolbarController?.currentItems.count ?? 0) > 0 {
+            navigationController?.setToolbarHidden(false, animated: false)
+        }
+        
         presentModalsIfNeeded()
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
