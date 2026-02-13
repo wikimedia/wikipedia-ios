@@ -445,12 +445,10 @@
 "forgot-password-instructions" = "ايميل ذريعي ڳجهي‌لفظ کي ٻيھر ترتيب ڏيڻ جون ھدايتون حاصل ڪرڻ لاءِ ھيٺين مان ڪنھن ھڪ جڳھ ۾ ڀريو";
 "forgot-password-title" = "ڳجهولفظ ٻيھر مقرر ڪريو";
 "forgot-password-username-or-email-title" = "يا";
-"history-clear-all" = "ختم ڪريو";
 "history-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان سڀ تازيون شيون ڊاھڻ چاھيو ٿا'";
 "history-clear-delete-all" = "ھا، سڀ ختم ڪريو";
 "history-title" = "سوانح";
 "home-button-explore-accessibility-label" = "وڪيپيڊيا، ايڪسپلور ڏانھن ورو";
-"home-button-history-accessibility-label" = "وڪيپيڊيا، سوانح ڏانھن ورو";
 "home-button-saved-accessibility-label" = "وڪيپيڊيا، سانڍيل ڏانھن ورو";
 "home-more-like-footer" = "وڌيڪ $1 وانگر";
 "home-nearby-footer" = "اوهان جي مڪانيت ويجھو وڌيڪ جڳھون";

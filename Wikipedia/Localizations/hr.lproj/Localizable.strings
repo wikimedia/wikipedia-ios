@@ -204,7 +204,6 @@
 "field-username-title" = "Suradničko ime";
 "find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-username-or-email-title" = "ili";
-"history-clear-all" = "Očisti";
 "history-clear-confirmation-heading" = "Želite li zaista izbrisati sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Povijest";

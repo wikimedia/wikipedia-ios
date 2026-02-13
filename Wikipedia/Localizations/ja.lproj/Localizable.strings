@@ -511,12 +511,10 @@
 "forgot-password-title" = "パスワードをリセット";
 "forgot-password-username-or-email-title" = "または";
 "gan-variants-alert-title" = "贛語言語変種サポートの更新";
-"history-clear-all" = "消去";
 "history-clear-confirmation-heading" = "本当にすべての最近の項目を削除しますか?";
 "history-clear-delete-all" = "すべて削除";
 "history-title" = "履歴";
 "home-button-explore-accessibility-label" = "ウィキペディア、探索に戻る";
-"home-button-history-accessibility-label" = "ウィキペディア、履歴に戻る";
 "home-button-saved-accessibility-label" = "ウィキペディア、保存済み記事に戻る";
 "home-more-like-footer" = "$1 なども読まれています";
 "home-nearby-footer" = "付近の記事をもっと見る";

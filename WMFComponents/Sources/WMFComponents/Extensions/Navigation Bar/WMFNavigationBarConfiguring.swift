@@ -267,24 +267,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             if searchBarConfig.showsScopeBar {
                 searchController.searchBar.showsScopeBar = searchBarConfig.showsScopeBar
-                
-                if #available(iOS 16.0, *) {
-                    searchController.scopeBarActivation = .manual
-                } else {
-                    // Fallback on earlier versions
-                }
-                
+                searchController.scopeBarActivation = .manual
                 searchController.searchBar.scopeButtonTitles = searchBarConfig.scopeButtonTitles
             }
-            
+
             navigationItem.hidesSearchBarWhenScrolling = false
-            
-            if #available(iOS 16.0, *) {
-                navigationItem.preferredSearchBarPlacement = .stacked
-            } else {
-                // Fallback on earlier versions
-            }
-            
+            navigationItem.preferredSearchBarPlacement = .stacked
             navigationItem.searchController = searchController
         }
     }
