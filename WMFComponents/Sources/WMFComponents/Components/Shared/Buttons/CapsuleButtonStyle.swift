@@ -90,11 +90,10 @@ public struct CapsuleButtonStyle: ButtonStyle {
             background = .clear
         }
 
-        // Glass style uses the glassPriminent button style
+        // Glass style uses the glassProminent button style - glass material + background color
         if kind == .glass {
             if #available(iOS 26.0, *) {
                 return AnyView(
-                    // We need to create a new Button with .glassPriminent style
                     GlassProminentButton(
                         configuration: configuration,
                         layout: layout,
@@ -103,18 +102,14 @@ public struct CapsuleButtonStyle: ButtonStyle {
                     )
                 )
             } else {
-                // Fallback for iOS < 26: Material with color overlay
                 return AnyView(
                     configuration.label
                         .foregroundStyle(Color(uiColor: theme.paperBackground))
                         .applyLayout(layout: layout, height: height)
                         .background(
                             Capsule()
-                                .fill(.regularMaterial)
-                                .overlay(
-                                    Capsule()
-                                        .fill(Color(uiColor: theme.link).opacity(0.2))
-                                )
+                                    .fill(Color(uiColor: theme.link))
+
                         )
                         .clipShape(Capsule())
                         .opacity(configuration.isPressed ? 0.88 : 1.0)
