@@ -42,7 +42,6 @@ public enum WMFButtonStyleKind {
     case glass
 }
 
-
 public struct CapsuleButtonStyle: ButtonStyle {
 
     public enum Layout {
