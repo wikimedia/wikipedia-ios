@@ -35,7 +35,7 @@ public struct WMFSmallSwiftUIMenuButton: View {
             HStack(spacing: 6) {
                 if let image = configuration.image {
                     Image(uiImage: image)
-                        .foregroundColor(Color(appEnvironment.theme[keyPath: configuration.primaryColor]))
+                        .foregroundColor(Color(appEnvironment.theme.link))
                 }
                 if let title = configuration.title {
                     Text(title)
@@ -43,13 +43,13 @@ public struct WMFSmallSwiftUIMenuButton: View {
                         .font(Font(WMFFont.for(.boldFootnote)))
                 }
             }
-            .foregroundColor(Color(appEnvironment.theme[keyPath: configuration.primaryColor]))
+            .foregroundColor(Color(appEnvironment.theme.link))
             .padding(.vertical, 8)
             .padding(.horizontal, 8)
             .frame(height: 32)
             .background(
                 Capsule()
-                    .fill(Color(appEnvironment.theme[keyPath: configuration.primaryColor]).opacity(0.15))
+                    .fill(Color(appEnvironment.theme.baseBackground))
             )
             .clipShape(Capsule())
         })
