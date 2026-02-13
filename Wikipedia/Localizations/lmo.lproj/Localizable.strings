@@ -324,12 +324,10 @@
 "forgot-password-username-or-email-title" = "O";
 "gan-variants-alert-body" = "Adess l'aplicazzion Wikipedia adess la suporta qyesta variant chì del Gan variants come lengue primarie o secondarie dedent de l'aplicazzion, per fà in manera de render pussee facil la letura, la ricerca e la modifega in di to variant preferide:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Semplificad(gan-hans)\n贛語 繁體 Gan, Tradizzional (gan-hant)";
 "gan-variants-alert-title" = "Atualizazzion al suport di variant del Gan noeuve";
-"history-clear-all" = "Neta";
 "history-clear-confirmation-heading" = "Te see sicur che te voeulet scancellà tut i to element recent?";
 "history-clear-delete-all" = "Sì, scassa tuscoss";
 "history-title" = "Storia";
 "home-button-explore-accessibility-label" = "Wikipedia, ritorna a Esplora";
-"home-button-history-accessibility-label" = "Wikipedia, torna indree a la storia";
 "home-button-saved-accessibility-label" = "Wikipedia, torna indree ai pagine salvade";
 "home-more-like-footer" = "Alter, compagn de $1";
 "home-nearby-footer" = "Pussee de sit arent a la toa posizzion";

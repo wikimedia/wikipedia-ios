@@ -666,12 +666,10 @@
 "forgot-password-username-or-email-title" = "O";
 "gan-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del gan siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, simplificado (gan-hans)\n贛語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualizaciones a soporte de variantes del gan";
-"history-clear-all" = "Vaciar";
 "history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
 "history-clear-delete-all" = "Sí, borrar todos";
 "history-title" = "Historial";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
-"home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más lugares cerca de tu ubicación";
@@ -807,7 +805,6 @@
 "main-menu-title" = "Más";
 "main-menu-zero-faq" = "Preguntas frecuentes de Wikipedia Zero";
 "main-page" = "Página principal";
-"make-an-edit" = "Hacer una edición";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "En $1, los voluntarios añadieron {{PLURAL:$2|$2 bytes}} a la Wikipedia en inglés. La suma de todo su trabajo conjunto da como resultado una fuente de conocimiento en constante mejora, basada en hechos fiables que comparten con el mundo. Todos tenemos conocimiento para compartir. [Aprende a participar]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 byte|$1 bytes}} añadidos";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Los voluntarios realizaron {{PLURAL:$1|$1 cambio|$1 cambios}} en más de {{PLURAL:$2|$2 edición de Wikipedia en un diferente idioma|$2 ediciones de Wikipedia en diferentes idiomas}}. Se realizaron más de {{PLURAL:$3|$3 cambio|$3 cambios}} en la Wikipedia en inglés. Cada hora de cada día, los voluntarios trabajan para mejorar Wikipedia.";

@@ -224,9 +224,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let webView = WMFWebView(frame: .zero, configuration: webViewConfiguration)
         webView.translatesAutoresizingMaskIntoConstraints = false
 #if DEBUG
-        if #available(iOS 16.4, *) {
-            webView.isInspectable = true
-        }
+        webView.isInspectable = true
 #endif
         return webView
     }()
