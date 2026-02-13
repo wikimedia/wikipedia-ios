@@ -762,7 +762,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         if #available(iOS 26.0, *) {
             var config = UIButton.Configuration.glass()
             config.image = UIImage(named: "W")
-            config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 6, trailing: 6)
+            config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 6, bottom: 4, trailing: 6)
             wButton.configuration = config
         } else {
             wButton.setImage(UIImage(named: "W"), for: .normal)
