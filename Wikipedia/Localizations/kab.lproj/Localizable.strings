@@ -162,12 +162,10 @@
 "forgot-password-instructions" = "Ččaṛ urtan ddaw-a akken ad d-remseḍ tinaḍin n uwennez n wawal uffir s yimayl";
 "forgot-password-title" = "Ales awennez n wawal uffir";
 "forgot-password-username-or-email-title" = "Neɣ";
-"history-clear-all" = "Sfeḍ";
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
 "history-clear-delete-all" = "Ih, kkes akk";
 "history-title" = "Amazray";
 "home-button-explore-accessibility-label" = "Wikipedia, uɣal ar umazray";
-"home-button-history-accessibility-label" = "Wikipedia, uɣal ar umazray";
 "home-button-saved-accessibility-label" = "Wikipedia, uɣal ar Yettwasekles";
 "home-more-like-footer" = "Ugar am $1";
 // Fuzzy

@@ -1,7 +1,6 @@
 import SwiftUI
 import WMFData
 
-@available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFHistoryView: View {
 
     // MARK: - Properties
