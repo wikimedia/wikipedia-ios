@@ -43,9 +43,11 @@ struct FindMatchPlacement {
 
 @objc(WMFFindAndReplaceKeyboardBar)
 final class FindAndReplaceKeyboardBar: UIInputView {
+    @IBOutlet var outerContainer: UIView!
     @IBOutlet private var outerStackView: UIStackView!
     @IBOutlet private var outerStackViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private var outerStackViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var outerStackViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet private var findStackView: UIStackView!
     @IBOutlet private var findTextField: UITextField!
@@ -70,6 +72,18 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     
     @objc weak var delegate: FindAndReplaceKeyboardBarDelegate?
     weak var displayDelegate: FindAndReplaceKeyboardBarDisplayDelegate?
+    
+    private var _glassEffect: Any? = nil
+    @available(iOS 26, *)
+    private var glassEffect: UIGlassEffect? {
+        get {
+            return _glassEffect as? UIGlassEffect
+        }
+        set {
+            _glassEffect = newValue
+        }
+        
+    }
     
     // represents current match label values
     private var matchPlacement = FindMatchPlacement(index: 0, total: 0) {
@@ -114,6 +128,40 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         updateShowingReplaceState()
         updateReplaceLabelState()
         updateReplaceButtonsState()
+        
+        if #available(iOS 26.0, *) {
+            setupForLiquidGlass()
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    @available(iOS 26.0, *)
+    private func setupForLiquidGlass() {
+    
+         // Clear the background so the glass effect shows through
+        outerContainer.backgroundColor = .clear
+        
+        // Create and configure the glass effect view
+        let effectView = UIVisualEffectView(frame: outerContainer.bounds)
+        let glassEffect = UIGlassEffect(style: .regular)
+        self.glassEffect = glassEffect
+        effectView.effect = glassEffect
+        
+        // Make sure it resizes with the container
+        effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        // Insert at the bottom so content appears on top
+        outerContainer.insertSubview(effectView, at: 0)
+        
+        // Apply corner radius for rounded edges
+        effectView.layer.cornerRadius = intrinsicContentSize.height / 2
+        effectView.clipsToBounds = true
+        outerContainer.layer.cornerRadius = intrinsicContentSize.height / 2
+        outerContainer.clipsToBounds = true
+        
+        // Adjust spacing
+        outerStackViewTopConstraint.constant = 0
     }
     
     override var intrinsicContentSize: CGSize {
@@ -246,26 +294,38 @@ extension FindAndReplaceKeyboardBar: Themeable {
     func apply(theme: Theme) {
         tintColor = theme.colors.link
         
-        findTextField.keyboardAppearance = theme.keyboardAppearance
-        findTextField.textColor = theme.colors.primaryText
-        findTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
-        closeButton.tintColor = theme.colors.secondaryText
-        previousButton.tintColor = theme.colors.secondaryText
-        nextButton.tintColor = theme.colors.secondaryText
-        magnifyImageView.tintColor = theme.colors.secondaryText
-        findClearButton.tintColor = theme.colors.secondaryText
-        currentMatchLabel.textColor = theme.colors.tertiaryText
-        
-        replaceTextField.keyboardAppearance = theme.keyboardAppearance
-        replaceTextField.textColor = theme.colors.primaryText
-        replaceTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
-        replaceButton.tintColor = theme.colors.secondaryText
-        replaceSwitchButton.tintColor = theme.colors.secondaryText
-        pencilImageView.tintColor = theme.colors.secondaryText
-        replaceClearButton.tintColor = theme.colors.secondaryText
-        replaceTypeLabel.textColor = theme.colors.tertiaryText
-        replacePlaceholderLabel.textColor = theme.colors.tertiaryText
-        
+        if #available(iOS 26, *) {
+            findTextField.keyboardAppearance = theme.keyboardAppearance
+            findTextField.textColor = theme.colors.primaryText
+            findTextFieldContainer.backgroundColor = .clear
+            closeButton.tintColor = theme.colors.secondaryText
+            previousButton.tintColor = theme.colors.secondaryText
+            nextButton.tintColor = theme.colors.secondaryText
+            magnifyImageView.tintColor = theme.colors.secondaryText
+            findClearButton.tintColor = theme.colors.secondaryText
+            currentMatchLabel.textColor = theme.colors.tertiaryText
+            glassEffect?.tintColor = theme.colors.midBackground
+        } else {
+            findTextField.keyboardAppearance = theme.keyboardAppearance
+            findTextField.textColor = theme.colors.primaryText
+            findTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
+            closeButton.tintColor = theme.colors.secondaryText
+            previousButton.tintColor = theme.colors.secondaryText
+            nextButton.tintColor = theme.colors.secondaryText
+            magnifyImageView.tintColor = theme.colors.secondaryText
+            findClearButton.tintColor = theme.colors.secondaryText
+            currentMatchLabel.textColor = theme.colors.tertiaryText
+            
+            replaceTextField.keyboardAppearance = theme.keyboardAppearance
+            replaceTextField.textColor = theme.colors.primaryText
+            replaceTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
+            replaceButton.tintColor = theme.colors.secondaryText
+            replaceSwitchButton.tintColor = theme.colors.secondaryText
+            pencilImageView.tintColor = theme.colors.secondaryText
+            replaceClearButton.tintColor = theme.colors.secondaryText
+            replaceTypeLabel.textColor = theme.colors.tertiaryText
+            replacePlaceholderLabel.textColor = theme.colors.tertiaryText
+        }
     }
 }
 
