@@ -47,7 +47,6 @@ public struct WMFSmallButton: View {
                 Image(uiImage: trailingIcon)
             }
         }
-        .padding(.vertical, 6)
         .padding(.horizontal, 16)
 
         Button {
@@ -60,7 +59,7 @@ public struct WMFSmallButton: View {
                 kind: configuration.style,
                 layout: .hug,
                 theme: appEnvironment.theme,
-                height: 32
+                height: 46
             )
         )
     }
