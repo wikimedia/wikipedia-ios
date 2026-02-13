@@ -171,11 +171,8 @@ public struct WMFActivityTabView: View {
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             WMFSmallButton(configuration: .init(style: .primary), title: viewModel.localizedStrings.exploreWikipedia, action: {
-                // This is purposefully left empty because the whole container has an on tap
+                viewModel.exploreWikipedia()
             })
-        }
-        .onTapGesture {
-            viewModel.exploreWikipedia()
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
