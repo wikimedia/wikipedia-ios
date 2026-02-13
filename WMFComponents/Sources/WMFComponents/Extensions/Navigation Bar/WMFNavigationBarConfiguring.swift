@@ -153,7 +153,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
-            navigationItem.titleView = UIView()
+            
+            // Set blank titleView only on iPhone, not on iPad
+            if UIDevice.current.userInterfaceIdiom != .pad {
+                navigationItem.titleView = UIView()
+            }
+            
             if let customTitleView = titleConfig.customView {
                 let button = UIBarButtonItem(customView: customTitleView)
                 button.accessibilityTraits = .staticText
