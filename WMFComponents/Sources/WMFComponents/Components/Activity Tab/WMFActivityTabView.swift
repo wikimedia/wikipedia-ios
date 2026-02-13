@@ -70,7 +70,7 @@ public struct WMFActivityTabView: View {
                             articlesReadModule(proxy: proxy)
                             savedArticlesModule
                             
-                            if true {
+                            if viewModel.shouldShowExploreCTA {
                                 exploreCTA
                                     .padding(.vertical, 12)
                             }
