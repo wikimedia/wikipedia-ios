@@ -53,30 +53,34 @@ public struct CapsuleButtonStyle: ButtonStyle {
     public let layout: Layout
     public let theme: WMFTheme
     public let height: CGFloat
+    let forceBackgroundColor: UIColor?
 
     public init(
         kind: WMFButtonStyleKind,
         layout: Layout = .fill,
         theme: WMFTheme,
-        height: CGFloat = 46
+        height: CGFloat = 46,
+        forceBackgroundColor: UIColor? = nil
     ) {
         self.kind = kind
         self.layout = layout
         self.theme = theme
         self.height = height
+        self.forceBackgroundColor = forceBackgroundColor
     }
 
     public func makeBody(configuration: SwiftUI.ButtonStyleConfiguration) -> some View {
-
-
         let foreground: UIColor
         let background: UIColor
 
         switch kind {
         case .primary:
+            if let forceBackgroundColor  {
+                background = forceBackgroundColor
+            } else {
+                background = theme.link
+            }
             foreground = theme.paperBackground
-            background = theme.link
-
         case .neutral:
             foreground = theme.link
             background = theme.baseBackground

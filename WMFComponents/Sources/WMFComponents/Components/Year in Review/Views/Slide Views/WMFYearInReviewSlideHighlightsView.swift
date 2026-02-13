@@ -83,7 +83,8 @@ public struct WMFYearInReviewSlideHighlightsView: View {
 
                         WMFLargeButton(style: .primary,
                                        title: viewModel.localizedStrings.buttonTitle,
-                                       forceBackgroundColor: WMFColor.blue600) {
+                                       forceBackgroundColor: WMFColor.blue600)
+                        {
                             withAnimation(.easeInOut(duration: 0.75)) {
                                 viewModel.tappedShare()
                             }
