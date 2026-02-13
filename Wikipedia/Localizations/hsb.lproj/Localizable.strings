@@ -260,12 +260,10 @@
 "forgot-password-instructions" = "Wupjelń jedne z polow deleka, zo bychu so přikazy wo wróćostajenju hesła tebi pósłali";
 "forgot-password-title" = "Hesło wróćo stajić";
 "forgot-password-username-or-email-title" = "abo";
-"history-clear-all" = "Wuprózdnić";
 "history-clear-confirmation-heading" = "Chceš woprawdźe wšě swoje poslednje objekty wušmórnyć?";
 "history-clear-delete-all" = "Haj, wšě wušmórnyć";
 "history-title" = "Stawizny";
 "home-button-explore-accessibility-label" = "Wikipedija, wróćo k Wotkrywanju";
-"home-button-history-accessibility-label" = "Wikipedija, wróćo k Stawiznam";
 "home-button-saved-accessibility-label" = "Wikipedija, wróćo k Składowanym";
 "home-more-like-footer" = "Wjace kaž $1";
 "home-nearby-footer" = "Wjace městnow blisko twojeho stejišća";
