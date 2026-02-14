@@ -21,7 +21,7 @@ class StatusTextBarButtonItem: UIBarButtonItem, Themeable {
 
     // MARK: - UI Elements
 
-    fileprivate var containerView: UIView?
+    var containerView: UIView?
 
     lazy var label: UILabel = {
         let label = UILabel()

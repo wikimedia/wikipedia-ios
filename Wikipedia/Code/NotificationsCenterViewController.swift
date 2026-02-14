@@ -35,7 +35,16 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
     
     fileprivate var markButton: TextBarButtonItem?
     fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
-    fileprivate lazy var statusBarButton: StatusTextBarButtonItem = StatusTextBarButtonItem(text: "")
+    fileprivate lazy var statusBarButton: StatusTextBarButtonItem = {
+        let button = StatusTextBarButtonItem(text: "")
+        // Configure the custom view to expand and fill available space
+        if let containerView = button.customView {
+            NSLayoutConstraint.activate([
+                containerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
+            ])
+        }
+        return button
+    }()
     
     // MARK: - Properties: Cell Swipe Actions
     
@@ -59,18 +68,6 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
     
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate lazy var cellSwipeData = CellSwipeData()
-    
-    lazy var toolbarContainerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    lazy var toolbar: UIToolbar = {
-        let tb = UIToolbar()
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        return tb
-    }()
     
     // MARK: - Lifecycle
     
@@ -123,6 +120,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         super.viewWillAppear(animated)
         
         configureNavigationBar()
+        navigationController?.setToolbarHidden(false, animated: animated)
     }
     
     private var isFirstAppearance = true
@@ -142,6 +140,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         super.viewWillDisappear(animated)
         endRefreshing()
         closeSwipeActionsPanelIfNecessary()
+        navigationController?.setToolbarHidden(true, animated: animated)
     }
     
     @objc fileprivate func applicationWillResignActive() {
@@ -160,25 +159,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
     // MARK: - Configuration
     
     fileprivate func setupBarButtons() {
-        
-        toolbarContainerView.addSubview(toolbar)
-        view.addSubview(toolbarContainerView)
-        
-        NSLayoutConstraint.activate([
-            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
-            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
-            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
-            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
-            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
-            view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
-        ])
-        
-        toolbarContainerView.setNeedsLayout()
-        toolbarContainerView.layoutIfNeeded()
-        
-        let oldContentInset = notificationsView.collectionView.contentInset
-        notificationsView.collectionView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: oldContentInset.bottom + toolbarContainerView.frame.height, right: oldContentInset.right)
+        // Toolbar items will be set in updateToolbarDisplayState
     }
     
     fileprivate func configureNavigationBar() {
@@ -230,9 +211,18 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         markAllAsReadButton.apply(theme: theme)
         statusBarButton.apply(theme: theme)
         
-        toolbarContainerView.backgroundColor = theme.colors.paperBackground
-        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
-        toolbar.isTranslucent = false
+        if #available(iOS 26, *) {
+            
+        } else {
+            
+            // Preserve the opaque toolbar background for older OS versions to keep contrast.
+            // todo: why the bottom bit
+            navigationController?.toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+            navigationController?.toolbar.isTranslucent = true
+            navigationController?.toolbar.barTintColor = theme.colors.paperBackground
+            navigationController?.toolbar.backgroundColor = theme.colors.paperBackground
+        }
+
     }
     
 }
@@ -949,16 +939,20 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 extension NotificationsCenterViewController {
     
     var flexibleSpaceToolbarItem: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let item = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        if #available(iOS 26.0, *) {
+            item.hidesSharedBackground = false
+        }
+        return item
     }
 
     /// Update the bar buttons displayed in the toolbar based on the editing state
     fileprivate func updateToolbarDisplayState(isEditing: Bool) {
         let markButton = createMarkButton()
         if isEditing {
-            toolbar.items = [markButton, flexibleSpaceToolbarItem, markAllAsReadButton]
+            setToolbarItems([markButton, flexibleSpaceToolbarItem, markAllAsReadButton], animated: true)
         } else {
-            toolbar.items = [typeFilterButton, flexibleSpaceToolbarItem, statusBarButton, flexibleSpaceToolbarItem, projectFilterButton]
+            setToolbarItems([typeFilterButton, flexibleSpaceToolbarItem, statusBarButton, flexibleSpaceToolbarItem, projectFilterButton], animated: true)
         }
         
         self.markButton = markButton
