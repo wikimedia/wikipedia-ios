@@ -601,10 +601,133 @@
 			<string>%1$d件のフィルター</string>
 		</dict>
 	</dict>
+	<key>year-in-review-base-editors-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>公式ウィキペディアアプリの編集者は%#@v1@の編集を行いました</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld回</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-edits-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ウィキペディアは1分あたり%#@v1@編集されました</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d回</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-subtitle-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ウィキペディアには、%#@v2@で%#@v1@が掲載されていました。あなたは何百万人もの人々に加わり、知識を広げ、多様なトピックを探求しました。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld件以上の記事</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d以上のアクティブな言語</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-reading-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ウィキペディアは%#@v1@で利用可能でした。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d以上の言語</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-saved-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>アプリ利用者は%#@v1@しました</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld 記事を保存</string>
+		</dict>
+	</dict>
+	<key>year-in-review-base-viewed-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>アプリ利用者はウィキペディアの記事を%#@v1@閲覧しました</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld回</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>世界中の読者があなたの貢献に感謝しています。この2か月間、あなたが編集した記事は%#@v1@されました。あなたのような編集者のおかげで、ウィキペディアは着実に改良され、事実に基づく信頼性の高い世界の知識源となっているのです。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld 回閲覧</string>
+			<key>other</key>
+			<string>合計で %1$lld 回閲覧</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-edit-views-title-format-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>あなたの編集は最近 %#@v1@以上閲覧されました</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>other</key>
+			<string>%1$lld 回</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>あなたがウィキペディアを編集した回数は%#@v1@です。</string>
+		<string>あなたが編集した回数は%#@v1@です。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
