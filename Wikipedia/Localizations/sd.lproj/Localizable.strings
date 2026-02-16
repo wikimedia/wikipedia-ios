@@ -814,7 +814,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "گھرو نظارو";
 "reading-themes-controls-accessibility-light-theme-button" = "ھلڪو نظام";
 "reading-themes-controls-accessibility-sepia-theme-button" = "سيپيا نظارو";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "سنٽيڪس نمايان ڪرڻ";
 "reading-themes-controls-accessibility-text-size-slider" = "متن جي ماپ جو سلائيڊر";
+"reading-themes-controls-syntax-highlighting" = "سنٽيڪس نمايان ڪرڻ";
 "reference-section-button-accessibility-label" = "حوالن واري ڀاڱي ڏانھن وڃو";
 "reference-title" = "حوالو $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=اڄ|1=ڪالھ|$1 ڏينھن اڳ}}";
