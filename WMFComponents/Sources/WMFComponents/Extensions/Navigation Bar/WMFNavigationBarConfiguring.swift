@@ -1,5 +1,6 @@
 import UIKit
 import WMFData
+import SwiftUI
 
 public protocol WMFNavigationBarConfiguring {
     
@@ -44,16 +45,16 @@ public struct WMFNavigationBarCloseButtonConfig {
         case trailing
     }
     
-    let text: String
     let target: Any
     let action: Selector
     let alignment: Alignment
+    let text: String?
     
-    public init(text: String, target: Any, action: Selector, alignment: Alignment) {
-        self.text = text
+    public init(text: String? = nil, target: Any, action: Selector, alignment: Alignment) {
         self.target = target
         self.action = action
         self.alignment = alignment
+        self.text = text
     }
 }
 
@@ -117,6 +118,30 @@ public struct WMFNavigationBarSearchConfig {
     }
 }
 
+// MARK: - SwiftUI Glass Close Button (file-scope, not nested in protocol extension)
+
+@available(iOS 26.0, *)
+struct WMFGlassCloseButton: View {
+    let size: CGFloat
+    let target: Any
+    let action: Selector
+    let iconColor: Color
+
+    var body: some View {
+        Button {
+            _ = (target as AnyObject).perform(action)
+        } label: {
+            Image(systemName: "xmark")
+                .font(.system(size: 17, weight: .medium))
+                .foregroundStyle(iconColor)
+                .frame(width: size, height: size)
+        }
+        .glassEffect(in: .circle)
+    }
+}
+
+// MARK: - Navigation Bar Configuring Extension
+
 public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     private var profileButtonAccessibilityID: String {
@@ -131,7 +156,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - searchBarConfig: Config for search bar
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
     func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig,
-                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil,
+                                closeButtonConfig: WMFNavigationBarCloseButtonConfig?,
+                                profileButtonConfig: WMFNavigationBarProfileButtonConfig?,
+                                tabsButtonConfig: WMFNavigationBarTabsButtonConfig?,
+                                searchBarConfig: WMFNavigationBarSearchConfig?,
+                                hideNavigationBarOnScroll: Bool) {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
@@ -173,7 +203,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                     button.sharesBackground = false
                 }
                 navigationItem.leftBarButtonItem = button
-
                 themeNavigationBarLeadingTitleView()
             }
         case .leadingLarge:
@@ -221,16 +250,13 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             rightBarButtonItems.append(profileButton)
             
             if let tabsButtonConfig {
-                
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-                
                 rightBarButtonItems.append(tabsButton)
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
                     rightBarButtonItems.append(leadingBarButtonItem)
                 }
-                
             }
             
             navigationItem.rightBarButtonItems = rightBarButtonItems
@@ -238,14 +264,16 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         // Setup close button if needed
         if let closeButtonConfig {
-            let closeButton = UIBarButtonItem(title: closeButtonConfig.text, style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
-            closeButton.setTitleTextAttributes([.font: WMFFont.navigationBarDoneButtonFont], for: .normal)
-            
+            let closeBarButtonItem = makeLiquidGlassCloseBarButtonItem(
+                target: closeButtonConfig.target,
+                action: closeButtonConfig.action
+            )
+
             switch closeButtonConfig.alignment {
             case .leading:
-                navigationItem.leftBarButtonItem = closeButton
+                navigationItem.leftBarButtonItem = closeBarButtonItem
             case .trailing:
-                navigationItem.rightBarButtonItem = closeButton
+                navigationItem.rightBarButtonItem = closeBarButtonItem
             }
         }
         
@@ -274,21 +302,18 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     func customizeNavBarAppearance(customLargeTitleFont: UIFont) {
         guard let navVC = navigationController,
-        let componentNavVC = navVC as? WMFComponentNavigationController else {
+              let componentNavVC = navVC as? WMFComponentNavigationController else {
             return
         }
-        
         componentNavVC.setBarAppearance(customLargeTitleFont: customLargeTitleFont)
     }
     
     /// Call on viewWillDisappear(), IF navigation bar large title was set with a custom font.
     func resetNavBarAppearance() {
-        
         guard let navVC = navigationController,
-        let componentNavVC = navVC as? WMFComponentNavigationController else {
+              let componentNavVC = navVC as? WMFComponentNavigationController else {
             return
         }
-        
         componentNavVC.setBarAppearance(customLargeTitleFont: nil)
     }
     
@@ -339,5 +364,65 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     func profileButtonAccessibilityStrings(config: WMFNavigationBarProfileButtonConfig) -> String {
         return config.needsBadge ? config.accessibilityLabelHasNotifications : config.accessibilityLabelNoNotifications
+    }
+
+    // MARK: - in the protocol extension:
+
+    private func makeLiquidGlassCloseBarButtonItem(target: Any, action: Selector) -> UIBarButtonItem {
+        let size: CGFloat = 44
+        let theme = WMFAppEnvironment.current.theme
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: size, height: size))
+
+        if #available(iOS 26.0, *) {
+            let iconColor = Color(theme.text)
+            let glassButton = WMFGlassCloseButton(size: size, target: target, action: action, iconColor: iconColor)
+            let hostingController = UIHostingController(rootView: glassButton)
+            hostingController.view.backgroundColor = UIColor.clear
+            hostingController.view.frame = container.bounds
+            container.addSubview(hostingController.view)
+        } else {
+            let backgroundView = UIView(frame: container.bounds)
+            backgroundView.backgroundColor = theme.paperBackground
+            backgroundView.layer.cornerRadius = size / 2
+            backgroundView.layer.masksToBounds = true
+            backgroundView.isUserInteractionEnabled = false
+            container.addSubview(backgroundView)
+
+            let xmarkConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)
+            let xmarkImage = UIImage(systemName: "xmark", withConfiguration: xmarkConfig)
+            let xmarkImageView = UIImageView(image: xmarkImage)
+            xmarkImageView.tintColor = theme.text
+            xmarkImageView.contentMode = .center
+            xmarkImageView.frame = container.bounds
+            container.addSubview(xmarkImageView)
+
+            let button = UIButton(type: .custom)
+            button.frame = container.bounds
+            button.accessibilityLabel = ""
+            button.addTarget(target, action: action, for: .touchUpInside)
+
+            button.addAction(UIAction { _ in
+                UIView.animate(withDuration: 0.1) {
+                    container.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
+                }
+            }, for: .touchDown)
+
+            button.addAction(UIAction { _ in
+                UIView.animate(withDuration: 0.1) {
+                    container.transform = .identity
+                }
+            }, for: [.touchUpInside, .touchUpOutside, .touchCancel])
+
+            container.addSubview(button)
+        }
+
+        let barButtonItem = UIBarButtonItem(customView: container)
+
+        if #available(iOS 26.0, *) {
+            barButtonItem.hidesSharedBackground = true
+            barButtonItem.sharesBackground = false
+        }
+
+        return barButtonItem
     }
 }
