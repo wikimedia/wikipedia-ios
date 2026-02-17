@@ -63,6 +63,25 @@ a:hover {
     }
 }
 
+/*
+    Fix: On iPad with the Table of Contents sidebar visible, the WKWebView viewport
+    is nearly square. When the tab bar hides/shows during scrolling, the adjusted
+    content inset changes window.innerHeight, which can flip the CSS orientation
+    between landscape and portrait. This causes images to jump between the
+    @media (orientation:landscape) rule (width:50%) and the @media (min-device-width:768px)
+    rule (width:60%). Overriding the landscape rule to also use 60% prevents the visual
+    jump while keeping images consistently sized with the tablet portrait layout.
+*/
+@media (orientation:landscape) and (min-device-width:768px) {
+    img.pcs-widen-image-override {
+        width: 60% !important;
+        max-width: 60% !important;
+    }
+    .pcs-widen-image-override.pcs-lazy-load-placeholder {
+        min-width: 60%;
+    }
+}
+
 /* Prevent text size increase on landscape on non-iPads: T233254 and https://stackoverflow.com/a/2711132 */
 /* Override body font to prevent issues for arabic wiki: T307407 */
 body {
