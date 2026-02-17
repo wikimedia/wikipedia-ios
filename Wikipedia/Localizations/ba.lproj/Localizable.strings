@@ -398,12 +398,10 @@
 "forgot-password-username-or-email-title" = "Йәки";
 "gan-variants-alert-body" = "Wikipedia ҡушымтаһы хәҙер  Gan телен төп йәки өҫтәмә тел булараҡ хуплай, был һеҙ һайлаған форматта уҡыуҙы, эҙләүҙе һәм үҙгәрештәр индеререүҙе ябайлаштыра:\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Ябайлаштырылған (gan-hans)\n贛語 繁體 Gan, Tрадицион (gan-hant)";
 "gan-variants-alert-title" = "Ган теле варианттарына ярҙамды яңыртыу";
-"history-clear-all" = "Таҙартырға";
 "history-clear-confirmation-heading" = "Һеҙ ысынлап та яңыраҡ булған элементтарҙы юйырға теләйһегеҙме?";
 "history-clear-delete-all" = "Эйе, бөтәһен дә юйырға";
 "history-title" = "Тарих";
 "home-button-explore-accessibility-label" = "Википедия, теҙмәгә кире ҡайтыу";
-"home-button-history-accessibility-label" = "Википедия,Тарихҡа әйләнеп ҡайтыу";
 "home-button-saved-accessibility-label" = "Википедия, Һаҡланғандарға әйләнеп ҡайтыу";
 "home-more-like-footer" = "Тағы ла оҡшаш $1";
 "home-nearby-footer" = "Һеҙҙең урынға яҡыныраҡ урындар тураһында  күберәк";

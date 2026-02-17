@@ -470,12 +470,10 @@
 "forgot-password-username-or-email-title" = "Hoặc";
 "gan-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các biến thể chữ Hán cho tiếng Cám là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong biến thể của bạn:\n\n贛語 原文 Cám (gan)\n赣语 简体 Cám giản thể (gan-hans)\n贛語 繁體 Cám phồn thể (gan-hant)";
 "gan-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán trong tiếng Cám";
-"history-clear-all" = "Xóa sạch";
 "history-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các mục gần đây của bạn?";
 "history-clear-delete-all" = "Có, xóa toàn bộ";
 "history-title" = "Lịch sử";
 "home-button-explore-accessibility-label" = "Wikipedia, quay về Thám hiểm";
-"home-button-history-accessibility-label" = "Wikipedia, quay về Lịch sử";
 "home-button-saved-accessibility-label" = "Wikipedia, quay về Đã lưu";
 "home-more-like-footer" = "Thêm bài tương tự $1";
 "home-nearby-footer" = "Thêm địa điểm gần vị trí của bạn";

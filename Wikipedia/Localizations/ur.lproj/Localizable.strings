@@ -174,7 +174,7 @@
 "explore-nearby-sub-heading-your-location" = "آپ کا مقام";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1 ویکیپیڈیا سے آپ کا مقام";
 "explore-potd-heading" = "آج کی تصویر";
-"explore-potd-sub-heading" = "ویکیمیڈیا کامنز سے";
+"explore-potd-sub-heading" = "ویکی ذخائر سے";
 "explore-random-article-heading" = "تصادفی مضمون";
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 ویکیپیڈیا سے";
 "explore-random-article-sub-heading-from-wikipedia" = "ویکیپیڈیا سے";
@@ -204,7 +204,6 @@
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
 "forgot-password-title" = "پاسورڈ تبدیل کریں";
 "forgot-password-username-or-email-title" = "یا";
-"history-clear-all" = "واضح";
 "history-clear-confirmation-heading" = "کیا آپ تمام حالیہ مواد کو حذف کرنا چاہتے ہیں؟";
 "history-clear-delete-all" = "ہاں، تمام حذف کریں";
 "history-title" = "تاریخچہ";
