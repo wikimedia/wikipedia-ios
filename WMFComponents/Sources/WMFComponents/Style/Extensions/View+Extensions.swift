@@ -8,13 +8,8 @@ public extension View {
     /// - Returns: a modified `View` with the desired background `Color` applied
     @ViewBuilder
     func listBackgroundColor(_ color: Color) -> some View {
-        if #available(iOS 16, *) {
-            self
-                .scrollContentBackground(.hidden)
-                .background(color)
-        } else {
-            self.background(color)
-        }
+        self.scrollContentBackground(.hidden)
+            .background(color)
     }
 
 	/// Adds custom section spacing if available on current iOS version
@@ -22,10 +17,6 @@ public extension View {
 	/// - Returns: a modified `View` with the `List` `Section` spacing applied if possible
 	@ViewBuilder
 	func listCustomSectionSpacing(_ spacing: CGFloat) -> some View {
-		if #available(iOS 17, *) {
-			self.listSectionSpacing(.custom(spacing))
-		} else {
-			self
-		}
+        self.listSectionSpacing(.custom(spacing))
 	}
 }

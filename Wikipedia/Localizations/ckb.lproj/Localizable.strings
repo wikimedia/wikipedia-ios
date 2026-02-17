@@ -234,12 +234,10 @@
 "forgot-password-instructions" = "یەکێک لەم بۆشاییانەی خوارەوە پڕ بکەرەوە بۆ ئەوەی فێرکاری گۆڕینی تێپەڕوشەکەت پێ بگات بە ئیمەیڵ.";
 "forgot-password-title" = "ڕێکخستنەوەی تێپەڕوشە";
 "forgot-password-username-or-email-title" = "یان";
-"history-clear-all" = "سڕینەوە";
 "history-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕەکانت بسڕیتەوە؟";
 "history-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
 "history-title" = "مێژوو";
 "home-button-explore-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ گەڕان";
-"home-button-history-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ مێژوو";
 "home-button-saved-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ خەزێنەکراوەکان";
 "home-more-like-footer" = "زیاتر وەک $1";
 "home-nearby-footer" = "شوێنی زیاتر لە نزیک شوێنەکەت";

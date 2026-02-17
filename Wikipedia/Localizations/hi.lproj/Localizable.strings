@@ -269,12 +269,10 @@
 "forgot-password-instructions" = "ईमेल द्वारा पासवर्ड रिसेट निर्देश प्राप्त करने के लिए नीचे दी गईं फ़ील्ड्स में से एक को भरें";
 "forgot-password-title" = "पासवर्ड रिसेट करें";
 "forgot-password-username-or-email-title" = "या";
-"history-clear-all" = "साफ करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
 "history-clear-delete-all" = "हाँ, सभी मिटायें";
 "history-title" = "इतिहास";
 "home-button-explore-accessibility-label" = "विकिपीडिया, खोज पर लौटें";
-"home-button-history-accessibility-label" = "विकिपीडीया, इतिहास पर लौटें";
 "home-button-saved-accessibility-label" = "विकिपीडिया, सहेजे गए पर लौटें";
 "home-more-like-footer" = "$1 के समान";
 "home-nearby-footer" = "आपके स्थान के आस-पास के और स्थान";
