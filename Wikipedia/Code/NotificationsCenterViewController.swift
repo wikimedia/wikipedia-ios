@@ -36,15 +36,15 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
     fileprivate var markButton: TextBarButtonItem?
     fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
     fileprivate lazy var statusBarButton: StatusTextBarButtonItem = {
-        let button = StatusTextBarButtonItem(text: "")
-        // Configure the custom view to expand and fill available space
-        if let containerView = button.customView {
-            NSLayoutConstraint.activate([
-                containerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
-            ])
-        }
-        return button
-    }()
+            let button = StatusTextBarButtonItem(text: "")
+            // Configure the custom view to expand and fill available space
+            if let containerView = button.customView {
+                NSLayoutConstraint.activate([
+                    containerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
+                ])
+            }
+            return button
+        }()
     
     // MARK: - Properties: Cell Swipe Actions
     
