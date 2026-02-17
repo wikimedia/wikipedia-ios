@@ -1013,10 +1013,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         if let toolbar = navigationController?.toolbar {
-            if #available(iOS 26.0, *) {
-
-            } else {
-                // Preserve the opaque toolbar background for older OS versions to keep contrast.
+            if #unavailable(iOS 26.0) {
                 toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
                 toolbar.isTranslucent = true
                 toolbar.barTintColor = theme.colors.paperBackground

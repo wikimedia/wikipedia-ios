@@ -69,6 +69,13 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate lazy var cellSwipeData = CellSwipeData()
     
+    // Bottom safe area overlay
+    private lazy var bottomSafeAreaOverlayView: UIView = {
+        let overlayView = UIView()
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        return overlayView
+    }()
+    
     // MARK: - Lifecycle
     
     @objc
@@ -100,7 +107,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         
         notificationsView.apply(theme: theme)
         
-        setupBarButtons()
+        setupBottomSafeAreaOverlay()
         notificationsView.collectionView.delegate = self
         setupDataSource()
         viewModel.setup()
@@ -158,8 +165,18 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
     
     // MARK: - Configuration
     
-    fileprivate func setupBarButtons() {
-        // Toolbar items will be set in updateToolbarDisplayState
+    fileprivate func setupBottomSafeAreaOverlay() {
+        if #unavailable(iOS 26.0) {
+            view.addSubview(bottomSafeAreaOverlayView)
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: bottomSafeAreaOverlayView.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: bottomSafeAreaOverlayView.trailingAnchor),
+                view.bottomAnchor.constraint(equalTo: bottomSafeAreaOverlayView.bottomAnchor),
+                bottomSafeAreaOverlayView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+            
+            bottomSafeAreaOverlayView.backgroundColor = theme.colors.paperBackground
+        }
     }
     
     fileprivate func configureNavigationBar() {
@@ -211,16 +228,15 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         markAllAsReadButton.apply(theme: theme)
         statusBarButton.apply(theme: theme)
         
-        if #available(iOS 26, *) {
-            
-        } else {
-            
-            // Preserve the opaque toolbar background for older OS versions to keep contrast.
-            // todo: why the bottom bit
-            navigationController?.toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
-            navigationController?.toolbar.isTranslucent = true
-            navigationController?.toolbar.barTintColor = theme.colors.paperBackground
-            navigationController?.toolbar.backgroundColor = theme.colors.paperBackground
+        if let toolbar = navigationController?.toolbar {
+            if #unavailable(iOS 26.0) {
+                bottomSafeAreaOverlayView.backgroundColor = theme.colors.paperBackground
+                // Preserve the opaque toolbar background for older OS versions to keep contrast.
+                toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+                toolbar.isTranslucent = true
+                toolbar.barTintColor = theme.colors.paperBackground
+                toolbar.backgroundColor = theme.colors.paperBackground
+            }
         }
 
     }
