@@ -33,6 +33,7 @@ class EditorNavigationItemController: NSObject, Themeable {
     }
 
     func apply(theme: Theme) {
+        progressButton.tintColor = theme.colors.navigationBarTintColor
         undoButton.tintColor = theme.colors.inputAccessoryButtonTint
         redoButton.tintColor = theme.colors.inputAccessoryButtonTint
         editNoticesButton.tintColor = theme.colors.diffCompareAccent
@@ -160,7 +161,6 @@ class EditorNavigationItemController: NSObject, Themeable {
                 undoButton
             ]
         }
-        
     }
 
     func textSelectionDidChange(isRangeSelected: Bool) {

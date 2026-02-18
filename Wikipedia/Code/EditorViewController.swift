@@ -132,10 +132,11 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
 
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
         
-        // temporary X for now
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: "🅧", target: self, action: #selector(close(_ :)), alignment: .leading)
-
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        // Custom close button for now, but configureNavigationBar default implementation will eventually handle it internally
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
     }
     
     private func setupFocusNavigationView() {
