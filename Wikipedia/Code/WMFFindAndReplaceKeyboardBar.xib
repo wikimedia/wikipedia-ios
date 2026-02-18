@@ -13,16 +13,16 @@
             <rect key="frame" x="0.0" y="0.0" width="449" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcZ-4f-6ui" userLabel="Outer container">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcZ-4f-6ui" userLabel="Legacy Outer container">
                     <rect key="frame" x="0.0" y="0.0" width="449" height="100"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3lg-2y-8La">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3lg-2y-8La" userLabel="Legacy Outer Stack View">
                             <rect key="frame" x="18" y="8" width="413" height="92"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2D8-r6-Pwy">
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2D8-r6-Pwy" userLabel="Legacy Find Stack View">
                                     <rect key="frame" x="0.0" y="0.0" width="413" height="92"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYQ-km-WBU">
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYQ-km-WBU" userLabel="Legacy Next Prev Button Stack View">
                                             <rect key="frame" x="0.0" y="29" width="62" height="34"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHU-iI-iHx">
@@ -49,13 +49,13 @@
                                                 </button>
                                             </subviews>
                                         </stackView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ZO-JU-1DS" userLabel="Text field container">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ZO-JU-1DS" userLabel="Legacy Text field container">
                                             <rect key="frame" x="70" y="31" width="294" height="30"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="find-replace-search" translatesAutoresizingMaskIntoConstraints="NO" id="ndR-3k-0Gf">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="find-replace-search" translatesAutoresizingMaskIntoConstraints="NO" id="ndR-3k-0Gf" userLabel="Legacy Magnify Image View">
                                                     <rect key="frame" x="10" y="8.5" width="13" height="13"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SWF-dB-rso">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SWF-dB-rso" userLabel="Legacy Find Text Field">
                                                     <rect key="frame" x="33" y="4" width="223" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
@@ -64,13 +64,13 @@
                                                         <outlet property="delegate" destination="iN0-l3-epB" id="LDX-LI-4nu"/>
                                                     </connections>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cQ-Pa-aFx">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cQ-Pa-aFx" userLabel="Legacy Current Match Label">
                                                     <rect key="frame" x="261" y="15" width="0.0" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="upA-Ii-L3S">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="upA-Ii-L3S" userLabel="Legacy Find Clear Button">
                                                     <rect key="frame" x="262" y="-2" width="32" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="F6A-kU-ao8"/>
@@ -101,7 +101,7 @@
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVz-34-psT">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVz-34-psT" userLabel="Legacy Close Button">
                                             <rect key="frame" x="372" y="29" width="41" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="41" id="XsX-rf-wVa"/>
@@ -138,21 +138,18 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="closeButton" destination="cVz-34-psT" id="ugE-BQ-Wie"/>
-                <outlet property="currentMatchLabel" destination="6cQ-Pa-aFx" id="K9Y-CS-Rke"/>
-                <outlet property="findClearButton" destination="upA-Ii-L3S" id="3pS-KY-Bv2"/>
-                <outlet property="findStackView" destination="2D8-r6-Pwy" id="xj7-Ab-A1q"/>
-                <outlet property="findTextField" destination="SWF-dB-rso" id="Prh-oK-N8B"/>
-                <outlet property="findTextFieldContainer" destination="1ZO-JU-1DS" id="h6M-l0-WyY"/>
-                <outlet property="magnifyImageView" destination="ndR-3k-0Gf" id="mTn-sc-7Ve"/>
-                <outlet property="nextButton" destination="Ygy-QU-ZCs" id="cXg-EC-uYQ"/>
-                <outlet property="nextPrevButtonStackView" destination="zYQ-km-WBU" id="gRy-ls-dQz"/>
-                <outlet property="outerContainer" destination="mcZ-4f-6ui" id="CgO-xA-aut"/>
-                <outlet property="outerStackView" destination="3lg-2y-8La" id="I4n-Cs-FFy"/>
-                <outlet property="outerStackViewLeadingConstraint" destination="RF6-RX-EDk" id="hci-VM-cjQ"/>
-                <outlet property="outerStackViewTopConstraint" destination="GM4-zq-0Me" id="Ett-f4-02i"/>
-                <outlet property="outerStackViewTrailingConstraint" destination="4hU-8c-xYg" id="Y9v-kD-vsb"/>
-                <outlet property="previousButton" destination="bHU-iI-iHx" id="WHJ-D2-QJY"/>
+                <outlet property="legacyCloseButton" destination="cVz-34-psT" id="Lfw-Et-MWU"/>
+                <outlet property="legacyCurrentMatchLabel" destination="6cQ-Pa-aFx" id="FXU-rm-1OV"/>
+                <outlet property="legacyFindClearButton" destination="upA-Ii-L3S" id="sBR-2U-au5"/>
+                <outlet property="legacyFindStackView" destination="2D8-r6-Pwy" id="h2Q-HO-sg4"/>
+                <outlet property="legacyFindTextField" destination="SWF-dB-rso" id="dFb-eZ-4bU"/>
+                <outlet property="legacyFindTextFieldContainer" destination="1ZO-JU-1DS" id="Tgt-k8-JaE"/>
+                <outlet property="legacyMagnifyImageView" destination="ndR-3k-0Gf" id="KI3-Dc-0DN"/>
+                <outlet property="legacyNextButton" destination="Ygy-QU-ZCs" id="Sv5-nZ-P7z"/>
+                <outlet property="legacyNextPrevButtonStackView" destination="zYQ-km-WBU" id="acO-Xe-iag"/>
+                <outlet property="legacyOuterContainer" destination="mcZ-4f-6ui" id="MiF-xc-eIb"/>
+                <outlet property="legacyOuterStackViewTopConstraint" destination="GM4-zq-0Me" id="unV-sG-Yis"/>
+                <outlet property="legacyPreviousButton" destination="bHU-iI-iHx" id="XH9-G5-29T"/>
             </connections>
             <point key="canvasLocation" x="279.19999999999999" y="-224.88755622188907"/>
         </view>
