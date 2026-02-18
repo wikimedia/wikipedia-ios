@@ -206,11 +206,11 @@ extension FindAndReplaceKeyboardBar: Themeable {
             findTextField.keyboardAppearance = theme.keyboardAppearance
             findTextField.textColor = theme.colors.primaryText
             findTextFieldContainer.backgroundColor = .clear
-            closeButton.tintColor = theme.colors.secondaryText
-            previousButton.tintColor = theme.colors.secondaryText
-            nextButton.tintColor = theme.colors.secondaryText
-            magnifyImageView.tintColor = theme.colors.secondaryText
-            findClearButton.tintColor = theme.colors.secondaryText
+            closeButton.tintColor = theme.colors.inputAccessoryButtonTint
+            previousButton.tintColor = theme.colors.inputAccessoryButtonTint
+            nextButton.tintColor = theme.colors.inputAccessoryButtonTint
+            magnifyImageView.tintColor = theme.colors.inputAccessoryButtonTint
+            findClearButton.tintColor = theme.colors.inputAccessoryButtonTint
             currentMatchLabel.textColor = theme.colors.tertiaryText
             glassEffect?.tintColor = theme.colors.midBackground
         } else {
