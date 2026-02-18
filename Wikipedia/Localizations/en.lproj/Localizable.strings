@@ -14,8 +14,6 @@
 "about-repositories-app-source-license" = "Source code available under the $1.";
 "about-repositories-app-source-license-mit" = "MIT License";
 "about-send-feedback" = "Send app feedback";
-"about-testers" = "Testers";
-"about-testers-details" = "QA tested by $1";
 "about-title" = "About";
 "about-translators" = "Translators";
 "about-translators-details" = "Translated by volunteers at $1";
@@ -71,6 +69,7 @@
 "activity-tab-add-images-subtitle" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "activity-tab-add-images-title" = "Add images";
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 view|$1 views}}";
 "activity-tab-articles-read" = "Articles read this month";
 "activity-tab-articles-read-graph-label" = "Articles";
 "activity-tab-customize-all-time-impact" = "All time impact";
@@ -93,11 +92,24 @@
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
+"activity-tab-impact-all-time-title" = "All time impact";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 day|$1 days}}";
+"activity-tab-impact-best-streak-label" = "best streak";
+"activity-tab-impact-edits-label" = "edits";
+"activity-tab-impact-last-edited-label" = "last edited";
+"activity-tab-impact-recent-activity-title" = "Your recent activity (last 30 days)";
+"activity-tab-impact-recent-startend-accessibility" = "From $1 to $2";
+"activity-tab-impact-thanks-label" = "thanks";
+"activity-tab-impact-total-edits-label" = "total edits";
+"activity-tab-impact-views-day" = "Day";
+"activity-tab-impact-views-title" = "Views on articles you’ve edited";
+"activity-tab-impact-views-views" = "Views";
 "activity-tab-log-in-or-create-account" = "Log in or create an account to see more editing and reading activity.";
 "activity-tab-logged-out-subtitle" = "Log in or create an account to view your activity on the Wikipedia app.";
 "activity-tab-logged-out-title" = "See more reading and editing insights";
 "activity-tab-logged-out-track-what-youve-read" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-menu-clear-history" = "Clear reading history";
+"activity-tab-most-viewed" = "Most viewed since your edit";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
@@ -109,8 +121,8 @@
 "activity-tab-onboarding-second-button-title" = "Learn more about Activity";
 "activity-tab-onboarding-second-item-subtitle" = "Discover insights about your contributions and the reach of the knowledge you've shared.";
 "activity-tab-onboarding-second-item-title" = "Impact highlights";
-"activity-tab-onboarding-third-item-subtitle" = "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.";
-"activity-tab-onboarding-third-item-title" = "More ways to engage";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.";
+"activity-tab-onboarding-third-item-title-updated" = "Reading history is now in Search";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Satisfied";
@@ -572,6 +584,7 @@
 "explore-suggested-edits-image-recs-title" = "Add an image";
 "explore-survey-subtitle" = "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.";
 "explore-survey-title" = "Help us improve Explore";
+"explore-wikipedia" = "Explore Wikipedia";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
 "export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
@@ -622,12 +635,10 @@
 "forgot-password-username-or-email-title" = "Or";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Updates to Gan variant support";
-"history-clear-all" = "Clear";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-delete-all" = "Yes, delete all";
 "history-title" = "History";
 "home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
-"home-button-history-accessibility-label" = "Wikipedia, return to History";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More places near your location";
@@ -737,6 +748,7 @@
 "languages-settings-title" = "Languages";
 "languages-title" = "Change language";
 "languages-wikipedia" = "Wikipedia languages";
+"learn-about-editing" = "Learn about editing";
 "learn-more-title" = "Learn more";
 "lockscreen-search-widget-description" = "Quick access to search Wikipedia from your lock screen.";
 "logged-out-continue-without-logging-in-button-title" = "Continue without logging in";
@@ -747,6 +759,8 @@
 "login-join-wikipedia" = "Join Wikipedia.";
 "login-no-account" = "Don't have an account? $1";
 "login-title" = "Log in to your account";
+"looking-for-something-new" = "Looking for something new to read?";
+"looks-like-you-havent-made-an-edit" = "Looks like you haven't made an edit this month. Extend free knowledge by editing topics that matter most to you.";
 "main-menu-about" = "About the app";
 "main-menu-account-login" = "Log in";
 "main-menu-account-logout" = "Log out";
@@ -1589,3 +1603,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";
 "yesterday-title" = "Yesterday";
+"zero-edits-to-articles" = "0 edits to articles recently";

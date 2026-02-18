@@ -35,12 +35,15 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
         addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
-        updateLoginState()
+        setupLoginState(needsRefetch: false)
         
         viewModel.openCustomize = userDidTapCustomize
         viewModel.pushToContributions = pushToContributions
+        viewModel.exploreWikipedia = presentExplore
+        viewModel.makeAnEdit = makeAnEdit
         
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
@@ -48,7 +51,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 if viewModel.isEmpty {
                     ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "empty")
                 } else {
-                    ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+                    let allModulesOff = !viewModel.customizeViewModel.isTimeSpentReadingOn &&
+                                       !viewModel.customizeViewModel.isReadingInsightsOn &&
+                                       !viewModel.customizeViewModel.isEditingInsightsOn &&
+                                       !viewModel.customizeViewModel.isTimelineOfBehaviorOn
+                    
+                    if allModulesOff {
+                        ActivityTabFunnel.shared.logActivityTabOffImpression()
+                    } else {
+                        ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
+                    }
                 }
             }
         }
@@ -68,6 +80,31 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let view = WMFToastViewBasicView(viewModel: viewModel)
             WMFToastPresenter.shared.presentToastView(view: view)
         }
+
+        dataController.historyDataController = historyDataController
+    }
+    
+    var editingFAQURLString: String {
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return ""
+        }
+        
+        let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
+        return url?.absoluteString ?? ""
+    }
+    
+    public func makeAnEdit() {
+        ActivityTabFunnel.shared.logMakeEditClick()
+        guard let url = URL(string: editingFAQURLString) else { return }
+        navigate(to: url)
+    }
+
+    public func getURL(item: WMFUserImpactData.TopViewedArticle, project: WMFProject) -> URL? {
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: item.title) else {
+            return nil
+        }
+        return articleURL
     }
     
     public func pushToContributions() {
@@ -91,9 +128,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         reachabilityNotifier.stop()
     }
-
-    @objc private func updateLoginState() {
-        
+    
+    private func setupLoginState(needsRefetch: Bool) {
         var userID: Int?
 
         if let siteURL = dataStore?.languageLinkController.appLanguage?.siteURL,
@@ -101,19 +137,31 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             userID = permanentUser.userID
         }
         
-        viewModel.updateID(userID: userID)
+        let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode
         
-        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
-            viewModel.updateAuthenticationState(authState: .loggedIn)
-        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
-            viewModel.updateAuthenticationState(authState: .temp)
-        } else {
-            viewModel.updateAuthenticationState(authState: .loggedOut)
-        }
+        viewModel.updateID(userID: userID)
+        viewModel.updateYourImpactOnWikipediaSubtitle(CommonStrings.onLangWikipedia(with: primaryAppLanguageCode))
+        viewModel.getURL = getURL
+        
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
+        } else {
+            viewModel.updateUsername(username: nil)
+            viewModel.timelineViewModel.setUser(username: nil)
         }
+        
+        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
+            viewModel.updateAuthenticationState(authState: .loggedIn, needsRefetch: needsRefetch)
+        } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
+            viewModel.updateAuthenticationState(authState: .temp, needsRefetch: needsRefetch)
+        } else {
+            viewModel.updateAuthenticationState(authState: .loggedOut, needsRefetch: needsRefetch)
+        }
+    }
+
+    @objc private func updateLoginState() {
+        setupLoginState(needsRefetch: true)
     }
 
     private func presentFullLoginFlow(fromCustomizeToast: Bool = false) {
@@ -199,10 +247,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
+        } else {
+            viewModel.updateUsername(username: nil)
+            viewModel.timelineViewModel.setUser(username: nil)
         }
 
         viewModel.articlesSavedViewModel.onTapSaved = onTapSaved
         viewModel.timelineViewModel.onTapArticle = onTapArticle
+        viewModel.onTapArticle = onTapArticleURL(articleURL:)
         viewModel.timelineViewModel.onTapEditArticle = onTapEditArticle
         viewModel.onTapGlobalEdits = onTapGlobalEdits
 
@@ -213,15 +265,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     @MainActor
     private func presentModalsIfNeeded() {
         Task {
-            // TODO: Bring back onboarding screen in January 2026 (https://phabricator.wikimedia.org/T411424)
-//            let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
-//            if !hasSeenActivityTab {
-//                presentOnboarding()
-//                ActivityTabFunnel.shared.logOnboardingDidAppear()
-//                await dataController.setHasSeenActivityTab(true)
-//            } else {
-//                presentSurveyIfNeeded()
-//            }
+            let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
+            if !hasSeenActivityTab {
+                presentOnboarding()
+                ActivityTabFunnel.shared.logOnboardingDidAppear()
+                await dataController.setHasSeenActivityTab(true)
+            } else {
+                presentSurveyIfNeeded()
+            }
             presentSurveyIfNeeded()
         }
         
@@ -248,6 +299,15 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
     }
+    
+    private func presentExplore() {
+        ActivityTabFunnel.shared.logExploreClick()
+        navigationController?.popToRootViewController(animated: false)
+        
+        if let tabBar = self.tabBarController {
+            tabBar.selectedIndex = 0 
+        }
+    }
 
     private let firstItemTitle = WMFLocalizedString("activity-tab-onboarding-first-item-title", value: "Reading patterns", comment: "Title for activity tabs first item")
     private let firstItemSubtitle = WMFLocalizedString("activity-tab-onboarding-first-item-subtitle", value: "See how much time you've spent reading and which articles or topics you've explored over time.", comment: "Activity tabs first item subtitle")
@@ -255,8 +315,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let secondItemTitle = WMFLocalizedString("activity-tab-onboarding-second-item-title", value: "Impact highlights", comment: "Title for activity tabs second item")
     private let secondItemSubtitle = WMFLocalizedString("activity-tab-onboarding-second-item-subtitle", value: "Discover insights about your contributions and the reach of the knowledge you've shared.", comment: "Activity tabs second item subtitle")
 
-    private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title", value: "More ways to engage", comment: "Title for activity tabs third item")
-    private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle", value: "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.", comment: "Activity tabs third item subtitle")
+    private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title-updated", value: "Reading history is now in Search", comment: "Title for activity tabs third item")
+    private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle-updated", value: "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.", comment: "Activity tabs third item subtitle")
 
     private let fourthItemTitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-title", value: "Stay in control", comment: "Title for activity tabs fourth item")
     private let fourthItemSubtitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-subtitle", value: "Choose which modules to display. All personal data stays private on your device and browsing history can be cleared at anytime.", comment: "Activity tabs fourth item subtitle")
@@ -305,7 +365,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         
         let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gearShape), handler: { _ in
             self.userDidTapCustomize()
-            // TODO: Log
         })
         
         let mainMenu = UIMenu(title: String(), children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
@@ -314,6 +373,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     private func userDidTapCustomize() {
+        let allModulesOff = !viewModel.customizeViewModel.isTimeSpentReadingOn &&
+                           !viewModel.customizeViewModel.isReadingInsightsOn &&
+                           !viewModel.customizeViewModel.isEditingInsightsOn &&
+                           !viewModel.customizeViewModel.isTimelineOfBehaviorOn
+        
+        if allModulesOff {
+            ActivityTabFunnel.shared.logActivityTabOffCustomizeClick()
+        } else {
+            ActivityTabFunnel.shared.logActivityTabCustomizeClick()
+        }
+        
         let customizeVC = self.customizeViewController()
         navigationController?.present(customizeVC, animated: true)
     }
@@ -484,6 +554,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
     }
     
+    private func onTapArticleURL(articleURL: URL) {
+        if let dataStore, let navVC = navigationController {
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
+            articleCoordinator.start()
+        }
+    }
+    
     private func onTapEditArticle(item: TimelineItem) {
         ActivityTabFunnel.shared.logActivityTabArticleTap()
         
@@ -546,6 +623,80 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
         }
     }
+
+    lazy var historyDataController: WMFHistoryDataController = {
+        let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
+            guard let self, let dataStore = self.dataStore else { return [] }
+
+            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "viewedDate != NULL")
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
+            ]
+            request.fetchLimit = 1 // we're not using the records provider here, just need it to build the data controller
+
+            do {
+                var articles: [HistoryRecord] = []
+                let fetched = try dataStore.viewContext.fetch(request)
+
+                for article in fetched {
+                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
+                        let thumbnailImageWidth = ImageUtils.listThumbnailWidth()
+                        let record = HistoryRecord(
+                            id: Int(truncating: pageID),
+                            title: article.displayTitle ?? article.displayTitleHTML,
+                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
+                            shortDescription: article.snippet,
+                            articleURL: article.url,
+                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
+                            viewedDate: viewedDate,
+                            isSaved: article.isSaved,
+                            snippet: article.snippet,
+                            variant: article.variant                        )
+                        articles.append(record)
+                    }
+                }
+                return articles
+            } catch {
+                DDLogError("Error fetching history: \(error)")
+                return []
+            }
+        }
+
+        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historyItem in
+
+            guard let self else { return }
+
+            guard let databaseKey = historyItem.url?.wmf_databaseKey else { return }
+
+            Task { @MainActor [weak self] in
+                guard let self, let dataStore = self.dataStore else { return }
+
+                let context = dataStore.viewContext
+                context.perform { [weak self] in
+                    guard let self else { return }
+
+                    let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+                    request.predicate = NSPredicate(format: "key == %@", databaseKey)
+                    request.fetchLimit = 1
+
+                    do {
+                        if let article = try context.fetch(request).first {
+                            try article.removeFromReadHistory()
+                        }
+                    } catch {
+                        self.showError(error)
+                    }
+                }
+            }
+        }
+
+        let controller = WMFHistoryDataController(recordsProvider: recordsProvider)
+        controller.deleteRecordAction = deleteRecordAction
+        return controller
+    }()
+
 }
 
 // MARK: - Extensions
@@ -644,7 +795,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
     }
 }
 
-final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring {
+final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring, UIAdaptivePresentationControllerDelegate {
     
     init(rootView: WMFActivityTabCustomizeView, theme: Theme) {
         self.theme = theme
@@ -665,6 +816,8 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             customView: nil,
             alignment: .centerCompact
         )
+        
+        navigationController?.presentationController?.delegate = self
 
         let closeConfig = WMFNavigationBarCloseButtonConfig(
             text: CommonStrings.doneTitle,
@@ -682,8 +835,15 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             hideNavigationBarOnScroll: false
         )
     }
+    
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        ActivityTabFunnel.shared.logActivityTabCustomizeExit(
+            viewModel: rootView.viewModel
+        )
+    }
 
     @objc private func closeTapped() {
+        ActivityTabFunnel.shared.logActivityTabCustomizeExit(viewModel: rootView.viewModel)
         dismiss(animated: true)
     }
 }

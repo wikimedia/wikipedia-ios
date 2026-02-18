@@ -539,12 +539,10 @@
 "forgot-password-username-or-email-title" = "Eller";
 "gan-variants-alert-body" = "Wikipedia-appen støtter nå følgende gan-varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\n贛語 原文 gan (gan)\n赣语 简体 forenklet gan (gan-hans)\n贛語 繁體 tradisjonell gan (gan-hant)";
 "gan-variants-alert-title" = "Oppdateringer i støtte for gan-varianter";
-"history-clear-all" = "Tøm";
 "history-clear-confirmation-heading" = "Er du sikker på at du vil tømme loggen din?";
 "history-clear-delete-all" = "Ja, slett alt";
 "history-title" = "Historikk";
 "home-button-explore-accessibility-label" = "Wikipedia, vend tilbake til Utforsk";
-"home-button-history-accessibility-label" = "Wikipedia, vend tilbake til Historikk";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbake til Lagret";
 "home-more-like-footer" = "Mer som ligner $1";
 "home-nearby-footer" = "Flere steder i nærheten av deg";

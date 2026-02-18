@@ -4,7 +4,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     private let icon: UIImage?
     private let title: String
     private let dateText: String?
-    private let additionalAccessibilityLabel: String?
     private let onTapModule: (() -> Void)?
     private let content: () -> Content
     private let showArrowAnyways: Bool
@@ -13,7 +12,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
         icon: UIImage?,
         title: String,
         dateText: String?,
-        additionalAccessibilityLabel: String?,
         onTapModule: (() -> Void)?,
         @ViewBuilder content: @escaping () -> Content = { EmptyView()},
         showArrowAnyways: Bool = false
@@ -21,7 +19,6 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
         self.icon = icon
         self.title = title
         self.dateText = dateText
-        self.additionalAccessibilityLabel = additionalAccessibilityLabel
         self.content = content
         self.onTapModule = onTapModule
         self.showArrowAnyways = showArrowAnyways
@@ -32,8 +29,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
     @ScaledMetric(relativeTo: .caption) private var iconSize: CGFloat = 12
 
     var body: some View {
-        Button(action: { onTapModule?() }) {
-            VStack(spacing: 24) {
+            VStack(spacing: 16) {
                 HStack {
                     if let icon {
                         Image(uiImage: icon)
@@ -41,12 +37,16 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                             .renderingMode(.template)
                             .scaledToFit()
                             .frame(width: iconSize, height: iconSize)
+                            .padding(.leading, 0)
+                            .accessibilityHidden(true)
                     }
                     Text(title)
                         .foregroundStyle(Color(theme.text))
                         .font(Font(WMFFont.for(.boldCaption1)))
                         .multilineTextAlignment(.leading)
                         .lineLimit(4)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityAddTraits(.isHeader)
                     Spacer()
                     if let dateText {
                         HStack {
@@ -60,6 +60,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                                     .scaledToFit()
                                     .frame(width: iconSize, height: iconSize)
                                     .foregroundStyle(Color(theme.secondaryText))
+                                    .accessibilityHidden(true)
                             }
                         }
                     } else if showArrowAnyways {
@@ -70,6 +71,7 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                                 .scaledToFit()
                                 .frame(width: iconSize, height: iconSize)
                                 .foregroundStyle(Color(theme.secondaryText))
+                                .accessibilityHidden(true)
                         }
                     }
                 }
@@ -84,17 +86,8 @@ struct WMFActivityTabInfoCardView<Content: View>: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color(theme.baseBackground), lineWidth: 0.5)
             )
-        }
-        .buttonStyle(.plain)
-        .accessibilityElement()
-        .accessibilityLabel(accessibilityString)
-        .accessibilityAddTraits(.isButton)
-    }
-
-    private var accessibilityString: String {
-        var parts = [title]
-        if let dateText { parts.append(dateText) }
-        if let additionalAccessibilityLabel { parts.append(additionalAccessibilityLabel)}
-        return parts.joined(separator: ", ")
+            .onTapGesture {
+                onTapModule?()
+            }
     }
 }

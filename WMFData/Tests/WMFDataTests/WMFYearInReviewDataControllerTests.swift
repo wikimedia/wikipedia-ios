@@ -352,6 +352,13 @@ extension WMFFeatureConfigResponse.Common.YearInReview {
     }
     
     static var testConfig: WMFFeatureConfigResponse.Common.YearInReview {
-        WMFFeatureConfigResponse.Common.YearInReview(year: 2025, activeStartDateString: "2025-12-01T00:00:00Z", activeEndDateString: "2026-02-01T00:00:00Z", dataStartDateString: "2025-01-01T00:00:00Z", dataEndDateString: "2025-12-01T00:00:00Z", languages: 300, articles: 10000000, savedArticlesApps: 37574993, viewsApps: 1000000000, editsApps: 124356, editsPerMinute: 342, averageArticlesReadPerYear: 335, edits: 81987181, editsEN: 31000000, hoursReadEN: 2423171000, yearsReadEN: 275000, topReadEN: testTopReadEN, topReadPercentages:testTopReadPercentages, bytesAddedEN: 1000000000, hideCountryCodes: testHideCountryCodes, hideDonateCountryCodes: testHideDonateCountryCodes)
+        
+        // Dynamically set always active end date for test stability
+        let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+        let oneDay = 60 * 60 * 24
+        let activeEndDate = Date().addingTimeInterval(Double(oneDay))
+        let activeEndDateString = dateFormatter.string(from: activeEndDate)
+        
+        return WMFFeatureConfigResponse.Common.YearInReview(year: 2025, activeStartDateString: "2025-12-01T00:00:00Z", activeEndDateString: activeEndDateString, dataStartDateString: "2025-01-01T00:00:00Z", dataEndDateString: "2025-12-01T00:00:00Z", languages: 300, articles: 10000000, savedArticlesApps: 37574993, viewsApps: 1000000000, editsApps: 124356, editsPerMinute: 342, averageArticlesReadPerYear: 335, edits: 81987181, editsEN: 31000000, hoursReadEN: 2423171000, yearsReadEN: 275000, topReadEN: testTopReadEN, topReadPercentages:testTopReadPercentages, bytesAddedEN: 1000000000, hideCountryCodes: testHideCountryCodes, hideDonateCountryCodes: testHideDonateCountryCodes)
     }
 }

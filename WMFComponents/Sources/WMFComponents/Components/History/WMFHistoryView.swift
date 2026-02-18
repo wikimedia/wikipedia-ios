@@ -1,7 +1,6 @@
 import SwiftUI
 import WMFData
 
-@available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFHistoryView: View {
 
     // MARK: - Properties
@@ -148,7 +147,6 @@ public struct WMFHistoryView: View {
         .padding(.top, viewModel.topPadding)
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
-        .ignoresSafeArea(edges: .top)
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
@@ -161,8 +159,16 @@ public struct WMFHistoryView: View {
         ZStack {
             Color(theme.paperBackground)
                 .ignoresSafeArea()
+
             if !viewModel.isEmpty {
-                listView()
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(viewModel.localizedStrings.historyHeaderTitle)
+                        .font(Font(WMFFont.for(.boldTitle3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .padding(.horizontal)
+
+                    listView()
+                }
             } else {
                 emptyView()
             }

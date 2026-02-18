@@ -264,12 +264,10 @@
 "forgot-password-username-or-email-title" = "Или";
 "gan-variants-alert-body" = "Приложението Уикипедия вече поддържа следните варианти на Ган като основни или вторични езици в рамките на приложението, което улеснява четенето, търсенето и редактирането в предпочитаните от Вас варианти:\n\n贛語 原文 Gan (ган)\n赣语简体 Ган, опростен (ган-ханс)\n贛語 繁體 Ган, традиционен (ган-хант)";
 "gan-variants-alert-title" = "Актуализации за поддръжка на ган вариант";
-"history-clear-all" = "Изчистване";
 "history-clear-confirmation-heading" = "Сигурни ли сте, че искате да изтриете всички скорошни елементи?";
 "history-clear-delete-all" = "Да, изтрий всички";
 "history-title" = "История";
 "home-button-explore-accessibility-label" = "Уикипедия, връщане към Изследване";
-"home-button-history-accessibility-label" = "Уикипедия, връщане към История";
 "home-button-saved-accessibility-label" = "Уикипедия, връщане към Запазени";
 "home-more-like-footer" = "Още статии, подобни на $1";
 "home-nearby-footer" = "Още места близо до вашето местоположение";
@@ -282,6 +280,7 @@
 "icon-shortcut-search-title" = "Търсене в Уикипедия";
 "image-rec-onboarding-learn-more-button" = "Научете повече за предложените редакции";
 "image-rec-survey-instructions-1" = "Вашите отговори подобряват бъдещите предложения.";
+"image-rec-survey-title" = "Причина";
 "image-rec-tooltip-1-title" = "Проверка";
 "in-the-news-sub-title-from-language-wikipedia" = "От Уикипедия на $1";
 "in-the-news-sub-title-from-wikipedia" = "От Уикипедия";
@@ -521,6 +520,7 @@
 "share-social-mention-format" = "„1“ чрез Уикипедия: $2";
 "sort-by-recently-added-action" = "Наскоро добавено";
 "sort-by-title-action" = "Заглавие";
+"survey-title" = "Причина";
 "table-of-contents-button-label" = "Съдържание";
 "table-of-contents-close-accessibility-hint" = "Затваряне";
 "table-of-contents-heading" = "Съдържание";

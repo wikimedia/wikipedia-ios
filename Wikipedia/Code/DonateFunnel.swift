@@ -19,7 +19,6 @@ import WMFData
         case exploreProfile = "explore_profile"
         case exploreOptOut = "explore_optout_profile"
         case placesProfile = "places_profile"
-        case historyProfile = "history_profile"
         case savedProfile = "saved_profile"
         case searchProfile = "search_profile"
         case activityProfile = "activity_profile"
@@ -369,31 +368,7 @@ import WMFData
     func logSavedProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
         logEvent(activeInterface: .savedProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
     }
-    
-    func logHistoryProfile(metricsID: String) {
-        logEvent(activeInterface: .historyProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
-    }
-    
-    func logHistoryProfileDonate(metricsID: String) {
-        logEvent(activeInterface: .historyProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
-    }
-    
-    func logHistoryProfileDonateCancel(metricsID: String) {
-        logEvent(activeInterface: .historyProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
-    }
-    
-    func logHistoryProfileDonateApplePay(metricsID: String) {
-        logEvent(activeInterface: .historyProfile, action: .applePayClick, actionData: ["campaign_id": metricsID])
-    }
-    
-    func logHistoryProfileDonateWebPay(metricsID: String) {
-        logEvent(activeInterface: .historyProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
-    }
-    
-    func logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
-        logEvent(activeInterface: .historyProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
-    }
-    
+
     func logSearchProfile(metricsID: String) {
         logEvent(activeInterface: .searchProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
     }

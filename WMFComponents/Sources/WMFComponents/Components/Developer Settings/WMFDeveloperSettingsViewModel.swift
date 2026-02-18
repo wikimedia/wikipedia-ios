@@ -30,7 +30,6 @@ import WMFData
     let formViewModel: WMFFormViewModel
     private var subscribers: Set<AnyCancellable> = []
     private var yirLoginExperimentGroupCoordinator: YirLoginExperimentBindingCoordinator?
-    private var activityTabGroupCoordinator: ActivityTabBindingCoordinator?
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
@@ -52,12 +51,6 @@ import WMFData
         
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
 
-        let showActivityTab = WMFFormItemSelectViewModel(title: "Show Activity Tab", isSelected: WMFDeveloperSettingsDataController.shared.showActivityTab)
-
-        let activityTabForceControl =  WMFFormItemSelectViewModel(title: "Activity Tab Control (history)", isSelected: WMFDeveloperSettingsDataController.shared.forceActivityTabControl)
-
-        let activityTabForceExperiment =  WMFFormItemSelectViewModel(title: "Activity Tab Experiment", isSelected: WMFDeveloperSettingsDataController.shared.forceActivityTabExperiment)
-
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
@@ -69,10 +62,7 @@ import WMFData
                 enableMoreDynamicTabsV2GroupC,
                 showYiRV3,
                 enableYiRVLoginExperimentControl,
-                enableYiRVLoginExperimentB,
-                showActivityTab,
-                activityTabForceControl,
-                activityTabForceExperiment
+                enableYiRVLoginExperimentB
             ], selectType: .multi)
         ])
 
@@ -96,13 +86,6 @@ import WMFData
         forceMaxArticleTabsTo5.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
             .store(in: &subscribers)
-        
-        showActivityTab.$isSelected
-            .sink { isSelected in
-                WMFDeveloperSettingsDataController.shared.showActivityTab = isSelected
-
-            }
-            .store(in: &subscribers)
 
         showYiRV3.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected }
@@ -119,12 +102,6 @@ import WMFData
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(
             control: enableYiRVLoginExperimentControl,
             b: enableYiRVLoginExperimentB
-        )
-
-        activityTabGroupCoordinator = ActivityTabBindingCoordinator(
-            main: showActivityTab,
-            control: activityTabForceControl,
-            experiment: activityTabForceExperiment
         )
     }
 }
@@ -147,58 +124,5 @@ private final class YirLoginExperimentBindingCoordinator {
             }
         }.store(in: &subscribers)
 
-    }
-}
-
-private final class ActivityTabBindingCoordinator {
-    private var subscribers: Set<AnyCancellable> = []
-
-    init(main: WMFFormItemSelectViewModel, control: WMFFormItemSelectViewModel, experiment: WMFFormItemSelectViewModel) {
-        main.$isSelected
-            .sink { isSelected in
-                if !isSelected {
-                    control.isSelected = false
-                    experiment.isSelected = false
-                }
-
-            }
-            .store(in: &subscribers)
-
-        control.$isSelected
-            .sink { isSelected in
-                WMFDeveloperSettingsDataController.shared.forceActivityTabControl = isSelected
-
-                guard isSelected else {
-                    return
-                }
-                if !main.isSelected {
-                    main.isSelected = true
-                }
-                if experiment.isSelected {
-                    experiment.isSelected = false
-                }
-
-            }
-            .store(in: &subscribers)
-
-        experiment.$isSelected
-            .sink { isSelected in
-                WMFDeveloperSettingsDataController.shared.forceActivityTabExperiment = isSelected
-
-                if isSelected {
-                    if !main.isSelected {
-                        main.isSelected = true
-                    }
-                    if control.isSelected {
-                        control.isSelected = false
-                    }
-                }
-                NotificationCenter.default.post(
-                    name: WMFNSNotification.activityTab,
-                    object: nil,
-                    userInfo: ["isOn": isSelected]
-                )
-            }
-            .store(in: &subscribers)
     }
 }

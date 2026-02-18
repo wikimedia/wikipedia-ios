@@ -1,5 +1,6 @@
 // Messages for Simplified Chinese (中文（简体）)
 // Exported from translatewiki.net
+// Author: 0x48fe75df30
 // Author: 22593
 // Author: 500000000006城
 // Author: A Chinese Wikipedian
@@ -20,6 +21,7 @@
 // Author: FakeGreenHand
 // Author: GoForceX
 // Author: Googology
+// Author: Gsdn
 // Author: GuoPC
 // Author: HNordeen (WMF)
 // Author: Hehua
@@ -176,6 +178,13 @@
 "activity-tab-generic-no-edits" = "您本周尚未进行编辑。马上开始编辑，以追踪贡献。";
 "activity-tab-hours-minutes-read" = "$1 小时 $2 分钟";
 "activity-tab-hours-on-wikipedia-ios" = "在维基百科iOS版";
+"activity-tab-impact-edits-label" = "编辑数";
+"activity-tab-impact-recent-activity-title" = "您最近的活动（过去30天）";
+"activity-tab-impact-thanks-label" = "感谢";
+"activity-tab-impact-total-edits-label" = "总编辑数";
+"activity-tab-impact-views-day" = "日";
+"activity-tab-impact-views-title" = "您已编辑的条目的浏览次数";
+"activity-tab-impact-views-views" = "浏览次数";
 "activity-tab-log-in-or-create-account" = "登录或创建账号以查看更多编辑和阅读活动。";
 "activity-tab-logged-out-subtitle" = "登录或创建账号来查看您在维基百科应用程序上的活动。";
 "activity-tab-logged-out-title" = "查看更多阅读和编辑方面的分析";
@@ -192,8 +201,8 @@
 "activity-tab-onboarding-second-button-title" = "了解更多关于活动的信息";
 "activity-tab-onboarding-second-item-subtitle" = "探索对于您的贡献、以及您所分享知识的影响的分析。";
 "activity-tab-onboarding-second-item-title" = "影响亮点";
-"activity-tab-onboarding-third-item-subtitle" = "探索已保存条目和其他活动的统计数据，让您与维基百科有更深入的联系。";
-"activity-tab-onboarding-third-item-title" = "更多参与方式";
+"activity-tab-onboarding-third-item-subtitle-updated" = "活动包括已阅读、已保存和已编辑条目的完整时间线。您的阅读历史记录现在位于“搜索”标签页中。";
+"activity-tab-onboarding-third-item-title-updated" = "正在搜索阅读历史";
 "activity-tab-read-title" = "查看阅读记录";
 "activity-tab-satisfied" = "满意";
 "activity-tab-saved" = "本月保存的条目";
@@ -652,7 +661,9 @@
 "explore-suggested-edits-footer" = "添加";
 "explore-suggested-edits-image-recs-body" = "将建议的图片添加至维基百科条目中，以增强理解。";
 "explore-suggested-edits-image-recs-title" = "添加图片";
+"explore-survey-subtitle" = "请填写一份关于“探索”信息流的简短调查问卷。您的反馈将有助于我们未来的应用改进。";
 "explore-survey-title" = "帮助我们改进探索功能";
+"explore-wikipedia" = "浏览维基百科";
 "export-user-data-confirmation-message" = "共享您的应用程序库包括有关您的阅读列表和历史记录、设置以及探索订阅源内容的数据。此数据文件只与受信任的接收者共享，用于技术诊断目的。";
 "export-user-data-confirmation-title" = "共享应用程序库？";
 "export-user-data-generic-error" = "导出数据时发生错误。请稍后重试。";
@@ -703,12 +714,10 @@
 "forgot-password-username-or-email-title" = "或";
 "gan-variants-alert-body" = "维基百科应用现在支持以下赣语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "更新赣语变体支持";
-"history-clear-all" = "清除";
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目吗？";
 "history-clear-delete-all" = "是的，删除全部";
 "history-title" = "历史";
 "home-button-explore-accessibility-label" = "维基百科，返回到探索";
-"home-button-history-accessibility-label" = "维基百科，返回到历史";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
 "home-more-like-footer" = "更多$1相关条目";
 "home-nearby-footer" = "更多您所在位置附近的地点";
@@ -818,7 +827,9 @@
 "languages-settings-title" = "语言";
 "languages-title" = "更改语言";
 "languages-wikipedia" = "维基百科语言";
+"learn-about-editing" = "了解编辑";
 "learn-more-title" = "了解更多";
+"lockscreen-search-widget-description" = "从锁屏界面快速访问维基百科进行搜索。";
 "logged-out-continue-without-logging-in-button-title" = "继续而不登录";
 "logged-out-log-back-in-button-title" = "重新登录到您的账号";
 "logged-out-subtitle" = "验证您的账号时出现了问题。请重新登录以同步及编辑您的阅读列表。";
@@ -827,6 +838,7 @@
 "login-join-wikipedia" = "加入维基百科。";
 "login-no-account" = "还没有账号？$1";
 "login-title" = "登录您的账号";
+"looking-for-something-new" = "想读一些新东西吗？";
 "main-menu-about" = "关于应用";
 "main-menu-account-login" = "登录";
 "main-menu-account-logout" = "退出";
@@ -845,6 +857,7 @@
 "microsite-yir-english-edits-bytes-slide-title-updated" = "增加了{{PLURAL:$1|$1}}字节";
 "microsite-yir-english-edits-slide-subtitle-updated" = "志愿者们在超过 {{PLURAL:$2|$2}} 种不同语言版本的维基百科上共完成了 {{PLURAL:$1|$1}} 次修改。其中，英文维基百科的修改次数就超过了 {{PLURAL:$3|$3}} 次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
 "microsite-yir-english-edits-slide-title-updated" = "编辑者们今年做出了 {{PLURAL:$1|$1}} 次修改";
+"microsite-yir-english-reading-slide-subtitle-short-updated" = "人们大约花了{{PLURAL:$1|$1小时}}——相当于{{PLURAL:$2|$2 年}}！——阅读英文维基百科的时间在$3年。";
 "microsite-yir-english-reading-slide-subtitle-updated" = "在 $3 年，人们花费了大约 {{PLURAL:$1|$1}} 小时（相当于 {{PLURAL:$2|$2}} 年！）阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
 "microsite-yir-english-reading-slide-title-updated" = "大家花了 {{PLURAL:$1|$1}} 小时阅读维基百科";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "活跃的应用程序用户今年保存了 {{PLURAL:$1|$1}} 篇条目。将条目加入阅读清单，即使在离线状态下也能随时查看。此外，登录后还能在不同设备上同步阅读清单。";
@@ -1007,6 +1020,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1，来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "open-article" = "开启条目";
+"open-in-tab-tooltip-body" = "长按文章标题或蓝色链接，即可在新标签页中打开。";
 "open-in-tab-tooltip-title" = "在新标签页中打开";
 "original-tab-button-popover-description" = "点按“W”以返回您起始的标签页";
 "page-history-bot-edits" = "机器人";
@@ -1206,6 +1220,8 @@
 "return-to-article" = "返回至条目";
 "reverted-edit-title" = "编辑被退回";
 "save-all-tabs" = "保存所有标签页";
+"save-view-temp-account-notice" = "您目前使用的是临时帐户。编辑操作将归因于$1 ……";
+"save-view-temp-account-warning" = "您尚未登录。编辑完成后，系统将为您创建一个临时帐户以保护您的隐私。";
 "saved-all-articles-title" = "所有条目";
 "saved-all-tabs" = "所有标签页已保存。";
 "saved-all-tabs-view-reading-list" = "所有标签页已保存。请查看阅读列表。";
@@ -1229,6 +1245,7 @@
 "search-recent-title" = "最近搜索";
 "search-result-redirected-from" = "重定向自：$1";
 "search-title" = "搜索";
+"search-widget-announcement-body" = "将维基百科搜索小部件添加到您的主屏幕或锁屏，即可快速获取答案，一切尽在指尖。";
 "search-widget-announcement-title" = "有新的搜索小工具可用";
 "search-widget-description" = "快速访问以搜索维基百科";
 "search-widget-wikipedia-title" = "维基百科";
@@ -1587,13 +1604,19 @@
 "year-in-review-feature-announcement-title-personalized" = "探索您的维基百科年度回顾";
 "year-in-review-feature-explore-body" = "维基百科是世界历史上最大的知识资源库，向每个地方的每个人免费开放。通过维基百科的视角回顾 2024 年。";
 "year-in-review-feature-explore-body-personalized-updated" = "查看您在维基百科应用上阅读的文章以及您在 2024 年所做的编辑的分析。您的阅读历史将受到保护。阅读见解使用存储在您设备上的本地数据计算。";
+"year-in-review-feature-explore-body-v3" = "查看有关您在维基百科应用程序上所阅读的条目和所作编辑的深入分析。";
+"year-in-review-feature-explore-footer-v3" = "您的阅读历史记录受到保护。阅读分析数据基于您设备本地存储的数据计算得出。";
 "year-in-review-finish" = "完成";
 "year-in-review-highlights-articles-read" = "阅读过的条目";
 "year-in-review-highlights-articles-viewed" = "条目浏览量";
 "year-in-review-highlights-button-title" = "分享精彩内容";
 "year-in-review-highlights-categories" = "我感兴趣的分类";
 "year-in-review-highlights-changes" = "编辑者们做过的更改";
+"year-in-review-highlights-collective-time-spent" = "阅读时长";
+"year-in-review-highlights-created-lists" = "创建的阅读清单数量";
+"year-in-review-highlights-edit-frequency" = "维基百科的编辑频率";
 "year-in-review-highlights-edit-frequency-value" = "每分钟 {{PLURAL:$1|$1}} 次";
+"year-in-review-highlights-english-articles" = "英文维基百科上阅读量最高的文章";
 "year-in-review-highlights-favorite-day" = "最喜欢阅读的日子";
 "year-in-review-highlights-number-app-editors" = "应用内编辑";
 "year-in-review-highlights-personalized-articles" = "我阅读过最多的条目";
@@ -1602,6 +1625,7 @@
 "year-in-review-highlights-subtitle" = "我们期待明年！";
 "year-in-review-highlights-times-edited" = "编辑时间";
 "year-in-review-highlights-title" = "感谢您与维基百科共度的这一年。";
+"year-in-review-intro-exit-toast-title" = "您稍后可以在个人资料中查看您的年度回顾。";
 "year-in-review-intro-login-title" = "登录以进行个性化";
 "year-in-review-most-read-categories-title" = "您最感兴趣的分类";
 "year-in-review-non-contributor-slide-title" = "解锁您明年的贡献者奖励！";
@@ -1609,15 +1633,19 @@
 "year-in-review-personalized-date-day-footer-v3" = "最喜欢阅读的日子";
 "year-in-review-personalized-date-month-footer-v3" = "你阅读最多次的月份";
 "year-in-review-personalized-date-time-footer-v3" = "最喜欢的阅读时间";
+"year-in-review-personalized-date-title-v3" = "您有明确的阅读规律";
 "year-in-review-personalized-donate-subtitle" = "感谢您对知识免费的未来投资。今年，维基媒体基金会改进了技术，从而更好地服务每一位读者和志愿者，并开发了增强协作的工具，另外还支持了维基百科的更多语言版本。[进一步了解我们的工作]($1)。";
 "year-in-review-personalized-donate-title" = "您的慷慨让维基百科兴旺";
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑过的条目共获得了 {{PLURAL:$1|$1}} 次浏览。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
 "year-in-review-personalized-edit-views-title-format-updated" = "您的编辑最近已被浏览超过 {{PLURAL:$1|$1}} 次。";
+"year-in-review-personalized-editing-subtitle-1" = "感谢您作为志愿者编辑之一，为世界各地的维基媒体项目做出贡献。";
+"year-in-review-personalized-editing-subtitle-2-updated" = "像您这样的志愿者在维基百科的 {{PLURAL:$2| $2 不同语言版本}} 上做出了 {{PLURAL:$1| $1 改变}}。";
 "year-in-review-personalized-editing-title-format-updated" = "您作出了 {{PLURAL:$1|$1}} 次编辑";
 "year-in-review-personalized-explore" = "一幅动画插画，一只手中握着维基百科的地球仪，它逐渐变成了一块小小的拼图碎片，寓意着众人拾柴火焰高，每个人都在为这个平台添砖加瓦。";
 "year-in-review-personalized-location-subtitle-format-1" = "您阅读过关于$2$1$3的内容。";
 "year-in-review-personalized-location-subtitle-format-2" = "您阅读过关于$3$1$4和$3$2$4的内容。";
 "year-in-review-personalized-location-subtitle-format-3" = "您阅读过关于$4$1$5、$4$2$5和$4$3$5的内容。";
+"year-in-review-personalized-location-title-format-updated" = "您阅读过的条目里，最靠近您的地点是$1";
 "year-in-review-personalized-most-read-articles-title" = "您的热门条目";
 "year-in-review-personalized-saved-title-format" = "您保存了{{PLURAL:$1|$1 篇文章}}";
 "year-in-review-personalized-user-edits" = "一幅动画插画，数据字节层层堆叠，象征着自由知识的不断积累。";

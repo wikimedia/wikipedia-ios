@@ -85,6 +85,7 @@
 "activity-tab-add-images-subtitle" = "Anlayışı artırmaq üçün təklif olunan şəkilləri Vikipediya məqalələrinə əlavə edin.";
 "activity-tab-add-images-title" = "Şəkil əlavə et";
 "activity-tab-additional-thoughts" = "Əlavə fikriniz var?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 oxunuş}}";
 "activity-tab-articles-read" = "Bu ay oxunan məqalələr";
 "activity-tab-articles-read-graph-label" = "Məqalələr";
 "activity-tab-customize-all-time-impact" = "Ümumi təsir";
@@ -107,11 +108,24 @@
 "activity-tab-generic-no-edits" = "Siz bu həftə redaktə etməmisiniz. Töhfələrinizi izləmək üçün indi başlayın.";
 "activity-tab-hours-minutes-read" = "$1s $2d";
 "activity-tab-hours-on-wikipedia-ios" = "WIKIPEDIA iOS-da";
+"activity-tab-impact-all-time-title" = "Ümumi təsir";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 gün}}";
+"activity-tab-impact-best-streak-label" = "ən yaxşı davamiyyət";
+"activity-tab-impact-edits-label" = "redaktə";
+"activity-tab-impact-last-edited-label" = "son redaktə";
+"activity-tab-impact-recent-activity-title" = "Son fəaliyyətiniz (son 30 gün)";
+"activity-tab-impact-recent-startend-accessibility" = "$1 - $2";
+"activity-tab-impact-thanks-label" = "təşəkkür";
+"activity-tab-impact-total-edits-label" = "toplam redaktə";
+"activity-tab-impact-views-day" = "Gün";
+"activity-tab-impact-views-title" = "Redaktə edilmiş məqalələrdəki oxunma sayı";
+"activity-tab-impact-views-views" = "Oxunma";
 "activity-tab-log-in-or-create-account" = "Daha çox redaktə və oxuma fəaliyyəti görmək üçün daxil olun və ya hesab yaradın.";
 "activity-tab-logged-out-subtitle" = "Vikipediya tətbiqində fəaliyyətinizə baxmaq üçün daxil olun və ya hesab yaradın";
 "activity-tab-logged-out-title" = "Daha çox oxuma və redaktə statistikalarına baxın";
 "activity-tab-logged-out-track-what-youve-read" = "Oxuduqlarınızı izləyin və zamanla töhfələrinizə yeni şəkildə baxın";
 "activity-tab-menu-clear-history" = "Oxuma tarixçəsini sil";
+"activity-tab-most-viewed" = "Redaktənizdən sonra ən çox oxunan";
 "activity-tab-neutral" = "Neytral";
 "activity-tab-no-edits-title" = "Siz bu həftə redaktə etməmisiniz. Məqaləni başa düşülməsini asanlaşdırmaq üçün şəkillər əlavə edin.";
 "activity-tab-no-username-reading-title" = "Oxuduqlarınız";
@@ -123,8 +137,8 @@
 "activity-tab-onboarding-second-button-title" = "Fəaliyyət haqqında ətraflı məlumat əldə edin";
 "activity-tab-onboarding-second-item-subtitle" = "Töhfələriniz və paylaşdığınız biliklərin əhatə dairəsi haqqında statistikaya baxın.";
 "activity-tab-onboarding-second-item-title" = "Təsirinizlə bağlı əsas məqamlar";
-"activity-tab-onboarding-third-item-subtitle" = "Sizi Vikipediya ilə daha dərindən birləşdirən yadda saxlanan məqalələr və digər fəaliyyətlər üçün statistik məlumatları araşdırın.";
-"activity-tab-onboarding-third-item-title" = "İştirak etmək üçün daha çox yol";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Fəaliyyətə oxunan, saxlanılan və redaktə edilən məqalələrin əhatəli bir zaman xətti daxildir. Oxuma tarixçəniz artıq Axtarış vərəqəsindədir.";
+"activity-tab-onboarding-third-item-title-updated" = "Oxuma tarixçəsi artıq Axtarışdadır";
 "activity-tab-read-title" = "Oxunma tarixçəsinə bax";
 "activity-tab-satisfied" = "Məmnunam";
 "activity-tab-saved" = "Bu ay yadda saxlanılan məqalələr";
@@ -583,6 +597,7 @@
 "explore-suggested-edits-image-recs-title" = "Şəkil əlavə edin";
 "explore-survey-subtitle" = "Zəhmət olmasa, Kəşf lenti haqqında qısa sorğuda iştirak edin. Rəyiniz qarşıdan gələn tətbiq təkmilləşdirmələrini formalaşdırmağa kömək edəcək.";
 "explore-survey-title" = "Kəşf səhifəsini təkmilləşdirməkdə bizə kömək edin";
+"explore-wikipedia" = "Vikipediyanı kəşf et";
 "export-user-data-confirmation-message" = "Tətbiq kitabxananızın paylaşılmasına Oxuma siyahılarınız və tarixçəniz, nizamlamalarınız və Kəşf et lenti məzmunu daxildir. Bu məlumat faylı texniki diaqnostika məqsədləri üçün istifadə etmək üçün yalnız etibarlı alıcı ilə paylaşılmalıdır.";
 "export-user-data-confirmation-title" = "Proqram kitabxanası paylaşılsın?";
 "export-user-data-generic-error" = "Məlumatlarınızı ixrac edərkən xəta baş verdi. Zəhmət olmasa, sonra yenidən cəhd edin.";
@@ -633,12 +648,10 @@
 "forgot-password-username-or-email-title" = "Ya da";
 "gan-variants-alert-body" = "Vikipediya proqramı indi tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Gan variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\n贛語 原文 Gan (gan)\n赣语简体 Gan, Sadələşdirilmiş (gan-hans)\n贛語 繁體 Gan, Ənənəvi (gan-hant)";
 "gan-variants-alert-title" = "Gan variant dəstəyi üçün yeniləmələr";
-"history-clear-all" = "Təmizlə";
 "history-clear-confirmation-heading" = "Bütün son elementlərinizi silmək istədiyinizə əminsiniz?";
 "history-clear-delete-all" = "Bəli, hamısını sil";
 "history-title" = "Tarixçə";
 "home-button-explore-accessibility-label" = "Vikipediya, Kəşf et səhifəsinə qayıt";
-"home-button-history-accessibility-label" = "Vikipediya, tarixçəyə qayıt";
 "home-button-saved-accessibility-label" = "Vikipediya, Saxlanmışlara qayıt";
 "home-more-like-footer" = "Daha çox $1 kimi";
 "home-nearby-footer" = "Məkanınızın yaxınlığında daha çox yer";
@@ -747,6 +760,7 @@
 "languages-settings-title" = "Dillər";
 "languages-title" = "Dili dəyiş";
 "languages-wikipedia" = "Vikipediya dilləri";
+"learn-about-editing" = "Redaktə etmək barədə məlumat əldə et";
 "learn-more-title" = "Daha ətraflı";
 "lockscreen-search-widget-description" = "Kilid ekranınızdan Vikipediyada axtarışa cəld giriş.";
 "logged-out-continue-without-logging-in-button-title" = "Daxil olmadan davam et";
@@ -757,6 +771,8 @@
 "login-join-wikipedia" = "Vikipediyaya qoşul";
 "login-no-account" = "Hesabınız yoxdur? $1";
 "login-title" = "Hesabınıza daxil olun";
+"looking-for-something-new" = "Oxumaq üçün yeni bir şey axtarırsınız?";
+"looks-like-you-havent-made-an-edit" = "Görünür bu ay redaktə etməmisiniz. Sizə maraqlı olan mövzuları redaktə edərək azad bilik bazasını genişləndirin.";
 "main-menu-about" = "Tətbiqetmə haqqında";
 "main-menu-account-login" = "Daxil ol";
 "main-menu-account-logout" = "Hesabdan çıx";
@@ -1588,3 +1604,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipediya w loqosu";
 "year-in-review-wmf-logo-accessibility-label" = "Vikimedia Fondunun loqosu";
 "yesterday-title" = "Dünən";
+"zero-edits-to-articles" = "Bu yaxınlarda məqalələrə 0 düzəliş";

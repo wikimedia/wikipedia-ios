@@ -470,12 +470,10 @@
 "forgot-password-email-sent" = "Шолыпмут вашталтыме инструкций ден серыш колтымо лийын";
 "forgot-password-title" = "Шолыпмутым кудалташ";
 "forgot-password-username-or-email-title" = "Але";
-"history-clear-all" = "Эрыкташ";
 "history-clear-confirmation-heading" = "Тый чынжымак чыла шкендын шукерте огылсо элемент-влакым кораҥдынет?";
 "history-clear-delete-all" = "Туге, чыла кораҥдаш";
 "history-title" = "Историй";
 "home-button-explore-accessibility-label" = "Википедий, тасма дек пӧртылаш";
-"home-button-history-accessibility-label" = "Википедий, историй дек пӧртылаш";
 "home-button-saved-accessibility-label" = "Википедий, аралыме дек пӧртылаш";
 "home-more-like-footer" = "$1 гай эше статья-влакым";
 "home-nearby-footer" = "Тыйын воктенет утларак вер-влак";
