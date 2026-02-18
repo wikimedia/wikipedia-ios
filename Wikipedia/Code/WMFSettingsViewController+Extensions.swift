@@ -25,7 +25,7 @@ import WMFData
         // Indicates this is not embedded in the tab view and is presented as a modal. If so, show Close button instead of Profile.
         if self.tabBarController == nil {
             profileButtonConfig = nil
-            closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .trailing, isCheckMark: true)
+            closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
         } else {
             closeButtonConfig = nil
             profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabelNoNotifications: CommonStrings.profileButtonTitle, accessibilityLabelHasNotifications: CommonStrings.profileButtonBadgeTitle, accessibilityHint: profileAccessibilityHint, needsBadge: needsProfileBadge, target: self, action: #selector(tappedProfile), leadingBarButtonItem: nil)
