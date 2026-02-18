@@ -1,4 +1,6 @@
 import UIKit
+import WMFComponents
+import SwiftUI
 
 @objc(WMFFindAndReplaceKeyboardBarDelegate)
 protocol FindAndReplaceKeyboardBarDelegate: AnyObject {
@@ -37,20 +39,24 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     @IBOutlet private var legacyNextPrevButtonStackView: UIStackView!
     @IBOutlet private var legacyPreviousButton: UIButton!
     
+    @IBOutlet var modernOuterContainer: UIView!
+    @IBOutlet var modernFindTextfieldContainer: UIView!
+    
+    
     @objc weak var delegate: FindAndReplaceKeyboardBarDelegate?
     weak var displayDelegate: FindAndReplaceKeyboardBarDisplayDelegate?
     
-    private var _glassEffect: Any? = nil
-    @available(iOS 26, *)
-    private var glassEffect: UIGlassEffect? {
-        get {
-            return _glassEffect as? UIGlassEffect
-        }
-        set {
-            _glassEffect = newValue
-        }
-        
-    }
+//    private var _glassEffect: Any? = nil
+//    @available(iOS 26, *)
+//    private var glassEffect: UIGlassEffect? {
+//        get {
+//            return _glassEffect as? UIGlassEffect
+//        }
+//        set {
+//            _glassEffect = newValue
+//        }
+//        
+//    }
     
     // represents current match label values
     private var matchPlacement = FindMatchPlacement(index: 0, total: 0) {
@@ -76,43 +82,50 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         
         setupStaticAccessibilityLabels()
         
-//        if #available(iOS 26.0, *) {
-//            setupForLiquidGlass()
-//        } else {
-//            // Fallback on earlier versions
-//        }
+        if #available(iOS 26.0, *) {
+            setupForLiquidGlass()
+        } else {
+            setupForLegacyView()
+        }
     }
-//    
-//    @available(iOS 26.0, *)
-//    private func setupForLiquidGlass() {
-//    
-//         // Clear the background so the glass effect shows through
-//        legacyOuterContainer.backgroundColor = .clear
-//        
-//        // Create and configure the glass effect view
-//        let effectView = UIVisualEffectView(frame: legacyOuterContainer.bounds)
-//        let glassEffect = UIGlassEffect(style: .regular)
-//        self.glassEffect = glassEffect
-//        effectView.effect = glassEffect
-//        
-//        // Make sure it resizes with the container
-//        effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        
-//        // Insert at the bottom so content appears on top
-//        legacyOuterContainer.insertSubview(effectView, at: 0)
-//        
-//        // Apply corner radius for rounded edges
-//        effectView.layer.cornerRadius = intrinsicContentSize.height / 2
-//        effectView.clipsToBounds = true
-//        legacyOuterContainer.layer.cornerRadius = intrinsicContentSize.height / 2
-//        legacyOuterContainer.clipsToBounds = true
-//        
-//        // Adjust spacing
-//        legacyOuterStackViewTopConstraint.constant = 0
-//    }
+    
+    private func setupForLegacyView() {
+        modernOuterContainer.removeFromSuperview()
+    }
+    
+    @available(iOS 26.0, *)
+    private func setupForLiquidGlass() {
+        
+        legacyOuterContainer.removeFromSuperview()
+        backgroundColor = .clear
+
+       modernOuterContainer.backgroundColor = .clear
+
+       // Create and configure the glass effect view
+       let effectView = UIVisualEffectView(frame: modernOuterContainer.bounds)
+       let glassEffect = UIGlassEffect(style: .regular)
+       effectView.effect = glassEffect
+        effectView.tintColor = Theme.light.colors.midBackground
+
+       // Make sure it resizes with the container
+       effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+       // Insert at the bottom so content appears on top
+        modernFindTextfieldContainer.insertSubview(effectView, at: 0)
+
+       // Apply corner radius for rounded edges
+       effectView.layer.cornerRadius = intrinsicContentSize.height / 2
+       effectView.clipsToBounds = true
+       modernOuterContainer.layer.cornerRadius = intrinsicContentSize.height / 2
+        modernOuterContainer.clipsToBounds = true
+    }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height: 46)
+        if #available(iOS 26.0, *) {
+            return super.intrinsicContentSize
+        } else {
+            return CGSize(width: UIView.noIntrinsicMetric, height: 46)
+        }
     }
     
     @objc func updateMatchCounts(index: Int, total: UInt) {

@@ -7,12 +7,75 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner">
+            <connections>
+                <outlet property="modernOuterContainer" destination="Yy8-RV-2Xv" id="Zdt-cW-aGQ"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WMFFindAndReplaceKeyboardBar">
             <rect key="frame" x="0.0" y="0.0" width="449" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yy8-RV-2Xv" userLabel="Modern Outer container">
+                    <rect key="frame" x="0.0" y="0.0" width="449" height="100"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fTC-Yb-fPK">
+                            <rect key="frame" x="0.0" y="0.0" width="449" height="100"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orf-Wj-fTQ" userLabel="Modern Text field container">
+                                    <rect key="frame" x="0.0" y="0.0" width="449" height="100"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="find-replace-search" translatesAutoresizingMaskIntoConstraints="NO" id="fjj-2f-9YD" userLabel="Modern Magnify Image View">
+                                            <rect key="frame" x="10" y="43.5" width="13" height="13"/>
+                                        </imageView>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bD1-dg-lJC" userLabel="Modern Find Text Field">
+                                            <rect key="frame" x="33" y="39" width="378" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
+                                        </textField>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="869-GX-fWf" userLabel="Modern Current Match Label">
+                                            <rect key="frame" x="416" y="50" width="0.0" height="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7O-2c-THO" userLabel="Modern Find Clear Button">
+                                            <rect key="frame" x="417" y="39" width="32" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="32" id="4vG-Aw-en0"/>
+                                            </constraints>
+                                            <state key="normal" image="clear-mini"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bD1-dg-lJC" firstAttribute="leading" secondItem="fjj-2f-9YD" secondAttribute="trailing" constant="10" id="09S-ET-hau"/>
+                                        <constraint firstItem="Q7O-2c-THO" firstAttribute="centerY" secondItem="orf-Wj-fTQ" secondAttribute="centerY" id="0kT-92-Fku"/>
+                                        <constraint firstItem="bD1-dg-lJC" firstAttribute="centerY" secondItem="orf-Wj-fTQ" secondAttribute="centerY" id="K7B-Go-UGd"/>
+                                        <constraint firstItem="fjj-2f-9YD" firstAttribute="centerY" secondItem="orf-Wj-fTQ" secondAttribute="centerY" id="Sbc-y3-E1U"/>
+                                        <constraint firstItem="869-GX-fWf" firstAttribute="leading" secondItem="bD1-dg-lJC" secondAttribute="trailing" constant="5" id="WvU-me-Q31"/>
+                                        <constraint firstItem="Q7O-2c-THO" firstAttribute="leading" secondItem="869-GX-fWf" secondAttribute="trailing" constant="1" id="aAT-mD-0nN"/>
+                                        <constraint firstItem="fjj-2f-9YD" firstAttribute="leading" secondItem="orf-Wj-fTQ" secondAttribute="leading" constant="10" id="hqx-DU-zsy"/>
+                                        <constraint firstAttribute="trailing" secondItem="Q7O-2c-THO" secondAttribute="trailing" id="q75-5I-E2C"/>
+                                        <constraint firstItem="869-GX-fWf" firstAttribute="centerY" secondItem="orf-Wj-fTQ" secondAttribute="centerY" id="ubk-Ya-oyz"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="fTC-Yb-fPK" secondAttribute="trailing" id="5Af-Ga-NPY"/>
+                        <constraint firstAttribute="bottom" secondItem="fTC-Yb-fPK" secondAttribute="bottom" id="8PP-5D-hbX"/>
+                        <constraint firstItem="fTC-Yb-fPK" firstAttribute="top" secondItem="Yy8-RV-2Xv" secondAttribute="top" id="m3c-zS-7vo"/>
+                        <constraint firstItem="fTC-Yb-fPK" firstAttribute="leading" secondItem="Yy8-RV-2Xv" secondAttribute="leading" id="otB-wa-SZw"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcZ-4f-6ui" userLabel="Legacy Outer container">
                     <rect key="frame" x="0.0" y="0.0" width="449" height="100"/>
                     <subviews>
@@ -131,7 +194,11 @@
                 <constraint firstItem="mcZ-4f-6ui" firstAttribute="leading" secondItem="nUH-ZK-lDf" secondAttribute="leading" id="Hb3-fq-BHR"/>
                 <constraint firstAttribute="bottomMargin" secondItem="mcZ-4f-6ui" secondAttribute="bottom" id="HyA-XF-w3w"/>
                 <constraint firstItem="mcZ-4f-6ui" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LYs-3c-DTU"/>
+                <constraint firstAttribute="trailing" secondItem="Yy8-RV-2Xv" secondAttribute="trailing" id="Qam-es-Qtm"/>
+                <constraint firstItem="Yy8-RV-2Xv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Yxj-xZ-RoP"/>
+                <constraint firstAttribute="bottom" secondItem="Yy8-RV-2Xv" secondAttribute="bottom" id="Z1d-X9-XOg"/>
                 <constraint firstItem="nUH-ZK-lDf" firstAttribute="trailing" secondItem="mcZ-4f-6ui" secondAttribute="trailing" id="eQQ-wV-WiN"/>
+                <constraint firstItem="Yy8-RV-2Xv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="son-D3-fxm"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -150,6 +217,7 @@
                 <outlet property="legacyOuterContainer" destination="mcZ-4f-6ui" id="MiF-xc-eIb"/>
                 <outlet property="legacyOuterStackViewTopConstraint" destination="GM4-zq-0Me" id="unV-sG-Yis"/>
                 <outlet property="legacyPreviousButton" destination="bHU-iI-iHx" id="XH9-G5-29T"/>
+                <outlet property="modernFindTextfieldContainer" destination="orf-Wj-fTQ" id="Swj-Lz-841"/>
             </connections>
             <point key="canvasLocation" x="279.19999999999999" y="-224.88755622188907"/>
         </view>
