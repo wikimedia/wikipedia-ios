@@ -29,25 +29,38 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
         apply(theme: theme)
         embedContainerControllerView()
         updateUIStrings()
+        configureCapsuleButton()
 
         // If the button itself was directly an arranged stackview subview we couldn't
         // set padding contraints and also get clean collapsing when enabling isHidden.
         nextButtonContainerView.isHidden = pageType != .exploration
-        
+
         view.wmf_configureSubviewsForDynamicType()
 
         nextButton.addTarget(self, action: #selector(performNextButtonAction(_:)), for: .touchUpInside)
     }
-    
+
+    private func configureCapsuleButton() {
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16)
+        config.baseBackgroundColor = theme.colors.link
+        config.baseForegroundColor = theme.colors.paperBackground
+
+        nextButton.configuration = config
+        nextButton.titleLabel?.numberOfLines = 0
+        nextButton.titleLabel?.lineBreakMode = .byWordWrapping
+    }
+
     private func embedContainerControllerView() {
-        let containerController = DescriptionWelcomeContentsViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard() 
+        let containerController = DescriptionWelcomeContentsViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
         containerController.pageType = pageType
         addChild(containerController)
         containerView.wmf_addSubviewWithConstraintsToEdges(containerController.view)
         containerController.apply(theme: theme)
         containerController.didMove(toParent: self)
     }
-    
+
     private func updateUIStrings() {
         switch pageType {
         case .intro:
@@ -55,12 +68,12 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
         case .exploration:
             titleLabel.text = WMFLocalizedString("description-welcome-concise-title", value:"Keep it short", comment:"Title text explaining descriptions should be concise")
         }
-    
+
         bottomLabel.text = CommonStrings.welcomePromiseTitle
-        
+
         nextButton.setTitle(WMFLocalizedString("description-welcome-start-editing-button", value:"Start editing", comment:"Text for button for dismissing description editing welcome screens"), for: .normal)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if scrollView.wmf_contentSizeHeightExceedsBoundsHeight() {
