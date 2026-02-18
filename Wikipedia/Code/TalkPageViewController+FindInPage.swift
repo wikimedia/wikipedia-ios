@@ -162,6 +162,4 @@ extension TalkPageViewController: FindAndReplaceKeyboardBarDelegate {
         keyboardBarDidTapNext(keyboardBar)
     }
 
-    func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType) {}
-
 }
