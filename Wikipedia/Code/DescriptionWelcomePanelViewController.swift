@@ -43,7 +43,6 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
     private func configureCapsuleButton() {
         var config = UIButton.Configuration.filled()
         config.cornerStyle = .capsule
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16)
         config.baseBackgroundColor = theme.colors.link
         config.baseForegroundColor = theme.colors.paperBackground
 
