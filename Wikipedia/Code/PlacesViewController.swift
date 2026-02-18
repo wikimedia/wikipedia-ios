@@ -241,18 +241,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         mapView?.showsUserLocation = false
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
-                }
-            }
-        }
-    }
-
     private var filterButtonItem: UIBarButtonItem {
         return UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
     }
@@ -272,15 +260,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     private func configureNavigationBar() {
 
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
-        extendedLayoutIncludesOpaqueBars = false
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingLarge)
-                extendedLayoutIncludesOpaqueBars = true
-                edgesForExtendedLayout = .all
-            }
-        }
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
 
         let showsScopeBar = isViewModeOverlay ? false : true
         let scopeButtonTitles = isViewModeOverlay ? nil : [mapTitle, listTitle]
@@ -288,25 +268,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
-        if #available(iOS 26, *) {
-            applySystemGlassNavBarAppearanceIfAvailable()
-        }
-    }
-
-    private func applySystemGlassNavBarAppearanceIfAvailable() {
-        guard let navBar = navigationController?.navigationBar else { return }
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = nil
-        appearance.shadowColor = nil
-
-        navBar.standardAppearance = appearance
-        navBar.scrollEdgeAppearance = appearance
-        navBar.compactAppearance = appearance
-        navBar.compactScrollEdgeAppearance = appearance
-
-        navBar.isTranslucent = true
     }
 
     private func updateScopeBarVisibility() {
@@ -2358,12 +2319,16 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         guard viewIfLoaded != nil else {
             return
         }
+        
         view.backgroundColor = theme.colors.baseBackground
-
-        if let searchBar = navigationItem.searchController?.searchBar {
-            searchBar.apply(theme: theme)
-            searchBar.backgroundColor = theme.colors.paperBackground
+        
+        if #unavailable(iOS 26.0) {
+            if let searchBar = navigationItem.searchController?.searchBar {
+                searchBar.apply(theme: theme)
+                searchBar.backgroundColor = theme.colors.paperBackground
+            }
         }
+        
         profileCoordinator?.theme = theme
         updateProfileButton()
 
@@ -2374,7 +2339,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
 
         mapContainerView.backgroundColor = theme.colors.baseBackground
-
+        
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
 
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground

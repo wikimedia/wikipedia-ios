@@ -227,42 +227,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         resultsViewController.collectionView.contentInset.top = languagesBarHeight
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
-                }
-            }
-        }
-    }
-
     // MARK: - Navigation bar configuring
 
     private func configureNavigationBar() {
 
         let title = customTitle ?? CommonStrings.searchTitle
 
-        var alignment: WMFNavigationBarTitleConfig.Alignment = needsCenteredTitle ? .centerCompact : .leadingCompact
-        extendedLayoutIncludesOpaqueBars = false
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular && alignment == .leadingCompact {
-                alignment = .leadingLarge
-                extendedLayoutIncludesOpaqueBars = true
-            }
-        }
+        let alignment: WMFNavigationBarTitleConfig.Alignment = needsCenteredTitle ? .centerCompact : .leadingCompact
 
         var titleConfig: WMFNavigationBarTitleConfig
         titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
-
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .leadingLarge)
-            }
-        }
 
         var profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil
         var tabsButtonConfig: WMFNavigationBarTabsButtonConfig? = nil
