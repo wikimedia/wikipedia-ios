@@ -1342,28 +1342,49 @@ private extension ArticleViewController {
     }
     
     func setupWebView() {
+        
+        let stackViewBottomConstraint: NSLayoutConstraint
+        let containerView: UIView
+        
+        if #available(iOS 26.0, *) {
+            let extensionView = UIBackgroundExtensionView()
+            extensionView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(extensionView)
+            
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: extensionView.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: extensionView.trailingAnchor),
+                view.topAnchor.constraint(equalTo: extensionView.topAnchor),
+                view.bottomAnchor.constraint(equalTo: extensionView.bottomAnchor)
+            ])
+            
+            stackViewBottomConstraint = view.bottomAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
+            
+            containerView = extensionView
+            
+        } else {
+            stackViewBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
+            
+            containerView = view
+        }
 
         // Add the stack view that contains the table of contents and the web view.
         // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
         tableOfContentsController.stackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableOfContentsController.stackView)
-        let stackViewTopConstraint = tableOfContentsController.stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
-        let stackViewBottomConstraint: NSLayoutConstraint
-        if #available(iOS 26.0, *) {
-            stackViewBottomConstraint = view.bottomAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
-        } else {
-            stackViewBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
-        }
+        containerView.addSubview(tableOfContentsController.stackView)
+        
+        let stackViewTopConstraint = tableOfContentsController.stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0)
+        
         NSLayoutConstraint.activate([
             stackViewTopConstraint,
-            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: tableOfContentsController.stackView.leadingAnchor),
-            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableOfContentsController.stackView.trailingAnchor),
+            containerView.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: tableOfContentsController.stackView.leadingAnchor),
+            containerView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableOfContentsController.stackView.trailingAnchor),
             stackViewBottomConstraint
         ])
         
         self.tocStackViewTopConstraint = stackViewTopConstraint
         
-        view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
+        containerView.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
 
         // Prevent flash of white in dark mode
         webView.isOpaque = false
