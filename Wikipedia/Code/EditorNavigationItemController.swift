@@ -14,6 +14,7 @@ protocol EditorNavigationItemControllerDelegate: AnyObject {
 
 class EditorNavigationItemController: NSObject, Themeable {
     weak var navigationItem: UINavigationItem?
+    weak var navigationBar: UINavigationBar?
     
     let dataStore: MWKDataStore
     
@@ -22,14 +23,15 @@ class EditorNavigationItemController: NSObject, Themeable {
    }
 
     var readingThemesControlsToolbarItem: UIBarButtonItem {
-        return readingThemesControlsButton
+        return showingOverflow ? overflowButton : readingThemesControlsButton
     }
 
-    init(navigationItem: UINavigationItem, dataStore: MWKDataStore) {
+    init(navigationItem: UINavigationItem, navigationBar: UINavigationBar?, dataStore: MWKDataStore) {
         self.navigationItem = navigationItem
+        self.navigationBar = navigationBar
         self.dataStore = dataStore
         super.init()
-        configureNavigationButtonItems()
+        configureInitialNavigationButtonItems()
     }
 
     func apply(theme: Theme) {
@@ -44,6 +46,8 @@ class EditorNavigationItemController: NSObject, Themeable {
     }
 
     weak var delegate: EditorNavigationItemControllerDelegate?
+    
+    private var showingOverflow: Bool = false
 
     private(set) lazy var progressButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
@@ -51,13 +55,13 @@ class EditorNavigationItemController: NSObject, Themeable {
     }()
 
     private(set) lazy var redoButton: UIBarButtonItem = {
-        let redoButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .redo), style: .plain, target: self, action: #selector(redo(_ :)))
+        let redoButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .redo), style: .plain, target: self, action: #selector(redo))
         redoButton.accessibilityLabel = CommonStrings.redo
         return redoButton
     }()
 
     private(set) lazy var undoButton: UIBarButtonItem = {
-        let undoButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .undo), style: .plain, target: self, action: #selector(undo(_ :)))
+        let undoButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .undo), style: .plain, target: self, action: #selector(undo))
         undoButton.accessibilityLabel = CommonStrings.undo
         return undoButton
     }()
@@ -81,7 +85,7 @@ class EditorNavigationItemController: NSObject, Themeable {
     }()
     
     private lazy var readingThemesControlsButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls))
         button.accessibilityLabel = CommonStrings.readingThemesControls
         return button
     }()
@@ -94,6 +98,38 @@ class EditorNavigationItemController: NSObject, Themeable {
         button.isAccessibilityElement = false
         return button
     }()
+    
+    lazy var overflowButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        return button
+    }()
+    
+    var overflowMenu: UIMenu {
+        let undo = UIAction(
+            title: CommonStrings.undo,
+            image: WMFSFSymbolIcon.for(symbol: .undo),
+            handler: { [weak self] _ in
+                self?.undo()
+        })
+        
+        let redo = UIAction(
+            title: CommonStrings.redo,
+            image: WMFSFSymbolIcon.for(symbol: .redo),
+            handler: { [weak self] _ in
+                self?.redo()
+        })
+        
+        let readingThemes = UIAction(
+            title: CommonStrings.readingThemesControls,
+            image: WMFSFSymbolIcon.for(symbol: .textFormatSize),
+            handler: { [weak self] _ in
+                self?.showReadingThemesControls()
+        })
+        
+        let mainMenu = UIMenu(title: String(), children: [undo, redo, readingThemes])
+
+        return mainMenu
+    }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
         delegate?.editorNavigationItemController(self, didTapProgressButton: sender)
@@ -107,42 +143,49 @@ class EditorNavigationItemController: NSObject, Themeable {
         delegate?.editorNavigationItemController(self, didTapIPAccountNoticesButton: temporaryAccountNoticesButton)
     }
 
-    @objc private func undo(_ sender: UIBarButtonItem) {
-        delegate?.editorNavigationItemController(self, didTapUndoButton: undoButton)
+    @objc private func undo() {
+        delegate?.editorNavigationItemController(self, didTapUndoButton: showingOverflow ? overflowButton : undoButton)
     }
 
-    @objc private func redo(_ sender: UIBarButtonItem) {
-        delegate?.editorNavigationItemController(self, didTapRedoButton: sender)
+    @objc private func redo() {
+        delegate?.editorNavigationItemController(self, didTapRedoButton: showingOverflow ? overflowButton : redoButton)
     }
 
     @objc private func editNotices(_ sender: UIBarButtonItem) {
         delegate?.editorNavigationItemController(self, didTapEditNoticesButton: sender)
     }
     
-    @objc private func showReadingThemesControls(_ sender: UIBarButtonItem) {
-         delegate?.editorNavigationItemController(self, didTapReadingThemesControlsButton: sender)
+    @objc private func showReadingThemesControls() {
+        delegate?.editorNavigationItemController(self, didTapReadingThemesControlsButton: showingOverflow ? overflowButton : readingThemesControlsButton)
     }
 
     func addEditNoticesButton() {
-        navigationItem?.rightBarButtonItems?.append(contentsOf: [
-            editNoticesButton
-        ])
+        
+        var proposedItems = initialProposedNavigationButtonItems()
+        proposedItems.append(editNoticesButton)
+        
+        updateNavigationButtonItems(proposedItems: proposedItems, traitCollection: UITraitCollection.current)
     }
     
     func addTempAccountsNoticesButtons(wikiHasTempAccounts: Bool?) {
+        
+        var proposedItems = initialProposedNavigationButtonItems()
+        
         guard let wikiHasTempAccounts, wikiHasTempAccounts, !authManager.authStateIsPermanent else { return }
         if authManager.authStateIsTemporary {
-            navigationItem?.rightBarButtonItems?.append(activeTemporaryAccountNoticesButton)
+            proposedItems.append(activeTemporaryAccountNoticesButton)
         } else {
-            navigationItem?.rightBarButtonItems?.append(temporaryAccountNoticesButton)
+            proposedItems.append(temporaryAccountNoticesButton)
         }
-    }
-
-    private func configureNavigationButtonItems() {
         
+        updateNavigationButtonItems(proposedItems: proposedItems, traitCollection: UITraitCollection.current)
+    }
+    
+    private func initialProposedNavigationButtonItems() -> [UIBarButtonItem] {
+        var proposedItems: [UIBarButtonItem] = []
         if #available(iOS 26.0, *) {
             
-            navigationItem?.rightBarButtonItems = [
+            proposedItems = [
                 progressButton,
                 readingThemesControlsButton,
                 redoButton,
@@ -152,7 +195,7 @@ class EditorNavigationItemController: NSObject, Themeable {
             let fixedWidthSpacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             fixedWidthSpacer.width = 16
             
-            navigationItem?.rightBarButtonItems = [
+            proposedItems = [
                 progressButton,
                 fixedWidthSpacer,
                 separatorButton,
@@ -160,6 +203,55 @@ class EditorNavigationItemController: NSObject, Themeable {
                 redoButton,
                 undoButton
             ]
+        }
+        
+        return proposedItems
+    }
+
+    private func configureInitialNavigationButtonItems() {
+        
+        let proposedItems = initialProposedNavigationButtonItems()
+        
+        updateNavigationButtonItems(proposedItems: proposedItems, traitCollection: UITraitCollection.current)
+    }
+    
+    private func shouldCollapseToOverflow(proposedItems: [UIBarButtonItem], traitCollection: UITraitCollection) -> Bool {
+        
+        let availableWidth = navigationBar?.bounds.width ?? UIScreen.main.bounds.width
+        
+        if #available(iOS 26.0, *) {
+            switch traitCollection.preferredContentSizeCategory {
+            case .large, .medium, .small, .extraSmall:
+                return availableWidth <= 400 && proposedItems.count > 4
+            default:
+                return traitCollection.horizontalSizeClass == .compact
+            }
+        } else {
+            return false
+        }
+    }
+    
+    private func updateNavigationButtonItems(proposedItems: [UIBarButtonItem], traitCollection: UITraitCollection) {
+        if #available(iOS 26.0, *) {
+            print(UIScreen.main.bounds.width)
+            if shouldCollapseToOverflow(proposedItems: proposedItems, traitCollection: traitCollection) {
+                var finalItems = proposedItems
+                let progressButton = finalItems.removeFirst()
+                finalItems.removeSubrange(0...2)
+                
+                finalItems.insert(progressButton, at: 0)
+                finalItems.insert(overflowButton, at: 1)
+                
+                navigationItem?.rightBarButtonItems = finalItems
+                
+                showingOverflow = true
+                
+            } else {
+                navigationItem?.rightBarButtonItems = proposedItems
+                showingOverflow = false
+            }
+        } else {
+            navigationItem?.rightBarButtonItems = proposedItems
         }
     }
 

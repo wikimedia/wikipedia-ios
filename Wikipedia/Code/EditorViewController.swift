@@ -66,7 +66,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
 
     private lazy var navigationItemController: EditorNavigationItemController = {
-        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem, dataStore: dataStore)
+        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem, navigationBar: navigationController?.navigationBar, dataStore: dataStore)
         navigationItemController.delegate = self
         return navigationItemController
     }()
@@ -129,14 +129,22 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     
     private func configureNavigationBar() {
+        
+        var closeConfig: WMFNavigationBarCloseButtonConfig?
+        
+        if #unavailable(iOS 26.0) {
+            closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_ :)), alignment: .leading)
+        }
 
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
         
         // Custom close button for now, but configureNavigationBar default implementation will eventually handle it internally
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
+        if #available(iOS 26.0, *) {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
+        }
     }
     
     private func setupFocusNavigationView() {
