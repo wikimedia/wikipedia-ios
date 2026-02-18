@@ -565,7 +565,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         addChild(sourceEditor)
         sourceEditor.view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(sourceEditor.view)
+        view.insertSubview(sourceEditor.view, belowSubview: focusNavigationView)
         
         let top = view.topAnchor.constraint(equalTo: sourceEditor.view.topAnchor)
         let bottom = view.bottomAnchor.constraint(equalTo: sourceEditor.view.bottomAnchor)
@@ -587,7 +587,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     private func showFocusNavigationView() {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        editorTopConstraint?.constant = -focusNavigationView.frame.height
+        editorTopConstraint?.constant = -view.safeAreaInsets.top
         focusNavigationView.isHidden = false
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
