@@ -49,13 +49,17 @@ public struct WMFNavigationBarCloseButtonConfig {
     let action: Selector
     let alignment: Alignment
     let text: String?
+    let isCheckMark: Bool
     
-    public init(text: String? = nil, target: Any, action: Selector, alignment: Alignment) {
+    public init(text: String? = nil, target: Any, action: Selector, alignment: Alignment, isCheckMark: Bool = false) {
         self.target = target
         self.action = action
         self.alignment = alignment
         self.text = text
+        self.isCheckMark = isCheckMark
     }
+    
+    // Alignment handling removed - kept enum for backward compatibility with call sites
 }
 
 /// Profile button config for navigation bar
@@ -126,17 +130,28 @@ struct WMFGlassCloseButton: View {
     let target: Any
     let action: Selector
     let iconColor: Color
+    let isCheckMark: Bool
+    let backgroundColor: Color
 
     var body: some View {
         Button {
             _ = (target as AnyObject).perform(action)
         } label: {
-            Image(systemName: "xmark")
-                .font(.system(size: 17, weight: .medium))
-                .foregroundStyle(iconColor)
-                .frame(width: size, height: size)
+            if isCheckMark {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(iconColor)
+                    .frame(width: size, height: size)
+                    .background(backgroundColor)
+                    .clipShape(Circle())
+            } else {
+                Image(systemName: "xmark")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(iconColor)
+                    .frame(width: size, height: size)
+                    .glassEffect(in: .circle)
+            }
         }
-        .glassEffect(in: .circle)
     }
 }
 
@@ -266,20 +281,20 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         if let closeButtonConfig {
             let closeBarButtonItem = makeLiquidGlassCloseBarButtonItem(
                 target: closeButtonConfig.target,
-                action: closeButtonConfig.action
+                action: closeButtonConfig.action,
+                isCheckMark: closeButtonConfig.isCheckMark
             )
-
-            switch closeButtonConfig.alignment {
-            case .leading:
-                navigationItem.leftBarButtonItem = closeBarButtonItem
-            case .trailing:
+            // Alignment handling removed - kept enum for backward compatibility with call sites
+            _ = closeButtonConfig.alignment
+            
+            if closeButtonConfig.isCheckMark {
                 navigationItem.rightBarButtonItem = closeBarButtonItem
+            } else {
+                navigationItem.leftBarButtonItem = closeBarButtonItem
             }
         }
         
-        // Setup search bar if needed
-        if let searchBarConfig,
-           navigationItem.searchController == nil {
+        if let searchBarConfig {
             let searchController = UISearchController(searchResultsController: searchBarConfig.searchResultsController)
             searchController.delegate = searchBarConfig.searchControllerDelegate
             searchController.searchResultsUpdater = searchBarConfig.searchResultsUpdater
@@ -368,33 +383,35 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     // MARK: - in the protocol extension:
 
-    private func makeLiquidGlassCloseBarButtonItem(target: Any, action: Selector) -> UIBarButtonItem {
+    private func makeLiquidGlassCloseBarButtonItem(target: Any, action: Selector, isCheckMark: Bool = false) -> UIBarButtonItem {
         let size: CGFloat = 44
         let theme = WMFAppEnvironment.current.theme
         let container = UIView(frame: CGRect(x: 0, y: 0, width: size, height: size))
 
         if #available(iOS 26.0, *) {
-            let iconColor = Color(theme.text)
-            let glassButton = WMFGlassCloseButton(size: size, target: target, action: action, iconColor: iconColor)
+            let iconColor = isCheckMark ? Color(theme.paperBackground) : Color(theme.text)
+            let backgroundColor = isCheckMark ? Color(theme.link) : Color.clear
+            let glassButton = WMFGlassCloseButton(size: size, target: target, action: action, iconColor: iconColor, isCheckMark: isCheckMark, backgroundColor: backgroundColor)
             let hostingController = UIHostingController(rootView: glassButton)
             hostingController.view.backgroundColor = UIColor.clear
             hostingController.view.frame = container.bounds
             container.addSubview(hostingController.view)
         } else {
             let backgroundView = UIView(frame: container.bounds)
-            backgroundView.backgroundColor = theme.paperBackground
+            backgroundView.backgroundColor = isCheckMark ? theme.link : theme.paperBackground
             backgroundView.layer.cornerRadius = size / 2
             backgroundView.layer.masksToBounds = true
             backgroundView.isUserInteractionEnabled = false
             container.addSubview(backgroundView)
 
-            let xmarkConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)
-            let xmarkImage = UIImage(systemName: "xmark", withConfiguration: xmarkConfig)
-            let xmarkImageView = UIImageView(image: xmarkImage)
-            xmarkImageView.tintColor = theme.text
-            xmarkImageView.contentMode = .center
-            xmarkImageView.frame = container.bounds
-            container.addSubview(xmarkImageView)
+            let symbolName = isCheckMark ? "checkmark" : "xmark"
+            let symbolConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)
+            let symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfig)
+            let symbolImageView = UIImageView(image: symbolImage)
+            symbolImageView.tintColor = isCheckMark ? theme.paperBackground : theme.text
+            symbolImageView.contentMode = .center
+            symbolImageView.frame = container.bounds
+            container.addSubview(symbolImageView)
 
             let button = UIButton(type: .custom)
             button.frame = container.bounds
