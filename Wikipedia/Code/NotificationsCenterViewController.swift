@@ -18,7 +18,6 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
 
     // MARK: - Properties: Onboarding
 
-    fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
     fileprivate var deviceTokenRetryTask: RetryBlockTask?
 
     // MARK: Properties: Diffable Data Source
@@ -219,7 +218,6 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
-        onboardingHostingViewController?.apply(theme: theme)
 
         closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
