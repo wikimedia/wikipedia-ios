@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct WMFLargeButton: View {
+public struct WMFLargeButton: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -10,7 +10,7 @@ struct WMFLargeButton: View {
     let forceBackgroundColor: UIColor? // Note: Currently unused, kept for backward compatibility
     let action: (() -> Void)?
 
-    init(
+    public init(
         appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current,
         style: WMFButtonStyleKind,
         title: String,
@@ -24,7 +24,7 @@ struct WMFLargeButton: View {
         self.action = action
     }
 
-    var body: some View {
+    public var body: some View {
         Button {
             action?()
         } label: {
