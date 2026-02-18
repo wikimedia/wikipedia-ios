@@ -58,8 +58,6 @@ public struct WMFNavigationBarCloseButtonConfig {
         self.text = text
         self.isCheckMark = isCheckMark
     }
-    
-    // Alignment handling removed - kept enum for backward compatibility with call sites
 }
 
 /// Profile button config for navigation bar
@@ -284,7 +282,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 target: closeButtonConfig.target,
                 action: closeButtonConfig.action,
                 isCheckMark: closeButtonConfig.isCheckMark,
-                alignment: closeButtonConfig.alignment
+                alignment: closeButtonConfig.alignment,
+                text: closeButtonConfig.text
             )
             
             switch closeButtonConfig.alignment {
@@ -384,7 +383,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     // MARK: - in the protocol extension:
 
-    private func makeLiquidGlassCloseBarButtonItem(target: Any, action: Selector, isCheckMark: Bool = false, alignment: WMFNavigationBarCloseButtonConfig.Alignment) -> UIBarButtonItem {
+    private func makeLiquidGlassCloseBarButtonItem(target: Any, action: Selector, isCheckMark: Bool = false, alignment: WMFNavigationBarCloseButtonConfig.Alignment, text: String?) -> UIBarButtonItem {
         let circleSize: CGFloat = 36
         let buttonHeight: CGFloat = 44
         let theme = WMFAppEnvironment.current.theme
@@ -426,7 +425,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
             let button = UIButton(type: .custom)
             button.frame = container.bounds
-            button.accessibilityLabel = ""
+            button.accessibilityLabel = text ?? ""
             button.addTarget(target, action: action, for: .touchUpInside)
 
             button.addAction(UIAction { _ in
