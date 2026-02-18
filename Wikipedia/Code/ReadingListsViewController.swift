@@ -606,7 +606,5 @@ extension ReadingListsViewController: WMFComponents.WMFEmptyViewDelegate {
         // Not used for reading lists
     }
 
-    func emptyViewDidShow(type: WMFEmptyViewStateType) {
-        // TODO: Check analytics need
-    }
+    func emptyViewDidShow(type: WMFEmptyViewStateType) {}
 }

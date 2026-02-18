@@ -5,75 +5,75 @@ import WMFComponents
 
 @objc
 final class NotificationsCenterViewController: ThemeableViewController, WMFNavigationBarConfiguring {
-    
+
     // MARK: - Properties
-    
+
     var notificationsView: NotificationsCenterView {
         return view as! NotificationsCenterView
     }
-    
+
     let viewModel: NotificationsCenterViewModel
-    
+
     var didUpdateFiltersCallback: (() -> Void)?
-    
+
     // MARK: - Properties: Onboarding
-    
+
     fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
     fileprivate var deviceTokenRetryTask: RetryBlockTask?
-    
+
     // MARK: Properties: Diffable Data Source
-    
+
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
     private let snapshotUpdateQueue = DispatchQueue(label: "org.wikipedia.notificationscenter.snapshotUpdateQueue", qos: .userInteractive)
-    
+
     // MARK: - Properties: Toolbar Buttons
-    
+
     fileprivate lazy var typeFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.typeFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapTypeFilterButton))
     fileprivate lazy var projectFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.projectFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapProjectFilterButton))
-    
+
     fileprivate var markButton: TextBarButtonItem?
     fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
     fileprivate lazy var statusBarButton: StatusTextBarButtonItem = StatusTextBarButtonItem(text: "")
-    
+
     // MARK: - Properties: Cell Swipe Actions
-    
+
     fileprivate struct CellSwipeData {
         var activelyPannedCellIndexPath: IndexPath? // `IndexPath` of actively panned or open or opening cell
         var activelyPannedCellTranslationX: CGFloat? // current translation on x-axis of open or opening cell
-        
+
         func activeCell(in collectionView: UICollectionView) -> NotificationsCenterCell? {
             guard let activelyPannedCellIndexPath = activelyPannedCellIndexPath else {
                 return nil
             }
-            
+
             return collectionView.cellForItem(at: activelyPannedCellIndexPath) as? NotificationsCenterCell
         }
-        
+
         mutating func resetActiveData() {
             activelyPannedCellIndexPath = nil
             activelyPannedCellTranslationX = nil
         }
     }
-    
+
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate lazy var cellSwipeData = CellSwipeData()
-    
+
     lazy var toolbarContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     lazy var toolbar: UIToolbar = {
         let tb = UIToolbar()
         tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()
-    
+
     // MARK: - Lifecycle
-    
+
     @objc
     init(theme: Theme, viewModel: NotificationsCenterViewModel) {
         self.viewModel = viewModel
@@ -82,88 +82,88 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         viewModel.delegate = self
         hidesBottomBarWhenPushed = true
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         deviceTokenRetryTask = nil
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     override func loadView() {
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
         view = notificationsCenterView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         notificationsView.apply(theme: theme)
-        
+
         setupBarButtons()
         notificationsView.collectionView.delegate = self
         setupDataSource()
         viewModel.setup()
         viewModel.fetchFirstPage()
-        
+
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
         cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
         cellPanGestureRecognizer.delegate = self
-        
+
         notificationsView.refreshControl.addTarget(self, action: #selector(userDidPullToRefresh), for: .valueChanged)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         configureNavigationBar()
     }
-    
+
     private var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         if isFirstAppearance {
             viewModel.refreshNotifications(force: true)
         }
         isFirstAppearance = false
-        
+
         viewModel.markAllAsSeen()
         presentOnboardingEducationModalIfNecessary()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         endRefreshing()
         closeSwipeActionsPanelIfNecessary()
     }
-    
+
     @objc fileprivate func applicationWillResignActive() {
         closeSwipeActionsPanelIfNecessary()
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
             closeSwipeActionsPanelIfNecessary()
             notificationsView.collectionView.reloadData()
         }
     }
-    
+
     // MARK: - Configuration
-    
+
     fileprivate func setupBarButtons() {
-        
+
         toolbarContainerView.addSubview(toolbar)
         view.addSubview(toolbarContainerView)
-        
+
         NSLayoutConstraint.activate([
             toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
             toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
@@ -173,26 +173,26 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
             view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
         ])
-        
+
         toolbarContainerView.setNeedsLayout()
         toolbarContainerView.layoutIfNeeded()
-        
+
         let oldContentInset = notificationsView.collectionView.contentInset
         notificationsView.collectionView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: oldContentInset.bottom + toolbarContainerView.frame.height, right: oldContentInset.right)
     }
-    
+
     fileprivate func configureNavigationBar() {
-        
+
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.notificationsCenterTitle, customView: nil, alignment: .centerCompact)
-        
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
-        
+
         navigationItem.rightBarButtonItem = editButtonItem
         isEditing = false
     }
 
-	// MARK: - Public
-    
+    // MARK: - Public
+
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
 
@@ -202,7 +202,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         } else {
             notificationsView.collectionView.refreshControl = notificationsView.refreshControl
         }
-        
+
         notificationsView.collectionView.allowsMultipleSelection = editing
         deselectCells()
 
@@ -229,12 +229,12 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         markButton?.apply(theme: theme)
         markAllAsReadButton.apply(theme: theme)
         statusBarButton.apply(theme: theme)
-        
+
         toolbarContainerView.backgroundColor = theme.colors.paperBackground
         toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
         toolbar.isTranslucent = false
     }
-    
+
 }
 
 // MARK: Private - Data & Snapshot Updating
@@ -243,28 +243,28 @@ private extension NotificationsCenterViewController {
 
     func setupDataSource() {
         dataSource = DataSource(
-        collectionView: notificationsView.collectionView,
-        cellProvider: { [weak self] (collectionView, indexPath, cellViewModel) ->
-            NotificationsCenterCell? in
+            collectionView: notificationsView.collectionView,
+            cellProvider: { [weak self] (collectionView, indexPath, cellViewModel) ->
+                NotificationsCenterCell? in
 
-            guard let self = self,
-                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationsCenterCell.reuseIdentifier, for: indexPath) as? NotificationsCenterCell else {
-                return nil
-            }
-            
-            let isSelected = (collectionView.indexPathsForSelectedItems ?? []).contains(indexPath)
-            cellViewModel.updateDisplayState(isEditing: self.viewModel.isEditing, isSelected: isSelected)
-            cell.configure(viewModel: cellViewModel, theme: self.theme)
-            cell.delegate = self
-            return cell
-        })
+                guard let self = self,
+                      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationsCenterCell.reuseIdentifier, for: indexPath) as? NotificationsCenterCell else {
+                    return nil
+                }
+
+                let isSelected = (collectionView.indexPathsForSelectedItems ?? []).contains(indexPath)
+                cellViewModel.updateDisplayState(isEditing: self.viewModel.isEditing, isSelected: isSelected)
+                cell.configure(viewModel: cellViewModel, theme: self.theme)
+                cell.delegate = self
+                return cell
+            })
     }
-    
+
     func applySnapshot(cellViewModels: [NotificationsCenterCellViewModel]) {
         guard let dataSource = dataSource else {
             return
         }
-        
+
         snapshotUpdateQueue.async {
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
@@ -275,17 +275,17 @@ private extension NotificationsCenterViewController {
             }
         }
     }
-    
+
     var selectedCellViewModels: [NotificationsCenterCellViewModel] {
         guard let selectedIndexPaths = notificationsView.collectionView.indexPathsForSelectedItems,
-        let dataSource = dataSource else {
+              let dataSource = dataSource else {
             return []
         }
-        
+
         let selectedViewModels = selectedIndexPaths.compactMap { dataSource.itemIdentifier(for: $0) }
         return selectedViewModels
     }
-    
+
     func deselectCells() {
         notificationsView.collectionView.indexPathsForSelectedItems?.forEach {
             notificationsView.collectionView.deselectItem(at: $0, animated: false)
@@ -293,7 +293,7 @@ private extension NotificationsCenterViewController {
 
         closeSwipeActionsPanelIfNecessary()
     }
-    
+
     func reconfigureCells(with viewModels: [NotificationsCenterCellViewModel]? = nil) {
         let cellsToReconfigure: [NotificationsCenterCell]
 
@@ -308,61 +308,61 @@ private extension NotificationsCenterViewController {
             cell.configure(theme: theme)
         }
     }
-    
+
 }
 
 // MARK: Private - Empty State Handling
 
 private extension NotificationsCenterViewController {
-    
+
     func updateEmptyDisplayState(isEmpty: Bool) {
         notificationsView.updateEmptyVisibility(visible: isEmpty)
         notificationsView.collectionView.isHidden = isEmpty
         navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
     }
-    
+
     func refreshEmptyContent() {
         notificationsView.updateEmptyContent(headerText: viewModel.emptyStateHeaderText, subheaderText: viewModel.emptyStateSubheaderText, subheaderAttributedString: viewModel.emptyStateSubheaderAttributedString(theme: theme, traitCollection: traitCollection))
     }
-    
+
     @objc func tappedEmptyStateSubheader() {
         presentFiltersViewController()
     }
-    
+
 }
 
 // MARK: Mark Button Handling
 
 private extension NotificationsCenterViewController {
-    
+
     func createMarkButton() -> TextBarButtonItem {
         let markButton: TextBarButtonItem
         let markText = WMFLocalizedString("notifications-center-mark", value: "Mark", comment: "Button text in Notifications Center. Presents menu of options to mark selected notifications as read or unread.")
         markButton = TextBarButtonItem(title: markText, image: nil, primaryAction: nil, menu: nil)
         markButton.accessibilityLabel = WMFLocalizedString("notifications-center-toolbar-mark-accessibility-label", value: "Mark selected notifications", comment: "Accessibility label for mark button in Notifications Center")
-       
+
         markButton.apply(theme: theme)
         return markButton
     }
-    
+
     func updateMarkButtonOptionsMenu(selectedCellViewModels: [NotificationsCenterCellViewModel]) {
         let optionsMenu = markButtonOptionsMenuForNumberOfSelectedMessages(selectedCellViewModels: selectedCellViewModels)
         markButton?.menu = optionsMenu
     }
-    
+
     func updateMarkButtonsEnabledStates(numSelectedCells: Int) {
         let hasUnreadNotifications = viewModel.numberOfUnreadNotifications >= 1
         markButton?.isEnabled = numSelectedCells > 0
         markAllAsReadButton.isEnabled = numSelectedCells == 0 && hasUnreadNotifications
     }
-    
+
     var numSelectedMessagesFormat: String { WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
     }
-    
+
     func markButtonOptionsMenuForNumberOfSelectedMessages(selectedCellViewModels: [NotificationsCenterCellViewModel]) -> UIMenu {
         let titleFormat = numSelectedMessagesFormat
         let title = String.localizedStringWithFormat(titleFormat, selectedCellViewModels.count)
-        
+
         let actionMarkAsRead = UIAction(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
             let identifier = UUID()
@@ -371,7 +371,7 @@ private extension NotificationsCenterViewController {
             }
             self.isEditing = false
         })
-        
+
         let actionMarkAsUnread = UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             let identifier = UUID()
@@ -380,7 +380,7 @@ private extension NotificationsCenterViewController {
             }
             self.isEditing = false
         })
-        
+
         if !selectedCellViewModels.contains(where: { $0.isRead }) {
             return UIMenu(title: title, children: [
                 actionMarkAsRead
@@ -395,11 +395,11 @@ private extension NotificationsCenterViewController {
             ])
         }
     }
-    
+
     @objc func didTapMarkButtonIOS13(_ sender: UIBarButtonItem) {
-        
+
         let selectedCellViewModels = self.selectedCellViewModels
-        
+
         let titleFormat = numSelectedMessagesFormat
         let title = String.localizedStringWithFormat(titleFormat, selectedCellViewModels.count)
 
@@ -412,7 +412,7 @@ private extension NotificationsCenterViewController {
                 self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
             }
         }
-        
+
         let markUnread = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             self.isEditing = false
@@ -421,9 +421,9 @@ private extension NotificationsCenterViewController {
                 self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
             }
         }
-        
+
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
-        
+
         if !selectedCellViewModels.contains(where: { $0.isRead }) {
             alertController.addAction(markRead)
         } else if !selectedCellViewModels.contains(where: { !$0.isRead }) {
@@ -433,37 +433,37 @@ private extension NotificationsCenterViewController {
             alertController.addAction(markUnread)
         }
         alertController.addAction(cancelAction)
-        
+
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = sender
         }
         present(alertController, animated: true, completion: nil)
     }
-    
+
     private func logMarkReadOrUnreadAction(model: NotificationsCenterCellViewModel, selectionToken: String?, shouldMarkRead: Bool) {
         guard let notificationId = model.notification.id else { return }
         if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
-        let action: NotificationsCenterActionData.LoggingLabel = shouldMarkRead ? .markRead : .markUnread
-        RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, action: action, selectionToken: selectionToken)
+            let action: NotificationsCenterActionData.LoggingLabel = shouldMarkRead ? .markRead : .markUnread
+            RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, action: action, selectionToken: selectionToken)
         }
     }
-    
+
     private func logNotificationInteraction(with action: NotificationsCenterActionData.LoggingLabel?, model: NotificationsCenterCellViewModel) {
         guard let notificationId = model.notification.id else { return }
         if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
-        RemoteNotificationsFunnel.shared.logNotificationInteraction(
-            notificationId: notificationId,
-            notificationWiki: notificationWiki,
-            notificationType: notificationType,
-            action: action,
-            selectionToken: nil)
+            RemoteNotificationsFunnel.shared.logNotificationInteraction(
+                notificationId: notificationId,
+                notificationWiki: notificationWiki,
+                notificationType: notificationType,
+                action: action,
+                selectionToken: nil)
         }
     }
-    
+
     @objc func didTapMarkAllAsReadButton(_ sender: UIBarButtonItem) {
-        
+
         let numberOfUnreadNotifications = viewModel.numberOfUnreadNotifications
-        
+
         let titleText: String
         if numberOfUnreadNotifications > 0 {
             let titleFormat = WMFLocalizedString("notifications-center-mark-all-as-read-confirmation-format", value:"Are you sure that you want to mark all {{PLURAL:%1$d|%1$d message|%1$d messages}} of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title format for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode - %1$d is replaced with the number of unread notifications on the server.")
@@ -471,7 +471,7 @@ private extension NotificationsCenterViewController {
         } else {
             titleText = WMFLocalizedString("notifications-center-mark-all-as-read-missing-number", value:"Are you sure that you want to mark all of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode, when there was an issue with pulling the count of unread notifications.")
         }
-        
+
         let alertController = UIAlertController(title: titleText, message: nil, preferredStyle: .actionSheet)
         let action = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .destructive) { _ in
             self.viewModel.markAllAsRead()
@@ -480,80 +480,76 @@ private extension NotificationsCenterViewController {
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
         alertController.addAction(action)
         alertController.addAction(cancelAction)
-        
+
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = sender
         }
-        
+
         present(alertController, animated: true, completion: nil)
     }
-    
+
 }
 
 // MARK: Filters and Inbox
 
 private extension NotificationsCenterViewController {
-    
+
     func presentFiltersViewController() {
-        
+
         let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController, theme: theme)
-        
+
         guard let filtersViewModel = filtersViewModel else {
             return
         }
-        
+
         let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
         })
 
         presentView(view: filterView)
     }
-    
+
     func presentInboxViewController() {
-        
+
         let allInboxProjects = viewModel.remoteNotificationsController.allInboxProjects
-        
+
         guard let inboxViewModel = NotificationsCenterInboxViewModel(remoteNotificationsController: viewModel.remoteNotificationsController, allInboxProjects: allInboxProjects, theme: self.theme) else {
             return
         }
-        
+
         let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
         })
 
         presentView(view: inboxView)
     }
-    
+
     func presentView<T: View>(view: T) {
         let hostingVC = NotificationsCenterModalHostingController(rootView: view)
-        
+
         let currentFilterState = viewModel.remoteNotificationsController.filterState
-        
+
         let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, modalPresentationStyle: .pageSheet)
-        
+
         nc.willDisappearCallback = { [weak self] in
             guard let self = self else {
                 return
             }
-            
+
             // only reset if filter has actually changed since first presenting
             if currentFilterState != self.viewModel.remoteNotificationsController.filterState {
                 self.viewModel.resetAndRefreshData()
                 self.scrollToTop()
             }
         }
-        
+
         self.present(nc, animated: true, completion: nil)
     }
-    
+
     private func scrollToTop() {
         notificationsView.collectionView.setContentOffset(CGPoint(x: notificationsView.collectionView.contentOffset.x, y: 0 - notificationsView.collectionView.contentInset.top), animated: true)
     }
-}
 
-// MARK: - Onboarding Modal and Push Opt in
-
-extension NotificationsCenterViewController: NotificationsCenterOnboardingDelegate {
 
     func presentOnboardingEducationModalIfNecessary() {
         guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
@@ -561,11 +557,36 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
             return
         }
 
-        let onboardingHostingViewController = NotificationsCenterOnboardingHostingViewController(theme: theme)
-        onboardingHostingViewController.delegate = self
-        onboardingHostingViewController.modalPresentationStyle = .pageSheet
-        self.onboardingHostingViewController = onboardingHostingViewController
-        present(onboardingHostingViewController, animated: true)
+        let title = WMFLocalizedString("notifications-center-onboarding-modal-title", value: "Editing notifications", comment: "Title of onboarding modal displayed when first launching the Notifications Center.")
+        let notificationsAlertsTitle = WMFLocalizedString("notifications-center-onboarding-modal-notifications-alerts-title", value: "Notifications and alerts", comment: "Title of onboarding education row displayed when first launching the Notifications Center.")
+        let notificationsAlertsMessage = WMFLocalizedString("notifications-center-onboarding-modal-notifications-alerts-message", value: "Notifications help keep you informed of activity related to your edits and account.", comment: "Detail message for onboarding education row displayed when first launching the Notifications Center.")
+        let filterTitle = WMFLocalizedString("notifications-center-onboarding-modal-filters-title", value: "Filters", comment: "Title of onboarding education row displayed when first launching the Notifications Center.")
+        let filterMessage = WMFLocalizedString("notifications-center-onboarding-modal-filters-message", value: "Filter your notifications by read status and type to easily narrow down your inbox.", comment: "Detail message for onboarding education row when first launching the Notifications Center.")
+        let inboxTitle = WMFLocalizedString("notifications-center-onboarding-modal-project-inboxes-title", value: "Project inboxes", comment: "Title of onboarding education row displayed when first launching the Notifications Center.")
+        let inboxMessage = WMFLocalizedString("notifications-center-onboarding-modal-project-inboxes-message", value: "View all your unread messages from different language Wikipedias and Wikimedia projects in one place.", comment: "Detail message for onboarding education row displayed when first launching the Notifications Center.")
+        let pushTitle = WMFLocalizedString("notifications-center-onboarding-modal-push-notifications-title", value:  "Push notifications", comment: "Title of onboarding education row displayed when first launching the Notifications Center.")
+        let pushMessage = WMFLocalizedString("notifications-center-onboarding-modal-push-notifications-message", value: "Opt in to push notifications to keep up to date with your editing messages and alerts while on the go.", comment: "Detail message for onboarding education row displayed when first launching the Notifications Center.")
+        let continueButton = WMFLocalizedString("notifications-center-onboarding-modal-continue-action", value: "Continue", comment: "Button title of primary action displayed when first launching the Notifications Center.")
+        let learnMoreButton = WMFLocalizedString("notifications-center-onboarding-modal-learn-more-action", value: "Learn more about notifications", comment: "Button title of secondary action displayed when first launching the Notifications Center.")
+
+        let darkTheme = theme == .dark || theme == .black
+        let notificationsAndAlerts =  UIImage(named: "notifications-center-onboarding-bell" + (darkTheme ? "-alt" : ""))
+        let filter = UIImage(named:"notifications-center-onboarding-filter" + (darkTheme ? "-alt" : ""))
+        let inbox = UIImage(named:"notifications-center-onboarding-inbox" + (darkTheme ? "-alt" : ""))
+        let push = UIImage(named:"notifications-center-onboarding-push" + (darkTheme ? "-alt" : ""))
+
+        let row1 = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: notificationsAndAlerts, title: notificationsAlertsTitle, subtitle: notificationsAlertsMessage)
+        let row2 = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: filter, title: filterTitle, subtitle: filterMessage)
+        let row3 = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: inbox, title: inboxTitle, subtitle: inboxMessage)
+        let row4 = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: push, title: pushTitle, subtitle: pushMessage)
+
+        let viewModel = WMFOnboardingViewModel(title: title, cells: [row1, row2, row3, row4], primaryButtonTitle: continueButton, secondaryButtonTitle: learnMoreButton)
+
+        let onboardingController = WMFOnboardingViewController(viewModel: viewModel)
+        onboardingController.delegate = self
+        present(onboardingController, animated: true, completion: {
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
+        })
     }
 
     func presentOnboardingPushOptInIfNecessary() {
@@ -619,12 +640,19 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
         requestPushPermissionsAndSilentlySubscribeToEchoNotifications()
     }
 
+    func userDidTapLearnMore() {
+        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Notifications") else {
+            return
+        }
+
+        UIApplication.shared.open(url)
+    }
 }
 
 // MARK: - NotificationsCenterViewModelDelegate
 
 extension NotificationsCenterViewController: NotificationsCenterViewModelDelegate {
-    
+
     func update(types: [NotificationsCenterUpdateType]) {
         for type in types {
             switch type {
@@ -649,28 +677,28 @@ extension NotificationsCenterViewController: NotificationsCenterViewModelDelegat
 
 extension NotificationsCenterViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+
         guard let dataSource = dataSource else {
             return
         }
-        
+
         let count = dataSource.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         let isLast = indexPath.row == count - 1
         if isLast {
             viewModel.fetchNextPage()
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
         if viewModel.isEditing {
             return true
         }
-        
+
         return false
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+
         guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
@@ -693,15 +721,15 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             updateMarkButtonsEnabledStates(numSelectedCells: selectedCellViewModels.count)
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
+
         guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
 
         viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: false)
-        
+
         if viewModel.isEditing {
             let selectedCellViewModels = self.selectedCellViewModels
             updateMarkButtonOptionsMenu(selectedCellViewModels: selectedCellViewModels)
@@ -808,7 +836,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             }
 
             var shouldOpenSwipePanel: Bool
-            
+
             let currentCellTranslationX = isRTL ? -cell.foregroundContentContainer.transform.tx : cell.foregroundContentContainer.transform.tx
 
             if currentCellTranslationX > 0 {
@@ -875,25 +903,25 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                 })
             case .custom(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { [weak self] alertAction in
-                    
+
                     guard let self else { return }
-                    
+
                     self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                     let url = data.url
-                    
+
                     let replyText = cellViewModel.bodyText
-                    
+
                     let legacyNavigateAction = { [weak self] in
                         let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.talkPageReplyText: replyText as Any,
                                                              RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.notificationsCenter.rawValue]
-                        
+
                         self?.navigate(to: url, userInfo: userInfo)
                     }
-                    
+
                     // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
                     if let navigationController = self.navigationController,
-                    let url {
-                        
+                       let url {
+
                         let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: url, dataStore: nil, theme: self.theme, articleSource: .undefined)
                         let success = linkCoordinator.start()
                         guard success else {
@@ -903,7 +931,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                     } else {
                         legacyNavigateAction()
                     }
-                    
+
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
                         self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
@@ -941,13 +969,13 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: !cellViewModel.isRead)
         self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: !cellViewModel.isRead)
     }
-    
+
 }
 
 // MARK: - Toolbar
 
 extension NotificationsCenterViewController {
-    
+
     var flexibleSpaceToolbarItem: UIBarButtonItem {
         return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     }
@@ -960,7 +988,7 @@ extension NotificationsCenterViewController {
         } else {
             toolbar.items = [typeFilterButton, flexibleSpaceToolbarItem, statusBarButton, flexibleSpaceToolbarItem, projectFilterButton]
         }
-        
+
         self.markButton = markButton
 
         refreshToolbarContent()
@@ -974,7 +1002,7 @@ extension NotificationsCenterViewController {
         typeFilterButton.isEnabled = buttonsAreEnabled
         projectFilterButton.isEnabled = buttonsAreEnabled
         statusBarButton.label.attributedText = viewModel.statusBarText(textColor: theme.colors.primaryText, highlightColor: theme.colors.link)
-        
+
         typeFilterButton.accessibilityLabel = viewModel.filterButtonAccessibilityLabel
         projectFilterButton.accessibilityLabel = viewModel.projectFilterAccessibilityLabel
     }
@@ -1038,7 +1066,7 @@ extension NotificationsCenterViewController: NotificationsCenterFlowViewControll
 
         viewModel.refreshNotifications(force: true)
     }
-  
+
 }
 
 // MARK: - Refresh Control
@@ -1053,4 +1081,27 @@ extension NotificationsCenterViewController {
         notificationsView.refreshControl.endRefreshing()
     }
 
+}
+
+extension NotificationsCenterViewController: WMFOnboardingViewDelegate {
+    func onboardingViewDidClickPrimaryButton() {
+
+        if let presentedVC = navigationController?.presentedViewController {
+            presentedVC.dismiss(animated: true) { [weak self] in
+                self?.userDidDismissNotificationsCenterOnboardingView()
+            }
+        }
+    }
+
+    func onboardingViewDidClickSecondaryButton() {
+        if let presentedVC = navigationController?.presentedViewController {
+            presentedVC.dismiss(animated: true) { [weak self] in
+                self?.userDidTapLearnMore()
+            }
+        }
+    }
+
+    func onboardingDidSwipeToDismiss() {
+        userDidDismissNotificationsCenterOnboardingView()
+    }
 }

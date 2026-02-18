@@ -75,7 +75,7 @@ public struct CapsuleButtonStyle: ButtonStyle {
 
         switch kind {
         case .primary:
-            if let forceBackgroundColor  {
+            if let forceBackgroundColor {
                 background = forceBackgroundColor
             } else {
                 background = theme.link
