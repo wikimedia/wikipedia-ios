@@ -139,17 +139,28 @@ class EditorNavigationItemController: NSObject, Themeable {
 
     private func configureNavigationButtonItems() {
         
-        let fixedWidthSpacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedWidthSpacer.width = 16
+        if #available(iOS 26.0, *) {
+            
+            navigationItem?.rightBarButtonItems = [
+                progressButton,
+                readingThemesControlsButton,
+                redoButton,
+                undoButton
+            ]
+        } else {
+            let fixedWidthSpacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+            fixedWidthSpacer.width = 16
+            
+            navigationItem?.rightBarButtonItems = [
+                progressButton,
+                fixedWidthSpacer,
+                separatorButton,
+                readingThemesControlsButton,
+                redoButton,
+                undoButton
+            ]
+        }
         
-        navigationItem?.rightBarButtonItems = [
-            progressButton,
-            fixedWidthSpacer,
-            separatorButton,
-            readingThemesControlsButton,
-            redoButton,
-            undoButton
-        ]
     }
 
     func textSelectionDidChange(isRangeSelected: Bool) {

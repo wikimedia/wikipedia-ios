@@ -132,7 +132,8 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
 
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_ :)), alignment: .leading)
+        // temporary X for now
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: "🅧", target: self, action: #selector(close(_ :)), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
@@ -565,8 +566,8 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         
         view.addSubview(sourceEditor.view)
         
-        let top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: sourceEditor.view.topAnchor)
-        let bottom = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: sourceEditor.view.bottomAnchor)
+        let top = view.topAnchor.constraint(equalTo: sourceEditor.view.topAnchor)
+        let bottom = view.bottomAnchor.constraint(equalTo: sourceEditor.view.bottomAnchor)
         let leading = view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: sourceEditor.view.leadingAnchor)
         let trailing = view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: sourceEditor.view.trailingAnchor)
         
