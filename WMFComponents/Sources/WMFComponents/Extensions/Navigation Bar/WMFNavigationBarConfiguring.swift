@@ -149,7 +149,8 @@ struct WMFGlassCloseButton: View {
                     .font(.system(size: 17, weight: .medium))
                     .foregroundStyle(iconColor)
                     .frame(width: size, height: size)
-                    .glassEffect(in: .circle)
+                    .background(backgroundColor)
+                    .clipShape(Circle())
             }
         }
     }
@@ -282,15 +283,15 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             let closeBarButtonItem = makeLiquidGlassCloseBarButtonItem(
                 target: closeButtonConfig.target,
                 action: closeButtonConfig.action,
-                isCheckMark: closeButtonConfig.isCheckMark
+                isCheckMark: closeButtonConfig.isCheckMark,
+                alignment: closeButtonConfig.alignment
             )
-            // Alignment handling removed - kept enum for backward compatibility with call sites
-            _ = closeButtonConfig.alignment
             
-            if closeButtonConfig.isCheckMark {
-                navigationItem.rightBarButtonItem = closeBarButtonItem
-            } else {
+            switch closeButtonConfig.alignment {
+            case .leading:
                 navigationItem.leftBarButtonItem = closeBarButtonItem
+            case .trailing:
+                navigationItem.rightBarButtonItem = closeBarButtonItem
             }
         }
         
@@ -383,23 +384,33 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     // MARK: - in the protocol extension:
 
-    private func makeLiquidGlassCloseBarButtonItem(target: Any, action: Selector, isCheckMark: Bool = false) -> UIBarButtonItem {
-        let size: CGFloat = 44
+    private func makeLiquidGlassCloseBarButtonItem(target: Any, action: Selector, isCheckMark: Bool = false, alignment: WMFNavigationBarCloseButtonConfig.Alignment) -> UIBarButtonItem {
+        let circleSize: CGFloat = 36
+        let buttonHeight: CGFloat = 44
         let theme = WMFAppEnvironment.current.theme
-        let container = UIView(frame: CGRect(x: 0, y: 0, width: size, height: size))
+        
+        // Determine container width and padding based on alignment
+        let isLeading = alignment == .leading
+        let horizontalPadding: CGFloat = 8
+        let containerWidth: CGFloat = circleSize + horizontalPadding
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: containerWidth, height: buttonHeight))
+
+        let verticalOffset = (buttonHeight - circleSize) / 2
+        // If leading: circle on left (0 offset). If trailing: circle on right (padding offset)
+        let horizontalOffset: CGFloat = isLeading ? 0 : horizontalPadding
 
         if #available(iOS 26.0, *) {
             let iconColor = isCheckMark ? Color(theme.paperBackground) : Color(theme.text)
-            let backgroundColor = isCheckMark ? Color(theme.link) : Color.clear
-            let glassButton = WMFGlassCloseButton(size: size, target: target, action: action, iconColor: iconColor, isCheckMark: isCheckMark, backgroundColor: backgroundColor)
+            let backgroundColor = Color(theme.baseBackground)
+            let glassButton = WMFGlassCloseButton(size: circleSize, target: target, action: action, iconColor: iconColor, isCheckMark: isCheckMark, backgroundColor: backgroundColor)
             let hostingController = UIHostingController(rootView: glassButton)
             hostingController.view.backgroundColor = UIColor.clear
-            hostingController.view.frame = container.bounds
+            hostingController.view.frame = CGRect(x: horizontalOffset, y: verticalOffset, width: circleSize, height: circleSize)
             container.addSubview(hostingController.view)
         } else {
-            let backgroundView = UIView(frame: container.bounds)
-            backgroundView.backgroundColor = isCheckMark ? theme.link : theme.paperBackground
-            backgroundView.layer.cornerRadius = size / 2
+            let backgroundView = UIView(frame: CGRect(x: horizontalOffset, y: verticalOffset, width: circleSize, height: circleSize))
+            backgroundView.backgroundColor = theme.baseBackground
+            backgroundView.layer.cornerRadius = circleSize / 2
             backgroundView.layer.masksToBounds = true
             backgroundView.isUserInteractionEnabled = false
             container.addSubview(backgroundView)
@@ -410,7 +421,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             let symbolImageView = UIImageView(image: symbolImage)
             symbolImageView.tintColor = isCheckMark ? theme.paperBackground : theme.text
             symbolImageView.contentMode = .center
-            symbolImageView.frame = container.bounds
+            symbolImageView.frame = CGRect(x: horizontalOffset, y: verticalOffset, width: circleSize, height: circleSize)
             container.addSubview(symbolImageView)
 
             let button = UIButton(type: .custom)
@@ -420,13 +431,13 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
             button.addAction(UIAction { _ in
                 UIView.animate(withDuration: 0.1) {
-                    container.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
+                    backgroundView.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
                 }
             }, for: .touchDown)
 
             button.addAction(UIAction { _ in
                 UIView.animate(withDuration: 0.1) {
-                    container.transform = .identity
+                    backgroundView.transform = .identity
                 }
             }, for: [.touchUpInside, .touchUpOutside, .touchCancel])
 
