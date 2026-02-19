@@ -637,7 +637,6 @@
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
 "gan-variants-alert-body" = "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).";
 "gan-variants-alert-title" = "Title of alert used to inform users about Gan variant support.";
-"history-clear-all" = "Text of the button shown at the top of history which deletes all history {{Identical|Clear}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "history-clear-delete-all" = "Button text for confirming delete all action";
 "history-title" = "Title of the history screen shown on history tab {{Identical|History}}";

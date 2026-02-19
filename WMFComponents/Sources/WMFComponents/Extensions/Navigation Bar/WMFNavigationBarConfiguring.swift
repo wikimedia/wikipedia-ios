@@ -153,7 +153,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
-            navigationItem.titleView = UIView()
+            
+            // will see double-titles on iPhones without this
+            if traitCollection.horizontalSizeClass == .compact {
+                navigationItem.titleView = UIView()
+            }
+            
             if let customTitleView = titleConfig.customView {
                 let button = UIBarButtonItem(customView: customTitleView)
                 button.accessibilityTraits = .staticText
