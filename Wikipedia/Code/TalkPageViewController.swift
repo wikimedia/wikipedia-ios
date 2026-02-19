@@ -204,12 +204,6 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOS 18.0, *) {
-            tabBarController?.setTabBarHidden(true, animated: false)
-            tabBarController?.tabBar.isHidden = true
-        } else {
-            // Fallback on earlier versions
-        }
 
         setupOverflowMenu()
 
