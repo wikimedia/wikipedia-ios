@@ -1,6 +1,5 @@
 import SwiftUI
 
-@available(iOS 16.4, *)
 final public class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {
     
     public override func viewDidLoad() {

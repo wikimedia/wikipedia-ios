@@ -29,7 +29,7 @@ public class WMFEmptyViewModel: ObservableObject {
         self.imageColor = imageColor
         self.numberOfFilters = numberOfFilters
     }
-    
+
     func filterString(localizedStrings: LocalizedStrings) -> AttributedString? {
         guard let numberOfFilters else {
             return nil

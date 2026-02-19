@@ -40,7 +40,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
         self.dataStore = dataStore
         self.articles = articles
         self.moveFromReadingList = moveFromReadingList
-        self.readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles, needsCreateReadingListButton: true)
+        self.readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
     }

@@ -7,7 +7,7 @@ public protocol WMFWatchlistDelegate: AnyObject {
     func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt)
     func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WMFWatchlistUserButtonAction)
     func watchlistEmptyViewUserDidTapSearch()
-	func watchlistUserDidTapAddLanguage(from: UIViewController, viewModel: WMFWatchlistFilterViewModel)
+    func watchlistUserDidTapAddLanguage(from: UIViewController, viewModel: WMFWatchlistFilterViewModel)
 }
 
 public protocol WMFWatchlistLoggingDelegate: AnyObject {
@@ -23,21 +23,21 @@ public protocol WMFWatchlistLoggingDelegate: AnyObject {
 
 public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
 
-	// MARK: - Nested Types
+    // MARK: - Nested Types
 
-	public enum PresentationState {
-		case appearing
-		case disappearing
-	}
+    public enum PresentationState {
+        case appearing
+        case disappearing
+    }
 
-	public typealias ReachabilityHandler = ((PresentationState) -> Void)?
+    public typealias ReachabilityHandler = ((PresentationState) -> Void)?
 
     class MenuButtonHandler: WMFSmallMenuButtonDelegate {
         weak var watchlistDelegate: WMFWatchlistDelegate?
         weak var watchlistLoggingDelegate: WMFWatchlistLoggingDelegate?
         let menuButtonItems: [WMFSmallMenuButton.MenuItem]
         let wmfProjectMetadataKey: String
-		let revisionIDMetadataKey: String
+        let revisionIDMetadataKey: String
         let oldRevisionIDMetadataKey: String
         let articleTitleMetadataKey: String
 
@@ -46,12 +46,12 @@ public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavig
             self.watchlistLoggingDelegate = watchlistLoggingDelegate
             self.menuButtonItems = menuButtonItems
             self.wmfProjectMetadataKey = wmfProjectMetadataKey
-			self.revisionIDMetadataKey = revisionIDMetadataKey
+            self.revisionIDMetadataKey = revisionIDMetadataKey
             self.oldRevisionIDMetadataKey = oldRevisionIDMetadataKey
             self.articleTitleMetadataKey = articleTitleMetadaKey
-		}
+        }
 
-		func wmfSwiftUIMenuButtonUserDidTap(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {
+        func wmfSwiftUIMenuButtonUserDidTap(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title,
                     let wmfProject = configuration.metadata[wmfProjectMetadataKey] as? WMFProject,
                   let revisionID = configuration.metadata[revisionIDMetadataKey] as? UInt,
@@ -59,15 +59,15 @@ public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavig
                   let title = configuration.metadata[articleTitleMetadataKey] as? String else {
                 return
             }
-            
+
             if item == nil {
                 watchlistLoggingDelegate?.logWatchlistUserDidTapUserButton(project: wmfProject)
             }
 
 
-			guard menuButtonItems.indices.count == 4 else {
-				fatalError("Unexpected number of menu button items")
-			}
+            guard menuButtonItems.indices.count == 4 else {
+                fatalError("Unexpected number of menu button items")
+            }
 
             if tappedTitle == menuButtonItems[0].title {
                 watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .userPage)
@@ -82,7 +82,7 @@ public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavig
                 watchlistDelegate?.watchlistUserDidTapUser(project: wmfProject, title: title, revisionID: revisionID, oldRevisionID: oldRevisionId, username: username, action: .thank(revisionID: revisionID))
                 watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .thank(revisionID: revisionID))
             }
-		}
+        }
 
         func wmfSwiftUIMenuButtonUserDidTapAccessibility(configuration: WMFSmallMenuButton.Configuration, item: WMFSmallMenuButton.MenuItem?) {
             guard let username = configuration.title, let tappedTitle = item?.title,
@@ -112,20 +112,20 @@ public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavig
                 watchlistLoggingDelegate?.logWatchlistUserDidTapUserButtonAction(project: wmfProject, action: .thank(revisionID: revisionID))
             }
         }
-	}
+    }
 
-	// MARK: - Properties
+    // MARK: - Properties
 
-	fileprivate let hostingViewController: WMFWatchlistHostingViewController
-	let viewModel: WMFWatchlistViewModel
+    fileprivate let hostingViewController: WMFWatchlistHostingViewController
+    let viewModel: WMFWatchlistViewModel
     let filterViewModel: WMFWatchlistFilterViewModel
     let emptyViewModel: WMFEmptyViewModel
-	weak var delegate: WMFWatchlistDelegate?
+    weak var delegate: WMFWatchlistDelegate?
     weak var loggingDelegate: WMFWatchlistLoggingDelegate?
-	var reachabilityHandler: ReachabilityHandler
-	let buttonHandler: MenuButtonHandler?
+    var reachabilityHandler: ReachabilityHandler
+    let buttonHandler: MenuButtonHandler?
 
-	fileprivate lazy var filterBarButton = {
+    fileprivate lazy var filterBarButton = {
         let action = UIAction { [weak self] _ in
             guard let self else {
                 return
@@ -135,82 +135,82 @@ public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavig
             self.showFilterView()
         }
         let barButton = UIBarButtonItem(title: viewModel.localizedStrings.filter, primaryAction: action)
-		return barButton
-	}()
-    
+        return barButton
+    }()
+
     private var subscribers: Set<AnyCancellable> = []
 
-	// MARK: - Lifecycle
+    // MARK: - Lifecycle
 
     public init(viewModel: WMFWatchlistViewModel, filterViewModel: WMFWatchlistFilterViewModel, emptyViewModel: WMFEmptyViewModel, delegate: WMFWatchlistDelegate?, loggingDelegate: WMFWatchlistLoggingDelegate?, reachabilityHandler: ReachabilityHandler = nil) {
-		self.viewModel = viewModel
+        self.viewModel = viewModel
         self.filterViewModel = filterViewModel
         self.emptyViewModel = emptyViewModel
-		self.delegate = delegate
+        self.delegate = delegate
         self.loggingDelegate = loggingDelegate
-		self.reachabilityHandler = reachabilityHandler
+        self.reachabilityHandler = reachabilityHandler
 
         let buttonHandler = MenuButtonHandler(watchlistDelegate: delegate, watchlistLoggingDelegate: loggingDelegate, menuButtonItems: viewModel.menuButtonItems, wmfProjectMetadataKey: WMFWatchlistViewModel.ItemViewModel.wmfProjectMetadataKey, revisionIDMetadataKey: WMFWatchlistViewModel.ItemViewModel.revisionIDMetadataKey, oldRevisionIDMetadataKey: WMFWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey, articleTitleMetadaKey: WMFWatchlistViewModel.ItemViewModel.articleMetadataKey)
-		self.buttonHandler = buttonHandler
+        self.buttonHandler = buttonHandler
 
         self.hostingViewController = WMFWatchlistHostingViewController(viewModel: viewModel, emptyViewModel: emptyViewModel, delegate: delegate, menuButtonDelegate: buttonHandler)
-		super.init()
+        super.init()
 
         self.hostingViewController.emptyViewDelegate = self
         self.hostingViewController.loggingDelegate = loggingDelegate
         hidesBottomBarWhenPushed = true
-	}
+    }
 
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-	public override func viewDidLoad() {
-		super.viewDidLoad()
-		addComponent(hostingViewController, pinToEdges: true)
-		
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        addComponent(hostingViewController, pinToEdges: true)
+
         viewModel.$activeFilterCount.sink { [weak self] newCount in
             guard let self else {
                 return
             }
-            
+
             self.filterBarButton.title =
                 newCount == 0 ?
                 self.viewModel.localizedStrings.filter :
                 self.viewModel.localizedStrings.filter + " (\(newCount))"
             self.emptyViewModel.numberOfFilters = newCount
         }.store(in: &subscribers)
-	}
+    }
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-		reachabilityHandler?(.appearing)
+
+        reachabilityHandler?(.appearing)
         configureNavigationBar()
-        
+
     }
-    
+
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.title, customView: nil, alignment: .centerCompact)
-        
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
-        
+
         navigationItem.rightBarButtonItem = filterBarButton
     }
-    
+
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-		reachabilityHandler?(.disappearing)
+
+        reachabilityHandler?(.disappearing)
     }
 
     public func showFilterView() {
-		let filterView = WMFWatchlistFilterView(viewModel: self.filterViewModel, doneAction: { [weak self] in
+        let filterView = WMFWatchlistFilterView(viewModel: self.filterViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
         })
-        
+
         let hostingController = WMFWatchlistFilterHostingController(viewModel: self.filterViewModel, filterView: filterView, delegate: self)
-        
+
         let navigationViewController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
 
         self.present(navigationViewController, animated: true)
@@ -219,7 +219,7 @@ public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavig
 
 fileprivate final class WMFWatchlistHostingViewController: WMFComponentHostingController<WMFWatchlistView> {
 
-	let viewModel: WMFWatchlistViewModel
+    let viewModel: WMFWatchlistViewModel
     let emptyViewModel: WMFEmptyViewModel
     weak var emptyViewDelegate: WMFEmptyViewDelegate? = nil {
         didSet {
@@ -233,14 +233,14 @@ fileprivate final class WMFWatchlistHostingViewController: WMFComponentHostingCo
     }
 
     init(viewModel: WMFWatchlistViewModel, emptyViewModel: WMFEmptyViewModel, delegate: WMFWatchlistDelegate?, menuButtonDelegate: WMFSmallMenuButtonDelegate?) {
-		self.viewModel = viewModel
+        self.viewModel = viewModel
         self.emptyViewModel = emptyViewModel
         super.init(rootView: WMFWatchlistView(viewModel: viewModel, emptyViewModel: emptyViewModel, delegate: delegate, loggingDelegate: loggingDelegate, menuButtonDelegate: menuButtonDelegate))
-	}
+    }
 
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
 }
 
@@ -250,22 +250,22 @@ extension WMFWatchlistViewController: WMFWatchlistFilterDelegate {
         viewModel.fetchWatchlist()
     }
 
-	func watchlistFilterDidTapAddLanguage(_ hostingController: WMFWatchlistFilterHostingController, viewModel: WMFWatchlistFilterViewModel) {
-		delegate?.watchlistUserDidTapAddLanguage(from: hostingController, viewModel: viewModel)		
-	}
-	
+    func watchlistFilterDidTapAddLanguage(_ hostingController: WMFWatchlistFilterHostingController, viewModel: WMFWatchlistFilterViewModel) {
+        delegate?.watchlistUserDidTapAddLanguage(from: hostingController, viewModel: viewModel)
+    }
+
 }
 
 extension WMFWatchlistViewController: WMFEmptyViewDelegate {
     public func emptyViewDidShow(type: WMFEmptyViewStateType) {
         loggingDelegate?.logWatchlistEmptyViewDidShow(type: type)
     }
-    
-    public func emptyViewDidTapSearch() {
+
+    public func emptyViewDidTapMainAction() {
         delegate?.watchlistEmptyViewUserDidTapSearch()
         loggingDelegate?.logWatchlistEmptyViewUserDidTapSearch()
     }
-    
+
     public func emptyViewDidTapFilters() {
         showFilterView()
         loggingDelegate?.logWatchlistEmptyViewUserDidTapModifyFilters()

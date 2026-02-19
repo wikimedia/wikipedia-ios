@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 protocol WMFFindAndReplaceViewDelegate: AnyObject {
     func findAndReplaceView(_ view: WMFFindAndReplaceView, didChangeFindText text: String)

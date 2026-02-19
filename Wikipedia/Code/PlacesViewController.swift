@@ -143,23 +143,29 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         locationManager.delegate = self
 
         // Setup Redo search button
-        var deprecatedRedoSearchButton = (redoSearchButton as DeprecatedButton)
-        deprecatedRedoSearchButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        redoSearchButton.setTitleColor(.white, for: .normal)
+        var redoConfig = UIButton.Configuration.filled()
+        redoConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 15)
+        redoConfig.cornerStyle = .capsule
+        redoSearchButton.configuration = redoConfig
+        redoSearchButton.titleLabel?.font = WMFFont.for(.callout)
         redoSearchButton.setTitle(WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area"), for: .normal)
         redoSearchButton.isHidden = true
 
         // Setup Did You Mean button
-        didYouMeanButton.setTitleColor(.white, for: .normal)
-        didYouMeanButton.isHidden = true
-        didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        didYouMeanButton.titleLabel?.textAlignment = .center
+        var didYouMeanConfig = UIButton.Configuration.filled()
+        didYouMeanConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 15)
+        didYouMeanConfig.cornerStyle = .capsule
+        didYouMeanButton.configuration = didYouMeanConfig
         didYouMeanButton.titleLabel?.font = WMFFont.for(.callout)
+        didYouMeanButton.setTitle("", for: .normal)
+        didYouMeanButton.isHidden = true
 
         // Setup recenter button
+        var recenterConfig = UIButton.Configuration.filled()
+        recenterConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        recenterConfig.cornerStyle = .capsule
+        recenterOnUserLocationButton.configuration = recenterConfig
         recenterOnUserLocationButton.accessibilityLabel = WMFLocalizedString("places-accessibility-recenter-map-on-user-location", value:"Recenter on your location", comment:"Accessibility label for the recenter map on the user's location button")
-        var deprecatedRecenterOnUserLocationButton = (recenterOnUserLocationButton as DeprecatedButton)
-        deprecatedRecenterOnUserLocationButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
 
@@ -248,7 +254,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
         return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
     }
-    
+
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
         return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem)
     }
@@ -398,7 +404,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         return existingYirCoordinator
     }
-    
+
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
         return TabsOverviewCoordinator(
@@ -430,14 +436,14 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     @objc private func didTapProfileButton() {
-        
+
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
               let metricsID = DonateCoordinator.metricsID(for: .placesProfile, languageCode: languageCode) else {
             return
         }
-        
+
         DonateFunnel.shared.logPlacesProfile(metricsID: metricsID)
-        
+
         profileCoordinator?.start()
     }
 
@@ -761,12 +767,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         let title = String.localizedStringWithFormat(WMFLocalizedString("places-search-did-you-mean", value:"Did you mean %1$@?", comment:"Title displayed on a button shown when the current search has no results. %1$@ is replaced by the short description of the location of the most likely correction."), description)
 
-        redoSearchButton.titleLabel?.font = WMFFont.for(.callout)
+        let regularFont = WMFFont.for(.callout)
         let italicsFont = WMFFont.for(.italicCallout)
         let nsTitle = title as NSString
-        let attributedTitle = NSMutableAttributedString(string: title)
+        let attributedTitle = NSMutableAttributedString(string: title, attributes: [.font: regularFont])
         let descriptionRange = nsTitle.range(of: description)
         attributedTitle.addAttribute(NSAttributedString.Key.font, value: italicsFont, range: descriptionRange)
+
         self.didYouMeanButton.setAttributedTitle(attributedTitle, for: .normal)
     }
 
@@ -2346,10 +2353,22 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
         emptySearchOverlayView.detailLabel.textColor = theme.colors.secondaryText
 
-        recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
+        var recenterConfig = recenterOnUserLocationButton.configuration
+        recenterConfig?.baseForegroundColor = theme.colors.primaryText
+        recenterConfig?.baseBackgroundColor = theme.colors.chromeBackground
+        recenterOnUserLocationButton.configuration = recenterConfig
+
+        var redoConfig = redoSearchButton.configuration
+        redoConfig?.baseForegroundColor = theme.colors.paperBackground
+        redoConfig?.baseBackgroundColor = theme.colors.link
+        redoSearchButton.configuration = redoConfig
+
+        var didYouMeanConfig = didYouMeanButton.configuration
+        didYouMeanConfig?.baseForegroundColor = theme.colors.paperBackground
+        didYouMeanConfig?.baseBackgroundColor = theme.colors.link
+        didYouMeanButton.configuration = didYouMeanConfig
+
         selectedArticlePopover?.apply(theme: theme)
-        redoSearchButton.backgroundColor = theme.colors.link
-        didYouMeanButton.backgroundColor = theme.colors.link
         listViewController.apply(theme: theme)
         collectionView.backgroundColor = theme.colors.paperBackground
     }

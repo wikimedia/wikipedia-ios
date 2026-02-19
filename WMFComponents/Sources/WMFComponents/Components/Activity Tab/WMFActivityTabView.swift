@@ -171,11 +171,8 @@ public struct WMFActivityTabView: View {
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             WMFSmallButton(configuration: .init(style: .primary), title: viewModel.localizedStrings.exploreWikipedia, action: {
-                // This is purposefully left empty because the whole container has an on tap
+                viewModel.exploreWikipedia()
             })
-        }
-        .onTapGesture {
-            viewModel.exploreWikipedia()
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
@@ -285,23 +282,15 @@ public struct WMFActivityTabView: View {
                 .font(Font(WMFFont.for(.callout)))
                 .foregroundColor(Color(uiColor: theme.text))
             HStack(spacing: 12) {
-                Button(action: {
-                    viewModel.didTapPrimaryLoggedOutCTA?()
-                }) {
-                    HStack(spacing: 8) {
-                        if let icon = WMFSFSymbolIcon.for(symbol: .personFilled) {
-                            Image(uiImage: icon)
-                        }
-                        Text(viewModel.localizedStrings.loggedOutPrimaryCTA)
+                WMFSmallButton(
+                    configuration: .init(style: .primary),
+                    title: viewModel.localizedStrings.loggedOutPrimaryCTA,
+                    image: WMFSFSymbolIcon.for(symbol: .personFilled),
+                    action: {
+                        viewModel.didTapPrimaryLoggedOutCTA?()
                     }
-                    .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundColor(Color(uiColor: theme.paperBackground))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color(uiColor: theme.link))
-                    .cornerRadius(8)
-                }
-                .buttonStyle(BorderlessButtonStyle())
+                )
+
                 Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
