@@ -125,43 +125,39 @@ public struct WMFHistoryView: View {
     }
 
     private func listView() -> some View {
-        if #available(iOS 17.0, *) {
-            return List {
+        List {
+            
+            Section {
+                Text(viewModel.localizedStrings.historyHeaderTitle)
+                    .font(Font(WMFFont.for(.boldTitle3)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+                    .padding(.top, viewModel.topPadding)
+            }
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color(theme.paperBackground))
+            
+            ForEach(viewModel.sections) { section in
                 
                 Section {
-                    Text(viewModel.localizedStrings.historyHeaderTitle)
-                        .font(Font(WMFFont.for(.boldTitle3)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                        .padding(.top, viewModel.topPadding)
-                }
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color(theme.paperBackground))
-                
-                ForEach(viewModel.sections) { section in
                     
-                    Section {
-                        
-                        // Header as a regular row so that they aren't sticky
-                        headerViewForSection(section)
-                            .listRowSeparator(.hidden)
+                    // Header as a regular row so that they aren't sticky
+                    headerViewForSection(section)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color(theme.paperBackground))
+                    
+                    ForEach(section.items) { item in
+                        row(for: section, item)
                             .listRowBackground(Color(theme.paperBackground))
-                        
-                        ForEach(section.items) { item in
-                            row(for: section, item)
-                                .listRowBackground(Color(theme.paperBackground))
-                                .listRowSeparator(.hidden)
-                        }
+                            .listRowSeparator(.hidden)
                     }
                 }
             }
-            .listStyle(.plain)
-            .listSectionSpacing(0)
-            .scrollContentBackground(.hidden)
-            .background(Color(theme.paperBackground))
-            .ignoresSafeArea(edges: .top)
-        } else {
-            return EmptyView()
         }
+        .listStyle(.plain)
+        .listSectionSpacing(0)
+        .scrollContentBackground(.hidden)
+        .background(Color(theme.paperBackground))
+        .ignoresSafeArea(edges: .top)
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
