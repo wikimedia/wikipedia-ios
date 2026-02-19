@@ -133,30 +133,6 @@
     return view;
 }
 
-+ (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nullable SEL)action {
-    WMFEmptyView *view = [[self class] emptyView];
-    view.imageView.image = [UIImage imageNamed:@"reading-lists-empty-state"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"Organize saved articles with reading lists", @"Title of a blank screen shown when a user has no reading lists");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-message", nil, nil, @"Create lists for places to travel to, favorite topics and much more", @"Message of a blank screen shown when a user has no reading lists");
-
-    [view.actionLabel removeFromSuperview];
-    [view.actionLine removeFromSuperview];
-    [view configureButtonWithTitle:[WMFCommonStrings createNewListTitle] image:[UIImage imageNamed:@"plus"] target:target action:action];
-    return view;
-}
-
-+ (instancetype)noHistoryEmptyView {
-    WMFEmptyView *view = [[self class] emptyView];
-    view.imageView.image = [UIImage imageNamed:@"history-blank"];
-    view.titleLabel.text = WMFCommonStrings.emptyNoHistoryTitle;
-    view.messageLabel.text = WMFCommonStrings.emptyNoHistorySubtitle;
-
-    [view.actionLabel removeFromSuperview];
-    [view.actionLine removeFromSuperview];
-    [view.button removeFromSuperview];
-    return view;
-}
-
 + (instancetype)noSelectedImageToInsertEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"insert-media/blank"];

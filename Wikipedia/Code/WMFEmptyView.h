@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noSavedPagesEmptyView;
 + (instancetype)noSavedPagesInReadingListEmptyView;
 + (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nullable SEL)action;
-+ (instancetype)noHistoryEmptyView;
 + (instancetype)noInternetConnectionEmptyView;
 + (instancetype)noSelectedImageToInsertEmptyView;
 + (instancetype)unableToLoadTalkPageEmptyView;

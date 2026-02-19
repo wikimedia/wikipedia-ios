@@ -87,19 +87,13 @@ struct TalkPageTopicReplyOnboardingView: View {
             }
             ZStack(alignment: .bottom, content: {
                 VStack {
-                    Button(action: {
-                        dismissAction?()
-                    }, label: {
-                        Text(CommonStrings.okTitle)
-                            .font(Font(callout))
-                            .foregroundColor(buttonTextColor)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .frame(width: 335, height: 46)
-                            .background(Color(theme.colors.link))
-                            .cornerRadius(8)
-                            .padding()
-                    })
+                    WMFLargeButton(
+                        style: .primary,
+                        title: CommonStrings.okTitle,
+                        action: {
+                            dismissAction?()
+                        }
+                    )
                     .accessibilityHint(WMFLocalizedString("talk-page-onboarding-button-accessibility-label", value: "Double tap to return to reply", comment: "Accessibility text for the ok button on the talk pages onboarding modal"))
                     Spacer().frame(height: 18)
                 }
@@ -107,5 +101,5 @@ struct TalkPageTopicReplyOnboardingView: View {
             .padding(sizeClassPadding)
         }
     }
-    
+
 }
