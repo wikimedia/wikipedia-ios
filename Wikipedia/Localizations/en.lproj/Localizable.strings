@@ -1139,15 +1139,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s ago";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";
-"replace-button-accessibility" = "Perform $1.";
-"replace-buttons-replace-accessibility" = "Replace single instance";
-"replace-buttons-replace-all-accessibility" = "Replace all instances";
-"replace-clear-button-accessibility" = "Clear replace";
-"replace-infolabel-method-replace" = "Replace";
-"replace-infolabel-method-replace-all" = "Replace all";
-"replace-method-button-accessibility" = "Replace method. Set to $1. Select to change.";
-"replace-textfield-accessibility" = "Replace";
-"replace-textfield-placeholder" = "Replace with…";
 "return-button-title" = "Return";
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";

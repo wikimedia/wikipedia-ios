@@ -11,6 +11,10 @@ extension ArticleViewController {
             return
         }
         
+        guard let toolbarController else {
+            return
+        }
+        
         watchlistController.watch(pageTitle: title, siteURL: siteURL, viewController: self, authenticationManager: authManager, theme: theme, sender: toolbarController.moreButton, sourceView: toolbarController.moreButtonSourceView, sourceRect: toolbarController.moreButtonSourceRect)
     }
     
@@ -31,7 +35,12 @@ extension ArticleViewController: WatchlistControllerDelegate {
         self.needsWatchButton = false
         self.needsUnwatchHalfButton = true
         self.needsUnwatchFullButton = false
-        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        
+        guard let toolbarController else {
+            return
+        }
+        
+        toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
         
     }
     
@@ -41,7 +50,11 @@ extension ArticleViewController: WatchlistControllerDelegate {
         self.needsUnwatchHalfButton = false
         self.needsUnwatchFullButton = true
         
-        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        guard let toolbarController else {
+            return
+        }
+        
+        toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
         
         
     }
@@ -52,6 +65,10 @@ extension ArticleViewController: WatchlistControllerDelegate {
         self.needsUnwatchHalfButton = false
         self.needsUnwatchFullButton = false
         
-        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        guard let toolbarController else {
+            return
+        }
+        
+        toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
     }
 }

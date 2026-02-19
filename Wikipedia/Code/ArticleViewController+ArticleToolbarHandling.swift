@@ -2,6 +2,16 @@ import WMFComponents
 import WMFData
 
 extension ArticleViewController: ArticleToolbarHandling {
+    var navigationToolbar: UIToolbar? {
+        return navigationController?.toolbar
+    }
+    
+    func updateToolbarItems() {
+        if let items = toolbarController?.currentItems {
+            self.toolbarItems = items
+        }
+    }
+    
     func backInTab(article: WMFData.WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController) {
         guard let navigationController,
               let siteURL = article.project.siteURL,
@@ -56,7 +66,7 @@ extension ArticleViewController: ArticleToolbarHandling {
     }
     
     func showThemePopover(from controller: ArticleToolbarController) {
-        themesPresenter.showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
+        themesPresenter?.showReadingThemesControlsPopup(on: self, responder: self, theme: theme)
         NavigationEventsFunnel.shared.logEvent(action: .articleToolbarAppearence)
     }
     
