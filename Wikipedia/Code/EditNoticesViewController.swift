@@ -4,7 +4,7 @@ protocol EditNoticesViewControllerDelegate: AnyObject {
     func editNoticesControllerUserTapped(url: URL)
 }
 
-class EditNoticesViewController: ThemeableViewController, RMessageSuppressing {
+class EditNoticesViewController: ThemeableViewController {
 
     // MARK: - Properties
 
