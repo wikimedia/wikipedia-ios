@@ -115,9 +115,12 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     return UIModalPresentationNone;
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferenceLinkTappedNotification object:URL];
-    return NO;
+- (UIAction *)textView:(UITextView *)textView primaryActionForTextItem:(UITextItem *)textItem defaultAction:(UIAction *)defaultAction {
+    if (textItem.link) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferenceLinkTappedNotification object:textItem.link];
+        return nil; // Prevent default action
+    }
+    return defaultAction;
 }
 
 - (IBAction)dismiss {
