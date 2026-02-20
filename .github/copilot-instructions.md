@@ -312,7 +312,7 @@ When does logic belong in a data controller vs a view model? This is sometimes a
 1. If logic requires importing UIKit or SwiftUI to work, then it belongs in the view model. We do not want WMFData to import any UI frameworks.
 2. If logic feels feature-specific, it should NOT be added to a shared data controller. Shared data controllers should be feature-agnostic. It CAN be added to a feature-specific data controller.
 
-The main goal of a data controller is to serve as a persistance vs. network abstraction layer, so that view models do not inherit Core Data baggage. It is acceptable if the data controller only fetches its needed data, then spits out the raw structure (only converted to simple structs / classes), and the view model does all manipulation beyond that.
+The main goal of a data controller is to serve as a persistence vs. network abstraction layer, so that view models do not inherit Core Data baggage. It is acceptable if the data controller only fetches its needed data, then spits out the raw structure (only converted to simple structs / classes), and the view model does all manipulation beyond that.
 
 All specific navigation calls (navigationController.push, viewController.present, etc.) are done via UIKit, and are handled outside of WMFComponents in Coordinator classes.
 
