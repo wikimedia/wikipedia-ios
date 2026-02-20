@@ -35,7 +35,7 @@ public final class WMFDonateViewController: WMFCanvasViewController, WMFNavigati
         var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
         
         if navigationController?.viewControllers.first === self {
-            closeConfig = WMFNavigationBarCloseButtonConfig(text: viewModel.localizedStrings.cancelTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
+            closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
         }
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)

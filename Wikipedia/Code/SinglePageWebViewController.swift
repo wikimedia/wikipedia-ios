@@ -200,9 +200,9 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             if navigationController?.viewControllers.first === self {
                 switch configType {
                 case .donate:
-                    closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
+                    closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
                 default:
-                    closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
+                    closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
                 }
 
             }

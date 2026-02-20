@@ -133,7 +133,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         var closeConfig: WMFNavigationBarCloseButtonConfig?
         
         if #unavailable(iOS 26.0) {
-            closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_ :)), alignment: .leading)
+            closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(close(_ :)), alignment: .leading)
         }
 
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
