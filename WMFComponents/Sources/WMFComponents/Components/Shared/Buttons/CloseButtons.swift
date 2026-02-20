@@ -1,8 +1,8 @@
 import SwiftUI
 
-public struct WMFLargeCloseButtonConfig {
+@objc public class WMFLargeCloseButtonConfig: NSObject {
     
-    public enum Alignment {
+    @objc public enum Alignment: Int {
         case leading
         case trailing
     }
@@ -12,7 +12,7 @@ public struct WMFLargeCloseButtonConfig {
     let action: Selector
     let alignment: Alignment
     
-    public init(imageType: WMFLargeCloseButtonImageType, target: Any, action: Selector, alignment: Alignment) {
+    @objc public init(imageType: WMFLargeCloseButtonImageType, target: Any, action: Selector, alignment: Alignment) {
         self.imageType = imageType
         self.target = target
         self.action = action
@@ -51,8 +51,8 @@ public struct WMFLargeCloseButtonConfig {
 
 // MARK: UIKit - UIBarButtonItem
 
-public extension UIBarButtonItem {
-    static func closeNavigationBarButtonItem(
+@objc public extension UIBarButtonItem {
+    @objc static func closeNavigationBarButtonItem(
         config: WMFLargeCloseButtonConfig
     ) -> UIBarButtonItem {
         let theme = WMFAppEnvironment.current.theme
@@ -81,8 +81,8 @@ public extension UIBarButtonItem {
 
 // MARK: UIKit - UIButton
 
-public extension UIButton {
-    static func closeNavigationButton(
+@objc public extension UIButton {
+    @objc static func closeNavigationButton(
         config: WMFLargeCloseButtonConfig
     ) -> UIButton {
         let theme = WMFAppEnvironment.current.theme
@@ -92,10 +92,18 @@ public extension UIButton {
         case .plainX:
             button.setImage(WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont), for: .normal)
             button.tintColor = theme.text
+            
+            if #available(iOS 26.0, *) {
+                button.configuration = .glass()
+            }
 
         case .prominentCheck:
             button.setImage(WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont), for: .normal)
             button.tintColor = theme.link
+            
+            if #available(iOS 26.0, *) {
+                button.configuration = .prominentGlass()
+            }
         }
 
         button.tag = config.imageType.tag
