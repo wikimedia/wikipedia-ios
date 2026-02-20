@@ -198,12 +198,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
             
             if navigationController?.viewControllers.first === self {
-                switch configType {
-                case .donate:
-                    closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
-                default:
-                    closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
-                }
+                closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
 
             }
             configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
