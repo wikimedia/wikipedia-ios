@@ -1,7 +1,7 @@
 import SwiftUI
 
 public protocol WMFEmptyViewDelegate: AnyObject {
-    func emptyViewDidTapSearch()
+    func emptyViewDidTapMainAction()
     func emptyViewDidTapFilters()
     func emptyViewDidShow(type: WMFEmptyViewStateType)
 }
@@ -13,12 +13,12 @@ public struct WMFEmptyView: View {
     weak var delegate: WMFEmptyViewDelegate?
     var type: WMFEmptyViewStateType
     let isScrollable: Bool
-    
+
     var foregroundColor: Color? {
         if let imageColor = viewModel.imageColor {
             return Color(uiColor: imageColor)
         }
-        
+
         return nil
     }
 
@@ -29,7 +29,7 @@ public struct WMFEmptyView: View {
             content
         }
     }
-    
+
     private var scrollableContent: some View {
         GeometryReader { geometry in
             ZStack {
@@ -43,7 +43,7 @@ public struct WMFEmptyView: View {
             }
         }
     }
-    
+
     private var content: some View {
         VStack {
             Spacer()
@@ -72,8 +72,8 @@ public struct WMFEmptyView: View {
             if let buttonTitle = viewModel.localizedStrings.buttonTitle,
                type == .noItems {
                 let configuration = WMFSmallButton.Configuration(style: .neutral)
-                WMFSmallButton(configuration: configuration, title: buttonTitle, action: delegate?.emptyViewDidTapSearch)
-                    .padding(EdgeInsets(top: 8, leading: 32, bottom: 0, trailing: 32))
+                WMFLargeButton(style: .primary, title: buttonTitle, action: delegate?.emptyViewDidTapMainAction)
+                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
             }
             Spacer()
         }
@@ -91,7 +91,7 @@ struct WMFEmptyViewFilterView: View {
     let attributedString: AttributedString
 
     var body: some View {
-        
+
         Text(attributedString)
             .font(Font(WMFFont.for(.subheadline)))
             .padding(2)

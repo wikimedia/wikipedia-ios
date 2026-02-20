@@ -1,62 +1,43 @@
 import Foundation
 import SwiftUI
 
-struct WMFLargeButton: View {
-    
-    enum Configuration {
-        case primary
-        case secondary
-    }
-    
+public struct WMFLargeButton: View {
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    
-    let configuration: Configuration
+
+    let style: WMFButtonStyleKind
     let title: String
-    let forceBackgroundColor: UIColor?
+    let forceBackgroundColor: UIColor? // Note: Currently unused, kept for backward compatibility
     let action: (() -> Void)?
-    
-    init(appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, configuration: Configuration, title: String, forceBackgroundColor: UIColor? = nil, action: (() -> Void)?) {
+
+    public init(
+        appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current,
+        style: WMFButtonStyleKind,
+        title: String,
+        forceBackgroundColor: UIColor? = nil,
+        action: (() -> Void)?
+    ) {
         self.appEnvironment = appEnvironment
-        self.configuration = configuration
+        self.style = style
         self.title = title
         self.forceBackgroundColor = forceBackgroundColor
         self.action = action
     }
-    
-    private var foregroundColor: UIColor {
-        switch configuration {
-        case .primary:
-            return WMFColor.white
-        case .secondary:
-            return appEnvironment.theme.link
-        }
-    }
-    
-    private var backgroundColor: UIColor {
-        
-        if let forceBackgroundColor {
-            return forceBackgroundColor
-        }
-        
-        switch configuration {
-        case .primary:
-            return appEnvironment.theme.link
-        case .secondary:
-            return .clear
-        }
-    }
-    
-    var body: some View {
-        Button(action: {
+
+    public var body: some View {
+        Button {
             action?()
-        }, label: {
+        } label: {
             Text(title)
                 .font(Font(WMFFont.for(.semiboldHeadline)))
-                .foregroundColor(Color(foregroundColor))
-                .frame(maxWidth: .infinity)
-                .frame(height: 46)
-                .background(Color(backgroundColor))
-                .cornerRadius(8)
-        })
+        }
+        .buttonStyle(
+            CapsuleButtonStyle(
+                kind: style,
+                layout: .fill,
+                theme: appEnvironment.theme,
+                height: 46
+            )
+        )
     }
 }

@@ -240,6 +240,8 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
         let headerViewHeight = self.headerView?.frame.height ?? 0
         talkPageView.updateEmptyErrorViewsTopPadding(padding: headerViewHeight)
+        
+        talkPageView.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: talkPageView.toolbarContainerView.frame.height, right: 0)
     }
 
     private func configureNavigationBar() {
@@ -524,7 +526,11 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     private var flexibleSpaceToolbarItem: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let item = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        if #available(iOS 26.0, *) {
+            item.hidesSharedBackground = false
+        }
+        return item
     }
 
     fileprivate func setupToolbar() {

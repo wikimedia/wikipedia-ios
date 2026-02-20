@@ -10,7 +10,7 @@ public class WMFSmallMenuButton: WMFComponentView {
 
     public struct Configuration {
 
-		// MARK: - Nested Types
+        // MARK: - Nested Types
 
         public struct MenuItem: Equatable, Identifiable {
             public let id = UUID()
@@ -31,19 +31,19 @@ public class WMFSmallMenuButton: WMFComponentView {
         var image: UIImage?
         let primaryColor: KeyPath<WMFTheme, UIColor>
         public let menuItems: [MenuItem]
-		public var metadata: [String: Any] = [:]
+        public var metadata: [String: Any] = [:]
 
-		// MARK: - Public
+        // MARK: - Public
 
-		public init(title: String? = nil, image: UIImage? = nil, primaryColor: KeyPath<WMFTheme, UIColor>,  menuItems: [MenuItem], metadata: [String: Any] = [:]) {
+        public init(title: String? = nil, image: UIImage? = nil, primaryColor: KeyPath<WMFTheme, UIColor>,  menuItems: [MenuItem], metadata: [String: Any] = [:]) {
             self.title = title
             self.image = image
             self.primaryColor = primaryColor
             self.menuItems = menuItems
-			self.metadata = metadata
+            self.metadata = metadata
         }
-		
-	}
+
+    }
 
     // MARK: - Properties
 
@@ -54,7 +54,7 @@ public class WMFSmallMenuButton: WMFComponentView {
 
     private lazy var button: UIButton = {
         let buttonConfig = createButtonConfig()
-        
+
         let button = UIButton(configuration: buttonConfig, primaryAction: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.showsMenuAsPrimaryAction = true
@@ -80,14 +80,14 @@ public class WMFSmallMenuButton: WMFComponentView {
         let buttonConfig = createButtonConfig()
         button.configuration = buttonConfig
     }
-    
+
     public func updateImage(_ image: UIImage?) {
         configuration.image = image
         let buttonConfig = createButtonConfig()
         button.configuration = buttonConfig
     }
 
-	// MARK: - Setup
+    // MARK: - Setup
 
     public override var intrinsicContentSize: CGSize {
         return button.intrinsicContentSize
@@ -115,9 +115,9 @@ public class WMFSmallMenuButton: WMFComponentView {
 
         return UIMenu(children: actions)
     }
-    
+
     private func createButtonConfig() -> UIButton.Configuration {
-        
+
         var buttonConfig = UIButton.Configuration.filled()
         buttonConfig.image = configuration.image
         buttonConfig.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: UIFontMetrics.default.scaledValue(for: 13))
@@ -133,10 +133,10 @@ public class WMFSmallMenuButton: WMFComponentView {
 
         buttonConfig.baseForegroundColor = theme[keyPath: configuration.primaryColor]
         buttonConfig.background.backgroundColor = theme[keyPath: configuration.primaryColor].withAlphaComponent(0.15)
-        
-        buttonConfig.background.cornerRadius = 8
+
+        buttonConfig.cornerStyle = .capsule
         buttonConfig.image = configuration.image
-        
+
         return buttonConfig
     }
 
@@ -145,7 +145,7 @@ public class WMFSmallMenuButton: WMFComponentView {
     private func userDidTapMenuItem(_ item: MenuItem) {
         delegate?.wmfMenuButton(self, didTapMenuItem: item)
     }
-    
+
     @objc private func userDidTap() {
         delegate?.wmfMenuButtonDidTap(self)
     }

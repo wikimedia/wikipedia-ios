@@ -3,8 +3,17 @@ import Foundation
 @objc extension UITabBarAppearance {
     @objc static func appearanceForTheme(_ theme: Theme) -> UITabBarAppearance {
         let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = theme.colors.chromeBackground
+        if #available(iOS 26.0, *) {
+            // Liquid Glass: transparent background and no divider.
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = .clear
+            appearance.backgroundEffect = nil
+            appearance.shadowColor = .clear
+            // If subtle divider needed later: appearance.shadowColor = theme.colors.border
+        } else {
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = theme.colors.chromeBackground
+        }
         
         let itemAppearance = UITabBarItemAppearance()
         let normalStateAppearance = itemAppearance.normal

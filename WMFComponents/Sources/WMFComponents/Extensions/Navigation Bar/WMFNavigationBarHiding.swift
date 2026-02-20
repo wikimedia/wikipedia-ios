@@ -35,10 +35,16 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
     ///     - from apply(theme:) if legacy
     ///     - from appEnvironmentDidChange() if WMFComponents
     func themeTopSafeAreaOverlay() {
-        topSafeAreaOverlayView?.backgroundColor =   WMFAppEnvironment.current.theme.paperBackground
+        if #available(iOS 26.0, *) {
+            topSafeAreaOverlayView?.backgroundColor = .clear
+            topSafeAreaOverlayView?.alpha = 1.0
+            return
+        }
+
+        topSafeAreaOverlayView?.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
         topSafeAreaOverlayView?.alpha = 0.95
     }
-    
+
     /// Call from UIViewController when the status bar height might change (like upon rotation)
     func calculateTopSafeAreaOverlayHeight() {
         let statusBarHeight = UIApplication.shared.statusBarFrame.height

@@ -483,6 +483,8 @@
 "empty-no-history-title" = "No history to show";
 "empty-no-other-article-languages-message" = "This article has not yet been written in any other languages";
 "empty-no-other-article-languages-title" = "No other languages available";
+"empty-no-reading-lists-message" = "Create lists for places to travel to, favorite topics and much more";
+"empty-no-reading-lists-title" = "Organize saved articles with reading lists";
 "empty-no-saved-pages-in-reading-list-message" = "Save pages to this list to see them appear here";
 "empty-no-saved-pages-in-reading-list-title" = "No pages saved to this list";
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
@@ -1135,15 +1137,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s ago";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";
-"replace-button-accessibility" = "Perform $1.";
-"replace-buttons-replace-accessibility" = "Replace single instance";
-"replace-buttons-replace-all-accessibility" = "Replace all instances";
-"replace-clear-button-accessibility" = "Clear replace";
-"replace-infolabel-method-replace" = "Replace";
-"replace-infolabel-method-replace-all" = "Replace all";
-"replace-method-button-accessibility" = "Replace method. Set to $1. Select to change.";
-"replace-textfield-accessibility" = "Replace";
-"replace-textfield-placeholder" = "Replace with…";
 "return-button-title" = "Return";
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";

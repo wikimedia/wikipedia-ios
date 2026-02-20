@@ -117,7 +117,7 @@ struct WMFYearInReviewContributionSlideView: View {
 
             if viewModel.contributionStatus == .noncontributor {
                 Group {
-                    WMFLargeButtonLoading(configuration: .primary, title: viewModel.donateButtonTitle, icon: WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline), isLoading: $parentViewModel.isLoadingDonate, action: viewModel.onTappedDonateButton)
+                    WMFLargeButtonLoading(style: .primary, title: viewModel.donateButtonTitle, icon: WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline), isLoading: $parentViewModel.isLoadingDonate, action: viewModel.onTappedDonateButton)
                         .padding([.leading, .trailing], sizeClassPadding)
                 }
                 .frame(maxWidth: .infinity)

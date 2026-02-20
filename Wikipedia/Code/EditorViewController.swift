@@ -66,7 +66,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
 
     private lazy var navigationItemController: EditorNavigationItemController = {
-        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem, dataStore: dataStore)
+        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem, navigationBar: navigationController?.navigationBar, dataStore: dataStore)
         navigationItemController.delegate = self
         return navigationItemController
     }()
@@ -129,12 +129,22 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     
     private func configureNavigationBar() {
+        
+        var closeConfig: WMFNavigationBarCloseButtonConfig?
+        
+        if #unavailable(iOS 26.0) {
+            closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_ :)), alignment: .leading)
+        }
 
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_ :)), alignment: .leading)
-
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        // Custom close button for now, but configureNavigationBar default implementation will eventually handle it internally
+        
+        if #available(iOS 26.0, *) {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
+        }
     }
     
     private func setupFocusNavigationView() {
@@ -563,10 +573,10 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         addChild(sourceEditor)
         sourceEditor.view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(sourceEditor.view)
+        view.insertSubview(sourceEditor.view, belowSubview: focusNavigationView)
         
-        let top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: sourceEditor.view.topAnchor)
-        let bottom = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: sourceEditor.view.bottomAnchor)
+        let top = view.topAnchor.constraint(equalTo: sourceEditor.view.topAnchor)
+        let bottom = view.bottomAnchor.constraint(equalTo: sourceEditor.view.bottomAnchor)
         let leading = view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: sourceEditor.view.leadingAnchor)
         let trailing = view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: sourceEditor.view.trailingAnchor)
         
@@ -585,7 +595,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     private func showFocusNavigationView() {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        editorTopConstraint?.constant = -focusNavigationView.frame.height
+        editorTopConstraint?.constant = -view.safeAreaInsets.top
         focusNavigationView.isHidden = false
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.readingThemesControlsToolbarItem.isEnabled = false
