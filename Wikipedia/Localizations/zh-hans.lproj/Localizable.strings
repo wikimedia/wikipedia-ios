@@ -1,5 +1,6 @@
 // Messages for Simplified Chinese (中文（简体）)
 // Exported from translatewiki.net
+// Author: 0x48fe75df30
 // Author: 22593
 // Author: 500000000006城
 // Author: A Chinese Wikipedian
@@ -200,6 +201,8 @@
 "activity-tab-onboarding-second-button-title" = "了解更多关于活动的信息";
 "activity-tab-onboarding-second-item-subtitle" = "探索对于您的贡献、以及您所分享知识的影响的分析。";
 "activity-tab-onboarding-second-item-title" = "影响亮点";
+"activity-tab-onboarding-third-item-subtitle-updated" = "活动包括已阅读、已保存和已编辑条目的完整时间线。您的阅读历史记录现在位于“搜索”标签页中。";
+"activity-tab-onboarding-third-item-title-updated" = "正在搜索阅读历史";
 "activity-tab-read-title" = "查看阅读记录";
 "activity-tab-satisfied" = "满意";
 "activity-tab-saved" = "本月保存的条目";
@@ -824,6 +827,7 @@
 "languages-settings-title" = "语言";
 "languages-title" = "更改语言";
 "languages-wikipedia" = "维基百科语言";
+"learn-about-editing" = "了解编辑";
 "learn-more-title" = "了解更多";
 "lockscreen-search-widget-description" = "从锁屏界面快速访问维基百科进行搜索。";
 "logged-out-continue-without-logging-in-button-title" = "继续而不登录";
