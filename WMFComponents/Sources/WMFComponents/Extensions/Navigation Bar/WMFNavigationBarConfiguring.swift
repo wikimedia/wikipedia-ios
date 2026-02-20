@@ -97,40 +97,6 @@ public struct WMFNavigationBarSearchConfig {
     }
 }
 
-// MARK: - SwiftUI Glass Close Button (file-scope, not nested in protocol extension)
-
-@available(iOS 26.0, *)
-struct WMFGlassCloseButton: View {
-    let size: CGFloat
-    let target: Any
-    let action: Selector
-    let iconColor: Color
-    let isCheckMark: Bool
-    let backgroundColor: Color
-
-    var body: some View {
-        Button {
-            _ = (target as AnyObject).perform(action)
-        } label: {
-            if isCheckMark {
-                Image(systemName: "checkmark")
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundStyle(iconColor)
-                    .frame(width: size, height: size)
-                    .background(backgroundColor)
-                    .clipShape(Circle())
-            } else {
-                Image(systemName: "xmark")
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundStyle(iconColor)
-                    .frame(width: size, height: size)
-                    .background(backgroundColor)
-                    .clipShape(Circle())
-            }
-        }
-    }
-}
-
 // MARK: - Navigation Bar Configuring Extension
 
 public extension WMFNavigationBarConfiguring where Self: UIViewController {
@@ -271,7 +237,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
         }
         
-        if let searchBarConfig {
+        if let searchBarConfig,
+           navigationItem.searchController == nil {
             let searchController = UISearchController(searchResultsController: searchBarConfig.searchResultsController)
             searchController.delegate = searchBarConfig.searchControllerDelegate
             searchController.searchResultsUpdater = searchBarConfig.searchResultsUpdater
