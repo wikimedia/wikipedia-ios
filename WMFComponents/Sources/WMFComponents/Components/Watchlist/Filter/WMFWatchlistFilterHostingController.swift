@@ -6,7 +6,7 @@ protocol WMFWatchlistFilterDelegate: AnyObject {
 	func watchlistFilterDidTapAddLanguage(_ hostingController: WMFWatchlistFilterHostingController, viewModel: WMFWatchlistFilterViewModel)
 }
 
-class WMFWatchlistFilterHostingController: WMFComponentHostingController<WMFWatchlistFilterView> {
+class WMFWatchlistFilterHostingController: WMFComponentHostingController<WMFWatchlistFilterView>, WMFNavigationBarConfiguring {
     
     private let viewModel: WMFWatchlistFilterViewModel
     private weak var delegate: WMFWatchlistFilterDelegate?
@@ -25,6 +25,19 @@ class WMFWatchlistFilterHostingController: WMFComponentHostingController<WMFWatc
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.title, customView: nil, alignment: .centerCompact)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(tappedClose), alignment: .trailing)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+    }
+    
+    @objc private func tappedClose() {
+        dismiss(animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

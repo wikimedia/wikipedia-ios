@@ -101,7 +101,6 @@ extension Binding {
 struct NotificationsCenterFilterView: View {
 
     let viewModel: NotificationsCenterFiltersViewModel
-    let doneAction: () -> Void
     
     var body: some View {
             List {
@@ -134,14 +133,7 @@ struct NotificationsCenterFilterView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationBarItems(
-                trailing:
-                    WMFLargeCloseButton(imageType: .plainX, action: {
-                        doneAction()
-                    })
-            )
             .listBackgroundColor(Color(viewModel.theme.colors.baseBackground))
-            .navigationBarTitle(Text(WMFLocalizedString("notifications-center-filters-title", value: "Filters", comment: "Navigation bar title text for the filters view presented from notifications center. Allows for filtering by read status and notification type.")), displayMode: .inline)
             .onAppear(perform: {
                 if #unavailable(iOS 16) {
                     UITableView.appearance().backgroundColor = UIColor.clear

@@ -22,17 +22,9 @@ struct NotificationsCenterInboxView: View {
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     let viewModel: NotificationsCenterInboxViewModel
-    let doneAction: () -> Void
     
     var body: some View {
         WMFFormView(viewModel: viewModel.formViewModel)
-            .navigationBarItems(
-                trailing:
-                    WMFLargeCloseButton(imageType: .plainX, action: {
-                        doneAction()
-                    })
-            )
             .padding(.horizontal, horizontalSizeClass == .regular ? WMFFont.for(.footnote).pointSize : 0)
-            .navigationBarTitle(Text(WMFLocalizedString("notifications-center-inbox-title", value: "Projects", comment: "Navigation bar title text for the inbox view presented from notifications center. Allows for filtering out notifications by Wikimedia project type.")), displayMode: .inline)
     }
 }
