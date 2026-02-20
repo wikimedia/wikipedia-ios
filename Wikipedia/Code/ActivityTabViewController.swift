@@ -64,24 +64,26 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 }
             }
         }
-        
+
         viewModel.presentCustomizeLogInToastAction = { [weak self] in
             guard let self else {
                 return
             }
-            
+
             let localizableStrings = WMFToastViewBasicViewModel.LocalizableStrings(title: WMFLocalizedString("activity-tab-customize-logout-warning", value: "You must be logged in to turn on this activity insight.", comment: "Activity tab - warning toast title displayed when a logged out user tries to enable a module requiring login."), buttonTitle: CommonStrings.logIn)
-            
+
             let buttonAction: () -> Void = { [weak self] in
                 self?.presentFullLoginFlow(fromCustomizeToast: true)
             }
-            
+
             let viewModel = WMFToastViewBasicViewModel(localizableStrings: localizableStrings, buttonAction: buttonAction)
             let view = WMFToastViewBasicView(viewModel: viewModel)
             WMFToastPresenter.shared.presentToastView(view: view)
         }
 
-        dataController.historyDataController = historyDataController
+        Task {
+            await dataController.setHistoryDataController(historyDataController)
+        }
 
         registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
             guard let self else { return }
