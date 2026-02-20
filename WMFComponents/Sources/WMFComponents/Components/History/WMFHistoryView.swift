@@ -28,29 +28,21 @@ public struct WMFHistoryView: View {
     }
 
     private func emptyView() -> some View {
-        GeometryReader { geometry in
-            ScrollView(showsIndicators: true) {
-                VStack {
-                    let locStrings = WMFEmptyViewModel.LocalizedStrings(
-                        title: viewModel.localizedStrings.emptyViewTitle,
-                        subtitle: viewModel.localizedStrings.emptyViewSubtitle,
-                        titleFilter: nil,
-                        buttonTitle: nil,
-                        attributedFilterString: nil
-                    )
-                    let emptyViewModel = WMFEmptyViewModel(
-                        localizedStrings: locStrings,
-                        image: viewModel.emptyViewImage,
-                        imageColor: nil,
-                        numberOfFilters: 0
-                    )
-                    WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true)
-                }
-                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-            }
-            .background(Color(theme.paperBackground))
-            .scrollBounceBehavior(.always)
-        }
+        let locStrings = WMFEmptyViewModel.LocalizedStrings(
+            title: viewModel.localizedStrings.emptyViewTitle,
+            subtitle: viewModel.localizedStrings.emptyViewSubtitle,
+            titleFilter: nil,
+            buttonTitle: nil,
+            attributedFilterString: nil
+        )
+        let emptyViewModel = WMFEmptyViewModel(
+            localizedStrings: locStrings,
+            image: viewModel.emptyViewImage,
+            imageColor: nil,
+            numberOfFilters: 0
+        )
+        return WMFEmptyView(viewModel: emptyViewModel, type: .noItems, isScrollable: true)
+                .ignoresSafeArea()
     }
 
     private func rowView(for section: HistorySection, item: HistoryItem) -> some View {
@@ -124,7 +116,7 @@ public struct WMFHistoryView: View {
                     .onAppear {
                         viewModel.geometryFrames[item.id] = geometry.frame(in: .global)
                     }
-                    .onChange(of: geometry.frame(in: .global)) { newFrame in
+                    .onChange(of: geometry.frame(in: .global)) { _, newFrame in
                         viewModel.geometryFrames[item.id] = newFrame
                     }
             }
@@ -134,19 +126,38 @@ public struct WMFHistoryView: View {
 
     private func listView() -> some View {
         List {
+
+            Section {
+                Text(viewModel.localizedStrings.historyHeaderTitle)
+                    .font(Font(WMFFont.for(.boldTitle3)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+                    .padding(.top, viewModel.topPadding)
+            }
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color(theme.paperBackground))
+
             ForEach(viewModel.sections) { section in
-                Section(header: headerViewForSection(section)) {
+
+                Section {
+
+                    // Header as a regular row so that they aren't sticky
+                    headerViewForSection(section)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color(theme.paperBackground))
+
                     ForEach(section.items) { item in
                         row(for: section, item)
                             .listRowBackground(Color(theme.paperBackground))
+                            .listRowSeparator(.hidden)
                     }
                 }
             }
         }
         .listStyle(.plain)
-        .padding(.top, viewModel.topPadding)
+        .listSectionSpacing(0)
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
+        .ignoresSafeArea(edges: .top)
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
@@ -161,14 +172,7 @@ public struct WMFHistoryView: View {
                 .ignoresSafeArea()
 
             if !viewModel.isEmpty {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(viewModel.localizedStrings.historyHeaderTitle)
-                        .font(Font(WMFFont.for(.boldTitle3)))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                        .padding(.horizontal)
-
                     listView()
-                }
             } else {
                 emptyView()
             }
