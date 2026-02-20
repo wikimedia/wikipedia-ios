@@ -299,13 +299,13 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             let closeButton: UIBarButtonItem
             switch closeButtonConfig.imageType {
             case .plainX:
-                closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close, font: .mediumSubheadline), style: .plain, target: closeButtonConfig.target, action: closeButtonConfig.action)
+                closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont), style: .plain, target: closeButtonConfig.target, action: closeButtonConfig.action)
             case .prominentCheck:
                 
                 if #available(iOS 26.0, *) {
-                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: .mediumSubheadline), style: .prominent, target: closeButtonConfig.target, action: closeButtonConfig.action)
+                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont), style: .prominent, target: closeButtonConfig.target, action: closeButtonConfig.action)
                 } else {
-                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: .mediumSubheadline), style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
+                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont), style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
                 }
                 closeButton.tintColor = WMFAppEnvironment.current.theme.link
             }
