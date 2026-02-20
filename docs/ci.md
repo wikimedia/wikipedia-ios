@@ -57,7 +57,7 @@ Our GitHub organization has a bot account called wmf-apps-ci which has been used
 
 2. When a Translatewiki PR is opened, a GitHub action runs the localizations script, commits and pushes the changes to the remote repository using the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
-3. We have a manually-triggered GitHub action that posts a PR to increment the app version. This commit is made with the the wmf-apps-ci account. It does the with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
+3. We have a manually-triggered GitHub action that posts a PR to increment the app version. This commit is made with the the wmf-apps-ci account. It does this with the same fine-tuned personal access token as the previous point. This personal access token is set as a GitHub Actions repository secret in iOS repository GitHub Settings.
 
 ### What happens when this token expires?
 
