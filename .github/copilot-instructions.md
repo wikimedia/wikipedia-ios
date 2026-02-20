@@ -21,7 +21,7 @@ Stores are classes that are capable of persisting data to the app. They can also
 1. userDefaultsStore - capable of saving and loading to user defaults
 2. sharedCacheStore - capable of saving and loading to the file system (note this calls back to the legacy area of the app, eventually we want to move this wholly into WMFData).
 
-(Note that both userDefaultsStore and sharedCachedStore are accessed via a generalized protocol WMFKeyValueStore)
+(Note that both userDefaultsStore and sharedCacheStore are accessed via a generalized protocol WMFKeyValueStore)
 
 3. coreDataStore - capable of saving and loading to WMFData's own Core Data xcdatamodel.
 
