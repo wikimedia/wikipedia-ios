@@ -15,8 +15,9 @@ public final class WMFHistoryViewModel: ObservableObject {
         let unsaveActionTitle: String
         let shareActionTitle: String
         let deleteSwipeActionLabel: String
+        let historyHeaderTitle: String
 
-        public init(emptyViewTitle: String, emptyViewSubtitle: String, todayTitle: String, yesterdayTitle: String, openArticleActionTitle: String, saveForLaterActionTitle: String, unsaveActionTitle: String, shareActionTitle: String, deleteSwipeActionLabel: String) {
+        public init(emptyViewTitle: String, emptyViewSubtitle: String, todayTitle: String, yesterdayTitle: String, openArticleActionTitle: String, saveForLaterActionTitle: String, unsaveActionTitle: String, shareActionTitle: String, deleteSwipeActionLabel: String, historyHeaderTitle: String) {
             self.emptyViewTitle = emptyViewTitle
             self.emptyViewSubtitle = emptyViewSubtitle
             self.todayTitle = todayTitle
@@ -26,6 +27,7 @@ public final class WMFHistoryViewModel: ObservableObject {
             self.unsaveActionTitle = unsaveActionTitle
             self.shareActionTitle = shareActionTitle
             self.deleteSwipeActionLabel = deleteSwipeActionLabel
+            self.historyHeaderTitle = historyHeaderTitle
         }
     }
 

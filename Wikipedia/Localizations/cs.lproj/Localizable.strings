@@ -113,8 +113,6 @@
 "activity-tab-onboarding-fourth-item-title" = "Mějte vše pod kontrolou";
 "activity-tab-onboarding-second-item-subtitle" = "Objevte informace o svých příspěvcích a o dosahu znalostí, které jste sdíleli.";
 "activity-tab-onboarding-second-item-title" = "Dopady vlivu";
-"activity-tab-onboarding-third-item-subtitle" = "Prozkoumejte statistiky uložených článků a dalších aktivit, které vás více spojují s Wikipedií.";
-"activity-tab-onboarding-third-item-title" = "Další způsoby, jak se zapojit";
 "activity-tab-saved" = "Články uložené tento měsíc";
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "advanced-settings-title" = "Pokročilé nastavení";
@@ -411,12 +409,10 @@
 "forgot-password-instructions" = "Vyplňte jedno z níže uvedených polí a obdržíte pokyny pro obnovení hesla prostřednictvím e-mailu";
 "forgot-password-title" = "Přenastavit heslo";
 "forgot-password-username-or-email-title" = "Nebo";
-"history-clear-all" = "Vymazat";
 "history-clear-confirmation-heading" = "Jste si jisti, že chcete smazat všechny vaše poslední položky?";
 "history-clear-delete-all" = "Smazat vše";
 "history-title" = "Historie";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na kanál Objevit";
-"home-button-history-accessibility-label" = "Wikipedie, zpět do Historie";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
 "home-more-like-footer" = "Více podobných článku jako $1";
 "home-nearby-footer" = "Více míst z vašeho okolí";
@@ -855,7 +851,15 @@
 "wikitext-upload-save-terms-name" = "Podmínkami užití";
 "year-in-review-articles-slide-subtitle" = "Zde jsou články, které jste v roce 2025 navštívili nejčastěji: \n$1";
 "year-in-review-categories-slide-subtitle" = "Kategorie seskupují články na podobná témata. V roce 2025 jste články v těchto zajímavých kategoriích navštívili několikrát.\n\n$1";
+"year-in-review-feature-explore-footer-v3" = "Vaše historie čtení je chráněna. Statistiky čtení se vypočítávají na základě dat uložených lokálně ve vašem zařízení.";
 "year-in-review-highlights-articles-read" = "Přečtené články";
+"year-in-review-highlights-favorite-day" = "Oblíbený den na čtení";
 "year-in-review-highlights-personalized-articles" = "Články, které čtu nejvíce";
 "year-in-review-highlights-title" = "Děkujeme, že jste strávili rok s Wikipedií.";
 "year-in-review-most-read-categories-title" = "Vaše nejzajímavější kategorie";
+"year-in-review-personalized-date-day-footer-v3" = "Oblíbený den na čtení";
+"year-in-review-personalized-date-month-footer-v3" = "Měsíc, ve kterém jste četli nejvíce";
+"year-in-review-personalized-date-time-footer-v3" = "Oblíbený čas na čtení";
+"year-in-review-personalized-date-title-v3" = "Máte jasné čtenářské návyky";
+"year-in-review-time-evening" = "večer";
+"year-in-review-time-morning" = "ráno";

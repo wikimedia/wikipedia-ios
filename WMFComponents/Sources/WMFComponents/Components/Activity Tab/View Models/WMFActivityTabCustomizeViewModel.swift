@@ -6,11 +6,11 @@ import Combine
 public final class WMFActivityTabCustomizeViewModel: ObservableObject {
     let localizedStrings: LocalizedStrings
     
-    @Published var isTimeSpentReadingOn: Bool = true
-    @Published var isReadingInsightsOn: Bool = true
-    @Published var isEditingInsightsOn: Bool = true
-    @Published var isTimelineOfBehaviorOn: Bool = true
-    var isLoggedIn: Bool {
+    @Published public var isTimeSpentReadingOn: Bool = true
+    @Published public var isReadingInsightsOn: Bool = true
+    @Published public var isEditingInsightsOn: Bool = true
+    @Published public var isTimelineOfBehaviorOn: Bool = true
+    public var isLoggedIn: Bool {
         didSet {
             Task {
                await updateFromDataController()
@@ -38,7 +38,7 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         let isTimeSpentReadingOn = isLoggedIn ? await dataController.isTimeSpentReadingOn : false
         let isReadingInsightsOn = isLoggedIn ? await dataController.isReadingInsightsOn : false
         let isEditingInsightsOn = isLoggedIn ?  await dataController.isEditingInsightsOn : false
-        let isTimelineOfBehaviorOn = await dataController.isTimelineOfBehaviorOn
+        let isTimelineOfBehaviorOn = isLoggedIn ? await dataController.isTimelineOfBehaviorOn : false
         
         self.isTimeSpentReadingOn = isTimeSpentReadingOn
         self.isReadingInsightsOn = isReadingInsightsOn
@@ -82,11 +82,11 @@ public final class WMFActivityTabCustomizeViewModel: ObservableObject {
         
         $isTimelineOfBehaviorOn
             .sink { [weak self] value in
-                guard let self else { return }
+                guard let self, self.isLoggedIn else { return }
+
                 Task {
                     await self.dataController.updateIsTimelineOfBehaviorOn(value)
                 }
-                
             }
             .store(in: &cancellables)
     }

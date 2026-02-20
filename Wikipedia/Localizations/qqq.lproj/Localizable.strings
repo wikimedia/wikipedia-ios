@@ -14,8 +14,6 @@
 "about-repositories-app-source-license" = "Text explaining the app source licensing. $1 is the message {{msg-wikimedia|about-repositories-app-source-license-mit}}.";
 "about-repositories-app-source-license-mit" = "Name of the \"MIT\" license";
 "about-send-feedback" = "Link text for sending app feedback";
-"about-testers" = "Header text for (software) testers section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
-"about-testers-details" = "Description of the Quality Assurance (QA) testers. $1 is specialistsguild.org, the website of the testing group.";
 "about-title" = "Title for credits page {{Identical|About}}";
 "about-translators" = "Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Translator}}";
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
@@ -94,6 +92,18 @@
 "activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
 "activity-tab-hours-minutes-read" = "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes.";
 "activity-tab-hours-on-wikipedia-ios" = "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization";
+"activity-tab-impact-all-time-title" = "Title for activity tab module about all time editing impact";
+"activity-tab-impact-best-streak-format" = "Count in impact module for best editing streak in number of days. $1 is replaced with number of days.";
+"activity-tab-impact-best-streak-label" = "Label in impact module for best streak day count";
+"activity-tab-impact-edits-label" = "Label in impact module for recent activity edit count";
+"activity-tab-impact-last-edited-label" = "Label in impact module for last edited date";
+"activity-tab-impact-recent-activity-title" = "Title for activity tab module about your recent editing activity";
+"activity-tab-impact-recent-startend-accessibility" = "Accessibility label in impact module for start / end date recent activity. $1 is replaced with start date, $2 is replaced with end date.";
+"activity-tab-impact-thanks-label" = "Label in impact module for thanks count";
+"activity-tab-impact-total-edits-label" = "Label in impact module for total edits count";
+"activity-tab-impact-views-day" = "Accessibility label for activity tab views line graph, y-axis.";
+"activity-tab-impact-views-title" = "Title for activity tab module about views on articles user edited";
+"activity-tab-impact-views-views" = "Accessibility label for activity tab views line graph, x-axis.";
 "activity-tab-log-in-or-create-account" = "Title for activity tab when users are logged out.";
 "activity-tab-logged-out-subtitle" = "Subtitle for logged out users";
 "activity-tab-logged-out-title" = "Title for logged out users";
@@ -111,8 +121,8 @@
 "activity-tab-onboarding-second-button-title" = "Activity tabs secondary button to learn more";
 "activity-tab-onboarding-second-item-subtitle" = "Activity tabs second item subtitle";
 "activity-tab-onboarding-second-item-title" = "Title for activity tabs second item";
-"activity-tab-onboarding-third-item-subtitle" = "Activity tabs third item subtitle";
-"activity-tab-onboarding-third-item-title" = "Title for activity tabs third item";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Activity tabs third item subtitle";
+"activity-tab-onboarding-third-item-title-updated" = "Title for activity tabs third item";
 "activity-tab-read-title" = "Title for the reading history activity tab";
 "activity-tab-remaining-articles" = "Activity tab saved articles amount, where $1 is replaced with the amount of excess articles saved above 3.";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
@@ -574,6 +584,7 @@
 "explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
 "explore-survey-subtitle" = "Subtitle of one-time survey prompt displayed to users on the Explore feed.";
 "explore-survey-title" = "Title of one-time survey prompt displayed to users on the Explore feed.";
+"explore-wikipedia" = "Button title to explore Wikipedia";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-generic-error" = "Error message displayed after user has tried exporting their data and an error occurs.";
@@ -624,12 +635,10 @@
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
 "gan-variants-alert-body" = "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).";
 "gan-variants-alert-title" = "Title of alert used to inform users about Gan variant support.";
-"history-clear-all" = "Text of the button shown at the top of history which deletes all history {{Identical|Clear}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "history-clear-delete-all" = "Button text for confirming delete all action";
 "history-title" = "Title of the history screen shown on history tab {{Identical|History}}";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
-"home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
@@ -739,6 +748,7 @@
 "languages-settings-title" = "Title for the 'Languages' section in Settings";
 "languages-title" = "Title for language picker {{Identical|Language}}";
 "languages-wikipedia" = "Title for list of Wikipedia languages";
+"learn-about-editing" = "Button title to learn about editing";
 "learn-more-title" = "Button title text to learn more, used in various contexts. It typically sends users to another view with additional context about the feature.";
 "lockscreen-search-widget-description" = "Text for description of lockscreen search widget displayed when adding to lock screen.";
 "logged-out-continue-without-logging-in-button-title" = "Title for button allowing user to continue without logging back in to their account";
@@ -749,6 +759,8 @@
 "login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
 "login-title" = "Title for log in interface";
+"looking-for-something-new" = "Title prompting user to explore Wikipedia";
+"looks-like-you-havent-made-an-edit" = "Message encouraging user to make their first edit";
 "main-menu-about" = "Button for showing information about the app.";
 "main-menu-account-login" = "Button text for logging in.";
 "main-menu-account-logout" = "Button text for logging out.";
@@ -1591,3 +1603,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Accessibility label for the Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Accessibility label for the Wikimedia Foundation logo";
 "yesterday-title" = "Title for yesterday section on article view history";
+"zero-edits-to-articles" = "Message showing zero recent edits";

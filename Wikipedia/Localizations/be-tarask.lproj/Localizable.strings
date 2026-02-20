@@ -12,11 +12,11 @@
 "about-libraries-license" = "Ліцэнзія";
 "about-product-of" = "$1 стварыла гэты прадукт з дапамогай такіх валянтэраў, як вы";
 "about-repositories" = "Рэпазыторыі";
-"about-send-feedback" = "Даслаць водгук пра дастасаваньне";
+"about-send-feedback" = "Даслаць водгук пра аплікацыю";
 "about-testers" = "Тэстэры";
 "about-testers-details" = "QA-тэставаньне ад $1";
 "about-title" = "Пра";
-"about-translators" = "Перакладчыкі";
+"about-translators" = "Перакладнікі";
 "about-translators-details" = "Перакладзена дабраахвотнікамі на $1";
 "about-wikimedia-foundation" = "Фундацыя Вікімэдыя";
 "about-wikipedia" = "Вікіпэдыя";
@@ -31,12 +31,14 @@
 "account-creation-title" = "Стварыць новы рахунак";
 "account-group-title" = "Ваш рахунак";
 "account-request-vanishing" = "Зьнішчыць рахунак";
+"action-cancel" = "Скасаваць";
 "article-languages-filter-placeholder" = "Знайсьці мову";
 "article-languages-label" = "Выберыце мову";
 "back-button-accessibility-label" = "Назад";
 "button-next" = "Далей";
 "button-save-for-later" = "Захаваць на пазьней";
 "button-saved-for-later" = "Захаваная на пазьней";
+"cancel" = "Скасаваць";
 "close-button-accessibility-label" = "Закрыць";
 "compass-direction" = "на $1 гадзін(аў)";
 "edit-summary-choice-fixed-grammar" = "Выпраўленая артаграфія";
@@ -56,6 +58,7 @@
 "explore-nearby-heading" = "Месцы побач";
 "explore-potd-heading" = "Выява дня";
 "explore-random-article-heading" = "Выпадковы артыкул";
+"field-backup-token-title" = "Рэзэрвовая копія коду";
 "history-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя нядаўнія элемэнты?";
 "history-clear-delete-all" = "Так, выдаліць усё";
 "history-title" = "Гісторыя";
@@ -76,7 +79,7 @@
 "main-menu-account-title-logged-in" = "Увайшлі як $1";
 "main-menu-heading-legal" = "Прыватнасьць і ўмовы";
 "main-menu-nearby" = "Паблізу";
-"main-menu-privacy-policy" = "Правілы адносна прыватнасьці";
+"main-menu-privacy-policy" = "Палітыка прыватнасьці";
 "main-menu-rate-app" = "Ацаніць праграму";
 "main-menu-terms-of-use" = "Умовы ўжываньня";
 "main-menu-title" = "Болей";
@@ -93,6 +96,7 @@
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
 "preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
+"privacy-policy-title" = "Палітыка прыватнасьці";
 "reading-list-login-or-create-account-button-title" = "Увайсьці або стварыць рахунак";
 "reading-list-sync-enabled-panel-title" = "Сынхранізацыя ўключана на гэтым рахунку";
 "saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";

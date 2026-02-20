@@ -17,19 +17,19 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     let deleteAccessibilityLabel: String?
     
     let bottomButtonTitle: String?
-    let viewsString: String?
+    let footerText: String?
     
     private var summary: WMFArticleSummary?
-    @Published var articleDescription: String?
+    @Published var articleDescription: String
     @Published var uiImage: UIImage?
     
-    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil, bottomButtonTitle: String? = nil, viewsString: String? = nil) {
+    internal init(id: String, title: String, projectID: String, iconImage: UIImage? = nil, iconAccessibilityLabel: String, tapAction: (() -> Void)? = nil, contextMenuOpenAction: (() -> Void)? = nil, contextMenuOpenText: String? = nil, deleteItemAction: (() -> Void)? = nil, deleteAccessibilityLabel: String? = nil, bottomButtonTitle: String? = nil, footerText: String? = nil) {
         self.id = id
         self.title = title
         self.projectID = projectID
         self.iconImage = iconImage
         self.iconAccessibilityLabel = iconAccessibilityLabel
-        self.articleDescription = nil
+        self.articleDescription = " "
         self.uiImage = nil
         self.tapAction = tapAction
         self.contextMenuOpenAction = contextMenuOpenAction
@@ -38,7 +38,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         self.deleteAccessibilityLabel = deleteAccessibilityLabel
         self.summary = nil
         self.bottomButtonTitle = bottomButtonTitle
-        self.viewsString = viewsString
+        self.footerText = footerText
         
         Task {
             try await loadDescriptionAndImage()
@@ -64,10 +64,10 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         } else if let extract = summary?.extract, !extract.isEmpty {
             self.articleDescription = extract
         } else {
-            self.articleDescription = nil
+            self.articleDescription = " "
         }
         
-        let imageDataController = WMFImageDataController()
+        let imageDataController = WMFImageDataController.shared
         
         guard let thumbnailURL = summary?.thumbnailURL else {
             return
@@ -86,10 +86,36 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
     }
     
     var accessibilityLabelParts: String {
-        if let bottomButtonTitle {
-            return [iconAccessibilityLabel, title, articleDescription, bottomButtonTitle].compactMap { $0 }.joined(separator: " - ")
+        
+        var accessibilityLabel = ""
+        if !iconAccessibilityLabel.isEmpty {
+            accessibilityLabel.append(iconAccessibilityLabel + ", ")
         }
-        return [iconAccessibilityLabel, title, articleDescription].compactMap { $0 }.joined(separator: " - ")
+        
+        if !title.isEmpty {
+            accessibilityLabel.append(title + ", ")
+        }
+        
+        if !articleDescription.isEmpty {
+            accessibilityLabel.append(articleDescription + ", ")
+        }
+        
+        if let bottomButtonTitle,
+           !bottomButtonTitle.isEmpty {
+            accessibilityLabel.append(bottomButtonTitle + ", ")
+        }
+        
+        if let footerText,
+           !footerText.isEmpty {
+            accessibilityLabel.append(footerText + ", ")
+        }
+        
+        // remove last comma
+        if accessibilityLabel.count > 2 {
+            accessibilityLabel = String(accessibilityLabel.prefix(accessibilityLabel.count - 2))
+        }
+        
+        return accessibilityLabel
     }
         
 }
@@ -125,7 +151,10 @@ struct WMFAsyncPageRow: View {
                         .scaledToFill()
                         .frame(width: 40, height: 40)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
-                    
+                } else {
+                    Color.clear
+                        .frame(width: 40, height: 40)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
                 }
             }
             .background(Color(theme.paperBackground))
@@ -140,7 +169,7 @@ struct WMFAsyncPageRow: View {
                 .padding(.top, 4)
             }
         }
-        .padding(.vertical, viewModel.viewsString == nil ? 10 : 0)
+        .padding(.vertical, viewModel.footerText == nil ? 10 : 0)
     }
 
     @ViewBuilder
@@ -150,16 +179,16 @@ struct WMFAsyncPageRow: View {
                 .font(WMFSwiftUIFont.font(.callout))
                 .foregroundColor(Color(theme.text))
                 .lineLimit(1)
-            if let description = viewModel.articleDescription {
-                Text(description)
-                    .font(WMFSwiftUIFont.font(.subheadline))
-                    .foregroundColor(Color(theme.secondaryText))
-                    .lineLimit(1)
-            }
-            if let viewsString = viewModel.viewsString {
+            
+            Text(viewModel.articleDescription)
+                .font(WMFSwiftUIFont.font(.subheadline))
+                .foregroundColor(Color(theme.secondaryText))
+                .lineLimit(1)
+            
+            if let viewsString = viewModel.footerText {
                 Text(viewsString)
                     .foregroundStyle(Color(uiColor: theme.link))
-                    .font(WMFSwiftUIFont.font(.caption1))
+                    .font(Font(WMFFont.for(.semiboldCaption1)))
                     .padding(.bottom, 0)
             }
         }

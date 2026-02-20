@@ -55,4 +55,16 @@ public extension DateFormatter {
             return wmfMonthDayDateFormatter.string(from: date)
         }
     }
+    
+    static let lastEditedDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
+    }()
+    
+    static let monthDayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMd")
+        return formatter
+    }()
 }

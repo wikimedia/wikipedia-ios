@@ -23,6 +23,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     // MARK: - Localization
 
     public struct LocalizedStrings {
+
         public let userNamesReading: (String) -> String
         public let noUsernameReading: String
         public let totalHoursMinutesRead:  (Int, Int) -> String
@@ -42,7 +43,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let yesterdayTitle: String
         public let openArticle: String
         public let deleteAccessibilityLabel: String
-        public let totalEdits: String
+        public let totalEditsAcrossProjects: String
         public let read: String
         public let edited: String
         public let saved: String
@@ -62,10 +63,27 @@ public final class WMFActivityTabViewModel: ObservableObject {
         public let contributionsThisMonth: String
         public let thisMonth: String
         public let lastMonth: String
+        public let lookingForSomethingNew: String
+        public let exploreWikipedia: String
+        public let zeroEditsToArticles: String
+        public let looksLikeYouHaventMadeAnEdit: String
+        public let makeAnEdit: String
         public let viewsString: (Int) -> String
         public let mostViewed: String
+        public let allTimeImpactTitle: String
+        public let totalEditsLabel: String
+        public let bestStreakValue: (Int) -> String
+        public let bestStreakLabel: String
+        public let thanksLabel: String
+        public let lastEditedLabel: String
+        public let yourRecentActivityTitle: String
+        public let editsLabel: String
+        public let startEndDatesAccessibilityLabel: (String, String) -> String
+        public let viewsOnArticlesYouveEditedTitle: String
+        public let lineGraphDay: String
+        public let lineGraphViews: String
         
-        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEdits: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, viewsString: @escaping (Int) -> String, mostViewed: String) {
+        public init(userNamesReading: @escaping (String) -> String, noUsernameReading: String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String, totalArticlesRead: String, week: String, articlesRead: String, topCategories: String, articlesSavedTitle: String, remaining: @escaping (Int) -> String, loggedOutTitle: String, loggedOutSubtitle: String, loggedOutPrimaryCTA: String, yourImpact: String, todayTitle: String, yesterdayTitle: String, openArticle: String, deleteAccessibilityLabel: String, totalEditsAcrossProjects: String, read: String, edited: String, saved: String, emptyViewTitleLoggedIn: String, emptyViewSubtitleLoggedIn: String, emptyViewTitleLoggedOut: String, emptyViewSubtitleLoggedOut: String, customizeTimeSpentReading: String, customizeReadingInsights: String, customizeEditingInsights: String, customizeAllTimeImpact: String, customizeLastInAppDonation: String, customizeTimelineOfBehavior: String, customizeFooter: String, customizeEmptyState: String, viewChanges: String, contributionsThisMonth: String, thisMonth: String, lastMonth: String, lookingForSomethingNew: String, exploreWikipedia: String, zeroEditsToArticles: String, looksLikeYouHaventMadeAnEdit: String, makeAnEdit: String, viewsString: @escaping (Int) -> String, mostViewed: String, allTimeImpactTitle: String, totalEditsLabel: String, bestStreakValue: @escaping (Int) -> String, bestStreakLabel: String, thanksLabel: String, lastEditedLabel: String, yourRecentActivityTitle: String, editsLabel: String, startEndDatesAccessibilityLabel: @escaping (String, String) -> String, viewsOnArticlesYouveEditedTitle: String, lineGraphDay: String, lineGraphViews: String) {
             self.userNamesReading = userNamesReading
             self.noUsernameReading = noUsernameReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
@@ -85,7 +103,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.yesterdayTitle = yesterdayTitle
             self.openArticle = openArticle
             self.deleteAccessibilityLabel = deleteAccessibilityLabel
-            self.totalEdits = totalEdits
+            self.totalEditsAcrossProjects = totalEditsAcrossProjects
             self.read = read
             self.edited = edited
             self.saved = saved
@@ -105,8 +123,25 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.contributionsThisMonth = contributionsThisMonth
             self.thisMonth = thisMonth
             self.lastMonth = lastMonth
+            self.lookingForSomethingNew = lookingForSomethingNew
+            self.exploreWikipedia = exploreWikipedia
+            self.zeroEditsToArticles = zeroEditsToArticles
+            self.looksLikeYouHaventMadeAnEdit = looksLikeYouHaventMadeAnEdit
+            self.makeAnEdit = makeAnEdit
             self.viewsString = viewsString
             self.mostViewed = mostViewed
+            self.allTimeImpactTitle = allTimeImpactTitle
+            self.totalEditsLabel = totalEditsLabel
+            self.bestStreakValue = bestStreakValue
+            self.bestStreakLabel = bestStreakLabel
+            self.thanksLabel = thanksLabel
+            self.lastEditedLabel = lastEditedLabel
+            self.yourRecentActivityTitle = yourRecentActivityTitle
+            self.editsLabel = editsLabel
+            self.startEndDatesAccessibilityLabel = startEndDatesAccessibilityLabel
+            self.viewsOnArticlesYouveEditedTitle = viewsOnArticlesYouveEditedTitle
+            self.lineGraphDay = lineGraphDay
+            self.lineGraphViews = lineGraphViews
         }
     }
 
@@ -118,6 +153,8 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var authenticationState: LoginState
     @Published public var articlesReadViewModel: ArticlesReadViewModel
     @Published public var articlesSavedViewModel: ArticlesSavedViewModel
+    
+    var yourImpactOnWikipediaSubtitle: String?
     @Published var mostViewedArticlesViewModel: MostViewedArticlesViewModel?
     @Published var contributionsViewModel: ContributionsViewModel?
     @Published var allTimeImpactViewModel: AllTimeImpactViewModel?
@@ -126,7 +163,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
     @Published public var timelineViewModel: TimelineViewModel
     @Published public var emptyViewModel: WMFEmptyViewModel
     @Published public var customizeViewModel: WMFActivityTabCustomizeViewModel
-    @Published public var shouldShowLogInPrompt: Bool = false
     @Published var sections: [TimelineViewModel.TimelineSection] = [] {
         didSet {
             recomputeShouldShowEmptyState()
@@ -134,6 +170,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     @Published private(set) var shouldShowEmptyState: Bool = false
+    @Published public var shouldShowExploreCTA: Bool = false
 
     @Published var globalEditCount: Int?
     @Published public var isLoading: Bool = false
@@ -142,9 +179,21 @@ public final class WMFActivityTabViewModel: ObservableObject {
     public var fetchDataCompleteAction: ((Bool) -> Void)?
     public var openCustomize: () -> Void = { }
     public var getURL: ((WMFUserImpactData.TopViewedArticle, WMFProject) -> URL?)?
+    public var exploreWikipedia: () -> Void = { }
+    public var makeAnEdit: () -> Void = { }
+    public var isExploreFeedOn: Bool = true
     
     private var cancellables = Set<AnyCancellable>()
     private var isFirstTimeLoading: Bool = true
+    
+    var shouldShowYourImpactHeader: Bool {
+        return mostViewedArticlesViewModel != nil ||
+            contributionsViewModel != nil ||
+            allTimeImpactViewModel != nil ||
+            recentActivityViewModel != nil ||
+            articleViewsViewModel != nil ||
+            (globalEditCount != nil && (globalEditCount ?? 0) > 0)
+    }
 
     // MARK: - Init
 
@@ -189,10 +238,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
                     .store(in: &cancellables)
         
         self.timelineViewModel.activityTabViewModel = self
-        
-        Task {
-            await self.updateShouldShowLoginPrompt()
-        }
     }
 
     // MARK: - Loading
@@ -216,7 +261,11 @@ public final class WMFActivityTabViewModel: ObservableObject {
             self.articlesSavedViewModel = articlesSavedViewModel
             self.timelineViewModel = timelineViewModel
             self.globalEditCount = globalEditCount
-
+            
+            shouldShowExploreCTA = articlesReadViewModel.totalArticlesRead == 0 &&
+                                   articlesSavedViewModel.articlesSavedAmount == 0 &&
+                                   isExploreFeedOn
+            
             isEmpty =
                 articlesReadViewModel.hoursRead == 0 &&
                 articlesReadViewModel.minutesRead == 0 &&
@@ -248,6 +297,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
             globalEditCount = count
         } catch {
             debugPrint("Error getting global edit count: \(error)")
+            globalEditCount = nil
         }
     }
 
@@ -257,26 +307,42 @@ public final class WMFActivityTabViewModel: ObservableObject {
         do {
             let data = try await dataController.getUserImpactData(userID: userID)
             if let getURL = getURL {
-                self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
+                // Only recreate if data has actually changed
+                if let existing = self.mostViewedArticlesViewModel,
+                   existing.hasSameArticles(as: data) {
+                    // Keep existing view model
+                } else {
+                    self.mostViewedArticlesViewModel = MostViewedArticlesViewModel(data: data, getURL: getURL)
+                }
             }
             self.contributionsViewModel = ContributionsViewModel(data: data, activityViewModel: self)
-            self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data)
-            self.recentActivityViewModel = RecentActivityViewModel(data: data)
-            self.articleViewsViewModel = ArticleViewsViewModel(data: data)
+            self.allTimeImpactViewModel = AllTimeImpactViewModel(data: data, activityViewModel: self)
+            self.recentActivityViewModel = RecentActivityViewModel(data: data, activityViewModel: self)
+            self.articleViewsViewModel = ArticleViewsViewModel(data: data, activityViewModel: self)
         } catch {
             debugPrint("Error getting user impact: \(error)")
+            self.mostViewedArticlesViewModel = nil
+            self.contributionsViewModel = nil
+            self.allTimeImpactViewModel = nil
+            self.recentActivityViewModel = nil
+            self.articleViewsViewModel = nil
         }
     }
 
-    public func updateUsername(username: String) {
-        articlesReadViewModel.username = username
-        articlesReadViewModel.usernamesReading = username.isEmpty
+    public func updateUsername(username: String?) {
+        let resolvedUsername = username ?? ""
+        articlesReadViewModel.username = resolvedUsername
+        articlesReadViewModel.usernamesReading = resolvedUsername.isEmpty
             ? localizedStrings.noUsernameReading
-            : localizedStrings.userNamesReading(username)
+            : localizedStrings.userNamesReading(resolvedUsername)
     }
 
     public func updateID(userID: Int?) {
         self.userID = userID
+    }
+    
+    public func updateYourImpactOnWikipediaSubtitle(_ subtitle: String?) {
+        self.yourImpactOnWikipediaSubtitle = subtitle
     }
 
     private static func generateEmptyViewModel(localizedStrings: LocalizedStrings, isLoggedIn: Bool) -> WMFEmptyViewModel {
@@ -294,21 +360,48 @@ public final class WMFActivityTabViewModel: ObservableObject {
             numberOfFilters: 0)
     }
     
-    public func updateAuthenticationState(authState: LoginState) {
-        if self.authenticationState != authState {
-            isFirstTimeLoading = true
-        }
+    public func updateAuthenticationState(authState: LoginState, needsRefetch: Bool) {
+        isLoading = true
         
         self.authenticationState = authState
-        Task {
-            await self.updateShouldShowLoginPrompt()
-        }
         self.emptyViewModel = Self.generateEmptyViewModel(localizedStrings: localizedStrings, isLoggedIn: authState == .loggedIn)
-        if self.authenticationState != .loggedIn {
-            globalEditCount = nil
-        }
         self.customizeViewModel.isLoggedIn = authState == .loggedIn
-        recomputeShouldShowEmptyState()
+        
+        if self.authenticationState != .loggedIn {
+            updateUsername(username: nil)
+            timelineViewModel.setUser(username: nil)
+            globalEditCount = nil
+            mostViewedArticlesViewModel = nil
+            contributionsViewModel = nil
+            allTimeImpactViewModel = nil
+            recentActivityViewModel = nil
+            articleViewsViewModel = nil
+            Task {
+                await timelineViewModel.fetch()
+                recomputeShouldShowEmptyState()
+                isLoading = false
+            }
+        } else if needsRefetch {
+            // re-fetch anything that might change based on login state
+            Task {
+                
+                // first reset things
+                globalEditCount = nil
+                mostViewedArticlesViewModel = nil
+                contributionsViewModel = nil
+                allTimeImpactViewModel = nil
+                recentActivityViewModel = nil
+                articleViewsViewModel = nil
+                
+                await timelineViewModel.fetch()
+                await getGlobalEditCount()
+                await fetchUserImpact()
+                recomputeShouldShowEmptyState()
+                isLoading = false
+            }
+        } else {
+            isLoading = false
+        }
     }
 
     public var hoursMinutesRead: String {
@@ -316,12 +409,6 @@ public final class WMFActivityTabViewModel: ObservableObject {
             articlesReadViewModel.hoursRead,
             articlesReadViewModel.minutesRead
         )
-    }
-    
-    public func closeLoginPrompt() {
-        Task {
-            await dismissLoginPrompt()
-        }
     }
 
     // MARK: - Helpers
@@ -357,23 +444,5 @@ public final class WMFActivityTabViewModel: ObservableObject {
 
     func formatDate(_ dateTime: Date) -> String {
         DateFormatter.wmfMonthDayYearDateFormatter.string(from: dateTime)
-    }
-    
-    func updateShouldShowLoginPrompt() async {
-        let shouldShow = await dataController.shouldShowLoginPrompt(for: authenticationState)
-        shouldShowLogInPrompt = shouldShow
-    }
-
-    func dismissLoginPrompt() async {
-        shouldShowLogInPrompt = false
-        
-        switch authenticationState {
-        case .loggedOut:
-            await dataController.setLoggedOutUserHasDismissedActivityTabLogInPrompt(true)
-        case .temp:
-            await dataController.setTempAccountUserHasDismissedActivityTabLogInPrompt(true)
-        case .loggedIn:
-            break
-        }
     }
 }

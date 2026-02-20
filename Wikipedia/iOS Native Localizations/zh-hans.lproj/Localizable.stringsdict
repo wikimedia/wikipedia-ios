@@ -1106,7 +1106,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>other</key>
-			<string> %1$lld改变</string>
+			<string> %1$lld 改变</string>
 		</dict>
 		<key>v2</key>
 		<dict>

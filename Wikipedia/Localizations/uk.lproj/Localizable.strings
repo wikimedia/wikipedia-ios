@@ -100,6 +100,7 @@
 "activity-tab-add-images-subtitle" = "Додати пропоновані зображення до статей Вікіпедії, щоб покращити розуміння.";
 "activity-tab-add-images-title" = "Додати зображення";
 "activity-tab-additional-thoughts" = "Є ще якісь думки?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 перегляд|$1 перегляди|$1 переглядів}}";
 "activity-tab-articles-read" = "Статті, прочитані цього місяця";
 "activity-tab-articles-read-graph-label" = "Статті";
 "activity-tab-customize-all-time-impact" = "Вплив за весь час";
@@ -127,6 +128,7 @@
 "activity-tab-logged-out-title" = "Див. більше статистики читання та редагування";
 "activity-tab-logged-out-track-what-youve-read" = "У новий спосіб відстежувати те, що ви вже читали та переглядати ваш внесок протягом часу";
 "activity-tab-menu-clear-history" = "Очистити історію читання";
+"activity-tab-most-viewed" = "Найбільше переглядів з моменту вашого редагування";
 "activity-tab-neutral" = "Нейтрально";
 "activity-tab-no-edits-title" = "Ви ще не редагували цього тижня. Додайте зображення, щоб покращити розуміння статті.";
 "activity-tab-no-username-reading-title" = "Ваше читання";
@@ -138,8 +140,6 @@
 "activity-tab-onboarding-second-button-title" = "Дізнайтеся більше про Активність";
 "activity-tab-onboarding-second-item-subtitle" = "Дізнайтеся більше про свій внесок та охоплення знань, якими ви поділилися.";
 "activity-tab-onboarding-second-item-title" = "Основні моменти впливу";
-"activity-tab-onboarding-third-item-subtitle" = "Переглядайте статистику ігор, збережених статей та інших дій, які глибше пов'язують вас із Вікіпедією.";
-"activity-tab-onboarding-third-item-title" = "Більше способів взаємодії";
 "activity-tab-read-title" = "Переглянути історію читання";
 "activity-tab-satisfied" = "Задоволений/а";
 "activity-tab-saved" = "Статті, збережені цього місяця";
@@ -600,6 +600,7 @@
 "explore-suggested-edits-image-recs-title" = "Додати зображення";
 "explore-survey-subtitle" = "Будь ласка, пройдіть коротке опитування щодо стрічки. Ваш відгук допоможе нам удосконалити програмку в майбутньому.";
 "explore-survey-title" = "Допоможіть нам покращити стрічку";
+"explore-wikipedia" = "Дослідити Вікіпедію";
 "export-user-data-confirmation-message" = "Спільний доступ до вашої бібліотеки додатків включає дані про ваші списки читання та історію, налаштування та вміст каналу Explore. Цей файл даних слід надавати лише довіреному одержувачу для використання в цілях технічної діагностики.";
 "export-user-data-confirmation-title" = "Поділитися бібліотекою додатку?";
 "export-user-data-generic-error" = "Під час експорту ваших даних сталася помилка. Будь-ласка, спробуйте пізніше.";
@@ -650,12 +651,10 @@
 "forgot-password-username-or-email-title" = "Або";
 "gan-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ґань як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n贛語 原文 ґань (gan)\n赣语 简体 ґань, спрощена (gan-hans)\n贛語 繁體 ґань, традиційна (gan-hant)";
 "gan-variants-alert-title" = "Оновлення щодо підтримки варіантів ґань";
-"history-clear-all" = "Очистити";
 "history-clear-confirmation-heading" = "Ви впевнені, що хочете вилучити всі недавні елементи?";
 "history-clear-delete-all" = "Так, вилучити всі";
 "history-title" = "Історія";
 "home-button-explore-accessibility-label" = "Вікіпедіє, повернутися до стрічки";
-"home-button-history-accessibility-label" = "Вікіпедіє, повернутися до Історії";
 "home-button-saved-accessibility-label" = "Вікіпедіє, повернутися до Збереженого";
 "home-more-like-footer" = "Більше схожого на $1";
 "home-nearby-footer" = "Більше місць поблизу";
@@ -775,6 +774,8 @@
 "login-join-wikipedia" = "Приєднайтеся до Вікіпедії.";
 "login-no-account" = "Не маєте облікового запису? $1";
 "login-title" = "Вхід до вашого облікового запису";
+"looking-for-something-new" = "Шукаєте щось нове для читання?";
+"looks-like-you-havent-made-an-edit" = "Схоже, ви не робили жодного редагування цього місяця. Розширте вільні знання, редагуючи теми, які вас цікавлять.";
 "main-menu-about" = "Про додаток";
 "main-menu-account-login" = "Увійти";
 "main-menu-account-logout" = "Вихід";
@@ -1617,3 +1618,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Логотип Вікіпедії";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Фонду Вікімедіа";
 "yesterday-title" = "Учора";
+"zero-edits-to-articles" = "0 нещодавніх редагувань статей";

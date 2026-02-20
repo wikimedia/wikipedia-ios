@@ -478,6 +478,7 @@
 "explore-randomizer" = "Случајни чланак";
 "explore-suggested-edits-footer" = "Додај";
 "explore-suggested-edits-image-recs-title" = "Додај слику";
+"explore-wikipedia" = "Истражи Википедију";
 "export-user-data-confirmation-message" = "Дељење ваше библиотеке апликације укључује податке о вашим Листама за читање и историји, подешавањама, и садржају фида за истраживање. Ова датотека са подацима би требало да буде дељена искључиво са примаоцем од поверења за коришћење у сврхе техничке дијагностике.";
 "export-user-data-confirmation-title" = "Дели библиотеку апликације?";
 "export-user-data-generic-error" = "Дошло је до грешке приликом извоза ваших података. Молимо покушајте поново касније.";
@@ -526,12 +527,10 @@
 "forgot-password-instructions" = "Попуните једно од поља испод да бисте примили упутство за ресетовање лозинке путем имејла";
 "forgot-password-title" = "Ресетовање лозинке";
 "forgot-password-username-or-email-title" = "Или";
-"history-clear-all" = "Обриши";
 "history-clear-confirmation-heading" = "Желите ли заиста да избришете све недавне ставке?";
 "history-clear-delete-all" = "Да, избриши све";
 "history-title" = "Историја";
 "home-button-explore-accessibility-label" = "Википедија, назад на „Истражи”";
-"home-button-history-accessibility-label" = "Википедија, назад на историју";
 "home-button-saved-accessibility-label" = "Википедија, назад на сачуване";
 "home-more-like-footer" = "Још чланака попут $1";
 "home-nearby-footer" = "Још места у близини";
@@ -1342,3 +1341,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Википедијин W логотип";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Задужбине Викимедије";
 "yesterday-title" = "Јуче";
+"zero-edits-to-articles" = "0 измена чланака скорије";

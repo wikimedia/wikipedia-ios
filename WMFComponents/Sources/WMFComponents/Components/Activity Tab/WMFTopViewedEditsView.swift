@@ -22,7 +22,6 @@ public struct TopViewedEditsView: View {
             icon: WMFSFSymbolIcon.for(symbol: .lineDiagonalArrow),
             title: viewModel.localizedStrings.mostViewed,
             dateText: nil,
-            additionalAccessibilityLabel: nil,
             onTapModule: nil,
             content: {
                 ForEach(mostViewedViewModel.topViewedArticles) { article in
@@ -38,11 +37,11 @@ public struct TopViewedEditsView: View {
                                 let url = mostViewedViewModel.getArticleURL(for: article)
                                 guard let url else { return }
                                 viewModel.onTapArticle?(url)
-                            }, viewsString: viewModel.localizedStrings.viewsString(article.viewsCount)
+                            }, footerText: viewModel.localizedStrings.viewsString(article.viewsCount)
                         )
                     )
                 }
-            }, shiftFirstIcon: true
+            }
         )
         .frame(maxWidth: .infinity, alignment: .leading)
     }

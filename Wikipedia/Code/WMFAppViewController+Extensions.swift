@@ -118,24 +118,6 @@ extension WMFAppViewController {
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
-    
-    @objc func getAssignmentForActivityTab() -> WMFActivityTabExperimentAssignment {
-        let assignment = WMFActivityTabDataController.activityAssignmentForObjC()
-        
-        let groupName: String?
-        switch assignment {
-        case .control: groupName = "ios_activity_a"
-        case .activityTab: groupName = "ios_activity_b"
-        case .unknown: groupName = nil
-        }
-        
-        // A nil group name probably indicates the user fresh installed past the experiment end date
-        if let groupName {
-            ActivityTabFunnel.shared.logGroupAssignment(group: groupName)
-        }
-        
-        return assignment
-    }
 }
 
 // MARK: - Notifications
@@ -704,72 +686,6 @@ extension WMFAppViewController {
         return WMFAppEnvironment.current.traitCollection.hasDifferentColorAppearance(comparedTo: traitCollection)
     }
 
-    @objc func generateHistoryTab() -> WMFHistoryViewController {
-
-        // data controller properties
-        let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
-
-            guard let self else {
-                return []
-            }
-
-            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            request.predicate = NSPredicate(format: "viewedDate != NULL")
-            request.sortDescriptors = [
-                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
-                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
-            ]
-            request.fetchLimit = 1000
-
-            do {
-                var articles: [HistoryRecord] = []
-                let articleFetchRequest = try dataStore.viewContext.fetch(request)
-                
-                let thumbnailImageWidth = ImageUtils.listThumbnailWidth()
-
-                for article in articleFetchRequest {
-                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
-
-                        let record = HistoryRecord(
-                            id: Int(truncating: pageID),
-                            title: article.displayTitle ?? article.displayTitleHTML,
-                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
-                            shortDescription: article.snippet,
-                            articleURL: article.url,
-                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
-                            viewedDate: viewedDate,
-                            isSaved: article.isSaved,
-                            snippet: article.snippet,
-                            variant: article.variant
-                        )
-                        articles.append(record)
-                    }
-                }
-
-                return articles
-
-            } catch {
-                DDLogError("Error fetching history: \(error)")
-                return []
-            }
-        }
-
-        let historyDataController = WMFHistoryDataController(
-            recordsProvider: recordsProvider
-        )
-
-        // view model properties
-
-        let todayTitle = CommonStrings.todayTitle
-
-        let yesterdayTitle = CommonStrings.yesterdayTitle
-
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: CommonStrings.articleTabsOpen, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
-        let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
-
-        let viewController = WMFHistoryViewController(viewModel: viewModel, dataController: historyDataController, theme: theme, dataStore: dataStore)
-        return viewController
-    }
 }
 
 // MARK: - Tabs
@@ -884,9 +800,9 @@ extension WMFAppViewController {
             value: "Time spent reading this week",
             comment: "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes"
         )
-
+        
         let activityTabDataController = WMFActivityTabDataController()
-
+        
         func usernamesReading(username: String) -> String {
             let format = WMFLocalizedString(
                 "activity-tab-usernames-reading-title",
@@ -897,7 +813,7 @@ extension WMFAppViewController {
         }
         
         let noUsernameReading = WMFLocalizedString("activity-tab-no-username-reading-title", value: "Your reading", comment: "Activity tab header, for when there is no username.")
-
+        
         func hoursMinutesRead(hours: Int, minutes: Int) -> String {
             let hoursString = hours.description
             let minutesString = minutes.description
@@ -910,10 +826,10 @@ extension WMFAppViewController {
         }
         
         let articlesRead = WMFLocalizedString("activity-tab-articles-read", value: "Articles read this month", comment: "Title for module about articles read this month, displayed below the time spent reading this week")
-
+        
         let articlesReadGraph = WMFLocalizedString("activity-tab-articles-read-graph-label", value: "Articles", comment: "Activity tab articles read graph axis label")
         let weekGraph = WMFLocalizedString("activity-tab-week-graph-label", value: "Week", comment: "Activity tab week graph axis label")
-
+        
         let topCategories = WMFLocalizedString("activity-tab-top-categories", value: "Top categories this month", comment: "Title for module about top categories this month")
         let saved = WMFLocalizedString("activity-tab-saved", value: "Articles saved this month", comment: "Title for module about saved articles")
         
@@ -929,8 +845,8 @@ extension WMFAppViewController {
         let loggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "See more reading and editing insights", comment: "Title for logged out users")
         let loggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Log in or create an account to view your activity on the Wikipedia app.", comment: "Subtitle for logged out users")
         let openArticle = WMFLocalizedString("open-article", value: "Open article", comment: "Open article title")
-        let totalEdits = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
-
+        let totalEditsAcrossProjects = WMFLocalizedString("activity-tab-total-edits", value: "Total edits across projects", comment: "Text for activity tab module about global edits")
+        
         let edited = WMFLocalizedString("edited-article", value: "Edited", comment: "Label for edited articles")
         let emptyTitleLoggedIn = WMFLocalizedString("activity-tab-empty-title", value: "Nothing to show", comment: "Title on activity tab timeline empty state.")
         let emptySubtitleLoggedIn = WMFLocalizedString("activity-tab-empty-subtitle", value: "Start reading and editing to build your history", comment: "Subtitle on activity tab timeline empty state.")
@@ -946,6 +862,39 @@ extension WMFAppViewController {
         let customizeLastInAppDonation = WMFLocalizedString("activity-tab-customize-last-in-app-donation", value: "Last in app donation", comment: "Title for last in-app donation")
         let customizeTimelineOfBehavior = WMFLocalizedString("activity-tab-customize-timeline-of-behavior", value: "Timeline of behavior", comment: "Title for timeline of behavior")
         let customizeFooter = WMFLocalizedString("activity-tab-customize-footer", value: "Reading insights are based on your app languages in settings, and editing insights are limited to your primary app language.  Insights leverage local data, with the exception of edits which are public.", comment: "Footer for customize activity tab page.")
+        
+        // Impact module
+        let allTimeImpactTitle = WMFLocalizedString("activity-tab-impact-all-time-title", value: "All time impact", comment: "Title for activity tab module about all time editing impact")
+        let totalEditsLabel = WMFLocalizedString("activity-tab-impact-total-edits-label", value: "total edits", comment: "Label in impact module for total edits count")
+        
+        
+        let bestStreakValue: (Int) -> String = { count in
+            let bestStreakFormat = WMFLocalizedString("activity-tab-impact-best-streak-format", value: "{{PLURAL:%1$d|%1$d day|%1$d days}}", comment: "Count in impact module for best editing streak in number of days. %1$d is replaced with number of days.")
+            
+            return String.localizedStringWithFormat(bestStreakFormat, count)
+        }
+        
+        let bestStreakLabel = WMFLocalizedString("activity-tab-impact-best-streak-label", value: "best streak", comment: "Label in impact module for best streak day count")
+        
+        let thanksLabel = WMFLocalizedString("activity-tab-impact-thanks-label", value: "thanks", comment: "Label in impact module for thanks count")
+        let lastEditedLabel = WMFLocalizedString("activity-tab-impact-last-edited-label", value: "last edited", comment: "Label in impact module for last edited date")
+        
+        
+        let yourRecentActivityTitle = WMFLocalizedString("activity-tab-impact-recent-activity-title", value: "Your recent activity (last 30 days)", comment: "Title for activity tab module about your recent editing activity")
+        let editsLabel = WMFLocalizedString("activity-tab-impact-edits-label", value: "edits", comment: "Label in impact module for recent activity edit count")
+        
+        let startEndDatesAccessibilityLabel: (String, String) -> String = { startDate, endDate in
+            let startEndDatesAccessibilityFormat = WMFLocalizedString("activity-tab-impact-recent-startend-accessibility", value: "From %1$@ to %2$@", comment: "Accessibility label in impact module for start / end date recent activity. %1$@ is replaced with start date, %2$@ is replaced with end date.")
+            
+            return String.localizedStringWithFormat(startEndDatesAccessibilityFormat, startDate, endDate)
+        }
+        
+        let viewsOnArticlesYouveEditedTitle = WMFLocalizedString("activity-tab-impact-views-title", value: "Views on articles you’ve edited", comment: "Title for activity tab module about views on articles user edited")
+        
+        let lineGraphDay = WMFLocalizedString("activity-tab-impact-views-day", value: "Day", comment: "Accessibility label for activity tab views line graph, y-axis.")
+        
+        let lineGraphViews = WMFLocalizedString("activity-tab-impact-views-views", value: "Views", comment: "Accessibility label for activity tab views line graph, x-axis.")
+
         
         func customizeEmptyState() -> String {
             // Fake link because it's needed
@@ -986,7 +935,7 @@ extension WMFAppViewController {
                     yesterdayTitle: CommonStrings.yesterdayTitle,
                     openArticle: openArticle,
                     deleteAccessibilityLabel: CommonStrings.deleteActionTitle,
-                    totalEdits: totalEdits,
+                    totalEditsAcrossProjects: totalEditsAcrossProjects,
                     read: CommonStrings.readString,
                     edited: edited,
                     saved: CommonStrings.shortSavedTitle,
@@ -1006,10 +955,30 @@ extension WMFAppViewController {
                     contributionsThisMonth: WMFLocalizedString("contributions-this-month", value: "Contributions this month", comment: "Title for section of contributions this month"),
                     thisMonth: WMFLocalizedString("edits-this-month", value: "edits this month", comment: "Title for edits this month section"),
                     lastMonth: WMFLocalizedString("edits-last-month", value: "edits last month", comment: "Title for edits last month section"),
+                    lookingForSomethingNew: WMFLocalizedString("looking-for-something-new", value: "Looking for something new to read?", comment: "Title prompting user to explore Wikipedia"),
+                    exploreWikipedia: WMFLocalizedString("explore-wikipedia", value: "Explore Wikipedia", comment: "Button title to explore Wikipedia"),
+                    zeroEditsToArticles: WMFLocalizedString("zero-edits-to-articles", value: "0 edits to articles recently", comment: "Message showing zero recent edits"),
+                    looksLikeYouHaventMadeAnEdit: WMFLocalizedString("looks-like-you-havent-made-an-edit", value: "Looks like you haven't made an edit this month. Extend free knowledge by editing topics that matter most to you.", comment: "Message encouraging user to make their first edit"),
+                    makeAnEdit: WMFLocalizedString("learn-about-editing", value: "Learn about editing", comment: "Button title to learn about editing"),
                     viewsString: viewsString(views:),
-                    mostViewed: WMFLocalizedString("activity-tab-most-viewed", value: "Most viewed since your edit", comment: "Title for section for most viewed articles since an edit")),
+                    mostViewed: WMFLocalizedString("activity-tab-most-viewed", value: "Most viewed since your edit", comment: "Title for section for most viewed articles since an edit"),
+                    allTimeImpactTitle: allTimeImpactTitle,
+                    totalEditsLabel: totalEditsLabel,
+                    bestStreakValue: bestStreakValue,
+                    bestStreakLabel: bestStreakLabel,
+                    thanksLabel: thanksLabel,
+                    lastEditedLabel: lastEditedLabel,
+                    yourRecentActivityTitle: yourRecentActivityTitle,
+                    editsLabel: editsLabel,
+                    startEndDatesAccessibilityLabel: startEndDatesAccessibilityLabel,
+                    viewsOnArticlesYouveEditedTitle: viewsOnArticlesYouveEditedTitle,
+                    lineGraphDay: lineGraphDay,
+                    lineGraphViews: lineGraphViews
+                ),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)
+        
+        viewModel.isExploreFeedOn = UserDefaults.standard.integer(forKey: "WMFDefaultTabTypeKey") == 0
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
@@ -1055,10 +1024,8 @@ extension WMFAppViewController {
         var action: ActivityTabFunnel.Action? = nil
         if newVC is WMFActivityTabViewController {
             action = .activityNavClick
-        } else if newVC is WMFHistoryViewController {
-            action = .historyNavClick
         }
-        
+
         guard let action else { return }
         
         if currentVC is ExploreViewController {
@@ -1067,8 +1034,6 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .places, action: action)
         } else if currentVC is SavedViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
-        } else if currentVC is WMFHistoryViewController {
-            ActivityTabFunnel.shared.logTabBarSelected(from: .historyTab, action: action)
         } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
         } else if currentVC is SearchViewController {
