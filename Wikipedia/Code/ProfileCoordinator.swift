@@ -73,7 +73,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let localizedStrings =
         WMFProfileViewModel.LocalizedStrings(
             pageTitle: finalPageTitle,
-            doneButtonTitle: CommonStrings.doneTitle,
             notificationsTitle: CommonStrings.notificationsCenterTitle,
             userPageTitle: (isTemporaryAccount ? tempAccountUsername : CommonStrings.userButtonPage) ?? CommonStrings.userButtonPage,
             talkPageTitle: CommonStrings.talkPage,
