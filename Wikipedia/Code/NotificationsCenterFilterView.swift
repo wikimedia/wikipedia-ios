@@ -136,13 +136,9 @@ struct NotificationsCenterFilterView: View {
             .listStyle(GroupedListStyle())
             .navigationBarItems(
                 trailing:
-                    Button(action: {
+                    WMFLargeCloseButton(imageType: .plainX, action: {
                         doneAction()
-                    }) {
-                        Text(CommonStrings.doneTitle)
-                            .font(Font(WMFFont.navigationBarDoneButtonFont))
-                            .foregroundColor(Color(WMFAppEnvironment.current.theme.navigationBarTintColor))
-                        }
+                    })
             )
             .listBackgroundColor(Color(viewModel.theme.colors.baseBackground))
             .navigationBarTitle(Text(WMFLocalizedString("notifications-center-filters-title", value: "Filters", comment: "Navigation bar title text for the filters view presented from notifications center. Allows for filtering by read status and notification type.")), displayMode: .inline)

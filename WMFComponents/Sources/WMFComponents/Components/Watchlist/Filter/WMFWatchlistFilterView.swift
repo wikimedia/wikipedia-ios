@@ -17,13 +17,9 @@ struct WMFWatchlistFilterView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     trailing:
-                        Button(action: {
+                        WMFLargeCloseButton(imageType: .plainX, action: {
                             doneAction()
-                        }) {
-                            Text(viewModel.localizedStrings.doneTitle)
-                                .font(Font(WMFFont.navigationBarDoneButtonFont))
-                                .foregroundColor(Color(theme.navigationBarTintColor))
-                            }
+                        })
                 )
                 .accessibilityAction(.escape) {
                     doneAction()
