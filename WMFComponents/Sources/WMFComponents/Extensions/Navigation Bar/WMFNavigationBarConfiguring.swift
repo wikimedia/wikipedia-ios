@@ -48,6 +48,15 @@ public struct WMFNavigationBarCloseButtonConfig {
     public enum ImageType {
         case plainX
         case prominentCheck
+        
+        var tag: Int {
+            switch self {
+            case .plainX:
+                return 100
+            case .prominentCheck:
+                return 101
+            }
+        }
     }
     
     let imageType: ImageType
@@ -290,16 +299,18 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             let closeButton: UIBarButtonItem
             switch closeButtonConfig.imageType {
             case .plainX:
-                closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark), style: .plain, target: closeButtonConfig.target, action: closeButtonConfig.action)
+                closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close, font: .mediumSubheadline), style: .plain, target: closeButtonConfig.target, action: closeButtonConfig.action)
             case .prominentCheck:
                 
                 if #available(iOS 26.0, *) {
-                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark), style: .prominent, target: closeButtonConfig.target, action: closeButtonConfig.action)
+                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: .mediumSubheadline), style: .prominent, target: closeButtonConfig.target, action: closeButtonConfig.action)
                 } else {
-                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark), style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
+                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: .mediumSubheadline), style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
                 }
                 closeButton.tintColor = WMFAppEnvironment.current.theme.link
             }
+            
+            closeButton.tag = closeButtonConfig.imageType.tag
             
             switch closeButtonConfig.alignment {
             case .leading:

@@ -72,6 +72,18 @@ open class WMFComponentNavigationController: UINavigationController {
         setNeedsStatusBarAppearanceUpdate()
 
         setBarAppearance(customLargeTitleFont: customLargeTitleFont)
+        
+        // loop through bar button items, update tint colors
+        if let topVC = self.topViewController {
+            let leftItems = topVC.navigationItem.leftBarButtonItems ?? []
+            let rightItems = topVC.navigationItem.rightBarButtonItems ?? []
+            
+            for item in leftItems + rightItems {
+                if item.tag == WMFNavigationBarCloseButtonConfig.ImageType.prominentCheck.tag {
+                    item.tintColor = theme.link
+                }
+            }
+        }
     }
     
     private var customLargeTitleFont: UIFont?
