@@ -595,8 +595,6 @@
 "explore-suggested-edits-footer" = "Hinzufügen";
 "explore-suggested-edits-image-recs-body" = "Füge vorgeschlagene Bilder zu Wikipedia-Artikeln hinzu, um das Verständnis zu verbessern.";
 "explore-suggested-edits-image-recs-title" = "Ein Bild hinzufügen";
-"explore-survey-subtitle" = "Nimm bitte an einer kurzen Umfrage zum Entdecken-Feed teil. Dein Feedback hilft uns, die App zu verbessern.";
-"explore-survey-title" = "Gib uns Feedback, um den Entdecken-Feed zu verbessern.";
 "export-user-data-confirmation-message" = "Das Teilen deiner App-Bibliothek umfasst Daten über deine Leselisten und -historie, Einstellungen und Entdecken-Feed-Inhalte. Diese Datendatei sollte nur mit einem vertrauenswürdigen Empfänger für technische Diagnosezwecke geteilt werden.";
 "export-user-data-confirmation-title" = "App-Bibliothek teilen?";
 "export-user-data-generic-error" = "Beim Exportieren deiner Daten ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.";

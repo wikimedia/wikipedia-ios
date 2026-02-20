@@ -658,8 +658,6 @@
 "explore-suggested-edits-footer" = "添加";
 "explore-suggested-edits-image-recs-body" = "将建议的图片添加至维基百科条目中，以增强理解。";
 "explore-suggested-edits-image-recs-title" = "添加图片";
-"explore-survey-subtitle" = "请填写一份关于“探索”信息流的简短调查问卷。您的反馈将有助于我们未来的应用改进。";
-"explore-survey-title" = "帮助我们改进探索功能";
 "explore-wikipedia" = "浏览维基百科";
 "export-user-data-confirmation-message" = "共享您的应用程序库包括有关您的阅读列表和历史记录、设置以及探索订阅源内容的数据。此数据文件只与受信任的接收者共享，用于技术诊断目的。";
 "export-user-data-confirmation-title" = "共享应用程序库？";

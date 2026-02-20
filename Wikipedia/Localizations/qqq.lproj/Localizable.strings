@@ -584,8 +584,6 @@
 "explore-suggested-edits-footer" = "Footer for presenting user option to see list of suggested edits.";
 "explore-suggested-edits-image-recs-body" = "Body text shown in the image recommendations explore feed card.";
 "explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
-"explore-survey-subtitle" = "Subtitle of one-time survey prompt displayed to users on the Explore feed.";
-"explore-survey-title" = "Title of one-time survey prompt displayed to users on the Explore feed.";
 "explore-wikipedia" = "Button title to explore Wikipedia";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";

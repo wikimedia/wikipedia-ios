@@ -27,7 +27,7 @@ final class NotificationsCenterViewModel: NSObject {
 
     let notificationsController: WMFNotificationsController
     let remoteNotificationsController: RemoteNotificationsController
-    
+
     weak var delegate: NotificationsCenterViewModelDelegate?
 
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController, configuration: configuration)
@@ -36,7 +36,7 @@ final class NotificationsCenterViewModel: NSObject {
 
     private var isLoading: Bool = false {
         didSet {
-            
+
             // This setter may be called often due to quickly firing NSNotifications.
             // Don't allow a view update unless something has actually changed.
             if oldValue != isLoading {
@@ -52,7 +52,7 @@ final class NotificationsCenterViewModel: NSObject {
     private var isPagingEnabled = true
 
     var isEditing = false
-    
+
     var configuration: Configuration {
         return remoteNotificationsController.configuration
     }
@@ -64,56 +64,56 @@ final class NotificationsCenterViewModel: NSObject {
         self.notificationsController = notificationsController
         self.remoteNotificationsController = remoteNotificationsController
         self.languageLinkController = languageLinkController
-        
+
         super.init()
 
         NotificationCenter.default.addObserver(self, selector: #selector(remoteNotificationsControllerDidUpdateFilterState), name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(loadingDidStart), name: Notification.Name.NotificationsCenterLoadingDidStart, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(loadingDidEnd), name: Notification.Name.NotificationsCenterLoadingDidEnd, object: nil)
-	}
+    }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     // MARK: NSNotifications
-    
+
     @objc func contextObjectsDidChange(_ notification: NSNotification) {
-        
+
         let refreshedNotifications = notification.userInfo?[NSRefreshedObjectsKey] as? Set<RemoteNotification> ?? []
         let insertedNotifications = notification.userInfo?[NSInsertedObjectsKey] as? Set<RemoteNotification> ?? []
-        
+
         let insertedNotificationsToDisplay = notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: insertedNotifications)
-        
+
         guard refreshedNotifications.count > 0 || insertedNotificationsToDisplay.count > 0 else {
             return
         }
-        
+
         var updateTypes: [NotificationsCenterUpdateType] = []
-        
+
         let refreshUpdateTypes = modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: isEditing)
         updateTypes.append(contentsOf: refreshUpdateTypes)
-        
+
         if let insertUpdateType = modelController.addNewCellViewModelsWith(notifications: Array(insertedNotificationsToDisplay), isEditing: isEditing) {
             updateTypes.append(insertUpdateType)
         }
-        
+
         updateTypes.append(.emptyDisplay(modelController.countOfTrackingModels == 0))
         updateTypes.append(.emptyContent)
-        
+
         if updateTypes.count > 0 {
             delegate?.update(types: updateTypes)
         }
     }
-    
+
     private func notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: Set<RemoteNotification>) -> Set<RemoteNotification> {
-        
+
         // run new notifications through saved filter so we're not inserting objects that shouldn't display
         var notificationsToDisplay = insertedNotifications
         if let predicate = remoteNotificationsController.filterPredicate {
             notificationsToDisplay = (insertedNotifications as NSSet).filtered(using: predicate) as? Set<RemoteNotification> ?? insertedNotifications
         }
-        
+
         // do not insert any notifications older than the oldest displayed notification.
         // subsequent page fetches should eventually pull these
         if let oldestDisplayedDate = modelController.oldestDisplayedNotificationDate {
@@ -121,26 +121,26 @@ final class NotificationsCenterViewModel: NSObject {
                 if let notificationDate = notification.date {
                     return oldestDisplayedDate < notificationDate
                 }
-                
+
                 return false
             })
         }
-        
-        
+
+
         return notificationsToDisplay
     }
-    
+
     @objc private func remoteNotificationsControllerDidUpdateFilterState() {
         // Not doing anything here yet
         // Because filter screen disapperances call self.resetAndRefreshData from the view controller, which fetches the first page again and relays state changes back to the view controller, there's no need to react to this notification.
     }
-    
+
     @objc private func loadingDidStart() {
         DispatchQueue.main.async {
             self.isLoading = true
         }
     }
-    
+
     @objc private func loadingDidEnd() {
         DispatchQueue.main.async {
             self.isLoading = false
@@ -148,12 +148,12 @@ final class NotificationsCenterViewModel: NSObject {
     }
 
     // MARK: - Public
-    
+
     func setup() {
         isLoading = remoteNotificationsController.isLoadingNotifications
         delegate?.update(types: [.emptyDisplay(true), .toolbarDisplay])
     }
-    
+
     func refreshNotifications(force: Bool) {
         remoteNotificationsController.loadNotifications(force: force) { result in
             switch result {
@@ -162,21 +162,7 @@ final class NotificationsCenterViewModel: NSObject {
                     break
                 }
                 DDLogError("Error refreshing notifications: \(error)")
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            default:
-                break
-            }
-        }
-    }
-    
-    func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool, shouldDisplayErrorIfNeeded: Bool = true) {
-        
-        let identifierGroups = viewModels.map { $0.notification.identifierGroup }
-        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead) { result in
-            switch result {
-            case .failure(let error):
-                DDLogError("Error marking notifications as read or unread: \(error)")
-                if shouldDisplayErrorIfNeeded {
+                Task { @MainActor in
                     WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 }
             default:
@@ -184,26 +170,46 @@ final class NotificationsCenterViewModel: NSObject {
             }
         }
     }
-    
-    func markAllAsRead() {
-        remoteNotificationsController.markAllAsRead { result in
+
+    func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool, shouldDisplayErrorIfNeeded: Bool = true) {
+
+        let identifierGroups = viewModels.map { $0.notification.identifierGroup }
+        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead) { result in
             switch result {
             case .failure(let error):
-                DDLogError("Error marking all notifications as read or unread: \(error)")
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                DDLogError("Error marking notifications as read or unread: \(error)")
+                if shouldDisplayErrorIfNeeded {
+                    Task { @MainActor in
+                        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    }
+                }
             default:
                 break
             }
         }
     }
-    
+
+    func markAllAsRead() {
+        remoteNotificationsController.markAllAsRead { result in
+            switch result {
+            case .failure(let error):
+                DDLogError("Error marking all notifications as read or unread: \(error)")
+                Task { @MainActor in
+                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                }
+            default:
+                break
+            }
+        }
+    }
+
     func markAllAsSeen() {
-        
+
         // do not mark as seen if view is showing an empty state due to filters or loading
         if modelController.countOfTrackingModels == 0 && (remoteNotificationsController.areFiltersEnabled || remoteNotificationsController.isLoadingNotifications) {
             return
         }
-        
+
         remoteNotificationsController.markAllAsSeen { result in
             switch result {
             case let .failure(error):
@@ -213,49 +219,51 @@ final class NotificationsCenterViewModel: NSObject {
             }
         }
     }
-    
+
     func fetchFirstPage() {
-        
+
         remoteNotificationsController.fetchNotifications { [weak self] result in
-            
+
             guard let self = self else {
                 return
             }
-            
+
             switch result {
             case .success(let notifications):
                 var updateTypes: [NotificationsCenterUpdateType] = []
                 if let updateType = self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.isEditing) {
                     updateTypes.append(updateType)
                 }
-                
+
                 updateTypes.append(contentsOf: [.toolbarContent, .emptyContent, .emptyDisplay(self.modelController.countOfTrackingModels == 0)])
-                
+
                 self.delegate?.update(types: updateTypes)
-                
+
                 // This allows the collection view to react to new inserted or updated objects from a refresh or mark as read/unread call.
                 // But we don't care to listen for it until after the first page is already fetched from the database and is displaying on screen.
                 self.remoteNotificationsController.addObserverForViewContextChanges(observer: self, selector: #selector(self.contextObjectsDidChange(_:)))
             case .failure(let error):
                 DDLogError("Error fetching first page of notifications: \(error)")
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                Task { @MainActor in
+                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                }
             }
         }
     }
-    
+
     func fetchNextPage() {
-        
+
         guard isPagingEnabled == true else {
             DDLogDebug("Request to fetch next page while paging is disabled. Ignoring.")
             return
         }
-        
+
         remoteNotificationsController.fetchNotifications(fetchOffset: modelController.countOfTrackingModels) { [weak self] result in
-            
+
             guard let self = self else {
                 return
             }
-            
+
             switch result {
             case .success(let notifications):
 
@@ -263,37 +271,37 @@ final class NotificationsCenterViewModel: NSObject {
                     self.isPagingEnabled = false
                     return
                 }
-                
+
                 if let updateType = self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.isEditing) {
                     self.delegate?.update(types: [updateType])
                 }
-                
+
             case .failure(let error):
                 DDLogError("Error fetching next page of notifications: \(error)")
             }
         }
-        
-        
+
+
     }
-    
+
     func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel]? = nil, isSelected: Bool? = nil) {
         if let updateType = modelController.updateCellDisplayStates(cellViewModels: cellViewModels, isEditing: isEditing, isSelected: isSelected) {
             delegate?.update(types: [updateType])
         }
     }
-    
+
     func updateEditingModeState(isEditing: Bool) {
         self.isEditing = isEditing
-        
+
         var updateTypes: [NotificationsCenterUpdateType] = []
         if let updateType = modelController.updateCellDisplayStates(isEditing: self.isEditing) {
             updateTypes.append(updateType)
         }
-        
+
         updateTypes.append(.toolbarDisplay)
         delegate?.update(types: updateTypes)
     }
-    
+
     func resetAndRefreshData() {
         modelController.reset()
         fetchFirstPage()
@@ -341,7 +349,7 @@ extension NotificationsCenterViewModel {
     var typeFilterButtonImage: UIImage? {
         return toolbarImageForTypeFilter(engaged: areFiltersApplied)
     }
-    
+
     var filterButtonAccessibilityLabel: String {
         return areFiltersApplied ?
         WMFLocalizedString("notifications-center-applied-filters-accessibility-label", value: "Notifications Filter - has filters applied", comment: "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.")
@@ -383,7 +391,7 @@ extension NotificationsCenterViewModel {
             string.append(NSAttributedString(string: pair.element, attributes: [.foregroundColor: color]))
         }
     }
-    
+
     var numberOfUnreadNotifications: Int {
         return (try? self.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
     }
@@ -392,13 +400,13 @@ extension NotificationsCenterViewModel {
 // MARK: - Empty State
 
 extension NotificationsCenterViewModel {
-    
+
     // MARK: Public
-    
+
     var emptyStateHeaderText: String {
         return NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages
     }
-    
+
     var emptyStateSubheaderText: String {
         if isLoading {
             return NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications
@@ -406,7 +414,7 @@ extension NotificationsCenterViewModel {
             return ""
         }
     }
-    
+
     func emptyStateSubheaderAttributedString(theme: Theme, traitCollection: UITraitCollection) -> NSAttributedString? {
         guard remoteNotificationsController.allInboxProjects.count != remoteNotificationsController.filterState.offProjects.count else {
             let noProjectsSelected = WMFLocalizedString("notifications-center-empty-state-no-projects-selected", value:"Add projects to see more messages", comment:"Empty state subtitle indicating the user has unselected all projects.")
@@ -417,7 +425,7 @@ extension NotificationsCenterViewModel {
         guard filterTypesCount > 0 else {
             return nil
         }
-            
+
         let filtersLinkFormat = WMFLocalizedString("notifications-center-empty-state-num-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment:"Portion of empty state subtitle showing number of filters the user has set in notifications center - %1$d is replaced with the number filters.")
         let filtersSubtitleFormat = WMFLocalizedString("notifications-center-empty-state-filters-subtitle", value:"Modify %1$@ to see more messages", comment:"Format of empty state subtitle when the user has filters on - %1$@ is replaced with a string representing the number of filters the user has set.")
         let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, filterTypesCount)

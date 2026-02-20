@@ -631,8 +631,6 @@
 "explore-suggested-edits-footer" = "新增";
 "explore-suggested-edits-image-recs-body" = "將建議的圖片加到維基百科條目來加強理解。";
 "explore-suggested-edits-image-recs-title" = "新增圖片";
-"explore-survey-subtitle" = "請填寫一份關於探索摘要的簡短問卷。您的回饋將有助於我們改善往後的應用程式。";
-"explore-survey-title" = "協助我們改進探索功能";
 "explore-wikipedia" = "探索維基百科";
 "export-user-data-confirmation-message" = "分享您的應用程式庫，包括有關您的閱讀清單、歷史紀錄、偏好設定，以及探索提要內容的資料。此資料檔案應僅與受信任的接收者分享，以用於技術診斷目的。";
 "export-user-data-confirmation-title" = "分享應用程式庫？";

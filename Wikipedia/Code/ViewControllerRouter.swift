@@ -46,9 +46,9 @@ class ViewControllerRouter: NSObject {
         self.appViewController = appViewController
         self.router = router
     }
-    
+
     private func presentLoginViewController(with completion: @escaping () -> Void) -> Bool {
-        
+
         appViewController.wmf_showLoginViewController(theme: appViewController.theme)
         return true
     }
@@ -65,7 +65,7 @@ class ViewControllerRouter: NSObject {
             } else if let createReadingListVC = viewController as? CreateReadingListViewController,
                       createReadingListVC.isInImportingMode {
 
-                
+
                 let createReadingListNavVC =
                 WMFComponentNavigationController(rootViewController: createReadingListVC, modalPresentationStyle: .overFullScreen)
 
@@ -81,17 +81,17 @@ class ViewControllerRouter: NSObject {
         } else {
             showNewVC()
         }
-        
+
         return true
     }
-    
+
     @objc(routeURL:userInfo:completion:)
     public func route(_ url: URL, userInfo: [AnyHashable: Any]? = nil, completion: @escaping () -> Void) -> Bool {
         let theme = appViewController.theme
-        
+
         let authManager = MWKDataStore.shared().authenticationManager
         let permanentUsername = authManager.authStatePermanentUsername
-        
+
         let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
         case .article:
@@ -110,7 +110,7 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            
+
             let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: fromRevID, toRevisionID: toRevID, articleTitle: nil, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager)
             return presentOrPush(diffContainerVC, with: completion)
         case .inAppLink(let linkURL):
@@ -129,11 +129,11 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            
+
             if let deepLinkData = talkPageDeepLinkData(linkURL: linkURL, userInfo: userInfo) {
                 viewModel.deepLinkData = deepLinkData
             }
-            
+
             let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
             return presentOrPush(newTalkPage, with: completion)
         case .userTalk(let linkURL):
@@ -160,7 +160,7 @@ class ViewControllerRouter: NSObject {
                 onThisDayVC.initialEvent = selectedEvent
             }
             return presentOrPush(onThisDayVC, with: completion)
-            
+
         case .readingListsImport(let encodedPayload):
             guard appViewController.editingFlowViewControllerInHierarchy == nil else {
                 // Do not show reading list import if user is in the middle of editing
@@ -189,19 +189,19 @@ class ViewControllerRouter: NSObject {
             return false
         }
     }
-    
+
     private func talkPageDeepLinkData(linkURL: URL, userInfo: [AnyHashable: Any]?) -> TalkPageViewModel.DeepLinkData? {
-        
+
         guard let topicTitle = linkURL.fragment else {
             return nil
         }
-        
+
         let replyText = userInfo?[RoutingUserInfoKeys.talkPageReplyText] as? String
 
         let deepLinkData = TalkPageViewModel.DeepLinkData(topicTitle: topicTitle, replyText: replyText)
         return deepLinkData
     }
-    
+
     private func source(from userInfo: [AnyHashable: Any]?) -> RoutingUserInfoSourceValue {
         guard let sourceString = userInfo?[RoutingUserInfoKeys.source] as? String,
               let source = RoutingUserInfoSourceValue(rawValue: sourceString) else {
@@ -227,23 +227,23 @@ class ViewControllerRouter: NSObject {
         }
         return targetNavigationController
     }
-    
+
     private var watchlistFilterViewModel: WMFWatchlistFilterViewModel {
-        
+
         let dataStore = appViewController.dataStore
         let appLanguages = dataStore.languageLinkController.preferredLanguages
         var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
-            
+
             guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController),
                   let wmfProject = wikimediaProject.wmfProject else {
                 return
             }
-            
+
             result[wmfProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
         }
         localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
         localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
-        
+
         let localizedStrings = WMFWatchlistFilterViewModel.LocalizedStrings(
             title: CommonStrings.watchlistFilter,
             doneTitle: CommonStrings.doneTitle,
@@ -283,7 +283,7 @@ class ViewControllerRouter: NSObject {
 
         return WMFWatchlistFilterViewModel(localizedStrings: localizedStrings, overrideUserInterfaceStyle: overrideUserInterfaceStyle, loggingDelegate: appViewController)
     }
-    
+
     func showWatchlistOnboarding(targetNavigationController: UINavigationController?) {
         let trackChanges = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "track-changes"), title: CommonStrings.watchlistTrackChangesTitle, subtitle: CommonStrings.watchlistTrackChangesSubtitle)
         let watchArticles = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(named: "watch-articles"), title: CommonStrings.watchlistWatchChangesTitle, subtitle: CommonStrings.watchlistWatchChangesSubitle)
@@ -294,14 +294,14 @@ class ViewControllerRouter: NSObject {
 
         let viewController = WMFOnboardingViewController(viewModel: viewModel)
         viewController.hostingController.delegate = self
-        
+
         WatchlistFunnel.shared.logWatchlistOnboardingAppearance()
 
         targetNavigationController?.present(viewController, animated: true) {
             UserDefaults.standard.wmf_userHasOnboardedToWatchlists = true
         }
     }
-    
+
     func goToWatchlist(targetNavigationController: UINavigationController?) {
         let localizedByteChange: (Int) -> String = { bytes in
             String.localizedStringWithFormat(
@@ -320,7 +320,7 @@ class ViewControllerRouter: NSObject {
                 WMFLocalizedString("watchlist-number-filters", value:"Modify [{{PLURAL:%1$d|%1$d filter|%1$d filters}}](wikipedia://watchlist/filter) to see more Watchlist items", comment: "Amount of filters active in watchlist - %1$@ is replaced with the number of filters."),
                 filters
             )
-            
+
             let attributedString = (try? AttributedString(markdown: localizedString)) ?? AttributedString(localizedString)
             return attributedString
         }
@@ -333,9 +333,13 @@ class ViewControllerRouter: NSObject {
 
         let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
             if reachable {
-                WMFAlertManager.sharedInstance.dismissAllAlerts()
+                Task { @MainActor in
+                    WMFAlertManager.sharedInstance.dismissAllAlerts()
+                }
             } else {
-                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
+                Task { @MainActor in
+                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
+                }
             }
         }
 
@@ -347,7 +351,7 @@ class ViewControllerRouter: NSObject {
                 reachabilityNotifier.stop()
             }
         }
-        
+
         let emptyViewModel = WMFEmptyViewModel(localizedStrings: localizedStringsEmptyView, image: UIImage(named: "watchlist-empty-state"), imageColor: nil, numberOfFilters: viewModel.activeFilterCount)
 
         let watchlistViewController = WMFWatchlistViewController(viewModel: viewModel, filterViewModel: watchlistFilterViewModel, emptyViewModel: emptyViewModel, delegate: appViewController, loggingDelegate: appViewController, reachabilityHandler: reachabilityHandler)
@@ -357,13 +361,13 @@ class ViewControllerRouter: NSObject {
 }
 
 extension ViewControllerRouter: WMFOnboardingViewDelegate {
-    
+
     func onboardingViewDidClickPrimaryButton() {
-        
+
         let targetNavigationController = watchlistTargetNavigationController()
-        
+
         WatchlistFunnel.shared.logWatchlistOnboardingTapContinue()
-        
+
         if let presentedViewController = targetNavigationController?.presentedViewController {
             presentedViewController.dismiss(animated: true) { [weak self] in
                 self?.goToWatchlist(targetNavigationController: targetNavigationController)
@@ -372,9 +376,9 @@ extension ViewControllerRouter: WMFOnboardingViewDelegate {
     }
 
     func onboardingViewDidClickSecondaryButton() {
-        
+
         let targetNavigationController = watchlistTargetNavigationController()
-        
+
         WatchlistFunnel.shared.logWatchlistOnboardingTapLearnMore()
 
         if let presentedViewController = targetNavigationController?.presentedViewController {

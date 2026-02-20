@@ -19,16 +19,16 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
     var wikitext = ""
     var needsNextButton: Bool = true
     var needsSimplifiedFormatToast: Bool = false
-    
+
     weak var delegate: EditPreviewViewControllerDelegate?
     weak var loggingDelegate: EditPreviewViewControllerLoggingDelegate?
-    
+
     lazy var messagingController: ArticleWebMessagingController = {
         let controller = ArticleWebMessagingController()
         controller.delegate = self
         return controller
     }()
-    
+
     lazy var fetcher = ArticleFetcher()
 
     private let previewWebViewContainer: PreviewWebViewContainer
@@ -49,11 +49,11 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         self.previewWebViewContainer = PreviewWebViewContainer()
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL) {
         let isExternal = url.host != pageURL.host
         if isExternal {
@@ -62,7 +62,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
             showInternalLink(url: url)
         }
     }
-    
+
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didFailWithError error: any Error) {
         showError(error)
     }
@@ -74,7 +74,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         alertController.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default, handler: nil))
         present(alertController, animated: true)
     }
-    
+
     func showInternalLinkInAlert(link: String) {
         let title = WMFLocalizedString("wikitext-preview-link-preview-title", value: "Link preview", comment: "Title for link preview popup")
         let message = String(format: WMFLocalizedString("wikitext-preview-link-preview-description", value: "This link leads to '%1$@'", comment: "Description of the link URL. %1$@ is the URL."), link)
@@ -82,7 +82,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         alertController.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default, handler: nil))
         present(alertController, animated: true)
     }
-    
+
     @objc func goForward() {
         loggingDelegate?.logEditPreviewDidTapNext()
         delegate?.editPreviewViewControllerDidTapNext(pageURL: pageURL, sectionID: sectionID, editPreviewViewController: self)
@@ -94,47 +94,47 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         view.addSubview(previewWebViewContainer)
         view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
         previewWebViewContainer.delegate = self
-        
+
         apply(theme: theme)
         previewWebViewContainer.webView.uiDelegate = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadPreviewIfNecessary()
-        
+
         configureNavigationBar()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
-        
+
         if isMovingFromParent {
             // Tapped Back button in Navigation Bar
             loggingDelegate?.logEditPreviewDidTapBack()
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loggingDelegate?.logEditPreviewDidAppear()
     }
-    
+
     deinit {
         messagingController.removeScriptMessageHandler()
     }
-    
+
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}"), customView: nil, alignment: .centerCompact)
-        
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
-        
+
         if needsNextButton {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
         }
     }
-    
+
     private var hasPreviewed = false
 
     private func loadPreviewIfNecessary() {
@@ -144,13 +144,13 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         hasPreviewed = true
         messagingController.setup(with: previewWebViewContainer.webView, languageCode: languageCode ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-        
+
         let pcsLocalAndStagingEnvironmentsCompletion: () throws -> Void = { [weak self] in
-            
+
             guard let self = self else {
                 return
             }
-            
+
             // If on local or staging PCS, we need to split this call. On the RESTBase server, wikitext-to-mobilehtml just puts together two other
             // calls - wikitext-to-html, and html-to-mobilehtml. Since we have html-to-mobilehtml in local/staging PCS but not the first call, if
             // we're making PCS edits to mobilehtml we need this code in order to view them. We split the call (similar to what the server dioes)
@@ -169,21 +169,21 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
             }
             try self.fetcher.fetchMobileHTMLFromWikitext(articleURL: self.pageURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview, completion: completion)
         }
-        
+
         let pcsProductionCompletion: () throws -> Void = { [weak self] in
-            
+
             guard let self = self else {
                 return
             }
-            
+
             let request = try self.fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: self.pageURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview)
             self.previewWebViewContainer.webView.load(request)
-            
+
             if self.needsSimplifiedFormatToast {
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, type: .custom, customTypeName: "edit-preview-simplified-format", dismissPreviousAlerts: false)
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, type: .normal, dismissPreviousAlerts: false)
             }
         }
-        
+
         do {
             let environment = Configuration.current.environment
             switch environment {
@@ -206,7 +206,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
             showGenericError()
         }
     }
-    
+
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         if viewIfLoaded == nil {
@@ -231,7 +231,7 @@ extension EditPreviewViewController: ReferenceBackLinksViewControllerDelegate, R
     var webView: WKWebView {
         return previewWebViewContainer.webView
     }
-    
+
     var articleURL: URL {
         return pageURL
     }
@@ -289,7 +289,7 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
     var configuration: Configuration {
         return Configuration.current
     }
-    
+
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void) {
         completion(getPeekViewController(for: destination))
     }
@@ -318,5 +318,5 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
 }
 
 extension EditPreviewViewController: EditingFlowViewController {
-    
+
 }

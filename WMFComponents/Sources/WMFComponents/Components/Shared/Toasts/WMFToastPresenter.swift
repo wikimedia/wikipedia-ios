@@ -2,11 +2,12 @@ import UIKit
 import SwiftUI
 import Combine
 
+@MainActor
 public final class WMFToastPresenter {
-    
+
     // MARK: - Nested Types
-    
-    public enum DismissEvent {
+
+    public enum DismissEvent: Sendable {
         case tappedBackground
         case durationExpired
         case swipedDown
@@ -14,7 +15,7 @@ public final class WMFToastPresenter {
     }
 
     // MARK: - Properties
-    
+
     var appEnvironment: WMFAppEnvironment {
         return WMFAppEnvironment.current
     }
@@ -24,16 +25,16 @@ public final class WMFToastPresenter {
     }
 
     private var cancellables = Set<AnyCancellable>()
-    
+
     private var currentToast: UIView?
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer?
     private var dismissWorkItem: DispatchWorkItem?
-    private var dismissAction: ((DismissEvent) -> Void)?
-    
+    private var dismissAction: (@Sendable (DismissEvent) -> Void)?
+
     // MARK: - Lifecycle
-    
+
     public static let shared = WMFToastPresenter()
-    
+
     private init() {
         subscribeToAppEnvironmentChanges()
     }
@@ -49,28 +50,51 @@ public final class WMFToastPresenter {
     // MARK: - Subclass Overrides
 
     public func appEnvironmentDidChange() {
+        // Update background color
         currentToast?.backgroundColor = theme.paperBackground
-        currentToast?.layer.shadowColor =  theme.toastShadow.cgColor
+        currentToast?.layer.shadowColor = theme.toastShadow.cgColor
+
+        // Update border color
+        if let borderLayer = currentToast?.layer.sublayers?.first(where: { $0.borderWidth > 0 }) {
+            borderLayer.borderColor = theme.border.withAlphaComponent(0.15).cgColor
+        }
     }
 
     // MARK: - Public API
+
+    /// Presents a toast using WMFToastConfig
+    public func show(_ config: WMFToastConfig, dismissPreviousAlerts: Bool = false) {
+        if dismissPreviousAlerts {
+            dismissCurrentToast()
+        }
+
+        let toastView = WMFToastView(config: config, dismiss: { [weak self] in
+            self?.dismissCurrentToast()
+        })
+
+        presentToastView(
+            view: toastView,
+            duration: config.duration,
+            allowsBackgroundTapToDismiss: false,
+            dismissAction: nil
+        )
+    }
 
     /// Presents a SwiftUI view as a toast at the bottom of the screen
     public func presentToastView<Content: View>(
         view: Content,
         duration: TimeInterval? = nil,
         allowsBackgroundTapToDismiss: Bool = false,
-        dismissAction: ((DismissEvent) -> Void)? = nil
+        dismissAction: (@Sendable (DismissEvent) -> Void)? = nil
     ) {
         guard let containerView = UIApplication.shared.currentTopViewController?.view else {
             debugPrint("No container view available")
             return
         }
 
-        // Remove any existing toast
         currentToast?.removeFromSuperview()
         dismissWorkItem?.cancel()
-        
+
         self.dismissAction = dismissAction
 
         // SwiftUI hosting controller
@@ -81,15 +105,21 @@ public final class WMFToastPresenter {
         hostingController.view.insetsLayoutMarginsFromSafeArea = false
         hostingController.view.layoutMargins = .zero
 
-        // Container view with shadow & background
         let toastContainer = UIView()
         toastContainer.backgroundColor = theme.paperBackground
-        toastContainer.layer.cornerRadius = 12
-        toastContainer.layer.shadowColor =  theme.toastShadow.cgColor
-        toastContainer.layer.shadowOffset = CGSize(width: 0, height: 1)
-        toastContainer.layer.shadowRadius = 10
-        toastContainer.layer.shadowOpacity = 0.5
+        toastContainer.layer.cornerRadius = 24
+        toastContainer.layer.shadowColor = theme.toastShadow.cgColor
+        toastContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
+        toastContainer.layer.shadowRadius = 16
+        toastContainer.layer.shadowOpacity = 0.15
         toastContainer.translatesAutoresizingMaskIntoConstraints = false
+
+        let borderLayer = CALayer()
+        borderLayer.frame = CGRect(x: 0, y: 0, width: 1000, height: 1000) // Will be adjusted by layout
+        borderLayer.cornerRadius = 24
+        borderLayer.borderWidth = 0.5
+        borderLayer.borderColor = theme.border.withAlphaComponent(0.15).cgColor
+        toastContainer.layer.addSublayer(borderLayer)
 
         toastContainer.addSubview(hostingController.view)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -97,7 +127,7 @@ public final class WMFToastPresenter {
         // containerView = current top view controller
         // toastContainer = rounded shadow view
         // hostingController = toast content
-        
+
         let verticalPadding: CGFloat = 16
         let horizontalPadding: CGFloat = 12
         NSLayoutConstraint.activate([
@@ -109,31 +139,32 @@ public final class WMFToastPresenter {
 
         containerView.addSubview(toastContainer)
         currentToast = toastContainer
-        
+
         // iPad handling
         let maxWidth: CGFloat = 400
         let toastWidth = toastContainer.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth)
-        
+
         // Need to loosen these up so that iPad doesn't stretch across the device
         let toastLeading = toastContainer.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 16)
         let toastTrailing = toastContainer.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         toastLeading.priority = .defaultHigh
         toastTrailing.priority = .defaultHigh
 
-        // Constrain toast to container view
+        let positionConstraint = toastContainer.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+
         NSLayoutConstraint.activate([
             toastLeading,
             toastTrailing,
             toastWidth,
             toastContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            toastContainer.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            positionConstraint
         ])
 
-        // Initial state off-screen (bottom)
-        toastContainer.transform = CGAffineTransform(translationX: 0, y: toastContainer.frame.height + 50)
+        // Initial state off-screen (below)
+        let translationY = toastContainer.frame.height + 50
+        toastContainer.transform = CGAffineTransform(translationX: 0, y: translationY)
         toastContainer.alpha = 0
 
-        // Animate in
         UIView.animate(withDuration: 0.35,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
@@ -144,7 +175,6 @@ public final class WMFToastPresenter {
             toastContainer.alpha = 1
         })
 
-        // Tap outside to dismiss
         if allowsBackgroundTapToDismiss {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleContainerTap(_:)))
             tapGesture.cancelsTouchesInView = false
@@ -152,11 +182,9 @@ public final class WMFToastPresenter {
             self.backgroundTapGestureRecognizer = tapGesture
         }
 
-        // Swipe down to dismiss
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleToastPan(_:)))
         toastContainer.addGestureRecognizer(panGesture)
 
-        // Auto-dismiss
         if let duration {
             let workItem = DispatchWorkItem { [weak self, weak toastContainer] in
                 guard let toastContainer = toastContainer else { return }
@@ -166,12 +194,33 @@ public final class WMFToastPresenter {
             DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
         }
     }
-    
+
     public func dismissCurrentToast() {
-        
         guard let toast = currentToast else { return }
-        
         dismissToast(toast, dismissEvent: .outsideEvent)
+    }
+
+    public func dismissAll(completion: @escaping @MainActor () -> Void = {}) {
+        guard let toast = currentToast else {
+            completion()
+            return
+        }
+
+        dismissWorkItem?.cancel()
+        dismissWorkItem = nil
+
+        toast.removeFromSuperview()
+        if self.currentToast === toast {
+            self.currentToast = nil
+        }
+
+        if let backgroundTapGestureRecognizer = self.backgroundTapGestureRecognizer {
+            backgroundTapGestureRecognizer.view?.removeGestureRecognizer(backgroundTapGestureRecognizer)
+            self.backgroundTapGestureRecognizer = nil
+        }
+
+        self.dismissAction = nil
+        completion()
     }
 
     // MARK: - Gesture Handlers
@@ -191,15 +240,17 @@ public final class WMFToastPresenter {
 
         switch gesture.state {
         case .changed:
+            // Allow swiping down
             if translation.y > 0 {
                 toast.transform = CGAffineTransform(translationX: 0, y: translation.y)
             }
         case .ended, .cancelled:
             let velocity = gesture.velocity(in: toast)
-            if translation.y > 50 || velocity.y > 500 {
+            let shouldDismiss = translation.y > 50 || velocity.y > 500
+
+            if shouldDismiss {
                 dismissToast(toast, dismissEvent: .swipedDown)
             } else {
-                // Snap back
                 UIView.animate(withDuration: 0.2) {
                     toast.transform = .identity
                 }
@@ -214,23 +265,25 @@ public final class WMFToastPresenter {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
 
+        let translationY = toast.frame.height + 50
+
         UIView.animate(withDuration: 0.25,
                        delay: 0,
                        options: [.curveEaseIn],
                        animations: {
-            toast.transform = CGAffineTransform(translationX: 0, y: toast.frame.height + 50)
+            toast.transform = CGAffineTransform(translationX: 0, y: translationY)
             toast.alpha = 0
         }, completion: { _ in
             toast.removeFromSuperview()
             if self.currentToast === toast {
                 self.currentToast = nil
             }
-            
+
             if let backgroundTapGestureRecognizer = self.backgroundTapGestureRecognizer {
                 backgroundTapGestureRecognizer.view?.removeGestureRecognizer(backgroundTapGestureRecognizer)
                 self.backgroundTapGestureRecognizer = nil
             }
-            
+
             self.dismissAction?(dismissEvent)
             self.dismissAction = nil
         })

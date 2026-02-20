@@ -617,8 +617,6 @@
 "explore-suggested-edits-footer" = "Adicionar";
 "explore-suggested-edits-image-recs-body" = "Adicione imagens sugeridas aos artigos da Wikipédia para melhorar o entendimento.";
 "explore-suggested-edits-image-recs-title" = "Adicionar uma imagem";
-"explore-survey-subtitle" = "Responda a uma breve pesquisa sobre o feed Explorar. Seus comentários ajudarão a moldar as próximas melhorias do aplicativo.";
-"explore-survey-title" = "Ajude-nos a melhorar o feed de Explorar";
 "export-user-data-confirmation-message" = "Compartilhar a sua biblioteca de aplicativos inclui dados sobre as suas listas de leitura, o histórico de leituras, as preferências e o conteúdo do feed Explorar. Este arquivo de dados só deve ser compartilhado com destinatários de confiança e para fins de diagnóstico técnico.";
 "export-user-data-confirmation-title" = "Compartilhar a biblioteca de aplicativos?";
 "export-user-data-generic-error" = "Ocorreu um erro durante a exportação dos seus dados. Tente novamente mais tarde, por favor.";
