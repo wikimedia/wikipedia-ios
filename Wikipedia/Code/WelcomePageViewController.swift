@@ -44,6 +44,10 @@ final class WelcomePageViewController: UIPageViewController {
         addPageControlButtons()
         updateFonts()
         apply(theme: theme)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.updateFonts()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -108,11 +112,6 @@ final class WelcomePageViewController: UIPageViewController {
 
     @objc private func skip(_ sender: UIButton) {
         dismiss(animated: true)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

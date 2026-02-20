@@ -60,12 +60,14 @@ final class TalkPageCoffeeRollView: SetupView {
             textView.trailingAnchor.constraint(equalTo: scrollView.readableContentGuide.trailingAnchor, constant: -16),
             textView.widthAnchor.constraint(equalTo: scrollView.readableContentGuide.widthAnchor, constant: -32)
         ])
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+            updateFonts()
+        }
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-    }
+
 
     // MARK: - Configure
 

@@ -117,6 +117,14 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            if previousTraitCollection.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+                closeSwipeActionsPanelIfNecessary()
+                notificationsView.collectionView.reloadData()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -147,16 +155,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
     @objc fileprivate func applicationWillResignActive() {
         closeSwipeActionsPanelIfNecessary()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-            closeSwipeActionsPanelIfNecessary()
-            notificationsView.collectionView.reloadData()
-        }
-    }
-    
+
     // MARK: - Configuration
     
     fileprivate func setupBarButtons() {

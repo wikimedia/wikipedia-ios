@@ -4,6 +4,28 @@ import UIKit
 public class AlignedImageButton: UIButton {
     private var isFirstLayout = true
 
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupTraitObservation()
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupTraitObservation()
+    }
+
+    private func setupTraitObservation() {
+        registerForTraitChanges([UITraitLayoutDirection.self]) { [weak self] (button: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            let newLayoutDirection: UIUserInterfaceLayoutDirection = self.traitCollection.layoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+            guard newLayoutDirection != self.layoutDirection else {
+                return
+            }
+            self.updateSemanticContentAttribute()
+            self.adjustInsets()
+        }
+    }
+
     public override func layoutSubviews() {
         super.layoutSubviews()
         if isFirstLayout {
@@ -26,13 +48,13 @@ public class AlignedImageButton: UIButton {
             adjustInsets()
         }
     }
-    
+
     @IBInspectable open var leftPadding: CGFloat = 0 {
         didSet {
             adjustInsets()
         }
     }
-    
+
     @IBInspectable open var rightPadding: CGFloat = 0 {
         didSet {
             adjustInsets()
@@ -44,16 +66,6 @@ public class AlignedImageButton: UIButton {
             updateSemanticContentAttribute()
             adjustInsets()
         }
-    }
-    
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        let newLayoutDirection: UIUserInterfaceLayoutDirection = traitCollection.layoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
-        guard newLayoutDirection != layoutDirection else {
-            return
-        }
-        updateSemanticContentAttribute()
-        adjustInsets()
     }
 
     public override func wmf_sizeThatFits(_ maximumSize: CGSize) -> CGSize {
@@ -69,7 +81,7 @@ public class AlignedImageButton: UIButton {
         }
         return CGSize(width: defaultSize.width + 1, height: defaultSize.height)
     }
-    
+
     var layoutDirection: UIUserInterfaceLayoutDirection = .leftToRight
     fileprivate func updateSemanticContentAttribute() {
         layoutDirection = traitCollection.layoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
@@ -91,7 +103,7 @@ public class AlignedImageButton: UIButton {
             }
         }
     }
-    
+
     fileprivate func adjustInsets() {
         let inset = semanticContentAttribute == .forceRightToLeft ? -0.5 * horizontalSpacing : 0.5 * horizontalSpacing
         var deprecatedSelf = self as DeprecatedButton
@@ -99,5 +111,5 @@ public class AlignedImageButton: UIButton {
         deprecatedSelf.deprecatedTitleEdgeInsets = UIEdgeInsets(top: verticalPadding, left: inset, bottom: verticalPadding, right: -inset)
         deprecatedSelf.deprecatedContentEdgeInsets = UIEdgeInsets(top: verticalPadding, left: abs(inset) + leftPadding, bottom: verticalPadding, right: abs(inset) + rightPadding)
     }
-    
+
 }

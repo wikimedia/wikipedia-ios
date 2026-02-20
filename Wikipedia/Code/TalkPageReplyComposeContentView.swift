@@ -160,13 +160,15 @@ class TalkPageReplyComposeContentView: SetupView {
         }
         
         updateSemanticContentAttribute(semanticContentAttribute)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+            updateFonts()
+            apply(theme: theme)
+        }
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-        apply(theme: theme)
-    }
+
     
     // MARK: Public
     

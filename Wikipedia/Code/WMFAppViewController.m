@@ -262,6 +262,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.editHintController = [[WMFEditHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
+
+    __weak __typeof(self) weakSelf = self;
+    [self registerForTraitChanges:@[UITraitUserInterfaceStyle.class] withHandler:^(__kindof WMFAppViewController * _Nonnull viewController, UITraitCollection * _Nonnull previousTraitCollection) {
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        if (strongSelf) {
+            [strongSelf debounceTraitCollectionThemeUpdate];
+        }
+    }];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -1475,7 +1483,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil isMainRootView:YES];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
-        _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
+        _searchViewController.tabBarItem =
+            [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch
+                                                       tag:WMFAppTabTypeSearch];
         _searchViewController.title = [WMFCommonStrings searchTitle];
     }
     return _searchViewController;
@@ -1929,10 +1939,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)debounceTraitCollectionThemeUpdate {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateAppThemeIfNecessary) object:nil];
     [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
-}
-
-- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    [self debounceTraitCollectionThemeUpdate];
 }
 
 #pragma mark - WMFWorkerControllerDelegate

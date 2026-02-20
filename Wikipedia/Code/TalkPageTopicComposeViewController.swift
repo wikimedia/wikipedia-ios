@@ -188,6 +188,12 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         apply(theme: theme)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+            updateFonts()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -379,11 +385,6 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     }
     
     // MARK: Overrides
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-    }
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)

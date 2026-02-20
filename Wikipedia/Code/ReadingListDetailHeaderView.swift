@@ -17,19 +17,19 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
 
     private var readingListTitle: String?
     private var readingListDescription: String?
-    
+
     private var listLimit: Int = 0
     private var entryLimit: Int = 0
-    
+
     public weak var delegate: ReadingListDetailHeaderViewDelegate?
     
     private var theme: Theme = Theme.standard
-    
+
     private var firstResponder: UITextField? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         titleTextField.isUnderlined = false
         titleTextField.returnKeyType = .done
         titleTextField.enablesReturnKeyAutomatically = true
@@ -42,11 +42,10 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
         alertMessageLabel?.numberOfLines = 0
         updateFonts()
         apply(theme: theme)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.updateFonts()
+        }
     }
 
     private func updateFonts() {
@@ -56,18 +55,18 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
         alertTitleLabel?.font = WMFFont.for(.boldCaption1, compatibleWith: traitCollection)
         alertMessageLabel?.font = WMFFont.for(.caption1, compatibleWith: traitCollection)
     }
-    
+
     // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.
     var articleCount: Int64 = 0 {
         didSet {
             articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount).uppercased()
         }
     }
-    
+
     public func updateArticleCount(_ count: Int64) {
         articleCount = count
     }
-    
+
     private var alertType: ReadingListAlertType? {
         didSet {
             guard let alertType = alertType else {
@@ -89,34 +88,34 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
             }
         }
     }
-    
+
     public func setup(for readingList: ReadingList, listLimit: Int, entryLimit: Int) {
         self.listLimit = listLimit
         self.entryLimit = entryLimit
-        
+
         let readingListName = readingList.name
         let readingListDescription = readingList.isDefault ? CommonStrings.readingListsDefaultListDescription : readingList.readingListDescription
         let isDefault = readingList.isDefault
-        
+
         titleTextField.text = readingListName
         readingListTitle = readingListName
         descriptionTextField.text = readingListDescription
         self.readingListDescription = readingListDescription
-        
+
         titleTextField.isEnabled = !isDefault
         descriptionTextField.isEnabled = !isDefault
-        
+
         updateArticleCount(readingList.countOfEntries)
-        
+
         setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         alertStackView.isHidden = true
     }
-    
+
     private func setAlertType(for error: APIReadingListError?, listLimit: Int, entryLimit: Int) {
         guard let error else {
             alertStackView.isHidden = true
@@ -132,36 +131,36 @@ class ReadingListDetailHeaderView: UICollectionReusableView {
         default:
             alertStackView.isHidden = true
         }
-        
+
         setNeedsLayout()
         layoutIfNeeded()
     }
-    
+
     public func dismissKeyboardIfNecessary() {
         firstResponder?.resignFirstResponder()
     }
-    
+
     public func beginEditing() {
         firstResponder = titleTextField
         titleTextField.becomeFirstResponder()
     }
-    
+
     public func cancelEditing() {
         titleTextField.text = readingListTitle
         descriptionTextField.text = readingListDescription
         dismissKeyboardIfNecessary()
     }
-    
+
     public func finishEditing() {
         delegate?.readingListDetailHeaderView(self, didEdit: titleTextField.text, description: descriptionTextField.text)
         dismissKeyboardIfNecessary()
     }
-    
-    
+
+
     @IBAction func titleTextFieldTextDidChange(_ sender: UITextField) {
         delegate?.readingListDetailHeaderView(self, titleTextFieldTextDidChange: sender)
     }
-    
+
 }
 
 extension ReadingListDetailHeaderView: UITextFieldDelegate {
@@ -169,19 +168,19 @@ extension ReadingListDetailHeaderView: UITextFieldDelegate {
         finishEditing()
         return true
     }
-    
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         firstResponder = textField
         delegate?.readingListDetailHeaderView(self, didBeginEditing: textField)
     }
-    
+
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         if textField == titleTextField {
             delegate?.readingListDetailHeaderView(self, titleTextFieldWillClear: textField)
         }
         return true
     }
-    
+
 }
 
 extension ReadingListDetailHeaderView: Themeable {

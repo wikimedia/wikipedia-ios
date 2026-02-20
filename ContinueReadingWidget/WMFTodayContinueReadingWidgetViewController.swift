@@ -43,6 +43,10 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-description", value:"Explore Wikipedia for more articles to read", comment: "Explore Wikipedia for more articles to read")
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.updatePreferredContentSize()
+        }
     }
 
     @objc func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
@@ -160,11 +164,6 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         fitSize.width = view.bounds.size.width
         fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         preferredContentSize = fitSize
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updatePreferredContentSize()
     }
     
     @IBAction func continueReading(_ sender: AnyObject) {

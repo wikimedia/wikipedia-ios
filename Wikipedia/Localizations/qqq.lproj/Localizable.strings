@@ -483,8 +483,6 @@
 "empty-no-history-title" = "Title of a blank screen shown when a user has no history";
 "empty-no-other-article-languages-message" = "Message text shown in place of languages list when when no alternative article languages exist.";
 "empty-no-other-article-languages-title" = "Title text shown in place of languages list when when no alternative article languages exist.";
-"empty-no-reading-lists-message" = "Message of a blank screen shown when a user has no reading lists";
-"empty-no-reading-lists-title" = "Title of a blank screen shown when a user has no reading lists";
 "empty-no-saved-pages-in-reading-list-message" = "Message of a blank screen shown when a user has no saved pages in a reading list";
 "empty-no-saved-pages-in-reading-list-title" = "Title of a blank screen shown when a user has no saved pages in a reading list";
 "empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";

@@ -77,20 +77,6 @@ final class NotificationsCenterView: SetupView {
 
     // MARK: - Lifecycle
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-            emptyOverlayHeaderLabel.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
-            emptyOverlaySubheaderLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-            calculatedCellHeight = nil
-        }
-
-        if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-             calculatedCellHeight = nil
-        }
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -129,18 +115,30 @@ final class NotificationsCenterView: SetupView {
             emptyOverlayHeaderLabel.widthAnchor.constraint(equalTo: emptyOverlayStack.widthAnchor, multiplier: 3/4),
             emptyOverlaySubheaderLabel.widthAnchor.constraint(equalTo: emptyOverlayStack.widthAnchor, multiplier: 4/5)
         ])
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            if previousTraitCollection.preferredContentSizeCategory != self.traitCollection.preferredContentSizeCategory {
+                self.emptyOverlayHeaderLabel.font = WMFFont.for(.boldCallout, compatibleWith: self.traitCollection)
+                self.emptyOverlaySubheaderLabel.font = WMFFont.for(.subheadline, compatibleWith: self.traitCollection)
+                self.calculatedCellHeight = nil
+            }
+
+            if previousTraitCollection.horizontalSizeClass != self.traitCollection.horizontalSizeClass {
+                self.calculatedCellHeight = nil
+            }
+        }
     }
 
     // MARK: - Public
-    
+
     private var subheaderTapGR: UITapGestureRecognizer?
-    
+
     func addSubheaderTapGestureRecognizer(target: Any, action: Selector) {
         let tap = UITapGestureRecognizer(target: target, action: action)
         self.subheaderTapGR = tap
         emptyOverlaySubheaderLabel.addGestureRecognizer(tap)
     }
-    
+
     func updateEmptyVisibility(visible: Bool) {
         emptyScrollView.isHidden = !visible
         emptyScrollView.isUserInteractionEnabled = visible
@@ -156,7 +154,7 @@ final class NotificationsCenterView: SetupView {
             subheaderTapGR?.isEnabled = false
         }
     }
-    
+
     func updateCalculatedCellHeightIfNeeded() {
 
         guard let firstCell = collectionView.visibleCells.first else {
@@ -168,9 +166,9 @@ final class NotificationsCenterView: SetupView {
             self.calculatedCellHeight = calculatedCellHeight
         }
     }
-    
+
 // MARK: Private
-    
+
     private var calculatedCellHeight: CGFloat? {
         didSet {
             if oldValue != calculatedCellHeight {

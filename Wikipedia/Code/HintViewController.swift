@@ -77,9 +77,13 @@ class HintViewController: UIViewController {
         
         safeAreaBottomConstraint.isActive = extendsUnderSafeArea
         viewBottomConstraint.isActive = !extendsUnderSafeArea
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.updateFonts()
+        }
 
         updateFonts()
-        
+
         view.setNeedsLayout()
     }
 
@@ -99,11 +103,6 @@ class HintViewController: UIViewController {
 
     open func configureSubviews() {
 
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

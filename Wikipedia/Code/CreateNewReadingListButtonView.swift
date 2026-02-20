@@ -8,17 +8,16 @@ public class CreateNewReadingListButtonView: UICollectionReusableView {
         button.setImage(#imageLiteral(resourceName: "plus"), for: .normal)
         updateFonts()
         button.horizontalSpacing = 7
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.updateFonts()
+        }
     }
 
     public var title: String? {
         didSet {
             button.setTitle(title, for: .normal)
         }
-    }
-
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

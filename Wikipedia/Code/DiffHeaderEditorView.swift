@@ -89,6 +89,10 @@ class DiffHeaderEditorView: SetupView {
         containerVerticalStackView.addArrangedSubview(headingLabel)
         containerVerticalStackView.addArrangedSubview(containerHorizontalStackView)
         
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.updateFonts(with: self.traitCollection)
+        }
+
         addSubview(containerVerticalStackView)
         NSLayoutConstraint.activate([
             safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: containerVerticalStackView.leadingAnchor, constant: -15),
@@ -124,11 +128,6 @@ class DiffHeaderEditorView: SetupView {
             numberOfEditsLabel.isHidden =  true
         }
         
-        updateFonts(with: traitCollection)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
         updateFonts(with: traitCollection)
     }
     

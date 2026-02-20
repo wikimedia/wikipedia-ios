@@ -13,9 +13,11 @@ final class InsertMediaSettingsButtonView: UIView {
 
     var buttonAction: ((UIButton) -> Void)?
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.updateFonts()
+        }
     }
 
     private func updateFonts() {
