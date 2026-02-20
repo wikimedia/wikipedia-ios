@@ -299,7 +299,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
         }
         
-        if let searchBarConfig {
+        if let searchBarConfig,
+           navigationItem.searchController == nil {
             let searchController = UISearchController(searchResultsController: searchBarConfig.searchResultsController)
             searchController.delegate = searchBarConfig.searchControllerDelegate
             searchController.searchResultsUpdater = searchBarConfig.searchResultsUpdater
