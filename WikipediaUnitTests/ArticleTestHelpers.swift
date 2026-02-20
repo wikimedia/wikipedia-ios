@@ -4,8 +4,7 @@ import XCTest
 import Foundation
 
 class BasicCachingWebViewController: UIViewController, WKNavigationDelegate {
-    static let webProcessPool = WKProcessPool()
-    
+
     let schemeHandler: SchemeHandler
     var articleURL = URL(string: "app://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States")!
     let session: Session
@@ -13,7 +12,7 @@ class BasicCachingWebViewController: UIViewController, WKNavigationDelegate {
     let permanentCache: PermanentCacheController
     var didReceiveDataCallback: ((WKURLSchemeTask, Data) -> Void)?
     var extraHeaders: [String: String] = [:]
-    
+
     init() {
         self.permanentCache = ArticleTestHelpers.cacheController
         self.session = ArticleTestHelpers.dataStore.session

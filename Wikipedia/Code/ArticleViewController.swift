@@ -211,13 +211,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     // MARK: WebView
 
-    static let webProcessPool = WKProcessPool()
-
     private(set) var messagingController = ArticleWebMessagingController()
 
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
-        configuration.processPool = ArticleViewController.webProcessPool
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         return configuration
     }()
