@@ -75,8 +75,8 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
 }
 
 - (NSString *)wmf_localizedShortDateStringRelativeToDate:(nonnull NSDate *)date {
-    NSCalendar *calender = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calender components:NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:self toDate:date options:0];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:self toDate:date options:0];
 
     if ([date compare:self] == NSOrderedAscending) { // Date (self) is in future
         return [[NSDateFormatter wmf_shortDateFormatter] stringFromDate:self];

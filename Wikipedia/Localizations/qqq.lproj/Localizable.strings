@@ -472,7 +472,7 @@
 "editor-wikitext-textview-accessibility" = "Accessibility label for the wikitext editor textview.";
 "edits-last-month" = "Title for edits last month section";
 "edits-this-month" = "Title for edits this month section";
-"empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
+"empty-diff-compare-title" = "Text for placeholder label visible when diff comparison between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
 "empty-edit-summary" = "Label when looking at a particular article revision. Indicates that the user did not add a summary.";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";

@@ -11,7 +11,7 @@ WMFData is a local Swift package designed to house all of the logic pertaining t
 
 Services are classes that are capable of making API calls via URLSession. We have two services in our app: WMFBasicService, which is capable of making unauthenticated API calls, as well as our mediaWikiService, which is capable of making authenticated API calls. Both service classes can be accessed via the WMFDataEnvironment.current singleton (located in Sources > WMFData > Environment directory), through the mediaWikiService and basicService properties.
 
-Eventually, we want to combine these into one simple service class, but all of our legacy authentication logic still lives outside of WMFData. So for now we have split them up - any authenticated calls still use the WMFDataEnvironment.current.mediaWikiService interface, but under-the-hood it calls back to the legacy area of the app to lean on it's authentication + url session calls.
+Eventually, we want to combine these into one simple service class, but all of our legacy authentication logic still lives outside of WMFData. So for now we have split them up - any authenticated calls still use the WMFDataEnvironment.current.mediaWikiService interface, but under-the-hood it calls back to the legacy area of the app to lean on its authentication + url session calls.
 
 ### Stores
 `Sources > WMFData > Store`
