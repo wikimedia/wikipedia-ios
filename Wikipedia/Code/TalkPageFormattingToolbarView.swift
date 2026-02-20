@@ -76,7 +76,28 @@ final class TalkPageFormattingToolbarView: SetupView {
     }
 
     override func setup() {
-        addSubview(stackView)
+        
+        if #available(iOS 26, *) {
+            
+            backgroundColor = .clear
+            
+            let effectView = UIVisualEffectView(frame: bounds)
+            let glassEffect = UIGlassEffect(style: .regular)
+            effectView.effect = glassEffect
+            effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            addSubview(effectView)
+            addSubview(stackView)
+            
+            // Apply corner radius for rounded edges
+            effectView.layer.cornerRadius = 22
+            effectView.clipsToBounds = true
+            layer.cornerRadius = 22
+            clipsToBounds = true
+           
+        } else {
+            addSubview(stackView)
+        }
 
         stackView.addArrangedSubview(boldButtonStackView)
         stackView.addArrangedSubview(italicsButtonStackView)
@@ -104,8 +125,8 @@ final class TalkPageFormattingToolbarView: SetupView {
             italicsButtonSeparatorView.widthAnchor.constraint(equalToConstant: 0.5),
             italicsButtonSeparatorView.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
         ])
+        
         configure()
-
     }
 
     @objc private func didTapBoldButton() {
@@ -129,27 +150,41 @@ final class TalkPageFormattingToolbarView: SetupView {
 
 extension TalkPageFormattingToolbarView: Themeable {
     func apply(theme: Theme) {
-        backgroundColor = theme.colors.inputAccessoryBackground
-
-        if theme.hasInputAccessoryShadow {
-            layer.shadowOffset = CGSize(width: 0, height: -2)
-            layer.shadowRadius = 10
-            layer.shadowOpacity = 1.0
-            layer.shadowColor = theme.colors.shadow.cgColor
+        
+        if #available(iOS 26, *) {
+            backgroundColor = .clear
+            
+            boldButton.tintColor = theme.colors.inputAccessoryButtonTint
+            italicsButton.tintColor = theme.colors.inputAccessoryButtonTint
+            linkButton.tintColor = theme.colors.inputAccessoryButtonTint
+            boldButtonSeparatorView.backgroundColor = theme.colors.secondaryText
+            boldButtonSeparatorView.alpha = 0.8
+            italicsButtonSeparatorView.backgroundColor = theme.colors.secondaryText
+            italicsButtonSeparatorView.alpha = 0.8
         } else {
-            layer.shadowOffset = .zero
-            layer.shadowRadius = 0
-            layer.shadowOpacity = 0
-            layer.shadowColor = nil
-        }
+            backgroundColor = theme.colors.inputAccessoryBackground
 
-        boldButton.tintColor = theme.colors.inputAccessoryButtonTint
-        italicsButton.tintColor = theme.colors.inputAccessoryButtonTint
-        linkButton.tintColor = theme.colors.inputAccessoryButtonTint
-        boldButtonSeparatorView.backgroundColor = theme.colors.secondaryText
-        boldButtonSeparatorView.alpha = 0.8
-        italicsButtonSeparatorView.backgroundColor = theme.colors.secondaryText
-        italicsButtonSeparatorView.alpha = 0.8
+            if theme.hasInputAccessoryShadow {
+                layer.shadowOffset = CGSize(width: 0, height: -2)
+                layer.shadowRadius = 10
+                layer.shadowOpacity = 1.0
+                layer.shadowColor = theme.colors.shadow.cgColor
+            } else {
+                layer.shadowOffset = .zero
+                layer.shadowRadius = 0
+                layer.shadowOpacity = 0
+                layer.shadowColor = nil
+            }
+
+            boldButton.tintColor = theme.colors.inputAccessoryButtonTint
+            italicsButton.tintColor = theme.colors.inputAccessoryButtonTint
+            linkButton.tintColor = theme.colors.inputAccessoryButtonTint
+            boldButtonSeparatorView.backgroundColor = theme.colors.secondaryText
+            boldButtonSeparatorView.alpha = 0.8
+            italicsButtonSeparatorView.backgroundColor = theme.colors.secondaryText
+            italicsButtonSeparatorView.alpha = 0.8
+        }
+        
     }
 
 }

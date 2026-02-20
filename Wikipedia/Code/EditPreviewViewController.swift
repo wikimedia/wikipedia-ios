@@ -132,6 +132,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         
         if needsNextButton {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
+            navigationItem.rightBarButtonItem?.tintColor = theme.colors.navigationBarTintColor
         }
     }
     
@@ -213,6 +214,9 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
             return
         }
         previewWebViewContainer.apply(theme: theme)
+        if needsNextButton {
+            navigationItem.rightBarButtonItem?.tintColor = theme.colors.navigationBarTintColor
+        }
     }
 
     @objc func tappedWebViewBackground() {

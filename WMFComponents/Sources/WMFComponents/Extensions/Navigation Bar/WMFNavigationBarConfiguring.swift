@@ -1,5 +1,6 @@
 import UIKit
 import WMFData
+import SwiftUI
 
 public protocol WMFNavigationBarConfiguring {
     
@@ -44,16 +45,18 @@ public struct WMFNavigationBarCloseButtonConfig {
         case trailing
     }
     
-    let text: String
     let target: Any
     let action: Selector
     let alignment: Alignment
+    let text: String?
+    let isCheckMark: Bool
     
-    public init(text: String, target: Any, action: Selector, alignment: Alignment) {
-        self.text = text
+    public init(text: String? = nil, target: Any, action: Selector, alignment: Alignment, isCheckMark: Bool = false) {
         self.target = target
         self.action = action
         self.alignment = alignment
+        self.text = text
+        self.isCheckMark = isCheckMark
     }
 }
 
@@ -117,6 +120,42 @@ public struct WMFNavigationBarSearchConfig {
     }
 }
 
+// MARK: - SwiftUI Glass Close Button (file-scope, not nested in protocol extension)
+
+@available(iOS 26.0, *)
+struct WMFGlassCloseButton: View {
+    let size: CGFloat
+    let target: Any
+    let action: Selector
+    let iconColor: Color
+    let isCheckMark: Bool
+    let backgroundColor: Color
+
+    var body: some View {
+        Button {
+            _ = (target as AnyObject).perform(action)
+        } label: {
+            if isCheckMark {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(iconColor)
+                    .frame(width: size, height: size)
+                    .background(backgroundColor)
+                    .clipShape(Circle())
+            } else {
+                Image(systemName: "xmark")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(iconColor)
+                    .frame(width: size, height: size)
+                    .background(backgroundColor)
+                    .clipShape(Circle())
+            }
+        }
+    }
+}
+
+// MARK: - Navigation Bar Configuring Extension
+
 public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     private var profileButtonAccessibilityID: String {
@@ -131,7 +170,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - searchBarConfig: Config for search bar
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
     func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig,
-                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil,
+                                closeButtonConfig: WMFNavigationBarCloseButtonConfig?,
+                                profileButtonConfig: WMFNavigationBarProfileButtonConfig?,
+                                tabsButtonConfig: WMFNavigationBarTabsButtonConfig?,
+                                searchBarConfig: WMFNavigationBarSearchConfig?,
+                                hideNavigationBarOnScroll: Bool) {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
@@ -178,7 +222,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                     button.sharesBackground = false
                 }
                 navigationItem.leftBarButtonItem = button
-
                 themeNavigationBarLeadingTitleView()
             }
         case .leadingLarge:
@@ -226,16 +269,13 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             rightBarButtonItems.append(profileButton)
             
             if let tabsButtonConfig {
-                
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-                
                 rightBarButtonItems.append(tabsButton)
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
                     rightBarButtonItems.append(leadingBarButtonItem)
                 }
-                
             }
             
             navigationItem.rightBarButtonItems = rightBarButtonItems
@@ -243,20 +283,23 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         // Setup close button if needed
         if let closeButtonConfig {
-            let closeButton = UIBarButtonItem(title: closeButtonConfig.text, style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
-            closeButton.setTitleTextAttributes([.font: WMFFont.navigationBarDoneButtonFont], for: .normal)
+            let closeBarButtonItem = makeLiquidGlassCloseBarButtonItem(
+                target: closeButtonConfig.target,
+                action: closeButtonConfig.action,
+                isCheckMark: closeButtonConfig.isCheckMark,
+                alignment: closeButtonConfig.alignment,
+                text: closeButtonConfig.text
+            )
             
             switch closeButtonConfig.alignment {
             case .leading:
-                navigationItem.leftBarButtonItem = closeButton
+                navigationItem.leftBarButtonItem = closeBarButtonItem
             case .trailing:
-                navigationItem.rightBarButtonItem = closeButton
+                navigationItem.rightBarButtonItem = closeBarButtonItem
             }
         }
         
-        // Setup search bar if needed
-        if let searchBarConfig,
-           navigationItem.searchController == nil {
+        if let searchBarConfig {
             let searchController = UISearchController(searchResultsController: searchBarConfig.searchResultsController)
             searchController.delegate = searchBarConfig.searchControllerDelegate
             searchController.searchResultsUpdater = searchBarConfig.searchResultsUpdater
@@ -279,21 +322,18 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     func customizeNavBarAppearance(customLargeTitleFont: UIFont) {
         guard let navVC = navigationController,
-        let componentNavVC = navVC as? WMFComponentNavigationController else {
+              let componentNavVC = navVC as? WMFComponentNavigationController else {
             return
         }
-        
         componentNavVC.setBarAppearance(customLargeTitleFont: customLargeTitleFont)
     }
     
     /// Call on viewWillDisappear(), IF navigation bar large title was set with a custom font.
     func resetNavBarAppearance() {
-        
         guard let navVC = navigationController,
-        let componentNavVC = navVC as? WMFComponentNavigationController else {
+              let componentNavVC = navVC as? WMFComponentNavigationController else {
             return
         }
-        
         componentNavVC.setBarAppearance(customLargeTitleFont: nil)
     }
     
@@ -344,5 +384,77 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     func profileButtonAccessibilityStrings(config: WMFNavigationBarProfileButtonConfig) -> String {
         return config.needsBadge ? config.accessibilityLabelHasNotifications : config.accessibilityLabelNoNotifications
+    }
+
+    // MARK: - in the protocol extension:
+
+    private func makeLiquidGlassCloseBarButtonItem(target: Any, action: Selector, isCheckMark: Bool = false, alignment: WMFNavigationBarCloseButtonConfig.Alignment, text: String?) -> UIBarButtonItem {
+        let circleSize: CGFloat = 36
+        let buttonHeight: CGFloat = 44
+        let theme = WMFAppEnvironment.current.theme
+        
+        // Determine container width and padding based on alignment
+        let isLeading = alignment == .leading
+        let horizontalPadding: CGFloat = 8
+        let containerWidth: CGFloat = circleSize + horizontalPadding
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: containerWidth, height: buttonHeight))
+
+        let verticalOffset = (buttonHeight - circleSize) / 2
+        // If leading: circle on left (0 offset). If trailing: circle on right (padding offset)
+        let horizontalOffset: CGFloat = isLeading ? 0 : horizontalPadding
+
+        if #available(iOS 26.0, *) {
+            let iconColor = isCheckMark ? Color(theme.paperBackground) : Color(theme.text)
+            let backgroundColor = Color(theme.baseBackground)
+            let glassButton = WMFGlassCloseButton(size: circleSize, target: target, action: action, iconColor: iconColor, isCheckMark: isCheckMark, backgroundColor: backgroundColor)
+            let hostingController = UIHostingController(rootView: glassButton)
+            hostingController.view.backgroundColor = UIColor.clear
+            hostingController.view.frame = CGRect(x: horizontalOffset, y: verticalOffset, width: circleSize, height: circleSize)
+            container.addSubview(hostingController.view)
+        } else {
+            let backgroundView = UIView(frame: CGRect(x: horizontalOffset, y: verticalOffset, width: circleSize, height: circleSize))
+            backgroundView.backgroundColor = theme.baseBackground
+            backgroundView.layer.cornerRadius = circleSize / 2
+            backgroundView.layer.masksToBounds = true
+            backgroundView.isUserInteractionEnabled = false
+            container.addSubview(backgroundView)
+
+            let symbolName = isCheckMark ? "checkmark" : "xmark"
+            let symbolConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)
+            let symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfig)
+            let symbolImageView = UIImageView(image: symbolImage)
+            symbolImageView.tintColor = isCheckMark ? theme.paperBackground : theme.text
+            symbolImageView.contentMode = .center
+            symbolImageView.frame = CGRect(x: horizontalOffset, y: verticalOffset, width: circleSize, height: circleSize)
+            container.addSubview(symbolImageView)
+
+            let button = UIButton(type: .custom)
+            button.frame = container.bounds
+            button.accessibilityLabel = text ?? ""
+            button.addTarget(target, action: action, for: .touchUpInside)
+
+            button.addAction(UIAction { _ in
+                UIView.animate(withDuration: 0.1) {
+                    backgroundView.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
+                }
+            }, for: .touchDown)
+
+            button.addAction(UIAction { _ in
+                UIView.animate(withDuration: 0.1) {
+                    backgroundView.transform = .identity
+                }
+            }, for: [.touchUpInside, .touchUpOutside, .touchCancel])
+
+            container.addSubview(button)
+        }
+
+        let barButtonItem = UIBarButtonItem(customView: container)
+
+        if #available(iOS 26.0, *) {
+            barButtonItem.hidesSharedBackground = true
+            barButtonItem.sharesBackground = false
+        }
+
+        return barButtonItem
     }
 }
