@@ -907,7 +907,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 guard self != nil else { return }
 
                 let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .success, dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousAlerts: true)
                 DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
             })
         })
@@ -954,7 +954,7 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
         }
         resetFromFeatureAnnouncement()
     }
@@ -1175,7 +1175,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             navigationController.dismiss(animated: true) { [weak self] in
                 guard let self else { return }
                 if needsExitFromIntroToast {
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
                 }
                 resetFromFeatureAnnouncement()
             }

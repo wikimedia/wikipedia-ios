@@ -114,7 +114,7 @@ class WatchlistController {
 
         let duration: TimeInterval? = UIAccessibility.isVoiceOverRunning ? 10 : 5
 
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(statusTitle, subtitle: nil, image: image, type: .success, duration: duration, dismissPreviousAlerts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
+        WMFAlertManager.sharedInstance.showAlertWithMessage(statusTitle, subtitle: nil, image: image, duration: duration, dismissPreviousAlerts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
 
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.async {
@@ -264,7 +264,7 @@ class WatchlistController {
                     let image = UIImage(systemName: "star")
 
                     if !UIAccessibility.isVoiceOverRunning {
-                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .success, dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
                     } else {
                         UIAccessibility.post(notification: .layoutChanged, argument: [title] as [Any])
                     }

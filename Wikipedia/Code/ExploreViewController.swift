@@ -1445,7 +1445,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
 
     func imageRecommendationsDidTriggerTimeWarning() {
         let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .warning, dismissPreviousAlerts: true)
+        WMFAlertManager.sharedInstance.showAlertWithMessage(warningmessage, subtitle: nil, image: nil, dismissPreviousAlerts: true)
     }
 }
 
@@ -1573,7 +1573,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         if UIAccessibility.isVoiceOverRunning {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         } else {
-                            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .success, dismissPreviousAlerts: true)
+                            WMFAlertManager.sharedInstance.showAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
                         }
                     }
 

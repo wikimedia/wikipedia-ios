@@ -187,7 +187,7 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
                     
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
                     }
                 } else {
                     _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)

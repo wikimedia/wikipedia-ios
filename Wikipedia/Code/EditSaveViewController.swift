@@ -253,11 +253,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
                 let image = UIImage(systemName: "exclamationmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                WMFAlertManager.sharedInstance.showAlertWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    type: .warning,
                     dismissPreviousAlerts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
@@ -275,11 +274,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
                 let image = UIImage(systemName: "exclamationmark.triangle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                WMFAlertManager.sharedInstance.showAlertWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    type: .warning,
                     dismissPreviousAlerts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {

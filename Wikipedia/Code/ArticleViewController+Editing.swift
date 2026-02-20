@@ -311,34 +311,36 @@ extension ArticleViewController: EditorViewControllerDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     }
                 } else {
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    WMFAlertManager.sharedInstance.showAlertWithMessage(
                         title,
                         subtitle: nil,
                         image: image,
-                        type: .success,
                         dismissPreviousAlerts: true,
                         completion: {
-                            let title = CommonStrings.tempAccountCreatedToastTitle
-                            let subtitle = CommonStrings.tempAccountCreatedToastSubtitle(username: tempAccountUsername)
-                            let image = WMFIcon.temp
-                            if needsNewTempAccountToast ?? false {
-                                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                                    title,
-                                    subtitle: subtitle,
-                                    image: image,
-                                    type: .normal,
-                                    dismissPreviousAlerts: true,
-                                    buttonTitle: CommonStrings.learnMoreTitle(),
-                                    buttonCallBack: {
-                                        if let url = URL(string: self.tempAccountsMediaWikiURL) {
-                                            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
-                                            let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
-                                            let newNavigationVC =
-                                            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
-                                            self.present(newNavigationVC, animated: true)
+                            Task { @MainActor in
+                                let title = CommonStrings.tempAccountCreatedToastTitle
+                                let subtitle = CommonStrings.tempAccountCreatedToastSubtitle(username: tempAccountUsername)
+                                let image = WMFIcon.temp
+                                if needsNewTempAccountToast ?? false {
+                                    WMFAlertManager.sharedInstance.showAlertWithMessage(
+                                        title,
+                                        subtitle: subtitle,
+                                        image: image,
+                                        dismissPreviousAlerts: true,
+                                        buttonTitle: CommonStrings.learnMoreTitle(),
+                                        buttonCallBack: {
+                                            Task { @MainActor in
+                                                if let url = URL(string: self.tempAccountsMediaWikiURL) {
+                                                    let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                                                    let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+                                                    let newNavigationVC =
+                                                    WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                                                    self.present(newNavigationVC, animated: true)
+                                                }
+                                            }
                                         }
-                                    }
-                                )
+                                    )
+                                }
                             }
                         }
                     )

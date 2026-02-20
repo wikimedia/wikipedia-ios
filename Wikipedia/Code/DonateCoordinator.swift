@@ -541,7 +541,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
         let showToastBlock: () -> Void = {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .success, duration: -1, dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), duration: -1, dismissPreviousAlerts: true)
             }
         }
 
@@ -585,7 +585,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
 
     private func displayThankYouToastAfterDelay() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), type: .success, duration: -1, dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: UIImage.init(systemName: "heart.fill"), duration: -1, dismissPreviousAlerts: true)
         }
     }
 }

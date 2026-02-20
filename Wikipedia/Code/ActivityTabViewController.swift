@@ -75,7 +75,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
             let config = WMFToastConfig(
                 title: title,
-                type: .normal,
                 duration: nil,
                 buttonTitle: CommonStrings.logIn,
                 buttonAction: { [weak self] in
@@ -788,7 +787,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
             self?.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .success, dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousAlerts: true)
             })
         })
     }

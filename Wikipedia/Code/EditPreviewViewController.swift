@@ -180,7 +180,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
             self.previewWebViewContainer.webView.load(request)
 
             if self.needsSimplifiedFormatToast {
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, type: .normal, dismissPreviousAlerts: false)
+                WMFAlertManager.sharedInstance.showAlertWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, dismissPreviousAlerts: false)
             }
         }
 

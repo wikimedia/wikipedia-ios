@@ -208,7 +208,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         passwordAlertLabel.isHidden = true
         setViewControllerUserInteraction(enabled: false)
         disableProgressiveButton()
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         guard let username = usernameField.text, let password = passwordField.text else {
             assertionFailure("One or more of the required parameters are nil")
             return

@@ -316,9 +316,9 @@ extension WMFAppViewController: WMFWatchlistDelegate {
                     case .success:
                         let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
                         let successMessage = String.localizedStringWithFormat(successfulThanks, username)
-                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), type: .success, dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showAlertWithMessage(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousAlerts: true)
                     case .failure(let failure):
-                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(failure.localizedDescription, subtitle: nil, image: nil, type: .error, dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showAlertWithMessage(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousAlerts: true)
                     }
                 })
             }

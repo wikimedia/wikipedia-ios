@@ -127,11 +127,10 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
                 let image = UIImage(systemName: "exclamationmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                WMFAlertManager.sharedInstance.showAlertWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    type: .warning,
                     dismissPreviousAlerts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
@@ -149,11 +148,10 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
                 let image = UIImage(systemName: "exclamationmark.triangle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                WMFAlertManager.sharedInstance.showAlertWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    type: .warning,
                     dismissPreviousAlerts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
@@ -344,7 +342,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 return
         }
 
-
         if let articleURL = self.articleDescriptionController.article.url {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: articleURL)
         }
@@ -389,11 +386,10 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                             let image = WMFIcon.temp
 
                             if needsNewTempAccountToast {
-                                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                                WMFAlertManager.sharedInstance.showAlertWithMessage(
                                     title,
                                     subtitle: subtitle,
                                     image: image,
-                                    type: .normal,
                                     dismissPreviousAlerts: true,
                                     buttonTitle: CommonStrings.learnMoreTitle(),
                                     buttonCallBack: {
