@@ -3,7 +3,7 @@ extension String {
         return !isEmpty
     }
     public var wmf_hasNonWhitespaceText: Bool {
-        return wmf_hasText && !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        return wmf_hasText && !self.trimmingCharacters(in: .whitespaces).isEmpty
     }
     public var wmf_hasAlphanumericText: Bool {
         return wmf_hasText && (self.components(separatedBy: .alphanumerics).count > 1)
