@@ -4,7 +4,6 @@ import WMFData
 public struct WMFTempAccountsSheetView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFTempAccountsSheetViewModel
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
     var theme: WMFTheme {
