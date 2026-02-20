@@ -79,7 +79,7 @@ open class WMFComponentNavigationController: UINavigationController {
             let rightItems = topVC.navigationItem.rightBarButtonItems ?? []
             
             for item in leftItems + rightItems {
-                if item.tag == WMFNavigationBarCloseButtonConfig.ImageType.prominentCheck.tag {
+                if item.tag == WMFLargeCloseButtonImageType.prominentCheck.tag {
                     item.tintColor = theme.link
                 }
             }

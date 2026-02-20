@@ -814,7 +814,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
         
         navigationController?.presentationController?.delegate = self
 
-        let closeConfig = WMFNavigationBarCloseButtonConfig(
+        let closeConfig = WMFLargeCloseButtonConfig(
             imageType: .plainX,
             target: self,
             action: #selector(closeTapped),

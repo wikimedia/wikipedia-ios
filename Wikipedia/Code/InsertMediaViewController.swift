@@ -121,7 +121,7 @@ final class InsertMediaViewController: ThemeableViewController, WMFNavigationBar
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertMediaTitle, customView: nil, alignment: .centerCompact)
-        let closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil,searchBarConfig: nil, hideNavigationBarOnScroll: false)
         

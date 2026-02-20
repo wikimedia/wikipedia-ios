@@ -19,7 +19,7 @@ class NotificationsCenterModalHostingController<Content>: UIHostingController<Co
         super.viewDidLoad()
         
         let titleConfig = WMFNavigationBarTitleConfig(title: customTitle, customView: nil, alignment: .centerCompact, customLargeTitleFont: nil)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(tappedClose), alignment: .trailing)
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(tappedClose), alignment: .trailing)
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     

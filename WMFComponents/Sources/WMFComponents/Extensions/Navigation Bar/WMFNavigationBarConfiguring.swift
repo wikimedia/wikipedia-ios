@@ -37,41 +37,6 @@ public struct WMFNavigationBarBackButtonConfig {
     }
 }
 
-/// Close button config for navigation bar
-public struct WMFNavigationBarCloseButtonConfig {
-    
-    public enum Alignment {
-        case leading
-        case trailing
-    }
-    
-    public enum ImageType {
-        case plainX
-        case prominentCheck
-        
-        var tag: Int {
-            switch self {
-            case .plainX:
-                return 100
-            case .prominentCheck:
-                return 101
-            }
-        }
-    }
-    
-    let imageType: ImageType
-    let target: Any
-    let action: Selector
-    let alignment: Alignment
-    
-    public init(imageType: ImageType, target: Any, action: Selector, alignment: Alignment) {
-        self.imageType = imageType
-        self.target = target
-        self.action = action
-        self.alignment = alignment
-    }
-}
-
 /// Profile button config for navigation bar
 public struct WMFNavigationBarProfileButtonConfig {
     public let accessibilityLabelNoNotifications: String
@@ -183,7 +148,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
     func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig,
                                 backButtonConfig: WMFNavigationBarBackButtonConfig? = nil,
-                                closeButtonConfig: WMFNavigationBarCloseButtonConfig?,
+                                closeButtonConfig: WMFLargeCloseButtonConfig?,
                                 profileButtonConfig: WMFNavigationBarProfileButtonConfig?,
                                 tabsButtonConfig: WMFNavigationBarTabsButtonConfig?,
                                 searchBarConfig: WMFNavigationBarSearchConfig?,
@@ -296,23 +261,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         // Setup close button if needed
         if let closeButtonConfig {
             
-            let closeButton: UIBarButtonItem
-            switch closeButtonConfig.imageType {
-            case .plainX:
-                let image = WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont)
-                closeButton = UIBarButtonItem(image: image, style: .plain, target: closeButtonConfig.target, action: closeButtonConfig.action)
-                closeButton.tintColor = WMFAppEnvironment.current.theme.text
-            case .prominentCheck:
-                
-                if #available(iOS 26.0, *) {
-                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont), style: .prominent, target: closeButtonConfig.target, action: closeButtonConfig.action)
-                } else {
-                    closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont), style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
-                }
-                closeButton.tintColor = WMFAppEnvironment.current.theme.link
-            }
-            
-            closeButton.tag = closeButtonConfig.imageType.tag
+            let closeButton = UIBarButtonItem.closeNavigationBarButtonItem(config: closeButtonConfig)
             
             switch closeButtonConfig.alignment {
             case .leading:

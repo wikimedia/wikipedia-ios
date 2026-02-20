@@ -130,7 +130,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     private func configureNavigationBar() {
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(close(_ :)), alignment: .leading)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(close(_ :)), alignment: .leading)
 
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
         

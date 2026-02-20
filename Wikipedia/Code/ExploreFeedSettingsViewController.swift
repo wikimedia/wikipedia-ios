@@ -180,10 +180,10 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
     
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreFeedTitle, customView: nil, alignment: .centerCompact)
-        var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
+        var closeConfig: WMFLargeCloseButtonConfig? = nil
         
         if showCloseButton {
-            closeConfig = WMFNavigationBarCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPressed), alignment: .leading)
+            closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPressed), alignment: .leading)
         }
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
