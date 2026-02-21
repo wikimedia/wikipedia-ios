@@ -173,22 +173,31 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
-        let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
-        searchViewController.dataStore = dataStore
-        
-        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
+        let searchResultsContainer = SearchResultsContainerViewController(source: .topOfFeed, dataStore: dataStore)
+        searchResultsContainer.apply(theme: theme)
+        searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-        
-        searchViewController.theme = theme
-        
+        searchResultsContainer.articleTappedAction = { [weak self] articleURL in
+            guard let self, let navVC = navigationController else { return }
+            let coordinator = LinkCoordinator(
+                navigationController: navVC,
+                url: articleURL,
+                dataStore: dataStore,
+                theme: theme,
+                articleSource: .search,
+                tabConfig: .appendArticleAndAssignCurrentTab
+            )
+            if !coordinator.start() {
+                navigate(to: articleURL)
+            }
+        }
+
         let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchViewController,
+            searchResultsController: searchResultsContainer,
             searchControllerDelegate: self,
-            searchResultsUpdater: self,
+            searchResultsUpdater: searchResultsContainer,
             searchBarDelegate: nil,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false, scopeButtonTitles: nil)
@@ -692,7 +701,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         themeNavigationBarLeadingTitleView()
         themeNavigationBarCustomCenteredTitleView()
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsContainerViewController {
             searchVC.theme = theme
             searchVC.apply(theme: theme)
         }
@@ -1779,27 +1788,6 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
         ImageRecommendationsFunnel.shared.logSaveChangesPublishFail(abortSource: abortSource)
     }
     
-}
-
-extension ExploreViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        
-        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
-            return
-        }
-        
-        if text.isEmpty {
-            searchViewController.searchTerm = nil
-            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-        } else {
-            searchViewController.searchTerm = text
-            searchViewController.updateRecentlySearchedVisibility(searchText: text)
-            searchViewController.search()
-        }
-    }
 }
 
 extension ExploreViewController: LogoutCoordinatorDelegate {

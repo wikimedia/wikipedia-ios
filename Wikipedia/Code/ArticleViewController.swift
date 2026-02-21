@@ -783,20 +783,28 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
-        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
-        searchViewController.dataStore = dataStore
-        searchViewController.theme = theme
-        searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
-        
-        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
+        let searchResultsContainer = SearchResultsContainerViewController(source: .article, dataStore: dataStore)
+        searchResultsContainer.apply(theme: theme)
+        searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-        
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+        searchResultsContainer.articleTappedAction = { [weak self] articleURL in
+            guard let self, let navVC = navigationController else { return }
+            let coordinator = LinkCoordinator(
+                navigationController: navVC,
+                url: articleURL,
+                dataStore: dataStore,
+                theme: theme,
+                articleSource: .search,
+                tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+            )
+            if !coordinator.start() {
+                navigate(to: articleURL)
+            }
+        }
+
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchResultsContainer, searchControllerDelegate: self, searchResultsUpdater: searchResultsContainer, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
@@ -1007,7 +1015,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         themeNavigationBarCustomCenteredTitleView()
         themeTopSafeAreaOverlay()
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsContainerViewController {
             searchVC.theme = theme
             searchVC.apply(theme: theme)
         }
@@ -1610,32 +1618,17 @@ extension ArticleViewController: YearInReviewBadgeDelegate {
     }
 }
 
-extension ArticleViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        
-        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
-            return
-        }
-        
-        if text.isEmpty {
-            searchViewController.searchTerm = nil
-            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-        } else {
-            searchViewController.searchTerm = text
-            searchViewController.updateRecentlySearchedVisibility(searchText: text)
-            searchViewController.search()
-        }
-    }
-}
-
 extension ArticleViewController: UISearchControllerDelegate {
         
     func willPresentSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = false
         searchBarIsAnimating = true
+    }
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        DispatchQueue.main.async {
+            searchController.searchBar.becomeFirstResponder()
+        }
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {

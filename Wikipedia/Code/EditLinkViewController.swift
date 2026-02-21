@@ -153,28 +153,18 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
-        let searchViewController = SearchViewController(source: .unknown)
-        searchViewController.siteURL = siteURL
-        searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.dataStore = MWKDataStore.shared()
-        
-        let navigateToSearchResultAction: ((URL) -> Void) = { [weak self] articleURL in
-            guard let self else {
-                return
-            }
-            self.articleURL = articleURL
+        let searchVC = SearchBasicViewController(dataStore: MWKDataStore.shared())
+        searchVC.showLanguageBar = false
+        searchVC.siteURL = siteURL
+        searchVC.prefilledSearchTerm = articleURL.wmf_title
+        searchVC.title = CommonStrings.editLinkTitle
+        searchVC.articleTappedAction = { [weak self] tappedURL in
+            guard let self else { return }
+            self.articleURL = tappedURL
             navigationController?.popViewController(animated: true)
         }
-        
-        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
-        searchViewController.showLanguageBar = false
-        searchViewController.customTitle = CommonStrings.editLinkTitle
-        searchViewController.needsCenteredTitle = true
-        searchViewController.searchTerm = articleURL.wmf_title
-        searchViewController.search()
-        searchViewController.theme = theme
-        searchViewController.apply(theme: theme)
-        navigationController?.pushViewController(searchViewController, animated: true)
+        searchVC.apply(theme: theme)
+        navigationController?.pushViewController(searchVC, animated: true)
     }
 
     override func apply(theme: Theme) {
