@@ -58,6 +58,72 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
+    
+    /// Call from a UIViewController's scrollViewDidScroll method to swap the logo image on scroll
+    /// - Parameter scrollView: The scroll view to track scroll position
+    func updateLogoImageOnScroll(scrollView: UIScrollView) {
+        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        let isCompactMode = finalOffset > 75
+        
+        // Get stored state using associated object
+        let key = UnsafeRawPointer(bitPattern: "logoCompactModeKey".hashValue)!
+        let currentState = objc_getAssociatedObject(self, key) as? NSNumber
+        let wasCompactMode = currentState?.boolValue ?? false
+        
+        // Only update if state changed
+        if isCompactMode != wasCompactMode {
+            objc_setAssociatedObject(self, key, NSNumber(value: isCompactMode), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            if isCompactMode {
+                swapLogoToCompact()
+            } else {
+                swapLogoToFull()
+            }
+        }
+    }
+    
+    /// Swap logo to the compact W icon
+    private func swapLogoToCompact() {
+        if let rightBarButtonItems = navigationItem.rightBarButtonItems {
+            for barButtonItem in rightBarButtonItems {
+                updateLogoImage(in: barButtonItem, to: "W")
+            }
+        }
+        
+        if let leftBarButtonItem = navigationItem.leftBarButtonItem {
+            updateLogoImage(in: leftBarButtonItem, to: "W")
+        }
+    }
+    
+    /// Swap logo back to the full Wikipedia logo
+    private func swapLogoToFull() {
+        if let rightBarButtonItems = navigationItem.rightBarButtonItems {
+            for barButtonItem in rightBarButtonItems {
+                updateLogoImage(in: barButtonItem, to: "wikipedia")
+            }
+        }
+        
+        if let leftBarButtonItem = navigationItem.leftBarButtonItem {
+            updateLogoImage(in: leftBarButtonItem, to: "wikipedia")
+        }
+    }
+    
+    private func updateLogoImage(in barButtonItem: UIBarButtonItem, to imageName: String) {
+        if let customView = barButtonItem.customView {
+            if let button = customView as? UIButton {
+                let image = UIImage(named: imageName)
+                button.setImage(image, for: .normal)
+            } else {
+                // Handle nested views
+                for subview in customView.subviews {
+                    if let button = subview as? UIButton {
+                        let image = UIImage(named: imageName)
+                        button.setImage(image, for: .normal)
+                    }
+                }
+            }
+        }
+    }
 }
 
 private extension UIApplication {

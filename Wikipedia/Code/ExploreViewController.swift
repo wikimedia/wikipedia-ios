@@ -284,6 +284,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.scrollViewDidScroll(scrollView)
         
         calculateNavigationBarHiddenState(scrollView: scrollView)
+        updateLogoImageOnScroll(scrollView: scrollView)
         
         guard !isLoadingOlderContent else {
             return
