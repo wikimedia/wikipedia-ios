@@ -164,7 +164,7 @@ class ArticlePeekPreviewViewController: UIViewController {
                             
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                WMFAlertManager.sharedInstance.showWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                                WMFAlertManager.sharedInstance.showWarningAlertWithMessageAndSubtitle(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
                             }
                         } else {
                             _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)

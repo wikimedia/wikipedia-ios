@@ -517,9 +517,9 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func presentIPTempWarningToastIfNeeded() {
         if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent, wikiHasTempAccounts {
             if viewModel.authenticationManager.authStateIsTemporary {
-                WMFAlertManager.sharedInstance.showWarningAlertWithMessage(CommonStrings.tempWarningTitle, subtitle: CommonStrings.tempWarningSubtitle(username: viewModel.authenticationManager.authStateTemporaryUsername ?? "*****"), buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showWarningAlertWithMessageAndSubtitle(CommonStrings.tempWarningTitle, subtitle: CommonStrings.tempWarningSubtitle(username: viewModel.authenticationManager.authStateTemporaryUsername ?? "*****"), buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), dismissPreviousAlerts: true)
             } else {
-                WMFAlertManager.sharedInstance.showWarningAlertWithMessage(CommonStrings.ipWarningTitle, subtitle: CommonStrings.ipWarningSubtitle,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showWarningAlertWithMessageAndSubtitle(CommonStrings.ipWarningTitle, subtitle: CommonStrings.ipWarningSubtitle,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
             }
         }
     }
@@ -949,7 +949,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: nil, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: nil, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
         }
     }
 
@@ -1196,7 +1196,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
                 } else {
                     self.showUnexpectedErrorAlert(on: self)
@@ -1285,7 +1285,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
                 } else {
                     self.showUnexpectedErrorAlert(on: composeViewController)

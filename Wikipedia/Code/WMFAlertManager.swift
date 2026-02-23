@@ -2,49 +2,12 @@
 import WMFComponents
 
 @MainActor
-open class WMFAlertManager: NSObject, Themeable {
+open class WMFAlertManager: NSObject {
 
     @objc static let sharedInstance = WMFAlertManager()
-
     var theme = Theme.standard
-    nonisolated public func apply(theme: Theme) {
-        Task { @MainActor in
-            self.theme = theme
-        }
-    }
 
-    // MARK: - Public API
-
-    /// Show a toast with the given configuration
-    public func show(config: WMFToastConfig, dismissPreviousAlerts: Bool) {
-        showAlert(dismissPreviousAlerts) {
-            WMFToastPresenter.shared.show(config, dismissPreviousAlerts: false)
-        }
-    }
-
-    /// Objective-C compatible method to show a toast (without action callbacks)
-    @objc public func showToast(
-        title: String,
-        subtitle: String?,
-        icon: UIImage?,
-        duration: NSNumber?,
-        buttonTitle: String?,
-        dismissPreviousAlerts: Bool
-    ) {
-        let finalDuration: TimeInterval? = duration?.doubleValue
-        let config = WMFToastConfig(
-            title: title,
-            subtitle: subtitle,
-            icon: icon,
-            duration: finalDuration,
-            buttonTitle: buttonTitle,
-            tapAction: nil,
-            buttonAction: nil
-        )
-        show(config: config, dismissPreviousAlerts: dismissPreviousAlerts)
-    }
-
-    // MARK: - Convenience Methods (for backward compatibility)
+    // MARK: - Public Convenience Methods (for backward compatibility)
 
     @objc public func showAlert(_ message: String, sticky: Bool, dismissPreviousAlerts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
         let config = WMFToastConfig(
@@ -87,7 +50,7 @@ open class WMFAlertManager: NSObject, Themeable {
         show(config: config, dismissPreviousAlerts: dismissPreviousAlerts)
     }
 
-    @objc func showWarningAlertWithMessage(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousAlerts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
+    func showWarningAlertWithMessageAndSubtitle(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousAlerts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
         let config = WMFToastConfig(
             title: message,
             subtitle: subtitle,
@@ -118,7 +81,7 @@ open class WMFAlertManager: NSObject, Themeable {
         show(config: config, dismissPreviousAlerts: dismissPreviousAlerts)
     }
 
-    @objc func showErrorAlertWithMessage(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousAlerts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
+   func showErrorAlertWithMessageAndSubtitle(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousAlerts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
         let config = WMFToastConfig(
             title: message,
             subtitle: subtitle,
@@ -154,6 +117,13 @@ open class WMFAlertManager: NSObject, Themeable {
 
     private var queuedAlertBlocks: [() -> Void] = []
 
+    /// Show a toast with the given configuration
+    private func show(config: WMFToastConfig, dismissPreviousAlerts: Bool) {
+        showAlert(dismissPreviousAlerts) {
+            WMFToastPresenter.shared.show(config, dismissPreviousAlerts: false)
+        }
+    }
+
     private func showAlert(_ dismissPreviousAlerts: Bool, alertBlock: @escaping () -> Void) {
         DispatchQueue.main.async {
             if dismissPreviousAlerts {
@@ -180,3 +150,11 @@ open class WMFAlertManager: NSObject, Themeable {
     }
 }
 
+extension WMFAlertManager: Themeable {
+
+    nonisolated public func apply(theme: Theme) {
+        Task { @MainActor in
+            self.theme = theme
+        }
+    }
+}
