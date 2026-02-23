@@ -68,6 +68,7 @@ class SearchResultsContainerViewController: ThemeableViewController, WMFNavigati
     private var searchTerm: String?
     private var lastSearchSiteURL: URL?
     private var _siteURL: URL?
+    private var searchTask: Task<Void, Never>?
 
     var siteURL: URL? {
         get {
@@ -91,6 +92,7 @@ class SearchResultsContainerViewController: ThemeableViewController, WMFNavigati
     }
 
     deinit {
+        searchTask?.cancel()
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -271,7 +273,7 @@ class SearchResultsContainerViewController: ThemeableViewController, WMFNavigati
                 guard let self else { return }
                 NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
                 let resultsArray = results.results ?? []
-                self.resultsViewController.emptyViewType = .noSearchResults
+                self.resultsViewController.emptyViewType = resultsArray.isEmpty ? .noSearchResults : .none
                 self.resultsViewController.resultsInfo = results
                 self.resultsViewController.searchSiteURL = siteURL
                 self.resultsViewController.results = resultsArray
@@ -282,13 +284,15 @@ class SearchResultsContainerViewController: ThemeableViewController, WMFNavigati
 
         fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { error in
             failure(error, .prefix)
-        }, success: { results in
+        }, success: { [weak self] results in
+            guard let self else { return }
             success(results, .prefix)
             guard let resultsArray = results.results, resultsArray.count < 12 else { return }
             self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { error in
                 failure(error, .full)
-            }, success: { results in
-                success(results, .full)
+            }, success: { [weak self] fullTextResults in
+                guard self != nil else { return }
+                success(fullTextResults, .full)
             })
         })
     }
@@ -296,6 +300,7 @@ class SearchResultsContainerViewController: ThemeableViewController, WMFNavigati
     private lazy var fetcher = WMFSearchFetcher()
 
     func resetSearchResults() {
+        fetcher.cancelAllFetches()
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
     }
@@ -393,6 +398,7 @@ class SearchResultsContainerViewController: ThemeableViewController, WMFNavigati
 
     private lazy var selectAction: (WMFRecentlySearchedViewModel.RecentSearchTerm) -> Void = { [weak self] term in
         guard let self else { return }
+        self.resetSearchResults()
         if let pop = self.populateSearchBarAction {
             pop(term.text)
         }
@@ -492,8 +498,17 @@ extension SearchResultsContainerViewController: UISearchResultsUpdating {
                 return
             }
             searchTerm = text
-            search(for: text, suggested: false)
+
+            searchTask?.cancel()
+            searchTask = Task { @MainActor [weak self] in
+                guard let self else { return }
+                try? await Task.sleep(for: .milliseconds(100))
+                guard !Task.isCancelled else { return }
+                search(for: text, suggested: false)
+            }
         } else {
+            searchTask?.cancel()
+            searchTask = nil
             searchTerm = nil
             resetSearchResults()
             showRecentSearches(animated: false)
