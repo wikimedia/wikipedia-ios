@@ -23,6 +23,15 @@ class SearchLanguageButton: UnderlineButton {
     
     // MARK: - UI Elements
 
+    private lazy var backgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
+        view.layer.cornerRadius = 8
+        view.layer.masksToBounds = true
+        return view
+    }()
+
     private lazy var languageCodeContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +75,7 @@ class SearchLanguageButton: UnderlineButton {
         titleLabel.numberOfLines = 1
         titleLabel.adjustsFontForContentSizeCategory = true
 
+        insertSubview(backgroundView, belowSubview: titleLabel)
         addSubview(languageCodeContainer)
         languageCodeContainer.addSubview(languageCodeLabel)
         
@@ -80,7 +90,11 @@ class SearchLanguageButton: UnderlineButton {
             languageCodeLabel.centerYAnchor.constraint(equalTo: languageCodeContainer.centerYAnchor),
             languageCodeLabel.centerXAnchor.constraint(equalTo: languageCodeContainer.centerXAnchor),
             languageCodeLabel.leadingAnchor.constraint(equalTo: languageCodeContainer.leadingAnchor, constant: 2),
-            languageCodeLabel.trailingAnchor.constraint(equalTo: languageCodeContainer.trailingAnchor, constant: -2)
+            languageCodeLabel.trailingAnchor.constraint(equalTo: languageCodeContainer.trailingAnchor, constant: -2),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
         let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
@@ -103,6 +117,7 @@ class SearchLanguageButton: UnderlineButton {
         tintColor = isSelected ? theme.colors.link : theme.colors.tertiaryText
         languageCodeContainer.backgroundColor = isSelected ? theme.colors.link : theme.colors.tertiaryText
         languageCodeLabel.textColor = theme.colors.paperBackground
+        backgroundView.backgroundColor = theme.colors.paperBackground
     }
     
 }

@@ -84,27 +84,73 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
     
     /// Swap logo to the compact W icon
     private func swapLogoToCompact() {
+        // Update the main title button if it exists (for the W logo)
+        if let titleButton = navigationItem.titleView as? UIView,
+           let button = titleButton.subviews.first(where: { $0 is UIButton }) as? UIButton {
+            button.setImage(UIImage(named: "W"), for: .normal)
+            button.tintColor = .white
+            if let backgroundView = button.subviews.first(where: { $0.tag == 9998 }) {
+                backgroundView.backgroundColor = WMFAppEnvironment.current.theme.link
+            }
+        }
+        
+        // Also update bar button items if they exist
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for barButtonItem in rightBarButtonItems {
                 updateLogoImage(in: barButtonItem, to: "W")
+                showGlassCircle(in: barButtonItem)
             }
         }
         
         if let leftBarButtonItem = navigationItem.leftBarButtonItem {
             updateLogoImage(in: leftBarButtonItem, to: "W")
+            showGlassCircle(in: leftBarButtonItem)
         }
     }
     
     /// Swap logo back to the full Wikipedia logo
     private func swapLogoToFull() {
+        // Update the main title button if it exists (for the Wikipedia logo)
+        if let titleButton = navigationItem.titleView as? UIView,
+           let button = titleButton.subviews.first(where: { $0 is UIButton }) as? UIButton {
+            button.setImage(UIImage(named: "wikipedia"), for: .normal)
+            button.tintColor = WMFAppEnvironment.current.theme.text
+            if let backgroundView = button.subviews.first(where: { $0.tag == 9998 }) {
+                backgroundView.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
+            }
+        }
+        
+        // Also update bar button items if they exist
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for barButtonItem in rightBarButtonItems {
                 updateLogoImage(in: barButtonItem, to: "wikipedia")
+                hideGlassCircle(in: barButtonItem)
             }
         }
         
         if let leftBarButtonItem = navigationItem.leftBarButtonItem {
             updateLogoImage(in: leftBarButtonItem, to: "wikipedia")
+            hideGlassCircle(in: leftBarButtonItem)
+        }
+    }
+    
+    /// Show the glass circle background in the language button
+    private func showGlassCircle(in barButtonItem: UIBarButtonItem) {
+        if let customView = barButtonItem.customView as? UIButton {
+            // Try to find the SearchLanguageButton and call setGlassCircleVisible
+            if customView.responds(to: NSSelectorFromString("setGlassCircleVisible:")) {
+                customView.perform(NSSelectorFromString("setGlassCircleVisible:"), with: NSNumber(value: true))
+            }
+        }
+    }
+    
+    /// Hide the glass circle background in the language button
+    private func hideGlassCircle(in barButtonItem: UIBarButtonItem) {
+        if let customView = barButtonItem.customView as? UIButton {
+            // Try to find the SearchLanguageButton and call setGlassCircleVisible
+            if customView.responds(to: NSSelectorFromString("setGlassCircleVisible:")) {
+                customView.perform(NSSelectorFromString("setGlassCircleVisible:"), with: NSNumber(value: false))
+            }
         }
     }
     

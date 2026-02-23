@@ -232,6 +232,24 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
         longTitleButton.isAccessibilityElement = false
         longTitleButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add glass background behind the button
+        let backgroundView = UIView()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.isUserInteractionEnabled = false
+        backgroundView.layer.cornerRadius = 24
+        backgroundView.layer.masksToBounds = true
+        backgroundView.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
+        backgroundView.tag = 9998  // Tag for identification
+        longTitleButton.insertSubview(backgroundView, belowSubview: longTitleButton.imageView ?? UIView())
+        
+        NSLayoutConstraint.activate([
+            backgroundView.widthAnchor.constraint(equalToConstant: 48),
+            backgroundView.heightAnchor.constraint(equalToConstant: 48),
+            backgroundView.centerXAnchor.constraint(equalTo: longTitleButton.centerXAnchor),
+            backgroundView.centerYAnchor.constraint(equalTo: longTitleButton.centerYAnchor)
+        ])
+        
         return longTitleButton
     }()
     
