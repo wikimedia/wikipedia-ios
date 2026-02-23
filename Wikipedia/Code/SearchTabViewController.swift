@@ -6,7 +6,7 @@ import SwiftUI
 import Combine
 
 /// Root view controller for the Search tab. It owns a `WMFHistoryHostingController` which is shown
-/// when the search controller is inactive, and uses `SearchResultsContainerViewController` as its
+/// when the search controller is inactive, and uses `SearchResultsViewController` as its
 /// `navigationItem.searchController.searchResultsController`.
 class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
 
@@ -82,8 +82,8 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
     // MARK: - Search results container
 
-    lazy var searchResultsContainer: SearchResultsContainerViewController = {
-        let container = SearchResultsContainerViewController(source: .searchTab, dataStore: dataStore ?? MWKDataStore.shared())
+    lazy var searchResultsContainer: SearchResultsViewController = {
+        let container = SearchResultsViewController(source: .searchTab, dataStore: dataStore ?? MWKDataStore.shared())
         container.apply(theme: theme)
         container.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -273,7 +273,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-        SearchFunnel.shared.logSearchStart(source: SearchResultsContainerViewController.EventLoggingSource.searchTab.stringValue)
+        SearchFunnel.shared.logSearchStart(source: SearchResultsViewController.EventLoggingSource.searchTab.stringValue)
         ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
     }
 
@@ -448,7 +448,7 @@ extension SearchTabViewController: UISearchControllerDelegate {
         navigationController?.hidesBarsOnSwipe = true
         historyViewController.view.isHidden = false
         searchResultsContainer.resetSearchResults()
-        SearchFunnel.shared.logSearchCancel(source: SearchResultsContainerViewController.EventLoggingSource.searchTab.stringValue)
+        SearchFunnel.shared.logSearchCancel(source: SearchResultsViewController.EventLoggingSource.searchTab.stringValue)
         Task { @MainActor in refreshDeleteButtonState() }
         configureNavigationBar()
     }

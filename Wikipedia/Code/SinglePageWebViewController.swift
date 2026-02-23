@@ -292,7 +292,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     // MARK: - Actions
     
     @objc func userDidTapSearchButton() {
-        let searchVC = SearchBasicViewController(dataStore: dataStore)
+        let searchVC = SearchMinimalViewController(dataStore: dataStore)
         searchVC.apply(theme: theme)
         navigationController?.pushViewController(searchVC, animated: true)
     }

@@ -43,7 +43,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
-        let searchResultsContainer = SearchResultsContainerViewController(source: .unknown, dataStore: dataStore)
+        let searchResultsContainer = SearchResultsViewController(source: .unknown, dataStore: dataStore)
         searchResultsContainer.showLanguageBar = false
         searchResultsContainer.apply(theme: theme)
         searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
@@ -107,7 +107,7 @@ extension InsertLinkViewController: Themeable {
         view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsContainerViewController {
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
             searchVC.theme = theme
             searchVC.apply(theme: theme)
         }

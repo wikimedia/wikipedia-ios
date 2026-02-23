@@ -783,7 +783,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
-        let searchResultsContainer = SearchResultsContainerViewController(source: .article, dataStore: dataStore)
+        let searchResultsContainer = SearchResultsViewController(source: .article, dataStore: dataStore)
         searchResultsContainer.apply(theme: theme)
         searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -1015,7 +1015,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         themeNavigationBarCustomCenteredTitleView()
         themeTopSafeAreaOverlay()
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsContainerViewController {
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
             searchVC.theme = theme
             searchVC.apply(theme: theme)
         }

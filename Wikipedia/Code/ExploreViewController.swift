@@ -173,7 +173,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
-        let searchResultsContainer = SearchResultsContainerViewController(source: .topOfFeed, dataStore: dataStore)
+        let searchResultsContainer = SearchResultsViewController(source: .topOfFeed, dataStore: dataStore)
         searchResultsContainer.apply(theme: theme)
         searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -701,7 +701,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         themeNavigationBarLeadingTitleView()
         themeNavigationBarCustomCenteredTitleView()
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsContainerViewController {
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
             searchVC.theme = theme
             searchVC.apply(theme: theme)
         }

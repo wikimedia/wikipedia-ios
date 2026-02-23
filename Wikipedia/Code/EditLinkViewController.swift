@@ -153,7 +153,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
-        let searchVC = SearchBasicViewController(dataStore: MWKDataStore.shared())
+        let searchVC = SearchMinimalViewController(dataStore: MWKDataStore.shared())
         searchVC.showLanguageBar = false
         searchVC.siteURL = siteURL
         searchVC.prefilledSearchTerm = articleURL.wmf_title

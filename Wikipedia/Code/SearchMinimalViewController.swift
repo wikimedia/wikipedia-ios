@@ -2,11 +2,11 @@ import UIKit
 import WMFComponents
 import WMFData
 
-/// A lightweight view controller that wraps `SearchResultsContainerViewController` as its
+/// A lightweight view controller that wraps `SearchResultsViewController` as its
 /// `navigationItem.searchController.searchResultsController` and immediately activates the search bar
 /// upon appearance. Intended to be pushed onto an existing navigation stack (e.g. from a search
 /// button in a non-search context). No history view is shown; article taps push the article.
-class SearchBasicViewController: ThemeableViewController, WMFNavigationBarConfiguring {
+class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Dependencies
 
@@ -28,8 +28,8 @@ class SearchBasicViewController: ThemeableViewController, WMFNavigationBarConfig
 
     // MARK: - Child
 
-    private lazy var searchResultsContainer: SearchResultsContainerViewController = {
-        let container = SearchResultsContainerViewController(source: .unknown, dataStore: dataStore)
+    private lazy var searchResultsContainer: SearchResultsViewController = {
+        let container = SearchResultsViewController(source: .unknown, dataStore: dataStore)
         container.apply(theme: theme)
         container.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -134,7 +134,7 @@ class SearchBasicViewController: ThemeableViewController, WMFNavigationBarConfig
 
 // MARK: - UISearchControllerDelegate
 
-extension SearchBasicViewController: UISearchControllerDelegate {
+extension SearchMinimalViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = false
     }
@@ -142,6 +142,6 @@ extension SearchBasicViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchResultsContainer.resetSearchResults()
-        SearchFunnel.shared.logSearchCancel(source: SearchResultsContainerViewController.EventLoggingSource.unknown.stringValue)
+        SearchFunnel.shared.logSearchCancel(source: SearchResultsViewController.EventLoggingSource.unknown.stringValue)
     }
 }
