@@ -276,6 +276,13 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
         SearchFunnel.shared.logSearchStart(source: SearchResultsViewController.EventLoggingSource.searchTab.stringValue)
         ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let topSafeAreaHeight = view.safeAreaInsets.top
+        historyViewModel.topPadding = topSafeAreaHeight
+    }
 
     // MARK: - Navigation Bar
 
