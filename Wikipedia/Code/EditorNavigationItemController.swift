@@ -233,7 +233,6 @@ class EditorNavigationItemController: NSObject, Themeable {
     
     private func updateNavigationButtonItems(proposedItems: [UIBarButtonItem], traitCollection: UITraitCollection) {
         if #available(iOS 26.0, *) {
-            print(UIScreen.main.bounds.width)
             if shouldCollapseToOverflow(proposedItems: proposedItems, traitCollection: traitCollection) {
                 var finalItems = proposedItems
                 let progressButton = finalItems.removeFirst()

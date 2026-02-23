@@ -135,7 +135,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         
         let titleConfig = WMFNavigationBarTitleConfig(title: readingList.name ?? "", customView: nil, alignment: .centerCompact)
         
-        let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(dismissController), alignment: .leading) : nil
+        let closeButtonConfig: WMFLargeCloseButtonConfig? = displayType == .modal ? WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(dismissController), alignment: .leading) : nil
 
         let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)

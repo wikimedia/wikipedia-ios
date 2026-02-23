@@ -15,14 +15,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }()
     
     private let viewModel: WMFArticleTabsViewModel
-    private let doneButtonText: String
     private let articleTabsCount: Int
     private var format: String?
     private var dataController: WMFArticleTabsDataController
 
-    public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, doneButtonText: String, articleTabsCount: Int) {
+    public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, articleTabsCount: Int) {
         self.viewModel = viewModel
-        self.doneButtonText = doneButtonText
         self.articleTabsCount = articleTabsCount
         dataController = WMFArticleTabsDataController.shared
         super.init(rootView: rootView)
@@ -60,7 +58,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         let newNavigationBarTitle = String.localizedStringWithFormat(self.format ?? "", articleTabsCount)
         let titleConfig = WMFNavigationBarTitleConfig(title: title ?? newNavigationBarTitle, customView: nil, alignment: .centerCompact)
 
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: doneButtonText, target: self, action: #selector(tappedDone), alignment: .leading)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(tappedDone), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
