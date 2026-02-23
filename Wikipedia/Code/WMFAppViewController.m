@@ -955,22 +955,21 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
         if ([self.dataStore.authenticationManager authStateIsTemporary] && ![[NSUserDefaults standardUserDefaults] boolForKey:kTemporaryAccountAlertShownKey]) {
             [[WMFAlertManager sharedInstance] showAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.", @"Alert message informing user that they are using a temporary account")
-                                                                subtitle:nil
-                                                             buttonTitle:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account-learn-more", nil, nil, @"Learn more.", @"Button on alert for temporary accounts to learn more.")
-                                                                   image:[UIImage imageNamed:@"exclamation-point"]
-                                                   dismissPreviousAlerts:true
-                                                             tapCallBack:^{
-                                                                 TempAccountExpiryViewController *tempVC = [[TempAccountExpiryViewController alloc] init];
-                                                                 [tempVC start];
+                                                          subtitle:nil
+                                                       buttonTitle:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account-learn-more", nil, nil, @"Learn more.", @"Button on alert for temporary accounts to learn more.")
+                                                             image:[UIImage imageNamed:@"exclamation-point"]
+                                             dismissPreviousAlerts:true tapCallBack:^{
+                TempAccountExpiryViewController *tempVC = [[TempAccountExpiryViewController alloc] init];
+                [tempVC start];
 
-                                                                 if (self.navigationController) {
-                                                                     [self.navigationController pushViewController:tempVC animated:YES];
-                                                                 } else {
-                                                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tempVC];
-                                                                     navController.modalPresentationStyle = UIModalPresentationFullScreen;
-                                                                     [self presentViewController:navController animated:YES completion:nil];
-                                                                 }
-                                                             }];
+                if (self.navigationController) {
+                    [self.navigationController pushViewController:tempVC animated:YES];
+                } else {
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tempVC];
+                    navController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    [self presentViewController:navController animated:YES completion:nil];
+                }
+            }];
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kTemporaryAccountAlertShownKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
