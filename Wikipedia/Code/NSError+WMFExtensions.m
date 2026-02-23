@@ -21,4 +21,20 @@
     return NO;
 }
 
+- (BOOL)wmf_isCancelledError {
+    if ([self.domain isEqualToString:NSURLErrorDomain]) {
+        switch (self.code) {
+            case NSURLErrorCancelled:
+                return YES;
+                break;
+
+            default:
+                return NO;
+                break;
+        }
+    }
+    return NO;
+}
+
+
 @end

@@ -262,7 +262,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             DispatchQueue.main.async { [weak self] in
                 guard let self,
                       searchTerm == self.searchTerm else { return }
-                self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
+                self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : (error as NSError).wmf_isCancelledError() ? .none : .noSearchResults
                 self.resultsViewController.results = []
                 SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
             }
@@ -403,7 +403,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             pop(term.text)
         }
         self.searchTerm = term.text
-        self.search(for: term.text, suggested: false)
     }
 
     private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
