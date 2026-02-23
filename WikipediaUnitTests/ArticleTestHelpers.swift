@@ -29,7 +29,6 @@ class BasicCachingWebViewController: UIViewController, WKNavigationDelegate {
     
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
-        configuration.processPool = BasicCachingWebViewController.webProcessPool
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         return configuration
     }()
