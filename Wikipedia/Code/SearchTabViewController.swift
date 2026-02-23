@@ -281,7 +281,9 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
         super.viewDidLayoutSubviews()
         
         let topSafeAreaHeight = view.safeAreaInsets.top
+        let bottomSafeAreaHeight = view.safeAreaInsets.bottom
         historyViewModel.topPadding = topSafeAreaHeight
+        historyViewModel.bottomPadding = bottomSafeAreaHeight
     }
 
     // MARK: - Navigation Bar

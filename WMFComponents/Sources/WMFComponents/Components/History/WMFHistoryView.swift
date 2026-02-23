@@ -131,7 +131,6 @@ public struct WMFHistoryView: View {
                 Text(viewModel.localizedStrings.historyHeaderTitle)
                     .font(Font(WMFFont.for(.boldTitle3)))
                     .foregroundStyle(Color(uiColor: theme.text))
-                    .padding(.top, viewModel.topPadding)
             }
             .listRowSeparator(.hidden)
             .listRowBackground(Color(theme.paperBackground))
@@ -157,7 +156,9 @@ public struct WMFHistoryView: View {
         .listSectionSpacing(0)
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
-        .ignoresSafeArea(edges: .top)
+        .contentMargins(.top, viewModel.topPadding)
+        .contentMargins(.bottom, viewModel.bottomPadding)
+        .ignoresSafeArea(edges: [.top])
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
