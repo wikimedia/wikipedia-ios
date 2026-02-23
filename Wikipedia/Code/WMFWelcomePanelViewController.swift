@@ -7,7 +7,15 @@ class WMFWelcomePanelViewController: ThemeableViewController {
             return
         }
         scrollView.apply(theme: theme)
-        nextButton.backgroundColor = theme.colors.link
+
+        // Apply theme colors to button configuration
+        if var config = nextButton.configuration {
+            config.baseBackgroundColor = theme.colors.link
+            config.baseForegroundColor = theme.colors.paperBackground
+
+            nextButton.configuration = config
+        }
+
         for child in children {
             guard let themeable = child as? Themeable else {
                 continue
@@ -15,7 +23,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
             themeable.apply(theme: theme)
         }
     }
-    
+
     @IBOutlet private var containerView:UIView!
     @IBOutlet private var titleLabel:UILabel!
     @IBOutlet private var nextButton:AutoLayoutSafeMultiLineButton!
@@ -27,22 +35,38 @@ class WMFWelcomePanelViewController: ThemeableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // For iPhone 5 a smaller size is used.
         if view.bounds.size.height <= 568 {
             titleLabel.font = WMFFont.for(.title1, compatibleWith: traitCollection)
         }
-        
+
+        configureCapsuleButton()
         embedContainerControllerView()
         updateUIStrings()
 
-        // If the button itself was directly an arranged stackview subview we couldn't
-        // set padding contraints and also get clean collapsing when enabling isHidden.
         nextButtonContainerView.isHidden = welcomePageType != .analytics
-        
+
         view.wmf_configureSubviewsForDynamicType()
     }
-    
+
+    private func configureCapsuleButton() {
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.baseBackgroundColor = theme.colors.link
+        config.baseForegroundColor = theme.colors.paperBackground
+
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = WMFFont.for(.callout)
+            return outgoing
+        }
+
+        nextButton.configuration = config
+        nextButton.titleLabel?.numberOfLines = 0
+        nextButton.titleLabel?.lineBreakMode = .byWordWrapping
+    }
+
     private func embedContainerControllerView() {
         if let containerController = containerController {
             containerController.apply(theme: theme)
@@ -51,7 +75,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
             containerController.didMove(toParent: self)
         }
     }
-    
+
     private lazy var containerController: ThemeableViewController? = {
         switch welcomePageType {
         case .intro:
@@ -76,10 +100,10 @@ class WMFWelcomePanelViewController: ThemeableViewController {
         case .analytics:
             titleLabel.text = WMFLocalizedString("welcome-data-privacy-title", value:"Data & Privacy", comment:"Title for welcome screen explaining data usage in the app")
         }
-    
+
         nextButton.setTitle(CommonStrings.getStartedTitle, for: .normal)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if scrollView.wmf_contentSizeHeightExceedsBoundsHeight() {
@@ -106,7 +130,7 @@ class WMFWelcomePanelGradientScrollView : UIScrollView, Themeable {
         bottomGradientView.setStart(fadeColor, end: clear)
         topGradientView.setStart(fadeColor, end: clear)
     }
-    
+
     private let fadeHeight: CGFloat = 8
     private var fadeColor = UIColor.white
     private var clear = UIColor.white.withAlphaComponent(0)
@@ -119,7 +143,7 @@ class WMFWelcomePanelGradientScrollView : UIScrollView, Themeable {
         addSubview(gradient)
         return gradient
     }()
-    
+
     private lazy var bottomGradientView: WMFGradientView = {
         let gradient = WMFGradientView()
         gradient.translatesAutoresizingMaskIntoConstraints = false

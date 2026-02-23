@@ -233,6 +233,14 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let toolbarView = diffToolbarView {
+            diffListViewController?.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: toolbarView.frame.height, right: 0)
+        }
+    }
+    
     override func apply(theme: Theme) {
         
         super.apply(theme: theme)
@@ -937,10 +945,22 @@ private extension DiffContainerViewController {
                     addChild(diffListViewController)
                     listView.translatesAutoresizingMaskIntoConstraints = false
                     view.addSubview(listView)
-                    let bottom = toolbarView.topAnchor.constraint(equalTo: listView.bottomAnchor)
+                    let bottom: NSLayoutConstraint
+                    if #available(iOS 26, *) {
+                        bottom = toolbarView.bottomAnchor.constraint(equalTo: listView.bottomAnchor)
+                    } else {
+                        bottom = toolbarView.topAnchor.constraint(equalTo: listView.bottomAnchor)
+                    }
                     let leading = view.leadingAnchor.constraint(equalTo: listView.leadingAnchor)
                     let trailing = view.trailingAnchor.constraint(equalTo: listView.trailingAnchor)
-                    let top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: listView.topAnchor)
+                    
+                    let top: NSLayoutConstraint
+                    if #available(iOS 26, *) {
+                        top = view.topAnchor.constraint(equalTo: listView.topAnchor)
+                    } else {
+                        top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: listView.topAnchor)
+                    }
+                    
                     NSLayoutConstraint.activate([top, leading, trailing, bottom])
                     diffListViewController.didMove(toParent: self)
                 }
@@ -952,10 +972,22 @@ private extension DiffContainerViewController {
                     listView.translatesAutoresizingMaskIntoConstraints = false
                     view.addSubview(listView)
                     
-                    let bottom = toolbarView.topAnchor.constraint(equalTo: listView.bottomAnchor)
+                    let bottom: NSLayoutConstraint
+                    if #available(iOS 26, *) {
+                        bottom = toolbarView.bottomAnchor.constraint(equalTo: listView.bottomAnchor)
+                    } else {
+                        bottom = toolbarView.topAnchor.constraint(equalTo: listView.bottomAnchor)
+                    }
+                    
                     let leading = view.leadingAnchor.constraint(equalTo: listView.leadingAnchor)
                     let trailing = view.trailingAnchor.constraint(equalTo: listView.trailingAnchor)
-                    let top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: listView.topAnchor)
+                    
+                    let top: NSLayoutConstraint
+                    if #available(iOS 26, *) {
+                        top = view.topAnchor.constraint(equalTo: listView.topAnchor)
+                    } else {
+                        top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: listView.topAnchor)
+                    }
                     
                     NSLayoutConstraint.activate([top, leading, trailing, bottom])
                     diffListViewController.didMove(toParent: self)

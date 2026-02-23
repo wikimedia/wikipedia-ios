@@ -14,8 +14,6 @@
 "about-repositories-app-source-license" = "Text explaining the app source licensing. $1 is the message {{msg-wikimedia|about-repositories-app-source-license-mit}}.";
 "about-repositories-app-source-license-mit" = "Name of the \"MIT\" license";
 "about-send-feedback" = "Link text for sending app feedback";
-"about-testers" = "Header text for (software) testers section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
-"about-testers-details" = "Description of the Quality Assurance (QA) testers. $1 is specialistsguild.org, the website of the testing group.";
 "about-title" = "Title for credits page {{Identical|About}}";
 "about-translators" = "Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. {{Identical|Translator}}";
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
@@ -637,7 +635,6 @@
 "forgot-password-username-or-email-title" = "Title shown between the username and email text fields. User only has to specify either username \"Or\" email address {{Identical|Or}}";
 "gan-variants-alert-body" = "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).";
 "gan-variants-alert-title" = "Title of alert used to inform users about Gan variant support.";
-"history-clear-all" = "Text of the button shown at the top of history which deletes all history {{Identical|Clear}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "history-clear-delete-all" = "Button text for confirming delete all action";
 "history-title" = "Title of the history screen shown on history tab {{Identical|History}}";
@@ -1140,15 +1137,6 @@
 "relative-date-seconds-abbreviated" = "Relative seconds, abbreviated. $1 will be replaced with the number of seconds.";
 "relative-date-seconds-ago-abbreviated" = "Relative seconds ago, abbreviated. $1 will be replaced with the number of seconds ago.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with the number of years ago.";
-"replace-button-accessibility" = "Accessibility label for button that triggers replace action. $1 is replaced by \"Replace single instance\" or \"Replace all instances\"";
-"replace-buttons-replace-accessibility" = "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing a single instance.";
-"replace-buttons-replace-all-accessibility" = "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing all instances.";
-"replace-clear-button-accessibility" = "Accessibility label for the clear values X button in the replace textfield.";
-"replace-infolabel-method-replace" = "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.";
-"replace-infolabel-method-replace-all" = "Title for label indicating which replace method they have currently selected. This is for replacing all instances.";
-"replace-method-button-accessibility" = "Accessibility label for replace method switch button in Find and Replace. $1 is replaced by \"Replace single instance\" or \"Replace all instances\"";
-"replace-textfield-accessibility" = "Accessibility label for the replace text field.";
-"replace-textfield-placeholder" = "Placeholder text seen in replace textfield before textfield is focused.";
 "return-button-title" = "Title for button indicating that is possible return from this point";
 "return-to-article" = "Title for button indicating that is possible to go back to article";
 "reverted-edit-title" = "Title for notification informing user that their edit was reverted.";

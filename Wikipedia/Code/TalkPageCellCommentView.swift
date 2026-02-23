@@ -31,7 +31,7 @@ final class TalkPageCellCommentView: SetupView {
 
         button.titleLabel?.font = WMFFont.for(.boldCallout)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
-        
+
         button.addTarget(self, action: #selector(tappedReply), for: .touchUpInside)
         return button
     }()
@@ -41,13 +41,13 @@ final class TalkPageCellCommentView: SetupView {
         depthIndicator.translatesAutoresizingMaskIntoConstraints = false
         return depthIndicator
     }()
-    
+
     weak var viewModel: TalkPageCellCommentViewModel?
     weak var replyDelegate: TalkPageCellReplyDelegate?
     weak var linkDelegate: TalkPageTextViewLinkHandling?
-    
+
     private var commentLeadingConstraint: NSLayoutConstraint?
-    
+
     override var semanticContentAttribute: UISemanticContentAttribute {
         didSet {
             updateSemanticContentAttribute(semanticContentAttribute)
@@ -60,7 +60,7 @@ final class TalkPageCellCommentView: SetupView {
         addSubview(replyDepthView)
         addSubview(commentTextView)
         addSubview(replyButton)
-        
+
         let commentLeadingConstraint = commentTextView.leadingAnchor.constraint(equalTo: replyDepthView.trailingAnchor, constant: 10)
         self.commentLeadingConstraint = commentLeadingConstraint
 
@@ -85,20 +85,20 @@ final class TalkPageCellCommentView: SetupView {
         self.viewModel = viewModel
         commentLeadingConstraint?.constant = viewModel.replyDepth > 0 ? 10 : 0
         replyDepthView.configure(viewModel: viewModel)
-        
+
         let languageCode = viewModel.cellViewModel?.viewModel?.siteURL.wmf_languageCode
         replyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
         let replyButtonAccessibilityLabel = CommonStrings.talkPageReplyAccessibilityText
         replyButton.accessibilityLabel = String.localizedStringWithFormat(replyButtonAccessibilityLabel, viewModel.author)
     }
-    
+
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
         commentTextView.semanticContentAttribute = semanticContentAttribute
         replyButton.semanticContentAttribute = semanticContentAttribute
         replyDepthView.semanticContentAttribute = semanticContentAttribute
-        
+
         commentTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
-        
+
         var deprecatedReplyButton = replyButton as DeprecatedButton
         switch semanticContentAttribute {
         case .forceRightToLeft:
@@ -110,17 +110,17 @@ final class TalkPageCellCommentView: SetupView {
             deprecatedReplyButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
             deprecatedReplyButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
         }
-        
+
     }
-    
+
     // MARK: - Actions
-    
+
     @objc private func tappedReply() {
-        
+
         guard let viewModel = viewModel else {
             return
         }
-        
+
         replyDelegate?.tappedReply(commentViewModel: viewModel, accessibilityFocusView: commentTextView)
     }
 

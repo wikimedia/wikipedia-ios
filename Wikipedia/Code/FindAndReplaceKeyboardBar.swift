@@ -1,4 +1,6 @@
 import UIKit
+import WMFComponents
+import SwiftUI
 
 @objc(WMFFindAndReplaceKeyboardBarDelegate)
 protocol FindAndReplaceKeyboardBarDelegate: AnyObject {
@@ -8,32 +10,11 @@ protocol FindAndReplaceKeyboardBarDelegate: AnyObject {
     func keyboardBarDidTapPrevious(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidTapNext(_ keyboardBar: FindAndReplaceKeyboardBar?)
     func keyboardBarDidTapReturn(_ keyboardBar: FindAndReplaceKeyboardBar)
-    func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType)
 }
 
 protocol FindAndReplaceKeyboardBarDisplayDelegate: AnyObject {
-    func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar)
-}
-
-@objc enum ReplaceType: Int {
-    case replaceSingle
-    case replaceAll
-    
-    var text: String {
-        switch self {
-        case .replaceSingle: return WMFLocalizedString("replace-infolabel-method-replace", value: "Replace", comment: "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.")
-        case .replaceAll: return WMFLocalizedString("replace-infolabel-method-replace-all", value: "Replace all", comment: "Title for label indicating which replace method they have currently selected. This is for replacing all instances.")
-        }
-    }
-    
-    var accessibilityText: String {
-        switch self {
-        case .replaceSingle: return WMFLocalizedString("replace-buttons-replace-accessibility", value: "Replace single instance", comment: "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing a single instance.")
-        case .replaceAll: return WMFLocalizedString("replace-buttons-replace-all-accessibility", value: "Replace all instances", comment: "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing all instances.")
-        }
-    }
 }
 
 struct FindMatchPlacement {
@@ -43,109 +24,228 @@ struct FindMatchPlacement {
 
 @objc(WMFFindAndReplaceKeyboardBar)
 final class FindAndReplaceKeyboardBar: UIInputView {
-    @IBOutlet private var outerStackView: UIStackView!
-    @IBOutlet private var outerStackViewLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet private var outerStackViewTrailingConstraint: NSLayoutConstraint!
     
-    @IBOutlet private var findStackView: UIStackView!
-    @IBOutlet private var findTextField: UITextField!
-    @IBOutlet private var findTextFieldContainer: UIView!
-    @IBOutlet private var magnifyImageView: UIImageView!
-    @IBOutlet private var currentMatchLabel: UILabel!
-    @IBOutlet private var findClearButton: UIButton!
-    @IBOutlet private var closeButton: UIButton!
-    @IBOutlet private var nextButton: UIButton!
-    @IBOutlet private var nextPrevButtonStackView: UIStackView!
-    @IBOutlet private var previousButton: UIButton!
-   
-    @IBOutlet private var replaceStackView: UIStackView!
-    @IBOutlet private var replaceTextField: UITextField!
-    @IBOutlet private var replaceTextFieldContainer: UIView!
-    @IBOutlet private var pencilImageView: UIImageView!
-    @IBOutlet private var replaceTypeLabel: UILabel!
-    @IBOutlet private var replacePlaceholderLabel: UILabel!
-    @IBOutlet private var replaceClearButton: UIButton!
-    @IBOutlet private var replaceButton: UIButton!
-    @IBOutlet private(set) var replaceSwitchButton: UIButton!
+    @IBOutlet var legacyOuterContainer: UIView!
+    @IBOutlet private var legacyOuterStackView: UIStackView!
+    @IBOutlet private var legacyFindTextFieldContainer: UIView!
+    @IBOutlet private var legacyFindTextField: UITextField!
+    @IBOutlet private var legacyMagnifyImageView: UIImageView!
+    @IBOutlet private var legacyCurrentMatchLabel: UILabel!
+    @IBOutlet private var legacyFindClearButton: UIButton!
+    @IBOutlet private var legacyCloseButton: UIButton!
+    @IBOutlet private var legacyNextButton: UIButton!
+    @IBOutlet private var legacyPreviousButton: UIButton!
+    
+    @IBOutlet var modernOuterContainer: UIView!
+    @IBOutlet var modernOuterStackView: UIStackView!
+    @IBOutlet var modernFindTextfieldContainer: UIView!
+    @IBOutlet var modernMagnifyImageView: UIImageView!
+    @IBOutlet var modernFindTextField: UITextField!
+    @IBOutlet var modernCurrentMatchLabel: UILabel!
+    @IBOutlet var modernFindClearButton: UIButton!
+    
+    @IBOutlet var modernCloseButton: UIButton!
+    private var modernNextButton: UIButton?
+    private var modernPrevButton: UIButton?
     
     @objc weak var delegate: FindAndReplaceKeyboardBarDelegate?
     weak var displayDelegate: FindAndReplaceKeyboardBarDisplayDelegate?
     
+    private var textfieldEffectView: UIVisualEffectView?
+    private var nextPrevButtonEffectView: UIVisualEffectView?
+    
     // represents current match label values
     private var matchPlacement = FindMatchPlacement(index: 0, total: 0) {
         didSet {
-            if matchPlacement.index == nil && matchPlacement.total > 0 {
-                currentMatchLabel.text = String.localizedStringWithFormat("%lu", matchPlacement.total)
-            } else if let index = matchPlacement.index {
-                let format = WMFLocalizedString("find-infolabel-number-matches", value: "%1$@ / %2$@", comment: "Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. %1$@ is replaced with the numerator, %2$@ is replaced with the denominator.")
-                currentMatchLabel.text = String.localizedStringWithFormat(format, NSNumber(value: index), NSNumber(value: matchPlacement.total))
+            let format = WMFLocalizedString("find-infolabel-number-matches", value: "%1$@ / %2$@", comment: "Displayed to indicate how many matches were found even if no matches. Separator can be customized depending on the language. %1$@ is replaced with the numerator, %2$@ is replaced with the denominator.")
+            if #available(iOS 26.0, *) {
+                if matchPlacement.index == nil && matchPlacement.total > 0 {
+                    modernCurrentMatchLabel.text = String.localizedStringWithFormat("%lu", matchPlacement.total)
+                } else if let index = matchPlacement.index {
+                    modernCurrentMatchLabel.text = String.localizedStringWithFormat(format, NSNumber(value: index), NSNumber(value: matchPlacement.total))
+                }
+            } else {
+                if matchPlacement.index == nil && matchPlacement.total > 0 {
+                    legacyCurrentMatchLabel.text = String.localizedStringWithFormat("%lu", matchPlacement.total)
+                } else if let index = matchPlacement.index {
+                    legacyCurrentMatchLabel.text = String.localizedStringWithFormat(format, NSNumber(value: index), NSNumber(value: matchPlacement.total))
+                }
             }
-        }
-    }
-    
-    var replaceType: ReplaceType = .replaceSingle {
-        didSet {
-            if oldValue != replaceType {
-                updateReplaceLabelState()
-            }
-        }
-    }
-    
-    var isShowingReplace: Bool = false {
-        didSet {
-            if oldValue != isShowingReplace {
-                updateShowingReplaceState()
-            }
+
         }
     }
     
     @objc var isVisible: Bool {
-        return findTextField.isFirstResponder || replaceTextField.isFirstResponder
+        if #available(iOS 26.0, *) {
+            return modernFindTextField.isFirstResponder
+        } else {
+            return legacyFindTextField.isFirstResponder
+        }
+        
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         hideUndoRedoIcons()
-        previousButton.isEnabled = false
-        nextButton.isEnabled = false
+        
         
         setupStaticAccessibilityLabels()
         
-        updateShowingReplaceState()
-        updateReplaceLabelState()
-        updateReplaceButtonsState()
+        if #available(iOS 26.0, *) {
+            setupForLiquidGlass()
+            modernPrevButton?.isEnabled = false
+            modernNextButton?.isEnabled = false
+        } else {
+            setupForLegacyView()
+            legacyPreviousButton.isEnabled = false
+            legacyNextButton.isEnabled = false
+        }
+    }
+    
+    private func setupForLegacyView() {
+        modernOuterContainer.removeFromSuperview()
+    }
+    
+    @available(iOS 26.0, *)
+    private func setupForLiquidGlass() {
+        
+        legacyOuterContainer.removeFromSuperview()
+        backgroundColor = .clear
+
+       modernOuterContainer.backgroundColor = .clear
+
+        let textfieldEffectView = UIVisualEffectView()
+        textfieldEffectView.translatesAutoresizingMaskIntoConstraints = false
+        let glassEffect = UIGlassEffect(style: .regular)
+        textfieldEffectView.effect = glassEffect
+        self.textfieldEffectView = textfieldEffectView
+
+        // Insert at the bottom so content appears on top
+        modernFindTextfieldContainer.insertSubview(textfieldEffectView, at: 0)
+        
+        NSLayoutConstraint.activate([
+            modernFindTextfieldContainer.leadingAnchor.constraint(equalTo: textfieldEffectView.leadingAnchor),
+            modernFindTextfieldContainer.trailingAnchor.constraint(equalTo: textfieldEffectView.trailingAnchor),
+            modernFindTextfieldContainer.topAnchor.constraint(equalTo: textfieldEffectView.topAnchor),
+            modernFindTextfieldContainer.bottomAnchor.constraint(equalTo: textfieldEffectView.bottomAnchor)
+        ])
+        
+        modernMagnifyImageView.image = WMFSFSymbolIcon.for(symbol: .docTextMagnifyingGlass)
+        modernFindClearButton.setImage(WMFSFSymbolIcon.for(symbol: .closeButtonFill, font: .boldBody), for: .normal)
+        
+        modernCloseButton.configuration = .prominentGlass()
+        modernCloseButton.setImage(WMFSFSymbolIcon.for(symbol: .checkmark, font: .semiboldSubheadline), for: .normal)
+        
+        // custom prev/next buttons
+        let buttonContainerView = UIView()
+        buttonContainerView.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainerView.backgroundColor = .clear
+
+        var prevConfig = UIButton.Configuration.plain()
+        prevConfig.image = WMFSFSymbolIcon.for(symbol: .chevronUp)
+        let prevButton = UIButton(configuration: prevConfig, primaryAction: nil)
+        prevButton.addTarget(self, action: #selector(tappedPrevious), for: .touchUpInside)
+        prevButton.translatesAutoresizingMaskIntoConstraints = false
+        prevButton.addTarget(self, action: #selector(tappedPrevious), for: .touchUpInside)
+        self.modernPrevButton = prevButton
+        
+        var nextConfig = UIButton.Configuration.plain()
+        nextConfig.image = WMFSFSymbolIcon.for(symbol: .chevronDown)
+        let nextButton = UIButton(configuration: nextConfig, primaryAction: nil)
+        nextButton.addTarget(self, action: #selector(tappedNext), for: .touchUpInside)
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.addTarget(self, action: #selector(tappedNext), for: .touchUpInside)
+        self.modernNextButton = nextButton
+        
+        buttonContainerView.addSubview(prevButton)
+        buttonContainerView.addSubview(nextButton)
+        
+        let buttonEffectView = UIVisualEffectView()
+        buttonEffectView.translatesAutoresizingMaskIntoConstraints = false
+        buttonEffectView.effect = glassEffect
+        buttonEffectView.tintColor = Theme.light.colors.midBackground
+        buttonContainerView.insertSubview(buttonEffectView, at: 0)
+        self.nextPrevButtonEffectView = buttonEffectView
+        
+        modernOuterStackView.addArrangedSubview(buttonContainerView)
+        
+        NSLayoutConstraint.activate([
+            buttonContainerView.heightAnchor.constraint(equalTo: modernFindTextfieldContainer.heightAnchor),
+            buttonContainerView.leadingAnchor.constraint(equalTo: buttonEffectView.leadingAnchor),
+            buttonContainerView.trailingAnchor.constraint(equalTo: buttonEffectView.trailingAnchor),
+            buttonContainerView.bottomAnchor.constraint(equalTo: buttonEffectView.bottomAnchor),
+            buttonContainerView.topAnchor.constraint(equalTo: buttonEffectView.topAnchor),
+            buttonContainerView.leadingAnchor.constraint(equalTo: prevButton.leadingAnchor),
+            buttonContainerView.topAnchor.constraint(equalTo: prevButton.topAnchor),
+            buttonContainerView.bottomAnchor.constraint(equalTo: prevButton.bottomAnchor),
+            buttonContainerView.trailingAnchor.constraint(equalTo: nextButton.trailingAnchor),
+            buttonContainerView.topAnchor.constraint(equalTo: nextButton.topAnchor),
+            buttonContainerView.bottomAnchor.constraint(equalTo: nextButton.bottomAnchor),
+            prevButton.trailingAnchor.constraint(equalTo: nextButton.leadingAnchor)
+        ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Apply corner radius for rounded edges
+        textfieldEffectView?.layer.cornerRadius = modernFindTextfieldContainer.frame.height / 2
+        textfieldEffectView?.clipsToBounds = true
+        nextPrevButtonEffectView?.layer.cornerRadius = (nextPrevButtonEffectView?.frame.height ?? 0) / 2
+        nextPrevButtonEffectView?.clipsToBounds = true
+        modernFindTextfieldContainer.layer.cornerRadius = modernFindTextfieldContainer.frame.height / 2
+        modernFindTextfieldContainer.clipsToBounds = true
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIView.noIntrinsicMetric, height: 46)
+        if #available(iOS 26.0, *) {
+            return CGSize(width: UIView.noIntrinsicMetric, height: 58)
+        } else {
+            return CGSize(width: UIView.noIntrinsicMetric, height: 46)
+        }
     }
     
     @objc func updateMatchCounts(index: Int, total: UInt) {
         updateMatchPlacement(index: index, total: total)
         updatePreviousNextButtonsState(total: total)
-        updateReplaceButtonsState()
     }
     
     @objc func show() {
-        findTextField.becomeFirstResponder()
-        displayDelegate?.keyboardBarDidShow(self)
+        if #available(iOS 26.0, *) {
+            modernFindTextField.becomeFirstResponder()
+            displayDelegate?.keyboardBarDidShow(self)
+        } else {
+            legacyFindTextField.becomeFirstResponder()
+            displayDelegate?.keyboardBarDidShow(self)
+        }
+        
     }
     
     @objc func hide() {
-        findTextField.resignFirstResponder()
-        replaceTextField.resignFirstResponder()
-        displayDelegate?.keyboardBarDidHide(self)
+        if #available(iOS 26.0, *) {
+            modernFindTextField.resignFirstResponder()
+            displayDelegate?.keyboardBarDidHide(self)
+        } else {
+            legacyFindTextField.resignFirstResponder()
+            displayDelegate?.keyboardBarDidHide(self)
+        }
     }
     
     func reset() {
         resetFind()
-        resetReplace()
     }
     
     @objc func resetFind() {
-        findTextField.text = nil
-        currentMatchLabel.text = nil
-        findClearButton.isHidden = true
+        if #available(iOS 26.0, *) {
+            modernFindTextField.text = nil
+            modernCurrentMatchLabel.text = nil
+            modernFindClearButton.isHidden = true
+        } else {
+            legacyFindTextField.text = nil
+            legacyCurrentMatchLabel.text = nil
+            legacyFindClearButton.isHidden = true
+        }
+
         matchPlacement.index = 0
         matchPlacement.total = 0
         updateMatchCounts(index: 0, total: 0)
@@ -161,12 +261,6 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         }
     }
     
-    @IBAction func tappedReplaceClear() {
-        replaceTextField.text = nil
-        updateReplaceLabelState()
-        updateReplaceButtonsState()
-    }
-    
     @IBAction func tappedClose() {
         delegate?.keyboardBarDidTapClose(self)
     }
@@ -179,29 +273,16 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         delegate?.keyboardBarDidTapPrevious(self)
     }
     
-    @IBAction func tappedReplace() {
-        
-        guard let replaceText = replaceTextField.text else {
-            return
-        }
-        delegate?.keyboardBarDidTapReplace(self, replaceText: replaceText, replaceType: replaceType)
-    }
-    
-    @IBAction func tappedReplaceSwitch() {
-        displayDelegate?.keyboardBarDidTapReplaceSwitch(self)
-    }
-    
     @IBAction func textFieldDidChange(_ sender: UITextField) {
         let count = sender.text?.count ?? 0
         
         switch sender {
-        case findTextField:
-            delegate?.keyboardBar(self, didChangeSearchTerm: findTextField.text)
-            findClearButton.isHidden = count == 0
-            updateReplaceButtonsState()
-        case replaceTextField:
-            updateReplaceButtonsState()
-            updateReplaceLabelState()
+        case legacyFindTextField:
+            delegate?.keyboardBar(self, didChangeSearchTerm: legacyFindTextField.text)
+            legacyFindClearButton.isHidden = count == 0
+        case modernFindTextField:
+            delegate?.keyboardBar(self, didChangeSearchTerm: modernFindTextField.text)
+            modernFindClearButton.isHidden = count == 0
         default:
             break
         }
@@ -214,29 +295,15 @@ extension FindAndReplaceKeyboardBar: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         switch textField {
-        case findTextField:
+        case legacyFindTextField:
              delegate?.keyboardBarDidTapReturn(self)
-        case replaceTextField:
-            
-            guard let replaceText = replaceTextField.text,
-                let findText = findTextField.text,
-                matchPlacement.total > 0,
-                findText.count > 0,
-                replaceText.count > 0 else {
-                return false
-            }
-            
-            delegate?.keyboardBarDidTapReplace(self, replaceText: replaceText, replaceType: replaceType)
+        case modernFindTextField:
+            delegate?.keyboardBarDidTapReturn(self)
         default:
             break
         }
        
         return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        updateReplaceLabelState()
-        updateReplaceButtonsState()
     }
 }
 
@@ -244,28 +311,29 @@ extension FindAndReplaceKeyboardBar: UITextFieldDelegate {
 
 extension FindAndReplaceKeyboardBar: Themeable {
     func apply(theme: Theme) {
-        tintColor = theme.colors.link
+        if #available(iOS 26.0, *) {
+            textfieldEffectView?.tintColor = theme.colors.midBackground
+            nextPrevButtonEffectView?.tintColor = theme.colors.midBackground
+            modernMagnifyImageView.tintColor = theme.colors.primaryText
+            modernFindClearButton.tintColor = theme.colors.secondaryText
+            modernCurrentMatchLabel.textColor = theme.colors.secondaryText
+            modernCloseButton.tintColor = theme.colors.link
+            modernNextButton?.tintColor = theme.colors.secondaryText
+            modernPrevButton?.tintColor = theme.colors.secondaryText
+        } else {
+            tintColor = theme.colors.link
         
-        findTextField.keyboardAppearance = theme.keyboardAppearance
-        findTextField.textColor = theme.colors.primaryText
-        findTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
-        closeButton.tintColor = theme.colors.secondaryText
-        previousButton.tintColor = theme.colors.secondaryText
-        nextButton.tintColor = theme.colors.secondaryText
-        magnifyImageView.tintColor = theme.colors.secondaryText
-        findClearButton.tintColor = theme.colors.secondaryText
-        currentMatchLabel.textColor = theme.colors.tertiaryText
-        
-        replaceTextField.keyboardAppearance = theme.keyboardAppearance
-        replaceTextField.textColor = theme.colors.primaryText
-        replaceTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
-        replaceButton.tintColor = theme.colors.secondaryText
-        replaceSwitchButton.tintColor = theme.colors.secondaryText
-        pencilImageView.tintColor = theme.colors.secondaryText
-        replaceClearButton.tintColor = theme.colors.secondaryText
-        replaceTypeLabel.textColor = theme.colors.tertiaryText
-        replacePlaceholderLabel.textColor = theme.colors.tertiaryText
-        
+            legacyFindTextField.keyboardAppearance = theme.keyboardAppearance
+            legacyFindTextField.textColor = theme.colors.primaryText
+            legacyFindTextFieldContainer.backgroundColor = theme.colors.keyboardBarSearchFieldBackground
+            legacyCloseButton.tintColor = theme.colors.secondaryText
+            legacyPreviousButton.tintColor = theme.colors.secondaryText
+            legacyNextButton.tintColor = theme.colors.secondaryText
+            legacyMagnifyImageView.tintColor = theme.colors.secondaryText
+            legacyFindClearButton.tintColor = theme.colors.secondaryText
+            legacyCurrentMatchLabel.textColor = theme.colors.tertiaryText
+        }
+
     }
 }
 
@@ -274,42 +342,58 @@ extension FindAndReplaceKeyboardBar: Themeable {
 private extension FindAndReplaceKeyboardBar {
     
     func setupStaticAccessibilityLabels() {
-        findTextField.accessibilityLabel = WMFLocalizedString("find-textfield-accessibility", value: "Find", comment: "Accessibility label for the find text field.")
-        findClearButton.accessibilityLabel = WMFLocalizedString("find-clear-button-accessibility", value: "Clear find", comment: "Accessibility label for the clear values X button in the find textfield.")
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        nextButton.accessibilityLabel = WMFLocalizedString("find-next-button-accessibility", value: "Next find result", comment: "Accessibility label for the next button when traversing find results.")
-        previousButton.accessibilityLabel = WMFLocalizedString("find-previous-button-accessibility", value: "Previous find result", comment: "Accessibility label for the previous button when traversing find results.")
-        replaceTextField.accessibilityLabel = WMFLocalizedString("replace-textfield-accessibility", value: "Replace", comment: "Accessibility label for the replace text field.")
-        replaceTypeLabel.isAccessibilityElement = false
-        replacePlaceholderLabel.isAccessibilityElement = false
-        replaceClearButton.accessibilityLabel = WMFLocalizedString("replace-clear-button-accessibility", value: "Clear replace", comment: "Accessibility label for the clear values X button in the replace textfield.")
+        let findTextFieldLabel = WMFLocalizedString("find-textfield-accessibility", value: "Find", comment: "Accessibility label for the find text field.")
+        let clearButtonLabel = WMFLocalizedString("find-clear-button-accessibility", value: "Clear find", comment: "Accessibility label for the clear values X button in the find textfield.")
+        let nextButtonLabel = WMFLocalizedString("find-next-button-accessibility", value: "Next find result", comment: "Accessibility label for the next button when traversing find results.")
+        let prevButtonLabel = WMFLocalizedString("find-previous-button-accessibility", value: "Previous find result", comment: "Accessibility label for the previous button when traversing find results.")
+        if #available(iOS 26.0, *) {
+            modernFindTextField.accessibilityLabel = findTextFieldLabel
+            modernFindClearButton.accessibilityLabel = clearButtonLabel
+            modernCloseButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+            modernNextButton?.accessibilityLabel = nextButtonLabel
+            modernPrevButton?.accessibilityLabel = prevButtonLabel
+        } else {
+            legacyFindTextField.accessibilityLabel = findTextFieldLabel
+            legacyFindClearButton.accessibilityLabel = clearButtonLabel
+            legacyCloseButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+            legacyNextButton.accessibilityLabel = nextButtonLabel
+            legacyPreviousButton.accessibilityLabel = prevButtonLabel
+        }
+
     }
     
     func hideUndoRedoIcons() {
-        if findTextField.responds(to: #selector(getter: inputAssistantItem)) {
-            findTextField.inputAssistantItem.leadingBarButtonGroups = []
-            findTextField.inputAssistantItem.trailingBarButtonGroups = []
+        if #available(iOS 26.0, *) {
+            if modernFindTextField.responds(to: #selector(getter: inputAssistantItem)) {
+                modernFindTextField.inputAssistantItem.leadingBarButtonGroups = []
+                modernFindTextField.inputAssistantItem.trailingBarButtonGroups = []
+            }
+        } else {
+            if legacyFindTextField.responds(to: #selector(getter: inputAssistantItem)) {
+                legacyFindTextField.inputAssistantItem.leadingBarButtonGroups = []
+                legacyFindTextField.inputAssistantItem.trailingBarButtonGroups = []
+            }
         }
         
-        if replaceTextField.responds(to: #selector(getter: inputAssistantItem)) {
-            replaceTextField.inputAssistantItem.leadingBarButtonGroups = []
-            replaceTextField.inputAssistantItem.trailingBarButtonGroups = []
-        }
-    }
-    
-    func resetReplace() {
-        replaceTextField.text = nil
-        replaceType = .replaceSingle
     }
     
     func updateMatchPlacement(index: Int, total: UInt) {
-        
-        guard let findText = findTextField.text,
-            findText.count > 0 else {
-                currentMatchLabel.text = nil
-                return
+        if #available(iOS 26.0, *) {
+            guard let findText = modernFindTextField.text,
+                findText.count > 0 else {
+                    modernCurrentMatchLabel.text = nil
+                    return
+            }
+            
+
+        } else {
+            guard let findText = legacyFindTextField.text,
+                findText.count > 0 else {
+                    legacyCurrentMatchLabel.text = nil
+                    return
+            }
         }
-        
+
         if total > 0 && index == -1 {
             matchPlacement = FindMatchPlacement(index: nil, total: total)
         } else {
@@ -318,91 +402,13 @@ private extension FindAndReplaceKeyboardBar {
     }
     
     func updatePreviousNextButtonsState(total: UInt) {
-        previousButton.isEnabled = total >= 2
-        nextButton.isEnabled = total >= 2
-    }
-    
-    func updateReplaceLabelState() {
-        
-        let count = replaceTextField.text?.count ?? 0
-        replacePlaceholderLabel.text = WMFLocalizedString("replace-textfield-placeholder", value: "Replace with…", comment: "Placeholder text seen in replace textfield before textfield is focused.")
-        
-        switch (replaceTextField.isFirstResponder, count) {
-        case (false, 0):
-            replaceTypeLabel.text = nil // niling out so longer placeholder strings will bump up against the X button
-            replaceTypeLabel.isHidden = true
-            replacePlaceholderLabel.isHidden = false
-        case (true, 0):
-            replaceTypeLabel.text = nil
-            replaceTypeLabel.isHidden = true
-            replacePlaceholderLabel.isHidden = true
-        case (_, 1...):
-            replaceTypeLabel.text = replaceType.text
-            replaceTypeLabel.isHidden = false
-            replacePlaceholderLabel.isHidden = true
-        default:
-            assertionFailure("Unexpected replace label state")
-        }
-        
-        let replaceMethodAccessibleFormat = WMFLocalizedString("replace-method-button-accessibility", value: "Replace method. Set to %1$@. Select to change.", comment: "Accessibility label for replace method switch button in Find and Replace. %1$@ is replaced by \"Replace single instance\" or \"Replace all instances\"")
-        replaceSwitchButton.accessibilityLabel = String.localizedStringWithFormat(replaceMethodAccessibleFormat, replaceType.accessibilityText)
-        
-        let replaceAccessibleFormat = WMFLocalizedString("replace-button-accessibility", value: "Perform %1$@.", comment: "Accessibility label for button that triggers replace action. %1$@ is replaced by \"Replace single instance\" or \"Replace all instances\"")
-        replaceButton.accessibilityLabel = String.localizedStringWithFormat(replaceAccessibleFormat, replaceType.accessibilityText)
-    }
-    
-    func updateReplaceButtonsState() {
-        let count = replaceTextField.text?.count ?? 0
-        replaceButton.isEnabled = count > 0 && matchPlacement.total > 0 && replaceTextField.text != findTextField.text
-        replaceClearButton.isHidden = count == 0
-    }
-    
-    func updateShowingReplaceState() {
-        
-        if isShowingReplace {
-            replaceStackView.isHidden = false
-            closeButton.isHidden = true
-            findStackView.addArrangedSubview(nextPrevButtonStackView)
-            outerStackViewLeadingConstraint.constant = 18
-            outerStackViewTrailingConstraint.constant = 18
+        if #available(iOS 26.0, *) {
+            modernPrevButton?.isEnabled = total >= 2
+            modernNextButton?.isEnabled = total >= 2
         } else {
-            replaceStackView.isHidden = true
-            closeButton.isHidden = false
-            findStackView.insertArrangedSubview(nextPrevButtonStackView, at: 0)
-            outerStackViewLeadingConstraint.constant = 10
-            outerStackViewTrailingConstraint.constant = 5
+            legacyPreviousButton.isEnabled = total >= 2
+            legacyNextButton.isEnabled = total >= 2
         }
-        if isShowingReplace {
-            accessibilityElements = [findTextField, currentMatchLabel, findClearButton, previousButton, nextButton, replaceTextField, replaceClearButton, replaceButton, replaceSwitchButton].compactMap { $0 as Any }
-        } else {
-            accessibilityElements = [previousButton, nextButton, findTextField, currentMatchLabel, findClearButton, closeButton].compactMap { $0 as Any }
-        }
-    }
-}
 
-#if TEST
-// MARK: Helpers for testing
-extension FindAndReplaceKeyboardBar {
-    func setFindTextForTesting(_ text: String) {
-        findTextField.text = text
-        textFieldDidChange(findTextField)
-    }
-    
-    func setReplaceTextForTesting(_ text: String) {
-        replaceTextField.text = text
-        textFieldDidChange(replaceTextField)
-    }
-    
-    func tapNextForTesting() {
-        tappedNext()
-    }
-    
-    func tapReplaceForTesting() {
-        tappedReplace()
-    }
-    
-    var matchPlacementForTesting: FindMatchPlacement {
-        return matchPlacement
     }
 }
-#endif

@@ -14,8 +14,6 @@
 "about-repositories-app-source-license" = "Source code available under the $1.";
 "about-repositories-app-source-license-mit" = "MIT License";
 "about-send-feedback" = "Send app feedback";
-"about-testers" = "Testers";
-"about-testers-details" = "QA tested by $1";
 "about-title" = "About";
 "about-translators" = "Translators";
 "about-translators-details" = "Translated by volunteers at $1";
@@ -637,7 +635,6 @@
 "forgot-password-username-or-email-title" = "Or";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Updates to Gan variant support";
-"history-clear-all" = "Clear";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-delete-all" = "Yes, delete all";
 "history-title" = "History";
@@ -1140,15 +1137,6 @@
 "relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "$1s ago";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|1=Last year|$1 years ago}}";
-"replace-button-accessibility" = "Perform $1.";
-"replace-buttons-replace-accessibility" = "Replace single instance";
-"replace-buttons-replace-all-accessibility" = "Replace all instances";
-"replace-clear-button-accessibility" = "Clear replace";
-"replace-infolabel-method-replace" = "Replace";
-"replace-infolabel-method-replace-all" = "Replace all";
-"replace-method-button-accessibility" = "Replace method. Set to $1. Select to change.";
-"replace-textfield-accessibility" = "Replace";
-"replace-textfield-placeholder" = "Replace with…";
 "return-button-title" = "Return";
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";
