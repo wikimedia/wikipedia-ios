@@ -12,6 +12,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
     private let dataStore: MWKDataStore
     private let link: Link
     private let siteURL: URL?
+    private var searchTask: Task<Void, Never>?
 
     init(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
         self.link = link
@@ -23,6 +24,10 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        searchTask?.cancel()
     }
 
     override func viewDidLoad() {
@@ -41,7 +46,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .centerCompact)
         
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
         let searchResultsContainer = SearchResultsViewController(source: .unknown, dataStore: dataStore)
         searchResultsContainer.showLanguageBar = false

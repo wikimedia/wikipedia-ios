@@ -155,6 +155,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
+    private var searchTask: Task<Void, Never>?
 
     internal var articleViewSource: ArticleSource
     
@@ -205,6 +206,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         messagingController.removeScriptMessageHandler()
         articleLoadWaitGroup = nil
         NotificationCenter.default.removeObserver(self)
+        searchTask?.cancel()
     }
     
     // MARK: WebView

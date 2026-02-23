@@ -4,7 +4,6 @@ import WMFData
 public struct WMFTempAccountsSheetView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFTempAccountsSheetViewModel
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
     var theme: WMFTheme {
@@ -29,18 +28,13 @@ public struct WMFTempAccountsSheetView: View {
     public var body: some View {
         ScrollView {
             VStack {
-                Button(
-                    action: {
-                        viewModel.didTapDone()
-                    },
-                    label: {
-                        Text(viewModel.done)
-                            .font(Font(WMFFont.navigationBarDoneButtonFont))
-                            .foregroundColor(Color(theme.navigationBarTintColor))
-                            .frame(maxWidth: .infinity, alignment: .topLeading)
-                    })
+                
+                WMFLargeCloseButton(imageType: .plainX, action: {
+                    viewModel.didTapDone()
+                })
                 .padding(15)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
+                
                 VStack(spacing: 10) {
                     VStack(spacing: 22) {
                         Image(viewModel.image, bundle: .module)

@@ -246,7 +246,6 @@ class ViewControllerRouter: NSObject {
         
         let localizedStrings = WMFWatchlistFilterViewModel.LocalizedStrings(
             title: CommonStrings.watchlistFilter,
-            doneTitle: CommonStrings.doneTitle,
             localizedProjectNames: localizedProjectNames,
             wikimediaProjectsHeader: CommonStrings.wikimediaProjectsHeader,
             wikipediasHeader: CommonStrings.wikipediasHeader,

@@ -61,6 +61,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private var presentingSearchResults: Bool = false
+    private var searchTask: Task<Void, Never>?
 
     // MARK: - Lifecycle
 
@@ -92,6 +93,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     deinit {
         NotificationCenter.default.removeObserver(self)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
+        searchTask?.cancel()
     }
 
     override func viewDidAppear(_ animated: Bool) {

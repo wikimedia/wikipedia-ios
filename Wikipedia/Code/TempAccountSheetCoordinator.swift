@@ -68,7 +68,6 @@ final class TempAccountSheetCoordinator: Coordinator {
                 subtitle: tempEditorSubtitleString(tempUsername: tempUser),
                 ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
                 ctaBottomString: CommonStrings.gotItButtonTitle,
-                done: CommonStrings.doneTitle,
                 handleURL: { url in
                     guard let presentedViewController = self.navigationController.presentedViewController else {
                         DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
@@ -135,7 +134,6 @@ final class TempAccountSheetCoordinator: Coordinator {
             subtitle: ipEditorSubtitleString(),
             ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),
             ctaBottomString: CommonStrings.continueWithoutLoggingIn,
-            done: CommonStrings.doneTitle,
             handleURL: { url in
                 guard let presentedViewController = self.navigationController.presentedViewController else {
                     DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
