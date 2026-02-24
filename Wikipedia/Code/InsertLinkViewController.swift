@@ -63,7 +63,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
 
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchResultsContainer,
-            searchControllerDelegate: nil,
+            searchControllerDelegate: searchResultsContainer,
             searchResultsUpdater: searchResultsContainer,
             searchBarDelegate: self,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,

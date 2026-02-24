@@ -31,6 +31,7 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
     private lazy var searchResultsContainer: SearchResultsViewController = {
         let container = SearchResultsViewController(source: .unknown, dataStore: dataStore)
         container.apply(theme: theme)
+        container.parentSearchControllerDelegate = self
         container.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
@@ -103,7 +104,7 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
 
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchResultsContainer,
-            searchControllerDelegate: self,
+            searchControllerDelegate: searchResultsContainer,
             searchResultsUpdater: searchResultsContainer,
             searchBarDelegate: nil,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,

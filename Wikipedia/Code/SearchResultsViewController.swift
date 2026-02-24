@@ -59,6 +59,14 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private let source: EventLoggingSource
     private let dataStore: MWKDataStore
 
+    /// Parent view controllers that need their own `UISearchControllerDelegate` callbacks (e.g. to
+    /// toggle navigation-bar scroll hiding, update layout state, log analytics, etc.) should set
+    /// this property. `SearchResultsViewController` will handle all iPad 26 search-UI workarounds
+    /// and then forward every delegate call to the parent.
+    weak var parentSearchControllerDelegate: UISearchControllerDelegate?
+
+    private var customClearButton: UIButton?
+
     private let contentContainerView = UIView()
     private weak var currentEmbeddedViewController: UIViewController?
 
@@ -78,6 +86,13 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     }
 
     var searchLanguageBarTopConstraint: NSLayoutConstraint?
+
+    private var isIPad26RegularHSizeClass: Bool {
+        if #available(iOS 26.0, *) {
+            return UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular
+        }
+        return false
+    }
 
     // MARK: - Init
 
@@ -512,6 +527,71 @@ extension SearchResultsViewController: UISearchResultsUpdating {
             resetSearchResults()
             showRecentSearches(animated: false)
         }
+
+        // iPad 26 (regular width): keep the custom clear button in sync with text presence.
+        if isIPad26RegularHSizeClass, let clear = customClearButton {
+            searchController.searchBar.searchTextField.rightView = text.wmf_hasNonWhitespaceText ? clear : nil
+        }
+    }
+}
+
+// MARK: - UISearchControllerDelegate
+
+/// `SearchResultsViewController` owns the `UISearchControllerDelegate` conformance so that every
+/// caller automatically gets the iPad 26 workarounds (custom back / clear buttons, search-field
+/// reset on dismiss) without duplicating the logic. Parent view controllers that need their own
+/// delegate callbacks should assign themselves to `parentSearchControllerDelegate`.
+extension SearchResultsViewController: UISearchControllerDelegate {
+
+    func willPresentSearchController(_ searchController: UISearchController) {
+        if isIPad26RegularHSizeClass {
+            searchController.searchBar.searchTextField.clearButtonMode = .never
+
+            // Replace the default magnifying-glass with a tappable back chevron.
+            let backButton = UIButton(type: .system)
+            backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+            backButton.tintColor = theme.colors.link
+            backButton.addAction(UIAction { [weak searchController] _ in
+                searchController?.isActive = false
+            }, for: .touchUpInside)
+            searchController.searchBar.searchTextField.leftView = backButton
+            searchController.searchBar.searchTextField.leftViewMode = .always
+
+            // Add a custom clear button so we can control its visibility manually.
+            let clearButton = UIButton(type: .system)
+            clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+            clearButton.tintColor = theme.colors.secondaryText
+            clearButton.addAction(UIAction { [weak searchController, weak self] _ in
+                searchController?.searchBar.text = nil
+                self?.resetSearchResults()
+                searchController?.searchBar.searchTextField.rightView = nil
+            }, for: .touchUpInside)
+            customClearButton = clearButton
+            searchController.searchBar.searchTextField.rightViewMode = .whileEditing
+        }
+        parentSearchControllerDelegate?.willPresentSearchController?(searchController)
+    }
+
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if isIPad26RegularHSizeClass {
+            resetSearchResults()
+
+            // Restore the default magnifying glass icon.
+            let magnifyingGlass = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+            magnifyingGlass.tintColor = .secondaryLabel
+            searchController.searchBar.searchTextField.leftView = magnifyingGlass
+            searchController.searchBar.searchTextField.leftViewMode = .always
+            customClearButton = nil
+        }
+        parentSearchControllerDelegate?.willDismissSearchController?(searchController)
+    }
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        parentSearchControllerDelegate?.didPresentSearchController?(searchController)
+    }
+
+    func didDismissSearchController(_ searchController: UISearchController) {
+        parentSearchControllerDelegate?.didDismissSearchController?(searchController)
     }
 }
 
