@@ -448,9 +448,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         loadIfNecessary()
         startSignificantlyViewedTimer()
         
-        if !(UIDevice.current.userInterfaceIdiom == .pad) || !(traitCollection.horizontalSizeClass == .regular) {
-            configureNavigationBar()
-        }
+        configureNavigationBar()
     }
     
     var isFirstAppearance = true
@@ -477,10 +475,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             } else {
                 ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: project)
             }
-        }
-        
-        if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-            configureNavigationBar()
         }
     }
     
@@ -523,23 +517,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     @objc private func wButtonTapped(_ sender: UIButton) {
         navigationController?.popToRootViewController(animated: true)
     }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        tableOfContentsController.update(with: traitCollection)
-        toolbarController?.update()
-        
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
-                }
-            }
-        }
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationItem.searchController = nil
         navigationController?.setToolbarHidden(true, animated: true)
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
