@@ -235,38 +235,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         longTitleButton.isAccessibilityElement = false
         longTitleButton.translatesAutoresizingMaskIntoConstraints = false
         
-        // Add circular glass background behind the button
-        let backgroundView = UIView()
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.isUserInteractionEnabled = false
-        backgroundView.layer.cornerRadius = 24
-        backgroundView.layer.masksToBounds = true
-        backgroundView.backgroundColor = WMFAppEnvironment.current.theme.paperBackground.withAlphaComponent(0.3)
-        
-        // Add blur effect
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.layer.cornerRadius = 24
-        blurView.clipsToBounds = true
-        backgroundView.insertSubview(blurView, at: 0)
-        
-        NSLayoutConstraint.activate([
-            blurView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
-            blurView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
-            blurView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
-            blurView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
-        ])
-        
-        longTitleButton.insertSubview(backgroundView, belowSubview: longTitleButton.imageView ?? UIView())
-        
-        NSLayoutConstraint.activate([
-            backgroundView.widthAnchor.constraint(equalToConstant: 48),
-            backgroundView.heightAnchor.constraint(equalToConstant: 48),
-            backgroundView.centerXAnchor.constraint(equalTo: longTitleButton.centerXAnchor),
-            backgroundView.centerYAnchor.constraint(equalTo: longTitleButton.centerYAnchor)
-        ])
-        
         return longTitleButton
     }()
     
