@@ -61,6 +61,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private var presentingSearchResults: Bool = false
+    private var searchTask: Task<Void, Never>?
 
     // MARK: - Lifecycle
 
@@ -92,6 +93,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     deinit {
         NotificationCenter.default.removeObserver(self)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
+        searchTask?.cancel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -1827,20 +1829,32 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
 
 extension ExploreViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        
         guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
             return
         }
         
-        if text.isEmpty {
+        guard let text = searchController.searchBar.text,
+              !text.isEmpty else {
+            searchTask?.cancel()
+            searchTask = nil
             searchViewController.searchTerm = nil
+            searchViewController.resetSearchResults()
             searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-        } else {
-            searchViewController.searchTerm = text
-            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            return
+        }
+        
+        if searchViewController.searchTerm == text {
+            return
+        }
+        
+        searchViewController.searchTerm = text
+        searchViewController.updateRecentlySearchedVisibility(searchText: text)
+        
+        searchTask?.cancel()
+        searchTask = Task { @MainActor [weak self] in
+            guard self != nil else { return }
+            try? await Task.sleep(for: .milliseconds(100))
+            guard !Task.isCancelled else { return }
             searchViewController.search()
         }
     }
