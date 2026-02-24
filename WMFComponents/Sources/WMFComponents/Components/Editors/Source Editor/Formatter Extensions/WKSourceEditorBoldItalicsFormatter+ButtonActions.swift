@@ -1,6 +1,4 @@
-import Foundation
-import WMFComponentsObjC
-
+import UIKit
 extension WMFSourceEditorFormatterBoldItalics {
     func toggleBoldFormatting(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         let formattingString = "'''"
