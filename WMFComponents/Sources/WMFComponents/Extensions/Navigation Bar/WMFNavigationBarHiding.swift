@@ -59,8 +59,6 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
         }
     }
     
-    /// Call from a UIViewController's scrollViewDidScroll method to swap the logo image on scroll
-    /// - Parameter scrollView: The scroll view to track scroll position
     func updateLogoImageOnScroll(scrollView: UIScrollView) {
         let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         let isCompactMode = finalOffset > 75
