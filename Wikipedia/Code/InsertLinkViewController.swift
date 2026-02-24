@@ -12,7 +12,6 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
     private let dataStore: MWKDataStore
     private let link: Link
     private let siteURL: URL?
-    private var searchTask: Task<Void, Never>?
 
     init(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
         self.link = link
@@ -24,10 +23,6 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        searchTask?.cancel()
     }
 
     override func viewDidLoad() {

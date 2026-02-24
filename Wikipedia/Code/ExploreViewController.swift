@@ -61,14 +61,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private var presentingSearchResults: Bool = false
-    private var searchTask: Task<Void, Never>?
-
-    private var isIPad26RegularHSizeClass: Bool {
-        if #available(iOS 26.0, *) {
-            return UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular
-        }
-        return false
-    }
 
     // MARK: - Lifecycle
 
@@ -100,7 +92,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     deinit {
         NotificationCenter.default.removeObserver(self)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        searchTask?.cancel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -145,16 +136,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.updateTabBarSnapshotImage()
             self?.calculateTopSafeAreaOverlayHeight()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if !isIPad26RegularHSizeClass {
-            navigationItem.searchController?.searchBar.text = nil
-            (navigationItem.searchController?.searchResultsController as? SearchResultsViewController)?.resetSearchResults()
-            navigationItem.searchController?.dismiss(animated: false)
         }
     }
 
