@@ -249,15 +249,36 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         hcaptchaVC.successAction = { token in
             hcaptchaVC.dismiss(animated: true) { [weak self] in
-                self?.hCaptchaToken = token
-                self?.createAccount()
+                // self?.hCaptchaToken = token
+                // self?.createAccount()
+                
+                WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self?.dismiss(animated: true)
+                    }
+                }
             }
         }
         
         hcaptchaVC.errorAction = { error in
             hcaptchaVC.dismiss(animated: true) { [weak self] in
                 self?.hCaptchaToken = nil
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
+                // WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
+                
+                WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self?.dismiss(animated: true)
+                    }
+                }
+                
             }
         }
         
@@ -465,7 +486,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
     fileprivate func createAccount() {
         
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        self.displayHCaptcha()
+        return
+        
+        // WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         let siteURL = dataStore.primarySiteURL
         
