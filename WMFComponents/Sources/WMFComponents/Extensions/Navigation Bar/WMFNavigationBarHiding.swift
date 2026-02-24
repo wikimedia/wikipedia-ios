@@ -50,43 +50,37 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         topSafeAreaOverlayHeightConstraint?.constant = statusBarHeight
     }
-    
-    /// Call from a UIViewController's scrollViewDidScroll method to unstick a hidden navigation bar when scrolled to the top.
+
     func calculateNavigationBarHiddenState(scrollView: UIScrollView) {
         let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
-    
+
     func updateLogoImageOnScroll(scrollView: UIScrollView) {
         let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         let isCompactMode = finalOffset > 75
-        
-        // Get stored state using associated object
-        let key = UnsafeRawPointer(bitPattern: "logoCompactModeKey".hashValue)!
-        let currentState = objc_getAssociatedObject(self, key) as? NSNumber
-        let wasCompactMode = currentState?.boolValue ?? false
-        
-        // Only update if state changed
-        if isCompactMode != wasCompactMode {
-            objc_setAssociatedObject(self, key, NSNumber(value: isCompactMode), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            
-            if isCompactMode {
-                swapLogoToCompact()
-            } else {
-                swapLogoToFull()
-            }
+
+        guard isCompactMode != WMFNavigationBarHidingLogoState.isCompact else { return }
+        WMFNavigationBarHidingLogoState.isCompact = isCompactMode
+
+        if isCompactMode {
+            swapLogoToCompact()
+        } else {
+            swapLogoToFull()
         }
     }
-    
-    /// Swap logo to the compact W icon
+
     private func swapLogoToCompact() {
         navigationItem.leftBarButtonItem?.image = UIImage(named: "W")
     }
 
-    /// Swap logo back to the full Wikipedia logo
     private func swapLogoToFull() {
         navigationItem.leftBarButtonItem?.image = UIImage(named: "wikipedia")
     }
+}
+
+private enum WMFNavigationBarHidingLogoState {
+    static var isCompact: Bool = false
 }

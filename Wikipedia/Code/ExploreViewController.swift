@@ -169,7 +169,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private func configureNavigationBar() {
         
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leadingCompact)
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .leadingCompact)
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         
@@ -195,14 +195,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false, scopeButtonTitles: nil)
         
-
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
-        
-        // Need to override this so that "" does not appear as back button title.
+
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
         
         // Set up logo as left bar button item
+        
         let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "wikipedia"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
+        logoBarButtonItem.accessibilityLabel = titleButton.accessibilityLabel
+        logoBarButtonItem.accessibilityHint = titleButton.accessibilityHint
+        logoBarButtonItem.accessibilityIdentifier = titleButton.accessibilityIdentifier
         navigationItem.leftBarButtonItem = logoBarButtonItem
     }
     
