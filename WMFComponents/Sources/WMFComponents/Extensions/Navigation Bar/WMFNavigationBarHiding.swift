@@ -84,68 +84,11 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
     
     /// Swap logo to the compact W icon
     private func swapLogoToCompact() {
-        if let titleButton = navigationItem.titleView,
-           let button = titleButton.subviews.first(where: { $0 is UIButton }) as? UIButton {
-            button.setImage(UIImage(named: "W"), for: .normal)
-        }
-
-        if let rightBarButtonItems = navigationItem.rightBarButtonItems {
-            for barButtonItem in rightBarButtonItems {
-                updateLogoImage(in: barButtonItem, to: "W")
-            }
-        }
-
-        if let leftBarButtonItem = navigationItem.leftBarButtonItem {
-            updateLogoImage(in: leftBarButtonItem, to: "W")
-        }
+        navigationItem.leftBarButtonItem?.image = UIImage(named: "W")
     }
 
     /// Swap logo back to the full Wikipedia logo
     private func swapLogoToFull() {
-        if let titleButton = navigationItem.titleView,
-           let button = titleButton.subviews.first(where: { $0 is UIButton }) as? UIButton {
-            button.setImage(UIImage(named: "wikipedia"), for: .normal)
-        }
-
-        if let rightBarButtonItems = navigationItem.rightBarButtonItems {
-            for barButtonItem in rightBarButtonItems {
-                updateLogoImage(in: barButtonItem, to: "wikipedia")
-            }
-        }
-
-        if let leftBarButtonItem = navigationItem.leftBarButtonItem {
-            updateLogoImage(in: leftBarButtonItem, to: "wikipedia")
-        }
-    }
-
-    private func updateLogoImage(in barButtonItem: UIBarButtonItem, to imageName: String) {
-        if let customView = barButtonItem.customView {
-            if let button = customView as? UIButton {
-                let image = UIImage(named: imageName)
-                button.setImage(image, for: .normal)
-            } else {
-                // Handle nested views
-                for subview in customView.subviews {
-                    if let button = subview as? UIButton {
-                        let image = UIImage(named: imageName)
-                        button.setImage(image, for: .normal)
-                    }
-                }
-            }
-        }
-    }
-}
-
-private extension UIApplication {
-    var keyWindow: UIWindow? {
-        return UIApplication
-            .shared
-            .connectedScenes
-            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
-            .last { $0.isKeyWindow }
-    }
-    
-    var statusBarFrame: CGRect {
-        keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+        navigationItem.leftBarButtonItem?.image = UIImage(named: "wikipedia")
     }
 }

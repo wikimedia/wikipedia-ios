@@ -198,8 +198,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
         
-        // Need to override this so that "" does not appear as back button title.
+        // Need to override this so that "" does not appear as back button title.
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
+        
+        // Set up logo as left bar button item
+        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "wikipedia"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = logoBarButtonItem
     }
     
     @objc func updateProfileButton() {
