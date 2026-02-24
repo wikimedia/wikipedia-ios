@@ -27,7 +27,6 @@ class DonateCoordinator: Coordinator {
         case yearInReview(slideLoggingID: String)
         case placesProfile
         case savedProfile
-        case historyProfile
         case searchProfile
         case activityTabProfile
     }
@@ -67,7 +66,7 @@ class DonateCoordinator: Coordinator {
             }
             
             return wikimediaProject
-        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile, .activityTabProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             return nil
         }
     }()
@@ -120,7 +119,7 @@ class DonateCoordinator: Coordinator {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
-        case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
+        case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .searchProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
                 return nil
@@ -226,8 +225,6 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logPlacesProfileDonateCancel(metricsID: metricsID)
             case .savedProfile:
                 DonateFunnel.shared.logSavedProfileDonateCancel(metricsID: metricsID)
-            case .historyProfile:
-                DonateFunnel.shared.logHistoryProfileDonateCancel(metricsID: metricsID)
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateCancel(metricsID: metricsID)
             case .activityTabProfile:
@@ -260,8 +257,6 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logPlacesProfileDonateApplePay(metricsID: metricsID)
             case .savedProfile:
                 DonateFunnel.shared.logSavedProfileDonateApplePay(metricsID: metricsID)
-            case .historyProfile:
-                DonateFunnel.shared.logHistoryProfileDonateApplePay(metricsID: metricsID)
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
             case .activityTabProfile:
@@ -296,8 +291,6 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logPlacesProfileDonateWebPay(metricsID: metricsID)
             case .savedProfile:
                 DonateFunnel.shared.logSavedProfileDonateWebPay(metricsID: metricsID)
-            case .historyProfile:
-                DonateFunnel.shared.logHistoryProfileDonateWebPay(metricsID: metricsID)
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
             case .activityTabProfile:
@@ -443,7 +436,7 @@ class DonateCoordinator: Coordinator {
         switch source {
         case .articleCampaignModal, .articleProfile:
             completeButtonTitle = CommonStrings.returnToArticle
-        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile, .activityTabProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             completeButtonTitle = CommonStrings.returnButtonTitle
         }
         let donateConfig = SinglePageWebViewController.DonateConfig(url: webViewURL, dataController: WMFDonateDataController.shared, coordinatorDelegate: self, loggingDelegate: self, completeButtonTitle: completeButtonTitle)
@@ -735,8 +728,6 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .savedProfile:
             DonateFunnel.shared.logSavedProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-        case .historyProfile:
-            DonateFunnel.shared.logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .searchProfile:
             DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .activityTabProfile:
@@ -812,7 +803,7 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
             
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
-        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile, .activityTabProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .searchProfile, .activityTabProfile:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
         }
     }
@@ -852,8 +843,6 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .savedProfile:
                 DonateFunnel.shared.logSavedProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-            case .historyProfile:
-                DonateFunnel.shared.logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .searchProfile:
                 DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .activityTabProfile:

@@ -107,7 +107,7 @@
 "action-share-accessibility" = "Bagikan";
 "action-sort" = "Urutkan";
 "action-thank-user-accessibility" = "Beri Terima Kasih";
-"action-undo" = "Urungkan";
+"action-undo" = "Batalkan";
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
 "action-update" = "Perbarui";
@@ -526,12 +526,10 @@
 "forgot-password-username-or-email-title" = "Atau";
 "gan-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Gan berikut sebagai bahasa utama atau sekunder dalam aplikasi, sehingga lebih mudah untuk membaca, mencari, dan menyunting dalam varian yang Anda sukai: \n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Sederhana (gan-hans)\n贛語 繁體 Gan, Tradisional (gan-hant)";
 "gan-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Gan";
-"history-clear-all" = "Kosongkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
 "history-clear-delete-all" = "Ya, hapus semua";
 "history-title" = "Riwayat";
 "home-button-explore-accessibility-label" = "Wikipedia, kembali ke halaman Jelajah";
-"home-button-history-accessibility-label" = "Wikipedia, kembali ke Riwayat";
 "home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
 "home-more-like-footer" = "Lainnya yang seperti $1";
 "home-nearby-footer" = "Lebih banyak tempat di dekat lokasi Anda";

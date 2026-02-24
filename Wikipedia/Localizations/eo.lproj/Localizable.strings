@@ -323,12 +323,10 @@
 "forgot-password-instructions" = "Plenigu unu el la kampoj ĉi-sube por ricevi instrukcioj pri restarigo de pasvorto per retpoŝto";
 "forgot-password-title" = "Restarigi pasvorton";
 "forgot-password-username-or-email-title" = "Aŭ";
-"history-clear-all" = "Malplenigi";
 "history-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn lastajn erojn?";
 "history-clear-delete-all" = "Jes, forigi ĉion";
 "history-title" = "Historio";
 "home-button-explore-accessibility-label" = "Vikipedio, reveni al Esplorado";
-"home-button-history-accessibility-label" = "Vikipedio, reveni al Historio";
 "home-button-saved-accessibility-label" = "Vikipedio, reveni al Konservitaj";
 "home-more-like-footer" = "Pliaj kiel $1";
 "home-nearby-footer" = "Pli da lokoj proksime al via loko";

@@ -146,6 +146,12 @@
 "activity-tab-generic-no-edits" = "لم تُحرّر هذا الأسبوع. ابدأ الآن بتتبع مساهماتك.";
 "activity-tab-hours-minutes-read" = "$1 ساعة $2 دقيقة";
 "activity-tab-hours-on-wikipedia-ios" = "على ويكيبيديا iOS";
+"activity-tab-impact-edits-label" = "التعديلات";
+"activity-tab-impact-recent-startend-accessibility" = "من $1 إلى $2";
+"activity-tab-impact-thanks-label" = "شكراً";
+"activity-tab-impact-total-edits-label" = "إجمالي التعديلات";
+"activity-tab-impact-views-day" = "يوم";
+"activity-tab-impact-views-views" = "المشاهدات";
 "activity-tab-log-in-or-create-account" = "قم بتسجيل الدخول أو إنشاء حساب للاطلاع على المزيد من أنشطة التحرير والقراءة.";
 "activity-tab-logged-out-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لعرض نشاطك على تطبيق ويكيبيديا.";
 "activity-tab-logged-out-title" = "شاهد المزيد من رؤى القراءة والتحرير";
@@ -162,8 +168,6 @@
 "activity-tab-onboarding-second-button-title" = "تعرف على المزيد حول النشاط";
 "activity-tab-onboarding-second-item-subtitle" = "اكتشف رؤى حول مساهماتك ومدى المعرفة التي شاركتها.";
 "activity-tab-onboarding-second-item-title" = "أبرز النقاط المؤثرة";
-"activity-tab-onboarding-third-item-subtitle" = "استكشف الإحصائيات الخاصة بالمقالات المحفوظة والأنشطة الأخرى التي تربطك بشكل أعمق مع ويكيبيديا.";
-"activity-tab-onboarding-third-item-title" = "مزيد من الطرق للمشاركة";
 "activity-tab-read-title" = "عرض تاريخ القراءة";
 "activity-tab-remaining-articles" = "+ $1";
 "activity-tab-satisfied" = "راضي";
@@ -278,6 +282,7 @@
 "continue-button-title" = "يكمل";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
+"contributions-this-month" = "المساهمات هذا الشهر";
 "crimean-tatar-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية للغة التتار القرمية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل قراءتها والبحث عنها وتحريرها بالمتغيرات المفضلة لديك:\n\nQırımtatarca، اللاتينية، اللاتينية التتارية القرمية (chr-latn)\nкъырымтатарджа، Кирил، السيريلية التتارية القرمية (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "تحديثات لدعم متغير تتار القرم";
 "customize-action-title" = "تخصيص";
@@ -510,6 +515,8 @@
 "editor-toolbar-template-accessibility" = "تنسيق نص القالب";
 "editor-wikitext-loading-accessibility" = "تحميل نص المحرر";
 "editor-wikitext-textview-accessibility" = "محرر نصوص الويكي";
+"edits-last-month" = "التعديلات التي أجريت الشهر الماضي";
+"edits-this-month" = "التعديلات التي أُجريت هذا الشهر";
 "empty-diff-compare-title" = "لا فروق بين المراجعات";
 "empty-diff-single-title" = "لم يتم إجراء تغييرات مرئية";
 "empty-edit-summary" = "ملخص التحرير الفارغ";
@@ -672,12 +679,10 @@
 "forgot-password-username-or-email-title" = "أو";
 "gan-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Gan التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:\n\n贛語 原文 Gan (gan)\n赣语简体 غان، مبسط (غان-هانز)\n贛語 繁體 غان، تقليدي (غان-هانت)";
 "gan-variants-alert-title" = "تحديثات لدعم متغير Gan";
-"history-clear-all" = "امسح";
 "history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
 "history-clear-delete-all" = "نعم، احذف الكل";
 "history-title" = "التاريخ";
 "home-button-explore-accessibility-label" = "ويكيبيديا، ارجع إلى استكشف";
-"home-button-history-accessibility-label" = "ويكيبيديا، ارجع إلى التاريخ";
 "home-button-saved-accessibility-label" = "ويكيبيديا، ارجع إلى المحفوظة";
 "home-more-like-footer" = "المزيد مثل $1";
 "home-nearby-footer" = "المزيد من الأماكن بالقرب من موقعك";
@@ -787,6 +792,7 @@
 "languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
+"learn-about-editing" = "تعرّف على التحرير";
 "learn-more-title" = "معرفة المزيد";
 "lockscreen-search-widget-description" = "الوصول السريع للبحث في ويكيبيديا من شاشة القفل الخاصة بك.";
 "logged-out-continue-without-logging-in-button-title" = "المتابعة بدون تسجيل الدخول";
@@ -1424,6 +1430,7 @@
 "vanish-account-warning-title" = "تحذير";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
+"view-changes" = "عرض التغييرات";
 "watch" = "راقب";
 "watchlist" = "قائمة المراقبة";
 "watchlist-added-toast-one-month" = "تمت إضافته إلى قائمة مراقبتك لمدة شهر واحد.";

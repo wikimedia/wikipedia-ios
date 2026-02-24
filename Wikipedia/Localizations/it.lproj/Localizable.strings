@@ -129,6 +129,7 @@
 "activity-tab-add-images-subtitle" = "Aggiungi immagini suggerite alle voci di Wikipedia per migliorarne la comprensione.";
 "activity-tab-add-images-title" = "Aggiungi immagini";
 "activity-tab-additional-thoughts" = "Qualcosa da aggiungere?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|visualizzazione|visualizzazioni}}";
 "activity-tab-articles-read" = "Voci lette questo mese";
 "activity-tab-articles-read-graph-label" = "Voci";
 "activity-tab-customize-time-spent-reading" = "Tempo trascorso a leggere";
@@ -138,15 +139,25 @@
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "SU WIKIPEDIA iOS";
+"activity-tab-impact-all-time-title" = "Impatto dall'inizio";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 giorno|$1 giorni}}";
+"activity-tab-impact-edits-label" = "modifiche";
+"activity-tab-impact-last-edited-label" = "ultima modifica";
+"activity-tab-impact-recent-activity-title" = "La tua attività recente (ultimi 30 giorni)";
+"activity-tab-impact-recent-startend-accessibility" = "Dal $1 a $2";
+"activity-tab-impact-thanks-label" = "ringraziamenti";
+"activity-tab-impact-total-edits-label" = "modifiche totali";
+"activity-tab-impact-views-day" = "Giorno";
+"activity-tab-impact-views-views" = "Visualizzazioni";
 "activity-tab-log-in-or-create-account" = "Accedi o crea un utenza per vedere altre attività di modifica e lettura.";
 "activity-tab-logged-out-subtitle" = "Accedi o crea un'utenza per vedere la tua attività sull'applicazione di Wikipedia.";
 "activity-tab-logged-out-title" = "Scopri di più su lettura e modifica";
+"activity-tab-most-viewed" = "Più visualizzazioni dalla tua modifica";
 "activity-tab-neutral" = "Neutrale";
 "activity-tab-no-edits-title" = "Non hai fatto alcuna modifica questa settimana. Aggiungi immagini per migliorare la comprensione della voce.";
 "activity-tab-no-username-reading-title" = "La tua lettura";
 "activity-tab-onboarding-first-item-subtitle" = "Scopri quanto tempo hai dedicato alla lettura e quali voci o argomenti hai approfondito nel tempo.";
 "activity-tab-onboarding-fourth-item-subtitle" = "Scegli quali moduli visualizzare. Tutti i dati personali rimangono privati sul tuo dispositivo e la cronologia di navigazione può essere cancellata in qualsiasi momento.";
-"activity-tab-onboarding-third-item-title" = "Altri modi per interagire";
 "activity-tab-read-title" = "Vedi cronologia delle letture";
 "activity-tab-satisfied" = "Soddisfatto";
 "activity-tab-saved" = "Voci salvate questo mese";
@@ -458,6 +469,7 @@
 "explore-suggested-edits-footer" = "Aggiungi";
 "explore-suggested-edits-image-recs-body" = "Aggiungi immagini suggerite alle voci di Wikipedia per migliorarne la comprensione.";
 "explore-suggested-edits-image-recs-title" = "Aggiungi un'immagine";
+"explore-wikipedia" = "Esplora Wikipedia";
 "featured-widget-content-failure-for-date" = "Nessuna voce in evidenza disponibile per questa data.";
 "featured-widget-description" = "Scopri le migliore voci su Wikipedia, selezionati quotidianamente dalla nostra community.";
 "featured-widget-from-wikipedia" = "Da Wikipedia";
@@ -493,12 +505,10 @@
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "forgot-password-title" = "Reimposta password";
 "forgot-password-username-or-email-title" = "O";
-"history-clear-all" = "Pulisci";
 "history-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutti i tuoi elementi recenti?";
 "history-clear-delete-all" = "Sì, cancella tutto";
 "history-title" = "Cronologia";
 "home-button-explore-accessibility-label" = "Wikipedia, ritorna a Explore";
-"home-button-history-accessibility-label" = "Wikipedia, ritorna alla cronologia";
 "home-button-saved-accessibility-label" = "Wikipedia, ritorna alle pagine salvate";
 "home-more-like-footer" = "Altro come $1";
 "home-nearby-footer" = "Altri luoghi vicini alla tua posizione";
@@ -579,6 +589,7 @@
 "languages-settings-title" = "Lingue";
 "languages-title" = "Cambia lingua";
 "languages-wikipedia" = "Lingue di Wikipedia";
+"learn-about-editing" = "Impara come modificare";
 "learn-more-title" = "Ulteriori informazioni";
 "logged-out-continue-without-logging-in-button-title" = "Continua senza accedere";
 "logged-out-log-back-in-button-title" = "Accedi nuovamente alla tua utenza";
@@ -587,6 +598,7 @@
 "login-join-wikipedia" = "Accedi / Unisciti a Wikipedia";
 "login-no-account" = "Non hai ancora un'utenza? $1";
 "login-title" = "Accedi alla tua utenza";
+"looking-for-something-new" = "Stai cercando qualcosa di nuovo da leggere?";
 "main-menu-about" = "Informazioni sull'app";
 "main-menu-account-login" = "Entra";
 "main-menu-account-logout" = "Esci";
@@ -1142,3 +1154,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Logo W di Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo della Wikimedia Foundation";
 "yesterday-title" = "Ieri";
+"zero-edits-to-articles" = "0 modifiche recenti alle voci";

@@ -108,8 +108,9 @@
 "activity-tab-add-images-subtitle" = "Paranna Wikipedia-artikkelin ymmärrettävyyttä hyväksymällä niihin ehdotettavia kuvia.";
 "activity-tab-add-images-title" = "Lisää kuvia";
 "activity-tab-additional-thoughts" = "Muuta sanottavaa?";
-// Fuzzy
-"activity-tab-logged-out-subtitle" = "Tarkastele uudella tavalla lukemaasi ja lisäämääsi sisältöä";
+"activity-tab-articles-read-graph-label" = "Artikkelit";
+"activity-tab-logged-out-subtitle" = "Kirjaudu sisään tai luo tunnus nähdäksesi toimintasi Wikipedia-sovelluksessa.";
+"activity-tab-menu-clear-history" = "Tyhjennä lukuhistoria";
 "activity-tab-neutral" = "Neutraali";
 "activity-tab-satisfied" = "Tyytyväinen";
 "activity-tab-start-editing" = "Aloita muokkaaminen";
@@ -121,6 +122,7 @@
 "activity-tab-view-editing-history" = "Näytä muokkaushistoria";
 "activity-tab-view-reading-history" = "Näytä lukuhistoria";
 "activity-tab-view-saved-articles" = "Näytä tallennetut artikkelit";
+"activity-tab-week-graph-label" = "Viikko";
 "activity-tab-you-edited" = "Muokkasit {{PLURAL:$1|$1 kerran|$1 kertaa}} tällä viikolla.";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "advanced-settings-title" = "Lisäasetukset";
@@ -138,6 +140,7 @@
 "appearance-settings-image-dimming-footer" = "Pienennä kuvien sameutta tummassa ja mustassa teemassa";
 "appearance-settings-reading-themes" = "Lukuteema";
 "appearance-settings-set-automatic-table-opening" = "Luetteloasetukset";
+"appearance-settings-set-icon-header" = "Sovelluskuvake";
 "appearance-settings-text-sizing-example-text" = "Muuta artikkelin tekstin kokoa vetämällä liukusäädintä. Sovelluksen käyttöliittymän tekstin kokoa muutetaan käyttöjärjestelmän asetuksista.";
 "appearance-settings-theme-options" = "Teeman asetukset";
 "article-about-title" = "Tietoa tästä artikkelista";
@@ -179,6 +182,9 @@
 "clearing-cache-complete" = "Välimuistin tyhjennys on valmis.";
 "clearing-cache-in-progress" = "Väliuistin tyhjennys on käynnissä.";
 "close-button-accessibility-label" = "Sulje";
+"close-other-tabs" = "Sulje muut välilehdet";
+"close-tabs" = "Sulje välilehdet";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1| $1 välilehti| $1 välilehtiä}} suljettu.";
 "compass-direction" = "klo $1";
 "continue-button-title" = "Jatka";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
@@ -293,6 +299,7 @@
 "donate-success-title" = "Kiitos!";
 "donate-title" = "Valitse summa";
 "donate-transaction-fee-opt-in-text" = "Lisään avokätisesti $1 kattamaan siirtokulut, jotta voitte pitää 100 %% lahjoituksestani.";
+"duplicate-tab" = "Monista välilehti";
 "edit-link-display-text-title" = "Näytä teksti";
 "edit-link-link-target-title" = "Linkin kohde";
 "edit-link-remove-link-title" = "Poista linkki";
@@ -525,12 +532,10 @@
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "tai";
 "gan-variants-alert-title" = "Päivityksiä Gan-version tukeen";
-"history-clear-all" = "Tyhjennä";
 "history-clear-confirmation-heading" = "Tyhjennetäänkö historia?";
 "history-clear-delete-all" = "Kyllä, poista kaikki";
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, palaa Tutki-sivulle";
-"home-button-history-accessibility-label" = "Wikipedia, palaa Historia-sivulle";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
 "home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
 "home-nearby-footer" = "Lisää lähelläsi olevia paikkoja";
@@ -653,10 +658,10 @@
 "main-menu-title" = "Lisää";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "main-page" = "Etusivu";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title-updated" = "4 miljardia tavua lisätty";
+"microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|$1 tavu|$1 tavua}} lisätty";
 // Fuzzy
 "microsite-yir-english-edits-slide-subtitle-updated" = "Vapaaehtoiset tekivät 98 222 407 muutosta yli 300 eri kieliversioon Wikipediassa. Englanninkieliseen Wikipediaan tehtiin yli 37 miljoonaa muutosta. Joka päivä, joka tunti, vapaaehtoiset työskentelevät parantaakseen Wikipediaa.";
+"microsite-yir-english-edits-slide-title-updated" = "Muokkaajat tekivät tänä vuonna {{PLURAL:$1|$1 muutoksen|$1 muutosta}}";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle-updated" = "Ihmiset viettivät arviolta 2,9 miljardia tuntia – yli 331 000 vuotta! – englanninkielisen Wikipedian lukemiseen vuonna 2024. Wikipedia on palveluksessasi, kun haluat oppia lisää muuttuvasta maailmasta, voittaa vedon ystävien kesken tai vastata uteliaan lapsen kysymykseen.";
 // Fuzzy
@@ -674,6 +679,7 @@
 "nearby-distance-label-miles" = "$1 mailia";
 "new-password-instructions" = "Olet kirjautunut sisään väliaikaisella salasanalla. Viimeistelläksi kirjautumisen aseta uusi salasana tässä.";
 "new-password-title" = "Aseta salasanasi";
+"new-tab" = "Uusi välilehti";
 "next-action-title" = "Seuraava";
 "no-email-account-alert" = "Asenna sähköpostitili laitteeseesi ja yritä uudelleen.";
 "no-internet-connection" = "Ei Internet-yhteyttä";
@@ -799,6 +805,8 @@
 "on-this-day-no-internet-error" = "Ei internetyhteyttä";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 kieliversion $2 Wikipediassa";
 "on-this-day-title" = "Tänä päivänä";
+"open-article" = "Avaa artikkeli";
+"open-in-tab-tooltip-title" = "Avaa uudessa välilehdessä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
 "page-history-bot-edits" = "botti";
 "page-history-compare-accessibility-hint" = "Napauta valitaksesi kaksi vertailtavaa versiota";
@@ -864,6 +872,7 @@
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "privacy-policy-title" = "Tietosuojakäytäntö";
 "problem-with-feature-title" = "Ongelma ominaisuudessa";
+"profile-button-accessibility-label" = "Profiili";
 "profile-page-donate-subtext" = "Tue Wikipediaa lahjoituksella, jolla Wikipedia voidaan säilyttää maksutta kaikkien saatavilla.";
 "profile-page-join-subtext" = "Kirjautuneena voit seurata muokkauksia, tallentaa artikkeleita laitteeseen ja synkronoida tietoja eri laitteiden välillä.";
 "profile-page-join-title" = "Kirjaudu sisään / Liity Wikipediaan";
@@ -1013,8 +1022,7 @@
 "search-title" = "Haku";
 "serbian-variants-alert-title" = "Päivityksiä serbian kieliversiotukeen";
 "settings-account" = "Käyttäjätunnus";
-// Fuzzy
-"settings-appearance" = "Lukuasetukset";
+"settings-appearance" = "Sovelluksen teema";
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
 "settings-clear-cache-are-you-sure-title" = "Tyhjennetäänkö välimuisti?";
@@ -1079,6 +1087,7 @@
 "table-of-contents-heading" = "Sisällys";
 "table-of-contents-hide-button-label" = "Piilota sisällysluettelo";
 "table-of-contents-subheading-label" = "Alaotsikko $1";
+"tabs-close-tab" = "Sulje välilehti";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktiivinen käyttäjä|$1 aktiivista käyttäjää}}";
 "talk-page-add-topic-button" = "Lisää aihe";
 "talk-page-archives" = "Arkistot";
@@ -1165,6 +1174,7 @@
 "theme-default-explanation" = "Järjestelmäasetuksen mukainen";
 "theme-light-display-name" = "Vaalea";
 "theme-sepia-display-name" = "Seepia";
+"today-title" = "Tänään";
 "top-read-widget-description" = "Opi mitä maailma lukee tänään Wikipediassa.";
 "top-read-widget-readers-count" = "$ lukijaa";
 "top-read-widget-title" = "Luetuimmat";
@@ -1289,6 +1299,7 @@
 "year-in-review-base-saved-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Lukulistaan lisättyä artikkelia voi käyttää myös ilman Internet-yhteyttä. Lukulistoja voi myös synkronoida laitteiden välillä.";
 // Fuzzy
 "year-in-review-base-saved-title-updated" = "Yli $1 miljoonaa lukulistaa";
+"year-in-review-base-viewed-title-updated" = "Sovelluksen käyttäjät katsoivat Wikipedian artikkeleita {{PLURAL:$1| $1 kerran| $1 kertaa}}";
 "year-in-review-button-title" = "Vuosikatsaus";
 "year-in-review-day-friday" = "perjantai";
 "year-in-review-day-monday" = "maanantai";
@@ -1302,6 +1313,11 @@
 "year-in-review-feature-announcement-body" = "Tutustu kohokohtiin miten artikkeleita luetaan ja muokataan Wikipediassa.";
 "year-in-review-feature-announcement-title-personalized" = "Tutustu Wikipedia-vuoteesi";
 "year-in-review-feature-explore-body-personalized-updated" = "Tutustu kohokohtiin lukemastasi ja muokkaamastasi sisällöstä Wikipedia-sovelluksessa vuonna 2024. Lukuhistoria säilytetään suojattuna. Kohokohdat muodostetaan laitteellesi tallennetun tiedon perusteella.";
+"year-in-review-highlights-edit-frequency" = "Kuinka usein Wikipediaa muokattiin";
+"year-in-review-highlights-edit-frequency-value" = "{{PLURAL:$1| $1 kerta| $1 kertaa}} minuutissa";
+"year-in-review-highlights-english-articles" = "Luetuimmat artikkelit englanninkielisessä Wikipediassa";
+"year-in-review-highlights-share-logo-caption" = "Wikipedia-logo";
+"year-in-review-highlights-subtitle" = "Odotamme innolla ensi vuotta!";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "Lukijat ympäri maailmaa arvostavat panostasi. Viimeisen kahden kuukauden aikana muokkaamasi artikkelit ovat saaneet yhteensä $1 katselukertaa. Kiitos kaltaistesi vapaaehtoisten, Wikipedia on jatkuvasti kehittyvä, faktaan perustuva ja luotettava tietolähde maailmalle.";
 // Fuzzy
@@ -1316,3 +1332,11 @@
 "year-in-review-survey-unsatisfied" = "Tyytymätön";
 "year-in-review-survey-very-satisfied" = "Erittäin tyytyväinen";
 "year-in-review-survey-very-unsatisfied" = "Erittäin tyytymätön";
+"year-in-review-time-afternoon" = "Iltapäivä";
+"year-in-review-time-evening" = "Ilta";
+"year-in-review-time-late-night" = "Myöhäisilta";
+"year-in-review-time-midday" = "Keskipäivä";
+"year-in-review-time-morning" = "Aamu";
+"year-in-review-time-night" = "Yö";
+"year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation -säätiön logo";
+"yesterday-title" = "Eilen";

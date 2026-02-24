@@ -140,6 +140,12 @@
 "activity-tab-generic-no-edits" = "Você não editou esta semana. Comece agora a acompanhar suas contribuições.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "NA WIKIPÉDIA iOS";
+"activity-tab-impact-edits-label" = "edições";
+"activity-tab-impact-last-edited-label" = "última edição";
+"activity-tab-impact-thanks-label" = "obrigado";
+"activity-tab-impact-total-edits-label" = "total de edições";
+"activity-tab-impact-views-day" = "Dia";
+"activity-tab-impact-views-views" = "Visualizações";
 "activity-tab-log-in-or-create-account" = "Entre ou crie uma conta para ver mais atividades de edição e leitura.";
 "activity-tab-logged-out-subtitle" = "Entre ou crie uma conta para visualizar sua atividade no aplicativo da Wikipédia.";
 "activity-tab-logged-out-title" = "Veja mais habilidades de leitura e de edição";
@@ -156,8 +162,6 @@
 "activity-tab-onboarding-second-button-title" = "Saiba mais sobre a Atividade";
 "activity-tab-onboarding-second-item-subtitle" = "Descubra informações sobre suas contribuições e o alcance do conhecimento que você compartilhou.";
 "activity-tab-onboarding-second-item-title" = "Destaques de impacto";
-"activity-tab-onboarding-third-item-subtitle" = "Explore estatísticas de artigos salvos e outras atividades que o conectam mais profundamente à Wikipédia.";
-"activity-tab-onboarding-third-item-title" = "Mais maneiras para se envolver";
 "activity-tab-read-title" = "Ver histórico de leitura";
 "activity-tab-satisfied" = "Satisfeito(a)";
 "activity-tab-saved" = "Artigos salvos este mês";
@@ -665,12 +669,10 @@
 "forgot-password-username-or-email-title" = "ou";
 "gan-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes Gan como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificado (gan-hans)\n贛語 繁體 Gan tradicional (gan-hant)";
 "gan-variants-alert-title" = "Atualizações para o suporte da variante Gan";
-"history-clear-all" = "Limpar";
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
 "history-clear-delete-all" = "Sim, apagar tudo";
 "history-title" = "Histórico";
 "home-button-explore-accessibility-label" = "Wikipedia, retornar a Explorar";
-"home-button-history-accessibility-label" = "Wikipedia, voltar para História";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
 "home-more-like-footer" = "Mais como $1";
 "home-nearby-footer" = "Mais lugares perto de sua localização";
@@ -1409,6 +1411,7 @@
 "vanish-account-warning-title" = "Aviso";
 "variants-alert-dismiss-button" = "Não, obrigado";
 "variants-alert-preferences-button" = "Revise suas preferências";
+"view-changes" = "ver alterações";
 "watch" = "Vigiar";
 "watchlist" = "Páginas vigiadas";
 "watchlist-added-toast-one-month" = "Adicionado às suas páginas vigiadas durante 1 mês.";

@@ -582,12 +582,10 @@
 "forgot-password-username-or-email-title" = "או";
 "gan-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של גאנית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\n贛語 原文 גאנית (gan)\n赣语 简体 גאנית, מפושטת (gan-hans)\n贛語 繁體 גאנית, מסורתית (gan-hant)";
 "gan-variants-alert-title" = "עדכונים לתמיכה בהגוונים של גאנית";
-"history-clear-all" = "ניקוי";
 "history-clear-confirmation-heading" = "האם באמת למחוק את כל הפריטים האחרונים שלך?";
 "history-clear-delete-all" = "כן, למחוק הכול";
 "history-title" = "היסטוריה";
 "home-button-explore-accessibility-label" = "ויקיפדיה, חזרה ל\"לחקור\"";
-"home-button-history-accessibility-label" = "ויקיפדיה, חזרה ל\"היסטוריה\"";
 "home-button-saved-accessibility-label" = "ויקיפדיה, חזרה ל\"נשמר\"";
 "home-more-like-footer" = "עוד כמו $1";
 "home-nearby-footer" = "מקומות נוספים ליד המיקום שלך";
