@@ -514,7 +514,7 @@ final class WMFSourceEditorTextFrameworkMediatorTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(formatter.selectedMatchIndex, NSNotFound, "Find - Incorrect selected match index")
+        XCTAssertNil(formatter.selectedMatchIndex, "Find - Incorrect selected match index")
         XCTAssertEqual(formatter.matchCount, 0, "Find - Incorrect match count")
     }
     
@@ -548,7 +548,7 @@ final class WMFSourceEditorTextFrameworkMediatorTests: XCTestCase {
         mediator.replaceAll(replaceText: "testing")
         XCTAssertEqual(mediator.textView.attributedText.string, "Find a '''testing''' and replace that testing.", "Replace all failure")
         
-        XCTAssertEqual(formatter.selectedMatchIndex, NSNotFound, "Replace all - Incorrect selected match index")
+        XCTAssertNil(formatter.selectedMatchIndex, "Replace all - Incorrect selected match index")
         XCTAssertEqual(formatter.matchCount, 0, "Replace all - Incorrect match count")
     }
 }

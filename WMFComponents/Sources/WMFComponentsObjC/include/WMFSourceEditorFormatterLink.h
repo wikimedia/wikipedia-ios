@@ -1,1 +1,0 @@
-../WMFSourceEditorFormatterLink.h
