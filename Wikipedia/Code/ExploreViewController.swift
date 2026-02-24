@@ -62,6 +62,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private var presentingSearchResults: Bool = false
     private var searchTask: Task<Void, Never>?
+    
+    private var customClearButton: UIButton?
 
     // MARK: - Lifecycle
 
@@ -140,6 +142,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             self?.calculateTopSafeAreaOverlayHeight()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !isIPad26RegularHSizeClass {
+            navigationItem.searchController?.searchBar.text = nil
+            (navigationItem.searchController?.searchResultsController as? SearchResultsViewController)?.resetSearchResults()
+            navigationItem.searchController?.dismiss(animated: false)
+        }
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -178,8 +190,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let searchResultsContainer = SearchResultsViewController(source: .topOfFeed, dataStore: dataStore)
         searchResultsContainer.apply(theme: theme)
         searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
-            self?.navigationItem.searchController?.searchBar.text = searchTerm
-            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            
+            guard let searchBar = self?.navigationItem.searchController?.searchBar else {
+                return
+            }
+            
+            searchBar.text = searchTerm
+            searchBar.becomeFirstResponder()
+            self?.evaluateSearchBarState(searchBar: searchBar)
         }
         searchResultsContainer.articleTappedAction = { [weak self] articleURL in
             guard let self, let navVC = navigationController else { return }
@@ -200,7 +218,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchResultsController: searchResultsContainer,
             searchControllerDelegate: self,
             searchResultsUpdater: searchResultsContainer,
-            searchBarDelegate: nil,
+            searchBarDelegate: self,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false, scopeButtonTitles: nil)
         
@@ -1144,6 +1162,49 @@ extension ExploreViewController {
             markSearchWidgetAnnouncementAsSeen()
         }
     }
+    
+    // MARK: Search Controller Helpers
+    
+    private func evaluateSearchBarState(searchBar: UISearchBar) {
+        
+        guard navigationItem.searchController?.isActive ?? false else { return }
+        
+        let hasText = (searchBar.text?.count ?? 0) > 0
+        if isIPad26RegularHSizeClass {
+            if let clear = self.customClearButton,
+               hasText == true {
+                navigationItem.searchController?.searchBar.searchTextField.rightView = clear
+            } else {
+                navigationItem.searchController?.searchBar.searchTextField.rightView = nil
+                (navigationItem.searchController?.searchResultsController as? SearchResultsViewController)?.resetSearchResults()
+            }
+        } else {
+            if !hasText {
+                (navigationItem.searchController?.searchResultsController as? SearchResultsViewController)?.resetSearchResults()
+            }
+        }
+    }
+    
+    
+    @objc private func cancelSearchTapped() {
+            navigationItem.searchController?.isActive = false
+        }
+        
+    @objc private func clearSearchText() {
+        navigationItem.searchController?.searchBar.text = nil
+        if let search = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
+            search.resetSearchResults()
+        }
+        navigationItem.searchController?.searchBar.searchTextField.rightView = nil
+    }
+    
+    private var isIPad26RegularHSizeClass: Bool {
+        if #available(iOS 26.0, *) {
+            return UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular
+        }
+        
+        return false
+    }
 }
 
 // MARK: - Analytics
@@ -1812,6 +1873,44 @@ extension ExploreViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         presentingSearchResults = true
         navigationController?.hidesBarsOnSwipe = false
+        
+        if isIPad26RegularHSizeClass {
+                    
+                searchController.searchBar.searchTextField.clearButtonMode = .never
+                
+                // Add custom back button
+                let backButton = UIButton(type: .system)
+                backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+                backButton.addTarget(self, action: #selector(cancelSearchTapped), for: .touchUpInside)
+                backButton.tintColor = theme.colors.link
+                
+                searchController.searchBar.searchTextField.leftView = backButton
+                searchController.searchBar.searchTextField.leftViewMode = .always
+                
+                // Add custom clear button
+                let clearButton = UIButton(type: .system)
+                clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+                clearButton.tintColor = theme.colors.secondaryText
+                clearButton.addTarget(self, action: #selector(clearSearchText), for: .touchUpInside)
+                self.customClearButton = clearButton
+
+                searchController.searchBar.searchTextField.rightViewMode = .whileEditing
+        }
+    }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if isIPad26RegularHSizeClass {
+            if let search = searchController.searchResultsController as? SearchResultsViewController {
+                search.resetSearchResults()
+            }
+            
+            // Restore default magnifying glass
+            let magnifyingGlass = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+            magnifyingGlass.tintColor = .secondaryLabel
+            searchController.searchBar.searchTextField.leftView = magnifyingGlass
+            searchController.searchBar.searchTextField.leftViewMode = .always
+            self.customClearButton = nil
+        }
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
@@ -1820,6 +1919,13 @@ extension ExploreViewController: UISearchControllerDelegate {
         SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
+
+extension ExploreViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        evaluateSearchBarState(searchBar: searchBar)
+    }
+}
+
 
 // MARK: - Explore Survey
 
