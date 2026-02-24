@@ -333,7 +333,7 @@
 "diff-thanks-send-subtitle" = "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. 'Thanks' cannot be undone and are publicly viewable.";
 "diff-thanks-send-title" = "Publicly send 'Thanks'";
 "diff-thanks-sent" = "Your 'Thanks' was sent to $1";
-"diff-thanks-sent-already" = "You’ve already sent a ‘Thanks’ for this edit";
+"diff-thanks-sent-already" = "You've already sent a 'Thanks' for this edit";
 "diff-thanks-sent-cannot-unsend" = "Thanks cannot be unsent";
 "diff-unchanged-contextual-line" = "Contextual line, unchanged: $1";
 "diff-undo-message" = "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.";
@@ -1043,7 +1043,7 @@
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
 "reading-list-add-generic-hint-title" = "Add this article to a reading list?";
-"reading-list-add-hint-title" = "Add “$1” to a reading list?";
+"reading-list-add-hint-title" = "Add \"$1\" to a reading list?";
 "reading-list-add-saved-button-title" = "Yes, add them to my reading lists";
 "reading-list-add-saved-subtitle" = "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
 "reading-list-add-saved-title" = "Saved articles found";
@@ -1094,7 +1094,7 @@
 "reading-list-unable-to-remove-entry" = "An unexpected error occurred while removing an entry from your reading list. Please try again later.";
 "reading-list-unable-to-update" = "An unexpected error occurred while updating your reading list. Please try again later.";
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
-"reading-lists-article-added-confirmation" = "Article added to “$1”";
+"reading-lists-article-added-confirmation" = "Article added to \"$1\"";
 "reading-lists-article-api-failure" = "Unable to sync article";
 "reading-lists-article-not-synced" = "Not synced";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Article limit exceeded, unable to sync article";

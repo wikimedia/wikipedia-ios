@@ -2326,16 +2326,16 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         guard viewIfLoaded != nil else {
             return
         }
-        
+
         view.backgroundColor = theme.colors.baseBackground
-        
+
         if #unavailable(iOS 26.0) {
             if let searchBar = navigationItem.searchController?.searchBar {
                 searchBar.apply(theme: theme)
                 searchBar.backgroundColor = theme.colors.paperBackground
             }
         }
-        
+
         profileCoordinator?.theme = theme
         updateProfileButton()
 
@@ -2346,7 +2346,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
 
         mapContainerView.backgroundColor = theme.colors.baseBackground
-        
+
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
 
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
@@ -2378,7 +2378,6 @@ extension PlacesViewController {
     func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
-        hintController?.dismissHintDueToUserInteraction()
     }
 
     func regionDidChange() {

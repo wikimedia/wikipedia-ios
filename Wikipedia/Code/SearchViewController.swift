@@ -5,9 +5,9 @@ import CocoaLumberjackSwift
 import SwiftUI
 import Combine
 
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider {
 
-    var hintController: HintController?
+    var readingListHintPresenter: ReadingListHintPresenter?
 
     var eventLoggingCategory: EventCategoryMEP {
         return .history
@@ -59,7 +59,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
-    
+
     // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
     var populateSearchBarWithTextAction: ((String) -> Void)?
 
@@ -242,12 +242,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         var tabsButtonConfig: WMFNavigationBarTabsButtonConfig? = nil
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-            
+
             if isSearchTab {
                 let leadingItem: UIBarButtonItem? = (currentEmbeddedViewController === historyViewController) ? deleteButton : nil
                 tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: leadingItem)
             }
-            
+
         }
 
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
@@ -260,7 +260,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         guard isSearchTab else {
             return
         }
-        
+
         let shouldShow = (currentEmbeddedViewController === historyViewController)
         let enabled = shouldShow && !historyViewModel.isEmpty
 
@@ -621,7 +621,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
-                
+
                 let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
 
                 let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
@@ -632,7 +632,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 }
 
             } else if let navigationController {
-                
+
                 let tabConfig = self.customTabConfigUponArticleNavigation
 
                 let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
@@ -826,8 +826,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private func setupReadingListsHelpers() {
         guard let dataStore else { return }
-        hintController = ReadingListHintController(dataStore: dataStore)
-        hintController?.apply(theme: theme)
+        readingListHintPresenter = ReadingListHintPresenter(dataStore: dataStore)
+        readingListHintPresenter?.apply(theme: theme)
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(userDidSaveOrUnsaveArticle(_:)),
@@ -844,27 +844,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private func showReadingListHint(for article: WMFArticle) {
-
         guard let presentingVC = visibleHintPresentingViewController() else {
             return
         }
 
-        let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
-        toggleHint(hintController, context: context, presentingIn: presentingVC)
+        readingListHintPresenter?.toggle(presenter: presentingVC, article: article, theme: theme)
     }
 
-    func visibleHintPresentingViewController() -> (UIViewController & HintPresenting)? {
+    func visibleHintPresentingViewController() -> UIViewController? {
         if let nav = self.tabBarController?.selectedViewController as? UINavigationController {
-            return nav.topViewController as? (UIViewController & HintPresenting)
+            return nav.topViewController
         }
         return nil
-    }
-
-    private func toggleHint(_ hintController: HintController?, context: [String: Any], presentingIn presentingVC: UIViewController) {
-
-        if let presenting = presentingVC as? (UIViewController & HintPresenting) {
-            hintController?.toggle(presenter: presenting, context: context, theme: theme)
-        }
     }
 
     // MARK: - Recent Search Saving

@@ -1,7 +1,7 @@
 import WMF
 import WMFComponents
 
-class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting, WMFNavigationBarHiding {
+class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, WMFNavigationBarHiding {
     var topSafeAreaOverlayView: UIView?
     
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
@@ -143,15 +143,11 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
         keyboardFrame = nil
         updateEmptyViewFrame()
     }
-
-    // MARK: HintPresenting
-
-    var hintController: HintController?
     
     // MARK: - UIScrollViewDelegate
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        hintController?.dismissHintDueToUserInteraction()
+
     }
     
     // MARK: - Refresh Control

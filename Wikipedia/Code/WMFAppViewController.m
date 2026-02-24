@@ -104,8 +104,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic) BOOL hasSyncErrorBeenShownThisSesssion;
 
-@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
-@property (nonatomic, strong) WMFEditHintController *editHintController;
+@property (nonatomic, strong) WMFReadingListHintPresenter *readingListHintPresenter;
 
 @property (nonatomic, strong) WMFNavigationStateController *navigationStateController;
 
@@ -259,7 +258,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     [self observeArticleTabsNSNotifications];
     [self setupReadingListsHelpers];
-    self.editHintController = [[WMFEditHintController alloc] init];
 
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
 }
@@ -379,7 +377,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)setupReadingListsHelpers {
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
-    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.dataStore];
+    self.readingListHintPresenter = [[WMFReadingListHintPresenter alloc] initWithDataStore:self.dataStore];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidSaveOrUnsaveArticle:) name:WMFReadingListsController.userDidSaveOrUnsaveArticleNotification object:nil];
 }
 
@@ -587,20 +585,20 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #pragma mark - Hint
 
 - (void)showReadingListHintForArticle:(WMFArticle *)article {
-    UIViewController<WMFHintPresenting> *visibleHintPresentingViewController = [self visibleHintPresentingViewController];
-    if (!visibleHintPresentingViewController) {
+    UIViewController *visibleViewController = [self visibleViewController];
+    if (!visibleViewController) {
         return;
     }
-    [self toggleHint:self.readingListHintController
-             context:@{WMFReadingListHintController.ContextArticleKey: article}];
+    [self.readingListHintPresenter toggleWithPresenter:visibleViewController article:article theme:self.theme];
 }
 
 - (void)descriptionEditWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.standardUserDefaults didShowDescriptionPublishedPanel]) {
         return;
     }
-    [self toggleHint:self.editHintController
-             context:nil];
+
+    [[WMFAlertManager sharedInstance] showAlertWithMessage:@"Your edit was successfully published" subtitle:nil buttonTitle:nil image:[UIImage imageNamed:@"published-pencil"] dismissPreviousAlerts:YES tapCallBack:nil];
+
 }
 
 - (void)referenceLinkTapped:(NSNotification *)note {
@@ -611,30 +609,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self wmf_navigateToURL:maybeURL];
 }
 
-- (void)toggleHint:(HintController *)hintController context:(nullable NSDictionary<NSString *, id> *)context {
-    UIViewController<WMFHintPresenting> *visibleHintPresentingViewController = [self visibleHintPresentingViewController];
-    if (!visibleHintPresentingViewController) {
-        return;
-    }
-    [hintController toggleWithPresenter:visibleHintPresentingViewController
-                                context:context
-                                  theme:self.theme];
-}
-
 - (UIViewController *)visibleViewController {
     UIViewController *visibleViewController = self.currentTabNavigationController.visibleViewController;
     if (visibleViewController == self) {
         return self.selectedViewController;
     }
     return visibleViewController;
-}
-
-- (UIViewController<WMFHintPresenting> *)visibleHintPresentingViewController {
-    UIViewController *visibleViewController = [self visibleViewController];
-    if (![visibleViewController conformsToProtocol:@protocol(WMFHintPresenting)]) {
-        return nil;
-    }
-    return (UIViewController<WMFHintPresenting> *)visibleViewController;
 }
 
 #pragma mark - Background Fetch
@@ -1864,8 +1844,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
         [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
-        [self.readingListHintController applyTheme:self.theme];
-        [self.editHintController applyTheme:self.theme];
+        [self.readingListHintPresenter applyTheme:self.theme];
 
         [self setNeedsStatusBarAppearanceUpdate];
     }
