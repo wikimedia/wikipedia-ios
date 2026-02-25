@@ -14,8 +14,8 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     }
     
     private var displayType: ReadingListDetailDisplayType = .pushed
-    private lazy var iPadSearchConfigurator: SearchBarIPadConfigurator = {
-        let configurator = SearchBarIPadConfigurator(theme: theme)
+    private lazy var iPadSearchConfigurator: SearchBarIPadCustomizer = {
+        let configurator = SearchBarIPadCustomizer(theme: theme)
         configurator.onClearTapped = { [weak self] _ in
             self?.readingListEntryCollectionViewController.updateSearchString("")
         }

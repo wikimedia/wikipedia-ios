@@ -264,7 +264,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         ArticleTabsFunnel.shared.logIconClick(interface: .places, project: nil)
     }
 
-    private lazy var iPadSearchConfigurator = SearchBarIPadConfigurator(theme: theme)
+    private lazy var iPadSearchConfigurator = SearchBarIPadCustomizer(theme: theme)
 
     private func configureNavigationBar() {
 

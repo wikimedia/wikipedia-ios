@@ -284,7 +284,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
     }
 
-    private lazy var iPadSearchConfigurator = SearchBarIPadConfigurator(theme: theme)
+    private lazy var iPadSearchConfigurator = SearchBarIPadCustomizer(theme: theme)
 
     private func configureNavigationBar() {
 

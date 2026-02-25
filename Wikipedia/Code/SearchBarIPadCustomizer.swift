@@ -46,7 +46,7 @@ import UIKit
 ///
 /// Use `onClearTapped` and `onWillDismiss` closures to reset any additional VC-specific state
 /// when the clear button is tapped or the search bar is dismissed.
-final class SearchBarIPadConfigurator: NSObject, UISearchControllerDelegate {
+final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
 
     // MARK: - Public
 

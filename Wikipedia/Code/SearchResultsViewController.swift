@@ -65,8 +65,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// and then forward every delegate call to the parent.
     weak var parentSearchControllerDelegate: UISearchControllerDelegate?
 
-    private lazy var iPadSearchConfigurator: SearchBarIPadConfigurator = {
-        let configurator = SearchBarIPadConfigurator(theme: theme)
+    private lazy var iPadSearchConfigurator: SearchBarIPadCustomizer = {
+        let configurator = SearchBarIPadCustomizer(theme: theme)
         configurator.onClearTapped = { [weak self] _ in self?.resetSearchResults() }
         configurator.onWillDismiss = { [weak self] in self?.resetSearchResults() }
         return configurator

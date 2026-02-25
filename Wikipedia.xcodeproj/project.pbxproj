@@ -497,9 +497,9 @@
 		6741245027E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */; };
 		6741245127E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */; };
 		6741245227E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */; };
-		67467E9E2F4F5AD40023532D /* SearchBarIPadConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadConfigurator.swift */; };
-		67467E9F2F4F5AD40023532D /* SearchBarIPadConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadConfigurator.swift */; };
-		67467EA02F4F5AD40023532D /* SearchBarIPadConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadConfigurator.swift */; };
+		67467E9E2F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */; };
+		67467E9F2F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */; };
+		67467EA02F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */; };
 		6747118825072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
 		6747118925072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
 		6747118A25072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
@@ -3256,7 +3256,7 @@
 		673C55CA2ACC684E00E2EBF6 /* DonateFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateFunnel.swift; sourceTree = "<group>"; };
 		673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFTableHeaderFooterLabelView+Extensions.swift"; sourceTree = "<group>"; };
 		6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ActionExtensions.swift"; sourceTree = "<group>"; };
-		67467E9D2F4F5AD40023532D /* SearchBarIPadConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarIPadConfigurator.swift; sourceTree = "<group>"; };
+		67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarIPadCustomizer.swift; sourceTree = "<group>"; };
 		6747118725072D1500287951 /* IconTitleBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTitleBadge.swift; sourceTree = "<group>"; };
 		674C176B2AAA86B5007DC6CC /* Wikipedia.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wikipedia.xctestplan; sourceTree = "<group>"; };
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
@@ -7970,7 +7970,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				67467E9D2F4F5AD40023532D /* SearchBarIPadConfigurator.swift */,
+				67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */,
 				370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */,
 				372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */,
 				83023C1720E6581A00EC7592 /* Transitions */,
@@ -10488,7 +10488,7 @@
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				8330532923EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
-				67467E9E2F4F5AD40023532D /* SearchBarIPadConfigurator.swift in Sources */,
+				67467E9E2F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */,
 				B09705B4236B29D7006FDB5C /* DiffThanker.swift in Sources */,
 				67DAEDD927E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
 				B09B03F51CE0FB7700009083 /* ReadingThemesControlsViewController.swift in Sources */,
@@ -11448,7 +11448,7 @@
 				7AB20A0D22FC8432006FECB4 /* PageHistoryCountsView.swift in Sources */,
 				671F5E002367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
 				833B8C8A281AE2110021C12C /* RemoteNotificationsFunnel.swift in Sources */,
-				67467E9F2F4F5AD40023532D /* SearchBarIPadConfigurator.swift in Sources */,
+				67467E9F2F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */,
 				676E813529380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
 				67C6F79E27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
@@ -12007,7 +12007,7 @@
 				7AB20A0E22FC8432006FECB4 /* PageHistoryCountsView.swift in Sources */,
 				671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
 				833B8C89281AE2100021C12C /* RemoteNotificationsFunnel.swift in Sources */,
-				67467EA02F4F5AD40023532D /* SearchBarIPadConfigurator.swift in Sources */,
+				67467EA02F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */,
 				676E813429380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
 				67C6F79D27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
