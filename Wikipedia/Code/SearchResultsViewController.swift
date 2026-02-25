@@ -4,10 +4,7 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 
-/// A container view controller that acts exclusively as a `UISearchController.searchResultsController`.
-/// It listens for search text changes via `UISearchResultsUpdating`, showing either the recently-searched
-/// view (empty text) or live search results (non-empty text). All article-tap navigation is delegated
-/// outward via `articleTappedAction`; the class itself never pushes or presents.
+/// This class is designed to be used exclusively as a `UISearchController.searchResultsController`.
 class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, HintPresenting, ShareableArticlesProvider {
 
     // MARK: - Event Logging Source
@@ -37,8 +34,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     // MARK: - Public configuration
 
-    /// Called whenever a search result row or long-press result is tapped. The caller is responsible
-    /// for navigating to the given URL. Never nil in production; left optional for testability.
+    /// Called whenever a search result row or long-press result is tapped. Caller is responsible
+    /// for navigating to the given URL.
     var articleTappedAction: ((URL) -> Void)?
 
     /// Called when the user selects a recently-searched term so the parent can write the text into
@@ -46,7 +43,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     var populateSearchBarAction: ((String) -> Void)?
 
     /// Controls whether the language picker bar is shown at the top of this VC.
-    /// Defaults to `true`. Set to `false` for contexts like InsertLinkViewController.
     var showLanguageBar: Bool = true {
         didSet {
             guard isViewLoaded else { return }
@@ -59,17 +55,16 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private let source: EventLoggingSource
     private let dataStore: MWKDataStore
 
-    /// Parent view controllers that need their own `UISearchControllerDelegate` callbacks (e.g. to
-    /// toggle navigation-bar scroll hiding, update layout state, log analytics, etc.) should set
+    /// Parent view controllers that need their own `UISearchControllerDelegate` callbacks should set
     /// this property. `SearchResultsViewController` will handle all iPad 26 search-UI workarounds
     /// and then forward every delegate call to the parent.
     weak var parentSearchControllerDelegate: UISearchControllerDelegate?
 
-    private lazy var iPadSearchConfigurator: SearchBarIPadCustomizer = {
-        let configurator = SearchBarIPadCustomizer(theme: theme)
-        configurator.onClearTapped = { [weak self] _ in self?.resetSearchResults() }
-        configurator.onWillDismiss = { [weak self] in self?.resetSearchResults() }
-        return configurator
+    private lazy var searchBarIPadCustomizer: SearchBarIPadCustomizer = {
+        let customizer = SearchBarIPadCustomizer(theme: theme)
+        customizer.onClearTapped = { [weak self] _ in self?.resetSearchResults() }
+        customizer.onWillDismiss = { [weak self] in self?.resetSearchResults() }
+        return customizer
     }()
 
     private let contentContainerView = UIView()
@@ -484,7 +479,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        iPadSearchConfigurator.theme = theme
+        searchBarIPadCustomizer.theme = theme
         guard viewIfLoaded != nil else { return }
         view.backgroundColor = theme.colors.paperBackground
         contentContainerView.backgroundColor = theme.colors.paperBackground
@@ -528,7 +523,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
         }
 
         // iPad 26 (regular width): keep the custom clear button in sync with text presence.
-        iPadSearchConfigurator.updateClearButtonVisibility(text: text, for: searchController)
+        searchBarIPadCustomizer.updateClearButtonVisibility(text: text, for: searchController)
     }
 }
 
@@ -541,20 +536,22 @@ extension SearchResultsViewController: UISearchResultsUpdating {
 extension SearchResultsViewController: UISearchControllerDelegate {
 
     func willPresentSearchController(_ searchController: UISearchController) {
-        iPadSearchConfigurator.willPresentSearchController(searchController)
+        searchBarIPadCustomizer.willPresentSearchController(searchController)
         parentSearchControllerDelegate?.willPresentSearchController?(searchController)
     }
 
     func willDismissSearchController(_ searchController: UISearchController) {
-        iPadSearchConfigurator.willDismissSearchController(searchController)
+        searchBarIPadCustomizer.willDismissSearchController(searchController)
         parentSearchControllerDelegate?.willDismissSearchController?(searchController)
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {
+        searchBarIPadCustomizer.didPresentSearchController(searchController)
         parentSearchControllerDelegate?.didPresentSearchController?(searchController)
     }
 
     func didDismissSearchController(_ searchController: UISearchController) {
+        searchBarIPadCustomizer.didDismissSearchController(searchController)
         parentSearchControllerDelegate?.didDismissSearchController?(searchController)
     }
 }
