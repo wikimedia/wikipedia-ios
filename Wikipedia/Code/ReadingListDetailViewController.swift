@@ -13,7 +13,6 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         return readingListEntryCollectionViewController.readingListDetailHeaderView
     }
     
-    private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
     private lazy var iPadSearchConfigurator: SearchBarIPadConfigurator = {
         let configurator = SearchBarIPadConfigurator(theme: theme)
@@ -55,9 +54,6 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         readingListEntryCollectionViewController.emptyViewType = .noSavedPagesInReadingList
         readingListEntryCollectionViewController.needsDetailHeaderView = true
         super.init(nibName: nil, bundle: nil)
-        searchBarExtendedViewController = SearchBarExtendedViewController()
-        searchBarExtendedViewController?.dataSource = self
-        searchBarExtendedViewController?.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -157,7 +153,6 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         iPadSearchConfigurator.theme = theme
         readingListEntryCollectionViewController.apply(theme: theme)
         readingListDetailHeaderView?.apply(theme: theme)
-        searchBarExtendedViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
     }
     
@@ -249,80 +244,6 @@ extension ReadingListDetailViewController: ReadingListDetailHeaderViewDelegate {
     
     func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldWillClear textField: UITextField) {
         navigationItem.rightBarButtonItems?.first?.isEnabled = false
-    }
-}
-
-// MARK: - SearchBarExtendedViewControllerDataSource
-
-extension ReadingListDetailViewController: SearchBarExtendedViewControllerDataSource {
-    func returnKeyType(for searchBar: UISearchBar) -> UIReturnKeyType {
-        return .search
-    }
-    
-    func placeholder(for searchBar: UISearchBar) -> String? {
-        return WMFLocalizedString("search-reading-list-placeholder-text", value: "Search reading list", comment: "Placeholder text for the search bar in reading list detail view.")
-    }
-    
-    func isSeparatorViewHidden(above searchBar: UISearchBar) -> Bool {
-        return true
-    }
-}
-
-// MARK: - SearchBarExtendedViewControllerDelegate
-
-extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        readingListEntryCollectionViewController.updateSearchString(searchText)
-        
-        if searchText.isEmpty {
-            makeSearchBarResignFirstResponder(searchBar)
-        }
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        makeSearchBarResignFirstResponder(searchBar)
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        makeSearchBarResignFirstResponder(searchBar)
-    }
-    
-    private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        readingListEntryCollectionViewController.updateSearchString("")
-        searchBar.resignFirstResponder()
-    }
-    
-    func textStyle(for button: UIButton) -> WMFFont {
-        return .caption1
-    }
-    
-    func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType? {
-        switch currentButtonType {
-        case nil:
-            return .sort
-        case .cancel?:
-            return nil
-        case .sort?:
-            return .cancel
-        }
-    }
-    
-    func buttonWasPressed(_ button: UIButton, buttonType: SearchBarExtendedViewButtonType?, searchBar: UISearchBar) {
-        guard let buttonType = buttonType else {
-            return
-        }
-        switch buttonType {
-        case .sort:
-            break
-            // readingListEntryCollectionViewController.presentSortAlert(from: button)
-        case .cancel:
-            makeSearchBarResignFirstResponder(searchBar)
-        }
     }
 }
 
