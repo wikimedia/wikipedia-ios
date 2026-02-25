@@ -15,6 +15,13 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
+    private lazy var iPadSearchConfigurator: SearchBarIPadConfigurator = {
+        let configurator = SearchBarIPadConfigurator(theme: theme)
+        configurator.onClearTapped = { [weak self] _ in
+            self?.readingListEntryCollectionViewController.updateSearchString("")
+        }
+        return configurator
+    }()
     
     // Import shared reading list properties
     private let fromImport: Bool
@@ -138,7 +145,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         let closeButtonConfig: WMFLargeCloseButtonConfig? = displayType == .modal ? WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(dismissController), alignment: .leading) : nil
 
         let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: iPadSearchConfigurator, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil,tabsButtonConfig: nil,  searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
@@ -147,6 +154,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        iPadSearchConfigurator.theme = theme
         readingListEntryCollectionViewController.apply(theme: theme)
         readingListDetailHeaderView?.apply(theme: theme)
         searchBarExtendedViewController?.apply(theme: theme)
@@ -420,7 +428,8 @@ private extension ReadingListDetailViewController {
 
 extension ReadingListDetailViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
+        let text = searchController.searchBar.text ?? ""
+        iPadSearchConfigurator.updateClearButtonVisibility(text: text, for: searchController)
         readingListEntryCollectionViewController.updateSearchString(text)
     }
 }
