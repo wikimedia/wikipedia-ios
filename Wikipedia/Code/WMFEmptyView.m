@@ -32,13 +32,14 @@
     [self applyTheme:self.theme];
 
     __weak __typeof(self) weakSelf = self;
-    [self registerForTraitChanges:@[UITraitPreferredContentSizeCategory.class, UITraitVerticalSizeClass.class] withHandler:^(__kindof WMFEmptyView * _Nonnull view, UITraitCollection * _Nonnull previousTraitCollection) {
-        __strong __typeof(weakSelf) strongSelf = weakSelf;
-        if (strongSelf) {
-            [strongSelf updateFonts];
-            [strongSelf updateImageView];
-        }
-    }];
+    [self registerForTraitChanges:@[UITraitPreferredContentSizeCategory.class, UITraitVerticalSizeClass.class]
+                      withHandler:^(__kindof WMFEmptyView *_Nonnull view, UITraitCollection *_Nonnull previousTraitCollection) {
+                          __strong __typeof(weakSelf) strongSelf = weakSelf;
+                          if (strongSelf) {
+                              [strongSelf updateFonts];
+                              [strongSelf updateImageView];
+                          }
+                      }];
 }
 
 - (NSString *)backgroundColorKeyPath {
@@ -262,7 +263,7 @@
 }
 
 - (void)updateFonts {
-    self.button.titleLabel.font = [WMFFontWrapper fontFor: WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
+    self.button.titleLabel.font = [WMFFontWrapper fontFor:WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
 }
 
 - (void)updateImageView {
@@ -277,6 +278,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    [self.delegate heightChanged:self.bounds.size.height];
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
