@@ -16,7 +16,8 @@ class EditPreviewInternalLinkViewController: UIViewController {
         self.dataStore = dataStore
         super.init(nibName: "EditPreviewInternalLinkViewController", bundle: nil)
         
-        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
             self.updateFonts()
         }
     }

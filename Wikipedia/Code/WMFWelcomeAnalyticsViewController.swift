@@ -22,8 +22,8 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
         
-        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
-            self.updateFonts()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
         }
     }
 

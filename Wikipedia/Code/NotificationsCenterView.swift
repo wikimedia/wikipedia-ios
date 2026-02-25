@@ -116,7 +116,8 @@ final class NotificationsCenterView: SetupView {
             emptyOverlaySubheaderLabel.widthAnchor.constraint(equalTo: emptyOverlayStack.widthAnchor, multiplier: 4/5)
         ])
 
-        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
             if previousTraitCollection.preferredContentSizeCategory != self.traitCollection.preferredContentSizeCategory {
                 self.emptyOverlayHeaderLabel.font = WMFFont.for(.boldCallout, compatibleWith: self.traitCollection)
                 self.emptyOverlaySubheaderLabel.font = WMFFont.for(.subheadline, compatibleWith: self.traitCollection)

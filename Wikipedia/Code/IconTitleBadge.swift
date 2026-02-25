@@ -61,7 +61,8 @@ class IconTitleBadge: SizeThatFitsView {
         updateFonts(with: traitCollection)
         layer.cornerRadius = 3
 
-        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
             self.updateFonts(with: self.traitCollection)
         }
     }

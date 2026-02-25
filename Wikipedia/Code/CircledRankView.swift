@@ -20,7 +20,8 @@ class CircledRankView: SizeThatFitsView {
         label.isOpaque = true
         addSubview(label)
 
-        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
             self.updateFonts(with: self.traitCollection)
         }
     }
