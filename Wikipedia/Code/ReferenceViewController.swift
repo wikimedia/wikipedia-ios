@@ -1,4 +1,5 @@
 import Foundation
+import WMFComponents
 
 protocol ReferenceViewControllerDelegate: AnyObject {
     var referenceWebViewBackgroundTapGestureRecognizer: UITapGestureRecognizer { get }
@@ -80,9 +81,15 @@ class ReferenceViewController: ThemeableViewController {
         return button
     }()
     lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: CommonStrings.doneTitle, style: .plain, target: self, action: #selector(closeButtonPressed))
-        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        return button
+        let closeConfig = WMFLargeCloseButtonConfig(
+            imageType: .plainX,
+            target: self,
+            action: #selector(closeButtonPressed),
+            alignment: .trailing
+        )
+        let closeButton = UIBarButtonItem.closeNavigationBarButtonItem(config: closeConfig)
+        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        return closeButton
     }()
 
     @objc func closeButtonPressed() {
@@ -100,7 +107,7 @@ class ReferenceViewController: ThemeableViewController {
         guard viewIfLoaded != nil else {
             return
         }
-        closeButton.tintColor = theme.colors.link
+        closeButton.tintColor = theme.colors.primaryText
         backToReferenceButton.tintColor = theme.colors.link
         
         customNavigationBar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)

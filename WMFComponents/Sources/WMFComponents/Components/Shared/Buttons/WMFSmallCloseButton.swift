@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct WMFCloseButton: View {
+struct WMFSmallCloseButton: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     var theme: WMFTheme {

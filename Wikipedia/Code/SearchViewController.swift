@@ -154,8 +154,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     deinit {
+        searchTask?.cancel()
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -508,6 +509,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     var searchTerm: String?
     private var lastSearchSiteURL: URL?
     private var _siteURL: URL?
+    private var searchTask: Task<Void, Never>?
 
     var siteURL: URL? {
         get {
@@ -549,7 +551,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             return
         }
 
-        resetSearchResults()
+        resultsViewController.emptyViewType = .none
         let start = Date()
 
         let failure = { (error: Error, type: WMFSearchType) in
@@ -567,13 +569,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let success = { (results: WMFSearchResults, type: WMFSearchType) in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-
+                
                 NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
                 let resultsArray = results.results ?? []
-                self.resultsViewController.emptyViewType = .noSearchResults
-                self.resultsViewController.resultsInfo = results
-                self.resultsViewController.searchSiteURL = siteURL
-                self.resultsViewController.results = resultsArray
+                resultsViewController.emptyViewType = resultsArray.isEmpty ? .noSearchResults : .none
+                resultsViewController.resultsInfo = results
+                resultsViewController.searchSiteURL = siteURL
+                resultsViewController.results = resultsArray
                 guard !suggested else {
                     return
                 }
@@ -583,15 +585,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { (error) in
             failure(error, .prefix)
-        }) { (results) in
-            success(results, .prefix)
+        }) { [weak self] (results) in
+            guard let self else { return }
+            
             guard let resultsArray = results.results, resultsArray.count < 12 else {
+                success(results, .prefix)
                 return
             }
-            self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { (error) in
+            fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { (error) in
+                success(results, .prefix)
                 failure(error, .full)
-            }) { (results) in
-                success(results, .full)
+            }) { (fullTextResults) in
+                success(fullTextResults, .full)
             }
         }
     }
@@ -601,13 +606,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }()
 
     func resetSearchResults() {
+        fetcher.cancelAllFetches()
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
     }
 
     func didCancelSearch() {
-        resultsViewController.emptyViewType = .none
-        resultsViewController.results = []
+        resetSearchResults()
         navigationItem.searchController?.searchBar.text = nil
     }
 
@@ -956,12 +961,15 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     lazy var selectAction: (WMFRecentlySearchedViewModel.RecentSearchTerm) -> Void = { [weak self] term in
         guard let self = self else { return }
 
+        self.resetSearchResults()
+        
         if let pop = self.populateSearchBarWithTextAction {
             pop(term.text)
         } else {
             self.navigationItem.searchController?.searchBar.text = term.text
             self.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
+        
         self.search()
     }
 
@@ -1029,6 +1037,8 @@ extension SearchViewController: UISearchResultsUpdating {
         updateEmbeddedContent(animated: false)
 
         guard text.wmf_hasNonWhitespaceText else {
+            searchTask?.cancel()
+            searchTask = nil
             searchTerm = nil
             resetSearchResults()
             return
@@ -1038,9 +1048,20 @@ extension SearchViewController: UISearchResultsUpdating {
            searchTerm == text && lastSearchSiteURL == siteURL {
             return
         }
-
+        
         searchTerm = text
-        search(for: text, suggested: false)
+        
+        searchTask?.cancel()
+        searchTask = Task { @MainActor [weak self] in
+            guard let self else { return }
+            // Debounce search by 100ms to reduce network requests and prevent UI flickering
+            // This delay allows users to finish typing before triggering a search
+            try? await Task.sleep(for: .milliseconds(100))
+            guard !Task.isCancelled else {
+                return
+            }
+            search(for: text, suggested: false)
+        }
     }
 
     public func updateRecentlySearchedVisibility(searchText: String?) {

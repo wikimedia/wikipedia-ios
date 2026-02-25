@@ -12,6 +12,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
     private let dataStore: MWKDataStore
     private let link: Link
     private let siteURL: URL?
+    private var searchTask: Task<Void, Never>?
 
     init(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
         self.link = link
@@ -23,6 +24,10 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        searchTask?.cancel()
     }
 
     override func viewDidLoad() {
@@ -41,7 +46,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .centerCompact)
         
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
         let searchViewController = SearchViewController(source: .unknown)
         searchViewController.showLanguageBar = false
@@ -130,20 +135,32 @@ extension InsertLinkViewController: EditingFlowViewController {
 
 extension InsertLinkViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        
         guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
             return
         }
         
-        if text.isEmpty {
+        guard let text = searchController.searchBar.text,
+              !text.isEmpty else {
+            searchTask?.cancel()
+            searchTask = nil
             searchViewController.searchTerm = nil
+            searchViewController.resetSearchResults()
             searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-        } else {
-            searchViewController.searchTerm = text
-            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            return
+        }
+        
+        if searchViewController.searchTerm == text {
+            return
+        }
+        
+        searchViewController.searchTerm = text
+        searchViewController.updateRecentlySearchedVisibility(searchText: text)
+        
+        searchTask?.cancel()
+        searchTask = Task { @MainActor [weak self] in
+            guard self != nil else { return }
+            try? await Task.sleep(for: .milliseconds(100))
+            guard !Task.isCancelled else { return }
             searchViewController.search()
         }
     }

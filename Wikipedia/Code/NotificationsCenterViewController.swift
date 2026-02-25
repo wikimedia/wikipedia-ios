@@ -505,11 +505,9 @@ private extension NotificationsCenterViewController {
             return
         }
 
-        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel, doneAction: { [weak self] in
-            self?.dismiss(animated: true)
-        })
+        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel)
 
-        presentView(view: filterView)
+        presentView(view: filterView, title: WMFLocalizedString("notifications-center-filters-title", value: "Filters", comment: "Navigation bar title text for the filters view presented from notifications center. Allows for filtering by read status and notification type."))
     }
 
     func presentInboxViewController() {
@@ -520,15 +518,13 @@ private extension NotificationsCenterViewController {
             return
         }
 
-        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel, doneAction: { [weak self] in
-            self?.dismiss(animated: true)
-        })
+        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel)
 
-        presentView(view: inboxView)
+        presentView(view: inboxView, title: WMFLocalizedString("notifications-center-inbox-title", value: "Projects", comment: "Navigation bar title text for the inbox view presented from notifications center. Allows for filtering out notifications by Wikimedia project type."))
     }
 
-    func presentView<T: View>(view: T) {
-        let hostingVC = NotificationsCenterModalHostingController(rootView: view)
+    func presentView<T: View>(view: T, title: String) {
+        let hostingVC = NotificationsCenterModalHostingController(rootView: view, title: title)
 
         let currentFilterState = viewModel.remoteNotificationsController.filterState
 

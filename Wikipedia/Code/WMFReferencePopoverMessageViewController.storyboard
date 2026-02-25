@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rh8-A3-vLx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rh8-A3-vLx">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,27 +19,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8mV-FS-wKn">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="222"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uUU-LX-2TD">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="46.666666666666664"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REFERENCE [X]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyt-hJ-W2q">
+                                                <rect key="frame" x="16" y="18" width="96" height="15.666666666666664"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bH1-NF-wXC">
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="36" id="Ibl-I5-LVI"/>
-                                                    <constraint firstAttribute="width" constant="50" id="knd-oH-hWN"/>
-                                                </constraints>
-                                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" title="Done"/>
-                                                <connections>
-                                                    <action selector="dismiss" destination="rh8-A3-vLx" eventType="touchUpInside" id="Kvk-ey-XCo"/>
-                                                </connections>
-                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hfu-Dd-yiv">
+                                                <rect key="frame" x="0.0" y="45.666666666666664" width="320" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="iJy-Wr-h8x"/>
@@ -48,17 +42,15 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="Hfu-Dd-yiv" secondAttribute="bottom" id="A4L-s4-CNv"/>
-                                            <constraint firstItem="bH1-NF-wXC" firstAttribute="leading" secondItem="xyt-hJ-W2q" secondAttribute="trailing" constant="10" id="JLr-hQ-v4G"/>
                                             <constraint firstAttribute="trailing" secondItem="Hfu-Dd-yiv" secondAttribute="trailing" id="Jk5-2I-Iqz"/>
                                             <constraint firstItem="Hfu-Dd-yiv" firstAttribute="leading" secondItem="uUU-LX-2TD" secondAttribute="leading" id="T5r-WL-M3M"/>
-                                            <constraint firstAttribute="trailing" secondItem="bH1-NF-wXC" secondAttribute="trailing" id="dg2-LR-F2c"/>
-                                            <constraint firstItem="bH1-NF-wXC" firstAttribute="centerY" secondItem="xyt-hJ-W2q" secondAttribute="centerY" id="i8v-k1-Hiv"/>
                                             <constraint firstItem="xyt-hJ-W2q" firstAttribute="leading" secondItem="uUU-LX-2TD" secondAttribute="leading" constant="16" id="mdF-xT-RIv"/>
                                             <constraint firstItem="xyt-hJ-W2q" firstAttribute="top" secondItem="uUU-LX-2TD" secondAttribute="top" constant="18" id="myx-Bk-kp0"/>
                                             <constraint firstAttribute="bottom" secondItem="xyt-hJ-W2q" secondAttribute="bottom" constant="13" id="zCQ-0u-W0W"/>
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sYL-Ee-b0e">
+                                        <rect key="frame" x="11" y="50.666666666666671" width="298" height="163.33333333333331"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
@@ -99,7 +91,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="222"/>
                     <connections>
-                        <outlet property="closeButton" destination="bH1-NF-wXC" id="dT8-jQ-sh4"/>
+                        <outlet property="headerContainerView" destination="uUU-LX-2TD" id="uFO-RE-nJ9"/>
                         <outlet property="horizontalSeparatorHeightConstraint" destination="iJy-Wr-h8x" id="iNW-dr-JRh"/>
                         <outlet property="textView" destination="sYL-Ee-b0e" id="Qbr-lW-vMk"/>
                         <outlet property="titleLabel" destination="xyt-hJ-W2q" id="Mh3-61-omE"/>
@@ -121,7 +113,4 @@
             <point key="canvasLocation" x="-486.39999999999998" y="-422.78860569715147"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="close-inverse" width="22" height="22"/>
-    </resources>
 </document>
