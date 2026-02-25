@@ -183,7 +183,10 @@ struct PictureOfTheDayView: View {
     @ViewBuilder
     var image: some View {
         if let image = entry.image {
-            Image(uiImage: image).resizable().scaledToFill().clipped()
+            Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .clipped()
         } else {
             Rectangle()
                 .foregroundColor(Color(.systemFill))
