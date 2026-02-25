@@ -772,14 +772,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
-        let searchResultsContainer = SearchResultsViewController(source: .article, dataStore: dataStore)
-        searchResultsContainer.apply(theme: theme)
-        searchResultsContainer.parentSearchControllerDelegate = self
-        searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
+        let searchResultsVC = SearchResultsViewController(source: .article, dataStore: dataStore)
+        searchResultsVC.apply(theme: theme)
+        searchResultsVC.parentSearchControllerDelegate = self
+        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        searchResultsContainer.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL in
             guard let self, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -789,12 +789,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 articleSource: .search,
                 tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
             )
-            if !coordinator.start() {
+            let success = coordinator.start()
+            if !success {
                 navigate(to: articleURL)
             }
         }
 
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchResultsContainer, searchControllerDelegate: searchResultsContainer, searchResultsUpdater: searchResultsContainer, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchResultsVC, searchControllerDelegate: searchResultsVC, searchResultsUpdater: searchResultsVC, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
@@ -1005,9 +1006,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         themeNavigationBarCustomCenteredTitleView()
         themeTopSafeAreaOverlay()
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
-            searchVC.theme = theme
-            searchVC.apply(theme: theme)
+        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
+            searchResultsVC.theme = theme
+            searchResultsVC.apply(theme: theme)
         }
         
         if let toolbar = navigationController?.toolbar {
@@ -1616,9 +1617,7 @@ extension ArticleViewController: UISearchControllerDelegate {
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {
-        DispatchQueue.main.async {
-            searchController.searchBar.becomeFirstResponder()
-        }
+        // no-op
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {

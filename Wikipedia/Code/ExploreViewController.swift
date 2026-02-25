@@ -173,15 +173,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
-        let searchResultsContainer = SearchResultsViewController(source: .topOfFeed, dataStore: dataStore)
-        searchResultsContainer.apply(theme: theme)
-        searchResultsContainer.parentSearchControllerDelegate = self
-        searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
+        let searchResultsVC = SearchResultsViewController(source: .topOfFeed, dataStore: dataStore)
+        searchResultsVC.apply(theme: theme)
+        searchResultsVC.parentSearchControllerDelegate = self
+        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
             guard let searchBar = self?.navigationItem.searchController?.searchBar else { return }
             searchBar.text = searchTerm
             searchBar.becomeFirstResponder()
         }
-        searchResultsContainer.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL in
             guard let self, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -191,15 +191,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 articleSource: .search,
                 tabConfig: .appendArticleAndAssignCurrentTab
             )
-            if !coordinator.start() {
+            let success = coordinator.start()
+            if !success {
                 navigate(to: articleURL)
             }
         }
 
         let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchResultsContainer,
-            searchControllerDelegate: searchResultsContainer,
-            searchResultsUpdater: searchResultsContainer,
+            searchResultsController: searchResultsVC,
+            searchControllerDelegate: searchResultsVC,
+            searchResultsUpdater: searchResultsVC,
             searchBarDelegate: nil,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false, scopeButtonTitles: nil)
@@ -703,7 +704,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         themeNavigationBarLeadingTitleView()
         themeNavigationBarCustomCenteredTitleView()
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
+        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
             searchVC.theme = theme
             searchVC.apply(theme: theme)
         }
