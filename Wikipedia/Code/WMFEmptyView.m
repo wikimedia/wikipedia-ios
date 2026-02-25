@@ -279,6 +279,27 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self.delegate heightChanged:self.bounds.size.height];
+    if (![self.actionLine superview]) {
+        return;
+    }
+
+    [self.actionLineLayer removeFromSuperlayer];
+
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    //draw a line
+    [path moveToPoint:CGPointMake(CGRectGetMidX(self.actionLine.bounds), CGRectGetMinY(self.actionLine.bounds))];
+    [path addLineToPoint:CGPointMake(CGRectGetMidX(self.actionLine.bounds), CGRectGetMaxY(self.actionLine.bounds))];
+    [path stroke];
+
+    CAShapeLayer *shapelayer = [CAShapeLayer layer];
+    shapelayer.frame = self.actionLine.bounds;
+    shapelayer.strokeColor = self.theme.colors.tertiaryText.CGColor;
+    shapelayer.lineWidth = 1.0;
+    shapelayer.lineJoin = kCALineJoinMiter;
+    shapelayer.lineDashPattern = [NSArray arrayWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:2], nil];
+    shapelayer.path = path.CGPath;
+    [self.actionLine.layer addSublayer:shapelayer];
+    self.actionLineLayer = shapelayer;
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
