@@ -196,8 +196,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        hidesBottomBarWhenPushed = true
         
+        if #available(iOS 26, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                hidesBottomBarWhenPushed = false
+            } else {
+                hidesBottomBarWhenPushed = true
+            }
+        } else {
+            hidesBottomBarWhenPushed = true
+        }
     }
     
     deinit {
