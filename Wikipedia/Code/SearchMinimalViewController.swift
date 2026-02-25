@@ -4,8 +4,7 @@ import WMFData
 
 /// A lightweight view controller that wraps `SearchResultsViewController` as its
 /// `navigationItem.searchController.searchResultsController` and immediately activates the search bar
-/// upon appearance. Intended to be pushed onto an existing navigation stack (e.g. from a search
-/// button in a non-search context). No history view is shown; article taps push the article.
+/// upon appearance. Intended to be pushed onto an existing navigation stack.
 class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Dependencies
@@ -28,15 +27,15 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
 
     // MARK: - Child
 
-    private lazy var searchResultsContainer: SearchResultsViewController = {
-        let container = SearchResultsViewController(source: .unknown, dataStore: dataStore)
-        container.apply(theme: theme)
-        container.parentSearchControllerDelegate = self
-        container.populateSearchBarAction = { [weak self] searchTerm in
+    private lazy var searchResultsVC: SearchResultsViewController = {
+        let searchResultsVC = SearchResultsViewController(source: .unknown, dataStore: dataStore)
+        searchResultsVC.apply(theme: theme)
+        searchResultsVC.parentSearchControllerDelegate = self
+        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        container.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL in
             guard let self else { return }
             if let customAction = self.articleTappedAction {
                 customAction(articleURL)
@@ -55,7 +54,7 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
                 }
             }
         }
-        return container
+        return searchResultsVC
     }()
 
     // MARK: - Init
@@ -75,8 +74,8 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
     override func viewDidLoad() {
         super.viewDidLoad()
         // Apply configuration properties to the container now that it's initialized
-        searchResultsContainer.showLanguageBar = showLanguageBar
-        if let siteURL { searchResultsContainer.siteURL = siteURL }
+        searchResultsVC.showLanguageBar = showLanguageBar
+        if let siteURL { searchResultsVC.siteURL = siteURL }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,15 +85,15 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.navigationItem.searchController?.isActive = true
-            if let term = self.prefilledSearchTerm {
-                self.navigationItem.searchController?.searchBar.text = term
-                self.searchResultsContainer.searchAndMakeResultsVisible(for: term)
-            }
-            self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        
+        self.navigationItem.searchController?.isActive = true
+        
+        if let term = self.prefilledSearchTerm {
+            self.navigationItem.searchController?.searchBar.text = term
+            self.searchResultsVC.searchAndMakeResultsVisible(for: term)
         }
+        
+        self.navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 
     // MARK: - Navigation Bar
@@ -103,9 +102,9 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .centerCompact)
 
         let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchResultsContainer,
-            searchControllerDelegate: searchResultsContainer,
-            searchResultsUpdater: searchResultsContainer,
+            searchResultsController: searchResultsVC,
+            searchControllerDelegate: searchResultsVC,
+            searchResultsUpdater: searchResultsVC,
             searchBarDelegate: nil,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false,
@@ -129,7 +128,7 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
         super.apply(theme: theme)
         guard viewIfLoaded != nil else { return }
         view.backgroundColor = theme.colors.paperBackground
-        searchResultsContainer.apply(theme: theme)
+        searchResultsVC.apply(theme: theme)
     }
 }
 
@@ -142,7 +141,7 @@ extension SearchMinimalViewController: UISearchControllerDelegate {
 
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
-        searchResultsContainer.resetSearchResults()
+        searchResultsVC.resetSearchResults()
         SearchFunnel.shared.logSearchCancel(source: SearchResultsViewController.EventLoggingSource.unknown.stringValue)
     }
 }

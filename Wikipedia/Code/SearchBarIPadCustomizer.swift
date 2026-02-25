@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 /// Encapsulates the iPad 26 (regular-width) custom back-chevron and clear-button workarounds
 /// for `UISearchController`.
@@ -7,45 +8,7 @@ import UIKit
 /// navigation bar without a visible Cancel button. This helper installs:
 ///   - A chevron ← button as the left view (dismisses the search controller)
 ///   - A custom ✕ clear button as the right view (clears text, hides itself when bar is empty)
-///
-/// ## Pattern A — VC owns its own `UISearchController` with no `searchResultsController`
-/// Used by `SavedViewController` and `PlacesViewController`.
-/// Pass the configurator directly as `searchControllerDelegate` in `WMFNavigationBarSearchConfig`
-/// so UIKit calls its delegate methods automatically. Call `updateClearButtonVisibility` whenever
-/// the search text changes.
-///
-/// ```swift
-/// private lazy var iPadSearchConfigurator = SearchBarIPadConfigurator(theme: theme)
-///
-/// private func configureNavigationBar() {
-///     let searchConfig = WMFNavigationBarSearchConfig(
-///         searchResultsController: nil,
-///         searchControllerDelegate: iPadSearchConfigurator,
-///         ...
-///     )
-///     configureNavigationBar(..., searchBarConfig: searchConfig, ...)
-/// }
-///
-/// override func apply(theme: Theme) {
-///     super.apply(theme: theme)
-///     iPadSearchConfigurator.theme = theme
-/// }
-///
-/// // Call from UISearchBarDelegate.searchBar(_:textDidChange:)
-/// // or UISearchResultsUpdating.updateSearchResults(for:):
-/// iPadSearchConfigurator.updateClearButtonVisibility(text: searchText, for: searchController)
-/// ```
-///
-/// ## Pattern B — `UISearchController` uses a `searchResultsController`
-/// Used internally by `SearchResultsViewController`, which is itself the
-/// `UISearchControllerDelegate` for all contexts that embed it (Explore, Article, Search tab).
-/// The results VC holds an instance, keeps its theme in sync, calls the delegate methods
-/// directly from its own `UISearchControllerDelegate` conformance, and calls
-/// `updateClearButtonVisibility` from `updateSearchResults(for:)`.
-/// Host VCs using `SearchResultsViewController` do not interact with this class at all.
-///
-/// Use `onClearTapped` and `onWillDismiss` closures to reset any additional VC-specific state
-/// when the clear button is tapped or the search bar is dismissed.
+
 final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
 
     // MARK: - Public
@@ -87,16 +50,17 @@ final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
             searchController.searchBar.searchTextField.clearButtonMode = .never
 
             let backButton = UIButton(type: .system)
-            backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+            backButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronBackward), for: .normal)
             backButton.tintColor = theme.colors.link
-            backButton.addAction(UIAction { [weak searchController] _ in
+            backButton.addAction(UIAction { [weak searchController, weak self] _ in
                 searchController?.isActive = false
+                self?.onBackTapped?(searchController)
             }, for: .touchUpInside)
             searchController.searchBar.searchTextField.leftView = backButton
             searchController.searchBar.searchTextField.leftViewMode = .always
 
             let clearButton = UIButton(type: .system)
-            clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+            clearButton.setImage(WMFSFSymbolIcon.for(symbol: .closeCircleFill), for: .normal)
             clearButton.tintColor = theme.colors.secondaryText
             clearButton.addAction(UIAction { [weak searchController, weak self] _ in
                 searchController?.searchBar.text = nil
@@ -111,8 +75,8 @@ final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
 
     func willDismissSearchController(_ searchController: UISearchController) {
         if isIPad26RegularHSizeClass {
-            let magnifyingGlass = UIImageView(image: UIImage(systemName: "magnifyingglass"))
-            magnifyingGlass.tintColor = .secondaryLabel
+            let magnifyingGlass = UIImageView(image: WMFSFSymbolIcon.for(symbol: .magnifyingGlass))
+            magnifyingGlass.tintColor = theme.colors.secondaryText
             searchController.searchBar.searchTextField.leftView = magnifyingGlass
             searchController.searchBar.searchTextField.leftViewMode = .always
             customClearButton = nil
@@ -130,6 +94,10 @@ final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
 
     // MARK: - Public helpers
 
+    /// Called when the custom < back button is tapped, after the search controller has been deactivated.
+    /// Use this to reset any additional state the host VC owns
+    var onBackTapped: ((UISearchController?) -> Void)?
+    
     /// Called when the custom ✕ clear button is tapped, after the bar text has been cleared.
     /// Use this to reset any additional state the host VC owns (e.g. clearing a results list or suggestion model).
     var onClearTapped: ((UISearchController?) -> Void)?

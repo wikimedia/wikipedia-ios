@@ -284,7 +284,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
     }
 
-    private lazy var iPadSearchConfigurator = SearchBarIPadCustomizer(theme: theme)
+    private lazy var searchBarIPadCustomizer = SearchBarIPadCustomizer(theme: theme)
 
     private func configureNavigationBar() {
 
@@ -303,7 +303,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
         let readingListsButtonTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
 
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: iPadSearchConfigurator, searchResultsUpdater: nil, searchBarDelegate: self, searchBarPlaceholder: allArticlesSearchBarPlaceholder, showsScopeBar: true, scopeButtonTitles: [allArticlesButtonTitle, readingListsButtonTitle])
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: searchBarIPadCustomizer, searchResultsUpdater: nil, searchBarDelegate: self, searchBarPlaceholder: allArticlesSearchBarPlaceholder, showsScopeBar: true, scopeButtonTitles: [allArticlesButtonTitle, readingListsButtonTitle])
 
         var hidesNavigationBarOnScroll = true
         switch self.currentView {
@@ -319,15 +319,15 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
         
-        iPadSearchConfigurator.onClearTapped = { [weak self] searchController in
+        searchBarIPadCustomizer.onClearTapped = { [weak self] searchController in
             guard let self,
             let searchBar = searchController?.searchBar else { return }
             self.searchBar(searchBar, textDidChange: "")
         }
         
-        iPadSearchConfigurator.onWillDismiss = { [weak self] in
+        searchBarIPadCustomizer.onBackTapped = { [weak self] searchController in
             guard let self,
-                  let searchBar = navigationItem.searchController?.searchBar else { return }
+                  let searchBar = searchController?.searchBar else { return }
             self.searchBar(searchBar, textDidChange: "")
         }
     }
@@ -399,7 +399,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        iPadSearchConfigurator.theme = theme
+        searchBarIPadCustomizer.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
@@ -607,7 +607,7 @@ extension SavedViewController: UISearchBarDelegate {
             savedDelegate?.saved(self, searchBar: searchBar, textDidChange: searchText)
         }
         if let sc = navigationItem.searchController {
-            iPadSearchConfigurator.updateClearButtonVisibility(text: searchText, for: sc)
+            searchBarIPadCustomizer.updateClearButtonVisibility(text: searchText, for: sc)
         }
     }
 

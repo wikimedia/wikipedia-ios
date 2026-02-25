@@ -43,23 +43,23 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
-        let searchResultsContainer = SearchResultsViewController(source: .unknown, dataStore: dataStore)
-        searchResultsContainer.showLanguageBar = false
-        searchResultsContainer.apply(theme: theme)
-        searchResultsContainer.populateSearchBarAction = { [weak self] searchTerm in
+        let searchResultsVC = SearchResultsViewController(source: .unknown, dataStore: dataStore)
+        searchResultsVC.showLanguageBar = false
+        searchResultsVC.apply(theme: theme)
+        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        searchResultsContainer.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL in
             guard let self, let title = articleURL.wmf_title else { return }
             navigationItem.searchController?.isActive = false
             self.delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
         }
 
         let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchResultsContainer,
-            searchControllerDelegate: searchResultsContainer,
-            searchResultsUpdater: searchResultsContainer,
+            searchResultsController: searchResultsVC,
+            searchControllerDelegate: searchResultsVC,
+            searchResultsUpdater: searchResultsVC,
             searchBarDelegate: self,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false,
@@ -107,9 +107,9 @@ extension InsertLinkViewController: Themeable {
         view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
-            searchVC.theme = theme
-            searchVC.apply(theme: theme)
+        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
+            searchResultsVC.theme = theme
+            searchResultsVC.apply(theme: theme)
         }
     }
 }

@@ -705,8 +705,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         themeNavigationBarCustomCenteredTitleView()
         
         if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
-            searchVC.theme = theme
-            searchVC.apply(theme: theme)
+            searchResultsVC.theme = theme
+            searchResultsVC.apply(theme: theme)
         }
         
         themeTopSafeAreaOverlay()

@@ -14,12 +14,12 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     }
     
     private var displayType: ReadingListDetailDisplayType = .pushed
-    private lazy var iPadSearchConfigurator: SearchBarIPadCustomizer = {
-        let configurator = SearchBarIPadCustomizer(theme: theme)
-        configurator.onClearTapped = { [weak self] _ in
+    private lazy var searchiPadCustomizer: SearchBarIPadCustomizer = {
+        let customizer = SearchBarIPadCustomizer(theme: theme)
+        customizer.onClearTapped = { [weak self] _ in
             self?.readingListEntryCollectionViewController.updateSearchString("")
         }
-        return configurator
+        return customizer
     }()
     
     // Import shared reading list properties
@@ -141,7 +141,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         let closeButtonConfig: WMFLargeCloseButtonConfig? = displayType == .modal ? WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(dismissController), alignment: .leading) : nil
 
         let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: iPadSearchConfigurator, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: searchiPadCustomizer, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil,tabsButtonConfig: nil,  searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
@@ -150,7 +150,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        iPadSearchConfigurator.theme = theme
+        searchiPadCustomizer.theme = theme
         readingListEntryCollectionViewController.apply(theme: theme)
         readingListDetailHeaderView?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
@@ -350,7 +350,7 @@ private extension ReadingListDetailViewController {
 extension ReadingListDetailViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let text = searchController.searchBar.text ?? ""
-        iPadSearchConfigurator.updateClearButtonVisibility(text: text, for: searchController)
+        searchiPadCustomizer.updateClearButtonVisibility(text: text, for: searchController)
         readingListEntryCollectionViewController.updateSearchString(text)
     }
 }
