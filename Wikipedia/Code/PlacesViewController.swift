@@ -264,6 +264,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         ArticleTabsFunnel.shared.logIconClick(interface: .places, project: nil)
     }
 
+    private lazy var iPadSearchConfigurator = SearchBarIPadConfigurator(theme: theme)
+
     private func configureNavigationBar() {
 
         let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
@@ -271,9 +273,21 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         let showsScopeBar = isViewModeOverlay ? false : true
         let scopeButtonTitles = isViewModeOverlay ? nil : [mapTitle, listTitle]
 
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: iPadSearchConfigurator, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        
+        iPadSearchConfigurator.onClearTapped = { [weak self] searchController in
+            guard let self,
+            let searchBar = searchController?.searchBar else { return }
+            self.searchBar(searchBar, textDidChange: "")
+        }
+        
+        iPadSearchConfigurator.onWillDismiss = { [weak self] in
+            guard let self,
+                  let searchBar = navigationItem.searchController?.searchBar else { return }
+            self.searchBar(searchBar, textDidChange: "")
+        }
     }
 
     private func updateScopeBarVisibility() {
@@ -2323,6 +2337,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        iPadSearchConfigurator.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
@@ -2585,8 +2600,9 @@ extension PlacesViewController {
 
 extension PlacesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text,
-              !text.isEmpty else {
+        let text = searchController.searchBar.text ?? ""
+        iPadSearchConfigurator.updateClearButtonVisibility(text: text, for: searchController)
+        guard !text.isEmpty else {
             return
         }
     }
