@@ -1,49 +1,62 @@
 import UIKit
 
 /// Encapsulates the iPad 26 (regular-width) custom back-chevron and clear-button workarounds
-/// for any `UISearchController` that does **not** use a `searchResultsController`.
+/// for `UISearchController`.
 ///
 /// On iPad 26 in regular width, `UISearchController` renders the search bar inline in the
-/// navigation bar without a visible Cancel button.  This helper installs:
+/// navigation bar without a visible Cancel button. This helper installs:
 ///   - A chevron ← button as the left view (dismisses the search controller)
 ///   - A custom ✕ clear button as the right view (clears text, hides itself when bar is empty)
 ///
-/// Usage:
+/// ## Pattern A — VC owns its own `UISearchController` with no `searchResultsController`
+/// Used by `SavedViewController` and `PlacesViewController`.
+/// Pass the configurator directly as `searchControllerDelegate` in `WMFNavigationBarSearchConfig`
+/// so UIKit calls its delegate methods automatically. Call `updateClearButtonVisibility` whenever
+/// the search text changes.
+///
 /// ```swift
-/// // 1. Declare as a lazy property on the host VC:
 /// private lazy var iPadSearchConfigurator = SearchBarIPadConfigurator(theme: theme)
 ///
-/// // 2. Pass as `searchControllerDelegate` in WMFNavigationBarSearchConfig:
-/// let searchConfig = WMFNavigationBarSearchConfig(
-///     searchResultsController: nil,
-///     searchControllerDelegate: iPadSearchConfigurator,
-///     ...
-/// )
+/// private func configureNavigationBar() {
+///     let searchConfig = WMFNavigationBarSearchConfig(
+///         searchResultsController: nil,
+///         searchControllerDelegate: iPadSearchConfigurator,
+///         ...
+///     )
+///     configureNavigationBar(..., searchBarConfig: searchConfig, ...)
+/// }
 ///
-/// // 3. Keep theme in sync:
 /// override func apply(theme: Theme) {
 ///     super.apply(theme: theme)
 ///     iPadSearchConfigurator.theme = theme
 /// }
 ///
-/// // 4. Forward text changes so the clear button stays in sync:
-/// func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-///     if let sc = navigationItem.searchController {
-///         iPadSearchConfigurator.updateClearButtonVisibility(text: searchText, for: sc)
-///     }
-///     // ... existing logic ...
-/// }
+/// // Call from UISearchBarDelegate.searchBar(_:textDidChange:)
+/// // or UISearchResultsUpdating.updateSearchResults(for:):
+/// iPadSearchConfigurator.updateClearButtonVisibility(text: searchText, for: searchController)
 /// ```
+///
+/// ## Pattern B — `UISearchController` uses a `searchResultsController`
+/// Used internally by `SearchResultsViewController`, which is itself the
+/// `UISearchControllerDelegate` for all contexts that embed it (Explore, Article, Search tab).
+/// The results VC holds an instance, keeps its theme in sync, calls the delegate methods
+/// directly from its own `UISearchControllerDelegate` conformance, and calls
+/// `updateClearButtonVisibility` from `updateSearchResults(for:)`.
+/// Host VCs using `SearchResultsViewController` do not interact with this class at all.
+///
+/// Use `onClearTapped` and `onWillDismiss` closures to reset any additional VC-specific state
+/// when the clear button is tapped or the search bar is dismissed.
 final class SearchBarIPadConfigurator: NSObject, UISearchControllerDelegate {
 
     // MARK: - Public
 
     var theme: Theme
 
-    /// Called after the iPad-specific setup inside `willPresentSearchController`.
+    /// Called after the iPad-specific button setup in `willPresentSearchController`.
     var onWillPresent: (() -> Void)?
 
-    /// Called after the iPad-specific teardown inside `willDismissSearchController`.
+    /// Called after the iPad-specific button teardown in `willDismissSearchController`.
+    /// Use this to reset any search state the host VC owns (e.g. clearing results, resetting a view model).
     var onWillDismiss: (() -> Void)?
 
     var onDidPresent: (() -> Void)?
@@ -117,13 +130,13 @@ final class SearchBarIPadConfigurator: NSObject, UISearchControllerDelegate {
 
     // MARK: - Public helpers
 
-    /// Optional hook called when the custom ✕ clear button is tapped, after the bar text
-    /// has already been cleared. Use this if the host VC needs to reset additional state
-    /// (e.g. clear a search view model, reset suggestions, etc.).
+    /// Called when the custom ✕ clear button is tapped, after the bar text has been cleared.
+    /// Use this to reset any additional state the host VC owns (e.g. clearing a results list or suggestion model).
     var onClearTapped: ((UISearchController?) -> Void)?
 
-    /// Call this whenever the search bar text changes so the custom clear button visibility
-    /// stays in sync with whether there is text in the bar.
+    /// Syncs the custom clear button's visibility with whether the bar has non-whitespace text.
+    /// Call this whenever the search bar text changes — from `UISearchBarDelegate.searchBar(_:textDidChange:)`
+    /// or `UISearchResultsUpdating.updateSearchResults(for:)`.
     func updateClearButtonVisibility(text: String, for searchController: UISearchController) {
         guard isIPad26RegularHSizeClass, let clearButton = customClearButton else { return }
         let hasText = text.wmf_hasNonWhitespaceText
