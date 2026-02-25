@@ -218,12 +218,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         return configuration
     }()
 
-    lazy var toolbarContainerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     lazy var toolbar: UIToolbar = {
         let tb = UIToolbar()
         tb.translatesAutoresizingMaskIntoConstraints = false
