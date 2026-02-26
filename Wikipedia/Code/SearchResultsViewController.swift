@@ -505,7 +505,7 @@ extension SearchResultsViewController: UISearchResultsUpdating {
             searchTask = nil
             searchTerm = nil
             resetSearchResults()
-            showRecentSearches(animated: false)
+            showRecentSearches(animated: true)
         }
 
         // iPad 26 (regular width): keep the custom clear button in sync with text presence.
