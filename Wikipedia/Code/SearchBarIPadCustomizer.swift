@@ -56,6 +56,7 @@ final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
                 searchController?.isActive = false
                 self?.onBackTapped?(searchController)
             }, for: .touchUpInside)
+            backButton.accessibilityLabel = CommonStrings.accessibilityBackTitle
             searchController.searchBar.searchTextField.leftView = backButton
             searchController.searchBar.searchTextField.leftViewMode = .always
 
@@ -67,6 +68,7 @@ final class SearchBarIPadCustomizer: NSObject, UISearchControllerDelegate {
                 searchController?.searchBar.searchTextField.rightView = nil
                 self?.onClearTapped?(searchController)
             }, for: .touchUpInside)
+            clearButton.accessibilityLabel = CommonStrings.accessibilityClearTitle
             customClearButton = clearButton
             searchController.searchBar.searchTextField.rightViewMode = .whileEditing
         }
