@@ -5,9 +5,7 @@ import CocoaLumberjackSwift
 import SwiftUI
 import Combine
 
-/// Root view controller for the Search tab. It owns a `WMFHistoryHostingController` which is shown
-/// when the search controller is inactive, and uses `SearchResultsViewController` as its
-/// `navigationItem.searchController.searchResultsController`.
+/// Root view controller for the Search tab
 class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
 
     // MARK: - MEP / Hint
@@ -82,15 +80,15 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
     // MARK: - Search results container
 
-    lazy var searchResultsContainer: SearchResultsViewController = {
-        let container = SearchResultsViewController(source: .searchTab, dataStore: dataStore ?? MWKDataStore.shared())
-        container.apply(theme: theme)
-        container.parentSearchControllerDelegate = self
-        container.populateSearchBarAction = { [weak self] searchTerm in
+    lazy var searchResultsVC: SearchResultsViewController = {
+        let vc = SearchResultsViewController(source: .searchTab, dataStore: dataStore ?? MWKDataStore.shared())
+        vc.apply(theme: theme)
+        vc.parentSearchControllerDelegate = self
+        vc.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        container.articleTappedAction = { [weak self] articleURL in
+        vc.articleTappedAction = { [weak self] articleURL in
             guard let self, let dataStore, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -104,7 +102,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
                 navigate(to: articleURL)
             }
         }
-        return container
+        return vc
     }()
 
     // MARK: - History
@@ -200,7 +198,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
             emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle,
             todayTitle: CommonStrings.todayTitle,
             yesterdayTitle: CommonStrings.yesterdayTitle,
-            openArticleActionTitle: "Open article",
+            openArticleActionTitle: CommonStrings.articleTabsOpen,
             saveForLaterActionTitle: CommonStrings.saveTitle,
             unsaveActionTitle: CommonStrings.unsaveTitle,
             shareActionTitle: CommonStrings.shareMenuTitle,
@@ -303,9 +301,9 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
         }
 
         let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchResultsContainer,
-            searchControllerDelegate: searchResultsContainer,
-            searchResultsUpdater: searchResultsContainer,
+            searchResultsController: searchResultsVC,
+            searchControllerDelegate: searchResultsVC,
+            searchResultsUpdater: searchResultsVC,
             searchBarDelegate: nil,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false,
@@ -393,7 +391,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
     @objc func searchAndMakeResultsVisibleForSearchTerm(_ term: String?, animated: Bool) {
         navigationItem.searchController?.isActive = true
         navigationItem.searchController?.searchBar.text = term
-        searchResultsContainer.searchAndMakeResultsVisible(for: term)
+        searchResultsVC.searchAndMakeResultsVisible(for: term)
         navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 
@@ -428,7 +426,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
         guard viewIfLoaded != nil else { return }
         view.backgroundColor = theme.colors.paperBackground
         historyViewController.view.backgroundColor = theme.colors.paperBackground
-        searchResultsContainer.apply(theme: theme)
+        searchResultsVC.apply(theme: theme)
         updateProfileButton()
         profileCoordinator?.theme = theme
         yirCoordinator?.theme = theme
@@ -457,7 +455,7 @@ extension SearchTabViewController: UISearchControllerDelegate {
         isSearchActive = false
         navigationController?.hidesBarsOnSwipe = true
         historyViewController.view.isHidden = false
-        searchResultsContainer.resetSearchResults()
+        searchResultsVC.resetSearchResults()
         SearchFunnel.shared.logSearchCancel(source: SearchResultsViewController.EventLoggingSource.searchTab.stringValue)
         Task { @MainActor in refreshDeleteButtonState() }
         configureNavigationBar()
