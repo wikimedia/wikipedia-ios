@@ -18,7 +18,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
     @objc var dataStore: MWKDataStore? {
         didSet {
-            searchResultsContainer.resultsViewController.dataStore = dataStore
+            searchResultsVC.resultsViewController.dataStore = dataStore
         }
     }
 
