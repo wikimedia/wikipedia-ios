@@ -1530,8 +1530,6 @@
 		83B024AE2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */; };
 		83B024AF2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */; };
 		83B1218427FC8750006B8CCC /* RemoteNotificationsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */; };
-		83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
-		83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B5DF9929F6C7E300F8329D /* EditAttemptFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */; };
 		83B5DF9A29F6C7E300F8329D /* EditAttemptFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */; };
 		83B5DF9B29F6C7E300F8329D /* EditAttemptFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */; };
@@ -3740,7 +3738,6 @@
 		83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageCoordinator.swift; sourceTree = "<group>"; };
 		83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageCoordinator.swift; sourceTree = "<group>"; };
 		83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFunnel.swift; sourceTree = "<group>"; };
-		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B5DF9829F6C7E300F8329D /* EditAttemptFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAttemptFunnel.swift; sourceTree = "<group>"; };
 		83B624E42E536D3E001E416B /* WMFNewArticleTabDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFNewArticleTabDataController.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
@@ -5514,7 +5511,6 @@
 		0E09EAC71C442A130058F2D8 /* Container VC */ = {
 			isa = PBXGroup;
 			children = (
-				83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */,
 			);
 			name = "Container VC";
 			sourceTree = "<group>";
@@ -11099,7 +11095,6 @@
 				6782DBDA2344EC86003FA21B /* DiffHeaderViewModels.swift in Sources */,
 				D8CE25631E698E2400DAE2E0 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				83FBE9701F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
-				83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				67112E3F275E603B007A9850 /* NotificationsCenterInboxViewModel.swift in Sources */,
 				67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
@@ -11541,7 +11536,6 @@
 				67BEFFD628AD9DF000606B38 /* TalkPageType.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */,
-				83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				8351CE7A20D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
 				830795272C9DE92200E453BD /* LoginCoordinator.swift in Sources */,
 				83FDE79A293564AC006D55FE /* Link.swift in Sources */,
