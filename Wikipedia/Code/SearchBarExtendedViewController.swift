@@ -54,15 +54,15 @@ class SearchBarExtendedViewController: UIViewController {
         buttonType = dataSource?.buttonType(for: button, currentButtonType: buttonType)
         updateFonts()
         apply(theme: theme)
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
     
     @IBAction private func buttonWasPressed(_ sender: UIButton) {
         delegate?.buttonWasPressed(sender, buttonType: buttonType, searchBar: searchBar)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

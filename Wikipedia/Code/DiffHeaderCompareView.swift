@@ -125,17 +125,16 @@ class DiffHeaderCompareView: SetupView {
         ])
 
         setupStackView()
-    }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            setupStackView()
 
-        setupStackView()
+            stackView.setNeedsLayout()
+            stackView.layoutIfNeeded()
 
-        stackView.setNeedsLayout()
-        stackView.layoutIfNeeded()
-
-        updateFonts(with: traitCollection)
+            updateFonts(with: traitCollection)
+        }
     }
 
     func setupStackView() {

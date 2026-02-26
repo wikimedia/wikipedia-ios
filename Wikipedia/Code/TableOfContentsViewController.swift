@@ -31,22 +31,22 @@ protocol TableOfContentsViewControllerDelegate : UIViewController {
     func tableOfContentsControllerDidCancel(_ controller: TableOfContentsViewController)
 
     var tableOfContentsArticleLanguageURL: URL? { get }
-        
+
     var tableOfContentsSemanticContentAttribute: UISemanticContentAttribute { get }
-    
+
     var tableOfContentsItems: [TableOfContentsItem] { get }
 }
 
 class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableOfContentsAnimatorDelegate, Themeable {
-    
+
     fileprivate var theme = Theme.standard
 
     var semanticContentAttributeOverride: UISemanticContentAttribute {
         return delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
     }
-    
+
     let displaySide: TableOfContentsDisplaySide
-    
+
     var displayMode = TableOfContentsDisplayMode.modal {
         didSet {
             animator?.displayMode = displayMode
@@ -54,11 +54,11 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
             apply(theme: theme)
         }
     }
-    
+
     var isVisible: Bool = false
-    
+
     var closeGestureRecognizer: UISwipeGestureRecognizer?
-    
+
     @objc func handleTableOfContentsCloseGesture(_ swipeGestureRecoginzer: UIGestureRecognizer) {
         guard swipeGestureRecoginzer.state == .ended, isVisible else {
             return
@@ -67,7 +67,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
-    
+
     lazy var animator: TableOfContentsAnimator? = {
         guard let delegate = delegate else {
             return nil
@@ -81,11 +81,11 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     }()
 
     weak var delegate: TableOfContentsViewControllerDelegate?
-    
+
     var items: [TableOfContentsItem] {
         return delegate?.tableOfContentsItems ?? []
     }
-    
+
     func reload() {
         tableView.reloadData()
         selectInitialItemIfNecessary()
@@ -100,7 +100,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         modalPresentationStyle = .custom
         transitioningDelegate = animator
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -116,19 +116,19 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         }
         selectItem(at: 0)
     }
-    
+
     func selectItem(at index: Int) {
         guard index < items.count else {
             assertionFailure("Trying to select an item out of range")
             return
         }
-        
+
         guard indexOfSelectedItem != index else {
             return
         }
-        
+
         indexOfSelectedItem = index
-        
+
         var newIndicies: Set<Int> = [index]
         let item = items[index]
         for (index, relatedItem) in items.enumerated() {
@@ -140,17 +140,17 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         guard newIndicies != indiciesOfHighlightedItems else {
             return
         }
-        
+
         let indiciesToReload = newIndicies.union(indiciesOfHighlightedItems)
         let indexPathsToReload = indiciesToReload.map { IndexPath(row: $0, section: 0) }
         indiciesOfHighlightedItems = newIndicies
-        
+
         guard viewIfLoaded != nil else {
             return
         }
         tableView.reloadRows(at: indexPathsToReload, with: .none)
     }
-    
+
     func scrollToItem(at index: Int) {
         guard index < items.count else {
             assertionFailure("Trying to scroll to an item put of range")
@@ -168,7 +168,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     // MARK: - Selection
-    
+
     private func didRequestClose(_ controller: TableOfContentsAnimator?) -> Bool {
         delegate?.tableOfContentsControllerDidCancel(self)
         return delegate != nil
@@ -210,7 +210,12 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         }
         view.addGestureRecognizer(closeGR)
         closeGestureRecognizer = closeGR
-        
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.tableView.reloadData()
+        }
+
         apply(theme: theme)
     }
 
@@ -218,29 +223,24 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         super.viewWillAppear(animated)
         self.delegate?.tableOfContentsControllerWillDisplay(self)
     }
-    
+
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        tableView.reloadData()
-    }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableOfContentsCell.reuseIdentifier(), for: indexPath) as! TableOfContentsCell
 
         let index = indexPath.row
-        
+
         let item = items[index]
-        
+
         let shouldHighlight = indiciesOfHighlightedItems.contains(index)
-        
+
         cell.backgroundColor = tableView.backgroundColor
         cell.contentView.backgroundColor = tableView.backgroundColor
-        
+
         cell.titleIndentationLevel = item.indentationLevel
         let color = item.itemType == .primary ? theme.colors.primaryText : theme.colors.secondaryText
         let selectionColor = theme.colors.link
@@ -251,17 +251,17 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
             // This makes no difference to sighted users; it allows VoiceOver to read highlighted cell as selected.
             cell.accessibilityTraits = .selected
         }
-        
+
         cell.setNeedsLayout()
 
         cell.setSectionSelected(shouldHighlight, animated: false)
-        
+
         cell.contentView.semanticContentAttribute = semanticContentAttributeOverride
         cell.titleLabel.semanticContentAttribute = semanticContentAttributeOverride
-        
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let delegate = delegate {
             let header = TableOfContentsHeader.wmf_viewFromClassNib()
@@ -277,18 +277,18 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     // MARK: - UITableViewDelegate
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let index = indexPath.row
         selectItem(at: index)
         delegate?.tableOfContentsController(self, didSelectItem: items[index])
     }
-    
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         navigationController?.hidesBarsOnSwipe = false
     }
-    
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         navigationController?.hidesBarsOnSwipe = true
     }
@@ -301,12 +301,12 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     override func accessibilityPerformEscape() -> Bool {
         return didRequestClose(nil)
     }
-    
+
     // MARK: - UIAccessibilityAction
     override func accessibilityPerformMagicTap() -> Bool {
         return didRequestClose(nil)
     }
-    
+
     public func apply(theme: Theme) {
         self.theme = theme
         self.animator?.apply(theme: theme)

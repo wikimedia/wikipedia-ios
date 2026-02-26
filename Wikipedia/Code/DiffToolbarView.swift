@@ -88,6 +88,11 @@ class DiffToolbarView: UIView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
         setItems()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            setItems()
+        }
     }
 
     @objc func tappedUndo(_ sender: UIBarButtonItem) {
@@ -124,12 +129,6 @@ class DiffToolbarView: UIView {
     
     @objc func tappedThank(_ sender: UIBarButtonItem) {
         delegate?.tappedThankButton()
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        setItems()
     }
     
     func updateMoreButton(needsRollbackButton: Bool? = nil, needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {

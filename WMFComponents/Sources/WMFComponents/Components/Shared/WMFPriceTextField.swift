@@ -35,13 +35,13 @@ struct WMFPriceTextField: View {
             .accessibilityHint(configuration.textfieldAccessibilityHint)
             .focused($isFocused)
             .accessibilityFocused($accessibilityFocus)
-            .onChange(of: hasFocus) {
-                isFocused = $0
-                accessibilityFocus = $0
+            .onChange(of: hasFocus) { _, newValue in
+                isFocused = newValue
+                accessibilityFocus = newValue
             }
-            .onChange(of: isFocused) {
-                hasFocus = $0
-                accessibilityFocus = $0
+            .onChange(of: isFocused) { _, newValue in
+                hasFocus = newValue
+                accessibilityFocus = newValue
             }
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {

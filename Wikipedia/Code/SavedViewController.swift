@@ -259,6 +259,19 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
         
         allArticlesSortType = getDefaultReadingListSortType() ?? .byRecentlyAdded
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if previousTraitCollection.horizontalSizeClass != self.traitCollection.horizontalSizeClass {
+                        self.configureNavigationBar()
+                    }
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

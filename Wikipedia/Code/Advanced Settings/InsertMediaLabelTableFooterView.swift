@@ -30,11 +30,11 @@ final class InsertMediaLabelTableFooterView: SetupView, Themeable {
         let labelTopConstraint = label.topAnchor.constraint(equalTo: topAnchor, constant: 5)
         NSLayoutConstraint.activate([separatorLeadingConstraint, separatorTrailingConstraint, separatorTopConstraint, separatorHeightConstraint, labelLeadingConstraint, labelTrailingConstraint, labelBottomConstraint, labelTopConstraint])
         updateFonts()
-    }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
 
     private func updateFonts() {

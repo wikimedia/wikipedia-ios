@@ -7,16 +7,16 @@ class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
         super.awakeFromNib()
         updateFonts()
         wmf_configureSubviewsForDynamicType()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (view: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
-    
+
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         label.textColor = theme.colors.primaryText
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

@@ -3,6 +3,23 @@ import UIKit
 open class ExtensionViewController: UIViewController, Themeable {
     public final var theme: Theme = Theme.widgetLight
     
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setupTraitChangeObservation()
+    }
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupTraitChangeObservation()
+    }
+    
+    private func setupTraitChangeObservation() {
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateThemeFromTraitCollection()
+        }
+    }
+    
     open func apply(theme: Theme) {
         self.theme = theme
     }
@@ -24,11 +41,6 @@ open class ExtensionViewController: UIViewController, Themeable {
             return
         }
         apply(theme: compatibleTheme)
-    }
-    
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateThemeFromTraitCollection()
     }
     
     public func openAppInActivity(with activityType: WMFUserActivityType) {
