@@ -26,15 +26,12 @@
         switch (self.code) {
             case NSURLErrorCancelled:
                 return YES;
-                break;
 
             default:
                 return NO;
-                break;
         }
     }
     return NO;
 }
-
 
 @end
