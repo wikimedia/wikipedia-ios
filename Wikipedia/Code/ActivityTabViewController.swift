@@ -83,9 +83,23 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             )
 
             WMFToastPresenter.shared.show(config, dismissPreviousAlerts: false)
+
         }
 
-        dataController.historyDataController = historyDataController
+        Task {
+            await dataController.setHistoryDataController(historyDataController)
+        }
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if previousTraitCollection.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                        configureNavigationBar()
+                    }
+                }
+            }
+        }
     }
 
     private func embedHostingController() {
@@ -817,8 +831,8 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
 
         navigationController?.presentationController?.delegate = self
 
-        let closeConfig = WMFNavigationBarCloseButtonConfig(
-            text: CommonStrings.doneTitle,
+        let closeConfig = WMFLargeCloseButtonConfig(
+            imageType: .plainX,
             target: self,
             action: #selector(closeTapped),
             alignment: .trailing

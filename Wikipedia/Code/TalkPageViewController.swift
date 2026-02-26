@@ -222,6 +222,12 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.talkPageView.collectionView.reloadData()
+            self.headerView?.updateLabelFonts()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -235,6 +241,8 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
         let headerViewHeight = self.headerView?.frame.height ?? 0
         talkPageView.updateEmptyErrorViewsTopPadding(padding: headerViewHeight)
+        
+        talkPageView.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: talkPageView.toolbarContainerView.frame.height, right: 0)
     }
 
     private func configureNavigationBar() {
@@ -388,12 +396,6 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
     private var isClosing: Bool = false
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        talkPageView.collectionView.reloadData()
-        headerView?.updateLabelFonts()
-    }
-
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
@@ -525,7 +527,11 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     private var flexibleSpaceToolbarItem: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let item = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        if #available(iOS 26.0, *) {
+            item.hidesSharedBackground = false
+        }
+        return item
     }
 
     fileprivate func setupToolbar() {

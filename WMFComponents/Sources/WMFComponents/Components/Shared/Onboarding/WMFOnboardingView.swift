@@ -70,7 +70,9 @@ public struct WMFOnboardingView: View {
             GeometryReader { proxy in
                 Color.clear
                     .onAppear { buttonAreaHeight = proxy.size.height }
-                    .onChange(of: proxy.size.height) { buttonAreaHeight = $0 }
+                    .onChange(of: proxy.size.height) { _, newValue in
+                        buttonAreaHeight = newValue
+                    }
             }
         )
     }

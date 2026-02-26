@@ -18,6 +18,11 @@ class WMFAuthLinkLabel: UILabel, Themeable {
         lineBreakMode = .byWordWrapping
         textAlignment = .natural
         update()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            update()
+        }
     }
 
     /// Some auth labels display a string from two localized strings, each styled differently.
@@ -29,11 +34,6 @@ class WMFAuthLinkLabel: UILabel, Themeable {
 
     fileprivate var subheadlineFont: UIFont? {
         return WMFFont.for(.subheadline, compatibleWith: self.traitCollection)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        update()
     }
     
     fileprivate func update() {

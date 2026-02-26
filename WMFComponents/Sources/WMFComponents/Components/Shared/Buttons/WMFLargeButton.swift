@@ -7,7 +7,7 @@ public struct WMFLargeButton: View {
 
     let style: WMFButtonStyleKind
     let title: String
-    let forceBackgroundColor: UIColor? // Note: Currently unused, kept for backward compatibility
+    let forceBackgroundColor: UIColor? // Note: Used for YiR only
     let action: (() -> Void)?
 
     public init(

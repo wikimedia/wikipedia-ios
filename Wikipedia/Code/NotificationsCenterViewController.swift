@@ -34,8 +34,18 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
 
     fileprivate var markButton: TextBarButtonItem?
     fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
-    fileprivate lazy var statusBarButton: StatusTextBarButtonItem = StatusTextBarButtonItem(text: "")
 
+    fileprivate lazy var statusBarButton: StatusTextBarButtonItem = {
+            let button = StatusTextBarButtonItem(text: "")
+            // Configure the custom view to expand and fill available space
+            if let containerView = button.customView {
+                NSLayoutConstraint.activate([
+                    containerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
+                ])
+            }
+            return button
+        }()
+    
     // MARK: - Properties: Cell Swipe Actions
 
     fileprivate struct CellSwipeData {
@@ -58,17 +68,12 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
 
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate lazy var cellSwipeData = CellSwipeData()
-
-    lazy var toolbarContainerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    lazy var toolbar: UIToolbar = {
-        let tb = UIToolbar()
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        return tb
+    
+    // Bottom safe area overlay
+    private lazy var bottomSafeAreaOverlayView: UIView = {
+        let overlayView = UIView()
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        return overlayView
     }()
 
     // MARK: - Lifecycle
@@ -101,8 +106,8 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         super.viewDidLoad()
 
         notificationsView.apply(theme: theme)
-
-        setupBarButtons()
+        
+        setupBottomSafeAreaOverlay()
         notificationsView.collectionView.delegate = self
         setupDataSource()
         viewModel.setup()
@@ -116,12 +121,21 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
 
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            if previousTraitCollection.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+                closeSwipeActionsPanelIfNecessary()
+                notificationsView.collectionView.reloadData()
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         configureNavigationBar()
+        navigationController?.setToolbarHidden(false, animated: animated)
     }
 
     private var isFirstAppearance = true
@@ -141,43 +155,27 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         super.viewWillDisappear(animated)
         endRefreshing()
         closeSwipeActionsPanelIfNecessary()
+        navigationController?.setToolbarHidden(true, animated: animated)
     }
 
     @objc fileprivate func applicationWillResignActive() {
         closeSwipeActionsPanelIfNecessary()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-            closeSwipeActionsPanelIfNecessary()
-            notificationsView.collectionView.reloadData()
-        }
-    }
-
     // MARK: - Configuration
-
-    fileprivate func setupBarButtons() {
-
-        toolbarContainerView.addSubview(toolbar)
-        view.addSubview(toolbarContainerView)
-
-        NSLayoutConstraint.activate([
-            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
-            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
-            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
-            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
-            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
-            view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
-        ])
-
-        toolbarContainerView.setNeedsLayout()
-        toolbarContainerView.layoutIfNeeded()
-
-        let oldContentInset = notificationsView.collectionView.contentInset
-        notificationsView.collectionView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: oldContentInset.bottom + toolbarContainerView.frame.height, right: oldContentInset.right)
+    
+    fileprivate func setupBottomSafeAreaOverlay() {
+        if #unavailable(iOS 26.0) {
+            view.addSubview(bottomSafeAreaOverlayView)
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: bottomSafeAreaOverlayView.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: bottomSafeAreaOverlayView.trailingAnchor),
+                view.bottomAnchor.constraint(equalTo: bottomSafeAreaOverlayView.bottomAnchor),
+                bottomSafeAreaOverlayView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+            
+            bottomSafeAreaOverlayView.backgroundColor = theme.colors.paperBackground
+        }
     }
 
     fileprivate func configureNavigationBar() {
@@ -228,9 +226,16 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         markAllAsReadButton.apply(theme: theme)
         statusBarButton.apply(theme: theme)
 
-        toolbarContainerView.backgroundColor = theme.colors.paperBackground
-        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
-        toolbar.isTranslucent = false
+        if let toolbar = navigationController?.toolbar {
+            if #unavailable(iOS 26.0) {
+                bottomSafeAreaOverlayView.backgroundColor = theme.colors.paperBackground
+                // Preserve the opaque toolbar background for older OS versions to keep contrast.
+                toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+                toolbar.isTranslucent = true
+                toolbar.barTintColor = theme.colors.paperBackground
+                toolbar.backgroundColor = theme.colors.paperBackground
+            }
+        }
     }
 
 }
@@ -500,11 +505,9 @@ private extension NotificationsCenterViewController {
             return
         }
 
-        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel, doneAction: { [weak self] in
-            self?.dismiss(animated: true)
-        })
+        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel)
 
-        presentView(view: filterView)
+        presentView(view: filterView, title: WMFLocalizedString("notifications-center-filters-title", value: "Filters", comment: "Navigation bar title text for the filters view presented from notifications center. Allows for filtering by read status and notification type."))
     }
 
     func presentInboxViewController() {
@@ -515,15 +518,13 @@ private extension NotificationsCenterViewController {
             return
         }
 
-        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel, doneAction: { [weak self] in
-            self?.dismiss(animated: true)
-        })
+        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel)
 
-        presentView(view: inboxView)
+        presentView(view: inboxView, title: WMFLocalizedString("notifications-center-inbox-title", value: "Projects", comment: "Navigation bar title text for the inbox view presented from notifications center. Allows for filtering out notifications by Wikimedia project type."))
     }
 
-    func presentView<T: View>(view: T) {
-        let hostingVC = NotificationsCenterModalHostingController(rootView: view)
+    func presentView<T: View>(view: T, title: String) {
+        let hostingVC = NotificationsCenterModalHostingController(rootView: view, title: title)
 
         let currentFilterState = viewModel.remoteNotificationsController.filterState
 
@@ -975,16 +976,20 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 extension NotificationsCenterViewController {
 
     var flexibleSpaceToolbarItem: UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let item = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        if #available(iOS 26.0, *) {
+            item.hidesSharedBackground = false
+        }
+        return item
     }
 
     /// Update the bar buttons displayed in the toolbar based on the editing state
     fileprivate func updateToolbarDisplayState(isEditing: Bool) {
         let markButton = createMarkButton()
         if isEditing {
-            toolbar.items = [markButton, flexibleSpaceToolbarItem, markAllAsReadButton]
+            setToolbarItems([markButton, flexibleSpaceToolbarItem, markAllAsReadButton], animated: true)
         } else {
-            toolbar.items = [typeFilterButton, flexibleSpaceToolbarItem, statusBarButton, flexibleSpaceToolbarItem, projectFilterButton]
+            setToolbarItems([typeFilterButton, flexibleSpaceToolbarItem, statusBarButton, flexibleSpaceToolbarItem, projectFilterButton], animated: true)
         }
 
         self.markButton = markButton

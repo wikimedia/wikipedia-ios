@@ -116,7 +116,7 @@ public struct WMFHistoryView: View {
                     .onAppear {
                         viewModel.geometryFrames[item.id] = geometry.frame(in: .global)
                     }
-                    .onChange(of: geometry.frame(in: .global)) { newFrame in
+                    .onChange(of: geometry.frame(in: .global)) { _, newFrame in
                         viewModel.geometryFrames[item.id] = newFrame
                     }
             }
@@ -126,7 +126,7 @@ public struct WMFHistoryView: View {
 
     private func listView() -> some View {
         List {
-            
+
             Section {
                 Text(viewModel.localizedStrings.historyHeaderTitle)
                     .font(Font(WMFFont.for(.boldTitle3)))
@@ -135,16 +135,16 @@ public struct WMFHistoryView: View {
             }
             .listRowSeparator(.hidden)
             .listRowBackground(Color(theme.paperBackground))
-            
+
             ForEach(viewModel.sections) { section in
-                
+
                 Section {
-                    
+
                     // Header as a regular row so that they aren't sticky
                     headerViewForSection(section)
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color(theme.paperBackground))
-                    
+
                     ForEach(section.items) { item in
                         row(for: section, item)
                             .listRowBackground(Color(theme.paperBackground))

@@ -228,6 +228,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         addToWatchlistToggle.addTarget(self, action: #selector(toggledWatchlist), for: .valueChanged)
         fetchWatchlistStatusAndUpdateToggle()
 
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateTextViews()
+        }
+
         Task {
             wikiHasTempAccounts = await checkWikiStatus()
         }
@@ -384,11 +389,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let dataController = WMFTempAccountDataController.shared
         return await dataController.asyncCheckWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
 
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateTextViews()
     }
 
     private func updateTextViews() {

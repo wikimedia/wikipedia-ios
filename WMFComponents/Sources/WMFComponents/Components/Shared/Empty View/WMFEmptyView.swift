@@ -71,7 +71,6 @@ public struct WMFEmptyView: View {
             }
             if let buttonTitle = viewModel.localizedStrings.buttonTitle,
                type == .noItems {
-                let configuration = WMFSmallButton.Configuration(style: .neutral)
                 WMFLargeButton(style: .primary, title: buttonTitle, action: delegate?.emptyViewDidTapMainAction)
                     .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
             }

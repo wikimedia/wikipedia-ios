@@ -205,9 +205,7 @@ public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavig
     }
 
     public func showFilterView() {
-        let filterView = WMFWatchlistFilterView(viewModel: self.filterViewModel, doneAction: { [weak self] in
-            self?.dismiss(animated: true)
-        })
+        let filterView = WMFWatchlistFilterView(viewModel: self.filterViewModel)
 
         let hostingController = WMFWatchlistFilterHostingController(viewModel: self.filterViewModel, filterView: filterView, delegate: self)
 

@@ -304,7 +304,6 @@ private extension WMFWatchlistFilterViewModel.LocalizedStrings {
                     WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil)): "Spanish Wikipedia"
                  ]
          return WMFWatchlistFilterViewModel.LocalizedStrings(title: "Filter",
-                                         doneTitle: "Done",
                                          localizedProjectNames: localizedProjectNames,
                                          wikimediaProjectsHeader: "Wikimedia Projects",
                                          wikipediasHeader: "Wikipedias",

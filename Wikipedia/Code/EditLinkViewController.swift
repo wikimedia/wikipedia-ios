@@ -65,6 +65,11 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         linkTargetContainerView.addSubview(articleCell)
         updateFonts()
         apply(theme: theme)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +81,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .centerCompact)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_:)), alignment: .leading)
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(close(_:)), alignment: .leading)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
         
@@ -114,11 +119,6 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func updateLinkTargetContainer() {
         articleCell.frame = CGRect(origin: linkTargetContainerView.bounds.origin, size: articleCell.sizeThatFits(CGSize(width: linkTargetContainerView.bounds.width, height: UIView.noIntrinsicMetric), apply: true))
         linkTargetContainerViewHeightConstraint.constant = articleCell.frame.height
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

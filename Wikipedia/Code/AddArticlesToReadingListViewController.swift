@@ -96,7 +96,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
         
         let titleConfig = WMFNavigationBarTitleConfig(title: String.localizedStringWithFormat(title, articles.count), customView: nil, alignment: .centerCompact)
         
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonPressed), alignment: .leading)
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPressed), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }

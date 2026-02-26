@@ -174,6 +174,11 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         getPageHistory()
 
         layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.cellLayoutEstimate = nil
+        }
     }
 
     private var totalEditCount: Int?
@@ -262,11 +267,6 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelComparison(nil)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        cellLayoutEstimate = nil
     }
 
     private func configureNavigationBar() {

@@ -14,7 +14,7 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
 
     private let viewModel: WMFImageRecommendationBottomSheetViewModel
     internal weak var delegate: WMFImageRecommendationsToolbarViewDelegate?
-    
+
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +79,7 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
         textView.delegate = self
         return textView
     }()
-    
+
     private lazy var iconImageContainerView: UIView = {
        let view = UIView()
         view.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -138,7 +138,7 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
     }()
 
     private var regularSizeClass: Bool {
-        return traitCollection.horizontalSizeClass == .regular && 
+        return traitCollection.horizontalSizeClass == .regular &&
         traitCollection.horizontalSizeClass == .regular ? true : false
     }
 
@@ -176,7 +176,7 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
     }
 
     // MARK: Private Methods
-    
+
     private func customToolbarButton(image: UIImage?, text: String, selector: Selector) -> UIBarButtonItem {
         let customView = UIView()
         customView.translatesAutoresizingMaskIntoConstraints = false
@@ -193,25 +193,25 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: selector, for: .touchUpInside)
         customView.addSubview(button)
-        
+
         NSLayoutConstraint.activate([
-            
+
             label.trailingAnchor.constraint(equalTo: customView.trailingAnchor),
             label.topAnchor.constraint(equalTo: customView.topAnchor),
             label.bottomAnchor.constraint(equalTo: customView.bottomAnchor),
-            
+
             button.topAnchor.constraint(equalTo: label.topAnchor),
             button.trailingAnchor.constraint(equalTo: label.trailingAnchor),
             button.bottomAnchor.constraint(equalTo: label.bottomAnchor)
         ])
-        
+
         if let image {
             let imageView = UIImageView(image: image)
             imageView.contentMode = .scaleAspectFit
             imageView.tintColor = theme.link
             imageView.translatesAutoresizingMaskIntoConstraints = false
             customView.addSubview(imageView)
-            
+
             NSLayoutConstraint.activate([
                 imageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor),
                 imageView.centerYAnchor.constraint(equalTo: label.centerYAnchor),
@@ -229,7 +229,7 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
 
         return barButtonItem
     }
-    
+
     private var iconBaselineOffset: CGFloat {
         return UIFontMetrics(forTextStyle: .body).scaledValue(for: 8)
     }
@@ -239,7 +239,7 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
 
         container.addSubview(textView)
         container.addSubview(imageView)
-        
+
         iconImageContainerView.addSubview(iconImageView)
 
         headerStackView.addArrangedSubview(iconImageContainerView)
@@ -259,12 +259,12 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
             trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             topAnchor.constraint(equalTo: scrollView.topAnchor),
             toolbar.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            
+
             stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: padding),
             stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -padding),
             stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: padding),
             stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -padding),
-            
+
             scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
 
             imageView.topAnchor.constraint(equalTo: container.topAnchor),
@@ -353,7 +353,7 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
 
         attributedString.append(linkAttributedString)
         attributedString.append(attachmentAttributedString)
-        
+
         if let url = URL(string: viewModel.imageLink) {
             attributedString.addAttributes([.link: url], range: NSRange(location: 0, length: linkAttributedString.length))
         }
@@ -389,7 +389,7 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
     @objc private func didPressSkipButton() {
         delegate?.didTapSkipButton()
     }
-    
+
     @objc private func goToGallery() {
         delegate?.goToGallery()
     }
@@ -397,9 +397,12 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
 }
 
 extension WMFImageRecommendationBottomSheetView: UITextViewDelegate {
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.goToImageCommonsPage()
-        return false
+    public func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        if case .link = textItem.content {
+            delegate?.goToImageCommonsPage()
+            return nil // Prevent default action
+        }
+        return defaultAction
     }
 }
 
