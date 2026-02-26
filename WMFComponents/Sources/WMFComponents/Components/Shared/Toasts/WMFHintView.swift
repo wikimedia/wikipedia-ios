@@ -1,31 +1,32 @@
 import SwiftUI
+import UIKit
 
 public struct WMFHintView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFHintViewModel
+
+    @ObservedObject public var model: WMFHintModel
     let dismiss: () -> Void
 
-    public init(viewModel: WMFHintViewModel, dismiss: @escaping () -> Void) {
-        self.viewModel = viewModel
+    public init(model: WMFHintModel, dismiss: @escaping () -> Void) {
+        self.model = model
         self.dismiss = dismiss
     }
 
-    var theme: WMFTheme {
-        return appEnvironment.theme
+    private var theme: WMFTheme {
+        appEnvironment.theme
     }
 
     public var body: some View {
+        let config = model.config
+
         HStack(alignment: .center, spacing: 12) {
-            if let icon = viewModel.icon {
-                // Check if this is a symbolic icon or a photo thumbnail
-                // Symbolic icons should be template-rendered and smaller
-                // Article thumbnails should show the full image and be larger
+            if let icon = config.icon {
                 let isSymbolicIcon = icon.isSymbolImage
 
                 if isSymbolicIcon {
                     Image(uiImage: icon)
                         .renderingMode(.template)
-                        .foregroundStyle(Color(uiColor: theme.text))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
                         .frame(width: 24, height: 24)
                 } else {
                     Image(uiImage: icon)
@@ -37,11 +38,11 @@ public struct WMFHintView: View {
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(viewModel.title)
+                Text(config.title)
                     .font(Font(WMFFont.for(.semiboldSubheadline)))
                     .foregroundStyle(Color(uiColor: theme.text))
 
-                if let subtitle = viewModel.subtitle {
+                if let subtitle = config.subtitle {
                     Text(subtitle)
                         .font(Font(WMFFont.for(.caption1)))
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
@@ -50,10 +51,8 @@ public struct WMFHintView: View {
 
             Spacer()
 
-            if let buttonTitle = viewModel.buttonTitle {
-                Button(action: {
-                    viewModel.buttonAction?()
-                }) {
+            if let buttonTitle = config.buttonTitle {
+                Button(action: { config.buttonAction?() }) {
                     Text(buttonTitle)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .foregroundStyle(Color(uiColor: theme.link))
@@ -65,7 +64,7 @@ public struct WMFHintView: View {
         .background(Color(uiColor: theme.paperBackground))
         .contentShape(Rectangle())
         .onTapGesture {
-            viewModel.tapAction?()
+            config.tapAction?()
         }
     }
 }

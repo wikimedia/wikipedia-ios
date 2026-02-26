@@ -6,14 +6,16 @@ import Combine
 /// WMFHintPresenter manages hint display (bottom-anchored toasts with state transitions)
 /// Unlike toasts which present globally, hints are anchored to specific view controllers
 @MainActor
-class WMFHintPresenter {
+final class WMFHintPresenter {
 
     // MARK: - Properties
 
     private weak var presenter: UIViewController?
+
     private var currentHintContainer: UIView?
     private var currentHostingController: UIHostingController<WMFHintView>?
-    private var currentViewModel: WMFHintViewModel?
+    private var currentModel: WMFHintModel?
+
     private var containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)?
     private var dismissWorkItem: DispatchWorkItem?
     private var cancellables = Set<AnyCancellable>()
@@ -23,7 +25,7 @@ class WMFHintPresenter {
     private var extendsUnderSafeArea: Bool = false
 
     var theme: WMFTheme {
-        return WMFAppEnvironment.current.theme
+        WMFAppEnvironment.current.theme
     }
 
     // MARK: - Lifecycle
@@ -36,7 +38,12 @@ class WMFHintPresenter {
 
     private func subscribeToAppEnvironmentChanges() {
         WMFAppEnvironment.publisher
-            .sink(receiveValue: { [weak self] _ in self?.appEnvironmentDidChange() })
+            .sink(receiveValue: { [weak self] _ in
+                guard let self else { return }
+                Task { @MainActor in
+                    self.appEnvironmentDidChange()
+                }
+            })
             .store(in: &cancellables)
     }
 
@@ -48,7 +55,7 @@ class WMFHintPresenter {
     // MARK: - Public API
 
     var isHintHidden: Bool {
-        return currentHintContainer?.superview == nil
+        currentHintContainer?.superview == nil
     }
 
     /// Show a hint anchored to a specific view controller
@@ -59,47 +66,39 @@ class WMFHintPresenter {
         additionalBottomSpacing: CGFloat = 0,
         extendsUnderSafeArea: Bool = false
     ) {
-        // If a hint is already visible, dismiss it first
-        if !isHintHidden {
-            setHintHidden(true, config: nil) { [weak self] in
-                self?.showNewHint(config: config, in: presenter, subview: subview, additionalBottomSpacing: additionalBottomSpacing, extendsUnderSafeArea: extendsUnderSafeArea)
-            }
-        } else {
-            showNewHint(config: config, in: presenter, subview: subview, additionalBottomSpacing: additionalBottomSpacing, extendsUnderSafeArea: extendsUnderSafeArea)
-        }
-    }
-
-    private func showNewHint(
-        config: WMFHintConfig,
-        in presenter: UIViewController,
-        subview: UIView?,
-        additionalBottomSpacing: CGFloat,
-        extendsUnderSafeArea: Bool
-    ) {
+        // Update stored presenter each time to avoid anchoring to stale VCs.
         self.presenter = presenter
         self.subview = subview
         self.additionalBottomSpacing = additionalBottomSpacing
         self.extendsUnderSafeArea = extendsUnderSafeArea
 
+        // If a hint is already visible, replace it in-place (no hide/show).
+        if !isHintHidden {
+            updateCurrentHint(with: config)
+            return
+        }
+
         setHintHidden(false, config: config)
     }
 
-    /// Dismiss the current hint
     func dismissHint() {
         guard !isHintHidden else { return }
         setHintHidden(true, config: nil)
     }
 
-    /// Reset hint state (called when showing a new hint while one is visible)
     func resetHint() {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
     }
 
-    /// Dismiss hint due to user interaction (swipe/scroll)
     func dismissHintDueToUserInteraction() {
         guard !isHintHidden else { return }
         dismissHint()
+    }
+
+    func updateCurrentHint(with config: WMFHintConfig) {
+        currentModel?.config = config
+        scheduleDismiss(config: config)
     }
 
     // MARK: - Private Methods
@@ -110,16 +109,12 @@ class WMFHintPresenter {
             return
         }
 
-        // If hiding, stop any pending auto-dismiss.
         if hidden {
             dismissWorkItem?.cancel()
             dismissWorkItem = nil
         }
 
-        // Only block *showing* when something is presented.
         if !hidden, presenter.presentedViewController != nil {
-            dismissWorkItem?.cancel()
-            dismissWorkItem = nil
             completion?()
             return
         }
@@ -152,7 +147,6 @@ class WMFHintPresenter {
         })
     }
 
-    // TODO: check layout issues
     private func addHint(to presenter: UIViewController, config: WMFHintConfig) {
         guard isHintHidden else { return }
 
@@ -177,11 +171,14 @@ class WMFHintPresenter {
 
         containerViewConstraints = (top: topConstraint, bottom: bottomConstraint)
 
-        let viewModel = WMFHintViewModel(config: config)
-        currentViewModel = viewModel
+        let model = WMFHintModel(config: config)
+        currentModel = model
 
-        let hintView = WMFHintView(viewModel: viewModel, dismiss: { [weak self] in
-            self?.setHintHidden(true, config: nil)
+        let hintView = WMFHintView(model: model, dismiss: { [weak self] in
+            guard let self else { return }
+            Task { @MainActor in
+                self.setHintHidden(true, config: nil)
+            }
         })
 
         let hostingController = UIHostingController(rootView: hintView)
@@ -200,10 +197,7 @@ class WMFHintPresenter {
         toastContainer.translatesAutoresizingMaskIntoConstraints = false
 
         let borderLayer = CALayer()
-        borderLayer.frame = CGRect(x: 0, y: 0, width: 1000, height: 1000)
         borderLayer.cornerRadius = 24
-        borderLayer.borderWidth = 0.5
-        borderLayer.borderColor = theme.border.withAlphaComponent(0.15).cgColor
         toastContainer.layer.addSublayer(borderLayer)
 
         toastContainer.addSubview(hostingController.view)
@@ -247,7 +241,7 @@ class WMFHintPresenter {
         containerView.superview?.layoutIfNeeded()
 
         // Update border layer frame after layout
-        // TODO: Try to use a mor modern API here
+        // TODO: Fix border
         DispatchQueue.main.async {
             borderLayer.frame = toastContainer.bounds
         }
@@ -260,47 +254,26 @@ class WMFHintPresenter {
         currentHostingController?.willMove(toParent: nil)
         currentHostingController?.view.removeFromSuperview()
         currentHostingController?.removeFromParent()
+
         currentHintContainer?.removeFromSuperview()
 
         currentHostingController = nil
-        currentViewModel = nil
         currentHintContainer = nil
         containerViewConstraints = nil
+        currentModel = nil
     }
 
     private func scheduleDismiss(config: WMFHintConfig?) {
-        guard let config = config, let duration = config.duration else { return }
+        guard let config, let duration = config.duration else { return }
 
         dismissWorkItem?.cancel()
         let workItem = DispatchWorkItem { [weak self] in
-            self?.setHintHidden(true, config: nil)
+            guard let self else { return }
+            Task { @MainActor in
+                self.setHintHidden(true, config: nil)
+            }
         }
         dismissWorkItem = workItem
         DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
-    }
-    /// Update the current hint with new config (e.g., to add an image after loading)
-    func updateCurrentHint(with config: WMFHintConfig) {
-        print("🔍 updateCurrentHint called")
-        print("🔍 currentViewModel exists: \(currentViewModel != nil)")
-
-        guard let currentViewModel = currentViewModel else {
-            print("🔍 ERROR: currentViewModel is nil!")
-            return
-        }
-
-        print("🔍 Updating viewModel config - title: \(config.title)")
-        print("🔍 Has icon: \(config.icon != nil)")
-        currentViewModel.update(config: config)
-        print("🔍 Update complete")
-
-        // Ensure hint container is visible and brought to front
-        bringHintToFront()
-    }
-
-    /// Bring hint container to front of its superview
-    private func bringHintToFront() {
-        guard let container = currentHintContainer else { return }
-        print("🔍 Bringing hint to front")
-        container.superview?.bringSubviewToFront(container)
     }
 }

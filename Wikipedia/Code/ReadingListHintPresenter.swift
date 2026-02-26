@@ -4,16 +4,15 @@ import WMFComponents
 
 // TODO: Rename hint to something that makes more sense, it's just a reading list helper now
 @objc(WMFReadingListHintPresenter)
-class ReadingListHintPresenter: NSObject {
+final class ReadingListHintPresenter: NSObject {
 
     // MARK: - Properties
 
     private let dataStore: MWKDataStore
     private var hintPresenter: WMFHintPresenter?
     private weak var presenter: UIViewController?
+
     private var currentArticle: WMFArticle?
-    private var currentReadingList: ReadingList?
-    private var pendingConfirmation: (article: WMFArticle, readingList: ReadingList, imageURL: URL?)?
     private weak var themeableNavigationController: WMFComponentNavigationController?
 
     var theme = Theme.standard
@@ -36,14 +35,12 @@ class ReadingListHintPresenter: NSObject {
     // MARK: - Public Methods
 
     var isHintHidden: Bool {
-        guard let hintPresenter = hintPresenter else { return true }
-        return MainActor.assumeIsolated {
-            hintPresenter.isHintHidden
-        }
+        guard let hintPresenter else { return true }
+        return MainActor.assumeIsolated { hintPresenter.isHintHidden }
     }
 
     func dismissHintDueToUserInteraction() {
-        guard let hintPresenter = hintPresenter else { return }
+        guard let hintPresenter else { return }
         Task { @MainActor in
             hintPresenter.dismissHintDueToUserInteraction()
         }
@@ -57,11 +54,9 @@ class ReadingListHintPresenter: NSObject {
         let didSaveOtherArticle = didSave && !isHintHidden && article != currentArticle
         let didUnsaveOtherArticle = !didSave && !isHintHidden && article != currentArticle
 
-        guard !didUnsaveOtherArticle else {
-            return
-        }
+        guard !didUnsaveOtherArticle else { return }
 
-        guard !didSaveOtherArticle else {
+        if didSaveOtherArticle {
             Task { @MainActor [weak self] in
                 guard let self else { return }
                 self.getHintPresenter().resetHint()
@@ -76,7 +71,7 @@ class ReadingListHintPresenter: NSObject {
         if didSave {
             showDefaultHint(article: article)
         } else {
-            guard let hintPresenter = hintPresenter else { return }
+            guard let hintPresenter else { return }
             Task { @MainActor in
                 hintPresenter.dismissHint()
             }
@@ -86,12 +81,10 @@ class ReadingListHintPresenter: NSObject {
     // MARK: - Private Methods
 
     private func showDefaultHint(article: WMFArticle) {
-        guard let presenter = presenter else { return }
+        guard let presenter else { return }
 
         let title = hintButtonTitle(for: article)
         let icon = UIImage(named: "add-to-list")
-
-        // Capture URL instead of article to avoid Sendable warnings
         let articleURL = article.url
 
         let config = WMFHintConfig(
@@ -113,108 +106,25 @@ class ReadingListHintPresenter: NSObject {
         }
     }
 
-    private func hintButtonTitle(for article: WMFArticle) -> String {
-        var maybeArticleTitle: String?
-        if let displayTitle = article.displayTitle, displayTitle.wmf_hasNonWhitespaceText {
-            maybeArticleTitle = displayTitle
-        } else if let articleURL = article.url, let title = articleURL.wmf_title {
-            maybeArticleTitle = title
-        }
-
-        guard let articleTitle = maybeArticleTitle, articleTitle.wmf_hasNonWhitespaceText else {
-            return WMFLocalizedString("reading-list-add-generic-hint-title",
-                                    value: "Add this article to a reading list?",
-                                    comment: "Title of the reading list hint that appears after an article is saved.")
-        }
-
-        return String.localizedStringWithFormat(
-            WMFLocalizedString("reading-list-add-hint-title",
-                             value: "Add \"%1$@\" to a reading list?",
-                             comment: "Title of the reading list hint that appears after an article is saved. %1$@ will be replaced with the saved article title"),
-            articleTitle
-        )
-    }
-
-    private func performDefaultAction(article: WMFArticle) {
-        guard let presenter = presenter else { return }
-
-        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(
-            with: dataStore,
-            articles: [article],
-            moveFromReadingList: nil,
-            theme: theme
-        )
-        addArticlesToReadingListViewController.delegate = self
-
-        let navigationController = WMFComponentNavigationController(
-            rootViewController: addArticlesToReadingListViewController,
-            modalPresentationStyle: .overFullScreen
-        )
-
-        // Don't dismiss hint - let modal present over it
-        presenter.present(navigationController, animated: true)
-    }
-
-    private func performConfirmationAction(readingList: ReadingList) {
-        guard let presenter = presenter else { return }
-
-        let readingListDetailViewController = ReadingListDetailViewController(
-            for: readingList,
-            with: dataStore,
-            displayType: .modal
-        )
-        readingListDetailViewController.apply(theme: theme)
-
-        let navigationController = WMFComponentNavigationController(
-            rootViewController: readingListDetailViewController,
-            modalPresentationStyle: .overFullScreen
-        )
-
-        themeableNavigationController = navigationController
-
-        presenter.present(navigationController, animated: true) { [weak self] in
-            guard let self, let hintPresenter = self.hintPresenter else { return }
-            Task { @MainActor in
-                hintPresenter.dismissHint()
-            }
-        }
-    }
-}
-
-// MARK: - AddArticlesToReadingListDelegate
-// TODO: cleanup prints
-extension ReadingListHintPresenter: AddArticlesToReadingListDelegate {
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
-        print("🔍 addArticlesToReadingList called")
-        // Update hint immediately - even while modal is still open
-        // This matches old behavior where viewType = .confirmation updated the existing view
-        guard let name = readingList.name else {
-            print("🔍 ERROR: reading list name is nil")
-            return
-        }
-
-        print("🔍 Reading list name: \(name)")
-        currentReadingList = readingList
-
-        let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
-        print("🔍 Image URL: \(imageURL?.absoluteString ?? "nil")")
+    private func showConfirmationHintInPlace(readingList: ReadingList, image: UIImage?) {
+        guard let name = readingList.name else { return }
 
         let title = String.localizedStringWithFormat(
-            WMFLocalizedString("reading-lists-article-added-confirmation",
-                             value: "Article added to \"%1$@\"",
-                             comment: "Confirmation shown after the user adds an article to a list. %1$@ will be replaced with the name of the list the article was added to."),
+            WMFLocalizedString(
+                "reading-lists-article-added-confirmation",
+                value: "Article added to \"%1$@\"",
+                comment: "Confirmation shown after the user adds an article to a list. %1$@ will be replaced with the name of the list the article was added to."
+            ),
             name
         )
 
-        print("🔍 Confirmation title: \(title)")
         let readingListObjectID = readingList.objectID
 
-        // Update hint immediately with confirmation text (no image yet)
         let config = WMFHintConfig(
             title: title,
-            icon: nil,
+            icon: image,
             duration: 13,
-            buttonTitle: "→",
+            buttonTitle: "→", // TODO: fix UI
             tapAction: { @Sendable [weak self, readingListObjectID] in
                 Task { @MainActor in
                     guard let self,
@@ -233,50 +143,122 @@ extension ReadingListHintPresenter: AddArticlesToReadingListDelegate {
 
         Task { @MainActor [weak self] in
             guard let self else { return }
-
-            // Update existing hint immediately
             self.getHintPresenter().updateCurrentHint(with: config)
+        }
+    }
 
-            // Load image in background
-            if let imageURL = imageURL {
-                Task.detached(priority: .userInitiated) { //TODO: replace detached task for a more safe method, cleanup
-                    if let data = try? Data(contentsOf: imageURL),
-                       let image = UIImage(data: data) {
-                        await MainActor.run { [weak self] in
-                            guard let self else { return }
+    private func hintButtonTitle(for article: WMFArticle) -> String {
+        var maybeArticleTitle: String?
+        if let displayTitle = article.displayTitle, displayTitle.wmf_hasNonWhitespaceText {
+            maybeArticleTitle = displayTitle
+        } else if let articleURL = article.url, let title = articleURL.wmf_title {
+            maybeArticleTitle = title
+        }
 
-                            let configWithImage = WMFHintConfig(
-                                title: title,
-                                icon: image,
-                                duration: 13,
-                                buttonTitle: "→",
-                                tapAction: { @Sendable [weak self, readingListObjectID] in
-                                    Task { @MainActor in
-                                        guard let self,
-                                              let readingList = try? self.dataStore.viewContext.existingObject(with: readingListObjectID) as? ReadingList else { return }
-                                        self.performConfirmationAction(readingList: readingList)
-                                    }
-                                },
-                                buttonAction: { @Sendable [weak self, readingListObjectID] in
-                                    Task { @MainActor in
-                                        guard let self,
-                                              let readingList = try? self.dataStore.viewContext.existingObject(with: readingListObjectID) as? ReadingList else { return }
-                                        self.performConfirmationAction(readingList: readingList)
-                                    }
-                                }
-                            )
+        guard let articleTitle = maybeArticleTitle, articleTitle.wmf_hasNonWhitespaceText else {
+            return WMFLocalizedString(
+                "reading-list-add-generic-hint-title",
+                value: "Add this article to a reading list?",
+                comment: "Title of the reading list hint that appears after an article is saved."
+            )
+        }
 
-                            self.getHintPresenter().updateCurrentHint(with: configWithImage)
-                        }
-                    }
-                }
+        return String.localizedStringWithFormat(
+            WMFLocalizedString(
+                "reading-list-add-hint-title",
+                value: "Add \"%1$@\" to a reading list?",
+                comment: "Title of the reading list hint that appears after an article is saved. %1$@ will be replaced with the saved article title"
+            ),
+            articleTitle
+        )
+    }
+
+    private func performDefaultAction(article: WMFArticle) {
+        guard let presenter else { return }
+
+        let addVC = AddArticlesToReadingListViewController(
+            with: dataStore,
+            articles: [article],
+            moveFromReadingList: nil,
+            theme: theme
+        )
+        addVC.delegate = self
+
+        let nav = WMFComponentNavigationController(
+            rootViewController: addVC,
+            modalPresentationStyle: .overFullScreen
+        )
+
+        presenter.present(nav, animated: true)
+    }
+
+    private func performConfirmationAction(readingList: ReadingList) {
+        guard let presenter else { return }
+
+        let detailVC = ReadingListDetailViewController(
+            for: readingList,
+            with: dataStore,
+            displayType: .modal
+        )
+        detailVC.apply(theme: theme)
+
+        let nav = WMFComponentNavigationController(
+            rootViewController: detailVC,
+            modalPresentationStyle: .overFullScreen
+        )
+
+        themeableNavigationController = nav
+
+        presenter.present(nav, animated: true) { [weak self] in
+            guard let self, let hintPresenter = self.hintPresenter else { return }
+            Task { @MainActor in
+                hintPresenter.dismissHint()
+            }
+        }
+    }
+
+    private func loadImageOffMain(from url: URL) async -> UIImage? {
+        if url.isFileURL {
+            return await Task(priority: .userInitiated) {
+                guard let data = try? Data(contentsOf: url) else { return nil }
+                return UIImage(data: data)
+            }.value
+        } else {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                return UIImage(data: data)
+            } catch {
+                return nil
+            }
+        }
+    }
+}
+
+// MARK: - AddArticlesToReadingListDelegate
+
+extension ReadingListHintPresenter: AddArticlesToReadingListDelegate {
+    func addArticlesToReadingList(
+        _ addArticlesToReadingList: AddArticlesToReadingListViewController,
+        didAddArticles articles: [WMFArticle],
+        to readingList: ReadingList
+    ) {
+        showConfirmationHintInPlace(readingList: readingList, image: nil)
+
+        // try loading thumbnail, update if it succeeds
+        let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
+        guard let imageURL else { return }
+
+        Task { [weak self] in
+            guard let self else { return }
+            let image = await self.loadImageOffMain(from: imageURL)
+            await MainActor.run {
+                self.showConfirmationHintInPlace(readingList: readingList, image: image)
             }
         }
     }
 
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
-        // Do nothing - hint is already showing confirmation state
-        // Old code: delegate?.hintViewControllerDidFailToCompleteDefaultAction(self)
+        // No-op: confirmation state should be already applied in-place
     }
 }
 
@@ -286,10 +268,4 @@ extension ReadingListHintPresenter: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
     }
-}
-
-// MARK: - Context Key
-// TODO: check if we still need this - it was added to pass article info to the hint presenter when the hint is tapped, but we may be able to capture that info in the tap action closure instead to avoid using context keys
-extension ReadingListHintPresenter {
-    @objc public static let ContextArticleKey = "ContextArticleKey"
 }
