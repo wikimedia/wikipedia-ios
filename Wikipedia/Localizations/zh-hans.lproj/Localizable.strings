@@ -45,6 +45,7 @@
 // Author: NeverBehave
 // Author: NigelSoft
 // Author: Njzjz
+// Author: Ouclie
 // Author: Pawsdt
 // Author: Peterxy12
 // Author: Phenolla
@@ -99,8 +100,6 @@
 "about-repositories-app-source-license" = "源代码依据$1授权。";
 "about-repositories-app-source-license-mit" = "MIT协议";
 "about-send-feedback" = "发送应用反馈";
-"about-testers" = "测试者";
-"about-testers-details" = "由$1进行QA测试";
 "about-title" = "关于";
 "about-translators" = "译者";
 "about-translators-details" = "由$1的志愿者翻译";
@@ -178,6 +177,8 @@
 "activity-tab-generic-no-edits" = "您本周尚未进行编辑。马上开始编辑，以追踪贡献。";
 "activity-tab-hours-minutes-read" = "$1 小时 $2 分钟";
 "activity-tab-hours-on-wikipedia-ios" = "在维基百科iOS版";
+"activity-tab-impact-all-time-title" = "所有时间影响";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1天}}";
 "activity-tab-impact-edits-label" = "编辑数";
 "activity-tab-impact-recent-activity-title" = "您最近的活动（过去30天）";
 "activity-tab-impact-thanks-label" = "感谢";

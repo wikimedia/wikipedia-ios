@@ -51,8 +51,6 @@
 "about-repositories-app-source-license" = "Lähdekoodi on saatavilla $1-lisenssin ehtojen mukaisesti.";
 "about-repositories-app-source-license-mit" = "MIT";
 "about-send-feedback" = "Lähetä palautetta sovelluksesta";
-"about-testers" = "Testaajat";
-"about-testers-details" = "QA:n testannut $1";
 "about-title" = "Tietoja";
 "about-translators" = "Kääntäjät";
 "about-translators-details" = "Käännöstyön tehneet vapaaehtoiset sivustolla $1";
@@ -715,7 +713,7 @@
 "notifications-center-go-to-user-page" = "Käyttäjän $1 käyttäjäsivu";
 "notifications-center-go-to-wikidata-item" = "Wikidata-kohde";
 "notifications-center-go-to-your-talk-page" = "Oma keskustelusivu";
-"notifications-center-inbox-title" = "Projektit";
+"notifications-center-inbox-title" = "Hankkeet";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Listassa näytetään vain projektit, joihin olet luonut tunnuksen.";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedian projektit";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipediat";

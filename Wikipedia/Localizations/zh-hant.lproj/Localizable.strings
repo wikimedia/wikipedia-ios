@@ -62,8 +62,6 @@
 "about-repositories-app-source-license" = "源代碼依據$1授權。";
 "about-repositories-app-source-license-mit" = "MIT 協議";
 "about-send-feedback" = "傳送應用程式意見回饋";
-"about-testers" = "測試人員";
-"about-testers-details" = "已由 $1 完成 QA 測試";
 "about-title" = "關於";
 "about-translators" = "翻譯人員";
 "about-translators-details" = "由$1的志工翻譯";
