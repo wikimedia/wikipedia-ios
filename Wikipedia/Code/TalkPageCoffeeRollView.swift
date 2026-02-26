@@ -6,11 +6,11 @@ final class TalkPageCoffeeRollView: SetupView {
 
     var theme: Theme
     var viewModel: TalkPageCoffeeRollViewModel
-    
+
     weak var linkDelegate: TalkPageTextViewLinkHandling?
 
     // MARK: - UI Elements
-    
+
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,13 +22,13 @@ final class TalkPageCoffeeRollView: SetupView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
         textView.isEditable = false
-        
+
         textView.textContainerInset = .zero
         textView.textContainer.lineFragmentPadding = 0
-        
+
         textView.setContentCompressionResistancePriority(.required, for: .vertical)
         textView.setContentHuggingPriority(.required, for: .vertical)
-        
+
         textView.delegate = self
         return textView
     }()
@@ -60,12 +60,14 @@ final class TalkPageCoffeeRollView: SetupView {
             textView.trailingAnchor.constraint(equalTo: scrollView.readableContentGuide.trailingAnchor, constant: -16),
             textView.widthAnchor.constraint(equalTo: scrollView.readableContentGuide.widthAnchor, constant: -32)
         ])
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+            updateFonts()
+        }
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-    }
+
 
     // MARK: - Configure
 
@@ -74,7 +76,7 @@ final class TalkPageCoffeeRollView: SetupView {
         updateFonts()
         updateSemanticContentAttribute(viewModel.semanticContentAttribute)
     }
-    
+
     private func updateFonts() {
         if let coffeeRollText = viewModel.coffeeRollText {
             let styles = HtmlUtils.Styles(font: WMFFont.for(.callout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
@@ -84,7 +86,7 @@ final class TalkPageCoffeeRollView: SetupView {
             textView.linkTextAttributes = [.foregroundColor: theme.colors.link]
         }
     }
-    
+
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
         textView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
@@ -99,7 +101,7 @@ extension TalkPageCoffeeRollView: Themeable {
         backgroundColor = theme.colors.paperBackground
 
         textView.backgroundColor = theme.colors.paperBackground
-        
+
         updateFonts()
         updateSemanticContentAttribute(viewModel.semanticContentAttribute)
     }
@@ -108,9 +110,12 @@ extension TalkPageCoffeeRollView: Themeable {
 
 extension TalkPageCoffeeRollView: UITextViewDelegate {
 
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        linkDelegate?.tappedLink(URL, sourceTextView: textView)
-        return false
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        if case .link(let url) = textItem.content {
+            linkDelegate?.tappedLink(url, sourceTextView: textView)
+            return nil
+        }
+        return defaultAction
     }
 
 }

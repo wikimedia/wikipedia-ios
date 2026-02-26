@@ -14,7 +14,7 @@ typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducatio
     == Primary button ==
     == Secondary button ==
     == Footer text ==
- 
+
  This class pairs with a xib with roughly the following structure:
     view
         scroll view
@@ -26,12 +26,12 @@ typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducatio
                 primary button
                 secondary button
                 footer label
- 
+
  - Stackview management of its subviews makes it easy to collapse space for unneeded items.
  - Scrollview containment makes long translations or landscape on small phones scrollable when needed.
 */
 class ScrollableEducationPanelViewController: UIViewController, Themeable {
-    
+
     enum LastAction {
         case tappedPrimary
         case tappedSecondary
@@ -41,7 +41,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         case none
     }
 
-    
+
     /// Enum for customizing button styles
     /// `legacyStyle` stands for the default apperance
     /// `updatedStyle` stands for the component-like style
@@ -55,33 +55,33 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var imageView: UIImageView!
     @IBOutlet fileprivate weak var headingLabel: UILabel!
     @IBOutlet weak var subheadingTextView: UITextView!
-    
+
     @IBOutlet weak var inlineActionButtonContainerView: UIView!
     @IBOutlet weak var inlineCloseButtonStackView: UIStackView!
     @IBOutlet weak var pinnedCloseButtonContainerView: UIView!
     @IBOutlet weak var pinnedActionButtonContainerView: UIView!
     @IBOutlet weak var pinnedCloseButtonStackView: UIStackView!
-    
+
     // use as an indication of what triggered a dismissal
     private var lastAction: LastAction = .none
-    
+
     let originalSubheadingTopConstraint = CGFloat(0)
     let originalSubheadingBottomConstraint = CGFloat(0)
-    
+
     @IBOutlet var subheadingTopConstraint: NSLayoutConstraint! {
         didSet {
             subheadingTopConstraint.constant = originalSubheadingTopConstraint
         }
     }
-    
+
     @IBOutlet weak var containerStackViewBottomConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet var subheadingBottomConstraint: NSLayoutConstraint! {
        didSet {
            subheadingBottomConstraint.constant = originalSubheadingBottomConstraint
        }
     }
-    
+
     @IBOutlet fileprivate weak var inlinePrimaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet weak var inlinePrimaryButtonSpinner: UIActivityIndicatorView!
     @IBOutlet fileprivate weak var pinnedPrimaryButton: AutoLayoutSafeMultiLineButton!
@@ -94,11 +94,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet private(set) weak var scrollView: UIScrollView!
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
-    
+
     @IBOutlet weak var gradientViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var gradientViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var gradientView: ScrollViewGradientView!
-    
+
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
@@ -106,7 +106,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     // traceableDismissHandler takes priority if it's populated. It will pass back a LastAction indicating the action that triggered the dismissal, for the caller to react with.
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
     fileprivate var traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?
-    
+
     fileprivate var showCloseButton = true
     fileprivate var buttonStyle: ButtonStyle = .legacyStyle
     private(set) public var showOptionalButton = false
@@ -125,7 +125,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             widthConstraint.constant = width
         }
     }
-    
+
     var image: UIImage? {
         get {
             return imageView.image
@@ -162,7 +162,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             view.setNeedsLayout()
         }
     }
-    
+
     var subheadingTextAlignment: NSTextAlignment = .center {
         didSet {
             updateSubheadingHTML()
@@ -223,7 +223,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             updateFooterHTML()
         }
     }
-    
+
     var isLoading: Bool = false {
         didSet {
             if isLoading {
@@ -235,20 +235,20 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
                 inlinePrimaryButton.titleLabel?.alpha = 1
                 inlinePrimaryButtonSpinner.isHidden = true
             }
-            
+
         }
     }
 
     var footerLinkAction: ((URL) -> Void)? = nil
     var subheadingLinkAction: ((URL) -> Void)? = nil
-    
+
     var subheadingParagraphStyle: NSParagraphStyle? {
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineHeightMultiple = 1.2
         pStyle.alignment = subheadingTextAlignment
         return pStyle.copy() as? NSParagraphStyle
     }
-    
+
     private func updateSubheadingHTML() {
         guard let subheadingHTML = subheadingHTML else {
             subheadingTextView.attributedText = nil
@@ -263,12 +263,12 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             attributes[NSAttributedString.Key.paragraphStyle] = subheadingParagraphStyle
         }
         attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
-        
+
         subheadingTextView.attributedText = attributedText.removingInitialNewlineCharacters().removingRepetitiveNewlineCharacters()
         subheadingTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
         subheadingTextView.tintColor = theme.colors.link
     }
-    
+
     var footerParagraphStyle: NSParagraphStyle? {
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
@@ -301,10 +301,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlinePrimaryButton?.layer.borderWidth = primaryButtonBorderWidth
         }
     }
-    
+
     var isUrgent: Bool = false
     private let hasPinnedButtons: Bool
-    
+
     var spacing: CGFloat = 14 {
         didSet {
             contentStackView.spacing = spacing
@@ -345,7 +345,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.dismissHandler = dismissHandler
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
-    
+
     init(showCloseButton: Bool, showOptionalButton: Bool = false, buttonStyle: ButtonStyle = .legacyStyle, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler? = nil,traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, hasPinnedButtons: Bool = false, theme: Theme) {
         self.hasPinnedButtons = hasPinnedButtons
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
@@ -361,17 +361,17 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         self.traceableDismissHandler = traceableDismissHandler
         self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         return nil
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(contentStackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, contentStackView.wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString())
-        
+
         reset()
-        
+
         inlinePrimaryButton.titleLabel?.textAlignment = .center
         pinnedPrimaryButton.titleLabel?.textAlignment = .center
         inlineSecondaryButton.titleLabel?.textAlignment = .center
@@ -385,7 +385,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
-        
+
         inlineCloseButton.setImage(UIImage(named:"places-auth-close")?.withRenderingMode(.alwaysTemplate), for: .normal)
         inlineCloseButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
         pinnedCloseButton.setImage(UIImage(named:"places-auth-close")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -397,7 +397,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
         footerTextView.delegate = self
         subheadingTextView.delegate = self
-        
+
         if hasPinnedButtons {
             inlineCloseButtonStackView.alpha = 0
             inlineActionButtonContainerView.alpha = 0
@@ -421,21 +421,26 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlineCloseButtonStackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             inlineCloseButtonStackView.isLayoutMarginsRelativeArrangement = true
         }
-        
+
         inlinePrimaryButtonSpinner.isHidden = true
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
 
         apply(theme: theme)
     }
 
     var dismissWhenTappedOutside: Bool = false
-    
+
     @IBAction func overlayTapped(_ sender: UITapGestureRecognizer) {
         lastAction = .tappedBackground
         if (showCloseButton || dismissWhenTappedOutside) && sender.view == view {
             dismiss(animated: true, completion: nil)
         }
     }
-    
+
     // Clear out xib defaults. Needed because we check these for nil to conditionally collapse stackview subviews.
     fileprivate func reset() {
         imageView.image = nil
@@ -447,23 +452,18 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         pinnedSecondaryButton.setTitle(nil, for: .normal)
         footerTextView.text = nil
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         adjustStackViewSubviewsVisibility()
         super.viewWillAppear(animated)
     }
-    
+
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         adjustImageViewVisibility(for: newCollection.verticalSizeClass)
         // Call to 'layoutIfNeeded' is required to ensure changes made in 'adjustImageViewVisibility' are
         // reflected correctly on rotation.
         view.layoutIfNeeded()
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     var secondaryButtonTextStyle: WMFFont = .mediumFootnote {
@@ -492,11 +492,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlineOptionalButton.titleLabel?.font = WMFFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
         }
     }
-    
+
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {
         imageView.isHidden = (imageView.image == nil || verticalSizeClass == .compact)
     }
-    
+
     fileprivate func adjustStackViewSubviewsVisibility() {
         // Collapse stack view cell for image if no image or compact vertical size class.
         adjustImageViewVisibility(for: traitCollection.verticalSizeClass)
@@ -509,12 +509,12 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         inlineSecondaryButton.isHidden = !inlineSecondaryButton.wmf_hasAnyNonWhitespaceText
         pinnedSecondaryButton.isHidden = !inlineSecondaryButton.wmf_hasAnyNonWhitespaceText
     }
-    
+
     @IBAction fileprivate func close(_ sender: Any) {
         lastAction = .tappedClose
         dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction fileprivate func primaryButtonTapped(_ button: UIButton) {
         lastAction = .tappedPrimary
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
@@ -543,29 +543,29 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         callDismissHandler()
     }
-    
+
     func callDismissHandler() {
-        
+
         guard !(discardDismissHandlerOnPrimaryButtonTap && primaryButtonTapped) else {
             return
         }
-        
+
         if let traceableDismissHandler = traceableDismissHandler {
             traceableDismissHandler(lastAction)
             return
         }
-        
+
         dismissHandler?()
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         primaryButtonTapped = false
     }
-    
+
     func apply(theme: Theme) {
         self.theme = theme
         guard viewIfLoaded != nil else {
@@ -609,7 +609,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlineOptionalButton.backgroundColor = .clear
             inlineOptionalButton.setTitleColor(theme.colors.link, for: .normal)
         }
-        
+
         self.inlinePrimaryButtonSpinner.color = theme.colors.paperBackground
     }
 }
@@ -621,7 +621,7 @@ extension ScrollableEducationPanelViewController: UITextViewDelegate {
         } else if textView == subheadingTextView {
             subheadingLinkAction?(URL)
         }
-        
+
         return false
     }
 }

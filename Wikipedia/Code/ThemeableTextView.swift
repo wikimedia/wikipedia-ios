@@ -180,12 +180,14 @@ extension ThemeableTextView: UITextViewDelegate {
         _delegate?.textViewDidChangeSelection?(textView)
     }
 
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        return _delegate?.textView?(textView, shouldInteractWith: URL, in: characterRange, interaction: interaction) ?? true
-    }
-
-    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        return _delegate?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? true
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        if let _delegate = _delegate {
+            // Check if delegate responds to the new iOS 17+ method
+            if let delegateAction = _delegate.textView?(textView, primaryActionFor: textItem, defaultAction: defaultAction) {
+                return delegateAction
+            }
+        }
+        return defaultAction
     }
 }
 

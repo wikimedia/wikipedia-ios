@@ -4,7 +4,7 @@ import WMFData
 struct WMFAsyncPageRowSavedAlertView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let viewModel: WMFAsyncPageRowSavedViewModel
-    
+
     private var alertString: String? {
         switch viewModel.alertType {
         case .listLimitExceeded:
@@ -21,7 +21,7 @@ struct WMFAsyncPageRowSavedAlertView: View {
             return nil
         }
     }
-    
+
     var body: some View {
             if let alertString = alertString {
                 Button {
@@ -46,7 +46,7 @@ struct WMFAsyncPageRowSaved: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFAsyncPageRowSavedViewModel
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    
+
     let onTap: () -> Void
     let onDelete: () -> Void
     let onShare: (CGRect) -> Void
@@ -72,12 +72,12 @@ struct WMFAsyncPageRowSaved: View {
         Button(action: onTap) {
             HStack(spacing: 0) {
                 Spacer(minLength: 0)
-                
+
                 HStack(spacing: 12) {
                     if viewModel.isEditing {
                         selectionIndicator
                     }
-                    
+
                     HStack(spacing: 12) {
 
                         VStack(alignment: .leading, spacing: 4) {
@@ -86,15 +86,15 @@ struct WMFAsyncPageRowSaved: View {
                                 .foregroundColor(Color(uiColor: appEnvironment.theme.text))
                                 .lineLimit(1)
 
-                            
+
                             Text(viewModel.description ?? " ")
                                 .font(Font(WMFFont.for(.subheadline)))
                                 .foregroundColor(Color(uiColor: appEnvironment.theme.secondaryText))
                                 .lineLimit(1)
-                            
+
                             Spacer()
 
-                            
+
                             if viewModel.isAlertHidden {
                                 if !viewModel.readingListNames.isEmpty {
                                     readingListTags
@@ -102,7 +102,7 @@ struct WMFAsyncPageRowSaved: View {
                             } else {
                                 WMFAsyncPageRowSavedAlertView(viewModel: viewModel)
                             }
-                            
+
                         }
 
                         Spacer()
@@ -114,7 +114,7 @@ struct WMFAsyncPageRowSaved: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
                 .frame(maxWidth: maxReadableWidth, minHeight: 124, alignment: .leading)
-                
+
                 Spacer(minLength: 0)
             }
         }
@@ -127,7 +127,7 @@ struct WMFAsyncPageRowSaved: View {
                     .onAppear {
                         viewModel.geometryFrame = geometry.frame(in: .global)
                     }
-                    .onChange(of: geometry.frame(in: .global)) { newFrame in
+                    .onChange(of: geometry.frame(in: .global)) { _, newFrame in
                         viewModel.geometryFrame = geometry.frame(in: .global)
                     }
             }
@@ -141,7 +141,7 @@ struct WMFAsyncPageRowSaved: View {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
-            
+
             Button {
                 onDelete()
             } label: {
@@ -149,7 +149,7 @@ struct WMFAsyncPageRowSaved: View {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
- 
+
             Button {
                 onOpenInNewTab()
             } label: {
@@ -157,7 +157,7 @@ struct WMFAsyncPageRowSaved: View {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIcon) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
-            
+
             Button {
                 onOpenInBackgroundTab()
             } label: {
@@ -165,7 +165,7 @@ struct WMFAsyncPageRowSaved: View {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .tabsIconBackground) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
-            
+
             Button {
                 onShare(viewModel.geometryFrame)
             } label: {
@@ -173,14 +173,14 @@ struct WMFAsyncPageRowSaved: View {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
-            
+
         } preview: {
             WMFArticlePreviewView(viewModel: getPreviewViewModel(from:viewModel))
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-            
+
             if !viewModel.isEditing {
-                
+
                 if let shareIcon = WMFIcon.share,
                    let deleteIcon = WMFIcon.delete {
                     Button(action: onDelete) {
@@ -227,7 +227,7 @@ struct WMFAsyncPageRowSaved: View {
 
     private var readingListTags: some View {
         let names = viewModel.readingListNames
-        
+
         return ViewThatFits(in: .horizontal) {
             // Try all tags
             if names.count >= 1 {
@@ -237,7 +237,7 @@ struct WMFAsyncPageRowSaved: View {
                     }
                 }
             }
-            
+
             // Try all but one + overflow
             if names.count >= 2 {
                 HStack(spacing: 4) {
@@ -247,7 +247,7 @@ struct WMFAsyncPageRowSaved: View {
                     tagView(listName: nil, overflowCount: 1)
                 }
             }
-            
+
             // Try all but two + overflow
             if names.count >= 3 {
                 HStack(spacing: 4) {
@@ -257,7 +257,7 @@ struct WMFAsyncPageRowSaved: View {
                     tagView(listName: nil, overflowCount: 2)
                 }
             }
-            
+
             // Try first two + overflow
             if names.count >= 3 {
                 HStack(spacing: 4) {
@@ -266,7 +266,7 @@ struct WMFAsyncPageRowSaved: View {
                     tagView(listName: nil, overflowCount: names.count - 2)
                 }
             }
-            
+
             // Try first one + overflow
             if names.count >= 2 {
                 HStack(spacing: 4) {
@@ -274,14 +274,14 @@ struct WMFAsyncPageRowSaved: View {
                     tagView(listName: nil, overflowCount: names.count - 1)
                 }
             }
-            
+
             // Fallback: just overflow
             if names.count >= 1 {
                 tagView(listName: nil, overflowCount: names.count)
             }
         }
     }
-    
+
     private func tagView(listName: String?, overflowCount: Int?) -> some View {
         var text: String? = nil
         if let listName {
@@ -289,7 +289,7 @@ struct WMFAsyncPageRowSaved: View {
         } else if let overflowCount {
             text = "+\(overflowCount)"
         }
-        
+
         return Group {
             if let text {
                 Button {
@@ -309,7 +309,7 @@ struct WMFAsyncPageRowSaved: View {
             }
         }
     }
-    
+
     private func getPreviewViewModel(from viewModel: WMFAsyncPageRowSavedViewModel) -> WMFArticlePreviewViewModel {
         var url: URL? = nil
         if let siteURL = viewModel.project.siteURL {
@@ -317,7 +317,7 @@ struct WMFAsyncPageRowSaved: View {
             components?.path = "/wiki/\(viewModel.title)"
             url = components?.url
         }
-        
+
         return WMFArticlePreviewViewModel(url: url, titleHtml: viewModel.title, description: viewModel.description, imageURLString: viewModel.imageURL?.absoluteString, isSaved: true, snippet: viewModel.snippet)
     }
 }

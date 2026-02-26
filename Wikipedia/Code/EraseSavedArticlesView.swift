@@ -6,12 +6,15 @@ class EraseSavedArticlesView: UIView {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var footerLabel: UILabel!
-    
+
     private var theme = Theme.standard
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
 
     func updateFonts() {

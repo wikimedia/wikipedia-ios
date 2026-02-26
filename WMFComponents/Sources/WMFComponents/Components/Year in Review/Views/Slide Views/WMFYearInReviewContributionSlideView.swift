@@ -102,7 +102,7 @@ struct WMFYearInReviewContributionSlideView: View {
                                     Toggle("", isOn: $viewModel.isIconOn)
                                         .toggleStyle(.switch)
                                         .labelsHidden()
-                                        .onChange(of: viewModel.isIconOn) { newValue in
+                                        .onChange(of: viewModel.isIconOn) { _, newValue in
                                             if let toggleIcon = viewModel.onToggleIcon {
                                                 toggleIcon(newValue)
                                             }
