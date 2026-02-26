@@ -104,7 +104,7 @@ class HintController: NSObject {
 
         NSLayoutConstraint.activate([containerViewConstraint.top!, leadingConstraint, trailingConstraint])
 
-        if presenter.isKind(of: SearchResultsListViewController.self) {
+        if presenter.isKind(of: SearchResultsViewController.self) {
             presenter.wmf_hideKeyboard()
         }
 

@@ -457,22 +457,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
         guard let article = notification.object as? WMFArticle else { return }
-        guard let presentingVC = visibleHintPresentingViewController() else { return }
         let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
-        toggleHint(hintController, context: context, presentingIn: presentingVC)
-    }
-
-    func visibleHintPresentingViewController() -> (UIViewController & HintPresenting)? {
-        if let nav = tabBarController?.selectedViewController as? UINavigationController {
-            return nav.topViewController as? (UIViewController & HintPresenting)
-        }
-        return nil
-    }
-
-    private func toggleHint(_ hintController: HintController?, context: [String: Any], presentingIn presentingVC: UIViewController) {
-        if let presenting = presentingVC as? (UIViewController & HintPresenting) {
-            hintController?.toggle(presenter: presenting, context: context, theme: theme)
-        }
+        hintController?.toggle(presenter: self, context: context, theme: theme)
     }
 
     // MARK: - Theme
