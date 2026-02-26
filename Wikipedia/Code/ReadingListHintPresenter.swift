@@ -124,7 +124,7 @@ final class ReadingListHintPresenter: NSObject {
             title: title,
             icon: image,
             duration: 13,
-            buttonTitle: "→", // TODO: fix UI
+            buttonTitle: "→",
             tapAction: { @Sendable [weak self, readingListObjectID] in
                 Task { @MainActor in
                     guard let self,
@@ -218,6 +218,7 @@ final class ReadingListHintPresenter: NSObject {
     }
 
     private func loadImageOffMain(from url: URL) async -> UIImage? {
+
         if url.isFileURL {
             return await Task(priority: .userInitiated) {
                 guard let data = try? Data(contentsOf: url) else { return nil }
@@ -242,9 +243,10 @@ extension ReadingListHintPresenter: AddArticlesToReadingListDelegate {
         didAddArticles articles: [WMFArticle],
         to readingList: ReadingList
     ) {
+        // Step 1: immediately update hint to confirmation state (no image yet)
         showConfirmationHintInPlace(readingList: readingList, image: nil)
 
-        // try loading thumbnail, update if it succeeds
+        // Step 2: try loading thumbnail, then update config again with image
         let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
         guard let imageURL else { return }
 
@@ -258,7 +260,7 @@ extension ReadingListHintPresenter: AddArticlesToReadingListDelegate {
     }
 
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
-        // No-op: confirmation state should be already applied in-place
+        // No-op: confirmation state already applied in-place.
     }
 }
 
@@ -268,4 +270,10 @@ extension ReadingListHintPresenter: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
     }
+}
+
+// MARK: - Context Key
+
+extension ReadingListHintPresenter {
+    @objc public static let ContextArticleKey = "ContextArticleKey"
 }
