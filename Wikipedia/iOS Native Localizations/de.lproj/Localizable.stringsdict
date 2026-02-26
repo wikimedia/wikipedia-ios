@@ -2,6 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>activity-tab-amount-article-views</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Aufruf</string>
+			<key>other</key>
+			<string>%1$d Aufrufe</string>
+		</dict>
+	</dict>
+	<key>activity-tab-impact-best-streak-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Tag</string>
+			<key>other</key>
+			<string>%1$d Tage</string>
+		</dict>
+	</dict>
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -379,7 +411,7 @@
 	<key>microsite-yir-english-reading-slide-subtitle-short-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Menschen verbrachten geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der Englischsprachigen Wikipedia im Jahr %3$@.</string>
+		<string>Menschen verbrachten geschätzt %#@v1@ — über %#@v2@! — mit dem Lesen der englischsprachigen Wikipedia im Jahr %3$@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -511,7 +543,7 @@
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Sind Sie sicher, dass Sie alle %#@v1@ Ihrer Benachrichtigungen als gelesen markieren möchten? Ihre Benachrichtigungen werden auf all Ihren Geräten als gelesen markiert.</string>
+		<string>Bist du sicher, dass du alle %#@v1@ Benachrichtigungen als gelesen markieren möchtest? Deine Benachrichtigungen werden auf all deinen Geräten als gelesen markiert.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1104,8 +1136,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
-			<key>one</key>
-			<string>%1$llden Artikel</string>
 			<key>other</key>
 			<string>%1$lld Artikel</string>
 		</dict>
@@ -1116,7 +1146,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$der Sprache</string>
+			<string>%2$d Sprache</string>
 			<key>other</key>
 			<string>%2$d aktiven Sprachen</string>
 		</dict>
@@ -1188,7 +1218,7 @@
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Leser auf der ganzen Welt schätzen Ihre Beiträge. In den letzten zwei Monaten wurden die von dir bearbeiteten Artikel %#@v1@ aufgerufen. Dank Bearbeitern wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die ganze Welt.</string>
+		<string>Leser auf der ganzen Welt schätzen deine Beiträge. In den letzten zwei Monaten wurden die von dir bearbeiteten Artikel %#@v1@ aufgerufen. Dank Bearbeitern wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die ganze Welt.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
