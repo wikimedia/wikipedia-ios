@@ -60,18 +60,23 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             localizedStrings: localizedStrings
         )
 
-        viewModel.didTapArticle = { [weak self] article in
+        viewModel.didTapArticle = { [weak self] article, fromLongPress in
             
             guard let siteURL = article.project.siteURL,
-                  var articleURL = siteURL.wmf_URL(withTitle: article.title) else {
+                  let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
                 return
             }
             
             ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
+            if fromLongPress {
+                ArticleTabsFunnel.shared.logLongPressOpen()
+            }
             self?.showArticle(title: article.title, project: article.project, inNewTab: false)
         }
         
         viewModel.didTapOpenInNewTab = { [weak self] article in
+            WMFArticleTabsDataController.shared.didTapOpenNewTab()
+            ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
             self?.showArticle(title: article.title, project: article.project, inNewTab: true)
         }
         
@@ -79,7 +84,10 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
             self?.openArticleInBackgroundTab(title: article.title, project: article.project)
         }
 
-        viewModel.didTapShare = { [weak self] article, cgRect in
+        viewModel.didTapShare = { [weak self] article, cgRect, fromLongPress in
+            if fromLongPress {
+                ArticleTabsFunnel.shared.logLongPressShare()
+            }
             self?.shareArticle(article, cgRect: cgRect)
         }
 
@@ -150,11 +158,6 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         articleURL.wmf_languageVariantCode = project.languageVariantCode
         
         let tabConfig: ArticleTabConfig = inNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
-        
-        if inNewTab {
-            WMFArticleTabsDataController.shared.didTapOpenNewTab()
-            ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
-        }
         
         let articleCoordinator = ArticleCoordinator(
             navigationController: navigationController,
@@ -524,7 +527,11 @@ extension SavedAllArticlesCoordinator: WMFLegacySavedArticlesDataControllerDeleg
         return try? moc.fetch(fetchRequest).first
     }
         
-    func deleteSavedArticles(articles: [WMFSavedArticle], completion: @escaping (Bool) -> Void) {
+    func deleteSavedArticles(articles: [WMFSavedArticle], fromLongPress: Bool, completion: @escaping (Bool) -> Void) {
+        
+        if fromLongPress {
+            ArticleTabsFunnel.shared.logLongPressSave()
+        }
 
         let wmfArticles = wmfArticlesFromSavedArticles(articles)
 
