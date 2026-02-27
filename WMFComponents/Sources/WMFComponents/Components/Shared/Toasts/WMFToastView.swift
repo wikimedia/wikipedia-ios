@@ -5,35 +5,46 @@ struct WMFToastView: View {
     let config: WMFToastConfig
     let dismiss: () -> Void
 
-    var theme: WMFTheme {
-        return appEnvironment.theme
+    var theme: WMFTheme { appEnvironment.theme }
+
+    private var isSingleLineStyle: Bool {
+        config.subtitle == nil && config.buttonTitle == nil
     }
 
+    private var iconSize: CGFloat { 28 } 
+    private var vPad: CGFloat { isSingleLineStyle ? 12 : 14 }
+    private var hPad: CGFloat { 20 }
+    private var spacing: CGFloat { 16 }
+
     var body: some View {
-        HStack(alignment: .center, spacing: 12) {
+        HStack(alignment: .center, spacing: spacing) {
+
             if let icon = config.icon {
                 Image(uiImage: icon.withConfiguration(UIImage.SymbolConfiguration(weight: .semibold)))
                     .renderingMode(.template)
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    .frame(width: 45, height: 45)
+                    .frame(width: iconSize, height: iconSize)
+                    .accessibilityHidden(true)
             }
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: isSingleLineStyle ? 0 : 6) {
                 Text(config.title)
                     .font(Font(WMFFont.for(.subheadline)))
                     .foregroundStyle(Color(uiColor: theme.text))
+                    .fixedSize(horizontal: false, vertical: true)
 
                 if let subtitle = config.subtitle {
                     Text(subtitle)
                         .font(Font(WMFFont.for(.footnote)))
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 if let buttonTitle = config.buttonTitle {
-                    Button(action: {
+                    Button {
                         config.buttonAction?()
                         dismiss()
-                    }) {
+                    } label: {
                         Text(buttonTitle)
                             .font(Font(WMFFont.for(.boldSubheadline)))
                             .foregroundStyle(Color(uiColor: theme.link))
@@ -41,12 +52,9 @@ struct WMFToastView: View {
                 }
             }
         }
-        .padding()
+        .padding(.vertical, vPad)
+        .padding(.horizontal, hPad)
         .contentShape(Rectangle())
-        .onTapGesture {
-            if let tapAction = config.tapAction {
-                tapAction()
-            }
-        }
+        .onTapGesture { config.tapAction?() }
     }
 }

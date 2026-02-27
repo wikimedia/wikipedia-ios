@@ -124,17 +124,11 @@ public final class WMFToastPresenter {
         toastContainer.addSubview(hostingController.view)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
 
-        // containerView = current top view controller
-        // toastContainer = rounded shadow view
-        // hostingController = toast content
-
-        let verticalPadding: CGFloat = 16
-        let horizontalPadding: CGFloat = 12
         NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: toastContainer.topAnchor, constant: verticalPadding),
-            hostingController.view.leadingAnchor.constraint(equalTo: toastContainer.leadingAnchor, constant: horizontalPadding),
-            hostingController.view.trailingAnchor.constraint(equalTo: toastContainer.trailingAnchor, constant: -horizontalPadding),
-            hostingController.view.bottomAnchor.constraint(equalTo: toastContainer.bottomAnchor, constant: -verticalPadding)
+            hostingController.view.topAnchor.constraint(equalTo: toastContainer.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: toastContainer.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: toastContainer.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: toastContainer.bottomAnchor)
         ])
 
         containerView.addSubview(toastContainer)
@@ -161,6 +155,7 @@ public final class WMFToastPresenter {
         ])
 
         // Initial state off-screen (below)
+        containerView.layoutIfNeeded()
         let translationY = toastContainer.frame.height + 50
         toastContainer.transform = CGAffineTransform(translationX: 0, y: translationY)
         toastContainer.alpha = 0
