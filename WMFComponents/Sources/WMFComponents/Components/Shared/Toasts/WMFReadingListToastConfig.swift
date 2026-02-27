@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WMFHintConfig: Sendable {
+public struct WMFReadingListToastConfig: Sendable {
     public let title: String
 
     // UIImage is not Sendable. Keep it isolated from strict Sendable checking.
@@ -32,12 +32,11 @@ public struct WMFHintConfig: Sendable {
     }
 }
 
-
 @MainActor
-public final class WMFHintModel: ObservableObject {
-    @Published public var config: WMFHintConfig
+public final class WMFReadingListToastModel: ObservableObject {
+    @Published public var config: WMFReadingListToastConfig
 
-    public init(config: WMFHintConfig) {
+    public init(config: WMFReadingListToastConfig) {
         self.config = config
     }
 }

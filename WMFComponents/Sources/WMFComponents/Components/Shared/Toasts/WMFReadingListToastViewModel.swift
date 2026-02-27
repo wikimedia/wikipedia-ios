@@ -1,7 +1,7 @@
 import SwiftUI
 
 @MainActor
-public class WMFHintViewModel: ObservableObject {
+public class WMFReadingListToastViewModel: ObservableObject {
     @Published public var title: String
     @Published public var icon: UIImage?
     @Published public var buttonTitle: String?
@@ -10,7 +10,7 @@ public class WMFHintViewModel: ObservableObject {
     public var tapAction: (() -> Void)?
     public var buttonAction: (() -> Void)?
     
-    public init(config: WMFHintConfig) {
+    public init(config: WMFReadingListToastConfig) {
         self.title = config.title
         self.icon = config.icon
         self.buttonTitle = config.buttonTitle
@@ -19,7 +19,7 @@ public class WMFHintViewModel: ObservableObject {
         self.buttonAction = config.buttonAction
     }
     
-    public func update(config: WMFHintConfig) {
+    public func update(config: WMFReadingListToastConfig) {
         self.title = config.title
         self.icon = config.icon
         self.buttonTitle = config.buttonTitle

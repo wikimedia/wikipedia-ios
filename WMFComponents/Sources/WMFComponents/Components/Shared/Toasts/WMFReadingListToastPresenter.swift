@@ -4,15 +4,15 @@ import Combine
 
 /// Unlike toasts which present globally, hints are anchored to specific view controllers
 @MainActor
-final public class WMFHintPresenter {
+final public class WMFReadingListToastPresenter {
 
     // MARK: - Properties
 
     private weak var presenter: UIViewController?
 
-    private var currentHintContainer: UIView?
-    private var currentHostingController: UIHostingController<WMFHintView>?
-    private var currentModel: WMFHintModel?
+    private var currentToastContainer: UIView?
+    private var currentHostingController: UIHostingController<WMFReadingListToastView>?
+    private var currentModel: WMFReadingListToastModel?
 
     private var containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)?
     private var dismissWorkItem: DispatchWorkItem?
@@ -22,9 +22,9 @@ final public class WMFHintPresenter {
     private var additionalBottomSpacing: CGFloat = 0
     private var extendsUnderSafeArea: Bool = false
 
-    public init(presenter: UIViewController? = nil, currentHintContainer: UIView? = nil, currentHostingController: UIHostingController<WMFHintView>? = nil, currentModel: WMFHintModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, cancellables: Set<AnyCancellable> = Set<AnyCancellable>(), subview: UIView? = nil) {
+    public init(presenter: UIViewController? = nil, currentHintContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, cancellables: Set<AnyCancellable> = Set<AnyCancellable>(), subview: UIView? = nil) {
         self.presenter = presenter
-        self.currentHintContainer = currentHintContainer
+        self.currentToastContainer = currentHintContainer
         self.currentHostingController = currentHostingController
         self.currentModel = currentModel
         self.containerViewConstraints = containerViewConstraints
@@ -39,13 +39,13 @@ final public class WMFHintPresenter {
 
     // MARK: - Public API
 
-    public var isHintHidden: Bool {
-        currentHintContainer?.superview == nil
+    public var isToastHidden: Bool {
+        currentToastContainer?.superview == nil
     }
 
     /// Show a hint anchored to a specific view controller
     public func show(
-        config: WMFHintConfig,
+        config: WMFReadingListToastConfig,
         in presenter: UIViewController,
         subview: UIView? = nil,
         additionalBottomSpacing: CGFloat = 0,
@@ -58,38 +58,38 @@ final public class WMFHintPresenter {
         self.extendsUnderSafeArea = extendsUnderSafeArea
 
         // If a hint is already visible, replace it in-place
-        if !isHintHidden {
+        if !isToastHidden {
             updateCurrentHint(with: config)
             return
         }
 
-        setHintHidden(false, config: config)
+        setToastHidden(false, config: config)
     }
 
-    public func dismissHint() {
-        guard !isHintHidden else { return }
-        setHintHidden(true, config: nil)
+    public func dismissToast() {
+        guard !isToastHidden else { return }
+        setToastHidden(true, config: nil)
     }
 
-    public func resetHint() {
+    public func resetToast() {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
     }
 
-    public func dismissHintDueToUserInteraction() {
-        guard !isHintHidden else { return }
-        dismissHint()
+    public func dismissToastDueToUserInteraction() {
+        guard !isToastHidden else { return }
+        dismissToast()
     }
 
-    public func updateCurrentHint(with config: WMFHintConfig) {
+    public func updateCurrentHint(with config: WMFReadingListToastConfig) {
         currentModel?.config = config
         scheduleDismiss(config: config)
     }
 
     // MARK: - Private Methods
 
-    private func setHintHidden(_ hidden: Bool, config: WMFHintConfig?, completion: (() -> Void)? = nil) {
-        guard isHintHidden != hidden, let presenter = presenter else {
+    private func setToastHidden(_ hidden: Bool, config: WMFReadingListToastConfig?, completion: (() -> Void)? = nil) {
+        guard isToastHidden != hidden, let presenter = presenter else {
             completion?()
             return
         }
@@ -99,7 +99,7 @@ final public class WMFHintPresenter {
             dismissWorkItem = nil
         }
 
-        if !hidden, isHintHidden, presenter.presentedViewController != nil {
+        if !hidden, isToastHidden, presenter.presentedViewController != nil {
             completion?()
             return
         }
@@ -109,7 +109,7 @@ final public class WMFHintPresenter {
                 completion?()
                 return
             }
-            addHint(to: presenter, config: config)
+            addToast(to: presenter, config: config)
         }
 
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
@@ -120,10 +120,10 @@ final public class WMFHintPresenter {
                 self.containerViewConstraints?.top?.isActive = false
                 self.containerViewConstraints?.bottom?.isActive = true
             }
-            self.currentHintContainer?.superview?.layoutIfNeeded()
+            self.currentToastContainer?.superview?.layoutIfNeeded()
         }, completion: { _ in
             if hidden {
-                self.removeHint()
+                self.removeToast()
                 completion?()
             } else {
                 self.scheduleDismiss(config: config)
@@ -132,8 +132,8 @@ final public class WMFHintPresenter {
         })
     }
 
-    private func addHint(to presenter: UIViewController, config: WMFHintConfig) {
-        guard isHintHidden else { return }
+    private func addToast(to presenter: UIViewController, config: WMFReadingListToastConfig) {
+        guard isToastHidden else { return }
 
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -161,17 +161,17 @@ final public class WMFHintPresenter {
 
         containerViewConstraints = (top: topConstraint, bottom: bottomConstraint)
 
-        let model = WMFHintModel(config: config)
+        let model = WMFReadingListToastModel(config: config)
         currentModel = model
 
-        let hintView = WMFHintView(model: model, dismiss: { [weak self] in
+        let toastView = WMFReadingListToastView(model: model, dismiss: { [weak self] in
             guard let self else { return }
             Task { @MainActor in
-                self.setHintHidden(true, config: nil)
+                self.setToastHidden(true, config: nil)
             }
         })
 
-        let hostingController = UIHostingController(rootView: hintView)
+        let hostingController = UIHostingController(rootView: toastView)
         hostingController.view.backgroundColor = .clear
         hostingController.view.insetsLayoutMarginsFromSafeArea = false
         hostingController.view.layoutMargins = .zero
@@ -244,13 +244,13 @@ final public class WMFHintPresenter {
         containerView.setContentHuggingPriority(.required, for: .vertical)
         containerView.setContentCompressionResistancePriority(.required, for: .vertical)
 
-        currentHintContainer = containerView
+        currentToastContainer = containerView
         currentHostingController = hostingController
 
         presenter.view.layoutIfNeeded()
     }
 
-    private func removeHint() {
+    private func removeToast() {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
 
@@ -258,15 +258,15 @@ final public class WMFHintPresenter {
         currentHostingController?.view.removeFromSuperview()
         currentHostingController?.removeFromParent()
 
-        currentHintContainer?.removeFromSuperview()
+        currentToastContainer?.removeFromSuperview()
 
         currentHostingController = nil
-        currentHintContainer = nil
+        currentToastContainer = nil
         containerViewConstraints = nil
         currentModel = nil
     }
 
-    private func scheduleDismiss(config: WMFHintConfig?) {
+    private func scheduleDismiss(config: WMFReadingListToastConfig?) {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
 
@@ -275,7 +275,7 @@ final public class WMFHintPresenter {
         let workItem = DispatchWorkItem { [weak self] in
             guard let self else { return }
             Task { @MainActor in
-                self.setHintHidden(true, config: nil)
+                self.setToastHidden(true, config: nil)
             }
         }
         dismissWorkItem = workItem

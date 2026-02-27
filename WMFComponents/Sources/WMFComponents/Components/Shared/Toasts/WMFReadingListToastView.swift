@@ -1,13 +1,13 @@
 import SwiftUI
 import UIKit
 
-public struct WMFHintView: View {
+public struct WMFReadingListToastView: View {
     @ObservedObject private var appEnvironment = WMFAppEnvironment.current
 
-    @ObservedObject public var model: WMFHintModel
+    @ObservedObject public var model: WMFReadingListToastModel
     let dismiss: () -> Void
 
-    public init(model: WMFHintModel, dismiss: @escaping () -> Void) {
+    public init(model: WMFReadingListToastModel, dismiss: @escaping () -> Void) {
         self.model = model
         self.dismiss = dismiss
     }
@@ -51,7 +51,7 @@ public struct WMFHintView: View {
         .padding(.vertical, 18)
         .contentShape(Rectangle())
         .onTapGesture { config.tapAction?() }
-        .modifier(HintGlassModifier(theme: theme, shape: shape))
+        .modifier(ToastGlassModifier(theme: theme, shape: shape))
 
     }
     @ViewBuilder
@@ -75,7 +75,7 @@ public struct WMFHintView: View {
     }
 }
 
-private struct HintGlassModifier: ViewModifier {
+private struct ToastGlassModifier: ViewModifier {
     let theme: WMFTheme
     let shape: RoundedRectangle
 

@@ -9,7 +9,7 @@ final class ReadingListHintPresenter: NSObject {
     // MARK: - Properties
 
     private let dataStore: MWKDataStore
-    private var hintPresenter: WMFHintPresenter?
+    private var hintPresenter: WMFReadingListToastPresenter?
     private weak var presenter: UIViewController?
 
     private var currentArticle: WMFArticle?
@@ -25,9 +25,9 @@ final class ReadingListHintPresenter: NSObject {
     }
 
     @MainActor
-    private func getHintPresenter() -> WMFHintPresenter {
+    private func getHintPresenter() -> WMFReadingListToastPresenter {
         if hintPresenter == nil {
-            hintPresenter = WMFHintPresenter()
+            hintPresenter = WMFReadingListToastPresenter()
         }
         return hintPresenter!
     }
@@ -36,13 +36,13 @@ final class ReadingListHintPresenter: NSObject {
 
     var isHintHidden: Bool {
         guard let hintPresenter else { return true }
-        return MainActor.assumeIsolated { hintPresenter.isHintHidden }
+        return MainActor.assumeIsolated { hintPresenter.isToastHidden }
     }
 
     func dismissHintDueToUserInteraction() {
         guard let hintPresenter else { return }
         Task { @MainActor in
-            hintPresenter.dismissHintDueToUserInteraction()
+            hintPresenter.dismissToastDueToUserInteraction()
         }
     }
 
@@ -59,7 +59,7 @@ final class ReadingListHintPresenter: NSObject {
         if didSaveOtherArticle {
             Task { @MainActor [weak self] in
                 guard let self else { return }
-                self.getHintPresenter().resetHint()
+                self.getHintPresenter().resetToast()
                 self.currentArticle = article
                 self.showDefaultHint(article: article)
             }
@@ -73,7 +73,7 @@ final class ReadingListHintPresenter: NSObject {
         } else {
             guard let hintPresenter else { return }
             Task { @MainActor in
-                hintPresenter.dismissHint()
+                hintPresenter.dismissToast()
             }
         }
     }
@@ -87,7 +87,7 @@ final class ReadingListHintPresenter: NSObject {
         let icon = WMFSFSymbolIcon.for(symbol: .plusCircle)
         let articleURL = article.url
 
-        let config = WMFHintConfig(
+        let config = WMFReadingListToastConfig(
             title: title,
             icon: icon,
             duration: 13,
@@ -120,7 +120,7 @@ final class ReadingListHintPresenter: NSObject {
 
         let readingListObjectID = readingList.objectID
 
-        let config = WMFHintConfig(
+        let config = WMFReadingListToastConfig(
             title: title,
             icon: image,
             duration: 13,
@@ -212,7 +212,7 @@ final class ReadingListHintPresenter: NSObject {
         presenter.present(nav, animated: true) { [weak self] in
             guard let self, let hintPresenter = self.hintPresenter else { return }
             Task { @MainActor in
-                hintPresenter.dismissHint()
+                hintPresenter.dismissToast()
             }
         }
     }
