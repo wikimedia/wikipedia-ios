@@ -124,7 +124,7 @@ final class ReadingListHintPresenter: NSObject {
             title: title,
             icon: image,
             duration: 13,
-            buttonTitle: WMFLocalizedString("reading-list-alert-see-list", value: "see reading list", comment: "Title for button on alert to see the reading list after adding an article to it."),
+            buttonTitle: WMFLocalizedString("reading-list-alert-see-list", value: "See reading list", comment: "Title for button on alert to see the reading list after adding an article to it."),
             tapAction: { @Sendable [weak self, readingListObjectID] in
                 Task { @MainActor in
                     guard let self,
@@ -243,10 +243,9 @@ extension ReadingListHintPresenter: AddArticlesToReadingListDelegate {
         didAddArticles articles: [WMFArticle],
         to readingList: ReadingList
     ) {
-        // Step 1: immediately update hint to confirmation state (no image yet)
         showConfirmationHintInPlace(readingList: readingList, image: nil)
 
-        // Step 2: try loading thumbnail, then update config again with image
+        // try loading thumbnail, update if successful
         let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
         guard let imageURL else { return }
 

@@ -368,7 +368,6 @@
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
-		28C6AC4D5A1BEBCE4CA035BE /* WMFHintPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F89AE490CD6E4EED837921 /* WMFHintPresenter.swift */; };
 		370107AA2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
 		370107AB2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
 		370107AC2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
@@ -3158,7 +3157,6 @@
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
-		25F89AE490CD6E4EED837921 /* WMFHintPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WMFHintPresenter.swift; sourceTree = "<group>"; };
 		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabViewController.swift; sourceTree = "<group>"; };
 		3712FD692EDF76850096DF71 /* ActivityTabFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabFunnel.swift; sourceTree = "<group>"; };
@@ -6713,7 +6711,6 @@
 		834F5EC62F4E445400AE6699 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
-				25F89AE490CD6E4EED837921 /* WMFHintPresenter.swift */,
 				60A952CD4C29EF4BB953B27E /* ReadingListHintPresenter.swift */,
 				0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */,
 			);
@@ -10392,7 +10389,6 @@
 				836BF56E2869F9C200B98321 /* TalkPageViewController.swift in Sources */,
 				83927D811F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				6734F052227B634900BDDB94 /* ActionButton.swift in Sources */,
-				28C6AC4D5A1BEBCE4CA035BE /* WMFHintPresenter.swift in Sources */,
 				052784D172FFCB59AEB16E56 /* ReadingListHintPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

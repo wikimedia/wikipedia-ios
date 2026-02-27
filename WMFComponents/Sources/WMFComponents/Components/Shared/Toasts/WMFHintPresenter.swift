@@ -1,12 +1,10 @@
 import UIKit
 import SwiftUI
-import WMFComponents
 import Combine
 
-/// WMFHintPresenter manages hint display (bottom-anchored toasts with state transitions)
 /// Unlike toasts which present globally, hints are anchored to specific view controllers
 @MainActor
-final class WMFHintPresenter {
+final public class WMFHintPresenter {
 
     // MARK: - Properties
 
@@ -24,18 +22,29 @@ final class WMFHintPresenter {
     private var additionalBottomSpacing: CGFloat = 0
     private var extendsUnderSafeArea: Bool = false
 
-    var theme: WMFTheme {
+    public init(presenter: UIViewController? = nil, currentHintContainer: UIView? = nil, currentHostingController: UIHostingController<WMFHintView>? = nil, currentModel: WMFHintModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, cancellables: Set<AnyCancellable> = Set<AnyCancellable>(), subview: UIView? = nil) {
+        self.presenter = presenter
+        self.currentHintContainer = currentHintContainer
+        self.currentHostingController = currentHostingController
+        self.currentModel = currentModel
+        self.containerViewConstraints = containerViewConstraints
+        self.dismissWorkItem = dismissWorkItem
+        self.cancellables = cancellables
+        self.subview = subview
+    }
+
+    public var theme: WMFTheme {
         WMFAppEnvironment.current.theme
     }
 
     // MARK: - Public API
 
-    var isHintHidden: Bool {
+    public var isHintHidden: Bool {
         currentHintContainer?.superview == nil
     }
 
     /// Show a hint anchored to a specific view controller
-    func show(
+    public func show(
         config: WMFHintConfig,
         in presenter: UIViewController,
         subview: UIView? = nil,
@@ -48,7 +57,7 @@ final class WMFHintPresenter {
         self.additionalBottomSpacing = additionalBottomSpacing
         self.extendsUnderSafeArea = extendsUnderSafeArea
 
-        // If a hint is already visible, replace it in-place (no hide/show).
+        // If a hint is already visible, replace it in-place
         if !isHintHidden {
             updateCurrentHint(with: config)
             return
@@ -57,22 +66,22 @@ final class WMFHintPresenter {
         setHintHidden(false, config: config)
     }
 
-    func dismissHint() {
+    public func dismissHint() {
         guard !isHintHidden else { return }
         setHintHidden(true, config: nil)
     }
 
-    func resetHint() {
+    public func resetHint() {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
     }
 
-    func dismissHintDueToUserInteraction() {
+    public func dismissHintDueToUserInteraction() {
         guard !isHintHidden else { return }
         dismissHint()
     }
 
-    func updateCurrentHint(with config: WMFHintConfig) {
+    public func updateCurrentHint(with config: WMFHintConfig) {
         currentModel?.config = config
         scheduleDismiss(config: config)
     }
@@ -215,12 +224,6 @@ final class WMFHintPresenter {
         currentHostingController = hostingController
 
         containerView.superview?.layoutIfNeeded()
-
-        // Update border layer frame after layout
-        // TODO: Fix border
-        DispatchQueue.main.async {
-            borderLayer.frame = toastContainer.bounds
-        }
     }
 
     private func removeHint() {
