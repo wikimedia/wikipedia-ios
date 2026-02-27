@@ -5,7 +5,7 @@ import WMFComponents
 import WMFData
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding, SearchResultsHosting {
     enum ViewState {
         case initial
         case loading
@@ -173,6 +173,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var isMainPage: Bool {
         articleURL.wmf_title == "Main Page"
     }
+    
+    var disableSearchCancelLogging: Bool = false
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
@@ -536,7 +538,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if !isMovingFromParent {
+            disableSearchCancelLogging = true
+        }
+        
         navigationItem.searchController = nil
+        disableSearchCancelLogging = false
+        
         navigationController?.setToolbarHidden(true, animated: true)
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
@@ -1627,6 +1636,5 @@ extension ArticleViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
-        SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }

@@ -6,7 +6,7 @@ import SwiftUI
 import Combine
 
 /// Root view controller for the Search tab
-class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
+class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, HintPresenting, ShareableArticlesProvider, SearchResultsHosting {
 
     // MARK: - MEP / Hint
 
@@ -26,6 +26,8 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
     private var isSearchActive = false
     private var cancellables = Set<AnyCancellable>()
+    
+    var disableSearchCancelLogging: Bool = false
 
     // MARK: - Coordinators
 
@@ -268,11 +270,21 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
         super.viewWillAppear(animated)
         configureNavigationBar()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !isMovingFromParent {
+            disableSearchCancelLogging = true
+        }
+        
+        navigationItem.searchController = nil
+        disableSearchCancelLogging = false
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-        SearchFunnel.shared.logSearchStart(source: SearchResultsViewController.EventLoggingSource.searchTab.stringValue)
         ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
     }
     
@@ -448,7 +460,6 @@ extension SearchTabViewController: UISearchControllerDelegate {
         navigationController?.hidesBarsOnSwipe = true
         historyViewController.view.isHidden = false
         searchResultsVC.resetSearchResults()
-        SearchFunnel.shared.logSearchCancel(source: SearchResultsViewController.EventLoggingSource.searchTab.stringValue)
         Task { @MainActor in refreshDeleteButtonState() }
         configureNavigationBar()
     }

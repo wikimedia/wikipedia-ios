@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring, SearchResultsHosting {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -61,6 +61,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private var presentingSearchResults: Bool = false
+    var disableSearchCancelLogging: Bool = false
 
     // MARK: - Lifecycle
 
@@ -137,6 +138,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             self?.updateTabBarSnapshotImage()
             self?.calculateTopSafeAreaOverlayHeight()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !isMovingFromParent {
+            disableSearchCancelLogging = true
+        }
+        
+        navigationItem.searchController = nil
+        disableSearchCancelLogging = false
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -1819,7 +1831,6 @@ extension ExploreViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
-        SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
 

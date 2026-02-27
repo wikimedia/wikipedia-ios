@@ -5,7 +5,7 @@ import WMFData
 /// A lightweight view controller that wraps `SearchResultsViewController` as its
 /// `navigationItem.searchController.searchResultsController` and immediately activates the search bar
 /// upon appearance. Intended to be pushed onto an existing navigation stack.
-class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConfiguring {
+class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConfiguring, SearchResultsHosting {
 
     // MARK: - Dependencies
 
@@ -24,6 +24,8 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
 
     /// Override the default article-push behavior. If nil, uses `LinkCoordinator`.
     var articleTappedAction: ((URL) -> Void)?
+    
+    var disableSearchCancelLogging: Bool = false
 
     // MARK: - Child
 
@@ -95,6 +97,17 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
         
         self.navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !isMovingFromParent {
+            disableSearchCancelLogging = true
+        }
+        
+        navigationItem.searchController = nil
+        disableSearchCancelLogging = false
+    }
 
     // MARK: - Navigation Bar
 
@@ -142,6 +155,5 @@ extension SearchMinimalViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchResultsVC.resetSearchResults()
-        SearchFunnel.shared.logSearchCancel(source: SearchResultsViewController.EventLoggingSource.unknown.stringValue)
     }
 }

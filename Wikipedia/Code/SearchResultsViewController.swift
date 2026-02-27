@@ -4,6 +4,12 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 
+// Protocol that any parent view controller that sets SearchResultsViewController as its navigationItem.searchResultsController should conform to. It ensures search cancel logging happens properly.
+// Conformers to this class should properly set this flag in their viewWillDisappear methods.
+protocol SearchResultsHosting {
+    var disableSearchCancelLogging: Bool { get }
+}
+
 /// This class is designed to be used exclusively as a `UISearchController.searchResultsController`.
 class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, HintPresenting, ShareableArticlesProvider {
 
@@ -63,7 +69,10 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private lazy var searchBarIPadCustomizer: SearchBarIPadCustomizer = {
         let customizer = SearchBarIPadCustomizer(theme: theme)
         customizer.onClearTapped = { [weak self] _ in self?.resetSearchResults() }
-        customizer.onWillDismiss = { [weak self] in self?.resetSearchResults() }
+        customizer.onWillDismiss = { [weak self] in
+            guard let self else { return }
+            resetSearchResults()
+        }
         return customizer
     }()
 
@@ -128,6 +137,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         super.viewWillAppear(animated)
         updateLanguageBarVisibility()
         reloadRecentSearches()
+        SearchFunnel.shared.logSearchStart(source: source.stringValue)
     }
 
     override func viewDidLayoutSubviews() {
@@ -539,6 +549,11 @@ extension SearchResultsViewController: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
         searchBarIPadCustomizer.willDismissSearchController(searchController)
         parentSearchControllerDelegate?.willDismissSearchController?(searchController)
+        if let searchHoster = self.presentingViewController as? SearchResultsHosting {
+            if !searchHoster.disableSearchCancelLogging { // Avoid cancel logging if search dismissal is due to navigating away
+                SearchFunnel.shared.logSearchCancel(source: source.stringValue)
+            }
+        }
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {
