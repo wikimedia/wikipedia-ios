@@ -6057,7 +6057,6 @@
 			isa = PBXGroup;
 			children = (
 				67033E132A61B24800896852 /* WatchlistController.swift */,
-				7AF6F74C2239383100949393 /* Welcome */,
 			);
 			name = Watchlist;
 			sourceTree = "<group>";
@@ -7421,6 +7420,7 @@
 				0E26B0541C0E28E60004D687 /* Welcome */,
 				00D1F58D28885B8200127169 /* Talk Pages */,
 				67C797C62BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift */,
+				7AF6F74C2239383100949393 /* Welcome */,
 			);
 			name = Features;
 			sourceTree = "<group>";
