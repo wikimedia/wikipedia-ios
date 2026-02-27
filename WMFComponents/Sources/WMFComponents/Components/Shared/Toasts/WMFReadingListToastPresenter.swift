@@ -149,7 +149,6 @@ final public class WMFReadingListToastPresenter {
             presenter.view.addSubview(containerView)
         }
 
-        // These two constraints are toggled in setHintHidden(_:...)
         let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -additionalBottomSpacing)
         let topConstraint = containerView.topAnchor.constraint(equalTo: bottomAnchor)
 
@@ -176,13 +175,11 @@ final public class WMFReadingListToastPresenter {
         hostingController.view.insetsLayoutMarginsFromSafeArea = false
         hostingController.view.layoutMargins = .zero
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-
-        if #available(iOS 16.0, *) {
-            hostingController.sizingOptions = [.intrinsicContentSize]
-        }
-
         hostingController.view.setContentHuggingPriority(.required, for: .vertical)
         hostingController.view.setContentCompressionResistancePriority(.required, for: .vertical)
+        hostingController.sizingOptions = [.intrinsicContentSize]
+
+        let cornerRadius: CGFloat = 24
 
         let shadowContainer = UIView()
         shadowContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -190,12 +187,12 @@ final public class WMFReadingListToastPresenter {
         shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
         shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
         shadowContainer.layer.shadowRadius = 16
-        shadowContainer.layer.shadowOpacity = 0.15
+        shadowContainer.layer.shadowOpacity = 1
 
         let clippedContainer = UIView()
         clippedContainer.translatesAutoresizingMaskIntoConstraints = false
         clippedContainer.backgroundColor = .clear
-        clippedContainer.layer.cornerRadius = 20
+        clippedContainer.layer.cornerRadius = cornerRadius
         clippedContainer.clipsToBounds = true
 
         shadowContainer.addSubview(clippedContainer)
