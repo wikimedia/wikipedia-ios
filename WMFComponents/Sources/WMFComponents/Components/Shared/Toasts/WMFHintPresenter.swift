@@ -99,7 +99,7 @@ final public class WMFHintPresenter {
             dismissWorkItem = nil
         }
 
-        if !hidden, presenter.presentedViewController != nil {
+        if !hidden, isHintHidden, presenter.presentedViewController != nil {
             completion?()
             return
         }
@@ -267,9 +267,11 @@ final public class WMFHintPresenter {
     }
 
     private func scheduleDismiss(config: WMFHintConfig?) {
+        dismissWorkItem?.cancel()
+        dismissWorkItem = nil
+
         guard let config, let duration = config.duration else { return }
 
-        dismissWorkItem?.cancel()
         let workItem = DispatchWorkItem { [weak self] in
             guard let self else { return }
             Task { @MainActor in
