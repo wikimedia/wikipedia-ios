@@ -87,6 +87,7 @@ public enum WMFSFSymbolIcon {
     case closeCircleFill
     case ellipsis
     case pencil
+    case plusCircle
     case plusCircleFill
     case undo
     case redo
@@ -234,6 +235,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "ellipsis", withConfiguration: configuration)
         case .pencil:
             image = UIImage(systemName: "pencil", withConfiguration: configuration)
+        case .plusCircle:
+            image = UIImage(systemName: "plus.circle", withConfiguration: configuration)
         case .plusCircleFill:
             image = UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)
         case .undo:

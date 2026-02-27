@@ -1045,6 +1045,7 @@
 "reading-list-add-saved-button-title" = "Yes, add them to my reading lists";
 "reading-list-add-saved-subtitle" = "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
 "reading-list-add-saved-title" = "Saved articles found";
+"reading-list-alert-see-list" = "see reading list";
 "reading-list-api-error-entry-limit" = "This entry is not synced because you have reached the limit for the number of entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";

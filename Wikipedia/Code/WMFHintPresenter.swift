@@ -28,30 +28,6 @@ final class WMFHintPresenter {
         WMFAppEnvironment.current.theme
     }
 
-    // MARK: - Lifecycle
-
-    init() {
-        subscribeToAppEnvironmentChanges()
-    }
-
-    // MARK: - AppEnvironment Subscription
-
-    private func subscribeToAppEnvironmentChanges() {
-        WMFAppEnvironment.publisher
-            .sink(receiveValue: { [weak self] _ in
-                guard let self else { return }
-                Task { @MainActor in
-                    self.appEnvironmentDidChange()
-                }
-            })
-            .store(in: &cancellables)
-    }
-
-    private func appEnvironmentDidChange() {
-        currentHintContainer?.backgroundColor = theme.paperBackground
-        currentHintContainer?.layer.shadowColor = theme.toastShadow.cgColor
-    }
-
     // MARK: - Public API
 
     var isHintHidden: Bool {
@@ -193,7 +169,7 @@ final class WMFHintPresenter {
         toastContainer.layer.shadowColor = theme.toastShadow.cgColor
         toastContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
         toastContainer.layer.shadowRadius = 16
-        toastContainer.layer.shadowOpacity = 0.15
+        toastContainer.layer.shadowOpacity = 1
         toastContainer.translatesAutoresizingMaskIntoConstraints = false
 
         let borderLayer = CALayer()

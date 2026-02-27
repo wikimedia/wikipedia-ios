@@ -84,7 +84,7 @@ final class ReadingListHintPresenter: NSObject {
         guard let presenter else { return }
 
         let title = hintButtonTitle(for: article)
-        let icon = UIImage(named: "add-to-list")
+        let icon = WMFSFSymbolIcon.for(symbol: .plusCircle)
         let articleURL = article.url
 
         let config = WMFHintConfig(
@@ -124,7 +124,7 @@ final class ReadingListHintPresenter: NSObject {
             title: title,
             icon: image,
             duration: 13,
-            buttonTitle: "→",
+            buttonTitle: WMFLocalizedString("reading-list-alert-see-list", value: "see reading list", comment: "Title for button on alert to see the reading list after adding an article to it."),
             tapAction: { @Sendable [weak self, readingListObjectID] in
                 Task { @MainActor in
                     guard let self,

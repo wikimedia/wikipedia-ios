@@ -2,7 +2,6 @@ import SwiftUI
 
 public struct WMFHintConfig: Sendable {
     public let title: String
-    public let subtitle: String?
 
     // UIImage is not Sendable. Keep it isolated from strict Sendable checking.
     @preconcurrency public let icon: UIImage?
@@ -16,7 +15,6 @@ public struct WMFHintConfig: Sendable {
 
     public init(
         title: String,
-        subtitle: String? = nil,
         icon: UIImage? = nil,
         duration: TimeInterval? = 13,
         buttonTitle: String? = nil,
@@ -25,7 +23,6 @@ public struct WMFHintConfig: Sendable {
         buttonAction: (@Sendable () -> Void)? = nil
     ) {
         self.title = title
-        self.subtitle = subtitle
         self.icon = icon
         self.duration = duration
         self.buttonTitle = buttonTitle
