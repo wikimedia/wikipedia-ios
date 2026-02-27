@@ -47,7 +47,7 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
 
     /// Call from UIViewController when the status bar height might change (like upon rotation)
     func calculateTopSafeAreaOverlayHeight() {
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         topSafeAreaOverlayHeightConstraint?.constant = statusBarHeight
     }
 
@@ -74,10 +74,18 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
 
     private func swapLogoToCompact() {
         navigationItem.leftBarButtonItem?.image = UIImage(named: "W")
+        if #available(iOS 26.0, *) {
+            navigationItem.leftBarButtonItem?.hidesSharedBackground = false
+            navigationItem.leftBarButtonItem?.sharesBackground = true
+        }
     }
 
     private func swapLogoToFull() {
         navigationItem.leftBarButtonItem?.image = UIImage(named: "wikipedia")
+        if #available(iOS 26.0, *) {
+            navigationItem.leftBarButtonItem?.hidesSharedBackground = true
+            navigationItem.leftBarButtonItem?.sharesBackground = false
+        }
     }
 }
 

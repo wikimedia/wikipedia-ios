@@ -212,9 +212,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // Set up logo as left bar button item
         
         let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "wikipedia"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
-        logoBarButtonItem.accessibilityLabel = titleButton.accessibilityLabel
-        logoBarButtonItem.accessibilityHint = titleButton.accessibilityHint
-        logoBarButtonItem.accessibilityIdentifier = titleButton.accessibilityIdentifier
+        if #available(iOS 26.0, *) {
+            logoBarButtonItem.hidesSharedBackground = true
+            logoBarButtonItem.sharesBackground = false
+        }
+        logoBarButtonItem.accessibilityLabel = WMFLocalizedString("home-title-accessibility-label", value: "Wikipedia, scroll to top of Explore", comment: "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
         navigationItem.leftBarButtonItem = logoBarButtonItem
     }
     
@@ -236,39 +238,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
         scrollToTop()
     }
-    
-    @objc public var titleButton: UIView {
-        return titleView
-    }
-    
-    lazy var longTitleButton: UIButton = {
-        let longTitleButton = UIButton(type: .custom)
-        var deprecatedLongTitleButton = longTitleButton as DeprecatedButton
-        deprecatedLongTitleButton.deprecatedAdjustsImageWhenHighlighted = true
-        longTitleButton.setImage(UIImage(named: "wikipedia"), for: .normal)
-        longTitleButton.sizeToFit()
-        longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
-        longTitleButton.isAccessibilityElement = false
-        longTitleButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        return longTitleButton
-    }()
-    
-    lazy var titleView: UIView = {
-        let titleView = UIView()
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.addSubview(longTitleButton)
-        titleView.isAccessibilityElement = false
-
-        NSLayoutConstraint.activate([
-            longTitleButton.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-            longTitleButton.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-            longTitleButton.topAnchor.constraint(equalTo: titleView.topAnchor),
-            longTitleButton.bottomAnchor.constraint(equalTo: titleView.bottomAnchor)
-        ])
-        
-        return titleView
-    }()
 
     @objc func userDidTapProfile() {
         

@@ -1735,10 +1735,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
-    if ([viewController isKindOfClass:[ExploreViewController class]]) {
-        ExploreViewController *vc = (ExploreViewController *)viewController;
-        vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-title-accessibility-label", nil, nil, @"Wikipedia, scroll to top of Explore", @"Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
-    } else if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
+    if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
         WMFArticleViewController *vc = (WMFArticleViewController *)viewController;
         if (self.selectedIndex == WMFAppTabTypeMain) {
             vc.navigationItem.titleView.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-explore-accessibility-label", nil, nil, @"Wikipedia, return to Explore", @"Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
