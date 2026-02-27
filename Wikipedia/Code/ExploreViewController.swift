@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring, SearchResultsHosting {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -61,6 +61,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private var presentingSearchResults: Bool = false
+    var disableSearchCancelLogging: Bool = false
 
     // MARK: - Lifecycle
 
@@ -138,6 +139,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             self?.calculateTopSafeAreaOverlayHeight()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !isMovingFromParent {
+            disableSearchCancelLogging = true
+        }
+        
+        navigationItem.searchController = nil
+        disableSearchCancelLogging = false
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -181,7 +193,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBar.text = searchTerm
             searchBar.becomeFirstResponder()
         }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -189,7 +201,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 dataStore: dataStore,
                 theme: theme,
                 articleSource: .search,
-                tabConfig: .appendArticleAndAssignCurrentTab
+                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
             )
             let success = coordinator.start()
             if !success {
@@ -1819,7 +1831,6 @@ extension ExploreViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
-        SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
 

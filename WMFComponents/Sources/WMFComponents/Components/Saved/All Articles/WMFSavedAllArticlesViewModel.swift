@@ -72,8 +72,9 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     
     // MARK: - Closures
     
-    public var didTapArticle: ((WMFSavedArticle) -> Void)?
-    public var didTapShare: ((WMFSavedArticle, CGRect) -> Void)?
+    public typealias FromLongPress = Bool
+    public var didTapArticle: ((WMFSavedArticle, FromLongPress) -> Void)?
+    public var didTapShare: ((WMFSavedArticle, CGRect, FromLongPress) -> Void)?
     public var didTapAddToList: (([WMFSavedArticle]) -> Void)?
     public var didPullToRefresh: (() async -> Void)?
     public var didTapOpenInNewTab: ((WMFSavedArticle) -> Void)?
@@ -160,9 +161,9 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
         rowViewModelCache[id]?.alertType = alertType
     }
     
-    public func deleteArticles(_ deletedArticles: [WMFSavedArticle]) {
+    public func deleteArticles(_ deletedArticles: [WMFSavedArticle], fromLongPress: Bool) {
         let deletedIDs = deletedArticles.map { $0.id }
-        dataController.deleteSavedArticles(articles: deletedArticles, completion: { [weak self] confirmed in
+        dataController.deleteSavedArticles(articles: deletedArticles, fromLongPress: fromLongPress, completion: { [weak self] confirmed in
             guard let self else { return }
             if confirmed {
                 articles.removeAll(where: { deletedIDs.contains($0.id) })
@@ -173,7 +174,7 @@ public final class WMFSavedAllArticlesViewModel: ObservableObject {
     }
     
     public func deleteSelectedArticles() {
-        deleteArticles(selectedArticles)
+        deleteArticles(selectedArticles, fromLongPress: false)
         toggleEditing()
     }
     
