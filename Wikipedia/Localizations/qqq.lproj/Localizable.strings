@@ -1158,7 +1158,6 @@
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-clear-title" = "Text of the button shown to clear recent search terms";
 "search-field-placeholder-text" = "Search field placeholder text";
-"search-reading-list-placeholder-text" = "Placeholder text for the search bar in reading list detail view.";
 "search-recent-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "search-recent-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
 "search-recent-clear-delete-all" = "Button text for confirming delete all action {{Identical|Delete all}}";

@@ -154,7 +154,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
-    private var searchTask: Task<Void, Never>?
 
     internal var articleViewSource: ArticleSource
 
@@ -196,8 +195,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        hidesBottomBarWhenPushed = true
-
+        
+        if #available(iOS 26, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                hidesBottomBarWhenPushed = false
+            } else {
+                hidesBottomBarWhenPushed = true
+            }
+        } else {
+            hidesBottomBarWhenPushed = true
+        }
     }
 
     deinit {
@@ -205,7 +212,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         messagingController.removeScriptMessageHandler()
         articleLoadWaitGroup = nil
         NotificationCenter.default.removeObserver(self)
-        searchTask?.cancel()
     }
 
     // MARK: WebView
@@ -458,10 +464,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         toolbarController?.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
-
-        if !(UIDevice.current.userInterfaceIdiom == .pad) || !(traitCollection.horizontalSizeClass == .regular) {
-            configureNavigationBar()
-        }
+        configureNavigationBar()
     }
 
     var isFirstAppearance = true
@@ -488,10 +491,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             } else {
                 ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: project)
             }
-        }
-
-        if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-            configureNavigationBar()
         }
     }
 
@@ -534,9 +533,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     @objc private func wButtonTapped(_ sender: UIButton) {
         navigationController?.popToRootViewController(animated: true)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationItem.searchController = nil
         navigationController?.setToolbarHidden(true, animated: true)
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
@@ -779,21 +779,31 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
-
-        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
-        searchViewController.dataStore = dataStore
-        searchViewController.theme = theme
-        searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
-
-        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
+        
+        let searchResultsVC = SearchResultsViewController(source: .article, dataStore: dataStore)
+        searchResultsVC.apply(theme: theme)
+        searchResultsVC.parentSearchControllerDelegate = self
+        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
+        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+            guard let self, let navVC = navigationController else { return }
+            let coordinator = LinkCoordinator(
+                navigationController: navVC,
+                url: articleURL,
+                dataStore: dataStore,
+                theme: theme,
+                articleSource: .search,
+                tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+            )
+            let success = coordinator.start()
+            if !success {
+                navigate(to: articleURL)
+            }
+        }
 
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchResultsVC, searchControllerDelegate: searchResultsVC, searchResultsUpdater: searchResultsVC, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
@@ -1003,10 +1013,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         themeNavigationBarCustomCenteredTitleView()
         themeTopSafeAreaOverlay()
-
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
-            searchVC.theme = theme
-            searchVC.apply(theme: theme)
+        
+        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
+            searchResultsVC.theme = theme
+            searchResultsVC.apply(theme: theme)
         }
         
         if let toolbar = navigationController?.toolbar {
@@ -1607,47 +1617,13 @@ extension ArticleViewController: YearInReviewBadgeDelegate {
     }
 }
 
-extension ArticleViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-
-        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
-            return
-        }
-        
-        guard let text = searchController.searchBar.text,
-              !text.isEmpty else {
-            searchTask?.cancel()
-            searchTask = nil
-            searchViewController.searchTerm = nil
-            searchViewController.resetSearchResults()
-            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-            return
-        }
-        
-        if searchViewController.searchTerm == text {
-            return
-        }
-        
-        searchViewController.searchTerm = text
-        searchViewController.updateRecentlySearchedVisibility(searchText: text)
-        
-        searchTask?.cancel()
-        searchTask = Task { @MainActor [weak self] in
-            guard self != nil else { return }
-            try? await Task.sleep(for: .milliseconds(100))
-            guard !Task.isCancelled else { return }
-            searchViewController.search()
-        }
-    }
-}
-
 extension ArticleViewController: UISearchControllerDelegate {
 
     func willPresentSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = false
         searchBarIsAnimating = true
     }
-
+    
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false

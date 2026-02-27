@@ -61,7 +61,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private var presentingSearchResults: Bool = false
-    private var searchTask: Task<Void, Never>?
 
     // MARK: - Lifecycle
 
@@ -93,7 +92,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     deinit {
         NotificationCenter.default.removeObserver(self)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        searchTask?.cancel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -175,22 +173,34 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
-        let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
-        searchViewController.dataStore = dataStore
-        
-        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
-            self?.navigationItem.searchController?.searchBar.text = searchTerm
-            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        let searchResultsVC = SearchResultsViewController(source: .topOfFeed, dataStore: dataStore)
+        searchResultsVC.apply(theme: theme)
+        searchResultsVC.parentSearchControllerDelegate = self
+        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
+            guard let searchBar = self?.navigationItem.searchController?.searchBar else { return }
+            searchBar.text = searchTerm
+            searchBar.becomeFirstResponder()
         }
-        
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-        
-        searchViewController.theme = theme
-        
+        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+            guard let self, let navVC = navigationController else { return }
+            let coordinator = LinkCoordinator(
+                navigationController: navVC,
+                url: articleURL,
+                dataStore: dataStore,
+                theme: theme,
+                articleSource: .search,
+                tabConfig: .appendArticleAndAssignCurrentTab
+            )
+            let success = coordinator.start()
+            if !success {
+                navigate(to: articleURL)
+            }
+        }
+
         let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchViewController,
-            searchControllerDelegate: self,
-            searchResultsUpdater: self,
+            searchResultsController: searchResultsVC,
+            searchControllerDelegate: searchResultsVC,
+            searchResultsUpdater: searchResultsVC,
             searchBarDelegate: nil,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false, scopeButtonTitles: nil)
@@ -694,9 +704,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         themeNavigationBarLeadingTitleView()
         themeNavigationBarCustomCenteredTitleView()
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
-            searchVC.theme = theme
-            searchVC.apply(theme: theme)
+        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
+            searchResultsVC.theme = theme
+            searchResultsVC.apply(theme: theme)
         }
         
         themeTopSafeAreaOverlay()
@@ -1135,6 +1145,7 @@ extension ExploreViewController {
             markSearchWidgetAnnouncementAsSeen()
         }
     }
+    
 }
 
 // MARK: - Analytics
@@ -1783,39 +1794,6 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
     
 }
 
-extension ExploreViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
-            return
-        }
-        
-        guard let text = searchController.searchBar.text,
-              !text.isEmpty else {
-            searchTask?.cancel()
-            searchTask = nil
-            searchViewController.searchTerm = nil
-            searchViewController.resetSearchResults()
-            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-            return
-        }
-        
-        if searchViewController.searchTerm == text {
-            return
-        }
-        
-        searchViewController.searchTerm = text
-        searchViewController.updateRecentlySearchedVisibility(searchText: text)
-        
-        searchTask?.cancel()
-        searchTask = Task { @MainActor [weak self] in
-            guard self != nil else { return }
-            try? await Task.sleep(for: .milliseconds(100))
-            guard !Task.isCancelled else { return }
-            searchViewController.search()
-        }
-    }
-}
-
 extension ExploreViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
@@ -1832,18 +1810,19 @@ extension ExploreViewController: YearInReviewBadgeDelegate {
 }
 
 extension ExploreViewController: UISearchControllerDelegate {
-    
+
     func willPresentSearchController(_ searchController: UISearchController) {
         presentingSearchResults = true
         navigationController?.hidesBarsOnSwipe = false
     }
-    
+
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
         SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
+
 
 // MARK: - Explore Survey
 

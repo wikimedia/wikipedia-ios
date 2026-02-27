@@ -63,7 +63,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
-@property (nonatomic, strong, readonly) SearchViewController *searchViewController;
+@property (nonatomic, strong, readonly) SearchTabViewController *searchTabViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
@@ -116,7 +116,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @implementation WMFAppViewController
 @synthesize exploreViewController = _exploreViewController;
-@synthesize searchViewController = _searchViewController;
+@synthesize searchTabViewController = _searchTabViewController;
 @synthesize savedViewController = _savedViewController;
 @synthesize activityTabViewController = _activityTabViewController;
 @synthesize placesViewController = _placesViewController;
@@ -323,7 +323,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
 
-    [self.searchViewController applyTheme:self.theme];
+    [self.searchTabViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
@@ -349,7 +349,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
     WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
     WMFComponentNavigationController *nav4 = [self rootNavigationControllerWithRootViewController:self.activityTabViewController];
-    WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
+    WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchTabViewController]];
 
     if (@available(iOS 18.0, *)) {
         // A magic fix for https://phabricator.wikimedia.org/T403896
@@ -373,7 +373,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
-        [[self searchViewController] makeSearchBarBecomeFirstResponder];
+        [[self searchTabViewController] makeSearchBarBecomeFirstResponder];
     } else if (self.selectedIndex != WMFAppTabTypeMain) {
         [self setSelectedIndex:WMFAppTabTypeMain];
     }
@@ -1186,7 +1186,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showSearchInCurrentNavigationController];
         } else {
             [self switchToSearchAnimated:NO];
-            [self.searchViewController makeSearchBarBecomeFirstResponder];
+            [self.searchTabViewController makeSearchBarBecomeFirstResponder];
         }
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleFromShortcutAnimated:NO];
@@ -1308,11 +1308,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
         case WMFUserActivityTypeSearch:
             [self switchToSearchAnimated:animated];
-            [self.searchViewController makeSearchBarBecomeFirstResponder];
+            [self.searchTabViewController makeSearchBarBecomeFirstResponder];
             break;
         case WMFUserActivityTypeSearchResults:
             [self dismissPresentedViewControllers];
-            [self.searchViewController searchAndMakeResultsVisibleForSearchTerm:[activity wmf_searchTerm] animated:animated];
+            [self.searchTabViewController searchAndMakeResultsVisibleForSearchTerm:[activity wmf_searchTerm] animated:animated];
             [self switchToSearchAnimated:animated];
             break;
         case WMFUserActivityTypeSettings:
@@ -1478,17 +1478,17 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     });
 }
 
-- (SearchViewController *)searchViewController {
-    if (!_searchViewController) {
-        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil isMainRootView:YES];
-        [_searchViewController applyTheme:self.theme];
-        _searchViewController.dataStore = self.dataStore;
-        _searchViewController.tabBarItem =
+- (SearchTabViewController *)searchTabViewController {
+    if (!_searchTabViewController) {
+        _searchTabViewController = [[SearchTabViewController alloc] init];
+        [_searchTabViewController applyTheme:self.theme];
+        _searchTabViewController.dataStore = self.dataStore;
+        _searchTabViewController.tabBarItem =
             [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch
                                                        tag:WMFAppTabTypeSearch];
-        _searchViewController.title = [WMFCommonStrings searchTitle];
+        _searchTabViewController.title = [WMFCommonStrings searchTitle];
     }
-    return _searchViewController;
+    return _searchTabViewController;
 }
 
 - (WMFSavedViewController *)savedViewController {
@@ -1698,8 +1698,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [exploreViewController scrollToTop];
             } break;
             case WMFAppTabTypeSearch: {
-                SearchViewController *searchViewController = (SearchViewController *)[self searchViewController];
-                [searchViewController makeSearchBarBecomeFirstResponder];
+                SearchTabViewController *searchTabViewController = (SearchTabViewController *)[self searchTabViewController];
+                [searchTabViewController makeSearchBarBecomeFirstResponder];
             } break;
         }
 
@@ -1870,7 +1870,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.exploreViewController applyTheme:theme];
         [self.placesViewController applyTheme:theme];
         [self.savedViewController applyTheme:theme];
-        [self.searchViewController applyTheme:theme];
+        [self.searchTabViewController applyTheme:theme];
 
         [self applyTheme:theme toPresentedViewController:self.presentedViewController];
 
@@ -2029,35 +2029,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    NSArray *vcs = nc.viewControllers;
-    NSMutableArray *mutableVCs = [vcs mutableCopy];
-    SearchViewController *searchVC = nil;
-    NSInteger index = 1;
-    NSInteger limit = vcs.count;
-    while (index < limit) {
-        UIViewController *vc = vcs[index];
-        if ([vc isKindOfClass:[SearchViewController class]]) {
-            searchVC = (SearchViewController *)vc;
-            [mutableVCs removeObjectAtIndex:index];
-            break;
-        }
-        index++;
-    }
+    SearchMinimalViewController *searchVC = [[SearchMinimalViewController alloc] initWithDataStore:self.dataStore];
+    [searchVC applyTheme:self.theme];
 
-    if (searchVC) {
-        [searchVC clear]; // clear search VC before bringing it forward
-        [nc setViewControllers:mutableVCs animated:NO];
-    } else {
-        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc isMainRootView:NO];
-        searchVC.shouldBecomeFirstResponder = YES;
-        [searchVC applyTheme:self.theme];
-        searchVC.dataStore = self.dataStore;
-    }
-
-    searchVC.needsCenteredTitle = YES;
-
-    [nc pushViewController:searchVC
-                  animated:true];
+    [nc pushViewController:searchVC animated:animated];
 }
 
 - (void)showImportedReadingList:(ReadingList *)readingList {
@@ -2155,7 +2130,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [[WMFNavigationEventsFunnel shared] logTappedSaved];
             } else if ([rootViewController isKindOfClass:[WMFActivityTabViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedActivityTab];
-            } else if ([rootViewController isKindOfClass:[SearchViewController class]]) {
+            } else if ([rootViewController isKindOfClass:[SearchTabViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedSearch];
             }
         }
