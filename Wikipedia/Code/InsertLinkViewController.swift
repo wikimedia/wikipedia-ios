@@ -12,7 +12,6 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
     private let dataStore: MWKDataStore
     private let link: Link
     private let siteURL: URL?
-    private var searchTask: Task<Void, Never>?
 
     init(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
         self.link = link
@@ -24,10 +23,6 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        searchTask?.cancel()
     }
 
     override func viewDidLoad() {
@@ -48,33 +43,23 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
-        let searchViewController = SearchViewController(source: .unknown)
-        searchViewController.showLanguageBar = false
-        searchViewController.dataStore = dataStore
-        
-        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
+        let searchResultsVC = SearchResultsViewController(source: .unknown, dataStore: dataStore)
+        searchResultsVC.showLanguageBar = false
+        searchResultsVC.apply(theme: theme)
+        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-        
-        let navigateToSearchResultAction: ((URL) -> Void) = { [weak self] articleURL in
-            guard let self,
-                  let title = articleURL.wmf_title else {
-                return
-            }
+        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+            guard let self, let title = articleURL.wmf_title else { return }
             navigationItem.searchController?.isActive = false
             self.delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
         }
-        
-        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
-        searchViewController.theme = theme
-        
+
         let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchViewController,
-            searchControllerDelegate: nil,
-            searchResultsUpdater: self,
+            searchResultsController: searchResultsVC,
+            searchControllerDelegate: searchResultsVC,
+            searchResultsUpdater: searchResultsVC,
             searchBarDelegate: self,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false,
@@ -122,48 +107,15 @@ extension InsertLinkViewController: Themeable {
         view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
-            searchVC.theme = theme
-            searchVC.apply(theme: theme)
+        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
+            searchResultsVC.theme = theme
+            searchResultsVC.apply(theme: theme)
         }
     }
 }
 
 extension InsertLinkViewController: EditingFlowViewController {
     
-}
-
-extension InsertLinkViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
-            return
-        }
-        
-        guard let text = searchController.searchBar.text,
-              !text.isEmpty else {
-            searchTask?.cancel()
-            searchTask = nil
-            searchViewController.searchTerm = nil
-            searchViewController.resetSearchResults()
-            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-            return
-        }
-        
-        if searchViewController.searchTerm == text {
-            return
-        }
-        
-        searchViewController.searchTerm = text
-        searchViewController.updateRecentlySearchedVisibility(searchText: text)
-        
-        searchTask?.cancel()
-        searchTask = Task { @MainActor [weak self] in
-            guard self != nil else { return }
-            try? await Task.sleep(for: .milliseconds(100))
-            guard !Task.isCancelled else { return }
-            searchViewController.search()
-        }
-    }
 }
 
 extension InsertLinkViewController: UISearchBarDelegate {

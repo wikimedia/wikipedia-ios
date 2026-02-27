@@ -200,8 +200,13 @@ extension TalkPageCellCommentView: Themeable {
 }
 
 extension TalkPageCellCommentView: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        linkDelegate?.tappedLink(URL, sourceTextView: textView)
-        return false
+
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        if case .link(let url) = textItem.content {
+            linkDelegate?.tappedLink(url, sourceTextView: textView)
+            return nil // Prevent default action
+        }
+        return defaultAction
     }
+
 }

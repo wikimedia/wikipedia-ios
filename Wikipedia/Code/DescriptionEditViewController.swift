@@ -110,6 +110,11 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 authState = .loggedIn
             }
         }
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            updateFonts()
+        }
     }
 
     private func checkWikiStatus() async -> Bool {
@@ -230,11 +235,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         let newText = textView.text.replacingCharacters(in: range, with: text)
         isPlaceholderLabelHidden = !newText.isEmpty
         return true
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

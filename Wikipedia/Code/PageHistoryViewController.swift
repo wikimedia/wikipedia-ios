@@ -18,9 +18,9 @@ enum SelectionOrder: Int, CaseIterable {
 
 @objc(WMFPageHistoryViewController)
 class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
-    
+
     fileprivate static let headerReuseIdentifier = "PageHistoryCountsView"
-    
+
     private let pageTitle: String
     private let pageURL: URL
 
@@ -177,8 +177,13 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
 
         getEditCounts()
         getPageHistory()
-        
+
         layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.cellLayoutEstimate = nil
+        }
     }
 
     private var totalEditCount: Int?
@@ -197,7 +202,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                 case .success(let firstRevision):
                     self.firstRevision = firstRevision
                     let firstEditDate = firstRevision.revisionDate
-                    
+
                     self.pageHistoryFetcher.fetchEditCounts(.edits, for: self.pageTitle, pageURL: self.pageURL) { [weak self] result in
                         DispatchQueue.main.async {
                             guard let self = self else {
@@ -215,7 +220,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                                         self.firstEditDate = firstEditDate
                                         self.countsView?.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
                                     }
-                                    
+
                                 }
                             }
                         }
@@ -223,7 +228,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                 }
             }
         }
-        
+
         pageHistoryFetcher.fetchEditCounts(.edits, .anonymous, .bot, .temporary, .customLoggedIn, .customUnregistered, for: pageTitle, pageURL: pageURL) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {
@@ -239,7 +244,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                 }
             }
         }
-        
+
         pageHistoryFetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {
@@ -257,10 +262,10 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
             }
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         configureNavigationBar()
     }
 
@@ -269,17 +274,12 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         cancelComparison(nil)
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        cellLayoutEstimate = nil
-    }
-    
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title:  CommonStrings.historyTabTitle, customView: nil, alignment: .centerCompact)
-        
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
-    
+
     private func appendSections(from results: HistoryFetchResults) {
         assert(Thread.isMainThread)
         if self.pageHistorySections.isEmpty {
@@ -303,7 +303,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         items.removeFirst()
         self.pageHistorySections.append(contentsOf: items)
     }
-    
+
     private func getPageHistory() {
         isLoadingData = true
 
@@ -351,14 +351,14 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
             block(indexPath, pageHistoryCollectionViewCell)
         }
     }
-    
+
     private func showDiff(from: WMFPageHistoryRevision?, to: WMFPageHistoryRevision, type: DiffContainerViewModel.DiffType) {
         if let siteURL = pageURL.wmf_site {
-            
+
             if type == .single {
                 EditHistoryCompareFunnel.shared.logRevisionView(url: pageURL)
             }
-            
+
             let diffContainerVC = DiffContainerViewController(articleTitle: pageTitle, siteURL: siteURL, fromModel: from, toModel: to, pageHistoryFetcher: pageHistoryFetcher, theme: theme, revisionRetrievingDelegate: self, firstRevision: firstRevision, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
             push(diffContainerVC, animated: true)
         }
@@ -394,15 +394,15 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         configure(cell: cell, at: indexPath)
         return cell
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         if section == 0 {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 150)
         }
-        
+
         return super.collectionView(collectionView, estimatedHeightForHeaderInSection: section, forColumnWidth: columnWidth)
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if indexPath.section == 0 {
             if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? PageHistoryCountsView {
@@ -411,7 +411,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                 return header
             }
         }
-        
+
         return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
     }
 
@@ -504,7 +504,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                     cell.displayTime = DateFormatter.wmf_24hshortTimeWithUTCTimeZone()?.string(from: date)
                 }
             }
-            
+
             if item.isAnon {
                 cell.authorImage = UIImage(named: "anon")
             } else if item.isTemp {
@@ -638,7 +638,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
     private var postedMaxRevisionsSelectedAccessibilityNotification = false
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        
+
         switch state {
         case .editing:
             if maxNumberOfRevisionsSelected {
@@ -655,25 +655,25 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
             return true
         }
     }
-    
+
     private func pushToSingleRevisionDiff(indexPath: IndexPath) {
-        
+
         guard let section = pageHistorySections[safeIndex: indexPath.section] else {
             return
         }
-        
+
         if let toRevision = section.items[safeIndex: indexPath.item] {
 
             var sectionOffset = 0
             var fromItemIndex = indexPath.item + 1
             // if last revision in section, go to next section for selecting second
             let isLastInSection = indexPath.item == section.items.count - 1
-            
+
             if isLastInSection {
                 sectionOffset = 1
                 fromItemIndex = 0
             }
-            
+
             let fromRevision = pageHistorySections[safeIndex: indexPath.section + sectionOffset]?.items[safeIndex: fromItemIndex]
 
             if fromRevision == nil {
@@ -812,9 +812,9 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
     }
 
     func pageHistoryComparisonSelectionViewControllerDidTapCompare(_ pageHistoryComparisonSelectionViewController: PageHistoryComparisonSelectionViewController) {
-        
+
         EditHistoryCompareFunnel.shared.logCompare2(articleURL: pageURL)
-        
+
         guard let firstIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.first.rawValue], let secondIndexPath = indexPathsSelectedForComparisonGroupedByButtonTags[SelectionOrder.second.rawValue] else {
             return
         }
@@ -843,10 +843,10 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
 
 extension PageHistoryViewController: DiffRevisionRetrieving {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision? {
-        
+
         for (sectionIndex, section) in pageHistorySections.enumerated() {
             for (itemIndex, item) in section.items.enumerated() {
-                
+
                 if item.revisionID == sourceRevision.revisionID {
                     if itemIndex == (section.items.count - 1) {
                         return pageHistorySections[safeIndex: sectionIndex + 1]?.items.first
@@ -856,51 +856,51 @@ extension PageHistoryViewController: DiffRevisionRetrieving {
                 }
             }
         }
-        
+
         return nil
     }
-    
+
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision? {
-        
+
         var previousSection: PageHistorySection?
         var previousItem: WMFPageHistoryRevision?
-        
+
         for section in pageHistorySections {
             for item in section.items {
-        
+
                 if item.revisionID == sourceRevision.revisionID {
-                    
+
                     guard let previousItem = previousItem else {
-                        
+
                         guard let previousSection = previousSection else {
-                            
+
                             // user tapped latest revision, no later revision available.
                             return nil
                         }
-                        
+
                         return previousSection.items.last
-                        
+
                     }
-                        
+
                     return previousItem
-                    
+
                 }
-                
+
                 previousItem = item
             }
-            
+
             previousSection = section
             previousItem = nil
         }
-        
+
         return nil
-        
+
     }
-    
+
     func refreshRevisions() {
         self.pageHistorySections.removeAll()
         self.collectionView.reloadData()
         self.getPageHistory()
     }
-    
+
 }

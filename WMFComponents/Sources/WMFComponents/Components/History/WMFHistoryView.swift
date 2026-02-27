@@ -116,7 +116,7 @@ public struct WMFHistoryView: View {
                     .onAppear {
                         viewModel.geometryFrames[item.id] = geometry.frame(in: .global)
                     }
-                    .onChange(of: geometry.frame(in: .global)) { newFrame in
+                    .onChange(of: geometry.frame(in: .global)) { _, newFrame in
                         viewModel.geometryFrames[item.id] = newFrame
                     }
             }
@@ -126,25 +126,24 @@ public struct WMFHistoryView: View {
 
     private func listView() -> some View {
         List {
-            
+
             Section {
                 Text(viewModel.localizedStrings.historyHeaderTitle)
                     .font(Font(WMFFont.for(.boldTitle3)))
                     .foregroundStyle(Color(uiColor: theme.text))
-                    .padding(.top, viewModel.topPadding)
             }
             .listRowSeparator(.hidden)
             .listRowBackground(Color(theme.paperBackground))
-            
+
             ForEach(viewModel.sections) { section in
-                
+
                 Section {
-                    
+
                     // Header as a regular row so that they aren't sticky
                     headerViewForSection(section)
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color(theme.paperBackground))
-                    
+
                     ForEach(section.items) { item in
                         row(for: section, item)
                             .listRowBackground(Color(theme.paperBackground))
@@ -157,7 +156,9 @@ public struct WMFHistoryView: View {
         .listSectionSpacing(0)
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
-        .ignoresSafeArea(edges: .top)
+        .contentMargins(.top, viewModel.topPadding)
+        .contentMargins(.bottom, viewModel.bottomPadding)
+        .ignoresSafeArea(edges: [.top])
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {

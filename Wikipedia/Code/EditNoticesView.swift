@@ -229,13 +229,13 @@ final class EditNoticesView: SetupView {
         ])
         
         changeTextViewVoiceOverVisibility(isVisible: false)
-    }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
 
-        doneButtonTrailingConstraint.constant = doneButtonTrailingMargin
-        doneContainer.setNeedsLayout()
+            doneButtonTrailingConstraint.constant = doneButtonTrailingMargin
+            doneContainer.setNeedsLayout()
+        }
     }
 
     // MARK: - Public

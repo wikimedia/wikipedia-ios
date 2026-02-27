@@ -6,7 +6,7 @@ import CocoaLumberjackSwift
 
 @objc(WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController {
-    
+
     let articleURL: URL
     private(set) var article: WMFArticle?
     fileprivate let dataStore: MWKDataStore
@@ -15,9 +15,9 @@ class ArticlePeekPreviewViewController: UIViewController {
     fileprivate let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
     private let needsEmptyContextMenuItems: Bool
     let needsRandomOnPush: Bool
-    
+
     // MARK: Previewing
-    
+
     public weak var articlePreviewingDelegate: ArticlePreviewingDelegate?
 
     @objc required init(articleURL: URL, article: WMFArticle?, dataStore: MWKDataStore, theme: Theme, articlePreviewingDelegate: ArticlePreviewingDelegate?, needsEmptyContextMenuItems: Bool = false, needsRandomOnPush: Bool = false) {
@@ -30,11 +30,11 @@ class ArticlePeekPreviewViewController: UIViewController {
         self.needsRandomOnPush = needsRandomOnPush
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         return nil
     }
-    
+
     private var isFetched = false
     @objc func fetchArticle(_ completion:(() -> Void)? = nil ) {
         assert(Thread.isMainThread)
@@ -59,14 +59,14 @@ class ArticlePeekPreviewViewController: UIViewController {
             self.updateView(with: article)
         }
     }
-    
+
     func updatePreferredContentSize(for contentWidth: CGFloat) {
         var updatedContentSize = expandedArticleView.sizeThatFits(CGSize(width: contentWidth, height: UIView.noIntrinsicMetric), apply: true)
         updatedContentSize.width = contentWidth // extra protection to ensure this stays == width
         parent?.preferredContentSize = updatedContentSize
         preferredContentSize = updatedContentSize
     }
-    
+
     fileprivate func updateView(with article: WMFArticle) {
         expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
         expandedArticleView.isSaveButtonHidden = true
@@ -78,7 +78,7 @@ class ArticlePeekPreviewViewController: UIViewController {
 
         activityIndicatorView.stopAnimating()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = theme.colors.paperBackground
@@ -88,8 +88,15 @@ class ArticlePeekPreviewViewController: UIViewController {
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
         expandedArticleView.updateFonts(with: traitCollection)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self, self.viewIfLoaded != nil else {
+                return
+            }
+            self.expandedArticleView.updateFonts(with: self.traitCollection)
+        }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchArticle {
@@ -102,20 +109,12 @@ class ArticlePeekPreviewViewController: UIViewController {
         expandedArticleView.frame = view.bounds
         activityIndicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        guard viewIfLoaded != nil else {
-            return
-        }
-        expandedArticleView.updateFonts(with: traitCollection)
-    }
-    
+
     var contextMenuItems: [UIAction] {
         guard !needsEmptyContextMenuItems else {
             return []
         }
-        
+
         // Open action
         let readAction = UIAction(title: CommonStrings.articleTabsOpen, image: WMFSFSymbolIcon.for(symbol: .chevronForward), handler: { (action) in
             ArticleTabsFunnel.shared.logLongPressOpen()
@@ -123,13 +122,13 @@ class ArticlePeekPreviewViewController: UIViewController {
         })
 
         var actions = [readAction]
-        
+
         // Tabs actions
         let destination = LinkCoordinator.destination(for: articleURL)
 
         let articleTabsDataController = WMFArticleTabsDataController.shared
         if case .article = destination {
-            
+
             // Open in new tab
             let openInNewTabAction = UIAction(title: CommonStrings.articleTabsOpenInNewTab, image: WMFSFSymbolIcon.for(symbol: .tabsIcon), handler: { [weak self] _ in
                 guard let self = self else { return }
@@ -137,7 +136,7 @@ class ArticlePeekPreviewViewController: UIViewController {
                 ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
                 self.articlePreviewingDelegate?.openInNewTabArticlePreviewActionSelected(with: self)
             })
-            
+
             actions.append(openInNewTabAction)
 
             // Open in background tab
@@ -150,19 +149,19 @@ class ArticlePeekPreviewViewController: UIViewController {
                 Task {
                     do {
                         articleTabsDataController.didTapOpenNewTab()
-                        
+
                         let tabsCount = try await articleTabsDataController.tabsCount()
                         let tabsMax = articleTabsDataController.tabsMax
                         let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project, articleURL: article.url)
                         if tabsCount >= tabsMax {
-                            
+
                             if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {
                                 _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
                             } else {
                                 _ = try await articleTabsDataController.createArticleTab(initialArticle: article)
                             }
-                            
-                            
+
+
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                 WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
                             }
@@ -170,15 +169,15 @@ class ArticlePeekPreviewViewController: UIViewController {
                             _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
                             ArticleTabsFunnel.shared.logLongPressOpenInBackgroundTab()
                         }
-                        
+
                     } catch {
                         DDLogError("Failed to create background tab: \(error)")
                     }
                 }
             })
-            
+
             actions.append(openInNewBackgroundTabAction)
-            
+
         }
 
         // Save action
@@ -229,7 +228,7 @@ class ArticlePeekPreviewViewController: UIViewController {
 
         return actions
     }
-    
+
     func addToReadingListActivity(with presenter: UIViewController, eventLogAction: @escaping () -> Void) -> UIActivity {
         let addToReadingListActivity = AddToReadingListActivity {
             guard let article = self.article else { return }
@@ -240,7 +239,7 @@ class ArticlePeekPreviewViewController: UIViewController {
         }
         return addToReadingListActivity
     }
-    
+
     func sharingActivityViewController(with textSnippet: String?, button: UIBarButtonItem?, customActivities: [UIActivity]?) -> ShareActivityController? {
         guard let article else {
             return nil

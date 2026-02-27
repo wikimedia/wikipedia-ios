@@ -30,6 +30,16 @@
     [self updateImageView];
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:self.theme];
+
+    __weak __typeof(self) weakSelf = self;
+    [self registerForTraitChanges:@[UITraitPreferredContentSizeCategory.class, UITraitVerticalSizeClass.class]
+                      withHandler:^(__kindof WMFEmptyView *_Nonnull view, UITraitCollection *_Nonnull previousTraitCollection) {
+                          __strong __typeof(weakSelf) strongSelf = weakSelf;
+                          if (strongSelf) {
+                              [strongSelf updateFonts];
+                              [strongSelf updateImageView];
+                          }
+                      }];
 }
 
 - (NSString *)backgroundColorKeyPath {
@@ -227,12 +237,12 @@
 
 + (instancetype)noOtherArticleLanguagesEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
-    
+
     view.imageView.image = [UIImage imageNamed:@"no-other-article-languages"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-title", nil, nil, @"No other languages available", @"Title text shown in place of languages list when when no alternative article languages exist.");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-message", nil, nil, @"This article has not yet been written in any other languages", @"Message text shown in place of languages list when when no alternative article languages exist.");
     view.backgroundColorKeyPath = @"colors.baseBackground";
-    
+
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view.button removeFromSuperview];
@@ -252,14 +262,8 @@
     [self.button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
-    [self updateFonts];
-    [self updateImageView];
-}
-
 - (void)updateFonts {
-    self.button.titleLabel.font = [WMFFontWrapper fontFor: WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
+    self.button.titleLabel.font = [WMFFontWrapper fontFor:WMFFontsBoldCallout compatibleWithTraitCollection:self.traitCollection];
 }
 
 - (void)updateImageView {
@@ -274,9 +278,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     [self.delegate heightChanged:self.bounds.size.height];
-
     if (![self.actionLine superview]) {
         return;
     }

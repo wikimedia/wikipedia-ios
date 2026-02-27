@@ -1,169 +1,562 @@
 import UIKit
-import WMF
+import WMFComponents
+import WMFData
+import CocoaLumberjackSwift
+import SwiftUI
 
-class SearchResultsViewController: ArticleCollectionViewController {
-    var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
-    var results: [MWKSearchResult] = [] {
-        didSet {
-            assert(Thread.isMainThread)
-            reload()
+/// This class is designed to be used exclusively as a `UISearchController.searchResultsController`.
+class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, HintPresenting, ShareableArticlesProvider {
+
+    // MARK: - Event Logging Source
+
+    enum EventLoggingSource {
+        case searchTab
+        case topOfFeed
+        case article
+        case unknown
+
+        var stringValue: String {
+            switch self {
+            case .article: return "article"
+            case .topOfFeed: return "top_of_feed"
+            case .searchTab: return "search_tab"
+            case .unknown: return "unknown"
+            }
         }
     }
-    var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
-    var longPressSearchResultAndCommitAction: ((URL) -> Void)?
-    var longPressOpenInNewTabAction: ((URL) -> Void)?
+
+    // MARK: - HintPresenting
+
+    var hintController: HintController?
+
+    var eventLoggingCategory: EventCategoryMEP { .history }
+    var eventLoggingLabel: EventLabelMEP? { nil }
+
+    // MARK: - Public configuration
+
+    /// Called whenever a search result row or long-press result is tapped. Caller is responsible
+    /// for navigating to the given URL.
+    var articleTappedAction: ((URL) -> Void)?
+
+    /// Called when the user selects a recently-searched term so the parent can write the text into
+    /// its own search bar and activate it.
+    var populateSearchBarAction: ((String) -> Void)?
+
+    /// Controls whether the language picker bar is shown at the top of this VC.
+    var showLanguageBar: Bool = true {
+        didSet {
+            guard isViewLoaded else { return }
+            updateLanguageBarVisibility()
+        }
+    }
+
+    // MARK: - Private properties
+
+    private let source: EventLoggingSource
+    private let dataStore: MWKDataStore
+
+    /// Parent view controllers that need their own `UISearchControllerDelegate` callbacks should set
+    /// this property. `SearchResultsViewController` will handle all iPad 26 search-UI workarounds
+    /// and then forward every delegate call to the parent.
+    weak var parentSearchControllerDelegate: UISearchControllerDelegate?
+
+    private lazy var searchBarIPadCustomizer: SearchBarIPadCustomizer = {
+        let customizer = SearchBarIPadCustomizer(theme: theme)
+        customizer.onClearTapped = { [weak self] _ in self?.resetSearchResults() }
+        customizer.onWillDismiss = { [weak self] in self?.resetSearchResults() }
+        return customizer
+    }()
+
+    private let contentContainerView = UIView()
+    private weak var currentEmbeddedViewController: UIViewController?
+
+    private var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    private var needsAnimateLanguageBarMovement = false
+
+    private var searchTerm: String?
+    private var lastSearchSiteURL: URL?
+    private var _siteURL: URL?
+    private var searchTask: Task<Void, Never>?
+
+    var siteURL: URL? {
+        get {
+            _siteURL ?? searchLanguageBarViewController?.selectedSiteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        }
+        set { _siteURL = newValue }
+    }
+
+    var searchLanguageBarTopConstraint: NSLayoutConstraint?
+
+    // MARK: - Init
+
+    init(source: EventLoggingSource, dataStore: MWKDataStore) {
+        self.source = source
+        self.dataStore = dataStore
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        searchTask?.cancel()
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        reload()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+
+        view.addSubview(contentContainerView)
+        contentContainerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentContainerView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        setupReadingListsHelpers()
+        updateLanguageBarVisibility()
+        reloadRecentSearches()
+        showRecentSearches(animated: false)
     }
 
-    func reload() {
-        collectionView.reloadData()
-        updateEmptyState()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateLanguageBarVisibility()
+        reloadRecentSearches()
     }
 
-    var searchSiteURL: URL? = nil
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let languagesBarHeight = searchLanguageBarViewController?.view.bounds.height ?? 0
+        recentSearchesViewModel.topPadding = languagesBarHeight
+        resultsViewController.collectionView.contentInset.top = languagesBarHeight
+    }
 
-    func isDisplaying(resultsFor searchTerm: String, from siteURL: URL) -> Bool {
-        guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
-            return false
+    // MARK: - Embedded content container
+
+    private func embedInContainer(_ vc: UIViewController, animated: Bool) {
+        if currentEmbeddedViewController === vc { return }
+
+        let oldVC = currentEmbeddedViewController
+        oldVC?.willMove(toParent: nil)
+
+        addChild(vc)
+        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        contentContainerView.addSubview(vc.view)
+        NSLayoutConstraint.activate([
+            vc.view.topAnchor.constraint(equalTo: contentContainerView.topAnchor),
+            vc.view.leadingAnchor.constraint(equalTo: contentContainerView.leadingAnchor),
+            vc.view.trailingAnchor.constraint(equalTo: contentContainerView.trailingAnchor),
+            vc.view.bottomAnchor.constraint(equalTo: contentContainerView.bottomAnchor)
+        ])
+
+        let finish = {
+            oldVC?.view.removeFromSuperview()
+            oldVC?.removeFromParent()
+            vc.didMove(toParent: self)
+            self.currentEmbeddedViewController = vc
         }
-        return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
-    }
 
-    override var eventLoggingCategory: EventCategoryMEP {
-        return .search
-    }
-
-    override func articleURL(at indexPath: IndexPath) -> URL? {
-        return results[indexPath.item].articleURL(forSiteURL: searchSiteURL)
-    }
-
-    override func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let articleURL = articleURL(at: indexPath) else {
-            return nil
-        }
-        let article = dataStore.fetchOrCreateArticle(with: articleURL)
-        let result = results[indexPath.item]
-        article?.update(with: result)
-        return article
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return results.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let articleURL = articleURL(at: indexPath) else {
-            collectionView.deselectItem(at: indexPath, animated: true)
+        guard animated, let oldView = oldVC?.view else {
+            finish()
             return
         }
 
-        tappedSearchResultAction?(articleURL, indexPath)
+        vc.view.alpha = 0
+        UIView.animate(withDuration: 0.2, animations: {
+            vc.view.alpha = 1
+            oldView.alpha = 0
+        }, completion: { _ in
+            oldView.alpha = 1
+            finish()
+        })
     }
 
-    func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {
-        return resultsInfo?.redirectMappings?.filter({ (mapping) -> Bool in
-            return result.displayTitle == mapping.redirectToTitle
-        }).first
+    private func showSearchResults(animated: Bool) {
+        embedInContainer(resultsViewController, animated: animated)
     }
 
-    func descriptionForSearchResult(_ result: MWKSearchResult) -> String? {
-        let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: searchSiteURL?.wmf_languageCode)
-        let mapping = redirectMappingForSearchResult(result)
-        guard let redirectFromTitle = mapping?.redirectFromTitle else {
-            return capitalizedWikidataDescription
+    private func showRecentSearches(animated: Bool) {
+        embedInContainer(recentSearchesViewController, animated: animated)
+    }
+
+    // MARK: - Language bar
+
+    private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
+        if let vc = self.searchLanguageBarViewController { return vc }
+        let vc = SearchLanguagesBarViewController()
+        vc.apply(theme: theme)
+        vc.delegate = self
+        self.searchLanguageBarViewController = vc
+        return vc
+    }
+
+    private func updateLanguageBarVisibility() {
+        let shouldShow = showLanguageBar && UserDefaults.standard.wmf_showSearchLanguageBar()
+
+        if shouldShow && searchLanguageBarViewController == nil {
+            let vc = setupLanguageBarViewController()
+            addChild(vc)
+            vc.view.translatesAutoresizingMaskIntoConstraints = false
+
+            let topConstraint = vc.view.topAnchor.constraint(equalTo: view.topAnchor, constant: view.safeAreaInsets.top)
+            self.searchLanguageBarTopConstraint = topConstraint
+
+            view.addSubview(vc.view)
+            NSLayoutConstraint.activate([
+                topConstraint,
+                view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
+                view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor)
+            ])
+            vc.didMove(toParent: self)
+            vc.moveScrollViewToStart()
+            vc.view.isHidden = false
+
+        } else if !shouldShow, let vc = searchLanguageBarViewController {
+            vc.willMove(toParent: nil)
+            vc.view.removeFromSuperview()
+            vc.removeFromParent()
+            self.searchLanguageBarViewController = nil
+            self.searchLanguageBarTopConstraint = nil
         }
 
-        let redirectFormat = WMFLocalizedString("search-result-redirected-from", value: "Redirected from: %1$@", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters: * %1$@ - article title the current search result redirected from")
-        let redirectMessage = String.localizedStringWithFormat(redirectFormat, redirectFromTitle)
-
-        guard let description = capitalizedWikidataDescription else {
-            return redirectMessage
-        }
-
-        return String.localizedStringWithFormat("%@\n%@", redirectMessage, description)
+        view.setNeedsLayout()
     }
 
-    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly, configureForCompact: true)
-    }
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
 
-    private func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool, configureForCompact: Bool) {
-        guard indexPath.item < results.count else {
+        guard needsAnimateLanguageBarMovement else {
+            searchLanguageBarTopConstraint?.constant = view.safeAreaInsets.top
+            view.layoutIfNeeded()
             return
         }
-        let result = results[indexPath.item]
-        guard let languageCode = searchSiteURL?.wmf_languageCode,
-              let contentLanguageCode = searchSiteURL?.wmf_contentLanguageCode else {
+
+        searchLanguageBarTopConstraint?.constant = view.safeAreaInsets.top
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    // MARK: - Search
+
+    func search() {
+        search(for: searchTerm, suggested: false)
+    }
+
+    private func search(for searchTerm: String?, suggested: Bool) {
+        guard let siteURL else {
+            assertionFailure("siteURL must not be nil")
+            return
+        }
+        self.lastSearchSiteURL = siteURL
+
+        guard let searchTerm, searchTerm.wmf_hasNonWhitespaceText else {
+            didCancelSearch()
             return
         }
 
-        if configureForCompact {
-            cell.configureForCompactList(at: indexPath.item)
+        guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else { return }
+
+        resetSearchResults()
+        let start = Date()
+
+        let failure = { (error: Error, type: WMFSearchType) in
+            DispatchQueue.main.async { [weak self] in
+                guard let self,
+                      searchTerm == self.searchTerm else { return }
+                self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : (error as NSError).wmf_isCancelledError() ? .none : .noSearchResults
+                self.resultsViewController.results = []
+                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
+            }
         }
 
-        cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
-        cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
-        cell.titleLabel.accessibilityLanguage = languageCode
-        cell.descriptionLabel.text = descriptionForSearchResult(result)
-        cell.descriptionLabel.accessibilityLanguage = languageCode
-        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        if layoutOnly {
-            cell.isImageViewHidden = result.thumbnailURL != nil
-        } else {
-            cell.imageURL = result.thumbnailURL
+        let success = { (results: WMFSearchResults, type: WMFSearchType) in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
+                let resultsArray = results.results ?? []
+                self.resultsViewController.emptyViewType = resultsArray.isEmpty ? .noSearchResults : .none
+                self.resultsViewController.resultsInfo = results
+                self.resultsViewController.searchSiteURL = siteURL
+                self.resultsViewController.results = resultsArray
+                guard !suggested else { return }
+                SearchFunnel.shared.logSearchResults(with: type, resultCount: resultsArray.count, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
+            }
         }
-        cell.apply(theme: theme)
+
+        fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { error in
+            failure(error, .prefix)
+        }, success: { [weak self] results in
+
+            guard let self,
+                  let resultsArray = results.results, resultsArray.count < 12 else {
+                success(results, .prefix)
+                return
+            }
+            
+            self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { error in
+                
+                if !resultsArray.isEmpty {
+                    success(results, .prefix)
+                } else {
+                    failure(error, .full)
+                }
+                
+            }, success: { [weak self] fullTextResults in
+                guard self != nil else { return }
+                success(fullTextResults, .full)
+            })
+        })
     }
+
+    private lazy var fetcher = WMFSearchFetcher()
+
+    func resetSearchResults() {
+        fetcher.cancelAllFetches()
+        resultsViewController.emptyViewType = .none
+        resultsViewController.results = []
+    }
+
+    func didCancelSearch() {
+        resetSearchResults()
+    }
+
+    /// Programmatically trigger a search for `term` and show results — used when the caller
+    /// sets the search bar text internally without typing (e.g. NSUserActivity restoration).
+    func searchAndMakeResultsVisible(for term: String?) {
+        guard let term, term.wmf_hasNonWhitespaceText else { return }
+        searchTerm = term
+        showSearchResults(animated: false)
+        search(for: term, suggested: false)
+    }
+
+    // MARK: - Recent Search Saving
+
+    func saveLastSearch() {
+        guard
+            let term = resultsViewController.resultsInfo?.searchTerm,
+            let url = resultsViewController.searchSiteURL,
+            let entry = MWKRecentSearchEntry(url: url, searchTerm: term)
+        else { return }
+        dataStore.recentSearchList.addEntry(entry)
+        dataStore.recentSearchList.save()
+        reloadRecentSearches()
+    }
+
+    // MARK: - Child VCs
+
+    lazy var resultsViewController: SearchResultsListViewController = {
+        let vc = SearchResultsListViewController()
+        vc.dataStore = dataStore
+        vc.apply(theme: theme)
+
+        vc.tappedSearchResultAction = { [weak self] articleURL, indexPath in
+            guard let self else { return }
+            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: self.source.stringValue)
+            self.saveLastSearch()
+            self.articleTappedAction?(articleURL)
+        }
+
+        vc.longPressSearchResultAndCommitAction = { [weak self] articleURL in
+            self?.articleTappedAction?(articleURL)
+        }
+
+        vc.longPressOpenInNewTabAction = { [weak self] articleURL in
+            self?.articleTappedAction?(articleURL)
+        }
+
+        return vc
+    }()
+
+    private lazy var recentSearchesViewController: UIViewController = {
+        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
+        return UIHostingController(rootView: root)
+    }()
+
+    // MARK: - Recently Searched
+
+    private var recentSearches: MWKRecentSearchList? { dataStore.recentSearchList }
+
+    private lazy var didPressClearRecentSearches: () -> Void = { [weak self] in
+        let dialog = UIAlertController(
+            title: CommonStrings.clearRecentSearchesDialogTitle,
+            message: CommonStrings.clearRecentSearchesDialogSubtitle,
+            preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+        dialog.addAction(UIAlertAction(title: CommonStrings.deleteAllTitle, style: .destructive) { _ in
+            self?.deleteAllRecentSearches()
+        })
+        self?.present(dialog, animated: true)
+    }
+
+    private func deleteAllRecentSearches() {
+        dataStore.recentSearchList.removeAllEntries()
+        dataStore.recentSearchList.save()
+        reloadRecentSearches()
+    }
+
+    private lazy var deleteItemAction: (Int) -> Void = { [weak self] index in
+        guard
+            let self,
+            self.recentSearches?.entries.indices.contains(index) ?? false,
+            let entry = self.recentSearches?.entries[index]
+        else { return }
+        Task {
+            self.dataStore.recentSearchList.removeEntry(entry)
+            self.dataStore.recentSearchList.save()
+            self.reloadRecentSearches()
+        }
+    }
+
+    private lazy var selectAction: (WMFRecentlySearchedViewModel.RecentSearchTerm) -> Void = { [weak self] term in
+        guard let self else { return }
+        self.resetSearchResults()
+        if let pop = self.populateSearchBarAction {
+            pop(term.text)
+        }
+        self.searchTerm = term.text
+    }
+
+    private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
+        let strings = WMFRecentlySearchedViewModel.LocalizedStrings(
+            title: CommonStrings.recentlySearchedTitle,
+            noSearches: CommonStrings.recentlySearchedEmpty,
+            clearAll: CommonStrings.clearTitle,
+            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle,
+            editButtonTitle: CommonStrings.editContextMenuTitle
+        )
+        return WMFRecentlySearchedViewModel(
+            recentSearchTerms: currentRecentSearchTerms(),
+            topPadding: 0,
+            localizedStrings: strings,
+            deleteAllAction: didPressClearRecentSearches,
+            deleteItemAction: deleteItemAction,
+            selectAction: selectAction
+        )
+    }()
+
+    private func currentRecentSearchTerms() -> [WMFRecentlySearchedViewModel.RecentSearchTerm] {
+        (recentSearches?.entries ?? []).map {
+            WMFRecentlySearchedViewModel.RecentSearchTerm(text: $0.searchTerm)
+        }
+    }
+
+    private func reloadRecentSearches() {
+        recentSearchesViewModel.recentSearchTerms = currentRecentSearchTerms()
+    }
+
+    // MARK: - Reading Lists Hint
+
+    private func setupReadingListsHelpers() {
+        hintController = ReadingListHintController(dataStore: dataStore)
+        hintController?.apply(theme: theme)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(userDidSaveOrUnsaveArticle(_:)),
+            name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+            object: nil
+        )
+    }
+
+    @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
+        guard let article = notification.object as? WMFArticle else { return }
+        let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
+        hintController?.toggle(presenter: self, context: context, theme: theme)
+    }
+
+    // MARK: - Theme
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        guard viewIfLoaded != nil else {
-            return
-        }
-        collectionView.backgroundColor = theme.colors.midBackground
+        searchBarIPadCustomizer.theme = theme
+        guard viewIfLoaded != nil else { return }
+        view.backgroundColor = theme.colors.paperBackground
+        contentContainerView.backgroundColor = theme.colors.paperBackground
+        recentSearchesViewController.view.backgroundColor = theme.colors.paperBackground
+        searchLanguageBarViewController?.apply(theme: theme)
+        resultsViewController.apply(theme: theme)
+        hintController?.apply(theme: theme)
     }
+}
 
-    @objc func updateArticleCell(_ notification: NSNotification) {
-        guard let updatedArticle = notification.object as? WMFArticle,
-              updatedArticle.hasChangedValuesForCurrentEventThatAffectSavedState,
-              let updatedArticleKey = updatedArticle.inMemoryKey else {
-            return
-        }
+// MARK: - UISearchResultsUpdating
 
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            guard articleURL(at: indexPath)?.wmf_inMemoryKey == updatedArticleKey,
-                  let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
-                continue
+extension SearchResultsViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let text = searchController.searchBar.text ?? ""
+        needsAnimateLanguageBarMovement = false
+
+        if text.wmf_hasNonWhitespaceText {
+            showSearchResults(animated: false)
+
+            if let lastSearchSiteURL,
+               searchTerm == text,
+               lastSearchSiteURL == siteURL {
+                return
             }
+            searchTerm = text
 
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false, configureForCompact: false)
+            searchTask?.cancel()
+            searchTask = Task { @MainActor [weak self] in
+                guard let self else { return }
+                try? await Task.sleep(for: .milliseconds(100))
+                guard !Task.isCancelled else { return }
+                search(for: text, suggested: false)
+            }
+        } else {
+            searchTask?.cancel()
+            searchTask = nil
+            searchTerm = nil
+            resetSearchResults()
+            showRecentSearches(animated: true)
         }
+
+        // iPad 26 (regular width): keep the custom clear button in sync with text presence.
+        searchBarIPadCustomizer.updateClearButtonVisibility(text: text, for: searchController)
+    }
+}
+
+// MARK: - UISearchControllerDelegate
+
+/// `SearchResultsViewController` owns the `UISearchControllerDelegate` conformance so that every
+/// caller automatically gets the iPad 26 workarounds (custom back / clear buttons, search-field
+/// reset on dismiss) without duplicating the logic. Parent view controllers that need their own
+/// delegate callbacks should assign themselves to `parentSearchControllerDelegate`.
+extension SearchResultsViewController: UISearchControllerDelegate {
+
+    func willPresentSearchController(_ searchController: UISearchController) {
+        searchBarIPadCustomizer.willPresentSearchController(searchController)
+        parentSearchControllerDelegate?.willPresentSearchController?(searchController)
     }
 
-    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-
-        guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController else {
-            assertionFailure("Should be able to find previewed VC")
-            return
-        }
-        animator.addCompletion { [weak self] in
-
-            guard let self else { return }
-
-            self.longPressSearchResultAndCommitAction?(peekVC.articleURL)
-        }
+    func willDismissSearchController(_ searchController: UISearchController) {
+        searchBarIPadCustomizer.willDismissSearchController(searchController)
+        parentSearchControllerDelegate?.willDismissSearchController?(searchController)
     }
 
-    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
-
-        longPressSearchResultAndCommitAction?(peekController.articleURL)
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchBarIPadCustomizer.didPresentSearchController(searchController)
+        parentSearchControllerDelegate?.didPresentSearchController?(searchController)
     }
 
-    override func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
-        longPressOpenInNewTabAction?(peekController.articleURL)
+    func didDismissSearchController(_ searchController: UISearchController) {
+        searchBarIPadCustomizer.didDismissSearchController(searchController)
+        parentSearchControllerDelegate?.didDismissSearchController?(searchController)
+    }
+}
+
+// MARK: - SearchLanguagesBarViewControllerDelegate
+
+extension SearchResultsViewController: SearchLanguagesBarViewControllerDelegate {
+    func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
+        SearchFunnel.shared.logSearchLangSwitch(source: source.stringValue)
+        search()
     }
 }

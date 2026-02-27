@@ -21,11 +21,11 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         learnMoreButton.setTitle(WMFLocalizedString("welcome-privacy-terms-button-text", value:"Learn more about our privacy policy and terms of use", comment:"Text for links for learning more about data privacy policy and terms of use"), for: .normal)
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
 
     private func updateFonts() {

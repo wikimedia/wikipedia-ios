@@ -11,6 +11,11 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         updateFonts()
         isAccessibilityElement = true
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
 
     @IBOutlet private var sizingOnlyWidthConstraint: NSLayoutConstraint!
@@ -30,11 +35,6 @@ class PageHistoryFilterCountCollectionViewCell: UICollectionViewCell {
     private func updateFonts() {
         imageLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         titleLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     func configure(with title: String, image: UIImage?, imageText: String, isRightSeparatorHidden: Bool) {

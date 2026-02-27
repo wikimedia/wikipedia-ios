@@ -32,11 +32,11 @@ final class InsertMediaSettingsImageView: UIView {
         imageView.accessibilityIgnoresInvertColors = true
         updateFonts()
         configTitleButton()
-    }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (view: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
 
     private func updateFonts() {

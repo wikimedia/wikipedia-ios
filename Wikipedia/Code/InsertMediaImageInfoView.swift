@@ -16,6 +16,14 @@ final class InsertMediaImageInfoView: UIView {
         }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
+    }
+
     func configure(with searchResult: InsertMediaSearchResult, showImageDescription: Bool = true, showLicenseName: Bool = true, showMoreInformationButton: Bool = true, keepBackgroundClear: Bool = false, theme: Theme) {
         titleLabel.text = searchResult.displayTitle
         moreInformationURL = searchResult.imageInfo?.filePageURL
@@ -39,11 +47,6 @@ final class InsertMediaImageInfoView: UIView {
         setNeedsLayout()
         self.keepBackgroundClear = keepBackgroundClear
         apply(theme: theme)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

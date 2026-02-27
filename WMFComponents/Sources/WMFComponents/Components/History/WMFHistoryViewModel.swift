@@ -45,6 +45,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     // MARK: - Properties
 
     @Published public var topPadding: CGFloat = 0
+    @Published public var bottomPadding: CGFloat = 0
     @Published public var isEmpty: Bool = true
     var geometryFrames: [String: CGRect] = [:]
 

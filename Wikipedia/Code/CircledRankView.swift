@@ -3,7 +3,7 @@ import WMFComponents
 class CircledRankView: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()
     let padding = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
-    
+
     public var rankColor: UIColor = WMFColor.blue600 {
         didSet {
             guard !label.textColor.isEqual(rankColor) else {
@@ -13,37 +13,37 @@ class CircledRankView: SizeThatFitsView {
             layer.borderColor = rankColor.cgColor
         }
     }
-    
+
     override func setup() {
         super.setup()
         layer.borderWidth = 1
         label.isOpaque = true
         addSubview(label)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts(with: self.traitCollection)
+        }
     }
-    
+
     var rank: Int = 0 {
         didSet {
             label.text = String.localizedStringWithFormat("%d", rank)
             setNeedsLayout()
         }
     }
-    
+
     var labelBackgroundColor: UIColor? {
         didSet {
             label.backgroundColor = labelBackgroundColor
         }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts(with: traitCollection)
     }
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         label.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
     }
-    
+
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let insetSize = CGRect(origin: .zero, size: size).inset(by: padding)
         let labelSize = label.sizeThatFits(insetSize.size)

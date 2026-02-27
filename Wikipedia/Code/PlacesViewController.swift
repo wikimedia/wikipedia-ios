@@ -191,6 +191,18 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         overlaySliderPanGestureRecognizer = panGR
 
         self.view.layoutIfNeeded()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if previousTraitCollection.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                        configureNavigationBar()
+                    }
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -264,6 +276,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         ArticleTabsFunnel.shared.logIconClick(interface: .places, project: nil)
     }
 
+    private lazy var searchBarIPadCustomizer = SearchBarIPadCustomizer(theme: theme)
+
     private func configureNavigationBar() {
 
         let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
@@ -271,9 +285,15 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         let showsScopeBar = isViewModeOverlay ? false : true
         let scopeButtonTitles = isViewModeOverlay ? nil : [mapTitle, listTitle]
 
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: searchBarIPadCustomizer, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        
+        searchBarIPadCustomizer.onClearTapped = { [weak self] searchController in
+            guard let self,
+            let searchBar = searchController?.searchBar else { return }
+            self.searchBar(searchBar, textDidChange: "")
+        }
     }
 
     private func updateScopeBarVisibility() {
@@ -2323,6 +2343,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        searchBarIPadCustomizer.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
@@ -2585,8 +2606,9 @@ extension PlacesViewController {
 
 extension PlacesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text,
-              !text.isEmpty else {
+        let text = searchController.searchBar.text ?? ""
+        searchBarIPadCustomizer.updateClearButtonVisibility(text: text, for: searchController)
+        guard !text.isEmpty else {
             return
         }
     }

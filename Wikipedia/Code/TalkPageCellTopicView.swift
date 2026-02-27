@@ -2,7 +2,7 @@ import WMFComponents
 import WMF
 
 final class TalkPageCellTopicView: SetupView {
-    
+
     enum DisplayMode {
         case subscribeMetadataReplies // showing subscribe, metadata, & replies
         case metadataReplies // hiding subscribe, showing metadata, & replies
@@ -171,15 +171,15 @@ final class TalkPageCellTopicView: SetupView {
         widthConstraint.isActive = true
         return view
     }()
-    
+
     override var semanticContentAttribute: UISemanticContentAttribute {
         didSet {
             updateSemanticContentAttribute(semanticContentAttribute)
         }
     }
-    
+
     private var displayMode: DisplayMode = .subscribeMetadataReplies
-    
+
     private weak var viewModel: TalkPageCellViewModel?
     weak var linkDelegate: TalkPageTextViewLinkHandling?
 
@@ -214,7 +214,7 @@ final class TalkPageCellTopicView: SetupView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
+
         self.accessibilityElements = [topicTitleTextView, subscribeButton, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
     }
 
@@ -225,7 +225,7 @@ final class TalkPageCellTopicView: SetupView {
 
         let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContentHtml != nil
         let shouldHideSubscribe = !viewModel.isUserPermanent || viewModel.topicTitleHtml.isEmpty || (showingOtherContent)
-        
+
         switch (shouldHideSubscribe, showingOtherContent) {
         case (false, false):
             updateForNewDisplayModeIfNeeded(displayMode: .subscribeMetadataReplies)
@@ -242,11 +242,11 @@ final class TalkPageCellTopicView: SetupView {
 
         disclosureButton.accessibilityLabel = isThreadExpanded ? collapseThreadlabel : expandThreadlabel
         updateSubscribedState(cellViewModel: viewModel)
-        
+
         topicTitleTextView.invalidateIntrinsicContentSize()
         topicTitleTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 2
         topicTitleTextView.textContainer.lineBreakMode = viewModel.isThreadExpanded ? .byWordWrapping : .byTruncatingTail
-        
+
         topicCommentTextView.invalidateIntrinsicContentSize()
         topicCommentTextView.textContainer.maximumNumberOfLines = viewModel.isThreadExpanded ? 0 : 3
         topicCommentTextView.textContainer.lineBreakMode = viewModel.isThreadExpanded ? .byWordWrapping : .byTruncatingTail
@@ -266,7 +266,7 @@ final class TalkPageCellTopicView: SetupView {
         repliesCountLabel.text = String(viewModel.repliesCount)
         repliesCountLabel.accessibilityLabel = String.localizedStringWithFormat(repliesCountAccessibilityLabel, viewModel.repliesCount)
     }
-    
+
     func updateSubscribedState(cellViewModel: TalkPageCellViewModel) {
         let languageCode = cellViewModel.viewModel?.siteURL.wmf_languageCode
         let talkPageTopicSubscribe = WMFLocalizedString("talk-page-subscribe-to-topic", languageCode: languageCode, value: "Subscribe", comment: "Text used on button to subscribe to talk page topic. Please prioritize for de, ar and zh wikis.")
@@ -275,67 +275,67 @@ final class TalkPageCellTopicView: SetupView {
         subscribeButton.setTitle(cellViewModel.isSubscribed ? talkPageTopicUnsubscribe : talkPageTopicSubscribe , for: .normal)
         subscribeButton.setImage(cellViewModel.isSubscribed ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell"), for: .normal)
     }
-    
+
     private func updateForNewDisplayModeIfNeeded(displayMode: DisplayMode) {
-        
+
         guard displayMode != self.displayMode else {
             return
         }
-        
+
         // Reset
         stackView.arrangedSubviews.forEach { view in
             view.removeFromSuperview()
         }
-        
+
         disclosureHorizontalStack.arrangedSubviews.forEach { view in
             view.removeFromSuperview()
         }
-        
+
         switch displayMode {
         case .subscribeMetadataReplies:
-            
+
             disclosureHorizontalStack.addArrangedSubview(subscribeButton)
             disclosureHorizontalStack.addArrangedSubview(disclosureCenterSpacer)
             disclosureHorizontalStack.addArrangedSubview(disclosureButton)
-            
+
             stackView.addArrangedSubview(disclosureHorizontalStack)
 
             stackView.addArrangedSubview(topicTitleTextView)
             stackView.addArrangedSubview(metadataHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
-            
+
             self.accessibilityElements = [topicTitleTextView, subscribeButton, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
-            
+
         case .metadataReplies:
-            
+
             disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
             disclosureHorizontalStack.addArrangedSubview(disclosureCenterSpacer)
             disclosureHorizontalStack.addArrangedSubview(disclosureButton)
-            
+
             stackView.addArrangedSubview(disclosureHorizontalStack)
 
             stackView.addArrangedSubview(metadataHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
-            
+
             self.accessibilityElements = [topicTitleTextView, disclosureButton, timestampLabel, activeUsersLabel, repliesCountLabel, topicCommentTextView]
-            
+
         case .none:
-            
+
             disclosureHorizontalStack.addArrangedSubview(topicTitleTextView)
             disclosureHorizontalStack.addArrangedSubview(disclosureCenterSpacer)
             disclosureHorizontalStack.addArrangedSubview(disclosureButton)
-            
+
             stackView.addArrangedSubview(disclosureHorizontalStack)
             stackView.addArrangedSubview(topicCommentTextView)
-            
+
             self.accessibilityElements = [topicTitleTextView, disclosureButton, topicCommentTextView]
         }
-        
+
         self.displayMode = displayMode
     }
-    
+
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
-        
+
         stackView.semanticContentAttribute = semanticContentAttribute
         disclosureHorizontalStack.semanticContentAttribute = semanticContentAttribute
         subscribeButton.semanticContentAttribute = semanticContentAttribute
@@ -353,13 +353,13 @@ final class TalkPageCellTopicView: SetupView {
         repliesImageView.semanticContentAttribute = semanticContentAttribute
         repliesCountLabel.semanticContentAttribute = semanticContentAttribute
         variableMetadataCenterSpacer.semanticContentAttribute = semanticContentAttribute
-        
+
         topicTitleTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         topicCommentTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         timestampLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         activeUsersLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
         repliesCountLabel.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
-        
+
         var deprecatedSubscribeButton = subscribeButton as DeprecatedButton
         let inset: CGFloat = 2
         switch semanticContentAttribute {
@@ -456,7 +456,7 @@ extension TalkPageCellTopicView: Themeable {
         topicTitleTextView.attributedText = viewModel?.topicTitleAttributedString(traitCollection: traitCollection, theme: theme)
         topicTitleTextView.backgroundColor = theme.colors.paperBackground
         topicTitleTextView.linkTextAttributes = [.foregroundColor: theme.colors.link]
-        
+
         timestampLabel.textColor = theme.colors.secondaryText
 
         if viewModel?.leadComment != nil {
@@ -475,12 +475,17 @@ extension TalkPageCellTopicView: Themeable {
         repliesImageView.tintColor = theme.colors.secondaryText
         repliesCountLabel.textColor = theme.colors.secondaryText
     }
-    
+
 }
 
 extension TalkPageCellTopicView: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        linkDelegate?.tappedLink(URL, sourceTextView: textView)
-        return false
+
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        if case .link(let url) = textItem.content {
+            linkDelegate?.tappedLink(url, sourceTextView: textView)
+            return nil // Prevent default action
+        }
+        return defaultAction
     }
+
 }
