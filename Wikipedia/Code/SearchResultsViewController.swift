@@ -293,11 +293,21 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { error in
             failure(error, .prefix)
         }, success: { [weak self] results in
-            guard let self else { return }
-            success(results, .prefix)
-            guard let resultsArray = results.results, resultsArray.count < 12 else { return }
+
+            guard let self,
+                  let resultsArray = results.results, resultsArray.count < 12 else {
+                success(results, .prefix)
+                return
+            }
+            
             self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { error in
-                failure(error, .full)
+                
+                if !resultsArray.isEmpty {
+                    success(results, .prefix)
+                } else {
+                    failure(error, .full)
+                }
+                
             }, success: { [weak self] fullTextResults in
                 guard self != nil else { return }
                 success(fullTextResults, .full)
