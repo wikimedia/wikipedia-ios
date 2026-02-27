@@ -210,7 +210,7 @@ public extension WidgetController {
     }
 
     var potdTargetImageSize: CGSize {
-        CGSize(width: 500, height: 500)
+        CGSize(width: ImageUtils.ImageWidth.w960.rawValue, height: ImageUtils.ImageWidth.w960.rawValue)
     }
 
     // MARK: - Utility
