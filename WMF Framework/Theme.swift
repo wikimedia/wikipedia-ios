@@ -813,6 +813,17 @@ public class Colors: NSObject {
         }
     }
     
+    public var logoTintColor: UIColor {
+        switch identifier {
+        case .light, .sepia:
+            return WMFColor.black
+        case .dark, .black:
+            return WMFColor.white
+        default:
+            return .clear
+        }
+    }
+    
     init(identifier: Identifier) {
         self.identifier = identifier
     }

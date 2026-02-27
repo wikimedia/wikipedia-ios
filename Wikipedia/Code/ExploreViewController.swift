@@ -220,7 +220,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.leftBarButtonItem = logoBarButtonItem
         
         if #unavailable(iOS 26.0) {
-            logoBarButtonItem.tintColor = theme.isDark ? .white : .black
+            logoBarButtonItem.tintColor = theme.colors.logoTintColor
         }
     }
     
@@ -703,7 +703,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         themeTopSafeAreaOverlay()
         
         if #unavailable(iOS 26.0) {
-            navigationItem.leftBarButtonItem?.tintColor = theme.isDark ? .white : .black
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
         }
     }
     
