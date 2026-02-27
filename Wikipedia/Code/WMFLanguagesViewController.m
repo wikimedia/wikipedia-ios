@@ -12,16 +12,11 @@ static const NSTimeInterval WMFActivityCompletionAnimationDuration = 0.15;
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
-@interface WMFLanguagesViewController () <UISearchBarDelegate>
+@interface WMFLanguagesViewController ()
 
-@property (strong, nonatomic) IBOutlet UISearchBar *languageFilterField;
 @property (strong, nonatomic) MWKLanguageFilter *languageFilter;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *languageFilterTopSpaceConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *filterDividerHeightConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *filterHeightConstraint;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, assign) BOOL hideLanguageFilter;
 @property (nonatomic) BOOL editing;
 @property (nonatomic) BOOL disableSelection;
 
@@ -112,22 +107,12 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    // stylize
-    if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
-        [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
-    }
-
-    self.languageFilterField.placeholder = WMFLocalizedStringWithDefaultValue(@"article-languages-filter-placeholder", nil, nil, @"Find language", @"Filter languages text box placeholder text.");
-
-    self.filterDividerHeightConstraint.constant = 0.5f;
-
     [self.tableView registerNib:[WMFLanguageCell wmf_classNib] forCellReuseIdentifier:[WMFLanguageCell wmf_nibName]];
     [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
     [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
 
-    //HAX: force these to take effect if they were set before the VC was presented/pushed.
+    // HAX: force these to take effect if they were set before the VC was presented/pushed.
     self.editing = self.editing;
-    self.hideLanguageFilter = self.hideLanguageFilter;
     self.disableSelection = self.disableSelection;
 
     [self applyTheme:self.theme];
@@ -135,7 +120,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)setHideLanguageFilter:(BOOL)hideLanguageFilter {
     _hideLanguageFilter = hideLanguageFilter;
-    self.filterHeightConstraint.constant = hideLanguageFilter ? 0 : 44;
+    if (self.viewIfLoaded != nil) {
+        [self configureNavigationBarFromObjCWithTitle:self.title];
+    }
 }
 
 - (void)setEditing:(BOOL)editing {
@@ -383,6 +370,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.navigationItem.searchController.active = NO;
     MWKLanguageLink *selectedLanguage = [self languageAtIndexPath:indexPath];
     if ([self.delegate respondsToSelector:@selector(languagesController:didSelectLanguage:)] && selectedLanguage) {
         [self.delegate languagesController:self didSelectLanguage:selectedLanguage];
@@ -427,7 +415,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
             break;
     }
     self.languageFilter.languageFilter = @"";
-    self.languageFilterField.text = @"";
+    self.navigationItem.searchController.searchBar.text = @"";
     [tableView reloadData];
     [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
@@ -461,8 +449,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.view.backgroundColor = theme.colors.baseBackground;
     UIColor *backgroundColor = theme.colors.baseBackground;
     self.tableView.backgroundColor = backgroundColor;
-    self.languageFilterField.searchBarStyle = UISearchBarStyleMinimal;
-    self.languageFilterField.barTintColor = backgroundColor;
     [self.tableView reloadData];
 }
 
@@ -500,7 +486,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //need to update the footer
+    // need to update the footer
     [self setEditing:self.editing animated:NO];
 
     self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
