@@ -94,82 +94,100 @@ public final class WMFToastPresenter {
 
         currentToast?.removeFromSuperview()
         dismissWorkItem?.cancel()
-
         self.dismissAction = dismissAction
 
-        // SwiftUI hosting controller
+        // SwiftUI hosting
         let toastContent = view
             .frame(maxWidth: .infinity, alignment: .leading)
+            .fixedSize(horizontal: false, vertical: true)
+
         let hostingController = UIHostingController(rootView: toastContent)
         hostingController.view.backgroundColor = .clear
-        hostingController.view.insetsLayoutMarginsFromSafeArea = false
-        hostingController.view.layoutMargins = .zero
-
-        let toastContainer = UIView()
-        toastContainer.backgroundColor = theme.paperBackground
-        toastContainer.layer.cornerRadius = 24
-        toastContainer.layer.shadowColor = theme.toastShadow.cgColor
-        toastContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
-        toastContainer.layer.shadowRadius = 16
-        toastContainer.layer.shadowOpacity = 0.15
-        toastContainer.translatesAutoresizingMaskIntoConstraints = false
-
-        let borderLayer = CALayer()
-        borderLayer.frame = CGRect(x: 0, y: 0, width: 1000, height: 1000) // Will be adjusted by layout
-        borderLayer.cornerRadius = 24
-        borderLayer.borderWidth = 0.5
-        borderLayer.borderColor = theme.border.withAlphaComponent(0.15).cgColor
-        toastContainer.layer.addSublayer(borderLayer)
-
-        toastContainer.addSubview(hostingController.view)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
 
+        // Outer shadow container (keeps shadow outside clipped corners)
+        let shadowContainer = UIView()
+        shadowContainer.translatesAutoresizingMaskIntoConstraints = false
+        shadowContainer.backgroundColor = .clear
+        shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
+        shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
+        shadowContainer.layer.shadowRadius = 16
+        shadowContainer.layer.shadowOpacity = 1
+
+        // Inner clipped container (rounded + clips glass)
+        let toastContainer = UIView()
+        toastContainer.translatesAutoresizingMaskIntoConstraints = false
+        toastContainer.backgroundColor = .clear
+        toastContainer.layer.cornerRadius = 24
+        toastContainer.clipsToBounds = true
+
+        shadowContainer.addSubview(toastContainer)
+        toastContainer.addSubview(hostingController.view)
+
         NSLayoutConstraint.activate([
+            toastContainer.topAnchor.constraint(equalTo: shadowContainer.topAnchor),
+            toastContainer.leadingAnchor.constraint(equalTo: shadowContainer.leadingAnchor),
+            toastContainer.trailingAnchor.constraint(equalTo: shadowContainer.trailingAnchor),
+            toastContainer.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor),
+
             hostingController.view.topAnchor.constraint(equalTo: toastContainer.topAnchor),
             hostingController.view.leadingAnchor.constraint(equalTo: toastContainer.leadingAnchor),
             hostingController.view.trailingAnchor.constraint(equalTo: toastContainer.trailingAnchor),
             hostingController.view.bottomAnchor.constraint(equalTo: toastContainer.bottomAnchor)
         ])
 
-        containerView.addSubview(toastContainer)
-        currentToast = toastContainer
+        containerView.addSubview(shadowContainer)
+        currentToast = shadowContainer
 
-        // iPad handling
-        let maxWidth: CGFloat = 400
-        let toastWidth = toastContainer.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth)
+        // Position constraints (iPhone should always fill safe area width)
+        let leading = shadowContainer.leadingAnchor.constraint(
+            equalTo: containerView.safeAreaLayoutGuide.leadingAnchor,
+            constant: 16
+        )
+        let trailing = shadowContainer.trailingAnchor.constraint(
+            equalTo: containerView.safeAreaLayoutGuide.trailingAnchor,
+            constant: -16
+        )
+        let bottom = shadowContainer.bottomAnchor.constraint(
+            equalTo: containerView.safeAreaLayoutGuide.bottomAnchor,
+            constant: -16
+        )
 
-        // Need to loosen these up so that iPad doesn't stretch across the device
-        let toastLeading = toastContainer.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 16)
-        let toastTrailing = toastContainer.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -16)
-        toastLeading.priority = .defaultHigh
-        toastTrailing.priority = .defaultHigh
+        // Make these REQUIRED so iPhone doesn’t shrink
+        leading.priority = .required
+        trailing.priority = .required
+        bottom.priority = .required
 
-        let positionConstraint = toastContainer.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+        NSLayoutConstraint.activate([leading, trailing, bottom])
 
-        NSLayoutConstraint.activate([
-            toastLeading,
-            toastTrailing,
-            toastWidth,
-            toastContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            positionConstraint
-        ])
+        // iPad-only cap + centering (use idiom, not size class)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let maxWidth: CGFloat = 400
+            NSLayoutConstraint.activate([
+                shadowContainer.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth),
+                shadowContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
+            ])
+        }
 
-        // Initial state off-screen (below)
+        // Layout before animation (so height is known)
         containerView.layoutIfNeeded()
-        let translationY = toastContainer.frame.height + 50
-        toastContainer.transform = CGAffineTransform(translationX: 0, y: translationY)
-        toastContainer.alpha = 0
+        let translationY = shadowContainer.bounds.height + 50
+        shadowContainer.transform = CGAffineTransform(translationX: 0, y: translationY)
+        shadowContainer.alpha = 0
 
-        UIView.animate(withDuration: 0.35,
-                       delay: 0,
-                       usingSpringWithDamping: 0.8,
-                       initialSpringVelocity: 0.5,
-                       options: [.curveEaseOut],
-                       animations: {
-            toastContainer.transform = .identity
-            toastContainer.alpha = 1
-        })
+        UIView.animate(
+            withDuration: 0.35,
+            delay: 0,
+            usingSpringWithDamping: 0.85,
+            initialSpringVelocity: 0.6,
+            options: [.curveEaseOut],
+            animations: {
+                shadowContainer.transform = .identity
+                shadowContainer.alpha = 1
+            }
+        )
 
+        // Background tap to dismiss
         if allowsBackgroundTapToDismiss {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleContainerTap(_:)))
             tapGesture.cancelsTouchesInView = false
@@ -177,17 +195,22 @@ public final class WMFToastPresenter {
             self.backgroundTapGestureRecognizer = tapGesture
         }
 
+        // Swipe down to dismiss
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleToastPan(_:)))
-        toastContainer.addGestureRecognizer(panGesture)
+        shadowContainer.addGestureRecognizer(panGesture)
 
+        // Auto-dismiss
         if let duration {
-            let workItem = DispatchWorkItem { [weak self, weak toastContainer] in
-                guard let toastContainer = toastContainer else { return }
-                self?.dismissToast(toastContainer, dismissEvent: .durationExpired)
+            let workItem = DispatchWorkItem { [weak self, weak shadowContainer] in
+                guard let shadowContainer else { return }
+                self?.dismissToast(shadowContainer, dismissEvent: .durationExpired)
             }
             dismissWorkItem = workItem
             DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
         }
+
+        debugPrint(" 🍄 containerView bounds:", containerView.bounds)
+        debugPrint(" 🍄 safeArea:", containerView.safeAreaLayoutGuide.layoutFrame)
     }
 
     public func dismissCurrentToast() {
