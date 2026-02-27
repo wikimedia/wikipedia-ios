@@ -50,11 +50,9 @@ public final class WMFToastPresenter {
     // MARK: - Subclass Overrides
 
     public func appEnvironmentDidChange() {
-        // Update background color
         currentToast?.backgroundColor = theme.paperBackground
         currentToast?.layer.shadowColor = theme.toastShadow.cgColor
 
-        // Update border color
         if let borderLayer = currentToast?.layer.sublayers?.first(where: { $0.borderWidth > 0 }) {
             borderLayer.borderColor = theme.border.withAlphaComponent(0.15).cgColor
         }
@@ -195,9 +193,6 @@ public final class WMFToastPresenter {
             dismissWorkItem = workItem
             DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
         }
-
-        debugPrint(" 🍄 containerView bounds:", containerView.bounds)
-        debugPrint(" 🍄 safeArea:", containerView.safeAreaLayoutGuide.layoutFrame)
     }
 
     public func dismissCurrentToast() {
