@@ -29,7 +29,11 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
     
-    private lazy var finishEditingButton = UIBarButtonItem(title: CommonStrings.surveySubmitActionTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
+    private lazy var finishEditingButton = {
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(finishEditing(_:)), alignment: .trailing)
+        
+        return UIBarButtonItem.closeNavigationBarButtonItem(config: closeButtonConfig)
+    }()
 
 
     init?(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {

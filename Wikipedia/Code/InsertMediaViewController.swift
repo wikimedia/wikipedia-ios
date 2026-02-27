@@ -151,6 +151,7 @@ final class InsertMediaViewController: ThemeableViewController, WMFNavigationBar
         guard viewIfLoaded != nil else {
             return
         }
+        view.backgroundColor = theme.colors.paperBackground
         selectedImageViewController.apply(theme: theme)
         searchViewController.apply(theme: theme)
         searchResultsCollectionViewController.apply(theme: theme)
