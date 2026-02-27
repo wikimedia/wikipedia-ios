@@ -35,8 +35,6 @@
 "about-repositories-app-source-license" = "Zdrojový kód je dostupný v rámci $1.";
 "about-repositories-app-source-license-mit" = "licenciou MIT";
 "about-send-feedback" = "Odoslať spätnú väzbu";
-"about-testers" = "Testeri";
-"about-testers-details" = "QA test vykonala skupina $1";
 "about-title" = "O aplikácii";
 "about-translators" = "Prekladatelia";
 "about-translators-details" = "Preložené dobrovoľníkmi na $1";
@@ -89,6 +87,7 @@
 "action-unsave" = "Zrušiť uloženie";
 "action-unsaved-accessibility-notification" = "Článok neuložený";
 "action-update" = "Aktualizovať";
+"activity-tab-add-images-title" = "Pridať obrázky";
 "activity-tab-title" = "Aktivita";
 "add-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články}} k zoznamu na prečítanie";
 "advanced-settings-title" = "Rozšírené nastavenia";

@@ -13,8 +13,6 @@
 "about-product-of" = "$1 стварыла гэты прадукт з дапамогай такіх валянтэраў, як вы";
 "about-repositories" = "Рэпазыторыі";
 "about-send-feedback" = "Даслаць водгук пра аплікацыю";
-"about-testers" = "Тэстэры";
-"about-testers-details" = "QA-тэставаньне ад $1";
 "about-title" = "Пра";
 "about-translators" = "Перакладнікі";
 "about-translators-details" = "Перакладзена дабраахвотнікамі на $1";
@@ -93,6 +91,7 @@
 "notifications-center-type-title-login-attempts-subtitle" = "Няўдалыя спробы ўваходу ў ваш рахунак";
 "page-protected-can-not-edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
 "page-protected-can-not-edit-title" = "Гэтая старонка абароненая";
+"places-location-enabled" = "Лякацыя ўвамкнёная";
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
 "preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
