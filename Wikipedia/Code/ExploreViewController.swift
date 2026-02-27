@@ -218,6 +218,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         logoBarButtonItem.accessibilityLabel = WMFLocalizedString("home-title-accessibility-label", value: "Wikipedia, scroll to top of Explore", comment: "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
         navigationItem.leftBarButtonItem = logoBarButtonItem
+        
+        if #unavailable(iOS 26.0) {
+            logoBarButtonItem.tintColor = theme.isDark ? .white : .black
+        }
     }
     
     @objc func updateProfileButton() {
@@ -697,6 +701,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         themeTopSafeAreaOverlay()
+        
+        if #unavailable(iOS 26.0) {
+            navigationItem.leftBarButtonItem?.tintColor = theme.isDark ? .white : .black
+        }
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
