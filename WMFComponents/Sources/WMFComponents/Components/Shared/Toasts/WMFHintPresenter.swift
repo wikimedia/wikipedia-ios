@@ -137,8 +137,11 @@ final public class WMFHintPresenter {
 
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.backgroundColor = .clear
 
-        let bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea ? presenter.view.bottomAnchor : presenter.view.safeAreaLayoutGuide.bottomAnchor
+        let bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea
+            ? presenter.view.bottomAnchor
+            : presenter.view.safeAreaLayoutGuide.bottomAnchor
 
         if let subview = subview {
             presenter.view.insertSubview(containerView, belowSubview: subview)
@@ -146,13 +149,15 @@ final public class WMFHintPresenter {
             presenter.view.addSubview(containerView)
         }
 
+        // These two constraints are toggled in setHintHidden(_:...)
         let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -additionalBottomSpacing)
         let topConstraint = containerView.topAnchor.constraint(equalTo: bottomAnchor)
 
-        let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor)
-        let trailingConstraint = containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
-
-        NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint])
+        NSLayoutConstraint.activate([
+            topConstraint,
+            containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
+        ])
 
         containerViewConstraints = (top: topConstraint, bottom: bottomConstraint)
 
@@ -172,47 +177,66 @@ final public class WMFHintPresenter {
         hostingController.view.layoutMargins = .zero
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
 
-        let toastContainer = UIView()
-        toastContainer.backgroundColor = theme.paperBackground
-        toastContainer.layer.cornerRadius = 24
-        toastContainer.layer.shadowColor = theme.toastShadow.cgColor
-        toastContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
-        toastContainer.layer.shadowRadius = 16
-        toastContainer.layer.shadowOpacity = 1
-        toastContainer.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 16.0, *) {
+            hostingController.sizingOptions = [.intrinsicContentSize]
+        }
 
-        let borderLayer = CALayer()
-        borderLayer.cornerRadius = 24
-        toastContainer.layer.addSublayer(borderLayer)
+        hostingController.view.setContentHuggingPriority(.required, for: .vertical)
+        hostingController.view.setContentCompressionResistancePriority(.required, for: .vertical)
 
-        toastContainer.addSubview(hostingController.view)
+        let shadowContainer = UIView()
+        shadowContainer.translatesAutoresizingMaskIntoConstraints = false
+        shadowContainer.backgroundColor = .clear
+        shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
+        shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
+        shadowContainer.layer.shadowRadius = 16
+        shadowContainer.layer.shadowOpacity = 0.15
 
-        NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: toastContainer.topAnchor),
-            hostingController.view.leadingAnchor.constraint(equalTo: toastContainer.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: toastContainer.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: toastContainer.bottomAnchor)
-        ])
+        let clippedContainer = UIView()
+        clippedContainer.translatesAutoresizingMaskIntoConstraints = false
+        clippedContainer.backgroundColor = .clear
+        clippedContainer.layer.cornerRadius = 20
+        clippedContainer.clipsToBounds = true
 
-        containerView.addSubview(toastContainer)
-
-        // iPad handling - max width and centering
-        let maxWidth: CGFloat = 400
-        let toastWidth = toastContainer.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth)
-
-        let toastLeading = toastContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16)
-        let toastTrailing = toastContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
-        toastLeading.priority = .defaultHigh
-        toastTrailing.priority = .defaultHigh
+        shadowContainer.addSubview(clippedContainer)
+        clippedContainer.addSubview(hostingController.view)
 
         NSLayoutConstraint.activate([
-            toastLeading,
-            toastTrailing,
-            toastWidth,
-            toastContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            toastContainer.topAnchor.constraint(equalTo: containerView.topAnchor),
-            toastContainer.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            clippedContainer.topAnchor.constraint(equalTo: shadowContainer.topAnchor),
+            clippedContainer.leadingAnchor.constraint(equalTo: shadowContainer.leadingAnchor),
+            clippedContainer.trailingAnchor.constraint(equalTo: shadowContainer.trailingAnchor),
+            clippedContainer.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor),
+
+            hostingController.view.topAnchor.constraint(equalTo: clippedContainer.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: clippedContainer.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: clippedContainer.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: clippedContainer.bottomAnchor)
         ])
+
+        shadowContainer.setContentHuggingPriority(.required, for: .vertical)
+        shadowContainer.setContentCompressionResistancePriority(.required, for: .vertical)
+
+        containerView.addSubview(shadowContainer)
+
+        let cardLeading = shadowContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16)
+        let cardTrailing = shadowContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+        cardLeading.priority = .required
+        cardTrailing.priority = .required
+
+        NSLayoutConstraint.activate([
+            cardLeading,
+            cardTrailing,
+            shadowContainer.topAnchor.constraint(equalTo: containerView.topAnchor),
+            shadowContainer.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let maxWidth: CGFloat = 400
+            NSLayoutConstraint.activate([
+                shadowContainer.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth),
+                shadowContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
+            ])
+        }
 
         presenter.addChild(hostingController)
         hostingController.didMove(toParent: presenter)
@@ -223,7 +247,7 @@ final public class WMFHintPresenter {
         currentHintContainer = containerView
         currentHostingController = hostingController
 
-        containerView.superview?.layoutIfNeeded()
+        presenter.view.layoutIfNeeded()
     }
 
     private func removeHint() {
