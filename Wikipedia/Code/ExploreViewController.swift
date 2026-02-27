@@ -193,7 +193,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBar.text = searchTerm
             searchBar.becomeFirstResponder()
         }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -201,7 +201,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 dataStore: dataStore,
                 theme: theme,
                 articleSource: .search,
-                tabConfig: .appendArticleAndAssignCurrentTab
+                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
             )
             let success = coordinator.start()
             if !success {

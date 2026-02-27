@@ -796,7 +796,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -804,7 +804,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 dataStore: dataStore,
                 theme: theme,
                 articleSource: .search,
-                tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
             )
             let success = coordinator.start()
             if !success {

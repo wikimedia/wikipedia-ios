@@ -40,9 +40,11 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     // MARK: - Public configuration
 
+    typealias NeedsNewTab = Bool
+    
     /// Called whenever a search result row or long-press result is tapped. Caller is responsible
     /// for navigating to the given URL.
-    var articleTappedAction: ((URL) -> Void)?
+    var articleTappedAction: ((URL, NeedsNewTab) -> Void)?
 
     /// Called when the user selects a recently-searched term so the parent can write the text into
     /// its own search bar and activate it.
@@ -370,15 +372,15 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             guard let self else { return }
             SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: self.source.stringValue)
             self.saveLastSearch()
-            self.articleTappedAction?(articleURL)
+            self.articleTappedAction?(articleURL, false)
         }
 
         vc.longPressSearchResultAndCommitAction = { [weak self] articleURL in
-            self?.articleTappedAction?(articleURL)
+            self?.articleTappedAction?(articleURL, false)
         }
 
         vc.longPressOpenInNewTabAction = { [weak self] articleURL in
-            self?.articleTappedAction?(articleURL)
+            self?.articleTappedAction?(articleURL, true)
         }
 
         return vc

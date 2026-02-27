@@ -37,7 +37,7 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self else { return }
             if let customAction = self.articleTappedAction {
                 customAction(articleURL)
@@ -49,7 +49,7 @@ class SearchMinimalViewController: ThemeableViewController, WMFNavigationBarConf
                     dataStore: dataStore,
                     theme: theme,
                     articleSource: .search,
-                    tabConfig: nil
+                    tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
                 )
                 if !coordinator.start() {
                     navigate(to: articleURL)

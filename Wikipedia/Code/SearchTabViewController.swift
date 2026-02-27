@@ -90,7 +90,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        vc.articleTappedAction = { [weak self] articleURL in
+        vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -98,7 +98,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
                 dataStore: dataStore,
                 theme: theme,
                 articleSource: .search,
-                tabConfig: .appendArticleAndAssignCurrentTab
+                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
             )
             if !coordinator.start() {
                 navigate(to: articleURL)
