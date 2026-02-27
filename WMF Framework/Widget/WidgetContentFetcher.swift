@@ -4,22 +4,22 @@ public final class WidgetContentFetcher {
 
     // MARK: - Nested Types
 
-	public enum FetcherError: Error {
-		case urlFailure
-		case contentFailure
-		case unsupportedLanguage
-	}
+    public enum FetcherError: Error {
+        case urlFailure
+        case contentFailure
+        case unsupportedLanguage
+    }
 
-	public typealias FeaturedContentResult = Result<WidgetFeaturedContent, FetcherError>
+    public typealias FeaturedContentResult = Result<WidgetFeaturedContent, FetcherError>
     public typealias FeaturedArticleResult = Result<WidgetFeaturedArticle, FetcherError>
     public typealias TopReadResult = Result<WidgetTopRead, FetcherError>
     public typealias PictureOfTheDayResult = Result<WidgetPictureOfTheDay, FetcherError>
 
-	// MARK: - Properties
+    // MARK: - Properties
 
-	public static let shared = WidgetContentFetcher()
+    public static let shared = WidgetContentFetcher()
 
-	let session = Session(configuration: .current)
+    let session = Session(configuration: .current)
 
     // MARK: - Public - Featured Content
 
@@ -46,26 +46,33 @@ public final class WidgetContentFetcher {
 
     // MARK: - Public - Utility
 
-	public func fetchImageDataFrom(imageSource: WidgetImageSource, completion: @escaping (Result<Data, FetcherError>) -> Void) {
-		guard let imageURL = URL(string: imageSource.source) else {
-			completion(.failure(.urlFailure))
-			return
-		}
+    public func fetchImageDataFrom(imageSource: WidgetImageSource, completion: @escaping (Result<Data, FetcherError>) -> Void) {
+        guard let imageURL = URL(string: imageSource.source) else {
+            completion(.failure(.urlFailure))
+            return
+        }
 
-		let task = session.dataTask(with: imageURL) { data, _, error in
-			if let data = data {
-				completion(.success(data))
-			} else {
-				completion(.failure(.contentFailure))
-			}
-		}
+        var request = URLRequest(url: imageURL)
+        request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
 
-		guard let dataTask = task else {
-			completion(.failure(.urlFailure))
-			return
-		}
+        let task = session.dataTask(with: request) { data, response, error in
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                completion(.failure(.contentFailure))
+                return
+            }
+            if let data = data, !data.isEmpty {
+                completion(.success(data))
+            } else {
+                completion(.failure(.contentFailure))
+            }
+        }
 
-		dataTask.resume()
-	}
+        guard let dataTask = task else {
+            completion(.failure(.urlFailure))
+            return
+        }
+
+        dataTask.resume()
+    }
 
 }

@@ -43,11 +43,11 @@ final class PictureOfTheDayData {
             let midnightUTCDate: Date = (Date() as NSDate).wmf_midnightUTCDateFromLocal ?? Date()
             let groupURL = WMFContentGroup.pictureOfTheDayContentGroupURL(forSiteURL: widgetController.featuredContentSiteURL, midnightUTCDate: midnightUTCDate)
 
-            if let pictureOfTheDay = try? result.get(), let imageData = pictureOfTheDay.originalImageSource?.data {
-                let image = UIImage(data: imageData)
+            if let pictureOfTheDay = try? result.get(),
+               let imageData = pictureOfTheDay.originalImageSource?.data,
+               let image = UIImage(data: imageData) {
                 let description = pictureOfTheDay.description.text
                 let license = pictureOfTheDay.license.code
-
                 let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentURL: groupURL, image: image, imageDescription: description, licenseCode: license)
                 completion(entry)
             } else {
@@ -77,12 +77,12 @@ struct PictureOfTheDayEntry: TimelineEntry {
     
     // MARK: Properties
     
-	let date: Date // for Timeline Entry
+    let date: Date // for Timeline Entry
     let kind: Kind
-	var contentURL: URL? = nil
-	var image: UIImage?
-	var imageDescription: String? = nil
-	var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
+    var contentURL: URL? = nil
+    var image: UIImage?
+    var imageDescription: String? = nil
+    var licenseCode: String? = nil // the system encodes this entry, avoiding bringing in the whole MWKLicense object and the Mantle dependency
 
     // MARK: License Image Parsing
 
@@ -183,7 +183,10 @@ struct PictureOfTheDayView: View {
     @ViewBuilder
     var image: some View {
         if let image = entry.image {
-            Image(uiImage: image).resizable().scaledToFill().clipped()
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                .clipped()
         } else {
             Rectangle()
                 .foregroundColor(Color(.systemFill))

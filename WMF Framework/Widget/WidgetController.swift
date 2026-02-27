@@ -23,7 +23,7 @@ public final class WidgetController: NSObject {
 
     // MARK: Properties
 
-	@objc public static let shared = WidgetController()
+    @objc public static let shared = WidgetController()
     private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
     
     private var widgetCache: WidgetCache {
@@ -32,7 +32,7 @@ public final class WidgetController: NSObject {
 
     // MARK: Public
 
-	@objc public func reloadAllWidgetsIfNecessary() {
+    @objc public func reloadAllWidgetsIfNecessary() {
         guard !Bundle.main.isAppExtension else {
             return
         }
@@ -45,7 +45,7 @@ public final class WidgetController: NSObject {
         }
 
         WidgetCenter.shared.reloadAllTimelines()
-	}
+    }
     
     public func reloadFeaturedArticleWidgetIfNecessary() {
         guard !Bundle.main.isAppExtension else {
@@ -210,7 +210,7 @@ public extension WidgetController {
     }
 
     var potdTargetImageSize: CGSize {
-        CGSize(width: 1000, height: 1000)
+        CGSize(width: ImageUtils.ImageWidth.w960.rawValue, height: ImageUtils.ImageWidth.w960.rawValue)
     }
 
     // MARK: - Utility
@@ -255,7 +255,6 @@ public extension WidgetController {
             return
         }
 
-        // Fetch fresh featured content from network
         fetcher.fetchFeaturedContent(forDate: Date(), siteURL: widgetCache.settings.siteURL, languageCode: widgetCache.settings.languageCode, languageVariantCode: widgetCache.settings.languageVariantCode) { result in
             switch result {
             case .success(let featuredContent):
@@ -419,16 +418,25 @@ public extension WidgetController {
         fetchFeaturedContent { result in
             switch result {
             case .success(var featuredContent):
-                if var imageSource = featuredContent.pictureOfTheDay?.originalImageSource {
-                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, Int(self.potdTargetImageSize.width))
-                    featuredContent.pictureOfTheDay?.originalImageSource = imageSource
+                if featuredContent.pictureOfTheDay?.originalImageSource?.data != nil,
+                   let pictureOfTheDay = featuredContent.pictureOfTheDay {
+                    performCompletion(result: .success(pictureOfTheDay))
+                    return
+                }
+
+                if var imageSource = featuredContent.pictureOfTheDay?.thumbnailImageSource ?? featuredContent.pictureOfTheDay?.originalImageSource {
+                    let maxWidth = Int(self.potdTargetImageSize.width)
+                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, maxWidth)
                     fetcher.fetchImageDataFrom(imageSource: imageSource) { imageResult in
-                        featuredContent.pictureOfTheDay?.originalImageSource?.data = try? imageResult.get()
+                        if let imageData = try? imageResult.get() {
+                            imageSource.data = imageData
+                        }
+                        featuredContent.pictureOfTheDay?.originalImageSource = imageSource
                         widgetCache.featuredContent = featuredContent
                         self.sharedCache.saveCache(widgetCache)
 
-                        if let pictureOftheDay = featuredContent.pictureOfTheDay {
-                            performCompletion(result: .success(pictureOftheDay))
+                        if let pictureOfTheDay = featuredContent.pictureOfTheDay {
+                            performCompletion(result: .success(pictureOfTheDay))
                         } else {
                             performCompletion(result: .failure(.contentFailure))
                         }
