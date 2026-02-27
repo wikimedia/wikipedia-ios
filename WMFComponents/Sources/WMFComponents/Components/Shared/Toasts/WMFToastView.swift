@@ -28,7 +28,7 @@ struct WMFToastView: View {
                         .tint(Color(uiColor: theme.paperBackground).opacity(0.85))
                         .interactive()
                 )
-                .clipShape(RoundedRectangle(cornerRadius: 18, style: .circular))
+                .clipShape(Capsule())
                 .onTapGesture { config.tapAction?() }
 
         } else {

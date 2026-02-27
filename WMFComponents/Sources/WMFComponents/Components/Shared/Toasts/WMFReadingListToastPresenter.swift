@@ -179,8 +179,6 @@ final public class WMFReadingListToastPresenter {
         hostingController.view.setContentCompressionResistancePriority(.required, for: .vertical)
         hostingController.sizingOptions = [.intrinsicContentSize]
 
-        let cornerRadius: CGFloat = 24
-
         let shadowContainer = UIView()
         shadowContainer.translatesAutoresizingMaskIntoConstraints = false
         shadowContainer.backgroundColor = .clear
@@ -189,25 +187,13 @@ final public class WMFReadingListToastPresenter {
         shadowContainer.layer.shadowRadius = 16
         shadowContainer.layer.shadowOpacity = 1
 
-        let clippedContainer = UIView()
-        clippedContainer.translatesAutoresizingMaskIntoConstraints = false
-        clippedContainer.backgroundColor = .clear
-        clippedContainer.layer.cornerRadius = cornerRadius
-        clippedContainer.clipsToBounds = true
-
-        shadowContainer.addSubview(clippedContainer)
-        clippedContainer.addSubview(hostingController.view)
+        shadowContainer.addSubview(hostingController.view)
 
         NSLayoutConstraint.activate([
-            clippedContainer.topAnchor.constraint(equalTo: shadowContainer.topAnchor),
-            clippedContainer.leadingAnchor.constraint(equalTo: shadowContainer.leadingAnchor),
-            clippedContainer.trailingAnchor.constraint(equalTo: shadowContainer.trailingAnchor),
-            clippedContainer.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor),
-
-            hostingController.view.topAnchor.constraint(equalTo: clippedContainer.topAnchor),
-            hostingController.view.leadingAnchor.constraint(equalTo: clippedContainer.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: clippedContainer.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: clippedContainer.bottomAnchor)
+            hostingController.view.topAnchor.constraint(equalTo: shadowContainer.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: shadowContainer.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: shadowContainer.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor)
         ])
 
         shadowContainer.setContentHuggingPriority(.required, for: .vertical)

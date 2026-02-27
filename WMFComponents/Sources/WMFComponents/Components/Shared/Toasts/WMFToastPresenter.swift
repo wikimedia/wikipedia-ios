@@ -114,26 +114,13 @@ public final class WMFToastPresenter {
         shadowContainer.layer.shadowRadius = 16
         shadowContainer.layer.shadowOpacity = 1
 
-        // Inner clipped container (rounded + clips glass)
-        let toastContainer = UIView()
-        toastContainer.translatesAutoresizingMaskIntoConstraints = false
-        toastContainer.backgroundColor = .clear
-        toastContainer.layer.cornerRadius = 24
-        toastContainer.clipsToBounds = true
-
-        shadowContainer.addSubview(toastContainer)
-        toastContainer.addSubview(hostingController.view)
+        shadowContainer.addSubview(hostingController.view)
 
         NSLayoutConstraint.activate([
-            toastContainer.topAnchor.constraint(equalTo: shadowContainer.topAnchor),
-            toastContainer.leadingAnchor.constraint(equalTo: shadowContainer.leadingAnchor),
-            toastContainer.trailingAnchor.constraint(equalTo: shadowContainer.trailingAnchor),
-            toastContainer.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor),
-
-            hostingController.view.topAnchor.constraint(equalTo: toastContainer.topAnchor),
-            hostingController.view.leadingAnchor.constraint(equalTo: toastContainer.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: toastContainer.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: toastContainer.bottomAnchor)
+            hostingController.view.topAnchor.constraint(equalTo: shadowContainer.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: shadowContainer.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: shadowContainer.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor)
         ])
 
         containerView.addSubview(shadowContainer)

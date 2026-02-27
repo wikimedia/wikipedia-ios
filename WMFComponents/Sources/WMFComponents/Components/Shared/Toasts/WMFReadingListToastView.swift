@@ -16,7 +16,7 @@ public struct WMFReadingListToastView: View {
 
     public var body: some View {
         let config = model.config
-        let shape = RoundedRectangle(cornerRadius: 20, style: .continuous)
+        let shape = Capsule()
 
         HStack(alignment: .center, spacing: 16) {
             if let icon = config.icon {
@@ -77,7 +77,7 @@ public struct WMFReadingListToastView: View {
 
 private struct ToastGlassModifier: ViewModifier {
     let theme: WMFTheme
-    let shape: RoundedRectangle
+    let shape: Capsule
 
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
