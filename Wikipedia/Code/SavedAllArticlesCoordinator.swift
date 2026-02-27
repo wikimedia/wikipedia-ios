@@ -61,6 +61,13 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         )
 
         viewModel.didTapArticle = { [weak self] article in
+            
+            guard let siteURL = article.project.siteURL,
+                  var articleURL = siteURL.wmf_URL(withTitle: article.title) else {
+                return
+            }
+            
+            ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
             self?.showArticle(title: article.title, project: article.project, inNewTab: false)
         }
         
