@@ -1,6 +1,4 @@
-import Foundation
-import WMFComponentsObjC
-
+import UIKit
 extension WMFSourceEditorFormatterList {
     func toggleListBullet(action: WMFSourceEditorFormatterButtonAction, in textView: UITextView) {
         toggleListItem(action: action, formattingCharacter: "*", in: textView)

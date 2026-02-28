@@ -1,1 +1,0 @@
-../WMFSourceEditorFormatterSubscript.h

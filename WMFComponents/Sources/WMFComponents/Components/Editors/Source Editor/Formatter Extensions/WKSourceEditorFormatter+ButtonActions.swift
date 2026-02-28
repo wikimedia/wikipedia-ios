@@ -1,6 +1,4 @@
-import Foundation
-import WMFComponentsObjC
-
+import UIKit
 enum WMFSourceEditorFormatterButtonAction {
     case add
     case remove
