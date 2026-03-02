@@ -495,7 +495,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)reloadDataSections {
     [super reloadDataSections];
-    self.navigationItem.rightBarButtonItem = MWKDataStore.shared.languageLinkController.preferredLanguages.count > 1 ? self.editButtonItem : nil;
+    if (MWKDataStore.shared.languageLinkController.preferredLanguages.count > 1) {
+        [self updateEditButtonWithIsEditing:self.isEditing];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 - (void)viewDidLoad {
@@ -517,6 +521,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     [self.tableView setEditing:editing animated:animated];
+    [self updateEditButtonWithIsEditing:editing];
     if (animated) {
         [UIView animateWithDuration:0.30
                          animations:^{
