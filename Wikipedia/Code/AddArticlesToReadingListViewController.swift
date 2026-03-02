@@ -40,7 +40,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
         self.dataStore = dataStore
         self.articles = articles
         self.moveFromReadingList = moveFromReadingList
-        self.readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles, needsCreateReadingListButton: true)
+        self.readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
     }
@@ -96,7 +96,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
         
         let titleConfig = WMFNavigationBarTitleConfig(title: String.localizedStringWithFormat(title, articles.count), customView: nil, alignment: .centerCompact)
         
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonPressed), alignment: .leading)
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPressed), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }

@@ -63,6 +63,11 @@ class DescriptionHelpViewController: ThemeableViewController, WMFNavigationBarCo
         aboutWikidataLabel.text = WMFLocalizedString("description-help-about-wikidata", value:"About Wikidata", comment:"About Wikidata label text")
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"Wikidata guide label text")
         updateFonts()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            updateFonts()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +80,7 @@ class DescriptionHelpViewController: ThemeableViewController, WMFNavigationBarCo
         
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("description-help-title", value:"Article description help", comment:"Title for description editing help page"), customView: nil, alignment: .centerCompact)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .trailing)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPushed(_:)), alignment: .trailing)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
@@ -105,11 +110,6 @@ class DescriptionHelpViewController: ThemeableViewController, WMFNavigationBarCo
         dividerViews.forEach {
             $0.backgroundColor = theme.colors.border
         }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

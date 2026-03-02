@@ -64,6 +64,11 @@ class DiffHeaderTitleView: SetupView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userDidTapTitleLabel))
         titleLabel.isUserInteractionEnabled = true
         titleLabel.addGestureRecognizer(tapGesture)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts(with: traitCollection)
+        }
     }
     
     fileprivate func configureAccessibilityLabel(hasSubtitle: Bool) {
@@ -92,11 +97,7 @@ class DiffHeaderTitleView: SetupView {
         }
         updateFonts(with: traitCollection)
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts(with: traitCollection)
-    }
+
 }
 
 private extension DiffHeaderTitleView {

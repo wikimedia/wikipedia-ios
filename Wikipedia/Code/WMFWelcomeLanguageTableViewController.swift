@@ -40,6 +40,11 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
         languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            updateFonts()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -73,11 +78,6 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
         languageTableView.reloadData()
         languageTableView.layoutIfNeeded() // Needed for the content offset reset below to work
         languageTableView.contentOffset = .zero
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

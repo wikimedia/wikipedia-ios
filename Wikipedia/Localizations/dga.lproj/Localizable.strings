@@ -414,12 +414,10 @@
 "forgot-password-username-or-email-title" = "Bee";
 "gan-variants-alert-body" = "\nA Wikipiideɛ app pampana sage la a Gan aŋa paramare bee Sakondare kɔkɔɛ a app, na vɛŋ ka kannoo e mɔlɔ, bɔ ane maaloo:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Leɛ e Gan sommo";
-"history-clear-all" = "Iri";
 "history-clear-confirmation-heading" = "Fo serve boɔrɔ ka fo iri fo pampana boma bare?";
 "history-clear-delete-all" = "Ooo, iri a zaa";
 "history-title" = "Yipɔge";
 "home-button-explore-accessibility-label" = "Wikipiideɛ, leɛ gaa a yɛlɛ zie";
-"home-button-history-accessibility-label" = "Wikipiideɛ, leɛ gaa yipɔge";
 "home-button-saved-accessibility-label" = "Wikipiideɛ, leɛ anaŋ fo naŋ biŋ";
 "home-more-like-footer" = "Mine aŋa $1";
 "home-nearby-footer" = "Mine naŋ peɛlefi zie";

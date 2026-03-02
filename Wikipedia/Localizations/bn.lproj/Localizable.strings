@@ -204,12 +204,10 @@
 "forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
 "forgot-password-username-or-email-title" = "অথবা";
-"history-clear-all" = "পরিষ্কার করুন";
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
 "history-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
 "history-title" = "ইতিহাস";
 "home-button-explore-accessibility-label" = "উইকিপিডিয়া, অন্বেষণে ফেরত যান";
-"home-button-history-accessibility-label" = "উইকিপিডিয়া, ইতিহাসে ফেরত যান";
 "home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি আরও স্থান";

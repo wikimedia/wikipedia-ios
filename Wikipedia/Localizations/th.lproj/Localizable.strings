@@ -113,8 +113,6 @@
 "activity-tab-onboarding-second-button-title" = "ดูเพิ่มเติมเกี่ยวกับกิจกรรม";
 "activity-tab-onboarding-second-item-subtitle" = "ดูรายละเอียดเชิงลึกเกี่ยวกับการมีส่วนร่วมและการเข้าถึงความรู้ที่คุณได้แบ่งปันไว้";
 "activity-tab-onboarding-second-item-title" = "ไฮไลต์ผลกระทบ";
-"activity-tab-onboarding-third-item-subtitle" = "ดูสถิติสำหรับบทความที่บันทึกไว้และกิจกรรมอื่น ๆ ที่เกี่ยวกับคุณได้อย่างลึกซึ้งยิ่งขึ้นกับวิกิพีเดีย";
-"activity-tab-onboarding-third-item-title" = "ปฏิสัมพันธ์มากขึ้น";
 "activity-tab-read-title" = "ดูประวัติการอ่าน";
 "activity-tab-satisfied" = "พึงพอใจ";
 "activity-tab-saved" = "จำนวนบทความที่บันทึกไว้ในเดือนนี้";
@@ -529,12 +527,10 @@
 "forgot-password-instructions" = "กรอกข้อมูลลงในช่องใดช่องหนึ่งด้านล่างเพื่อรับวิธีการรีเซ็ตรหัสผ่านผ่านทางอีเมล";
 "forgot-password-title" = "ตั้งรหัสผ่านใหม่";
 "forgot-password-username-or-email-title" = "หรือ";
-"history-clear-all" = "ล้าง";
 "history-clear-confirmation-heading" = "คุณแน่ใจหรือว่าคุณต้องการลบรายการล่าสุดของคุณทั้งหมด?";
 "history-clear-delete-all" = "ใช่ ลบทั้งหมด";
 "history-title" = "ประวัติ";
 "home-button-explore-accessibility-label" = "วิกิพีเดีย กลับไปยัง สำรวจ";
-"home-button-history-accessibility-label" = "วิกิพีเดีย กลับไปยัง ประวัติ";
 "home-button-saved-accessibility-label" = "วิกิพีเดีย กลับไปยัง ที่บันทึกไว้";
 "home-more-like-footer" = "บทความเพิ่มเติมที่คล้ายกับ $1";
 "home-nearby-footer" = "สถานที่เพิ่มเติมที่อยู่ใกล้ตำแหน่งของคุณ";

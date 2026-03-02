@@ -420,12 +420,10 @@
 "forgot-password-title" = "Endurstilla lykilorð";
 "forgot-password-username-or-email-title" = "eða";
 "gan-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Gan";
-"history-clear-all" = "Hreinsa";
 "history-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "history-clear-delete-all" = "Já, eyða öllu";
 "history-title" = "Ferilskrá";
 "home-button-explore-accessibility-label" = "Wikipedia, fara aftur á 'Uppgötva'";
-"home-button-history-accessibility-label" = "Wikipedia, fara aftur á 'Ferilskrá'";
 "home-button-saved-accessibility-label" = "Wikipedia, fara aftur á 'Vistað'";
 "home-more-like-footer" = "Fleira í líkingu við $1";
 "home-nearby-footer" = "Fleiri staðir í nágrenninu";

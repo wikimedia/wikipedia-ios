@@ -18,6 +18,22 @@
 			<string>%1$d vues</string>
 		</dict>
 	</dict>
+	<key>activity-tab-impact-best-streak-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d jour</string>
+			<key>other</key>
+			<string>%1$d jours</string>
+		</dict>
+	</dict>
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -759,7 +775,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@.</string>
+		<string>Impossible d'ajouter %#@v1@ à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -767,9 +783,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>L’article n’a pas pu être ajouté</string>
+			<string>l’article</string>
 			<key>other</key>
-			<string>Les articles n’ont pas pu être ajoutés</string>
+			<string>les articles</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -992,7 +1008,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ de toutes les listes de lecture associées</string>
+		<string>Ne pas sauvegarder %#@v1@ de toutes les listes de lecture associées</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1000,9 +1016,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Le retrait de cet article le supprimera</string>
+			<string>cet article le supprimera</string>
 			<key>other</key>
-			<string>Le retrait de ces articles les supprimera</string>
+			<string>ces articles les supprimeront</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>

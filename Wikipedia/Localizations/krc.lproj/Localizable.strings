@@ -509,12 +509,10 @@
 "forgot-password-username-or-email-title" = "Неда";
 "gan-variants-alert-body" = "Wikipedia къошакъ энди энишгедеги Gan вариантланы биринчи недаэкинчи тил болуб къошакъны ичинде дагъан береди, алай бла сайлагъан вариантла андан да тынч окъуялырча, тинтелирча эмда тюзеталырча болады:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Къысхартылгъан (gan-hans)\n贛語 繁體 Gan, Адетдеги (gan-hant)";
 "gan-variants-alert-title" = "Gan вариантларыны дагъаныны джангыртыулары";
-"history-clear-all" = "Тазала";
 "history-clear-confirmation-heading" = "Кёб болмагъан бютеу элементленеи кетерирге излегенигизге ишексизмисиз?";
 "history-clear-delete-all" = "Хоу, барысын да кетер";
 "history-title" = "Тарих";
 "home-button-explore-accessibility-label" = "Википедия, Аулаугъа къайт";
-"home-button-history-accessibility-label" = "Википедия, Тариххе къайт";
 "home-button-saved-accessibility-label" = "Википедия, Сакъланнганлагъа къайт";
 "home-more-like-footer" = "$1 ушаш аслам статья";
 "home-nearby-footer" = "Локациябызгъа джууукъ аслам джер";

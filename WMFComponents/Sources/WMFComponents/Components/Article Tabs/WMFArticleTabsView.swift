@@ -2,7 +2,6 @@ import SwiftUI
 import WMFData
 import UIKit
 
-@available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
@@ -315,7 +314,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                 .padding(.bottom, 0)
 
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action: {
+                    WMFSmallCloseButton(action: {
                         viewModel.closeTab(tab: tab)
                     })
                     .accessibilityHidden(true)
@@ -390,7 +389,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                 }
 
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action: {
+                    WMFSmallCloseButton(action: {
                         viewModel.closeTab(tab: tab)
                     })
                     .accessibilityHidden(true)

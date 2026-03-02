@@ -278,12 +278,10 @@
 "forgot-password-instructions" = "Leuniañ unan eus ar maeziennoù amañ dindan evit degemer ar c'hemennadurioù evit adderaouekaat ar ger-tremen dre bostel.";
 "forgot-password-title" = "Adderaouekaat ar ger-tremen";
 "forgot-password-username-or-email-title" = "Pe";
-"history-clear-all" = "Diverkañ";
 "history-clear-confirmation-heading" = "Ha sur eo ho peus c'hoant da lemel ho holl elfennoù nevez ?";
 "history-clear-delete-all" = "Ya, lemel pep tra";
 "history-title" = "Istor";
 "home-button-explore-accessibility-label" = "Wikipedia, distreiñ da Ergerzhiñ";
-"home-button-history-accessibility-label" = "Wikipedia, distreiñ da Istor";
 "home-button-saved-accessibility-label" = "Wikipedia, distreiñ da Enrollañ";
 "home-more-like-footer" = "Muioc'h evel $1";
 "home-nearby-footer" = "Muioc’h a zanvez eus lec’hioù tost ouzoc’h";

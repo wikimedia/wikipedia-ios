@@ -21,6 +21,15 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     var learnMoreURL: URL?
     var learnMoreAction: ((URL) -> Void)?
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
+    }
+
     func textViewConfigured(with delegate: UITextViewDelegate, placeholder: String?, placeholderDelegate: ThemeableTextViewPlaceholderDelegate, clearDelegate: ThemeableTextViewClearDelegate, tag: Int) -> UITextView {
         textView._delegate = delegate
         textView.placeholderDelegate = placeholderDelegate
@@ -35,11 +44,6 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         accessibilityElements = [headerLabel as Any, textView as Any, textView.clearButton as Any, footerLabel as Any]
         updateFonts()
         return textView
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

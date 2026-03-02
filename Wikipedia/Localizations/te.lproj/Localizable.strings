@@ -350,12 +350,10 @@
 "forgot-password-email-sent" = "సంకేతపదాన్ని మార్చుకునే సూచనలతో ఈమెయిలు పంపించాం";
 "forgot-password-title" = "సంకేతపదాన్ని మార్చు";
 "forgot-password-username-or-email-title" = "లేదా";
-"history-clear-all" = "తుడిచివేయి";
 "history-clear-confirmation-heading" = "నిజంగానే మీ ఇటీవలి అంశాలన్నింటినీ తొలగించాలా?";
 "history-clear-delete-all" = "అవును, అన్నిటినీ తొలగించు";
 "history-title" = "చరిత్ర";
 "home-button-explore-accessibility-label" = "వికీపీడియా, తిరిగి శోధనకు";
-"home-button-history-accessibility-label" = "వికీపీడియా, తిరిగి చరిత్రకు";
 "home-button-saved-accessibility-label" = "వికీపీడియా, తిరిగి భద్రపరచిన వాటికి";
 "home-more-like-footer" = "$1 లాంటివి మరిన్ని";
 "home-nearby-footer" = "మీకు దగ్గర్లోని మరిన్ని స్థలాలు";

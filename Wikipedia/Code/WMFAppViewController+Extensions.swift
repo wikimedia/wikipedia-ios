@@ -1108,7 +1108,7 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .saved, action: action)
         } else if currentVC is WMFActivityTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
-        } else if currentVC is SearchViewController {
+        } else if currentVC is SearchTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .search, action: action)
         } else if currentVC is SettingsViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .settings, action: action)

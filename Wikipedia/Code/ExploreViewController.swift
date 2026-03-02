@@ -147,18 +147,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         resetNavBarAppearance()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
-                }
-            }
-        }
-    }
-    
     open override func refresh() {
         updateFeedSources(with: nil, userInitiated: true) {
         }
@@ -179,52 +167,61 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private func configureNavigationBar() {
         
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leadingCompact)
-        extendedLayoutIncludesOpaqueBars = false
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-
-                var customLargeTitleFont: UIFont? = nil
-                if let logoFont = UIFont(name: "icomoon", size: 24) {
-                    customLargeTitleFont = logoFont
-                    titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
-                } else {
-                    titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .hidden, customLargeTitleFont: nil)
-                }
-                
-                extendedLayoutIncludesOpaqueBars = true
-            }
-        }
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .leadingCompact)
         
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
-        let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
-        searchViewController.dataStore = dataStore
-        
-        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
-            self?.navigationItem.searchController?.searchBar.text = searchTerm
-            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        let searchResultsVC = SearchResultsViewController(source: .topOfFeed, dataStore: dataStore)
+        searchResultsVC.apply(theme: theme)
+        searchResultsVC.parentSearchControllerDelegate = self
+        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
+            guard let searchBar = self?.navigationItem.searchController?.searchBar else { return }
+            searchBar.text = searchTerm
+            searchBar.becomeFirstResponder()
         }
-        
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-        
-        searchViewController.theme = theme
-        
+        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+            guard let self, let navVC = navigationController else { return }
+            let coordinator = LinkCoordinator(
+                navigationController: navVC,
+                url: articleURL,
+                dataStore: dataStore,
+                theme: theme,
+                articleSource: .search,
+                tabConfig: .appendArticleAndAssignCurrentTab
+            )
+            let success = coordinator.start()
+            if !success {
+                navigate(to: articleURL)
+            }
+        }
+
         let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchViewController,
-            searchControllerDelegate: self,
-            searchResultsUpdater: self,
+            searchResultsController: searchResultsVC,
+            searchControllerDelegate: searchResultsVC,
+            searchResultsUpdater: searchResultsVC,
             searchBarDelegate: nil,
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false, scopeButtonTitles: nil)
         
-
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
-        
-        // Need to override this so that "" does not appear as back button title.
+
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
+        
+        // Set up logo as left bar button item
+        
+        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "wikipedia"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
+        if #available(iOS 26.0, *) {
+            logoBarButtonItem.hidesSharedBackground = true
+            logoBarButtonItem.sharesBackground = false
+        }
+        logoBarButtonItem.accessibilityLabel = WMFLocalizedString("home-title-accessibility-label", value: "Wikipedia, scroll to top of Explore", comment: "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
+        navigationItem.leftBarButtonItem = logoBarButtonItem
+        
+        if #unavailable(iOS 26.0) {
+            logoBarButtonItem.tintColor = theme.colors.logoTintColor
+        }
     }
     
     @objc func updateProfileButton() {
@@ -245,28 +242,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
         scrollToTop()
     }
-    
-    @objc public var titleButton: UIView {
-        return titleView
-    }
-    
-    lazy var longTitleButton: UIButton = {
-        let longTitleButton = UIButton(type: .custom)
-        var deprecatedLongTitleButton = longTitleButton as DeprecatedButton
-        deprecatedLongTitleButton.deprecatedAdjustsImageWhenHighlighted = true
-        longTitleButton.setImage(UIImage(named: "wikipedia"), for: .normal)
-        longTitleButton.sizeToFit()
-        longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
-        longTitleButton.isAccessibilityElement = false
-        return longTitleButton
-    }()
-    
-    lazy var titleView: UIView = {
-        let titleView = UIView(frame: longTitleButton.bounds)
-        titleView.addSubview(longTitleButton)
-        titleView.isAccessibilityElement = false
-        return titleView
-    }()
 
     @objc func userDidTapProfile() {
         
@@ -301,6 +276,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.scrollViewDidScroll(scrollView)
         
         calculateNavigationBarHiddenState(scrollView: scrollView)
+        updateLogoImageOnScroll(scrollView: scrollView)
         
         guard !isLoadingOlderContent else {
             return
@@ -719,12 +695,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         themeNavigationBarLeadingTitleView()
         themeNavigationBarCustomCenteredTitleView()
         
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
-            searchVC.theme = theme
-            searchVC.apply(theme: theme)
+        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
+            searchResultsVC.theme = theme
+            searchResultsVC.apply(theme: theme)
         }
         
         themeTopSafeAreaOverlay()
+        
+        if #unavailable(iOS 26.0) {
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
+        }
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -891,7 +871,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
-		
+        
         guard needsReloadVisibleCells else {
             return
         }
@@ -1160,6 +1140,7 @@ extension ExploreViewController {
             markSearchWidgetAnnouncementAsSeen()
         }
     }
+    
 }
 
 // MARK: - Analytics
@@ -1808,27 +1789,6 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
     
 }
 
-extension ExploreViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        
-        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
-            return
-        }
-        
-        if text.isEmpty {
-            searchViewController.searchTerm = nil
-            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-        } else {
-            searchViewController.searchTerm = text
-            searchViewController.updateRecentlySearchedVisibility(searchText: text)
-            searchViewController.search()
-        }
-    }
-}
-
 extension ExploreViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
@@ -1845,18 +1805,19 @@ extension ExploreViewController: YearInReviewBadgeDelegate {
 }
 
 extension ExploreViewController: UISearchControllerDelegate {
-    
+
     func willPresentSearchController(_ searchController: UISearchController) {
         presentingSearchResults = true
         navigationController?.hidesBarsOnSwipe = false
     }
-    
+
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
         SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
+
 
 // MARK: - Explore Survey
 

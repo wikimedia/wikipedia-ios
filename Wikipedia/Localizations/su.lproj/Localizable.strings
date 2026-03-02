@@ -146,12 +146,10 @@
 "forgot-password-instructions" = "Eusian salah sahiji widang di handap pikeun narima instruksi panyetelan ulang kecap sandi liwa surélék";
 "forgot-password-title" = "Setél ulang kecap sandi";
 "forgot-password-username-or-email-title" = "Atawa";
-"history-clear-all" = "Bersihkeun";
 "history-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh poin kiwari anjeun?";
 "history-clear-delete-all" = "Nya, hapus sadayana";
 "history-title" = "Jujutan";
 "home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
-"home-button-history-accessibility-label" = "Wikipédia, balik deui kana Jujutan";
 "home-button-saved-accessibility-label" = "Wikipédia, balik deui ka nu Kasimpen";
 "home-more-like-footer" = "Lianna nu siga $1";
 // Fuzzy

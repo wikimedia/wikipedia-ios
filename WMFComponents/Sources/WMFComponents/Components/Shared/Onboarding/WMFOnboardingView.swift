@@ -45,7 +45,7 @@ public struct WMFOnboardingView: View {
     var buttonArea: some View {
         VStack(spacing: 20) {
             WMFLargeButton(
-                configuration: .primary,
+                style: .primary,
                 title: viewModel.primaryButtonTitle,
                 action: (viewModel.primaryButtonAction ?? primaryButtonAction)
             )
@@ -70,7 +70,9 @@ public struct WMFOnboardingView: View {
             GeometryReader { proxy in
                 Color.clear
                     .onAppear { buttonAreaHeight = proxy.size.height }
-                    .onChange(of: proxy.size.height) { buttonAreaHeight = $0 }
+                    .onChange(of: proxy.size.height) { _, newValue in
+                        buttonAreaHeight = newValue
+                    }
             }
         )
     }
@@ -79,18 +81,10 @@ public struct WMFOnboardingView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-
-            if #available(iOS 17.0, *) {
-                ScrollView(showsIndicators: true) {
-                    scrollViewContent
-                }
-                .scrollIndicatorsFlash(trigger: flashScrollIndicators)
-            } else {
-                ScrollView(showsIndicators: true) {
-                    scrollViewContent
-                }
+            ScrollView(showsIndicators: true) {
+                scrollViewContent
             }
-
+            .scrollIndicatorsFlash(trigger: flashScrollIndicators)
             buttonArea
         }
         .background(Color(appEnvironment.theme.paperBackground).ignoresSafeArea())

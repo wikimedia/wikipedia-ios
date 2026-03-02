@@ -14,7 +14,7 @@ public actor WMFSavedArticlesDataController {
     // MARK: - Lifecycle
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-                articleSummaryDataController: WMFArticleSummaryDataController = .init()
+                articleSummaryDataController: WMFArticleSummaryDataController = WMFArticleSummaryDataController.shared
     ) {
         self._coreDataStore = coreDataStore
         self.articleSummaryDataController = articleSummaryDataController

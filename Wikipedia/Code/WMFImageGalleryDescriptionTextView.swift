@@ -23,13 +23,13 @@ private extension CGFloat {
     private var maxPercentOfScreenHeight: Int {
         return openStatePercent.rawValue
     }
-    
+
     public var openStatePercent: GalleryDescriptionOpenStatePercent = .normal {
         didSet {
             invalidateIntrinsicContentSize()
         }
     }
-    
+
     public func toggleOpenState() {
         let overflowTextExists = contentSize.height > bounds.size.height
         guard overflowTextExists || openStatePercent == .maximized else {
@@ -41,8 +41,14 @@ private extension CGFloat {
     override func awakeFromNib() {
         super.awakeFromNib()
         assert(contentCompressionResistancePriority(for: .vertical) == .required, "vertical contentCompressionResistancePriority must be `.required` for height to correctly account for text height.")
+
+        registerForTraitChanges([UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (textView: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.setContentOffset(.zero, animated: false)
+            self.invalidateIntrinsicContentSize() // Needed so height is correctly adjusted on rotation.
+        }
     }
-    
+
     override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
         size.height = size.height.constrainedBetween(minHeight: minHeight, maxPercentOfScreenHeight: maxPercentOfScreenHeight, availableHeight: availableHeight)
@@ -53,15 +59,9 @@ private extension CGFloat {
         isScrollEnabled = false // UITextView intrinsicContentSize only works when scrolling is false
         super.invalidateIntrinsicContentSize()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         isScrollEnabled = true
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        setContentOffset(.zero, animated: false)
-        invalidateIntrinsicContentSize() // Needed so height is correctly adjusted on rotation.
     }
 }

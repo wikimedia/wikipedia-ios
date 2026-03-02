@@ -56,7 +56,6 @@ public class WMFProfileViewModel: ObservableObject {
 
     public struct LocalizedStrings {
         let pageTitle: String
-        let doneButtonTitle: String
         let notificationsTitle: String
         let userPageTitle: String
         let talkPageTitle: String
@@ -70,9 +69,8 @@ public class WMFProfileViewModel: ObservableObject {
         let yearInReviewTitle: String
         let yearInReviewLoggedOutSubtext: String
 
-        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
+        public init(pageTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
             self.pageTitle = pageTitle
-            self.doneButtonTitle = doneButtonTitle
             self.notificationsTitle = notificationsTitle
             self.userPageTitle = userPageTitle
             self.talkPageTitle = talkPageTitle

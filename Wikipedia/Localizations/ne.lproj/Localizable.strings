@@ -74,7 +74,6 @@
 "activity-tab-onboarding-first-item-subtitle" = "तपाईंले कति समय पढ्नुभएको छ र कुन लेख वा विषयहरू समयसँगै अन्वेषण गर्नुभएको छ हेर्नुहोस्।";
 "activity-tab-onboarding-first-item-title" = "पढ्ने ढाँचाहरू";
 "activity-tab-onboarding-fourth-item-subtitle" = "कुन मोड्युलहरू प्रदर्शन गर्ने छनौट गर्नुहोस्। सबै व्यक्तिगत डेटा तपाईंको उपकरणमा निजी रहन्छ र ब्राउजिङ इतिहास जुनसुकै बेला खाली गर्न सकिन्छ।";
-"activity-tab-onboarding-third-item-title" = "संलग्न हुने थप तरिकाहरू";
 "activity-tab-saved" = "यस महिना सुरक्षित गरिएका लेखहरू";
 "activity-tab-top-categories" = "यस महिनाका शीर्ष श्रेणीहरू";
 "activity-tab-week-graph-label" = "हप्ता";
@@ -220,7 +219,6 @@
 "forgot-password-button-title" = "पूर्वरूपमा फर्काउनुहोस्";
 "forgot-password-title" = "पासवर्ड पूर्वनिर्धारित गर्नुहोस्";
 "forgot-password-username-or-email-title" = "अथवा";
-"history-clear-all" = "खाली गर्नुहोस्";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
 "history-title" = "इतिहास";
 "home-more-like-footer" = "$1 जस्तो अरु";

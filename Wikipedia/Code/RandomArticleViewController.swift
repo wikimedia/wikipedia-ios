@@ -29,9 +29,10 @@ class RandomArticleViewController: ArticleViewController {
 
     private var secondToolbarBottomConstraint: NSLayoutConstraint?
     func setupSecondToolbar() {
+        
         view.addSubview(secondToolbar)
         
-        let bottom = toolbarContainerView.topAnchor.constraint(equalTo: secondToolbar.bottomAnchor, constant: 10)
+        let bottom = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: secondToolbar.bottomAnchor, constant: 10)
         NSLayoutConstraint.activate([
             bottom,
             view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: secondToolbar.leadingAnchor),

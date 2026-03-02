@@ -527,12 +527,10 @@
 "forgot-password-instructions" = "Попуните једно од поља испод да бисте примили упутство за ресетовање лозинке путем имејла";
 "forgot-password-title" = "Ресетовање лозинке";
 "forgot-password-username-or-email-title" = "Или";
-"history-clear-all" = "Обриши";
 "history-clear-confirmation-heading" = "Желите ли заиста да избришете све недавне ставке?";
 "history-clear-delete-all" = "Да, избриши све";
 "history-title" = "Историја";
 "home-button-explore-accessibility-label" = "Википедија, назад на „Истражи”";
-"home-button-history-accessibility-label" = "Википедија, назад на историју";
 "home-button-saved-accessibility-label" = "Википедија, назад на сачуване";
 "home-more-like-footer" = "Још чланака попут $1";
 "home-nearby-footer" = "Још места у близини";
@@ -651,7 +649,6 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Wikipedia Zero";
 "main-page" = "Почетна";
-"make-an-edit" = "Начини измену";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "$1 {{PLURAL:$1|бајтова}} додато";
 "microsite-yir-english-edits-slide-title-updated" = "Уредници су ове године начинили скоро $1 {{PLURAL:$1|измена}}";
 "microsite-yir-english-reading-slide-title-updated" = "$1 сати смо {{PLURAL:$1|читали}}";

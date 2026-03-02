@@ -13,25 +13,17 @@ extension View {
     /// - Returns: a modified `View` with the desired background `Color` applied
     @ViewBuilder
     func listBackgroundColor(_ color: Color, ignoringSafeAreaEdges edges: Edge.Set = .all) -> some View {
-        if #available(iOS 16, *) {
-            self
-                .scrollContentBackground(.hidden)
-                .background(color).edgesIgnoringSafeArea(edges)
-        } else {
-            self.background(color).edgesIgnoringSafeArea(edges)
-        }
+        self.scrollContentBackground(.hidden)
+            .background(color).edgesIgnoringSafeArea(edges)
+
     }
 
     /// Sets container background of the view to `Color.clear` if on iOS 17
     /// - Returns: a modified `View` with the iOS 17 container background modifier applied if needed
     @ViewBuilder
     func clearWidgetContainerBackground() -> some View {
-        if #available(iOS 17.0, *) {
-            self.containerBackground(for: .widget) {
-                Color.clear
-            }
-        } else {
-            self
+        self.containerBackground(for: .widget) {
+            Color.clear
         }
     }
 

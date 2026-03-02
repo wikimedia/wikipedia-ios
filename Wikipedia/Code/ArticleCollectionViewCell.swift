@@ -9,7 +9,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var alertButton = AlignedImageButton()
     open var alertType: ReadingListAlertType?
     public var alertButtonCallback: (() -> Void)?
-    
+
     public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
     private var _titleHTML: String? = nil
@@ -33,7 +33,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             titleLabel.font = titleFont
         }
     }
-    
+
     public var titleHTML: String? {
         get {
             return _titleHTML
@@ -43,13 +43,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             updateTitleLabel()
         }
     }
-    
+
     public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
         _titleHTML = titleHTML
         _titleBoldedString = boldedString
         updateTitleLabel()
     }
-    
+
     public var actions: [Action] {
         get {
             return actionsView.actions
@@ -65,13 +65,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
-        
+
         imageView.accessibilityIgnoresInvertColors = true
-        
+
         titleLabel.isOpaque = true
         descriptionLabel.isOpaque = true
         imageView.isOpaque = true
-        
+
         contentView.addSubview(alertButton)
         alertButton.addTarget(self, action: #selector(alertButtonTapped), for: .touchUpInside)
         alertButton.verticalPadding = spacing
@@ -83,10 +83,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
-        
+
         super.setup()
     }
-    
+
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
@@ -108,7 +108,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         isStatusViewHidden = true
         updateFonts(with: traitCollection)
     }
-    
+
     open func updateStyles() {
         styles =  HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
@@ -120,7 +120,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         extractLabel?.backgroundColor = labelBackgroundColor
         alertButton.titleLabel?.backgroundColor = labelBackgroundColor
     }
-    
+
     open override func safeAreaInsetsDidChange() {
         super.safeAreaInsetsDidChange()
         if swipeState == .open {
@@ -132,41 +132,41 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     var actionsViewInsets: UIEdgeInsets {
         return safeAreaInsets
     }
-    
+
     public final var statusViewDimension: CGFloat = 0 {
         didSet {
             setNeedsLayout()
         }
     }
-    
+
     public final var alertIconDimension: CGFloat = 0 {
         didSet {
             setNeedsLayout()
         }
     }
-    
+
     public var isStatusViewHidden: Bool = true {
         didSet {
             statusView.isHidden = isStatusViewHidden
             setNeedsLayout()
         }
     }
-    
+
     public var isAlertButtonHidden: Bool = true {
         didSet {
             alertButton.isHidden = isAlertButtonHidden
             setNeedsLayout()
         }
     }
-    
+
     public var isDeviceRTL: Bool {
         return effectiveUserInterfaceLayoutDirection == .rightToLeft
     }
-    
+
     public var isArticleRTL: Bool {
         return articleSemanticContentAttribute == .forceRightToLeft
     }
-    
+
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
@@ -193,7 +193,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                     batchEditX = 0 - batchEditSelectViewWidth
                 }
             }
-            
+
             let safeX = isBatchEditOnRight ? safeAreaInsets.right : safeAreaInsets.left
             batchEditSelectViewWidth -= safeX
             if !isBatchEditOnRight && isBatchEditingPaneOpen {
@@ -202,10 +202,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             if isBatchEditOnRight && !isBatchEditingPaneOpen {
                 batchEditX -= batchEditSelectViewWidth
             }
-            
+
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
-            
+
             let actionsViewWidth = isDeviceRTL ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
             let x = isDeviceRTL ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
@@ -213,7 +213,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
         return size
     }
-    
+
     // MARK: - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     public var styles: HtmlUtils.Styles!
@@ -236,14 +236,14 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.updateFonts(with: traitCollection)
 
         updateTitleLabel()
-        
+
         descriptionLabel.font = WMFFont.for(descriptionTextStyle, compatibleWith: traitCollection)
         extractLabel?.font = WMFFont.for(extractTextStyle, compatibleWith: traitCollection)
         alertButton.titleLabel?.font = WMFFont.for(.boldCaption1, compatibleWith: traitCollection)
     }
-    
+
     // MARK: - Semantic content
-    
+
     fileprivate var _articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
     fileprivate var _effectiveArticleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
     open var articleSemanticContentAttribute: UISemanticContentAttribute {
@@ -261,7 +261,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var userInterfaceSemanticContentAttribute: UISemanticContentAttribute {
         return traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
     }
-    
+
     fileprivate func updateEffectiveArticleSemanticContentAttribute() {
         if _articleSemanticContentAttribute == .unspecified {
             let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
@@ -277,14 +277,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         extractLabel?.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
         extractLabel?.textAlignment = alignment
     }
-    
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        updateEffectiveArticleSemanticContentAttribute()
-        super.traitCollectionDidChange(previousTraitCollection)
-    }
-    
+
     // MARK: - Accessibility
-    
+
     open override func updateAccessibilityElements() {
         var updatedAccessibilityElements: [Any] = []
         var groupedLabels = [titleLabel, descriptionLabel]
@@ -293,10 +288,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
 
         updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels, actions: actions))
-        
+
         accessibilityElements = updatedAccessibilityElements
     }
-    
+
     // MARK: - Swipeable
     var swipeState: SwipeState = .closed {
         didSet {
@@ -311,7 +306,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             }
         }
     }
-    
+
     public var swipeTranslation: CGFloat = 0 {
         didSet {
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
@@ -326,11 +321,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             setNeedsLayout()
         }
     }
-    
+
     open var isSwipeEnabled: Bool {
         return true
     }
-    
+
     private var isBatchEditingPaneOpen: Bool {
         return batchEditingTranslation > 0
     }
@@ -352,7 +347,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                     layoutMarginsInteractiveAdditions.left = marginAddition
                 }
             }
-            
+
             if isBatchEditingPaneOpen, let batchEditSelectView = batchEditSelectView {
                 contentView.addSubview(batchEditSelectView)
                 batchEditSelectView.clipsToBounds = true
@@ -373,14 +368,14 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
 
     // MARK: Prepare for reuse
-    
+
     func resetSwipeable() {
         swipeTranslation = 0
         swipeState = .closed
     }
-    
+
     // MARK: - BatchEditableCell
-    
+
     public var batchEditSelectView: BatchEditSelectView?
 
     public var isBatchEditable: Bool = false {
@@ -394,7 +389,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             }
         }
     }
-    
+
     public var isBatchEditing: Bool = false {
         didSet {
             if isBatchEditing {
@@ -406,15 +401,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             }
         }
     }
-    
+
     override open var isSelected: Bool {
         didSet {
             batchEditSelectView?.isSelected = isSelected
         }
     }
-    
+
     // MARK: - Actions
-    
+
     @objc func alertButtonTapped() {
         alertButtonCallback?()
     }

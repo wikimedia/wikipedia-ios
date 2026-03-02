@@ -347,12 +347,10 @@
 "forgot-password-instructions" = "សូមបំពេញប្រអប់ខាងក្រោមដើម្បីទទួលសេចក្ដីណែនាំពីរបៀបកំណត់ពាក្យសម្ងាត់ឡើងវិញតាមរយៈអ៊ីមែល";
 "forgot-password-title" = "កំណត់ពាក្យសម្ងាត់ឡើងវិញ";
 "forgot-password-username-or-email-title" = "ឬ";
-"history-clear-all" = "សម្អាត";
 "history-clear-confirmation-heading" = "តើអ្នកពិតជាងចង់លុបចោលរបស់ថ្មីៗទាំងអស់ឬ?";
 "history-clear-delete-all" = "លុបចោលទាំងអស់";
 "history-title" = "ប្រវត្តិ";
 "home-button-explore-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ រុករក";
-"home-button-history-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ ប្រវត្តិ";
 "home-button-saved-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ អត្ថបទរក្សាទុក";
 "home-more-like-footer" = "អត្ថបទស្រដៀង $1";
 "home-nearby-footer" = "កន្លែងផ្សេងទៀតដែលនៅជិតទីតាំងរបស់អ្នក";

@@ -91,11 +91,9 @@
 "forgot-password-button-title" = "Reïnicializar";
 "forgot-password-title" = "Reïnicializar lo senhal";
 "forgot-password-username-or-email-title" = "O";
-"history-clear-all" = "Escafar";
 "history-clear-delete-all" = "Òc, suprimir tot";
 "history-title" = "Istoric";
 "home-button-explore-accessibility-label" = "Wikipèdia, tornar a Explorar";
-"home-button-history-accessibility-label" = "Wikipèdia, tornar a Istoric";
 "home-button-saved-accessibility-label" = "Wikipèdia, tornar a Enregistrats";
 "home-more-like-footer" = "Mai coma $1";
 // Fuzzy

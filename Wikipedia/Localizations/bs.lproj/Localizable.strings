@@ -415,12 +415,10 @@
 "forgot-password-username-or-email-title" = "Ili";
 "gan-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante gan jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\n贛語 原文 gan (gan)\n赣语 简体 gan, pojednostavljeni (gan-hans)\n贛語 繁體 gan, tradicionalni (gan-hant)";
 "gan-variants-alert-title" = "Ažuriranja podrške za varijantu gan jezika";
-"history-clear-all" = "Očisti";
 "history-clear-confirmation-heading" = "Jeste li sigurni da želite izbrisati sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Historija";
 "home-button-explore-accessibility-label" = "Wikipedia, nazad na ekran Istraži";
-"home-button-history-accessibility-label" = "Wikipedia, nazad na ekran Historija";
 "home-button-saved-accessibility-label" = "Wikipedia, nazad na ekran Sačuvano";
 "home-more-like-footer" = "Još članaka kao $1";
 "home-nearby-footer" = "Još mjesta blizu Vaše lokacije";

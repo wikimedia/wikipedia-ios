@@ -37,15 +37,16 @@ final public class WMFSettingsViewController: WMFCanvasViewController, WMFNaviga
             customView: nil,
             alignment: .leadingCompact
         )
-        let closeConfig = WMFNavigationBarCloseButtonConfig(
-            text: viewModel.localizedStrings.doneButtonTitle,
-            target: self,
-            action: #selector(tappedDone),
-            alignment: .trailing
-        )
+        // TODO: - update with new pattern
+//        let closeConfig = WMFNavigationBarCloseButtonConfig(
+//            text: viewModel.localizedStrings.doneButtonTitle,
+//            target: self,
+//            action: #selector(tappedDone),
+//            alignment: .trailing
+//        )
         configureNavigationBar(
             titleConfig: titleConfig,
-            closeButtonConfig: closeConfig,
+            closeButtonConfig: nil,
             profileButtonConfig: nil,
             tabsButtonConfig: nil,
             searchBarConfig: nil,

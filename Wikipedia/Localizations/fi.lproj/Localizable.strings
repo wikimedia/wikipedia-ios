@@ -532,12 +532,10 @@
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "tai";
 "gan-variants-alert-title" = "Päivityksiä Gan-version tukeen";
-"history-clear-all" = "Tyhjennä";
 "history-clear-confirmation-heading" = "Tyhjennetäänkö historia?";
 "history-clear-delete-all" = "Kyllä, poista kaikki";
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, palaa Tutki-sivulle";
-"home-button-history-accessibility-label" = "Wikipedia, palaa Historia-sivulle";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
 "home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
 "home-nearby-footer" = "Lisää lähelläsi olevia paikkoja";

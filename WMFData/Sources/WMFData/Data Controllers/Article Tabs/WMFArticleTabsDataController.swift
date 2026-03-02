@@ -13,7 +13,7 @@ public protocol WMFArticleTabsDataControlling {
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
-@objc public class WMFArticleTabsDataController: NSObject, WMFArticleTabsDataControlling {
+@objc public class WMFArticleTabsDataController: NSObject, WMFArticleTabsDataControlling, @unchecked Sendable {
     
     // MARK: - Nested Public Types
     

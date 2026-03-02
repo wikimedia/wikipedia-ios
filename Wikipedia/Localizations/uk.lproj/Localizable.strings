@@ -140,8 +140,6 @@
 "activity-tab-onboarding-second-button-title" = "Дізнайтеся більше про Активність";
 "activity-tab-onboarding-second-item-subtitle" = "Дізнайтеся більше про свій внесок та охоплення знань, якими ви поділилися.";
 "activity-tab-onboarding-second-item-title" = "Основні моменти впливу";
-"activity-tab-onboarding-third-item-subtitle" = "Переглядайте статистику ігор, збережених статей та інших дій, які глибше пов'язують вас із Вікіпедією.";
-"activity-tab-onboarding-third-item-title" = "Більше способів взаємодії";
 "activity-tab-read-title" = "Переглянути історію читання";
 "activity-tab-satisfied" = "Задоволений/а";
 "activity-tab-saved" = "Статті, збережені цього місяця";
@@ -653,12 +651,10 @@
 "forgot-password-username-or-email-title" = "Або";
 "gan-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ґань як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n贛語 原文 ґань (gan)\n赣语 简体 ґань, спрощена (gan-hans)\n贛語 繁體 ґань, традиційна (gan-hant)";
 "gan-variants-alert-title" = "Оновлення щодо підтримки варіантів ґань";
-"history-clear-all" = "Очистити";
 "history-clear-confirmation-heading" = "Ви впевнені, що хочете вилучити всі недавні елементи?";
 "history-clear-delete-all" = "Так, вилучити всі";
 "history-title" = "Історія";
 "home-button-explore-accessibility-label" = "Вікіпедіє, повернутися до стрічки";
-"home-button-history-accessibility-label" = "Вікіпедіє, повернутися до Історії";
 "home-button-saved-accessibility-label" = "Вікіпедіє, повернутися до Збереженого";
 "home-more-like-footer" = "Більше схожого на $1";
 "home-nearby-footer" = "Більше місць поблизу";
@@ -794,7 +790,6 @@
 "main-menu-title" = "Ще";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
 "main-page" = "Головна сторінка";
-"make-an-edit" = "Зробити редагування";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "У $1 році волонтери додали до англійської Вікіпедії {{PLURAL:$2|$2 байт|$2 байти|$2 байтів}}. Уся їхня спільна робота разом веде до стабільно вдосконалюваного, заснованого на фактах і надійного ресурсу знань, який вони дають світові. Усі ми маємо знання, якими можемо поділитися, [дізнайтеся, як взяти участь]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "Додано {{PLURAL:$1|$1 байт|$1 байти|$1 байтів}}";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Волонтери внесли {{PLURAL:$1|$1 зміну|$1 зміни|$1 змін}} у понад {{PLURAL:$2|$2 мовній версії|$2 мовних версіях}} Вікіпедії. В англійській Вікіпедії було зроблено {{PLURAL:$3|$3 зміну|$3 зміни|$3 змін}}. Щогодини щодня волонтери працюють над покращенням Вікіпедії.";

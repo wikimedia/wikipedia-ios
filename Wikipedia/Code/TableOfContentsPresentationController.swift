@@ -39,10 +39,8 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
     }()
     
     lazy var closeButton:UIButton = {
-        let button = UIButton(frame: CGRect.zero)
-        
-        button.setTitle(CommonStrings.doneTitle, for: .normal)
-        button.addTarget(self, action: #selector(TableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
+        let config = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(TableOfContentsPresentationController.didTap(_:)), alignment: .trailing)
+        let button = UIButton.closeNavigationButton(config: config)
         
         button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents {{Identical|Close}}")
         button.accessibilityLabel = WMFLocalizedString("table-of-contents-close-accessibility-label", value:"Close Table of contents", comment:"Accessibility label for closing table of contents")
@@ -234,10 +232,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
         self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
         self.presentedView?.clipsToBounds = false
-        self.closeButton.setTitle(CommonStrings.doneTitle, for: .normal)
-        self.closeButton.setTitleColor(theme.colors.link, for: .normal)
         self.statusBarBackground.isHidden = false
-        
         self.backgroundView.effect = UIBlurEffect(style: theme.blurEffectStyle)
         
         self.statusBarBackground.backgroundColor = theme.colors.paperBackground

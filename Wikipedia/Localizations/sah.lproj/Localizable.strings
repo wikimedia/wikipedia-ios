@@ -181,12 +181,10 @@
 "forgot-password-email-sent" = "Аһарыгы уларытар туһунан сурук ыытылынна";
 "forgot-password-title" = "Аһарыгы саҥардыы";
 "forgot-password-username-or-email-title" = "Эбэтэр";
-"history-clear-all" = "Сот";
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
 "history-clear-delete-all" = "Оннук, барытын сот";
 "history-title" = "Устуоруйата";
 "home-button-explore-accessibility-label" = "Бикипиэдьийэ, Устуоруйатыгар төнүн";
-"home-button-history-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн";
 "home-button-saved-accessibility-label" = "Бикипиэдьийэ, бигэргэтиигэ төнүн.";
 "home-more-like-footer" = "Эбии манна $1 майгынныыр";
 // Fuzzy

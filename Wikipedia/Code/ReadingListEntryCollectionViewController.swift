@@ -16,22 +16,22 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
     let readingList: ReadingList
     var searchString: String?
-    
+
     var basePredicate: NSPredicate {
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
     }
-    
+
     var shouldShowEditButtonsForEmptyState: Bool {
         return !readingList.isDefault
     }
-    
+
     var searchPredicate: NSPredicate? {
         guard let searchString = searchString else {
             return nil
         }
         return NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)')")
     }
-    
+
     var availableBatchEditToolbarActions: [BatchEditToolbarAction] {
         return [
             BatchEditToolbarActionType.addTo.action(with: nil),
@@ -39,62 +39,62 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             BatchEditToolbarActionType.remove.action(with: nil)
         ]
     }
-    
+
     var editController: CollectionViewEditController!
-    
+
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private let reuseIdentifier = "ArticlesCollectionViewCell"
-    
+
     weak var delegate: ReadingListEntryCollectionViewControllerDelegate?
-    
+
     var needsDetailHeaderView: Bool = false
     var readingListDetailHeaderView: ReadingListDetailHeaderView?
     fileprivate static let headerReuseIdentifier = "ReadingListDetailHeaderView"
-    
+
     init(for readingList: ReadingList, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
         setupEditController()
         isRefreshControlEnabled = true
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.cellLayoutEstimate = nil
+        }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         fetch()
         super.viewWillAppear(animated)
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         collectionViewUpdater = nil
         fetchedResultsController = nil
         editController.close()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        cellLayoutEstimate = nil
-    }
-    
+
     func configure(cell: SavedArticlesCollectionViewCell, for entry: ReadingListEntry, at indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditing = editController.isBatchEditing
         guard let article = article(for: entry) else {
@@ -112,11 +112,11 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
-    
+
     func shouldDelete(_ articles: [WMFArticle], completion: @escaping (Bool) -> Void) {
         completion(true)
     }
-    
+
     func delete(_ articles: [WMFArticle]) {
         let url: URL? = articles.first?.url
         let articlesCount = articles.count
@@ -131,17 +131,17 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         }
         ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: articleURL.wmf_languageCode)
     }
-    
+
     // MARK: - Empty state
-    
+
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
         delegate?.readingListEntryCollectionViewControllerDidChangeEmptyState(self)
         super.isEmptyDidChange()
     }
-    
+
     // MARK: - Refresh
-    
+
     override func refresh() {
         dataStore.readingListsController.fullSync {
             assert(Thread.isMainThread)
@@ -153,7 +153,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             }
         }
     }
-    
+
     func retryFailedArticleDownloads(_ completion: @escaping () -> Void) {
         guard let predicate = fetchedResultsController?.fetchRequest.predicate else {
             completion()
@@ -178,7 +178,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             }
         }
     }
-    
+
     lazy var sortActions: [SortActionType: SortAction] = {
         let moc = dataStore.viewContext
         let updateSortOrder: (Int) -> Void = { [weak self] (rawValue: Int) in
@@ -191,64 +191,64 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
                 }
             }
         }
-        
+
         let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { [weak self] (_: [NSSortDescriptor], _: UIAlertAction, rawValue: Int) in
             updateSortOrder(rawValue)
             self?.reset()
         }
-        
+
         let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: handler)
         let recentlyAddedSortAction = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: handler)
-        
+
         return [titleSortAction.type: titleSortAction, recentlyAddedSortAction.type: recentlyAddedSortAction]
     }()
-    
+
     lazy var sortAlert: UIAlertController = {
         alert(title: CommonStrings.sortAlertTitle, message: nil)
     }()
-    
+
     func article(at indexPath: IndexPath) -> WMFArticle? {
         guard let fetchedResultsController = fetchedResultsController, fetchedResultsController.isValidIndexPath(indexPath) else {
             return nil
         }
         let entry = fetchedResultsController.object(at: indexPath)
-        
+
         return article(for: entry)
     }
-    
+
     func article(for entry: ReadingListEntry) -> WMFArticle? {
         guard let inMemoryKey = entry.inMemoryKey else {
             return nil
         }
         return dataStore.fetchArticle(withKey: inMemoryKey.databaseKey, variant: inMemoryKey.languageVariantCode)
     }
-    
+
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
         delegate?.scrollViewDidScroll(scrollView: scrollView)
     }
-    
+
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
         if editController.isTextEditing {
             editController.isTextEditing = false
         }
     }
-    
+
     func articleURL(at indexPath: IndexPath) -> URL? {
         return article(at: indexPath)?.url
     }
-    
+
     func entry(at indexPath: IndexPath) -> ReadingListEntry? {
         guard fetchedResultsController?.isValidIndexPath(indexPath) == true else {
             return nil
         }
         return fetchedResultsController?.object(at: indexPath)
     }
-    
+
     // MARK: - ColumnarCollectionViewLayoutDelegate
-    
+
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
 
         guard section == 0, needsDetailHeaderView else {
@@ -256,7 +256,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         }
         return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 150)
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
         // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
@@ -273,13 +273,13 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         cellLayoutEstimate = estimate
         return estimate
     }
-    
+
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
-    
+
     // MARK: - Article changes
-    
+
     @objc func articleDidChange(_ note: Notification) {
         guard
             let article = note.object as? WMFArticle,
@@ -288,7 +288,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             else {
                 return
         }
-        
+
         let visibleIndexPathsWithChanges = collectionView.indexPathsForVisibleItems.filter { (indexPath) -> Bool in
             guard let entry = entry(at: indexPath) else {
                 return false
@@ -299,16 +299,16 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         guard !visibleIndexPathsWithChanges.isEmpty else {
             return
         }
-        
+
         collectionView.reloadItems(at: visibleIndexPathsWithChanges)
     }
-    
+
     // MARK: -
-    
+
     var eventLoggingLabel: EventLabelMEP? {
         return nil
     }
-    
+
     var eventLoggingCategory: EventCategoryMEP {
         return .saved
     }
@@ -323,14 +323,14 @@ extension ReadingListEntryCollectionViewController {
         }
         return sectionsCount
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController?.sections, section < sections.count else {
             return 0
         }
         return sections[section].numberOfObjects
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         guard let savedArticleCell = cell as? SavedArticlesCollectionViewCell,
@@ -338,23 +338,23 @@ extension ReadingListEntryCollectionViewController {
             else {
                 return cell
         }
-        
+
         configure(cell: savedArticleCell, for: entry, at: indexPath, layoutOnly: false)
         return cell
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard needsDetailHeaderView, indexPath.section == 0 else {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         }
-        
+
         if let readingListDetailHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? ReadingListDetailHeaderView {
             self.readingListDetailHeaderView = readingListDetailHeaderView
             delegate?.setupReadingListDetailHeaderView(readingListDetailHeaderView)
             readingListDetailHeaderView.apply(theme: theme)
             return readingListDetailHeaderView
         }
-    
+
          return UICollectionReusableView()
     }
 }
@@ -364,23 +364,23 @@ extension ReadingListEntryCollectionViewController {
 extension ReadingListEntryCollectionViewController {
     func availableActions(at indexPath: IndexPath) -> [Action] {
         var actions: [Action] = []
-        
+
         if articleURL(at: indexPath) != nil {
             actions.append(ActionType.share.action(with: self, indexPath: indexPath))
         }
-        
+
         actions.append(ActionType.delete.action(with: self, indexPath: indexPath))
-        
+
         return actions
     }
-    
+
     private func delete(at indexPath: IndexPath) {
         guard let article = article(at: indexPath) else {
             return
         }
         delete([article])
     }
-    
+
     func willPerformAction(_ action: Action) -> Bool {
         guard let article = article(at: action.indexPath) else {
             return false
@@ -395,7 +395,7 @@ extension ReadingListEntryCollectionViewController {
         }
         return true
     }
-    
+
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         let sourceView = collectionView.cellForItem(at: indexPath)
@@ -410,15 +410,15 @@ extension ReadingListEntryCollectionViewController {
             return false
         }
     }
-    
+
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction, completion: @escaping (Bool) -> Void) {
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
             completion(false)
             return
         }
-        
+
         let articles = selectedIndexPaths.compactMap { article(at: $0) }
-        
+
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
@@ -474,7 +474,7 @@ extension ReadingListEntryCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard editController.isClosed else {
             return
@@ -485,7 +485,7 @@ extension ReadingListEntryCollectionViewController {
         delegate?.readingListEntryCollectionViewControllerDidSelectArticleURL(articleURL, viewController: self)
         ReadingListsFunnel.shared.logReadStartReadingList(articleURL)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         _ = editController.isClosed
     }
@@ -494,14 +494,14 @@ extension ReadingListEntryCollectionViewController {
 // MARK: - SortableCollection
 
 extension ReadingListEntryCollectionViewController: SortableCollection {
-    
+
     var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
         guard let sortOrder = readingList.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
             return ([], nil)
         }
         return (sortAction.sortDescriptors, sortAction.alertAction)
     }
-    
+
     var defaultSortAction: SortAction? {
         return sortActions[.byRecentlyAdded]
     }
@@ -522,9 +522,9 @@ extension ReadingListEntryCollectionViewController: CollectionViewUpdaterDelegat
         collectionView.setNeedsLayout()
         delegate?.readingListEntryCollectionViewController(self, didUpdate: collectionView)
     }
-    
+
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) {
-        
+
     }
 }
 
@@ -541,31 +541,31 @@ extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate 
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem) {
         presentSortAlert(from: button)
     }
-    
+
     func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String) {
         updateSearchString(searchText)
-        
+
         if searchText.isEmpty {
             makeSearchBarResignFirstResponder(searchBar)
         }
     }
-    
+
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar) {
         makeSearchBarResignFirstResponder(searchBar)
     }
-    
+
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
     }
-    
+
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
         updateSearchString("")
         makeSearchBarResignFirstResponder(searchBar)
     }
-    
+
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-    
+
     func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar) {
         updateSearchString("")
         makeSearchBarResignFirstResponder(searchBar)

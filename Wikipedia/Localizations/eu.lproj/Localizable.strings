@@ -223,12 +223,10 @@
 "forgot-password-instructions" = "Hurrengo hutsuneak bete, emailez jasotzeko pasahitza berrezartzeko jarraibideak";
 "forgot-password-title" = "Pasahitza berrezarri";
 "forgot-password-username-or-email-title" = "Edo";
-"history-clear-all" = "Garbitu";
 "history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
 "history-clear-delete-all" = "Bai, dena ezabatu";
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, Arakatzailera itzuli";
-"home-button-history-accessibility-label" = "Wikipedia, Historiara itzuli";
 "home-button-saved-accessibility-label" = "Wikipedia, Biltegira itzuli";
 "home-more-like-footer" = "$1 bezalako artikulu gehiago";
 "home-nearby-footer" = "Zure kokapenetik gertuko leku gehiago";

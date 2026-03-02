@@ -72,12 +72,28 @@ open class WMFComponentNavigationController: UINavigationController {
         setNeedsStatusBarAppearanceUpdate()
 
         setBarAppearance(customLargeTitleFont: customLargeTitleFont)
+        
+        // loop through bar button items, update tint colors
+        if let topVC = self.topViewController {
+            let leftItems = topVC.navigationItem.leftBarButtonItems ?? []
+            let rightItems = topVC.navigationItem.rightBarButtonItems ?? []
+            
+            for item in leftItems + rightItems {
+                if item.tag == WMFLargeCloseButtonImageType.prominentCheck.tag {
+                    item.tintColor = theme.link
+                }
+            }
+        }
     }
     
     private var customLargeTitleFont: UIFont?
 
     func setBarAppearance(customLargeTitleFont: UIFont?) {
-        applySystemGlassAppearance(customLargeTitleFont: customLargeTitleFont)
+        if #available(iOS 26.0, *) {
+            applySystemGlassAppearance(customLargeTitleFont: customLargeTitleFont)
+        } else {
+            applyLegacyAppearance(customLargeTitleFont: customLargeTitleFont)
+        }
     }
 
     private func applySystemGlassAppearance(customLargeTitleFont: UIFont?) {
@@ -102,6 +118,42 @@ open class WMFComponentNavigationController: UINavigationController {
         if #available(iOS 18.0, *) {
             navigationBar.compactScrollEdgeAppearance = appearance
         }
+    }
+    
+    private func applyLegacyAppearance(customLargeTitleFont: UIFont?) {
+        if let customLargeTitleFont {
+            self.customLargeTitleFont = customLargeTitleFont
+        } else {
+            self.customLargeTitleFont = nil
+        }
+        
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithOpaqueBackground()
+        
+        if let customBarBackgroundColor {
+            barAppearance.backgroundColor = customBarBackgroundColor
+            let backgroundImage = UIImage.roundedRectImage(with: customBarBackgroundColor, cornerRadius: 1)
+            barAppearance.backgroundImage = backgroundImage
+        } else if modalPresentationStyle == .pageSheet {
+            barAppearance.backgroundColor = theme.midBackground
+            let backgroundImage = UIImage.roundedRectImage(with: theme.midBackground, cornerRadius: 1)
+            barAppearance.backgroundImage = backgroundImage
+        } else {
+            barAppearance.backgroundColor = theme.paperBackground
+            let backgroundImage = UIImage.roundedRectImage(with: theme.paperBackground, cornerRadius: 1)
+            barAppearance.backgroundImage = backgroundImage
+        }
+        
+        barAppearance.shadowImage = UIImage()
+        barAppearance.shadowColor = .clear
+        
+        let largeTitleFont = self.customLargeTitleFont ?? WMFFont.navigationBarLeadingLargeTitleFont
+        barAppearance.largeTitleTextAttributes = [.font: largeTitleFont]
+        
+        navigationBar.tintColor = theme.navigationBarTintColor
+        navigationBar.standardAppearance = barAppearance
+        navigationBar.scrollEdgeAppearance = barAppearance
+        navigationBar.compactAppearance = barAppearance
     }
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {

@@ -1,8 +1,9 @@
 import UIKit
 
 public extension WMFFont {
-    static var navigationBarDoneButtonFont: UIFont {
-        return WMFFont.for(.semiboldHeadline)
+    
+    static var navigationBarCloseButtonFont: WMFFont {
+        return .mediumSubheadline
     }
     
     static var navigationBarLeadingCompactTitleFont: UIFont {

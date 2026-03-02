@@ -10,15 +10,15 @@ class ActionButton: SetupButton {
         deprecatedSelf.deprecatedContentEdgeInsets = UIEdgeInsets(top: layoutMargins.top + 1, left: layoutMargins.left + 7, bottom: layoutMargins.bottom + 1, right: layoutMargins.right + 7)
         titleLabel?.numberOfLines = 0
         updateFonts(with: traitCollection)
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.maybeUpdateFonts(with: self.traitCollection)
+        }
     }
     
     // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
-    
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        maybeUpdateFonts(with: traitCollection)
-    }
     
     var contentSizeCategory: UIContentSizeCategory?
     fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {

@@ -8,19 +8,19 @@ protocol ArticlePopoverViewControllerDelegate: NSObjectProtocol {
 class ArticlePopoverViewController: UIViewController {
     fileprivate static let readActionString = CommonStrings.shortReadTitle
     fileprivate static let shareActionString = CommonStrings.shortShareTitle
-    
+
     weak var delegate: ArticlePopoverViewControllerDelegate?
-    
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    
+
     @IBOutlet weak var buttonStackView: UIStackView!
-    
+
     @IBOutlet weak var saveButton: SaveButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var readButton: UIButton!
-    
+
     @IBOutlet weak var articleSummaryView: UIView!
     @IBOutlet weak var buttonContainerView: UIView!
 
@@ -28,28 +28,28 @@ class ArticlePopoverViewController: UIViewController {
 
     var displayTitleHTML: String = ""
     let article: WMFArticle
-    
+
     var showSaveAndShareTitles = true
-    
+
     required init(_ article: WMFArticle) {
         self.article = article
         super.init(nibName: "ArticlePopoverViewController", bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         return nil
     }
-    
+
     override func viewDidLoad() {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         articleSummaryView.addGestureRecognizer(tapGR)
 
         shareButton.setTitle(ArticlePopoverViewController.shareActionString, for: .normal)
         shareButton.setImage(#imageLiteral(resourceName: "places-share"), for: .normal)
-        
+
         readButton.setTitle(ArticlePopoverViewController.readActionString, for: .normal)
         readButton.setImage(#imageLiteral(resourceName: "places-more"), for: .normal)
-        
+
         // Verify that the localized titles for save, share, and read will fit
         let sizeToFit = buttonStackView.bounds.size
         let widthToCheck = 0.33*sizeToFit.width
@@ -65,23 +65,28 @@ class ArticlePopoverViewController: UIViewController {
             saveButton.setTitle(nil, for: .normal)
             buttonStackView.distribution = .fillProportionally
         }
-        
+
         displayTitleHTML = article.displayTitleHTML
         subtitleLabel.text = article.capitalizedWikidataDescriptionOrSnippet
         configureView(withTraitCollection: traitCollection)
         view.wmf_configureSubviewsForDynamicType()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.configureView(withTraitCollection: self.traitCollection)
+        }
     }
-    
+
     override func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
         updateMoreButtonImage(with: traitCollection)
     }
-    
+
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         updateMoreButtonImage(with: newCollection)
     }
-    
+
     func updateMoreButtonImage(with traitCollection: UITraitCollection) {
         var moreImage = #imageLiteral(resourceName: "places-more")
         if traitCollection.layoutDirection == .rightToLeft {
@@ -89,7 +94,7 @@ class ArticlePopoverViewController: UIViewController {
         }
         readButton.setImage(moreImage, for: .normal)
     }
-    
+
     public func update() {
         saveButton.showTitle = showSaveAndShareTitles
         saveButton.saveButtonState = article.isAnyVariantSaved ? .shortSaved : .shortSave
@@ -101,21 +106,21 @@ class ArticlePopoverViewController: UIViewController {
         let saveTitle = article.isAnyVariantSaved ? CommonStrings.shortUnsaveTitle : CommonStrings.shortSaveTitle
         let saveAction = UIAccessibilityCustomAction(name: saveTitle, target: self, selector: #selector(save))
         let shareAction = UIAccessibilityCustomAction(name: ArticlePopoverViewController.shareActionString, target: self, selector: #selector(share))
-        
+
         var accessibilityTitles = [String]()
-        
+
         if let title = article.displayTitle {
             accessibilityTitles.append(title)
         }
-        
+
         if let description = article.wikidataDescription {
             accessibilityTitles.append(description)
         }
-        
+
         if let distance = descriptionLabel.text {
             accessibilityTitles.append(distance)
         }
-        
+
         let customElement = UIAccessibilityElement(accessibilityContainer: view as Any)
         if let screenCoordinateSpace = view.window?.screen.coordinateSpace {
             customElement.accessibilityFrame = view.convert(view.bounds, to: screenCoordinateSpace)
@@ -127,18 +132,13 @@ class ArticlePopoverViewController: UIViewController {
         customElement.accessibilityTraits = UIAccessibilityTraits.link
         view.accessibilityElements = [customElement]
     }
-    
+
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
         let styles = HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
 
         titleLabel.attributedText = NSAttributedString.attributedStringFromHtml(displayTitleHTML, styles: styles)
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        configureView(withTraitCollection: traitCollection)
-    }
-    
     @objc func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
         switch tapGR.state {
         case .recognized:
@@ -147,20 +147,20 @@ class ArticlePopoverViewController: UIViewController {
             break
         }
     }
-    
+
     @IBAction func save(_ sender: Any) {
         delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .save)
         update()
     }
-    
+
     @IBAction func share(_ sender: Any) {
         delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .share)
     }
-    
+
     @IBAction func read(_ sender: Any) {
         delegate?.articlePopoverViewController(articlePopoverViewController: self, didSelectAction: .read)
     }
-    
+
 }
 
 

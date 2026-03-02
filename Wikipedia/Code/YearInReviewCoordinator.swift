@@ -83,7 +83,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings(
             donateButtonTitle: CommonStrings.donateTitle,
-            doneButtonTitle: CommonStrings.doneTitle,
             shareButtonTitle: CommonStrings.shortShareTitle,
             nextButtonTitle: CommonStrings.nextTitle,
             finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),

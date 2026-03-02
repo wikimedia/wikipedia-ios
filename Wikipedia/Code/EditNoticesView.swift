@@ -84,10 +84,8 @@ final class EditNoticesView: SetupView {
     }()
 
     lazy var doneButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.setTitle(CommonStrings.doneTitle, for: .normal)
+        let config = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(tappedClose), alignment: .trailing)
+        let button = UIButton.closeNavigationButton(config: config)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -231,13 +229,13 @@ final class EditNoticesView: SetupView {
         ])
         
         changeTextViewVoiceOverVisibility(isVisible: false)
-    }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
 
-        doneButtonTrailingConstraint.constant = doneButtonTrailingMargin
-        doneContainer.setNeedsLayout()
+            doneButtonTrailingConstraint.constant = doneButtonTrailingMargin
+            doneContainer.setNeedsLayout()
+        }
     }
 
     // MARK: - Public
@@ -271,6 +269,10 @@ final class EditNoticesView: SetupView {
         textView.backgroundColor = theme.colors.paperBackground
         textView.linkTextAttributes = [.foregroundColor: theme.colors.link]
         footerSwitchLabel.textColor = theme.colors.primaryText
+    }
+    
+    @objc private func tappedClose() {
+        // no-op
     }
 
 }

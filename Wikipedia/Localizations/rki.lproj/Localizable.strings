@@ -559,12 +559,10 @@
 "forgot-password-username-or-email-title" = "ယင်းသို့မဟုတ်";
 "gan-variants-alert-body" = "Wikipedia အက်ပ်‌စွာ ‌ဒေဂုအခါ အောက်ပါ Gan မျိုးကွဲတိကို အက်ပ်အတွင်းမှာ အဓိက ယင်းသို့မဟုတ် အလယ်တန်းဘာသာစကားတိအနီနန့် ပံ့ပိုးပီးထားပြီး သင်နှစ်သက်တေမျိုးကွဲတိမှာ ဖတ်ဖို့၊ ရှာဖွီဖို့နန့် တီးဖြတ်ဖို့ ပိုမိုလွယ်ကူစီရေ-\n\nဂန် (ဂန်)\nGan၊ ရိုးရှင်းရေ (gan-hans)\nဂန်း၊ ရိုးရာ (ဂန်ဟန့်)";
 "gan-variants-alert-title" = "တရုတ်ဗားရှင်း ပံ့ပိုးမှုအတွက် အပ်ဒိတ်တိ";
-"history-clear-all" = "ရှင်းလင်းပါ";
 "history-clear-confirmation-heading" = "မကြာခင်ကစာရင်းတိကို ဖျက်ပစ်ရန် သေချာပါလား?";
 "history-clear-delete-all" = "မှန်ရေ၊ အားလုံးဖျက်ပါ";
 "history-title" = "ရာဇဝင်";
 "home-button-explore-accessibility-label" = "ဝီကီးပီးဒီးယား၊ စူးစမ်းရီးသို့ ပြန်လားဖို့";
-"home-button-history-accessibility-label" = "ဝီကီးပီးဒီးယား၊ ရာဇဝင်သို့ ပြန်လားဖို့";
 "home-button-saved-accessibility-label" = "ဝီကီးပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်လားဖို့";
 "home-more-like-footer" = "$1 ပိုင် နောက်ထပ််";
 "home-nearby-footer" = "သင်ဧ့တည်နီရာအနီးက နေရာတိပိုလို့";

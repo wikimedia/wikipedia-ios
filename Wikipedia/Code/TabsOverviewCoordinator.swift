@@ -170,7 +170,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
-                doneButtonText: CommonStrings.doneTitle,
                 articleTabsCount: articleTabsCount
             )
             

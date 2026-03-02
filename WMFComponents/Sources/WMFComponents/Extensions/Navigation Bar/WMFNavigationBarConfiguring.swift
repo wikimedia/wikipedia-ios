@@ -1,5 +1,6 @@
 import UIKit
 import WMFData
+import SwiftUI
 
 public protocol WMFNavigationBarConfiguring {
     
@@ -33,27 +34,6 @@ public struct WMFNavigationBarBackButtonConfig {
     
     public init(needsCustomTruncateBackButtonTitle: Bool) {
         self.needsCustomTruncateBackButtonTitle = needsCustomTruncateBackButtonTitle
-    }
-}
-
-/// Close button config for navigation bar
-public struct WMFNavigationBarCloseButtonConfig {
-    
-    public enum Alignment {
-        case leading
-        case trailing
-    }
-    
-    let text: String
-    let target: Any
-    let action: Selector
-    let alignment: Alignment
-    
-    public init(text: String, target: Any, action: Selector, alignment: Alignment) {
-        self.text = text
-        self.target = target
-        self.action = action
-        self.alignment = alignment
     }
 }
 
@@ -117,6 +97,8 @@ public struct WMFNavigationBarSearchConfig {
     }
 }
 
+// MARK: - Navigation Bar Configuring Extension
+
 public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     private var profileButtonAccessibilityID: String {
@@ -131,7 +113,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - searchBarConfig: Config for search bar
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
     func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig,
-                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil,
+                                closeButtonConfig: WMFLargeCloseButtonConfig?,
+                                profileButtonConfig: WMFNavigationBarProfileButtonConfig?,
+                                tabsButtonConfig: WMFNavigationBarTabsButtonConfig?,
+                                searchBarConfig: WMFNavigationBarSearchConfig?,
+                                hideNavigationBarOnScroll: Bool) {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
@@ -153,7 +140,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
-            navigationItem.titleView = UIView()
+            
+            // will see double-titles on iPhones without this
+            if traitCollection.horizontalSizeClass == .compact {
+                navigationItem.titleView = UIView()
+            }
+            
             if let customTitleView = titleConfig.customView {
                 let button = UIBarButtonItem(customView: customTitleView)
                 button.accessibilityTraits = .staticText
@@ -173,7 +165,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                     button.sharesBackground = false
                 }
                 navigationItem.leftBarButtonItem = button
-
                 themeNavigationBarLeadingTitleView()
             }
         case .leadingLarge:
@@ -221,16 +212,13 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             rightBarButtonItems.append(profileButton)
             
             if let tabsButtonConfig {
-                
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-                
                 rightBarButtonItems.append(tabsButton)
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
                     rightBarButtonItems.append(leadingBarButtonItem)
                 }
-                
             }
             
             navigationItem.rightBarButtonItems = rightBarButtonItems
@@ -238,8 +226,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         // Setup close button if needed
         if let closeButtonConfig {
-            let closeButton = UIBarButtonItem(title: closeButtonConfig.text, style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
-            closeButton.setTitleTextAttributes([.font: WMFFont.navigationBarDoneButtonFont], for: .normal)
+            
+            let closeButton = UIBarButtonItem.closeNavigationBarButtonItem(config: closeButtonConfig)
             
             switch closeButtonConfig.alignment {
             case .leading:
@@ -249,7 +237,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
         }
         
-        // Setup search bar if needed
         if let searchBarConfig,
            navigationItem.searchController == nil {
             let searchController = UISearchController(searchResultsController: searchBarConfig.searchResultsController)
@@ -262,45 +249,30 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             if searchBarConfig.showsScopeBar {
                 searchController.searchBar.showsScopeBar = searchBarConfig.showsScopeBar
-                
-                if #available(iOS 16.0, *) {
-                    searchController.scopeBarActivation = .manual
-                } else {
-                    // Fallback on earlier versions
-                }
-                
+                searchController.scopeBarActivation = .manual
                 searchController.searchBar.scopeButtonTitles = searchBarConfig.scopeButtonTitles
             }
-            
+
             navigationItem.hidesSearchBarWhenScrolling = false
-            
-            if #available(iOS 16.0, *) {
-                navigationItem.preferredSearchBarPlacement = .stacked
-            } else {
-                // Fallback on earlier versions
-            }
-            
+            navigationItem.preferredSearchBarPlacement = .stacked
             navigationItem.searchController = searchController
         }
     }
     
     func customizeNavBarAppearance(customLargeTitleFont: UIFont) {
         guard let navVC = navigationController,
-        let componentNavVC = navVC as? WMFComponentNavigationController else {
+              let componentNavVC = navVC as? WMFComponentNavigationController else {
             return
         }
-        
         componentNavVC.setBarAppearance(customLargeTitleFont: customLargeTitleFont)
     }
     
     /// Call on viewWillDisappear(), IF navigation bar large title was set with a custom font.
     func resetNavBarAppearance() {
-        
         guard let navVC = navigationController,
-        let componentNavVC = navVC as? WMFComponentNavigationController else {
+              let componentNavVC = navVC as? WMFComponentNavigationController else {
             return
         }
-        
         componentNavVC.setBarAppearance(customLargeTitleFont: nil)
     }
     

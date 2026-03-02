@@ -332,7 +332,7 @@ class DonateCoordinator: Coordinator {
         }
         
         guard PKPaymentAuthorizationController.canMakePayments(),
-              PKPaymentAuthorizationController.canMakePayments(usingNetworks: paymentMethods.applePayPaymentNetworks, capabilities: .capability3DS) else {
+              PKPaymentAuthorizationController.canMakePayments(usingNetworks: paymentMethods.applePayPaymentNetworks, capabilities: .threeDSecure) else {
             return nil
         }
         

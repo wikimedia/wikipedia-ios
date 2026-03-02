@@ -127,8 +127,9 @@ NS_ASSUME_NONNULL_BEGIN
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
 
-        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithTitle:WMFCommonStrings.doneTitle style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
-        close.tintColor = self.theme.colors.link;
+        WMFLargeCloseButtonConfig *config = [[WMFLargeCloseButtonConfig alloc] initWithImageType:WMFLargeCloseButtonImageTypePlainX target:self action:@selector(didTapCloseButton) alignment:AlignmentTrailing];
+        UIBarButtonItem *close = [UIBarButtonItem closeNavigationBarButtonItemWithConfig:config];
+        close.tintColor = [UIColor whiteColor]; // Need to override this since gallery is always dark
         close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.overlayView.leftBarButtonItem = close;
     }

@@ -288,12 +288,10 @@
 "forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";
 "forgot-password-title" = "စကားဝှက်ကို ပြန်ချိန်ရန်";
 "forgot-password-username-or-email-title" = "သို့မဟုတ်";
-"history-clear-all" = "ရှင်းလင်း";
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
 "history-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
 "history-title" = "ရာဇဝင်";
 "home-button-explore-accessibility-label" = "ဝီကီပီးဒီးယား၊ စူးစမ်းရေးသို့ ပြန်သွားရန်";
-"home-button-history-accessibility-label" = "ဝီကီပီးဒီးယား၊ ရာဇဝင်သို့ ပြန်သွားရန်";
 "home-button-saved-accessibility-label" = "ဝီကီပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်သွားရန်";
 "home-more-like-footer" = "$1 ကဲ့သို့ နောက်ထပ််";
 "home-nearby-footer" = "သင့်တည်နေရာအနီးရှိ နေရာများပို၍";

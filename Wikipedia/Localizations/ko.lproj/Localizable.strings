@@ -592,12 +592,10 @@
 "forgot-password-username-or-email-title" = "또는";
 "gan-variants-alert-body" = "이제 위키백과 앱에서 아래의 간어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\n贛語 原文 간어 (gan)\n赣语 简体 간어 간체 (gan-hans)\n贛語 繁體 간어 번체 (gan-hant)";
 "gan-variants-alert-title" = "간어 변이형 지원 업데이트";
-"history-clear-all" = "지우기";
 "history-clear-confirmation-heading" = "최근의 모든 항목을 삭제하겠습니까?";
 "history-clear-delete-all" = "예, 모두 삭제합니다";
 "history-title" = "역사";
 "home-button-explore-accessibility-label" = "위키백과, 탐색으로 돌아가기";
-"home-button-history-accessibility-label" = "위키백과, \"역사\"로 돌아가기";
 "home-button-saved-accessibility-label" = "위키백과, \"저장되었습니다\"로 돌아가기";
 "home-more-like-footer" = "$1 등도 읽히고 있습니다";
 "home-nearby-footer" = "사용자 위치의 더 많은 주변 장소";

@@ -235,11 +235,9 @@
 "forgot-password-instructions" = "Líon ceann de na réimsí seo thíos le treoracha athshocraithe pasfhocail a ghlacadh trí ríomhphost";
 "forgot-password-title" = "Athshocraigh pasfhocal";
 "forgot-password-username-or-email-title" = "Nó";
-"history-clear-all" = "Glan";
 "history-clear-delete-all" = "Tá, scrios uile";
 "history-title" = "Stair";
 "home-button-explore-accessibility-label" = "Vicipéid, siar go Taiscéal";
-"home-button-history-accessibility-label" = "Vicipéid, siar go Stair";
 "home-button-saved-accessibility-label" = "Vicipéid, siar go Sábháilte";
 "home-more-like-footer" = "Tuilleadh cosúil le $1";
 "home-nearby-footer" = "Tuilleadh áiteanna in aice le do shuíomh";

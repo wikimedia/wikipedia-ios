@@ -116,7 +116,6 @@
 "forgot-password-email-sent" = "'n E-pos is gestuur met instruksies om die wagwoord te herstel";
 "forgot-password-title" = "Herstel wagwoord";
 "forgot-password-username-or-email-title" = "Of";
-"history-clear-all" = "Maak skoon";
 // Fuzzy
 "history-clear-confirmation-heading" = "Skrap alle onlangse items?";
 "history-clear-delete-all" = "Ja, skrap alles";

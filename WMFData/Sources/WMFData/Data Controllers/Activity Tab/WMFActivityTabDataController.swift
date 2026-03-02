@@ -6,7 +6,11 @@ public actor WMFActivityTabDataController {
     public var historyDataController: WMFHistoryDataController? = nil
 
     public init() {}
-    
+
+    public func setHistoryDataController(_ controller: WMFHistoryDataController) {
+        self.historyDataController = controller
+    }
+
     // MARK: - Activity Tab Customization Toggles
 
     public var isTimeSpentReadingOn: Bool {

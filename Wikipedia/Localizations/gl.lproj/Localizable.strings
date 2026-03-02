@@ -325,12 +325,10 @@
 "forgot-password-instructions" = "Encha un dos campos de abaixo para recibir as instrucións de reinicialización";
 "forgot-password-title" = "Restablecer o contrasinal";
 "forgot-password-username-or-email-title" = "Ou";
-"history-clear-all" = "Limpar";
 "history-clear-confirmation-heading" = "Está seguro de que quere borrar todos os seus elementos recentes?";
 "history-clear-delete-all" = "Si, borrar todo";
 "history-title" = "Historial";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
-"home-button-history-accessibility-label" = "Wikipedia, volver a Historico";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Gardado";
 "home-more-like-footer" = "Máis coma $1";
 "home-nearby-footer" = "Máis lugares próximos á súa localización";

@@ -442,12 +442,10 @@
 "forgot-password-instructions" = "Töltsd ki a lenti mezők egyikét, hogy megkapd a jelszó-visszaállítási utasításokat e-mailben";
 "forgot-password-title" = "Jelszó visszaállítása";
 "forgot-password-username-or-email-title" = "Vagy";
-"history-clear-all" = "Törlés";
 "history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";
 "history-clear-delete-all" = "Igen, összes törlése";
 "history-title" = "Előzmények";
 "home-button-explore-accessibility-label" = "Wikipédia, visszatérés a Felfedezéshez";
-"home-button-history-accessibility-label" = "Wikipédia, visszatérés az Előzményekhez";
 "home-button-saved-accessibility-label" = "Wikipédia, visszatérés a mentett lapokhoz";
 "home-more-like-footer" = "Több ehhez hasonló: $1";
 "home-nearby-footer" = "További helyek a közeledben";

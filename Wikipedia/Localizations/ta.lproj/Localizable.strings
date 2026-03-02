@@ -138,11 +138,9 @@
 "forgot-password-button-title" = "மீட்டமை";
 "forgot-password-title" = "கடவுச்சொலை மீளமை";
 "forgot-password-username-or-email-title" = "அல்லது";
-"history-clear-all" = "அழி";
 "history-clear-delete-all" = "ஆம், யாவையும் நீக்கு";
 "history-title" = "வரலாறு";
 "home-button-explore-accessibility-label" = "விக்கிப்பீடியா, சுற்றிப்பார்க்க திரும்புக";
-"home-button-history-accessibility-label" = "விக்கிப்பீடியா, வரலாற்றுக்கு திரும்புக";
 "home-button-saved-accessibility-label" = "விக்கிப்பீடியா, சேமிக்கபட்டதற்கு திரும்புக";
 "home-more-like-footer" = "$1 போல மேலும்";
 "home-nearby-footer" = "உங்கள் இடத்திற்கு அருகாமையில் இருக்கும் மேலும் இடங்கள்";

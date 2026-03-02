@@ -47,29 +47,48 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
 
     /// Call from UIViewController when the status bar height might change (like upon rotation)
     func calculateTopSafeAreaOverlayHeight() {
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         topSafeAreaOverlayHeightConstraint?.constant = statusBarHeight
     }
-    
-    /// Call from a UIViewController's scrollViewDidScroll method to unstick a hidden navigation bar when scrolled to the top.
+
     func calculateNavigationBarHiddenState(scrollView: UIScrollView) {
         let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
+
+    func updateLogoImageOnScroll(scrollView: UIScrollView) {
+        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        let isCompactMode = finalOffset > 75
+
+        guard isCompactMode != WMFNavigationBarHidingLogoState.isCompact else { return }
+        WMFNavigationBarHidingLogoState.isCompact = isCompactMode
+
+        if isCompactMode {
+            swapLogoToCompact()
+        } else {
+            swapLogoToFull()
+        }
+    }
+
+    private func swapLogoToCompact() {
+        navigationItem.leftBarButtonItem?.image = UIImage(named: "W")
+        if #available(iOS 26.0, *) {
+            navigationItem.leftBarButtonItem?.hidesSharedBackground = false
+            navigationItem.leftBarButtonItem?.sharesBackground = true
+        }
+    }
+
+    private func swapLogoToFull() {
+        navigationItem.leftBarButtonItem?.image = UIImage(named: "wikipedia")
+        if #available(iOS 26.0, *) {
+            navigationItem.leftBarButtonItem?.hidesSharedBackground = true
+            navigationItem.leftBarButtonItem?.sharesBackground = false
+        }
+    }
 }
 
-private extension UIApplication {
-    var keyWindow: UIWindow? {
-        return UIApplication
-            .shared
-            .connectedScenes
-            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
-            .last { $0.isKeyWindow }
-    }
-    
-    var statusBarFrame: CGRect {
-        keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
-    }
+private enum WMFNavigationBarHidingLogoState {
+    static var isCompact: Bool = false
 }

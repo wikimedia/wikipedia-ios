@@ -322,7 +322,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         paymentRequest.paymentSummaryItems = [PKPaymentSummaryItem(label: "", amount: finalAmount as NSDecimalNumber, type: .final)]
         paymentRequest.merchantIdentifier =  merchantID
         paymentRequest.currencyCode = currencyCode
-        paymentRequest.merchantCapabilities = .capability3DS
+        paymentRequest.merchantCapabilities = .threeDSecure
         paymentRequest.countryCode = countryCode
         paymentRequest.supportedNetworks = paymentMethods.applePayPaymentNetworks
         paymentRequest.requiredBillingContactFields = [.name, .postalAddress]

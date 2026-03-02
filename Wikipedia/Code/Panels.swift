@@ -200,6 +200,11 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
         primaryButtonTitle = button1Title
         secondaryButtonTitle = button2Title
         imageHeightConstraint.constant = 50
+        
+        registerForTraitChanges([UITraitHorizontalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.evaluateConstraintsOnNewSize(self.view.frame.size)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -209,12 +214,6 @@ class ErrorPanelViewController : ScrollableEducationPanelViewController {
         if scrollView.bounces {
             scrollView.flashScrollIndicators()
         }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        evaluateConstraintsOnNewSize(view.frame.size)
     }
 
     private func evaluateConstraintsOnNewSize(_ size: CGSize) {

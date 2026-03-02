@@ -90,6 +90,12 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
 
         updateFonts()
         apply(theme: theme)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+            updateFonts()
+        }
     }
     
     private func configureAndAddNextButton() {
@@ -126,11 +132,6 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         let trailing = NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -buttonCenterXOffset)
         trailing.priority = .defaultHigh
         view.addConstraints([leading, trailing])
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

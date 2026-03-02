@@ -22,7 +22,7 @@ public struct WMFActivityTabCustomizeView: View {
                     isOn: $viewModel.isTimeSpentReadingOn
                 )
                 .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
-                .onChange(of: viewModel.isTimeSpentReadingOn) { newValue in
+                .onChange(of: viewModel.isTimeSpentReadingOn) { _, newValue in
                     guard newValue == true else { return }
                     guard viewModel.isLoggedIn else {
                         viewModel.isTimeSpentReadingOn = false
@@ -36,7 +36,7 @@ public struct WMFActivityTabCustomizeView: View {
                     isOn: $viewModel.isReadingInsightsOn
                 )
                 .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
-                .onChange(of: viewModel.isReadingInsightsOn) { newValue in
+                .onChange(of: viewModel.isReadingInsightsOn) { _, newValue in
                     guard newValue == true else { return }
                     guard viewModel.isLoggedIn else {
                         viewModel.isReadingInsightsOn = false
@@ -50,7 +50,7 @@ public struct WMFActivityTabCustomizeView: View {
                     isOn: $viewModel.isEditingInsightsOn
                 )
                 .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
-                .onChange(of: viewModel.isEditingInsightsOn) { newValue in
+                .onChange(of: viewModel.isEditingInsightsOn) { _, newValue in
                     guard newValue == true else { return }
                     guard viewModel.isLoggedIn else {
                         viewModel.isEditingInsightsOn = false
@@ -64,7 +64,7 @@ public struct WMFActivityTabCustomizeView: View {
                     isOn: $viewModel.isTimelineOfBehaviorOn
                 )
                 .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
-                .onChange(of: viewModel.isTimelineOfBehaviorOn) { newValue in
+                .onChange(of: viewModel.isTimelineOfBehaviorOn) { _, newValue in
                     guard newValue == true else { return }
                     guard viewModel.isLoggedIn else {
                         viewModel.isTimelineOfBehaviorOn = false

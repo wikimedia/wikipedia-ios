@@ -159,6 +159,10 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
         let selectedLanguageLink = languageBarLanguages().first { $0.contentLanguageCode == selectedSearchContentLanguageCode }
         return selectedLanguageLink?.siteURL
     }
+    
+    func moveScrollViewToStart() {
+        scrollView.setContentOffset(.zero, animated: false)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

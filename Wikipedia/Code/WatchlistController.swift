@@ -204,7 +204,7 @@ class WatchlistController {
         
         if let popoverController = alertController.popoverPresentationController {
             lastPopoverPresentationController = popoverController
-            calculatePopoverPosition(sender: sender, sourceView: sourceView, sourceRect: sourceRect)
+            calculatePopoverPosition(sender: sender, sourceView: nil, sourceRect: nil)
         }
         
         alertController.overrideUserInterfaceStyle = theme.isDark ? .dark : .light

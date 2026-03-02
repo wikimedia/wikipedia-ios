@@ -288,12 +288,10 @@
 "forgot-password-instructions" = "Rellena unu de los campos d'abaxo pa recibir per corréu instrucciones pa reaniciar la contraseña";
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
-"history-clear-all" = "Llimpiar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
 "history-title" = "Historial";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Esplorar";
-"home-button-history-accessibility-label" = "Wikipedia, volver a Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardaos";
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más llugares cerca del to allugamientu";
