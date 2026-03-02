@@ -163,7 +163,7 @@ final class NotificationsCenterViewModel: NSObject {
                 }
                 DDLogError("Error refreshing notifications: \(error)")
                 Task { @MainActor in
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             default:
                 break
@@ -180,7 +180,7 @@ final class NotificationsCenterViewModel: NSObject {
                 DDLogError("Error marking notifications as read or unread: \(error)")
                 if shouldDisplayErrorIfNeeded {
                     Task { @MainActor in
-                        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                     }
                 }
             default:
@@ -195,7 +195,7 @@ final class NotificationsCenterViewModel: NSObject {
             case .failure(let error):
                 DDLogError("Error marking all notifications as read or unread: \(error)")
                 Task { @MainActor in
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             default:
                 break
@@ -245,7 +245,7 @@ final class NotificationsCenterViewModel: NSObject {
             case .failure(let error):
                 DDLogError("Error fetching first page of notifications: \(error)")
                 Task { @MainActor in
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             }
         }

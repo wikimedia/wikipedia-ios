@@ -258,11 +258,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
                 let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
-                WMFAlertManager.sharedInstance.showAlertWithMessage(
+                WMFToastManager.sharedInstance.showToastWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    dismissPreviousAlerts: true,
+                    dismissPreviousToasts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
                         Task { @MainActor in
@@ -292,11 +292,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
                 let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
-                WMFAlertManager.sharedInstance.showAlertWithMessage(
+                WMFToastManager.sharedInstance.showToastWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    dismissPreviousAlerts: true,
+                    dismissPreviousToasts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
                         Task { @MainActor in
@@ -446,7 +446,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        WMFAlertManager.sharedInstance.dismissAlert()
+        WMFToastManager.sharedInstance.dismissToast()
         super.viewWillDisappear(animated)
 
         if isMovingFromParent {
@@ -463,7 +463,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 authState = .ipAccount
             }
         }
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
 
         guard let editURL = pageURL else {
             assertionFailure("Could not get url of section to be edited")
@@ -583,7 +583,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
 
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
             let classicInfo = WMFCaptcha.ClassicInfo(captchaID: captchaId, captchaURL: captchaUrl)
             captchaViewController?.captcha = WMFCaptcha(classicInfo: classicInfo, hCaptchaInfo: nil)
             mode = .captcha
@@ -594,7 +594,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             problemSource = .needsCaptcha
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             wmf_hideKeyboard()
-            WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
+            WMFToastManager.sharedInstance.dismissToast() // Hide "Publishing..."
 
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = pageURL?.wmf_title else {
@@ -624,11 +624,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
 
         case .server:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             problemSource = .serverError
         case .blocked:
 
-            WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
+            WMFToastManager.sharedInstance.dismissToast() // Hide "Publishing..."
 
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = pageURL?.wmf_title else {
@@ -654,13 +654,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             problemSource = .blockedMessage
 
         case .protectedPage:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             problemSource = .protectedPage
         case .unknown:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             // leaving problemSource blank
         default:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             if nsError.wmf_isNetworkConnectionError() {
                 problemSource = .connectionError
             }

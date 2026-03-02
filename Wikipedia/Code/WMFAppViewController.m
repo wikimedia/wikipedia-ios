@@ -499,7 +499,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)readingListsWereSplitNotification:(NSNotification *)note {
     NSInteger entryLimit = [note.userInfo[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey] integerValue];
 
-    [[WMFAlertManager sharedInstance] showWarningAlert:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit] duration:nil sticky:YES dismissPreviousAlerts:YES tapCallBack:nil];
+    [[WMFToastManager sharedInstance] showWarningToast:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit] duration:nil sticky:YES dismissPreviousToasts:YES tapCallBack:nil];
 }
 
 - (void)readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:(NSNotification *)note {
@@ -529,10 +529,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if ([error isKindOfClass:[NSError class]] && error.wmf_isNetworkConnectionError) {
         if (!self.hasSyncErrorBeenShownThisSesssion) {
             self.hasSyncErrorBeenShownThisSesssion = YES; // only show sync error once for multiple failed syncs
-            [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
+            [[WMFToastManager sharedInstance] showWarningToast:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                       duration:nil
                                                         sticky:YES
-                                         dismissPreviousAlerts:NO
+                                         dismissPreviousToasts:NO
                                                    tapCallBack:nil];
         }
     }
@@ -544,7 +544,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             NSInteger syncedReadingListEntriesCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] integerValue];
             if (syncedReadingListsCount > 0 && syncedReadingListEntriesCount > 0) {
                 NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-large-sync-completed", nil, nil, @"{{PLURAL:%1$d|%1$d article|%1$d articles}} and {{PLURAL:%2$d|%2$d reading list|%2$d reading lists}} synced from your account", @"Alert message informing user that large sync was completed. %1$d will be replaced with the number of articles which were synced and %2$d will be replaced with the number of reading lists which were synced"), syncedReadingListEntriesCount, syncedReadingListsCount];
-                [[WMFAlertManager sharedInstance] showSuccessAlert:alertTitle sticky:YES dismissPreviousAlerts:YES tapCallBack:nil];
+                [[WMFToastManager sharedInstance] showSuccessToast:alertTitle sticky:YES dismissPreviousToasts:YES tapCallBack:nil];
             }
         }
     }
@@ -554,10 +554,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     NSString *oldName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedOldNameKey];
     NSString *newName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedNewNameKey];
     NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-conflicting-reading-list-name-updated", nil, nil, @"Your list '%1$@' has been renamed to '%2$@'", @"Alert message informing user that their reading list was renamed. %1$@ will be replaced the previous name of the list. %2$@ will be replaced with the new name of the list."), oldName, newName];
-    [[WMFAlertManager sharedInstance] showWarningAlert:alertTitle
+    [[WMFToastManager sharedInstance] showWarningToast:alertTitle
                                               duration:nil
                                                 sticky:YES
-                                 dismissPreviousAlerts:YES
+                                 dismissPreviousToasts:YES
                                            tapCallBack:nil];
 }
 
@@ -569,7 +569,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)showErrorBanner:(NSNotification *)notification {
     if ([notification.userInfo[NSNotification.showErrorBannerNSErrorKey] isKindOfClass:[NSError class]]) {
         NSError *error = notification.userInfo[NSNotification.showErrorBannerNSErrorKey];
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
+        [[WMFToastManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousToasts:YES tapCallBack:nil];
     }
 }
 
@@ -605,7 +605,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
-    [[WMFAlertManager sharedInstance] showAlertWithMessage:@"Your edit was successfully published" subtitle:nil buttonTitle:nil image:[UIImage imageNamed:@"published-pencil"] dismissPreviousAlerts:YES tapCallBack:nil];
+    [[WMFToastManager sharedInstance] showToastWithMessage:@"Your edit was successfully published" subtitle:nil buttonTitle:nil image:[UIImage imageNamed:@"published-pencil"] dismissPreviousToasts:YES tapCallBack:nil];
 
 }
 
@@ -942,11 +942,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         NSString *const kTemporaryAccountAlertShownKey = @"TemporaryAccountAlertShown";
 
         if ([self.dataStore.authenticationManager authStateIsTemporary] && ![[NSUserDefaults standardUserDefaults] boolForKey:kTemporaryAccountAlertShownKey]) {
-            [[WMFAlertManager sharedInstance] showAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.", @"Alert message informing user that they are using a temporary account")
+            [[WMFToastManager sharedInstance] showToastWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.", @"Alert message informing user that they are using a temporary account")
                                                           subtitle:nil
                                                        buttonTitle:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account-learn-more", nil, nil, @"Learn more.", @"Button on alert for temporary accounts to learn more.")
                                                              image:[UIImage imageNamed:@"exclamation-point"]
-                                             dismissPreviousAlerts:true tapCallBack:^{
+                                             dismissPreviousToasts:true
+                                                       tapCallBack:^{
                 TempAccountExpiryViewController *tempVC = [[TempAccountExpiryViewController alloc] init];
                 [tempVC start];
 
@@ -1841,7 +1842,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
         [self applyTheme:theme toPresentedViewController:self.presentedViewController];
 
-        [[WMFAlertManager sharedInstance] applyTheme:theme];
+        [[WMFToastManager sharedInstance] applyTheme:theme];
 
         [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
 
@@ -1941,9 +1942,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)articleSaveToDiskDidFail:(NSNotification *)note {
     NSError *error = (NSError *)note.userInfo[[WMFSavedArticlesFetcher saveToDiskDidFailErrorKey]];
     if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
-        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
+        [[WMFToastManager sharedInstance] showErrorToastWithMessage:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
                                                              sticky:YES
-                                              dismissPreviousAlerts:YES
+                                              dismissPreviousToasts:YES
                                                         tapCallBack:nil];
     }
 }

@@ -54,7 +54,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             ArticleTabsFunnel.shared.logFeedbackSubmit(selectedItems: options, comment: otherText)
             self?.navigationController.presentedViewController?.dismiss(animated: true, completion: {
                 let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
-                WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showToastWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousToasts: true)
             })
         })
 
@@ -65,12 +65,12 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 
     public func showAlertForArticleSuggestionsDisplayChangeConfirmation() {
         if dataController.userHasHiddenArticleSuggestionsTabs {
-            WMFAlertManager.sharedInstance.showAlertWithMessage(
+            WMFToastManager.sharedInstance.showToastWithMessage(
                 WMFLocalizedString("tabs-suggested-articles-hide-suggestions-confirmation", value: "Suggestions are now hidden", comment: "Confirmation on hiding of the suggested articles in tabs."),
                 subtitle: nil,
                 buttonTitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill),
-                dismissPreviousAlerts: true
+                dismissPreviousToasts: true
             )
         }
     }

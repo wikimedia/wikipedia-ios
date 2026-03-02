@@ -23,7 +23,7 @@ import WMFComponents
     }
 
     @MainActor
-    private func getHintPresenter() -> WMFReadingListToastPresenter {
+    private func getToastPresenter() -> WMFReadingListToastPresenter {
         if let existing = toastPresenter {
             return existing
         }
@@ -34,12 +34,12 @@ import WMFComponents
 
     // MARK: - Public Methods
 
-    var isHintHidden: Bool {
+    var isToastHidden: Bool {
         guard let toastPresenter else { return true }
         return MainActor.assumeIsolated { toastPresenter.isToastHidden }
     }
 
-    func dismissHintDueToUserInteraction() {
+    func dismissToastDueToUserInteraction() {
         guard let toastPresenter else { return }
         Task { @MainActor in
             toastPresenter.dismissToastDueToUserInteraction()
@@ -51,17 +51,17 @@ import WMFComponents
         self.theme = theme
 
         let didSave = article.isSaved
-        let didSaveOtherArticle = didSave && !isHintHidden && article != currentArticle
-        let didUnsaveOtherArticle = !didSave && !isHintHidden && article != currentArticle
+        let didSaveOtherArticle = didSave && !isToastHidden && article != currentArticle
+        let didUnsaveOtherArticle = !didSave && !isToastHidden && article != currentArticle
 
         guard !didUnsaveOtherArticle else { return }
 
         if didSaveOtherArticle {
             Task { @MainActor [weak self] in
                 guard let self else { return }
-                self.getHintPresenter().resetToast()
+                self.getToastPresenter().resetToast()
                 self.currentArticle = article
-                self.showDefaultHint(article: article)
+                self.showDefaultToast(article: article)
             }
             return
         }
@@ -69,7 +69,7 @@ import WMFComponents
         currentArticle = article
 
         if didSave {
-            showDefaultHint(article: article)
+            showDefaultToast(article: article)
         } else {
             guard let toastPresenter else { return }
             Task { @MainActor in
@@ -80,10 +80,10 @@ import WMFComponents
 
     // MARK: - Private Methods
 
-    private func showDefaultHint(article: WMFArticle) {
+    private func showDefaultToast(article: WMFArticle) {
         guard let presenter else { return }
 
-        let title = hintButtonTitle(for: article)
+        let title = toastButtonTitle(for: article)
         let icon = WMFSFSymbolIcon.for(symbol: .plusCircle)
         let articleURL = article.url
 
@@ -102,11 +102,11 @@ import WMFComponents
 
         Task { @MainActor [weak self] in
             guard let self else { return }
-            self.getHintPresenter().show(config: config, in: presenter)
+            self.getToastPresenter().show(config: config, in: presenter)
         }
     }
 
-    private func showConfirmationHintInPlace(readingList: ReadingList, image: UIImage?) {
+    private func showConfirmationToastInPlace(readingList: ReadingList, image: UIImage?) {
         guard let name = readingList.name else { return }
 
         let title = String.localizedStringWithFormat(
@@ -143,11 +143,11 @@ import WMFComponents
 
         Task { @MainActor [weak self] in
             guard let self else { return }
-            self.getHintPresenter().updateCurrentHint(with: config)
+            self.getToastPresenter().updateCurrentToast(with: config)
         }
     }
 
-    private func hintButtonTitle(for article: WMFArticle) -> String {
+    private func toastButtonTitle(for article: WMFArticle) -> String {
         var maybeArticleTitle: String?
         if let displayTitle = article.displayTitle, displayTitle.wmf_hasNonWhitespaceText {
             maybeArticleTitle = displayTitle
@@ -210,9 +210,9 @@ import WMFComponents
         themeableNavigationController = nav
 
         presenter.present(nav, animated: true) { [weak self] in
-            guard let self, let hintPresenter = self.toastPresenter else { return }
+            guard let self, let toastPresenter = self.toastPresenter else { return }
             Task { @MainActor in
-                hintPresenter.dismissToast()
+                toastPresenter.dismissToast()
             }
         }
     }
@@ -243,7 +243,7 @@ extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
         didAddArticles articles: [WMFArticle],
         to readingList: ReadingList
     ) {
-        showConfirmationHintInPlace(readingList: readingList, image: nil)
+        showConfirmationToastInPlace(readingList: readingList, image: nil)
 
         // try loading thumbnail, update if successful
         let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
@@ -253,7 +253,7 @@ extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
             guard let self else { return }
             let image = await self.loadImageOffMain(from: imageURL)
             await MainActor.run {
-                self.showConfirmationHintInPlace(readingList: readingList, image: image)
+                self.showConfirmationToastInPlace(readingList: readingList, image: image)
             }
         }
     }

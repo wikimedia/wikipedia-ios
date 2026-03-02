@@ -114,7 +114,7 @@ class WatchlistController {
 
         let duration: TimeInterval? = UIAccessibility.isVoiceOverRunning ? 10 : 5
 
-        WMFAlertManager.sharedInstance.showAlertWithMessage(statusTitle, subtitle: nil, image: image, duration: duration, dismissPreviousAlerts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
+        WMFToastManager.sharedInstance.showToastWithMessage(statusTitle, subtitle: nil, image: image, duration: duration, dismissPreviousToasts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
 
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.async {
@@ -125,7 +125,7 @@ class WatchlistController {
 
     private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wmfProject: WMFProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
 
-        WMFAlertManager.sharedInstance.dismissAllAlerts()
+        WMFToastManager.sharedInstance.dismissAllToasts()
 
         let title = WMFLocalizedString("watchlist-change-expiry-title", value: "Watchlist expiry", comment: "Title of modal that allows a user to change the expiry setting of a page they are watching.")
         let message = WMFLocalizedString("watchlist-change-expiry-subtitle", value: "Choose Watchlist time period", comment: "Subtitle in modal that allows a user to choose the expiry setting of a page they are watching.")
@@ -264,7 +264,7 @@ class WatchlistController {
                     let image = WMFSFSymbolIcon.for(symbol: .star)
 
                     if !UIAccessibility.isVoiceOverRunning {
-                        WMFAlertManager.sharedInstance.showAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+                        WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: nil, image: image, dismissPreviousToasts: true)
                     } else {
                         UIAccessibility.post(notification: .layoutChanged, argument: [title] as [Any])
                     }
@@ -285,7 +285,7 @@ class WatchlistController {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: .layoutChanged, argument: [(error as NSError).alertMessage()] as [Any])
             } else {
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
             }
         }
 

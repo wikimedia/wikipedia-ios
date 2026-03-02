@@ -783,7 +783,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
 
         if hide {
             Task { @MainActor in
-                WMFAlertManager.sharedInstance.dismissAlert()
+                WMFToastManager.sharedInstance.dismissToast()
             }
         } else {
             showWarningAlert()
@@ -794,11 +794,11 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
 
     private func showWarningAlert() {
         Task { @MainActor in
-            WMFAlertManager.sharedInstance.showAlertWithMessage(
+            WMFToastManager.sharedInstance.showToastWithMessage(
                 CommonStrings.maxRevisionsSelectedWarningTitle,
                 subtitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill),
-                dismissPreviousAlerts: true
+                dismissPreviousToasts: true
             )
         }
     }
@@ -811,13 +811,13 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                 if UIAccessibility.isVoiceOverRunning {
                     UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
                 } else {
-                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+                    WMFToastManager.sharedInstance.showErrorToastWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousToasts: true)
                 }
             } else {
                 if UIAccessibility.isVoiceOverRunning {
                     UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
                 } else {
-                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                    WMFToastManager.sharedInstance.showErrorToastWithMessage(error.localizedDescription, sticky: true, dismissPreviousToasts: true)
                 }
             }
         }

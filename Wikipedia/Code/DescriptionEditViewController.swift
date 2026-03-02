@@ -132,11 +132,11 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
                 let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
-                WMFAlertManager.sharedInstance.showAlertWithMessage(
+                WMFToastManager.sharedInstance.showToastWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    dismissPreviousAlerts: true,
+                    dismissPreviousToasts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
                         Task { @MainActor in
@@ -155,11 +155,11 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
                 let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill)
-                WMFAlertManager.sharedInstance.showAlertWithMessage(
+                WMFToastManager.sharedInstance.showToastWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    dismissPreviousAlerts: true,
+                    dismissPreviousToasts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
                         Task { @MainActor in
@@ -390,11 +390,11 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                             let image = WMFIcon.temp
 
                             if needsNewTempAccountToast {
-                                WMFAlertManager.sharedInstance.showAlertWithMessage(
+                                WMFToastManager.sharedInstance.showToastWithMessage(
                                     title,
                                     subtitle: subtitle,
                                     image: image,
-                                    dismissPreviousAlerts: true,
+                                    dismissPreviousToasts: true,
                                     buttonTitle: CommonStrings.learnMoreTitle(),
                                     buttonCallBack: {
                                         Task { @MainActor in
@@ -437,7 +437,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
 
                     guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError else {
-                        WMFAlertManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                         return
                     }
 
@@ -450,7 +450,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     case .abuseFilterWarning, .abuseFilterOther:
                         self.presentAbuseFilterWarningPanel(error: displayError)
                     default:
-                        WMFAlertManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showErrorAlert(nsError as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                     }
                 }
             }

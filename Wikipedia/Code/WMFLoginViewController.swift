@@ -208,7 +208,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         passwordAlertLabel.isHidden = true
         setViewControllerUserInteraction(enabled: false)
         disableProgressiveButton()
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
         guard let username = usernameField.text, let password = passwordField.text else {
             assertionFailure("One or more of the required parameters are nil")
             return
@@ -218,7 +218,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
-                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 self.loginSuccessCompletion?()
                 self.setViewControllerUserInteraction(enabled: true)
                 self.dismiss(animated: true)
@@ -253,14 +253,14 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         self.passwordAlertLabel.isHidden = false
                         self.passwordField.textColor = self.theme.colors.error
                         self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
-                        WMFAlertManager.sharedInstance.dismissAlert()
+                        WMFToastManager.sharedInstance.dismissToast()
                         return
                     default: break
                     }
                 }
 
                 self.enableProgressiveButtonIfNecessary()
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             }
         }
     }
@@ -343,7 +343,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     fileprivate func getCaptcha() {
         let captchaFailure: WMFErrorHandler = {error in
             DispatchQueue.main.async {
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             }
         }
         let siteURL = dataStore.primarySiteURL

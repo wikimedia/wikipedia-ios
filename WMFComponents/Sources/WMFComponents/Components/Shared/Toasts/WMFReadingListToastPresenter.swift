@@ -2,7 +2,6 @@ import UIKit
 import SwiftUI
 import Combine
 
-/// Unlike toasts which present globally, hints are anchored to specific view controllers
 @MainActor
 final public class WMFReadingListToastPresenter {
 
@@ -22,9 +21,9 @@ final public class WMFReadingListToastPresenter {
     private var additionalBottomSpacing: CGFloat = 0
     private var extendsUnderSafeArea: Bool = false
 
-    public init(presenter: UIViewController? = nil, currentHintContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, cancellables: Set<AnyCancellable> = Set<AnyCancellable>(), subview: UIView? = nil) {
+    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, cancellables: Set<AnyCancellable> = Set<AnyCancellable>(), subview: UIView? = nil) {
         self.presenter = presenter
-        self.currentToastContainer = currentHintContainer
+        self.currentToastContainer = currentToastContainer
         self.currentHostingController = currentHostingController
         self.currentModel = currentModel
         self.containerViewConstraints = containerViewConstraints
@@ -43,7 +42,7 @@ final public class WMFReadingListToastPresenter {
         currentToastContainer?.superview == nil
     }
 
-    /// Show a hint anchored to a specific view controller
+    /// Show a toast anchored to a specific view controller
     public func show(
         config: WMFReadingListToastConfig,
         in presenter: UIViewController,
@@ -57,9 +56,9 @@ final public class WMFReadingListToastPresenter {
         self.additionalBottomSpacing = additionalBottomSpacing
         self.extendsUnderSafeArea = extendsUnderSafeArea
 
-        // If a hint is already visible, replace it in-place
+        // If a toast is already visible, replace it in-place
         if !isToastHidden {
-            updateCurrentHint(with: config)
+            updateCurrentToast(with: config)
             return
         }
 
@@ -81,7 +80,7 @@ final public class WMFReadingListToastPresenter {
         dismissToast()
     }
 
-    public func updateCurrentHint(with config: WMFReadingListToastConfig) {
+    public func updateCurrentToast(with config: WMFReadingListToastConfig) {
         currentModel?.config = config
         scheduleDismiss(config: config)
     }

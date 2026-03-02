@@ -35,7 +35,7 @@ class FirstRandomViewController: UIViewController, Themeable {
                 guard let self else { return }
                 
                 if error != nil || articleURL == nil {
-                    WMFAlertManager.sharedInstance.showErrorAlert((error ?? Fetcher.unexpectedResponseError), sticky: false, dismissPreviousAlerts: false)
+                    WMFToastManager.sharedInstance.showErrorAlert((error ?? Fetcher.unexpectedResponseError), sticky: false, dismissPreviousToasts: false)
                     return
                 }
                 

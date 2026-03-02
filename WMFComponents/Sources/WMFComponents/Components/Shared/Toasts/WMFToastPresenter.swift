@@ -61,8 +61,8 @@ public final class WMFToastPresenter {
     // MARK: - Public API
 
     /// Presents a toast using WMFToastConfig
-    public func show(_ config: WMFToastConfig, dismissPreviousAlerts: Bool = false) {
-        if dismissPreviousAlerts {
+    public func show(_ config: WMFToastConfig, dismissPreviousToasts: Bool = false) {
+        if dismissPreviousToasts {
             dismissCurrentToast()
         }
 

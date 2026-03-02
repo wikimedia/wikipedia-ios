@@ -82,7 +82,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 }
             )
 
-            WMFToastPresenter.shared.show(config, dismissPreviousAlerts: false)
+            WMFToastPresenter.shared.show(config, dismissPreviousToasts: false)
 
         }
 
@@ -477,7 +477,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let encodedMailto = mailto,
             let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL)
         else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
+            WMFToastManager.sharedInstance.showErrorToastWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
             return
         }
         UIApplication.shared.open(mailtoURL)
@@ -624,7 +624,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }()
 
     private func hideOfflineAlertIfNeeded() {
-        WMFAlertManager.sharedInstance.dismissAllAlerts()
+        WMFToastManager.sharedInstance.dismissAllToasts()
     }
 
     private func showOfflineAlertIfNeeded() {
@@ -632,7 +632,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+            WMFToastManager.sharedInstance.showErrorToastWithMessage(title, sticky: false, dismissPreviousToasts: true)
         }
     }
 
@@ -801,7 +801,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
             self?.dismiss(animated: true, completion: {
                 let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
-                WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showToastWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousToasts: true)
             })
         })
     }

@@ -1015,7 +1015,7 @@ private extension DiffContainerViewController {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
             } else {
-                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showErrorToastWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousToasts: true)
             }
 
         } else if let diffError = error as? DiffError {
@@ -1023,7 +1023,7 @@ private extension DiffContainerViewController {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: diffError.localizedDescription)
             } else {
-                WMFAlertManager.sharedInstance.showWarningAlert(diffError.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showWarningToast(diffError.localizedDescription, sticky: true, dismissPreviousToasts: true)
             }
 
         } else {
@@ -1031,7 +1031,7 @@ private extension DiffContainerViewController {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
             } else {
-                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showErrorToastWithMessage(error.localizedDescription, sticky: true, dismissPreviousToasts: true)
             }
 
         }
@@ -1323,7 +1323,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    WMFAlertManager.sharedInstance.showSuccessAlert(message, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showSuccessToast(message, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             }
             if isRollback {
@@ -1351,7 +1351,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.unknownError)
                     }
                 } else {
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                    WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
                 }
             }
 

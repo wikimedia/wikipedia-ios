@@ -333,11 +333,11 @@ class ViewControllerRouter: NSObject {
         let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
             if reachable {
                 Task { @MainActor in
-                    WMFAlertManager.sharedInstance.dismissAllAlerts()
+                    WMFToastManager.sharedInstance.dismissAllToasts()
                 }
             } else {
                 Task { @MainActor in
-                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousAlerts: true)
+                    WMFToastManager.sharedInstance.showErrorToastWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousToasts: true)
                 }
             }
         }

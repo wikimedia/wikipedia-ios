@@ -107,7 +107,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        WMFAlertManager.sharedInstance.dismissAlert()
+        WMFToastManager.sharedInstance.dismissToast()
         super.viewWillDisappear(animated)
 
         if isMovingFromParent {
@@ -144,7 +144,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
         }
         hasPreviewed = true
         messagingController.setup(with: previewWebViewContainer.webView, languageCode: languageCode ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
 
         let pcsLocalAndStagingEnvironmentsCompletion: () throws -> Void = { [weak self] in
 
@@ -181,7 +181,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
             self.previewWebViewContainer.webView.load(request)
 
             if self.needsSimplifiedFormatToast {
-                WMFAlertManager.sharedInstance.showAlertWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, dismissPreviousAlerts: false)
+                WMFToastManager.sharedInstance.showToastWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, dismissPreviousToasts: false)
             }
         }
 

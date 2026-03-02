@@ -750,7 +750,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
                 guard result.error == nil else {
                     if let error = result.error {
-                        WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showWarningToast(result.error!.localizedDescription, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
 
                         let nserror = error as NSError
                         if nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue) {
@@ -760,7 +760,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                             }
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showWarningToast(CommonStrings.unknownError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                     }
                     return
                 }

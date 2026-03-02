@@ -1448,12 +1448,12 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     }
 
     func imageRecommendationsDidTriggerError(_ error: any Error) {
-        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+        WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
     }
 
     func imageRecommendationsDidTriggerTimeWarning() {
         let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
-        WMFAlertManager.sharedInstance.showAlertWithMessage(warningmessage, subtitle: nil, image: nil, dismissPreviousAlerts: true)
+        WMFToastManager.sharedInstance.showToastWithMessage(warningmessage, subtitle: nil, image: nil, dismissPreviousToasts: true)
     }
 }
 
@@ -1531,7 +1531,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
+            WMFToastManager.sharedInstance.showErrorToastWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
             return
         }
         UIApplication.shared.open(mailtoURL)
@@ -1581,7 +1581,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         if UIAccessibility.isVoiceOverRunning {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         } else {
-                            WMFAlertManager.sharedInstance.showAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)
+                            WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: nil, image: image, dismissPreviousToasts: true)
                         }
                     }
 

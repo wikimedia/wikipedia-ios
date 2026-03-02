@@ -316,9 +316,9 @@ extension WMFAppViewController: WMFWatchlistDelegate {
                     case .success:
                         let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
                         let successMessage = String.localizedStringWithFormat(successfulThanks, username)
-                        WMFAlertManager.sharedInstance.showAlertWithMessage(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousAlerts: true)
+                        WMFToastManager.sharedInstance.showToastWithMessage(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
                     case .failure(let failure):
-                        WMFAlertManager.sharedInstance.showAlertWithMessage(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousAlerts: true)
+                        WMFToastManager.sharedInstance.showToastWithMessage(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
                     }
                 })
             }
@@ -544,7 +544,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
     func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
 
         guard !articles.isEmpty else {
-            WMFAlertManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             return
         }
 
@@ -559,7 +559,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
             case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
                 createReadingListViewController.handleReadingListNameError(readingListError)
             default:
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 createReadingListViewController.createReadingListButton.isEnabled = true
             }
         }

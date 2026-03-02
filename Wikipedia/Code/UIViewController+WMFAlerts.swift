@@ -21,7 +21,7 @@ extension UIViewController {
     }
 
     func showError(_ error: Error, sticky: Bool = false) {
-        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: sticky, dismissPreviousAlerts: false)
+        WMFToastManager.sharedInstance.showErrorAlert(error, sticky: sticky, dismissPreviousToasts: false)
     }
 
     func showGenericError() {

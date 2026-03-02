@@ -173,7 +173,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 #pragma mark - Section management
 
 - (void)reloadDataSections {
-    [[WMFAlertManager sharedInstance] dismissAlert];
+    [[WMFToastManager sharedInstance] dismissToast];
     [self.tableView reloadData];
 }
 
@@ -708,7 +708,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
         }
         failure:^(NSError *__nonnull error) {
             [self setActivityIndicatorVisible:NO];
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            [[WMFToastManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousToasts:YES tapCallBack:NULL];
         }];
 }
 

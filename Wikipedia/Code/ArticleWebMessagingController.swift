@@ -29,7 +29,7 @@ class ArticleWebMessagingController: NSObject {
             try updateUserScripts(on: contentController, with: parameters)
         } catch let error {
             Task { @MainActor in
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: false)
+                WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: false)
             }
         }
     }

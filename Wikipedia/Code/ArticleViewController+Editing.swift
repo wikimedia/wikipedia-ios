@@ -311,22 +311,22 @@ extension ArticleViewController: EditorViewControllerDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     }
                 } else {
-                    WMFAlertManager.sharedInstance.showAlertWithMessage(
+                    WMFToastManager.sharedInstance.showToastWithMessage(
                         title,
                         subtitle: nil,
                         image: image,
-                        dismissPreviousAlerts: true,
+                        dismissPreviousToasts: true,
                         completion: {
                             Task { @MainActor in
                                 let title = CommonStrings.tempAccountCreatedToastTitle
                                 let subtitle = CommonStrings.tempAccountCreatedToastSubtitle(username: tempAccountUsername)
                                 let image = WMFIcon.temp
                                 if needsNewTempAccountToast ?? false {
-                                    WMFAlertManager.sharedInstance.showAlertWithMessage(
+                                    WMFToastManager.sharedInstance.showToastWithMessage(
                                         title,
                                         subtitle: subtitle,
                                         image: image,
-                                        dismissPreviousAlerts: true,
+                                        dismissPreviousToasts: true,
                                         buttonTitle: CommonStrings.learnMoreTitle(),
                                         buttonCallBack: {
                                             Task { @MainActor in

@@ -139,11 +139,11 @@ extension ThanksGiving where Self: ThemeableViewController {
                                          comment: "Message indicating thanks cannot be unsent")
 
         Task { @MainActor in
-            WMFAlertManager.sharedInstance.showAlertWithMessage(
+            WMFToastManager.sharedInstance.showToastWithMessage(
                 title,
                 subtitle: subtitle,
                 image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
-                dismissPreviousAlerts: true
+                dismissPreviousToasts: true
             )
         }
     }
@@ -154,11 +154,11 @@ extension ThanksGiving where Self: ThemeableViewController {
                                         comment: "Message indicating anonymous users cannot be thanked")
 
         Task { @MainActor in
-            WMFAlertManager.sharedInstance.showAlertWithMessage(
+            WMFToastManager.sharedInstance.showToastWithMessage(
                 message,
                 subtitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
-                dismissPreviousAlerts: true
+                dismissPreviousToasts: true
             )
         }
     }
@@ -167,11 +167,11 @@ extension ThanksGiving where Self: ThemeableViewController {
         let message = String.localizedStringWithFormat(CommonStrings.thanksMessage, recipient)
 
         Task { @MainActor in
-            WMFAlertManager.sharedInstance.showAlertWithMessage(
+            WMFToastManager.sharedInstance.showToastWithMessage(
                 message,
                 subtitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill),
-                dismissPreviousAlerts: true
+                dismissPreviousToasts: true
             )
         }
     }
@@ -180,11 +180,11 @@ extension ThanksGiving where Self: ThemeableViewController {
         let message = (error as NSError).alertMessage()
 
         Task { @MainActor in
-            WMFAlertManager.sharedInstance.showAlertWithMessage(
+            WMFToastManager.sharedInstance.showToastWithMessage(
                 message,
                 subtitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
-                dismissPreviousAlerts: true
+                dismissPreviousToasts: true
             )
         }
     }

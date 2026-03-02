@@ -305,13 +305,13 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         else {
             return
         }
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
 
         MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), emailAuthCode: token(), captchaID: captchaID, captchaWord: captchaWord) { (loginResult) in // check if it's valid for email token formatting
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
-                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 let presenter = self.presentingViewController
                 self.dismiss(animated: true, completion: {
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
@@ -320,19 +320,19 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 if let error = error as? WMFAccountLoginError {
                     switch error {
                     case .temporaryPasswordNeedsChange:
-                        WMFAlertManager.sharedInstance.dismissAlert()
+                        WMFToastManager.sharedInstance.dismissToast()
                         self.showChangeTempPasswordViewController()
                         return
                     case .wrongToken:
                         self.tokenAlertLabel.text = error.localizedDescription
                         self.tokenAlertLabel.isHidden = false
-                        WMFAlertManager.sharedInstance.dismissAlert()
+                        WMFToastManager.sharedInstance.dismissToast()
                         return
                     default:
                         break
                     }
                     self.enableProgressiveButton(true)
-                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                     self.oathTokenFields.forEach {$0.text = nil}
                     self.backupOathTokenField.text = nil
                     self.makeAppropriateFieldFirstResponder()
