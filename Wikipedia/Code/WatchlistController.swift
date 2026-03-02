@@ -1,6 +1,6 @@
-import Foundation
 import WMF
 import WMFData
+import WMFComponents
 
 protocol WatchlistControllerDelegate: AnyObject {
     func didSuccessfullyWatchTemporarily(_ controller: WatchlistController)
@@ -67,7 +67,7 @@ class WatchlistController {
 
     private func displayWatchSuccessMessage(pageTitle: String, wmfProject: WMFProject, siteURL: URL, expiry: WMFWatchlistExpiryType, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?) {
         let statusTitle: String
-        let image = expiry == .never ? UIImage(systemName: "star.fill") : UIImage(systemName: "star.leadinghalf.filled")
+        let image = expiry == .never ? WMFSFSymbolIcon.for(symbol: .starFill) : WMFSFSymbolIcon.for(symbol: .starLeadingHalfFilled)
         switch expiry {
         case .never:
             statusTitle = WMFLocalizedString("watchlist-added-toast-permanently", value: "Added to your Watchlist permanently.", comment: "Title in toast after a user successfully adds an article to their watchlist, with no expiration.")
@@ -261,7 +261,7 @@ class WatchlistController {
                     }
 
                     let title = WMFLocalizedString("watchlist-removed", value: "Removed from your Watchlist", comment: "Title in toast after a user successfully removes an article from their watchlist.")
-                    let image = UIImage(systemName: "star")
+                    let image = WMFSFSymbolIcon.for(symbol: .star)
 
                     if !UIAccessibility.isVoiceOverRunning {
                         WMFAlertManager.sharedInstance.showAlertWithMessage(title, subtitle: nil, image: image, dismissPreviousAlerts: true)

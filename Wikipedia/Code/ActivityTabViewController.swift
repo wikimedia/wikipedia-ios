@@ -800,7 +800,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
             ActivityTabFunnel.shared.logFeedbackSubmit(selectedItems: options, comment: otherText)
 
             self?.dismiss(animated: true, completion: {
-                let image = UIImage(systemName: "checkmark.circle.fill")
+                let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
                 WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousAlerts: true)
             })
         })

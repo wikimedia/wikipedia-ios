@@ -131,7 +131,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 let format = CommonStrings.saveViewTempAccountNotice
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
-                let image = UIImage(systemName: "exclamationmark.circle.fill")
+                let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
                 WMFAlertManager.sharedInstance.showAlertWithMessage(
                     title,
                     subtitle: nil,
@@ -139,20 +139,22 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     dismissPreviousAlerts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
-                        guard let navigationController = self.navigationController else { return }
-                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, didTapContinue: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, isTempAccount: true)
+                        Task { @MainActor in
+                            guard let navigationController = self.navigationController else { return }
+                            let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
+                                self?.dismiss(animated: true)
+                            }, didTapContinue: { [weak self] in
+                                self?.dismiss(animated: true)
+                            }, isTempAccount: true)
 
-                        _ = tempAccountSheetCoordinator.start()
+                            _ = tempAccountSheetCoordinator.start()
+                        }
                     }
                 )
             } else {
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
-                let image = UIImage(systemName: "exclamationmark.triangle.fill")
+                let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill)
                 WMFAlertManager.sharedInstance.showAlertWithMessage(
                     title,
                     subtitle: nil,
@@ -160,14 +162,16 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     dismissPreviousAlerts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
-                        guard let navigationController = self.navigationController else { return }
-                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, didTapContinue: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, isTempAccount: false)
+                        Task { @MainActor in
+                            guard let navigationController = self.navigationController else { return }
+                            let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
+                                self?.dismiss(animated: true)
+                            }, didTapContinue: { [weak self] in
+                                self?.dismiss(animated: true)
+                            }, isTempAccount: false)
 
-                        _ = tempAccountSheetCoordinator.start()
+                            _ = tempAccountSheetCoordinator.start()
+                        }
                     }
                 )
             }
@@ -393,12 +397,14 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                                     dismissPreviousAlerts: true,
                                     buttonTitle: CommonStrings.learnMoreTitle(),
                                     buttonCallBack: {
-                                        if let url = URL(string: self.tempAccountsMediaWikiURL) {
-                                            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
-                                            let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
-                                            let newNavigationVC =
-                                            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
-                                            presentingVC?.present(newNavigationVC, animated: true)
+                                        Task { @MainActor in
+                                            if let url = URL(string: self.tempAccountsMediaWikiURL) {
+                                                let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                                                let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+                                                let newNavigationVC =
+                                                WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                                                presentingVC?.present(newNavigationVC, animated: true)
+                                            }
                                         }
                                     }
                                 )

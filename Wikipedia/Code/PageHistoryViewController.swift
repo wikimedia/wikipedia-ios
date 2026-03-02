@@ -797,7 +797,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
             WMFAlertManager.sharedInstance.showAlertWithMessage(
                 CommonStrings.maxRevisionsSelectedWarningTitle,
                 subtitle: nil,
-                image: UIImage(named: "exclamation-point"),
+                image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill),
                 dismissPreviousAlerts: true
             )
         }

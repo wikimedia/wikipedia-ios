@@ -905,7 +905,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
                 guard self != nil else { return }
 
-                let image = UIImage(systemName: "checkmark.circle.fill")
+                let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
                 WMFAlertManager.sharedInstance.showAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousAlerts: true)
                 DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
             })

@@ -1570,7 +1570,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 
                         let title = CommonStrings.editPublishedToastTitle
-                        let image = UIImage(systemName: "checkmark.circle.fill")
+                        let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
 
                         if UIAccessibility.isVoiceOverRunning {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)

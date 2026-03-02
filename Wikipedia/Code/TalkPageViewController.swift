@@ -696,7 +696,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     fileprivate func handleSubscriptionAlert(isSubscribedToTopic: Bool) {
         let title = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertTitle : TalkPageLocalizedStrings.unsubscribedAlertTitle
         let subtitle = isSubscribedToTopic ? TalkPageLocalizedStrings.subscribedAlertSubtitle : TalkPageLocalizedStrings.unsubscribedAlertSubtitle
-        let image = isSubscribedToTopic ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell.slash.fill")
+        let image = isSubscribedToTopic ? WMFSFSymbolIcon.for(symbol: .bellFill) : WMFSFSymbolIcon.for(symbol: .bellSlashFill)
 
         let voiceoverAnnoucement = title + subtitle
 
@@ -717,7 +717,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
             }
         } else {
-            WMFAlertManager.sharedInstance.showAlertWithMessage(title, subtitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showAlertWithMessage(title, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousAlerts: true)
         }
     }
 
@@ -955,7 +955,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: nil, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: nil, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousAlerts: true)
         }
     }
 
@@ -1202,7 +1202,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousAlerts: true)
                     }
                 } else {
                     self.showUnexpectedErrorAlert(on: self)
@@ -1291,7 +1291,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
+                        WMFAlertManager.sharedInstance.showErrorAlertWithMessageAndSubtitle(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousAlerts: true)
                     }
                 } else {
                     self.showUnexpectedErrorAlert(on: composeViewController)
@@ -1454,7 +1454,7 @@ extension TalkPageViewController: EditorViewControllerDelegate {
                 }
 
                 let title = CommonStrings.editPublishedToastTitle
-                let image = UIImage(systemName: "checkmark.circle.fill")
+                let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
 
                 if UIAccessibility.isVoiceOverRunning {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {

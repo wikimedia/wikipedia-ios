@@ -46,9 +46,11 @@ public enum WMFIcon {
 public enum WMFSFSymbolIcon {
     
     case checkmark
+    case checkmarkCircleFill
     case checkmarkSquareFill
     case square
     case star
+    case starFill
     case starCircleFill
     case person
 	case personFilled
@@ -115,6 +117,7 @@ public enum WMFSFSymbolIcon {
     case squareAndArrowUp
     case circleFill
     case bellFill
+    case bellSlashFill
     case chatBubbleFilled
     case textBadgeStar
     case textPage
@@ -155,12 +158,16 @@ public enum WMFSFSymbolIcon {
         switch symbol {
         case .checkmark:
             image = UIImage(systemName: "checkmark", withConfiguration: configuration)
+        case .checkmarkCircleFill:
+            image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)
         case .checkmarkSquareFill:
             image = UIImage(systemName: "checkmark.square.fill", withConfiguration: configuration)
         case .square:
             image = UIImage(systemName: "square", withConfiguration: configuration)
         case .star:
             image = UIImage(systemName: "star", withConfiguration: configuration)
+        case .starFill:
+            image = UIImage(systemName: "star.fill", withConfiguration: configuration)
         case .starCircleFill:
             image = UIImage(systemName: "star.circle.fill", withConfiguration: configuration)
         case .person:
@@ -291,6 +298,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "circle.fill", withConfiguration: configuration)
         case .bellFill:
             image = UIImage(systemName: "bell.fill", withConfiguration: configuration)
+        case .bellSlashFill:
+            image = UIImage(systemName: "bell.slash.fill", withConfiguration: configuration)
         case .chatBubbleFilled:
             image = UIImage(systemName: "bubble.fill", withConfiguration: configuration)
         case .textBadgeStar:

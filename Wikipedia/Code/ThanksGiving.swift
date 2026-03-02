@@ -1,5 +1,6 @@
 import Foundation
 import WMF
+import WMFComponents
 
 protocol ThanksGiving: AnyObject {
     var url: URL? { get }
@@ -141,7 +142,7 @@ extension ThanksGiving where Self: ThemeableViewController {
             WMFAlertManager.sharedInstance.showAlertWithMessage(
                 title,
                 subtitle: subtitle,
-                image: UIImage(systemName: "exclamationmark.triangle.fill"),
+                image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
                 dismissPreviousAlerts: true
             )
         }
@@ -156,7 +157,7 @@ extension ThanksGiving where Self: ThemeableViewController {
             WMFAlertManager.sharedInstance.showAlertWithMessage(
                 message,
                 subtitle: nil,
-                image: UIImage(systemName: "exclamationmark.triangle.fill"),
+                image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
                 dismissPreviousAlerts: true
             )
         }
@@ -169,7 +170,7 @@ extension ThanksGiving where Self: ThemeableViewController {
             WMFAlertManager.sharedInstance.showAlertWithMessage(
                 message,
                 subtitle: nil,
-                image: UIImage(named: "selected"),
+                image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill),
                 dismissPreviousAlerts: true
             )
         }
@@ -182,7 +183,7 @@ extension ThanksGiving where Self: ThemeableViewController {
             WMFAlertManager.sharedInstance.showAlertWithMessage(
                 message,
                 subtitle: nil,
-                image: UIImage(systemName: "exclamationmark.triangle.fill"),
+                image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
                 dismissPreviousAlerts: true
             )
         }
