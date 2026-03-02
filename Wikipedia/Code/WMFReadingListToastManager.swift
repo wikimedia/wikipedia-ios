@@ -2,14 +2,12 @@ import UIKit
 import WMFComponents
 @preconcurrency import WMFData
 
-// TODO: Rename hint to something that makes more sense, it's just a reading list helper now
-@objc(WMFReadingListHintPresenter)
-final class ReadingListHintPresenter: NSObject {
+@objc final class WMFReadingListToastManager: NSObject {
 
     // MARK: - Properties
 
     private let dataStore: MWKDataStore
-    private var hintPresenter: WMFReadingListToastPresenter?
+    private var toastPresenter: WMFReadingListToastPresenter?
     private weak var presenter: UIViewController?
 
     private var currentArticle: WMFArticle?
@@ -26,23 +24,25 @@ final class ReadingListHintPresenter: NSObject {
 
     @MainActor
     private func getHintPresenter() -> WMFReadingListToastPresenter {
-        if hintPresenter == nil {
-            hintPresenter = WMFReadingListToastPresenter()
+        if let existing = toastPresenter {
+            return existing
         }
-        return hintPresenter!
+        let presenter = WMFReadingListToastPresenter()
+        toastPresenter = presenter
+        return presenter
     }
 
     // MARK: - Public Methods
 
     var isHintHidden: Bool {
-        guard let hintPresenter else { return true }
-        return MainActor.assumeIsolated { hintPresenter.isToastHidden }
+        guard let toastPresenter else { return true }
+        return MainActor.assumeIsolated { toastPresenter.isToastHidden }
     }
 
     func dismissHintDueToUserInteraction() {
-        guard let hintPresenter else { return }
+        guard let toastPresenter else { return }
         Task { @MainActor in
-            hintPresenter.dismissToastDueToUserInteraction()
+            toastPresenter.dismissToastDueToUserInteraction()
         }
     }
 
@@ -71,9 +71,9 @@ final class ReadingListHintPresenter: NSObject {
         if didSave {
             showDefaultHint(article: article)
         } else {
-            guard let hintPresenter else { return }
+            guard let toastPresenter else { return }
             Task { @MainActor in
-                hintPresenter.dismissToast()
+                toastPresenter.dismissToast()
             }
         }
     }
@@ -210,7 +210,7 @@ final class ReadingListHintPresenter: NSObject {
         themeableNavigationController = nav
 
         presenter.present(nav, animated: true) { [weak self] in
-            guard let self, let hintPresenter = self.hintPresenter else { return }
+            guard let self, let hintPresenter = self.toastPresenter else { return }
             Task { @MainActor in
                 hintPresenter.dismissToast()
             }
@@ -237,7 +237,7 @@ final class ReadingListHintPresenter: NSObject {
 
 // MARK: - AddArticlesToReadingListDelegate
 
-extension ReadingListHintPresenter: AddArticlesToReadingListDelegate {
+extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
     func addArticlesToReadingList(
         _ addArticlesToReadingList: AddArticlesToReadingListViewController,
         didAddArticles articles: [WMFArticle],
@@ -265,7 +265,7 @@ extension ReadingListHintPresenter: AddArticlesToReadingListDelegate {
 
 // MARK: - Themeable
 
-extension ReadingListHintPresenter: Themeable {
+extension WMFReadingListToastManager: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
     }
@@ -273,6 +273,6 @@ extension ReadingListHintPresenter: Themeable {
 
 // MARK: - Context Key
 
-extension ReadingListHintPresenter {
+extension WMFReadingListToastManager {
     @objc public static let ContextArticleKey = "ContextArticleKey"
 }

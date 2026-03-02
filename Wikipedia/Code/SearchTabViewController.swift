@@ -10,7 +10,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
     // MARK: - MEP / Hint
 
-    var readingListHintPresenter: ReadingListHintPresenter?
+    var readingListHintPresenter: WMFReadingListToastManager?
     var eventLoggingCategory: EventCategoryMEP { .history }
     var eventLoggingLabel: EventLabelMEP? { nil }
 
@@ -399,7 +399,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
     private func setupReadingListsHelpers() {
         guard let dataStore else { return }
-        readingListHintPresenter = ReadingListHintPresenter(dataStore: dataStore)
+        readingListHintPresenter = WMFReadingListToastManager(dataStore: dataStore)
         readingListHintPresenter?.apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(userDidSaveOrUnsaveArticle(_:)),
                                                name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: nil)

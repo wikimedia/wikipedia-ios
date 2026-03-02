@@ -27,7 +27,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     // MARK: - HintPresenting
 
-    var readingListHintPresenter: ReadingListHintPresenter?
+    var readingListHintPresenter: WMFReadingListToastManager?
 
     var eventLoggingCategory: EventCategoryMEP { .history }
     var eventLoggingLabel: EventLabelMEP? { nil }
@@ -454,7 +454,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     // MARK: - Reading Lists Hint
 
     private func setupReadingListsHelpers() {
-        readingListHintPresenter = ReadingListHintPresenter(dataStore: dataStore)
+        readingListHintPresenter = WMFReadingListToastManager(dataStore: dataStore)
         readingListHintPresenter?.apply(theme: theme)
 
         NotificationCenter.default.addObserver(

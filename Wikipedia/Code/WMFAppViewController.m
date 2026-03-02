@@ -104,7 +104,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic) BOOL hasSyncErrorBeenShownThisSesssion;
 
-@property (nonatomic, strong) WMFReadingListHintPresenter *readingListHintPresenter;
+@property (nonatomic, strong) WMFReadingListToastManager *readingListHintPresenter;
 
 @property (nonatomic, strong) WMFNavigationStateController *navigationStateController;
 
@@ -385,7 +385,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)setupReadingListsHelpers {
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
-    self.readingListHintPresenter = [[WMFReadingListHintPresenter alloc] initWithDataStore:self.dataStore];
+    self.readingListHintPresenter = [[WMFReadingListToastManager alloc] initWithDataStore:self.dataStore];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidSaveOrUnsaveArticle:) name:WMFReadingListsController.userDidSaveOrUnsaveArticleNotification object:nil];
 }
 
