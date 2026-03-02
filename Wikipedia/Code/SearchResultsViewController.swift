@@ -299,15 +299,15 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
                 success(results, .prefix)
                 return
             }
-            
+
             self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { error in
-                
+
                 if !resultsArray.isEmpty {
                     success(results, .prefix)
                 } else {
                     failure(error, .full)
                 }
-                
+
             }, success: { [weak self] fullTextResults in
                 guard self != nil else { return }
                 success(fullTextResults, .full)
@@ -466,10 +466,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     }
 
     private func visibleHintPresentingViewController() -> UIViewController? {
-        if let nav = self.tabBarController?.selectedViewController as? UINavigationController {
-            return nav.topViewController
-        }
-        return nil
+        return self.viewIfLoaded?.window != nil ? self : nil
     }
 
     @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
