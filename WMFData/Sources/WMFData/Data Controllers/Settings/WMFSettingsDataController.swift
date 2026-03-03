@@ -5,7 +5,7 @@ public actor WMFSettingsDataController: ObservableObject {
 
     public static let shared = WMFSettingsDataController()
 
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    nonisolated(unsafe) private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     let yirDataController: WMFYearInReviewDataController?
     let donationDataController: WMFDonateDataController?
@@ -65,7 +65,7 @@ public actor WMFSettingsDataController: ObservableObject {
 
     // MARK: - Search Settings
 
-    public func showSearchLanguageBar() -> Bool {
+    public nonisolated func showSearchLanguageBar() -> Bool {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue)) ?? false
     }
 
@@ -73,7 +73,7 @@ public actor WMFSettingsDataController: ObservableObject {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: newValue)
     }
 
-    public func openAppOnSearchTab() -> Bool {
+    public nonisolated func openAppOnSearchTab() -> Bool {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
     }
 

@@ -468,8 +468,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         Task { [weak self] in
             guard let self else { return }
 
-            let showLanguageBar = await dataController.showSearchLanguageBar()
-            let openAppOnSearchTab = await dataController.openAppOnSearchTab()
+            let showLanguageBar = dataController.showSearchLanguageBar()
+            let openAppOnSearchTab = dataController.openAppOnSearchTab()
 
             let viewModel = WMFSearchSettingsViewModel(
                 localizedStrings: strings,
