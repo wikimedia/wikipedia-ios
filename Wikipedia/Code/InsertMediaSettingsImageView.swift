@@ -75,12 +75,6 @@ extension InsertMediaSettingsImageView: Themeable {
         imageDescriptionLabel.textColor = theme.colors.secondaryText
         titleButton.setTitleColor(theme.colors.link, for: .normal)
         separatorView.backgroundColor = theme.colors.border
-        
-        if let attributedTitle = titleButton.attributedTitle(for: .normal) {
-            let mutAttributedTitle = NSMutableAttributedString(attributedString: attributedTitle)
-            mutAttributedTitle.setAttributes([.foregroundColor: theme.colors.link], range: NSRange(location: 0, length: attributedTitle.length))
-            titleButton.setAttributedTitle(mutAttributedTitle, for: .normal)
-        }
-        
+        titleButton.tintColor = theme.colors.link
     }
 }
