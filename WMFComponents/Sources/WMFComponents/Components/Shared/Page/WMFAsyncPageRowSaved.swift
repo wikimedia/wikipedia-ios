@@ -47,9 +47,10 @@ struct WMFAsyncPageRowSaved: View {
     @ObservedObject var viewModel: WMFAsyncPageRowSavedViewModel
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
-    let onTap: () -> Void
-    let onDelete: () -> Void
-    let onShare: (CGRect) -> Void
+    typealias FromLongPress = Bool
+    let onTap: (FromLongPress) -> Void
+    let onDelete: (FromLongPress) -> Void
+    let onShare: (CGRect, FromLongPress) -> Void
     let onOpenInNewTab: () -> Void
     let onOpenInBackgroundTab: () -> Void
 
@@ -69,7 +70,9 @@ struct WMFAsyncPageRowSaved: View {
     }
 
     var body: some View {
-        Button(action: onTap) {
+        Button(action: {
+            self.onTap(false)
+        }) {
             HStack(spacing: 0) {
                 Spacer(minLength: 0)
 
@@ -135,7 +138,7 @@ struct WMFAsyncPageRowSaved: View {
         )
         .contextMenu {
             Button {
-                onTap()
+                onTap(true)
             } label: {
                 Text(viewModel.localizedStrings.open)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
@@ -143,7 +146,7 @@ struct WMFAsyncPageRowSaved: View {
             .labelStyle(.titleAndIcon)
 
             Button {
-                onDelete()
+                onDelete(true)
             } label: {
                 Text(viewModel.localizedStrings.removeFromSaved)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
@@ -167,7 +170,7 @@ struct WMFAsyncPageRowSaved: View {
             .labelStyle(.titleAndIcon)
 
             Button {
-                onShare(viewModel.geometryFrame)
+                onShare(viewModel.geometryFrame, true)
             } label: {
                 Text(viewModel.localizedStrings.share)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
@@ -183,13 +186,15 @@ struct WMFAsyncPageRowSaved: View {
 
                 if let shareIcon = WMFIcon.share,
                    let deleteIcon = WMFIcon.delete {
-                    Button(action: onDelete) {
+                    Button(action: {
+                        onDelete(false)
+                    }) {
                         Image(uiImage: deleteIcon)
                     }
                     .tint(Color(uiColor: appEnvironment.theme.destructive))
 
                     Button(action: {
-                        onShare(viewModel.geometryFrame)
+                        onShare(viewModel.geometryFrame, false)
                     }) {
                         Image(uiImage: shareIcon)
                     }
