@@ -4,6 +4,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import TipKit
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -565,6 +566,14 @@ extension WMFAppViewController: CreateReadingListDelegate {
         }
     }
     
+    @objc func setupTips() {
+        do {
+            try Tips.configure()
+        } catch {
+            DDLogError("Error initializing TipKit: \(error.localizedDescription)")
+        }
+    }
+    
     @objc func setWMFAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
         let wmfTheme: WMFTheme
         switch theme.name {
@@ -589,7 +598,7 @@ extension WMFAppViewController {
     
     @objc func setupWMFDataCoreDataStore() {
         WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
-        
+
         Task(priority: .userInitiated) {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()

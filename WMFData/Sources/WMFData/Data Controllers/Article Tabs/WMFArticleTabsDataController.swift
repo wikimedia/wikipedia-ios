@@ -92,16 +92,6 @@ public protocol WMFArticleTabsDataControlling {
     public enum MoreDynamicTabsExperimentAssignment {
         case groupC
     }
-    
-    // MARK: Nested internal types
-    
-    struct OnboardingStatus: Codable {
-        var hasPresentedOnboardingTooltips: Bool
-        
-        static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingTooltips: false)
-        }
-    }
 
     // MARK: - Properties
 
@@ -226,22 +216,6 @@ public protocol WMFArticleTabsDataControlling {
 
     public var moreDynamicTabsGroupCEnabled: Bool {
         return true
-    }
-    
-    // MARK: Onboarding
-    
-    internal var onboardingStatus: OnboardingStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
-    }
-    
-    public var hasPresentedTooltips: Bool {
-        get {
-            return onboardingStatus.hasPresentedOnboardingTooltips
-        } set {
-            var currentStatus = onboardingStatus
-            currentStatus.hasPresentedOnboardingTooltips = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
-        }
     }
     
     // MARK: - Tabs Manipulation Methods

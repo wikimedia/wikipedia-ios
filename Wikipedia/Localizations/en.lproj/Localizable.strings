@@ -942,8 +942,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
 "open-article" = "Open article";
-"open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
-"open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
@@ -1248,8 +1246,6 @@
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
 "tabs-open-tab" = "Open tab";
-"tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
-"tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-show-suggested-articles" = "Show article suggestions";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Suggestions are now hidden";
 "tabs-survey-title" = "Help improve tabs. Are you satisfied with this feature?";

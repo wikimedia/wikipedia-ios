@@ -3,6 +3,7 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import TipKit
 
 @objc(WMFArticleViewController)
 class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
@@ -173,6 +174,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var isMainPage: Bool {
         articleURL.wmf_title == "Main Page"
     }
+    
+    var wTip = WTip()
+    var nextTip = NextTip()
+    var wTipObservationTask: Task<Void, Never>?
+    var nextTipObservationTask: Task<Void, Never>?
+    weak var tipPopoverController: TipUIPopoverViewController?
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 

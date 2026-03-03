@@ -292,14 +292,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         self.set(NSNumber(value: shown as Bool), forKey: "ShowWIconPopover")
     }
     
-    @objc func wmf_didShowWIconPopover() -> Bool {
-        if let enabled = self.object(forKey: "ShowWIconPopover") as? NSNumber {
-            return enabled.boolValue
-        } else {
-            return false
-        }
-    }
-    
     @objc func wmf_setDidShowMoreLanguagesTooltip(_ shown: Bool) {
         self.set(NSNumber(value: shown as Bool), forKey: "ShowMoreLanguagesTooltip")
     }

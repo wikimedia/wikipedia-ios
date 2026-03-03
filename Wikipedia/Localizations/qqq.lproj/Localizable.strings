@@ -942,8 +942,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "open-article" = "Open article title";
-"open-in-tab-tooltip-body" = "Description for tooltip explaining the open in new tab functionality";
-"open-in-tab-tooltip-title" = "Title for tooltip explaining the open in new tab functionality";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
@@ -1248,8 +1246,6 @@
 "tabs-main-page-subtitle" = "Main page subtitle";
 "tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
 "tabs-open-tab" = "Accessibility label for opening a tab";
-"tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
-"tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
 "tabs-show-suggested-articles" = "Show suggested articles button title";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Confirmation on hiding of the suggested articles in tabs.";
 "tabs-survey-title" = "Title for article tabs survey";
