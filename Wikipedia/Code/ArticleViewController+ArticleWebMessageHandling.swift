@@ -58,7 +58,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let oldState = state
         state = .loaded
         
-        presentTooltipsIfNeeded()
+        listenForTooltips()
 
         refreshControl.endRefreshing()
         loadSummary(oldState: oldState)

@@ -450,8 +450,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         setupForStateRestorationIfNecessary()
 
+        WTip.isCompactWidth = traitCollection.horizontalSizeClass == .compact
         registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
             guard let self else { return }
+            WTip.isCompactWidth = traitCollection.horizontalSizeClass == .compact
             self.tableOfContentsController.update(with: self.traitCollection)
             self.toolbarController?.update()
 
@@ -478,6 +480,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var needsTabsIconImpressonOnCancel = false
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        Task {
+            await WTip.didViewArticle.donate()
+        }
         
         if (toolbarController?.currentItems.count ?? 0) > 0 {
             navigationController?.setToolbarHidden(false, animated: false)
@@ -538,6 +544,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
 
     @objc private func wButtonTapped(_ sender: UIButton) {
+        wTip.invalidate(reason: .actionPerformed)
         navigationController?.popToRootViewController(animated: true)
     }
     
@@ -545,7 +552,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.viewWillDisappear(animated)
         navigationItem.searchController = nil
         navigationController?.setToolbarHidden(true, animated: true)
-        cancelWIconPopoverDisplay()
+        wTipObservationTask?.cancel()
+        wTipObservationTask = nil
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         persistPageViewedSecondsForWikipediaInReview()

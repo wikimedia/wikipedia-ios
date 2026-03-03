@@ -34,7 +34,6 @@ extension ArticleViewController {
     }
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
-        // cancelWIconPopoverDisplay()
         
         let editTag: WMFEditTag = selectedTextEditInfo == nil ?  .appSectionSource : .appSelectSource
 

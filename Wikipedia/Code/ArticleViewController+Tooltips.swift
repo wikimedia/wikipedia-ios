@@ -5,52 +5,8 @@ import TipKit
 
 /// Article Tooltips
 extension ArticleViewController {
-    
-    var shouldShowWIconPopover: Bool {
 
-        guard navigationController != nil else {
-            return false
-        }
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                return false
-            }
-        }
-
-        guard
-            presentedViewController == nil
-        else {
-            return false
-        }
-        return true
-    }
-    
-    func cancelWIconPopoverDisplay() {
-       NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showTooltipsIfNecessary), object: nil)
-   }
-
-    func presentTooltipsIfNeeded() {
-        perform(#selector(showTooltipsIfNecessary), with: nil, afterDelay: 1.0)
-    }
-    
-    func needsTooltips() -> Bool {
-        if shouldShowWIconPopover {
-            return true
-        }
-        
-        return false
-    }
-
-    @objc private func showTooltipsIfNecessary() {
-        
-        guard let navigationBar = navigationController?.navigationBar,
-              !navigationBar.isHidden
-        else {
-            return
-        }
-        
-
+    @objc func listenForTooltips() {
         wTipObservationTask =  Task { @MainActor in
             for await status in wTip.statusUpdates {
                 if status == .available {
@@ -94,6 +50,11 @@ extension ArticleViewController {
 }
 
 struct WTip: Tip {
+    
+    @Parameter
+    static var isCompactWidth: Bool = false
+    static let didViewArticle: Event = Event(id: "didViewArticle")
+    
     var title: Text {
         Text(WMFLocalizedString(
             "back-button-popover-title",
@@ -112,6 +73,13 @@ struct WTip: Tip {
     
     var image: SwiftUI.Image? {
         return nil
+    }
+    
+    var rules: [Rule] {
+      [
+        #Rule(Self.$isCompactWidth) { $0 == true },
+        #Rule(Self.didViewArticle) { $0.donations.count >= 3 }
+      ]
     }
 }
 
