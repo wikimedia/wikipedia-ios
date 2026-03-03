@@ -370,57 +370,27 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             talkPagePreferencesFooter: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works")
         )
 
-        // Migration: Check if old key exists and migrate to WMFData store
-        let currentAutoSignValue = migrateAutoSignTalkPageDiscussions()
+        Task {
+            let currentAutoSignValue = await dataController.autoSignTalkPageDiscussions()
 
-        let viewModel = WMFAccountSettingsViewModel(
-            localizedStrings: strings,
-            username: username,
-            autoSignDiscussions: currentAutoSignValue,
-            userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
-            onVanishAccount: { [weak self] in
-                self?.showVanishAccountWarning()
-            },
-            onToggleAutoSign: { [weak self] newValue in
-                self?.saveAutoSignTalkPageDiscussions(newValue)
-            }
-        )
+            let viewModel = WMFAccountSettingsViewModel(
+                localizedStrings: strings,
+                username: username,
+                autoSignDiscussions: currentAutoSignValue,
+                userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
+                onVanishAccount: { [weak self] in
+                    self?.showVanishAccountWarning()
+                },
+                onToggleAutoSign: { [weak self] newValue in
+                    self?.saveAutoSignTalkPageDiscussions(newValue)
+                }
 
-        let rootView = WMFAccountSettingsView(viewModel: viewModel)
-        let hostingController = UIHostingController(rootView: rootView)
-        hostingController.title = strings.title
-        settingsNav.pushViewController(hostingController, animated: true)
-    }
-
-    /// Migrates autoSignTalkPageDiscussions from legacy UserDefaults key to WMFData store.
-    /// Once migrated, all future reads/writes use WMFData. Returns current value or default (true).
-    private func migrateAutoSignTalkPageDiscussions() -> Bool {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-
-        // First check if we already have the value in the new WMFData store
-        if let existingValue: Bool = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue) {
-            return existingValue
+            )
+            let rootView = WMFAccountSettingsView(viewModel: viewModel)
+            let hostingController = UIHostingController(rootView: rootView)
+            hostingController.title = strings.title
+            settingsNav.pushViewController(hostingController, animated: true)
         }
-
-        // If not in new store, check if old key exists
-        let oldKey = "WMFAutoSignTalkPageDiscussions"
-        if UserDefaults.standard.object(forKey: oldKey) != nil {
-            // Migrate from old location
-            let oldValue = UserDefaults.standard.bool(forKey: oldKey)
-
-            // Save to new location in WMFData store
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: oldValue)
-
-            // Optionally remove old key after migration
-            UserDefaults.standard.removeObject(forKey: oldKey)
-
-            return oldValue
-        }
-
-        // Default value if neither exists (matches AppDelegate default of true)
-        let defaultValue = true
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: defaultValue)
-        return defaultValue
     }
 
     private func saveAutoSignTalkPageDiscussions(_ newValue: Bool) {
@@ -495,87 +465,30 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             footerText: WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings")
         )
 
-        // Migrate both search settings
-        let showLanguageBar = migrateShowLanguageBar()
-        let openAppOnSearchTab = migrateOpenAppOnSearchTab()
+        Task { [weak self] in
+            guard let self else { return }
 
-        let viewModel = WMFSearchSettingsViewModel(
-            localizedStrings: strings,
-            showLanguageBar: showLanguageBar,
-            openAppOnSearchTab: openAppOnSearchTab,
-            userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
-            onToggleShowLanguageBar: { [weak self] newValue in
-                self?.saveShowLanguageBar(newValue)
-            },
-            onToggleOpenAppOnSearchTab: { [weak self] newValue in
-                self?.saveOpenAppOnSearchTab(newValue)
-            }
-        )
+            let showLanguageBar = await dataController.showSearchLanguageBar()
+            let openAppOnSearchTab = await dataController.openAppOnSearchTab()
 
-        let rootView = WMFSearchSettingsView(viewModel: viewModel)
-        let hostingController = UIHostingController(rootView: rootView)
-        hostingController.title = strings.title
-        settingsNav.pushViewController(hostingController, animated: true)
-    }
+            let viewModel = WMFSearchSettingsViewModel(
+                localizedStrings: strings,
+                showLanguageBar: showLanguageBar,
+                openAppOnSearchTab: openAppOnSearchTab,
+                userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
+                onToggleShowLanguageBar: { [weak self] newValue in
+                    Task { [weak self] in await self?.dataController.setShowSearchLanguageBar(newValue) }
+                },
+                onToggleOpenAppOnSearchTab: { [weak self] newValue in
+                    Task { [weak self] in await self?.dataController.setOpenAppOnSearchTab(newValue) }
+                }
+            )
 
-    /// Migrates ShowLanguageBar from legacy UserDefaults key to WMFData store.
-    /// Once migrated, all future reads/writes use WMFData. Returns current value or default (false).
-    private func migrateShowLanguageBar() -> Bool {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-
-        // Check if already in new WMFData store
-        if let existingValue: Bool = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue) {
-            return existingValue
+            let rootView = WMFSearchSettingsView(viewModel: viewModel)
+            let hostingController = UIHostingController(rootView: rootView)
+            hostingController.title = strings.title
+            settingsNav.pushViewController(hostingController, animated: true)
         }
-
-        // Check old key (stored as NSNumber)
-        let oldKey = "ShowLanguageBar"
-        if let oldValue = UserDefaults.standard.object(forKey: oldKey) as? NSNumber {
-            let migratedValue = oldValue.boolValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: migratedValue)
-            UserDefaults.standard.removeObject(forKey: oldKey)
-            return migratedValue
-        }
-
-        // Default is false
-        let defaultValue = false
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: defaultValue)
-        return defaultValue
-    }
-
-    /// Migrates WMFOpenAppOnSearchTab from legacy UserDefaults key to WMFData store.
-    /// Once migrated, all future reads/writes use WMFData. Returns current value or default (false).
-    private func migrateOpenAppOnSearchTab() -> Bool {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-
-        // Check if already in new WMFData store
-        if let existingValue: Bool = try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue) {
-            return existingValue
-        }
-
-        // Check old key
-        let oldKey = "WMFOpenAppOnSearchTab"
-        if UserDefaults.standard.object(forKey: oldKey) != nil {
-            let oldValue = UserDefaults.standard.bool(forKey: oldKey)
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: oldValue)
-            UserDefaults.standard.removeObject(forKey: oldKey)
-            return oldValue
-        }
-
-        // Default is false
-        let defaultValue = false
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: defaultValue)
-        return defaultValue
-    }
-
-    private func saveShowLanguageBar(_ newValue: Bool) {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: newValue)
-    }
-
-    private func saveOpenAppOnSearchTab(_ newValue: Bool) {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: newValue)
     }
 
     // MARK: - Explore Feed

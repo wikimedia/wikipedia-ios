@@ -25,12 +25,6 @@ extension Notification.Name {
 
 extension WMFAppViewController {
 
-    /// Reads the "Open app on Search tab" setting from WMFData store (migrated key)
-    @objc func shouldOpenAppOnSearchTab() -> Bool {
-        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
-    }
-
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
 
         guard let linkURL = userActivity.wmf_linkURL() else {
@@ -596,6 +590,10 @@ extension WMFAppViewController {
     @objc func setupWMFDataCoreDataStore() {
         WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
 
+        migrateAutoSignTalkPageDiscussions()
+        migrateShowLanguageBar()
+        migrateOpenAppOnSearchTab()
+
         Task(priority: .userInitiated) {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
@@ -622,6 +620,35 @@ extension WMFAppViewController {
             UIApplication.shared.endBackgroundTask(bgTask)
             bgTask = .invalid
         }
+    }
+
+    private func migrateAutoSignTalkPageDiscussions() {
+        let legacyKey = "WMFAutoSignTalkPageDiscussions"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: legacyValue)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateShowLanguageBar() {
+        let legacyKey = "ShowLanguageBar"
+        guard let legacyValue = UserDefaults.standard.object(forKey: legacyKey) as? NSNumber else {
+            return
+        }
+        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: legacyValue.boolValue)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateOpenAppOnSearchTab() {
+        let legacyKey = "WMFOpenAppOnSearchTab"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: legacyValue)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
     @objc func setupWMFDataEnvironment() {
@@ -997,72 +1024,6 @@ extension WMFAppViewController {
             let format = WMFLocalizedString("activity-tab-amount-article-views", value: "{{PLURAL:%1$d|%1$d view|%1$d views}}", comment: "$1 is the amount of views that an article has had since a user has edited it.")
             return String.localizedStringWithFormat(format, views)
         }
-
-        return controller
-    }
-
-    @objc func generateSettingsTab() -> SettingsTabViewController {
-        // Create the data controller
-        let dataController = WMFSettingsDataController()
-
-        // Gather initial data synchronously
-        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
-        let themeName = UserDefaults.standard.themeDisplayName
-        let username = dataStore.authenticationManager.authStatePermanentUsername
-        let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
-        let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
-                            dataStore.authenticationManager.authStateIsTemporary
-        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
-
-        // Create localized strings
-        let localizedStrings = WMFSettingsViewModel.LocalizedStrings(
-            settingTitle: CommonStrings.settingsTitle,
-            doneButtonTitle: CommonStrings.doneTitle,
-            cancelButtonTitle: CommonStrings.cancelActionTitle,
-            accountTitle: CommonStrings.account,
-            logInTitle: CommonStrings.logIn,
-            myLanguagesTitle: CommonStrings.myLanguages,
-            searchTitle: CommonStrings.searchTitle,
-            exploreFeedTitle: CommonStrings.exploreFeedTitle,
-            onTitle: CommonStrings.onTitle,
-            offTitle: CommonStrings.offTitle,
-            yirTitle: CommonStrings.yirTitle,
-            pushNotificationsTitle: CommonStrings.pushNotifications,
-            readingpreferences: CommonStrings.readingPreferences,
-            articleSyncing: CommonStrings.settingsStorageAndSyncing,
-            databasePopulation: "Database population",
-            clearCacheTitle: CommonStrings.clearCachedDataSettings,
-            privacyHeader: CommonStrings.privacyTermsHeader,
-            privacyPolicyTitle: CommonStrings.privacyPolicyTitle,
-            termsOfUseTitle: CommonStrings.termsOfUseTitle,
-            rateTheAppTitle: CommonStrings.rateTheAppTitle,
-            helpTitle: CommonStrings.helpAndfeedbackTitle,
-            aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory
-        )
-
-        // Create view model with empty sections initially
-        let viewModel = WMFSettingsViewModel.__createSynchronously(
-            localizedStrings: localizedStrings,
-            username: username,
-            tempUsername: tempUsername,
-            isTempAccount: isTempAccount,
-            primaryLanguage: language,
-            exploreFeedStatus: isExploreFeedOn,
-            readingPreferenceTheme: themeName,
-            coordinatorDelegate: nil,
-            dataController: dataController
-        )
-
-        // Create the view controller without a coordinator
-        // The coordinator will be created in viewDidLoad when navigationController is available
-        let controller = SettingsTabViewController(
-            viewModel: viewModel,
-            coordinatorDelegate: nil,
-            dataStore: dataStore,
-            theme: theme,
-            dataController: dataController
-        )
 
         return controller
     }

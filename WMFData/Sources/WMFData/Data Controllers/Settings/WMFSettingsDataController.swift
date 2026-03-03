@@ -51,4 +51,32 @@ public actor WMFSettingsDataController: ObservableObject {
         return yirIsActive()
     }
 
+    // MARK: - autoSignTalkPageDiscussions
+
+    public func autoSignTalkPageDiscussions() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue)) ?? true
+    }
+
+    public func setAutoSignTalkPageDiscussions(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: newValue)
+    }
+
+    // MARK: - Search Settings
+
+    public func showSearchLanguageBar() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue)) ?? false
+    }
+
+    public func setShowSearchLanguageBar(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: newValue)
+    }
+
+    public func openAppOnSearchTab() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+    }
+
+    public func setOpenAppOnSearchTab(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: newValue)
+    }
+
 }
