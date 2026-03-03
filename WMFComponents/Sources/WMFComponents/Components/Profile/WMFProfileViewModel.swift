@@ -96,7 +96,7 @@ struct ProfileListItem: Identifiable {
     var needsNotificationCount: Bool = false
     let isDonate: Bool
     let isLoadingDonateConfigs: Bool
-    let action: @MainActor () async -> Void
+    let action: () -> ()?
 }
 
 struct ProfileSection: Identifiable {
@@ -123,7 +123,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showNotifications)
+                    coordinatorDelegate?.handleProfileAction(.showNotifications)
                 }
             )
             let userPageItem = ProfileListItem(
@@ -134,7 +134,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showUserPage)
+                    coordinatorDelegate?.handleProfileAction(.showUserPage)
                 }
             )
             let talkPageItem = ProfileListItem(
@@ -145,7 +145,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
+                    coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
                 }
             )
             let watchlistItem = ProfileListItem(
@@ -156,7 +156,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showWatchlist)
+                    coordinatorDelegate?.handleProfileAction(.showWatchlist)
                 }
             )
             let logoutItem = ProfileListItem(
@@ -167,7 +167,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.logout)
+                    coordinatorDelegate?.handleProfileAction(.logout)
                 }
             )
             let donateItem = ProfileListItem(
@@ -178,8 +178,8 @@ enum ProfileState {
                 isDonate: true,
                 isLoadingDonateConfigs: isLoadingDonateConfigs,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showDonate)
-                    await coordinatorDelegate?.handleProfileAction(.logDonateTap)
+                    coordinatorDelegate?.handleProfileAction(.showDonate)
+                    coordinatorDelegate?.handleProfileAction(.logDonateTap)
                 }
             )
 
@@ -193,8 +193,8 @@ enum ProfileState {
                 action: {
                     badgeDelegate?.updateYIRBadgeVisibility()
                     refreshAction()
-                    await coordinatorDelegate?.handleProfileAction(.showYearInReview)
-                    await coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
+                    coordinatorDelegate?.handleProfileAction(.showYearInReview)
+                    coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
 
                 }
             )
@@ -213,7 +213,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showSettings)
+                    coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
             return [
@@ -253,7 +253,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showNotifications)
+                    coordinatorDelegate?.handleProfileAction(.showNotifications)
                 }
             )
             let userPageItem = ProfileListItem(
@@ -264,7 +264,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showUserPageTempAccount)
+                    coordinatorDelegate?.handleProfileAction(.showUserPageTempAccount)
                 }
             )
             let talkPageItem = ProfileListItem(
@@ -275,7 +275,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showUserTalkPageTempAccount)
+                    coordinatorDelegate?.handleProfileAction(.showUserTalkPageTempAccount)
                 }
             )
             let joinWikipediaItem = ProfileListItem(
@@ -286,7 +286,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.login)
+                   coordinatorDelegate?.handleProfileAction(.login)
 
                 }
             )
@@ -298,8 +298,8 @@ enum ProfileState {
                 isDonate: true,
                 isLoadingDonateConfigs: isLoadingDonateConfigs,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showDonate)
-                    await coordinatorDelegate?.handleProfileAction(.logDonateTap)
+                    coordinatorDelegate?.handleProfileAction(.showDonate)
+                    coordinatorDelegate?.handleProfileAction(.logDonateTap)
                 }
             )
             let settingsItem = ProfileListItem(
@@ -310,7 +310,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showSettings)
+                   coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
 
@@ -342,7 +342,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.login)
+                    coordinatorDelegate?.handleProfileAction(.login)
 
                 }
             )
@@ -354,8 +354,8 @@ enum ProfileState {
                 isDonate: true,
                 isLoadingDonateConfigs: isLoadingDonateConfigs,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showDonate)
-                    await coordinatorDelegate?.handleProfileAction(.logDonateTap)
+                    coordinatorDelegate?.handleProfileAction(.showDonate)
+                    coordinatorDelegate?.handleProfileAction(.logDonateTap)
                 }
             )
 
@@ -373,8 +373,8 @@ enum ProfileState {
                         needsYiRNotification = false
                     }
                     refreshAction()
-                    await coordinatorDelegate?.handleProfileAction(.showYearInReview)
-                    await coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
+                    coordinatorDelegate?.handleProfileAction(.showYearInReview)
+                    coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }
             )
             
@@ -386,7 +386,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    await coordinatorDelegate?.handleProfileAction(.showSettings)
+                    coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
             
