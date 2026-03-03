@@ -495,11 +495,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)reloadDataSections {
     [super reloadDataSections];
-    if (MWKDataStore.shared.languageLinkController.preferredLanguages.count > 1) {
-        [self updateEditButtonWithIsEditing:self.isEditing];
-    } else {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+    [self updateEditButtonWithIsEditing:self.isEditing];
 }
 
 - (void)viewDidLoad {
@@ -605,10 +601,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
     [self notifyDelegateThatPreferredLanguagesDidUpdate];
-    if (MWKDataStore.shared.languageLinkController.preferredLanguages.count == 1) {
-        [self setEditing:NO animated:YES];
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+    [self updateEditButtonWithIsEditing:self.isEditing];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

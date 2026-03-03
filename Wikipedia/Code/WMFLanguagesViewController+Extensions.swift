@@ -14,7 +14,12 @@ extension WMFLanguagesViewController: WMFNavigationBarConfiguring {
             let doneButtonConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(doneButtonPressed), alignment: .trailing)
             navigationItem.rightBarButtonItem = UIBarButtonItem.closeNavigationBarButtonItem(config: doneButtonConfig)
         } else {
-            navigationItem.rightBarButtonItem = editButtonItem
+            if #available(iOS 26, *) {
+                editButtonItem.isEnabled = MWKDataStore.shared().languageLinkController.preferredLanguages.count > 1
+                navigationItem.rightBarButtonItem = editButtonItem
+            } else {
+                navigationItem.rightBarButtonItem = MWKDataStore.shared().languageLinkController.preferredLanguages.count > 1 ? editButtonItem : nil
+            }
         }
     }
     
@@ -25,8 +30,6 @@ extension WMFLanguagesViewController: WMFNavigationBarConfiguring {
     }
     
     @objc private func doneButtonPressed() {
-        self.dismiss(animated: true) {
-            self.userDismissalCompletionBlock?()
-        }
+        self.setEditing(false, animated: true)
     }
 }
