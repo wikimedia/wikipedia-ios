@@ -371,7 +371,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         )
 
         Task {
-            let currentAutoSignValue = await dataController.autoSignTalkPageDiscussions()
+            let currentAutoSignValue = dataController.autoSignTalkPageDiscussions()
 
             let viewModel = WMFAccountSettingsViewModel(
                 localizedStrings: strings,
