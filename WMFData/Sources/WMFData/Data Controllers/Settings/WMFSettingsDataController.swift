@@ -55,7 +55,7 @@ public actor WMFSettingsDataController: ObservableObject {
 
     // MARK: - autoSignTalkPageDiscussions
 
-    public func autoSignTalkPageDiscussions() -> Bool {
+    public nonisolated func autoSignTalkPageDiscussions() -> Bool {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue)) ?? true
     }
 

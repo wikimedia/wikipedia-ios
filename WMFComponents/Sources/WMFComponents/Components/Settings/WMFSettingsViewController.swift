@@ -8,7 +8,7 @@ final public class WMFSettingsViewController: WMFCanvasViewController, WMFNaviga
 
     private let viewModel: WMFSettingsViewModel
     private let hostingViewController: WMFSettingsHostingController
-    let coordinatorDelegate: SettingsCoordinatorDelegate?
+    weak var coordinatorDelegate: SettingsCoordinatorDelegate?
 
     public init(viewModel: WMFSettingsViewModel, coordinatorDelegate: SettingsCoordinatorDelegate?) {
         self.viewModel = viewModel
