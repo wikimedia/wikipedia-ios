@@ -771,16 +771,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             }
         }
     }
-
-}
-
-// MARK: - AccountViewControllerDelegate
-
-@MainActor
-extension SettingsCoordinator: AccountViewControllerDelegate {
-    func accountViewControllerDidTapLogout(_ accountViewController: AccountViewController) {
-        logout()
-    }
 }
 
 // MARK: - VanishAccountWarningViewDelegate

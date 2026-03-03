@@ -907,13 +907,10 @@
 		67E5DA5E2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */; };
 		67E5DA6B276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */; };
 		67E6532C2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */; };
-		67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
-		67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
 		67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */; };
 		67F73383273C163700D7D713 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */; };
 		67F73386273C1FBA00D7D713 /* NotificationServiceHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */; };
 		67F73388273C26A000D7D713 /* NotificationServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73387273C26A000D7D713 /* NotificationServiceHelper.swift */; };
-		67F73E6D2267B79E0079DEEF /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
 		67F9AE4923AD2F38003D4F5E /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE1532267DC3800709CF6 /* Array+SafeIndex.swift */; };
 		67FBE335297056EB00A2E4AD /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE334297056EB00A2E4AD /* TalkPageArchivesFetcher.swift */; };
 		67FBE336297056EB00A2E4AD /* TalkPageArchivesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FBE334297056EB00A2E4AD /* TalkPageArchivesFetcher.swift */; };
@@ -3449,7 +3446,6 @@
 		67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceHelperTests.swift; sourceTree = "<group>"; };
 		67F73387273C26A000D7D713 /* NotificationServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceHelper.swift; sourceTree = "<group>"; };
-		67F73E6C2267B79E0079DEEF /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		67FBE334297056EB00A2E4AD /* TalkPageArchivesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageArchivesFetcher.swift; sourceTree = "<group>"; };
 		67FBE33929705FC200A2E4AD /* TalkPageArchivesItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageArchivesItem.swift; sourceTree = "<group>"; };
 		67FF9C6A28076ADA000963D1 /* NSError+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+Utilities.swift"; sourceTree = "<group>"; };
@@ -6459,7 +6455,6 @@
 		67F73E6A2267B7650079DEEF /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				67F73E6C2267B79E0079DEEF /* AccountViewController.swift */,
 				006ABEE72901E8F600722DF8 /* VanishAccountWarningView.swift */,
 				006ABEEC2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift */,
 			);
@@ -10275,7 +10270,6 @@
 				B0DE922B1D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */,
 				B01490A31DB96E5F007F5391 /* WMFReferencePageViewController.swift in Sources */,
-				67F73E6D2267B79E0079DEEF /* AccountViewController.swift in Sources */,
 				8382F8CD20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				676E813329380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
 				FF5555642771388F00925099 /* CollectionViewContextMenuShowing.swift in Sources */,
@@ -11127,7 +11121,6 @@
 				7A71566F22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
 				D82117FD1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				B0CD9DE01F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
-				67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */,
 				83842A8B2B0CFF8300EFC55F /* UITestHelperViewController.swift in Sources */,
 				6707C033237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
@@ -11678,7 +11671,6 @@
 				B0B4236A1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				53A575FB2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */,
 				7A71567022697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
-				67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */,
 				6707C034237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				83842A8A2B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */,
 				8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
