@@ -25,6 +25,11 @@ extension Notification.Name {
 
 extension WMFAppViewController {
 
+    @objc func shouldOpenAppOnSearchTab() -> Bool {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+    }
+
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
 
         guard let linkURL = userActivity.wmf_linkURL() else {
@@ -1093,5 +1098,67 @@ extension WMFAppViewController {
                 ActivityTabFunnel.shared.logTabBarSelected(from: .article, action: action)
             }
         }
+    }
+
+    // MARK: - Settings
+
+    @objc func generateSettingsTab() -> SettingsTabViewController {
+        let dataController = WMFSettingsDataController.shared
+
+        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
+        let themeName = UserDefaults.standard.themeDisplayName
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+        let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
+        let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
+                            dataStore.authenticationManager.authStateIsTemporary
+        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+
+        let localizedStrings = WMFSettingsViewModel.LocalizedStrings(
+            settingTitle: CommonStrings.settingsTitle,
+            doneButtonTitle: CommonStrings.doneTitle,
+            cancelButtonTitle: CommonStrings.cancelActionTitle,
+            accountTitle: CommonStrings.account,
+            logInTitle: CommonStrings.logIn,
+            myLanguagesTitle: CommonStrings.myLanguages,
+            searchTitle: CommonStrings.searchTitle,
+            exploreFeedTitle: CommonStrings.exploreFeedTitle,
+            onTitle: CommonStrings.onTitle,
+            offTitle: CommonStrings.offTitle,
+            yirTitle: CommonStrings.yirTitle,
+            pushNotificationsTitle: CommonStrings.pushNotifications,
+            readingpreferences: CommonStrings.readingPreferences,
+            articleSyncing: CommonStrings.settingsStorageAndSyncing,
+            databasePopulation: "Database population",
+            clearCacheTitle: CommonStrings.clearCachedDataSettings,
+            privacyHeader: CommonStrings.privacyTermsHeader,
+            privacyPolicyTitle: CommonStrings.privacyPolicyTitle,
+            termsOfUseTitle: CommonStrings.termsOfUseTitle,
+            rateTheAppTitle: CommonStrings.rateTheAppTitle,
+            helpTitle: CommonStrings.helpAndfeedbackTitle,
+            aboutTitle: CommonStrings.aboutTitle,
+            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory
+        )
+
+        let viewModel = WMFSettingsViewModel.__createSynchronously(
+            localizedStrings: localizedStrings,
+            username: username,
+            tempUsername: tempUsername,
+            isTempAccount: isTempAccount,
+            primaryLanguage: language,
+            exploreFeedStatus: isExploreFeedOn,
+            readingPreferenceTheme: themeName,
+            coordinatorDelegate: nil,
+            dataController: dataController
+        )
+
+        let controller = SettingsTabViewController(
+            viewModel: viewModel,
+            coordinatorDelegate: nil,
+            dataStore: dataStore,
+            theme: theme,
+            dataController: dataController
+        )
+
+        return controller
     }
 }
