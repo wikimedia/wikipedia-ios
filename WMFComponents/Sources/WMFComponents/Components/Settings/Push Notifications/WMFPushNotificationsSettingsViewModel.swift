@@ -30,6 +30,7 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
 
     public let localizedStrings: LocalizedStrings
 
+    private let userDefaultsKey = "WMFIsSubscribedToEchoNotifications"
     private let userDefaults: UserDefaults
     public var onRequestPermissions: (() -> Void)?
     public var onUnsubscribe: (() -> Void)?
@@ -49,13 +50,11 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
-        // Check permission status
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         switch settings.authorizationStatus {
         case .authorized, .provisional, .ephemeral:
             permissionStatus = .authorized
-            // Load subscription status from UserDefaults
-            isPushEnabled = userDefaults.bool(forKey: "WMFIsSubscribedToEchoNotifications")
+            isPushEnabled = userDefaults.bool(forKey: userDefaultsKey)
         case .notDetermined:
             permissionStatus = .notDetermined
             isPushEnabled = false
@@ -73,7 +72,6 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
     private func buildSections() {
         switch permissionStatus {
         case .authorized, .notDetermined:
-            // Show toggle switch
             sections = [
                 SettingsSection(
                     header: localizedStrings.headerText,
@@ -82,7 +80,6 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
                 )
             ]
         case .denied:
-            // Show link to system settings
             sections = [
                 SettingsSection(
                     header: localizedStrings.headerText,
@@ -135,7 +132,7 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
         } else {
             // Unsubscribe
             isPushEnabled = false
-            userDefaults.set(false, forKey: "WMFIsSubscribedToEchoNotifications")
+            userDefaults.set(false, forKey: userDefaultsKey)
             onUnsubscribe?()
         }
         
@@ -146,7 +143,7 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
     public func refreshAfterPermissionRequest(granted: Bool) async {
         if granted {
             isPushEnabled = true
-            userDefaults.set(true, forKey: "WMFIsSubscribedToEchoNotifications")
+            userDefaults.set(true, forKey: userDefaultsKey)
         }
         await loadAndBuild()
     }
