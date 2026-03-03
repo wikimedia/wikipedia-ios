@@ -45,6 +45,7 @@
 // Author: NeverBehave
 // Author: NigelSoft
 // Author: Njzjz
+// Author: Ouclie
 // Author: Pawsdt
 // Author: Peterxy12
 // Author: Phenolla
@@ -99,8 +100,6 @@
 "about-repositories-app-source-license" = "源代码依据$1授权。";
 "about-repositories-app-source-license-mit" = "MIT协议";
 "about-send-feedback" = "发送应用反馈";
-"about-testers" = "测试者";
-"about-testers-details" = "由$1进行QA测试";
 "about-title" = "关于";
 "about-translators" = "译者";
 "about-translators-details" = "由$1的志愿者翻译";
@@ -156,6 +155,7 @@
 "activity-tab-add-images-subtitle" = "向维基百科的条目中添加建议的图片，使内容更易懂。";
 "activity-tab-add-images-title" = "添加图片";
 "activity-tab-additional-thoughts" = "还有什么想法吗？";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|1}} 次浏览";
 "activity-tab-articles-read" = "本月阅读的条目";
 "activity-tab-articles-read-graph-label" = "条目";
 "activity-tab-customize-all-time-impact" = "所有时间影响";
@@ -178,8 +178,13 @@
 "activity-tab-generic-no-edits" = "您本周尚未进行编辑。马上开始编辑，以追踪贡献。";
 "activity-tab-hours-minutes-read" = "$1 小时 $2 分钟";
 "activity-tab-hours-on-wikipedia-ios" = "在维基百科iOS版";
+"activity-tab-impact-all-time-title" = "所有时间影响";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1天}}";
+"activity-tab-impact-best-streak-label" = "最长连续时间";
 "activity-tab-impact-edits-label" = "编辑数";
+"activity-tab-impact-last-edited-label" = "上次编辑";
 "activity-tab-impact-recent-activity-title" = "您最近的活动（过去30天）";
+"activity-tab-impact-recent-startend-accessibility" = "从 $1 到 $2";
 "activity-tab-impact-thanks-label" = "感谢";
 "activity-tab-impact-total-edits-label" = "总编辑数";
 "activity-tab-impact-views-day" = "日";
@@ -190,6 +195,7 @@
 "activity-tab-logged-out-title" = "查看更多阅读和编辑方面的分析";
 "activity-tab-logged-out-track-what-youve-read" = "以全新的方式追踪您的阅读记录，并查看您随着时间的贡献。";
 "activity-tab-menu-clear-history" = "清除阅读历史";
+"activity-tab-most-viewed" = "自您编辑以来最多浏览次数";
 "activity-tab-neutral" = "中立";
 "activity-tab-no-edits-title" = "您本周尚未进行编辑。添加图片，以增强对文章的理解。";
 "activity-tab-no-username-reading-title" = "你的阅读";
@@ -1670,3 +1676,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "维基百科 w 徽标";
 "year-in-review-wmf-logo-accessibility-label" = "维基媒体基金会标志";
 "yesterday-title" = "昨日";
+"zero-edits-to-articles" = "最近对条目进行了 0 次编辑";
