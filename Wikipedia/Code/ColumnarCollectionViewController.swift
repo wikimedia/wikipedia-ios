@@ -3,7 +3,6 @@ import WMFComponents
 
 class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting, WMFNavigationBarHiding {
     var topSafeAreaOverlayView: UIView?
-    
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     
 

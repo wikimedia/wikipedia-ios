@@ -54,10 +54,10 @@ class TalkPageArchivesViewController: UIViewController, Themeable, WMFNavigation
                 view.addSubview(childHostingVC.view)
 
         NSLayoutConstraint.activate([
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: childHostingVC.view.topAnchor),
+            view.topAnchor.constraint(equalTo: childHostingVC.view.topAnchor),
             view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: childHostingVC.view.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: childHostingVC.view.trailingAnchor),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: childHostingVC.view.bottomAnchor)
+            view.bottomAnchor.constraint(equalTo: childHostingVC.view.bottomAnchor)
         ])
 
         addChild(childHostingVC)

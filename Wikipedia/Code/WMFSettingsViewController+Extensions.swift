@@ -31,7 +31,7 @@ import WMFData
             profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabelNoNotifications: CommonStrings.profileButtonTitle, accessibilityLabelHasNotifications: CommonStrings.profileButtonBadgeTitle, accessibilityHint: profileAccessibilityHint, needsBadge: needsProfileBadge, target: self, action: #selector(tappedProfile), leadingBarButtonItem: nil)
         }
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc func updateProfileButtonFromObjC() {

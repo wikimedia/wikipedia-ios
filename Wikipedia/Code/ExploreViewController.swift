@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring, SearchResultsHosting {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -61,6 +61,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private var presentingSearchResults: Bool = false
+    var disableSearchCancelLogging: Bool = false
 
     // MARK: - Lifecycle
 
@@ -138,6 +139,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             self?.calculateTopSafeAreaOverlayHeight()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !isMovingFromParent {
+            disableSearchCancelLogging = true
+        }
+        
+        navigationItem.searchController = nil
+        disableSearchCancelLogging = false
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -167,9 +179,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private func configureNavigationBar() {
         
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leadingCompact)
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .leadingCompact)
         
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
@@ -181,7 +193,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBar.text = searchTerm
             searchBar.becomeFirstResponder()
         }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -189,7 +201,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 dataStore: dataStore,
                 theme: theme,
                 articleSource: .search,
-                tabConfig: .appendArticleAndAssignCurrentTab
+                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
             )
             let success = coordinator.start()
             if !success {
@@ -205,11 +217,23 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false, scopeButtonTitles: nil)
         
-
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
-        
-        // Need to override this so that "" does not appear as back button title.
+
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
+        
+        // Set up logo as left bar button item
+        
+        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "wikipedia"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
+        if #available(iOS 26.0, *) {
+            logoBarButtonItem.hidesSharedBackground = true
+            logoBarButtonItem.sharesBackground = false
+        }
+        logoBarButtonItem.accessibilityLabel = WMFLocalizedString("home-title-accessibility-label", value: "Wikipedia, scroll to top of Explore", comment: "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
+        navigationItem.leftBarButtonItem = logoBarButtonItem
+        
+        if #unavailable(iOS 26.0) {
+            logoBarButtonItem.tintColor = theme.colors.logoTintColor
+        }
     }
     
     @objc func updateProfileButton() {
@@ -230,28 +254,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
         scrollToTop()
     }
-    
-    @objc public var titleButton: UIView {
-        return titleView
-    }
-    
-    lazy var longTitleButton: UIButton = {
-        let longTitleButton = UIButton(type: .custom)
-        var deprecatedLongTitleButton = longTitleButton as DeprecatedButton
-        deprecatedLongTitleButton.deprecatedAdjustsImageWhenHighlighted = true
-        longTitleButton.setImage(UIImage(named: "wikipedia"), for: .normal)
-        longTitleButton.sizeToFit()
-        longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
-        longTitleButton.isAccessibilityElement = false
-        return longTitleButton
-    }()
-    
-    lazy var titleView: UIView = {
-        let titleView = UIView(frame: longTitleButton.bounds)
-        titleView.addSubview(longTitleButton)
-        titleView.isAccessibilityElement = false
-        return titleView
-    }()
 
     @objc func userDidTapProfile() {
         
@@ -286,6 +288,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.scrollViewDidScroll(scrollView)
         
         calculateNavigationBarHiddenState(scrollView: scrollView)
+        updateLogoImageOnScroll(scrollView: scrollView)
         
         guard !isLoadingOlderContent else {
             return
@@ -710,6 +713,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         themeTopSafeAreaOverlay()
+        
+        if #unavailable(iOS 26.0) {
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.logoTintColor
+        }
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -876,7 +883,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
-		
+        
         guard needsReloadVisibleCells else {
             return
         }
@@ -1819,7 +1826,6 @@ extension ExploreViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
-        SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
 
