@@ -210,7 +210,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             
             let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .hidden)
             
-            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
             
             let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
             navigationItem.setRightBarButtonItems([searchBarButtonItem, safariItem], animated: false)
