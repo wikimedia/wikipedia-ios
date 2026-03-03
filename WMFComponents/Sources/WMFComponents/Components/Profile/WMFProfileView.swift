@@ -56,7 +56,7 @@ public struct WMFProfileView: View {
     private func profileBarItem(item: ProfileListItem) -> some View {
         Button(action: {
             Task { @MainActor in
-                await item.action()
+                item.action()
             }
         }) {
             HStack {

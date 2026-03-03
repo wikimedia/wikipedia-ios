@@ -11,7 +11,7 @@ public actor WMFSettingsDataController: ObservableObject {
     let donationDataController: WMFDonateDataController?
 
     private init (yirDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController(),
-                 donationDataController: WMFDonateDataController? = WMFDonateDataController()
+                  donationDataController: WMFDonateDataController? = WMFDonateDataController()
     ) {
         self.yirDataController = yirDataController
         self.donationDataController = donationDataController
@@ -59,7 +59,7 @@ public actor WMFSettingsDataController: ObservableObject {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue)) ?? true
     }
 
-    public func setAutoSignTalkPageDiscussions(_ newValue: Bool) {
+    public nonisolated func setAutoSignTalkPageDiscussions(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: newValue)
     }
 
@@ -69,7 +69,7 @@ public actor WMFSettingsDataController: ObservableObject {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue)) ?? false
     }
 
-    public func setShowSearchLanguageBar(_ newValue: Bool) {
+    public nonisolated func setShowSearchLanguageBar(_ newValue: Bool) {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: newValue)
     }
 

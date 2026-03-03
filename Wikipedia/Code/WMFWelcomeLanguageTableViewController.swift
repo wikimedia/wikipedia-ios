@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFData
 
 // https://stackoverflow.com/a/34902501/135557
 class WMFWelcomeLanguageIntrinsicTableView: UITableView {
@@ -49,7 +50,7 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaults.standard.wmf_setShowSearchLanguageBar(MWKDataStore.shared().languageLinkController.preferredLanguages.count > 1)
+        WMFSettingsDataController.shared.setShowSearchLanguageBar(MWKDataStore.shared().languageLinkController.preferredLanguages.count > 1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

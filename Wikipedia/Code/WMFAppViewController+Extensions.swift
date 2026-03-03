@@ -647,7 +647,7 @@ extension WMFAppViewController {
         }
         let settingsDataController = WMFSettingsDataController.shared
         Task {
-            await settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
+            settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
         }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
