@@ -181,7 +181,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         self.readingPreferenceTheme = readingPreferenceTheme
         self.coordinatorDelegate = coordinatorDelegate
         self.dataController = dataController
-        // Don't build sections in this initializer
     }
 
     private static func __createWithoutBuilding(
@@ -346,7 +345,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             item = SettingsItem(
                 image: WMFSFSymbolIcon.for(symbol: .personFilled),
                 color: WMFColor.gray100,
-                title: localizedStrings.accountTitle,
+                title: localizedStrings.logInTitle,
                 subtitle: nil,
                 accessory: .chevron(label: nil),
                 action: {
