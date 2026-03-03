@@ -244,7 +244,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let rateTheAppTitle = WMFLocalizedString("main-menu-rate-app", value: "Rate the app", comment: "Button text for showing the app in the app store so user can rate the app")
 
-    @objc public static let helpAndfeedbackTitle = WMFLocalizedString("settings-help-and-feedback", value: "Help and feedback", comment: "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports")
+    @objc public static let helpAndfeedbackTitle = WMFLocalizedString("settings-help-and-feedback", value: "Help and feedback", comment: "Title for showing a screen that displays the FAQ and allows users to submit bug reports")
 
     @objc public static let aboutTitle = WMFLocalizedString("about-title", value: "About", comment: "Title for credits page {{Identical|About}}")
 

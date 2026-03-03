@@ -48,7 +48,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         // If navigation controller already has SettingsViewController as it's root view controller, no need to navigate anywhere
         if navigationController.viewControllers.count == 1,
-           (navigationController.viewControllers.first as? SettingsViewController) != nil {
+           (navigationController.viewControllers.first as? SettingsTabViewController) != nil {
             return true
         }
         Task { @MainActor in

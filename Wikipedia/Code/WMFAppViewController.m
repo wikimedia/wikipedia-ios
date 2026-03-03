@@ -58,7 +58,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
-@property (nonatomic, strong) SettingsViewController *settingsViewController;
+@property (nonatomic, strong) SettingsTabViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) SearchTabViewController *searchTabViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
@@ -2036,9 +2036,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.currentTabNavigationController pushViewController:detailVC animated:YES];
 }
 
-- (nonnull SettingsViewController *)settingsViewController {
+- (nonnull SettingsTabViewController *)settingsViewController {
     if (!_settingsViewController) {
-        SettingsViewController *settingsVC = [self generateSettingsTab];
+        SettingsTabViewController *settingsVC = [self generateSettingsTab];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
         _settingsViewController.title = [WMFCommonStrings settingsTitle];
@@ -2112,7 +2112,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
             if ([rootViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
                 [[WMFNavigationEventsFunnel shared] logTappedExplore];
-            } else if ([rootViewController isKindOfClass:[SettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+            } else if ([rootViewController isKindOfClass:[SettingsTabViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
                 [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
             } else if ([rootViewController isKindOfClass:[WMFPlacesViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedPlaces];

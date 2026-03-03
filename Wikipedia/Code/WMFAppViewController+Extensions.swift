@@ -1001,7 +1001,7 @@ extension WMFAppViewController {
         return controller
     }
 
-    @objc func generateSettingsTab() -> SettingsViewController {
+    @objc func generateSettingsTab() -> SettingsTabViewController {
         // Create the data controller
         let dataController = WMFSettingsDataController()
 
@@ -1056,7 +1056,7 @@ extension WMFAppViewController {
 
         // Create the view controller without a coordinator
         // The coordinator will be created in viewDidLoad when navigationController is available
-        let controller = SettingsViewController(
+        let controller = SettingsTabViewController(
             viewModel: viewModel,
             coordinatorDelegate: nil,
             dataStore: dataStore,
@@ -1110,7 +1110,7 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
         } else if currentVC is SearchTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .search, action: action)
-        } else if currentVC is SettingsViewController {
+        } else if currentVC is SettingsTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .settings, action: action)
         } else if let article = currentVC as? ArticleViewController {
             guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {

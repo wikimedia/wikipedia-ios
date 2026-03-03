@@ -6,7 +6,8 @@ import Combine
 
 public final class WMFSettingsHostingController: WMFComponentHostingController<WMFSettingsView> {}
 
-@objc final class SettingsViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
+/// A view controller that manages the settings tab in the app, when the Explore Feed is disabled.
+@objc final class SettingsTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
 
     // MARK: - Properties
 
@@ -121,7 +122,6 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
             }
         }
 
-        // Observe authentication state changes
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(userAuthenticationStateDidChange),
@@ -135,7 +135,6 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
             object: nil
         )
 
-        // Observe push notification banner displays (to refresh notification badge)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)),
