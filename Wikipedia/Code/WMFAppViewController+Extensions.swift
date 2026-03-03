@@ -628,7 +628,10 @@ extension WMFAppViewController {
             return
         }
         let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
-        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: legacyValue)
+        let settingsDataController = WMFSettingsDataController.shared
+        Task {
+            await settingsDataController.setAutoSignTalkPageDiscussions(legacyValue)
+        }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
@@ -637,7 +640,10 @@ extension WMFAppViewController {
         guard let legacyValue = UserDefaults.standard.object(forKey: legacyKey) as? NSNumber else {
             return
         }
-        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.showSearchLanguageBar.rawValue, value: legacyValue.boolValue)
+        let settingsDataController = WMFSettingsDataController.shared
+        Task {
+            await settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
+        }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
@@ -647,7 +653,10 @@ extension WMFAppViewController {
             return
         }
         let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
-        try? WMFDataEnvironment.current.userDefaultsStore?.save(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue, value: legacyValue)
+        let settingsDataController = WMFSettingsDataController.shared
+        Task {
+            await settingsDataController.setOpenAppOnSearchTab(legacyValue)
+        }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 

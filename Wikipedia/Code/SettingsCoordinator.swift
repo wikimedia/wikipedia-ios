@@ -34,7 +34,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     // MARK: Lifecycle
 
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFSettingsDataController = WMFSettingsDataController()) {
+    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFSettingsDataController = WMFSettingsDataController.shared) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore

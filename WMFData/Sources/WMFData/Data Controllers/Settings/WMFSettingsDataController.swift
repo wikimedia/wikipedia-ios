@@ -3,12 +3,14 @@ import Combine
 
 public actor WMFSettingsDataController: ObservableObject {
 
+    public static let shared = WMFSettingsDataController()
+
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     let yirDataController: WMFYearInReviewDataController?
     let donationDataController: WMFDonateDataController?
 
-    public init (yirDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController(),
+    private init (yirDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController(),
                  donationDataController: WMFDonateDataController? = WMFDonateDataController()
     ) {
         self.yirDataController = yirDataController
