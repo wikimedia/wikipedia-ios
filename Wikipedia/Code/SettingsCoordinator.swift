@@ -149,14 +149,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     // MARK: - Private methods - Actions
 
-    private func asyncDismissSettings() async {
-        await withCheckedContinuation { continuation in
-            navigationController.dismiss(animated: true) {
-                continuation.resume()
-            }
-        }
-    }
-
     private func dismissSettings(completion: @escaping () -> Void) {
         navigationController.dismiss(animated: true) {
             completion()
@@ -313,23 +305,19 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     // MARK: - About
-    private func tappedAbout() {
-        dismissSettings {
-            if let vc = AboutViewController(theme: self.theme) {
-                self.navigationController.pushViewController(vc, animated: true)
-            }
-        }
 
+    private func tappedAbout() {
+        guard let vc = AboutViewController(theme: self.theme),
+              let settingsNav = settingsNavigationController else { return }
+        settingsNav.pushViewController(vc, animated: true)
     }
 
     // MARK: - Help and feedback
 
     private func tappedHelpAndFeedback() {
-        dismissSettings {
-            if let vc = HelpViewController(dataStore: self.dataStore, theme: self.theme) {
-                self.navigationController.pushViewController(vc, animated: true)
-            }
-        }
+        guard let vc = HelpViewController(dataStore: self.dataStore, theme: self.theme),
+              let settingsNav = settingsNavigationController else { return }
+        settingsNav.pushViewController(vc, animated: true)
     }
 
     // MARK: - Donation History
