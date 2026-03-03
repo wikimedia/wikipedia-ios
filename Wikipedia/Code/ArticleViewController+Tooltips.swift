@@ -15,33 +15,9 @@ extension ArticleViewController {
                         present(popoverController, animated: true) {
                             popoverController.presentationController?.delegate = self
                         }
-                        tipPopoverController = popoverController
                     }
                 } else if case .invalidated = status {
-                    // if presentedViewController is TipUIPopoverViewController {
-                        dismiss(animated: true) { [weak self] in
-                            guard let self else { return }
-                            nextTipObservationTask = Task { @MainActor in
-                                NextTip.enableTip = true
-                                for await status in self.nextTip.statusUpdates {
-                                    if status == .available {
-                                        // try? await Task.sleep(for: .milliseconds(500))
-                                        if let wIcon = self.navigationItem.titleView {
-                                            let popoverController = TipUIPopoverViewController(self.nextTip, sourceItem: wIcon)
-                                            self.present(popoverController, animated: true)
-                                            self.tipPopoverController = popoverController
-                                        }
-                                    } else {
-                                        if self.presentedViewController is TipUIPopoverViewController {
-                                            self.dismiss(animated: true)
-                                            self.tipPopoverController = nil
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        tipPopoverController = nil
-                    // }
+                        dismiss(animated: true)
                     break
                 }
             }
@@ -117,7 +93,6 @@ extension ArticleViewController: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if presentationController.presentedViewController is TipUIPopoverViewController {
             wTip.invalidate(reason: .tipClosed)
-            tipPopoverController = nil
         }
     }
 }
