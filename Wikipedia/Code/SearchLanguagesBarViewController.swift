@@ -1,5 +1,7 @@
 import WMFComponents
 import WMF
+import TipKit
+import SwiftUI
 
 @objc protocol SearchLanguagesBarViewControllerDelegate: AnyObject {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String)
@@ -122,6 +124,9 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
     @IBOutlet weak var otherLanguagesButtonBackgroundView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
+    
+    fileprivate var moreLanguagesTip = MoreLanguagesTip()
+    fileprivate var moreLanguagesTipObservationTask: Task<Void, Never>?
 
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -233,6 +238,8 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showMoreLanguagesTooltip), object: nil)
+        moreLanguagesTipObservationTask?.cancel()
+        moreLanguagesTipObservationTask = nil
     }
     
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
@@ -284,11 +291,7 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
     }
     
     @objc fileprivate func showMoreLanguagesTooltip() {
-        guard let button = otherLanguagesButton else {
-            return
-        }
-        self.wmf_presentDynamicHeightPopoverViewController(sourceRect: button.convert(button.bounds, to: self.view), title: WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."), message: WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in over 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."), width: 230, duration: 3)
-        UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
+        listenForTooltips()
     }
     
     @objc fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: SearchLanguageButton) {
@@ -345,5 +348,39 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
         otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
         otherLanguagesButton?.setTitleColor(theme.colors.link, for: .normal)
+    }
+    
+    func listenForTooltips() {
+        moreLanguagesTipObservationTask =  Task { @MainActor in
+            for await status in  moreLanguagesTip.statusUpdates {
+                if status == .available {
+                    if let button = otherLanguagesButton {
+                        let popoverController = TipUIPopoverViewController(moreLanguagesTip, sourceItem: button)
+                        present(popoverController, animated: true) {
+                            // popoverController.presentationController?.delegate = self
+                        }
+                    }
+                    
+                } else if case .invalidated = status {
+                        dismiss(animated: true)
+                        UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
+                    break
+                }
+            }
+        }
+    }
+}
+
+private struct MoreLanguagesTip: Tip {
+    var title: Text {
+        Text(WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."))
+    }
+    
+    var message: Text? {
+        Text(WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in over 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."))
+    }
+    
+    var image: SwiftUI.Image? {
+        return nil
     }
 }
