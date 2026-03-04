@@ -17,31 +17,32 @@ enum ProfileCoordinatorSource: Int {
 
 @objc(WMFProfileCoordinator)
 final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegate {
-    
+
     // MARK: Coordinator Protocol Properties
-    
+
     var navigationController: UINavigationController
-    
+
     weak var delegate: LogoutCoordinatorDelegate?
 
     // MARK: Properties
-    
+
     var theme: Theme
     let dataStore: MWKDataStore
-    
+
     private weak var viewModel: WMFProfileViewModel?
     weak var badgeDelegate: YearInReviewBadgeDelegate?
-    
+
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
+    private var settingsCoordinator: SettingsCoordinator?
     private let yirCoordinator: YearInReviewCoordinator
-    
+
     let sourcePage: ProfileCoordinatorSource
-    
-    
+
+
     // MARK: Lifecycle
-    
+
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) {
         self.navigationController = navigationController
         self.theme = theme
@@ -51,16 +52,16 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         self.sourcePage = sourcePage
         self.yirCoordinator = yirCoordinator
     }
-    
+
     // MARK: Coordinator Protocol Methods
-    
+
     @discardableResult
     @objc func start() -> Bool {
         let username = dataStore.authenticationManager.authStatePermanentUsername
         let tempAccountUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let isTemporaryAccount = dataStore.authenticationManager.authStateIsTemporary
-        
+
         var finalPageTitle: String {
             if isLoggedIn {
                 return username ?? CommonStrings.account
@@ -86,7 +87,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             yearInReviewTitle: CommonStrings.yirTitle,
             yearInReviewLoggedOutSubtext:  WMFLocalizedString("profile-page-logged-out-year-in-review-subtext", value: "Log in or create an account to get an improved year in review next year", comment: "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.")
         )
-        
+
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
         var yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies? = nil
         if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
@@ -107,21 +108,21 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             yearInReviewDependencies: yearInReviewDependencies,
             badgeDelegate: badgeDelegate
         )
-        
+
         let profileView = WMFProfileView(viewModel: viewModel)
         self.viewModel = viewModel
         let finalView = profileView.environmentObject(targetRects)
         let hostingController = WMFProfileHostingController(rootView: finalView, viewModel: viewModel)
-        
+
         let profileNavVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
-        
+
         navigationController.present(profileNavVC, animated: true, completion: nil)
-        
+
         return true
     }
-    
+
     // MARK: - ProfileCoordinatorDelegate Methods
-    
+
     public func handleProfileAction(_ action: ProfileAction) {
         switch action {
         case .showNotifications:
@@ -179,43 +180,44 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             completion()
         }
     }
-    
+
     private func showNotifications() {
         let notificationsCoordinator = NotificationsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         notificationsCoordinator.start()
     }
-    
+
     private func showSettings() {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        self.settingsCoordinator = settingsCoordinator
         settingsCoordinator.start()
     }
-    
+
     private func showYearInReview() {
         yirCoordinator.start()
     }
-    
+
     func showDonate() {
-        
+
         guard let viewModel else {
             return
         }
-        
+
         let getDonateButtonGlobalRect: () -> CGRect = { [weak self] in
-            
+
             self?.targetRects.donateButtonFrame ?? .zero
         }
-        
+
         let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: donateSouce, dataStore: dataStore, theme: theme, navigationStyle: .dismissThenPush, setLoadingBlock: { isLoading in
             viewModel.isLoadingDonateConfigs = isLoading
         }, getDonateButtonGlobalRect: getDonateButtonGlobalRect)
-        
+
         donateCoordinator.start()
-        
+
         // Note: DonateCoordinator needs to handle a lot of delayed logic (fetch configs, present payment method action sheet, present native donate form and handle delegate callbacks from native donate form) as opposed to a fleeting navigation call with the other actions. For this reason we need to save it in a property so it isn't deallocated before this logic runs.
         self.donateCoordinator = donateCoordinator
     }
-    
-    
+
+
     private func showUserPage() {
         let username = dataStore.authenticationManager.authStatePermanentUsername
         if let username, let siteURL = dataStore.primarySiteURL {
@@ -223,7 +225,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             userPageCoordinator.start()
         }
     }
-    
+
     private func showUserPageTempAccount() {
         let username = dataStore.authenticationManager.authStateTemporaryUsername
         if let siteURL = dataStore.primarySiteURL, let username {
@@ -231,7 +233,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             userPageCoordinator.start()
         }
     }
-    
+
     private func showUserTalkPage() {
         let username = dataStore.authenticationManager.authStatePermanentUsername
         if let siteURL = dataStore.primarySiteURL, let username {
@@ -239,7 +241,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             userTalkCoordinator.start()
         }
     }
-    
+
     private func showUserTalkPageTempAccount() {
         let username = dataStore.authenticationManager.authStateTemporaryUsername
         if let siteURL = dataStore.primarySiteURL, let username {
@@ -252,16 +254,16 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
         watchlistCoordinator.start()
     }
-    
+
     private func dismissProfile() {
         navigationController.dismiss(animated: true, completion: nil)
     }
-    
+
     private func login() {
         let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
         loginCoordinator.start()
     }
-    
+
     private func logout() {
         let alertController = UIAlertController(title:CommonStrings.logoutAlertTitle, message: CommonStrings.logoutAlertMessage, preferredStyle: .alert)
         let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
@@ -275,28 +277,28 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         alertController.addAction(cancelAction)
         navigationController.present(alertController, animated: true, completion: nil)
     }
-    
+
     func logDonateTap() {
-        
+
         guard let metricsID = DonateCoordinator.metricsID(for: donateSouce, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) else {
             return
         }
-        
+
         switch sourcePage {
         case .exploreOptOut:
             DonateFunnel.shared.logOptOutExploreProfileDonate(metricsID: metricsID)
         case .explore:
             DonateFunnel.shared.logExploreProfileDonate(metricsID: metricsID)
         case .article:
-            
+
             switch donateSouce {
             case .articleProfile(let articleURL):
-                
+
                 guard let siteURL = articleURL.wmf_site,
                       let project = WikimediaProject(siteURL: siteURL) else {
                     return
                 }
-                
+
                 DonateFunnel.shared.logArticleProfileDonate(project: project, metricsID: metricsID)
             default:
                 return
@@ -312,9 +314,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             return
         }
     }
-    
+
     func logYearInReviewTap() {
         DonateFunnel.shared.logProfileDidTapYearInReview()
     }
 }
-

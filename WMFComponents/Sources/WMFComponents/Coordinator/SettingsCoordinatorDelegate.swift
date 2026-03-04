@@ -4,6 +4,7 @@ import Foundation
 @MainActor
 public protocol SettingsCoordinatorDelegate: AnyObject {
     func handleSettingsAction(_ action: SettingsAction)
+    func fetchDynamicValues() -> (primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String)
 }
 
 /// Represents the various actions that can be performed from the Settings view

@@ -111,9 +111,9 @@ final public class WMFSettingsViewModel: ObservableObject {
     private var username: String?
     private var tempUsername: String?
     private var isTempAccount: Bool
-    private let mainLanguage: String
-    private let exploreFeedStatus: Bool
-    private let readingPreferenceTheme: String
+    private var mainLanguage: String
+    private var exploreFeedStatus: Bool
+    private var readingPreferenceTheme: String
     public weak var coordinatorDelegate: SettingsCoordinatorDelegate?
     private let dataController: WMFSettingsDataController
 
@@ -228,6 +228,45 @@ final public class WMFSettingsViewModel: ObservableObject {
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
         await buildSections()
+    }
+
+    /// Updates the language, explore feed status and reading theme synchronously
+    /// by patching the affected items directly in the existing sections array.
+    public func updateDynamicValues(primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
+        self.mainLanguage = primaryLanguage
+        self.exploreFeedStatus = exploreFeedStatus
+        self.readingPreferenceTheme = readingPreferenceTheme
+
+        // Find the main section (the one that has no header and contains the myLanguages item).
+        // We identify items by their title so we don't rely on fragile index arithmetic.
+        for sectionIndex in sections.indices {
+            for itemIndex in sections[sectionIndex].items.indices {
+                let title = sections[sectionIndex].items[itemIndex].title
+                let existing = sections[sectionIndex].items[itemIndex]
+
+                if title == localizedStrings.myLanguagesTitle {
+                    sections[sectionIndex].items[itemIndex] = SettingsItem(
+                        image: existing.image, color: existing.color,
+                        title: existing.title, subtitle: existing.subtitle,
+                        accessory: .chevron(label: primaryLanguage),
+                        action: existing.action)
+
+                } else if title == localizedStrings.exploreFeedTitle {
+                    sections[sectionIndex].items[itemIndex] = SettingsItem(
+                        image: existing.image, color: existing.color,
+                        title: existing.title, subtitle: existing.subtitle,
+                        accessory: .chevron(label: exploreFeedStatus ? localizedStrings.onTitle : localizedStrings.offTitle),
+                        action: existing.action)
+
+                } else if title == localizedStrings.readingpreferences {
+                    sections[sectionIndex].items[itemIndex] = SettingsItem(
+                        image: existing.image, color: existing.color,
+                        title: existing.title, subtitle: existing.subtitle,
+                        accessory: .chevron(label: readingPreferenceTheme),
+                        action: existing.action)
+                }
+            }
+        }
     }
 
     private func getMainSection() async -> SettingsSection {

@@ -15,7 +15,8 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
     private let dataStore: MWKDataStore?
     private let hostingController: WMFSettingsHostingController
     private let viewModel: WMFSettingsViewModel
-    private var coordinatorDelegate: SettingsCoordinatorDelegate?
+    private weak var coordinatorDelegate: SettingsCoordinatorDelegate?
+    private var settingsCoordinator: SettingsCoordinator?
     private let dataController: WMFSettingsDataController?
 
     private var yirDataController: WMFYearInReviewDataController? {
@@ -113,6 +114,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
                 dataStore: dataStore,
                 dataController: dataController
             )
+            self.settingsCoordinator = settingsCoordinator
             self.coordinatorDelegate = settingsCoordinator
             self.viewModel.coordinatorDelegate = settingsCoordinator
 

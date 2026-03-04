@@ -6,6 +6,7 @@ import WMFData
 import CocoaLumberjackSwift
 import UserNotifications
 
+
 @MainActor
 final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
@@ -16,11 +17,15 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     // MARK: Properties
 
     private let theme: Theme
+    private var currentTheme: Theme {
+        return UserDefaults.standard.theme(compatibleWith: UITraitCollection.current)
+    }
     private let dataStore: MWKDataStore
 
     private let dataController: WMFSettingsDataController
     @MainActor private weak var settingsViewModel: WMFSettingsViewModel?
     @MainActor private var pushNotificationsViewModel: WMFPushNotificationsSettingsViewModel?
+    private let languagesDelegateBridge = SettingsLanguagesDelegateBridge()
 
     /// Returns the appropriate navigation controller for both modal and embedded contexts
     private var settingsNavigationController: UINavigationController? {
@@ -39,6 +44,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         self.theme = theme
         self.dataStore = dataStore
         self.dataController = dataController
+        self.languagesDelegateBridge.coordinator = self
     }
 
     // MARK: Coordinator Protocol Methods
@@ -103,6 +109,13 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let settingsViewController =  WMFSettingsViewController(viewModel: viewModel, coordinatorDelegate: self)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
         navigationController.present(navVC, animated: true)
+    }
+
+    func fetchDynamicValues() -> (primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
+        let primaryLanguage = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+        let exploreFeedStatus = UserDefaults.standard.defaultTabType == .explore
+        let readingPreferenceTheme = UserDefaults.standard.themeDisplayName
+        return (primaryLanguage: primaryLanguage, exploreFeedStatus: exploreFeedStatus, readingPreferenceTheme: readingPreferenceTheme)
     }
 
     func handleSettingsAction(_ action: SettingsAction) {
@@ -446,9 +459,20 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
         languagesVC.showExploreFeedCustomizationSettings = true
-        languagesVC.apply(theme)
+        languagesVC.apply(currentTheme)
+        languagesVC.delegate = languagesDelegateBridge
         let languagesNavVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         settingsNav.present(languagesNavVC, animated: true)
+    }
+
+    func handleLanguagesDidUpdate() {
+        if let newLanguage = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() {
+            settingsViewModel?.updateDynamicValues(
+                primaryLanguage: newLanguage,
+                exploreFeedStatus: UserDefaults.standard.defaultTabType == .explore,
+                readingPreferenceTheme: UserDefaults.standard.themeDisplayName
+            )
+        }
     }
 
     // MARK: - Search
@@ -477,7 +501,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 openAppOnSearchTab: openAppOnSearchTab,
                 userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
                 onToggleShowLanguageBar: { [weak self] newValue in
-                    Task { [weak self] in await self?.dataController.setShowSearchLanguageBar(newValue) }
+                     self?.dataController.setShowSearchLanguageBar(newValue)
                 },
                 onToggleOpenAppOnSearchTab: { [weak self] newValue in
                     Task { [weak self] in await self?.dataController.setOpenAppOnSearchTab(newValue) }
@@ -500,7 +524,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         let feedSettingsVC = ExploreFeedSettingsViewController()
         feedSettingsVC.dataStore = dataStore
-        feedSettingsVC.apply(theme: theme)
+        feedSettingsVC.apply(theme: currentTheme)
         settingsNav.pushViewController(feedSettingsVC, animated: true)
     }
 
@@ -604,7 +628,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         }
 
         let appearanceSettingsVC = AppearanceSettingsViewController()
-        appearanceSettingsVC.apply(theme: theme)
+        appearanceSettingsVC.apply(theme: currentTheme)
         settingsNav.pushViewController(appearanceSettingsVC, animated: true)
     }
 
@@ -792,5 +816,19 @@ extension SettingsCoordinator: VanishAccountWarningViewDelegate {
         let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
         let viewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
         settingsNav.pushViewController(viewController, animated: true)
+    }
+}
+
+// MARK: - SettingsLanguagesDelegateBridge
+
+/// Bridges the Obj-C WMFPreferredLanguagesViewControllerDelegate to @MainActor SettingsCoordinator.
+private final class SettingsLanguagesDelegateBridge: NSObject, WMFPreferredLanguagesViewControllerDelegate {
+    weak var coordinator: SettingsCoordinator?
+
+    func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages: [MWKLanguageLink]) {
+        guard let coordinator else { return }
+        MainActor.assumeIsolated {
+            coordinator.handleLanguagesDidUpdate()
+        }
     }
 }

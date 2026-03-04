@@ -8,7 +8,7 @@ final public class WMFSettingsViewController: WMFCanvasViewController, WMFNaviga
 
     private let viewModel: WMFSettingsViewModel
     private let hostingViewController: WMFSettingsHostingController
-    weak var coordinatorDelegate: SettingsCoordinatorDelegate?
+    let coordinatorDelegate: SettingsCoordinatorDelegate?
 
     public init(viewModel: WMFSettingsViewModel, coordinatorDelegate: SettingsCoordinatorDelegate?) {
         self.viewModel = viewModel
@@ -29,6 +29,13 @@ final public class WMFSettingsViewController: WMFCanvasViewController, WMFNaviga
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
+        if let values = coordinatorDelegate?.fetchDynamicValues() {
+            viewModel.updateDynamicValues(
+                primaryLanguage: values.primaryLanguage,
+                exploreFeedStatus: values.exploreFeedStatus,
+                readingPreferenceTheme: values.readingPreferenceTheme
+            )
+        }
     }
 
     private func configureNavigationBar() {
