@@ -132,7 +132,7 @@ struct NotificationsCenterFilterView: View {
                     }
                 }
             }
-            .listStyle(GroupedListStyle())
+            .listStyle(InsetGroupedListStyle())
             .listBackgroundColor(Color(viewModel.theme.colors.baseBackground))
     }
 }
