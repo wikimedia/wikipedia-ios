@@ -134,15 +134,5 @@ struct NotificationsCenterFilterView: View {
             }
             .listStyle(GroupedListStyle())
             .listBackgroundColor(Color(viewModel.theme.colors.baseBackground))
-            .onAppear(perform: {
-                if #unavailable(iOS 16) {
-                    UITableView.appearance().backgroundColor = UIColor.clear
-                }
-            })
-            .onDisappear(perform: {
-                if #unavailable(iOS 16) {
-                    UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
-                }
-            })
     }
 }

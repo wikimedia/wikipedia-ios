@@ -29,8 +29,7 @@ class WMFWatchlistFilterHostingController: WMFComponentHostingController<WMFWatc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.title, customView: nil, alignment: .centerCompact)
         let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(tappedClose), alignment: .trailing)
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
