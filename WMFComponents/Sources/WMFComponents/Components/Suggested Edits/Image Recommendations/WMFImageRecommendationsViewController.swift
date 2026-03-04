@@ -98,9 +98,9 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     private let dataController = WMFImageRecommendationsDataController()
     private let tooltipGeometryValues = WMFTooltipGeometryValues()
     
-    fileprivate var autoTip1 = Tip1()
-    fileprivate var autoTip2 = Tip2()
-    fileprivate var autoTip3 = Tip3()
+    fileprivate var autoTip1: Tip1
+    fileprivate var autoTip2: Tip2
+    fileprivate var autoTip3: Tip3
     fileprivate var autoTip1ObservationTask: Task<Void, Never>?
     fileprivate var autoTip2ObservationTask: Task<Void, Never>?
     fileprivate var autoTip3ObservationTask: Task<Void, Never>?
@@ -111,6 +111,11 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         self.loggingDelegate = loggingDelegate
         self.viewModel = viewModel
         self.imageRecommendationBottomSheetController = WMFImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
+        
+        self.autoTip1 = Tip1(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.firstTooltipStrings.title, localizedMessage: viewModel.localizedStrings.firstTooltipStrings.body)
+        self.autoTip2 = Tip2(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.secondTooltipStrings.title, localizedMessage: viewModel.localizedStrings.secondTooltipStrings.body)
+        self.autoTip3 = Tip3(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.thirdTooltipStrings.title, localizedMessage: viewModel.localizedStrings.thirdTooltipStrings.body)
+        
         super.init()
         hidesBottomBarWhenPushed = true
     }
@@ -237,65 +242,34 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         let tooltip1DismissAction: () -> Void = { [weak self] in
             self?.listenToTooltip2(bottomSheetView: bottomSheetView, dismissAction: tooltip2DismissAction)
         }
-        
-        if #available(iOS 26.0, *) {
-            if force == true {
-                Task {
-                    Tip2.enableTip = false
-                    Tip3.enableTip = false
-                    await autoTip2.resetEligibility()
-                    await autoTip3.resetEligibility()
-                    
-                    await autoTip1.resetEligibility()
-                    
-                    listenToTooltip1(dismissAction: tooltip1DismissAction)
-                    return
-                }
-                
-            }
-        }
 
-        listenToTooltip1(dismissAction: tooltip1DismissAction)
-        
-        
-//        if !force && dataController.hasPresentedOnboardingTooltips {
-//            return
-//        }
-//
-//        guard let hostingView = hostingViewController.view,
-//              let bottomSheetView = bottomSheetViewController.bottomSheetView else {
-//            return
-//        }
-//
-//        let divGlobalFrame = tooltipGeometryValues.articleSummaryDivGlobalFrame
-//        let articleSummaryDivSourceRect: CGRect
-//
-//        // Article Summary div frame comes through as global / window coordinates. We need to offset them against the hosting view frame to send in an accurate sourceRect.
-//        let hostingViewGlobalOrigin = hostingView.superview?.convert(hostingView.frame.origin, to: nil)
-//        if let hostingViewGlobalOrigin {
-//            let xOffset = CGFloat(25)
-//            articleSummaryDivSourceRect = CGRect(x: (divGlobalFrame.minX - hostingViewGlobalOrigin.x) + xOffset, y: divGlobalFrame.maxY - hostingViewGlobalOrigin.y, width: 0, height: 0)
-//        } else {
-//            articleSummaryDivSourceRect = divGlobalFrame
-//        }
-//
-//        let viewModel1 = WMFTooltipViewModel(localizedStrings: viewModel.localizedStrings.firstTooltipStrings, buttonNeedsDisclosure: true, sourceView: hostingView, sourceRect: articleSummaryDivSourceRect, permittedArrowDirections: .up) { [weak self] in
-//            self?.loggingDelegate?.logTooltipsDidTapFirstNext()
-//        }
-//
-//        let viewModel2 = WMFTooltipViewModel(localizedStrings: viewModel.localizedStrings.secondTooltipStrings, buttonNeedsDisclosure: true, sourceView: bottomSheetView, sourceRect: bottomSheetView.bounds) { [weak self] in
-//            self?.loggingDelegate?.logTooltipsDidTapSecondNext()
-//        }
-//
-//        let viewModel3 = WMFTooltipViewModel(localizedStrings: viewModel.localizedStrings.thirdTooltipStrings, buttonNeedsDisclosure: false, sourceView: bottomSheetView, sourceRect: bottomSheetView.toolbar.frame) { [weak self] in
-//            self?.loggingDelegate?.logTooltipsDidTapThirdOK()
-//        }
-//
-//        bottomSheetViewController.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
-//
-//        if !force {
-//            dataController.hasPresentedOnboardingTooltips = true
-//        }
+
+        if !force {
+            if !dataController.hasPresentedOnboardingTooltips {
+                listenToTooltip1(dismissAction: tooltip1DismissAction)
+                Tip1.enableTip = true
+            } else {
+               Tip1.enableTip = false
+            }
+        } else {
+            autoTip1ObservationTask?.cancel()
+            autoTip1ObservationTask = nil
+            autoTip2ObservationTask?.cancel()
+            autoTip2ObservationTask = nil
+            autoTip3ObservationTask?.cancel()
+            autoTip3ObservationTask = nil
+            
+            autoTip1 = Tip1(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.firstTooltipStrings.title, localizedMessage: viewModel.localizedStrings.firstTooltipStrings.body)
+            autoTip2 = Tip2(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.secondTooltipStrings.title, localizedMessage: viewModel.localizedStrings.secondTooltipStrings.body)
+            autoTip3 = Tip3(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.thirdTooltipStrings.title, localizedMessage: viewModel.localizedStrings.thirdTooltipStrings.body)
+            
+            Tip1.enableTip = false
+            Tip2.enableTip = false
+            Tip3.enableTip = false
+            
+            listenToTooltip1(dismissAction: tooltip1DismissAction)
+            Tip1.enableTip = true
+        }
     }
     
     private lazy var divTargetView: UIView = {
@@ -326,7 +300,6 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         popoverController.presentationController?.delegate = self
                     }
                 } else if case .invalidated = status {
-                    print("here")
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
                         presentedViewController?.presentedViewController?.dismiss(animated: true) {
                                 dismissAction()
@@ -350,7 +323,6 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         popoverController.presentationController?.delegate = self
                     }
                 } else if case .invalidated = status {
-                    print("here")
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
                         presentedViewController?.presentedViewController?.dismiss(animated: true) {
                                 dismissAction()
@@ -374,7 +346,6 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         popoverController.presentationController?.delegate = self
                     }
                 } else if case .invalidated = status {
-                    print("here")
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
                         presentedViewController?.presentedViewController?.dismiss(animated: true) {
                             self.autoTip1ObservationTask?.cancel()
@@ -392,6 +363,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         self.autoTip3ObservationTask?.cancel()
                         self.autoTip3ObservationTask = nil
                     }
+                    self.dataController.hasPresentedOnboardingTooltips = true
                     break
                 }
             }
@@ -493,29 +465,47 @@ extension WMFImageRecommendationsViewController: WMFOnboardingViewDelegate {
 
 private struct Tip1: Tip {
     
+    let id: String
+    let localizedTitle: String
+    let localizedMessage: String
+    
+    @Parameter(.transient)
+    static var enableTip: Bool = false
+    
     var title: Text {
-        Text("Tip 1")
+        Text(localizedTitle)
     }
     
     var message: Text? {
-        Text("Tip 1 Message")
+        Text(localizedMessage)
     }
     
     var image: SwiftUI.Image? {
         return nil
     }
+    
+    var rules: [Rule] {
+            [
+                #Rule(Self.$enableTip) { $0 == true }
+            ]
+        }
 }
 
 private struct Tip2: Tip {
     
-    @Parameter static var enableTip: Bool = false
+    let id: String
+    let localizedTitle: String
+    let localizedMessage: String
+    
+    @Parameter(.transient)
+    static var enableTip: Bool = false
     
     var title: Text {
-        Text("Tip 2")
+        Text(localizedTitle)
     }
     
     var message: Text? {
-        Text("Tip 2 Message")
+        Text(localizedMessage)
     }
     
     var image: SwiftUI.Image? {
@@ -531,14 +521,19 @@ private struct Tip2: Tip {
 
 private struct Tip3: Tip {
     
-    @Parameter static var enableTip: Bool = false
+    let id: String
+    let localizedTitle: String
+    let localizedMessage: String
+    
+    @Parameter(.transient)
+    static var enableTip: Bool = false
     
     var title: Text {
-        Text("Tip 3")
+        Text(localizedTitle)
     }
     
     var message: Text? {
-        Text("Tip 3 Message")
+        Text(localizedMessage)
     }
     
     var image: SwiftUI.Image? {

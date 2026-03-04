@@ -7,9 +7,10 @@ public class WMFImageRecommendationsDataController {
 
 	struct OnboardingStatus: Codable {
 		var hasPresentedOnboardingModal: Bool
+        var hasPresentedOnboardingTooltips: Bool
 
 		static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingModal: false)
+            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false)
 		}
 	}
 
@@ -39,6 +40,16 @@ public class WMFImageRecommendationsDataController {
 			try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
 		}
 	}
+    
+    public var hasPresentedOnboardingTooltips: Bool {
+        get {
+            return onboardingStatus.hasPresentedOnboardingTooltips
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedOnboardingTooltips = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+        }
+    }
     
     // MARK: - PUT Send Feedback
     
