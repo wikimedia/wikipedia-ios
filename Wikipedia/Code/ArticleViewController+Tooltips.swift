@@ -29,7 +29,7 @@ struct WTip: Tip {
     
     @Parameter
     static var isCompactWidth: Bool = false
-    static let didViewArticle: Event = Event(id: "didViewArticle")
+    static let didTapArticleBack: Event = Event(id: "didTapArticleBack")
     
     var title: Text {
         Text(WMFLocalizedString(
@@ -54,36 +54,8 @@ struct WTip: Tip {
     var rules: [Rule] {
       [
         #Rule(Self.$isCompactWidth) { $0 == true },
-        #Rule(Self.didViewArticle) { $0.donations.count >= 3 }
+        #Rule(Self.didTapArticleBack) { $0.donations.count >= 3 }
       ]
-    }
-}
-
-
-struct NextTip: Tip {
-    
-    @Parameter static var enableTip: Bool = false
-    
-    var id: String {
-        "NextTip"
-    }
-    
-    var title: Text {
-        Text("NextTip Title")
-    }
-    
-    var message: Text? {
-        Text("Message for the tip")
-    }
-    
-    var image: SwiftUI.Image? {
-        Image(systemName: "lightbulb.fill")
-    }
-    
-    var rules: [Rule] {
-        [
-            #Rule(Self.$enableTip) { $0 == true }
-        ]
     }
 }
 

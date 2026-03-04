@@ -478,15 +478,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        Task {
-            await WTip.didViewArticle.donate()
-        }
-        
         if (toolbarController?.currentItems.count ?? 0) > 0 {
             navigationController?.setToolbarHidden(false, animated: false)
         }
         
         presentModalsIfNeeded()
+        listenForTooltips()
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
@@ -558,7 +555,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         if let tooltips = presentedViewController as? WMFTooltipViewController {
             tooltips.dismiss(animated: true)
         }
-
+        
+        
+        if isMovingFromParent {
+            Task {
+                await WTip.didTapArticleBack.donate()
+            }
+        }
 
         guard #available(iOS 18.0, *),
               UIDevice.current.userInterfaceIdiom == .pad else {
