@@ -4,6 +4,12 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 
+// Protocol that any parent view controller that sets SearchResultsViewController as its navigationItem.searchResultsController should conform to. It ensures search cancel logging happens properly.
+// Conformers to this class should properly set this flag in their viewWillDisappear methods.
+protocol SearchResultsHosting {
+    var disableSearchCancelLogging: Bool { get }
+}
+
 /// This class is designed to be used exclusively as a `UISearchController.searchResultsController`.
 class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, HintPresenting, ShareableArticlesProvider {
 
@@ -34,9 +40,11 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     // MARK: - Public configuration
 
+    typealias NeedsNewTab = Bool
+    
     /// Called whenever a search result row or long-press result is tapped. Caller is responsible
     /// for navigating to the given URL.
-    var articleTappedAction: ((URL) -> Void)?
+    var articleTappedAction: ((URL, NeedsNewTab) -> Void)?
 
     /// Called when the user selects a recently-searched term so the parent can write the text into
     /// its own search bar and activate it.
@@ -63,7 +71,10 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     private lazy var searchBarIPadCustomizer: SearchBarIPadCustomizer = {
         let customizer = SearchBarIPadCustomizer(theme: theme)
         customizer.onClearTapped = { [weak self] _ in self?.resetSearchResults() }
-        customizer.onWillDismiss = { [weak self] in self?.resetSearchResults() }
+        customizer.onWillDismiss = { [weak self] in
+            guard let self else { return }
+            resetSearchResults()
+        }
         return customizer
     }()
 
@@ -128,6 +139,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         super.viewWillAppear(animated)
         updateLanguageBarVisibility()
         reloadRecentSearches()
+        SearchFunnel.shared.logSearchStart(source: source.stringValue)
     }
 
     override func viewDidLayoutSubviews() {
@@ -360,15 +372,15 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             guard let self else { return }
             SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: self.source.stringValue)
             self.saveLastSearch()
-            self.articleTappedAction?(articleURL)
+            self.articleTappedAction?(articleURL, false)
         }
 
         vc.longPressSearchResultAndCommitAction = { [weak self] articleURL in
-            self?.articleTappedAction?(articleURL)
+            self?.articleTappedAction?(articleURL, false)
         }
 
         vc.longPressOpenInNewTabAction = { [weak self] articleURL in
-            self?.articleTappedAction?(articleURL)
+            self?.articleTappedAction?(articleURL, true)
         }
 
         return vc
@@ -539,6 +551,11 @@ extension SearchResultsViewController: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
         searchBarIPadCustomizer.willDismissSearchController(searchController)
         parentSearchControllerDelegate?.willDismissSearchController?(searchController)
+        if let searchHoster = self.presentingViewController as? SearchResultsHosting {
+            if !searchHoster.disableSearchCancelLogging { // Avoid cancel logging if search dismissal is due to navigating away
+                SearchFunnel.shared.logSearchCancel(source: source.stringValue)
+            }
+        }
     }
 
     func didPresentSearchController(_ searchController: UISearchController) {

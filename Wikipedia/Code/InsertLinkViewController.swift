@@ -50,7 +50,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL, _ in
             guard let self, let title = articleURL.wmf_title else { return }
             navigationItem.searchController?.isActive = false
             self.delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)

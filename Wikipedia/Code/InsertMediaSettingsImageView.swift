@@ -75,5 +75,6 @@ extension InsertMediaSettingsImageView: Themeable {
         imageDescriptionLabel.textColor = theme.colors.secondaryText
         titleButton.setTitleColor(theme.colors.link, for: .normal)
         separatorView.backgroundColor = theme.colors.border
+        titleButton.tintColor = theme.colors.link
     }
 }

@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFThemeable>
+@interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFThemeable, UISearchBarDelegate>
 
 @property (nonatomic, weak, nullable) id<WMFLanguagesViewControllerDelegate> delegate;
 
@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL showAllLanguages;
 @property (nonatomic, assign) BOOL showPreferredLanguages;
 @property (nonatomic, assign) BOOL showNonPreferredLanguages;
+
+@property (nonatomic, assign) BOOL hideLanguageFilter;
 
 @property (nonatomic, assign) BOOL showExploreFeedCustomizationSettings;
 
