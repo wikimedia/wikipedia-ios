@@ -60,9 +60,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
     }
 
-    // Tootltips
-    public var tooltipViewModels: [WMFTooltipViewModel] = []
-
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
         return TabsOverviewCoordinator(
