@@ -23,7 +23,7 @@ public struct WMFFormView: View {
                 }
             }
         }
-        .listStyle(GroupedListStyle())
+        .listStyle(InsetGroupedListStyle())
         .listBackgroundColor(Color(theme.baseBackground))
     }
 }
