@@ -29,7 +29,12 @@ struct WTip: Tip {
     
     @Parameter
     static var isCompactWidth: Bool = false
-    static let didTapArticleBack: Event = Event(id: "didTapArticleBack")
+    
+    @Parameter
+    static var willDisplayCampaignModal: Bool? = nil
+    
+    @Parameter
+    static var willDisplayYearInReviewModal: Bool? = nil
     
     var title: Text {
         Text(WMFLocalizedString(
@@ -54,9 +59,8 @@ struct WTip: Tip {
     var rules: [Rule] {
             [
                 #Rule(Self.$isCompactWidth) { $0 == true },
-                #Rule(Self.didTapArticleBack) { event in
-                    event.donations.donatedWithin(.minute).count >= 3
-                }
+                #Rule(Self.$willDisplayCampaignModal) { $0 == false },
+                #Rule(Self.$willDisplayYearInReviewModal) { $0 == false }
             ]
         }
 }

@@ -48,7 +48,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     private let cacheController: ArticleCacheController
 
-    internal var willDisplayFundraisingBanner: Bool = false
+    internal var willDisplayCampaignModal: Bool? {
+        didSet {
+            WTip.willDisplayCampaignModal = willDisplayCampaignModal
+        }
+    }
+    
+    internal var willDisplayYearInReviewModal: Bool? {
+        didSet {
+            WTip.willDisplayYearInReviewModal = willDisplayYearInReviewModal
+        }
+    }
 
     // Tootltips
     public var tooltipViewModels: [WMFTooltipViewModel] = []
@@ -482,8 +492,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             navigationController?.setToolbarHidden(false, animated: false)
         }
         
-        presentModalsIfNeeded()
         listenForTooltips()
+        presentModalsIfNeeded()
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
@@ -528,11 +538,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         // Year in Review modal presentations
         if needsYearInReviewAnnouncement() {
+            willDisplayYearInReviewModal = true
             updateProfileButton()
             presentYearInReviewAnnouncement()
 
         // Campaign modal presentations
         } else {
+            willDisplayYearInReviewModal = false
             showFundraisingCampaignAnnouncementIfNeeded()
         }
     }
@@ -554,13 +566,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         if let tooltips = presentedViewController as? WMFTooltipViewController {
             tooltips.dismiss(animated: true)
-        }
-        
-        
-        if isMovingFromParent {
-            Task {
-                await WTip.didTapArticleBack.donate()
-            }
         }
 
         guard #available(iOS 18.0, *),
