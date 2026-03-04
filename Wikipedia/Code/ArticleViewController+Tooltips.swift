@@ -52,11 +52,13 @@ struct WTip: Tip {
     }
     
     var rules: [Rule] {
-      [
-        #Rule(Self.$isCompactWidth) { $0 == true },
-        #Rule(Self.didTapArticleBack) { $0.donations.count >= 3 }
-      ]
-    }
+            [
+                #Rule(Self.$isCompactWidth) { $0 == true },
+                #Rule(Self.didTapArticleBack) { event in
+                    event.donations.donatedWithin(.minute).count >= 3
+                }
+            ]
+        }
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
