@@ -71,9 +71,9 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         
         let fromFrame = transitionContext.initialFrame(for: fromViewController)
         
-        fromViewController.navigationController?.setNavigationBarHidden(true, animated: false)
+        // fromViewController.navigationController?.setNavigationBarHidden(true, animated: false)
         let fromSnapshot = maybeFromISP.view.snapshotView(afterScreenUpdates: false)
-        toViewController.navigationController?.setNavigationBarHidden(false, animated: false)
+        // toViewController.navigationController?.setNavigationBarHidden(false, animated: false)
         let toSnapshot = maybeToISP.view.snapshotView(afterScreenUpdates: true)
         
         guard
