@@ -1349,6 +1349,8 @@
 "theme-default-explanation" = "Explains that the default theme matches the iOS system theme setting";
 "theme-light-display-name" = "Light theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
+"tip-history-in-search-subtitle" = "Subtitle for one-time tooltip informing users history has moved to search.";
+"tip-history-in-search-title" = "Title for one-time tooltip informing users history has moved to search.";
 "today-title" = "Title for today section on article view history";
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
