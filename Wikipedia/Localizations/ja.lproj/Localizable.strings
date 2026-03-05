@@ -73,8 +73,6 @@
 "about-repositories-app-source-license" = "ソースコードは$1で利用可能です。";
 "about-repositories-app-source-license-mit" = "MIT License";
 "about-send-feedback" = "フィードバックを送信";
-"about-testers" = "テスター";
-"about-testers-details" = "$1によって品質保証テストされました";
 "about-title" = "このアプリについて";
 "about-translators" = "翻訳者";
 "about-translators-details" = "このアプリは$1においてボランティアにより翻訳されました";
