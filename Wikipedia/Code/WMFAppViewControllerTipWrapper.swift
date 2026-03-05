@@ -9,8 +9,8 @@ import SwiftUI
     weak var tooltipVC: TipUIPopoverViewController?
     
     @objc func listenForTooltips(appViewController: WMFAppViewController, tabBarItem: UITabBarItem) {
-        tipObservationTask =  Task { @MainActor [weak self] in
-            guard let self else { return }
+        tipObservationTask =  Task { @MainActor [weak self, weak appViewController] in
+            guard let self, let appViewController else { return }
             
             for await status in tip.statusUpdates {
                 if status == .available {

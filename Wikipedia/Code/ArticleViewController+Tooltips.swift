@@ -7,7 +7,9 @@ import TipKit
 extension ArticleViewController {
 
     @objc func listenForTooltips() {
-        wTipObservationTask =  Task { @MainActor in
+        wTipObservationTask =  Task { @MainActor [weak self] in
+            guard let self else { return }
+            
             for await status in wTip.statusUpdates {
                 if status == .available {
                     if let wIcon = navigationItem.titleView {
@@ -18,6 +20,7 @@ extension ArticleViewController {
                         }
                     }
                 } else if case .invalidated = status {
+                    tooltipVC?.presentationController?.delegate = nil
                     tooltipVC?.dismiss(animated: true)
                     tooltipVC = nil
                     break

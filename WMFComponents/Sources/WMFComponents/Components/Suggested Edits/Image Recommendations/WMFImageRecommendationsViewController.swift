@@ -292,7 +292,10 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     
     private func listenToTooltip1(dismissAction: @escaping () -> Void) {
         
-        autoTip1ObservationTask =  Task { @MainActor in
+        autoTip1ObservationTask =  Task { @MainActor [weak self] in
+            
+            guard let self else { return }
+            
             for await status in autoTip1.statusUpdates {
                 if status == .available {
                     let popoverController = TipUIPopoverViewController(autoTip1, sourceItem: divTargetView)
@@ -303,6 +306,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                     }
                 } else if case .invalidated = status {
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
+                        tooltipVC?.presentationController?.delegate = nil
                         tooltipVC?.dismiss(animated: true) {
                             dismissAction()
                         }
@@ -316,7 +320,10 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     }
     
     private func listenToTooltip2(bottomSheetView: UIView, dismissAction: @escaping () -> Void) {
-        autoTip2ObservationTask = Task { @MainActor in
+        autoTip2ObservationTask = Task { @MainActor [weak self, weak bottomSheetView] in
+            
+            guard let self, let bottomSheetView else { return }
+            
             Tip2.enableTip = true
             for await status in self.autoTip2.statusUpdates {
                 if status == .available {
@@ -327,6 +334,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                     }
                 } else if case .invalidated = status {
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
+                        tooltipVC?.presentationController?.delegate = nil
                         tooltipVC?.dismiss(animated: true) {
                                 dismissAction()
                         }
@@ -340,7 +348,10 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     }
     
     private func listenToTooltip3(toolbarView: UIView) {
-        autoTip3ObservationTask = Task { @MainActor in
+        autoTip3ObservationTask = Task { @MainActor [weak self, weak toolbarView] in
+            
+            guard let self, let toolbarView else { return }
+            
             Tip3.enableTip = true
             for await status in self.autoTip3.statusUpdates {
                 if status == .available {
@@ -350,6 +361,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         popoverController.presentationController?.delegate = self
                     }
                 } else if case .invalidated = status {
+                    tooltipVC?.presentationController?.delegate = nil
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
                         tooltipVC?.dismiss(animated: true) {
                             self.autoTip1ObservationTask?.cancel()
