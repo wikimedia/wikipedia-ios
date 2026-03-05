@@ -45,7 +45,7 @@ final public class WMFSettingsViewController: WMFCanvasViewController, WMFNaviga
             alignment: .leadingCompact
         )
 
-        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(tappedDone), alignment: .trailing)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(tappedDone), alignment: .trailing)
 
         configureNavigationBar(
             titleConfig: titleConfig,
