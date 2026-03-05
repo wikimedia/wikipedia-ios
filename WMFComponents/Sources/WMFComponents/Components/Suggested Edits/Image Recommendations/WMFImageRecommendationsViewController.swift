@@ -104,6 +104,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     fileprivate var autoTip1ObservationTask: Task<Void, Never>?
     fileprivate var autoTip2ObservationTask: Task<Void, Never>?
     fileprivate var autoTip3ObservationTask: Task<Void, Never>?
+    private weak var tooltipVC: TipUIPopoverViewController?
 
     public init(viewModel: WMFImageRecommendationsViewModel, delegate: WMFImageRecommendationsDelegate, loggingDelegate: WMFImageRecommendationsLoggingDelegate) {
         self.hostingViewController = WMFImageRecommendationsHostingViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate, tooltipGeometryValues: tooltipGeometryValues)
@@ -296,13 +297,14 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                 if status == .available {
                     let popoverController = TipUIPopoverViewController(autoTip1, sourceItem: divTargetView)
                     popoverController.popoverPresentationController?.permittedArrowDirections = .up
+                    tooltipVC = popoverController
                     presentedViewController?.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
                     }
                 } else if case .invalidated = status {
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
-                        presentedViewController?.presentedViewController?.dismiss(animated: true) {
-                                dismissAction()
+                        tooltipVC?.dismiss(animated: true) {
+                            dismissAction()
                         }
                     } else { // already dismissed by tapping background, we still need to call action to present the next tip.
                         dismissAction()
@@ -319,12 +321,13 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             for await status in self.autoTip2.statusUpdates {
                 if status == .available {
                     let popoverController = TipUIPopoverViewController(self.autoTip2, sourceItem: bottomSheetView)
+                    tooltipVC = popoverController
                     self.presentedViewController?.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
                     }
                 } else if case .invalidated = status {
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
-                        presentedViewController?.presentedViewController?.dismiss(animated: true) {
+                        tooltipVC?.dismiss(animated: true) {
                                 dismissAction()
                         }
                     } else { // already dismissed by tapping background, we still need to call action to present the next tip.
@@ -342,12 +345,13 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             for await status in self.autoTip3.statusUpdates {
                 if status == .available {
                     let popoverController = TipUIPopoverViewController(self.autoTip3, sourceItem: toolbarView)
+                    tooltipVC = popoverController
                     self.presentedViewController?.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
                     }
                 } else if case .invalidated = status {
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
-                        presentedViewController?.presentedViewController?.dismiss(animated: true) {
+                        tooltipVC?.dismiss(animated: true) {
                             self.autoTip1ObservationTask?.cancel()
                             self.autoTip1ObservationTask = nil
                             self.autoTip2ObservationTask?.cancel()
@@ -364,6 +368,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         self.autoTip3ObservationTask = nil
                     }
                     self.dataController.hasPresentedOnboardingTooltips = true
+                    self.tooltipVC = nil
                     break
                 }
             }

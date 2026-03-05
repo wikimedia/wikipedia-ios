@@ -184,6 +184,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     var wTip = WTip()
     var wTipObservationTask: Task<Void, Never>?
+    weak var tooltipVC: TipUIPopoverViewController?
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 

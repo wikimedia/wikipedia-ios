@@ -12,12 +12,14 @@ extension ArticleViewController {
                 if status == .available {
                     if let wIcon = navigationItem.titleView {
                         let popoverController = TipUIPopoverViewController(wTip, sourceItem: wIcon)
+                        self.tooltipVC = popoverController
                         present(popoverController, animated: true) {
                             popoverController.presentationController?.delegate = self
                         }
                     }
                 } else if case .invalidated = status {
-                        dismiss(animated: true)
+                    tooltipVC?.dismiss(animated: true)
+                    tooltipVC = nil
                     break
                 }
             }
