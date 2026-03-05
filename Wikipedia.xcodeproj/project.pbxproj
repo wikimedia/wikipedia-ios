@@ -710,9 +710,6 @@
 		679BC8512C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
 		679BC8522C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
 		679BC8532C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
-		679E6F9E2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */; };
-		679E6F9F2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */; };
-		679E6FA02C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */; };
 		679E6FA62C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */; };
 		679E6FA72C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */; };
 		679E6FA82C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */; };
@@ -3356,7 +3353,6 @@
 		679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFHCaptchaViewController.swift; sourceTree = "<group>"; };
 		679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryCountsView.xib; sourceTree = "<group>"; };
 		679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryCountsViewController.xib; sourceTree = "<group>"; };
-		679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Popover.swift"; sourceTree = "<group>"; };
 		679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFBarButtonItemPopoverMessageViewController+Extensions.swift"; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
@@ -7118,7 +7114,6 @@
 		B0DE92301D6E3A2000EC76A7 /* UIBarButtonItem Popover Message */ = {
 			isa = PBXGroup;
 			children = (
-				679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */,
 				67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */,
 				B0DE92281D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.h */,
 				B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */,
@@ -10441,7 +10436,6 @@
 				B0C6BE4A1E42D19D0033BD6E /* WMFCaptchaViewController.swift in Sources */,
 				83DE45B92449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				67DC5BEF23A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
-				679E6F9E2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */,
 				7A6ED51220ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				83B01F9523DB41D7001185F4 /* ArticleViewController+FindInPage.swift in Sources */,
 				B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */,
@@ -10936,7 +10930,6 @@
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				676C869526D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */,
 				00D46DA72889B7F50015DE9B /* TalkPageView.swift in Sources */,
-				679E6FA02C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */,
 				7ABE17192239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				D858C7B7210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				D8CE24EC1E698E2400DAE2E0 /* PlacesViewController.swift in Sources */,
@@ -11497,7 +11490,6 @@
 				676C869426D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */,
 				7ABE171A2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				00D46DA62889B7F50015DE9B /* TalkPageView.swift in Sources */,
-				679E6F9F2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */,
 				B0CD9DE51F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				D8EC3DE31E9BDA35006712EB /* PlacesViewController.swift in Sources */,
 				83B5DF9A29F6C7E300F8329D /* EditAttemptFunnel.swift in Sources */,

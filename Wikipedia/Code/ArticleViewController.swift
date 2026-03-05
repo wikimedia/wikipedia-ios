@@ -562,10 +562,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         stopSignificantlyViewedTimer()
         persistPageViewedSecondsForWikipediaInReview()
 
-        if let tooltips = presentedViewController as? WMFTooltipViewController {
-            tooltips.dismiss(animated: true)
-        }
-
         guard #available(iOS 18.0, *),
               UIDevice.current.userInterfaceIdiom == .pad else {
             return

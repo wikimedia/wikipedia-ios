@@ -113,9 +113,9 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         self.viewModel = viewModel
         self.imageRecommendationBottomSheetController = WMFImageRecommendationsBottomSheetViewController(viewModel: viewModel, delegate: delegate, loggingDelegate: loggingDelegate)
         
-        self.autoTip1 = Tip1(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.firstTooltipStrings.title, localizedMessage: viewModel.localizedStrings.firstTooltipStrings.body)
-        self.autoTip2 = Tip2(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.secondTooltipStrings.title, localizedMessage: viewModel.localizedStrings.secondTooltipStrings.body)
-        self.autoTip3 = Tip3(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.thirdTooltipStrings.title, localizedMessage: viewModel.localizedStrings.thirdTooltipStrings.body)
+        self.autoTip1 = Tip1(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.tooltipStrings.tooltip1Title, localizedMessage: viewModel.localizedStrings.tooltipStrings.tooltip1Body)
+        self.autoTip2 = Tip2(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.tooltipStrings.tooltip2Title, localizedMessage: viewModel.localizedStrings.tooltipStrings.tooltip2Body)
+        self.autoTip3 = Tip3(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.tooltipStrings.tooltip3Title, localizedMessage: viewModel.localizedStrings.tooltipStrings.tooltip3Body)
         
         super.init()
         hidesBottomBarWhenPushed = true
@@ -260,9 +260,9 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             autoTip3ObservationTask?.cancel()
             autoTip3ObservationTask = nil
             
-            autoTip1 = Tip1(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.firstTooltipStrings.title, localizedMessage: viewModel.localizedStrings.firstTooltipStrings.body)
-            autoTip2 = Tip2(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.secondTooltipStrings.title, localizedMessage: viewModel.localizedStrings.secondTooltipStrings.body)
-            autoTip3 = Tip3(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.thirdTooltipStrings.title, localizedMessage: viewModel.localizedStrings.thirdTooltipStrings.body)
+            autoTip1 = Tip1(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.tooltipStrings.tooltip1Title, localizedMessage: viewModel.localizedStrings.tooltipStrings.tooltip1Body)
+            autoTip2 = Tip2(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.tooltipStrings.tooltip2Title, localizedMessage: viewModel.localizedStrings.tooltipStrings.tooltip2Body)
+            autoTip3 = Tip3(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.tooltipStrings.tooltip3Title, localizedMessage: viewModel.localizedStrings.tooltipStrings.tooltip3Body)
             
             Tip1.enableTip = false
             Tip2.enableTip = false
