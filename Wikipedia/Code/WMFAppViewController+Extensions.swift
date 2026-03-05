@@ -598,6 +598,7 @@ extension WMFAppViewController {
         migrateAutoSignTalkPageDiscussions()
         migrateShowLanguageBar()
         migrateOpenAppOnSearchTab()
+        migrateIsSubscribedToEchoNotifications()
 
         Task(priority: .userInitiated) {
             do {
@@ -662,6 +663,17 @@ extension WMFAppViewController {
         Task {
             await settingsDataController.setOpenAppOnSearchTab(legacyValue)
         }
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateIsSubscribedToEchoNotifications() {
+        let legacyKey = "WMFIsSubscribedToEchoNotifications"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        let store = WMFDataEnvironment.current.userDefaultsStore
+        try? store?.save(key: WMFUserDefaultsKey.isSubscribedToEchoNotifications.rawValue, value: legacyValue)
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 

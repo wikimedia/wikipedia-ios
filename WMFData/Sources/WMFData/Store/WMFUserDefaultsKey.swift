@@ -39,4 +39,5 @@ public enum WMFUserDefaultsKey: String {
     case autoSignTalkPageDiscussions = "auto-sign-talk-page-discussions"
     case showSearchLanguageBar = "show-search-language-bar"
     case openAppOnSearchTab = "open-app-on-search-tab"
+    case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
 }

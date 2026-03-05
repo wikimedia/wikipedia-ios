@@ -30,15 +30,15 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
 
     public let localizedStrings: LocalizedStrings
 
-    private let userDefaultsKey = "WMFIsSubscribedToEchoNotifications"
-    private let userDefaults: UserDefaults
+    private let userDefaultsKey = WMFUserDefaultsKey.isSubscribedToEchoNotifications.rawValue
+    private let userDefaultsStore: WMFKeyValueStore?
     public var onRequestPermissions: (() -> Void)?
     public var onUnsubscribe: (() -> Void)?
     public var onOpenSystemSettings: (() -> Void)?
 
-    public init(localizedStrings: LocalizedStrings, userDefaults: UserDefaults = .standard, onRequestPermissions: (() -> Void)? = nil, onUnsubscribe: (() -> Void)? = nil, onOpenSystemSettings: (() -> Void)? = nil) {
+    public init(localizedStrings: LocalizedStrings, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, onRequestPermissions: (() -> Void)? = nil, onUnsubscribe: (() -> Void)? = nil, onOpenSystemSettings: (() -> Void)? = nil) {
         self.localizedStrings = localizedStrings
-        self.userDefaults = userDefaults
+        self.userDefaultsStore = userDefaultsStore
         self.onRequestPermissions = onRequestPermissions
         self.onUnsubscribe = onUnsubscribe
         self.onOpenSystemSettings = onOpenSystemSettings
@@ -54,7 +54,7 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
         switch settings.authorizationStatus {
         case .authorized, .provisional, .ephemeral:
             permissionStatus = .authorized
-            isPushEnabled = userDefaults.bool(forKey: userDefaultsKey)
+            isPushEnabled = (try? userDefaultsStore?.load(key: userDefaultsKey)) ?? false
         case .notDetermined:
             permissionStatus = .notDetermined
             isPushEnabled = false
@@ -132,18 +132,17 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
         } else {
             // Unsubscribe
             isPushEnabled = false
-            userDefaults.set(false, forKey: userDefaultsKey)
+            try? userDefaultsStore?.save(key: userDefaultsKey, value: false)
             onUnsubscribe?()
         }
-        
-        // Reload to update UI based on new permission status
+
         await loadAndBuild()
     }
 
     public func refreshAfterPermissionRequest(granted: Bool) async {
         if granted {
             isPushEnabled = true
-            userDefaults.set(true, forKey: userDefaultsKey)
+            try? userDefaultsStore?.save(key: userDefaultsKey, value: true)
         }
         await loadAndBuild()
     }
