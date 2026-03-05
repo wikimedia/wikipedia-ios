@@ -34,8 +34,6 @@
 "about-repositories-app-source-license" = "Kildekode tilgængelig under $1";
 "about-repositories-app-source-license-mit" = "MIT licens";
 "about-send-feedback" = "Send tilbagemelding om app";
-"about-testers" = "testere";
-"about-testers-details" = "Kvalitetssikringstestet af $1";
 "about-title" = "Om";
 "about-translators" = "oversættere";
 "about-translators-details" = "Oversat af frivillige på $1";
@@ -91,8 +89,10 @@
 "activity-tab-add-images-subtitle" = "Tilføj foreslåede billeder til Wikipedia-artikler for at forbedre forståelsen.";
 "activity-tab-add-images-title" = "Tilføj billeder";
 "activity-tab-additional-thoughts" = "Yderligere tanker?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1| $1 visning| $1 visninger}}";
 "activity-tab-articles-read" = "Artikler læst denne måned";
 "activity-tab-articles-read-graph-label" = "Artikler";
+"activity-tab-customize-all-time-impact" = "Alle tiders indflydelse";
 "activity-tab-email-fifth-line" = "[Skærmbilleder eller links]";
 "activity-tab-email-first-line" = "Jeg har oplevet et problem med funktionen Aktivitetsfane:";
 "activity-tab-email-fourth-line" = "[Beskriv ønsket adfærd]";
@@ -104,6 +104,7 @@
 "activity-tab-generic-no-edits" = "Du har ikke redigeret i denne uge. Start nu med at spore dine bidrag.";
 "activity-tab-hours-minutes-read" = "$1 time $2 min";
 "activity-tab-hours-on-wikipedia-ios" = "PÅ WIKIPEDIA iOS";
+"activity-tab-impact-views-day" = "Dag";
 "activity-tab-impact-views-views" = "Visninger";
 "activity-tab-log-in-or-create-account" = "Log ind eller opret en konto for at se mere redigerings- og læseaktivitet.";
 "activity-tab-logged-out-subtitle" = "Log ind eller opret en konto for at se dine aktiviteter i Wikipedia appen.";
@@ -142,6 +143,7 @@
 "activity-tab-you-edited" = "Du redigerede {{PLURAL:$1|$1 gang|$1 gange}} i denne uge.";
 "activity-tab-you-read" = "Du læste {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
 "activity-tab-you-saved" = "Du gemte {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
+"activity-tab-your-impact" = "Din indflydelse";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
 "advanced-settings-title" = "Avancerede indstillinger";
 "alert-temporary-account" = "Du bruger en midlertidig konto. Kontoen udløber efter 90 dage.";
@@ -699,6 +701,7 @@
 "insert-media-image-type-settings-title" = "Billedetype";
 "insert-media-media-settings-title" = "Medieindstillinger";
 "insert-media-title" = "Indsæt medie";
+"ip-account-warning-title" = "Du er ikke logget ind";
 "languages-settings-title" = "Sprog";
 "languages-title" = "Skift sprog";
 "languages-wikipedia" = "Wikipediasprog";
@@ -1180,6 +1183,7 @@
 "vanish-account-continue-button-title" = "Fortsæt";
 "vanish-account-warning-title" = "Advarsel";
 "variants-alert-dismiss-button" = "Nej tak";
+"view-changes" = "Vis ændringer";
 "watch" = "Overvåg";
 "watchlist" = "Overvågningsliste";
 "watchlist-added-toast-one-month" = "Tilføjet til din overvågningsliste i 1 måned.";

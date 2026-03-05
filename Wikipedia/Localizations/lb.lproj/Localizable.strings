@@ -22,8 +22,6 @@
 "about-repositories-app-source-license" = "Quellcode disponibel ënner enger $1.";
 "about-repositories-app-source-license-mit" = "MIT-Lizenz";
 "about-send-feedback" = "Feedback vun der App schécken";
-"about-testers" = "Benotzer, déi testen";
-"about-testers-details" = "QA getest vum $1";
 "about-title" = "Iwwer";
 "about-translators" = "Iwwersetzer";
 "about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
@@ -424,9 +422,9 @@
 "featured-widget-from-wikipedia" = "Vun der Wikipedia";
 "fetcher-error-generic" = "Et ass eppes schifgaangen. Probéiert wgl. méi spéit nach eng Kéier.";
 "fetcher-error-unexpected-response" = "D'App krut eng onerwaart Äntwert vum Server. Probéiert wgl. méi spéit nach eng Kéier.";
-"field-alert-captcha-invalid" = "Net valabele CAPTCHA";
+"field-alert-captcha-invalid" = "Ongültege CAPTCHA";
 "field-alert-password-confirm-mismatch" = "D'Passwierder, déi Dir aginn hutt, sinn net identesch";
-"field-alert-token-invalid" = "Net valabele Code";
+"field-alert-token-invalid" = "Ongültege Code";
 "field-alert-username-unavailable" = "Benotzernumm net disponibel";
 "field-backup-token-title" = "Backup-Code";
 "field-backup-token-title-email" = "E-Mail-Code";
