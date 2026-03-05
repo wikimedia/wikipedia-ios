@@ -460,6 +460,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.userDidTapCancelEditingAllArticles))
                     cancelButton.tintColor = theme.colors.link
                     self.navigationItem.rightBarButtonItems = [cancelButton]
+                    ReadingListsFunnel.shared.logTappedEditButton()
                 } else {
                     self.configureNavigationBar()
                 }
