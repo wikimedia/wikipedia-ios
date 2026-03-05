@@ -74,7 +74,7 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
         readingListsViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(readingListsViewController.view)
         NSLayoutConstraint.activate([
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: readingListsViewController.view.topAnchor),
+            view.topAnchor.constraint(equalTo: readingListsViewController.view.topAnchor),
             view.leadingAnchor.constraint(equalTo: readingListsViewController.view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: readingListsViewController.view.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: readingListsViewController.view.bottomAnchor)
