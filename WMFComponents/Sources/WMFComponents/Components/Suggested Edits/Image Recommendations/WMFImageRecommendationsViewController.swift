@@ -279,7 +279,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         
         let littleView = UIView()
         littleView.translatesAutoresizingMaskIntoConstraints = false
-        littleView.backgroundColor = .green
+        littleView.backgroundColor = .clear
         view.addSubview(littleView)
         NSLayoutConstraint.activate([
             view.leadingAnchor.constraint(equalTo: littleView.leadingAnchor, constant: -(divGlobalFrame.minX + CGFloat(25))),
