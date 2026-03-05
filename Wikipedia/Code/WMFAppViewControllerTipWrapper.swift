@@ -15,7 +15,20 @@ import SwiftUI
         return view
     }()
     
+    var tooltipEndDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.month = 5
+        dateComponents.day = 1
+        dateComponents.year = 2026
+        return Calendar.current.date(from: dateComponents)
+    }
+    
     @objc func listenForTooltips(appViewController: WMFAppViewController, tabBarItem: UITabBarItem) {
+        
+        guard let endDate = tooltipEndDate,
+              Date.now < endDate else {
+            return
+        }
     
         // It seems like tabBarItem does not have a recognizable frame on iPad for TipUIPopoverViewController to point to. We are going to add a fake view that is about the area of the center of the tab bar, and remove the popover arrows.
         
