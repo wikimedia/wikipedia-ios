@@ -285,9 +285,6 @@
 		00EACEC628E39D470054DDB4 /* TalkPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */; };
 		00EACEC728E39D470054DDB4 /* TalkPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */; };
 		00EACEC828E39D470054DDB4 /* TalkPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */; };
-		00F5AED027C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
-		00F5AED127C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
-		00F5AED227C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
 		00FCB2BE26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
 		00FCB2BF26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
 		00FCB2C026D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
@@ -3096,7 +3093,6 @@
 		00E75B7027EB92F600A45B78 /* NotificationsCenterDetailContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailContentCell.swift; sourceTree = "<group>"; };
 		00E75B7527EB946D00A45B78 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		00EACEC528E39D470054DDB4 /* TalkPageEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageEmptyView.swift; sourceTree = "<group>"; };
-		00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSettingsViewController.swift; sourceTree = "<group>"; };
 		00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCell.swift; sourceTree = "<group>"; };
 		00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModel.swift; sourceTree = "<group>"; };
 		00FCCBC4290082C200C9ECD2 /* TalkPageFindInPageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFindInPageState.swift; sourceTree = "<group>"; };
@@ -8196,7 +8192,6 @@
 		D84BF6281DB96D4700E0C85E /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -10079,7 +10074,6 @@
 				7AF6F76622395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				B0524B51214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */,
-				00F5AED027C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */,
 				B0B423611EF9D69C00D3DC4C /* OnThisDayViewController.swift in Sources */,
 				0042813125E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				6730D8DF2A05BFB50035255B /* EditorViewController.swift in Sources */,
@@ -11319,7 +11313,6 @@
 				D8A47C8623D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				D8CE25F61E698E2400DAE2E0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				672FC4272DD4E66C006D5DE2 /* FirstRandomViewController.swift in Sources */,
-				00F5AED227C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */,
 				83FBE9761F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				0042813F25E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				679471DC275F245000621071 /* NotificationsCenterInboxView.swift in Sources */,
@@ -11873,7 +11866,6 @@
 				D8A47C8723D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				672FC4252DD4E66C006D5DE2 /* FirstRandomViewController.swift in Sources */,
 				D8EC3EF21E9BDA35006712EB /* NSAttributedString+WMFModify.m in Sources */,
-				00F5AED127C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */,
 				0042813E25E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				679471DE275F245900621071 /* NotificationsCenterInboxView.swift in Sources */,
 				7A8422492268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
