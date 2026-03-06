@@ -96,16 +96,12 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
     }
     private var selectedCellsCount = 0
 
-    private var pageHistoryHintController: PageHistoryHintController? {
-        return hintController as? PageHistoryHintController
-    }
-
     private var state: State = .idle {
         didSet {
             switch state {
             case .idle:
                 selectedCellsCount = 0
-                pageHistoryHintController?.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
+                self.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
                 openSelectionIndex = 0
                 UIView.performWithoutAnimation {
                     self.navigationItem.rightBarButtonItem = compareButton
@@ -163,7 +159,6 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        hintController = PageHistoryHintController()
 
         navigationItem.rightBarButtonItem = compareButton
 
@@ -642,7 +637,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         switch state {
         case .editing:
             if maxNumberOfRevisionsSelected {
-                pageHistoryHintController?.hide(false, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
+                self.hide(false, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
                 if !postedMaxRevisionsSelectedAccessibilityNotification {
                     UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.maxRevisionsSelectedWarningTitle)
                     postedMaxRevisionsSelectedAccessibilityNotification = true
@@ -761,7 +756,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedCellsCount -= 1
-        pageHistoryHintController?.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
+        self.hide(true, presenter: self, subview: comparisonSelectionViewController.view, additionalBottomSpacing: comparisonSelectionViewController.view.frame.height - view.safeAreaInsets.bottom, theme: theme)
 
         if let cell = collectionView.cellForItem(at: indexPath) as? PageHistoryCollectionViewCell, let selectionOrder = cell.selectionOrder {
             indexPathsSelectedForComparisonGroupedByButtonTags.removeValue(forKey: selectionOrder.rawValue)
@@ -782,6 +777,32 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         comparisonSelectionViewController.setCompareButtonEnabled(maxNumberOfRevisionsSelected)
     }
 
+
+    @objc func hide(_ hide: Bool, presenter: UIViewController, subview: UIView, additionalBottomSpacing: CGFloat, theme: Theme) {
+        self.theme = theme
+
+        if hide {
+            Task { @MainActor in
+                WMFToastManager.sharedInstance.dismissToast()
+            }
+        } else {
+            showWarningAlert()
+        }
+    }
+
+    // MARK: - Private Methods
+
+    private func showWarningAlert() {
+        Task { @MainActor in
+            WMFToastManager.sharedInstance.showToastWithMessage(
+                CommonStrings.maxRevisionsSelectedWarningTitle,
+                subtitle: nil,
+                image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill),
+                dismissPreviousToasts: true
+            )
+        }
+    }
+
     // MARK: Error handling
 
     private func showNoInternetConnectionAlertOrOtherWarning(from error: Error, noInternetConnectionAlertMessage: String = CommonStrings.noInternetConnection) {
@@ -790,13 +811,13 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                 if UIAccessibility.isVoiceOverRunning {
                     UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
                 } else {
-                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousAlerts: true)
+                    WMFToastManager.sharedInstance.showErrorToastWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousToasts: true)
                 }
             } else {
                 if UIAccessibility.isVoiceOverRunning {
                     UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
                 } else {
-                    WMFAlertManager.sharedInstance.showErrorAlertWithMessage(error.localizedDescription, sticky: true, dismissPreviousAlerts: true)
+                    WMFToastManager.sharedInstance.showErrorToastWithMessage(error.localizedDescription, sticky: true, dismissPreviousToasts: true)
                 }
             }
         }

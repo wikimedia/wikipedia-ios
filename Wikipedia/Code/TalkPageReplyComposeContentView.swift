@@ -418,7 +418,7 @@ extension TalkPageReplyComposeContentView: UITextViewDelegate {
         if let wikiHasTempAccounts, wikiHasTempAccounts {
             if authState == .ip || authState == .temp {
                 // Dismiss warning toast
-                WMFAlertManager.sharedInstance.dismissAlert()
+                WMFToastManager.sharedInstance.dismissToast()
                 bottomContainerConstraint?.constant = 5
             }
         }
