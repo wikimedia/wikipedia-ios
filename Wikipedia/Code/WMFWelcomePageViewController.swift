@@ -132,10 +132,16 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         nextButton.titleLabel?.numberOfLines = 1
         nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
+        
+        if #available(iOS 26, *) {
+            nextButton.configuration = .glass()
+        }
 
         view.addSubview(nextButton)
         nextButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
+        NSLayoutConstraint.activate([
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        ])
         
         let leading = NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: buttonCenterXOffset)
         leading.priority = .defaultHigh
@@ -153,8 +159,14 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
+        NSLayoutConstraint.activate([
+            skipButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        ])
 
+        if #available(iOS 26, *) {
+            skipButton.configuration = .glass()
+        }
+        
         let leading = NSLayoutConstraint(item: skipButton, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .leading, multiplier: 1, constant: buttonSidePadding)
         leading.priority = .required
         let trailing = NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -buttonCenterXOffset)
