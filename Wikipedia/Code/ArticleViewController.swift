@@ -5,7 +5,8 @@ import WMFComponents
 import WMFData
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding, SearchResultsHosting {
+
     enum ViewState {
         case initial
         case loading
@@ -173,6 +174,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     private var isMainPage: Bool {
         articleURL.wmf_title == "Main Page"
     }
+    
+    var disableSearchCancelLogging: Bool = false
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
@@ -532,7 +535,14 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if !isMovingFromParent {
+            disableSearchCancelLogging = true
+        }
+        
         navigationItem.searchController = nil
+        disableSearchCancelLogging = false
+        
         navigationController?.setToolbarHidden(true, animated: true)
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
@@ -783,7 +793,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL in
+        searchResultsVC.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let navVC = navigationController else { return }
             let coordinator = LinkCoordinator(
                 navigationController: navVC,
@@ -791,7 +801,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
                 dataStore: dataStore,
                 theme: theme,
                 articleSource: .search,
-                tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
             )
             let success = coordinator.start()
             if !success {
@@ -1622,6 +1632,5 @@ extension ArticleViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
-        SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }

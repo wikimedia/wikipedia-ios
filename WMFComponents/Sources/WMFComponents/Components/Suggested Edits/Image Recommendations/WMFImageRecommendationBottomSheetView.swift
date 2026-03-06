@@ -117,11 +117,21 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
     }()
 
     lazy var yesToolbarButton: UIBarButtonItem = {
-        return customToolbarButton(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: .callout), text: viewModel.yesButtonTitle, selector: #selector(didPressYesButton))
+        let button = customToolbarButton(image: WMFSFSymbolIcon.for(symbol: .checkmark, font: .callout), text: viewModel.yesButtonTitle, selector: #selector(didPressYesButton))
+        if #available(iOS 26.0, *) {
+            button.hidesSharedBackground = true
+            button.sharesBackground = false
+        }
+        return button
     }()
 
     lazy var noToolbarButton: UIBarButtonItem = {
-        return customToolbarButton(image: WMFSFSymbolIcon.for(symbol: .xMark, font: .callout), text: viewModel.noButtonTitle, selector: #selector(didPressNoButton))
+        let button = customToolbarButton(image: WMFSFSymbolIcon.for(symbol: .xMark, font: .callout), text: viewModel.noButtonTitle, selector: #selector(didPressNoButton))
+        if #available(iOS 26.0, *) {
+            button.hidesSharedBackground = true
+            button.sharesBackground = false
+        }
+        return button
     }()
 
     lazy var notSureToolbarButton: UIBarButtonItem = {
@@ -134,6 +144,10 @@ public class WMFImageRecommendationBottomSheetView: WMFComponentView {
         ]
 
         barButton.setTitleTextAttributes(attributes, for: .normal)
+        if #available(iOS 26.0, *) {
+            barButton.hidesSharedBackground = true
+            barButton.sharesBackground = false
+        }
         return barButton
     }()
 
