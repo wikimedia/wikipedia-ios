@@ -111,6 +111,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
 
+@property (nonatomic, strong) WMFAppViewControllerTipWrapper *tipWrapper;
+
 @end
 
 @implementation WMFAppViewController
@@ -133,6 +135,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         self.router = [[WMFViewControllerRouter alloc] initWithAppViewController:self router:self.configuration.router];
         _tabItemIdentifiersToDelete = [NSMutableArray array];
         _tabIdentifiersToDelete = [NSMutableArray array];
+        _tipWrapper = [[WMFAppViewControllerTipWrapper alloc] init];
     }
     return self;
 }
@@ -326,6 +329,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
+    
+    if (self.searchTabViewController.tabBarItem != nil) {
+        [self.tipWrapper listenForTooltipsWithAppViewController:self tabBarItem:self.searchTabViewController.tabBarItem];
+    }
 }
 
 - (void)configureTabController {
@@ -892,6 +899,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self triggerMigratingAnimation];
         }
 
+        [self setupTips];
         [self setupWMFDataEnvironment];
         [self setupWMFDataCoreDataStore];
 

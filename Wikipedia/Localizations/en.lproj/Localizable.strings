@@ -934,8 +934,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
 "open-article" = "Open article";
-"open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
-"open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
@@ -1241,8 +1239,6 @@
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
 "tabs-open-tab" = "Open tab";
-"tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
-"tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-show-suggested-articles" = "Show article suggestions";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Suggestions are now hidden";
 "tabs-survey-title" = "Help improve tabs. Are you satisfied with this feature?";
@@ -1346,6 +1342,8 @@
 "theme-default-explanation" = "Matches system theme";
 "theme-light-display-name" = "Light";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Find your reading history in the Search tab.";
+"tip-history-in-search-title" = "History moved to Search";
 "today-title" = "Today";
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";

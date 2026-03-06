@@ -13,7 +13,6 @@ public enum WMFUserDefaultsKey: String {
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide-v3"
     case tappedYIR = "tapped-yir"
     case forceEmailAuth = "force-email-auth"
-    case articleTabsOnboarding = "article-tabs-onboarding"
     case articleTabRestoration = "article-tab-restoration"
     case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
     case articleTabsOverviewOpenedCountBandC = "article-tabs-overview-opened-count-b-and-c"

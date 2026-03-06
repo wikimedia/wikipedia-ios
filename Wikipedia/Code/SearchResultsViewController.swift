@@ -238,6 +238,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         }
 
         view.setNeedsLayout()
+        
+        MoreLanguagesTip.searchLanguagesBarIsVisible = shouldShow
     }
 
     override func viewSafeAreaInsetsDidChange() {

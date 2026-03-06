@@ -7,12 +7,10 @@ extension ArticleViewController {
 
     func showFundraisingCampaignAnnouncementIfNeeded() {
 
-        // Tooltips might unintentionally suppress campaign modals
-        guard !needsTooltips() else { return }
-
         guard let countryCode = Locale.current.region?.identifier,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
            let wmfProject = wikimediaProject.wmfProject else {
+            willDisplayCampaignModal = false
             return
         }
 
@@ -22,6 +20,7 @@ extension ArticleViewController {
             let isOptedIn = await fundraisingDataController.isOptedIn(project: wmfProject)
 
             guard let activeCampaignAsset = fundraisingDataController.loadActiveCampaignAsset(countryCode: countryCode, wmfProject: wmfProject, currentDate: .now) else {
+                willDisplayCampaignModal = false
                 return
             }
 
@@ -32,15 +31,17 @@ extension ArticleViewController {
             }
 
             guard isOptedIn else {
+                willDisplayCampaignModal = false
                 return
             }
 
             guard !userDonatedWithinLast250Days() else {
+                willDisplayCampaignModal = false
                 return
             }
 
 
-            willDisplayFundraisingBanner = true
+            willDisplayCampaignModal = true
 
             showNewDonateExperienceCampaignModal(asset: activeCampaignAsset, project: wikimediaProject)
         }

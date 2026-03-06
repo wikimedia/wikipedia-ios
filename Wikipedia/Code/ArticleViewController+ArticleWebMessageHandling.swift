@@ -57,8 +57,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
     func handlePCSDidFinishInitialSetup() {
         let oldState = state
         state = .loaded
-        
-        presentTooltipsIfNeeded()
 
         refreshControl.endRefreshing()
         loadSummary(oldState: oldState)

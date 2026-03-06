@@ -291,26 +291,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
     @objc func wmf_setDidShowWIconPopover(_ shown: Bool) {
         self.set(NSNumber(value: shown as Bool), forKey: "ShowWIconPopover")
     }
-    
-    @objc func wmf_didShowWIconPopover() -> Bool {
-        if let enabled = self.object(forKey: "ShowWIconPopover") as? NSNumber {
-            return enabled.boolValue
-        } else {
-            return false
-        }
-    }
-    
-    @objc func wmf_setDidShowMoreLanguagesTooltip(_ shown: Bool) {
-        self.set(NSNumber(value: shown as Bool), forKey: "ShowMoreLanguagesTooltip")
-    }
-    
-    @objc func wmf_didShowMoreLanguagesTooltip() -> Bool {
-        if let enabled = self.object(forKey: "ShowMoreLanguagesTooltip") as? NSNumber {
-            return enabled.boolValue
-        } else {
-            return false
-        }
-    }
 
     @objc func wmf_setTableOfContentsIsVisibleInline(_ visibleInline: Bool) {
         self.set(NSNumber(value: visibleInline as Bool), forKey: "TableOfContentsIsVisibleInline")

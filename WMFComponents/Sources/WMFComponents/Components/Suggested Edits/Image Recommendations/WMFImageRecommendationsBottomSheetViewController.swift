@@ -6,7 +6,6 @@ final public class WMFImageRecommendationsBottomSheetViewController: WMFCanvasVi
     // MARK: Properties
 
     public var viewModel: WMFImageRecommendationsViewModel
-    public var tooltipViewModels: [WMFTooltipViewModel] = []
     weak var delegate: WMFImageRecommendationsDelegate?
     weak var loggingDelegate: WMFImageRecommendationsLoggingDelegate?
     private(set) var bottomSheetView: WMFImageRecommendationBottomSheetView?
@@ -163,25 +162,5 @@ extension WMFImageRecommendationsBottomSheetViewController: WMFImageRecommendati
 
             }
         }
-    }
-}
-
-extension WMFImageRecommendationsBottomSheetViewController: WMFTooltipPresenting {
-    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-    public func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        
-        // Tooltips are only allowed to dismiss via Next buttons
-        if presentationController.presentedViewController is WMFTooltipViewController {
-            return false
-        }
-        
-        return true
     }
 }
