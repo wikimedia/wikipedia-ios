@@ -67,35 +67,62 @@ extension WMFAppViewController {
 
     private func presentVariantAlert(for languageCode: String, remainingCodes: [String], completion: @escaping () -> Void) {
 
-        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler
-        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
+        let title = alertTitleForLanguageVariantCode(languageCode)
+        let message = alertBodyForLanguageVariantCode(languageCode)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        // If there are remaining codes
+        // If there are remaining codes, primary button shows the next variant alert
         if let nextCode = remainingCodes.first {
-
-            // If more to show, primary button shows next variant alert
-            primaryButtonTapHandler = { _, _ in
-                self.dismiss(animated: true) {
-                    self.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()), completion: completion)
-                }
-            }
-            // And no secondary button
-            secondaryButtonTapHandler = nil
-
+            alert.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: .default) { [weak self] _ in
+                self?.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()), completion: completion)
+            })
         } else {
-            // If no more to show, primary button navigates to languge settings
-            primaryButtonTapHandler = { _, _ in
-                self.displayPreferredLanguageSettings(completion: completion)
-            }
-
-            // And secondary button dismisses
-            secondaryButtonTapHandler = { _, _ in
-                self.dismiss(animated: true, completion: completion)
-            }
+            // No more to show: primary button navigates to language settings, secondary dismisses
+            alert.addAction(UIAlertAction(title: CommonStrings.variantsAlertPreferencesButton, style: .default) { [weak self] _ in
+                self?.displayPreferredLanguageSettings(completion: completion)
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.noThanksTitle, style: .cancel) { _ in
+                completion()
+            })
         }
 
-        let alert = LanguageVariantEducationalPanelViewController(primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, theme: self.theme, languageCode: languageCode)
         self.present(alert, animated: true, completion: nil)
+    }
+
+    private func alertTitleForLanguageVariantCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "crh": return CommonStrings.crimeanTatarVariantsAlertTitle
+        case "gan": return CommonStrings.ganVariantsAlertTitle
+        case "iu": return CommonStrings.inuktitutVariantsAlertTitle
+        case "kk": return CommonStrings.kazakhVariantsAlertTitle
+        case "ku": return CommonStrings.kurdishVariantsAlertTitle
+        case "sr": return CommonStrings.serbianVariantsAlertTitle
+        case "tg": return CommonStrings.tajikVariantsAlertTitle
+        case "uz": return CommonStrings.uzbekVariantsAlertTitle
+        case "zh": return CommonStrings.chineseVariantsAlertTitle
+        case "shi": return CommonStrings.tachelhitVariantsAlertTitle
+        default:
+            assertionFailure("No language variant alert title for language code '\(languageCode)'")
+            return ""
+        }
+    }
+
+    private func alertBodyForLanguageVariantCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "crh": return CommonStrings.crimeanTatarVariantsAlertBody
+        case "gan": return CommonStrings.ganVariantsAlertBody
+        case "iu": return CommonStrings.inuktitutVariantsAlertBody
+        case "kk": return CommonStrings.kazakhVariantsAlertBody
+        case "ku": return CommonStrings.kurdishVariantsAlertBody
+        case "sr": return CommonStrings.serbianVariantsAlertBody
+        case "tg": return CommonStrings.tajikVariantsAlertBody
+        case "uz": return CommonStrings.uzbekVariantsAlertBody
+        case "zh": return CommonStrings.chineseVariantsAlertBody
+        case "shi": return CommonStrings.tachelhitVariantsAlertBody
+        default:
+            assertionFailure("No language variant alert body for language code '\(languageCode)'")
+            return ""
+        }
     }
 
     // Don't present over modals or navigation stacks
@@ -324,15 +351,12 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             }
 
             if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
-                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] _, _ in
+                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] in
                     WatchlistFunnel.shared.logThanksTapSend(project: wikimediaProject)
                     UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
-                    self?.topMostViewController?.dismiss(animated: true, completion: {
-                        performThanks()
-                    })
-                }, cancelHandler: { [weak self] _, _ in
+                    performThanks()
+                }, cancelHandler: { [weak self] in
                     WatchlistFunnel.shared.logThanksTapCancel(project: wikimediaProject)
-                    self?.topMostViewController?.dismiss(animated: true)
                 })
             } else {
                 performThanks()

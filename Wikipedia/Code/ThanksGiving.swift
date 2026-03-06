@@ -83,9 +83,20 @@ extension ThanksGiving where Self: ThemeableViewController {
                 tapLoginHandler = nil
                 category = nil
             }
-            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(category: category, theme: theme, dismissHandler: nil, tapLoginHandler: tapLoginHandler, loginSuccessCompletion: {
-                self.didLogIn()
-            }, loginDismissedCompletion: nil)
+            let alert = UIAlertController(
+                title: WMFLocalizedString("diff-thanks-login-title", value: "Log in to send 'Thanks'", comment: "Title for thanks login panel."),
+                message: WMFLocalizedString("diff-thanks-login-subtitle", value: "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. You must be logged in to send 'Thanks'.", comment: "Subtitle for thanks login panel."),
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: CommonStrings.loginOrCreateAccountTitle, style: .default) { [weak self] _ in
+                guard let self else { return }
+                tapLoginHandler?()
+                self.wmf_showLoginViewController(category: category, theme: self.theme, loginSuccessCompletion: {
+                    self.didLogIn()
+                }, loginDismissedCompletion: nil)
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+            present(alert, animated: true)
             return
         }
 
@@ -111,22 +122,19 @@ extension ThanksGiving where Self: ThemeableViewController {
             return
         }
 
-        wmf_showThankRevisionAuthorEducationPanel(theme: theme) { _, _ in
+        wmf_showThankRevisionAuthorEducationPanel(theme: theme) {
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: WikimediaProject(siteURL: siteURL))
             }
 
             UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
-            self.dismiss(animated: true, completion: {
-                self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
-            })
+            self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
 
-        } cancelHandler: { _, _ in
+        } cancelHandler: {
 
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapCancel(project: WikimediaProject(siteURL: siteURL))
             }
-            self.dismiss(animated: true)
         }
     }
 

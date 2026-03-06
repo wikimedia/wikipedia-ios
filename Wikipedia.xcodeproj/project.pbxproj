@@ -1530,6 +1530,9 @@
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
 		83CDC7D425122A1700A2F8A1 /* PermanentCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */; };
+		83D3140A2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
+		83D3140B2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
+		83D3140C2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
 		83D861432DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */; };
 		83D861442DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */; };
@@ -1749,9 +1752,6 @@
 		B0BCF0AB2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */; };
 		B0BCF0AC2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */; };
 		B0BCF0AD2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */; };
-		B0BCF0B9202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
-		B0BCF0BA202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
-		B0BCF0BB202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
 		B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */; };
 		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */; };
@@ -3707,6 +3707,7 @@
 		83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentCacheController.swift; sourceTree = "<group>"; };
 		83CF71432326D47E009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		83CF71442326D48A009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		83D314092F5B4203007F822D /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		83D3FC12223A8BCD0048384B /* ArticleSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummary.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTabsFunnel.swift; sourceTree = "<group>"; };
@@ -3847,7 +3848,6 @@
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
 		B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableEducationPanelViewController.swift; sourceTree = "<group>"; };
-		B0BCF0B8202537D800986F72 /* Panels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panels.swift; sourceTree = "<group>"; };
 		B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMapTests.swift"; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -6988,7 +6988,6 @@
 			children = (
 				B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */,
 				B01EA07D2022856200813726 /* ScrollableEducationPanelView.xib */,
-				B0BCF0B8202537D800986F72 /* Panels.swift */,
 				B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */,
 				8373EDF92AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift */,
 			);
@@ -7154,6 +7153,7 @@
 		BC45D54E1C31EAD6007C72F3 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				83D314092F5B4203007F822D /* UIViewController+Extensions.swift */,
 				671AC2542226FB26005B37F8 /* Reading Themes Controls */,
 				0EE151921BF540420039828A /* Compass View */,
 				BC45D56C1C32E910007C72F3 /* Buttons */,
@@ -10137,7 +10137,6 @@
 				0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */,
 				83EE476A20D019A100A21F34 /* ExploreViewController.swift in Sources */,
 				7A8422532268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
-				B0BCF0B9202537D800986F72 /* Panels.swift in Sources */,
 				679E6FA62C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */,
 				67C6F7A127E8C7C500B9C864 /* NotificationsCenterCommonViewModel+ActionExtensions.swift in Sources */,
 				678D79F0235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
@@ -10228,6 +10227,7 @@
 				6782DB912343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				D8E6FF7C2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
+				83D3140A2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */,
 				675826752D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
 				67B0B88E2BF51E3300480B46 /* ArticleCollectionViewController.swift in Sources */,
 				B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
@@ -11170,6 +11170,7 @@
 				B09CE59B222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				8382F8DA20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				67E466FB241BED800014149B /* EditHistoryCompareFunnel.swift in Sources */,
+				83D3140B2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */,
 				8386BDF52386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				8373EDFC2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */,
 				D8CE25CF1E698E2400DAE2E0 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
@@ -11257,7 +11258,6 @@
 				7A82765A226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B068EDE1206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				83EE476B20D019A100A21F34 /* ExploreViewController.swift in Sources */,
-				B0BCF0BA202537D800986F72 /* Panels.swift in Sources */,
 				83B01F7D23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
 				007CCF0E26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift in Sources */,
 				7A6ED51320ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
@@ -11717,6 +11717,7 @@
 				B09CE59C222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				67E466FC241BED800014149B /* EditHistoryCompareFunnel.swift in Sources */,
 				D8EC3ECD1E9BDA35006712EB /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
+				83D3140C2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */,
 				8386BDF72386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				8373EDFB2AC47C5C0036FA6E /* FundraisingAnnouncementPanel.swift in Sources */,
 				67FBE336297056EB00A2E4AD /* TalkPageArchivesFetcher.swift in Sources */,
@@ -11805,7 +11806,6 @@
 				7A82765B226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B068EDE2206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				83EE476C20D019A100A21F34 /* ExploreViewController.swift in Sources */,
-				B0BCF0BB202537D800986F72 /* Panels.swift in Sources */,
 				83B01F7E23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
 				007CCF0D26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift in Sources */,
 				7A6ED50F20ADBF950001849F /* ReadingListsFunnel.swift in Sources */,

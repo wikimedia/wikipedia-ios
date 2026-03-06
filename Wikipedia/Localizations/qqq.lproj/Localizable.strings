@@ -270,7 +270,6 @@
 "description-help-title" = "Title for description editing help page";
 "description-help-wikidata-guide" = "Wikidata guide label text";
 "description-published-button-title" = "Title for done button.";
-"description-published-footer" = "Title for footer explaining articles may be edited too - not just descriptions.";
 "description-published-subtitle" = "Subtitle encouraging user to continue editing";
 "description-published-title" = "Title for letting the user know their description change succeeded.";
 "description-welcome-concise-sub-title" = "Subtitle text explaining descriptions should be concise";
@@ -382,8 +381,6 @@
 "edit-notices-always-display" = "Title for toggle switch label in edit notices view.";
 "edit-notices-please-read" = "Subtitle displayed in edit notices view.";
 "edit-preview-simplified-format-message" = "Message displayed when the edit preview view loads. Preview is in a simplified web format.";
-"edit-published" = "Title edit published panel letting user know their edit was saved.";
-"edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-sheet-ip-account-notice" = "Temporary account sheet for editors";
 "edit-sheet-temp-account-notice" = "Temporary account sheet for editors";
 "edit-show-web-preview" = "Title of button that will show a web preview of the edit.";
@@ -694,7 +691,6 @@
 "image-recs-yes-title" = "Button title for accepting an image suggestion";
 "import-shared-reading-list-default-title" = "Default title of a reading list imported through a shared link.";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Title of action button on import reading list survey prompt, which takes user to external survey.";
-"import-shared-reading-list-survey-prompt-footer" = "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting";
 "import-shared-reading-list-survey-prompt-subtitle" = "Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-survey-prompt-title" = "Title of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-title" = "Title of screen that imports a shared reading list.";
@@ -799,8 +795,6 @@
 "next-action-title" = "Title for insert action indicating the user can go to the next step";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "no-internet-connection" = "String used in various places to indicate no internet connection";
-"no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
-"no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "not-now-title" = "Text for the dismiss button across various features.";
 "notifications-center-agent-description-from-format" = "Text indicating who triggered a notification in notifications center. $1 will be replaced with the origin agent of the notification, which could be a username.";
 "notifications-center-alert" = "Description of various \"alert\" notification types, used on the notifications cell and detail views.";
@@ -967,7 +961,7 @@
 "panel-compare-revisions-text" = "Text for educational panel about comparing revisions";
 "panel-compare-revisions-title" = "Title for educational panel about comparing revisions";
 "panel-not-logged-in-continue-edit-action-title" = "Title for button that continues publishing the edit anonymously.";
-"panel-not-logged-in-subtitle" = "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Parameters:\n* $1 - app-specific text formatting - beginning bold text, $2 - app-specific text formatting - ending bold text, $3 - app-specific text formatting - beginning bold text, $4 - app-specific text formatting - ending bold text.";
+"panel-not-logged-in-subtitle-plain" = "Subtitle for letting user know that they are not logged in.";
 "panel-not-logged-in-title" = "Title for education panel letting user know they are not logged in.";
 "percentile-0.01" = "0.01th percentile range";
 "percentile-1" = "1st percentile range";
@@ -1042,7 +1036,7 @@
 "project-name-wiktionary" = "Project name for Wiktionary.";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";
 "reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved. $1 will be replaced with the saved article title";
-"reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list. The question being asked is: There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
+"reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list.";
 "reading-list-add-saved-subtitle" = "Subtitle explaining that saved articles can be added to reading lists.";
 "reading-list-add-saved-title" = "Title explaining saved articles were found.";
 "reading-list-alert-see-list" = "Title for button on alert to see the reading list after adding an article to it.";

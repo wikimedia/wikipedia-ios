@@ -507,12 +507,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     BOOL wasSyncEnabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey] boolValue];
     BOOL wasSyncDisabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey] boolValue];
     if (wasSyncEnabledForAccount) {
-        [self wmf_showSyncEnabledPanelOncePerLoginWithTheme:self.theme wasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
+        [self showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
     } else if (!wasSyncDisabledOnDevice) {
         [self wmf_showEnableReadingListSyncPanelWithTheme:self.theme
                                              oncePerLogin:true
                              didNotPresentPanelCompletion:^{
-                                 [self wmf_showSyncDisabledPanelWithTheme:self.theme wasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
+                                 [self showSyncDisabledPanelIfNeededWasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
                              }
                                            dismissHandler:nil];
     }
@@ -2160,16 +2160,79 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showLoggedOutPanelIfNeeded {
     WMFAuthenticationManager *authenticationManager = self.dataStore.authenticationManager;
-    BOOL isUserUnawareOfLogout = authenticationManager.isUserUnawareOfLogout;
-    if (!isUserUnawareOfLogout) {
+    if (!authenticationManager.isUserUnawareOfLogout) {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self wmf_showLoggedOutPanelWithTheme:self.theme
-                               dismissHandler:^{
-                                   [authenticationManager userDidAcknowledgeUnintentionalLogout];
-                               }];
+        [self presentLoggedOutAlert:authenticationManager];
     });
 }
 
+- (void)presentLoggedOutAlert:(WMFAuthenticationManager *)authenticationManager {
+    NSString *title = WMFLocalizedStringWithDefaultValue(@"logged-out-title", nil, nil, @"You have been logged out", @"Title for education panel letting user know they have been logged out.");
+    NSString *message = WMFLocalizedStringWithDefaultValue(@"logged-out-subtitle", nil, nil, @"There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.", @"Subtitle for letting user know there was a problem authenticating their account.");
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[self logBackInActionFor:authenticationManager]];
+    [alert addAction:[self continueWithoutLoggingInActionFor:authenticationManager]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (UIAlertAction *)logBackInActionFor:(WMFAuthenticationManager *)authenticationManager {
+    NSString *title = WMFLocalizedStringWithDefaultValue(@"logged-out-log-back-in-button-title", nil, nil, @"Log back in to your account", @"Title for button allowing user to log back in to their account");
+    __weak typeof(self) weakSelf = self;
+    return [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [authenticationManager userDidAcknowledgeUnintentionalLogout];
+        [weakSelf presentLoginViewControllerAfterLogout];
+    }];
+}
+
+- (UIAlertAction *)continueWithoutLoggingInActionFor:(WMFAuthenticationManager *)authenticationManager {
+    NSString *title = WMFLocalizedStringWithDefaultValue(@"logged-out-continue-without-logging-in-button-title", nil, nil, @"Continue without logging in", @"Title for button allowing user to continue without logging back in to their account");
+    __weak typeof(self) weakSelf = self;
+    return [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [authenticationManager userDidAcknowledgeUnintentionalLogout];
+        [weakSelf wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
+    }];
+}
+
+- (void)presentLoginViewControllerAfterLogout {
+    WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
+    [loginVC applyTheme:self.theme];
+    __weak typeof(self) weakSelf = self;
+    loginVC.loginDismissedHandler = ^{
+        [weakSelf wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
+    };
+    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:loginVC modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
+    [self presentViewController:navVC animated:YES completion:nil];
+}
+
+- (void)showSyncEnabledPanelOncePerLoginIfNeededWasSyncEnabledOnDevice:(BOOL)wasSyncEnabledOnDevice {
+    UIViewController *presenter = self.presentedViewController ?: self;
+    if (wasSyncEnabledOnDevice || [NSUserDefaults.standardUserDefaults wmf_didShowSyncEnabledPanel]) {
+        return;
+    }
+    NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-title", nil, nil, @"Sync is enabled on this account", @"Title for panel informing user that sync was enabled on their Wikipedia account on another device");
+    NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-message", nil, nil, @"Reading list syncing is enabled for this account. To stop syncing, you can turn sync off for this account by updating your settings.", @"Message for panel informing user that sync is enabled for their account.");
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle: WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
+    [presenter presentViewController:alert animated:YES completion:^{
+        [NSUserDefaults.standardUserDefaults wmf_setDidShowSyncEnabledPanel:YES];
+    }];
+}
+
+- (void)showSyncDisabledPanelIfNeededWasSyncEnabledOnDevice:(BOOL)wasSyncEnabledOnDevice {
+    if (!wasSyncEnabledOnDevice || [NSUserDefaults.standardUserDefaults wmf_didShowSyncDisabledPanel]) {
+        return;
+    }
+    NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-disabled-panel-title", nil, nil, @"Sync disabled", @"Title for panel informing user that sync was disabled on their Wikipedia account on another device");
+    NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-disabled-panel-message", nil, nil, @"Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.", @"Message for panel informing user that sync was disabled on their Wikipedia account on another device.");
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
+    UIViewController *presenter = self.presentedViewController ?: self;
+    [presenter presentViewController:alert animated:YES completion:^{
+        [NSUserDefaults.standardUserDefaults wmf_setDidShowSyncDisabledPanel:YES];
+    }];
+}
+
 @end
+
