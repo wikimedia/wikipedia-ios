@@ -24,7 +24,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
         nextButton.setTitleColor(theme.colors.link, for: .highlighted)
         themeToPageControl()
-        skipButton.setTitleColor(theme.colors.unselected, for: .normal)
+        skipButton.setTitleColor(theme.colors.primaryText, for: .normal)
 
         for child in pageControllers {
             guard let themeable = child as? Themeable else {
