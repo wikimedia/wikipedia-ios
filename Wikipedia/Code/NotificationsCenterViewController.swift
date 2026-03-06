@@ -45,7 +45,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
             }
             return button
         }()
-    
+
     // MARK: - Properties: Cell Swipe Actions
 
     fileprivate struct CellSwipeData {
@@ -68,7 +68,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
 
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate lazy var cellSwipeData = CellSwipeData()
-    
+
     // Bottom safe area overlay
     private lazy var bottomSafeAreaOverlayView: UIView = {
         let overlayView = UIView()
@@ -106,7 +106,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         super.viewDidLoad()
 
         notificationsView.apply(theme: theme)
-        
+
         setupBottomSafeAreaOverlay()
         notificationsView.collectionView.delegate = self
         setupDataSource()
@@ -163,7 +163,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
     }
 
     // MARK: - Configuration
-    
+
     fileprivate func setupBottomSafeAreaOverlay() {
         if #unavailable(iOS 26.0) {
             view.addSubview(bottomSafeAreaOverlayView)
@@ -173,7 +173,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
                 view.bottomAnchor.constraint(equalTo: bottomSafeAreaOverlayView.bottomAnchor),
                 bottomSafeAreaOverlayView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
-            
+
             bottomSafeAreaOverlayView.backgroundColor = theme.colors.paperBackground
         }
     }
@@ -609,24 +609,21 @@ private extension NotificationsCenterViewController {
             }
 
             DispatchQueue.main.async {
-                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
-                    self?.dismiss(animated: true, completion: {
-                        self?.userDidTapPushNotificationsOptIn()
-                    })
-                }
-
-                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
-                    self?.dismiss(animated: true)
-                }
-
-                let dismissHandler: ScrollableEducationPanelDismissHandler = {
+                let alert = UIAlertController(
+                    title: WMFLocalizedString("notifications-center-onboarding-panel-heading", value: "Turn on push notifications?", comment: "Title for Notifications Center onboarding panel."),
+                    message: WMFLocalizedString("notifications-center-onboarding-panel-subheading", value: "Wikipedia is a collaborative project and turning on push notifications can make it easier to keep up to date with messages, alerts, and \"thanks\" from fellow editors.", comment: "Message for Notifications Center onboarding panel."),
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: WMFLocalizedString("notifications-center-onboarding-panel-primary-button", value: "Turn on push notifications", comment: "Title for Notifications Center onboarding panel primary button."), style: .default) { [weak self] _ in
                     UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
                     UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel = true
-                }
-
-                let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: self.theme)
-                panel.dismissWhenTappedOutside = true
-                self.present(panel, animated: true)
+                    self?.userDidTapPushNotificationsOptIn()
+                })
+                alert.addAction(UIAlertAction(title: WMFLocalizedString("notifications-center-onboarding-panel-secondary-button", value: "No thanks", comment: "Title for Notifications Center onboarding panel secondary button."), style: .cancel) { _ in
+                    UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                    UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel = true
+                })
+                self.present(alert, animated: true)
             }
         }
     }

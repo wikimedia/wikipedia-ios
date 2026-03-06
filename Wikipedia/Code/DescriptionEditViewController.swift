@@ -204,7 +204,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         }
 
         let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: .centerCompact)
-        
+
         let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
@@ -382,7 +382,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                         }
                     }
                     self.dismiss(animated: true) {
-                        presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme, completion: {
+                        let showPublishedCompletion: () -> Void = {
                             let tempAccountUsername = self.dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                             let title = CommonStrings.tempAccountPublishTitle
                             let format = WMFLocalizedString("description-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
@@ -409,7 +409,24 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                                     }
                                 )
                             }
+                        }
+
+                        guard !UserDefaults.standard.didShowDescriptionPublishedPanel else {
+                            showPublishedCompletion()
+                            return
+                        }
+                        let alert = UIAlertController(
+                            title: WMFLocalizedString("description-published-title", value: "Description published!", comment: "Title for letting the user know their description change succeeded."),
+                            message: WMFLocalizedString("description-published-subtitle", value: "You just made Wikipedia better for everyone", comment: "Subtitle encouraging user to continue editing"),
+                            preferredStyle: .alert
+                        )
+                        alert.addAction(UIAlertAction(title: CommonStrings.doneTitle, style: .default) { _ in
+                            showPublishedCompletion()
                         })
+                        presentingVC?.present(alert, animated: true) {
+                            UserDefaults.standard.didShowDescriptionPublishedPanel = true
+                        }
+
                         NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)
                     }
 
@@ -483,7 +500,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             return
         }
 
-        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] _, _ in
+        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] in
 
             self?.dismiss(animated: true) {
                 self?.save()

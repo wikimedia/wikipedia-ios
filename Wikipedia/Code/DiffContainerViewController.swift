@@ -230,15 +230,15 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
             watchlistController.calculatePopoverPosition(sender: diffToolbarView.moreButton, sourceView: diffToolbarView.moreButtonSourceView, sourceRect: diffToolbarView.moreButtonSourceRect)
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         if let toolbarView = diffToolbarView {
             diffListViewController?.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: toolbarView.frame.height, right: 0)
         }
     }
-    
+
     override func apply(theme: Theme) {
 
         super.apply(theme: theme)
@@ -951,14 +951,14 @@ private extension DiffContainerViewController {
                     }
                     let leading = view.leadingAnchor.constraint(equalTo: listView.leadingAnchor)
                     let trailing = view.trailingAnchor.constraint(equalTo: listView.trailingAnchor)
-                    
+
                     let top: NSLayoutConstraint
                     if #available(iOS 26, *) {
                         top = view.topAnchor.constraint(equalTo: listView.topAnchor)
                     } else {
                         top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: listView.topAnchor)
                     }
-                    
+
                     NSLayoutConstraint.activate([top, leading, trailing, bottom])
                     diffListViewController.didMove(toParent: self)
                 }
@@ -976,17 +976,17 @@ private extension DiffContainerViewController {
                     } else {
                         bottom = toolbarView.topAnchor.constraint(equalTo: listView.bottomAnchor)
                     }
-                    
+
                     let leading = view.leadingAnchor.constraint(equalTo: listView.leadingAnchor)
                     let trailing = view.trailingAnchor.constraint(equalTo: listView.trailingAnchor)
-                    
+
                     let top: NSLayoutConstraint
                     if #available(iOS 26, *) {
                         top = view.topAnchor.constraint(equalTo: listView.topAnchor)
                     } else {
                         top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: listView.topAnchor)
                     }
-                    
+
                     NSLayoutConstraint.activate([top, leading, trailing, bottom])
                     diffListViewController.didMove(toParent: self)
                 }
@@ -1001,10 +1001,13 @@ private extension DiffContainerViewController {
         if UserDefaults.standard.bool(forKey: key) {
             return
         }
-        let panelVC = DiffEducationalPanelViewController(showCloseButton: false, primaryButtonTapHandler: { [weak self] _, _ in
-            self?.presentedViewController?.dismiss(animated: true)
-        }, secondaryButtonTapHandler: nil, dismissHandler: nil, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
-        present(panelVC, animated: true)
+        let alert = UIAlertController(
+            title: WMFLocalizedString("panel-compare-revisions-title", value: "Comparing revisions", comment: "Title for educational panel about comparing revisions"),
+            message: WMFLocalizedString("panel-compare-revisions-text", value: "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.", comment: "Text for educational panel about comparing revisions"),
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: .default))
+        present(alert, animated: true)
         UserDefaults.standard.set(true, forKey: key)
     }
 

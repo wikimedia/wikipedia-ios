@@ -198,49 +198,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    // Returns unordered set of URLs
-    @MainActor
-    private func getRecentTabArticleURLs() async throws -> Set<URL> {
-        let articleTabs = try await dataController.fetchAllArticleTabs()
-        let articleLimit = 1
-        let tabLimit = 2
-
-        guard !articleTabs.isEmpty else {
-            return []
-        }
-
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-              let mainPageURL = siteURL.wmf_URL(withTitle: "Main Page") else {
-            return []
-        }
-
-        var urls = Set<URL>()
-        urls.reserveCapacity(tabLimit * articleLimit)
-
-        let nonMainPageTabs = articleTabs.filter { tab in
-            tab.articles.contains { $0.articleURL != mainPageURL }
-        }
-
-        let newestTabs = nonMainPageTabs.reversed().prefix(tabLimit)
-
-        for tab in newestTabs {
-            for article in tab.articles.reversed() {
-                guard let url = article.articleURL else { break }
-                if url != mainPageURL {
-                    urls.insert(url)
-                }
-
-                if urls.count >= articleLimit {
-                    break
-                }
-            }
-        }
-
-        return urls
-    }
-
-    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
-    ) -> String {
+    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String) -> String {
         guard let code = self.dataStore.languageLinkController.appLanguage?.languageCode else {
             return genericString
         }
