@@ -6,11 +6,11 @@ import SwiftUI
 import Combine
 
 /// Root view controller for the Search tab
-class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, HintPresenting, ShareableArticlesProvider, SearchResultsHosting {
+class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider, SearchResultsHosting {
 
     // MARK: - MEP / Hint
 
-    var hintController: HintController?
+    var readingListHintPresenter: WMFReadingListToastManager?
     var eventLoggingCategory: EventCategoryMEP { .history }
     var eventLoggingLabel: EventLabelMEP? { nil }
 
@@ -411,16 +411,26 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
     private func setupReadingListsHelpers() {
         guard let dataStore else { return }
-        hintController = ReadingListHintController(dataStore: dataStore)
-        hintController?.apply(theme: theme)
+        readingListHintPresenter = WMFReadingListToastManager(dataStore: dataStore)
+        readingListHintPresenter?.apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(userDidSaveOrUnsaveArticle(_:)),
                                                name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: nil)
     }
 
+    private func visibleHintPresentingViewController() -> UIViewController? {
+        if let nav = self.tabBarController?.selectedViewController as? UINavigationController {
+            return nav.topViewController
+        }
+        return nil
+    }
+
     @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
         guard let article = notification.object as? WMFArticle else { return }
-        let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
-        hintController?.toggle(presenter: self, context: context, theme: theme)
+        guard let presentingVC = visibleHintPresentingViewController() else {
+            return
+        }
+
+        readingListHintPresenter?.toggle(presenter: presentingVC, article: article, theme: theme)
     }
 
     // MARK: - Theme

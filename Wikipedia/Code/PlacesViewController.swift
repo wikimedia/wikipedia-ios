@@ -750,7 +750,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
                 guard result.error == nil else {
                     if let error = result.error {
-                        WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showWarningToast(result.error!.localizedDescription, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
 
                         let nserror = error as NSError
                         if nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue) {
@@ -760,7 +760,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                             }
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showWarningToast(CommonStrings.unknownError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                     }
                     return
                 }
@@ -2347,16 +2347,16 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         guard viewIfLoaded != nil else {
             return
         }
-        
+
         view.backgroundColor = theme.colors.baseBackground
-        
+
         if #unavailable(iOS 26.0) {
             if let searchBar = navigationItem.searchController?.searchBar {
                 searchBar.apply(theme: theme)
                 searchBar.backgroundColor = theme.colors.paperBackground
             }
         }
-        
+
         profileCoordinator?.theme = theme
         updateProfileButton()
 
@@ -2367,7 +2367,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
 
         mapContainerView.backgroundColor = theme.colors.baseBackground
-        
+
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
 
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
@@ -2399,7 +2399,6 @@ extension PlacesViewController {
     func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
-        hintController?.dismissHintDueToUserInteraction()
     }
 
     func regionDidChange() {

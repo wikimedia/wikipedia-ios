@@ -207,7 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [[[MWKDataStore shared] cacheController] fetchImageWithURL:url
         failure:^(NSError *_Nonnull error) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            [[WMFToastManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousToasts:NO tapCallBack:NULL];
         }
         success:^(WMFImageDownload *_Nonnull download) {
             @strongify(self);

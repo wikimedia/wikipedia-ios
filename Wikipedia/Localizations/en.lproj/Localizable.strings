@@ -331,7 +331,7 @@
 "diff-thanks-send-subtitle" = "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. 'Thanks' cannot be undone and are publicly viewable.";
 "diff-thanks-send-title" = "Publicly send 'Thanks'";
 "diff-thanks-sent" = "Your 'Thanks' was sent to $1";
-"diff-thanks-sent-already" = "You’ve already sent a ‘Thanks’ for this edit";
+"diff-thanks-sent-already" = "You've already sent a 'Thanks' for this edit";
 "diff-thanks-sent-cannot-unsend" = "Thanks cannot be unsent";
 "diff-unchanged-contextual-line" = "Contextual line, unchanged: $1";
 "diff-undo-message" = "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.";
@@ -582,8 +582,6 @@
 "explore-suggested-edits-footer" = "Add";
 "explore-suggested-edits-image-recs-body" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "explore-suggested-edits-image-recs-title" = "Add an image";
-"explore-survey-subtitle" = "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.";
-"explore-survey-title" = "Help us improve Explore";
 "explore-wikipedia" = "Explore Wikipedia";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
@@ -1043,10 +1041,11 @@
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
 "reading-list-add-generic-hint-title" = "Add this article to a reading list?";
-"reading-list-add-hint-title" = "Add “$1” to a reading list?";
+"reading-list-add-hint-title" = "Add \"$1\" to a reading list?";
 "reading-list-add-saved-button-title" = "Yes, add them to my reading lists";
 "reading-list-add-saved-subtitle" = "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
 "reading-list-add-saved-title" = "Saved articles found";
+"reading-list-alert-see-list" = "See reading list";
 "reading-list-api-error-entry-limit" = "This entry is not synced because you have reached the limit for the number of entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
@@ -1094,7 +1093,7 @@
 "reading-list-unable-to-remove-entry" = "An unexpected error occurred while removing an entry from your reading list. Please try again later.";
 "reading-list-unable-to-update" = "An unexpected error occurred while updating your reading list. Please try again later.";
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
-"reading-lists-article-added-confirmation" = "Article added to “$1”";
+"reading-lists-article-added-confirmation" = "Article added to \"$1\"";
 "reading-lists-article-api-failure" = "Unable to sync article";
 "reading-lists-article-not-synced" = "Not synced";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Article limit exceeded, unable to sync article";

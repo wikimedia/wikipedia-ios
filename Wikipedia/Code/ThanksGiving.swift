@@ -1,10 +1,9 @@
 import Foundation
 import WMF
+import WMFComponents
 
-protocol ThanksGiving: HintPresenting {
+protocol ThanksGiving: AnyObject {
     var url: URL? { get }
-    var hintController: HintController? { get set }
-    var bottomSpacing: CGFloat? { get }
     func didLogIn()
     func wereThanksSent(for revisionID: Int) -> Bool
     func thanksWereSent(for revisionID: Int)
@@ -18,7 +17,7 @@ enum ThanksGivingSource {
 extension ThanksGiving where Self: ThemeableViewController {
 
     var source: ThanksGivingSource {
-        
+
         switch self {
         case is DiffContainerViewController:
             return .diff
@@ -36,7 +35,7 @@ extension ThanksGiving where Self: ThemeableViewController {
         guard let revisionID = revisionID, let siteURL = url else {
             return
         }
-        
+
         switch source {
         case .diff:
             EditHistoryCompareFunnel.shared.logThankTry(siteURL: siteURL)
@@ -44,7 +43,7 @@ extension ThanksGiving where Self: ThemeableViewController {
         default:
             break
         }
-        
+
         let logFail = {
             switch self.source {
             case .diff:
@@ -55,18 +54,18 @@ extension ThanksGiving where Self: ThemeableViewController {
         }
 
         guard !wereThanksSent(for: revisionID) else {
-    
+
             logFail()
-            
-            self.show(hintViewController: AuthorAlreadyThankedHintVC())
+
+            self.showAuthorAlreadyThankedHint()
             return
         }
 
         guard !isUserAnonymous else {
-            
+
             logFail()
-            
-            self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
+
+            self.showAnonymousUsersCannotBeThankedHint()
             return
         }
 
@@ -93,7 +92,7 @@ extension ThanksGiving where Self: ThemeableViewController {
         let thankCompletion: (Error?) -> Void = { (error) in
             if error == nil {
                 self.thanksWereSent(for: revisionID)
-                
+
                 switch self.source {
                 case .diff:
                     EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: siteURL)
@@ -101,7 +100,7 @@ extension ThanksGiving where Self: ThemeableViewController {
                 default:
                     break
                 }
-                
+
             } else {
                 logFail()
             }
@@ -116,14 +115,14 @@ extension ThanksGiving where Self: ThemeableViewController {
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapSend(project: WikimediaProject(siteURL: siteURL))
             }
-            
+
             UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
             self.dismiss(animated: true, completion: {
                 self.thankRevisionAuthor(for: revisionID, completion: thankCompletion)
             })
-            
+
         } cancelHandler: { _, _ in
-            
+
             if case .diff = self.source {
                 WatchlistFunnel.shared.logDiffThanksAlertTapCancel(project: WikimediaProject(siteURL: siteURL))
             }
@@ -131,18 +130,62 @@ extension ThanksGiving where Self: ThemeableViewController {
         }
     }
 
-    private func show(hintViewController: HintViewController) {
-        let showHint = {
-            self.hintController = HintController(hintViewController: hintViewController)
-            self.hintController?.toggle(presenter: self, context: nil, theme: self.theme, additionalBottomSpacing: self.bottomSpacing ?? 0)
-            self.hintController?.setHintHidden(false)
+    private func showAuthorAlreadyThankedHint() {
+        let title = WMFLocalizedString("diff-thanks-sent-already",
+                                      value: "You've already sent a 'Thanks' for this edit",
+                                      comment: "Message indicating thanks was already sent")
+        let subtitle = WMFLocalizedString("diff-thanks-sent-cannot-unsend",
+                                         value: "Thanks cannot be unsent",
+                                         comment: "Message indicating thanks cannot be unsent")
+
+        Task { @MainActor in
+            WMFToastManager.sharedInstance.showToastWithMessage(
+                title,
+                subtitle: subtitle,
+                image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
+                dismissPreviousToasts: true
+            )
         }
-        if let hintController = self.hintController {
-            hintController.setHintHidden(true) {
-                showHint()
-            }
-        } else {
-            showHint()
+    }
+
+    private func showAnonymousUsersCannotBeThankedHint() {
+        let message = WMFLocalizedString("diff-thanks-anonymous-no-thanks",
+                                        value: "Anonymous users cannot be thanked",
+                                        comment: "Message indicating anonymous users cannot be thanked")
+
+        Task { @MainActor in
+            WMFToastManager.sharedInstance.showToastWithMessage(
+                message,
+                subtitle: nil,
+                image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
+                dismissPreviousToasts: true
+            )
+        }
+    }
+
+    private func showRevisionAuthorThankedHint(recipient: String) {
+        let message = String.localizedStringWithFormat(CommonStrings.thanksMessage, recipient)
+
+        Task { @MainActor in
+            WMFToastManager.sharedInstance.showToastWithMessage(
+                message,
+                subtitle: nil,
+                image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill),
+                dismissPreviousToasts: true
+            )
+        }
+    }
+
+    private func showRevisionAuthorThanksErrorHint(error: Error) {
+        let message = (error as NSError).alertMessage()
+
+        Task { @MainActor in
+            WMFToastManager.sharedInstance.showToastWithMessage(
+                message,
+                subtitle: nil,
+                image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
+                dismissPreviousToasts: true
+            )
         }
     }
 
@@ -160,7 +203,7 @@ extension ThanksGiving where Self: ThemeableViewController {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: accessibilityText)
                         }
                     } else {
-                        self.show(hintViewController: RevisionAuthorThankedHintVC(recipient: result.recipient))
+                        self.showRevisionAuthorThankedHint(recipient: result.recipient)
                     }
                     completion(nil)
                 case .failure(let error as NSError):
@@ -169,7 +212,7 @@ extension ThanksGiving where Self: ThemeableViewController {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.alertMessage())
                         }
                     } else {
-                        self.show(hintViewController: RevisionAuthorThanksErrorHintVC(error: error))
+                        self.showRevisionAuthorThanksErrorHint(error: error)
                     }
                     completion(error)
                 }

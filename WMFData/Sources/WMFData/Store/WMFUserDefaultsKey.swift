@@ -1,6 +1,6 @@
 public enum WMFUserDefaultsKey: String {
     case watchlistFilterSettings = "watchlist-filter-settings"
-	case imageRecommendationsOnboarding = "image-recommendations-onboarding"
+    case imageRecommendationsOnboarding = "image-recommendations-onboarding"
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
@@ -30,7 +30,6 @@ public enum WMFUserDefaultsKey: String {
     case hasSeenActivityTab = "has-seen-activity-tab"
     case hasSeenActivityTabNewOnboarding = "has-seen-activity-tab-new-onboarding"
     case hasSeenActiviyTabSurvey = "has-seen-activity-tab-survey"
-    case hasSeenExploreSurvey = "has-seen-explore-survey"
     case activityTabVisitCount = "activity-tab-visit-count"
     case activityTabIsTimeSpentReadingOn = "activity-tab-time-spent-reading"
     case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
