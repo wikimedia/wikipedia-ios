@@ -297,14 +297,15 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             guard let self else { return }
             
             for await status in autoTip1.statusUpdates {
-                if status == .available {
+                switch status {
+                case .available:
                     let popoverController = TipUIPopoverViewController(autoTip1, sourceItem: divTargetView)
                     popoverController.popoverPresentationController?.permittedArrowDirections = .up
                     tooltipVC = popoverController
                     presentedViewController?.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
                     }
-                } else if case .invalidated = status {
+                case .invalidated:
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
                         tooltipVC?.presentationController?.delegate = nil
                         tooltipVC?.dismiss(animated: true) {
@@ -314,6 +315,8 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         dismissAction()
                     }
                     break
+                default:
+                    continue
                 }
             }
         }
@@ -326,13 +329,14 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             
             Tip2.enableTip = true
             for await status in self.autoTip2.statusUpdates {
-                if status == .available {
+                switch status {
+                case .available:
                     let popoverController = TipUIPopoverViewController(self.autoTip2, sourceItem: bottomSheetView)
                     tooltipVC = popoverController
                     self.presentedViewController?.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
                     }
-                } else if case .invalidated = status {
+                case .invalidated:
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
                         tooltipVC?.presentationController?.delegate = nil
                         tooltipVC?.dismiss(animated: true) {
@@ -342,6 +346,8 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         dismissAction()
                     }
                     break
+                default:
+                    continue
                 }
             }
         }
@@ -354,13 +360,14 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             
             Tip3.enableTip = true
             for await status in self.autoTip3.statusUpdates {
-                if status == .available {
+                switch status {
+                case .available:
                     let popoverController = TipUIPopoverViewController(self.autoTip3, sourceItem: toolbarView)
                     tooltipVC = popoverController
                     self.presentedViewController?.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
                     }
-                } else if case .invalidated = status {
+                case .invalidated:
                     tooltipVC?.presentationController?.delegate = nil
                     if self.presentedViewController?.presentedViewController is TipUIPopoverViewController {
                         tooltipVC?.dismiss(animated: true) {
@@ -382,6 +389,8 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                     self.dataController.hasPresentedOnboardingTooltips = true
                     self.tooltipVC = nil
                     break
+                default:
+                    continue
                 }
             }
         }

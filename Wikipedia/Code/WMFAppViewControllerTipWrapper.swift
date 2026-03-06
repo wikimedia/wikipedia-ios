@@ -48,7 +48,8 @@ import SwiftUI
             guard let self, let appViewController else { return }
             
             for await status in tip.statusUpdates {
-                if status == .available {
+                switch status {
+                case .available:
                     let popoverController = TipUIPopoverViewController(tip, sourceItem: targetViewIPad ?? tabBarItem)
                     
                     if UIDevice.current.userInterfaceIdiom == .pad && appViewController.traitCollection.horizontalSizeClass == .regular {
@@ -58,13 +59,14 @@ import SwiftUI
                     appViewController.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
                     }
-                    
-                } else if case .invalidated = status {
+                case .invalidated:
                     tooltipVC?.presentationController?.delegate = nil
                     tooltipVC?.dismiss(animated: true)
                     tooltipVC = nil
                     self.tipObservationTask = nil
                     break
+                default:
+                    continue
                 }
             }
         }

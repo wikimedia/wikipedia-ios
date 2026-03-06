@@ -345,7 +345,8 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
     func listenForMoreLanguagesTooltip() {
         moreLanguagesTipObservationTask =  Task { @MainActor in
             for await status in  moreLanguagesTip.statusUpdates {
-                if status == .available {
+                switch status {
+                case .available:
                     if let button = otherLanguagesButton {
                         let popoverController = TipUIPopoverViewController(moreLanguagesTip, sourceItem: button)
                         self.tooltipVC = popoverController
@@ -353,14 +354,15 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
                             popoverController.presentationController?.delegate = self
                         }
                     }
-                    
-                } else if case .invalidated = status {
-                        if let tooltipVC = self.tooltipVC {
-                            tooltipVC.presentationController?.delegate = nil
-                            tooltipVC.dismiss(animated: true)
-                            self.tooltipVC = nil
-                        }
+                case .invalidated:
+                    if let tooltipVC = self.tooltipVC {
+                        tooltipVC.presentationController?.delegate = nil
+                        tooltipVC.dismiss(animated: true)
+                        self.tooltipVC = nil
+                    }
                     break
+                default:
+                    continue
                 }
             }
         }

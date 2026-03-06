@@ -11,7 +11,8 @@ extension ArticleViewController {
             guard let self else { return }
             
             for await status in wTip.statusUpdates {
-                if status == .available {
+                switch status {
+                case .available:
                     if let wIcon = navigationItem.titleView {
                         let popoverController = TipUIPopoverViewController(wTip, sourceItem: wIcon)
                         self.tooltipVC = popoverController
@@ -19,11 +20,13 @@ extension ArticleViewController {
                             popoverController.presentationController?.delegate = self
                         }
                     }
-                } else if case .invalidated = status {
+                case .invalidated:
                     tooltipVC?.presentationController?.delegate = nil
                     tooltipVC?.dismiss(animated: true)
                     tooltipVC = nil
                     break
+                default:
+                    continue
                 }
             }
         }
