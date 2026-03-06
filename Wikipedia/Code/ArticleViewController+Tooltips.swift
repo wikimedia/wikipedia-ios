@@ -60,10 +60,6 @@ struct WTip: Tip {
         ))
     }
     
-    var image: SwiftUI.Image? {
-        return nil
-    }
-    
     var rules: [Rule] {
             [
                 #Rule(Self.$isCompactWidth) { $0 == true },

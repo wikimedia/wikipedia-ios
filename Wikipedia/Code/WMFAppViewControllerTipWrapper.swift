@@ -101,8 +101,4 @@ fileprivate struct HistoryInSearchTip: Tip {
             comment: "Subtitle for one-time tooltip informing users history has moved to search."
         ))
     }
-    
-    var image: SwiftUI.Image? {
-        return nil
-    }
 }

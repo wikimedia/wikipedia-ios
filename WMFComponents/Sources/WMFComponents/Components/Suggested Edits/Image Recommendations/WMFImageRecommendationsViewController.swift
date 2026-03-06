@@ -506,10 +506,6 @@ private struct Tip1: Tip {
         Text(localizedMessage)
     }
     
-    var image: SwiftUI.Image? {
-        return nil
-    }
-    
     var rules: [Rule] {
             [
                 #Rule(Self.$enableTip) { $0 == true }
@@ -534,10 +530,6 @@ private struct Tip2: Tip {
         Text(localizedMessage)
     }
     
-    var image: SwiftUI.Image? {
-        return nil
-    }
-    
     var rules: [Rule] {
             [
                 #Rule(Self.$enableTip) { $0 == true }
@@ -560,10 +552,6 @@ private struct Tip3: Tip {
     
     var message: Text? {
         Text(localizedMessage)
-    }
-    
-    var image: SwiftUI.Image? {
-        return nil
     }
     
     var rules: [Rule] {

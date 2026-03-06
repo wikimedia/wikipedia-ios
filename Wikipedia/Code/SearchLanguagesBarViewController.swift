@@ -385,10 +385,6 @@ struct MoreLanguagesTip: Tip {
         Text(WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in over 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."))
     }
     
-    var image: SwiftUI.Image? {
-        return nil
-    }
-    
     var rules: [Rule] {
             [
                 #Rule(Self.$numberOfAppLanguages) { $0 >= 2 },
