@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ncK-V0-zLz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ncK-V0-zLz">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,10 +11,6 @@
         <scene sceneID="2Xe-ZZ-2rZ">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomeInitialViewController" id="ncK-V0-zLz" customClass="WMFWelcomeInitialViewController" customModule="Wikipedia" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0Mt-C6-f0r"/>
-                        <viewControllerLayoutGuide type="bottom" id="1if-w8-0bU"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HVN-iR-kMH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,12 +22,13 @@
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="LKS-ir-tdi"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="OF3-17-BHf" firstAttribute="top" secondItem="0Mt-C6-f0r" secondAttribute="bottom" id="4mt-Pj-w5B"/>
-                            <constraint firstItem="OF3-17-BHf" firstAttribute="leading" secondItem="HVN-iR-kMH" secondAttribute="leading" id="TcA-r3-vSg"/>
-                            <constraint firstAttribute="trailing" secondItem="OF3-17-BHf" secondAttribute="trailing" id="f4Q-TO-4hb"/>
-                            <constraint firstItem="1if-w8-0bU" firstAttribute="top" secondItem="OF3-17-BHf" secondAttribute="bottom" id="fNR-Zz-5WA"/>
+                            <constraint firstItem="OF3-17-BHf" firstAttribute="top" secondItem="LKS-ir-tdi" secondAttribute="top" id="4mt-Pj-w5B"/>
+                            <constraint firstItem="OF3-17-BHf" firstAttribute="leading" secondItem="LKS-ir-tdi" secondAttribute="leading" id="TcA-r3-vSg"/>
+                            <constraint firstItem="LKS-ir-tdi" firstAttribute="trailing" secondItem="OF3-17-BHf" secondAttribute="trailing" id="f4Q-TO-4hb"/>
+                            <constraint firstAttribute="bottom" secondItem="OF3-17-BHf" secondAttribute="bottom" id="fNR-Zz-5WA"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -51,10 +48,6 @@
         <scene sceneID="TCd-7L-ga4">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomeIntroductionViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="sbE-3l-bqs" customClass="WMFWelcomeIntroductionViewController" customModule="Wikipedia" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Avm-Oe-OrZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="uRu-9L-F8k"/>
-                    </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="wCD-x0-Vga">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="92"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,10 +83,11 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="rp9-8H-gmr"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="KR1-fT-lNt" secondAttribute="trailing" id="1YE-4B-a9M"/>
-                            <constraint firstItem="KR1-fT-lNt" firstAttribute="leading" secondItem="wCD-x0-Vga" secondAttribute="leading" id="Gio-GO-XqA"/>
+                            <constraint firstItem="rp9-8H-gmr" firstAttribute="trailing" secondItem="KR1-fT-lNt" secondAttribute="trailing" id="1YE-4B-a9M"/>
+                            <constraint firstItem="KR1-fT-lNt" firstAttribute="leading" secondItem="rp9-8H-gmr" secondAttribute="leading" id="Gio-GO-XqA"/>
                             <constraint firstItem="KR1-fT-lNt" firstAttribute="top" secondItem="wCD-x0-Vga" secondAttribute="top" id="Wcg-fn-QWU"/>
                             <constraint firstAttribute="bottom" secondItem="KR1-fT-lNt" secondAttribute="bottom" id="enu-Mg-rcX"/>
                         </constraints>
@@ -117,10 +111,6 @@
         <scene sceneID="JKo-q6-HeK">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomeExplorationViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="i9b-ci-8HO" customClass="WMFWelcomeExplorationViewController" customModule="Wikipedia" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Pwd-AC-T3t"/>
-                        <viewControllerLayoutGuide type="bottom" id="PbO-Vt-3UE"/>
-                    </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ihb-9I-oEg">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="162"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -189,12 +179,13 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="zX3-k8-OvC"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="OR9-5s-cdI" secondAttribute="trailing" id="gBK-nP-ZwP"/>
+                            <constraint firstItem="zX3-k8-OvC" firstAttribute="trailing" secondItem="OR9-5s-cdI" secondAttribute="trailing" id="gBK-nP-ZwP"/>
                             <constraint firstItem="OR9-5s-cdI" firstAttribute="top" secondItem="ihb-9I-oEg" secondAttribute="top" id="mOx-VG-Dpa"/>
                             <constraint firstAttribute="bottom" secondItem="OR9-5s-cdI" secondAttribute="bottom" id="qKk-9t-liP"/>
-                            <constraint firstItem="OR9-5s-cdI" firstAttribute="leading" secondItem="ihb-9I-oEg" secondAttribute="leading" id="vS4-fe-vCz"/>
+                            <constraint firstItem="OR9-5s-cdI" firstAttribute="leading" secondItem="zX3-k8-OvC" secondAttribute="leading" id="vS4-fe-vCz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wq1-ba-ZPt"/>
@@ -220,13 +211,10 @@
         <scene sceneID="3Zz-F5-tnE">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomeAnimationForgroundViewController" id="phf-K5-0TN" customClass="WMFWelcomeAnimationForgroundViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Vcr-It-EFs"/>
-                        <viewControllerLayoutGuide type="bottom" id="NY4-Ko-CH1"/>
-                    </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="GFc-RE-fPO">
                         <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="UJe-1C-xjG"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -248,10 +236,6 @@
         <scene sceneID="SGM-7y-cTS">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomeContainerViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="HdP-0o-ZZC" customClass="WMFWelcomeContainerViewController" customModule="Wikipedia" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="IiS-Tf-ADU"/>
-                        <viewControllerLayoutGuide type="bottom" id="7pS-zT-pQN"/>
-                    </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="lzy-Eu-ayy">
                         <rect key="frame" x="0.0" y="0.0" width="360" height="640"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -309,14 +293,15 @@
                                 </constraints>
                             </stackView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="0B6-PG-2jN"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IiS-Tf-ADU" secondAttribute="bottom" constant="10" id="KdH-qP-Jze"/>
-                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="centerX" secondItem="lzy-Eu-ayy" secondAttribute="centerX" id="LKd-7B-kb3"/>
-                            <constraint firstItem="7pS-zT-pQN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NFg-Vn-ndK" secondAttribute="bottom" priority="999" constant="10" id="PHo-ci-C8O"/>
-                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lzy-Eu-ayy" secondAttribute="leading" id="fYc-y0-Hni"/>
+                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0B6-PG-2jN" secondAttribute="top" constant="10" id="KdH-qP-Jze"/>
+                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="centerX" secondItem="0B6-PG-2jN" secondAttribute="centerX" id="LKd-7B-kb3"/>
+                            <constraint firstItem="0B6-PG-2jN" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NFg-Vn-ndK" secondAttribute="bottom" priority="999" constant="10" id="PHo-ci-C8O"/>
+                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0B6-PG-2jN" secondAttribute="leading" id="fYc-y0-Hni"/>
                             <constraint firstItem="NFg-Vn-ndK" firstAttribute="centerY" secondItem="lzy-Eu-ayy" secondAttribute="centerY" priority="999" id="xJf-C6-csU"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NFg-Vn-ndK" secondAttribute="trailing" id="zyd-sJ-lq9"/>
+                            <constraint firstItem="0B6-PG-2jN" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NFg-Vn-ndK" secondAttribute="trailing" id="zyd-sJ-lq9"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="360" height="640"/>
@@ -336,10 +321,6 @@
         <scene sceneID="2BG-1v-r2M">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomePanelViewController" id="qLZ-5x-Kxd" customClass="WMFWelcomePanelViewController" customModule="Wikipedia" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="xwy-I8-ge2"/>
-                        <viewControllerLayoutGuide type="bottom" id="SLT-o2-kyd"/>
-                    </layoutGuides>
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="Ev9-ZH-utG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -425,11 +406,12 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="bHn-D3-LW9"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="jFe-ge-E8U" secondAttribute="trailing" constant="10" id="0oa-wI-RNA"/>
+                            <constraint firstItem="bHn-D3-LW9" firstAttribute="trailing" secondItem="jFe-ge-E8U" secondAttribute="trailing" constant="10" id="0oa-wI-RNA"/>
                             <constraint firstAttribute="bottom" secondItem="jFe-ge-E8U" secondAttribute="bottom" id="TqS-CV-wNY"/>
-                            <constraint firstItem="jFe-ge-E8U" firstAttribute="leading" secondItem="Ev9-ZH-utG" secondAttribute="leading" constant="10" id="gAW-10-zyW"/>
+                            <constraint firstItem="jFe-ge-E8U" firstAttribute="leading" secondItem="bHn-D3-LW9" secondAttribute="leading" constant="10" id="gAW-10-zyW"/>
                             <constraint firstItem="jFe-ge-E8U" firstAttribute="top" secondItem="Ev9-ZH-utG" secondAttribute="top" constant="10" id="wuT-A0-dzW"/>
                         </constraints>
                     </view>
@@ -454,10 +436,6 @@
         <scene sceneID="5Vt-or-T7N">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomeLanguageTableViewController" id="uX3-NZ-3WE" customClass="WMFWelcomeLanguageTableViewController" customModule="Wikipedia" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="TLC-av-U4m"/>
-                        <viewControllerLayoutGuide type="bottom" id="QZ0-90-atL"/>
-                    </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ahe-qt-nPa">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -500,15 +478,16 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="DlI-Oi-uD4"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Rhz-sY-VPc" secondAttribute="bottom" id="FFC-Oh-dgE"/>
-                            <constraint firstAttribute="trailing" secondItem="Rhz-sY-VPc" secondAttribute="trailing" id="P6G-Ur-rac"/>
-                            <constraint firstItem="Rhz-sY-VPc" firstAttribute="leading" secondItem="ahe-qt-nPa" secondAttribute="leading" id="SHw-Rf-Gmv"/>
-                            <constraint firstAttribute="trailing" secondItem="EuG-Uv-ToC" secondAttribute="trailing" id="T82-OT-IVs"/>
+                            <constraint firstItem="DlI-Oi-uD4" firstAttribute="trailing" secondItem="Rhz-sY-VPc" secondAttribute="trailing" id="P6G-Ur-rac"/>
+                            <constraint firstItem="Rhz-sY-VPc" firstAttribute="leading" secondItem="DlI-Oi-uD4" secondAttribute="leading" id="SHw-Rf-Gmv"/>
+                            <constraint firstItem="DlI-Oi-uD4" firstAttribute="trailing" secondItem="EuG-Uv-ToC" secondAttribute="trailing" id="T82-OT-IVs"/>
                             <constraint firstItem="EuG-Uv-ToC" firstAttribute="top" secondItem="ahe-qt-nPa" secondAttribute="top" id="TNr-Up-c6o"/>
                             <constraint firstItem="Rhz-sY-VPc" firstAttribute="top" secondItem="EuG-Uv-ToC" secondAttribute="bottom" constant="10" id="YLo-wF-mza"/>
-                            <constraint firstItem="EuG-Uv-ToC" firstAttribute="leading" secondItem="ahe-qt-nPa" secondAttribute="leading" id="kff-63-i4o"/>
+                            <constraint firstItem="EuG-Uv-ToC" firstAttribute="leading" secondItem="DlI-Oi-uD4" secondAttribute="leading" id="kff-63-i4o"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -530,10 +509,6 @@
         <scene sceneID="SMZ-9p-jrb">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomeAnalyticsViewController" id="Sz5-Ln-qWW" customClass="WMFWelcomeAnalyticsViewController" customModule="Wikipedia" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="eCu-K6-R2a"/>
-                        <viewControllerLayoutGuide type="bottom" id="Qe4-O6-Yp7"/>
-                    </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="g5O-Z4-Myl">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -569,11 +544,12 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="2g8-fd-HJW"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jGW-Hc-ska" firstAttribute="leading" secondItem="g5O-Z4-Myl" secondAttribute="leading" id="3dN-s0-PL3"/>
+                            <constraint firstItem="jGW-Hc-ska" firstAttribute="leading" secondItem="2g8-fd-HJW" secondAttribute="leading" id="3dN-s0-PL3"/>
                             <constraint firstItem="jGW-Hc-ska" firstAttribute="top" secondItem="g5O-Z4-Myl" secondAttribute="top" id="adv-f0-JQF"/>
-                            <constraint firstAttribute="trailing" secondItem="jGW-Hc-ska" secondAttribute="trailing" id="rvE-qt-oT4"/>
+                            <constraint firstItem="2g8-fd-HJW" firstAttribute="trailing" secondItem="jGW-Hc-ska" secondAttribute="trailing" id="rvE-qt-oT4"/>
                             <constraint firstAttribute="bottom" secondItem="jGW-Hc-ska" secondAttribute="bottom" id="xeQ-Nj-KKN"/>
                         </constraints>
                     </view>
@@ -595,13 +571,10 @@
         <scene sceneID="Qob-Lw-eVi">
             <objects>
                 <viewController storyboardIdentifier="WMFWelcomeAnimationBackgroundViewController" id="aoo-cp-EUY" customClass="WMFWelcomeAnimationBackgroundViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1iC-LX-VsC"/>
-                        <viewControllerLayoutGuide type="bottom" id="qQ3-lN-ODI"/>
-                    </layoutGuides>
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="h3n-cK-21Q">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="p3w-k0-ZvC"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <size key="freeformSize" width="320" height="164"/>
@@ -611,9 +584,4 @@
             <point key="canvasLocation" x="3761" y="-157"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="Fi0-7O-Fk0">
-            <size key="intrinsicContentSize" width="71" height="40.5"/>
-        </designable>
-    </designables>
 </document>
