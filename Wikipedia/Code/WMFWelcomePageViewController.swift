@@ -14,25 +14,6 @@ public protocol WMFWelcomeNavigationDelegate: AnyObject {
 class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate, Themeable {
 
     private var theme = Theme.standard
-    
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        nextButton.setTitleColor(theme.colors.link, for: .normal)
-        nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
-        nextButton.setTitleColor(theme.colors.link, for: .highlighted)
-        themeToPageControl()
-        skipButton.setTitleColor(theme.colors.primaryText, for: .normal)
-
-        for child in pageControllers {
-            guard let themeable = child as? Themeable else {
-                continue
-            }
-            themeable.apply(theme: theme)
-        }
-    }
 
     private func themeToPageControl() {
         guard
@@ -124,17 +105,26 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             updateFonts()
         }
     }
-    
+
     private func configureAndAddNextButton() {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         nextButton.isUserInteractionEnabled = true
         nextButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         nextButton.titleLabel?.numberOfLines = 1
-        nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
-        
+
         if #available(iOS 26, *) {
-            nextButton.configuration = .glass()
+            var config: UIButton.Configuration = .glass()
+            var titleAttr = AttributedString(CommonStrings.nextTitle)
+            titleAttr.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+            config.attributedTitle = titleAttr
+            config.baseForegroundColor = theme.colors.link
+            nextButton.configuration = config
+        } else {
+            nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
+            nextButton.setTitleColor(theme.colors.link, for: .normal)
+            nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
+            nextButton.setTitleColor(theme.colors.link, for: .highlighted)
         }
 
         view.addSubview(nextButton)
@@ -142,7 +132,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         NSLayoutConstraint.activate([
             nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
-        
+
         let leading = NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: buttonCenterXOffset)
         leading.priority = .defaultHigh
         let trailing = NSLayoutConstraint(item: nextButton, attribute: .trailing, relatedBy: .lessThanOrEqual, toItem: view, attribute: .trailing, multiplier: 1, constant: buttonSidePadding)
@@ -156,17 +146,25 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.isUserInteractionEnabled = true
         skipButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         skipButton.titleLabel?.numberOfLines = 1
-        skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
+
+        if #available(iOS 26, *) {
+            var config: UIButton.Configuration = .glass()
+            var titleAttr = AttributedString(CommonStrings.skipTitle)
+            titleAttr.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+            config.attributedTitle = titleAttr
+            config.baseForegroundColor = theme.colors.primaryText
+            skipButton.configuration = config
+        } else {
+            skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
+            skipButton.setTitleColor(theme.colors.primaryText, for: .normal)
+        }
+
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         NSLayoutConstraint.activate([
             skipButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
 
-        if #available(iOS 26, *) {
-            skipButton.configuration = .glass()
-        }
-        
         let leading = NSLayoutConstraint(item: skipButton, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .leading, multiplier: 1, constant: buttonSidePadding)
         leading.priority = .required
         let trailing = NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -buttonCenterXOffset)
@@ -174,9 +172,40 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         view.addConstraints([leading, trailing])
     }
 
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+
+        if #available(iOS 26, *) {
+            var nextConfig = nextButton.configuration
+            nextConfig?.baseForegroundColor = theme.colors.link
+            nextButton.configuration = nextConfig
+
+            var skipConfig = skipButton.configuration
+            skipConfig?.baseForegroundColor = theme.colors.primaryText
+            skipButton.configuration = skipConfig
+        } else {
+            nextButton.setTitleColor(theme.colors.link, for: .normal)
+            nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
+            nextButton.setTitleColor(theme.colors.link, for: .highlighted)
+            skipButton.setTitleColor(theme.colors.primaryText, for: .normal)
+        }
+
+        themeToPageControl()
+
+        for child in pageControllers {
+            guard let themeable = child as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
+    }
+
     private func updateFonts() {
-        skipButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
-        nextButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        skipButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        nextButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
     }
 
     override func viewDidAppear(_ animated: Bool) {
