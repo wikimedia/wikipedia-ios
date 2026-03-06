@@ -11,7 +11,7 @@ protocol SearchResultsHosting {
 }
 
 /// This class is designed to be used exclusively as a `UISearchController.searchResultsController`.
-class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, HintPresenting, ShareableArticlesProvider {
+class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConfiguring, ShareableArticlesProvider {
 
     // MARK: - Event Logging Source
 
@@ -33,7 +33,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     // MARK: - HintPresenting
 
-    var hintController: HintController?
+    var readingListHintPresenter: WMFReadingListToastManager?
 
     var eventLoggingCategory: EventCategoryMEP { .history }
     var eventLoggingLabel: EventLabelMEP? { nil }
@@ -311,15 +311,15 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
                 success(results, .prefix)
                 return
             }
-            
+
             self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { error in
-                
+
                 if !resultsArray.isEmpty {
                     success(results, .prefix)
                 } else {
                     failure(error, .full)
                 }
-                
+
             }, success: { [weak self] fullTextResults in
                 guard self != nil else { return }
                 success(fullTextResults, .full)
@@ -466,8 +466,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     // MARK: - Reading Lists Hint
 
     private func setupReadingListsHelpers() {
-        hintController = ReadingListHintController(dataStore: dataStore)
-        hintController?.apply(theme: theme)
+        readingListHintPresenter = WMFReadingListToastManager(dataStore: dataStore)
+        readingListHintPresenter?.apply(theme: theme)
 
         NotificationCenter.default.addObserver(
             self,
@@ -477,10 +477,17 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         )
     }
 
+    private func visibleHintPresentingViewController() -> UIViewController? {
+        return self.viewIfLoaded?.window != nil ? self : nil
+    }
+
     @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
         guard let article = notification.object as? WMFArticle else { return }
-        let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
-        hintController?.toggle(presenter: self, context: context, theme: theme)
+        guard let presentingVC = visibleHintPresentingViewController() else {
+            return
+        }
+
+        readingListHintPresenter?.toggle(presenter: presentingVC, article: article, theme: theme)
     }
 
     // MARK: - Theme
@@ -494,7 +501,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         recentSearchesViewController.view.backgroundColor = theme.colors.paperBackground
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
-        hintController?.apply(theme: theme)
+        readingListHintPresenter?.apply(theme: theme)
     }
 }
 

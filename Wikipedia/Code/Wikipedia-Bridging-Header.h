@@ -3,9 +3,6 @@
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
-#import "RMessage.h"
-#import "RMessageView.h"
-
 #import "NSString+FormattedAttributedString.h"
 #import "WMFPageHistoryRevision.h"
 #import "UIViewController+WMFStoryboardUtilities.h"

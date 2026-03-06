@@ -5,7 +5,8 @@ import WMFComponents
 import WMFData
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding, SearchResultsHosting {
+class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding, SearchResultsHosting {
+
     enum ViewState {
         case initial
         case loading
@@ -234,10 +235,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 #endif
         return webView
     }()
-
-    // MARK: HintPresenting
-
-    var hintController: HintController?
 
     // MARK: Find In Page
 
@@ -1268,7 +1265,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         dismissReferencesPopover()
-        hintController?.dismissHintDueToUserInteraction()
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

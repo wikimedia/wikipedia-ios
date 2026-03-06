@@ -253,7 +253,7 @@ private extension SchemeHandler {
             
         }, cacheFallbackError: { error in
             DispatchQueue.main.async {
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: false)
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: false)
             }
         })
         

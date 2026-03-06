@@ -191,7 +191,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
                     self.readingListNameTextField.isEnabled = false
                     self.descriptionTextField.isEnabled = false
                     self.createReadingListButton.isEnabled = false
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             }
         }
