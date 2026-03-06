@@ -1,5 +1,6 @@
 import TipKit
 import SwiftUI
+import WMFComponents
 
 /// Wrapper class to call TipKit APIs from Objective-C
 @objc class WMFAppViewControllerTipWrapper: NSObject {
@@ -33,11 +34,11 @@ import SwiftUI
         // It seems like tabBarItem does not have a recognizable frame on iPad for TipUIPopoverViewController to point to. We are going to add a fake view that is about the area of the center of the tab bar, and remove the popover arrows.
         
         var targetViewIPad: UIView? = nil
-        if UIDevice.current.userInterfaceIdiom == .pad && appViewController.traitCollection.horizontalSizeClass == .regular {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             appViewController.view.addSubview(tabSearchTargetViewIPad)
             NSLayoutConstraint.activate([
                 appViewController.view.centerXAnchor.constraint(equalTo: tabSearchTargetViewIPad.centerXAnchor, constant: 0),
-                appViewController.view.topAnchor.constraint(equalTo: tabSearchTargetViewIPad.topAnchor, constant: -140),
+                appViewController.view.topAnchor.constraint(equalTo: tabSearchTargetViewIPad.topAnchor, constant: -150),
                 tabSearchTargetViewIPad.widthAnchor.constraint(equalToConstant: 1),
                 tabSearchTargetViewIPad.heightAnchor.constraint(equalToConstant: 1)
             ])
@@ -51,8 +52,9 @@ import SwiftUI
                 switch status {
                 case .available:
                     let popoverController = TipUIPopoverViewController(tip, sourceItem: targetViewIPad ?? tabBarItem)
+                    popoverController.view.tintColor = appViewController.theme.colors.primaryText
                     
-                    if UIDevice.current.userInterfaceIdiom == .pad && appViewController.traitCollection.horizontalSizeClass == .regular {
+                    if UIDevice.current.userInterfaceIdiom == .pad {
                         popoverController.popoverPresentationController?.permittedArrowDirections = []
                     }
                     self.tooltipVC = popoverController
@@ -100,5 +102,15 @@ fileprivate struct HistoryInSearchTip: Tip {
             value: "Find your reading history in the Search tab.",
             comment: "Subtitle for one-time tooltip informing users history has moved to search."
         ))
+    }
+    
+    var image: SwiftUI.Image? {
+        if UIDevice.current.userInterfaceIdiom == .pad,
+        let iconName = WMFSFSymbolIcon.magnifyingGlass.name {
+            return Image(systemName: iconName)
+        } else {
+            return nil
+        }
+        
     }
 }
