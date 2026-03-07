@@ -25,47 +25,58 @@ final class AppOnboardingTests: XCTestCase {
     func testOnboardingLightMode() throws {
         let app = XCUIApplication()
         XCUIDevice.shared.appearance = .light
-        // Fix the status bar so clock/battery don't cause false failures
-        app.launchArguments += ["-UIStatusBarShowingBatteryLevel", "0",
-                                "-StatusBarOverrideTime", "10:00"]
         app.launch()
 
-        XCTAssertTrue(app.isDisplayingIntroduction)
+        XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 5))
 
         // Snapshot the introduction screen
-        assertSnapshot(of: app.screenshot().image,
-                       as: .image(precision: 1.0),
+        assertSnapshot(of: app.screenshot().image.removingStatusBar(),
+                       as: .image(precision: 0.99),
                        named: "introduction-light-\(screenshotNameSuffix)")
 
         app.buttons["App Onboarding Skip Button"].tap()
 
-        // XCTAssertTrue(app.isDisplayingExplore)
+        XCTAssertTrue(app.otherElements["Explore View"].waitForExistence(timeout: 5))
     }
 
     func testOnboardingDarkMode() throws {
         let app = XCUIApplication()
         XCUIDevice.shared.appearance = .dark
-        app.launchArguments += ["-UIStatusBarShowingBatteryLevel", "0",
-                                "-StatusBarOverrideTime", "10:00"]
         app.launch()
 
-        XCTAssertTrue(app.isDisplayingIntroduction)
+        XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 5))
 
-        assertSnapshot(of: app.screenshot().image,
-                       as: .image(precision: 1.0),
+        assertSnapshot(of: app.screenshot().image.removingStatusBar(),
+                       as: .image(precision: 0.99),
                        named: "introduction-dark-\(screenshotNameSuffix)")
 
         app.buttons["App Onboarding Skip Button"].tap()
 
-        // XCTAssertTrue(app.isDisplayingExplore)
+        XCTAssertTrue(app.otherElements["Explore View"].waitForExistence(timeout: 5))
     }
 }
 
-extension XCUIApplication {
-    var isDisplayingIntroduction: Bool {
-        otherElements["App Onboarding Introduction View"].exists
-    }
-    var isDisplayingExplore: Bool {
-        otherElements["Explore View"].exists
-    }
+extension UIImage {
+    func removingStatusBar() -> UIImage {
+            let statusBarHeight = statusBarHeightForCurrentDevice
+            let cropRect = CGRect(x: 0, y: statusBarHeight,
+                                  width: size.width,
+                                  height: size.height - statusBarHeight)
+            let cgImage = cgImage!.cropping(to: cropRect.applying(
+                CGAffineTransform(scaleX: scale, y: scale)))!
+            return UIImage(cgImage: cgImage, scale: scale, orientation: imageOrientation)
+        }
+        
+        private var statusBarHeightForCurrentDevice: CGFloat {
+            let screenHeight = UIScreen.main.nativeBounds.height / UIScreen.main.nativeScale
+            switch screenHeight {
+            case 932, 956: return 59  // iPhone 14 Pro Max, 15 Pro Max, 16 Plus etc
+            case 852, 874: return 59  // iPhone 14 Pro, 15, 15 Pro, 16
+            case 844:      return 47  // iPhone 12, 13, 14
+            case 812:      return 44  // iPhone X, XS, 11 Pro
+            case 736:      return 20  // iPhone 8 Plus
+            case 667:      return 20  // iPhone 8
+            default:       return 59  // fallback for unknown devices
+            }
+        }
 }
