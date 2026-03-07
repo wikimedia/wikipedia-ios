@@ -22,6 +22,7 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
         
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
+        view.accessibilityIdentifier = "App Onboarding Introduction View"
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

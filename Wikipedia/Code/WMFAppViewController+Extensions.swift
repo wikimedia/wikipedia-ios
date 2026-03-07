@@ -1053,3 +1053,11 @@ extension WMFAppViewController {
         }
     }
 }
+
+extension WMFAppViewController {
+    @objc func setupForUITests() {
+#if UITEST
+        UserDefaults.standard.removeObject(forKey: "DidShowOnboarding5.3")
+#endif
+    }
+}

@@ -66,6 +66,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "Explore View"
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
         isRefreshControlEnabled = true
