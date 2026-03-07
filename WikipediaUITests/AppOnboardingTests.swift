@@ -1,73 +1,71 @@
 import XCTest
+import SnapshotTesting
 
 final class AppOnboardingTests: XCTestCase {
+    
+    var updateScreenshots: Bool = false
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        continueAfterFailure = updateScreenshots ? true : false
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    var screenshotNameSuffix: String {
+        // note: not doing theme name here, since onboarding doesn't need to support our themes, only system light/dark mode.
+        return "\(deviceLanguageCode)"
+    }
+    
+    override func invokeTest() {
+        let shouldRecord: SnapshotTestingConfiguration.Record =
+        updateScreenshots ? .all : .missing
+        withSnapshotTesting(record: shouldRecord) {
+            super.invokeTest()
+        }
     }
 
     func testOnboardingLightMode() throws {
         let app = XCUIApplication()
         XCUIDevice.shared.appearance = .light
-        // Not setting launch arguments (which pass in forced themes) so we can explicitly test system light mode and dark mode.
-        // User shouldn't be able to see onboarding in sepia or dark themes, so need to test those
-        // app.launchArguments += ProcessInfo().arguments
+        // Fix the status bar so clock/battery don't cause false failures
+        app.launchArguments += ["-UIStatusBarShowingBatteryLevel", "0",
+                                "-StatusBarOverrideTime", "10:00"]
         app.launch()
-        
+
         XCTAssertTrue(app.isDisplayingIntroduction)
 
-        let introAttachment = XCTAttachment(screenshot: app.screenshot())
-        introAttachment.name = ScreenshotNames.introduction.rawValue
-        introAttachment.lifetime = .keepAlways
-        add(introAttachment)
-        
-        let skipButton = app.buttons["App Onboarding Skip Button"]
-        skipButton.tap()
-        
-        XCTAssertTrue(app.isDisplayingExplore)
+        // Snapshot the introduction screen
+        assertSnapshot(of: app.screenshot().image,
+                       as: .image(precision: 1.0),
+                       named: "introduction-light-\(screenshotNameSuffix)")
+
+        app.buttons["App Onboarding Skip Button"].tap()
+
+        // XCTAssertTrue(app.isDisplayingExplore)
     }
-    
+
     func testOnboardingDarkMode() throws {
         let app = XCUIApplication()
         XCUIDevice.shared.appearance = .dark
-        // Not setting launch arguments (which pass in forced themes) so we can explicitly test system light mode and dark mode.
-        // User shouldn't be able to see onboarding in sepia or dark themes, so need to test those
-        // app.launchArguments += ProcessInfo().arguments
+        app.launchArguments += ["-UIStatusBarShowingBatteryLevel", "0",
+                                "-StatusBarOverrideTime", "10:00"]
         app.launch()
-        
+
         XCTAssertTrue(app.isDisplayingIntroduction)
 
-        let introAttachment = XCTAttachment(screenshot: app.screenshot())
-        introAttachment.name = ScreenshotNames.introduction.rawValue
-        introAttachment.lifetime = .keepAlways
-        add(introAttachment)
-        
-        let skipButton = app.buttons["App Onboarding Skip Button"]
-        skipButton.tap()
-        
-        XCTAssertTrue(app.isDisplayingExplore)
+        assertSnapshot(of: app.screenshot().image,
+                       as: .image(precision: 1.0),
+                       named: "introduction-dark-\(screenshotNameSuffix)")
+
+        app.buttons["App Onboarding Skip Button"].tap()
+
+        // XCTAssertTrue(app.isDisplayingExplore)
     }
 }
 
 extension XCUIApplication {
     var isDisplayingIntroduction: Bool {
-        return otherElements["App Onboarding Introduction View"].exists
+        otherElements["App Onboarding Introduction View"].exists
     }
-    
     var isDisplayingExplore: Bool {
-        return otherElements["Explore View"].exists
+        otherElements["Explore View"].exists
     }
-}
-
-private enum ScreenshotNames: String {
-    case introduction = "App Onboarding Introduction View"
 }
