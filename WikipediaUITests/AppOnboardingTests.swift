@@ -31,7 +31,7 @@ final class AppOnboardingTests: XCTestCase {
 
         // Snapshot the introduction screen
         assertSnapshot(of: app.screenshot().image.removingStatusBar(),
-                       as: .image(precision: 0.99),
+                       as: .image(precision: 1.0),
                        named: "introduction-light-\(screenshotNameSuffix)")
 
         app.buttons["App Onboarding Skip Button"].tap()
@@ -47,7 +47,7 @@ final class AppOnboardingTests: XCTestCase {
         XCTAssertTrue(app.otherElements["App Onboarding Introduction View"].waitForExistence(timeout: 5))
 
         assertSnapshot(of: app.screenshot().image.removingStatusBar(),
-                       as: .image(precision: 0.99),
+                       as: .image(precision: 1.0),
                        named: "introduction-dark-\(screenshotNameSuffix)")
 
         app.buttons["App Onboarding Skip Button"].tap()
