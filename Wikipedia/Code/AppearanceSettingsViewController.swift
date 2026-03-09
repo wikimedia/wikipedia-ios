@@ -109,8 +109,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
 
         let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
         AppIconUtility.shared.checkAndRevertIfExpired()
-        if true {
-            if true {
+        if !AppIconUtility.shared.isPastEndDate {
+            if (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue)) ?? false {
                 let appIconSection = AppearanceSettingsSection(
                     headerTitle: WMFLocalizedString("appearance-settings-set-icon-header", value: "App Icon", comment: "Header text for changing app icon"),
                     footerText: WMFLocalizedString("appearance-settings-set-icon-footer", value: "The contributor icon celebrates your 2025 in-app contributions to Wikipedia. It will remain until the next Year in Review.", comment: "Footer information about the contributor icon and its purpose"),
