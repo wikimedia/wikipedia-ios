@@ -209,7 +209,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     }
 
     private func updateLanguageBarVisibility() {
-        let shouldShow = showLanguageBar && WMFSettingsDataController.shared.openAppOnSearchTab()
+        let shouldShow = showLanguageBar && WMFSettingsDataController.shared.showSearchLanguageBar()
 
         if shouldShow && searchLanguageBarViewController == nil {
             let vc = setupLanguageBarViewController()
