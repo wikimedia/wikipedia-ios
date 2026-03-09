@@ -7,7 +7,7 @@ public actor WMFSettingsDataController: ObservableObject {
 
     nonisolated(unsafe) private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
-    let yirDataController: WMFYearInReviewDataController?
+    private var yirDataController: WMFYearInReviewDataController?
     let donationDataController: WMFDonateDataController?
 
     private init (yirDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController(),
@@ -15,6 +15,23 @@ public actor WMFSettingsDataController: ObservableObject {
     ) {
         self.yirDataController = yirDataController
         self.donationDataController = donationDataController
+        
+        NotificationCenter.default.addObserver(
+            forName: WMFNSNotification.coreDataStoreSetup,
+            object: nil,
+            queue: nil
+        ) { [weak self] _ in
+            guard let self else { return }
+            Task {
+                await self.handleCoreDataStoreSetup()
+            }
+        }
+    }
+    
+    private func handleCoreDataStoreSetup() {
+        if yirDataController == nil {
+            yirDataController = try? WMFYearInReviewDataController()
+        }
     }
 
     public func yirIsActive() -> Bool {
