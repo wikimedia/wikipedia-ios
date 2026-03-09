@@ -57,8 +57,6 @@
 "about-repositories-app-source-license" = "소스 코드는 $1 하에 이용이 가능합니다.";
 "about-repositories-app-source-license-mit" = "MIT 라이선스";
 "about-send-feedback" = "앱 피드백 보내기";
-"about-testers" = "테스터";
-"about-testers-details" = "$1에 의해 품질보증 테스트를 했습니다";
 "about-title" = "정보";
 "about-translators" = "옮긴이";
 "about-translators-details" = "$1의 자원 번역자가 번역했습니다";
@@ -114,10 +112,13 @@
 "activity-tab-add-images-subtitle" = "이해를 높이기 위해 위키백과의 문서에 제안된 이미지를 추가하십시오.";
 "activity-tab-add-images-title" = "이미지 추가";
 "activity-tab-additional-thoughts" = "추가 의견이 있으신가요?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1회 보기}}";
+"activity-tab-articles-read" = "이달의 기사";
 "activity-tab-articles-read-graph-label" = "문서";
 "activity-tab-customize-last-in-app-donation" = "마지막 인앱 기부";
 "activity-tab-empty-title" = "표시할 항목이 없습니다";
 "activity-tab-hours-minutes-read" = "$1시간 $2분";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1일}}";
 "activity-tab-menu-clear-history" = "읽기 역사 지우기";
 "activity-tab-neutral" = "중립";
 "activity-tab-no-edits-title" = "이번 주에는 편집을 하지 않으셨습니다. 문서의 이해를 돕기 위해 이미지를 추가하세요.";
@@ -703,6 +704,7 @@
 "languages-settings-title" = "언어";
 "languages-title" = "언어 변경";
 "languages-wikipedia" = "위키백과 언어";
+"learn-about-editing" = "편집에 관해 알아보기";
 "learn-more-title" = "더 알아보기";
 "logged-out-continue-without-logging-in-button-title" = "로그인 없이 계속하기";
 "logged-out-log-back-in-button-title" = "자신의 계정으로 다시 로그인";
@@ -1448,3 +1450,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "위키백과 w 로고";
 "year-in-review-wmf-logo-accessibility-label" = "위키미디어 재단 로고";
 "yesterday-title" = "어제";
+"zero-edits-to-articles" = "최근 문서 편집 수 0회";

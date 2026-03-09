@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Auslaender
 // Author: Evropi
+// Author: Fotis A.
 // Author: GR
 // Author: Geraki
 // Author: Giorgos456
@@ -34,7 +35,6 @@
 "about-repositories-app-source-license" = "Ο κώδικας πηγής είναι διαθέσιμος υπό την $1.";
 "about-repositories-app-source-license-mit" = "Άδεια MIT";
 "about-send-feedback" = "Αποστολή σχολίων για την εφαρμογή";
-"about-testers" = "Δοκιμαστές";
 "about-title" = "Σχετικά";
 "about-translators" = "Μεταφραστές";
 "about-translators-details" = "Μεταφράζεται από εθελοντές στο $1";
@@ -54,13 +54,17 @@
 "account-creation-title" = "Δημιουργήστε νέο λογαριασμό";
 "account-group-title" = "Ο λογαριασμός σας";
 "account-talk-page-title" = "Η σελίδα συζήτησής σας";
+"account-talk-preferences-auto-sign-discussions" = "Αυτόματη υπογραφή συζητήσεων";
+"account-talk-preferences-auto-sign-discussions-setting-explanation" = "Η αυτόματη υπογραφή των συζητήσεων θα χρησιμοποιήσει την υπογραφή που ορίζεται στις ρυθμίσεις υπογραφής";
 "account-talk-preferences-title" = "Προτιμήσεις σελίδας συζήτησης";
 "action-add-to" = "Πρόσθεση σε...";
 "action-add-to-reading-list" = "Πρόσθεση στην λίστα ανάγνωσης";
 "action-add-to-reading-list-short" = "Προσθήκη στην λίστα";
 "action-cancel" = "Ακύρωση";
+"action-discard-edit" = "Απόρριψη επεξεργασιών";
 "action-discard-edits" = "Απόρριψη επεξεργασιών";
 "action-find-in-page" = "Βρείτε στην σελίδα";
+"action-keep-editing" = "Συνέχεια επεξεργασίας";
 "action-language-accessibility" = "Αλλαγή γλώσσας";
 "action-move-to" = "Μετακίνηση σε...";
 "action-move-to-reading-list" = "Μετακίνηση στη λίστα ανάγνωσης";
@@ -81,6 +85,25 @@
 "action-unsave" = "Ξεαποθήκευση";
 "action-unsaved-accessibility-notification" = "Μη αποθηκευμένο άρθρο";
 "action-update" = "Ενημέρωση";
+"activity-tab-add-images-title" = "Προσθήκη εικόνων";
+"activity-tab-articles-read" = "Λήμματα που διαβάσατε αυτόν τον μήνα";
+"activity-tab-articles-read-graph-label" = "Λήμματα";
+"activity-tab-impact-last-edited-label" = "Τελευταία επεξεργασία";
+"activity-tab-impact-recent-activity-title" = "Η πρόσφατη δραστηριότητά σας (τελευταίες 30 ημέρες)";
+"activity-tab-impact-thanks-label" = "Ευχαριστίες";
+"activity-tab-impact-total-edits-label" = "Συνολικές επεξεργασίες";
+"activity-tab-impact-views-day" = "Ημέρα";
+"activity-tab-impact-views-views" = "Προβολές";
+"activity-tab-log-in-or-create-account" = "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό για να δείτε περισσότερη δραστηριότητα επεξεργασίας και ανάγνωσης.";
+"activity-tab-logged-out-subtitle" = "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό για να δείτε τη δραστηριότητά σας στην εφαρμογή Wikipedia";
+"activity-tab-logged-out-title" = "Δείτε περισσότερες πληροφορίες ανάγνωσης και επεξεργασίας";
+"activity-tab-menu-clear-history" = "Εκκαθάριση ιστορικού ανάγνωσης";
+"activity-tab-no-edits-title" = "Δεν έχετε επεξεργαστεί κάτι αυτήν την εβδομάδα. Προσθέστε εικόνες για να βελτιώσετε την κατανόηση του άρθρου.";
+"activity-tab-onboarding-first-item-subtitle" = "Δείτε πόσο χρόνο έχετε αφιερώσει στην ανάγνωση και ποια άρθρα ή θέματα έχετε εξερευνήσει με την πάροδο του χρόνου.";
+"activity-tab-onboarding-fourth-item-subtitle" = "Επιλέξτε ποιες ενότητες θα εμφανίζονται. Όλα τα προσωπικά δεδομένα παραμένουν ιδιωτικά στη συσκευή σας και το ιστορικό περιήγησης μπορεί να διαγραφεί ανά πάσα στιγμή.";
+"activity-tab-onboarding-fourth-item-title" = "Διατηρήστε τον έλεγχο";
+"activity-tab-onboarding-header" = "Παρουσίαση Δραστηριότητας";
+"activity-tab-onboarding-second-button-title" = "Μάθετε περισσότερα σχετικά με την επεξεργασία";
 "add-articles-to-reading-list" = "Πρόσθεση {{PLURAL:$1|$1 λήμμα|$1 λημμάτων}} στη λίστα ανάγνωσης";
 "announcements-dismiss" = "Απόρριψη";
 "app-store-keywords" = "Βικιπαίδεια, παραπομπή, βίκι, εγκυκλοπαίδεια, πληροφορία, γνώση, έρευνα, πληροφορίες, εξερευνήστε, μάθετε";
@@ -118,18 +141,28 @@
 "clear-title-accessibility-label" = "Εκκαθάριση";
 "close-button-accessibility-label" = "Κλείσιμο";
 "compass-direction" = "στις $1 ακριβώς";
+"continue-button-title" = "Συνέχεια";
 "continue-reading-empty-description" = "Εξερευνήστε τη Βικιπαίδεια για να διαβάσετε περισσότερα λήμματα";
 "continue-reading-empty-title" = "Δεν υπάρχουν πρόσφατα διαβασμένα λήμματα";
+"contributions-this-month" = "Συνεισφορές αυτόν τον μήνα";
 "description-add-title" = "Προσθήκη περιγραφής";
 "description-edit-for-article" = "Περιγραφή λήμματος για $1";
 "description-edit-length-warning" = "$1 από $2";
+"description-edit-pencil-introduction" = "Επεξεργασία εισαγωγής";
 "description-edit-pencil-title" = "Επεξεργασία περιγραφής λήμματος";
+"description-edit-placeholder-title" = "Οι σύντομες περιγραφές είναι οι καλύτερες";
 "description-edit-publish" = "Δημοσίευση περιγραφής";
 "description-edit-title" = "Επεξεργασία περιγραφής";
+"description-edit-warning" = "Προσπαθήστε να διατηρείτε τις περιγραφές σύντομες, ώστε οι χρήστες να μπορούν να κατανοήσουν το θέμα του άρθρου με μια ματιά.";
+"description-edit-warning-casing" = "Μόνο τα κύρια ουσιαστικά πρέπει να γράφονται με κεφαλαίο γράμμα, ακόμα και στην αρχή της πρότασης.";
+"description-editing-temp-account-created-subtitle" = "Ο προσωρινός λογαριασμός $1 δημιουργήθηκε μετά τη δημοσίευση της επεξεργασίας σας. Θα λήξει σε 90 ημέρες.";
+"description-help-about-description" = "Συνοψίστε ένα λήμμα για να βοηθήσετε τους αναγνώστες να κατανοήσουν το θέμα με μια ματιά.";
 "description-help-about-title" = "Σχετικά";
 "description-help-about-wikidata" = "Σχετικά με τη Wikidata";
 "description-help-more-info-title" = "Περισσότερες πληροφορίες";
 "description-help-tips-for-example" = "Για παράδειγμα:";
+"description-welcome-descriptions-title" = "Περιγραφές λήμματος";
+"description-welcome-start-editing-button" = "Έναρξη επεξεργασίας";
 "dim-images" = "εικόνες Dim";
 "edit-summary-choice-fixed-grammar" = "Διόρθωση γραμματικής";
 "edit-summary-choice-fixed-typos" = "Διόρθωση ορθογραφίας";
@@ -429,6 +462,14 @@
 "table-of-contents-close-accessibility-hint" = "Κλείσιμο";
 "table-of-contents-close-accessibility-label" = "Κλείσιμο του Πίνακα περιεχομένων";
 "table-of-contents-heading" = "Περιεχόμενα";
+"talk-page-user-contributions" = "Συνεισφορές";
+"talk-pages-archives-empty-title" = "Δεν βρέθηκαν αρχειοθετημένες σελίδες.";
+"talk-pages-archives-view-title" = "Αρχεία";
+"talk-pages-coffee-roll-read-more" = "Διαβάστε περισσότερα";
+"talk-pages-comment-added-alert-title" = "Το σχόλιό σας προστέθηκε";
+"talk-pages-compose-close-confirmation-keep" = "Συνέχεια επεξεργασίας";
+"talk-pages-edit-source" = "Επεξεργασία κώδικα";
+"talk-pages-empty-view-body-article" = "Οι σελίδες συζήτησης είναι οι σελίδες όπου οι άνθρωποι συζητούν πώς να κάνουν το περιεχόμενο στη Βικιπαίδεια όσο το δυνατόν καλύτερο. **Ξεκινήστε προσθέτοντας ένα νέο θέμα συζήτησης** για να συνδεθείτε και να συνεργαστείτε με μια κοινότητα Βικιπαιδιστών.";
 "theme-black-display-name" = "Μαύρο";
 "theme-dark-display-name" = "Σκούρο";
 "theme-default-display-name" = "Προεπιλογή";
