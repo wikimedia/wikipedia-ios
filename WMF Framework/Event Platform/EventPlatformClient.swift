@@ -136,6 +136,7 @@ import WMFData
         case articleLinkInteraction = "ios.article_link_interaction"
         case appTabsInteraction = "app_tabs_interaction"
         case appActivityTab = "app_activity_tab"
+        case clientError = "mediawiki.client.error"
     }
     
     /**
@@ -163,6 +164,7 @@ import WMFData
         case appInteraction = "/analytics/mobile_apps/app_interaction/1.1.0"
         case imageRecommendation = "/analytics/mobile_apps/android_image_recommendation_event/1.1.0"
         case articleLinkInteraction = "/analytics/mobile_apps/ios_article_link_interaction/2.0.0"
+        case clientError = "/mediawiki/client/error/2.0.0"
     }
 
     /**
@@ -184,11 +186,19 @@ import WMFData
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private static var eventIntakeURI: URL {
+    private static var analyticsEventIntakeURI: URL {
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
         } else {
             URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
+        }
+    }
+
+    private static var loggingEventIntakeURI: URL {
+        if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
+            URL(string: "https://intake-logging-beta.wmflabs.org/v1/events")!
+        } else {
+            URL(string: "https://intake-logging.wikimedia.org/v1/events")!
         }
     }
 
@@ -208,12 +218,13 @@ import WMFData
      * be "eventgate-analytics-external" (to filter out irrelevant streams from
      * the returned list of stream configurations).
      */
-    private static let streamConfigsURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json&constraints=destination_event_service=eventgate-analytics-external")!
+    private static let streamConfigsURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json")!
 
     /**
      * An individual stream's configuration.
      */
     struct StreamConfiguration: Codable {
+        let destination_event_service: String?
         let sampling: Sampling?
         struct Sampling: Codable {
             let rate: Double?
@@ -385,7 +396,13 @@ import WMFData
         let group = DispatchGroup()
         for event in events {
             group.enter()
-            httpPost(url: EventPlatformClient.eventIntakeURI, body: event.data) { result in
+
+            var uri = EventPlatformClient.analyticsEventIntakeURI
+            if (streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external") {
+                uri = EventPlatformClient.loggingEventIntakeURI
+            }
+
+            httpPost(url: uri, body: event.data) { result in
                 switch result {
                 case .success:
                     storageManager.markPurgeable(event: event)
@@ -429,15 +446,6 @@ import WMFData
         var meta: Meta
 
         /**
-         * The top-level field `dt` is for recording the time the event
-         * was generated. EventGate sets `meta.dt` during ingestion, so for
-         * analytics events that field is used as "timestamp of reception" and
-         * is used for partitioning the events in the database. See Phab:T240460
-         * for more information.
-         */
-        let dt: Date
-        
-        /**
          * Event represents the client-provided event data.
          * The event is encoded at the top level of the resulting structure.
          * If any of the `CodingKeys` conflict with keys defined by `EventBody`,
@@ -448,7 +456,6 @@ import WMFData
         enum CodingKeys: String, CodingKey {
             case schema = "$schema"
             case meta
-            case dt
             case event
         }
         
@@ -456,7 +463,6 @@ import WMFData
             var container = encoder.container(keyedBy: CodingKeys.self)
             do {
                 try container.encode(meta, forKey: .meta)
-                try container.encode(dt, forKey: .dt)
                 try container.encode(E.schema, forKey: .schema)
                 try event.encode(to: encoder)
             } catch let error {
@@ -623,7 +629,7 @@ import WMFData
         }
         
         let meta = Meta(stream: stream, id: UUID(), domain: domain)
-        let eventPayload: Encodable = needsMinimal ? MinimalEventBody<E>(meta: meta, dt: date, event: event) : EventBody<E>(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, isTemp: isTemp, primaryLanguage: primaryLanguage)
+        let eventPayload: Encodable = needsMinimal ? MinimalEventBody<E>(meta: meta, event: event) : EventBody<E>(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event, isAnon: isAnon, isTemp: isTemp, primaryLanguage: primaryLanguage)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
@@ -633,16 +639,7 @@ import WMFData
             #endif
             
             let data = try encoder.encode(eventPayload)
-            
-            #if DEBUG
-            // Convert to loose dictionary so we can sort keys and print that way.
-            if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                let printablePayload = PrintableEventPayload(payload: dict)
-                DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI):")
-                DDLogDebug("\(printablePayload)")
-            }
-            #endif
-            
+
             guard let streamConfigs = streamConfigurations else {
                 appendEventToInputBuffer(data: data, stream: stream)
                 return
@@ -655,6 +652,16 @@ import WMFData
                 DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
                 return
             }
+
+            #if DEBUG
+            // Convert to loose dictionary so we can sort keys and print that way.
+            if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                let printablePayload = PrintableEventPayload(payload: dict)
+                DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(config.destination_event_service):")
+                DDLogDebug("\(printablePayload)")
+            }
+            #endif
+
             storageManager.push(data: data, stream: stream)
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
