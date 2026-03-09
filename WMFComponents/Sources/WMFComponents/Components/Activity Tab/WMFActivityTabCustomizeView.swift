@@ -82,15 +82,5 @@ public struct WMFActivityTabCustomizeView: View {
         .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
         .listStyle(GroupedListStyle())
         .listBackgroundColor(Color(theme.baseBackground))
-        .onAppear(perform: {
-            if #unavailable(iOS 16) {
-                UITableView.appearance().backgroundColor = UIColor.clear
-            }
-        })
-        .onDisappear(perform: {
-            if #unavailable(iOS 16) {
-                UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
-            }
-        })
     }
 }

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol VanishAccountWarningViewDelegate: AnyObject {
     func userDidDismissVanishAccountWarningView(presentVanishView: Bool)
 }

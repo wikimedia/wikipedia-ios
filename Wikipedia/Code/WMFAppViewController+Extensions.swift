@@ -26,6 +26,11 @@ extension Notification.Name {
 
 extension WMFAppViewController {
 
+    @objc func shouldOpenAppOnSearchTab() -> Bool {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+    }
+
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
 
         guard let linkURL = userActivity.wmf_linkURL() else {
@@ -86,7 +91,6 @@ extension WMFAppViewController {
                 completion()
             })
         }
-
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -589,7 +593,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
             }
         }
     }
-    
+
     @objc func setupTips() {
         do {
             try Tips.configure()
@@ -623,6 +627,11 @@ extension WMFAppViewController {
     @objc func setupWMFDataCoreDataStore() {
         WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
 
+        migrateAutoSignTalkPageDiscussions()
+        migrateShowLanguageBar()
+        migrateOpenAppOnSearchTab()
+        migrateIsSubscribedToEchoNotifications()
+
         Task(priority: .userInitiated) {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
@@ -649,6 +658,55 @@ extension WMFAppViewController {
             UIApplication.shared.endBackgroundTask(bgTask)
             bgTask = .invalid
         }
+    }
+
+    private func migrateAutoSignTalkPageDiscussions() {
+        let legacyKey = "WMFAutoSignTalkPageDiscussions"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        let settingsDataController = WMFSettingsDataController.shared
+        Task {
+            await settingsDataController.setAutoSignTalkPageDiscussions(legacyValue)
+        }
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateShowLanguageBar() {
+        let legacyKey = "ShowLanguageBar"
+        guard let legacyValue = UserDefaults.standard.object(forKey: legacyKey) as? NSNumber else {
+            return
+        }
+        let settingsDataController = WMFSettingsDataController.shared
+        Task {
+            settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
+        }
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateOpenAppOnSearchTab() {
+        let legacyKey = "WMFOpenAppOnSearchTab"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        let settingsDataController = WMFSettingsDataController.shared
+        Task {
+            await settingsDataController.setOpenAppOnSearchTab(legacyValue)
+        }
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateIsSubscribedToEchoNotifications() {
+        let legacyKey = "WMFIsSubscribedToEchoNotifications"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        let store = WMFDataEnvironment.current.userDefaultsStore
+        try? store?.save(key: WMFUserDefaultsKey.isSubscribedToEchoNotifications.rawValue, value: legacyValue)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
     @objc func setupWMFDataEnvironment() {
@@ -1071,7 +1129,7 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
         } else if currentVC is SearchTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .search, action: action)
-        } else if currentVC is WMFSettingsViewController {
+        } else if currentVC is SettingsTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .settings, action: action)
         } else if let article = currentVC as? ArticleViewController {
             guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {
@@ -1083,6 +1141,139 @@ extension WMFAppViewController {
             } else {
                 ActivityTabFunnel.shared.logTabBarSelected(from: .article, action: action)
             }
+        }
+    }
+
+    // MARK: - Settings
+
+    @objc func generateSettingsTab() -> SettingsTabViewController {
+        let dataController = WMFSettingsDataController.shared
+
+        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
+        let themeName = UserDefaults.standard.themeDisplayName
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+        let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
+        let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
+                            dataStore.authenticationManager.authStateIsTemporary
+        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+
+        let localizedStrings = WMFSettingsViewModel.LocalizedStrings(
+            settingTitle: CommonStrings.settingsTitle,
+            doneButtonTitle: CommonStrings.doneTitle,
+            cancelButtonTitle: CommonStrings.cancelActionTitle,
+            accountTitle: CommonStrings.account,
+            logInTitle: CommonStrings.logIn,
+            myLanguagesTitle: CommonStrings.myLanguages,
+            searchTitle: CommonStrings.searchTitle,
+            exploreFeedTitle: CommonStrings.exploreFeedTitle,
+            onTitle: CommonStrings.onTitle,
+            offTitle: CommonStrings.offTitle,
+            yirTitle: CommonStrings.yirTitle,
+            pushNotificationsTitle: CommonStrings.pushNotifications,
+            readingpreferences: CommonStrings.readingPreferences,
+            articleSyncing: CommonStrings.settingsStorageAndSyncing,
+            databasePopulation: "Database population",
+            clearCacheTitle: CommonStrings.clearCachedDataSettings,
+            privacyHeader: CommonStrings.privacyTermsHeader,
+            privacyPolicyTitle: CommonStrings.privacyPolicyTitle,
+            termsOfUseTitle: CommonStrings.termsOfUseTitle,
+            rateTheAppTitle: CommonStrings.rateTheAppTitle,
+            helpTitle: CommonStrings.helpAndfeedbackTitle,
+            aboutTitle: CommonStrings.aboutTitle,
+            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory
+        )
+
+        let viewModel = WMFSettingsViewModel.__createSynchronously(
+            localizedStrings: localizedStrings,
+            username: username,
+            tempUsername: tempUsername,
+            isTempAccount: isTempAccount,
+            primaryLanguage: language,
+            exploreFeedStatus: isExploreFeedOn,
+            readingPreferenceTheme: themeName,
+            coordinatorDelegate: nil,
+            dataController: dataController
+        )
+
+        let controller = SettingsTabViewController(
+            viewModel: viewModel,
+            coordinatorDelegate: nil,
+            dataStore: dataStore,
+            theme: theme,
+            dataController: dataController
+        )
+
+        return controller
+    }
+}
+
+extension WMFAppViewController {
+
+    @objc func makePushNotificationsHostingController() -> UIViewController {
+        let strings = WMFPushNotificationsSettingsViewModel.LocalizedStrings(
+            title: CommonStrings.pushNotifications,
+            headerText: WMFLocalizedString("settings-notifications-header", value: "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.", comment: "Text informing user of benefits of enabling push notifications."),
+            pushNotificationsTitle: CommonStrings.pushNotifications
+        )
+
+        var viewModel: WMFPushNotificationsSettingsViewModel?
+        let model = WMFPushNotificationsSettingsViewModel(
+            localizedStrings: strings,
+            onRequestPermissions: { [weak self] in
+                guard let vm = viewModel else { return }
+                self?.requestPushNotificationsPermissions(viewModel: vm)
+            },
+            onUnsubscribe: { [weak self] in
+                guard let vm = viewModel else { return }
+                self?.unsubscribeFromEchoNotifications(viewModel: vm)
+            },
+            onOpenSystemSettings: {
+                UIApplication.shared.wmf_openAppSpecificSystemSettings()
+            }
+        )
+        viewModel = model
+
+        let rootView = WMFPushNotificationsSettingsView(viewModel: model)
+        let hostingController = UIHostingController(rootView: rootView)
+        hostingController.title = strings.title
+        return hostingController
+    }
+
+    private func requestPushNotificationsPermissions(viewModel: WMFPushNotificationsSettingsViewModel) {
+        Task { @MainActor in
+            let settings = await UNUserNotificationCenter.current().notificationSettings()
+            switch settings.authorizationStatus {
+            case .authorized, .provisional, .ephemeral:
+                UIApplication.shared.registerForRemoteNotifications()
+                await withCheckedContinuation { continuation in
+                    dataStore.notificationsController.subscribeToEchoNotifications { _ in continuation.resume() }
+                }
+                await viewModel.loadAndBuild()
+            case .notDetermined:
+                let result = await withCheckedContinuation { continuation in
+                    dataStore.notificationsController.requestPermissionsIfNecessary { authorized, _ in
+                        continuation.resume(returning: authorized)
+                    }
+                }
+                if result {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    await withCheckedContinuation { continuation in
+                        dataStore.notificationsController.subscribeToEchoNotifications { _ in continuation.resume() }
+                    }
+                }
+                await viewModel.refreshAfterPermissionRequest(granted: result)
+            default:
+                await viewModel.refreshAfterPermissionRequest(granted: false)
+            }
+        }
+    }
+
+    private func unsubscribeFromEchoNotifications(viewModel: WMFPushNotificationsSettingsViewModel) {
+        Task { @MainActor in
+            await withCheckedContinuation { continuation in
+                dataStore.notificationsController.unsubscribeFromEchoNotifications { _ in continuation.resume() }
+            }
+            await viewModel.loadAndBuild()
         }
     }
 }

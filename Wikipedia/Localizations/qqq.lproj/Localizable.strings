@@ -219,6 +219,7 @@
 "chinese-variants-alert-title" = "Title of alert used to inform users about Chinese variant support.";
 "clear-title-accessibility-label" = "Accessibility label title for action that clears text";
 "clearing-cache-complete" = "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.";
+"clearing-cache-error" = "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.";
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-all-tabs" = "Action to close all open tabs.";
 "close-all-tabs-confirmation" = "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.";
@@ -1170,14 +1171,12 @@
 "settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-donate" = "Link to donate";
-"settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
+"settings-help-and-feedback" = "Title for showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
 "settings-my-languages" = "Title for list of user's preferred languages";
 "settings-new-article-tab-header-text" = "Header title for the New Article Tabs settings to determine between preferences";
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
-"settings-notifications-echo-failure-message" = "Alert message text informing user of failure when subscribing to Echo Notifications.";
-"settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
 "settings-notifications-echo-failure-try-again" = "Text alerting the user to try action again after error";
 "settings-notifications-header" = "Text informing user of benefits of enabling push notifications.";
 "settings-notifications-info" = "A short description of notifications shown in settings";

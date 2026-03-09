@@ -219,6 +219,7 @@
 "chinese-variants-alert-title" = "Updates to Chinese variant support";
 "clear-title-accessibility-label" = "Clear";
 "clearing-cache-complete" = "Clearing cache complete.";
+"clearing-cache-error" = "Error clearing cache.";
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-all-tabs" = "Close all tabs";
 "close-all-tabs-confirmation" = "Do you want to close all $1 tabs? This action can’t be undone.";
@@ -1176,8 +1177,6 @@
 "settings-my-languages" = "My languages";
 "settings-new-article-tab-header-text" = "New Tab Theme";
 "settings-notifications" = "Push notifications";
-"settings-notifications-echo-failure-message" = "An error occurred while checking for notification subscriptions related to your account.";
-"settings-notifications-echo-failure-title" = "Unable to Check for Echo Notification subscriptions";
 "settings-notifications-echo-failure-try-again" = "Try again";
 "settings-notifications-header" = "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.";
 "settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
