@@ -1533,6 +1533,12 @@
 		83D3140A2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
 		83D3140B2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
 		83D3140C2F5B420E007F822D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D314092F5B4203007F822D /* UIViewController+Extensions.swift */; };
+		83D314182F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */; };
+		83D314192F5F56FA007F822D /* contributor-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314162F5F56FA007F822D /* contributor-app-icon.icon */; };
+		83D3141A2F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */; };
+		83D3141B2F5F56FA007F822D /* contributor-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314162F5F56FA007F822D /* contributor-app-icon.icon */; };
+		83D3141C2F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */; };
+		83D3141D2F5F56FA007F822D /* contributor-app-icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 83D314162F5F56FA007F822D /* contributor-app-icon.icon */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
 		83D861432DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */; };
 		83D861442DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */; };
@@ -3708,6 +3714,8 @@
 		83CF71432326D47E009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		83CF71442326D48A009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		83D314092F5B4203007F822D /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		83D314162F5F56FA007F822D /* contributor-app-icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "contributor-app-icon.icon"; sourceTree = "<group>"; };
+		83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "wikipedia-app-icon.icon"; sourceTree = "<group>"; };
 		83D3FC12223A8BCD0048384B /* ArticleSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummary.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTabsFunnel.swift; sourceTree = "<group>"; };
@@ -7841,6 +7849,8 @@
 				BCF012321AD2FA38008D3675 /* assets */,
 				6768B9422D36C7680031003C /* logo-wikipedia.ttf */,
 				D8BA1F1F1DF1E19700502877 /* Resources */,
+				83D314162F5F56FA007F822D /* contributor-app-icon.icon */,
+				83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */,
 			);
 			path = Wikipedia;
 			sourceTree = "<group>";
@@ -9249,6 +9259,8 @@
 				7ABE17292239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				D8D92B651DF22E1700B95311 /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD681EBEC2F6008F36E5 /* LibrariesUsed.storyboard in Resources */,
+				83D3141C2F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */,
+				83D3141D2F5F56FA007F822D /* contributor-app-icon.icon in Resources */,
 				67E069082238A5A6008550AC /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8D92B611DF22E1700B95311 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				B0524AF62144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
@@ -9347,6 +9359,8 @@
 				83E52BBA1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				7A84224D2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8CE265E1E698E2400DAE2E0 /* WMFEmptyView.xib in Resources */,
+				83D3141A2F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */,
+				83D3141B2F5F56FA007F822D /* contributor-app-icon.icon in Resources */,
 				D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */,
 				7A393287236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241E1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
@@ -9453,6 +9467,8 @@
 				83E52BBB1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				7A84224E2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8EC3F5E1E9BDA35006712EB /* WMFEmptyView.xib in Resources */,
+				83D314182F5F56FA007F822D /* wikipedia-app-icon.icon in Resources */,
+				83D314192F5F56FA007F822D /* contributor-app-icon.icon in Resources */,
 				D8EC3F5F1E9BDA35006712EB /* NotificationBackgroundMessage@2x.png in Resources */,
 				7A393288236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241F1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
@@ -12774,8 +12790,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -12921,8 +12937,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -12956,7 +12972,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -12990,7 +13006,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -14093,8 +14109,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -14125,8 +14141,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -14502,8 +14518,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -14535,7 +14551,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -14567,7 +14583,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -14825,8 +14841,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -15048,8 +15064,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -15425,8 +15441,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -15460,7 +15476,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -15673,8 +15689,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -15706,7 +15722,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16060,7 +16076,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16092,7 +16108,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16131,7 +16147,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16165,7 +16181,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16199,7 +16215,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16241,7 +16257,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16272,7 +16288,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16304,7 +16320,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16343,7 +16359,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16377,7 +16393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16411,7 +16427,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
@@ -16445,7 +16461,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = ContributorAppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
