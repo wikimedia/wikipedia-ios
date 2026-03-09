@@ -20,8 +20,6 @@
 "about-repositories-app-source-license" = "Codice fonte disponibile sub le $1.";
 "about-repositories-app-source-license-mit" = "Licentia MIT";
 "about-send-feedback" = "Inviar commentario sur le app";
-"about-testers" = "Probatores";
-"about-testers-details" = "Qualitate assecurate per $1";
 "about-title" = "A proposito";
 "about-translators" = "Traductores";
 "about-translators-details" = "Traducite per voluntarios de $1";
@@ -589,8 +587,6 @@
 "explore-suggested-edits-footer" = "Adder";
 "explore-suggested-edits-image-recs-body" = "Adder imagines suggerite a articulos de Wikipedia pro meliorar le comprension.";
 "explore-suggested-edits-image-recs-title" = "Adder un imagine";
-"explore-survey-subtitle" = "Per favor responde a un curte sondage sur le fluxo Explorar. Tu commentarios nos adjutara a meliorar le application.";
-"explore-survey-title" = "Adjuta nos a meliorar Explorar";
 "explore-wikipedia" = "Explorar Wikipedia";
 "export-user-data-confirmation-message" = "Condivider tu bibliotheca de applicationes include datos sur tu listas de lectura e historia, preferentias, e contento del canal Explorar. Iste file de datos solmente debe esser condividite con un destinatario de confidentia pro scopos diagnostic technic.";
 "export-user-data-confirmation-title" = "Condivider bibliotheca de applicationes?";

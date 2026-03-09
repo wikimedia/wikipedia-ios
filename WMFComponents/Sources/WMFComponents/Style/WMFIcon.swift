@@ -55,6 +55,7 @@ public enum WMFIcon {
 public enum WMFSFSymbolIcon {
     
     case checkmark
+    case checkmarkCircleFill
     case checkmarkSquareFill
     case square
     case star
@@ -98,6 +99,7 @@ public enum WMFSFSymbolIcon {
     case closeCircleFill
     case ellipsis
     case pencil
+    case plusCircle
     case plusCircleFill
     case undo
     case redo
@@ -125,6 +127,7 @@ public enum WMFSFSymbolIcon {
     case squareAndArrowUp
     case circleFill
     case bellFill
+    case bellSlashFill
     case chatBubbleFilled
     case textBadgeStar
     case textPage
@@ -156,6 +159,8 @@ public enum WMFSFSymbolIcon {
         switch self {
         case .closeCircleFill:
             "xmark.circle.fill"
+        case .magnifyingGlass:
+            "magnifyingglass"
         default:
             nil
         }
@@ -169,6 +174,8 @@ public enum WMFSFSymbolIcon {
         switch symbol {
         case .checkmark:
             image = UIImage(systemName: "checkmark", withConfiguration: configuration)
+        case .checkmarkCircleFill:
+            image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)
         case .checkmarkSquareFill:
             image = UIImage(systemName: "checkmark.square.fill", withConfiguration: configuration)
         case .square:
@@ -204,7 +211,7 @@ public enum WMFSFSymbolIcon {
         case .docTextMagnifyingGlass:
             image = UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)
         case .magnifyingGlass:
-            image = UIImage(systemName: "magnifyingglass", withConfiguration: configuration)
+            image = UIImage(systemName: symbol.name ?? "magnifyingglass", withConfiguration: configuration)
         case .listBullet:
             image = UIImage(systemName: "list.bullet", withConfiguration: configuration)
         case .listNumber:
@@ -253,6 +260,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "ellipsis", withConfiguration: configuration)
         case .pencil:
             image = UIImage(systemName: "pencil", withConfiguration: configuration)
+        case .plusCircle:
+            image = UIImage(systemName: "plus.circle", withConfiguration: configuration)
         case .plusCircleFill:
             image = UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)
         case .undo:
@@ -307,6 +316,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "circle.fill", withConfiguration: configuration)
         case .bellFill:
             image = UIImage(systemName: "bell.fill", withConfiguration: configuration)
+        case .bellSlashFill:
+            image = UIImage(systemName: "bell.slash.fill", withConfiguration: configuration)
         case .chatBubbleFilled:
             image = UIImage(systemName: "bubble.fill", withConfiguration: configuration)
         case .textBadgeStar:

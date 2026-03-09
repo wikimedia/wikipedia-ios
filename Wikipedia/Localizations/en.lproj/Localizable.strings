@@ -271,7 +271,6 @@
 "description-help-title" = "Article description help";
 "description-help-wikidata-guide" = "Wikidata guide for writing descriptions";
 "description-published-button-title" = "Done";
-"description-published-footer" = "You can also edit articles within this app. Try fixing typos and small sentences by clicking on the pencil icon next time";
 "description-published-subtitle" = "You just made Wikipedia better for everyone";
 "description-published-title" = "Description published!";
 "description-welcome-concise-sub-title" = "Ideally one line, between two to twelve words";
@@ -332,7 +331,7 @@
 "diff-thanks-send-subtitle" = "'Thanks' are an easy way to show appreciation for an editor's work on Wikipedia. 'Thanks' cannot be undone and are publicly viewable.";
 "diff-thanks-send-title" = "Publicly send 'Thanks'";
 "diff-thanks-sent" = "Your 'Thanks' was sent to $1";
-"diff-thanks-sent-already" = "You’ve already sent a ‘Thanks’ for this edit";
+"diff-thanks-sent-already" = "You've already sent a 'Thanks' for this edit";
 "diff-thanks-sent-cannot-unsend" = "Thanks cannot be unsent";
 "diff-unchanged-contextual-line" = "Contextual line, unchanged: $1";
 "diff-undo-message" = "This will undo the changes made by the revisions(s) of the article shown here. To continue, please provide a reason for undoing this edit.";
@@ -383,8 +382,6 @@
 "edit-notices-always-display" = "Always display edit notices";
 "edit-notices-please-read" = "Please read before editing";
 "edit-preview-simplified-format-message" = "All content is shown in simplified format.";
-"edit-published" = "Edit published";
-"edit-published-subtitle" = "You just made Wikipedia better for everyone";
 "edit-sheet-ip-account-notice" = "IP Account Notice";
 "edit-sheet-temp-account-notice" = "Temporary Account Notice";
 "edit-show-web-preview" = "Show web preview";
@@ -583,8 +580,6 @@
 "explore-suggested-edits-footer" = "Add";
 "explore-suggested-edits-image-recs-body" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "explore-suggested-edits-image-recs-title" = "Add an image";
-"explore-survey-subtitle" = "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.";
-"explore-survey-title" = "Help us improve Explore";
 "explore-wikipedia" = "Explore Wikipedia";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
@@ -697,7 +692,6 @@
 "image-recs-yes-title" = "Yes";
 "import-shared-reading-list-default-title" = "My Reading List";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Take survey";
-"import-shared-reading-list-survey-prompt-footer" = "View our $1privacy statement$2. Survey powered by a third-party. View their $3privacy policy$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.";
 "import-shared-reading-list-survey-prompt-title" = "Could you help us improve \"Share reading lists\"?";
 "import-shared-reading-list-title" = "Import shared reading list";
@@ -802,8 +796,6 @@
 "next-action-title" = "Next";
 "no-email-account-alert" = "Please setup an email account on your device and try again.";
 "no-internet-connection" = "No internet connection";
-"no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
-"no-internet-connection-article-reload-button" = "Return to last saved version";
 "not-now-title" = "Not now";
 "notifications-center-agent-description-from-format" = "From $1";
 "notifications-center-alert" = "Alert";
@@ -943,8 +935,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
 "open-article" = "Open article";
-"open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
-"open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
@@ -970,7 +960,7 @@
 "panel-compare-revisions-text" = "Comparing revisions helps to show how an article has changed over time. Comparing two revisions of an article will show the difference between those revisions by highlighting any content that was changed.";
 "panel-compare-revisions-title" = "Comparing revisions";
 "panel-not-logged-in-continue-edit-action-title" = "Edit without logging in";
-"panel-not-logged-in-subtitle" = "Your IP address will be publicly visible if you make any edits. If you $1log in$2 or $3create an account$4, your edits will be attributed to your username, along with other benefits.";
+"panel-not-logged-in-subtitle-plain" = "Your IP address will be publicly visible if you make any edits. Log in or create an account to have your edits attributed to your username.";
 "panel-not-logged-in-title" = "You are not logged in";
 "percentile-0.01" = "0.01";
 "percentile-1" = "1";
@@ -1020,6 +1010,7 @@
 "potd-sample-entry-description" = "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.";
 "potd-widget-description" = "Enjoy a beautiful daily photo selected by our community.";
 "potd-widget-title" = "Picture of the day";
+"preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
 "privacy-policy-title" = "Privacy policy";
 "problem-with-feature-title" = "Problem with feature";
 "profile-button-accessibility-hint" = "Navigates to the profile view.";
@@ -1043,10 +1034,11 @@
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
 "reading-list-add-generic-hint-title" = "Add this article to a reading list?";
-"reading-list-add-hint-title" = "Add “$1” to a reading list?";
+"reading-list-add-hint-title" = "Add \"$1\" to a reading list?";
 "reading-list-add-saved-button-title" = "Yes, add them to my reading lists";
 "reading-list-add-saved-subtitle" = "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
 "reading-list-add-saved-title" = "Saved articles found";
+"reading-list-alert-see-list" = "See reading list";
 "reading-list-api-error-entry-limit" = "This entry is not synced because you have reached the limit for the number of entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
@@ -1094,7 +1086,7 @@
 "reading-list-unable-to-remove-entry" = "An unexpected error occurred while removing an entry from your reading list. Please try again later.";
 "reading-list-unable-to-update" = "An unexpected error occurred while updating your reading list. Please try again later.";
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
-"reading-lists-article-added-confirmation" = "Article added to “$1”";
+"reading-lists-article-added-confirmation" = "Article added to \"$1\"";
 "reading-lists-article-api-failure" = "Unable to sync article";
 "reading-lists-article-not-synced" = "Not synced";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Article limit exceeded, unable to sync article";
@@ -1176,6 +1168,7 @@
 "settings-clear-cache" = "Clear cached data";
 "settings-clear-cache-are-you-sure-message" = "Clearing cached data will free up about $1 of space. It will not delete your saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
+"settings-clear-cache-cancel" = "Cancel";
 "settings-clear-cache-ok" = "Clear cache";
 "settings-donate" = "Donate";
 "settings-help-and-feedback" = "Help and feedback";
@@ -1245,8 +1238,6 @@
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
 "tabs-open-tab" = "Open tab";
-"tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
-"tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-show-suggested-articles" = "Show article suggestions";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Suggestions are now hidden";
 "tabs-survey-title" = "Help improve tabs. Are you satisfied with this feature?";
@@ -1350,6 +1341,8 @@
 "theme-default-explanation" = "Matches system theme";
 "theme-light-display-name" = "Light";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Find your reading history in the Search tab.";
+"tip-history-in-search-title" = "History moved to Search";
 "today-title" = "Today";
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";

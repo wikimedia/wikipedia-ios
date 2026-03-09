@@ -30,6 +30,7 @@ typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducatio
  - Stackview management of its subviews makes it easy to collapse space for unneeded items.
  - Scrollview containment makes long translations or landscape on small phones scrollable when needed.
 */
+/// Kept only for the fundraising panel. Do not reuse.
 class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     enum LastAction {

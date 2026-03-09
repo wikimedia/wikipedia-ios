@@ -189,7 +189,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             } catch {
                 cleanupError = error
                 DDLogError("Error on cleanup: \(error)")
-
             }
         }
 
@@ -242,17 +241,17 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func showClearCacheInProgressBanner() {
         let message = WMFLocalizedString("clearing-cache-in-progress", value: "Clearing cache in progress.", comment: "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.")
-        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+        WMFToastManager.sharedInstance.showToast(message, sticky: false, dismissPreviousToasts: true)
     }
 
     private func showClearCacheErrorBanner() {
         let message = WMFLocalizedString("clearing-cache-error", value: "Error clearing cache.", comment: "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.")
-        WMFAlertManager.sharedInstance.showAlert(message, sticky: true, dismissPreviousAlerts: true)
+        WMFToastManager.sharedInstance.showToast(message, sticky: true, dismissPreviousToasts: true)
     }
 
     private func showClearCacheComplete() {
         let message = WMFLocalizedString("clearing-cache-complete", value: "Clearing cache complete.", comment: "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.")
-        WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
+        WMFToastManager.sharedInstance.showToast(message, sticky: true, dismissPreviousToasts: true)
     }
 
     // MARK: - YiR

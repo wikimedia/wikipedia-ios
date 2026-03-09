@@ -3,9 +3,11 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import TipKit
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding, SearchResultsHosting {
+class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding, SearchResultsHosting {
+
     enum ViewState {
         case initial
         case loading
@@ -47,10 +49,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     private let cacheController: ArticleCacheController
 
-    internal var willDisplayFundraisingBanner: Bool = false
-
-    // Tootltips
-    public var tooltipViewModels: [WMFTooltipViewModel] = []
+    internal var willDisplayCampaignModal: Bool? {
+        didSet {
+            WTip.willDisplayCampaignModal = willDisplayCampaignModal
+        }
+    }
+    
+    internal var willDisplayYearInReviewModal: Bool? {
+        didSet {
+            WTip.willDisplayYearInReviewModal = willDisplayYearInReviewModal
+        }
+    }
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -174,6 +183,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         articleURL.wmf_title == "Main Page"
     }
     
+    var wTip = WTip()
+    var wTipObservationTask: Task<Void, Never>?
+    weak var tooltipVC: TipUIPopoverViewController?
+
     var disableSearchCancelLogging: Bool = false
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
@@ -234,10 +247,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 #endif
         return webView
     }()
-
-    // MARK: HintPresenting
-
-    var hintController: HintController?
 
     // MARK: Find In Page
 
@@ -445,8 +454,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         setupForStateRestorationIfNecessary()
 
+        WTip.isCompactWidth = traitCollection.horizontalSizeClass == .compact
         registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
             guard let self else { return }
+            WTip.isCompactWidth = traitCollection.horizontalSizeClass == .compact
             self.tableOfContentsController.update(with: self.traitCollection)
             self.toolbarController?.update()
 
@@ -478,6 +489,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             navigationController?.setToolbarHidden(false, animated: false)
         }
         
+        listenForTooltips()
         presentModalsIfNeeded()
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
@@ -523,16 +535,19 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         // Year in Review modal presentations
         if needsYearInReviewAnnouncement() {
+            willDisplayYearInReviewModal = true
             updateProfileButton()
             presentYearInReviewAnnouncement()
 
         // Campaign modal presentations
         } else {
+            willDisplayYearInReviewModal = false
             showFundraisingCampaignAnnouncementIfNeeded()
         }
     }
 
     @objc private func wButtonTapped(_ sender: UIButton) {
+        wTip.invalidate(reason: .actionPerformed)
         navigationController?.popToRootViewController(animated: true)
     }
     
@@ -547,15 +562,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         disableSearchCancelLogging = false
         
         navigationController?.setToolbarHidden(true, animated: true)
-        cancelWIconPopoverDisplay()
+        wTipObservationTask?.cancel()
+        wTipObservationTask = nil
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         persistPageViewedSecondsForWikipediaInReview()
-
-        if let tooltips = presentedViewController as? WMFTooltipViewController {
-            tooltips.dismiss(animated: true)
-        }
-
 
         guard #available(iOS 18.0, *),
               UIDevice.current.userInterfaceIdiom == .pad else {
@@ -1268,7 +1279,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         dismissReferencesPopover()
-        hintController?.dismissHintDueToUserInteraction()
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

@@ -1,5 +1,7 @@
 import WMFComponents
 import WMF
+import TipKit
+import SwiftUI
 
 @objc protocol SearchLanguagesBarViewControllerDelegate: AnyObject {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String)
@@ -122,6 +124,10 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
     @IBOutlet weak var otherLanguagesButtonBackgroundView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
+    
+    fileprivate var moreLanguagesTip = MoreLanguagesTip()
+    fileprivate var moreLanguagesTipObservationTask: Task<Void, Never>?
+    fileprivate weak var tooltipVC: TipUIPopoverViewController?
 
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -227,12 +233,13 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.showMoreLanguagesTooltipIfNecessary()
+        self.listenForMoreLanguagesTooltip()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showMoreLanguagesTooltip), object: nil)
+        moreLanguagesTipObservationTask?.cancel()
+        moreLanguagesTipObservationTask = nil
     }
     
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
@@ -250,8 +257,9 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
         }
 
         stackView.subviews.forEach { $0.removeFromSuperview() }
+        let languageBarLanguages = self.languageBarLanguages()
 
-        for language in languageBarLanguages() {
+        for language in languageBarLanguages {
             let button = SearchLanguageButton()
 
             button.languageCode = language.languageCode
@@ -265,6 +273,8 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
 
         scrollToSelectedSearchLanguageButton()
         apply(theme: theme)
+        
+        MoreLanguagesTip.numberOfAppLanguages = languageBarLanguages.count
     }
 
     fileprivate func scrollToSelectedSearchLanguageButton() {
@@ -274,21 +284,6 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
 
         view.layoutIfNeeded()
         scrollView.scrollRectToVisible(selectedButton.frame, animated: true)
-    }
-
-    fileprivate func showMoreLanguagesTooltipIfNecessary() {
-        guard !view.isHidden && languageBarLanguages().count >= 2 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
-            return
-        }
-        self.perform(#selector(showMoreLanguagesTooltip), with: nil, afterDelay: 1.0)
-    }
-    
-    @objc fileprivate func showMoreLanguagesTooltip() {
-        guard let button = otherLanguagesButton else {
-            return
-        }
-        self.wmf_presentDynamicHeightPopoverViewController(sourceRect: button.convert(button.bounds, to: self.view), title: WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."), message: WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in over 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."), width: 230, duration: 3)
-        UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
     }
     
     @objc fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: SearchLanguageButton) {
@@ -345,5 +340,65 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
         otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
         otherLanguagesButton?.setTitleColor(theme.colors.link, for: .normal)
+    }
+    
+    func listenForMoreLanguagesTooltip() {
+        moreLanguagesTipObservationTask =  Task { @MainActor in
+            for await status in  moreLanguagesTip.statusUpdates {
+                switch status {
+                case .available:
+                    if let button = otherLanguagesButton {
+                        let popoverController = TipUIPopoverViewController(moreLanguagesTip, sourceItem: button)
+                        self.tooltipVC = popoverController
+                        present(popoverController, animated: true) {
+                            popoverController.presentationController?.delegate = self
+                        }
+                    }
+                case .invalidated:
+                    if let tooltipVC = self.tooltipVC {
+                        tooltipVC.presentationController?.delegate = nil
+                        tooltipVC.dismiss(animated: true)
+                        self.tooltipVC = nil
+                    }
+                    break
+                default:
+                    continue
+                }
+            }
+        }
+    }
+}
+
+struct MoreLanguagesTip: Tip {
+    
+    @Parameter
+    static var numberOfAppLanguages: Int = 0
+    
+    @Parameter
+    static var searchLanguagesBarIsVisible: Bool = false
+    
+    var title: Text {
+        Text(WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."))
+    }
+    
+    var message: Text? {
+        Text(WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in over 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."))
+    }
+    
+    var rules: [Rule] {
+            [
+                #Rule(Self.$numberOfAppLanguages) { $0 >= 2 },
+                #Rule(Self.$searchLanguagesBarIsVisible) { $0 == true }
+            ]
+        }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+
+extension SearchLanguagesBarViewController: UIAdaptivePresentationControllerDelegate {
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        if presentationController.presentedViewController is TipUIPopoverViewController {
+            moreLanguagesTip.invalidate(reason: .tipClosed)
+        }
     }
 }

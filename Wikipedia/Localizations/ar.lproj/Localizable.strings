@@ -67,8 +67,6 @@
 "about-repositories-app-source-license" = "النص المصدر متاح بموجب ترخيص $1";
 "about-repositories-app-source-license-mit" = "ترخيص MIT";
 "about-send-feedback" = "إرسال الملاحظات على التطبيق";
-"about-testers" = "مختبرو التطبيق";
-"about-testers-details" = "تحقق من الجودة $1";
 "about-title" = "حول";
 "about-translators" = "المترجمون";
 "about-translators-details" = "ترجمه متطوعون في $1";
@@ -627,8 +625,6 @@
 "explore-suggested-edits-footer" = "أضف";
 "explore-suggested-edits-image-recs-body" = "أضف الصور المقترحة إلى مقالات ويكيبيديا لتحسين الفهم.";
 "explore-suggested-edits-image-recs-title" = "أضف صورة";
-"explore-survey-subtitle" = "يرجى المشاركة في استطلاع رأي قصير حول موجز \"استكشاف\". ستساعد ملاحظاتك في صياغة التحسينات القادمة للتطبيق.";
-"explore-survey-title" = "ساعدنا على التحسين استكشف";
 "export-user-data-confirmation-message" = "تتضمن مشاركة مكتبة التطبيقات الخاصة بك بيانات حول قوائم القراءة والمحفوظات والتفضيلات واستكشاف محتوى الخلاصة. يجب مشاركة ملف البيانات هذا فقط مع شخص موثوق به لاستخدامه في أغراض التشخيص التقني.";
 "export-user-data-confirmation-title" = "مشاركة مكتبة التطبيقات؟";
 "export-user-data-generic-error" = "حدث خطأ أثناء تصدير بياناتك. الرجاء معاودة المحاولة في وقت لاحق.";

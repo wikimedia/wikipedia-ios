@@ -288,7 +288,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: searchBarIPadCustomizer, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
-        
+
         searchBarIPadCustomizer.onClearTapped = { [weak self] searchController in
             guard let self,
             let searchBar = searchController?.searchBar else { return }
@@ -750,7 +750,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
                 guard result.error == nil else {
                     if let error = result.error {
-                        WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showWarningToast(result.error!.localizedDescription, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
 
                         let nserror = error as NSError
                         if nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue) {
@@ -760,7 +760,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                             }
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFToastManager.sharedInstance.showWarningToast(CommonStrings.unknownError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                     }
                     return
                 }
@@ -1336,28 +1336,23 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     // MARK: - Location Access
 
     func promptForLocationAccess() {
-        var skipSearchInDismissEnableLocationPanelHandler = false
-
-        let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
-            skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
-            self.presentedViewController?.dismiss(animated: true, completion: {
-                guard self.locationManager.authorizationStatus == .notDetermined else {
-                    UIApplication.shared.wmf_openAppSpecificSystemSettings()
-                    return
-                }
-                self.locationManager.startMonitoringLocation()
-            })
-        }
-
-        let dismissEnableLocationPanelHandler: ScrollableEducationPanelDismissHandler = {
-            if !skipSearchInDismissEnableLocationPanelHandler {
-                self.performDefaultSearchIfNecessary(withRegion: nil)
+        let alert = UIAlertController(
+            title: CommonStrings.localizedEnableLocationTitle,
+            message: CommonStrings.localizedEnableLocationDescription,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: CommonStrings.localizedEnableLocationButtonTitle, style: .default) { [weak self] _ in
+            guard let self else { return }
+            guard self.locationManager.authorizationStatus == .notDetermined else {
+                UIApplication.shared.wmf_openAppSpecificSystemSettings()
+                return
             }
-        }
-
-        let enableLocationPanelVC = EnableLocationPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler, theme: theme)
-
-        present(enableLocationPanelVC, animated: true, completion: nil)
+            self.locationManager.startMonitoringLocation()
+        })
+        alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] _ in
+            self?.performDefaultSearchIfNecessary(withRegion: nil)
+        })
+        present(alert, animated: true, completion: nil)
     }
 
 
@@ -2347,16 +2342,16 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         guard viewIfLoaded != nil else {
             return
         }
-        
+
         view.backgroundColor = theme.colors.baseBackground
-        
+
         if #unavailable(iOS 26.0) {
             if let searchBar = navigationItem.searchController?.searchBar {
                 searchBar.apply(theme: theme)
                 searchBar.backgroundColor = theme.colors.paperBackground
             }
         }
-        
+
         profileCoordinator?.theme = theme
         updateProfileButton()
 
@@ -2367,7 +2362,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
 
         mapContainerView.backgroundColor = theme.colors.baseBackground
-        
+
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
 
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
@@ -2399,7 +2394,6 @@ extension PlacesViewController {
     func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
-        hintController?.dismissHintDueToUserInteraction()
     }
 
     func regionDidChange() {

@@ -28,8 +28,6 @@
 "about-repositories-app-source-license" = "Изворниот код е достапен под $1.";
 "about-repositories-app-source-license-mit" = "MIT-лиценца";
 "about-send-feedback" = "Испрати мислење за прилогот";
-"about-testers" = "Испробувачи";
-"about-testers-details" = "Квалитетот е испробан од $1";
 "about-title" = "За прилогот";
 "about-translators" = "Преведувачи";
 "about-translators-details" = "Прилогов го преведоа доброволни преведувачи на $1";
@@ -598,8 +596,6 @@
 "explore-suggested-edits-footer" = "Додај";
 "explore-suggested-edits-image-recs-body" = "Додавајте предложени слики во википедиски статии за да ја подобрите претставата за содржината.";
 "explore-suggested-edits-image-recs-title" = "Додај слика";
-"explore-survey-subtitle" = "Пополнете кратка анкета за тековникот „Истражи“. Вашите мислења ќе ни помогнат да го подобриме во иднина.";
-"explore-survey-title" = "Помогнете ни да го подобриме „Истражи“";
 "explore-wikipedia" = "Истражете ја Википедија";
 "export-user-data-confirmation-message" = "Споделувањето на вашата библиотека на прилози вклучува податоци за вашите Списоци на читање и историја, вашите нагодувања, и содржината на тековникот Истражи. Оваа податочна податотека треба да се споделува само со доверлив примач и да се користи за техничка дијагностика.";
 "export-user-data-confirmation-title" = "Да се сподели библиотеката на прилози?";

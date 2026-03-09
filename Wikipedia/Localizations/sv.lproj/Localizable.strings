@@ -47,8 +47,6 @@
 "about-repositories-app-source-license" = "Källkoden är tillgänglig under $1.";
 "about-repositories-app-source-license-mit" = "MIT-licensen";
 "about-send-feedback" = "Skicka återkoppling om appen";
-"about-testers" = "Testare";
-"about-testers-details" = "Kvalitetssäkringstestad av $1";
 "about-title" = "Om";
 "about-translators" = "Översättare";
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
@@ -600,8 +598,6 @@
 "explore-suggested-edits-footer" = "Lägg till";
 "explore-suggested-edits-image-recs-body" = "Lägg till föreslagna bilder till Wikipediaartiklar för att öka förståelsen.";
 "explore-suggested-edits-image-recs-title" = "Lägg till en bild";
-"explore-survey-subtitle" = "Gör en kort undersökning om utforskarflödet. Din återkoppling kommer att bidra till att utforma framtida appförbättringar.";
-"explore-survey-title" = "Hjälp oss att förbättra utforska";
 "export-user-data-confirmation-message" = "Att dela ditt appbibliotek inkluderar data om dina läslistor och historik, inställningar och innehållet i utforskarflödet. Denna datafil bör endast delas med en betrodd mottagare för att användas i tekniska diagnostiska ändamål.";
 "export-user-data-confirmation-title" = "Dela appbibliotek?";
 "export-user-data-generic-error" = "Det uppstod ett fel när din data skulle exporteras. Var god försök igen senare.";

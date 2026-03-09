@@ -257,47 +257,69 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 let format = CommonStrings.saveViewTempAccountNotice
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
-                let image = UIImage(systemName: "exclamationmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
+                WMFToastManager.sharedInstance.showToastWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    type: .custom,
-                    customTypeName: "edit-published",
-                    dismissPreviousAlerts: true,
+                    dismissPreviousToasts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
-                        guard let navigationController = self.navigationController else { return }
-                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, didTapContinue: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, isTempAccount: true)
+                        Task { @MainActor in
+                            guard let navigationController = self.navigationController else { return }
+                            let tempAccountSheetCoordinator = TempAccountSheetCoordinator(
+                                navigationController: navigationController,
+                                theme: self.theme,
+                                dataStore: dataStore,
+                                didTapDone: { [weak self] in
+                                    Task { @MainActor in
+                                        self?.dismiss(animated: true)
+                                    }
+                                },
+                                didTapContinue: { [weak self] in
+                                    Task { @MainActor in
+                                        self?.dismiss(animated: true)
+                                    }
+                                },
+                                isTempAccount: true
+                            )
 
-                        _ = tempAccountSheetCoordinator.start()
+                            _ = tempAccountSheetCoordinator.start()
+                        }
                     }
                 )
             } else {
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
-                let image = UIImage(systemName: "exclamationmark.triangle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
+                WMFToastManager.sharedInstance.showToastWithMessage(
                     title,
                     subtitle: nil,
                     image: image,
-                    type: .custom,
-                    customTypeName: "edit-published",
-                    dismissPreviousAlerts: true,
+                    dismissPreviousToasts: true,
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
-                        guard let navigationController = self.navigationController else { return }
-                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, didTapContinue: { [weak self] in
-                            self?.dismiss(animated: true)
-                        }, isTempAccount: false)
+                        Task { @MainActor in
+                            guard let navigationController = self.navigationController else { return }
+                            let tempAccountSheetCoordinator = TempAccountSheetCoordinator(
+                                navigationController: navigationController,
+                                theme: self.theme,
+                                dataStore: dataStore,
+                                didTapDone: { [weak self] in
+                                    Task { @MainActor in
+                                        self?.dismiss(animated: true)
+                                    }
+                                },
+                                didTapContinue: { [weak self] in
+                                    Task { @MainActor in
+                                        self?.dismiss(animated: true)
+                                    }
+                                },
+                                isTempAccount: false
+                            )
 
-                        _ = tempAccountSheetCoordinator.start()
+                            _ = tempAccountSheetCoordinator.start()
+                        }
                     }
                 )
             }
@@ -424,7 +446,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        WMFAlertManager.sharedInstance.dismissAlert()
+        WMFToastManager.sharedInstance.dismissToast()
         super.viewWillDisappear(animated)
 
         if isMovingFromParent {
@@ -441,7 +463,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 authState = .ipAccount
             }
         }
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
 
         guard let editURL = pageURL else {
             assertionFailure("Could not get url of section to be edited")
@@ -561,7 +583,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
 
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
             let classicInfo = WMFCaptcha.ClassicInfo(captchaID: captchaId, captchaURL: captchaUrl)
             captchaViewController?.captcha = WMFCaptcha(classicInfo: classicInfo, hCaptchaInfo: nil)
             mode = .captcha
@@ -572,7 +594,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             problemSource = .needsCaptcha
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             wmf_hideKeyboard()
-            WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
+            WMFToastManager.sharedInstance.dismissToast() // Hide "Publishing..."
 
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = pageURL?.wmf_title else {
@@ -590,7 +612,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 mode = .abuseFilterWarning
                 abuseFilterCode = displayError.code
 
-                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] _, _ in
+                wmf_showAbuseFilterWarningPanel(messageHtml: displayError.messageHtml, linkBaseURL: displayError.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: false, publishAnywayTapHandler: { [weak self] in
 
                     self?.dismiss(animated: true) {
                         self?.save()
@@ -602,11 +624,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
 
         case .server:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             problemSource = .serverError
         case .blocked:
 
-            WMFAlertManager.sharedInstance.dismissAlert() // Hide "Publishing..."
+            WMFToastManager.sharedInstance.dismissToast() // Hide "Publishing..."
 
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = pageURL?.wmf_title else {
@@ -632,13 +654,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             problemSource = .blockedMessage
 
         case .protectedPage:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             problemSource = .protectedPage
         case .unknown:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             // leaving problemSource blank
         default:
-            WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             if nsError.wmf_isNetworkConnectionError() {
                 problemSource = .connectionError
             }

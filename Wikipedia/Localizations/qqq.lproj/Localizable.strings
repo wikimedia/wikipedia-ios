@@ -271,7 +271,6 @@
 "description-help-title" = "Title for description editing help page";
 "description-help-wikidata-guide" = "Wikidata guide label text";
 "description-published-button-title" = "Title for done button.";
-"description-published-footer" = "Title for footer explaining articles may be edited too - not just descriptions.";
 "description-published-subtitle" = "Subtitle encouraging user to continue editing";
 "description-published-title" = "Title for letting the user know their description change succeeded.";
 "description-welcome-concise-sub-title" = "Subtitle text explaining descriptions should be concise";
@@ -383,8 +382,6 @@
 "edit-notices-always-display" = "Title for toggle switch label in edit notices view.";
 "edit-notices-please-read" = "Subtitle displayed in edit notices view.";
 "edit-preview-simplified-format-message" = "Message displayed when the edit preview view loads. Preview is in a simplified web format.";
-"edit-published" = "Title edit published panel letting user know their edit was saved.";
-"edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-sheet-ip-account-notice" = "Temporary account sheet for editors";
 "edit-sheet-temp-account-notice" = "Temporary account sheet for editors";
 "edit-show-web-preview" = "Title of button that will show a web preview of the edit.";
@@ -583,8 +580,6 @@
 "explore-suggested-edits-footer" = "Footer for presenting user option to see list of suggested edits.";
 "explore-suggested-edits-image-recs-body" = "Body text shown in the image recommendations explore feed card.";
 "explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
-"explore-survey-subtitle" = "Subtitle of one-time survey prompt displayed to users on the Explore feed.";
-"explore-survey-title" = "Title of one-time survey prompt displayed to users on the Explore feed.";
 "explore-wikipedia" = "Button title to explore Wikipedia";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
@@ -697,7 +692,6 @@
 "image-recs-yes-title" = "Button title for accepting an image suggestion";
 "import-shared-reading-list-default-title" = "Default title of a reading list imported through a shared link.";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Title of action button on import reading list survey prompt, which takes user to external survey.";
-"import-shared-reading-list-survey-prompt-footer" = "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting";
 "import-shared-reading-list-survey-prompt-subtitle" = "Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-survey-prompt-title" = "Title of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-title" = "Title of screen that imports a shared reading list.";
@@ -802,8 +796,6 @@
 "next-action-title" = "Title for insert action indicating the user can go to the next step";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "no-internet-connection" = "String used in various places to indicate no internet connection";
-"no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
-"no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "not-now-title" = "Text for the dismiss button across various features.";
 "notifications-center-agent-description-from-format" = "Text indicating who triggered a notification in notifications center. $1 will be replaced with the origin agent of the notification, which could be a username.";
 "notifications-center-alert" = "Description of various \"alert\" notification types, used on the notifications cell and detail views.";
@@ -943,8 +935,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "open-article" = "Open article title";
-"open-in-tab-tooltip-body" = "Description for tooltip explaining the open in new tab functionality";
-"open-in-tab-tooltip-title" = "Title for tooltip explaining the open in new tab functionality";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
@@ -970,7 +960,7 @@
 "panel-compare-revisions-text" = "Text for educational panel about comparing revisions";
 "panel-compare-revisions-title" = "Title for educational panel about comparing revisions";
 "panel-not-logged-in-continue-edit-action-title" = "Title for button that continues publishing the edit anonymously.";
-"panel-not-logged-in-subtitle" = "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Parameters:\n* $1 - app-specific text formatting - beginning bold text, $2 - app-specific text formatting - ending bold text, $3 - app-specific text formatting - beginning bold text, $4 - app-specific text formatting - ending bold text.";
+"panel-not-logged-in-subtitle-plain" = "Subtitle for letting user know that they are not logged in.";
 "panel-not-logged-in-title" = "Title for education panel letting user know they are not logged in.";
 "percentile-0.01" = "0.01th percentile range";
 "percentile-1" = "1st percentile range";
@@ -1020,6 +1010,7 @@
 "potd-sample-entry-description" = "Text for sample entry image caption. It is displayed when app is unable to fetch Picture of the day data.";
 "potd-widget-description" = "Text for description of Picture of the day widget displayed when adding to home screen.";
 "potd-widget-title" = "Text for title of Picture of the day widget.";
+"preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "privacy-policy-title" = "Title for the privacy Policy";
 "problem-with-feature-title" = "Button title text that allows user to send feedback to the iOS support email about a particular feature.";
 "profile-button-accessibility-hint" = "Accessibility hint for the profile navigation bar button. Explains to the user what will happen upon button tap.";
@@ -1044,9 +1035,10 @@
 "project-name-wiktionary" = "Project name for Wiktionary.";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";
 "reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved. $1 will be replaced with the saved article title";
-"reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list. The question being asked is: There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
+"reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list.";
 "reading-list-add-saved-subtitle" = "Subtitle explaining that saved articles can be added to reading lists.";
 "reading-list-add-saved-title" = "Title explaining saved articles were found.";
+"reading-list-alert-see-list" = "Title for button on alert to see the reading list after adding an article to it.";
 "reading-list-api-error-entry-limit" = "You have too many entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "You have too many lists.";
@@ -1176,6 +1168,7 @@
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
+"settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-donate" = "Link to donate";
 "settings-help-and-feedback" = "Title for showing a screen that displays the FAQ and allows users to submit bug reports";
@@ -1245,8 +1238,6 @@
 "tabs-main-page-subtitle" = "Main page subtitle";
 "tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
 "tabs-open-tab" = "Accessibility label for opening a tab";
-"tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
-"tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
 "tabs-show-suggested-articles" = "Show suggested articles button title";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Confirmation on hiding of the suggested articles in tabs.";
 "tabs-survey-title" = "Title for article tabs survey";
@@ -1350,6 +1341,8 @@
 "theme-default-explanation" = "Explains that the default theme matches the iOS system theme setting";
 "theme-light-display-name" = "Light theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
+"tip-history-in-search-subtitle" = "Subtitle for one-time tooltip informing users history has moved to search.";
+"tip-history-in-search-title" = "Title for one-time tooltip informing users history has moved to search.";
 "today-title" = "Title for today section on article view history";
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";

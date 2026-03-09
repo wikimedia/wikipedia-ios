@@ -258,7 +258,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 presentProtectedPageWarning(error: protectedPageError)
                 isDifferentErrorBannerShown = true
             } else if let otherError = wikitextFetchResponse.otherError {
-                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showErrorToastWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousToasts: true)
                 isDifferentErrorBannerShown = true
             } else if let editNoticesViewModel,
               !editNoticesViewModel.notices.isEmpty {
@@ -287,7 +287,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
             }
             if shouldShowEditAlert && !isDifferentErrorBannerShown {
-                WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.editArticleWarning, duration: NSNumber(value: 5), sticky: false, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showWarningToast(CommonStrings.editArticleWarning, duration: NSNumber(value: 5), sticky: false, dismissPreviousToasts: true)
                 UserDefaults.standard.didShowInformationEditingMessage = true
             }
         }
@@ -400,7 +400,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         if nsError.wmf_isNetworkConnectionError() {
             
             if !UIAccessibility.isVoiceOverRunning {
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
             } else {
                 UIAccessibility.post(notification: .announcement, argument: nsError.alertMessage())
             }
