@@ -34,6 +34,7 @@
 // Author: Kent73
 // Author: Kopcap94
 // Author: Lutece398
+// Author: Lvova
 // Author: Macofe
 // Author: Mailman
 // Author: Mariya
@@ -1455,7 +1456,7 @@
 "year-in-review-donate" = "Пожертвовать";
 "year-in-review-donate-now" = "Сделать пожертвование сейчас";
 "year-in-review-finish" = "Завершить";
-"year-in-review-highlights-english-articles" = "Самые читаемые статьи на английской Википедии";
+"year-in-review-highlights-english-articles" = "Самые читаемые статьи Википедии на английском языке";
 "year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
 // Fuzzy
 "year-in-review-personalized-editing-title-format-updated" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";

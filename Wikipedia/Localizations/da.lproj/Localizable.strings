@@ -796,8 +796,14 @@
 "notifications-center-onboarding-modal-continue-action" = "Fortsæt";
 "notifications-center-onboarding-modal-filters-title" = "Filtre";
 "notifications-center-onboarding-modal-learn-more-action" = "Lær mere om notifikationer";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Projektindbakker";
+"notifications-center-onboarding-modal-push-notifications-title" = "Push-notifikationer";
+"notifications-center-onboarding-modal-title" = "Redigering af notifikationer";
+"notifications-center-onboarding-panel-heading" = "Slå push-notifikationer til?";
+"notifications-center-onboarding-panel-primary-button" = "Slå push-notifikationer til";
 "notifications-center-onboarding-panel-secondary-button" = "Nej tak";
 "notifications-center-onboarding-panel-subheading" = "Wikipedia er et samarbejdsprojekt, og aktivering af push-beskeder kan gøre det lettere at holde sig ajour med beskeder, advarsler og \"tak\" fra andre bidragsydere.";
+"notifications-center-project-filters-accessibility-label" = "Projektfilter";
 "notifications-center-status-all" = "Alle";
 "notifications-center-status-all-notifications" = "Alle meddelelser";
 "notifications-center-status-double-concatenation" = "$1 af $2";
@@ -811,6 +817,13 @@
 "notifications-center-subheader-edit-milestone" = "Redigeringsmilepæl";
 "notifications-center-subheader-edit-reverted" = "Din redigering blev tilbageført";
 "notifications-center-subheader-email-from-other-user" = "Ny email";
+"notifications-center-subheader-login-success-unknown-device" = "Logind fra en ukendt enhed";
+"notifications-center-subheader-mention-article-talk-page" = "Omtale på artiklens diskussionsside";
+"notifications-center-subheader-mention-edit-summary" = "Nævn i redigeringsresuméet";
+"notifications-center-subheader-mention-failed" = "Mislykket omtale";
+"notifications-center-subheader-mention-successful" = "Vellykket omtale";
+"notifications-center-subheader-mention-talk-page" = "Omtale på diskussionssiden";
+"notifications-center-subheader-message-user-talk-page" = "Besked på din diskussionsside";
 "notifications-center-subheader-page-link" = "Sidelink";
 "notifications-center-subheader-page-reviewed" = "Side gennemgået";
 "notifications-center-subheader-thanks" = "Tak";
@@ -836,6 +849,7 @@
 "notifications-center-type-title-login-success" = "Login succes";
 "notifications-center-type-title-other" = "Andet";
 "notifications-center-type-title-page-link" = "Sidelink";
+"notifications-center-type-title-page-review" = "Sidegennemgang";
 "notifications-center-type-title-thanks" = "Tak";
 "notifications-center-type-title-welcome" = "Velkommen";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
@@ -1047,6 +1061,7 @@
 "search-recent-title" = "Seneste søgte";
 "search-result-redirected-from" = "Omdirigeret fra: $1";
 "search-title" = "Søg";
+"search-widget-wikipedia-title" = "Wikipedia";
 "serbian-variants-alert-body" = "Wikipedia-appen understøtter nu følgende serbiske varianter som primære eller sekundære sprog i appen, hvilket gør det nemmere at læse, søge og redigere i dine foretrukne varianter:\n\nсрпски ћирилица serbisk, kyrillisk (sr-ec)\nsrpski latinica serbisk, latin (sr-el)";
 "serbian-variants-alert-title" = "Opdateringer til understøttelse af serbisk variant";
 "settings-account" = "Konto";

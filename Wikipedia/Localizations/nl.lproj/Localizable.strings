@@ -7,6 +7,7 @@
 // Author: Ciell
 // Author: Danieldegroot2
 // Author: Duckson32
+// Author: Elphie
 // Author: Elroy
 // Author: FabianRM
 // Author: Festina90
@@ -1148,7 +1149,7 @@
 "reading-lists-article-save-to-disk-failed" = "Opslagruimte apparaat is vol, pagina kan niet worden gesynchroniseerd";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Maak wat ruimte op uw apparaat vrij en probeer het opnieuw";
 "reading-lists-articles-not-synced-limit-exceeded" = "Enkele pagina's niet gesynchroniseerd, maximum overschreden";
-"reading-lists-conflicting-reading-list-name-updated" = "Uw lijst ‘$1’ is hernoemd tot ‘$2’";
+"reading-lists-conflicting-reading-list-name-updated" = "Uw lijst ‘$1’ is hernoemd naar ‘$2’";
 "reading-lists-count" = "{{PLURAL:$1|$1 leeslijst|$1 leeslijsten}}";
 "reading-lists-default-list-description" = "Standaardlijst voor uw opgeslagen pagina's";
 "reading-lists-default-list-title" = "Opgeslagen";
