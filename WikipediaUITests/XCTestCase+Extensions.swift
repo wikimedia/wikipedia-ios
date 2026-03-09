@@ -1,6 +1,15 @@
 import XCTest
 
 extension XCTestCase {
+    
+    var screenshotNameSuffix: String {
+        // note: not doing theme name here, since onboarding doesn't need to support our themes, only system light/dark mode.
+        let deviceName = UIDevice.current.name
+            .replacingOccurrences(of: " ", with: "-")
+            .lowercased()
+        return "\(deviceName)-\(deviceLanguageCode)"
+    }
+    
     var themeName: String {
         let arguments = ProcessInfo.processInfo.arguments
         if arguments.contains("UITestThemeLight") { return "light" }

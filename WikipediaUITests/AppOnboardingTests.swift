@@ -9,11 +9,6 @@ final class AppOnboardingTests: XCTestCase {
         continueAfterFailure = updateScreenshots ? true : false
     }
     
-    var screenshotNameSuffix: String {
-        // note: not doing theme name here, since onboarding doesn't need to support our themes, only system light/dark mode.
-        return "\(deviceLanguageCode)"
-    }
-    
     override func invokeTest() {
         let shouldRecord: SnapshotTestingConfiguration.Record =
         updateScreenshots ? .all : .missing
@@ -32,7 +27,7 @@ final class AppOnboardingTests: XCTestCase {
         // Snapshot the introduction screen
         assertSnapshot(of: app.screenshot().image.removingStatusBar(),
                        as: .image(precision: 1.0),
-                       named: "introduction-light-\(screenshotNameSuffix)")
+                       named: "introduction-\(screenshotNameSuffix)")
 
         app.buttons["App Onboarding Skip Button"].tap()
 
@@ -48,7 +43,7 @@ final class AppOnboardingTests: XCTestCase {
 
         assertSnapshot(of: app.screenshot().image.removingStatusBar(),
                        as: .image(precision: 1.0),
-                       named: "introduction-dark-\(screenshotNameSuffix)")
+                       named: "introduction-\(screenshotNameSuffix)")
 
         app.buttons["App Onboarding Skip Button"].tap()
 
