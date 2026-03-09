@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
 
@@ -17,10 +18,37 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
     // MARK: - Properties
 
     public let localizedStrings: LocalizedStrings
+    @Published public var state: ReadingChallengeState
 
     // MARK: - Init
 
-    public init(localizedStrings: LocalizedStrings) {
+    public init(localizedStrings: LocalizedStrings, state: ReadingChallengeState = .streakOngoingRead) {
         self.localizedStrings = localizedStrings
+        self.state = state
+    }
+}
+
+public enum ReadingChallengeState {
+    case notEnrolled
+    case streakOngoingRead
+    case streakOngoingNotYetRead
+    case challengeConcludedCompletedSuccessfully
+    case challengeConcludedIncomplete
+    case challengeConcludedNoStreak
+    
+    public struct DisplaySet {
+        let color: Color
+        let color2: Color
+        let image: String
+        let text: String
+    }
+    
+    public var displaySets: [DisplaySet] {
+        switch self {
+        default:
+            return [
+                DisplaySet(color: .blue, color2: .blue, image: "globe1", text: "Hello")
+            ]
+        }
     }
 }

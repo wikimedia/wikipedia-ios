@@ -35,29 +35,19 @@ struct ReadingChallengeWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: ReadingChallengeProvider()) { entry in
-            ReadingChallengeWidgetEntryView(entry: entry)
+            WMFReadingChallengeWidgetView(
+                viewModel: WMFReadingChallengeWidgetViewModel(
+                    localizedStrings: WMFReadingChallengeWidgetViewModel.LocalizedStrings(
+                        title: "Reading Challenge",
+                        subtitle: "Track your progress"
+                    )
+                )
+            )
         }
         .configurationDisplayName("Reading Challenge")
         .description("Track your reading challenge progress.")
         .supportedFamilies([.systemSmall, .systemMedium])
         .contentMarginsDisabled()
         .containerBackgroundRemovable(false)
-    }
-}
-
-// MARK: - View
-
-struct ReadingChallengeWidgetEntryView: View {
-    let entry: ReadingChallengeEntry
-
-    var body: some View {
-        WMFReadingChallengeWidgetView(
-            viewModel: WMFReadingChallengeWidgetViewModel(
-                localizedStrings: WMFReadingChallengeWidgetViewModel.LocalizedStrings(
-                    title: "Reading Challenge",
-                    subtitle: "Track your progress"
-                )
-            )
-        )
     }
 }
