@@ -32,8 +32,6 @@
 "about-repositories-app-source-license" = "ซอร์สโค้ดใช้ได้ภายใต้$1";
 "about-repositories-app-source-license-mit" = "สัญญาอนุญาต MIT";
 "about-send-feedback" = "ส่งคำติชมแอป";
-"about-testers" = "ผู้ทดสอบ";
-"about-testers-details" = "QA ทดสอบโดย $1";
 "about-title" = "เกี่ยวกับ";
 "about-translators" = "ผู้แปล";
 "about-translators-details" = "แปลโดยอาสาสมัครที่ $1";

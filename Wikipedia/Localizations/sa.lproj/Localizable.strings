@@ -13,9 +13,6 @@
 // Fuzzy
 "about-repositories" = "भण्डाराः";
 "about-send-feedback" = "अनुप्रयोगप्रतिक्रियां प्रेषयतु";
-// Fuzzy
-"about-testers" = "परीक्षकाः";
-"about-testers-details" = "$1 द्वारा QA परीक्षितः";
 "about-title" = "विवरणम्";
 // Fuzzy
 "about-translators" = "अनुवादकाः";
