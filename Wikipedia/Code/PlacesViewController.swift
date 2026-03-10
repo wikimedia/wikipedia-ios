@@ -2602,3 +2602,37 @@ extension PlacesViewController: YearInReviewBadgeDelegate {
         updateProfileButton()
     }
 }
+
+extension PlacesViewController {
+    @objc func showCoordinatesOnMap(name: String, latitude: Double, longitude: Double) {
+        // force view instantiation, as done for other actions.
+        guard view != nil else {
+            return
+        }
+
+        // Create the map region
+        let mapRegion = [CLLocationCoordinate2D(
+            latitude: latitude,
+            longitude: longitude)
+        ].wmf_boundingRegion(with: 20000)
+
+        // Add a 1 second delay in case the view was loaded for the first time, else the map won't navigate to the coordinates.
+        dispatchOnMainQueueAfterDelayInSeconds(1.0) { [weak self] in
+            // For "View on a map" action to succeed, view mode has to be set to map.
+            self?.updateViewModeToMap()
+
+            // Perform place search to show interesting spots nearby, same as when locating your current location on the map does.
+            self?.currentSearch = PlaceSearch(
+                filter: .top,
+                type: .location,
+                origin: .user,
+                sortStyle: .pageViewsAndLinks,
+                string: nil,
+                region: mapRegion,
+                localizedDescription: name,
+                searchResult: nil)
+
+            self?.mapRegion = mapRegion
+        }
+    }
+}

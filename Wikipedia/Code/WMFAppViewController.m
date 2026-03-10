@@ -1249,12 +1249,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypePlaces];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
-            NSURL *articleURL = activity.wmf_linkURL;
-            if (articleURL) {
-                // For "View on a map" action to succeed, view mode has to be set to map.
-                [[self placesViewController] updateViewModeToMap];
-                [[self placesViewController] showArticleURL:articleURL];
-            }
+            [self showPlacesActivity:activity];
         } break;
         case WMFUserActivityTypeContent: {
             [self dismissPresentedViewControllers];
@@ -1360,6 +1355,27 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     done();
     [NSUserActivity wmf_makeActivityActive:activity];
     return YES;
+}
+
+- (void)showPlacesActivity:(NSUserActivity *)activity {
+    NSString *name = activity.userInfo[@"WMFPlacesName"];
+    NSString *latitudeString = activity.userInfo[@"WMFPlacesLatitude"];
+    NSString *longitudeString = activity.userInfo[@"WMFPlacesLongitude"];
+
+    if (name && latitudeString && longitudeString) {
+        double latitude = [latitudeString doubleValue];
+        double longitude = [longitudeString doubleValue];
+        [[self placesViewController] showCoordinatesOnMapWithName:name
+                                                         latitude:latitude
+                                                        longitude:longitude];
+    } else {
+        NSURL *articleURL = activity.wmf_linkURL;
+        if (articleURL) {
+            // For "View on a map" action to succeed, view mode has to be set to map.
+            [[self placesViewController] updateViewModeToMap];
+            [[self placesViewController] showArticleURL:articleURL];
+        }
+    }
 }
 
 - (NSURL *)contentURLForActivity:(NSUserActivity *)activity {

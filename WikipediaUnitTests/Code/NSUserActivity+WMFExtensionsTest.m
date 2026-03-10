@@ -45,4 +45,74 @@
                           @"https://en.wikipedia.org/w/index.php?search=dog&title=Special:Search&fulltext=1");
 }
 
+- (void)testPlacesURLWithPlaceNameAndCoordinates {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://places?name=Amsterdam&latitude=1.2345&longitude=-2.4567"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
+    XCTAssertEqualObjects(activity.userInfo[@"WMFPlacesName"], @"Amsterdam");
+    XCTAssertEqualObjects(activity.userInfo[@"WMFPlacesLatitude"], @"1.2345");
+    XCTAssertEqualObjects(activity.userInfo[@"WMFPlacesLongitude"], @"-2.4567");
+}
+
+- (void)testPlacesURLWithoutName {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://places?latitude=1.2345&longitude=-2.4567"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesName"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLatitude"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLongitude"]);
+}
+
+- (void)testPlacesURLWithoutLatitude {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://places?name=Amsterdam&longitude=-2.4567"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesName"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLatitude"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLongitude"]);
+}
+
+- (void)testPlacesURLWithoutLongitude {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://places?name=Amsterdam&latitude=1.2345"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesName"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLatitude"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLongitude"]);
+}
+
+- (void)testPlacesURLWithNameOnly {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://places?name=Amsterdam"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesName"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLatitude"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLongitude"]);
+}
+
+- (void)testPlacesURLWithLatitudeOnly {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://places?latitude=1.2345"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesName"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLatitude"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLongitude"]);
+}
+
+- (void)testPlacesURLWithLongitudeOnly {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://places?longitude=-2.4567"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypePlaces);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesName"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLatitude"]);
+    XCTAssertNil(activity.userInfo[@"WMFPlacesLongitude"]);
+}
+
 @end
