@@ -138,6 +138,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             self?.calculateTopSafeAreaOverlayHeight()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(listenForTooltips), object: nil)
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -1047,13 +1052,19 @@ extension ExploreViewController {
             presentYearInReviewAnnouncement()
         } else if shouldShowExploreSurvey {
             presentExploreSurveyIfNeeded()
-        } else if let appViewController = tabBarController as? WMFAppViewController {
-            appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
+        } else {
+            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
         }
         
         #if DEBUG
         presentSearchWidgetAnnouncement()
         #endif
+    }
+    
+    @objc func listenForTooltips() {
+        if let appViewController = tabBarController as? WMFAppViewController {
+            appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
+        }
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
