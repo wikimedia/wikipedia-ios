@@ -47,6 +47,11 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         self.languagesDelegateBridge.coordinator = self
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: WMFAuthenticationManager.didLogInNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: WMFAuthenticationManager.didLogOutNotification, object: nil)
+    }
+
     // MARK: Coordinator Protocol Methods
 
     @discardableResult
@@ -109,6 +114,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let settingsViewController =  WMFSettingsViewController(viewModel: viewModel, coordinatorDelegate: self)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
         navigationController.present(navVC, animated: true)
+        registerAuthNotificationObservers()
     }
 
     func fetchDynamicValues() -> (primaryLanguage: String, exploreFeedStatus: Bool, readingPreferenceTheme: String) {
@@ -472,6 +478,43 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 readingPreferenceTheme: UserDefaults.standard.themeDisplayName
             )
         }
+    }
+
+    @objc private func userAuthenticationStateDidChange() {
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+
+            let username = self.dataStore.authenticationManager.authStatePermanentUsername
+            let tempUsername = self.dataStore.authenticationManager.authStateTemporaryUsername
+            let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
+                                self.dataStore.authenticationManager.authStateIsTemporary == true
+
+            await self.settingsViewModel?.updateAuthenticationState(
+                username: username,
+                tempUsername: tempUsername,
+                isTempAccount: isTempAccount
+            )
+        }
+    }
+
+    private func registerAuthNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(userAuthenticationStateDidChange),
+            name: WMFAuthenticationManager.didLogInNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(userAuthenticationStateDidChange),
+            name: WMFAuthenticationManager.didLogOutNotification,
+            object: nil
+        )
+    }
+
+    private func unregisterAuthNotificationObservers() {
+        NotificationCenter.default.removeObserver(self, name: WMFAuthenticationManager.didLogInNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: WMFAuthenticationManager.didLogOutNotification, object: nil)
     }
 
     // MARK: - Search
