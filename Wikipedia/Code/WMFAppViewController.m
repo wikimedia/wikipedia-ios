@@ -323,10 +323,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
-    
-    if (self.searchViewController.tabBarItem != nil) {
-        [self.tipWrapper listenForTooltipsWithAppViewController:self tabBarItem:self.searchViewController.tabBarItem];
-    }
 }
 
 - (void)configureTabController {
@@ -1095,6 +1091,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
+
+    if (self.searchViewController.tabBarItem != nil) {
+        [self.tipWrapper listenForTooltipsWithAppViewController:self tabBarItem:self.searchViewController.tabBarItem];
+    }
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {
