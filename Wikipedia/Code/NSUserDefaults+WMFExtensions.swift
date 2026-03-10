@@ -472,15 +472,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
     }
     
-    @objc var wmf_shouldShowNotificationsExploreFeedCard: Bool {
-        get {
-           return bool(forKey: WMFShowNotificationsExploreFeedCard)
-        }
-        set {
-            set(newValue, forKey: WMFShowNotificationsExploreFeedCard)
-        }
-    }
-    
     @objc var wmf_tappedToImportSharedReadingListSurvey: Bool {
         get {
            return bool(forKey: WMFTappedToImportSharedReadingListSurvey)

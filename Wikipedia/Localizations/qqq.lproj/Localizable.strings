@@ -815,7 +815,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Format of empty state subtitle when the user has filters on - $1 is replaced with a string representing the number of filters the user has set.";
 "notifications-center-empty-state-no-projects-selected" = "Empty state subtitle indicating the user has unselected all projects.";
 "notifications-center-empty-state-num-filters" = "Portion of empty state subtitle showing number of filters the user has set in notifications center - $1 is replaced with the number filters.";
-"notifications-center-feed-card-title" = "Title for the 'Notification' explore feed card";
 "notifications-center-feed-news-notification-button-text" = "Text for button to turn on push notifications";
 "notifications-center-feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get push notifications for all Wikimedia projects through the app";
 "notifications-center-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in an unselected state indicating that filters are not applied.";
