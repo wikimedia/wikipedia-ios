@@ -84,6 +84,11 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return activity;
 }
 
++ (instancetype)wmf_activityTabActivity {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"Activity"];
+    return activity;
+}
+
 + (instancetype)wmf_searchViewActivity {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Search"];
     return activity;
