@@ -668,7 +668,7 @@ extension WMFAppViewController {
         let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
         let settingsDataController = WMFSettingsDataController.shared
         Task {
-            await settingsDataController.setAutoSignTalkPageDiscussions(legacyValue)
+            settingsDataController.setAutoSignTalkPageDiscussions(legacyValue)
         }
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
