@@ -46,6 +46,7 @@ import WMFComponents
                 if status == .available {
                     
                     let popoverController = TipUIPopoverViewController(tip, sourceItem: searchTabBarItem)
+                    popoverController.overrideUserInterfaceStyle = appViewController.theme.isDark ? .dark : .light
                     self.tooltipVC = popoverController
                     appViewController.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self

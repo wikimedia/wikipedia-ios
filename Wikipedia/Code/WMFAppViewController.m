@@ -1910,16 +1910,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self updateAppThemeIfNecessary];
 }
 
-//- (UIUserInterfaceStyle)overrideUserInterfaceStyle {
-//    NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
-//    if ([WMFTheme isDefaultThemeName:themeName]) {
-//        return UIUserInterfaceStyleUnspecified;
-//    } else if ([WMFTheme isDarkThemeName:themeName]) {
-//        return UIUserInterfaceStyleDark;
-//    } else {
-//        return UIUserInterfaceStyleLight;
-//    }
-//}
+- (UIUserInterfaceStyle)overrideUserInterfaceStyle {
+    NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
+    if ([WMFTheme isDefaultThemeName:themeName]) {
+        return UIUserInterfaceStyleUnspecified;
+    } else if ([WMFTheme isDarkThemeName:themeName]) {
+        return UIUserInterfaceStyleDark;
+    } else {
+        return UIUserInterfaceStyleLight;
+    }
+}
 
 - (void)updateUserInterfaceStyleOfNavigationControllersForCurrentTheme {
 
