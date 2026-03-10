@@ -112,8 +112,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
 
-@property (nonatomic, strong) WMFAppViewControllerTipWrapper *tipWrapper;
-
 @end
 
 @implementation WMFAppViewController
@@ -1091,10 +1089,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
-
-    if (self.searchViewController.tabBarItem != nil) {
-        [self.tipWrapper listenForTooltipsWithAppViewController:self tabBarItem:self.searchViewController.tabBarItem];
-    }
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {

@@ -1047,6 +1047,8 @@ extension ExploreViewController {
             presentYearInReviewAnnouncement()
         } else if shouldShowExploreSurvey {
             presentExploreSurveyIfNeeded()
+        } else if let appViewController = tabBarController as? WMFAppViewController {
+            appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
         }
         
         #if DEBUG

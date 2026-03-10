@@ -24,10 +24,12 @@ import WMFComponents
         return Calendar.current.date(from: dateComponents)
     }
     
-    @objc func listenForTooltips(appViewController: WMFAppViewController, tabBarItem: UITabBarItem) {
+    @objc func listenForTooltips(appViewController: WMFAppViewController) {
         
         guard let endDate = tooltipEndDate,
-              Date.now < endDate else {
+              Date.now < endDate,
+        (appViewController.viewControllers?.count ?? 0) == 5,
+        let searchTabBarItem = appViewController.viewControllers?[4].tabBarItem else {
             return
         }
         
@@ -43,7 +45,7 @@ import WMFComponents
             for await status in tip.statusUpdates {
                 if status == .available {
                     
-                    let popoverController = TipUIPopoverViewController(tip, sourceItem: tabBarItem)
+                    let popoverController = TipUIPopoverViewController(tip, sourceItem: searchTabBarItem)
                     self.tooltipVC = popoverController
                     appViewController.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
