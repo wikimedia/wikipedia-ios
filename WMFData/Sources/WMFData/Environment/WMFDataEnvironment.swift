@@ -29,7 +29,15 @@ public final class WMFDataEnvironment: ObservableObject {
     public var acceptLanguageUtility: (() -> String)?
     
     public internal(set) var userDefaultsStore: WMFKeyValueStore? = WMFUserDefaultsStore()
-    public var sharedCacheStore: WMFKeyValueStore?
+    public var sharedCacheStore: WMFKeyValueStore? {
+        didSet {
+            if sharedCacheStore != nil {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: WMFNSNotification.sharedCacheStoreSetup, object: nil)
+                }
+            }
+        }
+    }
     public var coreDataStore: WMFCoreDataStore? {
         didSet {
             if coreDataStore != nil {
