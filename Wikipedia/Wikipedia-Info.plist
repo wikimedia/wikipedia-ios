@@ -15,26 +15,24 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>UIApplicationSupportsAlternateIcons</key>
+	<true/>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>ContributorAppIcon</key>
+			<key>contributor-app-icon</key>
 			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>ContributorAppIcon</string>
-				</array>
+				<key>CFBundleIconName</key>
+				<string>contributor-app-icon</string>
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
 		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>AppIcon</string>
-			</array>
+			<key>CFBundleIconName</key>
+			<string>wikipedia-app-icon</string>
 			<key>UIPrerenderedIcon</key>
 			<false/>
 		</dict>
