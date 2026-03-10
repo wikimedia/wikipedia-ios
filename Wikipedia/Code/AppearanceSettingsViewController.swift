@@ -53,6 +53,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
 
     var sections = [AppearanceSettingsSection]()
+    let contributorTitle = WMFLocalizedString("appearance-settings-icon-contributor-title", value: "Contributor", comment: "Title for item in icon list for the contributor app icon, which celebrates the user's in-app contributions to Wikipedia in 2025. Contributions can be edits or in-app donations.")
 
     @objc static var disclosureText: String {
         return UserDefaults.standard.themeDisplayName
@@ -127,7 +128,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                             }
                         ),
                         AppearanceSettingsIconItem(
-                            title: WMFLocalizedString("appearance-settings-icon-contributor-title", value: "Contributor", comment: "Title for item in icon list for the contributor app icon, which celebrates the user's in-app contributions to Wikipedia in 2025. Contributions can be edits or in-app donations."),
+                            title: contributorTitle,
                             subtitle: nil,
                             imageName: "AppIconContributor_Small",
                             checkmarkAction: { [weak self] in
@@ -309,7 +310,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                 cell.isSelected = false
             }
         } else if let iconItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsIconItem {
-            let isContributorItem = (iconItem.title == WMFLocalizedString("appearance-settings-icon-contributor-title", value: "Contributor", comment: "Title for item in icon list for the contributor app icon, which celebrates the user's in-app contributions to Wikipedia in 2025. Contributions can be edits or donations."))
+            let isContributorItem = (iconItem.title == contributorTitle)
             let currentIconName = UIApplication.shared.alternateIconName
             let isContributorActive = (currentIconName == "contributor-app-icon")
             let shouldCheck = (isContributorItem && isContributorActive) || (!isContributorItem && !isContributorActive)
