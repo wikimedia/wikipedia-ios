@@ -195,6 +195,7 @@ enum ProfileState {
                     refreshAction()
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
+
                 }
             )
             
@@ -285,8 +286,8 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    coordinatorDelegate?.handleProfileAction(.login)
-                    
+                   coordinatorDelegate?.handleProfileAction(.login)
+
                 }
             )
             let donateItem = ProfileListItem(
@@ -309,10 +310,10 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    coordinatorDelegate?.handleProfileAction(.showSettings)
+                   coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
-            
+
             let joinSection = ProfileSection(
                 listItems: [
                     userPageItem,
@@ -329,7 +330,7 @@ enum ProfileState {
             )
             let notificationsSection = ProfileSection(listItems: [notificationsItem], subtext: nil)
             let settingsSection = ProfileSection(listItems: [settingsItem], subtext: nil)
-            
+
             let sections = [notificationsSection, joinSection, donateSection, settingsSection]
             return sections
         } else {
@@ -342,7 +343,7 @@ enum ProfileState {
                 isLoadingDonateConfigs: false,
                 action: {
                     coordinatorDelegate?.handleProfileAction(.login)
-                    
+
                 }
             )
             let donateItem = ProfileListItem(

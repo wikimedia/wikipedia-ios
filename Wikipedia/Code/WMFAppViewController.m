@@ -10,9 +10,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
-// View Controllers
-#import "WMFSettingsViewController.h"
-
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
@@ -61,7 +58,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
-@property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
+@property (nonatomic, strong) SettingsTabViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) SearchTabViewController *searchTabViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
@@ -375,7 +372,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
 
-    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
+    BOOL shouldOpenAppOnSearchTab = [self shouldOpenAppOnSearchTab];
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
         [[self searchTabViewController] makeSearchBarBecomeFirstResponder];
@@ -1318,8 +1315,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeNotificationSettings: {
-            WMFPushNotificationsSettingsViewController *pushNotificationsVC = [[WMFPushNotificationsSettingsViewController alloc] initWithAuthenticationManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
-            [pushNotificationsVC applyTheme:self.theme];
+            UIViewController *pushNotificationsVC = [self makePushNotificationsHostingController];
             [self dismissPresentedViewControllers];
             switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
                 case WMFAppDefaultTabTypeExplore: {
@@ -1376,7 +1372,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
-    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
+    BOOL shouldOpenAppOnSearchTab = [self shouldOpenAppOnSearchTab];
     if (shouldOpenAppOnSearchTab) {
         return NO;
     }
@@ -1455,7 +1451,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)handleExploreCenterBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButtonFromObjC];
+        [self.settingsViewController updateProfileButton];
     });
 }
 
@@ -1878,7 +1874,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.theme != theme || [self appEnvironmentTraitCollectionIsDifferentThanTraitCollection:traitCollection]) {
         [self updateAppEnvironmentWithTheme:theme traitCollection:self.traitCollection];
         [self applyTheme:theme];
-        [self.settingsViewController loadSections];
     }
 }
 
@@ -2018,14 +2013,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.currentTabNavigationController pushViewController:detailVC animated:YES];
 }
 
-- (nonnull WMFSettingsViewController *)settingsViewController {
+- (nonnull SettingsTabViewController *)settingsViewController {
     if (!_settingsViewController) {
-        WMFSettingsViewController *settingsVC =
-            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore
-                                                                     theme:self.theme];
+        SettingsTabViewController *settingsVC = [self generateSettingsTab];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
-        _settingsViewController.notificationsCenterPresentationDelegate = self;
         _settingsViewController.title = [WMFCommonStrings settingsTitle];
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }
@@ -2097,7 +2089,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
             if ([rootViewController isKindOfClass:[ExploreViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeExplore) {
                 [[WMFNavigationEventsFunnel shared] logTappedExplore];
-            } else if ([rootViewController isKindOfClass:[WMFSettingsViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+            } else if ([rootViewController isKindOfClass:[SettingsTabViewController class]] && [NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
                 [[WMFNavigationEventsFunnel shared] logTappedSettingsFromTabBar];
             } else if ([rootViewController isKindOfClass:[WMFPlacesViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedPlaces];
@@ -2118,7 +2110,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButtonFromObjC];
+        [self.settingsViewController updateProfileButton];
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
 
         if (self.isResumeComplete) {
@@ -2138,7 +2130,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userWasLoggedIn:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButtonFromObjC];
+        [self.settingsViewController updateProfileButton];
 
         if (self.isResumeComplete) {
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]

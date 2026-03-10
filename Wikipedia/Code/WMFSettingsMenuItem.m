@@ -1,6 +1,5 @@
 #import "WMFSettingsMenuItem.h"
 #import "Wikipedia-Swift.h"
-#import "WMFSettingsViewController.h"
 @import WMFData;
 
 @interface WMFSettingsMenuItem ()
@@ -163,7 +162,7 @@
         case WMFSettingsMenuItemType_RateApp: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"main-menu-rate-app", nil, nil, @"Rate the app", @"Button text for showing the app in the app store so user can rate the app")
+                                                    title: [WMFCommonStrings rateTheAppTitle]
                                                  iconName:@"settings-rate"
                                                 iconColor:[UIColor wmf_orange]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
@@ -173,7 +172,7 @@
         case WMFSettingsMenuItemType_SendFeedback: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-help-and-feedback", nil, nil, @"Help and feedback", @"Title for showing showing a screen that displays the FAQ and allows users to submit bug reports")
+                                                    title: [WMFCommonStrings helpAndfeedbackTitle]
                                                  iconName:@"settings-help-and-feedback"
                                                 iconColor:[UIColor wmf_red_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
@@ -193,7 +192,7 @@
         case WMFSettingsMenuItemType_ClearCache: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache", nil, nil, @"Clear cached data", @"Title for the 'Clear cached data' settings row")
+                                                    title: WMFCommonStrings.clearCachedDataSettings
                                                  iconName:@"settings-clear-cache"
                                                 iconColor:[UIColor wmf_yellow_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_None
