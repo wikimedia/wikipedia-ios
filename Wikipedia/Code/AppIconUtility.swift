@@ -47,7 +47,6 @@ import UIKit
         let iconName: String? = isNew ? "contributor-app-icon" : nil
 
         UIApplication.shared.setAlternateIconName(iconName) { [weak self] error in
-            let currentIcon = UIApplication.shared.alternateIconName ?? "nil (default)"
             self?.isNewIconOn = isNew
             DispatchQueue.main.async {
                 // Ignore the LSIconAlertManager Code=35 error on iOS 26 simulator.
