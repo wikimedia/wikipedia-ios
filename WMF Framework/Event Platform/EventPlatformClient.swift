@@ -778,7 +778,7 @@ private extension EventPlatformClient {
                 fail(PostEventError.missingResponse)
                 return
             }
-            guard httpResponse.statusCode == 201 else {
+            guard httpResponse.statusCode == 201 || httpResponse.statusCode == 202 else {
                 fail(PostEventError.unexepectedResponse(httpResponse.statusCode))
                 return
             }
