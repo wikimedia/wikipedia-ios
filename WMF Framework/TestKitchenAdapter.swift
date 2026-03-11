@@ -9,8 +9,7 @@ import CocoaLumberjackSwift
     public lazy var client: TestKitchenClient = {
         TestKitchenClient(
             clientDataCallback: self,
-            eventSender: self,
-            logger: TestKitchenLogAdapter()
+            eventSender: self
         )
     }()
 

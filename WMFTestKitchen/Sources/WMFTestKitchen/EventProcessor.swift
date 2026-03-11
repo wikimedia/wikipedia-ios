@@ -4,19 +4,16 @@ class EventProcessor {
     private let sourceConfig: () -> SourceConfig?
     private let eventSender: EventSender
     private let eventQueue: EventQueue
-    private let logger: LogAdapter
     private let processingQueue = DispatchQueue(label: "org.wikimedia.testkitchen.eventprocessor")
 
     init(
         sourceConfig: @escaping () -> SourceConfig?,
         eventSender: EventSender,
-        eventQueue: EventQueue,
-        logger: LogAdapter
+        eventQueue: EventQueue
     ) {
         self.sourceConfig = sourceConfig
         self.eventSender = eventSender
         self.eventQueue = eventQueue
-        self.logger = logger
     }
 
     func sendEnqueuedEvents() {
@@ -43,7 +40,6 @@ class EventProcessor {
 
         for (destination, events) in eventsByDestination {
             eventSender.sendEvents(destinationEventService: destination, events: events)
-            logger.info("\(events.count) events sent successfully")
         }
     }
 }

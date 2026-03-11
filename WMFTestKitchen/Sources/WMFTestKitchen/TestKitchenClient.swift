@@ -11,22 +11,18 @@ public class TestKitchenClient {
     private let eventQueue: EventQueue
     private var eventProcessor: EventProcessor!
     private let clientDataCallback: ClientDataCallback
-    private let logger: LogAdapter
     private var sourceConfig: SourceConfig?
 
     public init(
         clientDataCallback: ClientDataCallback,
-        eventSender: EventSender,
-        logger: LogAdapter
+        eventSender: EventSender
     ) {
         self.clientDataCallback = clientDataCallback
-        self.logger = logger
         self.eventQueue = EventQueue(capacity: TestKitchenClient.queueCapacity)
         self.eventProcessor = EventProcessor(
             sourceConfig: { [weak self] in self?.sourceConfig },
             eventSender: eventSender,
-            eventQueue: eventQueue,
-            logger: logger
+            eventQueue: eventQueue
         )
     }
 
@@ -54,9 +50,7 @@ public class TestKitchenClient {
 
         if !eventQueue.offer(event) {
             eventQueue.removeOldest()
-            if !eventQueue.offer(event) {
-                logger.warn("Failed to enqueue event after eviction.")
-            }
+            _ = eventQueue.offer(event)
         }
     }
 
