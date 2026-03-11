@@ -337,7 +337,7 @@ class ViewControllerRouter: NSObject {
                 }
             } else {
                 Task { @MainActor in
-                    WMFToastManager.sharedInstance.showErrorToastWithMessage(CommonStrings.noInternetConnection, sticky: true, dismissPreviousToasts: true)
+                    WMFToastManager.sharedInstance.showToast(CommonStrings.noInternetConnection, sticky: true, dismissPreviousToasts: true)
                 }
             }
         }

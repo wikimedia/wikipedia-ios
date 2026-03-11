@@ -82,7 +82,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 }
             )
 
-            WMFToastPresenter.shared.show(config, dismissPreviousToasts: false)
+            WMFToastPresenter.shared.show(config)
 
         }
 
@@ -477,7 +477,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let encodedMailto = mailto,
             let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL)
         else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
+            WMFToastManager.sharedInstance.showToast(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
             return
         }
         UIApplication.shared.open(mailtoURL)
@@ -632,7 +632,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(title, sticky: false, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showToast(title, sticky: false, dismissPreviousToasts: true)
         }
     }
 
@@ -801,7 +801,7 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
             self?.dismiss(animated: true, completion: {
                 let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
-                WMFToastManager.sharedInstance.showToastWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showRichToast(CommonStrings.feedbackSurveyToastTitle, image: image)
             })
         })
     }

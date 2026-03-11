@@ -61,21 +61,11 @@ public final class WMFToastPresenter {
     // MARK: - Public API
 
     /// Presents a toast using WMFToastConfig
-    public func show(_ config: WMFToastConfig, dismissPreviousToasts: Bool = false) {
-        if dismissPreviousToasts {
-            dismissCurrentToast()
-        }
-
+    public func show(_ config: WMFToastConfig) {
         let toastView = WMFToastView(config: config, dismiss: { [weak self] in
             self?.dismissCurrentToast()
         })
-
-        presentToastView(
-            view: toastView,
-            duration: config.duration,
-            allowsBackgroundTapToDismiss: false,
-            dismissAction: nil
-        )
+        presentToastView(view: toastView, duration: config.duration)
     }
 
     /// Presents a SwiftUI view as a toast at the bottom of the screen

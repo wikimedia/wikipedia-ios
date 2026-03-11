@@ -1465,7 +1465,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
 
     func imageRecommendationsDidTriggerTimeWarning() {
         let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
-        WMFToastManager.sharedInstance.showToastWithMessage(warningmessage, subtitle: nil, image: nil, dismissPreviousToasts: true)
+        WMFToastManager.sharedInstance.showRichToast(warningmessage, subtitle: nil, image: nil, dismissPreviousToasts: true)
     }
 }
 
@@ -1543,7 +1543,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
         let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
+            WMFToastManager.sharedInstance.showToast(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
             return
         }
         UIApplication.shared.open(mailtoURL)
@@ -1593,7 +1593,7 @@ extension ExploreViewController: EditSaveViewControllerDelegate {
                         if UIAccessibility.isVoiceOverRunning {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         } else {
-                            WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: nil, image: image, dismissPreviousToasts: true)
+                            WMFToastManager.sharedInstance.showRichToast(title, subtitle: nil, image: image, dismissPreviousToasts: true)
                         }
                     }
 

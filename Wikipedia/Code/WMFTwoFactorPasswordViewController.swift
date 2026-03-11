@@ -311,7 +311,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
-                WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 let presenter = self.presentingViewController
                 self.dismiss(animated: true, completion: {
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)

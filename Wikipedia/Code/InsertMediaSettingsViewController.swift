@@ -373,7 +373,7 @@ final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavig
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(title, sticky: false, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showToast(title, sticky: false, dismissPreviousToasts: true)
         }
     }
 

@@ -94,7 +94,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable, WMFNa
     fileprivate func save() {
         
         guard passwordFieldsMatch() else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             passwordField.text = nil
             retypeField.text = nil
             passwordField.becomeFirstResponder()
@@ -117,7 +117,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable, WMFNa
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
-                WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 self.dismiss(animated: true, completion: nil)
             case .failure(let error):
                 self.enableProgressiveButton(true)

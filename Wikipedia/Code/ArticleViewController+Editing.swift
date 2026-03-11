@@ -309,7 +309,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     }
                 } else {
-                    WMFToastManager.sharedInstance.showToastWithMessage(
+                    WMFToastManager.sharedInstance.showRichToast(
                         title,
                         subtitle: nil,
                         image: image,
@@ -320,12 +320,12 @@ extension ArticleViewController: EditorViewControllerDelegate {
                                 let subtitle = CommonStrings.tempAccountCreatedToastSubtitle(username: tempAccountUsername)
                                 let image = WMFIcon.temp
                                 if needsNewTempAccountToast ?? false {
-                                    WMFToastManager.sharedInstance.showToastWithMessage(
+                                    WMFToastManager.sharedInstance.showRichToast(
                                         title,
                                         subtitle: subtitle,
+                                        buttonTitle: CommonStrings.learnMoreTitle(),
                                         image: image,
                                         dismissPreviousToasts: true,
-                                        buttonTitle: CommonStrings.learnMoreTitle(),
                                         buttonCallBack: {
                                             Task { @MainActor in
                                                 if let url = URL(string: self.tempAccountsMediaWikiURL) {
