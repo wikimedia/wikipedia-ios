@@ -431,6 +431,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
+    [TestKitchenAdapter.shared appDidBecomeActive];
+
     if ([self visibleViewController] == self.exploreViewController) {
         self.exploreViewController.isGranularUpdatingEnabled = YES;
     }
@@ -460,6 +462,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
+    [TestKitchenAdapter.shared appDidEnterBackground];
     [self startPauseAppBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self pauseApp];
@@ -2229,6 +2232,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (!isUserUnawareOfLogout) {
         return;
     }
+    [TestKitchenAdapter.shared logBackgroundLogoutImpression];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self wmf_showLoggedOutPanelWithTheme:self.theme
                                dismissHandler:^{

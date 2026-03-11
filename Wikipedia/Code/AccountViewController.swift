@@ -3,6 +3,7 @@ import SwiftUI
 import WMF
 import WMFComponents
 import WMFData
+import WMFTestKitchen
 
 @objc(WMFAccountViewControllerDelegate)
 protocol AccountViewControllerDelegate: AnyObject {
@@ -169,6 +170,9 @@ class AccountViewController: SubSettingsViewController, WMFNavigationBarConfigur
         }
         switch item.type {
         case .vanishAccount:
+            let _ = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+                .startFunnel("vanish_account")
+                .submitInteraction(action: "click", actionSource: "settings", elementId: "vanish_button")
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
             present(warningViewController, animated: true)

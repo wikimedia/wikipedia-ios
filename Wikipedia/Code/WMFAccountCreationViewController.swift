@@ -3,6 +3,7 @@ import WMFComponents
 import CocoaLumberjackSwift
 import HCaptcha
 import WMFData
+import WMFTestKitchen
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable, WMFNavigationBarConfiguring {
     @IBOutlet fileprivate var usernameField: ThemeableTextField!
@@ -43,20 +44,29 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
+    private lazy var authInstrument: InstrumentImpl = {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .setDefaultActionSource("create_account_form")
+            .startFunnel("create_account")
+    }()
+    
     private var checkingUsernameAvailability: Bool = false
     
     private var hCaptchaToken: String?
     private var hCaptchaFinePrintText: String?
     
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
+        authInstrument.submitInteraction(action: "click", elementId: "back")
         dismiss(animated: true, completion: nil)
     }
 
     @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
+        authInstrument.submitInteraction(action: "click", elementId: "create_account_button")
         save()
     }
     
     @objc func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
+        authInstrument.submitInteraction(action: "click", elementId: "login_button")
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,
@@ -269,6 +279,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         usernameField.becomeFirstResponder()
+        authInstrument.submitInteraction(action: "impression")
     }
 
     @IBAction func textFieldDidChange(_ sender: UITextField) {
@@ -361,6 +372,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.authInstrument.submitInteraction(action: "success")
                 if let start = self.startDate {
                     LoginFunnel.shared.logCreateAccountSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
                 } else {
@@ -378,6 +390,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 
             case .failure(let error):
                 self.setViewControllerUserInteraction(enabled: true)
+                self.authInstrument.submitInteraction(action: "error")
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }

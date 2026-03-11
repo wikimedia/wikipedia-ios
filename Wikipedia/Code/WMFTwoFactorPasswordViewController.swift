@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFTestKitchen
 
 fileprivate enum WMFTwoFactorNextFirstResponderDirection: Int {
     case forward = 1
@@ -89,6 +90,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .submitInteraction(action: "click", elementId: "login_button")
         save()
     }
     
@@ -280,6 +283,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .submitInteraction(action: "click", elementId: "back")
         dismiss(animated: true, completion: nil)
     }
     
@@ -312,11 +317,15 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+                    .submitInteraction(action: "success")
                 let presenter = self.presentingViewController
                 self.dismiss(animated: true, completion: {
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
                 })
             case .failure(let error):
+                TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+                    .submitInteraction(action: "error")
                 if let error = error as? WMFAccountLoginError {
                     switch error {
                     case .temporaryPasswordNeedsChange:

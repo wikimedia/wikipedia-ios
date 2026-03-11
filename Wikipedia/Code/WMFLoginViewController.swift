@@ -3,6 +3,7 @@ import WMFComponents
 import SwiftUI
 import WMFData
 import CocoaLumberjackSwift
+import WMFTestKitchen
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable, WMFNavigationBarConfiguring {
     // SINGLETONTODO
@@ -31,6 +32,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     var category: EventCategoryMEP?
     fileprivate var theme: Theme = Theme.standard
     
+    private lazy var authInstrument: InstrumentImpl = {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .setDefaultActionSource("login_form")
+            .startFunnel("login_account")
+    }()
+    
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     
@@ -41,11 +48,13 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
+        authInstrument.submitInteraction(action: "click", elementId: "back")
         dismiss(animated: true, completion: nil)
         loginDismissedCompletion?()
     }
 
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
+        authInstrument.submitInteraction(action: "click", elementId: "login_button")
         save()
     }
 
@@ -177,6 +186,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         usernameField.becomeFirstResponder()
+        authInstrument.submitInteraction(action: "impression")
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -221,6 +231,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.loginSuccessCompletion?()
                 self.setViewControllerUserInteraction(enabled: true)
+                self.authInstrument.submitInteraction(action: "success")
                 self.dismiss(animated: true)
 
                 if let start = self.startDate {
@@ -230,6 +241,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 }
             case .failure(let error):
                 self.setViewControllerUserInteraction(enabled: true)
+                self.authInstrument.submitInteraction(action: "error")
 
                 // Captcha's appear to be one-time, so always try to get a new one on failure.
                 self.getCaptcha()
@@ -240,9 +252,11 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         self.showChangeTempPasswordViewController()
                         return
                     case .needsOathTokenFor2FA:
+                        self.authInstrument.submitInteraction(action: "impression", elementId: "2fa_oath")
                         self.showTwoFactorViewController(isEmailAuth: false)
                         return
                     case .needsEmailAuthToken:
+                        self.authInstrument.submitInteraction(action: "impression", elementId: "2fa_email")
                         self.showTwoFactorViewController(isEmailAuth: true)
                         return
                     case .statusNotPass:
@@ -305,6 +319,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     @objc func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
+        authInstrument.submitInteraction(action: "click", elementId: "forgot_password_link")
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,
@@ -333,6 +348,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         createAcctVC.createAccountSuccessCustomDismissBlock = createAccountSuccessCustomDismissBlock
         createAcctVC.apply(theme: theme)
         LoginFunnel.shared.logCreateAccountAttempt(category: category)
+        authInstrument.submitInteraction(action: "click", elementId: "create_account_button")
         dismiss(animated: true, completion: {
             let navigationController = WMFComponentNavigationController(rootViewController: createAcctVC, modalPresentationStyle: .overFullScreen)
             createAcctVC.category = self.category
