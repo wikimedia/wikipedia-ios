@@ -19,7 +19,6 @@ public class InstrumentImpl {
         actionSubtype: String? = nil,
         elementId: String? = nil,
         elementFriendlyName: String? = nil,
-        pageData: PageData? = nil,
         actionContext: [String: Any]? = nil
     ) -> InstrumentImpl {
         if experiment?.isLoggable?() == false {
@@ -52,8 +51,7 @@ public class InstrumentImpl {
                 actionContext: actionContextString,
                 elementId: elementId,
                 elementFriendlyName: elementFriendlyName
-            ),
-            pageData: pageData
+            )
         )
 
         funnel?.touch()

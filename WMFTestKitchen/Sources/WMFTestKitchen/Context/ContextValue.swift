@@ -14,14 +14,6 @@ public struct ContextValue {
 
     public static let mediawikiDatabase = "mediawiki_database"
 
-    public static let pageId = "page_id"
-    public static let pageTitle = "page_title"
-    public static let pageNamespaceId = "page_namespace_id"
-    public static let pageNamespaceName = "page_namespace_name"
-    public static let pageRevisionId = "page_revision_id"
-    public static let pageWikidataQid = "page_wikidata_qid"
-    public static let pageContentLanguage = "page_content_language"
-
     public static let performerId = "performer_id"
     public static let performerName = "performer_name"
     public static let performerIsLoggedIn = "performer_is_logged_in"

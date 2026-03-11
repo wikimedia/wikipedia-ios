@@ -15,7 +15,6 @@ class ContextController {
 
     private func filterClientData(_ clientData: ClientData, requestedValues: Set<String>) -> ClientData {
         var newAgent = AgentData()
-        var newPage = PageData()
         var newMediawiki = MediawikiData()
         var newPerformer = PerformerData()
 
@@ -31,13 +30,6 @@ class ContextController {
             case ContextValue.agentDeviceFamily: newAgent.deviceFamily = clientData.agentData?.deviceFamily
             case ContextValue.agentDeviceLanguage: newAgent.deviceLanguage = clientData.agentData?.deviceLanguage
             case ContextValue.agentReleaseStatus: newAgent.releaseStatus = clientData.agentData?.releaseStatus
-            case ContextValue.pageId: newPage.id = clientData.pageData?.id
-            case ContextValue.pageTitle: newPage.title = clientData.pageData?.title
-            case ContextValue.pageNamespaceId: newPage.namespaceId = clientData.pageData?.namespaceId
-            case ContextValue.pageNamespaceName: newPage.namespaceName = clientData.pageData?.namespaceName
-            case ContextValue.pageRevisionId: newPage.revisionId = clientData.pageData?.revisionId
-            case ContextValue.pageWikidataQid: newPage.wikidataItemQid = clientData.pageData?.wikidataItemQid
-            case ContextValue.pageContentLanguage: newPage.contentLanguage = clientData.pageData?.contentLanguage
             case ContextValue.mediawikiDatabase: newMediawiki.database = clientData.mediawikiData?.database
             case ContextValue.performerId: newPerformer.id = clientData.performerData?.id
             case ContextValue.performerName: newPerformer.name = clientData.performerData?.name
@@ -58,6 +50,6 @@ class ContextController {
             }
         }
 
-        return ClientData(agentData: newAgent, pageData: newPage, mediawikiData: newMediawiki, performerData: newPerformer)
+        return ClientData(agentData: newAgent, mediawikiData: newMediawiki, performerData: newPerformer)
     }
 }

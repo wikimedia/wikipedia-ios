@@ -8,7 +8,6 @@ public class Event: Encodable {
     public var instrumentName: String?
 
     public var agentData: AgentData?
-    public var pageData: PageData?
     public var mediawikiData: MediawikiData?
     public var performerData: PerformerData?
 
@@ -48,7 +47,6 @@ public class Event: Encodable {
     public func applyClientData(_ clientData: ClientData) {
         self.clientData = clientData
         agentData = clientData.agentData
-        pageData = clientData.pageData
         mediawikiData = clientData.mediawikiData
         performerData = clientData.performerData
     }
@@ -89,7 +87,6 @@ public class Event: Encodable {
         case timestamp = "dt"
         case instrumentName = "instrument_name"
         case agentData = "agent"
-        case pageData = "page"
         case mediawikiData = "mediawiki"
         case performerData = "performer"
         case action
