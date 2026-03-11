@@ -1179,11 +1179,6 @@
 "settings-notifications" = "Push notifications";
 "settings-notifications-echo-failure-try-again" = "Try again";
 "settings-notifications-header" = "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.";
-"settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
-"settings-notifications-learn-more" = "Learn more about notifications";
-"settings-notifications-push-notifications" = "Push notifications";
-"settings-notifications-system-turn-on" = "Turn on Notifications";
-"settings-notifications-trending" = "Trending current events";
 "settings-off" = "Off";
 "settings-on" = "On";
 "settings-primary-language" = "Primary";
@@ -1452,9 +1447,6 @@
 "welcome-languages-add-or-edit-button" = "Add or edit preferred languages";
 "welcome-languages-description" = "We've found the following languages on your device:";
 "welcome-languages-search-title" = "Search in over 300 languages";
-"welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
-"welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";
-"welcome-notifications-tell-me-more-title" = "More about notifications";
 "welcome-privacy-subtitle" = "We believe that you should not have to provide personal information to participate in the free knowledge movement. Usage data collected for this app is anonymous.";
 "welcome-privacy-terms-button-text" = "Learn more about our privacy policy and terms of use";
 "widget-onthisday-description" = "Explore what happened on this day in history.";

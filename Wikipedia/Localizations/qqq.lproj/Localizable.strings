@@ -1179,11 +1179,6 @@
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
 "settings-notifications-echo-failure-try-again" = "Text alerting the user to try action again after error";
 "settings-notifications-header" = "Text informing user of benefits of enabling push notifications.";
-"settings-notifications-info" = "A short description of notifications shown in settings";
-"settings-notifications-learn-more" = "A title for a button to learn more about notifications";
-"settings-notifications-push-notifications" = "A title for a list of Push notifications";
-"settings-notifications-system-turn-on" = "Title for a button for turnining on notifications in the system settings";
-"settings-notifications-trending" = "Title for the setting for trending notifications";
 "settings-off" = "Text indicating a value is off in app Settings.";
 "settings-on" = "Text indicating a value is on in app Settings.";
 "settings-primary-language" = "Label shown next to primary language {{Identical|Primary}}";
@@ -1452,9 +1447,6 @@
 "welcome-languages-add-or-edit-button" = "Title for button for managing languages";
 "welcome-languages-description" = "Title label describing detected languages";
 "welcome-languages-search-title" = "Title for welcome screen describing Wikipedia languages";
-"welcome-notifications-tell-me-more-creation" = "An explanation of how notifications are created";
-"welcome-notifications-tell-me-more-storage" = "An explanation of how notifications are stored";
-"welcome-notifications-tell-me-more-title" = "Title for detailed notification explanation";
 "welcome-privacy-subtitle" = "Sub-title explaining how data usage is anonymous";
 "welcome-privacy-terms-button-text" = "Text for links for learning more about data privacy policy and terms of use";
 "widget-onthisday-description" = "Description for 'On this day' view in iOS widget gallery";
