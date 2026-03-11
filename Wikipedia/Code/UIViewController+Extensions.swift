@@ -33,8 +33,8 @@ extension UIViewController {
     func wmf_showBlockedPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme, image: UIImage? = nil, linkLoggingAction: (() -> Void)? = nil) {
         let message = messageHtml.wmf_stringByRemovingHTML()
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default) { [weak self] _ in
-            self?.dismiss(animated: true)
+        alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default) { _ in
+            alert.dismiss(animated: true)
         })
         present(alert, animated: true)
     }
