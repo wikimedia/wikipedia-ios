@@ -170,7 +170,7 @@ class AccountViewController: SubSettingsViewController, WMFNavigationBarConfigur
         }
         switch item.type {
         case .vanishAccount:
-            let _ = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            _ = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
                 .startFunnel("vanish_account")
                 .submitInteraction(action: "click", actionSource: "settings", elementId: "vanish_button")
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
