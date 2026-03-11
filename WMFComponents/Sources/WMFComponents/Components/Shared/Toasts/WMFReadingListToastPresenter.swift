@@ -1,6 +1,5 @@
 import UIKit
 import SwiftUI
-import Combine
 
 @MainActor
 final public class WMFReadingListToastPresenter {
@@ -15,20 +14,18 @@ final public class WMFReadingListToastPresenter {
 
     private var containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)?
     private var dismissWorkItem: DispatchWorkItem?
-    private var cancellables = Set<AnyCancellable>()
 
     private var subview: UIView?
     private var additionalBottomSpacing: CGFloat = 0
     private var extendsUnderSafeArea: Bool = false
 
-    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, cancellables: Set<AnyCancellable> = Set<AnyCancellable>(), subview: UIView? = nil) {
+    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, subview: UIView? = nil) {
         self.presenter = presenter
         self.currentToastContainer = currentToastContainer
         self.currentHostingController = currentHostingController
         self.currentModel = currentModel
         self.containerViewConstraints = containerViewConstraints
         self.dismissWorkItem = dismissWorkItem
-        self.cancellables = cancellables
         self.subview = subview
     }
 
