@@ -4,6 +4,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import TipKit
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -562,6 +563,14 @@ extension WMFAppViewController: CreateReadingListDelegate {
                 WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 createReadingListViewController.createReadingListButton.isEnabled = true
             }
+        }
+    }
+    
+    @objc func setupTips() {
+        do {
+            try Tips.configure()
+        } catch {
+            DDLogError("Error initializing TipKit: \(error.localizedDescription)")
         }
     }
     
