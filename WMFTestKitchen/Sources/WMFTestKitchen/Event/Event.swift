@@ -22,8 +22,6 @@ public class Event: Encodable {
     public var funnelEntryToken: String?
     public var funnelEventSequencePosition: Int?
 
-    public var experiment: EventExperiment?
-
     // Non-encoded properties
     var clientData: ClientData = ClientData()
     var interactionData: InteractionData = InteractionData()
@@ -59,14 +57,6 @@ public class Event: Encodable {
             self.funnelEntryToken = funnel.token
             self.funnelEventSequencePosition = funnel.sequence
         }
-        if let exp = instrument.experiment {
-            self.experiment = EventExperiment(
-                assigned: exp.group,
-                enrolled: exp.name,
-                coordinator: exp.coordinator,
-                subjectId: exp.subjectId
-            )
-        }
     }
 
     func applyInteractionData(_ interactionData: InteractionData) {
@@ -98,46 +88,11 @@ public class Event: Encodable {
         case funnelName = "funnel_name"
         case funnelEntryToken = "funnel_entry_token"
         case funnelEventSequencePosition = "funnel_event_sequence_position"
-        case experiment
     }
 
     // MARK: - Nested types
 
     public struct Meta: Encodable {
         public let stream: String
-    }
-
-    public struct EventExperiment: Encodable {
-        public let assigned: String
-        public let enrolled: String
-        public let coordinator: String
-        public let samplingUnit: String?
-        public let subjectId: String?
-
-        public static let coordinatorDefault = "default"
-        public static let coordinatorCustom = "custom"
-        public static let coordinatorForced = "forced"
-
-        public init(
-            assigned: String,
-            enrolled: String,
-            coordinator: String = EventExperiment.coordinatorDefault,
-            samplingUnit: String? = nil,
-            subjectId: String? = nil
-        ) {
-            self.assigned = assigned
-            self.enrolled = enrolled
-            self.coordinator = coordinator
-            self.samplingUnit = samplingUnit
-            self.subjectId = subjectId
-        }
-
-        enum CodingKeys: String, CodingKey {
-            case assigned
-            case enrolled
-            case coordinator
-            case samplingUnit = "sampling_unit"
-            case subjectId = "subject_id"
-        }
     }
 }

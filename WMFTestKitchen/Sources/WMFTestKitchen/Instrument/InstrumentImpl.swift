@@ -4,7 +4,6 @@ public class InstrumentImpl {
     public let name: String
     private weak var client: TestKitchenClient?
     public var funnel: Funnel?
-    public var experiment: ExperimentImpl?
     private var defaultActionSource: String?
 
     init(name: String, client: TestKitchenClient? = nil) {
@@ -21,9 +20,6 @@ public class InstrumentImpl {
         elementFriendlyName: String? = nil,
         actionContext: [String: Any]? = nil
     ) -> InstrumentImpl {
-        if experiment?.isLoggable?() == false {
-            return self
-        }
 
         var actionContextFinal: [String: String] = [:]
         funnel?.addActionContext(&actionContextFinal)
@@ -67,12 +63,6 @@ public class InstrumentImpl {
     @discardableResult
     public func stopFunnel() -> InstrumentImpl {
         funnel = nil
-        return self
-    }
-
-    @discardableResult
-    public func setExperiment(_ experiment: ExperimentImpl?) -> InstrumentImpl {
-        self.experiment = experiment
         return self
     }
 
