@@ -171,17 +171,7 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: WMFLocalizedString("panel-not-logged-in-continue-edit-action-title", value: "Edit without logging in", comment: "Title for button that continues publishing the edit anonymously."), style: .cancel) { _ in
             buttonTapHandler?(1)
         })
-        presenter?.present(alert, animated: true)
-    }
-
-    private var presenter: UIViewController? {
-        guard view.window == nil else {
-            return self
-        }
-        if presentedViewController is UINavigationController {
-            return presentedViewController
-        }
-        return nil
+        present(alert, animated: true)
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: (() -> Void)? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
