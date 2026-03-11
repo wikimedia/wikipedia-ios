@@ -132,8 +132,8 @@ open class WMFToastManager: NSObject {
         }
     }
 
-    func dismissCurrentToast(_ completion: @MainActor @escaping () -> Void = {}) {
-        WMFToastPresenter.shared.dismissCurrentToast()
+    func dismissCurrentToast(_ completion: @escaping () -> Void = {}) {
+        WMFToastPresenter.shared.dismissCurrentToast(completion: completion)
     }
 
     @objc func dismissCurrentToast() {

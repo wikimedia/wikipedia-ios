@@ -185,7 +185,7 @@ public final class WMFToastPresenter {
         shadowContainer.addGestureRecognizer(panGesture)
 
         // Auto-dismiss
-        if let duration {
+        if let duration, duration > 0 {
             let workItem = DispatchWorkItem { [weak self, weak shadowContainer] in
                 guard let shadowContainer else { return }
                 self?.dismissToast(shadowContainer, dismissEvent: .durationExpired)
@@ -195,8 +195,18 @@ public final class WMFToastPresenter {
         }
     }
 
-    public func dismissCurrentToast() {
-        guard let toast = currentToast else { return }
+    public func dismissCurrentToast(completion: (() -> Void)? = nil) {
+        guard let toast = currentToast else {
+            completion?()
+            return
+        }
+        if let completion {
+            let existing = dismissAction
+            dismissAction = { event in
+                existing?(event)
+                completion()
+            }
+        }
         dismissToast(toast, dismissEvent: .outsideEvent)
     }
 
