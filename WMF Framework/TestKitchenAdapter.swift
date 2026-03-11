@@ -103,10 +103,6 @@ import CocoaLumberjackSwift
 
     // MARK: - Lifecycle
 
-    @objc public func appDidBecomeActive() {
-        client.onAppResume()
-    }
-
     @objc public func appDidEnterBackground() {
         client.onAppPause()
     }

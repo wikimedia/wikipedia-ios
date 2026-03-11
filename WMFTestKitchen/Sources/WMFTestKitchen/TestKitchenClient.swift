@@ -8,7 +8,6 @@ public class TestKitchenClient {
     private static let queueCapacity = 16
 
     private let contextController = ContextController()
-    private let sessionController = SessionController()
     private let eventQueue: EventQueue
     private var eventProcessor: EventProcessor!
     private let clientDataCallback: ClientDataCallback
@@ -68,23 +67,11 @@ public class TestKitchenClient {
     // MARK: - Lifecycle
 
     public func onAppPause() {
-        sessionController.closeSession()
         eventProcessor.sendEnqueuedEvents()
-    }
-
-    public func onAppResume() {
-        sessionController.touchSession()
     }
 
     public func onAppClose() {
-        sessionController.closeSession()
         eventProcessor.sendEnqueuedEvents()
-    }
-
-    // MARK: - Internal
-
-    func generateSessionId() -> String {
-        return SessionController.generateSessionId()
     }
 
     // MARK: - Private

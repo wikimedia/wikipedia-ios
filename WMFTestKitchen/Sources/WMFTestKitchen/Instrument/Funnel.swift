@@ -9,8 +9,16 @@ public class Funnel {
 
     public init(name: String? = nil) {
         self.name = name
-        self.token = SessionController.generateSessionId()
+        self.token = Funnel.generateTokenId()
         self.startTime = Date()
+    }
+
+    /// Generates a 20-character hex string representing a uniformly random 80-bit integer
+    static func generateTokenId() -> String {
+        let a = UInt32.random(in: 0...UInt32.max)
+        let b = UInt32.random(in: 0...UInt32.max)
+        let c = UInt16.random(in: 0...UInt16.max)
+        return String(format: "%08x%08x%04x", a, b, c)
     }
 
     public func touch() {

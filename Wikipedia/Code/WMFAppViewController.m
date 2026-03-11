@@ -431,8 +431,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
-    [TestKitchenAdapter.shared appDidBecomeActive];
-
     if ([self visibleViewController] == self.exploreViewController) {
         self.exploreViewController.isGranularUpdatingEnabled = YES;
     }
