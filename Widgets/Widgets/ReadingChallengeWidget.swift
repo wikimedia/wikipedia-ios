@@ -124,6 +124,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
 
 struct ReadingChallengeWidget: Widget {
     private let kind: String = WidgetController.SupportedWidget.readingChallenge.identifier
+    private var widgetURL: String { "wikipedia://explore" }
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: ReadingChallengeProvider()) { entry in
@@ -137,6 +138,7 @@ struct ReadingChallengeWidget: Widget {
                     state: state
                 )
             )
+            .widgetURL(URL(string: widgetURL))
         }
         .configurationDisplayName("Reading Challenge")
         .description("Track your reading challenge progress.")
