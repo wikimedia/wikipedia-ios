@@ -131,6 +131,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         return [self wmf_activityTabActivity];
     } else if ([url.host isEqualToString:@"search"]) {
         return [self wmf_searchViewActivity];
+    } else if ([url.host isEqualToString:@"random"]) {
+        return [self wmf_randomArticleActivity];
     } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
         components.scheme = @"https";
@@ -145,6 +147,11 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         }
     }
     return nil;
+}
+
++ (instancetype)wmf_randomArticleActivity {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"Random"];
+    return activity;
 }
 
 + (nullable instancetype)wmf_activityForURL:(NSURL *)url {
@@ -221,6 +228,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeSearch;
         } else if ([page isEqualToString:@"AppearanceSettings"]) {
             return WMFUserActivityTypeAppearanceSettings;
+        } else if ([page isEqualToString:@"Random"]) {
+            return WMFUserActivityTypeRandom;
         } else if ([page isEqualToString:@"Activity"]) {
             return WMFUserActivityTypeActivity;
         } else if ([page isEqualToString:@"NotificationSettings"]) {
@@ -294,6 +303,9 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             break;
         case WMFUserActivityTypeActivity:
             host = @"Activity";
+            break;
+        case WMFUserActivityTypeRandom:
+            host = @"Random";
             break;
         case WMFUserActivityTypeExplore:
         default:

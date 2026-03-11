@@ -94,8 +94,11 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             image: "globe1",
             title: "",
             button1Title: "Search",
+            button2Title: "Random",
             button1URL: URL(string: "wikipedia://search"),
-            button1Icon: "search"
+            button2URL: URL(string: "wikipedia://random"),
+            button1Icon: "search",
+            button2Icon: "dice"
         )
     ]
 
