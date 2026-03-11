@@ -72,11 +72,6 @@ final public class WMFReadingListToastPresenter {
         dismissWorkItem = nil
     }
 
-    public func dismissToastDueToUserInteraction() {
-        guard !isToastHidden else { return }
-        dismissToast()
-    }
-
     public func updateCurrentToast(with config: WMFReadingListToastConfig) {
         currentModel?.config = config
         scheduleDismiss(config: config)

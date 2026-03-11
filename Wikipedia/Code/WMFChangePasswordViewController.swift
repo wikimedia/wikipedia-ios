@@ -103,7 +103,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable, WMFNa
         
         wmf_hideKeyboard()
         enableProgressiveButton(false)
-        WMFToastManager.sharedInstance.dismissToast()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
                 
         guard let userName = userName,
             let password = passwordField.text,

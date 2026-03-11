@@ -107,7 +107,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        WMFToastManager.sharedInstance.dismissToast()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         super.viewWillDisappear(animated)
 
         if isMovingFromParent {

@@ -200,29 +200,6 @@ public final class WMFToastPresenter {
         dismissToast(toast, dismissEvent: .outsideEvent)
     }
 
-    public func dismissAll(completion: @escaping @MainActor () -> Void = {}) {
-        guard let toast = currentToast else {
-            completion()
-            return
-        }
-
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
-
-        toast.removeFromSuperview()
-        if self.currentToast === toast {
-            self.currentToast = nil
-        }
-
-        if let backgroundTapGestureRecognizer = self.backgroundTapGestureRecognizer {
-            backgroundTapGestureRecognizer.view?.removeGestureRecognizer(backgroundTapGestureRecognizer)
-            self.backgroundTapGestureRecognizer = nil
-        }
-
-        self.dismissAction = nil
-        completion()
-    }
-
     // MARK: - Gesture Handlers
 
     @objc private func handleContainerTap(_ gesture: UITapGestureRecognizer) {

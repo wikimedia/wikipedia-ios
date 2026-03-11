@@ -257,7 +257,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         self.passwordAlertLabel.isHidden = false
                         self.passwordField.textColor = self.theme.colors.error
                         self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
-                        WMFToastManager.sharedInstance.dismissToast()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         return
                     default: break
                     }

@@ -624,7 +624,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }()
 
     private func hideOfflineAlertIfNeeded() {
-        WMFToastManager.sharedInstance.dismissAllToasts()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
     }
 
     private func showOfflineAlertIfNeeded() {

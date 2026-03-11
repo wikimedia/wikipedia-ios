@@ -125,7 +125,7 @@ class WatchlistController {
 
     private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wmfProject: WMFProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
 
-        WMFToastManager.sharedInstance.dismissAllToasts()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
 
         let title = WMFLocalizedString("watchlist-change-expiry-title", value: "Watchlist expiry", comment: "Title of modal that allows a user to change the expiry setting of a page they are watching.")
         let message = WMFLocalizedString("watchlist-change-expiry-subtitle", value: "Choose Watchlist time period", comment: "Subtitle in modal that allows a user to choose the expiry setting of a page they are watching.")

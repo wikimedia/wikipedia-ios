@@ -319,7 +319,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        WMFToastManager.sharedInstance.dismissToast()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         super.viewWillDisappear(animated)
     }
     
@@ -484,7 +484,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         self.usernameAlertLabel.alpha = 1
                         self.usernameField.textColor = self.theme.colors.error
                         self.usernameField.keyboardAppearance = self.theme.keyboardAppearance
-                        WMFToastManager.sharedInstance.dismissToast()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         return
                     case .wrongCaptcha:
                         isCaptchaError = true
@@ -509,8 +509,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                             break
                         }
                         
-                        WMFToastManager.sharedInstance.dismissToast()
-                        
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
+
                         self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
 
                     default:

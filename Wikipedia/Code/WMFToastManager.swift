@@ -115,8 +115,6 @@ open class WMFToastManager: NSObject {
 
     // MARK: - Private Methods
 
-    private var queuedAlertBlocks: [() -> Void] = []
-
     /// Show a toast with the given configuration
     private func show(config: WMFToastConfig, dismissPreviousToasts: Bool) {
         showToast(dismissPreviousToasts) {
@@ -125,28 +123,21 @@ open class WMFToastManager: NSObject {
     }
 
     private func showToast(_ dismissPreviousToasts: Bool, alertBlock: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            if dismissPreviousToasts {
-                self.queuedAlertBlocks.append(alertBlock)
-                self.dismissAllToasts {
-                    assert(Thread.isMainThread)
-                    if let alertBlock = self.queuedAlertBlocks.popLast() {
-                        alertBlock()
-                    }
-                    self.queuedAlertBlocks.removeAll()
-                }
-            } else {
+        if dismissPreviousToasts {
+            dismissCurrentToast {
                 alertBlock()
             }
+        } else {
+            alertBlock()
         }
     }
 
-    @objc func dismissToast() {
+    func dismissCurrentToast(_ completion: @MainActor @escaping () -> Void = {}) {
         WMFToastPresenter.shared.dismissCurrentToast()
     }
 
-    @objc func dismissAllToasts(_ completion: @MainActor @escaping () -> Void = {}) {
-        WMFToastPresenter.shared.dismissAll(completion: completion)
+    @objc func dismissCurrentToast() {
+        WMFToastPresenter.shared.dismissCurrentToast()
     }
 }
 

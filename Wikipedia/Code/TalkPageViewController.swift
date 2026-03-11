@@ -960,7 +960,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     fileprivate func hideOfflineAlertIfNeeded() {
-        WMFToastManager.sharedInstance.dismissAllToasts()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
     }
 }
 

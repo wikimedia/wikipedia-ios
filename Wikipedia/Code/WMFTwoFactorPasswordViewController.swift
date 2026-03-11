@@ -320,13 +320,13 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 if let error = error as? WMFAccountLoginError {
                     switch error {
                     case .temporaryPasswordNeedsChange:
-                        WMFToastManager.sharedInstance.dismissToast()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         self.showChangeTempPasswordViewController()
                         return
                     case .wrongToken:
                         self.tokenAlertLabel.text = error.localizedDescription
                         self.tokenAlertLabel.isHidden = false
-                        WMFToastManager.sharedInstance.dismissToast()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         return
                     default:
                         break

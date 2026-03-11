@@ -783,7 +783,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
 
         if hide {
             Task { @MainActor in
-                WMFToastManager.sharedInstance.dismissToast()
+                WMFToastManager.sharedInstance.dismissCurrentToast()
             }
         } else {
             showWarningAlert()

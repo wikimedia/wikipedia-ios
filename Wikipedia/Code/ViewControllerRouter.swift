@@ -333,7 +333,7 @@ class ViewControllerRouter: NSObject {
         let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
             if reachable {
                 Task { @MainActor in
-                    WMFToastManager.sharedInstance.dismissAllToasts()
+                    WMFToastManager.sharedInstance.dismissCurrentToast()
                 }
             } else {
                 Task { @MainActor in

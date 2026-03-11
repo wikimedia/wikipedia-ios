@@ -378,7 +378,7 @@ final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavig
     }
 
     private func hideOfflineAlertIfNeeded() {
-        WMFToastManager.sharedInstance.dismissAllToasts()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
     }
     
     typealias Wikitext = String
