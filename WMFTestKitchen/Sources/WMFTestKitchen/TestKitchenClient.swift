@@ -2,7 +2,7 @@ import Foundation
 
 public class TestKitchenClient {
 
-    public static let schemaAppBase = "/analytics/product_metrics/app/base/2.1.0"
+    public static let schemaAppBase = "/analytics/product_metrics/app/base/2.0.0"
     public static let streamAppBase = "product_metrics.app_base"
 
     private let contextController = ContextController()

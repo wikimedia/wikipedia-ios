@@ -713,7 +713,6 @@
 		679BC8512C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
 		679BC8522C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
 		679BC8532C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
-		679DEF012F621D8E00B21570 /* TestKitchenLogAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679DEF002F621D8E00B21570 /* TestKitchenLogAdapter.swift */; };
 		679DEF022F621D8E00B21570 /* TestKitchenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */; };
 		679E6F9E2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */; };
 		679E6F9F2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */; };
@@ -10697,7 +10696,6 @@
 				7A96EBA922CFDA4B0037C8A8 /* PageNamespace.swift in Sources */,
 				7A5AB82D2294121D00B91C9C /* WMFHTMLElement.m in Sources */,
 				00D9B0FF29C8D297008A01E0 /* WidgetImageSource.swift in Sources */,
-				679DEF012F621D8E00B21570 /* TestKitchenLogAdapter.swift in Sources */,
 				679DEF022F621D8E00B21570 /* TestKitchenAdapter.swift in Sources */,
 				D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */,
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
