@@ -1574,6 +1574,8 @@
 		83F1097323D0F115003F3E9E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1097223D0F115003F3E9E /* HelpViewController.swift */; };
 		83F1097423D0F115003F3E9E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1097223D0F115003F3E9E /* HelpViewController.swift */; };
 		83F1097523D0F115003F3E9E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1097223D0F115003F3E9E /* HelpViewController.swift */; };
+		83F5BB222F61BCA100796FFC /* WMFReadingListToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A952CD4C29EF4BB953B27E /* WMFReadingListToastManager.swift */; };
+		83F5BB232F61BCA100796FFC /* WMFReadingListToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A952CD4C29EF4BB953B27E /* WMFReadingListToastManager.swift */; };
 		83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */; };
 		83FBE9701F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */; };
 		83FBE9711F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */; };
@@ -10988,6 +10990,7 @@
 				7ABE17362239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
 				D8A47C9023D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				00D46DAC2889B9250015DE9B /* TalkPageCell.swift in Sources */,
+				83F5BB232F61BCA100796FFC /* WMFReadingListToastManager.swift in Sources */,
 				83B01F8223DB1235001185F4 /* WikitextFetcher.swift in Sources */,
 				67DC5BE423A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -11528,6 +11531,7 @@
 				7ABE17372239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
 				D8A47C9123D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				00D46DAB2889B9250015DE9B /* TalkPageCell.swift in Sources */,
+				83F5BB222F61BCA100796FFC /* WMFReadingListToastManager.swift in Sources */,
 				83B01F8323DB1235001185F4 /* WikitextFetcher.swift in Sources */,
 				67DC5BE523A017CA00B03A84 /* ArticleViewController.swift in Sources */,
 				B0524B2B214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
