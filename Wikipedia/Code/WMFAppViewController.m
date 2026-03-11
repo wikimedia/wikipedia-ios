@@ -460,7 +460,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
-    [TestKitchenAdapter.shared appDidEnterBackground];
     [self startPauseAppBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self pauseApp];

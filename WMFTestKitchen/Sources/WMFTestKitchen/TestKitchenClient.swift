@@ -5,12 +5,9 @@ public class TestKitchenClient {
     public static let schemaAppBase = "/analytics/product_metrics/app/base/2.1.0"
     public static let streamAppBase = "product_metrics.app_base"
 
-    private static let queueCapacity = 16
-
     private let contextController = ContextController()
-    private let eventQueue: EventQueue
-    private var eventProcessor: EventProcessor!
     private let clientDataCallback: ClientDataCallback
+    private let eventSender: EventSender
     private var sourceConfig: SourceConfig?
 
     public init(
@@ -18,12 +15,7 @@ public class TestKitchenClient {
         eventSender: EventSender
     ) {
         self.clientDataCallback = clientDataCallback
-        self.eventQueue = EventQueue(capacity: TestKitchenClient.queueCapacity)
-        self.eventProcessor = EventProcessor(
-            sourceConfig: { [weak self] in self?.sourceConfig },
-            eventSender: eventSender,
-            eventQueue: eventQueue
-        )
+        self.eventSender = eventSender
     }
 
     // MARK: - Public API
@@ -48,24 +40,12 @@ public class TestKitchenClient {
 
         contextController.enrichEvent(event, streamConfig: streamConfig(for: TestKitchenClient.streamAppBase))
 
-        if !eventQueue.offer(event) {
-            eventQueue.removeOldest()
-            _ = eventQueue.offer(event)
-        }
+        let destination = streamConfig(for: TestKitchenClient.streamAppBase).destinationEventService
+        eventSender.sendEvents(destinationEventService: destination, events: [event])
     }
 
     public func updateSourceConfig(_ sourceConfig: SourceConfig) {
         self.sourceConfig = sourceConfig
-    }
-
-    // MARK: - Lifecycle
-
-    public func onAppPause() {
-        eventProcessor.sendEnqueuedEvents()
-    }
-
-    public func onAppClose() {
-        eventProcessor.sendEnqueuedEvents()
     }
 
     // MARK: - Private

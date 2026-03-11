@@ -100,12 +100,6 @@ import CocoaLumberjackSwift
         }
     }
 
-    // MARK: - Lifecycle
-
-    @objc public func appDidEnterBackground() {
-        client.onAppPause()
-    }
-
     // MARK: - ObjC convenience for auth instrumentation
 
     @objc public func logLogoutStart() {
