@@ -39,6 +39,7 @@
 import Foundation
 import CocoaLumberjackSwift
 import WMFData
+import WMFTestKitchen
 
 /**
  * Event Platform Client (EPC)
@@ -365,6 +366,9 @@ import WMFData
                 result?[stream] = kv.value
             })
 
+            // Forward raw stream configs to TestKitchenClient
+            forwardStreamConfigsToTestKitchen(data)
+
             // Process event buffer after making stream configs available
             // NOTE: If any event is re-submitted while streamConfigurations
             // is still being set (asynchronously), they will just go back to
@@ -380,6 +384,19 @@ import WMFData
             }
         } catch let error {
             DDLogError("EPC: Problem processing JSON payload from response: \(error)")
+        }
+    }
+
+    private func forwardStreamConfigsToTestKitchen(_ data: Data) {
+        struct StreamsWrapper: Codable {
+            let streams: [String: WMFTestKitchen.StreamConfig]
+        }
+        do {
+            let wrapper = try JSONDecoder().decode(StreamsWrapper.self, from: data)
+            let sourceConfig = SourceConfig(configs: wrapper.streams)
+            TestKitchenAdapter.shared.client.updateSourceConfig(sourceConfig)
+        } catch {
+            DDLogDebug("EPC: Could not forward stream configs to TestKitchen: \(error)")
         }
     }
 
