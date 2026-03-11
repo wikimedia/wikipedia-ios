@@ -84,7 +84,7 @@ import CocoaLumberjackSwift
 
     // MARK: - EventSender
 
-    public func sendEvents(destinationEventService: DestinationEventService, events: [Event]) {
+    public func sendEvents(_ events: [Event]) {
         guard let storageManager = EventPlatformClient.shared.storageManager else {
             DDLogError("TestKitchenAdapter: StorageManager unavailable")
             return

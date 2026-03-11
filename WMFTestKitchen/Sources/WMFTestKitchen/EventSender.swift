@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol EventSender {
-    func sendEvents(destinationEventService: DestinationEventService, events: [Event])
+    func sendEvents(_ events: [Event])
 }

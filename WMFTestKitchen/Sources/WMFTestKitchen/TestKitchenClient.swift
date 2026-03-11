@@ -40,8 +40,7 @@ public class TestKitchenClient {
 
         contextController.enrichEvent(event, streamConfig: streamConfig(for: TestKitchenClient.streamAppBase))
 
-        let destination = streamConfig(for: TestKitchenClient.streamAppBase).destinationEventService
-        eventSender.sendEvents(destinationEventService: destination, events: [event])
+        eventSender.sendEvents([event])
     }
 
     public func updateSourceConfig(_ sourceConfig: SourceConfig) {
