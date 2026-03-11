@@ -393,7 +393,7 @@ import WMFTestKitchen
         }
         do {
             let wrapper = try JSONDecoder().decode(StreamsWrapper.self, from: data)
-            let sourceConfig = SourceConfig(configs: wrapper.streams)
+            let sourceConfig = SourceConfig(streamConfigs: wrapper.streams)
             TestKitchenAdapter.shared.client.updateSourceConfig(sourceConfig)
         } catch {
             DDLogDebug("EPC: Could not forward stream configs to TestKitchen: \(error)")

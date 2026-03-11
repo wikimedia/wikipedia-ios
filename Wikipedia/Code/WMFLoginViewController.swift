@@ -35,7 +35,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     private lazy var authInstrument: InstrumentImpl = {
         TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
             .setDefaultActionSource("login_form")
-            .startFunnel("login_account")
+            .startFunnel(name: "login_account")
     }()
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()

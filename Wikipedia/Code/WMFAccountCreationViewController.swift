@@ -47,7 +47,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     private lazy var authInstrument: InstrumentImpl = {
         TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
             .setDefaultActionSource("create_account_form")
-            .startFunnel("create_account")
+            .startFunnel(name: "create_account")
     }()
     
     private var checkingUsernameAvailability: Bool = false

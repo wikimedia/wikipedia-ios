@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import WMFTestKitchen
+import WMF
 
 protocol VanishAccountWarningViewDelegate: AnyObject {
     func userDidDismissVanishAccountWarningView(presentVanishView: Bool)

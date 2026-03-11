@@ -115,7 +115,7 @@ import CocoaLumberjackSwift
 
     @objc public func logLogoutStart() {
         let instrument = client.getInstrument(name: "apps-authentication")
-            .startFunnel("logout_account")
+            .startFunnel(name: "logout_account")
         instrument.submitInteraction(action: "click", actionSource: "settings", elementId: "logout_button")
     }
 
@@ -127,7 +127,7 @@ import CocoaLumberjackSwift
     @objc public func logBackgroundLogoutImpression() {
         _ = client.getInstrument(name: "apps-authentication")
             .setDefaultActionSource("logout_background_dialog")
-            .startFunnel("logout_account_background")
+            .startFunnel(name: "logout_account_background")
             .submitInteraction(action: "impression")
     }
 }
