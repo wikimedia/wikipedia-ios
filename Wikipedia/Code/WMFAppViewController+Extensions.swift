@@ -661,13 +661,15 @@ extension WMFAppViewController {
     }
 
     private func migrateAutoSignTalkPageDiscussions() {
-        let legacyKey = "WMFAutoSignTalkPageDiscussions"
-        let bundleID = Bundle.main.bundleIdentifier ?? ""
-        guard let persistedValue = UserDefaults.standard.persistentDomain(forName: bundleID)?[legacyKey] as? Bool else {
+        let settingsDataController = WMFSettingsDataController.shared
+        guard !settingsDataController.didMigrateAutoSignTalkPageDiscussions() else {
             return
         }
-        let settingsDataController = WMFSettingsDataController.shared
+        let legacyKey = "WMFAutoSignTalkPageDiscussions"
+        let bundleID = Bundle.main.bundleIdentifier ?? ""
+        let persistedValue = UserDefaults.standard.persistentDomain(forName: bundleID)?[legacyKey] as? Bool ?? true
         settingsDataController.setAutoSignTalkPageDiscussions(persistedValue)
+        settingsDataController.setDidMigrateAutoSignTalkPageDiscussions(true)
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
