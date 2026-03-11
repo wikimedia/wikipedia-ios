@@ -62,14 +62,14 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
                 
                 HStack {
-                        if let image = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1) {
-                            Image(uiImage: image)
-                                .foregroundStyle(viewModel.displaySet.color2)
-                        }
-                        Text(viewModel.displaySet.title)
-                            .font(Font(WMFFont.for(.boldTitle1)))
-                            .foregroundColor(viewModel.displaySet.color2)
+                    if let image = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1) {
+                        Image(uiImage: image)
+                            .foregroundStyle(viewModel.displaySet.color2)
                     }
+                    Text(viewModel.displaySet.title)
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                        .foregroundColor(viewModel.displaySet.color2)
+                }
             }
             .padding()
             wIconOverlay
@@ -97,15 +97,20 @@ public struct WMFReadingChallengeWidgetView: View {
                         .foregroundColor(viewModel.displaySet.color2)
                 }
                 if let button1Title = viewModel.displaySet.button1Title,
-                   let button1URL = viewModel.displaySet.button1URL {
+                   let button1URL = viewModel.displaySet.button1URL,
+                   let icon = viewModel.displaySet.button1Icon {
                     Link(destination: button1URL) {
-                        Text(button1Title)
-                            .font(Font(WMFFont.for(.semiboldSubheadline)))
-                            .foregroundColor(viewModel.displaySet.color)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(viewModel.displaySet.color2)
-                            .clipShape(Capsule())
+                        HStack {
+                            Image(icon)
+                                .resizable()
+                            Text(button1Title)
+                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .foregroundColor(viewModel.displaySet.color)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(viewModel.displaySet.color2)
+                        .clipShape(Capsule())
                     }
                 }
             }

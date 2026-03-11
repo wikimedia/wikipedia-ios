@@ -1198,6 +1198,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeNotificationSettings:
         case WMFUserActivityTypeContent:
+        case WMFUserActivityTypeActivity:
             return YES;
         case WMFUserActivityTypeSearchResults:
             return [activity wmf_searchTerm] != nil;
@@ -1249,6 +1250,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 [[self placesViewController] showArticleURL:articleURL];
             }
         } break;
+        case WMFUserActivityTypeActivity:
+            [self dismissPresentedViewControllers];
+            [self setSelectedIndex:WMFAppTabTypeRecent];
+            [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
+            break;
         case WMFUserActivityTypeContent: {
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];

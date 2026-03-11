@@ -25,6 +25,9 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
         public let button2Title: String?
         public let button1URL: URL?
         public let button2URL: URL?
+        public let button1Icon: String?
+        public let button2Icon: String?
+        public let buttonBackgroundColor: Color?
 
         public init(
             color: Color,
@@ -35,7 +38,10 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             button1Title: String? = nil,
             button2Title: String? = nil,
             button1URL: URL? = nil,
-            button2URL: URL? = nil
+            button2URL: URL? = nil,
+            button1Icon: String? = nil,
+            button2Icon: String? = nil,
+            buttonBackgroundColor: Color? = nil
         ) {
             self.color = color
             self.color2 = color2
@@ -46,6 +52,9 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             self.button2Title = button2Title
             self.button1URL = button1URL
             self.button2URL = button2URL
+            self.button1Icon = button1Icon
+            self.button2Icon = button2Icon
+            self.buttonBackgroundColor = buttonBackgroundColor
         }
     }
 
@@ -57,7 +66,7 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
 
     // MARK: - Init
 
-    public init(localizedStrings: LocalizedStrings, displaySet: DisplaySet, state: ReadingChallengeState = .streakOngoingRead) {
+    public init(localizedStrings: LocalizedStrings, displaySet: DisplaySet, state: ReadingChallengeState = .notEnrolled) {
         self.localizedStrings = localizedStrings
         self.displaySet = displaySet
         self.state = state

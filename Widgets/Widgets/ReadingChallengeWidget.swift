@@ -89,10 +89,13 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
 
     static let notEnrolledSets: [WMFReadingChallengeWidgetViewModel.DisplaySet] = [
         WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: .gray,
+            color: .blue,
             color2: .gray,
             image: "globe1",
-            title: ""
+            title: "",
+            button1Title: "Search",
+            button1URL: URL(string: "wikipedia://search"),
+            button1Icon: "search"
         )
     ]
 
@@ -121,7 +124,7 @@ struct ReadingChallengeWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: ReadingChallengeProvider()) { entry in
-            let state = ReadingChallengeState.challengeConcludedCompletedSuccessfully
+            let state = ReadingChallengeState.notEnrolled
             WMFReadingChallengeWidgetView(
                 viewModel: WMFReadingChallengeWidgetViewModel(
                     localizedStrings: WMFReadingChallengeWidgetViewModel.LocalizedStrings(

@@ -127,6 +127,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         return [self wmf_placesActivityWithURL:url];
     } else if ([url.host isEqualToString:@"saved"]) {
         return [self wmf_savedPagesViewActivity];
+    } else if ([url.host isEqualToString:@"activity"]) {
+        return [self wmf_activityTabActivity];
     } else if ([url.host isEqualToString:@"search"]) {
         return [self wmf_searchViewActivity];
     } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
@@ -219,6 +221,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeSearch;
         } else if ([page isEqualToString:@"AppearanceSettings"]) {
             return WMFUserActivityTypeAppearanceSettings;
+        } else if ([page isEqualToString:@"Activity"]) {
+            return WMFUserActivityTypeActivity;
         } else if ([page isEqualToString:@"NotificationSettings"]) {
             return WMFUserActivityTypeNotificationSettings;
         } else {
@@ -287,6 +291,9 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             break;
         case WMFUserActivityTypePlaces:
             host = @"places";
+            break;
+        case WMFUserActivityTypeActivity:
+            host = @"Activity";
             break;
         case WMFUserActivityTypeExplore:
         default:
