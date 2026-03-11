@@ -662,14 +662,12 @@ extension WMFAppViewController {
 
     private func migrateAutoSignTalkPageDiscussions() {
         let legacyKey = "WMFAutoSignTalkPageDiscussions"
-        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+        let bundleID = Bundle.main.bundleIdentifier ?? ""
+        guard let persistedValue = UserDefaults.standard.persistentDomain(forName: bundleID)?[legacyKey] as? Bool else {
             return
         }
-        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
         let settingsDataController = WMFSettingsDataController.shared
-        Task {
-            settingsDataController.setAutoSignTalkPageDiscussions(legacyValue)
-        }
+        settingsDataController.setAutoSignTalkPageDiscussions(persistedValue)
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
