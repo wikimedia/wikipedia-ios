@@ -47,7 +47,11 @@ public struct WMFReadingChallengeWidgetView: View {
     // MARK: - Small View
 
     private var smallView: some View {
-        return AnyView(oneButtonSmallView)
+        if viewModel.displaySet.button1Title != nil {
+            return AnyView(oneButtonSmallView)
+        } else {
+            return AnyView(noButtonsSmallView)
+        }
     }
     
     private var noButtonsSmallView: some View {
@@ -123,6 +127,7 @@ public struct WMFReadingChallengeWidgetView: View {
     // MARK: - Medium View
 
     var mediumView: some View {
+        // todo as needed - separate out into no buttons, one button, etc.
         ZStack(alignment: .topTrailing) {
             viewModel.displaySet.color
                 .ignoresSafeArea()
