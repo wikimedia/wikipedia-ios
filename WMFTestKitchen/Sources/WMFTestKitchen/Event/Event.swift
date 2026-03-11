@@ -25,8 +25,6 @@ public class Event: Encodable {
 
     public var experiment: EventExperiment?
 
-    public var sample: SampleConfig?
-
     // Non-encoded properties
     var clientData: ClientData = ClientData()
     var interactionData: InteractionData = InteractionData()
@@ -37,12 +35,10 @@ public class Event: Encodable {
         dt: String?,
         instrument: InstrumentImpl? = nil,
         clientData: ClientData,
-        interactionData: InteractionData,
-        sample: SampleConfig? = nil
+        interactionData: InteractionData
     ) {
         self.meta = Meta(stream: stream)
         self.schema = schema
-        self.sample = sample
         self.timestamp = dt
         applyInstrument(instrument)
         applyClientData(clientData)
@@ -106,7 +102,6 @@ public class Event: Encodable {
         case funnelEntryToken = "funnel_entry_token"
         case funnelEventSequencePosition = "funnel_event_sequence_position"
         case experiment
-        case sample
     }
 
     // MARK: - Nested types

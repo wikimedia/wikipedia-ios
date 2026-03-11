@@ -6,7 +6,6 @@ public class StreamConfig: Codable {
     public var destinationEventServiceKey: String = "eventgate-analytics-external"
     public var schemaTitle: String?
     public var producerConfig: ProducerConfig?
-    public var sampleConfig: SampleConfig?
 
     public var destinationEventService: DestinationEventService {
         return DestinationEventService(rawValue: destinationEventServiceKey) ?? .analytics
@@ -22,7 +21,6 @@ public class StreamConfig: Codable {
         case destinationEventServiceKey = "destination_event_service"
         case schemaTitle = "schema_title"
         case producerConfig = "producers"
-        case sampleConfig = "sample"
     }
 
     public struct ProducerConfig: Codable {
