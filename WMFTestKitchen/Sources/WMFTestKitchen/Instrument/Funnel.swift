@@ -13,12 +13,16 @@ public class Funnel {
         self.startTime = Date()
     }
 
-    /// Generates a 20-character hex string representing a uniformly random 80-bit integer
-    static func generateTokenId() -> String {
-        let a = UInt32.random(in: 0...UInt32.max)
-        let b = UInt32.random(in: 0...UInt32.max)
-        let c = UInt16.random(in: 0...UInt16.max)
-        return String(format: "%08x%08x%04x", a, b, c)
+    /**
+     * Generates a new identifier using the same algorithm as EPC libraries for
+     * web and Android
+     */
+    private static func generateTokenId() -> String {
+        var id: String = ""
+        for _ in 1...5 {
+            id += String(format: "%04x", arc4random_uniform(65535))
+        }
+        return id
     }
 
     public func touch() {
