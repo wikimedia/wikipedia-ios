@@ -59,8 +59,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             
             return existingYirCoordinator
     }
-    
-    private var presentingSearchResults: Bool = false
 
     // MARK: - Lifecycle
 
@@ -204,30 +202,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
-        
-        let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
-        searchViewController.dataStore = dataStore
-        
-        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
-            self?.navigationItem.searchController?.searchBar.text = searchTerm
-            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
-        }
-        
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-        
-        searchViewController.theme = theme
-        
-        let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchViewController,
-            searchControllerDelegate: self,
-            searchResultsUpdater: self,
-            searchBarDelegate: nil,
-            searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
-            showsScopeBar: false, scopeButtonTitles: nil)
-        
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
-        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+
         // Need to override this so that "" does not appear as back button title.
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
     }
@@ -382,13 +359,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
     }
-    
-    // MARK: - Search
-    
-    @objc func ensureWikipediaSearchIsShowing() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
+
     // MARK: - State
     
     @objc var dataStore: MWKDataStore!
@@ -723,12 +694,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         updateProfileButton()
         themeNavigationBarLeadingTitleView()
         themeNavigationBarCustomCenteredTitleView()
-        
-        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
-            searchVC.theme = theme
-            searchVC.apply(theme: theme)
-        }
-        
+
         themeTopSafeAreaOverlay()
     }
     
@@ -1821,27 +1787,6 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
     
 }
 
-extension ExploreViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        
-        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
-            return
-        }
-        
-        if text.isEmpty {
-            searchViewController.searchTerm = nil
-            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
-        } else {
-            searchViewController.searchTerm = text
-            searchViewController.updateRecentlySearchedVisibility(searchText: text)
-            searchViewController.search()
-        }
-    }
-}
-
 extension ExploreViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
@@ -1854,20 +1799,6 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
-    }
-}
-
-extension ExploreViewController: UISearchControllerDelegate {
-    
-    func willPresentSearchController(_ searchController: UISearchController) {
-        presentingSearchResults = true
-        navigationController?.hidesBarsOnSwipe = false
-    }
-    
-    func didDismissSearchController(_ searchController: UISearchController) {
-        presentingSearchResults = false
-        navigationController?.hidesBarsOnSwipe = true
-        SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
 
