@@ -106,13 +106,23 @@ import CocoaLumberjackSwift
             DDLogError("TestKitchenAdapter: StorageManager unavailable")
             return
         }
-
+        
         let encoder = JSONEncoder()
         for event in events {
             guard let data = try? encoder.encode(event) else {
                 DDLogError("TestKitchenAdapter: Failed to encode event")
                 continue
             }
+            
+#if DEBUG
+            // Convert to loose dictionary so we can sort keys and print that way.
+            if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                let printablePayload = PrintableEventPayload(payload: dict)
+                DDLogDebug("\n\n🧑‍🍳TestKitchen: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI):")
+                DDLogDebug("\(printablePayload)")
+            }
+#endif
+            
             storageManager.push(data: data, stream: .productMetricsAppBase)
         }
     }

@@ -31,8 +31,16 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var password:String?
     public var captchaID:String?
     public var captchaWord:String?
+    public var authInstrument: InstrumentImpl?
 
     private var isEmailAuth: Bool = false
+    private var loggingElementId: String {
+        isEmailAuth ? "2fa_email" : "2fa_oath"
+    }
+    
+    private var loggingCustomActionSource: String? {
+        isEmailAuth ? "login_verification_form" : nil
+    }
 
     public func setDisplayModeToShortAlphanumeric() {
         isEmailAuth = true
@@ -90,8 +98,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
-            .submitInteraction(action: "click", elementId: "login_button")
+        authInstrument?.submitInteraction(action: "click", actionSource: loggingCustomActionSource, elementId: "login_button")
         save()
     }
     
@@ -159,6 +166,9 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        authInstrument?.submitInteraction(action: "impression", elementId: loggingElementId)
+        
         makeAppropriateFieldFirstResponder()
     }
     
@@ -232,6 +242,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // the "Editing changed" handler "textFieldDidChange" isn't called when this clearing
         // happens, so update progressive buttons' enabled state here too.
         enableProgressiveButton(areRequiredFieldsPopulated())
+        
+        authInstrument?.submitInteraction(action: "type", actionSource: loggingCustomActionSource, elementId: loggingElementId)
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -283,8 +295,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
-            .submitInteraction(action: "click", elementId: "back")
+        authInstrument?
+            .submitInteraction(action: "click", actionSource: loggingCustomActionSource, elementId: "cancel")
         dismiss(animated: true, completion: nil)
     }
     
@@ -312,20 +324,25 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         }
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
 
-        MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), emailAuthCode: token(), captchaID: captchaID, captchaWord: captchaWord) { (loginResult) in // check if it's valid for email token formatting
+        MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), emailAuthCode: token(), captchaID: captchaID, captchaWord: captchaWord) { [weak self] (loginResult) in // check if it's valid for email token formatting
+            
+            guard let self else { return }
+            
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
-                    .submitInteraction(action: "success")
+                authInstrument?
+                    .submitInteraction(action: "success", actionSource: self.loggingCustomActionSource)
                 let presenter = self.presentingViewController
                 self.dismiss(animated: true, completion: {
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
                 })
             case .failure(let error):
-                TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
-                    .submitInteraction(action: "error")
+                
+                self.authInstrument?
+                    .submitInteraction(action: "error", actionSource: self.loggingCustomActionSource, actionContext: ["validation_error": error.logDescription])
+                
                 if let error = error as? WMFAccountLoginError {
                     switch error {
                     case .temporaryPasswordNeedsChange:

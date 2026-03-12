@@ -195,7 +195,7 @@ import WMFTestKitchen
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private static var eventIntakeURI: URL {
+    static var eventIntakeURI: URL {
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
         } else {
@@ -815,7 +815,7 @@ public protocol EventInterface: Codable {
     static var schema: EventPlatformClient.Schema { get }
 }
 
-private class PrintableEventPayload: CustomStringConvertible {
+class PrintableEventPayload: CustomStringConvertible {
     let payload: [String: Any]
     
     init(payload: [String : Any]) {
