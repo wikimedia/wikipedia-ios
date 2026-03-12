@@ -5,11 +5,6 @@ import WMFComponents
 import WMFData
 import WMFTestKitchen
 
-@objc(WMFAccountViewControllerDelegate)
-protocol AccountViewControllerDelegate: AnyObject {
-    func accountViewControllerDidTapLogout(_ accountViewController: AccountViewController)
-}
-
 private enum ItemType {
     case talkPageAutoSignDiscussions
     case vanishAccount
@@ -35,7 +30,6 @@ private struct Item {
 class AccountViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
     
     @objc var dataStore: MWKDataStore!
-    @objc weak var delegate: AccountViewControllerDelegate?
 
     private let donateDataController = WMFDonateDataController.shared
 

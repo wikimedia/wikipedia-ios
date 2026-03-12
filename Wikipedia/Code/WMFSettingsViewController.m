@@ -17,7 +17,7 @@ static NSString *const WMFSettingsURLTerms = @"https://foundation.wikimedia.org/
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -329,7 +329,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     if (userName) {
         WMFAccountViewController *accountVC = [[WMFAccountViewController alloc] init];
         accountVC.dataStore = self.dataStore;
-        accountVC.delegate = self;
         [accountVC applyTheme:self.theme];
         [self.navigationController pushViewController:accountVC animated:YES];
     } else {
@@ -434,17 +433,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)showClearCacheInProgressBanner {
     [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-in-progress", nil, nil, @"Clearing cache in progress.", @"Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
-}
-
-- (void)logout {
-//    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
-//                                                              theme:self.theme
-//                                                         completion:^{
-//                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
-//                                                                                                          completion:^{
-//                                                                                                              [[LoginFunnel shared] logLogoutInSettings];
-//                                                                                                          }];
-//                                                         }];
 }
 
 #pragma mark - Languages
@@ -685,13 +673,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self updateProfileButtonFromObjC];
     [self themeNavigationBarLeadingTitleViewFromObjC];
     [self themeTopSafeAreaOverlayFromObjCWithScrollView:self.tableView];
-}
-
-#pragma Mark WMFAccountViewControllerDelegate
-
-- (void)accountViewControllerDidTapLogout:(WMFAccountViewController *_Nonnull)accountViewController {
-    [self logout];
-    [self loadSections];
 }
 
 #pragma mark - Notifications Center
