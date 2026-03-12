@@ -26,15 +26,20 @@ public struct ContextValue {
     public static let performerRegistrationDt = "performer_registration_dt"
 
     static let requiredProperties: [String] = [
-        agentAppFlavor,
         agentAppInstallId,
+        agentClientPlatform,
+        agentClientPlatformFamily,
+        agentAppFlavor,
         agentAppTheme,
         agentAppVersion,
         agentAppVersionName,
-        agentClientPlatform,
-        agentClientPlatformFamily,
         agentDeviceFamily,
         agentDeviceLanguage,
-        agentReleaseStatus
+        agentReleaseStatus,
+        performerIsLoggedIn,
+        performerIsTemp,
+        performerSessionId,
+        performerLanguageGroups,
+        performerLanguagePrimary
     ]
 }

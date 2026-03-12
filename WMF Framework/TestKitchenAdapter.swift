@@ -21,7 +21,7 @@ import CocoaLumberjackSwift
 
     public func getAgentData() -> AgentData? {
         let appInstallId = UserDefaults.standard.wmf_appInstallId
-        let versionName = Bundle.main.wmf_shortVersionString()
+        let versionName = WikipediaAppUtils.versionName()
         let buildNumber = Int(Bundle.main.wmf_bundleVersion() ?? "0")
         let deviceFamily = WikipediaAppUtils.formFactor()
 
