@@ -649,18 +649,23 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
-                
+
                 let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
 
                 let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
                 let success = linkCoordinator.start()
 
-                if !success {
+                if success {
+                    let isPushed = customArticleCoordinatorNavigationController.viewControllers.contains(self)
+                    if isPushed {
+                        customArticleCoordinatorNavigationController.viewControllers = customArticleCoordinatorNavigationController.viewControllers.filter { $0 !== self }
+                    }
+                } else {
                     navigate(to: articleURL)
                 }
 
             } else if let navigationController {
-                
+
                 let tabConfig = self.customTabConfigUponArticleNavigation
 
                 let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
@@ -700,8 +705,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
             articleCoordinator.start()
+            let isPushed = navVC.viewControllers.first !== self
+            if isPushed {
+                navVC.viewControllers = navVC.viewControllers.filter { $0 !== self }
+            }
         }
-
         return nil
     }
 
