@@ -74,7 +74,14 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return activity;
 }
 
++ (BOOL)wmf_isExploreFeedEnabled {
+    return [NSUserDefaults.standardUserDefaults defaultTabType] == WMFAppDefaultTabTypeExplore;
+}
+
 + (instancetype)wmf_exploreViewActivity {
+    if (![self wmf_isExploreFeedEnabled]) {
+        return [self wmf_searchViewActivity];
+    }
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Explore"];
     return activity;
 }
@@ -309,7 +316,7 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             break;
         case WMFUserActivityTypeExplore:
         default:
-            host = @"explore";
+            host = [self wmf_isExploreFeedEnabled] ? @"explore" : @"search";
             break;
     }
     NSURLComponents *components = [NSURLComponents new];
