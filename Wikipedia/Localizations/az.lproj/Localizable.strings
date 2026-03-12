@@ -1362,6 +1362,8 @@
 "theme-default-explanation" = "Sistem mövzusuna uyğunlaşdır";
 "theme-light-display-name" = "İşıqlı";
 "theme-sepia-display-name" = "Sepiya";
+"tip-history-in-search-subtitle" = "Oxuma tarixçənizi Axtarış vərəqəsində tapın.";
+"tip-history-in-search-title" = "Tarixçə Axtarış bölməsinə köçürülüb";
 "today-title" = "Bu gün";
 "top-read-widget-description" = "Dünyanın bu gün Vikipediyada nə oxuduğunu öyrənin.";
 "top-read-widget-readers-count" = "$1 oxucu";
