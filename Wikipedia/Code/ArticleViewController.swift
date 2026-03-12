@@ -800,7 +800,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
-        searchViewController.shouldBecomeFirstResponder = true
+        searchViewController.shouldBecomeFirstResponder = false
         searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
 
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
