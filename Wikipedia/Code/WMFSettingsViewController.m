@@ -437,14 +437,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
-                                                              theme:self.theme
-                                                         completion:^{
-                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
-                                                                                                          completion:^{
-                                                                                                              [[LoginFunnel shared] logLogoutInSettings];
-                                                                                                          }];
-                                                         }];
+//    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
+//                                                              theme:self.theme
+//                                                         completion:^{
+//                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
+//                                                                                                          completion:^{
+//                                                                                                              [[LoginFunnel shared] logLogoutInSettings];
+//                                                                                                          }];
+//                                                         }];
 }
 
 #pragma mark - Languages

@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import WMFTestKitchen
 
 // MARK: WMFAuthenticationManagerDelegate
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {
@@ -328,13 +329,12 @@ import CocoaLumberjackSwift
     }
 
     // MARK: Logout
-
+    
     /// Logs out any authenticated user via API call and clears out any associated cookies and cache
     /// - Parameters:
     ///   - logoutInitiator: Initiator of the logout
     ///   - completion: Completion handler once logout is done
-    @objc(logoutInitiatedBy:completion:)
-    public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}) {
+    public func logout(initiatedBy logoutInitiator: LogoutInitiator, authInstrument: InstrumentImpl?, completion: @escaping () -> Void = {}) {
         delegate?.authenticationManagerWillLogOut {
             if logoutInitiator == .app || logoutInitiator == .server {
                 self.isUserUnawareOfLogout = true
@@ -353,6 +353,7 @@ import CocoaLumberjackSwift
             self.accountLoginLogoutFetcher.logout(loginSiteURL: loginSiteURL, reattemptOn401Response: false) { error in
                 DispatchQueue.main.async {
                     if let error = error {
+                        authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
                         // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
                         DDLogError("Failed to log out, delete login tokens and other browser cookies: \(error)")
                         self.reset()
@@ -361,6 +362,7 @@ import CocoaLumberjackSwift
                         return
                     }
                     
+                    authInstrument?.submitInteraction(action: "success")
                     DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
                     // It's best to call "action=logout" API *before* resetting...
                     self.reset()
@@ -369,6 +371,12 @@ import CocoaLumberjackSwift
                 }
             }
         }
+    }
+    
+    // Use to call from Objective-C
+    @objc(logoutInitiatedBy:completion:)
+    public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}) {
+        self.logout(initiatedBy: logoutInitiator, authInstrument: nil, completion: completion)
     }
 
     @objc public func userDidAcknowledgeUnintentionalLogout() {

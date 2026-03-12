@@ -264,17 +264,32 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func logout() {
+        
+        // Create instrument to be reused throughout logout flow
+        let authInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .setDefaultActionSource("settings")
+            .startFunnel(name: "logout_account")
+        authInstrument.submitInteraction(action: "click", actionSource: "settings", elementId: "logout")
+        
         let alertController = UIAlertController(title:CommonStrings.logoutAlertTitle, message: CommonStrings.logoutAlertMessage, preferredStyle: .alert)
         let logoutAction = UIAlertAction(title: CommonStrings.logoutTitle, style: .destructive) { [weak self] (action) in
             guard let self = self else {
                 return
             }
-            self.delegate?.didTapLogout()
+            
+            authInstrument.submitInteraction(action: "click", actionSource: "logout_warning", elementId: "logout_confirm")
+            self.delegate?.didTapLogout(authInstrument: authInstrument)
         }
-        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
+            authInstrument.submitInteraction(action: "click", actionSource: "logout_warning", elementId: "logout_cancel")
+        }
+        
         alertController.addAction(logoutAction)
         alertController.addAction(cancelAction)
-        navigationController.present(alertController, animated: true, completion: nil)
+        navigationController.present(alertController, animated: true) {
+            authInstrument.submitInteraction(action: "impression", actionSource: "logout_warning")
+        }
     }
     
     func logDonateTap() {
