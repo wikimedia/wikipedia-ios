@@ -255,7 +255,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         let title = customTitle ?? CommonStrings.searchTitle
 
-        var alignment: WMFNavigationBarTitleConfig.Alignment = needsCenteredTitle ? .centerCompact : .leadingCompact
+        // check if it comes from article vc
+        let isPushed = (navigationController?.viewControllers.first !== self)
+        var alignment: WMFNavigationBarTitleConfig.Alignment = (needsCenteredTitle || isPushed) ? .centerCompact : .leadingCompact
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular && alignment == .leadingCompact {
@@ -435,8 +437,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let text = searchController?.searchBar.text ?? ""
         let hasText = text.wmf_hasNonWhitespaceText
         let isSearchActive = (searchController?.isActive ?? false)
+        let isPushed = (navigationController?.viewControllers.first !== self)
 
-        if isSearchTab {
+        if isSearchTab || isPushed {
             if isSearchActive {
                 showLanguageBar = true
                 embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
