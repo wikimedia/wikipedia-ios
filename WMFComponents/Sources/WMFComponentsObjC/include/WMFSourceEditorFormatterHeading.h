@@ -1,1 +1,0 @@
-../WMFSourceEditorFormatterHeading.h
