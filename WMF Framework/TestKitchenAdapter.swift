@@ -127,19 +127,6 @@ import CocoaLumberjackSwift
         }
     }
 
-    // MARK: - ObjC convenience for auth instrumentation
-
-    @objc public func logLogoutStart() {
-        let instrument = client.getInstrument(name: "apps-authentication")
-            .startFunnel(name: "logout_account")
-        instrument.submitInteraction(action: "click", actionSource: "settings", elementId: "logout_button")
-    }
-
-    @objc public func logLogoutConfirm() {
-        let instrument = client.getInstrument(name: "apps-authentication")
-        instrument.submitInteraction(action: "click", actionSource: "logout_warning", elementId: "confirm_button")
-    }
-
     @objc public func logBackgroundLogoutImpression() {
         _ = client.getInstrument(name: "apps-authentication")
             .setDefaultActionSource("logout_background_dialog")
