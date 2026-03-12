@@ -36,19 +36,11 @@ final class VanishAccountWarningViewHostingViewController: UIHostingController<V
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presentationController?.delegate = self
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
-            .submitInteraction(action: "impression", actionSource: "vanish_warning")
     }
 
     // MARK: - Actions
 
     fileprivate func dismiss(userTappedContinue: Bool) {
-        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
-        if userTappedContinue {
-            instrument.submitInteraction(action: "click", actionSource: "vanish_warning", elementId: "confirm_button")
-        } else {
-            instrument.submitInteraction(action: "click", actionSource: "vanish_warning", elementId: "cancel_button")
-        }
         dismiss(animated: true, completion: {
             self.delegate?.userDidDismissVanishAccountWarningView(presentVanishView: userTappedContinue)
         })

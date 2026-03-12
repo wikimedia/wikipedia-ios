@@ -32,6 +32,12 @@ class AccountViewController: SubSettingsViewController, WMFNavigationBarConfigur
     @objc var dataStore: MWKDataStore!
 
     private let donateDataController = WMFDonateDataController.shared
+    
+    private lazy var authInstrument: InstrumentImpl = {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .setDefaultActionSource("account_settings")
+            .startFunnel(name: "vanish_account")
+    }()
 
     private var sections: [Section] = []
 
@@ -164,12 +170,14 @@ class AccountViewController: SubSettingsViewController, WMFNavigationBarConfigur
         }
         switch item.type {
         case .vanishAccount:
-            _ = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
-                .startFunnel(name: "vanish_account")
-                .submitInteraction(action: "click", actionSource: "settings", elementId: "vanish_button")
+            authInstrument
+                .submitInteraction(action: "click", elementId: "vanish")
             let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
             warningViewController.delegate = self
-            present(warningViewController, animated: true)
+            present(warningViewController, animated: true) { [weak self] in
+                self?.authInstrument
+                    .submitInteraction(action: "impression", actionSource: "vanish_warning")
+            }
         default:
             break
         }
@@ -228,8 +236,13 @@ extension AccountViewController: VanishAccountWarningViewDelegate {
 
     func userDidDismissVanishAccountWarningView(presentVanishView: Bool) {
         guard presentVanishView else {
+            authInstrument
+                .submitInteraction(action: "click", actionSource: "vanish_warning", elementId: "cancel")
             return
         }
+        
+        authInstrument
+            .submitInteraction(action: "click", actionSource: "vanish_warning", elementId: "vanish_confirm")
         
         guard let url = URL(string: "https://meta.wikimedia.org/wiki/Special:GlobalVanishRequest") else {
             return
