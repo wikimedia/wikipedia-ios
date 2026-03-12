@@ -437,19 +437,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let text = searchController?.searchBar.text ?? ""
         let hasText = text.wmf_hasNonWhitespaceText
         let isSearchActive = (searchController?.isActive ?? false)
-        let isPushed = (navigationController?.viewControllers.first !== self)
 
-        if isSearchTab || isPushed {
-            if isSearchActive {
-                showLanguageBar = true
-                embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
-            } else {
-                embedInContainer(historyViewController, animated: animated)
-                showLanguageBar = false
-            }
-        } else {
+        if isSearchActive {
             showLanguageBar = true
             embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
+        } else {
+            embedInContainer(historyViewController, animated: animated)
+            showLanguageBar = false
         }
 
         updateLanguageBarVisibility()
