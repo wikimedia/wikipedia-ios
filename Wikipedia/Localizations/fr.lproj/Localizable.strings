@@ -853,7 +853,7 @@
 "more-menu" = "Plus";
 "move-articles-to-reading-list" = "Placer {{PLURAL:$1|$1 article|$1 articles}} dans la liste de lecture";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
-"nearby-distance-label-feet" = "$1 pied(s)";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 pied|$1 pieds}}";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
