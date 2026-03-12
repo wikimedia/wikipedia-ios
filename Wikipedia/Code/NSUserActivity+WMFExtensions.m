@@ -74,13 +74,25 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return activity;
 }
 
++ (BOOL)wmf_isExploreFeedEnabled {
+    return [NSUserDefaults.standardUserDefaults defaultTabType] == WMFAppDefaultTabTypeExplore;
+}
+
 + (instancetype)wmf_exploreViewActivity {
+    if (![self wmf_isExploreFeedEnabled]) {
+        return [self wmf_searchViewActivity];
+    }
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Explore"];
     return activity;
 }
 
 + (instancetype)wmf_savedPagesViewActivity {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Saved"];
+    return activity;
+}
+
++ (instancetype)wmf_activityTabActivity {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"Activity"];
     return activity;
 }
 
@@ -122,8 +134,12 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         return [self wmf_placesActivityWithURL:url];
     } else if ([url.host isEqualToString:@"saved"]) {
         return [self wmf_savedPagesViewActivity];
+    } else if ([url.host isEqualToString:@"activity"]) {
+        return [self wmf_activityTabActivity];
     } else if ([url.host isEqualToString:@"search"]) {
         return [self wmf_searchViewActivity];
+    } else if ([url.host isEqualToString:@"random"]) {
+        return [self wmf_randomArticleActivity];
     } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
         components.scheme = @"https";
@@ -138,6 +154,11 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         }
     }
     return nil;
+}
+
++ (instancetype)wmf_randomArticleActivity {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"Random"];
+    return activity;
 }
 
 + (nullable instancetype)wmf_activityForURL:(NSURL *)url {
@@ -214,6 +235,10 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeSearch;
         } else if ([page isEqualToString:@"AppearanceSettings"]) {
             return WMFUserActivityTypeAppearanceSettings;
+        } else if ([page isEqualToString:@"Random"]) {
+            return WMFUserActivityTypeRandom;
+        } else if ([page isEqualToString:@"Activity"]) {
+            return WMFUserActivityTypeActivity;
         } else if ([page isEqualToString:@"NotificationSettings"]) {
             return WMFUserActivityTypeNotificationSettings;
         } else {
@@ -283,9 +308,15 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         case WMFUserActivityTypePlaces:
             host = @"places";
             break;
+        case WMFUserActivityTypeActivity:
+            host = @"Activity";
+            break;
+        case WMFUserActivityTypeRandom:
+            host = @"Random";
+            break;
         case WMFUserActivityTypeExplore:
         default:
-            host = @"explore";
+            host = [self wmf_isExploreFeedEnabled] ? @"explore" : @"search";
             break;
     }
     NSURLComponents *components = [NSURLComponents new];
