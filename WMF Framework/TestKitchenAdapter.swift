@@ -21,35 +21,45 @@ import CocoaLumberjackSwift
 
     public func getAgentData() -> AgentData? {
         let appInstallId = UserDefaults.standard.wmf_appInstallId
-        let versionName = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        let buildNumber = Int(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "")
-
-        var deviceFamily = "unknown"
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone: deviceFamily = "phone"
-        case .pad: deviceFamily = "tablet"
-        default: break
-        }
+        let versionName = Bundle.main.wmf_shortVersionString()
+        let buildNumber = Int(Bundle.main.wmf_bundleVersion() ?? "0")
+        let deviceFamily = WikipediaAppUtils.formFactor()
 
         let deviceLanguage = Locale.preferredLanguages.first ?? "en"
 
-        #if STAGING
+        // Release status must be 1 of 3 values: debug, dev or prod
+        
+        #if DEBUG
+        let releaseStatus = "debug"
+        #elseif WMF_STAGING
         let releaseStatus = "dev"
-        let appFlavor = "staging"
-        #elseif LOCAL
+        #elseif WMF_EXPERIMENTAL
         let releaseStatus = "dev"
-        let appFlavor = "local"
+        #elseif UITESTS
+        let releaseStatus = "dev"
+        #elseif TEST
+        let releaseStatus = "dev"
+        #elseif WMF_LOCAL
+        let releaseStatus = "dev"
         #else
         let releaseStatus = "prod"
-        let appFlavor = "prod"
+        #endif
+        
+        var appFlavor: String?
+        #if NDEBUG
+        if Bundle.main.isTestFlight() {
+            appFlavor = "TestFlight"
+        } else {
+            appFlavor = "AppStore"
+        }
         #endif
 
         return AgentData(
             appFlavor: appFlavor,
             appInstallId: appInstallId,
-            appTheme: nil,
+            appTheme: UserDefaults.standard.themeAnalyticsName,
             appVersion: buildNumber,
-            appVersionName: versionName.map { "WikipediaApp/\($0)" },
+            appVersionName: versionName,
             clientPlatform: "ios",
             clientPlatformFamily: "app",
             deviceFamily: deviceFamily,
@@ -59,8 +69,15 @@ import CocoaLumberjackSwift
     }
 
     public func getMediawikiData() -> MediawikiData? {
-        let primaryLanguage = EventPlatformClient.shared.primaryLanguage
-        return MediawikiData(database: "\(primaryLanguage)wiki")
+        
+        guard let primarySiteURL = MWKDataStore.shared().primarySiteURL,
+              let project = WikimediaProject(siteURL: primarySiteURL) else {
+            return nil
+        }
+        
+        let databaseIdentifier = project.notificationsApiWikiIdentifier
+        
+        return MediawikiData(database: databaseIdentifier)
     }
 
     public func getPerformerData() -> PerformerData? {
