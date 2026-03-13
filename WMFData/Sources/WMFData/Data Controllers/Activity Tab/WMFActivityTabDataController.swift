@@ -146,6 +146,34 @@ public actor WMFActivityTabDataController {
         }
     }
 
+    private var seenHistoryCallout: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabSeenHistoryCallout.rawValue, value: newValue)
+        }
+    }
+
+    public func getNeedsHistoryCallout() -> Bool {
+    let isDateValid = Calendar.current.isDateInToday(historyCalloutEndDate ?? Date())
+        guard !isDateValid else {
+            return false
+        }
+        return !seenHistoryCallout
+    }
+
+    public func setNeedsHistoryCallout(_ value: Bool) {
+        seenHistoryCallout = value
+    }
+
+    private var historyCalloutEndDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2026
+        dateComponents.month = 4
+        dateComponents.day = 24
+        return Calendar.current.date(from: dateComponents)
+    }
+
     public func setHasSeenActivityTab(_ value: Bool) {
         self.hasSeenActivityTab = value
     }
