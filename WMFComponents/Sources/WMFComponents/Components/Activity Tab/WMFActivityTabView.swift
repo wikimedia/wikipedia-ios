@@ -9,7 +9,6 @@ public struct WMFActivityTabView: View {
 
     @State private var animatedGlobalEditCount: Int = 0
     @State private var hasShownGlobalEditsCard: Bool = false
-    @State private var showHistoryCallout: Bool = true
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -38,7 +37,6 @@ public struct WMFActivityTabView: View {
             }
         }
         .onAppear {
-            showHistoryCallout = viewModel.needsHistoryCallout
             viewModel.fetchData(fromAppearance: true)
         }
     }
@@ -66,7 +64,7 @@ public struct WMFActivityTabView: View {
                             .accessibilityElement()
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                         }
-                        if showHistoryCallout {
+                        if viewModel.needsHistoryCallout {
                             historyCalloutView(loggedIn: true)
                         }
 
@@ -196,7 +194,7 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
 
-                if showHistoryCallout {
+                if viewModel.needsHistoryCallout {
                     historyCalloutView(loggedIn: false)
                         .padding(.top, 16)
                         .padding([.leading, .trailing], 16)
@@ -224,7 +222,7 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
 
-                if showHistoryCallout {
+                if viewModel.needsHistoryCallout {
                     Section {
                         historyCalloutView(loggedIn: false)
                             .padding(16)
@@ -454,7 +452,6 @@ public struct WMFActivityTabView: View {
                         }
                 }
                 Button {
-                    showHistoryCallout = false
                     viewModel.setClosedHIstoryCallout()
                 } label: {
                     if let closeIconName = WMFSFSymbolIcon.closeCircleFill.name {
