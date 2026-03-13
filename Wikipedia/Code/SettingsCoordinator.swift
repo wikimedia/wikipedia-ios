@@ -512,11 +512,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         )
     }
 
-    private func unregisterAuthNotificationObservers() {
-        NotificationCenter.default.removeObserver(self, name: WMFAuthenticationManager.didLogInNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: WMFAuthenticationManager.didLogOutNotification, object: nil)
-    }
-
     // MARK: - Search
 
     private func showSearch() {
