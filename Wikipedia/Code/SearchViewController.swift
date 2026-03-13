@@ -59,9 +59,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
-    
+
     // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
     var populateSearchBarWithTextAction: ((String) -> Void)?
+
+    // Set to true when SearchViewController is used as an embedded searchResultsController (e.g. InsertLinkViewController).
+    // In this mode, the browsing history is never shown; only search results or recently searched terms are displayed.
+    var hidesHistory: Bool = false
 
     var customTitle: String?
     @objc var needsCenteredTitle: Bool = false
@@ -434,11 +438,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private func updateEmbeddedContent(animated: Bool) {
         let searchController = activeSearchController
-        let text = searchController?.searchBar.text ?? ""
+        let text = searchController?.searchBar.text ?? searchTerm ?? ""
         let hasText = text.wmf_hasNonWhitespaceText
         let isSearchActive = (searchController?.isActive ?? false)
 
-        if isSearchActive {
+        if hidesHistory || isSearchActive {
             showLanguageBar = true
             embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
         } else {
@@ -571,7 +575,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let failure = { (error: Error, type: WMFSearchType) in
             DispatchQueue.main.async { [weak self] in
                 guard let self,
-                      searchTerm == self.navigationItem.searchController?.searchBar.text else {
+                      searchTerm == (self.navigationItem.searchController?.searchBar.text ?? self.searchTerm) else {
                     return
                 }
                 self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
