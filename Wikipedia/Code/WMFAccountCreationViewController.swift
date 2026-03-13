@@ -268,6 +268,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 // self?.hCaptchaToken = token
                 // self?.createAccount()
                 
+                self?.authInstrument.submitInteraction(action: "success")
+                
                 WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -283,6 +285,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         hcaptchaVC.errorAction = { error in
             hcaptchaVC.dismiss(animated: true) { [weak self] in
                 self?.hCaptchaToken = nil
+                
+                self?.authInstrument.submitInteraction(action: "success")
+                
                 // WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
                 
                 WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
