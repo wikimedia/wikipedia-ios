@@ -510,7 +510,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, wikiHasTempAccounts {
             if authState == .ip || authState == .temp {
                 // Dismiss warning toast
-                WMFToastManager.sharedInstance.dismissToast()
+                WMFToastManager.sharedInstance.dismissCurrentToast()
                 containerStackViewBottomConstraint?.constant = 0
             }
         }

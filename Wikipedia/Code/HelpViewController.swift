@@ -128,7 +128,7 @@ class HelpViewController: SinglePageWebViewController {
         let mailto = "mailto:\(address)?subject=\(subject)&body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
         guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
+            WMFToastManager.sharedInstance.showToast(CommonStrings.noEmailClient, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             return
         }
 
