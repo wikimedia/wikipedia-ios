@@ -803,13 +803,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.shouldBecomeFirstResponder = false
         searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
 
-        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
-            self?.navigationItem.searchController?.searchBar.text = searchTerm
-            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
-        }
-
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-
         navigationController?.pushViewController(searchViewController, animated: true)
     }
 

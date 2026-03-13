@@ -982,8 +982,19 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         if let pop = self.populateSearchBarWithTextAction {
             pop(term.text)
         } else {
-            self.navigationItem.searchController?.searchBar.text = term.text
-            self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            self.searchTerm = term.text
+            let searchController = self.activeSearchController
+            if searchController?.isActive == false {
+                searchController?.isActive = true
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.searchTerm = term.text
+                searchController?.searchBar.text = term.text
+                searchController?.searchBar.becomeFirstResponder()
+                self.search()
+            }
+            return
         }
         self.search()
     }
