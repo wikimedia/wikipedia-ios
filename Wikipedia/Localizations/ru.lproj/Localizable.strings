@@ -34,6 +34,7 @@
 // Author: Kent73
 // Author: Kopcap94
 // Author: Lutece398
+// Author: Lvova
 // Author: Macofe
 // Author: Mailman
 // Author: Mariya
@@ -85,8 +86,6 @@
 "about-repositories-app-source-license" = "Исходный текст доступен под $1.";
 "about-repositories-app-source-license-mit" = "Лицензия MIT";
 "about-send-feedback" = "Отправить отзыв о приложении";
-"about-testers" = "Тестеры";
-"about-testers-details" = "В/А, протестировано $1";
 "about-title" = "О приложении";
 "about-translators" = "Переводчики";
 "about-translators-details" = "Это приложение было переведено добровольцами на $1";
@@ -1457,7 +1456,7 @@
 "year-in-review-donate" = "Пожертвовать";
 "year-in-review-donate-now" = "Сделать пожертвование сейчас";
 "year-in-review-finish" = "Завершить";
-"year-in-review-highlights-english-articles" = "Самые читаемые статьи на английской Википедии";
+"year-in-review-highlights-english-articles" = "Самые читаемые статьи Википедии на английском языке";
 "year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
 // Fuzzy
 "year-in-review-personalized-editing-title-format-updated" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";

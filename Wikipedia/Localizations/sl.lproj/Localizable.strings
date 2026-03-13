@@ -23,8 +23,6 @@
 "about-repositories-app-source-license" = "Izvorna koda je na voljo pod licenco $1.";
 "about-repositories-app-source-license-mit" = "MIT licenca";
 "about-send-feedback" = "Sporočite svoje mnenje";
-"about-testers" = "Testerji";
-"about-testers-details" = "QA preizkušen s strani $1";
 "about-title" = "O projektu";
 "about-translators" = "Prevajalci";
 "about-translators-details" = "Prevedli prostovoljci na $1";
@@ -1235,3 +1233,4 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Z objavo sprememb izražate strinjanje s $1Pogoji uporabe$2 ter svoj prispevek nepreklicno objavljate pod licencama $3CC BY-SA.0$4 in $5GDFL$6. Strinjate se, da kot navedba avtorja pod licenco Creative Commons zadostuje hiperpovezava ali URL.";
 "wikitext-upload-save-terms-name" = "Pogoji uporabe";
 "year-in-review-donate" = "Doniraj";
+"year-in-review-donate-now" = "Donirajte zdaj";

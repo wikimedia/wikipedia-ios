@@ -1363,6 +1363,8 @@
 "theme-default-explanation" = "Matches system theme";
 "theme-light-display-name" = "Light";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Find your reading history in the Search tab.";
+"tip-history-in-search-title" = "History moved to Search";
 "today-title" = "Today";
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";

@@ -472,7 +472,7 @@
 "editor-wikitext-textview-accessibility" = "Accessibility label for the wikitext editor textview.";
 "edits-last-month" = "Title for edits last month section";
 "edits-this-month" = "Title for edits this month section";
-"empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
+"empty-diff-compare-title" = "Text for placeholder label visible when diff comparison between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
 "empty-edit-summary" = "Label when looking at a particular article revision. Indicates that the user did not add a summary.";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";
@@ -1363,6 +1363,8 @@
 "theme-default-explanation" = "Explains that the default theme matches the iOS system theme setting";
 "theme-light-display-name" = "Light theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
+"tip-history-in-search-subtitle" = "Subtitle for one-time tooltip informing users history has moved to search.";
+"tip-history-in-search-title" = "Title for one-time tooltip informing users history has moved to search.";
 "today-title" = "Title for today section on article view history";
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";

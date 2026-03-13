@@ -1,4 +1,5 @@
 import Foundation
+import WMFTestKitchen
 
 public struct WMFAppData {
     let appLanguages: [WMFLanguage]
@@ -30,6 +31,7 @@ public final class WMFDataEnvironment: ObservableObject {
     
     public internal(set) var userDefaultsStore: WMFKeyValueStore? = WMFUserDefaultsStore()
     public var sharedCacheStore: WMFKeyValueStore?
+    public var testKitchenClient: TestKitchenClient?
     public var coreDataStore: WMFCoreDataStore? {
         didSet {
             if coreDataStore != nil {

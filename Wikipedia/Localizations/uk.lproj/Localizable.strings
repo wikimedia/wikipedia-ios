@@ -43,8 +43,6 @@
 "about-repositories-app-source-license" = "Вихідний код доступний під $1.";
 "about-repositories-app-source-license-mit" = "Ліцензія MIT";
 "about-send-feedback" = "Надіслати відгук про додаток";
-"about-testers" = "Тестери";
-"about-testers-details" = "QA-тестування від $1";
 "about-title" = "Про";
 "about-translators" = "Перекладачі";
 "about-translators-details" = "Перекладено волонтерами на $1";
@@ -123,6 +121,18 @@
 "activity-tab-generic-no-edits" = "Ви ще не редагували цього тижня. Почніть зараз, щоб відстежувати свій внесок.";
 "activity-tab-hours-minutes-read" = "$1 год $2 хв";
 "activity-tab-hours-on-wikipedia-ios" = "У ВІКІПЕДІЇ iOS";
+"activity-tab-impact-all-time-title" = "Вплив за весь час";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 день|$1 дні|$1 днів}}";
+"activity-tab-impact-best-streak-label" = "найкраща серія";
+"activity-tab-impact-edits-label" = "редагування";
+"activity-tab-impact-last-edited-label" = "останнє редагування";
+"activity-tab-impact-recent-activity-title" = "Ваша нещодавня активність (за минулі 30 днів)";
+"activity-tab-impact-recent-startend-accessibility" = "З $1 по $2";
+"activity-tab-impact-thanks-label" = "подяки";
+"activity-tab-impact-total-edits-label" = "загалом редагувань";
+"activity-tab-impact-views-day" = "День";
+"activity-tab-impact-views-title" = "Перегляди відредагованих вами статей";
+"activity-tab-impact-views-views" = "Перегляди";
 "activity-tab-log-in-or-create-account" = "Увійдіть або створіть обліковий запис для перегляду редагувань та прочитаного.";
 "activity-tab-logged-out-subtitle" = "Увійдіть або створіть обліковий запис, щоб переглядати свою активність у додатку Вікіпедії.";
 "activity-tab-logged-out-title" = "Див. більше статистики читання та редагування";
@@ -140,6 +150,8 @@
 "activity-tab-onboarding-second-button-title" = "Дізнайтеся більше про Активність";
 "activity-tab-onboarding-second-item-subtitle" = "Дізнайтеся більше про свій внесок та охоплення знань, якими ви поділилися.";
 "activity-tab-onboarding-second-item-title" = "Основні моменти впливу";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Активність містить повну хронологію прочитаних, збережених та відредагованих статей. Ваша історія читання тепер знаходиться на вкладці «Пошук».";
+"activity-tab-onboarding-third-item-title-updated" = "Історія читання тепер доступна в пошуку";
 "activity-tab-read-title" = "Переглянути історію читання";
 "activity-tab-satisfied" = "Задоволений/а";
 "activity-tab-saved" = "Статті, збережені цього місяця";
@@ -764,6 +776,7 @@
 "languages-settings-title" = "Мови";
 "languages-title" = "Змінити мову";
 "languages-wikipedia" = "Мови Вікіпедії";
+"learn-about-editing" = "Дізнатися більше про редагування";
 "learn-more-title" = "Дізнатися більше";
 "lockscreen-search-widget-description" = "Швидкий доступ до пошуку у Вікіпедії з екрана блокування.";
 "logged-out-continue-without-logging-in-button-title" = "Продовжити без входу";

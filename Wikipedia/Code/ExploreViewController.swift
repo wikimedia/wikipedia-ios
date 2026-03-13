@@ -3,6 +3,7 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import WMFTestKitchen
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
 
@@ -137,6 +138,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             self?.updateTabBarSnapshotImage()
             self?.calculateTopSafeAreaOverlayHeight()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(listenForTooltips), object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -1047,11 +1053,19 @@ extension ExploreViewController {
             presentYearInReviewAnnouncement()
         } else if shouldShowExploreSurvey {
             presentExploreSurveyIfNeeded()
+        } else {
+            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
         }
         
         #if DEBUG
         presentSearchWidgetAnnouncement()
         #endif
+    }
+    
+    @objc func listenForTooltips() {
+        if let appViewController = tabBarController as? WMFAppViewController {
+            appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
+        }
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
@@ -1830,9 +1844,9 @@ extension ExploreViewController: UISearchResultsUpdating {
 }
 
 extension ExploreViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+    func didTapLogout(authInstrument: InstrumentImpl) {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }
