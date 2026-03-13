@@ -484,9 +484,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
     if (currentLibraryVersion < 14) {
         [self.remoteNotificationsController deleteLegacyDatabaseFilesAndReturnError:nil];
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [moc removeAllContentGroupsOfKind:WMFContentGroupKindNotification];
-        userDefaults.wmf_shouldShowNotificationsExploreFeedCard = YES;
         [NSHTTPCookieStorage migrateCookiesToSharedStorage];
         [moc wmf_setValue:@(14) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {

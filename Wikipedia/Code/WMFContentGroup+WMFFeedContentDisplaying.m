@@ -32,9 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
         case WMFContentGroupKindOnThisDay:
             return WMFCommonStrings.onThisDayTitle;
-        case WMFContentGroupKindNotification:
-            return WMFLocalizedStringWithDefaultValue(@"notifications-center-feed-card-title", nil, nil, @"Editing notifications now available", @"Title for the 'Notification' explore feed card");
-            ;
         case WMFContentGroupKindSuggestedEdits:
             return WMFCommonStrings.suggestedEditsTitle;
         default:
@@ -108,8 +105,6 @@ NS_ASSUME_NONNULL_BEGIN
                 return [[NSDateFormatter wmf_utcMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
             }
         }
-        case WMFContentGroupKindNotification:
-            return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
         default:
             break;
     }
@@ -172,8 +167,6 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDisplayTypeStory;
         case WMFContentGroupKindOnThisDay:
             return WMFFeedDisplayTypeEvent;
-        case WMFContentGroupKindNotification:
-            return WMFFeedDisplayTypeNotification;
         case WMFContentGroupKindTheme:
             return WMFFeedDisplayTypeTheme;
         case WMFContentGroupKindReadingList:
@@ -233,8 +226,6 @@ NS_ASSUME_NONNULL_BEGIN
             return YES;
         case WMFContentGroupKindOnThisDay:
             break;
-        case WMFContentGroupKindNotification:
-            return YES;
         case WMFContentGroupKindTheme:
             return YES;
         case WMFContentGroupKindReadingList:
@@ -260,8 +251,6 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDetailTypeStory;
         case WMFContentGroupKindOnThisDay:
             return WMFFeedDetailTypeEvent;
-        case WMFContentGroupKindNotification:
-            return WMFFeedDetailTypeNone;
         case WMFContentGroupKindTheme:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindReadingList:
@@ -361,8 +350,6 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         case WMFContentGroupKindOnThisDay:
             break;
-        case WMFContentGroupKindNotification:
-            break;
         case WMFContentGroupKindAnnouncement:
             break;
         case WMFContentGroupKindUnknown:
@@ -374,8 +361,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFFeedHeaderType)headerType {
     switch (self.contentGroupKind) {
-        case WMFContentGroupKindNotification:
-            return WMFFeedHeaderTypeStandard;
         case WMFContentGroupKindTheme:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindReadingList:
