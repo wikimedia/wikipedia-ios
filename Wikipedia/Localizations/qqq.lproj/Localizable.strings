@@ -1164,6 +1164,7 @@
 "saved-title" = "Title of the saved screen shown on the saved tab {{Identical|Saved}}";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles being unsaved.";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles to be unsaved.";
+"search-button-accessibility-hint" = "Accessibility hint for the search navigation bar button. Explains to the user what will happen upon button tap.";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-clear-title" = "Text of the button shown to clear recent search terms";
 "search-field-placeholder-text" = "Search field placeholder text";

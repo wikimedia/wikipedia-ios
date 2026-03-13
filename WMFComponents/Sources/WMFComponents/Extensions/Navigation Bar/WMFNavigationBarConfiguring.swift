@@ -96,6 +96,24 @@ public struct WMFNavigationBarTabsButtonConfig {
     }
 }
 
+public struct WMFNavigationBarSearchButtonConfig {
+    public let accessibilityLabel: String
+    public let accessibilityHint: String
+    public let target: Any
+    public let action: Selector
+    public let leadingBarButtonItem: UIBarButtonItem?
+    public let trailingBarButtonItem: UIBarButtonItem?
+
+    public init(accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
+        self.accessibilityLabel = accessibilityLabel
+        self.accessibilityHint = accessibilityHint
+        self.target = target
+        self.action = action
+        self.leadingBarButtonItem = leadingBarButtonItem
+        self.trailingBarButtonItem = trailingBarButtonItem
+    }
+}
+
 /// Search config for navigation bar
 public struct WMFNavigationBarSearchConfig {
     let searchResultsController: UIViewController?
@@ -131,8 +149,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - searchBarConfig: Config for search bar
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
     func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig,
-                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
-        
+                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchButtonConfig: WMFNavigationBarSearchButtonConfig? = nil, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
         
@@ -201,38 +219,65 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         }
 
         if let profileButtonConfig {
-            
+
             var rightBarButtonItems: [UIBarButtonItem] = []
-            
+
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-            
+
             profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
             profileButton.accessibilityIdentifier = profileButtonAccessibilityID
-            
+
             rightBarButtonItems.append(profileButton)
-            
+
             if let tabsButtonConfig {
-                
+
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-                
+
                 rightBarButtonItems.append(tabsButton)
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
                     rightBarButtonItems.append(leadingBarButtonItem)
                 }
-                
+
             }
-            
+
             navigationItem.rightBarButtonItems = rightBarButtonItems
         }
-        
+
+        if let searchButtonConfig {
+            var rightBarButtonItems: [UIBarButtonItem] = []
+
+            let image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
+            let searchButton = UIBarButtonItem(image: image, style: .plain, target: searchButtonConfig.target, action: searchButtonConfig.action)
+            rightBarButtonItems.append(searchButton)
+
+            if let tabsButtonConfig {
+                let tabsImage = WMFSFSymbolIcon.for(symbol: .tabsIcon)
+                let tabsButton = UIBarButtonItem(image: tabsImage, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+                rightBarButtonItems.append(tabsButton)
+
+                if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
+                    rightBarButtonItems.append(leadingBarButtonItem)
+                }
+            }
+
+            if let leadingBarButtonItem = searchButtonConfig.leadingBarButtonItem {
+                navigationItem.leftBarButtonItem = leadingBarButtonItem
+            }
+            if let trailingBarButtonItem = searchButtonConfig.trailingBarButtonItem {
+                rightBarButtonItems.append(trailingBarButtonItem)
+            }
+
+            navigationItem.rightBarButtonItems = rightBarButtonItems
+        }
+
         // Setup close button if needed
         if let closeButtonConfig {
             let closeButton = UIBarButtonItem(title: closeButtonConfig.text, style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
             closeButton.setTitleTextAttributes([.font: WMFFont.navigationBarDoneButtonFont], for: .normal)
-            
+
             switch closeButtonConfig.alignment {
             case .leading:
                 navigationItem.leftBarButtonItem = closeButton

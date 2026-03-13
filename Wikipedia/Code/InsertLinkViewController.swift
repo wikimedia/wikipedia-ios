@@ -30,30 +30,31 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
 
         apply(theme: theme)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         configureNavigationBar()
     }
-    
+
     func configureNavigationBar() {
-        
+
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .centerCompact)
-        
+
         let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
         let searchViewController = SearchViewController(source: .unknown)
         searchViewController.showLanguageBar = false
         searchViewController.dataStore = dataStore
-        
+        searchViewController.hidesHistory = true
+
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
-        
+
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-        
+
         let navigateToSearchResultAction: ((URL) -> Void) = { [weak self] articleURL in
             guard let self,
                   let title = articleURL.wmf_title else {
@@ -62,10 +63,10 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
             navigationItem.searchController?.isActive = false
             self.delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
         }
-        
+
         searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
         searchViewController.theme = theme
-        
+
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchViewController,
             searchControllerDelegate: nil,

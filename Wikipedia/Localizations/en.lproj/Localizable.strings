@@ -1164,6 +1164,7 @@
 "saved-title" = "Saved";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
+"search-button-accessibility-hint" = "Navigates to the search view.";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
 "search-field-placeholder-text" = "Search Wikipedia";
