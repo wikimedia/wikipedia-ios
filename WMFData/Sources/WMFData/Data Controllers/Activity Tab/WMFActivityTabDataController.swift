@@ -393,7 +393,7 @@ public actor WMFActivityTabDataController {
             let existingItems = dailyTimeline[dayBucket]
             
             let identifier = String("read~\(page.projectID)~\(page.title)~\(record.timestamp.timeIntervalSince1970)")
-            
+
             let newItem = TimelineItem(
                 id: identifier,
                 date: timestamp,

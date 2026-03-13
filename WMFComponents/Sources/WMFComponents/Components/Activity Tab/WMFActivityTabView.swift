@@ -47,6 +47,9 @@ public struct WMFActivityTabView: View {
                 Section {
                     VStack(spacing: 16) {
                         if viewModel.customizeViewModel.isTimeSpentReadingOn {
+                            if viewModel.needsHistoryCallout {
+                                historyCalloutView(loggedIn: true)
+                            }
                             headerView
                                 .accessibilityElement()
                                 .accessibilityLabel(viewModel.articlesReadViewModel.usernamesReading)
@@ -63,9 +66,6 @@ public struct WMFActivityTabView: View {
                             .frame(maxWidth: .infinity)
                             .accessibilityElement()
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
-                        }
-                        if viewModel.needsHistoryCallout {
-                            historyCalloutView(loggedIn: true)
                         }
 
                         if viewModel.customizeViewModel.isReadingInsightsOn {
@@ -187,18 +187,17 @@ public struct WMFActivityTabView: View {
     private func loggedOutList(proxy: ScrollViewProxy) -> some View {
         if viewModel.sections.count == 0 {
             VStack {
+                if viewModel.needsHistoryCallout {
+                    historyCalloutView(loggedIn: false)
+                        .padding(.top, 16)
+                        .padding([.leading, .trailing], 16)
+                }
                 Section {
                     loggedOutView
                         .accessibilityElement(children: .contain)
                         .listRowInsets(EdgeInsets())
                 }
                 .listRowSeparator(.hidden)
-
-                if viewModel.needsHistoryCallout {
-                    historyCalloutView(loggedIn: false)
-                        .padding(.top, 16)
-                        .padding([.leading, .trailing], 16)
-                }
 
                 HStack {
                     Spacer()
@@ -215,13 +214,6 @@ public struct WMFActivityTabView: View {
             .background(Color(uiColor: theme.paperBackground).edgesIgnoringSafeArea(.all))
         } else {
             List {
-                Section {
-                    loggedOutView
-                        .accessibilityElement(children: .contain)
-                        .listRowInsets(EdgeInsets())
-                }
-                .listRowSeparator(.hidden)
-
                 if viewModel.needsHistoryCallout {
                     Section {
                         historyCalloutView(loggedIn: false)
@@ -230,6 +222,12 @@ public struct WMFActivityTabView: View {
                     }
                     .listRowSeparator(.hidden)
                 }
+                Section {
+                    loggedOutView
+                        .accessibilityElement(children: .contain)
+                        .listRowInsets(EdgeInsets())
+                }
+                .listRowSeparator(.hidden)
             }
             .scrollContentBackground(.hidden)
             .listStyle(.grouped)
