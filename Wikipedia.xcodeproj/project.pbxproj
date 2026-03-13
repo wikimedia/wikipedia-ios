@@ -713,6 +713,7 @@
 		679BC8512C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
 		679BC8522C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
 		679BC8532C33396200704A9A /* PageHistoryCountsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */; };
+		679DEF022F621D8E00B21570 /* TestKitchenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */; };
 		679E6F9E2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */; };
 		679E6F9F2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */; };
 		679E6FA02C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */; };
@@ -3265,6 +3266,7 @@
 		6730FD0D28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyComposeContentView.swift; sourceTree = "<group>"; };
 		6734F051227B634900BDDB94 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		6739A181273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsMarkAllAsReadOperation.swift; sourceTree = "<group>"; };
+		673A37352F620F4300222070 /* WMFTestKitchen */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WMFTestKitchen; sourceTree = "<group>"; };
 		673C55CA2ACC684E00E2EBF6 /* DonateFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateFunnel.swift; sourceTree = "<group>"; };
 		673FC3CF273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFTableHeaderFooterLabelView+Extensions.swift"; sourceTree = "<group>"; };
 		6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ActionExtensions.swift"; sourceTree = "<group>"; };
@@ -3366,6 +3368,8 @@
 		679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFHCaptchaViewController.swift; sourceTree = "<group>"; };
 		679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryCountsView.xib; sourceTree = "<group>"; };
 		679BC8502C33396200704A9A /* PageHistoryCountsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryCountsViewController.xib; sourceTree = "<group>"; };
+		679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKitchenAdapter.swift; sourceTree = "<group>"; };
+		679DEF002F621D8E00B21570 /* TestKitchenLogAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKitchenLogAdapter.swift; sourceTree = "<group>"; };
 		679E6F9D2C44462400B6E9F1 /* UIViewController+Popover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Popover.swift"; sourceTree = "<group>"; };
 		679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFBarButtonItemPopoverMessageViewController+Extensions.swift"; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
@@ -6474,6 +6478,7 @@
 		67F47C0E2AAA6E16006E17FA /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				673A37352F620F4300222070 /* WMFTestKitchen */,
 				679603962C5D48AC009606C4 /* WMFComponents */,
 				679603952C5D434D009606C4 /* WMFData */,
 			);
@@ -8133,6 +8138,8 @@
 		D844D96D1D6CB2600042D692 /* WMF Framework */ = {
 			isa = PBXGroup;
 			children = (
+				679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */,
+				679DEF002F621D8E00B21570 /* TestKitchenLogAdapter.swift */,
 				67BE16252A9927E1009486A6 /* DeprecatedButton.swift */,
 				0E28C4611D74AA55000C5919 /* Article Content */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
@@ -10689,6 +10696,7 @@
 				7A96EBA922CFDA4B0037C8A8 /* PageNamespace.swift in Sources */,
 				7A5AB82D2294121D00B91C9C /* WMFHTMLElement.m in Sources */,
 				00D9B0FF29C8D297008A01E0 /* WidgetImageSource.swift in Sources */,
+				679DEF022F621D8E00B21570 /* TestKitchenAdapter.swift in Sources */,
 				D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */,
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D8FA18F91E1BDA4C009675C3 /* UIView+WMFDefaultNib.m in Sources */,
