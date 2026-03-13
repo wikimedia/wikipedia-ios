@@ -61,7 +61,9 @@ public enum WMFAccountLoginError: LocalizedError {
             return message?.code
         case .captchaRequired(_, let message):
             return message?.code
-        default:
+        case .cannotExtractLoginStatus:
+            return nil
+        case .invalidSiteURL:
             return nil
         }
     }

@@ -56,12 +56,16 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     private var hCaptchaFinePrintText: String?
     
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
-        authInstrument.submitInteraction(action: "click", elementId: "back")
+        authInstrument.submitInteraction(action: "click", elementId: "cancel")
         dismiss(animated: true, completion: nil)
     }
 
     @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
-        authInstrument.submitInteraction(action: "click", elementId: "create_account_button")
+        var actionContext: [String: Any]? = nil
+        if let username = usernameField.text {
+            actionContext = ["username": username]
+        }
+        authInstrument.submitInteraction(action: "click", elementId: "submit_button", actionContext: actionContext)
         save()
     }
     
@@ -278,8 +282,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        usernameField.becomeFirstResponder()
         authInstrument.submitInteraction(action: "impression")
+        usernameField.becomeFirstResponder()
     }
 
     @IBAction func textFieldDidChange(_ sender: UITextField) {
@@ -367,12 +371,17 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         let username = usernameField.text ?? ""
         let password = passwordField.text ?? ""
-        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
+        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: nil, captchaWord: nil) { [weak self] (loginResult) in
+            
+            guard let self else { return }
+            
             switch loginResult {
             case .success:
+                
+                self.authInstrument.submitInteraction(action: "success")
+                
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.authInstrument.submitInteraction(action: "success")
                 if let start = self.startDate {
                     LoginFunnel.shared.logCreateAccountSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
                 } else {
@@ -389,8 +398,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 }
                 
             case .failure(let error):
+                self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
                 self.setViewControllerUserInteraction(enabled: true)
-                self.authInstrument.submitInteraction(action: "error")
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }
@@ -417,11 +426,24 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordRepeatAlertLabel.isHidden = true
         
         guard areRequiredFieldsPopulated() else {
+            
+            var error: WMFAccountCreatorError?
+            if (usernameField.text?.count ?? 0) == 0 {
+                error = WMFAccountCreatorError.invalidUser(nil)
+            } else if (passwordField.text?.count ?? 0) == 0 || (passwordRepeatField.text?.count ?? 0) == 0 {
+                error = WMFAccountCreatorError.missingPasswords(nil)
+            }
+            
+            if let error {
+                authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.testKitchenValidationError])
+            }
+            
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-missing-fields", value:"You must enter a username, password, and password confirmation to create an account.", comment:"Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty."), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             return
         }
 
         guard passwordFieldsMatch() else {
+            authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": WMFAccountCreatorError.badretype(nil).testKitchenValidationError])
             self.passwordRepeatField.textColor = theme.colors.warning
             self.passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
             self.passwordRepeatAlertLabel.isHidden = false
@@ -435,17 +457,26 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
+        var elementId: String? = nil
         switch textField {
         case usernameField:
             usernameAlertLabel.alpha = 0
             usernameField.textColor = theme.colors.primaryText
             usernameField.keyboardAppearance = theme.keyboardAppearance
+            elementId = "username"
+        case passwordField:
+            elementId = "password"
         case passwordRepeatField:
             passwordRepeatAlertLabel.isHidden = true
             passwordRepeatField.textColor = theme.colors.primaryText
             passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
+            elementId = "confirm_password"
+        case emailField:
+            elementId = "email"
         default: break
         }
+        
+        authInstrument.submitInteraction(action: "type", elementId: elementId)
     }
     
     @IBAction func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
@@ -464,14 +495,17 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 guard let self else {
                     return
                 }
+                
                 self.checkingUsernameAvailability = false
                 if !canCreate {
-                    self.usernameAlertLabel.text = WMFAccountCreatorError.usernameUnavailable.localizedDescription
+                    self.authInstrument.submitInteraction(action: "error", elementId: "username", actionContext: ["validation_error": WMFAccountCreatorError.usernameUnavailable(nil).testKitchenValidationError])
+                    self.usernameAlertLabel.text = WMFAccountCreatorError.usernameUnavailable(nil).localizedDescription
                     self.usernameAlertLabel.alpha = 1
                     self.usernameField.textColor = self.theme.colors.error
                 }
             }
         }, failure: { [weak self] error in
+            self?.authInstrument.submitInteraction(action: "error", elementId: "username", actionContext: ["validation_error": error.logDescription])
             self?.checkingUsernameAvailability = false
         })
     }
@@ -482,8 +516,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         let siteURL = dataStore.primarySiteURL
         
-        let creationFailure: WMFErrorHandler = {error in
+        let creationFailure: WMFErrorHandler = {[weak self] error in
             DispatchQueue.main.async {
+                
+                guard let self else { return }
                 
                 self.hCaptchaToken = nil
                 
@@ -491,6 +527,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 
                 var isCaptchaError = false
                 if let error = error as? WMFAccountCreatorError {
+                    
+                    defer {
+                        self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.testKitchenValidationError])
+                    }
+                    
                     switch error {
                     case .usernameUnavailable:
                         self.usernameAlertLabel.text = error.localizedDescription
@@ -516,7 +557,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                             }
                         }
                         break
-                    case .blockedError(let parsedMessage):
+                    case .blockedError(let message):
+                        
+                        let parsedMessage = message?.text ?? ""
                         
                         guard let linkBaseURL = siteURL else {
                             break
@@ -529,6 +572,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     default:
                         break
                     }
+                } else {
+                    self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
                 }
                 
                 self.enableProgressiveButtonIfNecessary()
@@ -576,6 +621,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
 extension WMFAccountCreationViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        if URL.absoluteString.contains("privacy") {
+            authInstrument.submitInteraction(action: "click", elementId: "privacy_link")
+        } else if URL.absoluteString.contains("terms") {
+            authInstrument.submitInteraction(action: "click", elementId: "tos_link")
+        }
         let config = SinglePageWebViewController.StandardConfig(url: URL, useSimpleNavigationBar: true)
         let inAppWebView = SinglePageWebViewController(configType: .standard(config), theme: theme)
         let navVC = WMFComponentNavigationController(rootViewController: inAppWebView, modalPresentationStyle: .pageSheet)
