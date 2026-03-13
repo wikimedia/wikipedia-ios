@@ -665,6 +665,11 @@ extension WMFAppViewController {
         guard !settingsDataController.didMigrateAutoSignTalkPageDiscussions() else {
             return
         }
+
+        if settingsDataController.hasStoredAutoSignTalkPageDiscussions() {
+            settingsDataController.setDidMigrateAutoSignTalkPageDiscussions(true)
+            return
+        }
         let legacyKey = "WMFAutoSignTalkPageDiscussions"
         let bundleID = Bundle.main.bundleIdentifier ?? ""
         let persistedValue = UserDefaults.standard.persistentDomain(forName: bundleID)?[legacyKey] as? Bool ?? true
