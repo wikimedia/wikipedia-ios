@@ -316,6 +316,7 @@ public final class WMFActivityTabViewModel: ObservableObject {
     }
 
     public func setClosedHIstoryCallout() {
+        needsHistoryCallout = false
         Task {
             await dataController.setNeedsHistoryCallout(false)
         }

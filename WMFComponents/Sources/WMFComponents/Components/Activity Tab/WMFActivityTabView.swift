@@ -9,6 +9,7 @@ public struct WMFActivityTabView: View {
 
     @State private var animatedGlobalEditCount: Int = 0
     @State private var hasShownGlobalEditsCard: Bool = false
+    @State private var showHistoryCallout: Bool = true
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -37,6 +38,7 @@ public struct WMFActivityTabView: View {
             }
         }
         .onAppear {
+            showHistoryCallout = viewModel.needsHistoryCallout
             viewModel.fetchData(fromAppearance: true)
         }
     }
@@ -64,7 +66,7 @@ public struct WMFActivityTabView: View {
                             .accessibilityElement()
                             .accessibilityLabel("\(viewModel.hoursMinutesRead), \(viewModel.localizedStrings.timeSpentReading)")
                         }
-                        if viewModel.needsHistoryCallout {
+                        if showHistoryCallout {
                             historyCalloutView(loggedIn: true)
                         }
 
@@ -194,7 +196,7 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
 
-                if viewModel.needsHistoryCallout {
+                if showHistoryCallout {
                     historyCalloutView(loggedIn: false)
                         .padding(.top, 16)
                         .padding([.leading, .trailing], 16)
@@ -222,7 +224,7 @@ public struct WMFActivityTabView: View {
                 }
                 .listRowSeparator(.hidden)
 
-                if viewModel.needsHistoryCallout {
+                if showHistoryCallout {
                     Section {
                         historyCalloutView(loggedIn: false)
                             .padding(16)
@@ -449,13 +451,19 @@ public struct WMFActivityTabView: View {
                         .foregroundStyle(Color(uiColor: theme.link))
                 }
                 Button {
-                    viewModel.needsHistoryCallout = false
+                    showHistoryCallout = false
                     viewModel.setClosedHIstoryCallout()
                 } label: {
-                    if let closeIcon = WMFSFSymbolIcon.for(symbol: .closeCircleFill, font: WMFFont.boldCaption1) {
-                        Image(uiImage: closeIcon)
-                            .renderingMode(.template)
-                            .foregroundStyle(Color(uiColor: theme.link))
+                    if let closeIconName = WMFSFSymbolIcon.closeCircleFill.name {
+                        Image(systemName: closeIconName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 22, height: 22)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(
+                                Color(uiColor: theme.secondaryText),
+                                Color(uiColor: theme.secondaryText.withAlphaComponent(0.2))
+                            )
                     }
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -465,6 +473,10 @@ public struct WMFActivityTabView: View {
         .padding(16)
         .background(Color(uiColor: theme.link.withAlphaComponent(0.15)))
         .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(uiColor: theme.link.withAlphaComponent(0.3)), lineWidth: 0.5)
+        )
     }
 
     private func showPlus(displayCount: Int, totalSavedCount: Int) -> Bool {

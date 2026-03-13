@@ -91,7 +91,7 @@
 "activity-tab-empty-title" = "Nothing to show";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-history-callout-body" = "Browse or clear your reading history in the **Search tab**.";
-"activity-tab-history-callout-body-loggedout" = "Browse or clear your reading history in the **Search tab**. No login required";
+"activity-tab-history-callout-body-loggedout" = "Find and clear your reading history in the **Search tab**. No account needed.";
 "activity-tab-hitory-callout-close" = "Close history notice card";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";

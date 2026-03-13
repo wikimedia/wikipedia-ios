@@ -775,7 +775,7 @@ public class CommonStrings: NSObject {
     public static let historyMovedToSearchTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title-updated", value: "Reading history is now in Search", comment: "Title for activity tabs third item")
 
     public static let historyMovedToSearchSubtitleLoggedIn = WMFLocalizedString("activity-tab-history-callout-body", value: "Browse or clear your reading history in the **Search tab**.", comment: "Body for callout informing users that reading history has moved to the Search tab.")
-    public static let historyMovedToSearchSubtitleLoggedOut = WMFLocalizedString("activity-tab-history-callout-body-loggedout", value: "Browse or clear your reading history in the **Search tab**. No login required", comment: "Body for callout informing users that reading history has moved to the Search tab, no need to login.")
+    public static let historyMovedToSearchSubtitleLoggedOut = WMFLocalizedString("activity-tab-history-callout-body-loggedout", value: "Find and clear your reading history in the **Search tab**. No account needed.", comment: "Body for callout informing users that reading history has moved to the Search tab, no need to login.")
 
     @objc public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
     public static let activityTabLoggedOutTitle = WMFLocalizedString("activity-tab-log-in-or-create-account", value: "Log in or create an account to see more editing and reading activity.", comment: "Title for activity tab when users are logged out.")
