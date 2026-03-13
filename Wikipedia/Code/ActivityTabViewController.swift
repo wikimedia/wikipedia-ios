@@ -275,9 +275,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
             presentSurveyIfNeeded()
         }
-        
+
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
             self?.presentFullLoginFlow()
+        }
+
+        viewModel.didTapSearchTab = { [weak self] in
+            self?.navigateToSearch()
         }
     }
 
@@ -299,13 +303,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
     }
-    
+
     private func presentExplore() {
         ActivityTabFunnel.shared.logExploreClick()
         navigationController?.popToRootViewController(animated: false)
-        
+
         if let tabBar = self.tabBarController {
-            tabBar.selectedIndex = 0 
+            tabBar.selectedIndex = 0
+        }
+    }
+
+    private func navigateToSearch() {
+        navigationController?.popToRootViewController(animated: false)
+        if let tabBar = self.tabBarController {
+            tabBar.selectedIndex = 4 // WMFAppTabTypeSearch
         }
     }
 

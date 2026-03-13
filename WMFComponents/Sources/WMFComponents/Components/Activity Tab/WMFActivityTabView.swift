@@ -449,6 +449,9 @@ public struct WMFActivityTabView: View {
                     Text(bodyAttributed)
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundStyle(Color(uiColor: theme.link))
+                        .onTapGesture {
+                            viewModel.didTapSearchTab?()
+                        }
                 }
                 Button {
                     showHistoryCallout = false
