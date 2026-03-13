@@ -94,6 +94,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
     private func setupHCaptcha() {
         do {
             guard let config = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha else {
+                authInstrument?.submitInteraction(action: "hcaptcha_error", actionContext: ["error": CustomError.hCaptchaMissingConfig.logDescription])
                 errorAction?(CustomError.hCaptchaMissingConfig)
                 return
             }
@@ -104,6 +105,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
                   let reportapi = URL(string: config.reportapi),
                   let assethost = URL(string: config.assethost),
                   let imghost = URL(string: config.imghost) else {
+                    authInstrument?.submitInteraction(action: "hcaptcha_error", actionContext: ["error": CustomError.hCaptchaInvalidURL.logDescription])
                       errorAction?(CustomError.hCaptchaInvalidURL)
                       return
                   }
@@ -118,22 +120,34 @@ class WMFHCaptchaViewController: ThemeableViewController {
                                      imghost: imghost,
                                      theme: theme.isDark ? "dark" : "light")
         } catch let error {
+            authInstrument?.submitInteraction(action: "hcaptcha_error", actionContext: ["error": error.logDescription])
             errorAction?(error)
             return
         }
         
-
-        hCaptcha?.onEvent { [weak self] event, _ in
+        let logError: (Any?) -> Void = { [weak self] data in
+            if let error = data as? Error {
+                self?.authInstrument?.submitInteraction(action: "hcaptcha_error", actionContext: ["error": error.logDescription])
+            } else {
+                self?.authInstrument?.submitInteraction(action: "hcaptcha_error")
+            }
+        }
+        
+        hCaptcha?.onEvent { [weak self] event, data in
             guard let self = self else { return }
+            
             switch event {
             case .challengeExpired:
+                logError(data)
                 self.errorAction?(CustomError.hCaptchaExpired)
             case .close:
+                logError(data)
                 self.errorAction?(CustomError.hCaptchaClosed)
             case .error:
-                authInstrument?.submitInteraction(action: "hcaptcha_error")
+                logError(data)
                 self.errorAction?(CustomError.hCaptchaError)
             case .expired:
+                logError(data)
                 self.errorAction?(CustomError.hCaptchaExpired)
             case .open:
                 authInstrument?.submitInteraction(action: "hcaptcha_open")
