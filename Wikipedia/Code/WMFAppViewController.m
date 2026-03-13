@@ -2229,7 +2229,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (!isUserUnawareOfLogout) {
         return;
     }
-    [TestKitchenAdapter.shared logBackgroundLogoutImpression];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self wmf_showLoggedOutPanelWithTheme:self.theme
                                dismissHandler:^{

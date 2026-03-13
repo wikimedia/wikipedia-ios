@@ -75,6 +75,8 @@ import WMFTestKitchen
         NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
     }
     
+    private var backgroundAuthInstrument: InstrumentImpl?
+    
     // MARK: Public
     
     /// Pulls a current user from cache, according to the siteURL we want to check against.
@@ -218,17 +220,29 @@ import WMFTestKitchen
     ///   - completion: Completion handler with current user object upon success
     public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         
+        // Instrument a background login attempt
+        backgroundAuthInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .setDefaultActionSource("background_login")
+            .startFunnel(name: "login_account")
+        
         guard hasKeychainCredentials,
               let userName = KeychainCredentialsManager.shared.username,
               let password = KeychainCredentialsManager.shared.password
         else {
             let error = LoginError.blankUsernameOrPassword
+            // This is legitimate for logged out users, so we won't log this error via authInstrument
+            backgroundAuthInstrument = nil
             completion(.failure(error))
             return
         }
         
+        backgroundAuthInstrument?.submitInteraction(action: "start")
+        
         guard let siteURL = loginSiteURL else {
-            completion(.failure(LoginError.missingLoginURL))
+            let error = LoginError.missingLoginURL
+            backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+            backgroundAuthInstrument = nil
+            completion(.failure(error))
             return
         }
         
@@ -237,6 +251,9 @@ import WMFTestKitchen
                 DispatchQueue.main.async {
                     switch loginResult {
                     case .success(let user):
+                        
+                        self.backgroundAuthInstrument?.submitInteraction(action: "success")
+                        self.backgroundAuthInstrument = nil
                         
                         completion(.success(user))
                         
@@ -254,6 +271,9 @@ import WMFTestKitchen
                             completion(.success(user))
                             return
                         }
+                        
+                        self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": (error as? WMFAccountLoginError)?.testKitchenValidationError ?? error.logDescription])
+                        self.backgroundAuthInstrument = nil
                         
                         self.logout(initiatedBy: .app)
                         completion(.failure(error))
@@ -273,6 +293,10 @@ import WMFTestKitchen
                 if user.authState == .ip || user.authState == .temporary {
                     performLogin()
                 } else {
+                    
+                    self.backgroundAuthInstrument?.submitInteraction(action: "success")
+                    self.backgroundAuthInstrument = nil
+                    
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     completion(.success(user))
                 }
@@ -289,9 +313,15 @@ import WMFTestKitchen
                     }
                     
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
+                    
+                    self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                    self.backgroundAuthInstrument = nil
+                    
                     completion(.success(user))
                     return
                 }
+                
+                self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
                 
                 performLogin()
             }
@@ -343,7 +373,23 @@ import WMFTestKitchen
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
             }
             
+            if self.isUserUnawareOfLogout {
+                // Instrument a background logout attempt
+                self.backgroundAuthInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+                    .setDefaultActionSource("background_logout")
+                    .startFunnel(name: "logout_account")
+                self.backgroundAuthInstrument?.submitInteraction(action: "start")
+            }
+            
             guard let loginSiteURL = self.loginSiteURL else {
+                
+                if self.isUserUnawareOfLogout {
+                    self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": "missing_loginSiteURL"])
+                    self.backgroundAuthInstrument = nil
+                } else {
+                    authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": "missing_loginSiteURL"])
+                }
+                
                 self.reset()
                 completion()
                 postDidLogOutNotification()
@@ -353,7 +399,14 @@ import WMFTestKitchen
             self.accountLoginLogoutFetcher.logout(loginSiteURL: loginSiteURL, reattemptOn401Response: false) { error in
                 DispatchQueue.main.async {
                     if let error = error {
-                        authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                        
+                        if self.isUserUnawareOfLogout {
+                            self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                            self.backgroundAuthInstrument = nil
+                        } else {
+                            authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                        }
+                        
                         // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
                         DDLogError("Failed to log out, delete login tokens and other browser cookies: \(error)")
                         self.reset()
@@ -362,7 +415,13 @@ import WMFTestKitchen
                         return
                     }
                     
-                    authInstrument?.submitInteraction(action: "success")
+                    if self.isUserUnawareOfLogout {
+                        self.backgroundAuthInstrument?.submitInteraction(action: "success")
+                        self.backgroundAuthInstrument = nil
+                    } else {
+                        authInstrument?.submitInteraction(action: "success")
+                    }
+                    
                     DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
                     // It's best to call "action=logout" API *before* resetting...
                     self.reset()

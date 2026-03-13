@@ -126,11 +126,4 @@ import CocoaLumberjackSwift
             storageManager.push(data: data, stream: .productMetricsAppBase)
         }
     }
-
-    @objc public func logBackgroundLogoutImpression() {
-        _ = client.getInstrument(name: "apps-authentication")
-            .setDefaultActionSource("logout_background_dialog")
-            .startFunnel(name: "logout_account_background")
-            .submitInteraction(action: "impression")
-    }
 }
