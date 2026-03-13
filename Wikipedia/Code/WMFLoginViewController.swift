@@ -255,9 +255,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 // Captcha's appear to be one-time, so always try to get a new one on failure.
                 self.getCaptcha()
                 
-                self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
-
                 if let error = error as? WMFAccountLoginError {
+                    
+                    defer {
+                        self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.testKitchenValidationError])
+                    }
+                    
                     switch error {
                     case .temporaryPasswordNeedsChange:
                         self.showChangeTempPasswordViewController()
@@ -280,6 +283,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         return
                     default: break
                     }
+                } else {
+                    self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
                 }
 
                 self.enableProgressiveButtonIfNecessary()

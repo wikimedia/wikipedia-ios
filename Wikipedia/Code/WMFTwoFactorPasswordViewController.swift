@@ -339,11 +339,13 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
                 })
             case .failure(let error):
-                
-                self.authInstrument?
-                    .submitInteraction(action: "error", actionSource: self.loggingCustomActionSource, actionContext: ["validation_error": error.logDescription])
-                
+                                
                 if let error = error as? WMFAccountLoginError {
+                    
+                    defer {
+                        self.authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.testKitchenValidationError])
+                    }
+                    
                     switch error {
                     case .temporaryPasswordNeedsChange:
                         WMFAlertManager.sharedInstance.dismissAlert()
@@ -357,11 +359,14 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     default:
                         break
                     }
+                    
                     self.enableProgressiveButton(true)
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                     self.oathTokenFields.forEach {$0.text = nil}
                     self.backupOathTokenField.text = nil
                     self.makeAppropriateFieldFirstResponder()
+                } else {
+                    self.authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
                 }
             }
         }
