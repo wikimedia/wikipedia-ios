@@ -195,6 +195,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             guard let self else { return }
             
             if captcha?.classicInfo != nil {
+                self.authInstrument.submitInteraction(action: "fancy_captcha_show")
                 self.captchaViewController?.captcha = captcha
                 self.hcaptchaFinePrintTextView.isHidden = true
                 self.updateEmailFieldReturnKeyType()
@@ -257,6 +258,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     private func displayHCaptcha() {
         let hcaptchaVC = WMFHCaptchaViewController()
+        hcaptchaVC.authInstrument = authInstrument
         hcaptchaVC.theme = theme
         hcaptchaVC.modalTransitionStyle = .crossDissolve
         hcaptchaVC.modalPresentationStyle = .overFullScreen
@@ -547,6 +549,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                             
                             guard let self else { return }
                             if captcha?.classicInfo != nil {
+                                self.authInstrument.submitInteraction(action: "fancy_captcha_error")
+                                self.authInstrument.submitInteraction(action: "fancy_captcha_show")
                                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                                 self.captchaViewController?.captcha = captcha
                                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
@@ -588,6 +592,10 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         self.setViewControllerUserInteraction(enabled: false)
         accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, classicCaptchaID: captchaViewController?.captcha?.classicInfo?.captchaID, classicCaptchaWord: captchaViewController?.solution, hCaptchaToken: hCaptchaToken, siteURL: siteURL!, success: {_ in
             DispatchQueue.main.async {
+                if self.captchaIsVisible() {
+                    self.authInstrument.submitInteraction(action: "fancy_captcha_success")
+                }
+                
                 self.login()
             }
         }, failure: creationFailure)

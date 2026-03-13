@@ -3,6 +3,7 @@ import HCaptcha
 import WebKit
 import WMF
 import WMFData
+import WMFTestKitchen
 
 class WMFHCaptchaViewController: ThemeableViewController {
     
@@ -28,6 +29,8 @@ class WMFHCaptchaViewController: ThemeableViewController {
         activityIndicator.color = .white
         return activityIndicator
     }()
+    
+    var authInstrument: InstrumentImpl?
 
     // MARK: - HCaptcha
     var hCaptcha: HCaptcha?
@@ -74,6 +77,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
             
             do {
                 let token = try result.dematerialize()
+                authInstrument?.submitInteraction(action: "hcaptcha_success")
                 successAction?(token)
             } catch let error as HCaptchaError {
                 errorAction?(error)
@@ -127,11 +131,12 @@ class WMFHCaptchaViewController: ThemeableViewController {
             case .close:
                 self.errorAction?(CustomError.hCaptchaClosed)
             case .error:
+                authInstrument?.submitInteraction(action: "hcaptcha_error")
                 self.errorAction?(CustomError.hCaptchaError)
             case .expired:
                 self.errorAction?(CustomError.hCaptchaExpired)
             case .open:
-                break
+                authInstrument?.submitInteraction(action: "hcaptcha_open")
             }
         }
 
@@ -144,6 +149,8 @@ class WMFHCaptchaViewController: ThemeableViewController {
             self.captchaContainer.addSubview(webView)
             self.captchaWebView = webView
         }
+        
+        authInstrument?.submitInteraction(action: "hcaptcha_load")
     }
     
     override func viewDidLayoutSubviews() {
