@@ -2,11 +2,13 @@ import WidgetKit
 import SwiftUI
 import WMF
 import WMFComponents
+import WMFData
 
 // MARK: - Entry
 
 struct ReadingChallengeEntry: TimelineEntry {
     let date: Date
+    let state: ReadingChallengeState
 }
 
 // MARK: - Provider
@@ -14,108 +16,173 @@ struct ReadingChallengeEntry: TimelineEntry {
 struct ReadingChallengeProvider: TimelineProvider {
 
     func placeholder(in context: Context) -> ReadingChallengeEntry {
-        ReadingChallengeEntry(date: Date())
+        ReadingChallengeEntry(date: Date(), state: .notEnrolled)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (ReadingChallengeEntry) -> Void) {
-        completion(ReadingChallengeEntry(date: Date()))
+        completion(ReadingChallengeEntry(date: Date(), state: .notEnrolled))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<ReadingChallengeEntry>) -> Void) {
-        let entry = ReadingChallengeEntry(date: Date())
-        let timeline = Timeline(entries: [entry], policy: .atEnd)
-        completion(timeline)
+
+        Task {
+            let state = await resolvedState()
+
+            // Refresh at the next midnight so the "not yet read today" reset fires.
+            let nextMidnight = Calendar.current.startOfDay(
+                for: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+            )
+
+            let entry = ReadingChallengeEntry(date: Date(), state: state)
+            let timeline = Timeline(entries: [entry], policy: .after(nextMidnight))
+            completion(timeline)
+        }
+    }
+
+    private func resolvedState() async -> ReadingChallengeState {
+        do {
+            // Set up the shared app group container URL so WMFCoreDataStore can locate the database
+            let appContainerURL = FileManager.default.wmf_containerURL()
+            WMFDataEnvironment.current.appContainerURL = appContainerURL
+
+            let coreDataStore = try await WMFCoreDataStore(appContainerURL: appContainerURL)
+            let controller = try WMFPageViewsDataController(coreDataStore: coreDataStore)
+            let isEnrolled = true // UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: "readingChallengeEnrolled") ?? false
+            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
+        } catch {
+            return .notEnrolled
+        }
     }
 }
-
 // MARK: - Display Sets
 
 private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
-    static let streakOngoingReadSets: [WMFReadingChallengeWidgetViewModel.DisplaySet] = [
+
+    static func streakSet(streak: Int) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: Color(red: 245/255, green: 235/255, blue: 242/255),
-            color2: Color(red: 130/255, green: 69/255, blue: 106/255),
-            image: "globe1",
-            title: "3 days",
-            subtitle: "25-day reading challenge"
-        ),
-        WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: Color(red: 245/255, green: 235/255, blue: 242/255),
-            color2: Color(red: 130/255, green: 69/255, blue: 106/255),
-            image: "globe1",
-            title: "3 days",
+            color2: Color(red: 155/255, green: 82/255, blue: 127/255),
+            image: "globephone",
+            title: "\(streak) day\(streak == 1 ? "" : "s")",
             subtitle: "25-day reading challenge"
         )
-    ]
+    }
 
-    static let streakOngoingNotYetReadSets: [WMFReadingChallengeWidgetViewModel.DisplaySet] = [
+    static func streakNotYetReadSet(streak: Int, showButtons: Bool) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: .orange,
-            color2: .orange,
-            image: "globe1",
-            title: ""
+            color: Color(red: 255/255, green: 234/255, blue: 212/255),
+            color2: Color(red: 169/255, green: 82/255, blue: 38/255),
+            image: "sleepyglobe",
+            title: "\(streak) day\(streak == 1 ? "" : "s")",
+            button1Title: showButtons ? "Search" : nil,
+            button2Title: showButtons ? "Random" : nil,
+            button1URL: showButtons ? URL(string: "wikipedia://search") : nil,
+            button2URL: showButtons ? URL(string: "wikipedia://random") : nil,
+            button1Icon: showButtons ? "search" : nil,
+            button2Icon: showButtons ? "dice" : nil
         )
-    ]
+    }
 
-    static let challengeConcludedCompletedSets: [WMFReadingChallengeWidgetViewModel.DisplaySet] = [
-        WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: Color(red: 182/255, green: 212/255, blue: 251/255),
-            color2: Color(red: 10/255, green: 36/255, blue: 77/255),
-            image: "globe1",
-            title: "25 of 25",
-            subtitle: nil,
-            button1Title: "Collect prize",
-            button1URL: URL(string: "wikipedia://activity")
-        )
-    ]
+    static let completedSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
+        color: Color(red: 182/255, green: 212/255, blue: 251/255),
+        color2: Color(red: 10/255, green: 36/255, blue: 77/255),
+        image: "globe1",
+        title: "25 of 25",
+        subtitle: nil,
+        button1Title: "Collect prize",
+        button1URL: URL(string: "wikipedia://activity")
+    )
 
-    static let challengeConcludedIncompleteSets: [WMFReadingChallengeWidgetViewModel.DisplaySet] = [
+    static func incompleteSet(streak: Int) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: .red,
             color2: .red,
             image: "globe1",
-            title: ""
+            title: "\(streak) day\(streak == 1 ? "" : "s")"
         )
-    ]
+    }
 
-    static let challengeConcludedNoStreakSets: [WMFReadingChallengeWidgetViewModel.DisplaySet] = [
-        WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: .gray,
-            color2: .gray,
-            image: "globe1",
-            title: ""
-        )
-    ]
+    static let noStreakSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
+        color: .gray,
+        color2: .gray,
+        image: "globe1",
+        title: ""
+    )
 
-    static let notEnrolledSets: [WMFReadingChallengeWidgetViewModel.DisplaySet] = [
-        WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: .blue,
-            color2: .gray,
-            image: "globe1",
-            title: "",
-            button1Title: "Search",
-            button2Title: "Random",
-            button1URL: URL(string: "wikipedia://search"),
-            button2URL: URL(string: "wikipedia://random"),
-            button1Icon: "search",
-            button2Icon: "dice"
-        )
-    ]
+    static let notEnrolledSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
+        color: .blue,
+        color2: .gray,
+        image: "globe1",
+        title: "not enrolled",
+        button1Title: "Search",
+        button2Title: "Random",
+        button1URL: URL(string: "wikipedia://search"),
+        button2URL: URL(string: "wikipedia://random"),
+        button1Icon: "search",
+        button2Icon: "dice"
+    )
 
-    static func random(for state: ReadingChallengeState) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+    static func make(
+        for state: ReadingChallengeState,
+        family: WidgetFamily
+    ) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         switch state {
-        case .streakOngoingRead:
-            return streakOngoingReadSets.randomElement()!
-        case .streakOngoingNotYetRead:
-            return streakOngoingNotYetReadSets.randomElement()!
-        case .challengeConcludedCompletedSuccessfully:
-            return challengeConcludedCompletedSets.randomElement()!
-        case .challengeConcludedIncomplete:
-            return challengeConcludedIncompleteSets.randomElement()!
+        case .streakOngoingRead(let streak):
+            return streakSet(streak: streak)
+        case .streakOngoingNotYetRead(let streak):
+            return streakNotYetReadSet(streak: streak, showButtons: family == .systemMedium)
+        case .challengeCompleted:
+            return completedSet
+        case .challengeConcludedIncomplete(let streak):
+            return incompleteSet(streak: streak)
         case .challengeConcludedNoStreak:
-            return challengeConcludedNoStreakSets.randomElement()!
+            return noStreakSet
+        case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
+            return notEnrolledSet
+        }
+    }
+}
+
+// MARK: - Entry View
+
+struct ReadingChallengeEntryView: View {
+    let entry: ReadingChallengeEntry
+    @Environment(\.widgetFamily) var family
+
+    var body: some View {
+        WMFReadingChallengeWidgetView(
+            viewModel: WMFReadingChallengeWidgetViewModel(
+                localizedStrings: WMFReadingChallengeWidgetViewModel.LocalizedStrings(
+                    title: titleString(for: entry.state)
+                ),
+                displaySet: WMFReadingChallengeWidgetViewModel.DisplaySet.make(
+                    for: entry.state,
+                    family: family
+                ),
+                state: entry.state
+            )
+        )
+        .widgetURL(URL(string: "wikipedia://explore"))
+    }
+
+    private func titleString(for state: ReadingChallengeState) -> String {
+        switch state {
+        case .streakOngoingRead(let streak), .streakOngoingNotYetRead(let streak):
+            return "\(streak) day\(streak == 1 ? "" : "s")"
+        case .challengeCompleted:
+            return "25 of 25"
+        case .challengeConcludedIncomplete(let streak):
+            return "\(streak) day\(streak == 1 ? "" : "s")"
         case .notEnrolled:
-            return notEnrolledSets.randomElement()!
+            return "notEnrolled"
+        case .notLiveYet:
+            return "notLiveYet"
+        case .challengeRemoved:
+            return "challengeRemoved"
+        case .enrolledNotStarted:
+            return "enrolledNotStarted"
+        case .challengeConcludedNoStreak:
+            return "challengeConcludedNoStreak"
         }
     }
 }
@@ -127,17 +194,7 @@ struct ReadingChallengeWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: ReadingChallengeProvider()) { entry in
-            let state = ReadingChallengeState.notEnrolled
-            WMFReadingChallengeWidgetView(
-                viewModel: WMFReadingChallengeWidgetViewModel(
-                    localizedStrings: WMFReadingChallengeWidgetViewModel.LocalizedStrings(
-                        title: "3 days"
-                    ),
-                    displaySet: .random(for: state),
-                    state: state
-                )
-            )
-            .widgetURL(URL(string: "wikipedia://explore"))
+            ReadingChallengeEntryView(entry: entry)
         }
         .configurationDisplayName("Reading Challenge")
         .description("Track your reading challenge progress.")

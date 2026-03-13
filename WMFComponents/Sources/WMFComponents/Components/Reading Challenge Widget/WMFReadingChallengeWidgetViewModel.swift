@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import WMFData
 
 public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
 
@@ -28,6 +29,7 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
         public let button1Icon: String?
         public let button2Icon: String?
         public let buttonBackgroundColor: Color?
+        public let smallShowButtons: Bool
 
         public init(
             color: Color,
@@ -41,7 +43,8 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             button2URL: URL? = nil,
             button1Icon: String? = nil,
             button2Icon: String? = nil,
-            buttonBackgroundColor: Color? = nil
+            buttonBackgroundColor: Color? = nil,
+            smallShowButtons: Bool = false
         ) {
             self.color = color
             self.color2 = color2
@@ -55,6 +58,7 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             self.button1Icon = button1Icon
             self.button2Icon = button2Icon
             self.buttonBackgroundColor = buttonBackgroundColor
+            self.smallShowButtons = smallShowButtons
         }
     }
 
@@ -66,18 +70,13 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
 
     // MARK: - Init
 
-    public init(localizedStrings: LocalizedStrings, displaySet: DisplaySet, state: ReadingChallengeState = .notEnrolled) {
+    public init(
+        localizedStrings: LocalizedStrings,
+        displaySet: DisplaySet,
+        state: ReadingChallengeState = .notEnrolled
+    ) {
         self.localizedStrings = localizedStrings
         self.displaySet = displaySet
         self.state = state
     }
-}
-
-public enum ReadingChallengeState {
-    case notEnrolled
-    case streakOngoingRead
-    case streakOngoingNotYetRead
-    case challengeConcludedCompletedSuccessfully
-    case challengeConcludedIncomplete
-    case challengeConcludedNoStreak
 }
