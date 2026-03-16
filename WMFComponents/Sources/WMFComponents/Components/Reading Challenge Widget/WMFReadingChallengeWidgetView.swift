@@ -27,19 +27,25 @@ public struct WMFReadingChallengeWidgetView: View {
     }
 
     public var body: some View {
-        switch widgetFamily {
-        case .systemSmall:
-            smallView
-        case .systemMedium:
-            if isStreakState {
-                mediumStreak
-            } else {
-                mediumView
+        ZStack {
+            viewModel.displaySet.color
+                .ignoresSafeArea()
+            switch widgetFamily {
+            case .systemSmall:
+                smallView
+            case .systemMedium:
+                if isStreakState {
+                    mediumStreak
+                } else {
+                    mediumView
+                }
+            default:
+                smallView
             }
-        default:
-            smallView
         }
     }
+
+    // MARK: - W Icon Overlay
 
     var wIconOverlay: some View {
         VStack {
@@ -66,24 +72,20 @@ public struct WMFReadingChallengeWidgetView: View {
             return AnyView(noButtonsSmallView)
         }
     }
-    
+
     private var noButtonsSmallView: some View {
         ZStack {
-            viewModel.displaySet.color
-                .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                 }
-                
                 HStack {
                     if let icon = viewModel.displaySet.icon {
                         Image(uiImage: icon)
                             .foregroundStyle(viewModel.displaySet.color2)
                     }
-
                     Text(viewModel.displaySet.title)
                         .font(Font(WMFFont.for(.boldTitle1)))
                         .foregroundColor(viewModel.displaySet.color2)
@@ -91,15 +93,12 @@ public struct WMFReadingChallengeWidgetView: View {
             }
             .padding()
             wIconOverlay
-                .frame(maxWidth: .infinity, alignment: .topTrailing)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
     private var oneButtonSmallView: some View {
         ZStack {
-            viewModel.displaySet.color
-                .ignoresSafeArea()
             VStack(alignment: .leading, spacing: 8) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
@@ -140,18 +139,14 @@ public struct WMFReadingChallengeWidgetView: View {
 
     // MARK: - Medium View
 
-    var mediumView: some View {
-        // todo as needed - separate out into no buttons, one button, etc.
+    private var mediumView: some View {
         ZStack(alignment: .topTrailing) {
-            viewModel.displaySet.color
-                .ignoresSafeArea()
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 8) {
                     Spacer()
                     HStack {
                         if let icon = viewModel.displaySet.icon {
                             Image(uiImage: icon)
-                                // todo fix
                         }
                         Text(viewModel.displaySet.title)
                             .font(Font(WMFFont.for(.boldTitle1)))
@@ -210,7 +205,6 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
-
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
@@ -222,7 +216,9 @@ public struct WMFReadingChallengeWidgetView: View {
             wIconOverlay
         }
     }
-    
+
+    // MARK: - Medium Streak View
+
     private var mediumStreak: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 0) {
@@ -273,7 +269,9 @@ public struct WMFReadingChallengeWidgetView: View {
             wIconOverlay
         }
     }
-    
+
+    // MARK: - Streak Progress Bar
+
     private func calendarLabel(_ number: Int) -> some View {
         ZStack {
             if let calendarImage = UIImage(named: "calendar", in: .module, with: nil) {
@@ -292,30 +290,22 @@ public struct WMFReadingChallengeWidgetView: View {
     }
 
     private func streakProgressBar(streak: Int) -> some View {
-        let progress = max(0, min(CGFloat(12 - 1) / CGFloat(24), 1))
+        let progress = max(0, min(CGFloat(streak - 1) / CGFloat(24), 1))
         let progressColor = viewModel.displaySet.color3 ?? viewModel.displaySet.color2
 
         return HStack(spacing: 8) {
             calendarLabel(1)
-
             GeometryReader { geo in
                 let trackWidth = geo.size.width
                 let thumbOffset = progress * trackWidth - 9.5
-
                 ZStack(alignment: .leading) {
                     Capsule()
                         .fill(Color.white)
                         .frame(height: 8)
                         .frame(maxWidth: .infinity)
-                        .overlay(
-                            Capsule()
-                                .stroke(viewModel.displaySet.color2.opacity(0.3), lineWidth: 0.5)
-                        )
-
                     Capsule()
                         .fill(progressColor)
                         .frame(width: max(0, progress * trackWidth), height: 8)
-
                     Circle()
                         .fill(viewModel.displaySet.color2)
                         .frame(width: 19, height: 19)
@@ -324,7 +314,6 @@ public struct WMFReadingChallengeWidgetView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(height: 19)
-
             calendarLabel(25)
         }
         .padding(8)
