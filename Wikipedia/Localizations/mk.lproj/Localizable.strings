@@ -1377,6 +1377,8 @@
 "theme-default-explanation" = "Одговара на системскиот изглед";
 "theme-light-display-name" = "Светол";
 "theme-sepia-display-name" = "Сипа";
+"tip-history-in-search-subtitle" = "Најдете ја вашата историја на читање во јазичето „Пребарај“";
+"tip-history-in-search-title" = "Историјата е преместена во Пребарај";
 "today-title" = "Денес";
 "top-read-widget-description" = "Дознајте што чита светот денес на Википедија.";
 "top-read-widget-readers-count" = "$1 читатели";

@@ -96,6 +96,10 @@
 "activity-tab-articles-read-graph-label" = "Чланци";
 "activity-tab-empty-title" = "Ништа за приказ";
 "activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈИ ЗА iOS";
+"activity-tab-impact-recent-startend-accessibility" = "Од $1 до $2";
+"activity-tab-impact-thanks-label" = "хвала";
+"activity-tab-impact-total-edits-label" = "укупно измена";
+"activity-tab-impact-views-day" = "Дан";
 "activity-tab-logged-out-title" = "Видите више уређивачких и читалачких активности";
 "activity-tab-neutral" = "Неутралан";
 "activity-tab-no-edits-title" = "Још нисте направили измене ове недеље. Додајте слике да би сте побољшали разумевање чланка.";
@@ -811,6 +815,7 @@
 "page-history-compare-accessibility-hint" = "Додирните како бисте изабрали две измене за упоређивање";
 "page-history-compare-title" = "Поређење";
 "page-history-graph-accessibility-label" = "Графикон измена током времена";
+"page-history-logged-in-edits" = "пријављени";
 "page-history-minor-edits" = "мање измене";
 "page-history-revision-author-accessibility-label" = "Аутор: $1";
 "page-history-revision-comment-accessibility-label" = "Коментар $1";

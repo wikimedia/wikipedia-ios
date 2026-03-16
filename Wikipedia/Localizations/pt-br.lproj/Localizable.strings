@@ -119,11 +119,15 @@
 "activity-tab-add-images-subtitle" = "Adicione imagens sugeridas aos artigos da Wikipédia para melhorar a compreensão.";
 "activity-tab-add-images-title" = "Adicionar imagens";
 "activity-tab-additional-thoughts" = "Alguma observação adicional?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 visualização|$1 visualizações}}";
 "activity-tab-articles-read" = "Artigos lidos este mês";
 "activity-tab-articles-read-graph-label" = "Artigos";
 "activity-tab-customize-all-time-impact" = "Impacto de todos os tempos";
 "activity-tab-customize-editing-insights" = "Insights sobre edição";
+"activity-tab-customize-empty-state" = "Os módulos de atividade estão desativados. $1Ative-os $2 para ver as atualizações neste guia.";
+"activity-tab-customize-footer" = "As informações de leitura são baseadas nos idiomas do aplicativo nas configurações, e as informações de edição são limitadas ao idioma principal do aplicativo. As informações usam dados locais, com exceção das edições, que são públicas.";
 "activity-tab-customize-last-in-app-donation" = "Última doação no aplicativo";
+"activity-tab-customize-logout-warning" = "Você deve estar conectado para ativar esta informação sobre a atividade.";
 "activity-tab-customize-reading-insights" = "Insights de leitura";
 "activity-tab-customize-time-spent-reading" = "Tempo dedicado à leitura";
 "activity-tab-customize-timeline-of-behavior" = "Linha do tempo do comportamento";
@@ -138,17 +142,24 @@
 "activity-tab-generic-no-edits" = "Você não editou esta semana. Comece agora a acompanhar suas contribuições.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "NA WIKIPÉDIA iOS";
+"activity-tab-impact-all-time-title" = "Impacto de todos os tempos";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 dia|$1 dias}}";
+"activity-tab-impact-best-streak-label" = "melhor sequência";
 "activity-tab-impact-edits-label" = "edições";
 "activity-tab-impact-last-edited-label" = "última edição";
+"activity-tab-impact-recent-activity-title" = "Sua atividade recente (últimos 30 dias)";
+"activity-tab-impact-recent-startend-accessibility" = "De $1 para $2";
 "activity-tab-impact-thanks-label" = "obrigado";
 "activity-tab-impact-total-edits-label" = "total de edições";
 "activity-tab-impact-views-day" = "Dia";
+"activity-tab-impact-views-title" = "Visualizações dos artigos que você editou";
 "activity-tab-impact-views-views" = "Visualizações";
 "activity-tab-log-in-or-create-account" = "Entre ou crie uma conta para ver mais atividades de edição e leitura.";
 "activity-tab-logged-out-subtitle" = "Entre ou crie uma conta para visualizar sua atividade no aplicativo da Wikipédia.";
 "activity-tab-logged-out-title" = "Veja mais habilidades de leitura e de edição";
 "activity-tab-logged-out-track-what-youve-read" = "Acompanhe o que você leu e visualize suas contribuições ao longo do tempo de uma nova maneira";
 "activity-tab-menu-clear-history" = "Limpar histórico de leitura";
+"activity-tab-most-viewed" = "Mais visualizados desde a sua edição";
 "activity-tab-neutral" = "Neutro";
 "activity-tab-no-edits-title" = "Não editou esta semana. Adicione imagens para melhorar a compreensão do artigo.";
 "activity-tab-no-username-reading-title" = "Sua leitura";
@@ -160,6 +171,8 @@
 "activity-tab-onboarding-second-button-title" = "Saiba mais sobre a Atividade";
 "activity-tab-onboarding-second-item-subtitle" = "Descubra informações sobre suas contribuições e o alcance do conhecimento que você compartilhou.";
 "activity-tab-onboarding-second-item-title" = "Destaques de impacto";
+"activity-tab-onboarding-third-item-subtitle-updated" = "A atividade inclui um cronograma completo dos artigos lidos, salvos e editados. Seu histórico de leitura agora está na guia Pesquisar.";
+"activity-tab-onboarding-third-item-title-updated" = "A história de leitura agora está em Pesquisa";
 "activity-tab-read-title" = "Ver histórico de leitura";
 "activity-tab-satisfied" = "Satisfeito(a)";
 "activity-tab-saved" = "Artigos salvos este mês";
@@ -273,6 +286,7 @@
 "continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"contributions-this-month" = "Contribuições deste mês";
 "crimean-tatar-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes de tártara da crimeia como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nQırımtatarca, tártara da crimeia latino (chr-latn)\nкъырымтатарджа, tártara da crimeia cirílico (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Atualizações para suporte a variantes de tártara da Crimeia";
 "customize-action-title" = "Personalizar";
@@ -505,6 +519,8 @@
 "editor-toolbar-template-accessibility" = "Formatação do texto da predefiniçã";
 "editor-wikitext-loading-accessibility" = "Carregando texto do editor";
 "editor-wikitext-textview-accessibility" = "Editor de texto Wiki";
+"edits-last-month" = "edições no mês passado";
+"edits-this-month" = "edições deste mês";
 "empty-diff-compare-title" = "Não há diferenças entre as revisões";
 "empty-diff-single-title" = "Nenhuma alteração visível feita";
 "empty-edit-summary" = "Resumo de edição vazio";
@@ -617,6 +633,7 @@
 "explore-suggested-edits-image-recs-title" = "Adicionar uma imagem";
 "explore-survey-subtitle" = "Responda a uma breve pesquisa sobre o feed Explorar. Seus comentários ajudarão a moldar as próximas melhorias do aplicativo.";
 "explore-survey-title" = "Ajude-nos a melhorar o feed de Explorar";
+"explore-wikipedia" = "Explora Wikipédia";
 "export-user-data-confirmation-message" = "Compartilhar a sua biblioteca de aplicativos inclui dados sobre as suas listas de leitura, o histórico de leituras, as preferências e o conteúdo do feed Explorar. Este arquivo de dados só deve ser compartilhado com destinatários de confiança e para fins de diagnóstico técnico.";
 "export-user-data-confirmation-title" = "Compartilhar a biblioteca de aplicativos?";
 "export-user-data-generic-error" = "Ocorreu um erro durante a exportação dos seus dados. Tente novamente mais tarde, por favor.";
@@ -780,6 +797,7 @@
 "languages-settings-title" = "Idiomas";
 "languages-title" = "Alterar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
+"learn-about-editing" = "Saiba mais sobre edição";
 "learn-more-title" = "Saiba mais";
 "lockscreen-search-widget-description" = "Acesso rápido para pesquisar na Wikipédia a partir da tela de bloqueio.";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sem entrar";
@@ -790,6 +808,8 @@
 "login-join-wikipedia" = "Junte-se à Wikipédia.";
 "login-no-account" = "Não tem uma conta? $1";
 "login-title" = "Faça login na sua conta";
+"looking-for-something-new" = "Procurando algo novo para ler?";
+"looks-like-you-havent-made-an-edit" = "Parece que você não fez nenhuma edição este mês. Amplie o conhecimento gratuito editando os tópicos que mais lhe interessam.";
 "main-menu-about" = "Sobre o aplicativo";
 "main-menu-account-login" = "Entrar";
 "main-menu-account-logout" = "Sair";
@@ -1623,3 +1643,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Logotipo da Wikipédia w";
 "year-in-review-wmf-logo-accessibility-label" = "Logotipo da Fundação Wikimedia";
 "yesterday-title" = "Ontem";
+"zero-edits-to-articles" = "Recentemente 0 edições nos artigos";
