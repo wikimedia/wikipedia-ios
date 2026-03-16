@@ -33,8 +33,8 @@ extension UIViewController {
     func wmf_showBlockedPanel(messageHtml: String, linkBaseURL: URL, currentTitle: String, theme: Theme, image: UIImage? = nil, linkLoggingAction: (() -> Void)? = nil) {
         let message = messageHtml.wmf_stringByRemovingHTML()
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default) { [weak self] _ in
-            self?.dismiss(animated: true)
+        alert.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default) { _ in
+            alert.dismiss(animated: true)
         })
         present(alert, animated: true)
     }
@@ -171,17 +171,7 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: WMFLocalizedString("panel-not-logged-in-continue-edit-action-title", value: "Edit without logging in", comment: "Title for button that continues publishing the edit anonymously."), style: .cancel) { _ in
             buttonTapHandler?(1)
         })
-        presenter?.present(alert, animated: true)
-    }
-
-    private var presenter: UIViewController? {
-        guard view.window == nil else {
-            return self
-        }
-        if presentedViewController is UINavigationController {
-            return presentedViewController
-        }
-        return nil
+        present(alert, animated: true)
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: (() -> Void)? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
