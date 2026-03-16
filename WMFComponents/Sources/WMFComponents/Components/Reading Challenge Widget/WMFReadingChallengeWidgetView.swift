@@ -17,12 +17,25 @@ public struct WMFReadingChallengeWidgetView: View {
         self.viewModel = viewModel
     }
 
+    private var isStreakState: Bool {
+        switch viewModel.state {
+        case .streakOngoingRead, .streakOngoingNotYetRead:
+            return true
+        default:
+            return false
+        }
+    }
+
     public var body: some View {
         switch widgetFamily {
         case .systemSmall:
             smallView
         case .systemMedium:
-            mediumView
+            if isStreakState {
+                mediumStreak
+            } else {
+                mediumView
+            }
         default:
             smallView
         }
@@ -66,10 +79,11 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
                 
                 HStack {
-                    if let image = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1) {
-                        Image(uiImage: image)
+                    if let icon = viewModel.displaySet.icon {
+                        Image(uiImage: icon)
                             .foregroundStyle(viewModel.displaySet.color2)
                     }
+
                     Text(viewModel.displaySet.title)
                         .font(Font(WMFFont.for(.boldTitle1)))
                         .foregroundColor(viewModel.displaySet.color2)
@@ -134,10 +148,16 @@ public struct WMFReadingChallengeWidgetView: View {
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 8) {
                     Spacer()
-                    Text(viewModel.displaySet.title)
-                        .font(Font(WMFFont.for(.boldTitle1)))
-                        .foregroundColor(viewModel.displaySet.color2)
-                        .fixedSize(horizontal: false, vertical: true)
+                    HStack {
+                        if let icon = viewModel.displaySet.icon {
+                            Image(uiImage: icon)
+                                // todo fix
+                        }
+                        Text(viewModel.displaySet.title)
+                            .font(Font(WMFFont.for(.boldTitle1)))
+                            .foregroundColor(viewModel.displaySet.color2)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                     if let subtitle = viewModel.displaySet.subtitle {
                         Text(subtitle)
                             .font(Font(WMFFont.for(.subheadline)))
@@ -201,5 +221,117 @@ public struct WMFReadingChallengeWidgetView: View {
             }
             wIconOverlay
         }
+    }
+    
+    private var mediumStreak: some View {
+        ZStack {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack {
+                            if let icon = WMFSFSymbolIcon.for(symbol: .trophy, font: .boldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                Image(uiImage: icon)
+                                    .font(Font(WMFFont.for(.boldCaption1)))
+                                    .foregroundColor(viewModel.displaySet.color2)
+                            }
+                            if let subtitle = viewModel.displaySet.subtitle {
+                                Text(subtitle)
+                                    .font(Font(WMFFont.for(.boldCaption1)))
+                                    .foregroundColor(viewModel.displaySet.color2)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 30)
+                        HStack {
+                            if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                Image(uiImage: icon)
+                                    .font(Font(WMFFont.for(.boldTitle1)))
+                                    .foregroundColor(viewModel.displaySet.color2)
+                            }
+                            Text(viewModel.displaySet.title)
+                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .foregroundColor(viewModel.displaySet.color2)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 110)
+                            .padding(.trailing, 8)
+                    }
+                }
+                if case .streakOngoingRead(let streak) = viewModel.state {
+                    streakProgressBar(streak: streak)
+                } else if case .streakOngoingNotYetRead(let streak) = viewModel.state {
+                    streakProgressBar(streak: streak)
+                }
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            wIconOverlay
+        }
+    }
+    
+    private func calendarLabel(_ number: Int) -> some View {
+        ZStack {
+            if let calendarImage = UIImage(named: "calendar", in: .module, with: nil) {
+                Image(uiImage: calendarImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 32, height: 32)
+                    .foregroundStyle(viewModel.displaySet.color2)
+            }
+            Text("\(number)")
+                .font(Font(WMFFont.for(.boldCaption1)))
+                .foregroundColor(viewModel.displaySet.color2)
+                .padding(.top, 4)
+        }
+        .frame(width: 32, height: 32)
+    }
+
+    private func streakProgressBar(streak: Int) -> some View {
+        let progress = max(0, min(CGFloat(12 - 1) / CGFloat(24), 1))
+        let progressColor = viewModel.displaySet.color3 ?? viewModel.displaySet.color2
+
+        return HStack(spacing: 8) {
+            calendarLabel(1)
+
+            GeometryReader { geo in
+                let trackWidth = geo.size.width
+                let thumbOffset = progress * trackWidth - 9.5
+
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(Color.white)
+                        .frame(height: 8)
+                        .frame(maxWidth: .infinity)
+                        .overlay(
+                            Capsule()
+                                .stroke(viewModel.displaySet.color2.opacity(0.3), lineWidth: 0.5)
+                        )
+
+                    Capsule()
+                        .fill(progressColor)
+                        .frame(width: max(0, progress * trackWidth), height: 8)
+
+                    Circle()
+                        .fill(viewModel.displaySet.color2)
+                        .frame(width: 19, height: 19)
+                        .offset(x: max(0, thumbOffset))
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .frame(height: 19)
+
+            calendarLabel(25)
+        }
+        .padding(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(viewModel.displaySet.color2, lineWidth: 1.5)
+        )
+        .padding(.vertical, 8)
     }
 }

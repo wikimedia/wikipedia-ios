@@ -62,9 +62,11 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: Color(red: 245/255, green: 235/255, blue: 242/255),
             color2: Color(red: 155/255, green: 82/255, blue: 127/255),
+            color3: Color(red: 198/255, green: 144/255, blue: 180/255),
             image: "globephone",
             title: "\(streak) day\(streak == 1 ? "" : "s")",
-            subtitle: "25-day reading challenge"
+            subtitle: "25-day reading challenge",
+            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
         )
     }
 
@@ -72,6 +74,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: Color(red: 255/255, green: 234/255, blue: 212/255),
             color2: Color(red: 169/255, green: 82/255, blue: 38/255),
+            color3: Color(red: 198/255, green: 144/255, blue: 180/255),
             image: "sleepyglobe",
             title: "\(streak) day\(streak == 1 ? "" : "s")",
             button1Title: showButtons ? "Search" : nil,
@@ -79,7 +82,8 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             button1URL: showButtons ? URL(string: "wikipedia://search") : nil,
             button2URL: showButtons ? URL(string: "wikipedia://random") : nil,
             button1Icon: showButtons ? "search" : nil,
-            button2Icon: showButtons ? "dice" : nil
+            button2Icon: showButtons ? "dice" : nil,
+            icon: UIImage(named: "flameWarning")
         )
     }
 

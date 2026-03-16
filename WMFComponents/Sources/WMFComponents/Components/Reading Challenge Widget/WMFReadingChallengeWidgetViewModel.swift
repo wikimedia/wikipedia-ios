@@ -19,8 +19,10 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
     public struct DisplaySet {
         public let color: Color
         public let color2: Color
+        public let color3: Color?
         public let image: String
         public let title: String
+        public let icon: UIImage?
         public let subtitle: String?
         public let button1Title: String?
         public let button2Title: String?
@@ -34,6 +36,7 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
         public init(
             color: Color,
             color2: Color,
+            color3: Color? = nil,
             image: String,
             title: String,
             subtitle: String? = nil,
@@ -44,7 +47,8 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             button1Icon: String? = nil,
             button2Icon: String? = nil,
             buttonBackgroundColor: Color? = nil,
-            smallShowButtons: Bool = false
+            smallShowButtons: Bool = false,
+            icon: UIImage? = nil
         ) {
             self.color = color
             self.color2 = color2
@@ -59,6 +63,8 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             self.button2Icon = button2Icon
             self.buttonBackgroundColor = buttonBackgroundColor
             self.smallShowButtons = smallShowButtons
+            self.icon = icon
+            self.color3 = color3
         }
     }
 
