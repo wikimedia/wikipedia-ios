@@ -772,10 +772,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
 
-
         let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
 
-        var profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
 
