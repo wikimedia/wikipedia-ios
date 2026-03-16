@@ -257,10 +257,14 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private func configureNavigationBar() {
 
-        let title = customTitle ?? CommonStrings.searchTitle
+        var title = customTitle ?? CommonStrings.searchTitle
 
         // check if it comes from article vc
         let isPushed = (navigationController?.viewControllers.first !== self)
+
+        if isPushed {
+            title = String()
+        }
         var alignment: WMFNavigationBarTitleConfig.Alignment = (needsCenteredTitle || isPushed) ? .centerCompact : .leadingCompact
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
@@ -269,12 +273,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
-        let wButton = UIButton(type: .custom)
-        wButton.setImage(UIImage(named: "W"), for: .normal)
 
         var titleConfig: WMFNavigationBarTitleConfig
         titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
-
 
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
