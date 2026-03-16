@@ -36,4 +36,5 @@ public enum WMFUserDefaultsKey: String {
     case activityTabIsReadingInsightsOn = "activity-tab-reading-insights"
     case activityTabIsEditingInsightsOn = "activity-tab-editing-insights"
     case activityTabIsTimelineOfBehaviorOn = "activity-tab-timeline-of-behavior"
+    case activityTabSeenHistoryCallout = "activity-tab-seen-history-callout"
 }
