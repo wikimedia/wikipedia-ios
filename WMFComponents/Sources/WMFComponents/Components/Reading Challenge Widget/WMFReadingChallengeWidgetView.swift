@@ -11,19 +11,14 @@ public struct WMFReadingChallengeWidgetView: View {
         appEnvironment.theme
     }
 
+    private var buttonBackground: Color {
+        Color(uiColor: theme.link)
+    }
+
     // MARK: - Init
 
     public init(viewModel: WMFReadingChallengeWidgetViewModel) {
         self.viewModel = viewModel
-    }
-
-    private var isStreakState: Bool {
-        switch viewModel.state {
-        case .streakOngoingRead, .streakOngoingNotYetRead:
-            return true
-        default:
-            return false
-        }
     }
 
     public var body: some View {
@@ -34,9 +29,12 @@ public struct WMFReadingChallengeWidgetView: View {
             case .systemSmall:
                 smallView
             case .systemMedium:
-                if isStreakState {
-                    mediumStreak
-                } else {
+                switch viewModel.state {
+                case .streakOngoingRead:
+                    mediumStreakView
+                case .streakOngoingNotYetRead:
+                    mediumTwoButtonView
+                default:
                     mediumView
                 }
             default:
@@ -82,9 +80,22 @@ public struct WMFReadingChallengeWidgetView: View {
                         .scaledToFit()
                 }
                 HStack {
-                    if let icon = viewModel.displaySet.icon {
-                        Image(uiImage: icon)
-                            .foregroundStyle(viewModel.displaySet.color2)
+                    switch viewModel.state {
+                    case .streakOngoingNotYetRead:
+                        if let uiImage = UIImage(named: "flameWarning", in: .module, with: nil) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .foregroundStyle(viewModel.displaySet.color2)
+                                .scaledToFit()
+                                .frame(width: 30)
+                        }
+                    default:
+                        if let icon = viewModel.displaySet.icon {
+                            Image(uiImage: icon)
+                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .foregroundStyle(viewModel.displaySet.color2)
+                        }
                     }
                     Text(viewModel.displaySet.title)
                         .font(Font(WMFFont.for(.boldTitle1)))
@@ -118,15 +129,16 @@ public struct WMFReadingChallengeWidgetView: View {
                    let icon = viewModel.displaySet.button1Icon {
                     Link(destination: button1URL) {
                         HStack {
-                            Image(icon)
+                            Image(uiImage: icon)
                                 .resizable()
+                                .foregroundStyle(.white)
                             Text(button1Title)
                                 .font(Font(WMFFont.for(.semiboldSubheadline)))
-                                .foregroundColor(viewModel.displaySet.color)
+                                .foregroundColor(.white)
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
-                        .background(viewModel.displaySet.color2)
+                        .background(buttonBackground)
                         .clipShape(Capsule())
                     }
                 }
@@ -166,18 +178,19 @@ public struct WMFReadingChallengeWidgetView: View {
                            let button1Icon = viewModel.displaySet.button1Icon {
                             Link(destination: button1URL) {
                                 HStack(spacing: 4) {
-                                    Image(button1Icon)
+                                    Image(uiImage: button1Icon)
                                         .resizable()
                                         .scaledToFit()
+                                        .foregroundStyle(.white)
                                         .frame(width: 14, height: 14)
                                     Text(button1Title)
                                         .font(Font(WMFFont.for(.semiboldSubheadline)))
-                                        .foregroundColor(viewModel.displaySet.color)
+                                        .foregroundColor(.white)
                                 }
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 8)
                                 .frame(maxWidth: .infinity)
-                                .background(viewModel.displaySet.color2)
+                                .background(buttonBackground)
                                 .clipShape(Capsule())
                             }
                         }
@@ -186,18 +199,19 @@ public struct WMFReadingChallengeWidgetView: View {
                            let button2Icon = viewModel.displaySet.button2Icon {
                             Link(destination: button2URL) {
                                 HStack(spacing: 4) {
-                                    Image(button2Icon)
+                                    Image(uiImage: button2Icon)
                                         .resizable()
                                         .scaledToFit()
+                                        .foregroundStyle(.white)
                                         .frame(width: 14, height: 14)
                                     Text(button2Title)
                                         .font(Font(WMFFont.for(.semiboldSubheadline)))
-                                        .foregroundColor(viewModel.displaySet.color)
+                                        .foregroundColor(.white)
                                 }
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 8)
                                 .frame(maxWidth: .infinity)
-                                .background(viewModel.displaySet.color2)
+                                .background(buttonBackground)
                                 .clipShape(Capsule())
                             }
                         }
@@ -217,9 +231,99 @@ public struct WMFReadingChallengeWidgetView: View {
         }
     }
 
+    // MARK: - Medium 2 Button View
+
+    private var mediumTwoButtonView: some View {
+        ZStack {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 4) {
+                            if let flameImage = UIImage(named: "flameWarning", in: .module, with: nil) {
+                                Image(uiImage: flameImage)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 28, height: 28)
+                                    .foregroundStyle(viewModel.displaySet.color2)
+                            }
+                            Text(viewModel.displaySet.title)
+                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .foregroundColor(viewModel.displaySet.color2)
+                        }
+                        if let subtitle = viewModel.displaySet.subtitle {
+                            Text(subtitle)
+                                .font(Font(WMFFont.for(.subheadline)))
+                                .foregroundColor(viewModel.displaySet.color2)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                    if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 110)
+                            .padding(.trailing, 8)
+                    }
+                }
+
+                Spacer()
+
+                HStack(spacing: 8) {
+                    if let button1Title = viewModel.displaySet.button1Title,
+                       let button1URL = viewModel.displaySet.button1URL,
+                       let button1Icon = viewModel.displaySet.button1Icon {
+                        Link(destination: button1URL) {
+                            HStack(spacing: 4) {
+                                Image(uiImage: button1Icon)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundStyle(.white)
+                                    .frame(width: 14, height: 14)
+                                Text(button1Title)
+                                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                    .foregroundColor(.white)
+                            }
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 8)
+                            .frame(maxWidth: .infinity)
+                            .background(buttonBackground)
+                            .clipShape(Capsule())
+                        }
+                    }
+                    if let button2Title = viewModel.displaySet.button2Title,
+                       let button2URL = viewModel.displaySet.button2URL,
+                       let button2Icon = viewModel.displaySet.button2Icon {
+                        Link(destination: button2URL) {
+                            HStack(spacing: 4) {
+                                Image(uiImage: button2Icon)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundStyle(.white)
+                                    .frame(width: 14, height: 14)
+                                Text(button2Title)
+                                    .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                    .foregroundColor(.white)
+                            }
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 8)
+                            .frame(maxWidth: .infinity)
+                            .background(buttonBackground)
+                            .clipShape(Capsule())
+                        }
+                    }
+                }
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            wIconOverlay
+        }
+    }
+
     // MARK: - Medium Streak View
 
-    private var mediumStreak: some View {
+    private var mediumStreakView: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
