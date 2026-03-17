@@ -11,7 +11,9 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeAppearanceSettings,
     WMFUserActivityTypeNotificationSettings,
     WMFUserActivityTypeContent,
-    WMFUserActivityTypeLink
+    WMFUserActivityTypeLink,
+    WMFUserActivityTypeActivity,
+    WMFUserActivityTypeRandom
 };
 
 extern NSString *const WMFNavigateToActivityNotification;
@@ -25,6 +27,7 @@ extern NSString *const WMFNavigateToActivityNotification;
 
 + (instancetype)wmf_exploreViewActivity;
 + (instancetype)wmf_savedPagesViewActivity;
++ (instancetype)wmf_activityTabActivity;
 
 + (instancetype)wmf_searchViewActivity;
 + (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL *)url searchTerm:(NSString *)searchTerm;

@@ -15,6 +15,7 @@ public final class WidgetController: NSObject {
         case topRead = "org.wikimedia.wikipedia.widgets.topRead"
         case search = "org.wikimedia.wikipedia.widgets.search"
         case lockscreenSearch = "org.wikimedia.wikipedia.widgets.lockscreen-search"
+        case readingChallenge = "org.wikimedia.wikipedia.widgets.readingChallenge"
 
         public var identifier: String {
             return self.rawValue
@@ -418,25 +419,16 @@ public extension WidgetController {
         fetchFeaturedContent { result in
             switch result {
             case .success(var featuredContent):
-                if featuredContent.pictureOfTheDay?.originalImageSource?.data != nil,
-                   let pictureOfTheDay = featuredContent.pictureOfTheDay {
-                    performCompletion(result: .success(pictureOfTheDay))
-                    return
-                }
-
-                if var imageSource = featuredContent.pictureOfTheDay?.thumbnailImageSource ?? featuredContent.pictureOfTheDay?.originalImageSource {
-                    let maxWidth = Int(self.potdTargetImageSize.width)
-                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, maxWidth)
+                if var imageSource = featuredContent.pictureOfTheDay?.originalImageSource {
+                    imageSource.source = WMFChangeImageSourceURLSizePrefix(imageSource.source, Int(self.potdTargetImageSize.width))
+                    featuredContent.pictureOfTheDay?.originalImageSource = imageSource
                     fetcher.fetchImageDataFrom(imageSource: imageSource) { imageResult in
-                        if let imageData = try? imageResult.get() {
-                            imageSource.data = imageData
-                        }
-                        featuredContent.pictureOfTheDay?.originalImageSource = imageSource
+                        featuredContent.pictureOfTheDay?.originalImageSource?.data = try? imageResult.get()
                         widgetCache.featuredContent = featuredContent
                         self.sharedCache.saveCache(widgetCache)
 
-                        if let pictureOfTheDay = featuredContent.pictureOfTheDay {
-                            performCompletion(result: .success(pictureOfTheDay))
+                        if let pictureOftheDay = featuredContent.pictureOfTheDay {
+                            performCompletion(result: .success(pictureOftheDay))
                         } else {
                             performCompletion(result: .failure(.contentFailure))
                         }

@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import WidgetKit
 
 public final class WMFPage: Hashable, Equatable {
    public let namespaceID: Int
@@ -450,5 +451,102 @@ public final class WMFPageViewsDataController: @unchecked Sendable {
         }
 
         return results
+    }
+}
+
+extension WMFPageViewsDataController {
+
+    public func fetchReadingChallengeState(
+        isEnrolled: Bool,
+        now: Date = Date()
+    ) async throws -> ReadingChallengeState {
+
+        let config = ReadingChallengeStateConfig.self
+        let calendar = Calendar.current
+
+        if calendar.startOfDay(for: now) > calendar.startOfDay(for: config.removeDate) {
+            return .challengeRemoved
+        }
+
+        if calendar.startOfDay(for: now) < calendar.startOfDay(for: config.startDate) {
+            return .notLiveYet
+        }
+
+        // todo enroll
+//        guard isEnrolled else {
+//            return .notEnrolled
+//        }
+
+        let (streak, hasReadToday) = try await computeStreak(calendar: calendar, now: now)
+
+        if streak >= config.streakGoal {
+            return .challengeCompleted
+        }
+
+        if calendar.startOfDay(for: now) > calendar.startOfDay(for: config.endDate) {
+            return streak > 0
+                ? .challengeConcludedIncomplete(streak: streak)
+                : .challengeConcludedNoStreak
+        }
+
+        if streak == 0 {
+            return .enrolledNotStarted
+        }
+
+        return hasReadToday
+            ? .streakOngoingRead(streak: streak)
+            : .streakOngoingNotYetRead(streak: streak)
+    }
+
+    private func computeStreak(
+        calendar: Calendar,
+        now: Date
+    ) async throws -> (streak: Int, hasReadToday: Bool) {
+
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+            fetchRequest.propertiesToFetch = ["timestamp"]
+            let allViews = try backgroundContext.fetch(fetchRequest)
+
+            var daysWithRead = Set<DateComponents>()
+            for view in allViews {
+                guard let ts = view.timestamp else { continue }
+                let comps = calendar.dateComponents([.year, .month, .day], from: ts)
+                daysWithRead.insert(comps)
+            }
+
+            let todayStart = calendar.startOfDay(for: now)
+            let todayComps = calendar.dateComponents([.year, .month, .day], from: todayStart)
+            let hasReadToday = daysWithRead.contains(todayComps)
+
+            var streak = 0
+            var cursor = todayStart
+
+            while true {
+                let cursorComps = calendar.dateComponents([.year, .month, .day], from: cursor)
+
+                if cursor == todayStart {
+                    guard let yesterday = calendar.date(byAdding: .day, value: -1, to: cursor) else { break }
+                    cursor = yesterday
+                    continue
+                }
+
+                if daysWithRead.contains(cursorComps) {
+                    streak += 1
+                    guard let prev = calendar.date(byAdding: .day, value: -1, to: cursor) else { break }
+                    cursor = prev
+                } else {
+                    break
+                }
+            }
+
+            if hasReadToday {
+                streak += 1
+            }
+
+            return (streak, hasReadToday)
+        }
     }
 }

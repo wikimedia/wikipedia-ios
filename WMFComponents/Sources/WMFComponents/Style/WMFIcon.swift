@@ -125,6 +125,7 @@ public enum WMFSFSymbolIcon {
     case bookPages
     case map
     case squareAndArrowUp
+    case diceFill
     case circleFill
     case bellFill
     case bellSlashFill
@@ -154,6 +155,8 @@ public enum WMFSFSymbolIcon {
     case bubbleRightFill
     case globeAmericas
     case lineDiagonalArrow
+    case flameFill
+    case trophy
 
     public var name: String? {
         switch self {
@@ -372,6 +375,12 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "globe.americas.fill", withConfiguration: configuration)
         case .lineDiagonalArrow:
             image = UIImage(systemName: "line.diagonal.arrow", withConfiguration: configuration)
+        case .flameFill:
+            image = UIImage(systemName: "flame.fill", withConfiguration: configuration)
+        case .trophy:
+            image = UIImage(systemName: "trophy", withConfiguration: configuration)
+        case .diceFill:
+            image = UIImage(systemName: "dice.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

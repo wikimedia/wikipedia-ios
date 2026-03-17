@@ -1,6 +1,7 @@
 import WMF
 import WMFData
 import CocoaLumberjackSwift
+import WidgetKit
 
 extension ArticleViewController {
     
@@ -19,6 +20,7 @@ extension ArticleViewController {
                     let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, previousPageViewObjectID: previousPageViewObjectID)
                     self.pageViewObjectID = objectID
                     self.trackBeganViewingDate()
+                    WidgetCenter.shared.reloadTimelines(ofKind: "org.wikimedia.wikipedia.widgets.readingChallenge")
                 } catch let error {
                     DDLogError("Error saving viewed page: \(error)")
                 }
