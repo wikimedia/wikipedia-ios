@@ -1409,6 +1409,8 @@
 "theme-default-explanation" = "Is gelijk aan het thema van het systeem";
 "theme-light-display-name" = "Licht";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Zoek uw leesgeschiedenis in het tabblad Zoek.";
+"tip-history-in-search-title" = "Geschiedenis verplaatst naar Zoeken";
 "today-title" = "Vandaag";
 "top-read-widget-description" = "Ontdek wat de wereld tegenwoordig leest op Wikipedia.";
 "top-read-widget-readers-count" = "$1 lezers";
