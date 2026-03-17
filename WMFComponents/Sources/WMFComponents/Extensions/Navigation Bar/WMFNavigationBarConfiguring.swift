@@ -249,19 +249,25 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         if let searchButtonConfig {
             var rightBarButtonItems: [UIBarButtonItem] = []
 
-            let image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
-            let searchButton = UIBarButtonItem(image: image, style: .plain, target: searchButtonConfig.target, action: searchButtonConfig.action)
-            rightBarButtonItems.append(searchButton)
+            if let profileButtonConfig {
+                let profileImage = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
+                let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
+                profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
+                profileButton.accessibilityIdentifier = profileButtonAccessibilityID
+                rightBarButtonItems.append(profileButton)
+            }
 
             if let tabsButtonConfig {
                 let tabsImage = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: tabsImage, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+                tabsButton.accessibilityLabel = tabsButtonConfig.accessibilityLabel
+                tabsButton.accessibilityHint = tabsButtonConfig.accessibilityHint
                 rightBarButtonItems.append(tabsButton)
-
-                if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
-                    rightBarButtonItems.append(leadingBarButtonItem)
-                }
             }
+
+            let image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
+            let searchButton = UIBarButtonItem(image: image, style: .plain, target: searchButtonConfig.target, action: searchButtonConfig.action)
+            rightBarButtonItems.append(searchButton)
 
             if let leadingBarButtonItem = searchButtonConfig.leadingBarButtonItem {
                 navigationItem.leftBarButtonItem = leadingBarButtonItem
