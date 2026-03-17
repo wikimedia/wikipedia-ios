@@ -262,9 +262,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         // check if it comes from article vc
         let isPushed = (navigationController?.viewControllers.first !== self)
 
-        if isPushed {
-            title = String()
-        }
         var alignment: WMFNavigationBarTitleConfig.Alignment = (needsCenteredTitle || isPushed) ? .centerCompact : .leadingCompact
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
@@ -283,8 +280,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
+        var profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        var tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
             let leadingItem: UIBarButtonItem? = (currentEmbeddedViewController === historyViewController) ? deleteButton : nil
@@ -294,9 +291,21 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             tabsButtonConfig = nil
         }
 
+        // If in article view, except in iPad, we only keep the clear button
+        var isPushedWithoutTabsAndProfile = false
+        if isPushed && !(UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular) {
+            profileButtonConfig = nil
+            tabsButtonConfig = nil
+            isPushedWithoutTabsAndProfile = true
+        }
+
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: nil, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+
+        if isPushedWithoutTabsAndProfile && currentEmbeddedViewController === historyViewController {
+            navigationItem.rightBarButtonItems = [deleteButton]
+        }
     }
 
     @MainActor
