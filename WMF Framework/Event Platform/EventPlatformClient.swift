@@ -138,15 +138,6 @@ import WMFTestKitchen
         case appTabsInteraction = "app_tabs_interaction"
         case appActivityTab = "app_activity_tab"
         case productMetricsAppBase = "product_metrics.app_base"
-
-        var needsHasty: Bool {
-            switch self {
-            case .productMetricsAppBase:
-                return true
-            default:
-                return false
-            }
-        }
     }
     
     /**
@@ -196,19 +187,19 @@ import WMFTestKitchen
      * configurations from Meta wiki as its source of truth.
      */
     static var eventIntakeURI: URL {
+        #if DEBUG
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
         } else {
             URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
         }
-    }
-
-    private static var hastyEventIntakeURI: URL {
+        #else
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events?hasty=true")!
         } else {
             URL(string: "https://intake-analytics.wikimedia.org/v1/events?hasty=true")!
         }
+        #endif
     }
 
     /**
@@ -420,7 +411,7 @@ import WMFTestKitchen
         let group = DispatchGroup()
         for event in events {
             group.enter()
-            let url = event.stream.needsHasty ? EventPlatformClient.hastyEventIntakeURI : EventPlatformClient.eventIntakeURI
+            let url = EventPlatformClient.eventIntakeURI
             httpPost(url: url, body: event.data) { result in
                 switch result {
                 case .success:

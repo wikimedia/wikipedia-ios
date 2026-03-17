@@ -150,7 +150,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
                 logError(data)
                 self.errorAction?(CustomError.hCaptchaExpired)
             case .open:
-                authInstrument?.submitInteraction(action: "hcaptcha_open")
+                authInstrument?.submitInteraction(action: "hcaptcha_show")
             }
         }
 
