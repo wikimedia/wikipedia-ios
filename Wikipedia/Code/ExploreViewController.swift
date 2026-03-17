@@ -3,6 +3,7 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import WMFTestKitchen
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
 
@@ -1788,9 +1789,9 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
 }
 
 extension ExploreViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+    func didTapLogout(authInstrument: InstrumentImpl) {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }

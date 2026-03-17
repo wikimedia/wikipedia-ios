@@ -1,5 +1,6 @@
 import WMFData
 import WMFComponents
+import WMFTestKitchen
 
 class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
 
@@ -798,13 +799,13 @@ extension UIViewController {
         let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
             self.presentedViewController?.dismiss(animated: true) {
                 self.presenter?.wmf_showLoginViewController(theme: theme, loginDismissedCompletion: {
-                    self.presenter?.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme)
+                    self.presenter?.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: nil)
                 })
             }
         }
         let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
             self.presentedViewController?.dismiss(animated: true) {
-                self.presenter?.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme)
+                self.presenter?.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: nil)
             }
         }
         let panelVC = LoggedOutPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
@@ -911,18 +912,23 @@ extension UIViewController {
         })
     }
 
-    @objc(wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:theme:completion:)
-    func wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy keepSavedArticlesTrigger: KeepSavedArticlesTrigger, theme: Theme, completion: (() -> Swift.Void)? = nil) {
+    func wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy keepSavedArticlesTrigger: KeepSavedArticlesTrigger, theme: Theme, authInstrument: InstrumentImpl?, completion: (() -> Swift.Void)? = nil) {
         guard self.hasSavedArticles() else {
             completion?()
             return
         }
         
         let keepSavedArticlesOnDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
+            
+            authInstrument?.submitInteraction(action: "click", actionSource: "save_articles_prompt", elementId: "save")
+            
             MWKDataStore.shared().readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
         let deleteSavedArticlesFromDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
+            
+            authInstrument?.submitInteraction(action: "click", actionSource: "save_articles_prompt", elementId: "delete")
+            
             MWKDataStore.shared().readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
@@ -932,7 +938,9 @@ extension UIViewController {
         
         let panelVC = KeepSavedArticlesOnDevicePanelViewController(triggeredBy: keepSavedArticlesTrigger, showCloseButton: false, primaryButtonTapHandler: keepSavedArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: false, theme: theme)
         
-        present(panelVC, animated: true, completion: nil)
+        present(panelVC, animated: true) {
+            authInstrument?.submitInteraction(action: "impression", actionSource: "save_articles_prompt")
+        }
     }
     
     @objc func wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {

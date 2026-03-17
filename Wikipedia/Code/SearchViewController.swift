@@ -4,6 +4,7 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 import Combine
+import WMFTestKitchen
 
 class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
 
@@ -1144,14 +1145,14 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 extension SearchViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
+    func didTapLogout(authInstrument: InstrumentImpl) {
 
         guard let dataStore else {
             return
         }
 
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            dataStore.authenticationManager.logout(initiatedBy: .user)
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }
