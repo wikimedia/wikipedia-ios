@@ -254,5 +254,35 @@ public struct WMFTheme: Equatable {
         tagBackground: WMFColor.blue300,
         batchSelectionBackground: WMFColor.blue700
     )
+    
+    public enum ReadingChallengeColorSet {
+        case pink
+        case orange
+        case blue
+        // future ones go here
 
+        public var primary: Color {
+            switch self {
+            case .pink:   Color(red: 245/255, green: 235/255, blue: 242/255)
+            case .orange: Color(red: 255/255, green: 234/255, blue: 212/255)
+            case .blue:   Color(red: 182/255, green: 212/255, blue: 251/255)
+            }
+        }
+
+        public var secondary: Color {
+            switch self {
+            case .pink:   Color(red: 155/255, green: 82/255, blue: 127/255)
+            case .orange: Color(red: 169/255, green: 82/255, blue: 38/255)
+            case .blue:   Color(red: 10/255, green: 36/255, blue: 77/255)
+            }
+        }
+
+        public var tertiary: Color? {
+            switch self {
+            case .pink:   Color(red: 198/255, green: 144/255, blue: 180/255)
+            case .orange: nil
+            case .blue:   nil
+            }
+        }
+    }
 }

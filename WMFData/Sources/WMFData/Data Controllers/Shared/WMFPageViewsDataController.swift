@@ -461,7 +461,7 @@ extension WMFPageViewsDataController {
         now: Date = Date()
     ) async throws -> ReadingChallengeState {
 
-        let config = ReadingChallengeState.Config.self
+        let config = ReadingChallengeStateConfig.self
         let calendar = Calendar.current
 
         if calendar.startOfDay(for: now) > calendar.startOfDay(for: config.removeDate) {
