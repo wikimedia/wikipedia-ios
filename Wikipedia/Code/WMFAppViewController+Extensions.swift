@@ -653,6 +653,8 @@ extension WMFAppViewController {
 
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
+
+        WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
     }
 
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {

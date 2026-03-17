@@ -4,6 +4,7 @@ import WMFComponents
 import WMF
 import Combine
 import SwiftUI
+import WMFTestKitchen
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}
 
@@ -718,14 +719,14 @@ extension WMFActivityTabViewController: YearInReviewBadgeDelegate {
 }
 
 extension WMFActivityTabViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
+    func didTapLogout(authInstrument: InstrumentImpl) {
 
         guard let dataStore else {
             return
         }
 
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            dataStore.authenticationManager.logout(initiatedBy: .user)
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }
