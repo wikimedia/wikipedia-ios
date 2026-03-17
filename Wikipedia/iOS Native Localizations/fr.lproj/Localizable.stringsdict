@@ -541,11 +541,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
-			<string>%1$@ pied</string>
+			<string>%1$d pied</string>
 			<key>other</key>
-			<string>%1$@ pieds</string>
+			<string>%1$d pieds</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>

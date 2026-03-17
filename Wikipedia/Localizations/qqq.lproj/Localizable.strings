@@ -791,9 +791,9 @@
 "more-menu" = "Accessibility title for more button in toolbar.";
 "move-articles-to-reading-list" = "Title for the view in charge of moving articles to a reading list - $1 is replaced with the number of articles to move";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}";
-"nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
+"nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet.\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
-"nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
+"nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters.\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
