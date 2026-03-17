@@ -276,16 +276,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             }
             presentSurveyIfNeeded()
         }
-        
+
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
             self?.presentFullLoginFlow()
+        }
+
+        viewModel.didTapSearchTab = { [weak self] in
+            self?.navigateToSearch()
         }
     }
 
     private func presentOnboarding() {
         let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .bookPages), title: firstItemTitle, subtitle: firstItemSubtitle, fillIconBackground: false)
         let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .pencil), title: secondItemTitle, subtitle: secondItemSubtitle, fillIconBackground: false)
-        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .bookmark), title: thirdItemTitle, subtitle: thirdItemSubtitle, fillIconBackground: false)
+        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .bookmark), title: CommonStrings.historyMovedToSearchTitle, subtitle: thirdItemSubtitle, fillIconBackground: false)
         let fourthItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .lock), title: fourthItemTitle, subtitle: fourthItemSubtitle, fillIconBackground: false)
 
         let onboardingViewModel = WMFOnboardingViewModel(
@@ -300,13 +304,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
     }
-    
+
     private func presentExplore() {
         ActivityTabFunnel.shared.logExploreClick()
         navigationController?.popToRootViewController(animated: false)
-        
+
         if let tabBar = self.tabBarController {
-            tabBar.selectedIndex = 0 
+            tabBar.selectedIndex = 0
+        }
+    }
+
+    private func navigateToSearch() {
+        navigationController?.popToRootViewController(animated: false)
+        if let tabBar = self.tabBarController {
+            tabBar.selectedIndex = 4 // WMFAppTabTypeSearch
         }
     }
 
@@ -316,7 +327,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let secondItemTitle = WMFLocalizedString("activity-tab-onboarding-second-item-title", value: "Impact highlights", comment: "Title for activity tabs second item")
     private let secondItemSubtitle = WMFLocalizedString("activity-tab-onboarding-second-item-subtitle", value: "Discover insights about your contributions and the reach of the knowledge you've shared.", comment: "Activity tabs second item subtitle")
 
-    private let thirdItemTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title-updated", value: "Reading history is now in Search", comment: "Title for activity tabs third item")
     private let thirdItemSubtitle = WMFLocalizedString("activity-tab-onboarding-third-item-subtitle-updated", value: "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.", comment: "Activity tabs third item subtitle")
 
     private let fourthItemTitle = WMFLocalizedString("activity-tab-onboarding-fourth-item-title", value: "Stay in control", comment: "Title for activity tabs fourth item")
