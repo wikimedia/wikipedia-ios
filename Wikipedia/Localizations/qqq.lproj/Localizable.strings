@@ -90,6 +90,9 @@
 "activity-tab-empty-subtitle" = "Subtitle on activity tab timeline empty state.";
 "activity-tab-empty-title" = "Title on activity tab timeline empty state.";
 "activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
+"activity-tab-history-callout-body" = "Body for callout informing users that reading history has moved to the Search tab.";
+"activity-tab-history-callout-body-loggedout" = "Body for callout informing users that reading history has moved to the Search tab, no need to login.";
+"activity-tab-hitory-callout-close" = "Accesibility label for close button in callout about history moving to search";
 "activity-tab-hours-minutes-read" = "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes.";
 "activity-tab-hours-on-wikipedia-ios" = "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization";
 "activity-tab-impact-all-time-title" = "Title for activity tab module about all time editing impact";
@@ -1164,6 +1167,7 @@
 "saved-title" = "Title of the saved screen shown on the saved tab {{Identical|Saved}}";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles being unsaved.";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles to be unsaved.";
+"search-button-accessibility-hint" = "Accessibility hint for the search navigation bar button. Explains to the user what will happen upon button tap.";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-clear-title" = "Text of the button shown to clear recent search terms";
 "search-field-placeholder-text" = "Search field placeholder text";

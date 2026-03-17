@@ -4,6 +4,7 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 import Combine
+import WMFTestKitchen
 
 class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
 
@@ -59,9 +60,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
-    
+
     // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
     var populateSearchBarWithTextAction: ((String) -> Void)?
+
+    // Set to true when SearchViewController is used as an embedded searchResultsController (e.g. InsertLinkViewController).
+    // In this mode, the browsing history is never shown; only search results or recently searched terms are displayed.
+    var hidesHistory: Bool = false
 
     var customTitle: String?
     @objc var needsCenteredTitle: Bool = false
@@ -255,7 +260,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         let title = customTitle ?? CommonStrings.searchTitle
 
-        var alignment: WMFNavigationBarTitleConfig.Alignment = needsCenteredTitle ? .centerCompact : .leadingCompact
+        // check if it comes from article vc
+        let isPushed = (navigationController?.viewControllers.first !== self)
+        var alignment: WMFNavigationBarTitleConfig.Alignment = (needsCenteredTitle || isPushed) ? .centerCompact : .leadingCompact
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular && alignment == .leadingCompact {
@@ -432,21 +439,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private func updateEmbeddedContent(animated: Bool) {
         let searchController = activeSearchController
-        let text = searchController?.searchBar.text ?? ""
+        let text = searchController?.searchBar.text ?? searchTerm ?? ""
         let hasText = text.wmf_hasNonWhitespaceText
         let isSearchActive = (searchController?.isActive ?? false)
 
-        if isSearchTab {
-            if isSearchActive {
-                showLanguageBar = true
-                embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
-            } else {
-                embedInContainer(historyViewController, animated: animated)
-                showLanguageBar = false
-            }
-        } else {
+        if hidesHistory || isSearchActive {
             showLanguageBar = true
             embedInContainer(hasText ? resultsViewController : recentSearchesViewController, animated: animated)
+        } else {
+            embedInContainer(historyViewController, animated: animated)
+            showLanguageBar = false
         }
 
         updateLanguageBarVisibility()
@@ -574,7 +576,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let failure = { (error: Error, type: WMFSearchType) in
             DispatchQueue.main.async { [weak self] in
                 guard let self,
-                      searchTerm == self.navigationItem.searchController?.searchBar.text else {
+                      searchTerm == (self.navigationItem.searchController?.searchBar.text ?? self.searchTerm) else {
                     return
                 }
                 self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
@@ -652,18 +654,23 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
-                
+
                 let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
 
                 let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
                 let success = linkCoordinator.start()
 
-                if !success {
+                if success {
+                    let isPushed = customArticleCoordinatorNavigationController.viewControllers.contains(self)
+                    if isPushed {
+                        customArticleCoordinatorNavigationController.viewControllers = customArticleCoordinatorNavigationController.viewControllers.filter { $0 !== self }
+                    }
+                } else {
                     navigate(to: articleURL)
                 }
 
             } else if let navigationController {
-                
+
                 let tabConfig = self.customTabConfigUponArticleNavigation
 
                 let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
@@ -703,8 +710,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
             articleCoordinator.start()
+            let isPushed = navVC.viewControllers.first !== self
+            if isPushed {
+                navVC.viewControllers = navVC.viewControllers.filter { $0 !== self }
+            }
         }
-
         return nil
     }
 
@@ -977,8 +987,19 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         if let pop = self.populateSearchBarWithTextAction {
             pop(term.text)
         } else {
-            self.navigationItem.searchController?.searchBar.text = term.text
-            self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            self.searchTerm = term.text
+            let searchController = self.activeSearchController
+            if searchController?.isActive == false {
+                searchController?.isActive = true
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.searchTerm = term.text
+                searchController?.searchBar.text = term.text
+                searchController?.searchBar.becomeFirstResponder()
+                self.search()
+            }
+            return
         }
         self.search()
     }
@@ -1114,14 +1135,14 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 extension SearchViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
+    func didTapLogout(authInstrument: InstrumentImpl) {
 
         guard let dataStore else {
             return
         }
 
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            dataStore.authenticationManager.logout(initiatedBy: .user)
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }

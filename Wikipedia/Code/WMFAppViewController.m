@@ -1115,15 +1115,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.periodicWorkerController stop];
     [self.savedArticlesFetcher stop];
 
-    // Show  all navigation bars so that users will always see search when they re-open the app
-    NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
-    for (UINavigationController *navC in allNavControllers) {
-        UIViewController *vc = [navC visibleViewController];
-        if ([vc respondsToSelector:@selector(ensureWikipediaSearchIsShowing)]) {
-            [(id)vc ensureWikipediaSearchIsShowing];
-        }
-    }
-
     [self.dataStore.feedContentController stopContentSources];
     [self.dataStore clearMemoryCache];
 
