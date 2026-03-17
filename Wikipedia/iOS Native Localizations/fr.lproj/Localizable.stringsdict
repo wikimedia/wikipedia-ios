@@ -532,6 +532,22 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
+	<key>nearby-distance-label-feet</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d pied</string>
+			<key>other</key>
+			<string>%1$d pieds</string>
+		</dict>
+	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

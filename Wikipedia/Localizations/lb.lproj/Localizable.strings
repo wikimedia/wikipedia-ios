@@ -30,7 +30,7 @@
 "account-creation-captcha-cannot-see-image" = "Kënnt Dir d'Bild net gesinn? $1";
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
 "account-creation-captcha-request-account" = "Benotzerkont ufroen.";
-"account-creation-captcha-title" = "CAPtCHA-Sécherheets-Check";
+"account-creation-captcha-title" = "CAPTCHA-Sécherheets-Check";
 "account-creation-create-account" = "Äre Benotzerkont uleeën";
 "account-creation-have-account" = "Hutt Dir schonn e Benotzerkont? $1";
 "account-creation-log-in" = "Aloggen.";
@@ -429,7 +429,7 @@
 "field-backup-token-title" = "Backup-Code";
 "field-backup-token-title-email" = "E-Mail-Code";
 "field-captcha-placeholder" = "CAPTCHA-Text";
-"field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
+"field-captcha-title" = "Gitt den Text an, deen Dir hei driwwer gesitt";
 "field-email-placeholder" = "beispill@example.org";
 "field-email-title" = "E-Mail";
 "field-email-title-optional" = "E-Mail (Fakultativ)";
