@@ -15,6 +15,10 @@ public struct WMFReadingChallengeWidgetView: View {
         Color(uiColor: theme.link)
     }
 
+    private var buttonForeground: Color {
+        Color(uiColor: theme.paperBackground)
+    }
+
     // MARK: - Init
 
     public init(viewModel: WMFReadingChallengeWidgetViewModel) {
@@ -53,8 +57,8 @@ public struct WMFReadingChallengeWidgetView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 26)
-                    .foregroundColor(.white)
-                    .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 0)
+                    .foregroundColor(buttonForeground)
+                    .shadow(color: Color(uiColor: theme.text).opacity(0.25), radius: 4, x: 0, y: 0)
                     .padding(16)
             }
             Spacer()
@@ -131,10 +135,10 @@ public struct WMFReadingChallengeWidgetView: View {
                         HStack {
                             Image(uiImage: icon)
                                 .resizable()
-                                .foregroundStyle(.white)
+                                .foregroundStyle(buttonForeground)
                             Text(button1Title)
                                 .font(Font(WMFFont.for(.semiboldSubheadline)))
-                                .foregroundColor(.white)
+                                .foregroundColor(buttonForeground)
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
@@ -181,11 +185,11 @@ public struct WMFReadingChallengeWidgetView: View {
                                     Image(uiImage: button1Icon)
                                         .resizable()
                                         .scaledToFit()
-                                        .foregroundStyle(.white)
+                                        .foregroundStyle(buttonForeground)
                                         .frame(width: 14, height: 14)
                                     Text(button1Title)
                                         .font(Font(WMFFont.for(.semiboldSubheadline)))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(buttonForeground)
                                 }
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 8)
@@ -202,11 +206,11 @@ public struct WMFReadingChallengeWidgetView: View {
                                     Image(uiImage: button2Icon)
                                         .resizable()
                                         .scaledToFit()
-                                        .foregroundStyle(.white)
+                                        .foregroundStyle(buttonForeground)
                                         .frame(width: 14, height: 14)
                                     Text(button2Title)
                                         .font(Font(WMFFont.for(.semiboldSubheadline)))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(buttonForeground)
                                 }
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 8)
@@ -279,11 +283,11 @@ public struct WMFReadingChallengeWidgetView: View {
                                 Image(uiImage: button1Icon)
                                     .resizable()
                                     .scaledToFit()
-                                    .foregroundStyle(.white)
+                                    .foregroundStyle(buttonForeground)
                                     .frame(width: 14, height: 14)
                                 Text(button1Title)
                                     .font(Font(WMFFont.for(.semiboldSubheadline)))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(buttonForeground)
                             }
                             .padding(.horizontal, 14)
                             .padding(.vertical, 8)
@@ -300,11 +304,11 @@ public struct WMFReadingChallengeWidgetView: View {
                                 Image(uiImage: button2Icon)
                                     .resizable()
                                     .scaledToFit()
-                                    .foregroundStyle(.white)
+                                    .foregroundStyle(buttonForeground)
                                     .frame(width: 14, height: 14)
                                 Text(button2Title)
                                     .font(Font(WMFFont.for(.semiboldSubheadline)))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(buttonForeground)
                             }
                             .padding(.horizontal, 14)
                             .padding(.vertical, 8)
@@ -404,7 +408,7 @@ public struct WMFReadingChallengeWidgetView: View {
                 let thumbOffset = progress * trackWidth - 9.5
                 ZStack(alignment: .leading) {
                     Capsule()
-                        .fill(Color.white)
+                        .fill(buttonForeground)
                         .frame(height: 8)
                         .frame(maxWidth: .infinity)
                     Capsule()
