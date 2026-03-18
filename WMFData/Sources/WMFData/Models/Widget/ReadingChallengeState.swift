@@ -14,7 +14,7 @@ public enum ReadingChallengeState: Equatable {
 
 public enum ReadingChallengeStateConfig {
     public static var startDate: Date {
-        DateComponents(calendar: .current, year: 2026, month: 3, day: 1).date
+        DateComponents(calendar: .current, year: 2026, month: 5, day: 1).date
             ?? Date(timeIntervalSince1970: 1746057600) // 2026-05-01 UTC fallback
     }
     public static var endDate: Date {
