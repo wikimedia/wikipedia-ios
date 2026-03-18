@@ -74,16 +74,16 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: Color(red: 255/255, green: 234/255, blue: 212/255),
             color2: Color(red: 169/255, green: 82/255, blue: 38/255),
-            color3: nil,
+            color3: Color(red: 198/255, green: 144/255, blue: 180/255),
             image: "sleepyglobe",
             title: "\(streak) day\(streak == 1 ? "" : "s")",
-            subtitle: "Don't let today drift by, save your streak.",
             button1Title: showButtons ? "Search" : nil,
             button2Title: showButtons ? "Random" : nil,
             button1URL: showButtons ? URL(string: "wikipedia://search") : nil,
             button2URL: showButtons ? URL(string: "wikipedia://random") : nil,
-            button1Icon: showButtons ? WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .semiboldSubheadline) : nil,
-            button2Icon: showButtons ? WMFSFSymbolIcon.for(symbol: .diceFill, font: .semiboldSubheadline) : nil
+            button1Icon: showButtons ? "search" : nil,
+            button2Icon: showButtons ? "dice" : nil,
+            icon: UIImage(named: "flameWarning")
         )
     }
 
@@ -122,8 +122,8 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         button2Title: "Random",
         button1URL: URL(string: "wikipedia://search"),
         button2URL: URL(string: "wikipedia://random"),
-        button1Icon: nil,
-        button2Icon: nil
+        button1Icon: "search",
+        button2Icon: "dice"
     )
 
     static func make(
