@@ -499,8 +499,10 @@
 "more-menu" = "Mine";
 "move-articles-to-reading-list" = "Gaa {{PLURAL:$1|$1 article|$1 articles}} a kannoo gama poɔ";
 "navbar-title-mode-edit-wikitext-preview" = "Leɛ kaa";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 gbɛre";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-title" = "Maale fo gu-bie";

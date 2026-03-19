@@ -617,8 +617,10 @@
 "more-menu" = "Selengkapnya";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "navbar-title-mode-edit-wikitext-preview" = "Pratayang";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-instructions" = "Anda masuk log dengan kata sandi sementara. Untuk menyelesaikan masuk log atur kata sandi baru di sini.";

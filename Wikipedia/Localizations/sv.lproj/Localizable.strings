@@ -803,8 +803,10 @@
 "more-menu" = "Mer";
 "move-articles-to-reading-list" = "Flytta {{PLURAL:$1|$1 artikel|$1 artiklar}} till läslista";
 "navbar-title-mode-edit-wikitext-preview" = "Förhandsgranska";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fot";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 engelska mil";
 "new-password-instructions" = "Du loggade in med ett temporärt lösenord. För att slutföra inloggningen måste du ange ett nytt lösenord här:";

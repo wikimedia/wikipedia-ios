@@ -104,6 +104,9 @@
 "activity-tab-empty-subtitle" = "Почнете да читате и уредувате за да ја изградите вашата историја";
 "activity-tab-empty-title" = "Нема што да се прикаже";
 "activity-tab-generic-no-edits" = "Немате уредувано неделава. Почнете сега за да ги следите вашите придонеси.";
+"activity-tab-history-callout-body" = "Прелистувајте или исчистете ја вашата историја на читање во **Јазичето за пребарување**.";
+"activity-tab-history-callout-body-loggedout" = "Прелистувајте или исчистете ја вашата историја на читање во **Јазичето за пребарување**. Не ви треба сметка.";
+"activity-tab-hitory-callout-close" = "Затвори картичка со известување за историја";
 "activity-tab-hours-minutes-read" = "$1 ч. $2 м.";
 "activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈА iOS";
 "activity-tab-impact-all-time-title" = "Севкупно влијание";
@@ -805,8 +808,10 @@
 "more-menu" = "Повеќе";
 "move-articles-to-reading-list" = "Преместување на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 стапки";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 милји";
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
@@ -1178,6 +1183,7 @@
 "saved-title" = "Зачувано";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Со одзачувувањето, {{PLURAL:$1|статијава ќе биде отстранета|статииве ќе бидат отстранети}} од сите поврзани списоци за читање";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Да {{PLURAL:$1|ја одзачувам статијата|ги одзачувам статиите}}?";
+"search-button-accessibility-hint" = "Преоѓа на погледот за пребарување.";
 "search-button-accessibility-label" = "Пребарај ја Википедија";
 "search-clear-title" = "Исчисти";
 "search-field-placeholder-text" = "Пребарај ја Википедија";

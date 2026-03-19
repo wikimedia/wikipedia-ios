@@ -119,8 +119,10 @@
 "main-menu-zero-faq" = "FAQ de Wikipèdia Zèro";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 article|$1 articles}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pès";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-title" = "Definir vòstre senhal";

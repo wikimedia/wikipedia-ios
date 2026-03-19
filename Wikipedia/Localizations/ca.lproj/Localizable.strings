@@ -562,8 +562,10 @@
 "more-menu" = "Més";
 "move-articles-to-reading-list" = "Mou {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualitza";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 peus";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milles";
 "new-password-instructions" = "Heu iniciat una sessió amb una contrasenya temporal. Per a finalitzar la sessió definiu una altra contrasenya aquí.";

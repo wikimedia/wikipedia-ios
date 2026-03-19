@@ -541,8 +541,10 @@
 "more-menu" = "Több";
 "move-articles-to-reading-list" = "{{PLURAL:$1|egy szócikk|$1 szócikk}} hozzáadása az olvasólistához";
 "navbar-title-mode-edit-wikitext-preview" = "Előnézet";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 láb";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mérföld";
 "new-password-instructions" = "Ideiglenes jelszóval jelentkeztél be. A bejelentkezés befejezéséhez állíts be itt egy új jelszót.";

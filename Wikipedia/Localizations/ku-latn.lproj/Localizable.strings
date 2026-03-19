@@ -52,8 +52,10 @@
 "main-menu-terms-of-use" = "Mercên Bikaranînê";
 "main-menu-title" = "Bêhtir";
 "navbar-title-mode-edit-wikitext-preview" = "Pêşdîtin";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fît";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$ m";
 "nearby-distance-label-miles" = "$1 mîl";
 "notifications-center-swipe-more" = "Bêhtir";

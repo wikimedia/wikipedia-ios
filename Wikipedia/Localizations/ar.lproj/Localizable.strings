@@ -831,8 +831,10 @@
 "more-menu" = "المزيد";
 "move-articles-to-reading-list" = "نقل {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 قدم";
 "nearby-distance-label-km" = "$1 كيلومتر";
+// Fuzzy
 "nearby-distance-label-meters" = " $1 م";
 "nearby-distance-label-miles" = "$1 ميل";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";

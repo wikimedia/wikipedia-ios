@@ -796,8 +796,10 @@
 "more-menu" = "Plus";
 "move-articles-to-reading-list" = "Displaciar $1 articulo{{PLURAL:$1||s}} al lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualisation";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pedes";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millias";
 "new-password-instructions" = "Tu ha aperite session con un contrasigno temporari.\nPro completar le accesso, defini un nove contrasigno hic.";

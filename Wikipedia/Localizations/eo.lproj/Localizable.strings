@@ -399,8 +399,10 @@
 "more-languages-tooltip-title" = "Aldoni lingvojn";
 "move-articles-to-reading-list" = "Movi {{PLURAL:$1|$1 artikolon|$1 artikolojn}} al legolisto";
 "navbar-title-mode-edit-wikitext-preview" = "Antaŭrigardi";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 futoj";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mejloj";
 "new-password-instructions" = "Vi ensalutis per provizora pasvorto. Por fini vian ensalutadon, agordu novan pasvorton ĉi tie.";

@@ -625,8 +625,10 @@
 "more-menu" = "เพิ่มเติม";
 "move-articles-to-reading-list" = "ย้าย {{PLURAL:$1|$1 บทความ}} ลงในรายการอ่าน";
 "navbar-title-mode-edit-wikitext-preview" = "แสดงตัวอย่าง";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ฟุต";
 "nearby-distance-label-km" = "$1 กม.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 ม.";
 "nearby-distance-label-miles" = "$1 ไมล์";
 "new-password-instructions" = "คุณเข้าสู่ระบบด้วยรหัสผ่านชั่วคราว คุณต้องตั้งรหัสผ่านใหม่ที่นี่เพื่อให้การเข้าสู่ระบบเสร็จสมบูรณ์";
