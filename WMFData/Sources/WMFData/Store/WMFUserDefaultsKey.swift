@@ -38,4 +38,5 @@ public enum WMFUserDefaultsKey: String {
     case showSearchLanguageBar = "show-search-language-bar"
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
+    case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
 }

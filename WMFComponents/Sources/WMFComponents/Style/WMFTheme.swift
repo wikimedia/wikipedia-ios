@@ -254,54 +254,56 @@ public struct WMFTheme: Equatable {
         tagBackground: WMFColor.blue300,
         batchSelectionBackground: WMFColor.blue700
     )
-    
-    // Reading Challenge semantic colors (UIKit), bridged to SwiftUI in ReadingChallengeColorSet
-    private static let readingChallengePinkPrimary = UIColor(red: 245.0/255.0, green: 235.0/255.0, blue: 242.0/255.0, alpha: 1.0)
-    private static let readingChallengeOrangePrimary = UIColor(red: 255.0/255.0, green: 234.0/255.0, blue: 212.0/255.0, alpha: 1.0)
-    private static let readingChallengeBluePrimary = UIColor(red: 182.0/255.0, green: 212.0/255.0, blue: 251.0/255.0, alpha: 1.0)
-    
-    private static let readingChallengePinkSecondary = UIColor(red: 155.0/255.0, green: 82.0/255.0, blue: 127.0/255.0, alpha: 1.0)
-    private static let readingChallengeOrangeSecondary = UIColor(red: 169.0/255.0, green: 82.0/255.0, blue: 38.0/255.0, alpha: 1.0)
-    private static let readingChallengeBlueSecondary = UIColor(red: 10.0/255.0, green: 36.0/255.0, blue: 77.0/255.0, alpha: 1.0)
-    
-    private static let readingChallengePinkTertiary = UIColor(red: 198.0/255.0, green: 144.0/255.0, blue: 180.0/255.0, alpha: 1.0)
-    
+
+    // MARK: - Reading Challenge Semantic Colors (UIKit backing)
+
+    private static let readingChallengePinkPrimary     = UIColor(red: 245/255, green: 235/255, blue: 242/255, alpha: 1)
+    private static let readingChallengeOrangePrimary   = UIColor(red: 255/255, green: 234/255, blue: 212/255, alpha: 1)
+    private static let readingChallengeBluePrimary     = UIColor(red: 182/255, green: 212/255, blue: 251/255, alpha: 1)
+
+    private static let readingChallengePinkSecondary   = UIColor(red: 155/255, green:  82/255, blue: 127/255, alpha: 1)
+    private static let readingChallengeOrangeSecondary = UIColor(red: 169/255, green:  82/255, blue:  38/255, alpha: 1)
+    private static let readingChallengeBlueSecondary   = UIColor(red:  10/255, green:  36/255, blue:  77/255, alpha: 1)
+
+    private static let readingChallengePinkTertiary    = UIColor(red: 198/255, green: 144/255, blue: 180/255, alpha: 1)
+
+    private static let readingChallengeNotEnrolledBase = UIColor(red: 182/255, green: 212/255, blue: 251/255, alpha: 1)
+
+    // MARK: - ReadingChallengeColorSet
+
     public enum ReadingChallengeColorSet {
         case pink
         case orange
         case blue
-        // future ones go here
+        case notEnrolled
 
+        /// Flat background color — used as a fallback when no gradient is defined.
         public var primary: Color {
             switch self {
-            case .pink:
-                return Color(uiColor: WMFTheme.readingChallengePinkPrimary)
-            case .orange:
-                return Color(uiColor: WMFTheme.readingChallengeOrangePrimary)
-            case .blue:
-                return Color(uiColor: WMFTheme.readingChallengeBluePrimary)
+            case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkPrimary)
+            case .orange:      return Color(uiColor: WMFTheme.readingChallengeOrangePrimary)
+            case .blue:        return Color(uiColor: WMFTheme.readingChallengeBluePrimary)
+            case .notEnrolled: return Color(uiColor: WMFTheme.readingChallengeNotEnrolledBase)
             }
         }
 
+        /// Foreground color for text and icons.
         public var secondary: Color {
             switch self {
-            case .pink:
-                return Color(uiColor: WMFTheme.readingChallengePinkSecondary)
-            case .orange:
-                return Color(uiColor: WMFTheme.readingChallengeOrangeSecondary)
-            case .blue:
-                return Color(uiColor: WMFTheme.readingChallengeBlueSecondary)
+            case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkSecondary)
+            case .orange:      return Color(uiColor: WMFTheme.readingChallengeOrangeSecondary)
+            case .blue:        return Color(uiColor: WMFTheme.readingChallengeBlueSecondary)
+            case .notEnrolled: return Color(uiColor: WMFColor.black)
             }
         }
 
+        /// Optional progress-bar fill color.
         public var tertiary: Color? {
             switch self {
-            case .pink:
-                return Color(uiColor: WMFTheme.readingChallengePinkTertiary)
-            case .orange:
-                return nil
-            case .blue:
-                return nil
+            case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkTertiary)
+            case .orange:      return nil
+            case .blue:        return nil
+            case .notEnrolled: return nil
             }
         }
     }

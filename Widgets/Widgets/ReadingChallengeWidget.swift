@@ -24,7 +24,6 @@ struct ReadingChallengeProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<ReadingChallengeEntry>) -> Void) {
-
         Task {
             let state = await resolvedState()
 
@@ -41,19 +40,19 @@ struct ReadingChallengeProvider: TimelineProvider {
 
     private func resolvedState() async -> ReadingChallengeState {
         do {
-            // Set up the shared app group container URL so WMFCoreDataStore can locate the database
             let appContainerURL = FileManager.default.wmf_containerURL()
             WMFDataEnvironment.current.appContainerURL = appContainerURL
 
             let coreDataStore = try await WMFCoreDataStore(appContainerURL: appContainerURL)
             let controller = try WMFPageViewsDataController(coreDataStore: coreDataStore)
-            let isEnrolled = true // UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: "readingChallengeEnrolled") ?? false
+            let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
             return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
         } catch {
             return .notEnrolled
         }
     }
 }
+
 // MARK: - Display Sets
 
 private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
@@ -117,20 +116,34 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             )
         )
     }
-
-    static let notEnrolledSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
-        color: .blue,
-        color2: .gray,
-        image: "globe1",
-        title: WMFLocalizedString("reading-challenge-not-enrolled-title", value: "Not enrolled", comment: "Title shown on the reading challenge widget when the user is not enrolled in the challenge."),
-        button1Title: WMFLocalizedString("reading-challenge-search-button", value: "Search", comment: "Title for the Search button on the reading challenge widget."),
-        button2Title: WMFLocalizedString("reading-challenge-random-button", value: "Random", comment: "Title for the Random article button on the reading challenge widget."),
-        button1URL: URL(string: "wikipedia://search"),
-        button2URL: URL(string: "wikipedia://random"),
-        button1Icon: nil,
-        button2Icon: nil
-    )
     
+    static func notEnrolledSet(family: WidgetFamily) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+        WMFReadingChallengeWidgetViewModel.DisplaySet(
+            color: WMFTheme.ReadingChallengeColorSet.notEnrolled.primary,
+            color2: WMFTheme.ReadingChallengeColorSet.notEnrolled.secondary,
+            color3: WMFTheme.ReadingChallengeColorSet.notEnrolled.tertiary,
+            image: "readingGlobe",
+            title: WMFLocalizedString(
+                "reading-challenge-not-enrolled-title",
+                value: "Ready, set, read!",
+                comment: "Title shown on the reading challenge widget when the user is not enrolled in the challenge."
+            ),
+            subtitle: WMFLocalizedString(
+                "reading-challenge-not-enrolled-subtitle",
+                value: "Join the 25-day challenge and unlock special prizes.",
+                comment: "Subtitle shown on the reading challenge widget when the user is not enrolled in the challenge."
+            ),
+            button1Title: family == .systemSmall
+                ? WMFLocalizedString("reading-challenge-join-button-small", value: "Join challenge", comment: "Button title on small widget.")
+                : WMFLocalizedString("reading-challenge-join-button-medium", value: "Join the challenge", comment: "Button title on medium widget."),
+            button2Title: nil,
+            button1URL: URL(string: "wikipedia://activity"),
+            button2URL: nil,
+            button1Icon: nil,
+            button2Icon: nil
+        )
+    }
+
     static let noStreakSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
         color: .gray,
         color2: .gray,
@@ -154,7 +167,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         case .challengeConcludedNoStreak:
             return noStreakSet
         case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
-            return notEnrolledSet
+            return notEnrolledSet(family: family)
         }
     }
 }

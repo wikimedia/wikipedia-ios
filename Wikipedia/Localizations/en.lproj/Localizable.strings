@@ -1036,7 +1036,10 @@
 "project-name-wiktionary" = "Wiktionary";
 "reading-challenge-collect-prize-button" = "Collect prize";
 "reading-challenge-completed-title" = "25 of 25";
-"reading-challenge-not-enrolled-title" = "Not enrolled";
+"reading-challenge-join-button-medium" = "Join the challenge";
+"reading-challenge-join-button-small" = "Join challenge";
+"reading-challenge-not-enrolled-subtitle" = "Join the 25-day challenge and unlock special prizes.";
+"reading-challenge-not-enrolled-title" = "Ready, set, read!";
 "reading-challenge-not-yet-read-subtitle" = "Don't let today drift by, save your streak.";
 "reading-challenge-random-button" = "Random";
 "reading-challenge-search-button" = "Search";
