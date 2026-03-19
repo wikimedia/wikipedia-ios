@@ -43,8 +43,10 @@
 "main-menu-title" = "Meira";
 "main-menu-zero-faq" = "Wikipedia Zero Ofta settir spurningar";
 "navbar-title-mode-edit-wikitext-preview" = "Undansýning";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 føtur";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 amerikonsk miles";
 // Fuzzy

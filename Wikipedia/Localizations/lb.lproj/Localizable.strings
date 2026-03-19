@@ -574,8 +574,9 @@
 "more-menu" = "Méi";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 Artikel|$1 Artikelen}} op d'Lieslëscht réckelen";
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
-"nearby-distance-label-feet" = "$1 Féiss";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 Fouss}}";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";

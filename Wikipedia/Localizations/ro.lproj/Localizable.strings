@@ -476,8 +476,10 @@
 "more-menu" = "Mai mult";
 "move-articles-to-reading-list" = "Mută {{PLURAL:$1|$1 articol|$1 articole}} la lista de citit";
 "navbar-title-mode-edit-wikitext-preview" = "Previzualizare";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 picioare";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 metri";
 "nearby-distance-label-miles" = "$1 mile";
 "new-password-instructions" = "Sunteți autentificat cu o parolă temporară. Pentru a termina autentificarea, setați o parolă nouă aici.";

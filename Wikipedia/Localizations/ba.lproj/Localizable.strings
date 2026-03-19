@@ -480,8 +480,10 @@
 "more-menu" = "Күберәк";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 мәҡәләне}} уҡыу исемлегенә күсерергә";
 "navbar-title-mode-edit-wikitext-preview" = "Ҡарап сығырға";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-instructions" = "Һеҙ системаға ваҡытлыса серһүҙ менән индегеҙ. Системаға инеүҙе тамамлау өсөн яңы серһүҙ яҙығыҙ.";

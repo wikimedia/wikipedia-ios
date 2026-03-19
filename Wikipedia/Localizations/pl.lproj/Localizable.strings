@@ -497,8 +497,10 @@
 "more-menu" = "Więcej";
 "move-articles-to-reading-list" = "Przenieś {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 stopy";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mile";
 "new-password-instructions" = "Zalogowałeś się z użyciem hasła tymczasowego. Aby dokończyć logowanie ustal nowe hasło";

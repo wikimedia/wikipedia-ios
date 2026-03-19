@@ -819,8 +819,9 @@
 "more-menu" = "Більше";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
-"nearby-distance-label-feet" = "$1 фут";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 фут|$1 фути|$1 футів}}";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миль";
 "new-password-instructions" = "Ви увійшли до системи за допомогою тимчасового пароля. Аби завершити вхід, встановіть новий пароль тут.";

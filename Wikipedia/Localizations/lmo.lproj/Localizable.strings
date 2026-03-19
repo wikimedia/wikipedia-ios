@@ -398,8 +398,10 @@
 "more-languages-tooltip-title" = "Sgionta lengue";
 "move-articles-to-reading-list" = "Sposta $1 {{PLURAL:$1|vos}} a la lista de letura";
 "navbar-title-mode-edit-wikitext-preview" = "Anticipazzion";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pee";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mia";
 "new-password-instructions" = "Te see andad denter cont ona parolla ciav temporanea. Per finì de andà dent imposta ona parolla ciav noeuva chichinscì.";

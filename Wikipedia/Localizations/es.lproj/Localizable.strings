@@ -818,8 +818,10 @@
 "more-menu" = "Más";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-instructions" = "Has iniciado sesión con una contraseña temporal. Para terminar de iniciar sesión, debes establecer una contraseña nueva aquí.";

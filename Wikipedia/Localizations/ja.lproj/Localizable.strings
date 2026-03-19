@@ -598,8 +598,10 @@
 "more-menu" = "もっと見る";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに移動";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 フィート";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 マイル";
 "new-password-instructions" = "一時的なパスワードでログインしています。ログインを完了するには、新しいパスワードをここで設定してください:";

@@ -326,6 +326,7 @@
 "more-languages-tooltip-title" = "Добавяне на езици";
 "navbar-title-mode-edit-wikitext-preview" = "Предварителен преглед";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "new-password-title" = "Въведете паролата си";
 "no-internet-connection" = "Не сте свързани с интернет";

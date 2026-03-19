@@ -86,8 +86,10 @@
 "image-gallery-unknown-owner" = "Di-kilalang tagapatnugot";
 "in-the-news-sub-title-from-language-wikipedia" = "Mula sa Wikipediang $1";
 "languages-title" = "Baguhin ang wika";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 talampakan";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milya";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 mula sa Wikipediang $2";

@@ -357,8 +357,10 @@
 "main-menu-title" = "نور";
 "main-page" = "لومړی مخ";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 گام";
 "nearby-distance-label-km" = "$1 کیلومتر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 ميله";
 "open-in-tab-tooltip-title" = "په نوې ريښکه کې پرانيستل";

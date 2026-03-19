@@ -140,6 +140,8 @@
 "activity-tab-empty-subtitle" = "Comece a ler e editar para construir seu histórico";
 "activity-tab-empty-title" = "Nada para mostrar";
 "activity-tab-generic-no-edits" = "Você não editou esta semana. Comece agora a acompanhar suas contribuições.";
+"activity-tab-history-callout-body" = "Navegue ou limpe seu histórico de leitura na **guia Pesquisar**.";
+"activity-tab-history-callout-body-loggedout" = "Encontre e limpe seu histórico de leitura na **guia Pesquisar**. Nenhuma conta necessária.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "NA WIKIPÉDIA iOS";
 "activity-tab-impact-all-time-title" = "Impacto de todos os tempos";
@@ -840,8 +842,10 @@
 "more-menu" = "Mais";
 "move-articles-to-reading-list" = "Mover $1 {{PLURAL:$1|artigo|artigos}} para a lista de leitura";
 "navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pés";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milhas";
 "new-password-instructions" = "Você efetuou login com uma senha temporária. Para concluir o login, defina uma nova senha aqui.";
@@ -1404,6 +1408,8 @@
 "theme-default-explanation" = "Corresponde ao tema do sistema";
 "theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sépia";
+"tip-history-in-search-subtitle" = "Encontre seu histórico de leitura na guia Pesquisar.";
+"tip-history-in-search-title" = "Histórico movido para Pesquisar";
 "today-title" = "Hoje";
 "top-read-widget-description" = "Saiba o que o mundo está lendo hoje na Wikipédia.";
 "top-read-widget-readers-count" = "$1 leitores";

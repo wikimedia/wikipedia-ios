@@ -660,6 +660,7 @@
 "move-articles-to-reading-list" = "Sirdde {{PLURAL:$1|$1 artihkkala|$1 artihkkaliid}} lohkanlistui";
 "navbar-title-mode-edit-wikitext-preview" = "Ovdačájáhus";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 amerihkálaš miles";
 "new-password-instructions" = "Don čálihuvvojit sisa gaskaboddosaš beassansániin. Don fertet dás ráhkadit ođđa beassansáni vai sáhtát registrerehit iežat.";

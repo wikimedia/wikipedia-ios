@@ -520,8 +520,10 @@
 "more-menu" = "Viac";
 "move-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články|$1 článkov}} do zoznamu na prečítanie";
 "navbar-title-mode-edit-wikitext-preview" = "Náhľad";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 stopy (stôp)";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 míľ";
 "new-password-instructions" = "Ste prihlásení s dočasným heslom. Ak chcete dokončiť prihlásenie, nastavte si tu nové heslo.";

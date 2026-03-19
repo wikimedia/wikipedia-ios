@@ -85,8 +85,10 @@
 "main-menu-title" = "Болей";
 "main-menu-zero-faq" = "Частыя пытаньні па Вікіпэдыя Zero";
 "navbar-title-mode-edit-wikitext-preview" = "Папярэдні прагляд";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фт";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 міл";
 "notifications-center-type-title-email-from-other-user" = "Э-ліст ад іншага карыстальніка";

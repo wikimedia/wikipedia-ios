@@ -671,8 +671,10 @@
 "more-menu" = "Lisää";
 "move-articles-to-reading-list" = "Siirrä {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "navbar-title-mode-edit-wikitext-preview" = "Esikatselu";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 jalkaa";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 metriä";
 "nearby-distance-label-miles" = "$1 mailia";
 "new-password-instructions" = "Olet kirjautunut sisään väliaikaisella salasanalla. Viimeistelläksi kirjautumisen aseta uusi salasana tässä.";

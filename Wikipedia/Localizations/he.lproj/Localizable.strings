@@ -763,8 +763,10 @@
 "more-menu" = "עוד";
 "move-articles-to-reading-list" = "העברת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
 "navbar-title-mode-edit-wikitext-preview" = "תצוגה מקדימה";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 רגל";
 "nearby-distance-label-km" = "$1 ק״מ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 מטרים";
 "nearby-distance-label-miles" = "$1 מיל";
 "new-password-instructions" = "נכנסת עם סיסמה זמנית. כדי לסיים את הכניסה יש להגדיר כאן סיסמה חדשה.";

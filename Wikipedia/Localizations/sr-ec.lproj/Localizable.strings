@@ -660,8 +660,9 @@
 "more-menu" = "Више";
 "move-articles-to-reading-list" = "Премести {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
-"nearby-distance-label-feet" = "$1 стопа";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 стопа}}";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миља";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";

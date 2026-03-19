@@ -784,8 +784,10 @@
 "more-menu" = "Ещё";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут.";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
