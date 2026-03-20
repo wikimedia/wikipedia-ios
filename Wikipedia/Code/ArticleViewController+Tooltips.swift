@@ -63,26 +63,8 @@ extension ArticleViewController {
 
         guard let articleSourceRect = computeApproximateTextSourceRect() else { return }
 
-        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect) { [weak self] in
-            guard let self else { return }
-            if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
-                ArticleTabsFunnel.shared.logTabTooltipImpression(project: project)
-            }
-            dataController.hasPresentedTooltips = true
-        }
 
-        let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) { [weak self] in
-            guard let self else { return }
-            if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
-                // logging icon impression here so it's only sent once
-                ArticleTabsFunnel.shared.logTabIconFirstImpression(project: project)
-            }
-            dataController.hasPresentedTooltips = true
-        }
-
-        if !dataController.hasPresentedTooltips {
-            tooltipViewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
-        } else if shouldShowWIconPopover {
+        if !dataController.hasPresentedTooltips  && shouldShowWIconPopover {
             tooltipViewModels = [wIconVM]
         }
 
@@ -106,42 +88,6 @@ extension ArticleViewController {
         )
         return WMFTooltipViewModel.LocalizedStrings(
             title: title, body: body,
-            buttonTitle: CommonStrings.gotItButtonTitle
-        )
-    }
-
-    private func makeOpenInTabStrings() -> WMFTooltipViewModel.LocalizedStrings {
-        let title = WMFLocalizedString(
-            "open-in-tab-tooltip-title",
-            value: "Open in new tab",
-            comment: "Title for tooltip explaining the open in new tab functionality"
-        )
-        let body = WMFLocalizedString(
-            "open-in-tab-tooltip-body",
-            value: "Long-press an article title or blue link to open it in a new tab.",
-            comment: "Description for tooltip explaining the open in new tab functionality"
-        )
-        return WMFTooltipViewModel.LocalizedStrings(
-            title: title,
-            body: body,
-            buttonTitle: CommonStrings.gotItButtonTitle
-        )
-    }
-
-    private func makeTabsOverviewStrings() -> WMFTooltipViewModel.LocalizedStrings {
-        let title = WMFLocalizedString(
-            "tabs-overview-tooltip-title",
-            value: "Tabs overview",
-            comment: "Title for tooltip explaining the tabs overview functionality"
-        )
-        let body = WMFLocalizedString(
-            "tabs-overview-tooltip-body",
-            value: "Switch between open articles in the tabs overview.",
-            comment: "Description for tooltip explaining the tabs overview functionality"
-        )
-        return WMFTooltipViewModel.LocalizedStrings(
-            title: title,
-            body: body,
             buttonTitle: CommonStrings.gotItButtonTitle
         )
     }
