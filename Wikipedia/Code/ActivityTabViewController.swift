@@ -303,6 +303,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 ActivityTabFunnel.shared.logOnboardingDidAppear()
                 await dataController.setHasSeenActivityTab(true)
             } else {
+                presentReadingChallengeAnnouncementIfNeeded()
                 presentSurveyIfNeeded()
             }
             presentSurveyIfNeeded()
@@ -311,6 +312,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
             self?.presentFullLoginFlow()
         }
+    }
+
+    private func presentReadingChallengeAnnouncementIfNeeded() {
+        let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent ?? false
+        guard dataController.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn) else { return }
+        guard let navigationController else { return }
+        let coordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore ?? MWKDataStore.shared(), theme: theme)
+        _ = coordinator.start()
     }
 
     private func presentOnboarding() {

@@ -201,6 +201,28 @@ public actor WMFActivityTabDataController {
         }
     }
     
+    public var hasEnrolledInReadingChallenge2026: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue, value: newValue) }
+    }
+
+    public var hasSeenFullPageReadingChallengeAnnouncement2026: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue, value: newValue) }
+    }
+
+    public var hasSeenWidgetReadingChallengeAnnouncement2026: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue, value: newValue) }
+    }
+
+    public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
+        guard isLoggedIn else { return false }
+       // guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+        let now = Date()
+        return true // now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
+    }
+
     public func incrementActivityTabVisitCount() {
         let visitCount = self.activityTabVisitCount + 1
         self.activityTabVisitCount = visitCount

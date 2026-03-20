@@ -1034,6 +1034,9 @@
 "project-name-wikiversity" = "Wikiversity";
 "project-name-wikivoyage" = "Wikivoyage";
 "project-name-wiktionary" = "Wiktionary";
+"reading-challenge-announcement-body" = "Read articles every day and build a 25-day streak. Start your challenge today!";
+"reading-challenge-announcement-cta" = "Learn more";
+"reading-challenge-announcement-title" = "Reading Challenge 2026";
 "reading-challenge-collect-prize-button" = "Collect prize";
 "reading-challenge-completed-title" = "25 of 25";
 "reading-challenge-join-button-medium" = "Join the challenge";

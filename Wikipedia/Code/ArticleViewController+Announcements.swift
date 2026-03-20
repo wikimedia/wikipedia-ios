@@ -154,6 +154,17 @@ extension ArticleViewController {
         }
     }
 
+    func needsReadingChallengeAnnouncement() -> Bool {
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        return WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
+    }
+
+    func presentReadingChallengeAnnouncement() {
+        guard let navigationController else { return }
+        let coordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        coordinator.start()
+    }
+
     func needsYearInReviewAnnouncement() -> Bool {
 
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {

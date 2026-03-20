@@ -1033,6 +1033,11 @@ extension ExploreViewController {
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     fileprivate func presentModalsIfNeeded() {
 
+        if needsReadingChallengeAnnouncement() {
+            presentReadingChallengeAnnouncement()
+            return
+        }
+
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
@@ -1041,6 +1046,19 @@ extension ExploreViewController {
         #if DEBUG
         presentSearchWidgetAnnouncement()
         #endif
+    }
+
+    private func needsReadingChallengeAnnouncement() -> Bool {
+        guard presentedViewController == nil else { return false }
+        guard self.isViewLoaded && self.view.window != nil else { return false }
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        return WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
+    }
+
+    private func presentReadingChallengeAnnouncement() {
+        guard let navigationController else { return }
+        let coordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        coordinator.start()
     }
 
     private func needsYearInReviewAnnouncement() -> Bool {

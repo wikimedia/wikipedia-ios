@@ -1034,6 +1034,9 @@
 "project-name-wikiversity" = "Project name for Wikiversity.";
 "project-name-wikivoyage" = "Project name for Wikivoyage.";
 "project-name-wiktionary" = "Project name for Wiktionary.";
+"reading-challenge-announcement-body" = "Body text for the reading challenge 2026 feature announcement.";
+"reading-challenge-announcement-cta" = "Primary button title for the reading challenge 2026 feature announcement.";
+"reading-challenge-announcement-title" = "Title for the reading challenge 2026 feature announcement.";
 "reading-challenge-collect-prize-button" = "Button title shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-join-button-medium" = "Button title on medium widget.";
