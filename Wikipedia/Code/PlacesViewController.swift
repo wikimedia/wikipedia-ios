@@ -2272,6 +2272,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         view.isHeadingArrowVisible = heading.headingAccuracy > 0 && heading.headingAccuracy < 90
         view.heading = heading.trueHeading
     }
+    
+    func zoomAndPanToLongLat(long: Double, lat: Double) {
+        let location = CLLocation(latitude: lat, longitude: long)
+        zoomAndPanMapView(toLocation: location)
+    }
 
     func zoomAndPanMapView(toLocation location: CLLocation) {
         let region = [location.coordinate].wmf_boundingRegion(with: 10000)
