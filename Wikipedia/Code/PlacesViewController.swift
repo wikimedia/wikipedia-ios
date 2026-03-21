@@ -2274,6 +2274,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
     
     @objc func zoomAndPanToLongLat(long: Double, lat: Double) {
+        guard view != nil else { return } // force view instantiation
         let location = CLLocation(latitude: lat, longitude: long)
         zoomAndPanMapView(toLocation: location)
     }
