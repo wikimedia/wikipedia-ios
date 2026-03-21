@@ -2273,7 +2273,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         view.heading = heading.trueHeading
     }
     
-    func zoomAndPanToLongLat(long: Double, lat: Double) {
+    @objc func zoomAndPanToLongLat(long: Double, lat: Double) {
         let location = CLLocation(latitude: lat, longitude: long)
         zoomAndPanMapView(toLocation: location)
     }

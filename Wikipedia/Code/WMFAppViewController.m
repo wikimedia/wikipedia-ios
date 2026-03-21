@@ -1248,6 +1248,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 [[self placesViewController] updateViewModeToMap];
                 [[self placesViewController] showArticleURL:articleURL];
             }
+            [[self placesViewController] zoomAndPanToLongLatWithLong:4.897070 lat:52.377956];
+
         } break;
         case WMFUserActivityTypeContent: {
             [self dismissPresentedViewControllers];
