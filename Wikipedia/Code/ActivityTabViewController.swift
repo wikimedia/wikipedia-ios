@@ -359,7 +359,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     // MARK: - Overflow Menu
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle) , primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis) , primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()
@@ -492,7 +492,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem, needsSeparateGlassContainer: true)
         } else {
             profileButtonConfig = nil
             tabsButtonConfig = nil
