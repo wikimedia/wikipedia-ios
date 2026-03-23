@@ -296,9 +296,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
         super.updateFonts(with: traitCollection)
         titleLabel.font = WMFFont.for(.semiboldSubheadline, compatibleWith: traitCollection)
         subtitleLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        footerButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        footerButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
         undoLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        undoButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        undoButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
         customizationButton.titleLabel?.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
     }
     
