@@ -46,8 +46,8 @@ class WMFAuthButton: AutoLayoutSafeMultiLineButton, Themeable {
 
         var config = configuration ?? UIButton.Configuration.plain()
         config.cornerStyle = .capsule
-        config.background.backgroundColor = theme.colors.baseBackground
-        config.baseForegroundColor = theme.colors.link
+        config.background.backgroundColor = theme.colors.link
+        config.baseForegroundColor = theme.colors.paperBackground
         config.titleLineBreakMode = .byWordWrapping
         config.titleAlignment = .center
 
