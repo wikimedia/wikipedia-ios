@@ -260,7 +260,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private var filterButtonItem: UIBarButtonItem {
-        return UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .filterLineHorizontalDecrease), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
+        button.accessibilityLabel = WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places")
+        return button
     }
 
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
