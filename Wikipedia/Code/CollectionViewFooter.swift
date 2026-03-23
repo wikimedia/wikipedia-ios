@@ -17,7 +17,6 @@ class CollectionViewFooter: SizeThatFitsReusableView {
 
     override func setup() {
         super.setup()
-        button.layer.cornerRadius = 8
         var deprecatedButton = button as DeprecatedButton
         deprecatedButton.deprecatedContentEdgeInsets = contentEdgeInsets
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
@@ -46,6 +45,7 @@ class CollectionViewFooter: SizeThatFitsReusableView {
             button.center = CGPoint(x: size.width / 2, y: size.height / 2)
             origin.y += buttonFrame.height + additionalMargins.top + additionalMargins.bottom
             origin.y += layoutMargins.bottom
+            button.layer.cornerRadius = button.bounds.height / 2
         } else {
             origin.y = 0
         }
