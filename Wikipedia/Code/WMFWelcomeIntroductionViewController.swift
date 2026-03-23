@@ -31,7 +31,7 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
     }
 
     private func updateFonts() {
-        learnMoreButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        learnMoreButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     @IBAction func showLearnMoreAlert(withSender sender: AnyObject) {

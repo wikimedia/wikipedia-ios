@@ -204,8 +204,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
 
     private func updateFonts() {
-        skipButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        nextButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        skipButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        nextButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     override func viewDidAppear(_ animated: Bool) {

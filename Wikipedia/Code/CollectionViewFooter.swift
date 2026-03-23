@@ -31,7 +31,7 @@ class CollectionViewFooter: SizeThatFitsReusableView {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        button.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

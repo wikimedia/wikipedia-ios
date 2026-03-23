@@ -2,7 +2,7 @@ import WMF
 import WMFComponents
 
 /// Button with capsule style and multiline text support
-@available(*, deprecated, message: "Kept and updated for temporary compatibility, use buttons from WMFComponenets instead")
+@available(*, deprecated, message: "Kept and updated for temporary compatibility, use buttons from WMFComponents instead")
 class WMFAuthButton: AutoLayoutSafeMultiLineButton, Themeable {
     fileprivate var theme: Theme = Theme.standard
 
@@ -19,7 +19,7 @@ class WMFAuthButton: AutoLayoutSafeMultiLineButton, Themeable {
 
             config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
                 var outgoing = incoming
-                outgoing.font = WMFFont.for(.boldCallout)
+                outgoing.font = WMFFont.for(.callout)
                 return outgoing
             }
             configuration = config

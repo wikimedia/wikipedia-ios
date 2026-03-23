@@ -50,7 +50,7 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         headerLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         footerLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         textView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
-        learnMoreButton.titleLabel?.font =  WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        learnMoreButton.titleLabel?.font =  WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     override func prepareForReuse() {
