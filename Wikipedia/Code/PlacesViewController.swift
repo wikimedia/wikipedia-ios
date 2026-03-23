@@ -268,7 +268,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
-        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem)
+        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem, needsSeparateGlassContainer: true)
     }
 
     @objc func userDidTapTabs() {
