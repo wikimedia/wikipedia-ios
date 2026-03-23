@@ -10,7 +10,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }()
     
     lazy var overflowButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
         return button
     }()
     
@@ -43,6 +43,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         configureNavigationBar()
         
         if dataController.shouldShowMoreDynamicTabsV2 {
+            if #available(iOS 26.0, *) {
+                overflowButton.sharesBackground = false
+            }
             navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
         } else {
             navigationItem.rightBarButtonItem = addTabButton
