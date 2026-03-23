@@ -312,9 +312,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         let paletteColors: [UIColor]
         
         if needsBadge {
-            paletteColors = [theme.destructive, theme.navigationBarTintColor]
+            paletteColors = [theme.destructive, theme.text]
         } else {
-            paletteColors = [theme.navigationBarTintColor]
+            paletteColors = [theme.text]
         }
         
         let symbol = WMFSFSymbolIcon.for(symbol: needsBadge ? .personCropCircleBadge : .personCropCircle, paletteColors: paletteColors)

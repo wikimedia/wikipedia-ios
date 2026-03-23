@@ -217,7 +217,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             
             if let rightBarButtonItems = navigationItem.rightBarButtonItems {
                 for item in rightBarButtonItems {
-                    item.tintColor = theme.colors.link
+                    item.tintColor = theme.colors.primaryText
                 }
             }
         }
@@ -518,7 +518,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for item in rightBarButtonItems {
-                item.tintColor = theme.colors.link
+                item.tintColor = theme.colors.primaryText
             }
         }
     }
