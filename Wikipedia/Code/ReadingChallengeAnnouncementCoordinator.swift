@@ -16,32 +16,42 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
     @discardableResult
     func start() -> Bool {
-        let viewModel = WMFFeatureAnnouncementViewModel(
-            title: WMFLocalizedString("reading-challenge-announcement-title", value: "Reading Challenge 2026", comment: "Title for the reading challenge 2026 feature announcement."),
-            body: WMFLocalizedString("reading-challenge-announcement-body", value: "Read articles every day and build a 25-day streak. Start your challenge today!", comment: "Body text for the reading challenge 2026 feature announcement."),
-            primaryButtonTitle: WMFLocalizedString("reading-challenge-announcement-cta", value: "Learn more", comment: "Primary button title for the reading challenge 2026 feature announcement."),
-            image: WMFIcon.addPhoto,
-            primaryButtonAction: { [weak self] in
-                self?.markSeen()
-            },
-            closeButtonAction: { [weak self] in
-                self?.markSeen()
-            }
+        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+            icon: WMFSFSymbolIcon.for(symbol: .bookPagesFill),
+            title: WMFLocalizedString("reading-challenge-announcement-item1-title", value: "Read 1 article a day for 25 days", comment: "Title for reading challenge onboarding first item."),
+            subtitle: WMFLocalizedString("reading-challenge-announcement-item1-subtitle", value: "Join the challenge anytime between 1 May and 31 May, complete your 25 days on your own timeline.", comment: "Subtitle for reading challenge onboarding first item."),
+            fillIconBackground: false
         )
 
-        let viewController = WMFFeatureAnnouncementViewController(viewModel: viewModel)
+        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+            icon: WMFSFSymbolIcon.for(symbol: .appGiftFill),
+            title: WMFLocalizedString("reading-challenge-announcement-item2-title", value: "Win prizes", comment: "Title for reading challenge onboarding second item."),
+            subtitle: WMFLocalizedString("reading-challenge-announcement-item2-subtitle", value: "Complete a 25 day reading streak while the challenge is live to win special prizes.", comment: "Subtitle for reading challenge onboarding second item."),
+            fillIconBackground: false
+        )
 
-        viewController.modalPresentationStyle = .pageSheet
-        if let sheet = viewController.sheetPresentationController {
-            let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("readingChallengeAnnouncement")) { context in
-                return context.maximumDetentValue * 0.65
-            }
-            sheet.detents = [customDetent, .large()]
-            sheet.selectedDetentIdentifier = customDetent.identifier
-            sheet.prefersGrabberVisible = true
+        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+            icon: WMFSFSymbolIcon.for(symbol: .widgetAdd),
+            title: WMFLocalizedString("reading-challenge-announcement-item3-title", value: "Install the widget", comment: "Title for reading challenge onboarding third item."),
+            subtitle: WMFLocalizedString("reading-challenge-announcement-item3-subtitle", value: "Get helpful reminders and motivation with our adorable birthday mascot Baby Globe.", comment: "Subtitle for reading challenge onboarding third item."),
+            fillIconBackground: false
+        )
+        
+        let subtitle = WMFLocalizedString("reading-challenge-announcement-subtitle", value: "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Notice about privacy for reading challenge")
+
+        let onboardingViewModel = WMFOnboardingViewModel(
+            title: WMFLocalizedString("reading-challenge-announcement-title", value: "Celebrate Wikipedia's 25th birthday by joining the 25-day reading challenge!", comment: "Title for the reading challenge onboarding view."),
+            cells: [firstItem, secondItem, thirdItem],
+            primaryButtonTitle: WMFLocalizedString("reading-challenge-announcement-cta", value: "Join the challenge", comment: "Primary button title for the reading challenge onboarding view."),
+            secondaryButtonTitle: WMFLocalizedString("reading-challenge-announcement-secondary-cta", value: "Learn more", comment: "Secondary button title for the reading challenge onboarding view."),
+            subtitle: subtitle
+        )
+
+        let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
+        onboardingController.delegate = self
+        navigationController.present(onboardingController, animated: true) {
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
         }
-
-        navigationController.present(viewController, animated: true)
         return true
     }
 
@@ -49,6 +59,19 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         Task {
             await WMFActivityTabDataController.shared.setHasSeenFullPageAnnouncement()
         }
+    }
+}
+
+extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
+    func onboardingViewDidClickPrimaryButton() {
+        markSeen()
+        navigationController.presentedViewController?.dismiss(animated: true)
+        // TODO: Navigate to learn more URL if needed
+    }
+
+    func onboardingViewDidClickSecondaryButton() {
+        markSeen()
+        navigationController.presentedViewController?.dismiss(animated: true)
     }
 }
 

@@ -156,7 +156,10 @@ extension ArticleViewController {
 
     func needsReadingChallengeAnnouncement() -> Bool {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        return WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
+        Task { @MainActor in
+            return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
+        }
+        return false
     }
 
     func presentReadingChallengeAnnouncement() {
