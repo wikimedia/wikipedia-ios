@@ -149,6 +149,7 @@ class ArticleToolbarController: Themeable {
 
     func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle?, nextArticleTab: WMFArticleTabsDataController.WMFArticle?) {
         self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        moreButton.apply(theme: theme)
         update()
     }
 
@@ -244,6 +245,7 @@ class ArticleToolbarController: Themeable {
     var theme: Theme = Theme.standard
 
     func apply(theme: Theme) {
+        self.theme = theme
         for item in currentItems {
             guard let item = item as? Themeable else {
                 continue
