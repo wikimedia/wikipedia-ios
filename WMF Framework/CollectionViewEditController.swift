@@ -470,25 +470,20 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             rightBarButtonSystemItem = .edit
         }
         
-        var rightButton: SystemBarButton?
-        var leftButton: SystemBarButton?
+        var rightButton: UIBarButtonItem?
+        var leftButton: UIBarButtonItem?
         
         if let barButtonSystemItem = rightBarButtonSystemItem {
-            rightButton = SystemBarButton(with: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            rightButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
         }
         
         if let barButtonSystemItem = leftBarButtonSystemItem {
-            leftButton = SystemBarButton(with: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
         }
         
         leftButton?.tag = editingState.tag
         rightButton?.tag = editingState.tag
         rightButton?.isEnabled = isRightBarButtonEnabled
-        
-        let font = WMFFont.for(.body)
-        let attributes = [NSAttributedString.Key.font: font]
-        rightButton?.setTitleTextAttributes(attributes, for: .normal)
-        leftButton?.setTitleTextAttributes(attributes, for: .normal)
         
         navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
     }
