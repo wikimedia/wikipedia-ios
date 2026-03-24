@@ -188,23 +188,15 @@ import WMFTestKitchen
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    static var analyticsEventIntakeURI: URL {
-        #if DEBUG
+    private static var analyticsEventIntakeURI: URL {
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
         } else {
             URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
         }
-        #else
-        if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
-            URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events?hasty=true")!
-        } else {
-            URL(string: "https://intake-analytics.wikimedia.org/v1/events?hasty=true")!
-        }
-        #endif
     }
 
-    static var loggingEventIntakeURI: URL {
+    private static var loggingEventIntakeURI: URL {
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-logging-beta.wmflabs.org/v1/events")!
         } else {
@@ -427,6 +419,9 @@ import WMFTestKitchen
             if (streamConfigurations?[event.stream]?.destination_event_service == "eventgate-logging-external") {
                 uri = EventPlatformClient.loggingEventIntakeURI
             }
+            #if !DEBUG
+            uri.append(queryItems: [URLQueryItem(name: "hasty", value: "true")])
+            #endif
 
             httpPost(url: uri, body: event.data) { result in
                 switch result {
