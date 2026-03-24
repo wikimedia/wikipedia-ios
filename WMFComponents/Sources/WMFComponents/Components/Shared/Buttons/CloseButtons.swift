@@ -60,16 +60,14 @@ import SwiftUI
 
         switch config.imageType {
         case .plainX:
-            let image = WMFSFSymbolIcon.for(symbol: .close, font: WMFFont.navigationBarCloseButtonFont)
-            item = UIBarButtonItem(image: image, style: .plain, target: config.target, action: config.action)
-            item.tintColor = theme.text
+            item = UIBarButtonItem(barButtonSystemItem: .cancel, target: config.target, action: config.action)
 
         case .prominentCheck:
             let image = WMFSFSymbolIcon.for(symbol: .checkmark, font: WMFFont.navigationBarCloseButtonFont)
             if #available(iOS 26.0, *) {
                 item = UIBarButtonItem(image: image, style: .prominent, target: config.target, action: config.action)
             } else {
-                item = UIBarButtonItem(image: image, style: .done, target: config.target, action: config.action)
+                item = UIBarButtonItem(barButtonSystemItem: .done, target: config.target, action: config.action)
             }
             item.tintColor = theme.link
         }
