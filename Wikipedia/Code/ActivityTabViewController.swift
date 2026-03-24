@@ -316,13 +316,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
 
-    @MainActor
     private func presentReadingChallengeAnnouncementIfNeeded() {
         Task { @MainActor in
-            let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent ?? false
-            guard await dataController.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn) else { return }
+            guard let dataStore else { return }
+            let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+            guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn) else { return }
             guard let navigationController else { return }
-            readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore ?? MWKDataStore.shared(), theme: theme)
+            readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+                navigationController: navigationController,
+                dataStore: dataStore,
+                theme: theme
+            )
             readingChallengeCoordinator?.start()
         }
     }

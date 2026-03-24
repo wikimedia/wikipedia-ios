@@ -1034,14 +1034,14 @@
 "project-name-wikiversity" = "Project name for Wikiversity.";
 "project-name-wikivoyage" = "Project name for Wikivoyage.";
 "project-name-wiktionary" = "Project name for Wiktionary.";
-"reading-challenge-announcement-cta" = "Primary button title for the reading challenge onboarding view.";
+"reading-challenge-announcement-cta" = "Primary button title";
 "reading-challenge-announcement-item1-subtitle" = "Subtitle for reading challenge onboarding first item.";
 "reading-challenge-announcement-item1-title" = "Title for reading challenge onboarding first item.";
 "reading-challenge-announcement-item2-subtitle" = "Subtitle for reading challenge onboarding second item.";
 "reading-challenge-announcement-item2-title" = "Title for reading challenge onboarding second item.";
 "reading-challenge-announcement-item3-subtitle" = "Subtitle for reading challenge onboarding third item.";
 "reading-challenge-announcement-item3-title" = "Title for reading challenge onboarding third item.";
-"reading-challenge-announcement-secondary-cta" = "Secondary button title for the reading challenge onboarding view.";
+"reading-challenge-announcement-secondary-cta" = "Secondary button title";
 "reading-challenge-announcement-subtitle" = "Notice about privacy for reading challenge";
 "reading-challenge-announcement-title" = "Title for the reading challenge onboarding view.";
 "reading-challenge-collect-prize-button" = "Button title shown on the reading challenge widget when the user has completed the challenge.";
