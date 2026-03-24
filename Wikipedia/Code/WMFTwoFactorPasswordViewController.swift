@@ -39,7 +39,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     private var loggingCustomActionSource: String? {
-        "login_verification_form"
+        isEmailAuth ? "email_verification_form" : "oath_verification_form"
     }
 
     public func setDisplayModeToShortAlphanumeric() {
