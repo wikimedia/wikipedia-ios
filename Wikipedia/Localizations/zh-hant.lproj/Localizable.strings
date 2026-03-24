@@ -838,8 +838,10 @@
 "more-menu" = "更多";
 "move-articles-to-reading-list" = "移動 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "navbar-title-mode-edit-wikitext-preview" = "預覽";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 英尺";
 "nearby-distance-label-km" = "$1 公里";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 公尺";
 "nearby-distance-label-miles" = "$1 英里";
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";

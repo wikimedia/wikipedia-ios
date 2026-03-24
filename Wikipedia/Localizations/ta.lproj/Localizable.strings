@@ -175,8 +175,10 @@
 "more-languages-tooltip-title" = "மொழிகளைச் சேர்க்கவும்";
 "more-menu" = "மேலும்";
 "navbar-title-mode-edit-wikitext-preview" = "முன்தோற்றம்";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 அடி";
 "nearby-distance-label-km" = "$1 கி.மீ.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 மீ";
 "nearby-distance-label-miles" = "$1 மைல்கள்";
 "new-password-instructions" = "நீங்கள் தற்காலிகமாக மின்னஞ்சல் செய்யப்பட்ட குறியீடுடன் புகுபதிந்துள்ளீர்.\nபுகுபதிவை நிறைவு செய்ய, புதிய கடவுச்சொல்லை இங்கு உருவாக்குங்கள்:";

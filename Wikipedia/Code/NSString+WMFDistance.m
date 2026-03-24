@@ -20,8 +20,8 @@
             return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"nearby-distance-label-km", nil, nil, @"%1$@ km", @"Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* %1$@ - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}"), distanceIntString];
         } else {
             // Show in meters if under 0.1 km.
-            NSString *distanceIntString = [NSString stringWithFormat:@"%.f", distance];
-            return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"nearby-distance-label-meters", nil, nil, @"%1$@ m", @"Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* %1$@ - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}"), distanceIntString];
+            NSInteger distanceInt = (NSInteger)distance;
+            return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"nearby-distance-label-meters", nil, nil, @"{{PLURAL:%1$d|%1$d meter|%1$d meters}}", @"Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* %1$d - the number of meters.\n{{Related|Wikipedia-ios-nearby-distance-label}}"), (long)distanceInt];
         }
     } else {
         // Meters to feet.
@@ -34,8 +34,8 @@
             return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"nearby-distance-label-miles", nil, nil, @"%1$@ miles", @"Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* %1$@ - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}"), distanceIntString];
         } else {
             // Show in feet if under 0.1 miles.
-            NSString *distanceIntString = [NSString stringWithFormat:@"%.f", distance];
-            return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"nearby-distance-label-feet", nil, nil, @"%1$@ feet", @"Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* %1$@ - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}"), distanceIntString];
+            NSInteger distanceInt = (NSInteger)distance;
+            return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"nearby-distance-label-feet", nil, nil, @"{{PLURAL:%1$d|%1$d foot|%1$d feet}}", @"Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* %1$d - the number of feet.\n{{Related|Wikipedia-ios-nearby-distance-label}}"), (long)distanceInt];
         }
     }
 }

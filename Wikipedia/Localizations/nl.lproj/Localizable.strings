@@ -7,6 +7,7 @@
 // Author: Ciell
 // Author: Danieldegroot2
 // Author: Duckson32
+// Author: Elphie
 // Author: Elroy
 // Author: FabianRM
 // Author: Festina90
@@ -136,6 +137,8 @@
 "activity-tab-empty-subtitle" = "Begin met lezen en bewerken om uw geschiedenis op te bouwen";
 "activity-tab-empty-title" = "Niets om te laten zien";
 "activity-tab-generic-no-edits" = "U hebt deze week nog niets bewerkt. Begin nu om uw bijdragen bij te houden.";
+"activity-tab-history-callout-body" = "Uw leesgeschiedenis bekijken of verwijderen in het tabblad **Zoeken**.";
+"activity-tab-history-callout-body-loggedout" = "U kunt uw leesgeschiedenis vinden en wissen via het tabblad **Zoeken**. U hebt geen account nodig.";
 "activity-tab-hours-minutes-read" = "$1u $2m";
 "activity-tab-hours-on-wikipedia-ios" = "OP WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "Impact van alle tijden";
@@ -836,8 +839,10 @@
 "more-menu" = "Meer";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} naar de leeslijst verplaatsen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 voet";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 meter";
 "nearby-distance-label-miles" = "$1 mijl";
 "new-password-instructions" = "U bent aangemeld met een tijdelijk code die u per e-mail hebt ontvangen.\nOm het aanmelden te voltooien moet u hier een nieuw wachtwoord instellen.";
@@ -1148,7 +1153,7 @@
 "reading-lists-article-save-to-disk-failed" = "Opslagruimte apparaat is vol, pagina kan niet worden gesynchroniseerd";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Maak wat ruimte op uw apparaat vrij en probeer het opnieuw";
 "reading-lists-articles-not-synced-limit-exceeded" = "Enkele pagina's niet gesynchroniseerd, maximum overschreden";
-"reading-lists-conflicting-reading-list-name-updated" = "Uw lijst ‘$1’ is hernoemd tot ‘$2’";
+"reading-lists-conflicting-reading-list-name-updated" = "Uw lijst ‘$1’ is hernoemd naar ‘$2’";
 "reading-lists-count" = "{{PLURAL:$1|$1 leeslijst|$1 leeslijsten}}";
 "reading-lists-default-list-description" = "Standaardlijst voor uw opgeslagen pagina's";
 "reading-lists-default-list-title" = "Opgeslagen";
@@ -1209,6 +1214,7 @@
 "saved-title" = "Opgeslagen";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Opslaan ongedaan maken wist deze {{PLURAL:$1|pagina|pagina's}} uit alle gekoppelde leeslijsten";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Opslaan ongedaan maken voor {{PLURAL:$1|pagina|pagina's}}?";
+"search-button-accessibility-hint" = "Navigeert naar de zoekfunctie.";
 "search-button-accessibility-label" = "Zoeken in Wikipedia";
 "search-clear-title" = "Wissen";
 "search-field-placeholder-text" = "Zoeken in Wikipedia";
@@ -1408,6 +1414,8 @@
 "theme-default-explanation" = "Is gelijk aan het thema van het systeem";
 "theme-light-display-name" = "Licht";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Zoek uw leesgeschiedenis in het tabblad Zoek.";
+"tip-history-in-search-title" = "Geschiedenis verplaatst naar Zoeken";
 "today-title" = "Vandaag";
 "top-read-widget-description" = "Ontdek wat de wereld tegenwoordig leest op Wikipedia.";
 "top-read-widget-readers-count" = "$1 lezers";

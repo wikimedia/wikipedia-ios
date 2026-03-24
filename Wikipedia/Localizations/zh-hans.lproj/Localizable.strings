@@ -875,8 +875,10 @@
 "more-menu" = "更多";
 "move-articles-to-reading-list" = "移动{{PLURAL:$1|$1个条目}}至阅读列表";
 "navbar-title-mode-edit-wikitext-preview" = "预览";
+// Fuzzy
 "nearby-distance-label-feet" = "$1英尺";
 "nearby-distance-label-km" = "$1千米";
+// Fuzzy
 "nearby-distance-label-meters" = "$1米";
 "nearby-distance-label-miles" = "$1英里";
 "new-password-instructions" = "您已通过临时密码登录。要完成登录，请在此设置一个新密码。";

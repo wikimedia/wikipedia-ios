@@ -718,6 +718,7 @@
 "more-menu" = "ထပ်လို့";
 "move-articles-to-reading-list" = "စာဖတ်စရင်းပသို့ {{PLURAL:$1|$1 ဆောင်းပါး|$1 ဆောင်းပါးတိ}} ရွှိ့ဖို့";
 "navbar-title-mode-edit-wikitext-preview" = "စမ်းလို့လုပ်ကြေ့ပါ";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ပေ";
 "nearby-distance-label-miles" = "$1 မိုင်";
 "new-password-instructions" = "ယာယီပစဝါးနန့် ဝင်ထားပါရေ၊ အပြီးသတ်ဖို့ ပစဝါးအသစ်တစ်ခု ဆောင်ရွက်ပါ";

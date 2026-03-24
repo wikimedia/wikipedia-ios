@@ -250,8 +250,10 @@
 "more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "more-menu" = "আরও";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ফুট";
 "nearby-distance-label-km" = "$1 কিমি";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 মিটার";
 "nearby-distance-label-miles" = "$1 মাইল";
 "new-password-instructions" = "আপনি সাময়িক পাসওয়ার্ড দিয়ে প্রবেশ করেছেন। প্রবেশ সম্পূর্ণ করতে এখানে একটি নতুন পাসওয়ার্ড নির্ধারণ করুন।";

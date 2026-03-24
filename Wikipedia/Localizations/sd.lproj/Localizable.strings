@@ -560,8 +560,10 @@
 "more-menu" = "وڌيڪ";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ڏانھن چوريو";
 "navbar-title-mode-edit-wikitext-preview" = "پيش-نگاھ";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 فوٽ";
 "nearby-distance-label-km" = "$1 ڪلوميٽر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 ميٽر";
 "nearby-distance-label-miles" = "$1 ميلَ";
 "new-password-instructions" = "توھان ھڪ عارضي ڳجهي‌لفظ سان داخل ٿيا. داخل ٿيڻ کي مڪمل ڪرڻ لاءِ ھڪ نئون ڳجهولفظ مرتب ڪريو.";

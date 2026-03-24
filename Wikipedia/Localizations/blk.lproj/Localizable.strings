@@ -279,8 +279,10 @@
 "more-languages-tooltip-title" = "ထဲမ်သော့ꩻဘာႏသာႏငဝ်းငွါဖိုင်ႏ";
 "move-articles-to-reading-list" = "ဟော်ꩻထွားစာႏရင်ꩻကို ခြုဲင်းလွေꩻရောမ်ဖြုဲင်ꩻ {{PLURAL:$1|$1 ဗာႏ|$1 ဗာႏ}}";
 "navbar-title-mode-edit-wikitext-preview" = "နမူႏနာႏ";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ပေ";
 "nearby-distance-label-km" = "$1 ကီလိုမီတာ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 မီတာ";
 "nearby-distance-label-miles" = "$1 မဲင်ႏ";
 "new-password-title" = "နျꩻသော့ꩻသွော့ နာꩻငဝ်းဗိဥ်ႏပလို့ꩻ";

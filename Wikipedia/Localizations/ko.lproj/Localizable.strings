@@ -739,8 +739,10 @@
 "more-menu" = "더 보기";
 "move-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록으로 이동";
 "navbar-title-mode-edit-wikitext-preview" = "미리 보기";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 피트";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 마일";
 "new-password-instructions" = "임시 비밀번호로 로그인하였습니다. 로그인을 마치려면 여기에 새로운 비밀번호를 설정하십시오.";

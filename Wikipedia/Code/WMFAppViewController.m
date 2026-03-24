@@ -134,6 +134,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         self.router = [[WMFViewControllerRouter alloc] initWithAppViewController:self router:self.configuration.router];
         _tabItemIdentifiersToDelete = [NSMutableArray array];
         _tabIdentifiersToDelete = [NSMutableArray array];
+        _tipWrapper = [[WMFAppViewControllerTipWrapper alloc] init];
     }
     return self;
 }
@@ -904,6 +905,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self triggerMigratingAnimation];
         }
 
+        [self setupTips];
         [self setupWMFDataEnvironment];
         [self setupWMFDataCoreDataStore];
 
@@ -1112,15 +1114,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.reachabilityNotifier stop];
     [self.periodicWorkerController stop];
     [self.savedArticlesFetcher stop];
-
-    // Show  all navigation bars so that users will always see search when they re-open the app
-    NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
-    for (UINavigationController *navC in allNavControllers) {
-        UIViewController *vc = [navC visibleViewController];
-        if ([vc respondsToSelector:@selector(ensureWikipediaSearchIsShowing)]) {
-            [(id)vc ensureWikipediaSearchIsShowing];
-        }
-    }
 
     [self.dataStore.feedContentController stopContentSources];
     [self.dataStore clearMemoryCache];
@@ -1906,6 +1899,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [NSUserDefaults.standardUserDefaults setThemeName:themeName];
     [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
     [self updateAppThemeIfNecessary];
+}
+
+- (UIUserInterfaceStyle)overrideUserInterfaceStyle {
+    NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
+    if ([WMFTheme isDefaultThemeName:themeName]) {
+        return UIUserInterfaceStyleUnspecified;
+    } else if ([WMFTheme isDarkThemeName:themeName]) {
+        return UIUserInterfaceStyleDark;
+    } else {
+        return UIUserInterfaceStyleLight;
+    }
 }
 
 - (void)updateUserInterfaceStyleOfNavigationControllersForCurrentTheme {

@@ -462,8 +462,10 @@
 "more-menu" = "Daugiau";
 "move-articles-to-reading-list" = "Perkelti {{PLURAL:$1|$1 straipsnį| $1 straipsnius}} į skaitinių sąrašą";
 "navbar-title-mode-edit-wikitext-preview" = "Peržiūra";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pėdų";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mylių";
 "new-password-instructions" = "Jūs prisijungėte su laikinu slaptažodžiu. Kad baigtumėte prisijungimą, prašome nustatyti savo naują slaptažodį čia.";

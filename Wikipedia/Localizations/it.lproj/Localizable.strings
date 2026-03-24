@@ -18,6 +18,7 @@
 // Author: Eduardoaddad
 // Author: Emabarto01
 // Author: F. Cosoleto
+// Author: FL2226
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Giorgx12
@@ -135,6 +136,9 @@
 "activity-tab-email-fifth-line" = "[Screenshot o Link]";
 "activity-tab-empty-title" = "Niente da mostrare";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
+"activity-tab-history-callout-body" = "Visualizza o cancella la tua cronologia di lettura nella scheda ** Cerca**.";
+"activity-tab-history-callout-body-loggedout" = "Trova e cancella la cronologia di lettura nella **scheda Cerca**. Non è necessario un account.";
+"activity-tab-hitory-callout-close" = "Chiudere la scheda di avviso di cronologia";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "SU WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "Impatto dall'inizio";
@@ -619,8 +623,9 @@
 "more-menu" = "Altro";
 "move-articles-to-reading-list" = "Sposta $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
-"nearby-distance-label-feet" = "$1 piedi";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 piede|$1 piedi}}";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miglia";
 "new-password-instructions" = "L'accesso è stato effettuato con una password temporanea. Per completare la registrazione, è necessario impostare una nuova password qui.";
@@ -857,6 +862,7 @@
 "saved-reading-lists-search-placeholder" = "Cerca elenchi di lettura";
 "saved-reading-lists-title" = "Elenchi di lettura";
 "saved-title" = "Salvato";
+"search-button-accessibility-hint" = "Consente di accedere alla visualizzazione di ricerca.";
 "search-button-accessibility-label" = "Cerca su Wikipedia";
 "search-clear-title" = "Pulisci";
 "search-field-placeholder-text" = "Cerca su Wikipedia";
@@ -980,6 +986,8 @@
 "theme-default-display-name" = "Predefinito";
 "theme-light-display-name" = "Chiaro";
 "theme-sepia-display-name" = "Seppia";
+"tip-history-in-search-subtitle" = "È possibile trovare la cronologia di lettura nella scheda Cerca.";
+"tip-history-in-search-title" = "La cronologia è stata spostata nella sezione Cerca";
 "today-title" = "Oggi";
 "top-read-widget-description" = "Scopri cosa sta leggendo il mondo oggi su Wikipedia.";
 "top-read-widget-readers-count" = "$1 lettori";

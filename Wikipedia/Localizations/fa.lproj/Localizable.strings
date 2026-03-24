@@ -715,8 +715,10 @@
 "more-menu" = "بیشتر";
 "move-articles-to-reading-list" = "انتقال {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "navbar-title-mode-edit-wikitext-preview" = "پیش‌نمایش";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 پا";
 "nearby-distance-label-km" = "$1 کیلومتر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مایل";
 "new-password-instructions" = "با رمز عبور موقت به سامانه وارد شدید. برای تکمیل ورود، رمز عبور جدید انتخاب کنید.";

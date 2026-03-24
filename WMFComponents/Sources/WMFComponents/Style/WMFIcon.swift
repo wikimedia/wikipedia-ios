@@ -141,6 +141,8 @@ public enum WMFSFSymbolIcon {
         switch self {
         case .closeCircleFill:
             "xmark.circle.fill"
+        case .magnifyingGlass:
+            "magnifyingglass"
         default:
             nil
         }
@@ -185,7 +187,7 @@ public enum WMFSFSymbolIcon {
         case .docTextMagnifyingGlass:
             image = UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)
         case .magnifyingGlass:
-            image = UIImage(systemName: "magnifyingglass", withConfiguration: configuration)
+            image = UIImage(systemName: symbol.name ?? "magnifyingglass", withConfiguration: configuration)
         case .listBullet:
             image = UIImage(systemName: "list.bullet", withConfiguration: configuration)
         case .listNumber:

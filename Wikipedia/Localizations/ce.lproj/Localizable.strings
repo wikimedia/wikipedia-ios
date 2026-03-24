@@ -204,6 +204,7 @@
 // Fuzzy
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миль";
 "page-protected-can-not-edit" = "ХӀара агӀо тайан хьан бакъо йац";
