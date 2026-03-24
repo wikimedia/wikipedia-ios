@@ -284,7 +284,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     default: break
                     }
                 } else {
-                    self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                    self.authInstrument.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                 }
 
                 self.enableProgressiveButtonIfNecessary()

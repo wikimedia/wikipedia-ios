@@ -272,7 +272,12 @@ import WMFTestKitchen
                             return
                         }
                         
-                        self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": (error as? WMFAccountLoginError)?.testKitchenValidationError ?? error.logDescription])
+                        if let recognizedError = error as? WMFAccountLoginError {
+                            self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": recognizedError.testKitchenValidationError])
+                        } else {
+                            self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
+                        }
+                        
                         self.backgroundAuthInstrument = nil
                         
                         self.logout(initiatedBy: .app)
@@ -314,14 +319,14 @@ import WMFTestKitchen
                     
                     NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     
-                    self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                    self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                     self.backgroundAuthInstrument = nil
                     
                     completion(.success(user))
                     return
                 }
                 
-                self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                 
                 performLogin()
             }
@@ -401,10 +406,10 @@ import WMFTestKitchen
                     if let error = error {
                         
                         if self.isUserUnawareOfLogout {
-                            self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                            self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                             self.backgroundAuthInstrument = nil
                         } else {
-                            authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                            authInstrument?.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                         }
                         
                         // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
