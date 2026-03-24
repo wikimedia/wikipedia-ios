@@ -90,6 +90,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             if let blockedError {
                 self.disableTextFieldAndPublish()
                 self.presentBlockedPanel(error: blockedError)
+            } else {
+                showTempAccountToast()
             }
         }
 
@@ -182,11 +184,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
         loginLabel.isHidden = dataStore.authenticationManager.authStateIsPermanent
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showTempAccountToast()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
