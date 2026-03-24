@@ -218,9 +218,9 @@ public actor WMFActivityTabDataController {
 
     public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
         guard isLoggedIn else { return false }
-       // guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+        guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
         let now = Date()
-        return true // now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
     }
 
     public func incrementActivityTabVisitCount() {

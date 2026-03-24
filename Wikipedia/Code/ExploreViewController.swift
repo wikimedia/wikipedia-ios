@@ -16,6 +16,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
+    
+    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -1033,7 +1035,7 @@ extension ExploreViewController {
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     fileprivate func presentModalsIfNeeded() {
 
-        if true {// needsReadingChallengeAnnouncement() {
+        if needsReadingChallengeAnnouncement() {
             presentReadingChallengeAnnouncement()
             return
         }
@@ -1061,6 +1063,7 @@ extension ExploreViewController {
     private func presentReadingChallengeAnnouncement() {
         guard let navigationController else { return }
         let coordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        self.readingChallengeCoordinator = coordinator
         coordinator.start()
     }
 
