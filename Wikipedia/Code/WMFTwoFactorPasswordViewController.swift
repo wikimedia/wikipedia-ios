@@ -39,7 +39,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     private var loggingCustomActionSource: String? {
-        isEmailAuth ? "login_verification_form" : nil
+        "login_verification_form"
     }
 
     public func setDisplayModeToShortAlphanumeric() {
@@ -167,7 +167,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        authInstrument?.submitInteraction(action: "impression", elementId: loggingElementId)
+        authInstrument?.submitInteraction(action: "impression", actionSource: loggingCustomActionSource, elementId: loggingElementId)
         
         makeAppropriateFieldFirstResponder()
     }
@@ -343,7 +343,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 if let error = error as? WMFAccountLoginError {
                     
                     defer {
-                        self.authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.testKitchenValidationError])
+                        self.authInstrument?.submitInteraction(action: "error", actionSource: loggingCustomActionSource, actionContext: ["validation_error": error.testKitchenValidationError])
                     }
                     
                     switch error {
@@ -366,7 +366,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     self.backupOathTokenField.text = nil
                     self.makeAppropriateFieldFirstResponder()
                 } else {
-                    self.authInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                    self.authInstrument?.submitInteraction(action: "error", actionSource: loggingCustomActionSource, actionContext: ["validation_error": error.logDescription])
                 }
             }
         }
