@@ -123,11 +123,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
         super.viewWillAppear(animated)
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
         configureNavigationBar()
+        restoreLogoStateForCurrentScrollPosition(scrollView: collectionView)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
