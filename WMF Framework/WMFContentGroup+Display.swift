@@ -135,7 +135,7 @@ extension WMFContentGroup {
             return false
         }
         switch contentGroupKind {
-        case .announcement, .notification, .theme, .readingList:
+        case .announcement, .theme, .readingList:
             return false
         default:
             return true
