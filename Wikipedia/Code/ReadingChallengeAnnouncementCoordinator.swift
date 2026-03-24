@@ -36,7 +36,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             subtitle: WMFLocalizedString("reading-challenge-announcement-item3-subtitle", value: "Get helpful reminders and motivation with our adorable birthday mascot Baby Globe.", comment: "Subtitle for reading challenge onboarding third item."),
             fillIconBackground: false
         )
-        
+
         let subtitle = WMFLocalizedString("reading-challenge-announcement-subtitle", value: "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Notice about privacy for reading challenge")
 
         let onboardingViewModel = WMFOnboardingViewModel(
@@ -49,10 +49,17 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         onboardingController.delegate = self
-        navigationController.present(onboardingController, animated: true) {
+        let doneButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .xMark), style: .plain, target: self, action: #selector(doneTapped))
+        onboardingController.navigationItem.rightBarButtonItem = doneButton
+        let navController = UINavigationController(rootViewController: onboardingController)
+        navigationController.present(navController, animated: true) {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         }
         return true
+    }
+
+    @objc private func doneTapped() {
+        navigationController.presentedViewController?.dismiss(animated: true)
     }
 
     private func markSeen() {
@@ -60,18 +67,31 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             await WMFActivityTabDataController.shared.setHasSeenFullPageAnnouncement()
         }
     }
+
+    var learnMoreURL: URL? {
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = primaryAppLanguageCode
+        }
+        return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikipedia:25/Reading_Challenge?uselang=\(languageCodeSuffix)")
+    }
 }
 
-extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
+extension ReadingChallengeAnnouncementCoordinator: @preconcurrency WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
         markSeen()
         navigationController.presentedViewController?.dismiss(animated: true)
-        // TODO: Navigate to learn more URL if needed
     }
 
     func onboardingViewDidClickSecondaryButton() {
         markSeen()
-        navigationController.presentedViewController?.dismiss(animated: true)
+        navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
+            guard let self, let url = learnMoreURL else { return }
+            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+            let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+            let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+            navigationController.present(newNavigationVC, animated: true)
+        }
     }
 }
 
