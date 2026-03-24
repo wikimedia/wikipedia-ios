@@ -400,7 +400,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 }
                 
             case .failure(let error):
-                self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                self.authInstrument.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                 self.setViewControllerUserInteraction(enabled: true)
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -507,7 +507,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 }
             }
         }, failure: { [weak self] error in
-            self?.authInstrument.submitInteraction(action: "error", elementId: "username", actionContext: ["validation_error": error.logDescription])
+            self?.authInstrument.submitInteraction(action: "error", elementId: "username", actionContext: ["code": error.logDescription])
             self?.checkingUsernameAvailability = false
         })
     }
@@ -577,7 +577,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         break
                     }
                 } else {
-                    self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+                    self.authInstrument.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                 }
                 
                 self.enableProgressiveButtonIfNecessary()

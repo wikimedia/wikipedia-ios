@@ -366,7 +366,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     self.backupOathTokenField.text = nil
                     self.makeAppropriateFieldFirstResponder()
                 } else {
-                    self.authInstrument?.submitInteraction(action: "error", actionSource: loggingCustomActionSource, actionContext: ["validation_error": error.logDescription])
+                    self.authInstrument?.submitInteraction(action: "error", actionSource: loggingCustomActionSource, actionContext: ["code": error.logDescription])
                 }
             }
         }
