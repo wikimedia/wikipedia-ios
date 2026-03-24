@@ -240,7 +240,7 @@ import WMFTestKitchen
         
         guard let siteURL = loginSiteURL else {
             let error = LoginError.missingLoginURL
-            backgroundAuthInstrument?.submitInteraction(action: "validation_error", actionContext: ["code": error.logDescription])
+            backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
             backgroundAuthInstrument = nil
             completion(.failure(error))
             return
