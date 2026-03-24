@@ -142,7 +142,7 @@ extension ArticleViewController {
                 DonateFunnel.shared.logArticleDidSeeReminderToast(project: project, metricsID: metricsID)
             }
 
-            WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: -1, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showRichToast(title, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true)
         }
     }
 
@@ -150,7 +150,7 @@ extension ArticleViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let title = WMFLocalizedString("donate-already-donated", value: "Thank you, dear donor! Your generosity helps keep Wikipedia and its and other free knowledge projects thriving.", comment: "Thank you toast shown when user clicks already donated on fundraising banner")
 
-            WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: -1, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showRichToast(title, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill), duration: nil, dismissPreviousToasts: true)
         }
     }
 

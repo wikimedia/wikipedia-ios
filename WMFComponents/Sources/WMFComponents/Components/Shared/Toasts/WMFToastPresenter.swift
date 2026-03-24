@@ -61,21 +61,11 @@ public final class WMFToastPresenter {
     // MARK: - Public API
 
     /// Presents a toast using WMFToastConfig
-    public func show(_ config: WMFToastConfig, dismissPreviousToasts: Bool = false) {
-        if dismissPreviousToasts {
-            dismissCurrentToast()
-        }
-
+    public func show(_ config: WMFToastConfig) {
         let toastView = WMFToastView(config: config, dismiss: { [weak self] in
             self?.dismissCurrentToast()
         })
-
-        presentToastView(
-            view: toastView,
-            duration: config.duration,
-            allowsBackgroundTapToDismiss: false,
-            dismissAction: nil
-        )
+        presentToastView(view: toastView, duration: config.duration)
     }
 
     /// Presents a SwiftUI view as a toast at the bottom of the screen
@@ -185,7 +175,7 @@ public final class WMFToastPresenter {
         shadowContainer.addGestureRecognizer(panGesture)
 
         // Auto-dismiss
-        if let duration {
+        if let duration, duration > 0 {
             let workItem = DispatchWorkItem { [weak self, weak shadowContainer] in
                 guard let shadowContainer else { return }
                 self?.dismissToast(shadowContainer, dismissEvent: .durationExpired)
@@ -195,32 +185,19 @@ public final class WMFToastPresenter {
         }
     }
 
-    public func dismissCurrentToast() {
-        guard let toast = currentToast else { return }
-        dismissToast(toast, dismissEvent: .outsideEvent)
-    }
-
-    public func dismissAll(completion: @escaping @MainActor () -> Void = {}) {
+    public func dismissCurrentToast(completion: (() -> Void)? = nil) {
         guard let toast = currentToast else {
-            completion()
+            completion?()
             return
         }
-
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
-
-        toast.removeFromSuperview()
-        if self.currentToast === toast {
-            self.currentToast = nil
+        if let completion {
+            let existing = dismissAction
+            dismissAction = { event in
+                existing?(event)
+                completion()
+            }
         }
-
-        if let backgroundTapGestureRecognizer = self.backgroundTapGestureRecognizer {
-            backgroundTapGestureRecognizer.view?.removeGestureRecognizer(backgroundTapGestureRecognizer)
-            self.backgroundTapGestureRecognizer = nil
-        }
-
-        self.dismissAction = nil
-        completion()
+        dismissToast(toast, dismissEvent: .outsideEvent)
     }
 
     // MARK: - Gesture Handlers

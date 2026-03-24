@@ -258,7 +258,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 presentProtectedPageWarning(error: protectedPageError)
                 isDifferentErrorBannerShown = true
             } else if let otherError = wikitextFetchResponse.otherError {
-                WMFToastManager.sharedInstance.showErrorToastWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showToast(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousToasts: true)
                 isDifferentErrorBannerShown = true
             } else if let editNoticesViewModel,
               !editNoticesViewModel.notices.isEmpty {
@@ -287,7 +287,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
             }
             if shouldShowEditAlert && !isDifferentErrorBannerShown {
-                WMFToastManager.sharedInstance.showWarningToast(CommonStrings.editArticleWarning, duration: NSNumber(value: 5), sticky: false, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showToast(CommonStrings.editArticleWarning, sticky: false, dismissPreviousToasts: true)
                 UserDefaults.standard.didShowInformationEditingMessage = true
             }
         }

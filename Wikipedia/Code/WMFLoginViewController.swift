@@ -222,7 +222,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
-                WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 self.loginSuccessCompletion?()
                 self.setViewControllerUserInteraction(enabled: true)
                 self.dismiss(animated: true)
@@ -257,7 +257,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         self.passwordAlertLabel.isHidden = false
                         self.passwordField.textColor = self.theme.colors.error
                         self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
-                        WMFToastManager.sharedInstance.dismissToast()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         return
                     default: break
                     }

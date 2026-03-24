@@ -204,9 +204,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 
     private func handleReadingListError(_ error: Error) {
         if let readingListsError = error as? ReadingListError {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(readingListsError.localizedDescription, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showToast(readingListsError.localizedDescription, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
         } else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(
+            WMFToastManager.sharedInstance.showToast(
                 CommonStrings.unknownError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
         }
     }

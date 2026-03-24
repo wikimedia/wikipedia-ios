@@ -2,151 +2,49 @@
 import WMFComponents
 
 @MainActor
-open class WMFToastManager: NSObject {
+final class WMFToastManager: NSObject {
 
     @objc static let sharedInstance = WMFToastManager()
     var theme = Theme.standard
 
-    // MARK: - Public Convenience Methods (for backward compatibility)
+    // MARK: - Public API
 
-    @objc public func showToast(_ message: String, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
-        let config = WMFToastConfig(
-            title: message,
-            duration: sticky ? nil : 2,
-            tapAction: tapCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
+    @objc public func showToast(_ message: String, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (() -> Void)? = nil) {
+        let config = WMFToastConfig(title: message, duration: sticky ? nil : 5, tapAction: tapCallBack)
+        dismissCurrentToast {
+            WMFToastPresenter.shared.show(config)
+        }
     }
 
-    @objc func showToastWithMessage(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousToasts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
-        let config = WMFToastConfig(
-            title: message,
-            subtitle: subtitle,
-            icon: image,
-            duration: 10,
-            buttonTitle: buttonTitle,
-            tapAction: tapCallBack,
-            buttonAction: tapCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
-    }
-
-    @objc func showSuccessToast(_ message: String, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (@Sendable () -> Void)?) {
-        let config = WMFToastConfig(
-            title: message,
-            duration: sticky ? nil : 2,
-            tapAction: tapCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
-    }
-
-    @objc func showWarningToast(_ message: String, duration: NSNumber? = nil, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
-        let finalDuration = duration?.intValue ?? 2
-        let config = WMFToastConfig(
-            title: message,
-            duration: sticky ? nil : TimeInterval(finalDuration),
-            tapAction: tapCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
-    }
-
-    func showWarningToastWithMessageAndSubtitle(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousToasts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
-        let config = WMFToastConfig(
-            title: message,
-            subtitle: subtitle,
-            icon: image,
-            duration: 10,
-            buttonTitle: buttonTitle,
-            tapAction: tapCallBack,
-            buttonAction: tapCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
-    }
-
-    @objc func showErrorAlert(_ error: Error, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
-        let config = WMFToastConfig(
-            title: (error as NSError).alertMessage(),
-            duration: sticky ? nil : 2,
-            tapAction: tapCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
-    }
-
-    @objc func showErrorToastWithMessage(_ message: String, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
-        let config = WMFToastConfig(
-            title: message,
-            duration: sticky ? nil : 2,
-            tapAction: tapCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
-    }
-
-   func showErrorToastWithMessageAndSubtitle(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousToasts: Bool, tapCallBack: (@Sendable () -> Void)? = nil) {
-        let config = WMFToastConfig(
-            title: message,
-            subtitle: subtitle,
-            icon: image,
-            duration: 15,
-            buttonTitle: buttonTitle,
-            tapAction: tapCallBack,
-            buttonAction: tapCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
-    }
-
-    func showToastWithMessage(_ message: String, subtitle: String?, image: UIImage?, duration: TimeInterval? = nil, dismissPreviousToasts: Bool, callback: (@Sendable () -> Void)? = nil, buttonTitle: String? = nil, buttonCallBack: (@Sendable () -> Void)? = nil, completion: (@Sendable () -> Void)? = nil) {
-        let config = WMFToastConfig(
-            title: message,
-            subtitle: subtitle,
-            icon: image,
-            duration: duration ?? 5,
-            buttonTitle: buttonTitle,
-            tapAction: callback,
-            buttonAction: buttonCallBack
-        )
-        show(config: config, dismissPreviousToasts: dismissPreviousToasts)
-
-        if let completion = completion, let duration = duration {
-            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+    @objc(showRichToast:subtitle:buttonTitle:image:duration:dismissPreviousToasts:tapCallBack:buttonCallBack:completion:)
+    func showRichToast(_ message: String, subtitle: String? = nil, buttonTitle: String? = nil, image: UIImage? = nil, duration: NSNumber? = NSNumber(value: 5), dismissPreviousToasts: Bool = true, tapCallBack: (() -> Void)? = nil, buttonCallBack: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
+        let resolvedDuration: TimeInterval? = duration.map { TimeInterval($0.doubleValue) }
+        let config = WMFToastConfig(title: message, subtitle: subtitle, icon: image, duration: resolvedDuration, buttonTitle: buttonTitle, tapAction: tapCallBack, buttonAction: buttonCallBack)
+        dismissCurrentToast {
+            WMFToastPresenter.shared.show(config)
+        }
+        if let completion, let resolvedDuration, resolvedDuration > 0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + resolvedDuration) {
                 completion()
             }
         }
     }
 
+    @objc func showErrorAlert(_ error: Error, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (() -> Void)? = nil) {
+        let config = WMFToastConfig(title: (error as NSError).alertMessage(), duration: sticky ? nil : 5, tapAction: tapCallBack)
+        dismissCurrentToast {
+            WMFToastPresenter.shared.show(config)
+        }
+    }
+
     // MARK: - Private Methods
 
-    private var queuedAlertBlocks: [() -> Void] = []
-
-    /// Show a toast with the given configuration
-    private func show(config: WMFToastConfig, dismissPreviousToasts: Bool) {
-        showToast(dismissPreviousToasts) {
-            WMFToastPresenter.shared.show(config, dismissPreviousToasts: false)
-        }
+    private func dismissCurrentToast(_ completion: @escaping () -> Void = {}) {
+        WMFToastPresenter.shared.dismissCurrentToast(completion: completion)
     }
 
-    private func showToast(_ dismissPreviousToasts: Bool, alertBlock: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            if dismissPreviousToasts {
-                self.queuedAlertBlocks.append(alertBlock)
-                self.dismissAllToasts {
-                    assert(Thread.isMainThread)
-                    if let alertBlock = self.queuedAlertBlocks.popLast() {
-                        alertBlock()
-                    }
-                    self.queuedAlertBlocks.removeAll()
-                }
-            } else {
-                alertBlock()
-            }
-        }
-    }
-
-    @objc func dismissToast() {
+    @objc func dismissCurrentToast() {
         WMFToastPresenter.shared.dismissCurrentToast()
-    }
-
-    @objc func dismissAllToasts(_ completion: @MainActor @escaping () -> Void = {}) {
-        WMFToastPresenter.shared.dismissAll(completion: completion)
     }
 }
 
