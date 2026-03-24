@@ -50,6 +50,10 @@ public final class WMFToastPresenter {
     // MARK: - Subclass Overrides
 
     public func appEnvironmentDidChange() {
+        if #available(iOS 26.0, *) {
+            // Glass effect handles its own appearance on iOS 26+
+            return
+        }
         currentToast?.backgroundColor = theme.paperBackground
         currentToast?.layer.shadowColor = theme.toastShadow.cgColor
 
