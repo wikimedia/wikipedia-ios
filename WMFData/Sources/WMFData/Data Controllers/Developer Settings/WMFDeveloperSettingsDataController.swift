@@ -101,6 +101,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: newValue)
         }
     }
+    
+    public var forceHCaptchaChallenge: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue)
+        }
+    }
 
     // MARK: - Remote Settings from https://en.wikipedia.org/api/rest_v1/configuration
     
