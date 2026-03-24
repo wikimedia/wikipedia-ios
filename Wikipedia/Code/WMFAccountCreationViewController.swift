@@ -630,9 +630,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 extension WMFAccountCreationViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         if URL.absoluteString.contains("privacy") {
-            authInstrument.submitInteraction(action: "click", elementId: "privacy_link")
+            authInstrument.submitInteraction(action: "click", elementId: "hcaptcha_privacy_link")
         } else if URL.absoluteString.contains("terms") {
-            authInstrument.submitInteraction(action: "click", elementId: "tos_link")
+            authInstrument.submitInteraction(action: "click", elementId: "hcaptcha_tos_link")
         }
         let config = SinglePageWebViewController.StandardConfig(url: URL, useSimpleNavigationBar: true)
         let inAppWebView = SinglePageWebViewController(configType: .standard(config), theme: theme)
