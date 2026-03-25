@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
       - 'liquid-glass'
+      - 'reading-challenge'
   workflow_dispatch:
 
 env:
