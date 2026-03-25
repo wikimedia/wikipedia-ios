@@ -232,6 +232,15 @@ public actor WMFActivityTabDataController {
         let dataController = try WMFPageViewsDataController()
         return try await dataController.fetchMostRecentTime()
     }
+    
+    public func shouldShowReadingChallengeWidgetAnnouncement() -> Bool {
+        guard hasEnrolledInReadingChallenge2026 else { return false }
+        return !hasSeenWidgetReadingChallengeAnnouncement2026
+    }
+
+    public func setHasSeenWidgetReadingChallengeAnnouncement() {
+        hasSeenWidgetReadingChallengeAnnouncement2026 = true
+    }
 
     public func getTopCategories() async throws -> [String]? {
         let calendar = Calendar.current

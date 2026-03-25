@@ -1055,6 +1055,8 @@
 "reading-challenge-search-button" = "Title for the Search button on the reading challenge widget.";
 "reading-challenge-streak-days" = "Number of days in a reading challenge streak. $1 is the number of days.";
 "reading-challenge-subtitle" = "Subtitle shown on the reading challenge widget indicating the challenge length.";
+"reading-challenge-widget-announcement-body" = "Body text for the reading challenge widget announcement sheet.";
+"reading-challenge-widget-announcement-title" = "Title for the reading challenge widget announcement sheet.";
 "reading-challenge-widget-description" = "Description for the reading challenge widget shown in the widget picker.";
 "reading-challenge-widget-display-name" = "Display name for the reading challenge widget shown in the widget picker.";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";

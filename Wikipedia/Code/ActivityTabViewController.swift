@@ -304,6 +304,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 await dataController.setHasSeenActivityTab(true)
             } else {
                 presentReadingChallengeAnnouncementIfNeeded()
+                presentReadingChallengeWidgetAnnouncementIfNeeded()
                 presentSurveyIfNeeded()
             }
             presentSurveyIfNeeded()
@@ -313,8 +314,23 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             self?.presentFullLoginFlow()
         }
     }
+    
+    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
+        guard presentedViewController == nil else { return }
+
+        Task { @MainActor in
+            // guard await dataController.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+
+            readingChallengeWidgetAnnouncementCoordinator =
+                ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
+            readingChallengeWidgetAnnouncementCoordinator?.start()
+
+            await dataController.setHasSeenWidgetReadingChallengeAnnouncement()
+        }
+    }
 
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    private var readingChallengeWidgetAnnouncementCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
     @discardableResult
     private func presentReadingChallengeAnnouncementIfNeeded() -> Bool {
@@ -874,3 +890,5 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
         dismiss(animated: true)
     }
 }
+
+extension WMFActivityTabViewController: WMFFeatureAnnouncing {}
