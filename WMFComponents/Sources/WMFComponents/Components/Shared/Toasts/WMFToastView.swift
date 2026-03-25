@@ -48,10 +48,9 @@ struct WMFToastView: View {
         HStack(alignment: .center, spacing: spacing) {
 
             if let icon = config.icon {
-                Image(uiImage: icon.withConfiguration(UIImage.SymbolConfiguration(weight: .semibold)))
+                Image(uiImage: icon.withConfiguration(UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold)))
                     .renderingMode(.template)
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    .frame(width: iconSize, height: iconSize)
                     .accessibilityHidden(true)
             }
 
