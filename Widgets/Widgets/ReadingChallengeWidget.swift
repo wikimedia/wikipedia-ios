@@ -192,6 +192,9 @@ struct ReadingChallengeEntryView: View {
                 state: entry.state
             )
         )
+        .containerBackground(for: .widget) {
+            Color.clear
+        }
         .widgetURL(URL(string: "wikipedia://explore"))
     }
 }
