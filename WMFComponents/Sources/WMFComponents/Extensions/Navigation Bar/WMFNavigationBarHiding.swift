@@ -71,6 +71,21 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
             swapLogoToFull()
         }
     }
+    
+    func resetLogoToFull() {
+        WMFNavigationBarHidingLogoState.isCompact = false
+        swapLogoToFull()
+    }
+
+    func restoreLogoStateForCurrentScrollPosition(scrollView: UIScrollView) {
+        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        if finalOffset > 75 {
+            WMFNavigationBarHidingLogoState.isCompact = false  // reset so the guard passes
+            updateLogoImageOnScroll(scrollView: scrollView)
+        } else {
+            resetLogoToFull()
+        }
+    }
 
     private func swapLogoToCompact() {
         navigationItem.leftBarButtonItem?.image = UIImage(named: "W")

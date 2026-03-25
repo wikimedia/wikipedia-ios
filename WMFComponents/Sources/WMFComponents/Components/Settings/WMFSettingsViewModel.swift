@@ -227,7 +227,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         self.username = username
         self.tempUsername = tempUsername
         self.isTempAccount = isTempAccount
-        await buildSections()
+        await refreshSections()
     }
 
     /// Updates the language, explore feed status and reading theme synchronously

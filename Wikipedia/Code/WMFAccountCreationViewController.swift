@@ -319,7 +319,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        WMFToastManager.sharedInstance.dismissToast()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         super.viewWillDisappear(animated)
     }
     
@@ -360,7 +360,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
-                WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 if let start = self.startDate {
                     LoginFunnel.shared.logCreateAccountSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
                 } else {
@@ -404,7 +404,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         passwordRepeatAlertLabel.isHidden = true
         
         guard areRequiredFieldsPopulated() else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(WMFLocalizedString("account-creation-missing-fields", value:"You must enter a username, password, and password confirmation to create an account.", comment:"Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty."), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-missing-fields", value:"You must enter a username, password, and password confirmation to create an account.", comment:"Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty."), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             return
         }
 
@@ -413,7 +413,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             self.passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
             self.passwordRepeatAlertLabel.isHidden = false
             self.scrollView.scrollSubview(toTop: self.passwordTitleLabel, offset: 6, animated: true)
-            WMFToastManager.sharedInstance.showErrorToastWithMessage(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
             return
         }
         wmf_hideKeyboard()
@@ -484,7 +484,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         self.usernameAlertLabel.alpha = 1
                         self.usernameField.textColor = self.theme.colors.error
                         self.usernameField.keyboardAppearance = self.theme.keyboardAppearance
-                        WMFToastManager.sharedInstance.dismissToast()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         return
                     case .wrongCaptcha:
                         isCaptchaError = true
@@ -509,8 +509,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                             break
                         }
                         
-                        WMFToastManager.sharedInstance.dismissToast()
-                        
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
+
                         self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
 
                     default:

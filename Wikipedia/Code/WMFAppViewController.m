@@ -262,12 +262,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
 
     __weak __typeof(self) weakSelf = self;
-    [self registerForTraitChanges:@[UITraitUserInterfaceStyle.class] withHandler:^(__kindof WMFAppViewController * _Nonnull viewController, UITraitCollection * _Nonnull previousTraitCollection) {
-        __strong __typeof(weakSelf) strongSelf = weakSelf;
-        if (strongSelf) {
-            [strongSelf debounceTraitCollectionThemeUpdate];
-        }
-    }];
+    [self registerForTraitChanges:@[UITraitUserInterfaceStyle.class]
+                      withHandler:^(__kindof WMFAppViewController *_Nonnull viewController, UITraitCollection *_Nonnull previousTraitCollection) {
+                          __strong __typeof(weakSelf) strongSelf = weakSelf;
+                          if (strongSelf) {
+                              [strongSelf debounceTraitCollectionThemeUpdate];
+                          }
+                      }];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -322,11 +323,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.transitionsController = [WMFViewControllerTransitionsController new];
 
     [self.searchTabViewController applyTheme:self.theme];
-    [self.settingsViewController applyTheme:self.theme];
+    if ([NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+        [self.settingsViewController applyTheme:self.theme];
+    }
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
-    
+
     if (self.searchTabViewController.tabBarItem != nil) {
         [self.tipWrapper listenForTooltipsWithAppViewController:self tabBarItem:self.searchTabViewController.tabBarItem];
     }
@@ -503,7 +506,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)readingListsWereSplitNotification:(NSNotification *)note {
     NSInteger entryLimit = [note.userInfo[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey] integerValue];
 
-    [[WMFToastManager sharedInstance] showWarningToast:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit] duration:nil sticky:YES dismissPreviousToasts:YES tapCallBack:nil];
+    [[WMFToastManager sharedInstance] showToast:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit] sticky:YES dismissPreviousToasts:YES tapCallBack:nil];
 }
 
 - (void)readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:(NSNotification *)note {
@@ -533,8 +536,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if ([error isKindOfClass:[NSError class]] && error.wmf_isNetworkConnectionError) {
         if (!self.hasSyncErrorBeenShownThisSesssion) {
             self.hasSyncErrorBeenShownThisSesssion = YES; // only show sync error once for multiple failed syncs
-            [[WMFToastManager sharedInstance] showWarningToast:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
-                                                      duration:nil
+            [[WMFToastManager sharedInstance] showToast:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                         sticky:YES
                                          dismissPreviousToasts:NO
                                                    tapCallBack:nil];
@@ -548,7 +550,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             NSInteger syncedReadingListEntriesCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] integerValue];
             if (syncedReadingListsCount > 0 && syncedReadingListEntriesCount > 0) {
                 NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-large-sync-completed", nil, nil, @"{{PLURAL:%1$d|%1$d article|%1$d articles}} and {{PLURAL:%2$d|%2$d reading list|%2$d reading lists}} synced from your account", @"Alert message informing user that large sync was completed. %1$d will be replaced with the number of articles which were synced and %2$d will be replaced with the number of reading lists which were synced"), syncedReadingListEntriesCount, syncedReadingListsCount];
-                [[WMFToastManager sharedInstance] showSuccessToast:alertTitle sticky:YES dismissPreviousToasts:YES tapCallBack:nil];
+                [[WMFToastManager sharedInstance] showToast:alertTitle sticky:YES dismissPreviousToasts:YES tapCallBack:nil];
             }
         }
     }
@@ -558,8 +560,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     NSString *oldName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedOldNameKey];
     NSString *newName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedNewNameKey];
     NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-conflicting-reading-list-name-updated", nil, nil, @"Your list '%1$@' has been renamed to '%2$@'", @"Alert message informing user that their reading list was renamed. %1$@ will be replaced the previous name of the list. %2$@ will be replaced with the new name of the list."), oldName, newName];
-    [[WMFToastManager sharedInstance] showWarningToast:alertTitle
-                                              duration:nil
+    [[WMFToastManager sharedInstance] showToast:alertTitle
                                                 sticky:YES
                                  dismissPreviousToasts:YES
                                            tapCallBack:nil];
@@ -609,8 +610,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
-    [[WMFToastManager sharedInstance] showToastWithMessage:@"Your edit was successfully published" subtitle:nil buttonTitle:nil image:[UIImage imageNamed:@"published-pencil"] dismissPreviousToasts:YES tapCallBack:nil];
-
+    [[WMFToastManager sharedInstance] showRichToast:@"Your edit was successfully published" subtitle:nil buttonTitle:nil image:[UIImage imageNamed:@"published-pencil"] duration:nil dismissPreviousToasts:YES tapCallBack:nil buttonCallBack:nil completion:nil];
 }
 
 - (void)referenceLinkTapped:(NSNotification *)note {
@@ -947,23 +947,26 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         NSString *const kTemporaryAccountAlertShownKey = @"TemporaryAccountAlertShown";
 
         if ([self.dataStore.authenticationManager authStateIsTemporary] && ![[NSUserDefaults standardUserDefaults] boolForKey:kTemporaryAccountAlertShownKey]) {
-            [[WMFToastManager sharedInstance] showToastWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.", @"Alert message informing user that they are using a temporary account")
+            [[WMFToastManager sharedInstance] showRichToast:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.", @"Alert message informing user that they are using a temporary account")
                                                           subtitle:nil
                                                        buttonTitle:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account-learn-more", nil, nil, @"Learn more.", @"Button on alert for temporary accounts to learn more.")
                                                              image:[UIImage imageNamed:@"exclamation-point"]
+                                                         duration:@10
                                              dismissPreviousToasts:true
-                                                       tapCallBack:^{
-                TempAccountExpiryViewController *tempVC = [[TempAccountExpiryViewController alloc] init];
-                [tempVC start];
+                                                      tapCallBack:^{
+                                                            TempAccountExpiryViewController *tempVC = [[TempAccountExpiryViewController alloc] init];
+                                                            [tempVC start];
 
-                if (self.navigationController) {
-                    [self.navigationController pushViewController:tempVC animated:YES];
-                } else {
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tempVC];
-                    navController.modalPresentationStyle = UIModalPresentationFullScreen;
-                    [self presentViewController:navController animated:YES completion:nil];
-                }
-            }];
+                                                            if (self.navigationController) {
+                                                                [self.navigationController pushViewController:tempVC animated:YES];
+                                                            } else {
+                                                                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tempVC];
+                                                                navController.modalPresentationStyle = UIModalPresentationFullScreen;
+                                                                [self presentViewController:navController animated:YES completion:nil];
+                                                            }
+                                                        }
+                                                  buttonCallBack:nil
+                                                      completion:nil];
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kTemporaryAccountAlertShownKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
@@ -1196,7 +1199,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
-        case WMFUserActivityTypeNotificationSettings:
         case WMFUserActivityTypeContent:
             return YES;
         case WMFUserActivityTypeSearchResults:
@@ -1314,21 +1316,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [appearanceSettingsVC applyTheme:self.theme];
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
-        case WMFUserActivityTypeNotificationSettings: {
-            UIViewController *pushNotificationsVC = [self makePushNotificationsHostingController];
-            [self dismissPresentedViewControllers];
-            switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
-                case WMFAppDefaultTabTypeExplore: {
-                    [self setSelectedIndex:WMFAppTabTypeMain];
-                    [self.currentTabNavigationController popToRootViewControllerAnimated:YES];
-                    [self showSettingsWithSubViewController:pushNotificationsVC animated:animated];
-                } break;
-                case WMFAppDefaultTabTypeSettings: {
-                    [self.currentTabNavigationController popToRootViewControllerAnimated:YES];
-                    [self.currentTabNavigationController pushViewController:pushNotificationsVC animated:YES];
-                } break;
-            }
-        } break;
+
         default: {
             if ([self processLinkUserActivity:activity]) {
                 done();
@@ -1451,7 +1439,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)handleExploreCenterBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButton];
+        if ([NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+            [self.settingsViewController updateProfileButton];
+        }
     });
 }
 
@@ -1838,7 +1828,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     // Ensures theming happens after main UI is loaded
     if (self.viewControllers.count > 0) {
-        [self.settingsViewController applyTheme:theme];
+        if ([NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+            [self.settingsViewController applyTheme:theme];
+        }
         [self.exploreViewController applyTheme:theme];
         [self.placesViewController applyTheme:theme];
         [self.savedViewController applyTheme:theme];
@@ -1945,7 +1937,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)articleSaveToDiskDidFail:(NSNotification *)note {
     NSError *error = (NSError *)note.userInfo[[WMFSavedArticlesFetcher saveToDiskDidFailErrorKey]];
     if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
-        [[WMFToastManager sharedInstance] showErrorToastWithMessage:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
+        [[WMFToastManager sharedInstance] showToast:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
                                                              sticky:YES
                                               dismissPreviousToasts:YES
                                                         tapCallBack:nil];
@@ -2110,8 +2102,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButton];
-        UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
+        if ([NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+            [self.settingsViewController updateProfileButton];
+        }
+        [[UNUserNotificationCenter currentNotificationCenter] setBadgeCount:0 withCompletionHandler:nil];
 
         if (self.isResumeComplete) {
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
@@ -2130,7 +2124,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userWasLoggedIn:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateProfileButton];
-        [self.settingsViewController updateProfileButton];
+        if ([NSUserDefaults standardUserDefaults].defaultTabType == WMFAppDefaultTabTypeSettings) {
+            [self.settingsViewController updateProfileButton];
+        }
 
         if (self.isResumeComplete) {
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
@@ -2180,19 +2176,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (UIAlertAction *)logBackInActionFor:(WMFAuthenticationManager *)authenticationManager {
     NSString *title = WMFLocalizedStringWithDefaultValue(@"logged-out-log-back-in-button-title", nil, nil, @"Log back in to your account", @"Title for button allowing user to log back in to their account");
     __weak typeof(self) weakSelf = self;
-    return [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [authenticationManager userDidAcknowledgeUnintentionalLogout];
-        [weakSelf presentLoginViewControllerAfterLogout];
-    }];
+    return [UIAlertAction actionWithTitle:title
+                                    style:UIAlertActionStyleDefault
+                                  handler:^(UIAlertAction *action) {
+                                      [authenticationManager userDidAcknowledgeUnintentionalLogout];
+                                      [weakSelf presentLoginViewControllerAfterLogout];
+                                  }];
 }
 
 - (UIAlertAction *)continueWithoutLoggingInActionFor:(WMFAuthenticationManager *)authenticationManager {
     NSString *title = WMFLocalizedStringWithDefaultValue(@"logged-out-continue-without-logging-in-button-title", nil, nil, @"Continue without logging in", @"Title for button allowing user to continue without logging back in to their account");
     __weak typeof(self) weakSelf = self;
-    return [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [authenticationManager userDidAcknowledgeUnintentionalLogout];
-        [weakSelf wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
-    }];
+    return [UIAlertAction actionWithTitle:title
+                                    style:UIAlertActionStyleCancel
+                                  handler:^(UIAlertAction *action) {
+                                      [authenticationManager userDidAcknowledgeUnintentionalLogout];
+                                      [weakSelf wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
+                                  }];
 }
 
 - (void)presentLoginViewControllerAfterLogout {
@@ -2214,10 +2214,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-title", nil, nil, @"Sync is enabled on this account", @"Title for panel informing user that sync was enabled on their Wikipedia account on another device");
     NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-message", nil, nil, @"Reading list syncing is enabled for this account. To stop syncing, you can turn sync off for this account by updating your settings.", @"Message for panel informing user that sync is enabled for their account.");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle: WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
-    [presenter presentViewController:alert animated:YES completion:^{
-        [NSUserDefaults.standardUserDefaults wmf_setDidShowSyncEnabledPanel:YES];
-    }];
+    [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
+    [presenter presentViewController:alert
+                            animated:YES
+                          completion:^{
+                              [NSUserDefaults.standardUserDefaults wmf_setDidShowSyncEnabledPanel:YES];
+                          }];
 }
 
 - (void)showSyncDisabledPanelIfNeededWasSyncEnabledOnDevice:(BOOL)wasSyncEnabledOnDevice {
@@ -2229,10 +2231,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
     UIViewController *presenter = self.presentedViewController ?: self;
-    [presenter presentViewController:alert animated:YES completion:^{
-        [NSUserDefaults.standardUserDefaults wmf_setDidShowSyncDisabledPanel:YES];
-    }];
+    [presenter presentViewController:alert
+                            animated:YES
+                          completion:^{
+                              [NSUserDefaults.standardUserDefaults wmf_setDidShowSyncDisabledPanel:YES];
+                          }];
 }
 
 @end
-

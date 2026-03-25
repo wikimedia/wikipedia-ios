@@ -112,9 +112,9 @@ class WatchlistController {
             NSUserActivity.wmf_navigate(to: userActivity)
         }
 
-        let duration: TimeInterval? = UIAccessibility.isVoiceOverRunning ? 10 : 5
+        let duration: NSNumber? = UIAccessibility.isVoiceOverRunning ? 10 : 5
 
-        WMFToastManager.sharedInstance.showToastWithMessage(statusTitle, subtitle: nil, image: image, duration: duration, dismissPreviousToasts: true, callback: navigateToWatchlistBlock, buttonTitle: promptTitle, buttonCallBack: navigateToWatchlistBlock)
+        WMFToastManager.sharedInstance.showRichToast(statusTitle, subtitle: nil, buttonTitle: promptTitle, image: image, duration: duration, dismissPreviousToasts: true,  buttonCallBack: navigateToWatchlistBlock)
 
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.async {
@@ -125,7 +125,7 @@ class WatchlistController {
 
     private func presentChooseExpiryActionSheet(pageTitle: String, siteURL: URL, wmfProject: WMFProject, viewController: UIViewController, theme: Theme, sender: UIBarButtonItem, sourceView: UIView?, sourceRect: CGRect?, authenticationManager: WMFAuthenticationManager) {
 
-        WMFToastManager.sharedInstance.dismissAllToasts()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
 
         let title = WMFLocalizedString("watchlist-change-expiry-title", value: "Watchlist expiry", comment: "Title of modal that allows a user to change the expiry setting of a page they are watching.")
         let message = WMFLocalizedString("watchlist-change-expiry-subtitle", value: "Choose Watchlist time period", comment: "Subtitle in modal that allows a user to choose the expiry setting of a page they are watching.")
@@ -264,7 +264,7 @@ class WatchlistController {
                     let image = WMFSFSymbolIcon.for(symbol: .star)
 
                     if !UIAccessibility.isVoiceOverRunning {
-                        WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: nil, image: image, dismissPreviousToasts: true)
+                        WMFToastManager.sharedInstance.showRichToast(title, subtitle: nil, image: image, dismissPreviousToasts: true)
                     } else {
                         UIAccessibility.post(notification: .layoutChanged, argument: [title] as [Any])
                     }

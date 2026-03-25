@@ -160,7 +160,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 #pragma mark - Section management
 
 - (void)reloadDataSections {
-    [[WMFToastManager sharedInstance] dismissToast];
+    [[WMFToastManager sharedInstance] dismissCurrentToast];
     [self.tableView reloadData];
 }
 

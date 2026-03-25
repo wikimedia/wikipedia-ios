@@ -906,7 +906,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 guard self != nil else { return }
 
                 let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
-                WMFToastManager.sharedInstance.showToastWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showRichToast(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, dismissPreviousToasts: true)
                 DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
             })
         })
@@ -953,7 +953,7 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
-            WMFToastManager.sharedInstance.showToastWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIR, sticky: false, dismissPreviousToasts: true)
         }
         resetFromFeatureAnnouncement()
     }
@@ -1174,7 +1174,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             navigationController.dismiss(animated: true) { [weak self] in
                 guard let self else { return }
                 if needsExitFromIntroToast {
-                    WMFToastManager.sharedInstance.showToastWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousToasts: true)
+                    WMFToastManager.sharedInstance.showToast(CommonStrings.youCanAccessYIR, sticky: false, dismissPreviousToasts: true)
                 }
                 resetFromFeatureAnnouncement()
             }

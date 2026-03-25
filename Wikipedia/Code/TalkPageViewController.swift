@@ -519,9 +519,9 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func presentIPTempWarningToastIfNeeded() {
         if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent, wikiHasTempAccounts {
             if viewModel.authenticationManager.authStateIsTemporary {
-                WMFToastManager.sharedInstance.showWarningToastWithMessageAndSubtitle(CommonStrings.tempWarningTitle, subtitle: CommonStrings.tempWarningSubtitle(username: viewModel.authenticationManager.authStateTemporaryUsername ?? "*****"), buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showRichToast(CommonStrings.tempWarningTitle, subtitle: CommonStrings.tempWarningSubtitle(username: viewModel.authenticationManager.authStateTemporaryUsername ?? "*****"), buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), dismissPreviousToasts: true)
             } else {
-                WMFToastManager.sharedInstance.showWarningToastWithMessageAndSubtitle(CommonStrings.ipWarningTitle, subtitle: CommonStrings.ipWarningSubtitle,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showRichToast(CommonStrings.ipWarningTitle, subtitle: CommonStrings.ipWarningSubtitle,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousToasts: true)
             }
         }
     }
@@ -705,7 +705,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: voiceoverAnnoucement)
             }
         } else {
-            WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: subtitle, image: image, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showRichToast(title, subtitle: subtitle, image: image, dismissPreviousToasts: true)
         }
     }
 
@@ -717,7 +717,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
             }
         } else {
-            WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showRichToast(title, subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousToasts: true)
         }
     }
 
@@ -737,7 +737,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
             let tempAccountUsername = viewModel.authenticationManager.authStateTemporaryUsername
-            WMFToastManager.sharedInstance.showToastWithMessage(
+            WMFToastManager.sharedInstance.showRichToast(
                 title,
                 subtitle: nil,
                 image: image,
@@ -748,12 +748,12 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
                         let subtitle = CommonStrings.tempAccountCreatedToastSubtitle(username: tempAccountUsername)
                         let image = WMFIcon.temp
                         if needsFollowupTempAccountToast {
-                            WMFToastManager.sharedInstance.showToastWithMessage(
+                            WMFToastManager.sharedInstance.showRichToast(
                                 title,
                                 subtitle: subtitle,
+                                buttonTitle: CommonStrings.learnMoreTitle(),
                                 image: image,
                                 dismissPreviousToasts: true,
-                                buttonTitle: CommonStrings.learnMoreTitle(),
                                 buttonCallBack: {
                                     Task { @MainActor in
                                         if let url = URL(string: self.tempAccountsMediaWikiURL) {
@@ -955,12 +955,12 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFToastManager.sharedInstance.showErrorToastWithMessageAndSubtitle(title, subtitle: nil, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showRichToast(title, subtitle: nil, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousToasts: true)
         }
     }
 
     fileprivate func hideOfflineAlertIfNeeded() {
-        WMFToastManager.sharedInstance.dismissAllToasts()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
     }
 }
 
@@ -1202,7 +1202,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         }
                     } else {
-                        WMFToastManager.sharedInstance.showErrorToastWithMessageAndSubtitle(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousToasts: true)
+                        WMFToastManager.sharedInstance.showRichToast(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousToasts: true)
                     }
                 } else {
                     self.showUnexpectedErrorAlert(on: self)
@@ -1291,7 +1291,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                         }
                     } else {
-                        WMFToastManager.sharedInstance.showErrorToastWithMessageAndSubtitle(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousToasts: true)
+                        WMFToastManager.sharedInstance.showRichToast(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircle), dismissPreviousToasts: true)
                     }
                 } else {
                     self.showUnexpectedErrorAlert(on: composeViewController)
@@ -1461,7 +1461,7 @@ extension TalkPageViewController: EditorViewControllerDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     }
                 } else {
-                    WMFToastManager.sharedInstance.showToastWithMessage(title, subtitle: nil, image: image, dismissPreviousToasts: true)
+                    WMFToastManager.sharedInstance.showRichToast(title, subtitle: nil, image: image, dismissPreviousToasts: true)
                 }
 
                 // Refresh page
