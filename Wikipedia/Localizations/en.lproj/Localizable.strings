@@ -1052,7 +1052,6 @@
 "reading-challenge-not-enrolled-title" = "Ready, set, read!";
 "reading-challenge-not-yet-read-subtitle" = "Don't let today drift by, save your streak.";
 "reading-challenge-random-button" = "Random";
-"reading-challenge-search-button" = "Search";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 day|$1 days}}";
 "reading-challenge-subtitle" = "25-day reading challenge";
 "reading-challenge-widget-announcement-body" = "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.";

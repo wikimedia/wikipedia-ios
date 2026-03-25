@@ -1052,7 +1052,6 @@
 "reading-challenge-not-enrolled-title" = "Title shown on the reading challenge widget when the user is not enrolled in the challenge.";
 "reading-challenge-not-yet-read-subtitle" = "Subtitle shown on the reading challenge widget when the user has not yet read today.";
 "reading-challenge-random-button" = "Title for the Random article button on the reading challenge widget.";
-"reading-challenge-search-button" = "Title for the Search button on the reading challenge widget.";
 "reading-challenge-streak-days" = "Number of days in a reading challenge streak. $1 is the number of days.";
 "reading-challenge-subtitle" = "Subtitle shown on the reading challenge widget indicating the challenge length.";
 "reading-challenge-widget-announcement-body" = "Body text for the reading challenge widget announcement sheet.";

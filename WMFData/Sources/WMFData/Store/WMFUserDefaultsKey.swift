@@ -41,4 +41,5 @@ public enum WMFUserDefaultsKey: String {
     case hasEnrolledInReadingChallenge2026 = "has-enrolled-in-reading-challenge-2026"
     case hasSeenFullPageReadingChallengeAnnouncement2026 = "has-seen-full-page-reading-challenge-announcement-2026"
     case hasSeenWidgetReadingChallengeAnnouncement2026 = "has-seen-widget-reading-challenge-announcement-2026"
+    case developerSettingsReadingChallengeDatesRelativeToToday = "dev-settings-reading-challenge-dates-relative-to-today"
 }

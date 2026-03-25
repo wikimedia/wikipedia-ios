@@ -49,6 +49,8 @@ import WMFData
         
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
 
+        let readingChallengeDatesRelativeToToday = WMFFormItemSelectViewModel(title: "Reading Challenge: Use Relative Dates", isSelected: WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday)
+
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
@@ -60,7 +62,8 @@ import WMFData
                 enableMoreDynamicTabsV2GroupC,
                 showYiRV3,
                 enableYiRVLoginExperimentControl,
-                enableYiRVLoginExperimentB
+                enableYiRVLoginExperimentB,
+                readingChallengeDatesRelativeToToday
             ], selectType: .multi)
         ])
 
@@ -95,6 +98,10 @@ import WMFData
         
         enableYiRVLoginExperimentB.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB = isSelected }
+            .store(in: &subscribers)
+
+        readingChallengeDatesRelativeToToday.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday = isSelected }
             .store(in: &subscribers)
         
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(

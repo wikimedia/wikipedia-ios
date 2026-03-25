@@ -83,7 +83,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 streak
             ),
             subtitle: WMFLocalizedString("reading-challenge-not-yet-read-subtitle", value: "Don't let today drift by, save your streak.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."),
-            button1Title: showButtons ? WMFLocalizedString("reading-challenge-search-button", value: "Search", comment: "Title for the Search button on the reading challenge widget.") : nil,
+            button1Title: showButtons ? CommonStrings.searchTitle : nil,
             button2Title: showButtons ? WMFLocalizedString("reading-challenge-random-button", value: "Random", comment: "Title for the Random article button on the reading challenge widget.") : nil,
             button1URL: showButtons ? URL(string: "wikipedia://search") : nil,
             button2URL: showButtons ? URL(string: "wikipedia://random") : nil,
