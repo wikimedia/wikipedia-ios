@@ -137,9 +137,10 @@ public final class WMFToastPresenter {
             equalTo: containerView.safeAreaLayoutGuide.trailingAnchor,
             constant: -16
         )
+        let toolbarOffset = containerView.visibleToolbarHeightAboveSafeArea()
         let bottom = shadowContainer.bottomAnchor.constraint(
             equalTo: containerView.safeAreaLayoutGuide.bottomAnchor,
-            constant: -16
+            constant: -(24 + toolbarOffset + (toolbarOffset > 0 ? 8 : 0))
         )
 
         // Make these REQUIRED so iPhone doesn’t shrink
@@ -291,6 +292,38 @@ public final class WMFToastPresenter {
             self.dismissAction?(dismissEvent)
             self.dismissAction = nil
         })
+    }
+}
+
+// MARK: - Toolbar Detection
+
+extension UIView {
+    /// Returns the height of any visible UIToolbar or UITabBar in this view (or its window's tab bar controller)
+    /// that sits above the safe area bottom. Used so toasts automatically clear bars without callers passing manual offsets.
+    func visibleToolbarHeightAboveSafeArea() -> CGFloat {
+        let safeBottom = safeAreaInsets.bottom
+        let viewHeight = bounds.height
+        let safeAreaFloor = viewHeight - safeBottom
+
+        // Check direct subviews for UIToolbar or UITabBar
+        for subview in subviews {
+            guard subview is UIToolbar || subview is UITabBar, !subview.isHidden, subview.alpha > 0 else { continue }
+            if subview.frame.minY < safeAreaFloor {
+                return subview.frame.height
+            }
+        }
+
+        // Also check the tab bar controller's tab bar, which is not a subview of the VC's view
+        if let tabBarController = window?.rootViewController as? UITabBarController,
+           !tabBarController.tabBar.isHidden,
+           tabBarController.tabBar.alpha > 0 {
+            let tabBarHeight = tabBarController.tabBar.frame.height - safeBottom
+            if tabBarHeight > 0 {
+                return tabBarHeight
+            }
+        }
+
+        return 0
     }
 }
 

@@ -148,7 +148,7 @@ final public class WMFReadingListToastPresenter {
             presenter.view.addSubview(containerView)
         }
 
-        let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -additionalBottomSpacing)
+        let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -(additionalBottomSpacing + 24))
         let topConstraint = containerView.topAnchor.constraint(equalTo: bottomAnchor)
 
         NSLayoutConstraint.activate([
