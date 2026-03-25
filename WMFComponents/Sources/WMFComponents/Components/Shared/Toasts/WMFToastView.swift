@@ -27,7 +27,7 @@ struct WMFToastView: View {
                     .regular
                         .tint(Color(uiColor: theme.paperBackground).opacity(0.85))
                         .interactive(),
-                    in: .rect(cornerRadius: 26, style: .circular)
+                    in: .rect(cornerRadius: 24, style: .circular)
                 )
                 .onTapGesture { config.tapAction?() }
 
@@ -39,7 +39,7 @@ struct WMFToastView: View {
                 .padding(.vertical, 6)
                 .onTapGesture { config.tapAction?() }
                 .background(Color(uiColor: theme.paperBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 26, style: .circular))
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .circular))
         }
     }
 

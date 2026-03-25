@@ -85,13 +85,13 @@ private struct ToastGlassModifier: ViewModifier {
                     .regular
                         .tint(Color(uiColor: theme.paperBackground).opacity(0.85))
                         .interactive(),
-                    in: .rect(cornerRadius: 26)
+                    in: .rect(cornerRadius: 24, style: .circular)
                 )
         } else {
             content
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(uiColor: theme.paperBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
         }
     }
 }
