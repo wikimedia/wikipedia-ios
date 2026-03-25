@@ -173,7 +173,7 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
     override func viewDidLoad() {
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
-        otherLanguagesButton?.titleLabel?.font = WMFFont.for(.subheadline)
+        otherLanguagesButton?.titleLabel?.font = WMFFont.for(.body)
 
         if let otherLanguagesButton {
             var deprecatedOtherLanguagesButton = otherLanguagesButton as DeprecatedButton

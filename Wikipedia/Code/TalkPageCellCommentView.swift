@@ -29,7 +29,7 @@ final class TalkPageCellCommentView: SetupView {
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .vertical)
 
-        button.titleLabel?.font = WMFFont.for(.boldCallout)
+        button.titleLabel?.font = WMFFont.for(.body)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
 
         button.addTarget(self, action: #selector(tappedReply), for: .touchUpInside)

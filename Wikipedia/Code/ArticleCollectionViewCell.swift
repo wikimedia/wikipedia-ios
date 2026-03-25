@@ -239,7 +239,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
         descriptionLabel.font = WMFFont.for(descriptionTextStyle, compatibleWith: traitCollection)
         extractLabel?.font = WMFFont.for(extractTextStyle, compatibleWith: traitCollection)
-        alertButton.titleLabel?.font = WMFFont.for(.boldCaption1, compatibleWith: traitCollection)
+        alertButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     // MARK: - Semantic content

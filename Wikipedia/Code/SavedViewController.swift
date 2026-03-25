@@ -421,14 +421,14 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         readingListsViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
 
-        addReadingListBarButtonItem.tintColor = theme.colors.link
+        addReadingListBarButtonItem.tintColor = theme.colors.warning
 
         themeNavigationBarLeadingTitleView()
         themeTopSafeAreaOverlay()
 
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for barButtonItem in rightBarButtonItems {
-                barButtonItem.tintColor = theme.colors.link
+                barButtonItem.tintColor = theme.colors.primaryText
             }
         }
 
@@ -458,7 +458,8 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                 self.allArticlesCoordinator?.contentViewController.viewModel.toggleEditing()
                 if self.allArticlesCoordinator?.contentViewController.viewModel.isEditing == true {
                     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.userDidTapCancelEditingAllArticles))
-                    cancelButton.tintColor = theme.colors.secondaryText
+                    cancelButton.tintColor = theme.colors.primaryText
+
                     self.navigationItem.rightBarButtonItems = [cancelButton]
                     ReadingListsFunnel.shared.logTappedEditButton()
                 } else {
@@ -572,8 +573,8 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             configureNavigationBar() // Switches back to More and Profile
         }
 
-        moreBarButtonItem.tintColor = theme.colors.link
-        editButton.tintColor = theme.colors.link
+        moreBarButtonItem.tintColor = theme.colors.primaryText
+        editButton.tintColor = theme.colors.primaryText
 
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)

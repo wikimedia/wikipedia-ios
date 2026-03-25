@@ -147,7 +147,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         redoConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 15)
         redoConfig.cornerStyle = .capsule
         redoSearchButton.configuration = redoConfig
-        redoSearchButton.titleLabel?.font = WMFFont.for(.callout)
+        redoSearchButton.titleLabel?.font = WMFFont.for(.body)
         redoSearchButton.setTitle(WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area"), for: .normal)
         redoSearchButton.isHidden = true
 
@@ -156,7 +156,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         didYouMeanConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 15)
         didYouMeanConfig.cornerStyle = .capsule
         didYouMeanButton.configuration = didYouMeanConfig
-        didYouMeanButton.titleLabel?.font = WMFFont.for(.callout)
+        didYouMeanButton.titleLabel?.font = WMFFont.for(.body)
         didYouMeanButton.setTitle("", for: .normal)
         didYouMeanButton.isHidden = true
 
@@ -260,7 +260,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private var filterButtonItem: UIBarButtonItem {
-        return UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .filterLineHorizontalDecrease), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
+        button.accessibilityLabel = WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places")
+        return button
     }
 
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
@@ -268,7 +270,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
-        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem)
+        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem, needsSeparateGlassContainer: true)
     }
 
     @objc func userDidTapTabs() {

@@ -111,7 +111,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, WMFNavigationBa
     }
 
     override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
-        
+        navigationItem.backButtonTitle = ""
         guard let navVC = navigationController else { return }
         let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
         coordinator.start()
@@ -216,7 +216,7 @@ extension OnThisDayViewController {
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
         guard let navigationController else { return }
-        
+        navigationItem.backButtonTitle = ""
         let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
         articleCoordinator.start()
     }

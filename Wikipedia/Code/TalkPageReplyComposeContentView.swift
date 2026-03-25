@@ -322,7 +322,7 @@ class TalkPageReplyComposeContentView: SetupView {
     }
 
     private func updateFonts() {
-        publishButton.titleLabel?.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        publishButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         replyTextView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         placeholderLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }

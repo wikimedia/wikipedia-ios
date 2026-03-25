@@ -16,7 +16,7 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
 
         authorizeButton.titleLabel?.numberOfLines = 2
         authorizeButton.titleLabel?.textAlignment = .center
-        authorizeButton.titleLabel?.font = WMFFont.for(.mediumSubheadline)
+        authorizeButton.titleLabel?.font = WMFFont.for(.body)
 
         // Centralize warnings, we can't use the standard UIButton configuration for this button
         var deprecatedButton = authorizeButton as DeprecatedButton
