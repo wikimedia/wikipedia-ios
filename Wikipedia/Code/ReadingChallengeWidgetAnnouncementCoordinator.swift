@@ -32,7 +32,9 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
                 comment: "Body text for the reading challenge widget announcement sheet."
             ),
             primaryButtonTitle: CommonStrings.gotItButtonTitle,
-            image: UIImage(named: "reading-challenge-widget-preview"),
+            image: UIImage(named: "readingChallengeWidget"),
+            backgroundImage: UIImage(named: "readingChallengeBackground"),
+            backgroundImageHeight: 220,
             primaryButtonAction: {},
             closeButtonAction: nil
         )
