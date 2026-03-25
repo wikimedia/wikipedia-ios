@@ -58,72 +58,84 @@ struct ReadingChallengeProvider: TimelineProvider {
 
 private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
 
-    static func streakSet(streak: Int) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+    static func streakSet(streak: Int, colorSet: WMFTheme.ReadingChallengeColorSet = .pink) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: Color(red: 245/255, green: 235/255, blue: 242/255),
-            color2: Color(red: 155/255, green: 82/255, blue: 127/255),
-            color3: Color(red: 198/255, green: 144/255, blue: 180/255),
+            color: colorSet.primary,
+            color2: colorSet.secondary,
+            color3: colorSet.tertiary,
             image: "globephone",
-            title: "\(streak) day\(streak == 1 ? "" : "s")",
-            subtitle: "25-day reading challenge",
+            title: String.localizedStringWithFormat(
+                WMFLocalizedString("reading-challenge-streak-days", value: "{{PLURAL:%1$d|%1$d day|%1$d days}}", comment: "Number of days in a reading challenge streak. $1 is the number of days."),
+                streak
+            ),
+            subtitle: WMFLocalizedString("reading-challenge-subtitle", value: "25-day reading challenge", comment: "Subtitle shown on the reading challenge widget indicating the challenge length."),
             icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
         )
     }
 
-    static func streakNotYetReadSet(streak: Int, showButtons: Bool) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+    static func streakNotYetReadSet(streak: Int, showButtons: Bool, colorSet: WMFTheme.ReadingChallengeColorSet = .orange) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: Color(red: 255/255, green: 234/255, blue: 212/255),
-            color2: Color(red: 169/255, green: 82/255, blue: 38/255),
-            color3: Color(red: 198/255, green: 144/255, blue: 180/255),
+            color: colorSet.primary,
+            color2: colorSet.secondary,
+            color3: colorSet.tertiary,
             image: "sleepyglobe",
-            title: "\(streak) day\(streak == 1 ? "" : "s")",
-            button1Title: showButtons ? "Search" : nil,
-            button2Title: showButtons ? "Random" : nil,
+            title: String.localizedStringWithFormat(
+                WMFLocalizedString("reading-challenge-streak-days", value: "{{PLURAL:%1$d|%1$d day|%1$d days}}", comment: "Number of days in a reading challenge streak. $1 is the number of days."),
+                streak
+            ),
+            subtitle: WMFLocalizedString("reading-challenge-not-yet-read-subtitle", value: "Don't let today drift by, save your streak.", comment: "Subtitle shown on the reading challenge widget when the user has not yet read today."),
+            button1Title: showButtons ? WMFLocalizedString("reading-challenge-search-button", value: "Search", comment: "Title for the Search button on the reading challenge widget.") : nil,
+            button2Title: showButtons ? WMFLocalizedString("reading-challenge-random-button", value: "Random", comment: "Title for the Random article button on the reading challenge widget.") : nil,
             button1URL: showButtons ? URL(string: "wikipedia://search") : nil,
             button2URL: showButtons ? URL(string: "wikipedia://random") : nil,
-            button1Icon: showButtons ? "search" : nil,
-            button2Icon: showButtons ? "dice" : nil,
-            icon: UIImage(named: "flameWarning")
+            button1Icon: showButtons ? WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .semiboldSubheadline) : nil,
+            button2Icon: showButtons ? WMFSFSymbolIcon.for(symbol: .diceFill, font: .semiboldSubheadline) : nil
         )
     }
 
-    static let completedSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
-        color: Color(red: 182/255, green: 212/255, blue: 251/255),
-        color2: Color(red: 10/255, green: 36/255, blue: 77/255),
-        image: "globe1",
-        title: "25 of 25",
-        subtitle: nil,
-        button1Title: "Collect prize",
-        button1URL: URL(string: "wikipedia://activity")
-    )
+    static func completedSet(colorSet: WMFTheme.ReadingChallengeColorSet = .blue) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+        WMFReadingChallengeWidgetViewModel.DisplaySet(
+            color: colorSet.primary,
+            color2: colorSet.secondary,
+            color3: colorSet.tertiary,
+            image: "globe1",
+            title: WMFLocalizedString("reading-challenge-completed-title", value: "25 of 25", comment: "Title shown on the reading challenge widget when the user has completed the challenge."),
+            subtitle: nil,
+            button1Title: WMFLocalizedString("reading-challenge-collect-prize-button", value: "Collect prize", comment: "Button title shown on the reading challenge widget when the user has completed the challenge."),
+            button1URL: URL(string: "wikipedia://activity")
+        )
+    }
 
     static func incompleteSet(streak: Int) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: .red,
             color2: .red,
             image: "globe1",
-            title: "\(streak) day\(streak == 1 ? "" : "s")"
+            title: String.localizedStringWithFormat(
+                WMFLocalizedString("reading-challenge-streak-days", value: "{{PLURAL:%1$d|%1$d day|%1$d days}}", comment: "Number of days in a reading challenge streak. $1 is the number of days."),
+                streak
+            )
         )
     }
-
-    static let noStreakSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
-        color: .gray,
-        color2: .gray,
-        image: "globe1",
-        title: ""
-    )
 
     static let notEnrolledSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
         color: .blue,
         color2: .gray,
         image: "globe1",
-        title: "not enrolled",
-        button1Title: "Search",
-        button2Title: "Random",
+        title: WMFLocalizedString("reading-challenge-not-enrolled-title", value: "Not enrolled", comment: "Title shown on the reading challenge widget when the user is not enrolled in the challenge."),
+        button1Title: WMFLocalizedString("reading-challenge-search-button", value: "Search", comment: "Title for the Search button on the reading challenge widget."),
+        button2Title: WMFLocalizedString("reading-challenge-random-button", value: "Random", comment: "Title for the Random article button on the reading challenge widget."),
         button1URL: URL(string: "wikipedia://search"),
         button2URL: URL(string: "wikipedia://random"),
-        button1Icon: "search",
-        button2Icon: "dice"
+        button1Icon: nil,
+        button2Icon: nil
+    )
+    
+    static let noStreakSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
+        color: .gray,
+        color2: .gray,
+        image: "globe1",
+        title: ""
     )
 
     static func make(
@@ -136,7 +148,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         case .streakOngoingNotYetRead(let streak):
             return streakNotYetReadSet(streak: streak, showButtons: family == .systemMedium)
         case .challengeCompleted:
-            return completedSet
+            return completedSet()
         case .challengeConcludedIncomplete(let streak):
             return incompleteSet(streak: streak)
         case .challengeConcludedNoStreak:
@@ -154,15 +166,16 @@ struct ReadingChallengeEntryView: View {
     @Environment(\.widgetFamily) var family
 
     var body: some View {
-        WMFReadingChallengeWidgetView(
+        let displaySet = WMFReadingChallengeWidgetViewModel.DisplaySet.make(
+            for: entry.state,
+            family: family
+        )
+        return WMFReadingChallengeWidgetView(
             viewModel: WMFReadingChallengeWidgetViewModel(
                 localizedStrings: WMFReadingChallengeWidgetViewModel.LocalizedStrings(
-                    title: titleString(for: entry.state)
+                    title: displaySet.title
                 ),
-                displaySet: WMFReadingChallengeWidgetViewModel.DisplaySet.make(
-                    for: entry.state,
-                    family: family
-                ),
+                displaySet: displaySet,
                 state: entry.state
             )
         )
@@ -170,27 +183,6 @@ struct ReadingChallengeEntryView: View {
             Color.clear
         }
         .widgetURL(URL(string: "wikipedia://explore"))
-    }
-
-    private func titleString(for state: ReadingChallengeState) -> String {
-        switch state {
-        case .streakOngoingRead(let streak), .streakOngoingNotYetRead(let streak):
-            return "\(streak) day\(streak == 1 ? "" : "s")"
-        case .challengeCompleted:
-            return "25 of 25"
-        case .challengeConcludedIncomplete(let streak):
-            return "\(streak) day\(streak == 1 ? "" : "s")"
-        case .notEnrolled:
-            return "notEnrolled"
-        case .notLiveYet:
-            return "notLiveYet"
-        case .challengeRemoved:
-            return "challengeRemoved"
-        case .enrolledNotStarted:
-            return "enrolledNotStarted"
-        case .challengeConcludedNoStreak:
-            return "challengeConcludedNoStreak"
-        }
     }
 }
 
@@ -203,8 +195,8 @@ struct ReadingChallengeWidget: Widget {
         StaticConfiguration(kind: kind, provider: ReadingChallengeProvider()) { entry in
             ReadingChallengeEntryView(entry: entry)
         }
-        .configurationDisplayName("Reading Challenge")
-        .description("Track your reading challenge progress.")
+        .configurationDisplayName(WMFLocalizedString("reading-challenge-widget-display-name", value: "Reading Challenge", comment: "Display name for the reading challenge widget shown in the widget picker."))
+        .description(WMFLocalizedString("reading-challenge-widget-description", value: "Track your reading challenge progress.", comment: "Description for the reading challenge widget shown in the widget picker."))
         .supportedFamilies([.systemSmall, .systemMedium])
         .contentMarginsDisabled()
         .containerBackgroundRemovable(false)

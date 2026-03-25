@@ -28,8 +28,8 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
         public let button2Title: String?
         public let button1URL: URL?
         public let button2URL: URL?
-        public let button1Icon: String?
-        public let button2Icon: String?
+        public let button1Icon: UIImage?
+        public let button2Icon: UIImage?
         public let buttonBackgroundColor: Color?
         public let smallShowButtons: Bool
 
@@ -44,8 +44,8 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             button2Title: String? = nil,
             button1URL: URL? = nil,
             button2URL: URL? = nil,
-            button1Icon: String? = nil,
-            button2Icon: String? = nil,
+            button1Icon: UIImage? = nil,
+            button2Icon: UIImage? = nil,
             buttonBackgroundColor: Color? = nil,
             smallShowButtons: Bool = false,
             icon: UIImage? = nil

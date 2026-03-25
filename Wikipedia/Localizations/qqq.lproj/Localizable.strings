@@ -1034,6 +1034,16 @@
 "project-name-wikiversity" = "Project name for Wikiversity.";
 "project-name-wikivoyage" = "Project name for Wikivoyage.";
 "project-name-wiktionary" = "Project name for Wiktionary.";
+"reading-challenge-collect-prize-button" = "Button title shown on the reading challenge widget when the user has completed the challenge.";
+"reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
+"reading-challenge-not-enrolled-title" = "Title shown on the reading challenge widget when the user is not enrolled in the challenge.";
+"reading-challenge-not-yet-read-subtitle" = "Subtitle shown on the reading challenge widget when the user has not yet read today.";
+"reading-challenge-random-button" = "Title for the Random article button on the reading challenge widget.";
+"reading-challenge-search-button" = "Title for the Search button on the reading challenge widget.";
+"reading-challenge-streak-days" = "Number of days in a reading challenge streak. $1 is the number of days.";
+"reading-challenge-subtitle" = "Subtitle shown on the reading challenge widget indicating the challenge length.";
+"reading-challenge-widget-description" = "Description for the reading challenge widget shown in the widget picker.";
+"reading-challenge-widget-display-name" = "Display name for the reading challenge widget shown in the widget picker.";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";
 "reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved. $1 will be replaced with the saved article title";
 "reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list.";
