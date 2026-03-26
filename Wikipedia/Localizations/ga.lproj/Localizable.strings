@@ -376,7 +376,7 @@
 "donate-success-subtitle" = "Tá an oiread sin tábhacht ag baint le bhur bhflaithiúlacht dúinn.";
 "donate-success-title" = "Go raibh maith agat!";
 "donate-title" = "Roghnaigh méid";
-"donate-transaction-fee-opt-in-text" = "Cuirfidh mé $1 leis go fial chun na táillí idirbhirt a chlúdach ionas gur féidir leat 100% de mo shíntiús a choinneáil.";
+"donate-transaction-fee-opt-in-text" = "Cuirfidh mé $1 leis go fial chun na táillí idirbhirt a chlúdach ionas gur féidir leat 100%% de mo shíntiús a choinneáil.";
 "donate-wikimedia-fine-print-1" = "Ní dhíolaimid ná ní thrádálaimid d’fhaisnéis le haon duine. Trí bhronnadh a thabhairt, aontaíonn tú d’fhaisnéis phearsanta a roinnt leis an Wikimedia Foundation, an eagraíocht neamhbhrabúis a óstálann Vicipéid agus tionscadail Wikimedia eile, agus a soláthraithe seirbhíse de bhun ár [polasaí deontóirí]($1). Tá Wikimedia Foundation agus a soláthraithe seirbhíse lonnaithe sna Stáit Aontaithe agus i dtíortha eile nach mbeadh a ndlíthe príobháideachta coibhéiseach le do chuid féin. Le haghaidh tuilleadh eolais léigh ár [polasaí deontóirí]($1).";
 "donate-wikimedia-fine-print-2" = "I gcás deontóirí athfhillteacha, déanfaidh Fondúireacht Wikimedia íocaíochtaí míosúla seasta a dhíscríobh ar chomóradh míosúil an chéad síntiúis, go dtí go gcuirfidh tú in iúl dúinn iad a scor. Athdhéantar síntiúis a thosaítear ar an 29ú, 30ú, nó 31ú den mhí ar an lá deireanach den mhí i gcás míonna níos giorra, chomh gar don dáta bunaidh agus is féidir. Le haghaidh ceisteanna, déan teagmháil le donate@wikimedia.org.";
 "duplicate-tab" = "Cluaisín dúblach";
@@ -1546,7 +1546,7 @@
 "year-in-review-highlights-collective-time-spent" = "Uaireanta caite ag léamh";
 "year-in-review-highlights-created-lists" = "Líon na liostaí léitheoireachta a cruthaíodh";
 "year-in-review-highlights-edit-frequency" = "Cé chomh minic a rinneadh eagarthóireacht ar Vicipéid";
-"year-in-review-highlights-edit-frequency-value" = "{{PLURAL:$1|$1 uair} in aghaidh an nóiméid";
+"year-in-review-highlights-edit-frequency-value" = "{{PLURAL:$1|$1 uair}} in aghaidh an nóiméid";
 "year-in-review-highlights-english-articles" = "Na hailt is mó a léadh ar Vicipéid Bhéarla";
 "year-in-review-highlights-favorite-day" = "Lá is fearr leat le léamh";
 "year-in-review-highlights-number-app-editors" = "Eagarthóireacht ar an aip";
@@ -1560,7 +1560,7 @@
 "year-in-review-intro-login-title" = "Logáil isteach le haghaidh pearsantú";
 "year-in-review-most-read-categories-title" = "Do chatagóirí is suimiúla";
 "year-in-review-non-contributor-slide-title" = "Díghlasáil do luach saothair rannpháirtí don bhliain seo chugainn!";
-"year-in-review-noncontributor-slide-subtitle-updated" = "Tá áthas orainn gur bhain Vicipéid leas as do $1! Faigh luach saothair speisialta i do $2 Athbhreithniú ar an mBliain trí bheith i do rannpháirtí—cibé acu trí [Vicipéid a chur in eagar] ($3) nó trí bhronnadh ón aip chuig an [Fondúireacht Wikimedia] ($4), an eagraíocht neamhbhrabúis atá taobh thiar de. Más úsáideach duit Vicipéid, smaoinigh ar bhronnadh a dhéanamh chun cabhrú lena todhchaí a chothú agus í a choinneáil saor in aisce, saor ó fhógraí, iontaofa agus inrochtana do chách. Má thug tú bronntanas in áit eile, táimid an-bhuíoch as do thacaíocht.";
+"year-in-review-noncontributor-slide-subtitle-updated" = "Tá áthas orainn gur bhain Vicipéid leas as do $1! Faigh luach saothair speisialta i do $2 Athbhreithniú ar an mBliain trí bheith i do rannpháirtí—cibé acu trí [Vicipéid a chur in eagar]($3) nó trí bhronnadh ón aip chuig an [Fondúireacht Wikimedia]($4), an eagraíocht neamhbhrabúis atá taobh thiar de. Más úsáideach duit Vicipéid, smaoinigh ar bhronnadh a dhéanamh chun cabhrú lena todhchaí a chothú agus í a choinneáil saor in aisce, saor ó fhógraí, iontaofa agus inrochtana do chách. Má thug tú bronntanas in áit eile, táimid an-bhuíoch as do thacaíocht.";
 "year-in-review-personalized-date-day-footer-v3" = "Lá is fearr leat le léamh";
 "year-in-review-personalized-date-month-footer-v3" = "An mhí a léigh tú an chuid is mó";
 "year-in-review-personalized-date-time-footer-v3" = "Am is fearr leat le léamh";
