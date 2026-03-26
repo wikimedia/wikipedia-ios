@@ -8,3 +8,6 @@
 
 ### Screenshots/Videos
 
+
+### Checklist
+- [ ] Checked against Swift 6 strict concurrency
