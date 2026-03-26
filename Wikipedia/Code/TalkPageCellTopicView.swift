@@ -33,7 +33,7 @@ final class TalkPageCellTopicView: SetupView {
 
     lazy var subscribeButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = WMFFont.for(.mediumSubheadline)
+        button.titleLabel?.font = WMFFont.for(.body)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.black, for: .normal)

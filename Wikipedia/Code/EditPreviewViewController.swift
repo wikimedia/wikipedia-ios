@@ -107,7 +107,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        WMFToastManager.sharedInstance.dismissToast()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         super.viewWillDisappear(animated)
 
         if isMovingFromParent {
@@ -181,7 +181,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
             self.previewWebViewContainer.webView.load(request)
 
             if self.needsSimplifiedFormatToast {
-                WMFToastManager.sharedInstance.showToastWithMessage(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, dismissPreviousToasts: false)
+                WMFToastManager.sharedInstance.showRichToast(WMFLocalizedString("edit-preview-simplified-format-message", value: "All content is shown in simplified format.", comment: "Message displayed when the edit preview view loads. Preview is in a simplified web format."), subtitle: nil, image: nil, dismissPreviousToasts: false)
             }
         }
 

@@ -147,7 +147,7 @@ extension ThanksGiving where Self: ThemeableViewController {
                                          comment: "Message indicating thanks cannot be unsent")
 
         Task { @MainActor in
-            WMFToastManager.sharedInstance.showToastWithMessage(
+            WMFToastManager.sharedInstance.showRichToast(
                 title,
                 subtitle: subtitle,
                 image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
@@ -162,7 +162,7 @@ extension ThanksGiving where Self: ThemeableViewController {
                                         comment: "Message indicating anonymous users cannot be thanked")
 
         Task { @MainActor in
-            WMFToastManager.sharedInstance.showToastWithMessage(
+            WMFToastManager.sharedInstance.showRichToast(
                 message,
                 subtitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),
@@ -175,7 +175,7 @@ extension ThanksGiving where Self: ThemeableViewController {
         let message = String.localizedStringWithFormat(CommonStrings.thanksMessage, recipient)
 
         Task { @MainActor in
-            WMFToastManager.sharedInstance.showToastWithMessage(
+            WMFToastManager.sharedInstance.showRichToast(
                 message,
                 subtitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill),
@@ -188,7 +188,7 @@ extension ThanksGiving where Self: ThemeableViewController {
         let message = (error as NSError).alertMessage()
 
         Task { @MainActor in
-            WMFToastManager.sharedInstance.showToastWithMessage(
+            WMFToastManager.sharedInstance.showRichToast(
                 message,
                 subtitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill),

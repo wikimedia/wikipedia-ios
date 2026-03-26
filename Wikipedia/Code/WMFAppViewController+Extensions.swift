@@ -348,9 +348,9 @@ extension WMFAppViewController: WMFWatchlistDelegate {
                     case .success:
                         let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
                         let successMessage = String.localizedStringWithFormat(successfulThanks, username)
-                        WMFToastManager.sharedInstance.showToastWithMessage(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
+                        WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
                     case .failure(let failure):
-                        WMFToastManager.sharedInstance.showToastWithMessage(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
+                        WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
                     }
                 })
             }
@@ -661,15 +661,20 @@ extension WMFAppViewController {
     }
 
     private func migrateAutoSignTalkPageDiscussions() {
-        let legacyKey = "WMFAutoSignTalkPageDiscussions"
-        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+        let settingsDataController = WMFSettingsDataController.shared
+        guard !settingsDataController.didMigrateAutoSignTalkPageDiscussions() else {
             return
         }
-        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
-        let settingsDataController = WMFSettingsDataController.shared
-        Task {
-            await settingsDataController.setAutoSignTalkPageDiscussions(legacyValue)
+
+        if settingsDataController.hasStoredAutoSignTalkPageDiscussions() {
+            settingsDataController.setDidMigrateAutoSignTalkPageDiscussions(true)
+            return
         }
+        let legacyKey = "WMFAutoSignTalkPageDiscussions"
+        let bundleID = Bundle.main.bundleIdentifier ?? ""
+        let persistedValue = UserDefaults.standard.persistentDomain(forName: bundleID)?[legacyKey] as? Bool ?? true
+        settingsDataController.setAutoSignTalkPageDiscussions(persistedValue)
+        settingsDataController.setDidMigrateAutoSignTalkPageDiscussions(true)
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
@@ -1204,76 +1209,5 @@ extension WMFAppViewController {
         )
 
         return controller
-    }
-}
-
-extension WMFAppViewController {
-
-    @objc func makePushNotificationsHostingController() -> UIViewController {
-        let strings = WMFPushNotificationsSettingsViewModel.LocalizedStrings(
-            title: CommonStrings.pushNotifications,
-            headerText: WMFLocalizedString("settings-notifications-header", value: "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.", comment: "Text informing user of benefits of enabling push notifications."),
-            pushNotificationsTitle: CommonStrings.pushNotifications
-        )
-
-        var viewModel: WMFPushNotificationsSettingsViewModel?
-        let model = WMFPushNotificationsSettingsViewModel(
-            localizedStrings: strings,
-            onRequestPermissions: { [weak self] in
-                guard let vm = viewModel else { return }
-                self?.requestPushNotificationsPermissions(viewModel: vm)
-            },
-            onUnsubscribe: { [weak self] in
-                guard let vm = viewModel else { return }
-                self?.unsubscribeFromEchoNotifications(viewModel: vm)
-            },
-            onOpenSystemSettings: {
-                UIApplication.shared.wmf_openAppSpecificSystemSettings()
-            }
-        )
-        viewModel = model
-
-        let rootView = WMFPushNotificationsSettingsView(viewModel: model)
-        let hostingController = UIHostingController(rootView: rootView)
-        hostingController.title = strings.title
-        return hostingController
-    }
-
-    private func requestPushNotificationsPermissions(viewModel: WMFPushNotificationsSettingsViewModel) {
-        Task { @MainActor in
-            let settings = await UNUserNotificationCenter.current().notificationSettings()
-            switch settings.authorizationStatus {
-            case .authorized, .provisional, .ephemeral:
-                UIApplication.shared.registerForRemoteNotifications()
-                await withCheckedContinuation { continuation in
-                    dataStore.notificationsController.subscribeToEchoNotifications { _ in continuation.resume() }
-                }
-                await viewModel.loadAndBuild()
-            case .notDetermined:
-                let result = await withCheckedContinuation { continuation in
-                    dataStore.notificationsController.requestPermissionsIfNecessary { authorized, _ in
-                        continuation.resume(returning: authorized)
-                    }
-                }
-                if result {
-                    UIApplication.shared.registerForRemoteNotifications()
-                    await withCheckedContinuation { continuation in
-                        dataStore.notificationsController.subscribeToEchoNotifications { _ in continuation.resume() }
-                    }
-                }
-                await viewModel.refreshAfterPermissionRequest(granted: result)
-            default:
-                await viewModel.refreshAfterPermissionRequest(granted: false)
-            }
-        }
-    }
-
-    private func unsubscribeFromEchoNotifications(viewModel: WMFPushNotificationsSettingsViewModel) {
-        Task { @MainActor in
-            await withCheckedContinuation { continuation in
-                dataStore.notificationsController.unsubscribeFromEchoNotifications { _ in continuation.resume() }
-            }
-            await viewModel.loadAndBuild()
-        }
     }
 }

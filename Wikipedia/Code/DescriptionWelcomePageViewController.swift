@@ -135,8 +135,8 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
     }
 
     private func updateFonts() {
-        skipButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
-        nextButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        skipButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        nextButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     override func viewDidAppear(_ animated: Bool) {

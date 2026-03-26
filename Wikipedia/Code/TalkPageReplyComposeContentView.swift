@@ -322,7 +322,7 @@ class TalkPageReplyComposeContentView: SetupView {
     }
 
     private func updateFonts() {
-        publishButton.titleLabel?.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        publishButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         replyTextView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         placeholderLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
@@ -418,7 +418,7 @@ extension TalkPageReplyComposeContentView: UITextViewDelegate {
         if let wikiHasTempAccounts, wikiHasTempAccounts {
             if authState == .ip || authState == .temp {
                 // Dismiss warning toast
-                WMFToastManager.sharedInstance.dismissToast()
+                WMFToastManager.sharedInstance.dismissCurrentToast()
                 bottomContainerConstraint?.constant = 5
             }
         }
