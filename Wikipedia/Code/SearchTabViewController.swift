@@ -29,6 +29,37 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
     private var cancellables = Set<AnyCancellable>()
     
     var disableSearchCancelLogging: Bool = false
+    
+    // MARK: - Public configuration (set before pushing)
+
+    /// Hides history display entirely
+    var shouldHideHistory: Bool = false
+
+    /// Forwarded to the container. Default `true`.
+    var showLanguageBar: Bool = true
+
+    /// Forwarded to the container to scope searches to a specific wiki.
+    var siteURL: URL?
+
+    /// If set, the search bar is pre-populated with this term and a search is triggered on appear.
+    var prefilledSearchTerm: String?
+
+    /// Override the default article-push behavior. If nil, uses `LinkCoordinator`.
+    var articleTappedAction: ((URL) -> Void)?
+    
+    private var isRootTabView: Bool {
+        guard tabBarController != nil else {
+            return false
+        }
+        
+        guard let navigationController,
+              navigationController.viewControllers.count > 0,
+              navigationController.viewControllers[0] == self else {
+            return false
+        }
+        
+        return true
+    }
 
     // MARK: - Coordinators
 
@@ -93,17 +124,23 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
         }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
-            let coordinator = LinkCoordinator(
-                navigationController: navVC,
-                url: articleURL,
-                dataStore: dataStore,
-                theme: theme,
-                articleSource: .search,
-                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
-            )
-            if !coordinator.start() {
-                navigate(to: articleURL)
+            
+            if let customAction = self.articleTappedAction {
+                customAction(articleURL)
+            } else {
+                let coordinator = LinkCoordinator(
+                    navigationController: navVC,
+                    url: articleURL,
+                    dataStore: dataStore,
+                    theme: theme,
+                    articleSource: .search,
+                    tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
+                )
+                if !coordinator.start() {
+                    navigate(to: articleURL)
+                }
             }
+            
         }
         return vc
     }()
@@ -243,28 +280,11 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Embed history as the background view (always present, shown/hidden via alpha or isHidden)
-        addChild(historyViewController)
-        historyViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(historyViewController.view)
-        NSLayoutConstraint.activate([
-            historyViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            historyViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            historyViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            historyViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        historyViewController.disableContentInsetAdjustments()
-        historyViewController.didMove(toParent: self)
-
-        setupReadingListsHelpers()
-
-        historyViewModel.$isEmpty
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
-                Task { @MainActor in self?.refreshDeleteButtonState() }
-            }
-            .store(in: &cancellables)
+        
+        // Apply configuration properties to the container now that it's initialized
+        searchResultsVC.showLanguageBar = showLanguageBar
+        if let siteURL { searchResultsVC.siteURL = siteURL }
+        embedHistoryIfNeeded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -286,31 +306,45 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-        ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
+        
+        if isRootTabView {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
+        } else {
+            if let term = self.prefilledSearchTerm {
+                self.navigationItem.searchController?.searchBar.text = term
+                self.searchResultsVC.searchAndMakeResultsVisible(for: term)
+                self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            }
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let topSafeAreaHeight = view.safeAreaInsets.top
-        let bottomSafeAreaHeight = view.safeAreaInsets.bottom
-        historyViewModel.topPadding = topSafeAreaHeight
-        historyViewModel.bottomPadding = bottomSafeAreaHeight
+        if !shouldHideHistory {
+            let topSafeAreaHeight = view.safeAreaInsets.top
+            let bottomSafeAreaHeight = view.safeAreaInsets.bottom
+            historyViewModel.topPadding = topSafeAreaHeight
+            historyViewModel.bottomPadding = bottomSafeAreaHeight
+        }
     }
 
     // MARK: - Navigation Bar
 
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .leadingCompact)
+        let alignment: WMFNavigationBarTitleConfig.Alignment = isRootTabView ? .leadingCompact : .centerCompact
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: alignment)
 
         var profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil
         var tabsButtonConfig: WMFNavigationBarTabsButtonConfig? = nil
-
-        if let dataStore {
+        
+        if let dataStore,
+           isRootTabView {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
 
-            let leadingItem: UIBarButtonItem? = isSearchActive ? nil : deleteButton
-            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: leadingItem)
+            let historyClearButton: UIBarButtonItem? = isSearchActive ? nil : deleteButton
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: historyClearButton)
         }
 
         let searchConfig = WMFNavigationBarSearchConfig(
@@ -332,10 +366,15 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
             searchBarConfig: searchConfig,
             hideNavigationBarOnScroll: !isSearchActive
         )
+        
+        if !isRootTabView, !shouldHideHistory {
+            let historyClearButton: UIBarButtonItem? = isSearchActive ? nil : deleteButton
+            navigationItem.rightBarButtonItem = historyClearButton
+        }
     }
 
     @MainActor
-    private func refreshDeleteButtonState() {
+    private func refreshHistoryClearButtonState() {
         let enabled = !isSearchActive && !historyViewModel.isEmpty
         deleteButton.isEnabled = enabled
         configureNavigationBar()
@@ -433,6 +472,37 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
         readingListHintPresenter?.toggle(presenter: presentingVC, article: article, theme: theme)
     }
+    
+    // MARK: - History
+    
+    private func embedHistoryIfNeeded() {
+        
+        guard !shouldHideHistory else {
+            return
+        }
+        
+        // Embed history as the background view (always present, shown/hidden via alpha or isHidden)
+        addChild(historyViewController)
+        historyViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(historyViewController.view)
+        NSLayoutConstraint.activate([
+            historyViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            historyViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            historyViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            historyViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        historyViewController.disableContentInsetAdjustments()
+        historyViewController.didMove(toParent: self)
+
+        setupReadingListsHelpers()
+
+        historyViewModel.$isEmpty
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                Task { @MainActor in self?.refreshHistoryClearButtonState() }
+            }
+            .store(in: &cancellables)
+    }
 
     // MARK: - Theme
 
@@ -440,11 +510,18 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
         super.apply(theme: theme)
         guard viewIfLoaded != nil else { return }
         view.backgroundColor = theme.colors.paperBackground
-        historyViewController.view.backgroundColor = theme.colors.paperBackground
+        if !shouldHideHistory {
+            historyViewController.view.backgroundColor = theme.colors.paperBackground
+        }
+        
         searchResultsVC.apply(theme: theme)
-        updateProfileButton()
-        profileCoordinator?.theme = theme
-        yirCoordinator?.theme = theme
+        
+        if isRootTabView {
+            updateProfileButton()
+            profileCoordinator?.theme = theme
+            yirCoordinator?.theme = theme
+        }
+        
     }
 }
 
@@ -454,7 +531,11 @@ extension SearchTabViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         isSearchActive = true
         navigationController?.hidesBarsOnSwipe = false
-        historyViewController.view.isHidden = true
+        
+        if !shouldHideHistory {
+            historyViewController.view.isHidden = true
+        }
+        
         configureNavigationBar()
     }
 
@@ -469,9 +550,13 @@ extension SearchTabViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         isSearchActive = false
         navigationController?.hidesBarsOnSwipe = true
-        historyViewController.view.isHidden = false
+        
+        if !shouldHideHistory {
+            historyViewController.view.isHidden = false
+            Task { @MainActor in refreshHistoryClearButtonState() }
+        }
+        
         searchResultsVC.resetSearchResults()
-        Task { @MainActor in refreshDeleteButtonState() }
         configureNavigationBar()
     }
 }

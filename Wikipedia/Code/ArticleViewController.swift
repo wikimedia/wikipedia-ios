@@ -784,8 +784,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     @objc func userDidTapSearch() {
         // todo: fix logging source, custom tab config? .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
-        let searchVC = SearchMinimalViewController(dataStore: dataStore)
-        searchVC.apply(theme: theme)
+        let searchVC = SearchTabViewController()
+        searchVC.dataStore = dataStore
+        searchVC.theme = theme
         navigationController?.pushViewController(searchVC, animated: true)
     }
 

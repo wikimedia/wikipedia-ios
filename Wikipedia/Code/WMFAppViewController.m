@@ -1987,7 +1987,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    SearchMinimalViewController *searchVC = [[SearchMinimalViewController alloc] initWithDataStore:self.dataStore];
+    SearchTabViewController *searchVC = [[SearchTabViewController alloc] initWithNibName:nil bundle:nil];
+    searchVC.dataStore = self.dataStore;
     [searchVC applyTheme:self.theme];
 
     [nc pushViewController:searchVC animated:animated];
