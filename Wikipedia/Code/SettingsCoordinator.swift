@@ -818,20 +818,6 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         }
         settingsNav.wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
     }
-
-    // MARK: - Logout
-
-    private func logout() {
-        guard let settingsNav = settingsNavigationController else {
-            return
-        }
-
-        settingsNav.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: nil) {
-            self.dataStore.authenticationManager.logout(initiatedBy: .user) {
-                LoginFunnel.shared.logLogoutInSettings()
-            }
-        }
-    }
 }
 
 // MARK: - VanishAccountWarningViewDelegate
