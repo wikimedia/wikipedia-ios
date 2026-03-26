@@ -3,7 +3,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import SwiftUI
 
-protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
+@MainActor protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
@@ -36,6 +36,8 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
     public weak var delegate: AddArticlesToReadingListDelegate?
     
     @objc var eventLogAction: (() -> Void)?
+    
+    var needsAutoDismissUponAdd: Bool = true
     
     var sizeClassPadding: CGFloat {
         traitCollection.horizontalSizeClass == .regular ? CGFloat(64) : CGFloat(8)
@@ -200,8 +202,10 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
             }
         }
         delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-            self.dismiss(animated: true)
+        if needsAutoDismissUponAdd {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                self.dismiss(animated: true)
+            }
         }
         eventLogAction?()
     }

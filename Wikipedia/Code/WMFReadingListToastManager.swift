@@ -124,7 +124,12 @@ import WMFComponents
             }
         )
 
-        getToastPresenter().updateCurrentToast(with: config)
+        let toastPresenter = getToastPresenter()
+        if toastPresenter.isToastHidden, let presenter {
+            toastPresenter.show(config: config, in: presenter)
+        } else {
+            toastPresenter.updateCurrentToast(with: config)
+        }
     }
 
     private func toastButtonTitle(for article: WMFArticle) -> String {
@@ -214,7 +219,7 @@ import WMFComponents
 
 // MARK: - AddArticlesToReadingListDelegate
 
-extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
+@MainActor extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
     func addArticlesToReadingList(
         _ addArticlesToReadingList: AddArticlesToReadingListViewController,
         didAddArticles articles: [WMFArticle],
