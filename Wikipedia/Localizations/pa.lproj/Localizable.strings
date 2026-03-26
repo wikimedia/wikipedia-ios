@@ -536,8 +536,7 @@
 "more-languages-tooltip-title" = "ਭਾਸ਼ਾ ਜੋੜੋ";
 "more-menu" = "ਹੋਰ";
 "navbar-title-mode-edit-wikitext-preview" = "ਝਾਤ";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 ਫੁੱਟ";
+"nearby-distance-label-feet" = "{{PLURAL:$1| $1 ਫੁੱਟ}}";
 "nearby-distance-label-km" = "$1 ਕਿ.ਮੀ.";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 ਮੀਟਰ";

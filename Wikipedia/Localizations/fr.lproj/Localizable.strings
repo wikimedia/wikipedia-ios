@@ -1006,8 +1006,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
 "open-article" = "Ouvrir l’article";
-"open-in-tab-tooltip-body" = "Appuyez longuement sur le titre d’un article ou sur un lien bleu pour l’ouvrir dans un nouvel onglet.";
-"open-in-tab-tooltip-title" = "Ouvrir dans un nouvel onglet";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
 "page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tapper pour sélectionner deux versions à comparer";
@@ -1314,8 +1312,6 @@
 "tabs-main-page-subtitle" = "Aujourd'hui sur Wikipédia";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 onglet|$1 onglets}}";
 "tabs-open-tab" = "Ouvrir l'onglet";
-"tabs-overview-tooltip-body" = "Basculez entre les articles ouverts dans l'aperçu des onglets.";
-"tabs-overview-tooltip-title" = "Aperçu des onglets";
 "tabs-show-suggested-articles" = "Afficher les suggestions d'articles";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Les suggestions sont désormais masquées";
 "tabs-survey-title" = "Aidez-nous à améliorer les onglets. Êtes-vous satisfait de cette fonctionnalité ?";

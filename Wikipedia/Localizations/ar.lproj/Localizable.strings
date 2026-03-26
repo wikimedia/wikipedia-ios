@@ -831,8 +831,7 @@
 "more-menu" = "المزيد";
 "move-articles-to-reading-list" = "نقل {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 قدم";
+"nearby-distance-label-feet" = "{{PLURAL:$1|قدم|$1 قدم}}";
 "nearby-distance-label-km" = "$1 كيلومتر";
 // Fuzzy
 "nearby-distance-label-meters" = " $1 م";
@@ -984,8 +983,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
 "open-article" = "افتح المقال";
-"open-in-tab-tooltip-body" = "اضغط مطولاً على عنوان المقالة أو الرابط الأزرق لفتحها في علامة تبويب جديدة.";
-"open-in-tab-tooltip-title" = "فتح في علامة تبويب جديدة";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
 "page-history-bot-edits" = "بوت";
 "page-history-compare-accessibility-hint" = "انقر لتحديد مراجعين للمقارنة";
@@ -1300,8 +1297,6 @@
 "tabs-main-page-subtitle" = "أبرز أحداث ويكيبيديا اليومية";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 لسان|$1 ألسنة}}";
 "tabs-open-tab" = "فتح علامة التبويب";
-"tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
-"tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
 "tabs-show-suggested-articles" = "عرض اقتراحات المقالة";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "الاقتراحات مخفية الآن";
 "tabs-survey-title" = "ساعد في تحسين علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";

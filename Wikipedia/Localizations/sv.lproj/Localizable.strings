@@ -956,8 +956,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "open-article" = "Öppna artikeln";
-"open-in-tab-tooltip-body" = "Tryck länge på en artikeltitel eller blå länk för att öppna den i en ny flik.";
-"open-in-tab-tooltip-title" = "Öppna i ny flik";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
 "page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
@@ -1264,8 +1262,6 @@
 "tabs-main-page-subtitle" = "Wikipedias dagliga höjdpunkter";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 flik|$1 flikar}}";
 "tabs-open-tab" = "Öppna fliken";
-"tabs-overview-tooltip-body" = "Växla mellan öppna artiklar i fliköversikten.";
-"tabs-overview-tooltip-title" = "Fliköversikt";
 "tabs-show-suggested-articles" = "Visa artikelförslag";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Förslagen är nu dolda";
 "tabs-survey-title" = "Hjälp till att förbättra flikarna. Är du nöjd med den här funktionen?";

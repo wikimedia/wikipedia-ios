@@ -731,7 +731,6 @@
 "on-this-day-no-internet-error" = "利用できるデータがありません";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
-"open-in-tab-tooltip-body" = "記事タイトルか青色のリンクを長押しすると、新しいタブで開きます。";
 "original-tab-button-popover-description" = "「W」をタップすると、Exploreフィードに戻ります。";
 "page-history-bot-edits" = "ボット";
 "page-history-compare-accessibility-hint" = "比較する2つの版をタップして選択してください";
@@ -1004,8 +1003,6 @@
 "tabs-main-page-description" = "Wikipediaのメインページで、注目記事、最新ニュース、興味深い事実、主要な統計情報などをご覧ください。";
 "tabs-main-page-subtitle" = "Wikipediaのデイリーハイライト";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 タブ}}";
-"tabs-overview-tooltip-body" = "タブの概要で、開いている記事を切り替えます。";
-"tabs-overview-tooltip-title" = "タブの概要";
 "tabs-survey-title" = "タブの改善にご協力ください。この機能に満足していますか？";
 "talk-page-add-topic-button" = "トピックを追加";
 "talk-page-archives" = "アーカイブ";

@@ -995,8 +995,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a partir de $2 Wikipedia";
 "on-this-day-title" = "Neste dia";
 "open-article" = "Abrir artigo";
-"open-in-tab-tooltip-body" = "Pressione e segure o título de um artigo ou link azul para abri-lo em uma nova aba.";
-"open-in-tab-tooltip-title" = "Abrir em uma nova guia";
 "original-tab-button-popover-description" = "Toque no 'W' para voltar a a guia onde começou";
 "page-history-bot-edits" = "robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões para comparar";
@@ -1303,8 +1301,6 @@
 "tabs-main-page-subtitle" = "Destaques diários da Wikipédia";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 guia|$1 guias}}";
 "tabs-open-tab" = "Abrir guia";
-"tabs-overview-tooltip-body" = "Alterne entre os artigos abertos na visão geral das guias.";
-"tabs-overview-tooltip-title" = "Visão geral das guias";
 "tabs-show-suggested-articles" = "Mostrar sugestões de artigos";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "As sugestões agora estão ocultas";
 "tabs-survey-title" = "Ajude a melhorar as guias. Você está satisfeito com esse recurso?";

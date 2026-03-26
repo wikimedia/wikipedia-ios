@@ -952,8 +952,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 Vikipediyadan $2";
 "on-this-day-title" = "Tarixdə bu gün";
 "open-article" = "Məqaləyə bax";
-"open-in-tab-tooltip-body" = "Məqalənin başlığını və ya mavi keçidi yeni vərəqədə açmaq üçün basılı saxlayın.";
-"open-in-tab-tooltip-title" = "Yeni vərəqədə aç";
 "original-tab-button-popover-description" = "Başladığınız vərəqəyə qayıtmaq üçün \"W\" düyməsinə klikləyin";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Müqayisə ediləcək iki versiyanı seçmək üçün toxunun";
@@ -1261,8 +1259,6 @@
 "tabs-main-page-subtitle" = "Vikipediyanın gündəlik əsas məqamları";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 vərəqə}}";
 "tabs-open-tab" = "Vərəqəni aç";
-"tabs-overview-tooltip-body" = "Vərəqələrin icmalında açıq məqalələr arasında keçid edin.";
-"tabs-overview-tooltip-title" = "Vərəqələrin icmalı";
 "tabs-show-suggested-articles" = "Məqalə təkliflərini göstər";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Təkliflər indi gizlidir";
 "tabs-survey-title" = "Vərəqələri təkmilləşdirməyə kömək edin. Bu xüsusiyyət sizi qane edirmi?";

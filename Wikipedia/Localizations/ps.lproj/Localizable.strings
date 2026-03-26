@@ -363,7 +363,6 @@
 // Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 ميله";
-"open-in-tab-tooltip-title" = "په نوې ريښکه کې پرانيستل";
 "page-history-bot-edits" = "روباټ";
 "page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
