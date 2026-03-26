@@ -1233,7 +1233,16 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>{{PLURAL:%1$d|%1$d uair} in aghaidh an nóiméid</string>
+		<string>%#@v1@ in aghaidh an nóiméid</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d uair</string>
+		</dict>
 	</dict>
 	<key>year-in-review-personalized-edit-views-subtitle-format-updated</key>
 	<dict>
