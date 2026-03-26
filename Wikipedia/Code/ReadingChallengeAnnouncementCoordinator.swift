@@ -149,32 +149,19 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
     }
 
     func onboardingViewDidClickSecondaryButton() {
-        markSeen()
+        guard let url = learnMoreURL else { return }
 
-        navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
-            guard let self, let url = self.learnMoreURL else {
-                self?.onDismiss?()
-                return
-            }
+        let config = SinglePageWebViewController.StandardConfig(
+            url: url,
+            useSimpleNavigationBar: true
+        )
 
-            let config = SinglePageWebViewController.StandardConfig(
-                url: url,
-                useSimpleNavigationBar: true
-            )
+        let webVC = SinglePageWebViewController(
+            configType: .standard(config),
+            theme: self.theme
+        )
 
-            let webVC = SinglePageWebViewController(
-                configType: .standard(config),
-                theme: self.theme
-            )
-
-            let newNavigationVC = WMFComponentNavigationController(
-                rootViewController: webVC,
-                modalPresentationStyle: .formSheet
-            )
-
-            self.navigationController.present(newNavigationVC, animated: true) {
-                self.onDismiss?()
-            }
-        }
+        navigationController.presentedViewController?.children.first.flatMap { $0 as? UINavigationController }?.pushViewController(webVC, animated: true)
+        ?? (navigationController.presentedViewController as? UINavigationController)?.pushViewController(webVC, animated: true)
     }
 }

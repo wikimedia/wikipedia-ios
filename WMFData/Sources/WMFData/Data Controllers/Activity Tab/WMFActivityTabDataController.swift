@@ -208,9 +208,11 @@ public actor WMFActivityTabDataController {
 
     // MARK: - Reading Challenge 2026
 
+    private static let sharedGroupID = "group.org.wikimedia.wikipedia"
+
     public var hasEnrolledInReadingChallenge2026: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue, value: newValue) }
+        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
+        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
     }
 
     public var hasSeenFullPageReadingChallengeAnnouncement2026: Bool {
@@ -227,7 +229,6 @@ public actor WMFActivityTabDataController {
         hasEnrolledInReadingChallenge2026 = true
         hasSeenFullPageReadingChallengeAnnouncement2026 = true
         // Do NOT mark widget announcement seen here — show it after enrollment
-        UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.set(true, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
     }
 
     public func setHasSeenFullPageAnnouncement() {
@@ -247,7 +248,6 @@ public actor WMFActivityTabDataController {
     public func setEnrolledInReadingChallenge(_ value: Bool) {
         hasEnrolledInReadingChallenge2026 = value
     }
-
     public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
         // Developer override: always show when relative dates flag is enabled (for testing)
         if WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday {

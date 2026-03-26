@@ -131,7 +131,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         Task {
             await WMFActivityTabDataController.shared.resetHasSeenFullPageAnnouncementForWidgetFlow()
             await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement(false)
-            UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.set(false, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
             await WMFActivityTabDataController.shared.setEnrolledInReadingChallenge(false)
         }
     }

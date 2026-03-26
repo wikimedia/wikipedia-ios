@@ -1045,6 +1045,8 @@
 "reading-challenge-announcement-title" = "Celebrate Wikipedia's 25th birthday by joining the 25-day reading challenge!";
 "reading-challenge-collect-prize-button" = "Collect prize";
 "reading-challenge-completed-title" = "25 of 25";
+"reading-challenge-enrolled-not-started-subtitle" = "Read any Wikipedia article today to begin your 25-day journey.";
+"reading-challenge-enrolled-not-started-title" = "You're in! Start your streak";
 "reading-challenge-join-button-medium" = "Join the challenge";
 "reading-challenge-join-button-small" = "Join challenge";
 "reading-challenge-not-enrolled-subtitle" = "Join the 25-day challenge and unlock special prizes.";

@@ -137,9 +137,34 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 ? WMFLocalizedString("reading-challenge-join-button-small", value: "Join challenge", comment: "Button title on small widget.")
                 : WMFLocalizedString("reading-challenge-join-button-medium", value: "Join the challenge", comment: "Button title on medium widget."),
             button2Title: nil,
-            button1URL: URL(string: "wikipedia://activity"),
+            button1URL: URL(string: "wikipedia://activity?join=true"),
             button2URL: nil,
             button1Icon: nil,
+            button2Icon: nil
+        )
+    }
+
+    static func enrolledNotStartedSet(family: WidgetFamily) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+        WMFReadingChallengeWidgetViewModel.DisplaySet(
+            color: WMFTheme.ReadingChallengeColorSet.notEnrolled.primary,
+            color2: WMFTheme.ReadingChallengeColorSet.notEnrolled.secondary,
+            color3: WMFTheme.ReadingChallengeColorSet.notEnrolled.tertiary,
+            image: "readingGlobe",
+            title: WMFLocalizedString(
+                "reading-challenge-enrolled-not-started-title",
+                value: "You're in! Start your streak",
+                comment: "Title shown on the reading challenge widget when enrolled but not yet started."
+            ),
+            subtitle: WMFLocalizedString(
+                "reading-challenge-enrolled-not-started-subtitle",
+                value: "Read any Wikipedia article today to begin your 25-day journey.",
+                comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."
+            ),
+            button1Title: family == .systemSmall ? nil : CommonStrings.searchTitle,
+            button2Title: nil,
+            button1URL: family == .systemSmall ? nil : URL(string: "wikipedia://search"),
+            button2URL: nil,
+            button1Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .semiboldSubheadline),
             button2Icon: nil
         )
     }
@@ -150,6 +175,32 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         image: "globe1",
         title: ""
     )
+    
+    private enum Strings {
+        static let title = WMFLocalizedString(
+            "reading-challenge-widget-announcement-title",
+            value: "25-day reading challenge widget available",
+            comment: "Title for the reading challenge widget announcement sheet."
+        )
+        static let body = WMFLocalizedString(
+            "reading-challenge-widget-announcement-body",
+            value: "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.",
+            comment: "Body text for the reading challenge widget announcement sheet."
+        )
+    }
+
+    private func makeViewModel() -> WMFFeatureAnnouncementViewModel {
+        WMFFeatureAnnouncementViewModel(
+            title: Strings.title,
+            body: Strings.body,
+            primaryButtonTitle: CommonStrings.gotItButtonTitle,
+            image: UIImage(named: "readingChallengeWidget"),
+            backgroundImage: UIImage(named: "readingChallengeBackground"),
+            backgroundImageHeight: 220,
+            primaryButtonAction: {},
+            closeButtonAction: nil
+        )
+    }
 
     static func make(
         for state: ReadingChallengeState,
@@ -166,8 +217,12 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             return incompleteSet(streak: streak)
         case .challengeConcludedNoStreak:
             return noStreakSet
-        case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
+        case .notEnrolled:
             return notEnrolledSet(family: family)
+        case .notLiveYet, .challengeRemoved:
+            return notEnrolledSet(family: family)
+        case .enrolledNotStarted:
+            return enrolledNotStartedSet(family: family)
         }
     }
 }
