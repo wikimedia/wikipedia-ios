@@ -219,52 +219,60 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
 
         dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
-            switch loginResult {
-            case .success:
-                let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
-                WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
-                self.loginSuccessCompletion?()
-                self.setViewControllerUserInteraction(enabled: true)
-                self.dismiss(animated: true)
-
-                if let start = self.startDate {
-                    LoginFunnel.shared.logSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
-                } else {
-                    assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
-                }
-            case .failure(let error):
-                self.setViewControllerUserInteraction(enabled: true)
-
-                // Captcha's appear to be one-time, so always try to get a new one on failure.
-                self.getCaptcha()
-
-                if let error = error as? WMFAccountLoginError {
-                    switch error {
-                    case .temporaryPasswordNeedsChange:
-                        self.showChangeTempPasswordViewController()
-                        return
-                    case .needsOathTokenFor2FA:
-                        self.showTwoFactorViewController(isEmailAuth: false)
-                        return
-                    case .needsEmailAuthToken:
-                        self.showTwoFactorViewController(isEmailAuth: true)
-                        return
-                    case .statusNotPass:
-                        self.passwordField.text = nil
-                        self.passwordField.becomeFirstResponder()
-                    case .wrongPassword:
-                        self.passwordAlertLabel.text = error.localizedDescription
-                        self.passwordAlertLabel.isHidden = false
-                        self.passwordField.textColor = self.theme.colors.error
-                        self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
-                        WMFToastManager.sharedInstance.dismissToast()
-                        return
-                    default: break
+            DispatchQueue.main.async {
+                switch loginResult {
+                case .success:
+                    let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
+                    self.loginSuccessCompletion?()
+                    self.setViewControllerUserInteraction(enabled: true)
+                    // Dismiss the "Logging in..." toast before dismissing the VC, then show
+                    // the success toast after the modal is fully gone so it appears on the correct VC.
+                    WMFToastManager.sharedInstance.dismissToast()
+                    self.dismiss(animated: true) {
+                        WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: false, tapCallBack: nil)
                     }
-                }
 
-                self.enableProgressiveButtonIfNecessary()
-                WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+                    if let start = self.startDate {
+                        LoginFunnel.shared.logSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
+                    } else {
+                        assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
+                    }
+                case .failure(let error):
+                    self.setViewControllerUserInteraction(enabled: true)
+
+                    // Captcha's appear to be one-time, so always try to get a new one on failure.
+                    self.getCaptcha()
+
+                    if let error = error as? WMFAccountLoginError {
+                        switch error {
+                        case .temporaryPasswordNeedsChange:
+                            self.showChangeTempPasswordViewController()
+                            return
+                        case .needsOathTokenFor2FA:
+                            self.showTwoFactorViewController(isEmailAuth: false)
+                            return
+                        case .needsEmailAuthToken:
+                            self.showTwoFactorViewController(isEmailAuth: true)
+                            return
+                        case .statusNotPass:
+                            self.passwordField.text = nil
+                        case .wrongPassword:
+                            self.passwordAlertLabel.text = error.localizedDescription
+                            self.passwordAlertLabel.isHidden = false
+                            self.passwordField.textColor = self.theme.colors.error
+                            self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
+                            self.setViewControllerUserInteraction(enabled: true)
+                            self.enableProgressiveButtonIfNecessary()
+                            self.wmf_hideKeyboard()
+                            WMFToastManager.sharedInstance.dismissToast()
+                            return
+                        default: break
+                        }
+                    }
+
+                    self.enableProgressiveButtonIfNecessary()
+                    WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+                }
             }
         }
     }

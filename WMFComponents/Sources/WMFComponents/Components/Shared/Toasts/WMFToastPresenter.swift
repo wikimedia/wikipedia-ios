@@ -202,6 +202,15 @@ public final class WMFToastPresenter {
 
     public func dismissCurrentToast() {
         guard let toast = currentToast else { return }
+        // If the toast is no longer in a view hierarchy (e.g. its host VC was dismissed),
+        // clean up state without animating.
+        guard toast.superview != nil else {
+            dismissWorkItem?.cancel()
+            dismissWorkItem = nil
+            currentToast = nil
+            dismissAction = nil
+            return
+        }
         dismissToast(toast, dismissEvent: .outsideEvent)
     }
 

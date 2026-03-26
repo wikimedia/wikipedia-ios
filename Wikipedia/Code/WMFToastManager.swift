@@ -125,19 +125,16 @@ open class WMFToastManager: NSObject {
     }
 
     private func showToast(_ dismissPreviousToasts: Bool, alertBlock: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            if dismissPreviousToasts {
-                self.queuedAlertBlocks.append(alertBlock)
-                self.dismissAllToasts {
-                    assert(Thread.isMainThread)
-                    if let alertBlock = self.queuedAlertBlocks.popLast() {
-                        alertBlock()
-                    }
-                    self.queuedAlertBlocks.removeAll()
+        if dismissPreviousToasts {
+            queuedAlertBlocks.append(alertBlock)
+            dismissAllToasts {
+                if let alertBlock = self.queuedAlertBlocks.popLast() {
+                    alertBlock()
                 }
-            } else {
-                alertBlock()
+                self.queuedAlertBlocks.removeAll()
             }
+        } else {
+            alertBlock()
         }
     }
 
