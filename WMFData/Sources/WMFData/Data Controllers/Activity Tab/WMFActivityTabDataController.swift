@@ -201,6 +201,13 @@ public actor WMFActivityTabDataController {
         }
     }
     
+    public func incrementActivityTabVisitCount() {
+        let visitCount = self.activityTabVisitCount + 1
+        self.activityTabVisitCount = visitCount
+    }
+
+    // MARK: - Reading Challenge 2026
+
     public var hasEnrolledInReadingChallenge2026: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue, value: newValue) }
@@ -216,30 +223,38 @@ public actor WMFActivityTabDataController {
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue, value: newValue) }
     }
 
+    public func enrollInReadingChallenge() {
+        hasEnrolledInReadingChallenge2026 = true
+        hasSeenFullPageReadingChallengeAnnouncement2026 = true
+        hasSeenWidgetReadingChallengeAnnouncement2026 = true
+        UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.set(true, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
+    }
+
+    public func setHasSeenFullPageAnnouncement() {
+        hasSeenFullPageReadingChallengeAnnouncement2026 = true
+    }
+
+    public func setHasSeenWidgetReadingChallengeAnnouncement() {
+        hasSeenWidgetReadingChallengeAnnouncement2026 = true
+    }
+
     public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
         guard isLoggedIn else { return false }
-        guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+        guard !hasEnrolledInReadingChallenge2026 else { return false }
         let now = Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
     }
 
-    public func incrementActivityTabVisitCount() {
-        let visitCount = self.activityTabVisitCount + 1
-        self.activityTabVisitCount = visitCount
+    public func shouldShowReadingChallengeWidgetAnnouncement() -> Bool {
+        guard !hasSeenWidgetReadingChallengeAnnouncement2026 else { return false }
+        guard !hasEnrolledInReadingChallenge2026 else { return false }
+        let now = Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
     }
 
     public func getMostRecentReadDateTime() async throws -> Date? {
         let dataController = try WMFPageViewsDataController()
         return try await dataController.fetchMostRecentTime()
-    }
-    
-    public func shouldShowReadingChallengeWidgetAnnouncement() -> Bool {
-        guard hasEnrolledInReadingChallenge2026 else { return false }
-        return !hasSeenWidgetReadingChallengeAnnouncement2026
-    }
-
-    public func setHasSeenWidgetReadingChallengeAnnouncement() {
-        hasSeenWidgetReadingChallengeAnnouncement2026 = true
     }
 
     public func getTopCategories() async throws -> [String]? {

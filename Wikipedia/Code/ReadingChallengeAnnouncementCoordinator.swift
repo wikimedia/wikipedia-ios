@@ -94,6 +94,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         onboardingController.delegate = self
         onboardingController.closeButtonAction = { [weak self] in
+            self?.markSeen()
             self?.navigationController.presentedViewController?.dismiss(animated: true) {
                 self?.onDismiss?()
             }
@@ -110,7 +111,14 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 
     private func markSeen() {
         Task {
-            // await WMFActivityTabDataController.shared.setHasSeenFullPageAnnouncement()
+            await WMFActivityTabDataController.shared.setHasSeenFullPageAnnouncement()
+        }
+    }
+
+    private func enroll() {
+        Task {
+            await WMFActivityTabDataController.shared.enrollInReadingChallenge()
+            WidgetController.shared.reloadReadingChallengeWidget()
         }
     }
 
@@ -132,14 +140,14 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
 
     func onboardingViewDidClickPrimaryButton() {
-       // markSeen()
+        enroll()
         navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
             self?.onDismiss?()
         }
     }
 
     func onboardingViewDidClickSecondaryButton() {
-      //  markSeen()
+        markSeen()
 
         navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
             guard let self, let url = self.learnMoreURL else {

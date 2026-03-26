@@ -62,6 +62,11 @@ public final class WidgetController: NSObject {
         
         WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.featuredArticle.rawValue)
     }
+
+    public func reloadReadingChallengeWidget() {
+        guard !Bundle.main.isAppExtension else { return }
+        WidgetCenter.shared.reloadTimelines(ofKind: SupportedWidget.readingChallenge.rawValue)
+    }
     
     /// For requesting background time from widgets
     /// - Parameter userCompletion: the completion block to call with the result
