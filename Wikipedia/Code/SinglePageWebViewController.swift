@@ -288,7 +288,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     
     @objc func userDidTapSearchButton() {
         
-        let searchVC = SearchTabViewController()
+        let searchVC = SearchViewController()
         searchVC.dataStore = dataStore
         searchVC.theme = theme
         navigationController?.pushViewController(searchVC, animated: true)

@@ -60,7 +60,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) SettingsTabViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
-@property (nonatomic, strong, readonly) SearchTabViewController *searchTabViewController;
+@property (nonatomic, strong, readonly) SearchViewController *searchTabViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
@@ -1437,9 +1437,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     });
 }
 
-- (SearchTabViewController *)searchTabViewController {
+- (SearchViewController *)searchTabViewController {
     if (!_searchTabViewController) {
-        _searchTabViewController = [[SearchTabViewController alloc] init];
+        _searchTabViewController = [[SearchViewController alloc] init];
         [_searchTabViewController applyTheme:self.theme];
         _searchTabViewController.dataStore = self.dataStore;
         _searchTabViewController.tabBarItem =
@@ -1657,7 +1657,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [exploreViewController scrollToTop];
             } break;
             case WMFAppTabTypeSearch: {
-                SearchTabViewController *searchTabViewController = (SearchTabViewController *)[self searchTabViewController];
+                SearchViewController *searchTabViewController = (SearchViewController *)[self searchTabViewController];
                 [searchTabViewController makeSearchBarBecomeFirstResponder];
             } break;
         }
@@ -1987,7 +1987,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    SearchTabViewController *searchVC = [[SearchTabViewController alloc] initWithNibName:nil bundle:nil];
+    SearchViewController *searchVC = [[SearchViewController alloc] initWithNibName:nil bundle:nil];
     searchVC.dataStore = self.dataStore;
     [searchVC applyTheme:self.theme];
 
@@ -2086,7 +2086,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [[WMFNavigationEventsFunnel shared] logTappedSaved];
             } else if ([rootViewController isKindOfClass:[WMFActivityTabViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedActivityTab];
-            } else if ([rootViewController isKindOfClass:[SearchTabViewController class]]) {
+            } else if ([rootViewController isKindOfClass:[SearchViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedSearch];
             }
         }

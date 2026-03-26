@@ -158,7 +158,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
         
-        let searchVC = SearchTabViewController()
+        let searchVC = SearchViewController()
         searchVC.shouldHideHistory = true
         searchVC.dataStore = dataStore
         searchVC.theme = theme

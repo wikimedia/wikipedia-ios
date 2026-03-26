@@ -6,8 +6,8 @@ import SwiftUI
 import Combine
 import WMFTestKitchen
 
-/// Root view controller for the Search tab
-class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider, SearchResultsHosting {
+/// Standalone view controller for searching Wikipedia articles. Designed to be used within a navigation controller, as its search bar leans on navigationItem.searchController behavior.
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider, SearchResultsHosting {
 
     // MARK: - MEP / Hint
 
@@ -47,6 +47,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
     /// Override the default article-push behavior. If nil, uses `LinkCoordinator`.
     var articleTappedAction: ((URL) -> Void)?
     
+    /// Computed property to help determine if this is a root tab view or not. If true, profile and tabs navigation buttons are added and navigation bar title alignment is adjusted.
     private var isRootTabView: Bool {
         guard tabBarController != nil else {
             return false
@@ -527,7 +528,7 @@ class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfigur
 
 // MARK: - UISearchControllerDelegate
 
-extension SearchTabViewController: UISearchControllerDelegate {
+extension SearchViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         isSearchActive = true
         navigationController?.hidesBarsOnSwipe = false
@@ -563,7 +564,7 @@ extension SearchTabViewController: UISearchControllerDelegate {
 
 // MARK: - LogoutCoordinatorDelegate
 
-extension SearchTabViewController: LogoutCoordinatorDelegate {
+extension SearchViewController: LogoutCoordinatorDelegate {
     func didTapLogout(authInstrument: InstrumentImpl) {
         guard let dataStore else { return }
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
@@ -574,7 +575,7 @@ extension SearchTabViewController: LogoutCoordinatorDelegate {
 
 // MARK: - YearInReviewBadgeDelegate
 
-extension SearchTabViewController: YearInReviewBadgeDelegate {
+extension SearchViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
     }
