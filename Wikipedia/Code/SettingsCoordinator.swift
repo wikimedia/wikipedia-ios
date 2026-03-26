@@ -5,6 +5,7 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 import UserNotifications
+import WMFTestKitchen
 
 
 @MainActor
@@ -36,6 +37,12 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         // Embedded context (tab bar): Settings IS the navigation controller
         return navigationController
     }
+    
+    private lazy var authInstrument: InstrumentImpl = {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .setDefaultActionSource("account_settings")
+            .startFunnel(name: "vanish_account")
+    }()
 
     // MARK: Lifecycle
 
@@ -397,6 +404,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 autoSignDiscussions: currentAutoSignValue,
                 userDefaultsStore: WMFDataEnvironment.current.userDefaultsStore,
                 onVanishAccount: { [weak self] in
+                    self?.authInstrument
+                                    .submitInteraction(action: "click", elementId: "vanish")
                     self?.showVanishAccountWarning()
                 },
                 onToggleAutoSign: { [weak self] newValue in
@@ -423,7 +432,10 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
         let warningViewController = VanishAccountWarningViewHostingViewController(theme: theme)
         warningViewController.delegate = self
-        settingsNav.present(warningViewController, animated: true)
+        settingsNav.present(warningViewController, animated: true) { [weak self] in
+            self?.authInstrument
+                .submitInteraction(action: "impression", actionSource: "vanish_warning")
+        }
     }
 
     // MARK: - Temporary Account
@@ -825,8 +837,14 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 extension SettingsCoordinator: VanishAccountWarningViewDelegate {
     func userDidDismissVanishAccountWarningView(presentVanishView: Bool) {
         guard presentVanishView else {
+            authInstrument
+                .submitInteraction(action: "click", actionSource: "vanish_warning", elementId: "cancel")
             return
         }
+        
+        authInstrument
+            .submitInteraction(action: "click", actionSource: "vanish_warning", elementId: "vanish_confirm")
+
 
         guard let url = URL(string: "https://meta.wikimedia.org/wiki/Special:GlobalVanishRequest") else {
             return
