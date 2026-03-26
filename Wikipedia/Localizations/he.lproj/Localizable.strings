@@ -916,8 +916,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "open-article" = "פתיחת ערך";
-"open-in-tab-tooltip-body" = "לחיצה ארוכה על כותרת ערך או קישור כחול תפתח אותם בלשונית חדשה.";
-"open-in-tab-tooltip-title" = "פתיחה בלשונית חדשה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
 "page-history-bot-edits" = "בוט";
 "page-history-compare-accessibility-hint" = "נא ללחוץ כדי לבחור שתי גרסאות להשוואה";
@@ -1215,8 +1213,6 @@
 "tabs-hide-suggested-articles" = "הסתרת הצעות לערכים";
 "tabs-navbar-title-format" = "{{PLURAL:$1|לשונית|$1 לשוניות}}";
 "tabs-open-tab" = "פתיחת לשונית";
-"tabs-overview-tooltip-body" = "אפשר לעבור בין הערכים הפתוחים בסקירת הלשוניות.";
-"tabs-overview-tooltip-title" = "סקירת לשוניות";
 "tabs-show-suggested-articles" = "הצגת הצעות לערכים";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "ההצעות מוסתרות כרגע";
 "tabs-survey-title" = "אפשר לסייע לשפר את הלשוניות. היכולת הזאת מספקת אותך?";

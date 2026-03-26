@@ -847,8 +847,6 @@
 "on-this-day-no-internet-error" = "Não há dados disponíveis";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
-"open-in-tab-tooltip-body" = "Pressionar longo num título do artigo ou hiperligação azul para o abrir num novo separador.";
-"open-in-tab-tooltip-title" = "Abrir num novo separador";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
 "page-history-bot-edits" = "robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões a comparar";
@@ -1148,8 +1146,6 @@
 "tabs-hide-suggested-articles" = "Ocultar sugestões de artigo";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 separador|$1 separadores}}";
 "tabs-open-tab" = "Abrir separador";
-"tabs-overview-tooltip-body" = "Mude entre os artigos abertos na visão geral dos separadores.";
-"tabs-overview-tooltip-title" = "Visão geral dos separadores";
 "tabs-show-suggested-articles" = "Mostrar sugestões de artigo";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "As sugestões agora estão ocultadas";
 "tabs-survey-title" = "Ajude a melhorar os separadores. Está satisfeito com esta funcionalidade?";

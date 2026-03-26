@@ -139,6 +139,7 @@
 "activity-tab-generic-no-edits" = "U hebt deze week nog niets bewerkt. Begin nu om uw bijdragen bij te houden.";
 "activity-tab-history-callout-body" = "Uw leesgeschiedenis bekijken of verwijderen in het tabblad **Zoeken**.";
 "activity-tab-history-callout-body-loggedout" = "U kunt uw leesgeschiedenis vinden en wissen via het tabblad **Zoeken**. U hebt geen account nodig.";
+"activity-tab-hitory-callout-close" = "Geschiedenis-meldingkaart sluiten";
 "activity-tab-hours-minutes-read" = "$1u $2m";
 "activity-tab-hours-on-wikipedia-ios" = "OP WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "Impact van alle tijden";
@@ -839,11 +840,9 @@
 "more-menu" = "Meer";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} naar de leeslijst verplaatsen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 voet";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 voet}}";
 "nearby-distance-label-km" = "$1 km";
-// Fuzzy
-"nearby-distance-label-meters" = "$1 meter";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 meter}}";
 "nearby-distance-label-miles" = "$1 mijl";
 "new-password-instructions" = "U bent aangemeld met een tijdelijk code die u per e-mail hebt ontvangen.\nOm het aanmelden te voltooien moet u hier een nieuw wachtwoord instellen.";
 "new-password-title" = "Wachtwoord instellen";
@@ -992,8 +991,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
 "open-article" = "Pagina openen";
-"open-in-tab-tooltip-body" = "Druk lang op een paginatitel of blauwe koppeling om deze in een nieuw tabblad te openen.";
-"open-in-tab-tooltip-title" = "In nieuw tabblad openen";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
 "page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Klik om twee versies te vergelijken";
@@ -1309,8 +1306,6 @@
 "tabs-main-page-subtitle" = "Dagelijkse hoogtepunten van Wikipedia";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tabblad|$1 tabbladen}}";
 "tabs-open-tab" = "Tabblad openen";
-"tabs-overview-tooltip-body" = "Schakelen tussen geopende pagina's in het tabbladenoverzicht.";
-"tabs-overview-tooltip-title" = "Tabbladenoverzicht";
 "tabs-show-suggested-articles" = "Paginasuggesties weergeven";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Suggesties zijn nu verborgen";
 "tabs-survey-title" = "Help tabbladen te verbeteren. Bent u tevreden met deze functie?";
@@ -1414,7 +1409,7 @@
 "theme-default-explanation" = "Is gelijk aan het thema van het systeem";
 "theme-light-display-name" = "Licht";
 "theme-sepia-display-name" = "Sepia";
-"tip-history-in-search-subtitle" = "Zoek uw leesgeschiedenis in het tabblad Zoek.";
+"tip-history-in-search-subtitle" = "Uw leesgeschiedenis vinden in het tabblad Zoeken.";
 "tip-history-in-search-title" = "Geschiedenis verplaatst naar Zoeken";
 "today-title" = "Vandaag";
 "top-read-widget-description" = "Ontdek wat de wereld tegenwoordig leest op Wikipedia.";

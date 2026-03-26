@@ -1028,8 +1028,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1，来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "open-article" = "开启条目";
-"open-in-tab-tooltip-body" = "长按文章标题或蓝色链接，即可在新标签页中打开。";
-"open-in-tab-tooltip-title" = "在新标签页中打开";
 "original-tab-button-popover-description" = "点按“W”以返回您起始的标签页";
 "page-history-bot-edits" = "机器人";
 "page-history-compare-accessibility-hint" = "点击选择两个修订版本进行比较";
@@ -1336,8 +1334,6 @@
 "tabs-main-page-subtitle" = "维基百科每日精彩内容";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1}} 个标签页";
 "tabs-open-tab" = "打开标签页";
-"tabs-overview-tooltip-body" = "在标签页概览中切换已打开的条目。";
-"tabs-overview-tooltip-title" = "标签页概览";
 "tabs-show-suggested-articles" = "显示条目建议";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "建议现已隐藏";
 "tabs-survey-title" = "请帮助改善标签页。您对此功能满意吗？";

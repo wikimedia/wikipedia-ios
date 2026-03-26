@@ -397,8 +397,7 @@
 "more-languages-tooltip-title" = "Engadir linguas";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artigo|$1 artigos}} á lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 pés";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 pé|$1 pés}}";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 m";

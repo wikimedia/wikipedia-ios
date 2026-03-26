@@ -937,8 +937,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "open-article" = "Открыть статью";
-"open-in-tab-tooltip-body" = "Зажмите заголовок статьи или синюю ссылку, чтобы открыть её в новой вкладке.";
-"open-in-tab-tooltip-title" = "Открыть в новой вкладке";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-history-bot-edits" = "бот";
 "page-history-compare-accessibility-hint" = "Нажмите, чтобы выбрать две версии для сравнения";
