@@ -808,8 +808,7 @@
 "more-menu" = "Повеќе";
 "move-articles-to-reading-list" = "Преместување на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 стапки";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 стапка|$1 стапки}}";
 "nearby-distance-label-km" = "$1 км";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 м";
@@ -961,8 +960,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "open-article" = "Отвори статија";
-"open-in-tab-tooltip-body" = "Подржете на насловот на статија или сина врска за да отворите во ново јазиче.";
-"open-in-tab-tooltip-title" = "Отвори во ново јазиче";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
 "page-history-bot-edits" = "ботовски";
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
@@ -1278,8 +1275,6 @@
 "tabs-main-page-subtitle" = "Дневни истакнувања на Википедија";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 јазиче|$1 јазичиња}}";
 "tabs-open-tab" = "Отвори јазиче";
-"tabs-overview-tooltip-body" = "Префрлање помеѓу отворени статии во прегледот на јазичињата.";
-"tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-show-suggested-articles" = "Прикажи предложени статии";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Предлозите сега се скриени";
 "tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата. Дали сте задоволни од оваа функција?";
