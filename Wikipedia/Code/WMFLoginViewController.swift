@@ -256,7 +256,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                             return
                         case .statusNotPass:
                             self.passwordField.text = nil
-                            self.passwordField.becomeFirstResponder()
                         case .wrongPassword:
                             self.passwordAlertLabel.text = error.localizedDescription
                             self.passwordAlertLabel.isHidden = false

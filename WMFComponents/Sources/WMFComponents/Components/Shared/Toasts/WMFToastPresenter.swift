@@ -30,6 +30,8 @@ public final class WMFToastPresenter {
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer?
     private var dismissWorkItem: DispatchWorkItem?
     private var dismissAction: (@Sendable (DismissEvent) -> Void)?
+    /// True while the current toast's dismiss animation is running.
+    private var isDismissing: Bool = false
 
     // MARK: - Lifecycle
 
@@ -62,9 +64,7 @@ public final class WMFToastPresenter {
         }
     }
 
-    // MARK: - Public API
-
-    /// Presents a toast using WMFToastConfig
+    // MARK: - Public API.
     public func show(_ config: WMFToastConfig) {
         let toastView = WMFToastView(config: config, dismiss: { [weak self] in
             self?.dismissCurrentToast()
@@ -72,23 +72,27 @@ public final class WMFToastPresenter {
         presentToastView(view: toastView, duration: config.duration)
     }
 
-    /// Presents a SwiftUI view as a toast at the bottom of the screen
+    /// Presents a SwiftUI view as a toast at the bottom of the screen.
     public func presentToastView<Content: View>(
         view: Content,
         duration: TimeInterval? = nil,
         allowsBackgroundTapToDismiss: Bool = false,
         dismissAction: (@Sendable (DismissEvent) -> Void)? = nil
     ) {
-        guard let containerView = UIApplication.shared.currentTopViewController?.view else {
-            debugPrint("No container view available")
+        guard let containerView = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) else {
+            debugPrint("No key window available")
             return
         }
 
-        currentToast?.removeFromSuperview()
+        // Cancel any pending auto-dismiss for the outgoing toast.
         dismissWorkItem?.cancel()
+        dismissWorkItem = nil
         self.dismissAction = dismissAction
 
-        // SwiftUI hosting
+        // Build the new toast view before any animation so it's ready to go.
         let toastContent = view
             .frame(maxWidth: .infinity, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
@@ -97,7 +101,6 @@ public final class WMFToastPresenter {
         hostingController.view.backgroundColor = .clear
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
 
-        // Outer shadow container (keeps shadow outside clipped corners)
         let shadowContainer = UIView()
         shadowContainer.translatesAutoresizingMaskIntoConstraints = false
         shadowContainer.backgroundColor = .clear
@@ -115,10 +118,44 @@ public final class WMFToastPresenter {
             hostingController.view.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor)
         ])
 
+        // Start fully off-screen and invisible BEFORE entering the view hierarchy
+        // so there is no flash on the frame the view is first added.
+        shadowContainer.transform = CGAffineTransform(translationX: 0, y: 200)
+        shadowContainer.alpha = 0
+
+        // How long to wait before animating in the new toast.
+        // If there's an existing toast on screen we animate it out first (0.25 s),
+        // then slide the new one in. If the screen is clear we start immediately.
+        let animateInDelay: TimeInterval
+
+        if let outgoing = currentToast {
+            let outgoingView = outgoing
+            let translationY = outgoingView.frame.height + 50
+            UIView.animate(
+                withDuration: 0.25,
+                delay: 0,
+                options: [.curveEaseIn],
+                animations: {
+                    outgoingView.transform = CGAffineTransform(translationX: 0, y: translationY)
+                    outgoingView.alpha = 0
+                },
+                completion: { _ in
+                    outgoingView.removeFromSuperview()
+                    if let backgroundTapGestureRecognizer = self.backgroundTapGestureRecognizer {
+                        backgroundTapGestureRecognizer.view?.removeGestureRecognizer(backgroundTapGestureRecognizer)
+                        self.backgroundTapGestureRecognizer = nil
+                    }
+                }
+            )
+            animateInDelay = 0.25
+        } else {
+            animateInDelay = 0
+        }
+
         containerView.addSubview(shadowContainer)
         currentToast = shadowContainer
 
-        // Position constraints (iPhone should always fill safe area width)
+        // Position constraints
         let leading = shadowContainer.leadingAnchor.constraint(
             equalTo: containerView.safeAreaLayoutGuide.leadingAnchor,
             constant: 16
@@ -127,20 +164,18 @@ public final class WMFToastPresenter {
             equalTo: containerView.safeAreaLayoutGuide.trailingAnchor,
             constant: -16
         )
-        let toolbarOffset = containerView.visibleToolbarHeightAboveSafeArea()
+        let toolbarOffset = containerView.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
         let bottom = shadowContainer.bottomAnchor.constraint(
             equalTo: containerView.safeAreaLayoutGuide.bottomAnchor,
             constant: -(24 + toolbarOffset + (toolbarOffset > 0 ? 8 : 0))
         )
 
-        // Make these REQUIRED so iPhone doesn’t shrink
         leading.priority = .required
         trailing.priority = .required
         bottom.priority = .required
 
         NSLayoutConstraint.activate([leading, trailing, bottom])
 
-        // iPad-only cap + centering (use idiom, not size class)
         if UIDevice.current.userInterfaceIdiom == .pad {
             let maxWidth: CGFloat = 400
             NSLayoutConstraint.activate([
@@ -149,15 +184,9 @@ public final class WMFToastPresenter {
             ])
         }
 
-        // Layout before animation (so height is known)
-        containerView.layoutIfNeeded()
-        let translationY = shadowContainer.bounds.height + 50
-        shadowContainer.transform = CGAffineTransform(translationX: 0, y: translationY)
-        shadowContainer.alpha = 0
-
         UIView.animate(
             withDuration: 0.35,
-            delay: 0,
+            delay: animateInDelay,
             usingSpringWithDamping: 0.85,
             initialSpringVelocity: 0.6,
             options: [.curveEaseOut],
@@ -195,6 +224,7 @@ public final class WMFToastPresenter {
             completion?()
             return
         }
+
         if let completion {
             let existing = dismissAction
             dismissAction = { event in
@@ -222,7 +252,6 @@ public final class WMFToastPresenter {
 
         switch gesture.state {
         case .changed:
-            // Allow swiping down
             if translation.y > 0 {
                 toast.transform = CGAffineTransform(translationX: 0, y: translation.y)
             }
@@ -274,48 +303,27 @@ public final class WMFToastPresenter {
 
 // MARK: - Toolbar Detection
 
-extension UIView {
-    /// Returns the height of any visible UIToolbar or UITabBar in this view (or its window's tab bar controller)
-    /// that sits above the safe area bottom. Used so toasts automatically clear bars without callers passing manual offsets.
+extension UIViewController {
     func visibleToolbarHeightAboveSafeArea() -> CGFloat {
-        let safeBottom = safeAreaInsets.bottom
-        let viewHeight = bounds.height
-        let safeAreaFloor = viewHeight - safeBottom
-
-        // Check direct subviews for UIToolbar or UITabBar
-        for subview in subviews {
-            guard subview is UIToolbar || subview is UITabBar, !subview.isHidden, subview.alpha > 0 else { continue }
-            if subview.frame.minY < safeAreaFloor {
-                return subview.frame.height
+        if let tab = self as? UITabBarController ?? (self as? UINavigationController)?.viewControllers.first as? UITabBarController {
+            let bar = tab.tabBar
+            if !bar.isHidden, bar.alpha > 0 {
+                let height = bar.frame.height - view.safeAreaInsets.bottom
+                if height > 0 { return height }
             }
         }
-
-        // Also check the tab bar controller's tab bar, which is not a subview of the VC's view
-        if let tabBarController = window?.rootViewController as? UITabBarController,
-           !tabBarController.tabBar.isHidden,
-           tabBarController.tabBar.alpha > 0 {
-            let tabBarHeight = tabBarController.tabBar.frame.height - safeBottom
-            if tabBarHeight > 0 {
-                return tabBarHeight
+        if let tab = (self as? UITabBarController) ?? children.first(where: { $0 is UITabBarController }) as? UITabBarController {
+            let bar = tab.tabBar
+            if !bar.isHidden, bar.alpha > 0 {
+                let height = bar.frame.height - view.safeAreaInsets.bottom
+                if height > 0 { return height }
             }
         }
-
         return 0
     }
 }
 
 // MARK: - Top View Controller Helpers
-
-extension UIApplication {
-    var currentTopViewController: UIViewController? {
-        connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow }?
-            .rootViewController?
-            .topMostViewController()
-    }
-}
 
 extension UIViewController {
     func topMostViewController() -> UIViewController {
