@@ -30,15 +30,15 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
 
         apply(theme: theme)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         configureNavigationBar()
     }
-    
+
     func configureNavigationBar() {
-        
+
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .centerCompact)
         
         let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
@@ -55,6 +55,9 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
             navigationItem.searchController?.isActive = false
             self.delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
         }
+
+        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
+        searchViewController.theme = theme
 
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchResultsVC,

@@ -4,9 +4,10 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 import TipKit
+import WMFTestKitchen
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding, SearchResultsHosting {
+class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
 
     enum ViewState {
         case initial
@@ -17,6 +18,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     internal var toolbarController: ArticleToolbarController?
+
     // Watchlist properies
     internal lazy var watchlistController: WatchlistController = {
         return WatchlistController(delegate: self, context: .article)
@@ -162,7 +164,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     var topSafeAreaOverlayView: UIView?
 
     private var tocStackViewTopConstraint: NSLayoutConstraint?
-    private var searchBarIsAnimating = false
 
     internal var articleViewSource: ArticleSource
 
@@ -177,8 +178,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
 
-    private let needsFocusOnSearch: Bool
-
     private var isMainPage: Bool {
         articleURL.wmf_title == "Main Page"
     }
@@ -187,9 +186,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     var wTipObservationTask: Task<Void, Never>?
     weak var tooltipVC: TipUIPopoverViewController?
 
-    var disableSearchCancelLogging: Bool = false
-
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -205,8 +202,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
-
-        self.needsFocusOnSearch = needsFocusOnSearch
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -238,7 +233,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         return configuration
     }()
-    
+
     lazy var webView: WKWebView = {
         let webView = WMFWebView(frame: .zero, configuration: webViewConfiguration)
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -383,21 +378,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         tableOfContentsController.updateVerticalPaddings(top: 10, bottom: 0)
     }
 
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-
-        guard searchBarIsAnimating else {
-            tocStackViewTopConstraint?.constant = 0
-            view.layoutIfNeeded()
-            return
-        }
-
-        tocStackViewTopConstraint?.constant = view.safeAreaInsets.top
-        UIView.animate(withDuration: 0.2) {
-            self.view.layoutIfNeeded()
-        }
-    }
-
     internal func updateArticleMargins() {
 
         let defaultUpdateBlock = {
@@ -422,6 +402,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             }
             
             self.watchlistController.calculatePopoverPosition(sender: toolbarController.moreButton, sourceView: toolbarController.moreButtonSourceView, sourceRect: toolbarController.moreButtonSourceRect)
+
             self.calculateTopSafeAreaOverlayHeight()
         }
     }
@@ -495,13 +476,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
 
-        let focusingOnSearch = false
-
         if let project {
             if isMainPage {
-                if !focusingOnSearch {
-                    ArticleTabsFunnel.shared.logIconImpression(interface: .mainPage, project: project)
-                }
+                ArticleTabsFunnel.shared.logIconImpression(interface: .mainPage, project: project)
             } else {
                 ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: project)
             }
@@ -550,16 +527,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         wTip.invalidate(reason: .actionPerformed)
         navigationController?.popToRootViewController(animated: true)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if !isMovingFromParent {
-            disableSearchCancelLogging = true
-        }
-        
-        navigationItem.searchController = nil
-        disableSearchCancelLogging = false
         
         navigationController?.setToolbarHidden(true, animated: true)
         wTipObservationTask?.cancel()
@@ -788,44 +759,38 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
 
+        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
+
+        var profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
+
+        var searchButtonConfig: WMFNavigationBarSearchButtonConfig? = nil
+
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
                 titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: nil, alignment: .hidden)
+                profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+                searchButtonConfig = nil
+            } else if UIDevice.current.userInterfaceIdiom == .phone {
+                searchButtonConfig = self.searchButtonConfig(target: self, action: #selector(userDidTapSearch), dataStore: dataStore)
             }
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
+            searchButtonConfig = self.searchButtonConfig(target: self, action: #selector(userDidTapSearch), dataStore: dataStore)
         }
 
-        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
+        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchButtonConfig: searchButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+    }
 
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+    @objc func userDidTapSearch() {
+        // todo: use minimum search vc here.
+        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
+        searchViewController.dataStore = dataStore
+        searchViewController.theme = theme
+        searchViewController.shouldBecomeFirstResponder = false
+        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
 
-        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
-        
-        let searchResultsVC = SearchResultsViewController(source: .article, dataStore: dataStore)
-        searchResultsVC.apply(theme: theme)
-        searchResultsVC.parentSearchControllerDelegate = self
-        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
-            self?.navigationItem.searchController?.searchBar.text = searchTerm
-            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
-        }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL, needsNewTab in
-            guard let self, let navVC = navigationController else { return }
-            let coordinator = LinkCoordinator(
-                navigationController: navVC,
-                url: articleURL,
-                dataStore: dataStore,
-                theme: theme,
-                articleSource: .search,
-                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
-            )
-            let success = coordinator.start()
-            if !success {
-                navigate(to: articleURL)
-            }
-        }
-
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchResultsVC, searchControllerDelegate: searchResultsVC, searchResultsUpdater: searchResultsVC, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
-
-        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        navigationController?.pushViewController(searchViewController, animated: true)
     }
 
     private func updateProfileButton() {
@@ -1004,6 +969,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     lazy var themesPresenter: ReadingThemesControlsArticlePresenter? = {
         guard let toolbarController else { return nil }
+
         return ReadingThemesControlsArticlePresenter(readingThemesControlsViewController: themesViewController, wkWebView: webView, readingThemesControlsToolbarItem: toolbarController.themeButton)
     }()
 
@@ -1034,11 +1000,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         themeNavigationBarCustomCenteredTitleView()
         themeTopSafeAreaOverlay()
         
-        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
-            searchResultsVC.theme = theme
-            searchResultsVC.apply(theme: theme)
-        }
-        
         if let toolbar = navigationController?.toolbar {
             if #unavailable(iOS 26.0) {
                 toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
@@ -1047,7 +1008,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
                 toolbar.backgroundColor = theme.colors.paperBackground
             }
         }
-        
+
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
 
@@ -1623,9 +1584,9 @@ extension ThemeableViewController { // Putting extension on ViewController rathe
 // LogoutCoordinatorDelegate
 
 extension ArticleViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+    func didTapLogout(authInstrument: InstrumentImpl) {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }
@@ -1633,18 +1594,5 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
 extension ArticleViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
-    }
-}
-
-extension ArticleViewController: UISearchControllerDelegate {
-
-    func willPresentSearchController(_ searchController: UISearchController) {
-        navigationController?.hidesBarsOnSwipe = false
-        searchBarIsAnimating = true
-    }
-    
-    func didDismissSearchController(_ searchController: UISearchController) {
-        navigationController?.hidesBarsOnSwipe = true
-        searchBarIsAnimating = false
     }
 }

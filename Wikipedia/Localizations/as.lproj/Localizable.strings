@@ -185,8 +185,10 @@
 "more-languages-tooltip-description" = "৩০০ৰো অধিক ভাষাৰ ৱিকিপিডিয়াত সন্ধান কৰক";
 "more-languages-tooltip-title" = "ভাষা যোগ কৰক";
 "navbar-title-mode-edit-wikitext-preview" = "প্ৰাকদৰ্শন";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ফুট";
 "nearby-distance-label-km" = "$1 কি:মি:";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 মিটাৰ";
 "nearby-distance-label-miles" = "$1 মাইল";
 "number-billions" = "$1 বিলিয়ন";

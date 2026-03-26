@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFTestKitchen
 
 fileprivate enum WMFTwoFactorNextFirstResponderDirection: Int {
     case forward = 1
@@ -30,8 +31,16 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var password:String?
     public var captchaID:String?
     public var captchaWord:String?
+    public var authInstrument: InstrumentImpl?
 
     private var isEmailAuth: Bool = false
+    private var loggingElementId: String {
+        isEmailAuth ? "2fa_email" : "2fa_oath"
+    }
+    
+    private var loggingCustomActionSource: String? {
+        isEmailAuth ? "email_verification_form" : "oath_verification_form"
+    }
 
     public func setDisplayModeToShortAlphanumeric() {
         isEmailAuth = true
@@ -89,6 +98,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
+        authInstrument?.submitInteraction(action: "click", actionSource: loggingCustomActionSource, elementId: "login_button")
         save()
     }
     
@@ -156,6 +166,9 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        authInstrument?.submitInteraction(action: "impression", actionSource: loggingCustomActionSource, elementId: loggingElementId)
+        
         makeAppropriateFieldFirstResponder()
     }
     
@@ -229,6 +242,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // the "Editing changed" handler "textFieldDidChange" isn't called when this clearing
         // happens, so update progressive buttons' enabled state here too.
         enableProgressiveButton(areRequiredFieldsPopulated())
+        
+        authInstrument?.submitInteraction(action: "type", actionSource: loggingCustomActionSource, elementId: loggingElementId)
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -280,6 +295,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
+        authInstrument?
+            .submitInteraction(action: "click", actionSource: loggingCustomActionSource, elementId: "cancel")
         dismiss(animated: true, completion: nil)
     }
     
@@ -307,17 +324,30 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         }
         WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
 
-        MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), emailAuthCode: token(), captchaID: captchaID, captchaWord: captchaWord) { (loginResult) in // check if it's valid for email token formatting
+        MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), emailAuthCode: token(), captchaID: captchaID, captchaWord: captchaWord) { [weak self] (loginResult) in // check if it's valid for email token formatting
+            
+            guard let self else { return }
+            
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
+
                 WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                authInstrument?
+                    .submitInteraction(action: "success", actionSource: self.loggingCustomActionSource)
+
                 let presenter = self.presentingViewController
                 self.dismiss(animated: true, completion: {
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
                 })
             case .failure(let error):
+                                
                 if let error = error as? WMFAccountLoginError {
+                    
+                    defer {
+                        self.authInstrument?.submitInteraction(action: "error", actionSource: loggingCustomActionSource, actionContext: ["validation_error": error.testKitchenValidationError])
+                    }
+                    
                     switch error {
                     case .temporaryPasswordNeedsChange:
                         WMFToastManager.sharedInstance.dismissCurrentToast()
@@ -331,11 +361,14 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     default:
                         break
                     }
+                    
                     self.enableProgressiveButton(true)
                     WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                     self.oathTokenFields.forEach {$0.text = nil}
                     self.backupOathTokenField.text = nil
                     self.makeAppropriateFieldFirstResponder()
+                } else {
+                    self.authInstrument?.submitInteraction(action: "error", actionSource: loggingCustomActionSource, actionContext: ["code": error.logDescription])
                 }
             }
         }

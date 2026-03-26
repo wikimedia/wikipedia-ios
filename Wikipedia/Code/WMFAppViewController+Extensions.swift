@@ -601,7 +601,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
             DDLogError("Error initializing TipKit: \(error.localizedDescription)")
         }
     }
-    
+
     @objc func setWMFAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
         let wmfTheme: WMFTheme
         switch theme.name {
@@ -740,6 +740,8 @@ extension WMFAppViewController {
 
         let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
+
+        WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
     }
 
     @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
@@ -1069,7 +1071,11 @@ extension WMFAppViewController {
                     startEndDatesAccessibilityLabel: startEndDatesAccessibilityLabel,
                     viewsOnArticlesYouveEditedTitle: viewsOnArticlesYouveEditedTitle,
                     lineGraphDay: lineGraphDay,
-                    lineGraphViews: lineGraphViews
+                    lineGraphViews: lineGraphViews,
+                    historyCalloutTitle: CommonStrings.historyMovedToSearchTitle,
+                    historyCalloutBodyLoggedIn: CommonStrings.historyMovedToSearchSubtitleLoggedIn,
+                    historyCalloutBodyLoggedOut: CommonStrings.historyMovedToSearchSubtitleLoggedOut,
+                    calloutCloseButtonAccesibilityHint: WMFLocalizedString("activity-tab-hitory-callout-close", value: "Close history notice card", comment: "Accesibility label for close button in callout about history moving to search")
                 ),
                 dataController: activityTabDataController,
                 authenticationState: authdValue)

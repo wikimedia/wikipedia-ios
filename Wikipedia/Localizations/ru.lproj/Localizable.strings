@@ -34,6 +34,7 @@
 // Author: Kent73
 // Author: Kopcap94
 // Author: Lutece398
+// Author: Lvova
 // Author: Macofe
 // Author: Mailman
 // Author: Mariya
@@ -783,8 +784,10 @@
 "more-menu" = "Ещё";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут.";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
@@ -934,8 +937,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "open-article" = "Открыть статью";
-"open-in-tab-tooltip-body" = "Зажмите заголовок статьи или синюю ссылку, чтобы открыть её в новой вкладке.";
-"open-in-tab-tooltip-title" = "Открыть в новой вкладке";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-history-bot-edits" = "бот";
 "page-history-compare-accessibility-hint" = "Нажмите, чтобы выбрать две версии для сравнения";
@@ -1455,7 +1456,7 @@
 "year-in-review-donate" = "Пожертвовать";
 "year-in-review-donate-now" = "Сделать пожертвование сейчас";
 "year-in-review-finish" = "Завершить";
-"year-in-review-highlights-english-articles" = "Самые читаемые статьи на английской Википедии";
+"year-in-review-highlights-english-articles" = "Самые читаемые статьи Википедии на английском языке";
 "year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
 // Fuzzy
 "year-in-review-personalized-editing-title-format-updated" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";

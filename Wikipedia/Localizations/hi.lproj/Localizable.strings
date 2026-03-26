@@ -314,8 +314,10 @@
 "more-languages-tooltip-description" = "विकिपीडिया को 300 से अधिक भाषाओं में खोजें";
 "more-languages-tooltip-title" = "भाषाएँ जोड़ें";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 फिट";
 "nearby-distance-label-km" = "$1 कि.मी.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 मीटर";
 "nearby-distance-label-miles" = "$1 माइल्स";
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";

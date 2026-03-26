@@ -131,8 +131,10 @@
 "more-languages-tooltip-description" = "ಬೇತೆ ಬಾಸೆತ ೩೦೦ ವಿಕಿಪೀಡಿಯೊನ್ ನಾಡುಲೆ.";
 "more-languages-tooltip-title" = "ಬಾಸೆನ್ ಸೇರ್ಪಾಲೆ";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ಪೀಟ್";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 ಮೈಲ್";
 "new-password-title" = "ಪ್ರವೇಸೊ ಪದೊನ್ ಬರೆಲೆ";

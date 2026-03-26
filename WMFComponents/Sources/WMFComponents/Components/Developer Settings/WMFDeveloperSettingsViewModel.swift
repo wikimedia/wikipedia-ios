@@ -48,6 +48,8 @@ import WMFData
         let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
         
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
+        
+        let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
 
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
@@ -60,7 +62,8 @@ import WMFData
                 enableMoreDynamicTabsV2GroupC,
                 showYiRV3,
                 enableYiRVLoginExperimentControl,
-                enableYiRVLoginExperimentB
+                enableYiRVLoginExperimentB,
+                forceHcaptchaChallenge
             ], selectType: .multi)
         ])
 
@@ -95,6 +98,10 @@ import WMFData
         
         enableYiRVLoginExperimentB.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB = isSelected }
+            .store(in: &subscribers)
+        
+        forceHcaptchaChallenge.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge = isSelected }
             .store(in: &subscribers)
         
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(

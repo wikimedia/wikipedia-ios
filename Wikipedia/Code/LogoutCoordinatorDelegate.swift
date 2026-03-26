@@ -1,7 +1,7 @@
 import Foundation
+import WMFTestKitchen
 
-@objc(WMFLogoutCoordinatorDelegate)
 protocol LogoutCoordinatorDelegate: AnyObject {
-    func didTapLogout()
+    func didTapLogout(authInstrument: InstrumentImpl)
 }
 

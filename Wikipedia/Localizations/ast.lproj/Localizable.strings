@@ -332,8 +332,10 @@
 "more-languages-tooltip-title" = "Amestar llingües";
 "move-articles-to-reading-list" = "Treslladar {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milles";
 "new-password-instructions" = "Aniciasti sesión con una contraseña temporal. Pa terminar d'aniciar sesión, tienes de configurar una contraseña nueva equí.";

@@ -101,6 +101,7 @@
 "activity-tab-articles-read-graph-label" = "ערכים";
 "activity-tab-customize-all-time-impact" = "השפעה מאז ומעולם";
 "activity-tab-customize-editing-insights" = "תובנות עריכה";
+"activity-tab-customize-reading-insights" = "תובנות על קריאה";
 "activity-tab-customize-time-spent-reading" = "הזמן שבילית בקריאה";
 "activity-tab-customize-timeline-of-behavior" = "ציר זמן של התנהגות";
 "activity-tab-email-fifth-line" = "[צילומי מסך או קישורים]";
@@ -112,9 +113,20 @@
 "activity-tab-empty-subtitle" = "נא להתחיל לקרוא ולערוך כדי לבנות את ההיסטוריה שלך";
 "activity-tab-empty-title" = "אין מה להראות";
 "activity-tab-hours-minutes-read" = "$1 שע׳ $2 דק׳";
+"activity-tab-impact-best-streak-label" = "הרצף הארוך ביותר";
+"activity-tab-impact-edits-label" = "עריכות";
+"activity-tab-impact-last-edited-label" = "עריכה אחרונה";
+"activity-tab-impact-recent-activity-title" = "הפעילות שלך לאחרונה (30 הימים האחרונים)";
+"activity-tab-impact-recent-startend-accessibility" = "מ־$1 עד $2";
+"activity-tab-impact-thanks-label" = "תודות";
+"activity-tab-impact-total-edits-label" = "סה״כ עריכות";
+"activity-tab-impact-views-day" = "יום";
+"activity-tab-impact-views-title" = "צפיות בערכים שערכת";
+"activity-tab-impact-views-views" = "צפיות";
 "activity-tab-title" = "פעילות";
 "activity-tab-top-categories" = "הקטגוריות המובילות החודש";
 "activity-tab-total-edits" = "סך כל העריכות בכל המיזמים";
+"activity-tab-view-saved-articles" = "הצגת ערכים שמורים";
 "activity-tab-week-graph-label" = "שבוע";
 "activity-tab-you-edited" = "ערכת {{PLURAL:$1|one=פעם אחת|two=פעמיים|many=$1 פעמים|$1 פעמים}} השבוע.";
 "activity-tab-you-read" = "קראת {{PLURAL:$1|one=ערך אחד|two=שני ערכים|many=$1 ערכים|$1 ערכים}} השבוע.";
@@ -160,8 +172,15 @@
 "article-tabs-feature-announcement-item-2-title" = "אפשר לחזור לנקודה בה הפסקת";
 "article-tabs-feature-announcement-item-3-subtitle" = "אפשר לפתוח קישורים בלשוניות רקע מבלי לאבד את המקום שהיית בו";
 "article-tabs-feature-announcement-item-3-title" = "שמירת קישורים לאחר־כך";
+"article-tabs-feature-announcement-sub-cta" = "מידע נוסף על לשוניות";
+"article-tabs-navigation" = "ניווט בלשוניות";
+"article-tabs-onboarding-tooltip" = "עצות לאימוץ לשוניות";
+"article-tabs-open" = "פתיחה";
+"article-tabs-open-background-tab" = "פתיחה בלשונית ברקע";
+"article-tabs-open-new-tab" = "פתיחה בלשונית חדשה";
 "article-talk-page" = "דף שיחה של ערך";
 "article-toolbar-reading-themes-controls-toolbar-item" = "בקרי ערכות נושא לקריאה";
+"article-view-controller-editing-temp-account-created-title" = "נוצר חשבון זמני";
 "back-button-accessibility-label" = "חזרה";
 "back-button-popover-title" = "יש ללחוץ כדי לחזור";
 "button-go-back" = "חזרה";
@@ -195,8 +214,10 @@
 "continue-button-title" = "המשך";
 "continue-reading-empty-description" = "לחקור את ויקיפדיה כדי למצוא ערכים נוספים לקריאה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
+"contributions-this-month" = "תרומות החודש";
 "crimean-tatar-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של טטרית של קרים בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nQırımtatarca, טטרית של קרים באותיות לטיניות (crh-latn)\nкъырымтатарджа, טטרית של קרים באותיות קיריליות (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "עדכונים לתמיכה בטטרית של קרים";
+"customize-action-title" = "התאמה";
 "data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
 "description-article-introduction-warning-message" = "סדר הרכיבים יהיה שונה בתצוגת העריכה מאשר תצוגת ערך.";
@@ -421,6 +442,8 @@
 "editor-toolbar-template-accessibility" = "עיצוב טקסט תבנית";
 "editor-wikitext-loading-accessibility" = "טעינת הטקסט בעורך";
 "editor-wikitext-textview-accessibility" = "עורך קוד ויקי";
+"edits-last-month" = "עריכות בחודש שעבר";
+"edits-this-month" = "עריכות החודש";
 "empty-diff-compare-title" = "אין הבדל בין גרסאות";
 "empty-diff-single-title" = "לא נעשו שינויים שאפשר לראות";
 "empty-edit-summary" = "תקציר עריכה ריק";
@@ -690,6 +713,7 @@
 "languages-settings-title" = "שפות";
 "languages-title" = "שינוי שפה";
 "languages-wikipedia" = "שפות ויקיפדיה";
+"learn-about-editing" = "מידע על עריכה";
 "learn-more-title" = "מידע נוסף";
 "lockscreen-search-widget-description" = "גישה מהירה לחיפוש בוויקיפדיה ישירות ממסך הנעילה שלך.";
 "logged-out-continue-without-logging-in-button-title" = "להמשיך בלי להיכנס לחשבון";
@@ -700,6 +724,7 @@
 "login-join-wikipedia" = "להצטרף לוויקיפדיה.";
 "login-no-account" = "אין לך חשבון? $1";
 "login-title" = "כניסה לחשבון שלך";
+"looking-for-something-new" = "מעניין אותך לקרוא משהו חדש?";
 "main-menu-about" = "אודות היישום";
 "main-menu-account-login" = "כניסה";
 "main-menu-account-logout" = "יציאה";
@@ -724,8 +749,7 @@
 "microsite-yir-english-edits-slide-title-updated" = "העורכים עשו השנה כמעט 98 מיליון שינויים";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle-updated" = "אנשים השקיעו כ־2.9 מיליארד שעות - כמעט 331,000 שנה! - בקריאה בוויקיפדיה האנגלית בשנת 2024. ויקיפדיה נמצאת שם כאשר אתם רוצים ללמוד על העולם המשתנה שלנו, לזכות בהתערבות בין חברים או לענות על שאלה של ילד סקרן.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title-updated" = "בילינו 2.9 מיליארד שעות בקריאה";
+"microsite-yir-english-reading-slide-title-updated" = "בילינו {{PLURAL:$1|one=שעה|two=שעתיים|$1 שעות}} בקריאה";
 // Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "למשתמשים הפעילים של היישום ל־iOS היו יותר מ־62.2 מיליון רשימות קריאה. הוספת ערכים לרשימות קריאה מאפשרת לך לגשת לערכים גם ללא חיבור לרשת. אפשר גם להיכנס לחשבון כדי לסנכרן רשימות קריאה בין מכשירים.";
 // Fuzzy
@@ -739,8 +763,10 @@
 "more-menu" = "עוד";
 "move-articles-to-reading-list" = "העברת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
 "navbar-title-mode-edit-wikitext-preview" = "תצוגה מקדימה";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 רגל";
 "nearby-distance-label-km" = "$1 ק״מ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 מטרים";
 "nearby-distance-label-miles" = "$1 מיל";
 "new-password-instructions" = "נכנסת עם סיסמה זמנית. כדי לסיים את הכניסה יש להגדיר כאן סיסמה חדשה.";
@@ -890,7 +916,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "open-article" = "פתיחת ערך";
-"open-in-tab-tooltip-title" = "פתיחה בלשונית חדשה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
 "page-history-bot-edits" = "בוט";
 "page-history-compare-accessibility-hint" = "נא ללחוץ כדי לבחור שתי גרסאות להשוואה";
@@ -1115,8 +1140,7 @@
 "serbian-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nсрпски ћирилица סרבית, קירילית (sr-ec)\nsrpski latinica סרבית, לטינית (sr-el)";
 "serbian-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סרבית";
 "settings-account" = "חשבון";
-// Fuzzy
-"settings-appearance" = "העדפות קריאה";
+"settings-appearance" = "ערכת העיצוב של היישומון";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
 "settings-clear-cache-are-you-sure-title" = "לנקות את הנתונים המוטמנים?";
@@ -1127,6 +1151,7 @@
 "settings-language-bar" = "הצגת שפות בחיפוש";
 "settings-languages-feed-customization" = "אפשר לנהל אילו שפות מוצגות בהזנת לחקור באמצעות התאמה אישית של ההעדפות שלך עבור הזנת לחקור.";
 "settings-my-languages" = "השפות שלי";
+"settings-new-article-tab-header-text" = "ערכת עיצוב של לשונית חדשה";
 "settings-notifications" = "עדכוני דחיפה";
 "settings-notifications-echo-failure-message" = "אירעה שגיאה בעת בדיקת מינויים להתראות שקשורות לחשבון שלך.";
 "settings-notifications-echo-failure-title" = "לא ניתן לבדוק מינויים להתראות Echo";
@@ -1186,11 +1211,11 @@
 "tabs-close-tab" = "סגירת לשונית";
 "tabs-empty-view-title" = "הלשוניות שלך תופענה כאן";
 "tabs-hide-suggested-articles" = "הסתרת הצעות לערכים";
+"tabs-navbar-title-format" = "{{PLURAL:$1|לשונית|$1 לשוניות}}";
 "tabs-open-tab" = "פתיחת לשונית";
-"tabs-overview-tooltip-body" = "אפשר לעבור בין הערכים הפתוחים בסקירת הלשוניות.";
-"tabs-overview-tooltip-title" = "סקירת לשוניות";
 "tabs-show-suggested-articles" = "הצגת הצעות לערכים";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "ההצעות מוסתרות כרגע";
+"tabs-survey-title" = "אפשר לסייע לשפר את הלשוניות. היכולת הזאת מספקת אותך?";
 "tabs-title" = "לשוניות";
 "tachelhit-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nⵜⴰⵛⵍⵃⵉⵜ תשלחית, תיפינג (shi-tfng)\nTaclḥit תשלחית, לטינית (shi-latn)";
 "tachelhit-variants-alert-title" = "עדכונים לתמיכה בהגוונים של תשלחית";
@@ -1309,6 +1334,7 @@
 "vanish-account-warning-title" = "אזהרה";
 "variants-alert-dismiss-button" = "לא, תודה";
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
+"view-changes" = "הצגת השינויים";
 "watch" = "מעקב";
 "watchlist" = "רשימת המעקב";
 "watchlist-added-toast-one-month" = "נוסף לרשימת המעקב שלך לחודש.";
@@ -1466,17 +1492,27 @@
 "year-in-review-highlights-collective-time-spent" = "שעות שהושקעו בקריאה";
 "year-in-review-highlights-created-lists" = "מספר רשימות הקריאה שנוצרו";
 "year-in-review-highlights-edit-frequency" = "מה תכיפות העריכה בוויקיפדיה";
+"year-in-review-highlights-english-articles" = "הערכים שנקראו הכי הרבה בוויקיפדיה באנגלית";
+"year-in-review-highlights-favorite-day" = "היום המועדף לקריאה";
 "year-in-review-highlights-share-logo-caption" = "סמל ויקיפדיה";
 "year-in-review-highlights-subtitle" = "אנחנו מצפים לשנה הבאה!";
+"year-in-review-most-read-categories-title" = "הקטגוריות המעניינות ביותר שלך";
+"year-in-review-non-contributor-slide-title" = "יש לך אפשרות לפתוח ההטבה שלך לתורם לשנה הבאה!";
+"year-in-review-personalized-date-day-footer-v3" = "היום האהוב לקריאה";
+"year-in-review-personalized-date-month-footer-v3" = "החודש שבו קראת הכי הרבה";
+"year-in-review-personalized-date-time-footer-v3" = "הזמן האהוב לקריאה";
+"year-in-review-personalized-date-title-v3" = "יש לך דפוסי קריאה ברורים";
 "year-in-review-personalized-donate-subtitle" = "תודה על ההשקעה בעתיד של ידע חופשי. השנה, קרן ויקימדיה שיפרה את הטכנולוגיה כדי לשרת טוב יותר כל קורא וכל מתנדב, פיתחה כלים המעצימים שיתוף פעולה ותמכה בוויקיפדיה בעוד שפות. [למידע נוסף על העבודה שלנו]($1).";
 "year-in-review-personalized-donate-title" = "הנדיבות שלך עזרה לוויקיפדיה לצמוח";
 // Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format-updated" = "קוראים ברחבי העולם מעריכים את התרומות שלך. במהלך החודשיים האחרונים, ערכים שערכת קיבלו $1 צפיות בסך הכול. הודות לעורכים כמוך, ויקיפדיה היא משאב ידע המשתפר בהתמדה, מבוסס עובדות ואמין עבור העולם";
 // Fuzzy
 "year-in-review-personalized-edit-views-title-format-updated" = "העריכות שלך נצפו יותר מ־$1 פעמים לאחרונה";
-// Fuzzy
-"year-in-review-personalized-editing-title-format-updated" = "ערכת את ויקיפדיה {{PLURAL:$1|פעם אחת|פעמיים|$1 פעמים}}";
+"year-in-review-personalized-editing-title-format-updated" = "ערכת {{PLURAL:$1|פעם אחת|פעמיים|$1 פעמים}}";
 "year-in-review-personalized-explore" = "איור מונפש של יד אוחזת בגלובוס ויקיפדיה, שהופך בהדרגה לפיסת פאזל קטנה, המסמלת תרומות בודדות לפלטפורמה.";
+"year-in-review-personalized-location-subtitle-format-1" = "קראת בערך $2$1$3.";
+"year-in-review-personalized-location-subtitle-format-2" = "קראת בערך $3$1$4 ו־$3$2$4.";
+"year-in-review-personalized-location-subtitle-format-3" = "קראת בערך $4$1$5, $4$2$5, ו־$4$3$5.";
 "year-in-review-personalized-most-read-articles-title" = "הערכים המובילים שלך";
 "year-in-review-personalized-saved-title-format" = "שמרת {{PLURAL:$1|ערך|$1 ערכים}}";
 "year-in-review-personalized-user-edits" = "איור מונפש שמציג בתים שנערמים זה על גבי זה, שמסמל יצירה מתמשכת של ידע חופשי.";
@@ -1501,3 +1537,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "סמל w של ויקיפדיה";
 "year-in-review-wmf-logo-accessibility-label" = "סמל קרן ויקימדיה";
 "yesterday-title" = "אתמול";
+"zero-edits-to-articles" = "0 עריכות של ערכים לאחרונה";
