@@ -1439,7 +1439,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (SearchViewController *)searchTabViewController {
     if (!_searchTabViewController) {
-        _searchTabViewController = [[SearchViewController alloc] init];
+        _searchTabViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab];
         [_searchTabViewController applyTheme:self.theme];
         _searchTabViewController.dataStore = self.dataStore;
         _searchTabViewController.tabBarItem =
@@ -1987,7 +1987,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    SearchViewController *searchVC = [[SearchViewController alloc] initWithNibName:nil bundle:nil];
+    SearchViewController *searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown];
     searchVC.dataStore = self.dataStore;
     [searchVC applyTheme:self.theme];
 

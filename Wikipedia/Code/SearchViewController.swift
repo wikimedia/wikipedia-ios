@@ -8,6 +8,8 @@ import WMFTestKitchen
 
 /// Standalone view controller for searching Wikipedia articles. Designed to be used within a navigation controller, as its search bar leans on navigationItem.searchController behavior.
 class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider, SearchResultsHosting {
+    
+    let source: SearchResultsViewController.EventLoggingSource
 
     // MARK: - MEP / Hint
 
@@ -116,7 +118,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Search results container
 
     lazy var searchResultsVC: SearchResultsViewController = {
-        let vc = SearchResultsViewController(source: .searchTab, dataStore: dataStore ?? MWKDataStore.shared())
+        let vc = SearchResultsViewController(source: source, dataStore: dataStore ?? MWKDataStore.shared())
         vc.apply(theme: theme)
         vc.parentSearchControllerDelegate = self
         vc.populateSearchBarAction = { [weak self] searchTerm in
@@ -278,7 +280,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }()
 
     // MARK: - Lifecycle
-
+    
+    @objc init(source: SearchResultsViewController.EventLoggingSource) {
+        self.source = source
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
