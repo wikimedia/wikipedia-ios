@@ -467,13 +467,13 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         view.layoutIfNeeded()
     }
 
-    var secondaryButtonTextStyle: WMFFont = .mediumFootnote {
+    var secondaryButtonTextStyle: WMFFont = .body {
         didSet {
             updateFonts()
         }
     }
 
-    var optionalButtonTextStyle: WMFFont = .boldSubheadline {
+    var optionalButtonTextStyle: WMFFont = .body {
         didSet {
             updateFonts()
         }

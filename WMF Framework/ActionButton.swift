@@ -2,7 +2,7 @@ import WMFComponents
 
 class ActionButton: SetupButton {
     
-    var titleLabelFont = WMFFont.mediumSubheadline
+    var titleLabelFont = WMFFont.body
 
     override func setup() {
         super.setup()

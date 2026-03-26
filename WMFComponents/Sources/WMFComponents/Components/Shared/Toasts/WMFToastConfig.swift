@@ -1,14 +1,14 @@
 import SwiftUI
 
-public struct WMFToastConfig: Sendable {
+public struct WMFToastConfig {
     let title: String
     let subtitle: String?
-    @preconcurrency let icon: UIImage?
+    let icon: UIImage?
     let duration: TimeInterval?
     let buttonTitle: String?
     let canBeDismissed: Bool
-    let tapAction: (@Sendable () -> Void)?
-    let buttonAction: (@Sendable () -> Void)?
+    let tapAction: (() -> Void)?
+    let buttonAction: (() -> Void)?
 
     public init(
         title: String,
@@ -17,8 +17,8 @@ public struct WMFToastConfig: Sendable {
         duration: TimeInterval? = 2,
         buttonTitle: String? = nil,
         canBeDismissed: Bool = true,
-        tapAction: (@Sendable () -> Void)? = nil,
-        buttonAction: (@Sendable () -> Void)? = nil
+        tapAction: (() -> Void)? = nil,
+        buttonAction: (() -> Void)? = nil
     ) {
         self.title = title
         self.subtitle = subtitle

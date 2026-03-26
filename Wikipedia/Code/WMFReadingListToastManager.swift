@@ -39,13 +39,6 @@ import WMFComponents
         return MainActor.assumeIsolated { toastPresenter.isToastHidden }
     }
 
-    func dismissToastDueToUserInteraction() {
-        guard let toastPresenter else { return }
-        Task { @MainActor in
-            toastPresenter.dismissToastDueToUserInteraction()
-        }
-    }
-
     @objc func toggle(presenter: UIViewController, article: WMFArticle, theme: Theme) {
         self.presenter = presenter
         self.theme = theme

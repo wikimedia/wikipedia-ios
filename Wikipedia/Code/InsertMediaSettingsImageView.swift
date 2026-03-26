@@ -41,7 +41,7 @@ final class InsertMediaSettingsImageView: UIView {
 
     private func updateFonts() {
         imageDescriptionLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
-        titleButton.titleLabel?.font = WMFFont.for(.boldHeadline, compatibleWith: traitCollection)
+        titleButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     @IBAction private func performTitleAction(_ sender: UIButton) {

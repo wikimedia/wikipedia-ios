@@ -80,6 +80,18 @@ public actor WMFSettingsDataController: ObservableObject {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue, value: newValue)
     }
 
+    public nonisolated func didMigrateAutoSignTalkPageDiscussions() -> Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.didMigrateAutoSignTalkPageDiscussions.rawValue)) ?? false
+    }
+
+    public nonisolated func setDidMigrateAutoSignTalkPageDiscussions(_ newValue: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.didMigrateAutoSignTalkPageDiscussions.rawValue, value: newValue)
+    }
+
+    public nonisolated func hasStoredAutoSignTalkPageDiscussions() -> Bool {
+        return UserDefaults.standard.object(forKey: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue) != nil
+    }
+
     // MARK: - Search Settings
 
     public nonisolated func showSearchLanguageBar() -> Bool {

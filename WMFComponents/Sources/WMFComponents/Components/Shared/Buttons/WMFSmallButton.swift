@@ -41,7 +41,7 @@ public struct WMFSmallButton: View {
             }
 
             Text(title)
-                .font(Font(WMFFont.for(.mediumSubheadline)))
+                .font(Font(WMFFont.for(.body)))
 
             if let trailingIcon = configuration.trailingIcon {
                 Image(uiImage: trailingIcon)

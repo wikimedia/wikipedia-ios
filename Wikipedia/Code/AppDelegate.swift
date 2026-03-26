@@ -99,7 +99,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Private
 
     private func registerUserDefaults() {
-        WMFSettingsDataController.shared.setAutoSignTalkPageDiscussions(true)
+        let storedData = UserDefaults.standard.object(forKey: WMFUserDefaultsKey.autoSignTalkPageDiscussions.rawValue)
+        if storedData == nil {
+            WMFSettingsDataController.shared.setAutoSignTalkPageDiscussions(true)
+        }
     }
 
     private func shouldRestoreNavigationStackOnResumeAfterBecomingActive() -> Bool {

@@ -1,3 +1,5 @@
+import WMFData
+
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
 let WMFAppSiteKey = "Domain"
@@ -51,7 +53,7 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let didShowInformationEditingMessage = "WMFdDidShowInformationEditingMessage"
         static let isDifferentErrorBannerShown = "WMFIsDifferentErrorBannerShown"
-        static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
+        static let legacyAutoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
         static let talkPageForceRefreshRevisionIDs = "WMFTalkPageForceRefreshRevisionIDs"
     }
 
@@ -245,27 +247,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
     @objc func wmf_exploreDidPromptForLocationAuthorization() -> Bool {
         return self.bool(forKey: WMFExploreDidPromptForLocationAuthorization)
     }
-
-    @objc func wmf_setShowSearchLanguageBar(_ enabled: Bool) {
-        self.set(NSNumber(value: enabled as Bool), forKey: "ShowLanguageBar")
-    }
-    
-    @objc func wmf_showSearchLanguageBar() -> Bool {
-        if let enabled = self.object(forKey: "ShowLanguageBar") as? NSNumber {
-            return enabled.boolValue
-        } else {
-            return false
-        }
-    }
-
-    @objc var wmf_openAppOnSearchTab: Bool {
-        get {
-            return bool(forKey: "WMFOpenAppOnSearchTab")
-        }
-        set {
-            set(newValue, forKey: "WMFOpenAppOnSearchTab")
-        }
-    }
     
     @objc var wmf_showActivityTab: Bool {
         get {
@@ -387,7 +368,9 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
         set {
             set(newValue.rawValue, forKey: UserDefaults.Key.defaultTabType)
-            wmf_openAppOnSearchTab = newValue == .settings
+            Task {
+                await WMFSettingsDataController.shared.setOpenAppOnSearchTab(newValue == .settings)
+            }
         }
     }
     
@@ -479,15 +462,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
             set(newValue, forKey: UserDefaults.Key.didShowInformationEditingMessage)
         }
     }
-
-    var autoSignTalkPageDiscussions: Bool {
-        get {
-            return bool(forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
-        }
-        set {
-            set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
-        }
-    }
     
     private var systemDarkModeEnabled: Bool {
         get {
@@ -495,15 +469,6 @@ let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
         }
         set {
             set(newValue, forKey: "SystemDarkMode")
-        }
-    }
-    
-    @objc var wmf_shouldShowNotificationsExploreFeedCard: Bool {
-        get {
-           return bool(forKey: WMFShowNotificationsExploreFeedCard)
-        }
-        set {
-            set(newValue, forKey: WMFShowNotificationsExploreFeedCard)
         }
     }
     

@@ -258,12 +258,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
                 let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
-                WMFToastManager.sharedInstance.showToastWithMessage(
+                WMFToastManager.sharedInstance.showRichToast(
                     title,
                     subtitle: nil,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     image: image,
                     dismissPreviousToasts: true,
-                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
                         Task { @MainActor in
                             guard let navigationController = self.navigationController else { return }
@@ -292,12 +292,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
                 let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
-                WMFToastManager.sharedInstance.showToastWithMessage(
+                WMFToastManager.sharedInstance.showRichToast(
                     title,
                     subtitle: nil,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     image: image,
                     dismissPreviousToasts: true,
-                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
                         Task { @MainActor in
                             guard let navigationController = self.navigationController else { return }
@@ -446,7 +446,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        WMFToastManager.sharedInstance.dismissToast()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         super.viewWillDisappear(animated)
 
         if isMovingFromParent {
@@ -594,7 +594,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             problemSource = .needsCaptcha
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
             wmf_hideKeyboard()
-            WMFToastManager.sharedInstance.dismissToast() // Hide "Publishing..."
+            WMFToastManager.sharedInstance.dismissCurrentToast() // Hide "Publishing..."
 
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = pageURL?.wmf_title else {
@@ -628,7 +628,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             problemSource = .serverError
         case .blocked:
 
-            WMFToastManager.sharedInstance.dismissToast() // Hide "Publishing..."
+            WMFToastManager.sharedInstance.dismissCurrentToast() // Hide "Publishing..."
 
             guard let displayError = nsError.userInfo[NSErrorUserInfoDisplayError] as? MediaWikiAPIDisplayError,
                   let currentTitle = pageURL?.wmf_title else {

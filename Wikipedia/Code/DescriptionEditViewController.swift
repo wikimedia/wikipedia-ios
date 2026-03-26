@@ -90,6 +90,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             if let blockedError {
                 self.disableTextFieldAndPublish()
                 self.presentBlockedPanel(error: blockedError)
+            } else {
+                showTempAccountToast()
             }
         }
 
@@ -132,12 +134,12 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
                 let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)
-                WMFToastManager.sharedInstance.showToastWithMessage(
+                WMFToastManager.sharedInstance.showRichToast(
                     title,
                     subtitle: nil,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     image: image,
                     dismissPreviousToasts: true,
-                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
                         Task { @MainActor in
                             guard let navigationController = self.navigationController else { return }
@@ -155,12 +157,12 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 // Warning
                 let title = CommonStrings.saveViewTempAccountWarning
                 let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill)
-                WMFToastManager.sharedInstance.showToastWithMessage(
+                WMFToastManager.sharedInstance.showRichToast(
                     title,
                     subtitle: nil,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     image: image,
                     dismissPreviousToasts: true,
-                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     buttonCallBack: {
                         Task { @MainActor in
                             guard let navigationController = self.navigationController else { return }
@@ -182,11 +184,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
         loginLabel.isHidden = dataStore.authenticationManager.authStateIsPermanent
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showTempAccountToast()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -390,12 +387,12 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                             let image = WMFIcon.temp
 
                             if needsNewTempAccountToast {
-                                WMFToastManager.sharedInstance.showToastWithMessage(
+                                WMFToastManager.sharedInstance.showRichToast(
                                     title,
                                     subtitle: subtitle,
+                                    buttonTitle: CommonStrings.learnMoreTitle(),
                                     image: image,
                                     dismissPreviousToasts: true,
-                                    buttonTitle: CommonStrings.learnMoreTitle(),
                                     buttonCallBack: {
                                         Task { @MainActor in
                                             if let url = URL(string: self.tempAccountsMediaWikiURL) {

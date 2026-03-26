@@ -160,7 +160,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 #pragma mark - Section management
 
 - (void)reloadDataSections {
-    [[WMFToastManager sharedInstance] dismissToast];
+    [[WMFToastManager sharedInstance] dismissCurrentToast];
     [self.tableView reloadData];
 }
 
@@ -395,6 +395,20 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     } else {
         return UITableViewCellEditingStyleInsert;
     }
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self isPreferredSection:indexPath.section] && [self tableView:tableView numberOfRowsInSection:indexPath.section] > 1) {
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                                                                   title:WMFCommonStrings.deleteActionTitle
+                                                                                 handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
+                                                                                     [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+                                                                                     completionHandler(YES);
+                                                                                 }];
+        deleteAction.backgroundColor = self.theme.colors.destructive;
+        return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+    }
+    return [UISwipeActionsConfiguration configurationWithActions:@[]];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
