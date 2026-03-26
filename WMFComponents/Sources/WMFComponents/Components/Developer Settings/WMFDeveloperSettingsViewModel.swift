@@ -109,6 +109,10 @@ import WMFData
             b: enableYiRVLoginExperimentB
         )
     }
+
+    public func resetReadingChallengeState() {
+        WMFDeveloperSettingsDataController.shared.resetReadingChallengeState()
+    }
 }
 
 private final class YirLoginExperimentBindingCoordinator {

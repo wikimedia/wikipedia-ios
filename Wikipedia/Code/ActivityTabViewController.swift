@@ -78,7 +78,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 duration: nil,
                 buttonTitle: CommonStrings.logIn,
                 buttonAction: { [weak self] in
-                    self?.presentFullLoginFlow(fromCustomizeToast: true)
+                    Task { @MainActor [weak self] in
+                        self?.presentFullLoginFlow(fromCustomizeToast: true)
+                    }
                 }
             )
 
@@ -303,45 +305,63 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 ActivityTabFunnel.shared.logOnboardingDidAppear()
                 await dataController.setHasSeenActivityTab(true)
             } else {
-                presentReadingChallengeAnnouncementIfNeeded()
-                presentReadingChallengeWidgetAnnouncementIfNeeded()
-                presentSurveyIfNeeded()
+                let didPresentChallenge = await presentReadingChallengeAnnouncementIfNeeded()
+                if !didPresentChallenge {
+                    presentReadingChallengeWidgetAnnouncementIfNeeded()
+                    presentSurveyIfNeeded()
+                }
             }
-            presentSurveyIfNeeded()
         }
 
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
             self?.presentFullLoginFlow()
         }
     }
-    
-    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
+
+    @discardableResult
+    private func presentReadingChallengeAnnouncementIfNeeded() async -> Bool {
+        guard presentedViewController == nil else { return false }
+        guard isViewLoaded && view.window != nil else { return false }
+        guard let dataStore else { return false }
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn) else { return false }
+        presentReadingChallengeAnnouncement(dataStore: dataStore)
+        return true
+    }
+
+    @objc func presentReadingChallengeAnnouncementFromWidget() {
         guard presentedViewController == nil else { return }
+        guard let dataStore else { return }
+        presentReadingChallengeAnnouncement(dataStore: dataStore)
+    }
 
-        Task { @MainActor in
-            // guard await dataController.shouldShowReadingChallengeWidgetAnnouncement() else { return }
-
-            readingChallengeWidgetAnnouncementCoordinator =
-                ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
-            readingChallengeWidgetAnnouncementCoordinator?.start()
-
-            await dataController.setHasSeenWidgetReadingChallengeAnnouncement()
+    private func presentReadingChallengeAnnouncement(dataStore: MWKDataStore) {
+        guard let nav = navigationController else { return }
+        readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+            navigationController: nav,
+            dataStore: dataStore,
+            theme: theme
+        )
+        readingChallengeCoordinator?.onEnroll = { [weak self] in
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
         }
+        readingChallengeCoordinator?.onDismiss = { [weak self] in
+            self?.readingChallengeCoordinator = nil
+        }
+        readingChallengeCoordinator?.start()
     }
 
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
     private var readingChallengeWidgetAnnouncementCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
-    @discardableResult
-    private func presentReadingChallengeAnnouncementIfNeeded() -> Bool {
-        guard presentedViewController == nil else { return false }
-        guard self.isViewLoaded && self.view.window != nil else { return false }
-        guard let dataStore else { return false }
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
+        guard presentedViewController == nil else { return }
         Task { @MainActor in
-            return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
+            guard await dataController.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            readingChallengeWidgetAnnouncementCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
+            readingChallengeWidgetAnnouncementCoordinator?.start()
+            await dataController.setHasSeenWidgetReadingChallengeAnnouncement()
         }
-        return false
     }
 
     private func presentOnboarding() {

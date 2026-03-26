@@ -127,6 +127,15 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    public func resetReadingChallengeState() {
+        Task {
+            await WMFActivityTabDataController.shared.resetHasSeenFullPageAnnouncementForWidgetFlow()
+            await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement(false)
+            UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.set(false, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
+            await WMFActivityTabDataController.shared.setEnrolledInReadingChallenge(false)
+        }
+    }
+
     // MARK: - Remote Settings from https://en.wikipedia.org/api/rest_v1/configuration
     
     public func loadFeatureConfig() -> WMFFeatureConfigResponse? {

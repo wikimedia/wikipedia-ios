@@ -10,6 +10,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     private let theme: Theme
 
     var onDismiss: (() -> Void)?
+    var onEnroll: (() -> Void)?
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
         self.navigationController = navigationController
@@ -142,6 +143,7 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
     func onboardingViewDidClickPrimaryButton() {
         enroll()
         navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
+            self?.onEnroll?()
             self?.onDismiss?()
         }
     }
