@@ -110,7 +110,8 @@ class WMFHCaptchaViewController: ThemeableViewController {
                       return
                   }
             
-            hCaptcha = try HCaptcha(apiKey: config.apiKey,
+            let apiKey = WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge ? "45205f58-be1c-40f0-b286-07a4498ea3da" : config.apiKey
+            hCaptcha = try HCaptcha(apiKey: apiKey,
                                      baseURL: baseURL,
                                      jsSrc: jsSrc,
                                      sentry: config.sentry,
@@ -150,7 +151,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
                 logError(data)
                 self.errorAction?(CustomError.hCaptchaExpired)
             case .open:
-                authInstrument?.submitInteraction(action: "hcaptcha_show")
+                authInstrument?.submitInteraction(action: "hcaptcha_open")
             }
         }
 
