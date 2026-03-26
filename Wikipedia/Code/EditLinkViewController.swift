@@ -129,7 +129,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         displayTextLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         linkTargetLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         displayTextView.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
-        removeLinkButton.titleLabel?.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        removeLinkButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {

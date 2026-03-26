@@ -134,10 +134,10 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         switch configType {
         case .donate(let config):
             button.setTitle(config.completeButtonTitle, for: .normal)
-            button.titleLabel?.font = WMFFont.for(.headline, compatibleWith: traitCollection)
+            button.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         case .yirLearnMore(let config):
             button.setTitle(config.donateButtonTitle, for: .normal)
-            button.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+            button.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
         case .standard(let config):
             break
         }
@@ -217,7 +217,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             
             if let rightBarButtonItems = navigationItem.rightBarButtonItems {
                 for item in rightBarButtonItems {
-                    item.tintColor = theme.colors.link
+                    item.tintColor = theme.colors.primaryText
                 }
             }
         }
@@ -518,7 +518,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for item in rightBarButtonItems {
-                item.tintColor = theme.colors.link
+                item.tintColor = theme.colors.primaryText
             }
         }
     }

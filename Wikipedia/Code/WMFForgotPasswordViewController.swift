@@ -113,7 +113,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNa
             email: email,
             success: { result in
                 DispatchQueue.main.async {
-                    WMFToastManager.sharedInstance.showSuccessToast(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showToast(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
         }, failure: failure)
     }

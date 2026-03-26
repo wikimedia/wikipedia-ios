@@ -1018,7 +1018,7 @@ private extension DiffContainerViewController {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: noInternetConnectionAlertMessage)
             } else {
-                WMFToastManager.sharedInstance.showErrorToastWithMessage(noInternetConnectionAlertMessage, sticky: true, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showToast(noInternetConnectionAlertMessage, sticky: true, dismissPreviousToasts: true)
             }
 
         } else if let diffError = error as? DiffError {
@@ -1026,7 +1026,7 @@ private extension DiffContainerViewController {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: diffError.localizedDescription)
             } else {
-                WMFToastManager.sharedInstance.showWarningToast(diffError.localizedDescription, sticky: true, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showToast(diffError.localizedDescription, sticky: true, dismissPreviousToasts: true)
             }
 
         } else {
@@ -1034,7 +1034,7 @@ private extension DiffContainerViewController {
             if UIAccessibility.isVoiceOverRunning {
                 UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: error.localizedDescription)
             } else {
-                WMFToastManager.sharedInstance.showErrorToastWithMessage(error.localizedDescription, sticky: true, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showToast(error.localizedDescription, sticky: true, dismissPreviousToasts: true)
             }
 
         }
@@ -1326,7 +1326,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    WMFToastManager.sharedInstance.showSuccessToast(message, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showToast(message, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             }
             if isRollback {

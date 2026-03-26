@@ -155,6 +155,7 @@ public enum WMFSFSymbolIcon {
     case bubbleRightFill
     case globeAmericas
     case lineDiagonalArrow
+    case filterLineHorizontalDecrease
     case flameFill
     case trophy
 
@@ -375,6 +376,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "globe.americas.fill", withConfiguration: configuration)
         case .lineDiagonalArrow:
             image = UIImage(systemName: "line.diagonal.arrow", withConfiguration: configuration)
+        case .filterLineHorizontalDecrease:
+            image = UIImage(systemName: "line.3.horizontal.decrease", withConfiguration: configuration)
         case .flameFill:
             image = UIImage(systemName: "flame.fill", withConfiguration: configuration)
         case .trophy:

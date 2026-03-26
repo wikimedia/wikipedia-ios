@@ -116,7 +116,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         if #available(iOS 26, *) {
             var config: UIButton.Configuration = .glass()
             var titleAttr = AttributedString(CommonStrings.nextTitle)
-            titleAttr.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+            titleAttr.font = WMFFont.for(.body, compatibleWith: traitCollection)
             config.attributedTitle = titleAttr
             config.baseForegroundColor = theme.colors.link
             nextButton.configuration = config
@@ -204,8 +204,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     }
 
     private func updateFonts() {
-        skipButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
-        nextButton.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        skipButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        nextButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     override func viewDidAppear(_ animated: Bool) {

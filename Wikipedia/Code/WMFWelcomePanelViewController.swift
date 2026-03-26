@@ -58,7 +58,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
 
         config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
-            outgoing.font = WMFFont.for(.callout)
+            outgoing.font = WMFFont.for(.body)
             return outgoing
         }
 
