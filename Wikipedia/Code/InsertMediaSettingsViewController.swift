@@ -228,11 +228,11 @@ final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavig
     private lazy var reachabilityNotifier: ReachabilityNotifier = {
         let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
             if reachable {
-                DispatchQueue.main.async {
+                Task { @MainActor [weak self] in
                     self?.hideOfflineAlertIfNeeded()
                 }
             } else {
-                DispatchQueue.main.async {
+                Task { @MainActor [weak self] in
                     self?.showOfflineAlertIfNeeded()
                 }
             }

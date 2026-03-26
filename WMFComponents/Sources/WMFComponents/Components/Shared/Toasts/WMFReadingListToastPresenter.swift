@@ -13,19 +13,18 @@ final public class WMFReadingListToastPresenter {
     private var currentModel: WMFReadingListToastModel?
 
     private var containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)?
-    private var dismissWorkItem: DispatchWorkItem?
+    private var dismissTask: Task<Void, Never>?
 
     private var subview: UIView?
     private var additionalBottomSpacing: CGFloat = 0
     private var extendsUnderSafeArea: Bool = false
 
-    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, subview: UIView? = nil) {
+    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, subview: UIView? = nil) {
         self.presenter = presenter
         self.currentToastContainer = currentToastContainer
         self.currentHostingController = currentHostingController
         self.currentModel = currentModel
         self.containerViewConstraints = containerViewConstraints
-        self.dismissWorkItem = dismissWorkItem
         self.subview = subview
     }
 
@@ -68,8 +67,8 @@ final public class WMFReadingListToastPresenter {
     }
 
     public func resetToast() {
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
+        dismissTask?.cancel()
+        dismissTask = nil
     }
 
     public func updateCurrentToast(with config: WMFReadingListToastConfig) {
@@ -86,8 +85,8 @@ final public class WMFReadingListToastPresenter {
         }
 
         if hidden {
-            dismissWorkItem?.cancel()
-            dismissWorkItem = nil
+            dismissTask?.cancel()
+            dismissTask = nil
         }
 
         if !hidden, isToastHidden, presenter.presentedViewController != nil {
@@ -103,7 +102,8 @@ final public class WMFReadingListToastPresenter {
             addToast(to: presenter, config: config)
         }
 
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: { [weak self] in
+            guard let self else { return }
             if hidden {
                 self.containerViewConstraints?.bottom?.isActive = false
                 self.containerViewConstraints?.top?.isActive = true
@@ -112,7 +112,8 @@ final public class WMFReadingListToastPresenter {
                 self.containerViewConstraints?.bottom?.isActive = true
             }
             self.currentToastContainer?.superview?.layoutIfNeeded()
-        }, completion: { _ in
+        }, completion: { [weak self] _ in
+            guard let self else { return }
             if hidden {
                 self.removeToast()
                 completion?()
@@ -155,10 +156,7 @@ final public class WMFReadingListToastPresenter {
         currentModel = model
 
         let toastView = WMFReadingListToastView(model: model, dismiss: { [weak self] in
-            guard let self else { return }
-            Task { @MainActor in
-                self.setToastHidden(true, config: nil)
-            }
+            self?.setToastHidden(true, config: nil)
         })
 
         let hostingController = UIHostingController(rootView: toastView)
@@ -229,8 +227,8 @@ final public class WMFReadingListToastPresenter {
     }
 
     private func removeToast() {
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
+        dismissTask?.cancel()
+        dismissTask = nil
 
         currentHostingController?.willMove(toParent: nil)
         currentHostingController?.view.removeFromSuperview()
@@ -245,18 +243,18 @@ final public class WMFReadingListToastPresenter {
     }
 
     private func scheduleDismiss(config: WMFReadingListToastConfig?) {
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
+        dismissTask?.cancel()
+        dismissTask = nil
 
         guard let config, let duration = config.duration else { return }
 
-        let workItem = DispatchWorkItem { [weak self] in
-            guard let self else { return }
-            Task { @MainActor in
-                self.setToastHidden(true, config: nil)
+        dismissTask = Task { [weak self] in
+            do {
+                try await Task.sleep(nanoseconds: UInt64(duration * 1_000_000_000))
+            } catch {
+                return // Task was cancelled
             }
+            self?.setToastHidden(true, config: nil)
         }
-        dismissWorkItem = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
     }
 }

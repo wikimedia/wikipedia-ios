@@ -28,8 +28,10 @@ public final class WMFToastPresenter {
 
     private var currentToast: UIView?
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer?
-    private var dismissWorkItem: DispatchWorkItem?
-    private var dismissAction: (@Sendable (DismissEvent) -> Void)?
+    private var dismissTask: Task<Void, Never>?
+    // Closures held here come from call sites that include @objc bridges (WMFToastManager) and cannot
+    // be @Sendable. WMFToastPresenter is @MainActor, so no data race is possible.
+    @preconcurrency private var dismissAction: ((DismissEvent) -> Void)?
     /// True while the current toast's dismiss animation is running.
     private var isDismissing: Bool = false
 
@@ -77,7 +79,7 @@ public final class WMFToastPresenter {
         view: Content,
         duration: TimeInterval? = nil,
         allowsBackgroundTapToDismiss: Bool = false,
-        dismissAction: (@Sendable (DismissEvent) -> Void)? = nil
+        dismissAction: ((DismissEvent) -> Void)? = nil
     ) {
         guard let containerView = UIApplication.shared.connectedScenes
             .compactMap({ $0 as? UIWindowScene })
@@ -88,8 +90,8 @@ public final class WMFToastPresenter {
         }
 
         // Cancel any pending auto-dismiss for the outgoing toast.
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
+        dismissTask?.cancel()
+        dismissTask = nil
         self.dismissAction = dismissAction
 
         // Build the new toast view before any animation so it's ready to go.
@@ -139,11 +141,11 @@ public final class WMFToastPresenter {
                     outgoingView.transform = CGAffineTransform(translationX: 0, y: translationY)
                     outgoingView.alpha = 0
                 },
-                completion: { _ in
+                completion: { [weak self] _ in
                     outgoingView.removeFromSuperview()
-                    if let backgroundTapGestureRecognizer = self.backgroundTapGestureRecognizer {
+                    if let backgroundTapGestureRecognizer = self?.backgroundTapGestureRecognizer {
                         backgroundTapGestureRecognizer.view?.removeGestureRecognizer(backgroundTapGestureRecognizer)
-                        self.backgroundTapGestureRecognizer = nil
+                        self?.backgroundTapGestureRecognizer = nil
                     }
                 }
             )
@@ -210,12 +212,16 @@ public final class WMFToastPresenter {
 
         // Auto-dismiss
         if let duration, duration > 0 {
-            let workItem = DispatchWorkItem { [weak self, weak shadowContainer] in
-                guard let shadowContainer else { return }
-                self?.dismissToast(shadowContainer, dismissEvent: .durationExpired)
+            let toastRef = shadowContainer
+            dismissTask = Task { [weak self, weak toastRef] in
+                do {
+                    try await Task.sleep(nanoseconds: UInt64(duration * 1_000_000_000))
+                } catch {
+                    return // Task was cancelled
+                }
+                guard let self, let toastRef else { return }
+                self.dismissToast(toastRef, dismissEvent: .durationExpired)
             }
-            dismissWorkItem = workItem
-            DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
         }
     }
 
@@ -273,8 +279,8 @@ public final class WMFToastPresenter {
     // MARK: - Dismiss
 
     private func dismissToast(_ toast: UIView, dismissEvent: DismissEvent) {
-        dismissWorkItem?.cancel()
-        dismissWorkItem = nil
+        dismissTask?.cancel()
+        dismissTask = nil
 
         let translationY = toast.frame.height + 50
 
@@ -284,8 +290,9 @@ public final class WMFToastPresenter {
                        animations: {
             toast.transform = CGAffineTransform(translationX: 0, y: translationY)
             toast.alpha = 0
-        }, completion: { _ in
+        }, completion: { [weak self] _ in
             toast.removeFromSuperview()
+            guard let self else { return }
             if self.currentToast === toast {
                 self.currentToast = nil
             }

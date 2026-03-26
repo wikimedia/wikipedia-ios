@@ -1,14 +1,14 @@
 import SwiftUI
 
 @MainActor
-public class WMFReadingListToastViewModel: ObservableObject {
+public final class WMFReadingListToastViewModel: ObservableObject {
     @Published public var title: String
     @Published public var icon: UIImage?
     @Published public var buttonTitle: String?
     
     public var duration: TimeInterval?
-    public var tapAction: (() -> Void)?
-    public var buttonAction: (() -> Void)?
+    public var tapAction: (@MainActor @Sendable () -> Void)?
+    public var buttonAction: (@MainActor @Sendable () -> Void)?
     
     public init(config: WMFReadingListToastConfig) {
         self.title = config.title

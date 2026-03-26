@@ -2,7 +2,7 @@ import UIKit
 import WMFComponents
 @preconcurrency import WMFData
 
-@objc final class WMFReadingListToastManager: NSObject {
+@MainActor @objc final class WMFReadingListToastManager: NSObject {
 
     // MARK: - Properties
 
@@ -22,7 +22,6 @@ import WMFComponents
         super.init()
     }
 
-    @MainActor
     private func getToastPresenter() -> WMFReadingListToastPresenter {
         if let existing = toastPresenter {
             return existing
@@ -36,7 +35,7 @@ import WMFComponents
 
     var isToastHidden: Bool {
         guard let toastPresenter else { return true }
-        return MainActor.assumeIsolated { toastPresenter.isToastHidden }
+        return toastPresenter.isToastHidden
     }
 
     @objc func toggle(presenter: UIViewController, article: WMFArticle, theme: Theme) {
@@ -50,12 +49,9 @@ import WMFComponents
         guard !didUnsaveOtherArticle else { return }
 
         if didSaveOtherArticle {
-            Task { @MainActor [weak self] in
-                guard let self else { return }
-                self.getToastPresenter().resetToast()
-                self.currentArticle = article
-                self.showDefaultToast(article: article)
-            }
+            getToastPresenter().resetToast()
+            currentArticle = article
+            showDefaultToast(article: article)
             return
         }
 
@@ -64,10 +60,7 @@ import WMFComponents
         if didSave {
             showDefaultToast(article: article)
         } else {
-            guard let toastPresenter else { return }
-            Task { @MainActor in
-                toastPresenter.dismissToast()
-            }
+            toastPresenter?.dismissToast()
         }
     }
 
@@ -93,10 +86,7 @@ import WMFComponents
             }
         )
 
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            self.getToastPresenter().show(config: config, in: presenter)
-        }
+        getToastPresenter().show(config: config, in: presenter)
     }
 
     private func showConfirmationToastInPlace(readingList: ReadingList, image: UIImage?) {
@@ -134,10 +124,7 @@ import WMFComponents
             }
         )
 
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            self.getToastPresenter().updateCurrentToast(with: config)
-        }
+        getToastPresenter().updateCurrentToast(with: config)
     }
 
     private func toastButtonTitle(for article: WMFArticle) -> String {
@@ -203,10 +190,7 @@ import WMFComponents
         themeableNavigationController = nav
 
         presenter.present(nav, animated: true) { [weak self] in
-            guard let self, let toastPresenter = self.toastPresenter else { return }
-            Task { @MainActor in
-                toastPresenter.dismissToast()
-            }
+            self?.toastPresenter?.dismissToast()
         }
     }
 
@@ -259,8 +243,10 @@ extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
 // MARK: - Themeable
 
 extension WMFReadingListToastManager: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
+    nonisolated func apply(theme: Theme) {
+        Task { @MainActor in
+            self.theme = theme
+        }
     }
 }
 
