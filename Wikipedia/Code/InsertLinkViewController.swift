@@ -56,9 +56,6 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
             self.delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
         }
 
-        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
-        searchViewController.theme = theme
-
         let searchConfig = WMFNavigationBarSearchConfig(
             searchResultsController: searchResultsVC,
             searchControllerDelegate: searchResultsVC,

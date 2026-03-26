@@ -755,7 +755,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
                 guard let settingsNav = settingsNavigationController else {
             return
         }
-                settingsNav.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .syncDisabled, theme: theme) {
+                settingsNav.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .syncDisabled, theme: theme, authInstrument: nil) {
                     setSyncEnabled()
                 }
             } else {
@@ -826,7 +826,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             return
         }
 
-        settingsNav.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+        settingsNav.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: nil) {
             self.dataStore.authenticationManager.logout(initiatedBy: .user) {
                 LoginFunnel.shared.logLogoutInSettings()
             }

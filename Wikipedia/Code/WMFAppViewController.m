@@ -108,8 +108,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
 
-@property (nonatomic, strong) WMFAppViewControllerTipWrapper *tipWrapper;
-
 @end
 
 @implementation WMFAppViewController
@@ -329,10 +327,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
-
-    if (self.searchTabViewController.tabBarItem != nil) {
-        [self.tipWrapper listenForTooltipsWithAppViewController:self tabBarItem:self.searchTabViewController.tabBarItem];
-    }
 }
 
 - (void)configureTabController {
@@ -2193,7 +2187,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                     style:UIAlertActionStyleCancel
                                   handler:^(UIAlertAction *action) {
                                       [authenticationManager userDidAcknowledgeUnintentionalLogout];
-                                      [weakSelf wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
+                                    [weakSelf wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeededWithTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
                                   }];
 }
 
@@ -2202,7 +2196,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [loginVC applyTheme:self.theme];
     __weak typeof(self) weakSelf = self;
     loginVC.loginDismissedHandler = ^{
-        [weakSelf wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
+        [weakSelf wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeededWithTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
     };
     WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:loginVC modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
     [self presentViewController:navVC animated:YES completion:nil];

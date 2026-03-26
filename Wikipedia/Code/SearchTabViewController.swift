@@ -4,6 +4,7 @@ import WMFData
 import CocoaLumberjackSwift
 import SwiftUI
 import Combine
+import WMFTestKitchen
 
 /// Root view controller for the Search tab
 class SearchTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, MEPEventsProviding, ShareableArticlesProvider, SearchResultsHosting {
@@ -478,10 +479,10 @@ extension SearchTabViewController: UISearchControllerDelegate {
 // MARK: - LogoutCoordinatorDelegate
 
 extension SearchTabViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
+    func didTapLogout(authInstrument: InstrumentImpl) {
         guard let dataStore else { return }
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            dataStore.authenticationManager.logout(initiatedBy: .user)
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }

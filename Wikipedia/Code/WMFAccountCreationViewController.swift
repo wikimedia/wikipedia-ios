@@ -549,7 +549,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                             
                             guard let self else { return }
                             if captcha?.classicInfo != nil {
-<
                                 self.authInstrument.submitInteraction(action: "fancy_captcha_error", actionContext: ["captcha_error": error.testKitchenValidationError])
                                 self.authInstrument.submitInteraction(action: "fancy_captcha_show")
                                 WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)

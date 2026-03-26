@@ -783,14 +783,10 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     @objc func userDidTapSearch() {
-        // todo: use minimum search vc here.
-        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
-        searchViewController.dataStore = dataStore
-        searchViewController.theme = theme
-        searchViewController.shouldBecomeFirstResponder = false
-        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
-
-        navigationController?.pushViewController(searchViewController, animated: true)
+        // todo: fix logging source, custom tab config? .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+        let searchVC = SearchMinimalViewController(dataStore: dataStore)
+        searchVC.apply(theme: theme)
+        navigationController?.pushViewController(searchVC, animated: true)
     }
 
     private func updateProfileButton() {
