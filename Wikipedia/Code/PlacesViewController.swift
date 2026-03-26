@@ -750,8 +750,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
                 guard result.error == nil else {
                     if let error = result.error {
-                        WMFToastManager.sharedInstance.showWarningToast(result.error!.localizedDescription, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
-
+                        DispatchQueue.main.async {
+                            WMFToastManager.sharedInstance.showWarningToast(result.error!.localizedDescription, duration: 5, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                        }
                         let nserror = error as NSError
                         if nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue) {
                             let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
@@ -760,7 +761,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                             }
                         }
                     } else {
-                        WMFToastManager.sharedInstance.showWarningToast(CommonStrings.unknownError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                        DispatchQueue.main.async {
+                            WMFToastManager.sharedInstance.showWarningToast(CommonStrings.unknownError, duration: 5, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                        }
                     }
                     return
                 }

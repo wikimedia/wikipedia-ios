@@ -225,8 +225,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                     self.loginSuccessCompletion?()
                     self.setViewControllerUserInteraction(enabled: true)
-                    // Dismiss the "Logging in..." toast before dismissing the VC, then show
-                    // the success toast after the modal is fully gone so it appears on the correct VC.
                     WMFToastManager.sharedInstance.dismissToast()
                     self.dismiss(animated: true) {
                         WMFToastManager.sharedInstance.showSuccessToast(loggedInMessage, sticky: false, dismissPreviousToasts: false, tapCallBack: nil)
