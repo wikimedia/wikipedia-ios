@@ -509,20 +509,21 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
+        Task { @MainActor in
+            if await needsReadingChallengeAnnouncement() {
+                presentReadingChallengeAnnouncement()
 
-        if needsReadingChallengeAnnouncement() {
-            presentReadingChallengeAnnouncement()
+            // Year in Review modal presentations
+            } else if needsYearInReviewAnnouncement() {
+                willDisplayYearInReviewModal = true
+                updateProfileButton()
+                presentYearInReviewAnnouncement()
 
-        // Year in Review modal presentations
-        } else if needsYearInReviewAnnouncement() {
-            willDisplayYearInReviewModal = true
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-
-        // Campaign modal presentations
-        } else {
-            willDisplayYearInReviewModal = false
-            showFundraisingCampaignAnnouncementIfNeeded()
+            // Campaign modal presentations
+            } else {
+                willDisplayYearInReviewModal = false
+                showFundraisingCampaignAnnouncementIfNeeded()
+            }
         }
     }
 

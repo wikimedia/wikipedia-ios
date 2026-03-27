@@ -985,22 +985,19 @@ extension ExploreViewController {
 
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     fileprivate func presentModalsIfNeeded() {
+        Task { @MainActor in
+            if await needsReadingChallengeAnnouncement() {
+                presentReadingChallengeAnnouncement()
+                return
+            }
 
-        if needsReadingChallengeAnnouncement() {
-            presentReadingChallengeAnnouncement()
-            return
+            if needsYearInReviewAnnouncement() {
+                updateProfileButton()
+                presentYearInReviewAnnouncement()
+            } else {
+                perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+            }
         }
-
-        if needsYearInReviewAnnouncement() {
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-        } else {
-            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
-        }
-
-        #if DEBUG
-        presentSearchWidgetAnnouncement()
-        #endif
     }
     
     @objc func listenForTooltips() {
@@ -1008,16 +1005,10 @@ extension ExploreViewController {
             appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
         }
     }
-    
 
-    private func needsReadingChallengeAnnouncement() -> Bool {
-        guard presentedViewController == nil else { return false }
-        guard self.isViewLoaded && self.view.window != nil else { return false }
+    func needsReadingChallengeAnnouncement() async -> Bool {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        Task { @MainActor in
-            return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
-        }
-        return false
+        return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
     }
 
     private func presentReadingChallengeAnnouncement() {
