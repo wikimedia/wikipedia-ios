@@ -482,8 +482,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
         case .webViewFormThankYouDidTapReturn:
             popFromWebFormThankYouPage()
         case .webViewFormThankYouDidDisappear:
-            displayThankYouToastAfterDelay()
-            donateSuccessAction?()
+            displayThankYouToastAfterDelay(completion: donateSuccessAction)
         }
     }
 
@@ -540,7 +539,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
         let showToastBlock: () -> Void = {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 let image = WMFSFSymbolIcon.for(symbol: .heartFilled)
-                WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: image, duration: nil, dismissPreviousToasts: true)
+                WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: image, duration: 10, dismissPreviousToasts: true)
             }
         }
 
@@ -582,9 +581,10 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
         }
     }
 
-    private func displayThankYouToastAfterDelay() {
+    private func displayThankYouToastAfterDelay(completion: (() -> Void)? = nil) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: WMFSFSymbolIcon.for(symbol: .heartFilled), duration: nil, dismissPreviousToasts: true)
+            WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: WMFSFSymbolIcon.for(symbol: .heartFilled), duration: 10, dismissPreviousToasts: true)
+            completion?()
         }
     }
 }
