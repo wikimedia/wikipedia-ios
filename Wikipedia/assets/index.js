@@ -275,7 +275,9 @@ const addSearchTermHighlights = (textNode, searchTerm) => {
   }
 }
 
-const searchTermIndex = (textNode, searchTerm) => textNode.nodeValue.toLowerCase().indexOf(searchTerm)
+const searchTermIndex = (textNode, searchTerm) => replaceNonBreakingHyphens(textNode.nodeValue).toLowerCase().indexOf(replaceNonBreakingHyphens(searchTerm))
+
+const replaceNonBreakingHyphens = text => text.replace("‑", "-")
 
 const searchTermHighlightFilter = node => {
   if (node.tagName !== 'SPAN') {

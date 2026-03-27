@@ -2,6 +2,7 @@ import WMFComponents
 import WMFData
 import WMF
 import CocoaLumberjackSwift
+import WMFTestKitchen
 
 import MapKit
 
@@ -2611,9 +2612,9 @@ extension PlacesViewController: UISearchResultsUpdating {
 }
 
 extension PlacesViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+    func didTapLogout(authInstrument: InstrumentImpl) {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }

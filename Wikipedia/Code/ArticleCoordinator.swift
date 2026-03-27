@@ -186,7 +186,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             self.articleURL?.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
         }
         
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID, needsFocusOnSearch: needsFocusOnSearch) else {
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
             return false
         }
         articleVC.isRestoringState = isRestoringState

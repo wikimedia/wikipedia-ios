@@ -301,8 +301,10 @@
 "more-languages-tooltip-title" = "Προσθέστε γλώσσες";
 "move-articles-to-reading-list" = "Μετακίνηση {{PLURAL:$1|$1 λήμμα|$1 λημμάτων}} στη λίστα ανάγνωσης";
 "navbar-title-mode-edit-wikitext-preview" = "Προεπισκόπηση";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 πόδι";
 "nearby-distance-label-km" = "$1 χλμ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 μ";
 "nearby-distance-label-miles" = "$1 μίλια";
 "new-password-instructions" = "Συνδεθήκατε με έναν προσωρινό κωδικό πρόσβασης. Για να ολοκληρώσετε τη σύνδεση ορίστε ένα νέο κωδικό πρόσβασης εδώ.";

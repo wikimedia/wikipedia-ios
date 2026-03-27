@@ -134,8 +134,10 @@
 "more-languages-tooltip-description" = "Meklē Vikipēdijā gandrīz 300 valodās";
 "more-languages-tooltip-title" = "Pievienot valodas";
 "navbar-title-mode-edit-wikitext-preview" = "Priekšskatījums";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pēdas";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
 // Fuzzy

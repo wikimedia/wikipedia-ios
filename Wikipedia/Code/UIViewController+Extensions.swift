@@ -1,6 +1,7 @@
 import UIKit
 import WMFData
 import WMFComponents
+import WMFTestKitchen
 
 // MARK: - KeepSavedArticlesTrigger
 
@@ -207,9 +208,12 @@ extension UIViewController {
         })
         present(alert, animated: true)
     }
+    
+    @objc func wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy keepSavedArticlesTrigger: KeepSavedArticlesTrigger, theme: Theme, completion: (() -> Swift.Void)? = nil) {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: keepSavedArticlesTrigger, theme: theme, authInstrument: nil, completion: completion)
+    }
 
-    @objc(wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:theme:completion:)
-    func wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy keepSavedArticlesTrigger: KeepSavedArticlesTrigger, theme: Theme, completion: (() -> Void)? = nil) {
+    func wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy keepSavedArticlesTrigger: KeepSavedArticlesTrigger, theme: Theme, authInstrument: InstrumentImpl?, completion: (() -> Swift.Void)? = nil) {
         guard hasSavedArticles() else {
             completion?()
             return
@@ -233,14 +237,19 @@ extension UIViewController {
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: keepTitle, style: .default) { _ in
+            authInstrument?.submitInteraction(action: "click", actionSource: "save_articles_prompt", elementId: "save")
             MWKDataStore.shared().readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             completion?()
         })
         alert.addAction(UIAlertAction(title: removeTitle, style: .destructive) { _ in
+            authInstrument?.submitInteraction(action: "click", actionSource: "save_articles_prompt", elementId: "delete")
             MWKDataStore.shared().readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             completion?()
         })
-        present(alert, animated: true)
+        
+        present(alert, animated: true) {
+            authInstrument?.submitInteraction(action: "impression", actionSource: "save_articles_prompt")
+        }
     }
 
 }

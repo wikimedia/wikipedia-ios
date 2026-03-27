@@ -86,8 +86,10 @@
 "main-menu-title" = "Mih";
 "main-menu-zero-faq" = "Öff jeschtallte Frohre övver de Wikkiphedija Zero, un de Antwoote dozoh";
 "navbar-title-mode-edit-wikitext-preview" = "Vörschou";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 Fohß";
 "nearby-distance-label-km" = "$1 Killomehter";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 Mehter";
 "nearby-distance-label-miles" = "$1 Meile";
 "no-email-account-alert" = "Bes esu johd un donn op Dingem Apparahd en Adräß för de e-mail ennreeschte.";

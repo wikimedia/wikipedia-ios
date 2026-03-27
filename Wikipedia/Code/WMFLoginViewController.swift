@@ -3,6 +3,7 @@ import WMFComponents
 import SwiftUI
 import WMFData
 import CocoaLumberjackSwift
+import WMFTestKitchen
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable, WMFNavigationBarConfiguring {
     // SINGLETONTODO
@@ -35,6 +36,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     var category: EventCategoryMEP?
     fileprivate var theme: Theme = Theme.standard
 
+    private lazy var authInstrument: InstrumentImpl = {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+            .setDefaultActionSource("login_form")
+            .startFunnel(name: "login_account")
+    }()
+    
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
 
@@ -45,11 +52,13 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
+        authInstrument.submitInteraction(action: "click", elementId: "cancel")
         dismiss(animated: true, completion: nil)
         loginDismissedCompletion?()
     }
 
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
+        authInstrument.submitInteraction(action: "click", elementId: "login_button")
         save()
     }
 
@@ -89,7 +98,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             let authManager = dataStore.authenticationManager
             if authManager.authStateIsTemporary {
                 let viewModel = WMFTempAccountsToastViewModel(
-                    didTapReadMore: {
+                    didTapReadMore: { [weak self] in
+                        
+                        guard let self else { return }
+                        
                         guard let navigationController = self.navigationController else { return }
                         let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
                             self?.dismiss(animated: true)
@@ -103,7 +115,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                 )
 
                 let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
-                self.toastView = toastController.view
+                toastView = toastController.view
 
                 addChild(toastController)
                 view.addSubview(toastController.view)
@@ -180,6 +192,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        authInstrument.submitInteraction(action: "impression")
         usernameField.becomeFirstResponder()
     }
 
@@ -204,6 +217,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             passwordAlertLabel.isHidden = true
             passwordField.textColor = theme.colors.primaryText
             passwordField.keyboardAppearance = theme.keyboardAppearance
+            
+            authInstrument.submitInteraction(action: "type", elementId: "password")
+        } else if textField == usernameField {
+            authInstrument.submitInteraction(action: "type", elementId: "username")
         }
     }
 
@@ -217,14 +234,18 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("One or more of the required parameters are nil")
             return
         }
-
-        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
+        
+        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution) { [weak self] (loginResult) in
+            
+            guard let self else { return }
+            
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 self.loginSuccessCompletion?()
                 self.setViewControllerUserInteraction(enabled: true)
+                self.authInstrument.submitInteraction(action: "success")
                 self.dismiss(animated: true)
 
                 if let start = self.startDate {
@@ -237,8 +258,13 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
                 // Captcha's appear to be one-time, so always try to get a new one on failure.
                 self.getCaptcha()
-
+                
                 if let error = error as? WMFAccountLoginError {
+                    
+                    defer {
+                        self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.testKitchenValidationError])
+                    }
+                    
                     switch error {
                     case .temporaryPasswordNeedsChange:
                         self.showChangeTempPasswordViewController()
@@ -261,6 +287,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         return
                     default: break
                     }
+                } else {
+                    self.authInstrument.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                 }
 
                 self.enableProgressiveButtonIfNecessary()
@@ -273,7 +301,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         guard let presenter = presentingViewController else {
             return
         }
-        dismiss(animated: true, completion: {
+        dismiss(animated: true, completion: { [weak self] in
+            
+            guard let self else { return }
+            
             guard let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard() else {
                 return
             }
@@ -293,11 +324,17 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("Expected view controller(s) not found")
             return
         }
+        
+        twoFactorViewController.authInstrument = authInstrument
+        
         if isEmailAuth {
             twoFactorViewController.setDisplayModeToShortAlphanumeric()
         }
 
-        dismiss(animated: true, completion: {
+        dismiss(animated: true, completion: { [weak self] in
+            
+            guard let self else { return }
+            
             twoFactorViewController.userName = self.usernameField!.text
             twoFactorViewController.password = self.passwordField!.text
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.classicInfo?.captchaID
@@ -309,6 +346,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     @objc func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
+        authInstrument.submitInteraction(action: "click", elementId: "password_forgot")
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,
@@ -317,7 +355,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("Expected view controller(s) not found")
             return
         }
-        dismiss(animated: true, completion: {
+        dismiss(animated: true, completion: { [weak self] in
+            
+            guard let self else { return }
+            
             let navigationController = WMFComponentNavigationController(rootViewController: forgotPasswordVC, modalPresentationStyle: .overFullScreen)
             forgotPasswordVC.apply(theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
@@ -325,6 +366,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     @objc func createAccountButtonPushed(_ recognizer: UITapGestureRecognizer) {
+        authInstrument.submitInteraction(action: "click", elementId: "create_account")
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,
@@ -337,7 +379,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         createAcctVC.createAccountSuccessCustomDismissBlock = createAccountSuccessCustomDismissBlock
         createAcctVC.apply(theme: theme)
         LoginFunnel.shared.logCreateAccountAttempt(category: category)
-        dismiss(animated: true, completion: {
+        dismiss(animated: true, completion: { [weak self] in
+            
+            guard let self else { return }
+            
             let navigationController = WMFComponentNavigationController(rootViewController: createAcctVC, modalPresentationStyle: .overFullScreen)
             createAcctVC.category = self.category
             presenter.present(navigationController, animated: true, completion: nil)
@@ -352,7 +397,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         let siteURL = dataStore.primarySiteURL
         loginInfoFetcher.fetchLoginInfoForSiteURL(siteURL!, success: { info in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self else { return }
+                
                 self.captchaViewController?.captcha = info.captcha
                 self.updatePasswordFieldReturnKeyType()
                 self.enableProgressiveButtonIfNecessary()
