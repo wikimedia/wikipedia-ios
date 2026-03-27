@@ -1,6 +1,7 @@
 import WMFComponents
 import CocoaLumberjackSwift
 import WMFData
+import WMFTestKitchen
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem)
@@ -679,14 +680,14 @@ extension SavedViewController: YearInReviewBadgeDelegate {
 // LogoutCoordinatorDelegate
 
 extension SavedViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
+    func didTapLogout(authInstrument: InstrumentImpl) {
 
         guard let dataStore else {
             return
         }
 
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            dataStore.authenticationManager.logout(initiatedBy: .user)
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }

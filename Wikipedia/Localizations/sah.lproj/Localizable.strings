@@ -235,8 +235,10 @@
 "main-menu-title" = "Эбии";
 "main-menu-zero-faq" = "Wikipedia Zero туһунан ыйытыылар";
 "navbar-title-mode-edit-wikitext-preview" = "Эрдэ көрүү";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фуут";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миилэ";
 "new-password-instructions" = "Быстах кэмҥэ туттуллар аһарыгынан киирдиҥ.\nТүмүктүүргэ саҥа аһарыгы суруйуохтааххын:";

@@ -446,8 +446,10 @@
 "more-menu" = "Rhagor";
 "move-articles-to-reading-list" = "Symud {{PLURAL:$1|$1 erthygl}} i'r rhestr ddarllen";
 "navbar-title-mode-edit-wikitext-preview" = "Rhagolwg";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 troedfedd";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milltir";
 "new-password-title" = "Gosodwch eich cyfrinair";

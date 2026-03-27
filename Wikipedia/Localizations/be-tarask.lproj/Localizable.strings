@@ -40,6 +40,7 @@
 "cancel" = "Скасаваць";
 "close-button-accessibility-label" = "Закрыць";
 "compass-direction" = "на $1 гадзін(аў)";
+"edit-menu-item" = "Рэдагаваць";
 "edit-summary-choice-fixed-grammar" = "Выпраўленая артаграфія";
 "edit-summary-choice-fixed-typos" = "Выпраўленая абдрукоўка";
 "edit-summary-choice-linked-words" = "Даданыя спасылкі";
@@ -84,8 +85,10 @@
 "main-menu-title" = "Болей";
 "main-menu-zero-faq" = "Частыя пытаньні па Вікіпэдыя Zero";
 "navbar-title-mode-edit-wikitext-preview" = "Папярэдні прагляд";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фт";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 міл";
 "notifications-center-type-title-email-from-other-user" = "Э-ліст ад іншага карыстальніка";
@@ -99,6 +102,7 @@
 "privacy-policy-title" = "Палітыка прыватнасьці";
 "reading-list-login-or-create-account-button-title" = "Увайсьці або стварыць рахунак";
 "reading-list-sync-enabled-panel-title" = "Сынхранізацыя ўключана на гэтым рахунку";
+"reading-themes-controls-accessibility-brightness-slider" = "Паўзунок яркасьці";
 "saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";
 "saved-title" = "Захаваны";
 "search-field-placeholder-text" = "Пошук па Вікіпэдыі";

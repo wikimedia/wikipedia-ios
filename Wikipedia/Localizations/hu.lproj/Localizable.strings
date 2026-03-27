@@ -541,8 +541,10 @@
 "more-menu" = "Több";
 "move-articles-to-reading-list" = "{{PLURAL:$1|egy szócikk|$1 szócikk}} hozzáadása az olvasólistához";
 "navbar-title-mode-edit-wikitext-preview" = "Előnézet";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 láb";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mérföld";
 "new-password-instructions" = "Ideiglenes jelszóval jelentkeztél be. A bejelentkezés befejezéséhez állíts be itt egy új jelszót.";
@@ -638,7 +640,6 @@
 "on-this-day-no-internet-error" = "Nincs elérhető adat";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
-"open-in-tab-tooltip-title" = "Megnyitás új lapon";
 "page-history-bot-edits" = "bot";
 "page-history-compare-title" = "Összehasonlít";
 "page-history-graph-accessibility-label" = "Szerkesztések grafikus ábrázolása";

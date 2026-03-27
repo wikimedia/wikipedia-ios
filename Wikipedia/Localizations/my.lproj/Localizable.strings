@@ -351,8 +351,10 @@
 "more-languages-tooltip-title" = "ဘာသာစကားများ ထည့်သွင်းရန်";
 "move-articles-to-reading-list" = "စာဖတ်စာရင်းသို့ ဆောင်းပါးပေါင်း {{PLURAL:$1|$1 ခု|$1 ခု}} ရွေ့ရန်";
 "navbar-title-mode-edit-wikitext-preview" = "နမူနာ";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ပေ";
 "nearby-distance-label-km" = "$1 ကီလိုမီတာ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 မီတာ";
 "nearby-distance-label-miles" = "$1 မိုင်";
 "new-password-instructions" = "ယာယီစကားဝှက်ဖြင့် ဝင်ထားပါသည်၊ အပြီးသတ်ရန် စကားဝှက်အသစ်တစ်ခု ဆောင်ရွက်ပါ";

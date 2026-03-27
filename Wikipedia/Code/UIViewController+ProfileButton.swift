@@ -33,4 +33,11 @@ extension UIViewController {
         
         return WMFNavigationBarProfileButtonConfig(accessibilityLabelNoNotifications: CommonStrings.profileButtonTitle, accessibilityLabelHasNotifications: CommonStrings.profileButtonBadgeTitle, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: target, action: action, leadingBarButtonItem: leadingBarButtonItem)
     }
+
+    func searchButtonConfig(target: Any, action: Selector, dataStore: MWKDataStore) -> WMFNavigationBarSearchButtonConfig {
+        let accessibilityHint = CommonStrings.searchButtonAccessibilityHint
+
+        return WMFNavigationBarSearchButtonConfig(accessibilityLabel: accessibilityHint, accessibilityHint: accessibilityHint, target: target, action: action, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+
+    }
 }

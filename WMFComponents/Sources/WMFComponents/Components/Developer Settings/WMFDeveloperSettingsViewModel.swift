@@ -48,6 +48,8 @@ import WMFData
         let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
         
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
+        
+        let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
 
         let readingChallengeDatesRelativeToToday = WMFFormItemSelectViewModel(title: "Reading Challenge: Use Relative Dates", isSelected: WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday)
 
@@ -63,6 +65,7 @@ import WMFData
                 showYiRV3,
                 enableYiRVLoginExperimentControl,
                 enableYiRVLoginExperimentB,
+                forceHcaptchaChallenge,
                 readingChallengeDatesRelativeToToday
             ], selectType: .multi)
         ])
@@ -102,6 +105,10 @@ import WMFData
 
         readingChallengeDatesRelativeToToday.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday = isSelected }
+            .store(in: &subscribers)
+        
+        forceHcaptchaChallenge.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge = isSelected }
             .store(in: &subscribers)
         
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(

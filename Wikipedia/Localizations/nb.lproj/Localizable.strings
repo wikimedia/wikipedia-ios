@@ -669,8 +669,10 @@
 "more-menu" = "Mer";
 "move-articles-to-reading-list" = "Flytt {{PLURAL:$1|$1 artikkel|$1 artikler}} til leselisten";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvis";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fot";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 amerikanske miles";
 "new-password-instructions" = "Du ble logget inn med et midlertidig passord. For å fullføre registreringen må du lage deg et nytt passord her.";
