@@ -519,7 +519,7 @@
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Placer %1$d article%#@v1@ dans la liste de lecture</string>
+		<string>Placer %#@v1@ dans la liste de lecture</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -527,15 +527,31 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d article</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d articles</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-feet</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d pied</string>
+			<key>other</key>
+			<string>%1$d pieds</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d filtre%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -543,9 +559,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d filtre</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d filtres</string>
 		</dict>
 	</dict>
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
@@ -561,13 +577,13 @@
 			<key>one</key>
 			<string>le message</string>
 			<key>other</key>
-			<string>tous les %1$d messages</string>
+			<string>les %1$d messages</string>
 		</dict>
 	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d message%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -575,15 +591,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d message</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d messages</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dans %1$d projet%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -591,15 +607,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>Dans un projet</string>
 			<key>other</key>
-			<string>s</string>
+			<string>Dans %1$d projets</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d projet%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -607,15 +623,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>un projet</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d projets</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d type%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -623,15 +639,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>un type</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d types</string>
 		</dict>
 	</dict>
 	<key>notifications-push-talk-body-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d nouveau%#@v1@ message%#@v1@ sur %2$@</string>
+		<string>%#@v1@ sur %2$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -639,15 +655,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>%1$d nouveau message</string>
 			<key>other</key>
-			<string>s</string>
+			<string>%1$d nouveaux messages</string>
 		</dict>
 	</dict>
 	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Nouveau%#@v1@ message%#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -655,31 +671,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string>Nouveau message</string>
 			<key>other</key>
-			<string>s</string>
+			<string>Nouveaux messages</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d événement%#@v1@ historique%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string></string>
-			<key>other</key>
-			<string>s</string>
-		</dict>
-	</dict>
-	<key>on-this-day-footer-showing-event-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ de plus pour ce jour</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -690,6 +690,22 @@
 			<string>%1$d événement historique</string>
 			<key>other</key>
 			<string>%1$d événements historiques</string>
+		</dict>
+	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ce jour-ci</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d événement historique de plus</string>
+			<key>other</key>
+			<string>%1$d événements historiques de plus</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>
@@ -775,7 +791,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Impossible d'ajouter %#@v1@ à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@.</string>
+		<string>%#@v1@ à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -783,9 +799,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>l’article</string>
+			<string>Impossible d’ajouter l’article</string>
 			<key>other</key>
-			<string>les articles</string>
+			<string>Impossible d’ajouter les articles</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>
@@ -1008,7 +1024,7 @@
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ne pas sauvegarder %#@v1@ de toutes les listes de lecture associées</string>
+		<string>Ne plus sauvegarder %#@v1@ les supprimera de toutes les listes de lecture associées.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1016,9 +1032,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>cet article le supprimera</string>
+			<string>cet article</string>
 			<key>other</key>
-			<string>ces articles les supprimeront</string>
+			<string>ces articles</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>

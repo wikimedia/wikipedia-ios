@@ -426,8 +426,10 @@
 "more-languages-tooltip-title" = "Tambahkan bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke daftar bacaan";
 "navbar-title-mode-edit-wikitext-preview" = "Pralihat";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 batu";
 "new-password-instructions" = "Anda log masuk dengan kata laluan sementara. Untuk menyelesaikan log masuk dengan menetapkan kata laluan baru di sini.";

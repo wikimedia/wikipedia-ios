@@ -104,6 +104,9 @@
 "activity-tab-empty-subtitle" = "Tarixçənizi yaratmaq üçün oxumağa və redaktə etməyə başlayın";
 "activity-tab-empty-title" = "Göstəriləcək heç nə yoxdur";
 "activity-tab-generic-no-edits" = "Siz bu həftə redaktə etməmisiniz. Töhfələrinizi izləmək üçün indi başlayın.";
+"activity-tab-history-callout-body" = "Oxuma tarixçənizə **Axtarış vərəqənizdə** baxın və ya silin.";
+"activity-tab-history-callout-body-loggedout" = "Oxuma tarixçənizi **Axtarış vərəqəsində** tapın və silin. Hesab tələb olunmur.";
+"activity-tab-hitory-callout-close" = "Tarixçə bildiriş kartını bağla";
 "activity-tab-hours-minutes-read" = "$1s $2d";
 "activity-tab-hours-on-wikipedia-ios" = "WIKIPEDIA iOS-da";
 "activity-tab-impact-all-time-title" = "Ümumi təsir";
@@ -799,7 +802,7 @@
 "more-menu" = "Daha çox";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 məqaləni}} oxuma siyahısına köçür";
 "navbar-title-mode-edit-wikitext-preview" = "Sınaq görüntüsü";
-"nearby-distance-label-feet" = "$1 fut";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 fut}}";
 "nearby-distance-label-miles" = "$1 metr";
 "new-password-instructions" = "Siz müvəqqəti parol ilə daxil olmusunuz. Daxil olmağı başa çatdırmaq üçün burada yeni parol təyin edin.";
 "new-password-title" = "Parol təyin et";
@@ -947,8 +950,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 Vikipediyadan $2";
 "on-this-day-title" = "Tarixdə bu gün";
 "open-article" = "Məqaləyə bax";
-"open-in-tab-tooltip-body" = "Məqalənin başlığını və ya mavi keçidi yeni vərəqədə açmaq üçün basılı saxlayın.";
-"open-in-tab-tooltip-title" = "Yeni vərəqədə aç";
 "original-tab-button-popover-description" = "Başladığınız vərəqəyə qayıtmaq üçün \"W\" düyməsinə klikləyin";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Müqayisə ediləcək iki versiyanı seçmək üçün toxunun";
@@ -1161,6 +1162,7 @@
 "saved-title" = "Saxlanıldı";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Bu {{PLURAL:$1|məqaləni|məqalələri}} yaddaşdan silmək {{PLURAL:$1|onu|onları}} əlaqəli oxuma siyahılarından siləcək";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Məqalə|Məqalələr}} silinsin?";
+"search-button-accessibility-hint" = "Axtarış görünüşünə keçir.";
 "search-button-accessibility-label" = "Vikipediyada axtar";
 "search-clear-title" = "Təmizlə";
 "search-field-placeholder-text" = "Vikipediyada axtar";
@@ -1255,8 +1257,6 @@
 "tabs-main-page-subtitle" = "Vikipediyanın gündəlik əsas məqamları";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 vərəqə}}";
 "tabs-open-tab" = "Vərəqəni aç";
-"tabs-overview-tooltip-body" = "Vərəqələrin icmalında açıq məqalələr arasında keçid edin.";
-"tabs-overview-tooltip-title" = "Vərəqələrin icmalı";
 "tabs-show-suggested-articles" = "Məqalə təkliflərini göstər";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Təkliflər indi gizlidir";
 "tabs-survey-title" = "Vərəqələri təkmilləşdirməyə kömək edin. Bu xüsusiyyət sizi qane edirmi?";
@@ -1360,6 +1360,8 @@
 "theme-default-explanation" = "Sistem mövzusuna uyğunlaşdır";
 "theme-light-display-name" = "İşıqlı";
 "theme-sepia-display-name" = "Sepiya";
+"tip-history-in-search-subtitle" = "Oxuma tarixçənizi Axtarış vərəqəsində tapın.";
+"tip-history-in-search-title" = "Tarixçə Axtarış bölməsinə köçürülüb";
 "today-title" = "Bu gün";
 "top-read-widget-description" = "Dünyanın bu gün Vikipediyada nə oxuduğunu öyrənin.";
 "top-read-widget-readers-count" = "$1 oxucu";

@@ -272,8 +272,10 @@
 "more-languages-tooltip-description" = "विकिपिडिया करिब ३०० भाषाहरूमा खोज्नुहोस्।";
 "more-languages-tooltip-title" = "भाषाहरू थप्नुहोस्";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 फिट";
 "nearby-distance-label-km" = "$1 कि.मी.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 मि";
 "nearby-distance-label-miles" = "$1 माइल";
 "new-password-instructions" = "तपाईँ अस्थायी पासवर्ड प्रयोग गरेर लगइन गर्नु भएको छ। लग इन कार्य सकाउन यहाँ नयाँ पासवर्ड राख्नुहोस्।";

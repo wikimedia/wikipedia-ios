@@ -357,8 +357,10 @@
 "more-languages-tooltip-title" = "Ouzhpennañ yezhoù";
 "more-menu" = "Muioc'h";
 "navbar-title-mode-edit-wikitext-preview" = "Rakwelet";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 troad";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 metr";
 "nearby-distance-label-miles" = "$1 mil saoz";
 "new-password-instructions" = "Kevreet oc'h bet gant ur ger-tremen dibad.\nEvit echuiñ kevreañ e rankit lakaat ur ger-tremen nevez amañ :";

@@ -39,6 +39,7 @@
 import Foundation
 import CocoaLumberjackSwift
 import WMFData
+import WMFTestKitchen
 
 /**
  * Event Platform Client (EPC)
@@ -64,10 +65,10 @@ import WMFData
 
     let dataStore = MWKDataStore.shared()
     let samplingController: SamplingController
-    let storageManager: StorageManager?
+    public let storageManager: StorageManager?
     let userSession = UserSession.shared
 
-    var sessionID: String {
+    public var sessionID: String {
         return userSession.sessionID
     }
     
@@ -136,6 +137,7 @@ import WMFData
         case articleLinkInteraction = "ios.article_link_interaction"
         case appTabsInteraction = "app_tabs_interaction"
         case appActivityTab = "app_activity_tab"
+        case productMetricsAppBase = "product_metrics.app_base"
     }
     
     /**
@@ -184,12 +186,20 @@ import WMFData
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private static var eventIntakeURI: URL {
+    static var eventIntakeURI: URL {
+        #if DEBUG
         if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
             URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events")!
         } else {
             URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
         }
+        #else
+        if WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs {
+            URL(string: "https://intake-analytics-beta.wmflabs.org/v1/events?hasty=true")!
+        } else {
+            URL(string: "https://intake-analytics.wikimedia.org/v1/events?hasty=true")!
+        }
+        #endif
     }
 
     /**
@@ -347,6 +357,9 @@ import WMFData
                 result?[stream] = kv.value
             })
 
+            // Forward raw stream configs to TestKitchenClient
+            forwardStreamConfigsToTestKitchen(data)
+
             // Process event buffer after making stream configs available
             // NOTE: If any event is re-submitted while streamConfigurations
             // is still being set (asynchronously), they will just go back to
@@ -362,6 +375,19 @@ import WMFData
             }
         } catch let error {
             DDLogError("EPC: Problem processing JSON payload from response: \(error)")
+        }
+    }
+
+    private func forwardStreamConfigsToTestKitchen(_ data: Data) {
+        struct StreamsWrapper: Codable {
+            let streams: [String: WMFTestKitchen.StreamConfig]
+        }
+        do {
+            let wrapper = try JSONDecoder().decode(StreamsWrapper.self, from: data)
+            let sourceConfig = SourceConfig(streamConfigs: wrapper.streams)
+            TestKitchenAdapter.shared.client.updateSourceConfig(sourceConfig)
+        } catch {
+            DDLogDebug("EPC: Could not forward stream configs to TestKitchen: \(error)")
         }
     }
 
@@ -385,7 +411,8 @@ import WMFData
         let group = DispatchGroup()
         for event in events {
             group.enter()
-            httpPost(url: EventPlatformClient.eventIntakeURI, body: event.data) { result in
+            let url = EventPlatformClient.eventIntakeURI
+            httpPost(url: url, body: event.data) { result in
                 switch result {
                 case .success:
                     storageManager.markPurgeable(event: event)
@@ -742,7 +769,7 @@ private extension EventPlatformClient {
                 fail(PostEventError.missingResponse)
                 return
             }
-            guard httpResponse.statusCode == 201 else {
+            guard httpResponse.statusCode == 201 || httpResponse.statusCode == 202 else {
                 fail(PostEventError.unexepectedResponse(httpResponse.statusCode))
                 return
             }
@@ -779,7 +806,7 @@ public protocol EventInterface: Codable {
     static var schema: EventPlatformClient.Schema { get }
 }
 
-private class PrintableEventPayload: CustomStringConvertible {
+class PrintableEventPayload: CustomStringConvertible {
     let payload: [String: Any]
     
     init(payload: [String : Any]) {

@@ -817,8 +817,9 @@
 "more-menu" = "Більше";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
-"nearby-distance-label-feet" = "$1 фут";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 фут|$1 фути|$1 футів}}";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миль";
 "new-password-instructions" = "Ви увійшли до системи за допомогою тимчасового пароля. Аби завершити вхід, встановіть новий пароль тут.";
@@ -968,8 +969,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "open-article" = "Відкрити статтю";
-"open-in-tab-tooltip-body" = "Довго натисніть на назву статті або синє посилання, щоб відкрити її в новій вкладці.";
-"open-in-tab-tooltip-title" = "Відкрити у новій вкладці";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
 "page-history-bot-edits" = "бот";
 "page-history-compare-accessibility-hint" = "Натисніть, аби порівняти дві версії";
@@ -1284,8 +1283,6 @@
 "tabs-main-page-subtitle" = "Найцікавіше від Вікіпедії за сьогодні";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}";
 "tabs-open-tab" = "Відкрити вкладку";
-"tabs-overview-tooltip-body" = "Перемикатися між відкритими статтями в огляді вкладок.";
-"tabs-overview-tooltip-title" = "Огляд вкладок";
 "tabs-show-suggested-articles" = "Показати пропозиції статей";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Пропозиції тепер приховані";
 "tabs-survey-title" = "Допоможіть покращити вкладки. Ви задоволені цією функцією?";
@@ -1389,6 +1386,7 @@
 "theme-default-explanation" = "Підлаштована під вигляд системи";
 "theme-light-display-name" = "Світла";
 "theme-sepia-display-name" = "Сепія";
+"tip-history-in-search-title" = "Історія переїхала до Пошуку";
 "today-title" = "Сьогодні";
 "top-read-widget-description" = "Дізнайтеся, що світ читає у Вікіпедії сьогодні.";
 "top-read-widget-readers-count" = "$1 читачів";

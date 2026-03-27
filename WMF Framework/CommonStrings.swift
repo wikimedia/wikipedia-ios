@@ -10,30 +10,30 @@ public class CommonStrings: NSObject {
     @objc public static func plainWikipediaName(with languageCode: String? = nil) -> String {
         WMFLocalizedString("about-wikipedia", languageCode: languageCode, value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
     }
-    
+
     @objc public static func onLangWikipedia(with languageCode: String? = nil) -> String {
-        
+
         var languageText: String?
-        
+
         if languageCode == "test" {
             languageText = "Test"
         } else if languageCode == "test 2" {
             languageText = "Text 2"
         }
-        
+
         if languageText == nil {
             if let languageCode {
                 languageText = Locale.current.localizedString(forLanguageCode: languageCode)
             }
         }
-        
+
         if let languageText {
             let format = WMFLocalizedString("explore-most-read-sub-heading-on-language-wikipedia", value: "On %1$@ Wikipedia", comment: "Subtext beneath the 'Most read articles' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'On English Wikipedia'")
             return String.localizedStringWithFormat(format, languageText)
         } else {
             return WMFLocalizedString("explore-most-read-sub-heading-on-wikipedia", value: "On Wikipedia", comment: "Subtext beneath the 'Most read articles' header when the specific language wikipedia is unknown.")
         }
-        
+
     }
 
     @objc public static let articleCountFormat = WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles")
@@ -74,18 +74,18 @@ public class CommonStrings: NSObject {
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
     public static let wikimediaProjectsHeader = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on filter adjustment views. This section allows the user to filter out other (non-Wikipedia) Wikimedia projects from displaying in their lists.")
-    
+
     public static let wikimediaProjectsFooter = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-footer", value: "Only projects you have created an account for will appear here", comment: "Footer of the \"Wikimedia Projects\" section on filter adjustment views. This section only lists projects that user has an account at.")
-    
+
     public static let wikipediasHeader = WMFLocalizedString("notifications-center-inbox-wikipedias-section-title", value: "Wikipedias", comment: "Title of the \"Wikipedias\" section on filter adjustment views. This section allows the user to remove certain Wikipedia language projects from displaying in their lists.")
-    
+
     @objc public static let notificationsCenterTitle = WMFLocalizedString("notifications-center-title", value: "Notifications", comment: "Title for Notifications Center interface, as well as the accessibility label for the button that navigates to Notifications Center.")
     @objc public static let notificationsCenterBadgeTitle = WMFLocalizedString("notifications-center-badge-button-accessibility-label", value: "Notifications with unread badge", comment: "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.")
-    
+
     @objc public static let profileButtonTitle = WMFLocalizedString("profile-button-accessibility-label", value: "Profile", comment: "Accessibility label for the profile navigation bar button. Tapping it navigates to the user profile view.")
     @objc public static let profileButtonAccessibilityHint = WMFLocalizedString("profile-button-accessibility-hint", value: "Navigates to the profile view.", comment: "Accessibility hint for the profile navigation bar button. Explains to the user what will happen upon button tap.")
     @objc public static let profileButtonBadgeTitle = WMFLocalizedString("profile-button-badge-accessibility-label", value: "Profile with unread badge", comment: "Accessibility label for the profile navigation bar badge button. This button has a badge indicating there are unread notifications. Tapping it navigates to the user profile view.")
-    
+    public static let searchButtonAccessibilityHint = WMFLocalizedString("search-button-accessibility-hint", value: "Navigates to the search view.", comment: "Accessibility hint for the search navigation bar button. Explains to the user what will happen upon button tap.")
     public static let notificationsCenterMarkAsRead = WMFLocalizedString("notifications-center-mark-as-read", value: "Mark as Read", comment: "Button text in Notifications Center to mark a notification as read.")
     public static let notificationsCenterMarkAsReadSwipe = WMFLocalizedString("notifications-center-swipe-mark-as-read", value: "Mark as read", comment: "Button text in Notifications Center swipe actions to mark a notification as read.")
     public static let notificationsCenterMarkAsUnread = WMFLocalizedString("notifications-center-mark-as-unread", value: "Mark as Unread", comment: "Button text in Notifications Center to mark a notification as unread.")
@@ -137,7 +137,7 @@ public class CommonStrings: NSObject {
     @objc public static let relatedPagesTitle = WMFLocalizedString("explore-because-you-read", value: "Because you read", comment: "Text for 'Because you read' header")
     @objc public static let continueReadingTitle = WMFLocalizedString("explore-continue-reading-heading", value: "Continue reading", comment: "Text for 'Continue Reading' header")
     @objc public static let defaultText = WMFLocalizedString("insert-media-image-size-setting-default", value: "Default", comment: "Title for image size setting that sizes image using default size")
-    
+
     @objc public static let hideCardTitle = WMFLocalizedString("explore-hide-card-prompt", value: "Hide this card", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed")
 
     @objc static public func savedTitle(languageCode: String?) -> String {
@@ -147,7 +147,7 @@ public class CommonStrings: NSObject {
     @objc static public func saveTitle(languageCode: String?) -> String {
         return WMFLocalizedString("button-save-for-later", languageCode: languageCode, value: "Save for later", comment: "Longer button text for save button used in various places.")
     }
-    
+
     @objc public static let shortShareTitle = WMFLocalizedString("action-share", value: "Share", comment: "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}")
     @objc public static let accessibilityShareTitle = WMFLocalizedString("action-share-accessibility", value: "Share", comment: "Accessibility title for the 'Share' action")
 
@@ -178,16 +178,16 @@ public class CommonStrings: NSObject {
     @objc public static let updateActionTitle = WMFLocalizedString("action-update", value: "Update", comment: "Title of the update action.")
     @objc public static let cancelActionTitle = WMFLocalizedString("action-cancel", value: "Cancel", comment: "Title of the cancel action.")
     @objc public static let retryActionTitle = WMFLocalizedString("action-retry", value: "Retry", comment: "Title of the retry action.")
-    
+
     // Survey strings
     public static let surveyTitle = WMFLocalizedString("survey-title", value: "Reason", comment: "Title of the survey view. Displayed in the navigation bar as title of view.")
     public static let surveySubmitActionTitle = WMFLocalizedString("survey-submit", value: "Submit", comment: "Title of the submit button. Displayed in survey views to submit answers.")
     public static let surveyInstructions = WMFLocalizedString("survey-instructions", value: "Select one or more options", comment: "Instructions displayed on survey views.")
     public static let surveyOtherPlaceholder = WMFLocalizedString("survey-other-placeholder", value: "Other", comment: "Title of other textfield placeholder option in survey view.")
-    
+
     // TODO: Delete this when we remove web editor code
     @objc public static let discardEditsActionTitle = WMFLocalizedString("action-discard-edits", value: "Discard edits", comment: "Title of the discard edits action.")
-    
+
     @objc public static let discardEditActionTitle = WMFLocalizedString("action-discard-edit", value: "Discard Edit", comment: "Title of the discard edit action button.")
     @objc public static let keepEditingActionTitle = WMFLocalizedString("action-keep-editing", value: "Keep Editing", comment: "Title of the keep editing action button.")
 
@@ -201,7 +201,7 @@ public class CommonStrings: NSObject {
     @objc public static let skipTitle = WMFLocalizedString("button-skip", value: "Skip", comment: "Button text for skip button used in various places.")
     @objc public static let okTitle = WMFLocalizedString("button-ok", value: "OK", comment: "Button text for ok button used in various places {{Identical|OK}}")
     @objc public static let userTitle = WMFLocalizedString("user-title", value: "User", comment: "Text that refers to a user in the app")
-    
+
     public static let readingListsErrorListLimitExceeded = WMFLocalizedString("reading-lists-article-not-synced-list-limit-exceeded", value: "List limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
     public static let readingListsErrorArticleLimitExceeded = WMFLocalizedString("reading-lists-article-not-synced-article-limit-exceeded", value: "Article limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
     public static let readingListsErrorNotSynced = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
@@ -283,14 +283,14 @@ public class CommonStrings: NSObject {
     @objc public static func onTitle(_ count: Int) -> String {
         return String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-feed-card-visibility-languages-count", value:"On %1$d", comment: "Text for Explore feed card setting indicating the number of languages it's visible in - %1$d is replaced with the number of languages"), count)
     }
-    
+
     @objc public static let onGenericTitle = WMFLocalizedString("settings-on", value: "On", comment: "Text indicating a value is on in app Settings.")
     @objc public static let offGenericTitle = WMFLocalizedString("settings-off", value: "Off", comment: "Text indicating a value is off in app Settings.")
-    
+
     @objc public static let allArticlesEmptySavedTitle = WMFLocalizedString("empty-no-saved-pages-title", value: "No saved pages yet", comment: "Title of a blank screen shown when a user has no saved pages")
     @objc public static let allArticlesEmptySavedSubtitle = WMFLocalizedString("empty-no-saved-pages-message", value: "Save pages to view them later, even offline", comment: "Message of a blank screen shown when a user has no saved pages")
 
-    
+
     @objc public static let turnOnExploreTabTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-title", value: "Turn on the Explore tab?", comment: "Title for alert that allows users to turn on the Explore tab")
     @objc public static let turnOnExploreActionTitle = WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-action-title", value: "Turn on Explore", comment: "Title for action that allows users to turn on the Explore tab")
     @objc public static let customizeExploreFeedTitle = WMFLocalizedString("explore-feed-preferences-customize-explore-feed-action-title", value: "Customize Explore feed", comment: "Title for action that allows users to go to the Explore feed settings screen")
@@ -299,11 +299,11 @@ public class CommonStrings: NSObject {
     @objc public static let revertedEditTitle = WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for notification informing user that their edit was reverted.")
 
     @objc public static let noInternetConnection = WMFLocalizedString("no-internet-connection", value: "No internet connection", comment: "String used in various places to indicate no internet connection")
-    
+
     public static let unexpectedErrorAlertTitle = WMFLocalizedString("talk-page-error-alert-title", value: "Unexpected error", comment: "Title for unexpected error alert")
-    
+
     @objc public static let noEmailClient = WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device")
-    
+
     @objc public static let vanishAccount = WMFLocalizedString("account-request-vanishing", value: "Vanish account", comment: "This will initiate the process of requesting your account to be vanished ")
     @objc public static var usernameFieldTitle = WMFLocalizedString("vanish-account-username-field", value: "Username and user page", comment: "Title for the username and userpage form field")
 
@@ -326,9 +326,9 @@ public class CommonStrings: NSObject {
     public static let editLinkTitle = WMFLocalizedString("edit-link-title", value: "Edit link", comment: "Title for the Edit link screen")
 
     public static let readStatusAccessibilityLabel = WMFLocalizedString("talk-page-discussion-read-accessibility-label", value: "Read", comment: "Accessibility text for indicating that some content have been read.")
-    
+
     public static let unreadStatusAccessibilityLabel = WMFLocalizedString("talk-page-discussion-unread-accessibility-label", value: "Unread", comment: "Accessibility text for indicating that some content have not been read.")
-    
+
     public static let talkPageNewBannerTitle = WMFLocalizedString("talk-page-new-banner-title", value: "Please be kind", comment: "Title text on banner that appears once user posts a new reply or discussion topic on their talk page.")
 
     public static let talkPageNewBannerSubtitle = WMFLocalizedString("talk-page-new-banner-subtitle", value: "Remember, we are all humans here", comment: "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.")
@@ -366,7 +366,7 @@ public class CommonStrings: NSObject {
     @objc public static let talkPageReplyAccessibilityText = WMFLocalizedString("talk-page-reply-button-accessibility-label", value: "Reply to %@", comment: "Accessibility text for reply button. The %@ will be replaced with the name of the user whose comment is being responded")
 
     public static let revisionHistory = WMFLocalizedString("talk-page-revision-history", value: "Revision history", comment: "Title for menu option that leads to page revision history.")
-    
+
     public static let articleRevisionHistory = WMFLocalizedString("article-revision-history", value: "Article revision history", comment: "Title for menu option that leads to article revision history.")
 
     public static let defaultThemeDisplayName = WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user")
@@ -374,17 +374,17 @@ public class CommonStrings: NSObject {
     public static let moreButton = WMFLocalizedString("more-menu", value: "More", comment: "Accessibility title for more button in toolbar.")
 
     public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
-    
+
     public static let talkPage = WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page")
 
     public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
-    
+
     public static let watch = WMFLocalizedString("watch", value: "Watch", comment: "Title for watch toolbar button.")
-    
+
     public static let unwatch = WMFLocalizedString("unwatch", value: "Unwatch", comment: "Title for unwatch toolbar button.")
 
     public static let rollback = WMFLocalizedString("diff-rollback", value: "Rollback", comment: "Title for rollback toolbar button.")
-    
+
     public static let articleTalkPage = WMFLocalizedString("article-talk-page", value: "Article talk page", comment: "Title for article talk page button")
 
     public static let userButtonPage = WMFLocalizedString("watchlist-user-button-user-page", value: "User page", comment: "Title shown for user page action in user menu button in diff and watchlist views.")
@@ -403,37 +403,37 @@ public class CommonStrings: NSObject {
     public static let userMenuButtonAccesibilityText = WMFLocalizedString("diff-user-button-accessibility-text", value: "Double tap to open menu", comment: "Accessibility text to provide more context to users of assistive tecnologies about the user button actions")
 
     public static let watchlistFilterLatestRevisionsHeader =  WMFLocalizedString("watchlist-filter-latest-revisions-header", value:  "Latest Revisions", comment: "Header of watchlist filter adjustment view \"Latest Revisions\" section.")
-    
+
     public static let watchlistFilterLatestRevisionsOptionLatestRevision = WMFLocalizedString("watchlist-filter-latest-revisions-options-latest-revision", value:  "Latest revision", comment: "Option in the watchlist filter adjustment view \"Latest Revisions\" section. When selected, this option only displays the latest revision of a page in the user's watchlist.")
-    
+
     public static let watchlistFilterLatestRevisionsOptionNotTheLatestRevision = WMFLocalizedString("watchlist-filter-latest-revisions-options-not-latest-revision", value: "Not the latest revision", comment: "Option in the watchlist filter adjustment view \"Latest Revisions\" section. When selected, this option displays multiple revisions of the same page in the user's watchlist.")
-    
+
     public static let watchlistFilterActivityHeader = WMFLocalizedString("watchlist-filter-activity-header", value:  "Watchlist Activity", comment: "Header of watchlist filter adjustment view \"Watchlist Activity\" section.")
-    
+
     public static let watchlistFilterActivityOptionUnseenChanges = WMFLocalizedString("watchlist-filter-activity-options-unseen-changes", value: "Unseen changes", comment: "Option in the watchlist filter adjustment view \"Watchlist Activity\" section. When selected, this option only displays unseen revisions in the user's watchlist.")
-    
+
     public static let watchlistFilterActivityOptionSeenChanges = WMFLocalizedString("watchlist-filter-activity-options-seen-changes", value: "Seen changes", comment: "Option in the watchlist filter adjustment view \"Watchlist Activity\" section. When selected, this option only displays seen revisions in the user's watchlist.")
-    
+
     public static let watchlistFilterAutomatedContributionsHeader = WMFLocalizedString("watchlist-filter-automated-contributions-header", value:  "Automated Contributions", comment: "Header of watchlist filter adjustment view \"Automated Contributions\" section.")
-    
+
     public static let watchlistFilterAutomatedContributionsOptionBot = WMFLocalizedString("watchlist-filter-automated-contributions-options-bot", value: "Bot", comment: "Option in the watchlist filter adjustment view \"Automated Contributions\" section. When selected, this option only displays edits made by bots in the user's watchlist.")
-    
+
     public static let watchlistFilterAutomatedContributionsOptionHuman = WMFLocalizedString("watchlist-filter-automated-contributions-options-human", value: "Human (not bot)", comment: "Option in the watchlist filter adjustment view \"Automated Contributions\" section. When selected, this option only displays edits made by humans in the user's watchlist.")
-    
+
     public static let watchlistFilterSignificanceHeader = WMFLocalizedString("watchlist-filter-significance-header", value:  "Significance", comment: "Header of watchlist filter adjustment view \"Significance\" section.")
-    
+
     public static let watchlistFilterSignificanceOptionMinorEdits = WMFLocalizedString("watchlist-filter-significance-options-minor-edits", value: "Minor edits", comment: "Option in the watchlist filter adjustment view \"Significance\" section. When selected, this option only displays minor edits in the user's watchlist.")
-    
+
     public static let watchlistFilterSignificanceOptionNonMinorEdits = WMFLocalizedString("watchlist-filter-significance-options-non-minor-edits", value: "Non-minor edits", comment: "Option in the watchlist filter adjustment view \"Significance\" section. When selected, this option only displays non-minor edits in the user's watchlist.")
-    
+
     public static let watchlistFilterUserRegistrationHeader = WMFLocalizedString("watchlist-filter-user-registration-header", value:  "User registration and experience", comment: "Header of watchlist filter adjustment view \"User Registration and Experience\" section.")
-    
+
     public static let watchlistFilterUserRegistrationOptionUnregistered = WMFLocalizedString("watchlist-filter-user-registration-options-unregistered", value: "Unregistered", comment: "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays unregistered/anonymous edits in the user's watchlist.")
-    
+
     public static let watchlistFilterUserRegistrationOptionRegistered = WMFLocalizedString("watchlist-filter-user-registration-options-registered", value: "Registered", comment: "Option in the watchlist filter adjustment view \"User Registration and Experience\" section. When selected, this option only displays registered/non-anonymous edits in the user's watchlist.")
-    
+
     public static let watchlistFilterTypeOfChangeHeader = WMFLocalizedString("watchlist-filter-type-of-change-header", value:  "Type of change", comment: "Header of watchlist filter adjustment view \"Type of Change\" section.")
-    
+
     public static let watchlistFilterTypeOfChangeOptionPageEdits = WMFLocalizedString("watchlist-filter-type-of-change-options-page-edits", value: "Page edits", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes page edits in the user's watchlist.")
     public static let watchlistFilterTypeOfChangeOptionPageCreations = WMFLocalizedString("watchlist-filter-type-of-change-options-page-creations", value: "Page creations", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes page creations in the user's watchlist.")
     public static let watchlistFilterTypeOfChangeOptionCategoryChanges = WMFLocalizedString("watchlist-filter-type-of-change-options-category-changes", value: "Category changes", comment: "Option in the watchlist filter adjustment view \"Type of Change\" section. When selected, this option includes category changes in the user's watchlist.")
@@ -461,9 +461,9 @@ public class CommonStrings: NSObject {
     public static let diffSingleLineFormat = WMFLocalizedString("diff-single-line-format", value:"Line %1$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for a single change line. %1$d is replaced by the change line number.")
 
     public static let diffMultiLineFormat = WMFLocalizedString("diff-multi-line-format", value:"Lines %1$d - %2$d", comment:"Label in diff to indicate how many lines a change section encompases. This format is for multiple change lines. %1$d is replaced by the starting line number and %2$d is replaced by the ending line number.")
-    
+
     public static let diffUndoSuccess = WMFLocalizedString("diff-undo-success", value:"The revision was undone.", comment:"Success message shown to user when they successfully undid an edit.")
-    
+
     public static let diffRollbackSuccess = WMFLocalizedString("diff-rollback-success", value:"Edits reverted.", comment:"Success message shown to user when they successfully rolled back an edit.")
 
     public static let compareTitle = WMFLocalizedString("page-history-compare-title", value: "Compare", comment: "Title for action button that allows users to contrast different items")
@@ -526,89 +526,89 @@ public class CommonStrings: NSObject {
     public static func onThisDayFooterWith(with eventCount: Int, languageCode: String? = nil, locale: Locale = Locale.autoupdatingCurrent) -> String {
         return String(format: WMFLocalizedString("on-this-day-footer-showing-event-count", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d more historical event|%1$d more historical events}} on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), locale: locale, eventCount)
     }
-    
+
     // TODO: Delete this when we remove web editor code
     public static let editorExitConfirmationTitle = WMFLocalizedString("editor-exit-confirmation-title", value: "Dismiss the editing mode?", comment: "Title text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
     public static let editorExitConfirmationBody =  WMFLocalizedString("editor-exit-confirmation-body", value: "Are you sure you want to leave editing mode without publishing first?", comment: "Body text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
-    
+
     public static let editorExitConfirmationMessage =  WMFLocalizedString("editor-exit-confirmation-message", value: "Are you sure you want to discard this edit?", comment: "Message text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
-    
+
     public static let talkPageCloseConfirmationKeepEditing = WMFLocalizedString("talk-pages-compose-close-confirmation-keep", value: "Keep Editing", comment: "Title of keep editing action, displayed within a confirmation alert to user when they attempt to close the new topic view or new reply after entering text. Please prioritize for de, ar and zh wikis.")
-    
+
     public static let findReplaceHeader = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
-    
+
     public static let emptyEditSummary = WMFLocalizedString("empty-edit-summary", value: "Empty edit summary", comment: "Label when looking at a particular article revision. Indicates that the user did not add a summary.")
 
     // Native page editor
 
     public static let editorKeyboardTextFormattingTitle = WMFLocalizedString("editor-keyboard-text-formatting-title", value: "Text Formatting", comment: "Title of text formatting keyboard view on the editor.")
-    
+
     public static let editorKeyboardParagraphButton = WMFLocalizedString("editor-keyboard-paragraph-button", value: "Paragraph", comment: "Paragraph button label in the text formatting keyboard view on the editor.")
     public static let editorKeyboardHeadingButton = WMFLocalizedString("editor-keyboard-heading-button", value: "Heading", comment: "Heading button label in the text formatting keyboard view on the editor.")
     public static let editorKeyboardSubheading1Button = WMFLocalizedString("editor-keyboard-subheading1-button", value: "Subheading 1", comment: "Subheading1 button label in the text formatting keyboard view on the editor.")
     public static let editorKeyboardSubheading2Button = WMFLocalizedString("editor-keyboard-subheading2-button", value: "Subheading 2", comment: "Subheading2 button label in the text formatting keyboard view on the editor.")
     public static let editorKeyboardSubheading3Button = WMFLocalizedString("editor-keyboard-subheading3-button", value: "Subheading 3", comment: "Subheading3 button label in the text formatting keyboard view on the editor.")
     public static let editorKeyboardSubheading4Button = WMFLocalizedString("editor-keyboard-subheading4-button", value: "Subheading 4", comment: "Subheading4 button label in the text formatting keyboard view on the editor.")
-    
+
     public static let editorReplaceTypeSingle = WMFLocalizedString("editor-replace-type-single", value: "Replace", comment: "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces a single instance of the find text.")
     public static let editorReplaceTypeAll = WMFLocalizedString("editor-replace-type-all", value: "Replace all", comment: "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces all instances of the find text.")
     public static let editorReplaceTextfieldPlaceholder = WMFLocalizedString("editor-replace-textfield-placeholder", value: "Replace with...", comment: "Placeholder label displayed when the replace textfield in the editor's find and replace view is empty.")
-    
+
     public static let editorFailToScrollToArticleSelectedTextTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
     public static let editorFailToScrollToArticleSelectedTextBody = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
-    
+
     public static let editorToolbarButtonOpenTextFormatMenuAccessiblityLabel = WMFLocalizedString("editor-toolbar-open-text-format-menu-accessibility", value: "Open text formatting menu", comment: "Accessibility label for text format toolbar button on the editor. This button opens the keyboard text formatting menu.")
-    
+
     public static let editorToolbarButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-toolbar-reference-accessibility", value: "Reference text formatting", comment: "Accessibility label for reference toolbar button on the editor.")
     public static let editorKeyboardButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-keyboard-reference-accessibility", value: "Reference", comment: "Accessibility label for reference keyboard button on the editor.")
-    
+
     public static let editorToolbarButtonLinkAccessiblityLabel = WMFLocalizedString("editor-toolbar-link-accessibility", value: "Link text formatting", comment: "Accessibility label for link toolbar button on the editor.")
     public static let editorKeyboardButtonLinkAccessiblityLabel = WMFLocalizedString("editor-keyboard-link-accessibility", value: "Link", comment: "Accessibility label for link keyboard button on the editor.")
-    
+
     public static let editorToolbarButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-toolbar-template-accessibility", value: "Template text formatting", comment: "Accessibility label for template toolbar button on the editor.")
     public static let editorKeyboardButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-keyboard-template-accessibility", value: "Template", comment: "Accessibility label for template keyboard button on the editor.")
 
     public static let editorToolbarButtonImageAccessiblityLabel = WMFLocalizedString("editor-toolbar-image-accessibility", value: "Image text formatting", comment: "Accessibility label for image toolbar button on the editor.")
 
     public static let editorToolbarButtonFindAccessiblityLabel = WMFLocalizedString("editor-toolbar-find-accessibility", value: "Find in page", comment: "Accessibility label for find toolbar button on the editor. This button opens the find in page view.")
-    
+
     public static let editorToolbarShowMoreOptionsButtonAccessiblityLabel = WMFLocalizedString("editor-toolbar-show-more-accessibility", value: "Show more formatting options", comment: "Accessibility label for expand button on the formatting toolbar in editor. This button reveals more formatting toolbar buttons.")
-    
+
     public static let editorToolbarButtonListUnorderedAccessiblityLabel = WMFLocalizedString("editor-toolbar-list-unordered-accessibility", value: "Unordered list text formatting", comment: "Accessibility label for unordered list toolbar button on the editor.")
     public static let editorKeyboardButtonListUnorderedAccessiblityLabel = WMFLocalizedString("editor-keyboard-list-unordered-accessibility", value: "Unordered list", comment: "Accessibility label for unordered list keyboard button on the editor.")
-    
+
     public static let editorToolbarButtonListOrderedAccessiblityLabel = WMFLocalizedString("editor-toolbar-list-ordered-accessibility", value: "Ordered list text formatting", comment: "Accessibility label for ordered list toolbar button on the editor.")
     public static let editorKeyboardButtonListOrderedAccessiblityLabel = WMFLocalizedString("editor-keyboard-list-ordered-accessibility", value: "Ordered list", comment: "Accessibility label for ordered list keyboard button on the editor.")
-    
+
     public static let editorToolbarButtonIndentIncreaseAccessiblityLabel = WMFLocalizedString("editor-toolbar-indent-increase-accessibility", value: "Increase indent text formatting", comment: "Accessibility label for increase indent toolbar button on the editor.")
     public static let editorKeyboardButtonIndentIncreaseAccessiblityLabel = WMFLocalizedString("editor-keyboard-indent-increase-accessibility", value: "Increase indent", comment: "Accessibility label for increase indent keyboard button on the editor.")
-    
+
     public static let editorToolbarButtonIndentDecreaseAccessiblityLabel = WMFLocalizedString("editor-toolbar-indent-decrease-accessibility", value: "Decrease indent text formatting", comment: "Accessibility label for decrease indent toolbar button on the editor.")
     public static let editorKeyboardButtonIndentDecreaseAccessiblityLabel = WMFLocalizedString("editor-keyboard-indent-decrease-accessibility", value: "Decrease indent", comment: "Accessibility label for decrease indent keyboard button on the editor.")
-    
+
     public static let editorToolbarButtonCursorUpAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-up-accessibility", value: "Move cursor up to previous line.", comment: "Accessibility label for move cursor up button on the editor. This button moves the cursor up to the previous line.")
     public static let editorToolbarButtonCursorDownAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-down-accessibility", value: "Move cursor down to next line.", comment: "Accessibility label for move cursor down button on the editor. This button moves the cursor down to the next line.")
     public static let editorToolbarButtonCursorPreviousAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-previous-accessibility", value: "Move cursor to previous character.", comment: "Accessibility label for move cursor down button on the editor. This button moves the cursor to the previous character.")
     public static let editorToolbarButtonCursorNextAccessiblityLabel = WMFLocalizedString("editor-toolbar-cursor-next-accessibility", value: "Move cursor to next character.", comment: "Accessibility label for move cursor next button on the editor. This button moves the cursor to the next character.")
-    
+
     public static let editorToolbarButtonBoldAccessiblityLabel = WMFLocalizedString("editor-toolbar-bold-accessibility", value: "Bold text formatting", comment: "Accessibility label for bold toolbar button on the editor.")
     public static let editorKeyboardButtonBoldAccessiblityLabel = WMFLocalizedString("editor-keyboard-bold-accessibility", value: "Bold", comment: "Accessibility label for bold keyboard button on the editor.")
 
     public static let editorToolbarButtonItalicsAccessiblityLabel = WMFLocalizedString("editor-toolbar-italics-accessibility", value: "Italics text formatting", comment: "Accessibility label for italics toolbar button on the editor.")
     public static let editorKeyboardButtonItalicsAccessiblityLabel = WMFLocalizedString("editor-keyboard-italics-accessibility", value: "Italics", comment: "Accessibility label for italics keyboard button on the editor.")
- 
+
     public static let editorKeyboardButtonCommentAccessiblityLabel = WMFLocalizedString("editor-keyboard-comment-accessibility", value: "Comment", comment: "Accessibility label for comment keyboard button on the editor.")
-    
+
     public static let editorKeyboardButtonSuperscriptAccessiblityLabel = WMFLocalizedString("editor-keyboard-superscript-accessibility", value: "Superscript", comment: "Accessibility label for superscript keyboard button on the editor.")
-    
+
     public static let editorKeyboardButtonSubscriptAccessiblityLabel = WMFLocalizedString("editor-keyboard-subscript-accessibility", value: "Subscript", comment: "Accessibility label for subscript keyboard button on the editor.")
-    
+
     public static let editorKeyboardButtonUnderlineAccessiblityLabel = WMFLocalizedString("editor-keyboard-underline-accessibility", value: "Underline", comment: "Accessibility label for underline keyboard button on the editor.")
-    
+
     public static let editorKeyboardButtonStrikethroughAccessiblityLabel = WMFLocalizedString("editor-keyboard-strikethrough-accessibility", value: "Strikethrough", comment: "Accessibility label for strikethrough keyboard button on the editor.")
-    
+
     public static let editorKeyboardButtonCloseTextFormatMenuAccessiblityLabel = WMFLocalizedString("editor-keyboard-close-text-format-menu-accessibility", value: "Close text formatting menu", comment: "Accessibility label for close keyboard button on the editor. This button closes the keyboard text formatting menu.")
-    
+
     public static let editorWikitextTextViewAccessibility = WMFLocalizedString("editor-wikitext-textview-accessibility", value: "Wiki text editor", comment: "Accessibility label for the wikitext editor textview.")
     public static let editorWikitextLoadingAccessibility = WMFLocalizedString("editor-wikitext-loading-accessibility", value: "Loading editor text", comment: "Accessibility announcement when the editor textview is activated. This will be spoken with VoiceOver if loading takes a while.")
     public static let editorFindTextFieldAccessibilityLabel = WMFLocalizedString("editor-find-textfield-accessibility", value: "Find", comment: "Accessibility label for the find textfield on the editor")
@@ -620,24 +620,24 @@ public class CommonStrings: NSObject {
     public static let editorFindPreviousButtonAccessibilityLabel = WMFLocalizedString("editor-find-previous-button-accessibility", value: "Previous find result", comment: "Accessibility label for the find previous result on the editor. This button highlights the previous find result in the editor text.")
     public static let editorReplaceTextFieldAccessibilityLabel = WMFLocalizedString("editor-replace-textfield-accessibility", value: "Replace", comment: "Accessibility label for the replace textfield on the editor")
     public static let editorReplaceClearButtonAccessibilityLabel = WMFLocalizedString("editor-replace-clear-button-accessibility", value: "Clear replace", comment: "Accessibility label for the clear replace button on the editor. This button clears the text in the replace textfield.")
-    
+
     public static let editorReplaceButtonFormatAccessibilityLabel = WMFLocalizedString("editor-replace-button-format-accessibility", value: "Perform replace operation. Replace type is set to %1$@.", comment: "Accessibility label for the replace button on the editor. %1$@ is replaced by the replace type the user has set (single instance or all instances).")
-    
+
     public static let editorReplaceTypeButtonFormatAccessibilityLabel = WMFLocalizedString("editor-replace-type-button-accessibility", value: "Switch replace type. Currently set to %1$@. Select to change.", comment: "Accessibility label for the replace type button on the editor. %1$@ is replaced by the replace type the user has set (single instance or all instances).")
 
     public static let editorReplaceTypeSingleAccessibility = WMFLocalizedString("editor-replace-type-single-accessibility", value: "Replace single instance", comment: "Accessibility text for the replace single instance type on the editor.")
     public static let editorReplaceTypeAllAccessibility = WMFLocalizedString("editor-replace-type-all-accessibility", value: "Replace all instances", comment: "Accessibility text for the replace all instances type on the editor.")
-    
+
     public static let editContextMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit", comment: "Button label for 'Edit' context menu item")
-    
+
     public static let editorTitle = WMFLocalizedString("editor-title", value: "Editor", comment: "Title of editor view.")
-    
+
     public static let editSource = WMFLocalizedString("editor-edit-source", value: "Edit source", comment: "Title for menu option to edit the source of a page.")
-    
+
     public static let editPublishedToastTitle = WMFLocalizedString("editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
-    
+
     @objc public static let suggestedEditsTitle = WMFLocalizedString("suggested-edits-title", value: "Suggested Edits", comment: "Title for the 'Suggested Edits' explore feed card")
-    
+
     public static func editSummaryShortDescriptionAdded(with languageCode: String? = nil) -> String {
         WMFLocalizedString(
             "edit-summary-short-description-added",
@@ -645,7 +645,7 @@ public class CommonStrings: NSObject {
             value: "Added short description",
             comment: "Edit summary message when adding a short description for an article")
     }
-    
+
     public static func editSummaryShortDescriptionUpdated(with languageCode: String? = nil) -> String {
         WMFLocalizedString(
             "edit-summary-short-description-updated",
@@ -663,13 +663,13 @@ public class CommonStrings: NSObject {
     public static let noButtonTitle = WMFLocalizedString("image-recs-no-title", value: "No", comment: "Button title for discarding an image suggestion")
     public static let yesButtonTitle = WMFLocalizedString("image-recs-yes-title", value: "Yes", comment: "Button title for accepting an image suggestion")
     public static let notSureButtonTitle = WMFLocalizedString("image-recs-not-sure-title", value: "Not sure", comment: "Button title for skipping an image suggestion")
-   
+
     public static func learnMoreTitle(languageCode: String? = nil) -> String {
         WMFLocalizedString("learn-more-title", languageCode: languageCode, value: "Learn more", comment: "Button title text to learn more, used in various contexts. It typically sends users to another view with additional context about the feature.")
     }
-    
+
     public static let tutorialTitle = WMFLocalizedString("tutorial-title", value: "Tutorial", comment: "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.")
-    
+
     public static let problemWithFeatureTitle = WMFLocalizedString("problem-with-feature-title", value: "Problem with feature", comment: "Button title text that allows user to send feedback to the iOS support email about a particular feature.")
 
     public static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
@@ -683,30 +683,30 @@ public class CommonStrings: NSObject {
     public static let logoutAlertTitle =  WMFLocalizedString("main-menu-account-logout-are-you-sure", value: "Are you sure you want to log out?", comment: "Header asking if user is sure they wish to log out.")
 
     public static let logoutAlertMessage = WMFLocalizedString("main-menu-account-logout-are-you-sure-message", value: "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.", comment: "Message explaining what happens to local data when logging out.")
-    
+
     public static let yearInReviewLoginPromptProfileTitle = WMFLocalizedString("profile-year-in-review-login-title", value: "Log in for access to Year in Review", comment: "Title of alert that asks user to login if they are entering Year in Review.")
     public static let yearInReviewLoginPromptIntroTitle = WMFLocalizedString("year-in-review-intro-login-title", value: "Log in for personalization", comment: "Title of alert that asks user to login if they want to view the personalized feature.")
     public static let yearInReviewLoginPromptSubtitle = WMFLocalizedString("profile-year-in-review-login-subtitle", value: "Log in or create an account to see Year in Review and be eligible for more personalized insights.", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
-    
+
     public static let joinLoginTitle = WMFLocalizedString("profile-page-join-title", value: "Log in / Join Wikipedia", comment: "Link to sign up or sign in")
-    
+
     public static let noThanksTitle = WMFLocalizedString("variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about variant support.")
     public static let continueWithoutLoggingIn = WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title")
-    
+
     public static func takeSurveyTitle(languageCode: String?) -> String {
         WMFLocalizedString("import-shared-reading-list-survey-prompt-button-take-survey", languageCode: languageCode, value:"Take survey", comment:"Title of action button on import reading list survey prompt, which takes user to external survey.")
     }
-    
+
     public static let notNowTitle = WMFLocalizedString("not-now-title", value: "Not now", comment: "Text for the dismiss button across various features.")
-    
+
     public static let youCanAccessYIR = WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide.")
 
     public static let logoCaption = WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
-    
+
     public static let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
-    
+
     public static let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
-    
+
     public static let readString = WMFLocalizedString("notifications-center-filters-read-status-item-title-read", value: "Read", comment: "Title of Read option in the read status section of the notifications center filter view. Selecting this only displays read notifications in the notifications center.")
 
     // Donation history
@@ -722,20 +722,20 @@ public class CommonStrings: NSObject {
     // Year In Review
 
     @objc public static let yirTitle = WMFLocalizedString("year-in-review-button-title", value: "Year in Review", comment: "Year in review title. Appears on buttons in the profile and settings menu.")
-    
+
     public static let exploreYIRTitlePersonalized = WMFLocalizedString("year-in-review-feature-announcement-title-personalized", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
     public static let exploreYIRBodyPersonalized =  WMFLocalizedString("year-in-review-feature-explore-body-personalized-updated", value: "See insights about which articles you read on the Wikipedia app and the edits you made in 2024. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Body for year in review feature announcement")
-    
+
     public static let exploreYIRBodyV3 =  WMFLocalizedString("year-in-review-feature-explore-body-v3", value: "See insights about which articles you read on the Wikipedia app and the edits you made.", comment: "Body for year in review feature announcement - version 3")
-    
+
     public static let exploreYIRFooterV3 =  WMFLocalizedString("year-in-review-feature-explore-footer-v3", value: "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Footer text in the year in review intro view.")
 
     public static let exploreYiRTitle = WMFLocalizedString("year-in-review-feature-announcement-title", value: "Explore Wikipedia in Review", comment: "Title for year in review feature announcement")
     public static let exploreYIRBody =  WMFLocalizedString("year-in-review-feature-explore-body", value: "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Here’s a review of 2024 through the lens of Wikipedia. ", comment: "Body for year in review feature announcement")
-    
+
     public static let yirFeatureAnnoucementBody =  WMFLocalizedString("year-in-review-feature-announcement-body", value: "See insights about what articles we read and edited, and share highlights from our year on Wikipedia.", comment: "Body for year in review feature announcement")
     public static let yirFeatureAnnoucementBodyPersonalized =  WMFLocalizedString("year-in-review-feature-announcement-body-personalized", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
-    
+
     public static let searchButtonAccessibilityLabel = WMFLocalizedString("search-button-accessibility-label", value: "Search Wikipedia", comment: "Accessibility label for a button that opens a search box to search Wikipedia.")
 
     @objc public static let emptyNoHistoryTitle = WMFLocalizedString("empty-no-history-title", value: "No history to show", comment: "Title of a blank screen shown when a user has no history")
@@ -745,10 +745,10 @@ public class CommonStrings: NSObject {
 
     // Lockscreen Search Widget strings
     public static let lockscreenSearchWidgetDescription = WMFLocalizedString("lockscreen-search-widget-description", value: "Quick access to search Wikipedia from your lock screen.", comment: "Text for description of lockscreen search widget displayed when adding to lock screen.")
-    
+
     // Temp accs
     public static let tempAccountsReadMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
-    
+
     public static let tempAccountsToastTitle = {
         let openingBold = "<b>"
         let closingBold = "</b>"
@@ -756,22 +756,22 @@ public class CommonStrings: NSObject {
           comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold")
         return String.localizedStringWithFormat(format, openingBold, closingBold)
     }
-    
+
     @objc public static let tempAccount = WMFLocalizedString("temporary-account", value: "Temporary Account", comment: "Temporary account title text")
-    
+
     public static let ipWarningTitle = WMFLocalizedString("ip-account-warning-title", value: "You are not logged in", comment: "Warning title text presented to anonymous editors before entering an edit flow.")
-    
+
     public static let tempWarningTitle = WMFLocalizedString("temp-account-warning-title", value: "You are using a temporary account", comment: "Warning title text presented to temporary account editors before entering an edit flow.")
-    
+
     public static let ipWarningSubtitle = WMFLocalizedString("ip-account-warning-subtitle", value: "On publish a temporary account will be created for you.", comment: "Warning subtitle text presented to anonymous editors before entering an edit flow.")
-    
+
     public static func tempWarningSubtitle(username: String) -> String {
         let format = WMFLocalizedString("temp-warning-subtitle-format", value: "Your edit will be attributed to %1$@", comment: "Warning subtitle text presented to temporary account editors before entering an edit flow. %1$@ is replaced with the temporary account username.")
         return String.localizedStringWithFormat(format, username)
     }
-    
+
     public static let tempAccountCreatedToastTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
-    
+
     public static func tempAccountCreatedToastSubtitle(username: String?) -> String {
         let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
         return String.localizedStringWithFormat(format, username ?? "*****")
@@ -782,17 +782,22 @@ public class CommonStrings: NSObject {
     // MARK: - Activity tab strings
     public static let activityTabReadingHistory = WMFLocalizedString("activity-tab-read-title", value: "View reading history", comment: "Title for the reading history activity tab")
 
+    public static let historyMovedToSearchTitle = WMFLocalizedString("activity-tab-onboarding-third-item-title-updated", value: "Reading history is now in Search", comment: "Title for activity tabs third item")
+
+    public static let historyMovedToSearchSubtitleLoggedIn = WMFLocalizedString("activity-tab-history-callout-body", value: "Browse or clear your reading history in the **Search tab**.", comment: "Body for callout informing users that reading history has moved to the Search tab.")
+    public static let historyMovedToSearchSubtitleLoggedOut = WMFLocalizedString("activity-tab-history-callout-body-loggedout", value: "Find and clear your reading history in the **Search tab**. No account needed.", comment: "Body for callout informing users that reading history has moved to the Search tab, no need to login.")
+
     @objc public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
     public static let activityTabLoggedOutTitle = WMFLocalizedString("activity-tab-log-in-or-create-account", value: "Log in or create an account to see more editing and reading activity.", comment: "Title for activity tab when users are logged out.")
     public static let actitvityTabLoggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-track-what-youve-read", value: "Track what you’ve read and view your contributions over time in a new way", comment: "Subtitle for activity tab when users are logged out.")
     public static let activityTabViewReadingHistoryTitle = WMFLocalizedString("activity-tab-view-reading-history", value: "View reading history", comment: "Button title for users to view their reading history.")
     public static let activityTabViewSavedArticlesTitle = WMFLocalizedString("activity-tab-view-saved-articles", value: "View saved articles", comment: "Button title for users to view their saved articles.")
     public static let activityTabViewEditingTitle = WMFLocalizedString("activity-tab-view-editing-history", value: "View editing history", comment: "Button title for users to view their editing history.")
-    
+
     public static let activityTabNoEditsAddImagesTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven't edited this week. Add images to enhance article understanding.", comment: "Title for users that have not made any edits.")
-    
+
     public static let activityTabNoEditsGenericTitle = WMFLocalizedString("activity-tab-generic-no-edits", value: "You haven't edited this week. Start now to track your contributions.", comment: "Title for users that have not made any edits.")
-    
+
     public static let activityTabStartEditing = WMFLocalizedString("activity-tab-start-editing", value: "Start editing", comment: "Button title for users to begin editing.")
     public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {
         let format = WMFLocalizedString("activity-tab-you-read", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.")
@@ -815,17 +820,17 @@ public class CommonStrings: NSObject {
     public static var surveyUnsatisfied = WMFLocalizedString("activity-tab-unsatisfied", value: "Unsatisfied", comment: "Satisfaction survey unsatisfied")
     public static var surveyNeutral = WMFLocalizedString("activity-tab-neutral", value: "Neutral", comment: "Satisfaction survey neutral")
     public static var surveyAdditionalThoughts = WMFLocalizedString("activity-tab-additional-thoughts", value: "Any additional thoughts?", comment: "Asking user if they have any comments")
-    
+
     // MARK: - Article Tabs
-    
+
     public static let articleTabsOpen = WMFLocalizedString("article-tabs-open", value: "Open", comment: "Menu option button for opening an article in the current tab. Displayed upon long press of an article link.")
-    
+
     public static let articleTabsOpenInNewTab = WMFLocalizedString("article-tabs-open-new-tab", value: "Open in new tab", comment: "Menu option button for opening an article in a new tab. Displayed upon long press of an article link.")
-    
+
     public static let articleTabsOpenInBackgroundTab = WMFLocalizedString("article-tabs-open-background-tab", value: "Open in background tab", comment: "Menu option button for opening an article in a background tab. Displayed upon long press of an article link.")
-    
+
     public static let articleTabsLimitToastFormat = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). The article was opened in the current tab. Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
-    
+
     public static let onboardingTooltipsForTabs = WMFLocalizedString("article-tabs-onboarding-tooltip", value: "Onboarding tooltips for tabs", comment: "Tooltip title for tabs onboarding.")
     public static let tabsNavigation = WMFLocalizedString("article-tabs-navigation", value: "Tabs navigation", comment: "Title for navigation in article tabs")
 
@@ -838,7 +843,7 @@ public class CommonStrings: NSObject {
         let format = WMFLocalizedString("close-all-tabs-confirmation-number", value: "Close all %1$@ tabs?", comment: "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed")
         return String.localizedStringWithFormat(format, count ?? 0)
     }
-    
+
     public static let saveAllTabs = WMFLocalizedString("save-all-tabs", value: "Save all tabs", comment: "Action to save all open tabs.")
     public static let closeAllTabs = WMFLocalizedString("close-all-tabs", value: "Close all tabs", comment: "Action to close all open tabs.")
     public static let duplicateTab = WMFLocalizedString("duplicate-tab", value: "Duplicate tab", comment: "Action to duplicate the current tab.")
@@ -849,7 +854,7 @@ public class CommonStrings: NSObject {
     public static let savedAllTabs = WMFLocalizedString("saved-all-tabs", value: "Saved all tabs.", comment: "Message indicating all open tabs were saved.")
     public static let savedAllTabsViewReadingList = WMFLocalizedString("saved-all-tabs-view-reading-list", value: "Saved all tabs. View reading list.", comment: "Message indicating all tabs were saved with option to view reading list.")
     public static let mainPage = WMFLocalizedString("main-page", value: "Main page", comment: "Title for the Wikipedia main page.")
-    
+
     public static let articleTabsFeatureAnnouncementTitle = WMFLocalizedString("article-tabs-feature-announcement-title", value: "Introducing Tabs", comment: "Title for the article tabs feature announcement")
     public static let articleTabsFeatureAnnouncementItem1Title = WMFLocalizedString("article-tabs-feature-announcement-item-1-title", value: "Browse with tabs", comment: "Title for the article tabs feature announcement item")
     public static let articleTabsFeatureAnnouncementItem1Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-1-subtitle", value: "Open multiple articles and switch between them with ease.", comment: "Subtitle for the article tabs feature announcement item 2")
@@ -871,76 +876,76 @@ public class CommonStrings: NSObject {
     // Search Widget Feature Announcement
 
     @objc public static let searchWidgetAnnouncementTitle = WMFLocalizedString("search-widget-announcement-title", value: "New Search widget available", comment: "Title for the search widget feature announcement")
-    
+
     @objc public static let searchWidgetAnnouncementBody = WMFLocalizedString("search-widget-announcement-body", value: "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.", comment: "Body text for the search widget feature announcement")
-    
+
     public static let newTabTheme = WMFLocalizedString("settings-new-article-tab-header-text", value: "New Tab Theme", comment: "Header title for the New Article Tabs settings to determine between preferences")
 }
 
 // Language variant strings
 public extension CommonStrings {
 
-	// General
+    // General
 
-	static let variantsAlertPreferencesButton = WMFLocalizedString("variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about variant support.")
+    static let variantsAlertPreferencesButton = WMFLocalizedString("variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about variant support.")
 
-	// Chinese (zh)
+    // Chinese (zh)
 
-	static let chineseVariantsAlertTitle = WMFLocalizedString("chinese-variants-alert-title", value: "Updates to Chinese variant support", comment: "Title of alert used to inform users about Chinese variant support.")
+    static let chineseVariantsAlertTitle = WMFLocalizedString("chinese-variants-alert-title", value: "Updates to Chinese variant support", comment: "Title of alert used to inform users about Chinese variant support.")
 
-	static let chineseVariantsAlertBody = WMFLocalizedString("chinese-variants-alert-body", value: "The Wikipedia app now supports the following Chinese variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)", comment: "Body text of alert used to inform users about Chinese variant support. Please do not translate the newlines (\n) or Chinese characters (简体, 繁體, etc.).")
+    static let chineseVariantsAlertBody = WMFLocalizedString("chinese-variants-alert-body", value: "The Wikipedia app now supports the following Chinese variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)", comment: "Body text of alert used to inform users about Chinese variant support. Please do not translate the newlines (\n) or Chinese characters (简体, 繁體, etc.).")
 
-	// Crimean Tatar (crh)
+    // Crimean Tatar (crh)
 
-	static let crimeanTatarVariantsAlertTitle =  WMFLocalizedString("crimean-tatar-variants-alert-title", value: "Updates to Crimean Tatar variant support", comment: "Title of alert used to inform users about Crimean Tatar variant support.")
+    static let crimeanTatarVariantsAlertTitle =  WMFLocalizedString("crimean-tatar-variants-alert-title", value: "Updates to Crimean Tatar variant support", comment: "Title of alert used to inform users about Crimean Tatar variant support.")
 
-	static let crimeanTatarVariantsAlertBody = WMFLocalizedString("crimean-tatar-variants-alert-body", value: "The Wikipedia app now supports the following Crimean Tatar variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)", comment: "Body text of alert used to inform users about Crimean Tatar variant support. Please do not translate the newlines (\n) or Crimean Tatar characters (къырымтатарджа, etc.).")
+    static let crimeanTatarVariantsAlertBody = WMFLocalizedString("crimean-tatar-variants-alert-body", value: "The Wikipedia app now supports the following Crimean Tatar variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)", comment: "Body text of alert used to inform users about Crimean Tatar variant support. Please do not translate the newlines (\n) or Crimean Tatar characters (къырымтатарджа, etc.).")
 
-	// Gan (gan)
+    // Gan (gan)
 
-	static let ganVariantsAlertTitle =  WMFLocalizedString("gan-variants-alert-title", value: "Updates to Gan variant support", comment: "Title of alert used to inform users about Gan variant support.")
+    static let ganVariantsAlertTitle =  WMFLocalizedString("gan-variants-alert-title", value: "Updates to Gan variant support", comment: "Title of alert used to inform users about Gan variant support.")
 
-	static let ganVariantsAlertBody = WMFLocalizedString("gan-variants-alert-body", value: "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)", comment: "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).")
+    static let ganVariantsAlertBody = WMFLocalizedString("gan-variants-alert-body", value: "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)", comment: "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).")
 
-	// Inuktitut (iu)
+    // Inuktitut (iu)
 
-	static let inuktitutVariantsAlertTitle =  WMFLocalizedString("inuktitut-variants-alert-title", value: "Updates to Inuktitut variant support", comment: "Title of alert used to inform users about Inuktitut variant support.")
+    static let inuktitutVariantsAlertTitle =  WMFLocalizedString("inuktitut-variants-alert-title", value: "Updates to Inuktitut variant support", comment: "Title of alert used to inform users about Inuktitut variant support.")
 
-	static let inuktitutVariantsAlertBody = WMFLocalizedString("inuktitut-variants-alert-body", value: "The Wikipedia app now supports the following Inuktitut variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)", comment: "Body text of alert used to inform users about Inuktitut variant support. Please do not translate the newlines (\n) or Inuktitut characters (ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ, etc.).")
+    static let inuktitutVariantsAlertBody = WMFLocalizedString("inuktitut-variants-alert-body", value: "The Wikipedia app now supports the following Inuktitut variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)", comment: "Body text of alert used to inform users about Inuktitut variant support. Please do not translate the newlines (\n) or Inuktitut characters (ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ, etc.).")
 
-	// Kazakh (kk)
+    // Kazakh (kk)
 
-	static let kazakhVariantsAlertTitle =  WMFLocalizedString("kazakh-variants-alert-title", value: "Updates to Kazakh variant support", comment: "Title of alert used to inform users about Kazakh variant support.")
+    static let kazakhVariantsAlertTitle =  WMFLocalizedString("kazakh-variants-alert-title", value: "Updates to Kazakh variant support", comment: "Title of alert used to inform users about Kazakh variant support.")
 
-	static let kazakhVariantsAlertBody = WMFLocalizedString("kazakh-variants-alert-body", value: "The Wikipedia app now supports the following Kazakh variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)", comment: "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).")
+    static let kazakhVariantsAlertBody = WMFLocalizedString("kazakh-variants-alert-body", value: "The Wikipedia app now supports the following Kazakh variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)", comment: "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).")
 
-	// Kurdish (ku)
+    // Kurdish (ku)
 
-	static let kurdishVariantsAlertTitle =  WMFLocalizedString("kurdish-variants-alert-title", value: "Updates to Kurdish variant support", comment: "Title of alert used to inform users about Kurdish variant support.")
+    static let kurdishVariantsAlertTitle =  WMFLocalizedString("kurdish-variants-alert-title", value: "Updates to Kurdish variant support", comment: "Title of alert used to inform users about Kurdish variant support.")
 
-	static let kurdishVariantsAlertBody = WMFLocalizedString("kurdish-variants-alert-body", value: "The Wikipedia app now supports the following Kurdish variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)", comment: "Body text of alert used to inform users about Kurdish variant support. Please do not translate the newlines (\n) or Kurdish characters (كوردی, etc.).")
+    static let kurdishVariantsAlertBody = WMFLocalizedString("kurdish-variants-alert-body", value: "The Wikipedia app now supports the following Kurdish variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)", comment: "Body text of alert used to inform users about Kurdish variant support. Please do not translate the newlines (\n) or Kurdish characters (كوردی, etc.).")
 
-	// Serbian (sr)
+    // Serbian (sr)
 
-	static let serbianVariantsAlertTitle =  WMFLocalizedString("serbian-variants-alert-title", value: "Updates to Serbian variant support", comment: "Title of alert used to inform users about Serbian variant support.")
+    static let serbianVariantsAlertTitle =  WMFLocalizedString("serbian-variants-alert-title", value: "Updates to Serbian variant support", comment: "Title of alert used to inform users about Serbian variant support.")
 
-	static let serbianVariantsAlertBody = WMFLocalizedString("serbian-variants-alert-body", value: "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)", comment: "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).")
+    static let serbianVariantsAlertBody = WMFLocalizedString("serbian-variants-alert-body", value: "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)", comment: "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).")
 
-	// Tajik (tg)
+    // Tajik (tg)
 
-	static let tajikVariantsAlertTitle =  WMFLocalizedString("tajik-variants-alert-title", value: "Updates to Tajik variant support", comment: "Title of alert used to inform users about Tajik variant support.")
+    static let tajikVariantsAlertTitle =  WMFLocalizedString("tajik-variants-alert-title", value: "Updates to Tajik variant support", comment: "Title of alert used to inform users about Tajik variant support.")
 
-	static let tajikVariantsAlertBody = WMFLocalizedString("tajik-variants-alert-body", value: "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)", comment: "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).")
+    static let tajikVariantsAlertBody = WMFLocalizedString("tajik-variants-alert-body", value: "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)", comment: "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).")
 
-	// Uzbek (uz)
+    // Uzbek (uz)
 
-	static let uzbekVariantsAlertTitle =  WMFLocalizedString("uzbek-variants-alert-title", value: "Updates to Uzbek variant support", comment: "Title of alert used to inform users about Uzbek variant support.")
+    static let uzbekVariantsAlertTitle =  WMFLocalizedString("uzbek-variants-alert-title", value: "Updates to Uzbek variant support", comment: "Title of alert used to inform users about Uzbek variant support.")
 
-	static let uzbekVariantsAlertBody = WMFLocalizedString("uzbek-variants-alert-body", value: "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)", comment: "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).")
+    static let uzbekVariantsAlertBody = WMFLocalizedString("uzbek-variants-alert-body", value: "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)", comment: "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).")
 
-	// Tachelhit
+    // Tachelhit
 
-	static let tachelhitVariantsAlertTitle =  WMFLocalizedString("tachelhit-variants-alert-title", value: "Updates to Tachelhit variant support", comment: "Title of alert used to inform users about Tachelhit variant support.")
+    static let tachelhitVariantsAlertTitle =  WMFLocalizedString("tachelhit-variants-alert-title", value: "Updates to Tachelhit variant support", comment: "Title of alert used to inform users about Tachelhit variant support.")
 
-	static let tachelhitVariantsAlertBody = WMFLocalizedString("tachelhit-variants-alert-body", value: "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)", comment: "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).")
+    static let tachelhitVariantsAlertBody = WMFLocalizedString("tachelhit-variants-alert-body", value: "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)", comment: "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).")
 }

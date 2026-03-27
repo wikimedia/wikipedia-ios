@@ -837,8 +837,10 @@
 "more-menu" = "Mehr";
 "move-articles-to-reading-list" = "{{PLURAL:$1|Einen|$1}} Artikel in eine Leseliste verschieben";
 "navbar-title-mode-edit-wikitext-preview" = "Vorschau";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 Fuß";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
 "new-password-instructions" = "Du hast dich mit einem temporären Passwort angemeldet. Um die Anmeldung abzuschließen, lege hier ein neues Passwort fest.";
@@ -988,8 +990,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "An diesem Tag";
 "open-article" = "Artikel öffnen";
-"open-in-tab-tooltip-body" = "Langes Drücken auf einen Artikeltitel oder blauen Link öffnet ihn in einem neuen Tab.";
-"open-in-tab-tooltip-title" = "In neuem Tab öffnen";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
 "page-history-bot-edits" = "Bot";
 "page-history-compare-accessibility-hint" = "Tippe, um zwei Versionen auszuwählen, um sie zu vergleichen";
@@ -1297,8 +1297,6 @@
 "tabs-main-page-subtitle" = "Wikipedias tägliche Highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 Tab|$1 Tabs}}";
 "tabs-open-tab" = "Tab öffnen";
-"tabs-overview-tooltip-body" = "Wechseln Sie zwischen geöffneten Artikeln in der Tab-Übersicht.";
-"tabs-overview-tooltip-title" = "Tab-Übersicht";
 "tabs-show-suggested-articles" = "Artikelvorschläge anzeigen";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Vorschläge sind jetzt ausgeblendet";
 "tabs-survey-title" = "Hilf bei der Verbesserung der Tab-Funktion. Bist du mit dieser Funktion zufrieden?";

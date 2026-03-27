@@ -262,6 +262,24 @@
 			<string>%1$d שורות שלא נערכו</string>
 		</dict>
 	</dict>
+	<key>microsite-yir-english-reading-slide-title-updated</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>בילינו %#@v1@ בקריאה</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>שעה</string>
+			<key>other</key>
+			<string>%1$lld שעות</string>
+			<key>two</key>
+			<string>שעתיים</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -767,6 +785,22 @@
 			<string>הערכים</string>
 		</dict>
 	</dict>
+	<key>tabs-navbar-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>לשונית</string>
+			<key>other</key>
+			<string>%1$d לשוניות</string>
+		</dict>
+	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -834,7 +868,7 @@
 	<key>year-in-review-personalized-editing-title-format-updated</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ערכת את ויקיפדיה %#@v1@</string>
+		<string>ערכת %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

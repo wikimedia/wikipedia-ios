@@ -794,8 +794,10 @@
 "more-menu" = "Plus";
 "move-articles-to-reading-list" = "Displaciar $1 articulo{{PLURAL:$1||s}} al lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualisation";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pedes";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millias";
 "new-password-instructions" = "Tu ha aperite session con un contrasigno temporari.\nPro completar le accesso, defini un nove contrasigno hic.";
@@ -945,8 +947,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Le $1 sur Wikipedia in $2";
 "on-this-day-title" = "In iste die";
 "open-article" = "Aperir articulo";
-"open-in-tab-tooltip-body" = "Preme longemente sur le titulo de un articulo o sur un ligamine blau pro aperir lo in un nove scheda.";
-"open-in-tab-tooltip-title" = "Aperir in un nove scheda";
 "original-tab-button-popover-description" = "Tocca le 'W' pro retornar al scheda de ubi tu comenciava";
 "page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tocca pro seliger duo versiones a comparar";
@@ -1261,8 +1261,6 @@
 "tabs-main-page-subtitle" = "Hodie sur Wikipedia";
 "tabs-navbar-title-format" = "$1 scheda{{PLURAL:$1||s}}";
 "tabs-open-tab" = "Aperir scheda";
-"tabs-overview-tooltip-body" = "Cambia inter articulos aperte in le vista general de schedas.";
-"tabs-overview-tooltip-title" = "Vista general de schedas";
 "tabs-show-suggested-articles" = "Monstrar suggestiones de articulos";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Le suggestiones es ora celate";
 "tabs-survey-title" = "Adjuta a meliorar le schedas. Es tu satisfacite de iste function?";

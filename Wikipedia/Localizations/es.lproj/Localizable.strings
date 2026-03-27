@@ -818,8 +818,10 @@
 "more-menu" = "Más";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-instructions" = "Has iniciado sesión con una contraseña temporal. Para terminar de iniciar sesión, debes establecer una contraseña nueva aquí.";
@@ -968,8 +970,6 @@
 "on-this-day-no-internet-error" = "No hay datos disponibles";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, de Wikipedia en $2";
 "on-this-day-title" = "Un día como hoy";
-"open-in-tab-tooltip-body" = "Mantenga presionado el título de un artículo o un enlace azul para abrirlo en una nueva pestaña.";
-"open-in-tab-tooltip-title" = "Abrir en una nueva pestaña";
 "original-tab-button-popover-description" = "Pulsa en la 'W' para volver a la pestaña desde la que comenzaste";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Toca para seleccionar dos revisiones para comparar";
@@ -1272,8 +1272,6 @@
 "tabs-main-page-subtitle" = "Lo más destacado del día en Wikipedia";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 pestaña|$1 pestañas}}";
 "tabs-open-tab" = "Abrir pestaña";
-"tabs-overview-tooltip-body" = "Cambiar entre artículos abiertos en la descripción general de pestañas.";
-"tabs-overview-tooltip-title" = "Descripción general de las pestañas";
 "tabs-survey-title" = "Ayuda a mejorar las pestañas. ¿Estás satisfecho con esta función?";
 "tabs-thumbnail-description" = "Explora Wikipedia, la enciclopedia libre que cualquiera puede editar";
 "tabs-thumbnail-subtitle" = "Comience su búsqueda aquí";

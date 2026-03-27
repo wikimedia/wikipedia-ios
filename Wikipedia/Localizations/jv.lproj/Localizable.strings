@@ -242,8 +242,10 @@
 "main-menu-title" = "Liyané";
 "main-menu-zero-faq" = "Pitakon Kerep Wikipédia Zéro";
 "navbar-title-mode-edit-wikitext-preview" = "Pratuduh";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 jangkah";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-instructions" = "Panjenengan wis mlebu log mawa tembung sandi sadhéla. Saperlu ngrampungaké olèhé panjenengan mlebu log, setèlen tembung sandi anyar ing kéné.";
