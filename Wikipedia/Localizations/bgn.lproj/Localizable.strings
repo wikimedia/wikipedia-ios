@@ -24,8 +24,10 @@
 "main-menu-nearby" = "بی نزینکی ئا";
 "main-menu-title" = "گیشتیر";
 "navbar-title-mode-edit-wikitext-preview" = "دیم دیست";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 پاد";
 "nearby-distance-label-km" = "$1 کیلومتر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مایل";
 "search-field-placeholder-text" = "به ویکی‌پیڈیای تا گشتین";

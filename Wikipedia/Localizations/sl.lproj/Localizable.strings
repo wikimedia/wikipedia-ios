@@ -601,8 +601,10 @@
 "more-menu" = "Več";
 "move-articles-to-reading-list" = "Premakni {{PLURAL:$1|$1 članek|$1 članka|$1 članke|$1 člankov}} na bralni seznam";
 "navbar-title-mode-edit-wikitext-preview" = "Predogled";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 čevljev";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milj";
 "new-password-instructions" = "Prijavili ste se z začasnim geslom. Za dokončanje prijave tu nastavite novo geslo.";
@@ -1233,3 +1235,4 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Z objavo sprememb izražate strinjanje s $1Pogoji uporabe$2 ter svoj prispevek nepreklicno objavljate pod licencama $3CC BY-SA.0$4 in $5GDFL$6. Strinjate se, da kot navedba avtorja pod licenco Creative Commons zadostuje hiperpovezava ali URL.";
 "wikitext-upload-save-terms-name" = "Pogoji uporabe";
 "year-in-review-donate" = "Doniraj";
+"year-in-review-donate-now" = "Donirajte zdaj";

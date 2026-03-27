@@ -501,8 +501,10 @@
 "more-menu" = "Meira";
 "move-articles-to-reading-list" = "Færa {{PLURAL:$1|$1 grein|$1 greinar}} á leslista";
 "navbar-title-mode-edit-wikitext-preview" = "Forskoðun";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fet";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mílur";
 "new-password-instructions" = "Þú skráðir þig inn með bráðabirgðalykilorði. Til að klára að skrá þig inn, verður þú að velja nýtt lykilorð hér.";

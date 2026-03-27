@@ -363,8 +363,10 @@
 "more-languages-tooltip-title" = "ߞߊ߲ ߘߏ߫ ߝߊ߬ߙߊ߫";
 "move-articles-to-reading-list" = "{{PLURAL:$1|ߞߎߡߘߊ $1|ߞߎߡߘߊ $1 ߟߎ߬}} ߛߋ߲߬ߓߐ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߘߐ߫";
 "navbar-title-mode-edit-wikitext-preview" = "ߟߊ߬ߕߎ߲߰ߠߊ";
+// Fuzzy
 "nearby-distance-label-feet" = "ߛߋ߲߬ߝߘߍ߫ (ߝߌߕ) $1";
 "nearby-distance-label-km" = "ߞߎߘߍ߫ $1";
+// Fuzzy
 "nearby-distance-label-meters" = "ߜߟ $1";
 "nearby-distance-label-miles" = "ߡߟߌ $1";
 "new-password-instructions" = "ߌ ߓߘߴߌ ߜߊ߲߬ߞߎ߲߬ ߥߊ߯ߕߌ߫ ߟߊߕߊߡߌ߲߫ ߕߊߡߌ߲ߞߊ߲ ߠߊ߫.ߖߐ߲߬ߛߊ߫ ߌ ߘߴߌ ߟߊ߫ ߜߊ߲߬ߞߎ߲߬ߠߌ߲ ߠߊߞߎߙߊ߲߫߸ ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲߬ ߞߎߘߊ ߟߊߘߏ߲߬ ߦߊ߲߬ ߖߊ߰ߣߌ߲߬.";

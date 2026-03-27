@@ -265,8 +265,10 @@
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
 "move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu bat|$1 artikulu}} irakurketa zerrendara";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 oin";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milia";
 "new-password-instructions" = "Aldi baterako pasahitza erabiliz hasi duzu saioa. \nSaio hasten amaitzeko, pasahitz berria ezarri beharko duzu hemen.";

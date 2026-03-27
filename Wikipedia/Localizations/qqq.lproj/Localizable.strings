@@ -90,6 +90,9 @@
 "activity-tab-empty-subtitle" = "Subtitle on activity tab timeline empty state.";
 "activity-tab-empty-title" = "Title on activity tab timeline empty state.";
 "activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
+"activity-tab-history-callout-body" = "Body for callout informing users that reading history has moved to the Search tab.";
+"activity-tab-history-callout-body-loggedout" = "Body for callout informing users that reading history has moved to the Search tab, no need to login.";
+"activity-tab-hitory-callout-close" = "Accesibility label for close button in callout about history moving to search";
 "activity-tab-hours-minutes-read" = "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes.";
 "activity-tab-hours-on-wikipedia-ios" = "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization";
 "activity-tab-impact-all-time-title" = "Title for activity tab module about all time editing impact";
@@ -471,7 +474,7 @@
 "editor-wikitext-textview-accessibility" = "Accessibility label for the wikitext editor textview.";
 "edits-last-month" = "Title for edits last month section";
 "edits-this-month" = "Title for edits this month section";
-"empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
+"empty-diff-compare-title" = "Text for placeholder label visible when diff comparison between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
 "empty-edit-summary" = "Label when looking at a particular article revision. Indicates that the user did not add a summary.";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";
@@ -787,9 +790,9 @@
 "more-menu" = "Accessibility title for more button in toolbar.";
 "move-articles-to-reading-list" = "Title for the view in charge of moving articles to a reading list - $1 is replaced with the number of articles to move";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}";
-"nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
+"nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet.\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
-"nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
+"nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters.\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
@@ -1147,6 +1150,7 @@
 "saved-title" = "Title of the saved screen shown on the saved tab {{Identical|Saved}}";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles being unsaved.";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles to be unsaved.";
+"search-button-accessibility-hint" = "Accessibility hint for the search navigation bar button. Explains to the user what will happen upon button tap.";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-clear-title" = "Text of the button shown to clear recent search terms";
 "search-field-placeholder-text" = "Search field placeholder text";

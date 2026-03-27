@@ -635,8 +635,10 @@
 "more-menu" = "Энтда";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 статьяны}} окъуу тизмеге ташыгъыз";
 "navbar-title-mode-edit-wikitext-preview" = "Ал къарау";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миль";
 "new-password-instructions" = "Кёзюулю пароль бла кирдигиз. Кириуню тамамлар ючюн, былайда джангы пароль салыгъыз.";

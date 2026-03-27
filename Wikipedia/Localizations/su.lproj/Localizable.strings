@@ -184,8 +184,10 @@
 "main-menu-title" = "Lianna";
 "main-menu-zero-faq" = "NLD Wikipédia Zéro";
 "navbar-title-mode-edit-wikitext-preview" = "Pramidang";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-instructions" = "Anjeun asup log migunakeun sandi témporér. Pikeun nganggeuskeun asup log, anjeun kudu nyieun kecap sandi anyar di dieu.";

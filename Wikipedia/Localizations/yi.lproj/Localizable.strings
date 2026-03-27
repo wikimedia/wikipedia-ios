@@ -70,8 +70,10 @@
 "main-menu-zero-faq" = "וויקיפעדיע נול שאלות ותשובות";
 "more-languages-tooltip-title" = "צולייגן שפראַכן";
 "navbar-title-mode-edit-wikitext-preview" = "פֿאראויסשטעלונג";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 פיס";
 "nearby-distance-label-km" = "$1 ק״מ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 מ";
 "nearby-distance-label-miles" = "$1 מייל";
 "notifications-center-status-all" = "אַלע";

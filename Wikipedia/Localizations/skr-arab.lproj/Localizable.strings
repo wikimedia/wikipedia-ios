@@ -262,8 +262,10 @@
 "more-languages-tooltip-title" = "زباناں شامل کرو";
 "more-menu" = "ٻئے";
 "navbar-title-mode-edit-wikitext-preview" = "پیشگی ݙکھالا";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 فٹ";
 "nearby-distance-label-km" = "$1 کلو میٹر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 میٹر";
 "nearby-distance-label-miles" = "$1 میل";
 "new-password-title" = "پاس ورڈ درج کرو";

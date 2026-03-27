@@ -493,8 +493,10 @@
 "more-menu" = "Više";
 "move-articles-to-reading-list" = "Premesti {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na listu za čitanje";
 "navbar-title-mode-edit-wikitext-preview" = "Pregled";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 stopa";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milja";
 "new-password-instructions" = "Prijavili ste se sa privremenom lozinkom. Da biste završili prijavu, ovde postavite novu.";
