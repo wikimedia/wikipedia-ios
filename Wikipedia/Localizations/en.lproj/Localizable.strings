@@ -90,6 +90,9 @@
 "activity-tab-empty-subtitle" = "Start reading and editing to build your history";
 "activity-tab-empty-title" = "Nothing to show";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
+"activity-tab-history-callout-body" = "Browse or clear your reading history in the **Search tab**.";
+"activity-tab-history-callout-body-loggedout" = "Find and clear your reading history in the **Search tab**. No account needed.";
+"activity-tab-hitory-callout-close" = "Close history notice card";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "All time impact";
@@ -787,9 +790,9 @@
 "more-menu" = "More";
 "move-articles-to-reading-list" = "Move {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
-"nearby-distance-label-feet" = "$1 feet";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 foot|$1 feet}}";
 "nearby-distance-label-km" = "$1 km";
-"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 meter|$1 meters}}";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
@@ -1147,6 +1150,7 @@
 "saved-title" = "Saved";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
+"search-button-accessibility-hint" = "Navigates to the search view.";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
 "search-field-placeholder-text" = "Search Wikipedia";

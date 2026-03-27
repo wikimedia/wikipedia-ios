@@ -418,8 +418,10 @@
 "more-languages-tooltip-title" = "భాషలను చేర్చు";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 వ్యాసాన్ని|$1 వ్యాసాలను}} చదివే జాబితాకు చేర్చు";
 "navbar-title-mode-edit-wikitext-preview" = "మునుజూపు";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 అడుగులు";
 "nearby-distance-label-km" = "$1 కిమీ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 మీ";
 "nearby-distance-label-miles" = "$1 మైళ్ళు";
 "new-password-instructions" = "మీరు తాత్కాలిక సంకేతపదంతో లాగినయ్యారు. ఈ లాగిన్ను పూర్తి చేసేందుకు, కొత్త సంకేతపదాన్ని పెట్టుకోండి.";

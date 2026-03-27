@@ -295,8 +295,10 @@
 "more-languages-tooltip-description" = "بە زیاتر لە ٣٠٠ زمان بگەڕێ لە ویکیپیدیادا";
 "more-languages-tooltip-title" = "زمان زیاد بکە";
 "navbar-title-mode-edit-wikitext-preview" = "پێشبینین";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 پێ";
 "nearby-distance-label-km" = "$1 کیلۆمەتر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 مەتر";
 "nearby-distance-label-miles" = "$1 میل";
 "new-password-instructions" = "تۆ بە تێپەڕوشەیەکی کاتیی ھاتوویتە ژوورەوە. بۆ تەواوکردنی چوونە ژوورەوە تێپەڕوشەیەکی نوێ لێرە دابنێ.";

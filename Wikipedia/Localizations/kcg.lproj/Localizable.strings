@@ -375,8 +375,10 @@
 "more-languages-tooltip-title" = "Mbeang lilyem";
 "move-articles-to-reading-list" = "Shyei {{PLURAL:$1|a̱ti̱kut $1|a̱yaati̱kut $1}} nat mi̱ lis fang";
 "navbar-title-mode-edit-wikitext-preview" = "Nwuana̱son";
+// Fuzzy
 "nearby-distance-label-feet" = "a̱ti̱tak $1";
 "nearby-distance-label-km" = "km $1";
+// Fuzzy
 "nearby-distance-label-meters" = "m $1";
 "nearby-distance-label-miles" = "met $1";
 // Fuzzy

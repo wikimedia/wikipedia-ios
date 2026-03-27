@@ -360,6 +360,7 @@
 "move-articles-to-reading-list" = "Gingsirang {{PLURAL:$1|$1 suratan}} nuju lis wacénan";
 "navbar-title-mode-edit-wikitext-preview" = "Pracingak";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-title" = "Atur kruna sandi Ida";

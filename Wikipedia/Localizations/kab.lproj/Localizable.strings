@@ -203,8 +203,10 @@
 "main-menu-zero-faq" = "Isteqsiyen FAQ Wikipedia Zero";
 "more-languages-tooltip-title" = "Rnu tutlayin";
 "navbar-title-mode-edit-wikitext-preview" = "Taskany";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 n uḍaṛ";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 n imilen";
 "new-password-instructions" = "Teqqneḍ s wawal uffir askudan. Akken ad fakeḍ tuqqna, sekcem awal-nniḍen uffir dagi.";

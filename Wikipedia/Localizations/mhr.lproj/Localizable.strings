@@ -541,8 +541,10 @@
 "more-menu" = "Эше";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш кусараш";
 "navbar-title-mode-edit-wikitext-preview" = "Ончылгоч ончымаш";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут.";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-title" = "Шолыпмутым шынде";
