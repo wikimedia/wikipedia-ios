@@ -53,6 +53,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
         authInstrument.submitInteraction(action: "click", elementId: "cancel")
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         dismiss(animated: true, completion: nil)
         loginDismissedCompletion?()
     }
@@ -234,37 +235,42 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("One or more of the required parameters are nil")
             return
         }
-        
+
         dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution) { [weak self] (loginResult) in
-            
+
             guard let self else { return }
-            
+
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
-                WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 self.loginSuccessCompletion?()
                 self.setViewControllerUserInteraction(enabled: true)
                 self.authInstrument.submitInteraction(action: "success")
-                self.dismiss(animated: true)
 
                 if let start = self.startDate {
                     LoginFunnel.shared.logSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
                 } else {
                     assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
                 }
+
+                // Dismiss the "Logging in..." toast before dismissing the VC, then show
+                // the success toast after the modal is fully gone so it appears on the correct VC.
+                WMFToastManager.sharedInstance.dismissCurrentToast()
+                self.dismiss(animated: true) {
+                    WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                }
             case .failure(let error):
                 self.setViewControllerUserInteraction(enabled: true)
 
                 // Captcha's appear to be one-time, so always try to get a new one on failure.
                 self.getCaptcha()
-                
+
                 if let error = error as? WMFAccountLoginError {
-                    
+
                     defer {
                         self.authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.testKitchenValidationError])
                     }
-                    
+
                     switch error {
                     case .temporaryPasswordNeedsChange:
                         self.showChangeTempPasswordViewController()
@@ -277,7 +283,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         return
                     case .statusNotPass:
                         self.passwordField.text = nil
-                        self.passwordField.becomeFirstResponder()
                     case .wrongPassword:
                         self.passwordAlertLabel.text = error.localizedDescription
                         self.passwordAlertLabel.isHidden = false
