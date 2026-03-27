@@ -140,7 +140,7 @@ final public class WMFReadingListToastPresenter {
             presenter.view.addSubview(containerView)
         }
 
-        let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -additionalBottomSpacing)
+        let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -(additionalBottomSpacing + 24))
         let topConstraint = containerView.topAnchor.constraint(equalTo: bottomAnchor)
 
         NSLayoutConstraint.activate([
@@ -173,10 +173,13 @@ final public class WMFReadingListToastPresenter {
         let shadowContainer = UIView()
         shadowContainer.translatesAutoresizingMaskIntoConstraints = false
         shadowContainer.backgroundColor = .clear
-        shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
-        shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
-        shadowContainer.layer.shadowRadius = 16
-        shadowContainer.layer.shadowOpacity = 1
+        if #unavailable(iOS 26.0) {
+            // Glass effect handles its own depth on iOS 26+; add shadow on earlier versions
+            shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
+            shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
+            shadowContainer.layer.shadowRadius = 16
+            shadowContainer.layer.shadowOpacity = 1
+        }
 
         shadowContainer.addSubview(hostingController.view)
 

@@ -26,9 +26,9 @@ struct WMFToastView: View {
                 .glassEffect(
                     .regular
                         .tint(Color(uiColor: theme.paperBackground).opacity(0.85))
-                        .interactive()
+                        .interactive(),
+                    in: .rect(cornerRadius: 24, style: .circular)
                 )
-                .clipShape(Capsule())
                 .onTapGesture { config.tapAction?() }
 
         } else {
@@ -38,7 +38,6 @@ struct WMFToastView: View {
                 .padding(.horizontal, hPad)
                 .padding(.vertical, 6)
                 .onTapGesture { config.tapAction?() }
-
                 .background(Color(uiColor: theme.paperBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 24, style: .circular))
         }
@@ -49,10 +48,9 @@ struct WMFToastView: View {
         HStack(alignment: .center, spacing: spacing) {
 
             if let icon = config.icon {
-                Image(uiImage: icon.withConfiguration(UIImage.SymbolConfiguration(weight: .semibold)))
+                Image(uiImage: icon.withConfiguration(UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold)))
                     .renderingMode(.template)
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    .frame(width: iconSize, height: iconSize)
                     .accessibilityHidden(true)
             }
 
