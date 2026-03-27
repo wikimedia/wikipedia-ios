@@ -10,7 +10,7 @@ final class WMFToastManager: NSObject {
     // MARK: - Public API
 
     @objc public func showToast(_ message: String, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (() -> Void)? = nil) {
-        let config = WMFToastConfig(title: message, duration: sticky ? nil : 5, tapAction: tapCallBack)
+        let config = WMFToastConfig(title: message, duration: sticky ? 10 : 5, tapAction: tapCallBack)
         dismissCurrentToast {
             WMFToastPresenter.shared.show(config)
         }
@@ -31,7 +31,7 @@ final class WMFToastManager: NSObject {
     }
 
     @objc func showErrorAlert(_ error: Error, sticky: Bool, dismissPreviousToasts: Bool, tapCallBack: (() -> Void)? = nil) {
-        let config = WMFToastConfig(title: (error as NSError).alertMessage(), duration: sticky ? nil : 5, tapAction: tapCallBack)
+        let config = WMFToastConfig(title: (error as NSError).alertMessage(), duration: sticky ? 10 : 5, tapAction: tapCallBack)
         dismissCurrentToast {
             WMFToastPresenter.shared.show(config)
         }
