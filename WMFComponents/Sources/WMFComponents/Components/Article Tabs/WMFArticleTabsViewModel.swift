@@ -15,6 +15,7 @@ public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewTappedCloseAllTabsConfirmClose()
 }
 
+@MainActor
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab] = [] {
@@ -76,9 +77,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public func didTapCloseAllTabs() {
         Task {
             try? await dataController.deleteAllTabs()
-            Task { @MainActor in
-                await loadTabs()
-            }
+            await loadTabs()
         }
     }
     
@@ -93,7 +92,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         updateShouldShowSuggestions()
     }
     
-    @MainActor
     private func updateHasMultipleTabs() {
         var count = 0
         if articleTabs.isEmpty {
@@ -148,7 +146,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     
-    @MainActor
     private func loadTabs() async {
         do {
             let tabs = try await dataController.fetchAllArticleTabs()
@@ -178,7 +175,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     // MARK: - Public funcs
     
-    @MainActor
     func refreshCurrentTab() async {
         do {
             let tabUUID = try await dataController.currentTabIdentifier()
@@ -188,7 +184,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     
-    @MainActor
     func shouldLockAspectRatio() -> Bool {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return false
@@ -259,23 +254,18 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     func closeTab(tab: ArticleTab) {
-        
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
                 try await dataController.deleteArticleTab(identifier: tab.data.identifier)
-                
-                Task { @MainActor [weak self]  in
-                    guard let self else { return }
-                    loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
-                    articleTabs.removeAll { $0 == tab }
-                    updateHasMultipleTabs()
-                    if dataController.shouldShowMoreDynamicTabsV2 {
-                        shouldShowCloseButton = true
-                    }
-                    await refreshCurrentTab()
-                    updateNavigationBarTitleAction?(articleTabs.count)
+                loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
+                articleTabs.removeAll { $0 == tab }
+                updateHasMultipleTabs()
+                if dataController.shouldShowMoreDynamicTabsV2 {
+                    shouldShowCloseButton = true
                 }
-                
+                await refreshCurrentTab()
+                updateNavigationBarTitleAction?(articleTabs.count)
             } catch {
                 debugPrint("Error closing tab: \(error)")
             }
@@ -288,8 +278,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     // MARK: - Populate article summary
 
-    @MainActor private var incomingTabIDs = Set<String>()
-    @MainActor private var prefetchedTabIDs = Set<String>()
+    private var incomingTabIDs = Set<String>()
+    private var prefetchedTabIDs = Set<String>()
 
     private var prefetchInitialTask: Task<Void, Never>?
     private var prefetchRemainderTask: Task<Void, Never>?
@@ -347,15 +337,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             let isMain: Bool
         }
 
-        let inputs: [Input] = await MainActor.run { [weak self] in
-            guard let self else { return [] }
-            return tabs.compactMap { tab -> Input? in
-                // Check prefetched items
-                if self.prefetchedTabIDs.contains(tab.id) || self.incomingTabIDs.contains(tab.id) { return nil }
-                guard let last = tab.data.articles.last else { return nil }
-                self.incomingTabIDs.insert(tab.id)
-                return Input(id: tab.id, project: last.project, title: last.title, url: last.articleURL, isMain: last.isMain)
-            }
+        let inputs: [Input] = tabs.compactMap { tab -> Input? in
+            if prefetchedTabIDs.contains(tab.id) || incomingTabIDs.contains(tab.id) { return nil }
+            guard let last = tab.data.articles.last else { return nil }
+            incomingTabIDs.insert(tab.id)
+            return Input(id: tab.id, project: last.project, title: last.title, url: last.articleURL, isMain: last.isMain)
         }
 
         guard !inputs.isEmpty else { return }
@@ -385,14 +371,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             }
 
             for await (id, info) in group {
-                await MainActor.run { [weak self] in
-                    guard let self else { return }
-                    self.incomingTabIDs.remove(id)
-                    self.prefetchedTabIDs.insert(id)
-                    if let idx = self.articleTabs.firstIndex(where: { $0.id == id }),
-                       self.articleTabs[idx].info == nil {
-                        self.articleTabs[idx].info = info
-                    }
+                incomingTabIDs.remove(id)
+                prefetchedTabIDs.insert(id)
+                if let idx = articleTabs.firstIndex(where: { $0.id == id }),
+                   articleTabs[idx].info == nil {
+                    articleTabs[idx].info = info
                 }
             }
         }
@@ -402,7 +385,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     ///
     /// Fully @MainActor: the network work is awaited but we never capture `tab`
     /// (a non-Sendable reference type) across an actor boundary.
-    @MainActor
     func ensureInfo(for tab: ArticleTab) async {
         let tabID = tab.id
         guard tab.info == nil, let last = tab.data.articles.last else { return }
