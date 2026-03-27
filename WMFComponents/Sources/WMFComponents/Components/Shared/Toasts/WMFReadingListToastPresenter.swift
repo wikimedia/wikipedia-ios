@@ -173,9 +173,8 @@ final public class WMFReadingListToastPresenter {
         let shadowContainer = UIView()
         shadowContainer.translatesAutoresizingMaskIntoConstraints = false
         shadowContainer.backgroundColor = .clear
-        if #available(iOS 26.0, *) {
-            // Glass effect handles its own depth on iOS 26+
-        } else {
+        if #unavailable(iOS 26.0) {
+            // Glass effect handles its own depth on iOS 26+; add shadow on earlier versions
             shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
             shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
             shadowContainer.layer.shadowRadius = 16
