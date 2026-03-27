@@ -53,6 +53,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
         authInstrument.submitInteraction(action: "click", elementId: "cancel")
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         dismiss(animated: true, completion: nil)
         loginDismissedCompletion?()
     }
@@ -282,7 +283,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         return
                     case .statusNotPass:
                         self.passwordField.text = nil
-                        self.passwordField.becomeFirstResponder()
                     case .wrongPassword:
                         self.passwordAlertLabel.text = error.localizedDescription
                         self.passwordAlertLabel.isHidden = false
