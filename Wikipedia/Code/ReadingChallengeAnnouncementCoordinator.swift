@@ -124,14 +124,10 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     }
 
     var learnMoreURL: URL? {
-        var languageCodeSuffix = ""
-        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
-            languageCodeSuffix = primaryAppLanguageCode
+        guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
+            return nil
         }
-
-        return URL(
-            string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/25th_Birthday_Reading_Challenge?uselang=\(languageCodeSuffix)"
-        )
+        return WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "Team", "25th Birthday Reading Challenge"], section: nil, language: appLanguage)
     }
 }
 

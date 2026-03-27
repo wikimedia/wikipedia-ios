@@ -234,8 +234,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeRandom;
         } else if ([page isEqualToString:@"Activity"]) {
             return WMFUserActivityTypeActivity;
-        } else if ([page isEqualToString:@"NotificationSettings"]) {
-            return WMFUserActivityTypeAppearanceSettings;
         } else {
             return WMFUserActivityTypeSettings;
         }

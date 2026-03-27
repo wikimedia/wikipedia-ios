@@ -305,11 +305,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 presentOnboarding()
                 ActivityTabFunnel.shared.logOnboardingDidAppear()
                 await dataController.setHasSeenActivityTab(true)
+            } else if await Date() < dataController.surveyEndDate ?? Date() {
+                presentSurveyIfNeeded()
             } else {
                 let didPresentChallenge = await presentReadingChallengeAnnouncementIfNeeded()
                 if !didPresentChallenge {
                     presentReadingChallengeWidgetAnnouncementIfNeeded()
-                    presentSurveyIfNeeded()
                 }
             }
         }
@@ -333,13 +334,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         presentReadingChallengeAnnouncement(dataStore: dataStore)
         return true
     }
-
-    @objc func presentReadingChallengeAnnouncementFromWidget() {
-        guard presentedViewController == nil else { return }
-        guard let dataStore else { return }
-        presentReadingChallengeAnnouncement(dataStore: dataStore)
-    }
-
+    
     private func presentReadingChallengeAnnouncement(dataStore: MWKDataStore) {
         guard let nav = navigationController else { return }
         readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(

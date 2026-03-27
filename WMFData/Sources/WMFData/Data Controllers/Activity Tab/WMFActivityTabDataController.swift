@@ -212,7 +212,7 @@ public actor WMFActivityTabDataController {
         return false
     }
     
-    private var surveyEndDate: Date? {
+    public var surveyEndDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2026
         dateComponents.month = 4

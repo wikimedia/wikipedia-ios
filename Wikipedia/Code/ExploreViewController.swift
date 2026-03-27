@@ -19,6 +19,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    public var readingChallengeWidgetCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -1024,7 +1025,24 @@ extension ExploreViewController {
         guard let navigationController else { return }
         let coordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
         self.readingChallengeCoordinator = coordinator
+        coordinator.onEnroll = { [weak self] in
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+        }
+        coordinator.onDismiss = { [weak self] in
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+            self?.readingChallengeCoordinator = nil
+        }
         coordinator.start()
+    }
+
+    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
+        guard presentedViewController == nil else { return }
+        Task { @MainActor in
+            guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            readingChallengeWidgetCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
+            readingChallengeWidgetCoordinator?.start()
+            await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement()
+        }
     }
 
     private func needsYearInReviewAnnouncement() -> Bool {

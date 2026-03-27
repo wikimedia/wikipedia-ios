@@ -159,11 +159,32 @@ extension ArticleViewController {
         return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
     }
 
-    func presentReadingChallengeAnnouncement() {
-        guard let navigationController else { return }
-        let coordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
-        readingChallengeCoordinator = coordinator
-        coordinator.start()
+    public func presentReadingChallengeAnnouncement() {
+        guard let nav = navigationController else { return }
+        readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+            navigationController: nav,
+            dataStore: dataStore,
+            theme: theme
+        )
+        readingChallengeCoordinator?.onEnroll = { [weak self] in
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+        }
+        readingChallengeCoordinator?.onDismiss = { [weak self] in
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+            self?.readingChallengeCoordinator = nil
+        }
+        readingChallengeCoordinator?.start()
+    }
+
+    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
+        // Add a property for this coordinator on ArticleViewController, mirroring Activity tab
+        guard presentedViewController == nil else { return }
+        Task { @MainActor in
+            guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            readingChallengeWidgetCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
+            readingChallengeWidgetCoordinator?.start()
+            await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement()
+        }
     }
 
     func needsYearInReviewAnnouncement() -> Bool {

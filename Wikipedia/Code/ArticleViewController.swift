@@ -51,6 +51,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     private let cacheController: ArticleCacheController
     public var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    public var readingChallengeWidgetCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
     internal var willDisplayCampaignModal: Bool? {
         didSet {
@@ -514,13 +515,11 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             if await needsReadingChallengeAnnouncement() {
                 presentReadingChallengeAnnouncement()
 
-            // Year in Review modal presentations
             } else if needsYearInReviewAnnouncement() {
                 willDisplayYearInReviewModal = true
                 updateProfileButton()
                 presentYearInReviewAnnouncement()
 
-            // Campaign modal presentations
             } else {
                 willDisplayYearInReviewModal = false
                 showFundraisingCampaignAnnouncementIfNeeded()
