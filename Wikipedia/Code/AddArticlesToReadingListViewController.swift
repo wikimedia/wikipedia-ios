@@ -3,7 +3,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import SwiftUI
 
-@MainActor protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
+protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
@@ -203,8 +203,9 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
         }
         delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)
         if needsAutoDismissUponAdd {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                self.dismiss(animated: true)
+            Task { [weak self] in
+                try? await Task.sleep(nanoseconds: 200_000_000)
+                self?.dismiss(animated: true)
             }
         }
         eventLogAction?()

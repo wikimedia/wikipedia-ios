@@ -89,8 +89,9 @@ import WMFComponents
         getToastPresenter().show(config: config, in: presenter)
     }
 
-    private func showConfirmationToastInPlace(readingList: ReadingList, image: UIImage?) {
-        guard let name = readingList.name else { return }
+    private func showConfirmationToast(objectID: NSManagedObjectID, image: UIImage?) {
+        guard let readingList = try? dataStore.viewContext.existingObject(with: objectID) as? ReadingList,
+              let name = readingList.name else { return }
 
         let title = String.localizedStringWithFormat(
             WMFLocalizedString(
@@ -124,12 +125,8 @@ import WMFComponents
             }
         )
 
-        let toastPresenter = getToastPresenter()
-        if toastPresenter.isToastHidden, let presenter {
-            toastPresenter.show(config: config, in: presenter)
-        } else {
-            toastPresenter.updateCurrentToast(with: config)
-        }
+        guard let presenter else { return }
+        getToastPresenter().show(config: config, in: presenter)
     }
 
     private func toastButtonTitle(for article: WMFArticle) -> String {
@@ -168,12 +165,14 @@ import WMFComponents
             theme: theme
         )
         addVC.delegate = self
+        addVC.needsAutoDismissUponAdd = false
 
         let nav = WMFComponentNavigationController(
             rootViewController: addVC,
             modalPresentationStyle: .overFullScreen
         )
 
+        toastPresenter?.dismissToast()
         presenter.present(nav, animated: true)
     }
 
@@ -219,28 +218,36 @@ import WMFComponents
 
 // MARK: - AddArticlesToReadingListDelegate
 
-@MainActor extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
-    func addArticlesToReadingList(
+extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
+    nonisolated func addArticlesToReadingList(
         _ addArticlesToReadingList: AddArticlesToReadingListViewController,
         didAddArticles articles: [WMFArticle],
         to readingList: ReadingList
     ) {
-        showConfirmationToastInPlace(readingList: readingList, image: nil)
-
-        // try loading thumbnail, update if successful
+        // Capture only Sendable values before crossing into @MainActor.
         let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
-        guard let imageURL else { return }
+        let readingListObjectID = readingList.objectID
 
-        Task { [weak self] in
+        Task { @MainActor [weak self] in
             guard let self else { return }
-            let image = await self.loadImageOffMain(from: imageURL)
-            await MainActor.run {
-                self.showConfirmationToastInPlace(readingList: readingList, image: image)
+
+            // Dismiss the AddArticlesToReadingList sheet first, then show the
+            // confirmation toast in the completion so it appears on the correct presenter.
+            self.presenter?.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                self.showConfirmationToast(objectID: readingListObjectID, image: nil)
+
+                guard let imageURL else { return }
+                Task { [weak self] in
+                    guard let self else { return }
+                    let image = await self.loadImageOffMain(from: imageURL)
+                    self.showConfirmationToast(objectID: readingListObjectID, image: image)
+                }
             }
         }
     }
 
-    func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+    nonisolated func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
         // No-op: confirmation state already applied in-place.
     }
 }
