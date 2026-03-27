@@ -165,9 +165,17 @@ public final class WMFToastPresenter {
             constant: -16
         )
         let toolbarOffset = containerView.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
+        // When a tab bar or toolbar is present, offset above it with extra spacing.
+        // When neither is present, pin closer to the bottom of the safe area.
+        let bottomConstant: CGFloat
+        if toolbarOffset > 0 {
+            bottomConstant = -(24 + toolbarOffset + 8)
+        } else {
+            bottomConstant = 0
+        }
         let bottom = shadowContainer.bottomAnchor.constraint(
             equalTo: containerView.safeAreaLayoutGuide.bottomAnchor,
-            constant: -(24 + toolbarOffset + (toolbarOffset > 0 ? 8 : 0))
+            constant: bottomConstant
         )
 
         leading.priority = .required
