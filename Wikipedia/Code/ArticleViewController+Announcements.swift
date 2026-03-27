@@ -162,6 +162,7 @@ extension ArticleViewController {
     func presentReadingChallengeAnnouncement() {
         guard let navigationController else { return }
         let coordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        readingChallengeCoordinator = coordinator
         coordinator.start()
     }
 

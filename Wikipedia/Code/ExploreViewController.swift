@@ -1007,6 +1007,15 @@ extension ExploreViewController {
     }
 
     func needsReadingChallengeAnnouncement() async -> Bool {
+        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
+            return false
+        }
+        guard presentedViewController == nil else {
+            return false
+        }
+        guard self.isViewLoaded && self.view.window != nil else {
+            return false
+        }
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
     }

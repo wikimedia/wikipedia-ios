@@ -289,6 +289,7 @@ public actor WMFActivityTabDataController {
 
     public func shouldShowReadingChallengeWidgetAnnouncement() -> Bool {
         guard !hasSeenWidgetReadingChallengeAnnouncement2026 else { return false }
+        guard hasEnrolledInReadingChallenge2026 else { return false }
         let now = Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
     }

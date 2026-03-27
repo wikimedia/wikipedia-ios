@@ -50,6 +50,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     internal let dataStore: MWKDataStore
 
     private let cacheController: ArticleCacheController
+    public var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
 
     internal var willDisplayCampaignModal: Bool? {
         didSet {
