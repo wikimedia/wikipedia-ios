@@ -584,6 +584,7 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
     private func displayThankYouToastAfterDelay(completion: (() -> Void)? = nil) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             WMFToastManager.sharedInstance.showRichToast(CommonStrings.donateThankTitle, subtitle: CommonStrings.donateThankSubtitle, image: WMFSFSymbolIcon.for(symbol: .heartFilled), duration: nil, dismissPreviousToasts: true)
+            completion?()
         }
     }
 }
