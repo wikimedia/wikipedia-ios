@@ -88,6 +88,7 @@ import WMFComponents
                 Task { @MainActor in
                     guard let self, let articleURL else { return }
                     guard let article = self.dataStore.fetchArticle(with: articleURL) else { return }
+                    self.toastPresenter?.dismissToast()
                     self.performDefaultAction(article: article)
                 }
             }
@@ -99,7 +100,7 @@ import WMFComponents
         }
     }
 
-    private func showConfirmationToastInPlace(readingList: ReadingList, image: UIImage?) {
+    private func showConfirmationToast(readingList: ReadingList, image: UIImage?) {
         guard let name = readingList.name else { return }
 
         let title = String.localizedStringWithFormat(
@@ -136,7 +137,10 @@ import WMFComponents
 
         Task { @MainActor [weak self] in
             guard let self else { return }
-            self.getToastPresenter().updateCurrentToast(with: config)
+            if let presenter = self.presenter {
+                self.toastPresenter?.show(config: config, in: presenter)
+            }
+            
         }
     }
 
@@ -176,6 +180,7 @@ import WMFComponents
             theme: theme
         )
         addVC.delegate = self
+        addVC.needsAutoDismissUponAdd = false
 
         let nav = WMFComponentNavigationController(
             rootViewController: addVC,
@@ -236,17 +241,20 @@ extension WMFReadingListToastManager: AddArticlesToReadingListDelegate {
         didAddArticles articles: [WMFArticle],
         to readingList: ReadingList
     ) {
-        showConfirmationToastInPlace(readingList: readingList, image: nil)
-
-        // try loading thumbnail, update if successful
-        let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
-        guard let imageURL else { return }
-
-        Task { [weak self] in
+        presenter?.dismiss(animated: true) { [weak self] in
             guard let self else { return }
-            let image = await self.loadImageOffMain(from: imageURL)
-            await MainActor.run {
-                self.showConfirmationToastInPlace(readingList: readingList, image: image)
+            self.showConfirmationToast(readingList: readingList, image: nil)
+
+            // try loading thumbnail, update if successful
+            let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
+            guard let imageURL else { return }
+
+            Task { [weak self] in
+                guard let self else { return }
+                let image = await self.loadImageOffMain(from: imageURL)
+                await MainActor.run {
+                    self.showConfirmationToast(readingList: readingList, image: image)
+                }
             }
         }
     }

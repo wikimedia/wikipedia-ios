@@ -60,7 +60,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) SettingsTabViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
-@property (nonatomic, strong, readonly) SearchTabViewController *searchTabViewController;
+@property (nonatomic, strong, readonly) SearchViewController *searchTabViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
@@ -107,8 +107,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
-
-@property (nonatomic, strong) WMFAppViewControllerTipWrapper *tipWrapper;
 
 @end
 
@@ -329,10 +327,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
-
-    if (self.searchTabViewController.tabBarItem != nil) {
-        [self.tipWrapper listenForTooltipsWithAppViewController:self tabBarItem:self.searchTabViewController.tabBarItem];
-    }
 }
 
 - (void)configureTabController {
@@ -1109,15 +1103,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.periodicWorkerController stop];
     [self.savedArticlesFetcher stop];
 
-    // Show  all navigation bars so that users will always see search when they re-open the app
-    NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
-    for (UINavigationController *navC in allNavControllers) {
-        UIViewController *vc = [navC visibleViewController];
-        if ([vc respondsToSelector:@selector(ensureWikipediaSearchIsShowing)]) {
-            [(id)vc ensureWikipediaSearchIsShowing];
-        }
-    }
-
     [self.dataStore.feedContentController stopContentSources];
     [self.dataStore clearMemoryCache];
 
@@ -1463,9 +1448,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     });
 }
 
-- (SearchTabViewController *)searchTabViewController {
+- (SearchViewController *)searchTabViewController {
     if (!_searchTabViewController) {
-        _searchTabViewController = [[SearchTabViewController alloc] init];
+        _searchTabViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab];
         [_searchTabViewController applyTheme:self.theme];
         _searchTabViewController.dataStore = self.dataStore;
         _searchTabViewController.tabBarItem =
@@ -1683,7 +1668,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [exploreViewController scrollToTop];
             } break;
             case WMFAppTabTypeSearch: {
-                SearchTabViewController *searchTabViewController = (SearchTabViewController *)[self searchTabViewController];
+                SearchViewController *searchTabViewController = (SearchViewController *)[self searchTabViewController];
                 [searchTabViewController makeSearchBarBecomeFirstResponder];
             } break;
         }
@@ -1891,6 +1876,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self updateAppThemeIfNecessary];
 }
 
+- (UIUserInterfaceStyle)overrideUserInterfaceStyle {
+    NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
+    if ([WMFTheme isDefaultThemeName:themeName]) {
+        return UIUserInterfaceStyleUnspecified;
+    } else if ([WMFTheme isDarkThemeName:themeName]) {
+        return UIUserInterfaceStyleDark;
+    } else {
+        return UIUserInterfaceStyleLight;
+    }
+}
+
 - (void)updateUserInterfaceStyleOfNavigationControllersForCurrentTheme {
 
     for (UIViewController *viewController in self.viewControllers) {
@@ -2002,7 +1998,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    SearchMinimalViewController *searchVC = [[SearchMinimalViewController alloc] initWithDataStore:self.dataStore];
+    SearchViewController *searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown];
+    searchVC.dataStore = self.dataStore;
     [searchVC applyTheme:self.theme];
 
     [nc pushViewController:searchVC animated:animated];
@@ -2100,7 +2097,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [[WMFNavigationEventsFunnel shared] logTappedSaved];
             } else if ([rootViewController isKindOfClass:[WMFActivityTabViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedActivityTab];
-            } else if ([rootViewController isKindOfClass:[SearchTabViewController class]]) {
+            } else if ([rootViewController isKindOfClass:[SearchViewController class]]) {
                 [[WMFNavigationEventsFunnel shared] logTappedSearch];
             }
         }
@@ -2202,7 +2199,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                     style:UIAlertActionStyleCancel
                                   handler:^(UIAlertAction *action) {
                                       [authenticationManager userDidAcknowledgeUnintentionalLogout];
-                                      [weakSelf wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
+                                    [weakSelf wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeededWithTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
                                   }];
 }
 
@@ -2211,7 +2208,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [loginVC applyTheme:self.theme];
     __weak typeof(self) weakSelf = self;
     loginVC.loginDismissedHandler = ^{
-        [weakSelf wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
+        [weakSelf wmf_objcShowKeepSavedArticlesOnDevicePanelIfNeededWithTriggeredBy:KeepSavedArticlesTriggerLogout theme:weakSelf.theme completion:nil];
     };
     WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:loginVC modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
     [self presentViewController:navVC animated:YES completion:nil];

@@ -427,8 +427,10 @@
 "more-languages-tooltip-title" = "စုတ် အရေဝ်ဘာသာဂမၠိုင်";
 "move-articles-to-reading-list" = "စုတ် {{PLURAL:$1|$1 article|$1 articles}} ပ္ဍဲ စရင် လိက်ဗွဟ်";
 "navbar-title-mode-edit-wikitext-preview" = "နမူနာ";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 feet";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "မၞး လုပ်လံက်အေန်လဝ် နကဵု မလိက်ပၞုက်ယာယဳ၊၊ တၞဟ်န မဂွံပတုဲ လုပ်လံက်အေန်၊စုတ် မလိက်ပၞုက် တၟိ ပ္ဍဲဒၞာဲဏအ်၊၊";

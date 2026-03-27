@@ -260,8 +260,10 @@
 "more-languages-tooltip-title" = "لسانیات کا اضافہ کریں";
 "move-articles-to-reading-list" = "مطالعہ کی فہرست میں {{PLURAL:$1|$1 مضمون|$1 مضامین}} کو منتقل کریں";
 "navbar-title-mode-edit-wikitext-preview" = "نمائش";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 فٹ";
 "nearby-distance-label-km" = "$1 کلو میٹر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 میٹر";
 "nearby-distance-label-miles" = "$1 میل";
 "new-password-instructions" = "آپ ایک عارضی پاسورڈ سے لاگ ان ہیں۔ لاگ ان کو مکمل کرنے کے لیے براہ مہربانی یہاں ایک نیا پاسورڈ سیٹ کریں۔";

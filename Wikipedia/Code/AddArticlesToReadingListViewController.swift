@@ -37,6 +37,8 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
     
     @objc var eventLogAction: (() -> Void)?
     
+    var needsAutoDismissUponAdd: Bool = true
+    
     var sizeClassPadding: CGFloat {
         traitCollection.horizontalSizeClass == .regular ? CGFloat(64) : CGFloat(8)
     }
@@ -200,8 +202,10 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
             }
         }
         delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-            self.dismiss(animated: true)
+        if needsAutoDismissUponAdd {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                self.dismiss(animated: true)
+            }
         }
         eventLogAction?()
     }
