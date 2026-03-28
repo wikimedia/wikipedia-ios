@@ -206,15 +206,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         
-        if #available(iOS 26, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                hidesBottomBarWhenPushed = false
-            } else {
-                hidesBottomBarWhenPushed = true
-            }
-        } else {
-            hidesBottomBarWhenPushed = true
-        }
+        configureHidesBottomBarWhenPushed()
     }
 
     deinit {

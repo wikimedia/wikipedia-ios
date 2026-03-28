@@ -21,7 +21,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, WMFNavigationBa
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         title = CommonStrings.onThisDayTitle
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {

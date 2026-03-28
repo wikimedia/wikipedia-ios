@@ -14,7 +14,7 @@ public final class WMFDonateViewController: WMFCanvasViewController, WMFNavigati
         self.viewModel = viewModel
         self.hostingViewController = WMFDonateHostingViewController(viewModel: viewModel)
         super.init()
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
     
     required init?(coder: NSCoder) {

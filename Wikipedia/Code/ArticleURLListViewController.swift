@@ -14,7 +14,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigati
         self.contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         self.theme = theme
         self.dataStore = dataStore
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
     
     deinit {
