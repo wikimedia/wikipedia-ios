@@ -513,7 +513,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     private func presentModalsIfNeeded() {
         Task { @MainActor in
             if await needsReadingChallengeAnnouncement() {
-                presentReadingChallengeAnnouncement()
+                presentReadingChallengeAnnouncement(dataStore: dataStore)
 
             } else if needsYearInReviewAnnouncement() {
                 willDisplayYearInReviewModal = true

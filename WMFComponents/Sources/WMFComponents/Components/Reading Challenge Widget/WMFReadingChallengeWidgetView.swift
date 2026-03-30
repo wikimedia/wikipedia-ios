@@ -292,14 +292,13 @@ public struct WMFReadingChallengeWidgetView: View {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
 
                     if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                         Image(uiImage: uiImage)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 110)
-                            .padding(.trailing, 8)
+                            .frame(maxWidth: 80, alignment: .bottomLeading)
+                            .padding([.trailing, .top], 8)
                     }
                 }
 
@@ -319,9 +318,9 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
             wIconOverlay
         }
-        .padding(16)
     }
 
     // MARK: - Medium 2 Button View

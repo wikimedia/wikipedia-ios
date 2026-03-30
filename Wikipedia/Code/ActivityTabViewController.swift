@@ -305,7 +305,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 presentOnboarding()
                 ActivityTabFunnel.shared.logOnboardingDidAppear()
                 await dataController.setHasSeenActivityTab(true)
-            } else if await Date() < dataController.surveyEndDate ?? Date() {
+            } else if await dataController.shouldShowSurvey() {
                 presentSurveyIfNeeded()
             } else {
                 let didPresentChallenge = await presentReadingChallengeAnnouncementIfNeeded()

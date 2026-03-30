@@ -159,7 +159,7 @@ extension ArticleViewController {
         return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
     }
 
-    public func presentReadingChallengeAnnouncement() {
+    public func presentReadingChallengeAnnouncement(dataStore: MWKDataStore) {
         guard let nav = navigationController else { return }
         readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
             navigationController: nav,
@@ -170,7 +170,6 @@ extension ArticleViewController {
             self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
         }
         readingChallengeCoordinator?.onDismiss = { [weak self] in
-            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
             self?.readingChallengeCoordinator = nil
         }
         readingChallengeCoordinator?.start()

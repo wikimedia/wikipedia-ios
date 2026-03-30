@@ -988,7 +988,7 @@ extension ExploreViewController {
     fileprivate func presentModalsIfNeeded() {
         Task { @MainActor in
             if await needsReadingChallengeAnnouncement() {
-                presentReadingChallengeAnnouncement()
+                presentReadingChallengeAnnouncement(dataStore: dataStore)
                 return
             }
 
@@ -1021,18 +1021,20 @@ extension ExploreViewController {
         return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
     }
 
-    private func presentReadingChallengeAnnouncement() {
-        guard let navigationController else { return }
-        let coordinator = ReadingChallengeAnnouncementCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
-        self.readingChallengeCoordinator = coordinator
-        coordinator.onEnroll = { [weak self] in
+    public func presentReadingChallengeAnnouncement(dataStore: MWKDataStore) {
+        guard let nav = navigationController else { return }
+        readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+            navigationController: nav,
+            dataStore: dataStore,
+            theme: theme
+        )
+        readingChallengeCoordinator?.onEnroll = { [weak self] in
             self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
         }
-        coordinator.onDismiss = { [weak self] in
-            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+        readingChallengeCoordinator?.onDismiss = { [weak self] in
             self?.readingChallengeCoordinator = nil
         }
-        coordinator.start()
+        readingChallengeCoordinator?.start()
     }
 
     private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
