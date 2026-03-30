@@ -95,13 +95,16 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         onboardingController.delegate = self
         onboardingController.closeButtonAction = { [weak self] in
-            self?.markSeen()
             self?.navigationController.presentedViewController?.dismiss(animated: true) {
                 self?.onDismiss?()
             }
         }
 
         let navController = WMFComponentNavigationController(rootViewController: onboardingController, modalPresentationStyle: .pageSheet)
+
+        // Mark seen immediately on presentation so it won't show again
+        // even if user backgrounds the app or swipe-dismisses
+        markSeen()
 
         navigationController.present(navController, animated: true) {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)

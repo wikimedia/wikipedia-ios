@@ -351,6 +351,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         readingChallengeCoordinator?.start()
     }
 
+    @objc func presentReadingChallengeAnnouncementFromWidget() {
+        guard let dataStore else { return }
+        // Don't show if already enrolled
+        guard !WMFActivityTabDataController.shared.hasEnrolledInReadingChallenge2026 else { return }
+        // Reset hasSeen so widget-initiated join always shows the announcement
+        Task { @MainActor in
+            await WMFActivityTabDataController.shared.resetHasSeenFullPageAnnouncementForWidgetFlow()
+            self.presentReadingChallengeAnnouncement(dataStore: dataStore)
+        }
+    }
+
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
     private var readingChallengeWidgetAnnouncementCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
@@ -358,9 +369,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         guard presentedViewController == nil else { return }
         Task { @MainActor in
             guard await dataController.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            // Mark seen immediately on presentation
+            await dataController.setHasSeenWidgetReadingChallengeAnnouncement()
             readingChallengeWidgetAnnouncementCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
             readingChallengeWidgetAnnouncementCoordinator?.start()
-            await dataController.setHasSeenWidgetReadingChallengeAnnouncement()
         }
     }
 

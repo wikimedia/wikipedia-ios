@@ -1041,9 +1041,9 @@ extension ExploreViewController {
         guard presentedViewController == nil else { return }
         Task { @MainActor in
             guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement()
             readingChallengeWidgetCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
             readingChallengeWidgetCoordinator?.start()
-            await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement()
         }
     }
 
