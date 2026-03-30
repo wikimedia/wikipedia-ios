@@ -14,7 +14,13 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
         presenting.announceFeature(
             viewModel: makeViewModel(),
             sourceView: presenting.view,
-            sourceRect: CGRect(origin: presenting.view.center, size: .zero),
+            sourceRect: CGRect(
+                origin: CGPoint(
+                    x: presenting.view.bounds.midX,
+                    y: presenting.view.bounds.midY
+                ),
+                size: .zero
+            ),
             barButtonItem: nil
         )
     }
