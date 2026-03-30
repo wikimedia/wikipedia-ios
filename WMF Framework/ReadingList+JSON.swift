@@ -12,7 +12,11 @@ extension ReadingList {
             let newName = String.localizedStringWithFormat("%1$@%2$@", remoteList.name, userCreatedAnnotation)
             if newName != self.name {
                 let userInfo = [ReadingList.conflictingReadingListNameUpdatedOldNameKey: remoteList.name, ReadingList.conflictingReadingListNameUpdatedNewNameKey: newName]
-                NotificationCenter.default.post(name: ReadingList.conflictingReadingListNameUpdatedNotification, object: nil, userInfo: userInfo)
+                let notificationName = ReadingList.conflictingReadingListNameUpdatedNotification
+                let notificationUserInfo = userInfo 
+                Task { @MainActor in
+                    NotificationCenter.default.post(name: notificationName, object: nil, userInfo: notificationUserInfo)
+                }
             }
             self.name = newName
         } else {

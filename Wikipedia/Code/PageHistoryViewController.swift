@@ -60,7 +60,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
         self.articleSummaryController = articleSummaryController
         self.authenticationManager = authenticationManager
         super.init(nibName: nil, bundle: nil)
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -84,7 +84,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         viewModel.delegate = self
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
 
     required init?(coder aDecoder: NSCoder) {
