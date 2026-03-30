@@ -197,6 +197,27 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         embedInContainer(recentSearchesViewController, animated: animated)
     }
 
+    // MARK: - Language bar scroll edge fade
+
+    private var contentScrollViews: [UIScrollView] {
+        var views: [UIScrollView] = [resultsViewController.collectionView]
+        // The recent searches view is a SwiftUI hosting controller; fish out its inner scroll view.
+        if let scrollView = recentSearchesViewController.view.firstDescendant(ofType: UIScrollView.self) {
+            views.append(scrollView)
+        }
+        return views
+    }
+
+    /// On iOS 26+ this uses the system `UIScrollEdgeEffect` which integrates natively
+    /// with Liquid Glass. On older OS versions it is a no-op.
+    private func applyScrollEdgeEffect(isLanguageBarVisible: Bool, to scrollViews: [UIScrollView]) {
+        guard #available(iOS 26, *) else { return }
+        let style: UIScrollEdgeEffect.Style = isLanguageBarVisible ? .hard : .automatic
+        for scrollView in scrollViews {
+            scrollView.topEdgeEffect.style = style
+        }
+    }
+
     // MARK: - Language bar
 
     private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
@@ -228,6 +249,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             vc.didMove(toParent: self)
             vc.moveScrollViewToStart()
             vc.view.isHidden = false
+            applyScrollEdgeEffect(isLanguageBarVisible: true, to: contentScrollViews)
 
         } else if !shouldShow, let vc = searchLanguageBarViewController {
             vc.willMove(toParent: nil)
@@ -235,6 +257,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             vc.removeFromParent()
             self.searchLanguageBarViewController = nil
             self.searchLanguageBarTopConstraint = nil
+            applyScrollEdgeEffect(isLanguageBarVisible: false, to: contentScrollViews)
         }
 
         view.setNeedsLayout()
