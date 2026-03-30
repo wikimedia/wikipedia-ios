@@ -158,7 +158,7 @@ public final class WMFWatchlistViewController: WMFCanvasViewController, WMFNavig
 
         self.hostingViewController.emptyViewDelegate = self
         self.hostingViewController.loggingDelegate = loggingDelegate
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
 
     required init?(coder: NSCoder) {
