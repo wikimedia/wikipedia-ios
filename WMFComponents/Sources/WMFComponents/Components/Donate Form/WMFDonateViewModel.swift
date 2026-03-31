@@ -175,8 +175,10 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
     @Published var buttonViewModels: [AmountButtonViewModel]
     @Published var textfieldViewModel: AmountTextFieldViewModel
-    @Published var transactionFeeOptInViewModel: OptInViewModel
-    private var isTransactionFeeSelected: Bool = false
+    
+    @Published var transactionFeeOptInViewModel: OptInViewModel // represents view state
+    private var isTransactionFeeSelected: Bool = false // represents most-up-to-date state for finalAmount + button selected state calculations
+    
     @Published var monthlyRecurringViewModel: OptInViewModel
     @Published var emailOptInViewModel: OptInViewModel?
     @Published var errorViewModel: ErrorViewModel?
@@ -353,8 +355,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         }
 
         isTransactionFeeSelected = false
-        self.transactionFeeOptInViewModel.isSelected = false
-        
+        transactionFeeOptInViewModel.isSelected = false
 
         // Update finalAmount for submission
         self.finalAmount = buttonViewModel.amount
@@ -417,7 +418,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         self.transactionFeeAmount = transactionFee
 
-        // Assign transactionFeeOptInViewModel again so that SwiftUI form updates
+        // Update so that transaction fee text represents the new calculated fee amount
         let text = String.localizedStringWithFormat(localizedStrings.transactionFeeOptInTextFormat, transactionFeeString)
         transactionFeeOptInViewModel.localizedStrings = OptInViewModel.LocalizedStrings(
             text: text,
