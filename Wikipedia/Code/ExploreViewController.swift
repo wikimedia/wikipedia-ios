@@ -125,7 +125,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
         configureNavigationBar()
-        restoreLogoStateForCurrentScrollPosition(scrollView: collectionView)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -180,11 +179,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
 
         // Need to override this so that "" does not appear as back button title.
-        navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
+        navigationItem.backButtonTitle = String()
+        navigationItem.rightBarButtonItem?.accessibilityLabel = CommonStrings.exploreTabTitle
         
         // Set up logo as left bar button item
         
-        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "wikipedia"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
+        let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
         if #available(iOS 26.0, *) {
             logoBarButtonItem.hidesSharedBackground = true
             logoBarButtonItem.sharesBackground = false
@@ -249,7 +249,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.scrollViewDidScroll(scrollView)
 
         calculateNavigationBarHiddenState(scrollView: scrollView)
-        updateLogoImageOnScroll(scrollView: scrollView)
         
         guard !isLoadingOlderContent else {
             return

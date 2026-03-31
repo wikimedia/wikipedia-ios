@@ -206,7 +206,15 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         
-        configureHidesBottomBarWhenPushed()
+        if #available(iOS 26, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                hidesBottomBarWhenPushed = false
+            } else {
+                hidesBottomBarWhenPushed = true
+            }
+        } else {
+            hidesBottomBarWhenPushed = true
+        }
     }
 
     deinit {
@@ -751,7 +759,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
 
-        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
+        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false)
 
         var profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
 
@@ -772,6 +780,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchButtonConfig: searchButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+
+        let backItem = UIBarButtonItem()
+        backItem.title = String()
+        let returnAccessibilityTitle = WMFLocalizedString("article-return-button-accessibility-title", value: "Return to: %1$@", comment: "Accessibility title read by assistive technologies for the button that takes the user back to the previous article. The %1$@ placeholder is replaced with the previous article title.")
+        backItem.accessibilityLabel = String.localizedStringWithFormat(returnAccessibilityTitle, articleURL.wmf_title ?? String())
+        navigationItem.backBarButtonItem = backItem
     }
 
     @objc func userDidTapSearch() {

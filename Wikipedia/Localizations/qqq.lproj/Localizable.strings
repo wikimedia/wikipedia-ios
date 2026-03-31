@@ -180,6 +180,7 @@
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
 "article-reference-view-title" = "Title for the reference view. $1 is replaced by the reference link name, for example [1].";
+"article-return-button-accessibility-title" = "Accessibility title read by assistive technologies for the button that takes the user back to the previous screen in the app. The $1 placeholder is replaced with the article or screen title.";
 "article-revision-history" = "Title for menu option that leads to article revision history.";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
