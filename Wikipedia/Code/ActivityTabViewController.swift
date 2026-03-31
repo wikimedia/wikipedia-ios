@@ -64,6 +64,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                         ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
                     }
                 }
+                
+                // First-time fetch: Need to re-render the navigation bar after activity tab leaves the loading state.
+                (navigationController as? WMFComponentNavigationController)?.triggerNavigationBarRender()
+                
             }
         }
 
