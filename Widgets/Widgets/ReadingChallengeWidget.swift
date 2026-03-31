@@ -161,7 +161,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."
             ),
             button1Title: family == .systemSmall
-                ? WMFLocalizedString("reading-challenge-explore-button", value: "Explore", comment: "Explore button on small enrolled-not-started widget.")
+            ? CommonStrings.exploreTabTitle
                 : CommonStrings.searchTitle,
             button2Title: family == .systemSmall ? nil : WMFLocalizedString(
                 "reading-challenge-random-button",

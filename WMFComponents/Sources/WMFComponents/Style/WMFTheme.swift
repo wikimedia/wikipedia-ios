@@ -297,7 +297,7 @@ public struct WMFTheme: Equatable {
             case .orange:      return Color(uiColor: WMFTheme.readingChallengeOrangeSecondary)
             case .blue:        return Color(uiColor: WMFTheme.readingChallengeBlueSecondary)
             case .notEnrolled: return Color(uiColor: WMFColor.black)
-            case .yellow:      return Color(uiColor: WMFColor.blue600)
+            case .yellow:      return Color(uiColor: WMFColor.black)
             }
         }
 

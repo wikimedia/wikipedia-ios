@@ -1050,7 +1050,6 @@
 "reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-enrolled-not-started-subtitle" = "Subtitle shown on the reading challenge widget when enrolled but not yet started.";
 "reading-challenge-enrolled-not-started-title" = "Title shown on the reading challenge widget when enrolled but not yet started.";
-"reading-challenge-explore-button" = "Explore button on small enrolled-not-started widget.";
 "reading-challenge-join-button-medium" = "Button title on medium widget.";
 "reading-challenge-join-button-small" = "Button title on small widget.";
 "reading-challenge-not-enrolled-subtitle" = "Subtitle shown on the reading challenge widget when the user is not enrolled in the challenge.";
