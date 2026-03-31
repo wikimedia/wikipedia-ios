@@ -7,6 +7,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var showYiRV3: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
+    var readingChallengeDatesRelativeToToday: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -123,6 +124,22 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue)
+        }
+    }
+
+    public var readingChallengeDatesRelativeToToday: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsReadingChallengeDatesRelativeToToday.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsReadingChallengeDatesRelativeToToday.rawValue, value: newValue)
+        }
+    }
+
+    public func resetReadingChallengeState() {
+        Task {
+            await WMFActivityTabDataController.shared.resetHasSeenFullPageAnnouncementForWidgetFlow()
+            await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement(false)
+            await WMFActivityTabDataController.shared.setEnrolledInReadingChallenge(false)
         }
     }
 

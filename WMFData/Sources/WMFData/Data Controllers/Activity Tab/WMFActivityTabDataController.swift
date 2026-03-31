@@ -212,7 +212,7 @@ public actor WMFActivityTabDataController {
         return false
     }
     
-    private var surveyEndDate: Date? {
+    public var surveyEndDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2026
         dateComponents.month = 4
@@ -231,6 +231,68 @@ public actor WMFActivityTabDataController {
     public func incrementActivityTabVisitCount() {
         let visitCount = self.activityTabVisitCount + 1
         self.activityTabVisitCount = visitCount
+    }
+
+    // MARK: - Reading Challenge 2026
+
+    private static let sharedGroupID = "group.org.wikimedia.wikipedia"
+
+    public var hasEnrolledInReadingChallenge2026: Bool {
+        get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
+        set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
+    }
+
+    public var hasSeenFullPageReadingChallengeAnnouncement2026: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue, value: newValue) }
+    }
+
+    public var hasSeenWidgetReadingChallengeAnnouncement2026: Bool {
+        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue)) ?? false }
+        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue, value: newValue) }
+    }
+
+    public func enrollInReadingChallenge() {
+        hasEnrolledInReadingChallenge2026 = true
+        hasSeenFullPageReadingChallengeAnnouncement2026 = true
+        // Do NOT mark widget announcement seen here — show it after enrollment
+    }
+
+    public func setHasSeenFullPageAnnouncement() {
+        hasSeenFullPageReadingChallengeAnnouncement2026 = true
+    }
+
+    /// Resets the "seen" flag so the full-page announcement can be shown again from the widget Join flow.
+    /// The user can keep tapping "Join" from the widget and see the announcement each time until they enroll.
+    public func resetHasSeenFullPageAnnouncementForWidgetFlow() {
+        hasSeenFullPageReadingChallengeAnnouncement2026 = false
+    }
+
+    public func setHasSeenWidgetReadingChallengeAnnouncement(_ value: Bool = true) {
+        hasSeenWidgetReadingChallengeAnnouncement2026 = value
+    }
+
+    public func setEnrolledInReadingChallenge(_ value: Bool) {
+        hasEnrolledInReadingChallenge2026 = value
+    }
+    public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
+        // Developer override: always show when relative dates flag is enabled (for testing, except after having seen)
+        if WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday {
+            guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+            return isLoggedIn && !hasEnrolledInReadingChallenge2026
+        }
+        guard isLoggedIn else { return false }
+        guard !hasEnrolledInReadingChallenge2026 else { return false }
+        guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+        let now = Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
+    }
+
+    public func shouldShowReadingChallengeWidgetAnnouncement() -> Bool {
+        guard !hasSeenWidgetReadingChallengeAnnouncement2026 else { return false }
+        guard hasEnrolledInReadingChallenge2026 else { return false }
+        let now = Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
     }
 
     public func getMostRecentReadDateTime() async throws -> Date? {

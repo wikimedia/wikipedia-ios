@@ -50,6 +50,8 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     internal let dataStore: MWKDataStore
 
     private let cacheController: ArticleCacheController
+    public var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    public var readingChallengeWidgetCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
     internal var willDisplayCampaignModal: Bool? {
         didSet {
@@ -501,17 +503,19 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
+        Task { @MainActor in
+            if await needsReadingChallengeAnnouncement() {
+                presentReadingChallengeAnnouncement(dataStore: dataStore)
 
-        // Year in Review modal presentations
-        if needsYearInReviewAnnouncement() {
-            willDisplayYearInReviewModal = true
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
+            } else if needsYearInReviewAnnouncement() {
+                willDisplayYearInReviewModal = true
+                updateProfileButton()
+                presentYearInReviewAnnouncement()
 
-        // Campaign modal presentations
-        } else {
-            willDisplayYearInReviewModal = false
-            showFundraisingCampaignAnnouncementIfNeeded()
+            } else {
+                willDisplayYearInReviewModal = false
+                showFundraisingCampaignAnnouncementIfNeeded()
+            }
         }
     }
 

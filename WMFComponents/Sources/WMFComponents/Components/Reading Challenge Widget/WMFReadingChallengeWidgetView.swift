@@ -38,6 +38,8 @@ public struct WMFReadingChallengeWidgetView: View {
                     mediumStreakView
                 case .streakOngoingNotYetRead:
                     mediumTwoButtonView
+                case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
+                    notEnrolledMediumView
                 default:
                     mediumView
                 }
@@ -68,11 +70,45 @@ public struct WMFReadingChallengeWidgetView: View {
     // MARK: - Small View
 
     private var smallView: some View {
-        if viewModel.displaySet.button1Title != nil {
-            return AnyView(oneButtonSmallView)
-        } else {
-            return AnyView(noButtonsSmallView)
+        switch viewModel.state {
+        case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
+            return AnyView(notEnrolledSmallView)
+        default:
+            if viewModel.displaySet.button1Title != nil {
+                return AnyView(oneButtonSmallView)
+            } else {
+                return AnyView(noButtonsSmallView)
+            }
         }
+    }
+    
+    private var notEnrolledSmallView: some View {
+        ZStack {
+            VStack(alignment: .leading, spacing: 0) {
+                if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                }
+                Spacer()
+                if let button1Title = viewModel.displaySet.button1Title,
+                   let button1URL = viewModel.displaySet.button1URL {
+                    Link(destination: button1URL) {
+                        Text(button1Title)
+                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                            .foregroundColor(buttonForeground)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 6)
+                            .background(buttonBackground)
+                            .clipShape(Capsule())
+                    }
+                }
+            }
+            .padding()
+            wIconOverlay
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var noButtonsSmallView: some View {
@@ -112,6 +148,7 @@ public struct WMFReadingChallengeWidgetView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    // Icon is now optional — renders button with or without leading icon
     private var oneButtonSmallView: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 8) {
@@ -129,17 +166,19 @@ public struct WMFReadingChallengeWidgetView: View {
                         .foregroundColor(viewModel.displaySet.color2)
                 }
                 if let button1Title = viewModel.displaySet.button1Title,
-                   let button1URL = viewModel.displaySet.button1URL,
-                   let icon = viewModel.displaySet.button1Icon {
+                   let button1URL = viewModel.displaySet.button1URL {
                     Link(destination: button1URL) {
                         HStack {
-                            Image(uiImage: icon)
-                                .resizable()
-                                .foregroundStyle(buttonForeground)
+                            if let icon = viewModel.displaySet.button1Icon {
+                                Image(uiImage: icon)
+                                    .resizable()
+                                    .foregroundStyle(buttonForeground)
+                            }
                             Text(button1Title)
                                 .font(Font(WMFFont.for(.semiboldSubheadline)))
                                 .foregroundColor(buttonForeground)
                         }
+                        .frame(maxWidth: .infinity)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
                         .background(buttonBackground)
@@ -153,7 +192,7 @@ public struct WMFReadingChallengeWidgetView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    // MARK: - Medium View
+    // MARK: - Medium View (generic: streak completed, incomplete, etc.)
 
     private var mediumView: some View {
         ZStack(alignment: .topTrailing) {
@@ -231,6 +270,55 @@ public struct WMFReadingChallengeWidgetView: View {
                         .padding(.trailing, 8)
                 }
             }
+            wIconOverlay
+        }
+    }
+
+    // MARK: - Not Enrolled Medium View
+    
+    private var notEnrolledMediumView: some View {
+        ZStack {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .top, spacing: 10) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(viewModel.displaySet.title)
+                            .font(Font(WMFFont.for(.boldTitle1)))
+                            .foregroundColor(viewModel.displaySet.color2)
+                            .fixedSize(horizontal: false, vertical: true)
+                        if let subtitle = viewModel.displaySet.subtitle {
+                            Text(subtitle)
+                                .font(Font(WMFFont.for(.callout)))
+                                .foregroundColor(viewModel.displaySet.color2)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+
+                    if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 80, alignment: .bottomLeading)
+                            .padding([.trailing, .top], 8)
+                    }
+                }
+
+                Spacer()
+
+                if let button1Title = viewModel.displaySet.button1Title,
+                   let button1URL = viewModel.displaySet.button1URL {
+                    Link(destination: button1URL) {
+                        Text(button1Title)
+                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                            .foregroundColor(buttonForeground)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 8)
+                            .background(buttonBackground)
+                            .clipShape(Capsule())
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
             wIconOverlay
         }
     }

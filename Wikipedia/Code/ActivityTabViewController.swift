@@ -83,7 +83,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 duration: nil,
                 buttonTitle: CommonStrings.logIn,
                 buttonAction: { [weak self] in
-                    self?.presentFullLoginFlow(fromCustomizeToast: true)
+                    Task { @MainActor [weak self] in
+                        self?.presentFullLoginFlow(fromCustomizeToast: true)
+                    }
                 }
             )
 
@@ -307,10 +309,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                 presentOnboarding()
                 ActivityTabFunnel.shared.logOnboardingDidAppear()
                 await dataController.setHasSeenActivityTab(true)
-            } else {
+            } else if await dataController.shouldShowSurvey() {
                 presentSurveyIfNeeded()
+            } else {
+                let didPresentChallenge = await presentReadingChallengeAnnouncementIfNeeded()
+                if !didPresentChallenge {
+                    presentReadingChallengeWidgetAnnouncementIfNeeded()
+                }
             }
-            presentSurveyIfNeeded()
         }
 
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
@@ -319,6 +325,58 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         viewModel.didTapSearchTab = { [weak self] in
             self?.navigateToSearch()
+        }
+    }
+
+    @discardableResult
+    private func presentReadingChallengeAnnouncementIfNeeded() async -> Bool {
+        guard presentedViewController == nil else { return false }
+        guard isViewLoaded && view.window != nil else { return false }
+        guard let dataStore else { return false }
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn) else { return false }
+        presentReadingChallengeAnnouncement(dataStore: dataStore)
+        return true
+    }
+    
+    private func presentReadingChallengeAnnouncement(dataStore: MWKDataStore) {
+        guard let nav = navigationController else { return }
+        readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+            navigationController: nav,
+            dataStore: dataStore,
+            theme: theme
+        )
+        readingChallengeCoordinator?.onEnroll = { [weak self] in
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+        }
+        readingChallengeCoordinator?.onDismiss = { [weak self] in
+            self?.readingChallengeCoordinator = nil
+        }
+        readingChallengeCoordinator?.start()
+    }
+
+    @objc func presentReadingChallengeAnnouncementFromWidget() {
+        guard let dataStore else { return }
+        // Don't show if already enrolled
+        guard !WMFActivityTabDataController.shared.hasEnrolledInReadingChallenge2026 else { return }
+        // Reset hasSeen so widget-initiated join always shows the announcement
+        Task { @MainActor in
+            await WMFActivityTabDataController.shared.resetHasSeenFullPageAnnouncementForWidgetFlow()
+            self.presentReadingChallengeAnnouncement(dataStore: dataStore)
+        }
+    }
+
+    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    private var readingChallengeWidgetAnnouncementCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
+
+    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
+        guard presentedViewController == nil else { return }
+        Task { @MainActor in
+            guard await dataController.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            // Mark seen immediately on presentation
+            await dataController.setHasSeenWidgetReadingChallengeAnnouncement()
+            readingChallengeWidgetAnnouncementCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
+            readingChallengeWidgetAnnouncementCoordinator?.start()
         }
     }
 
@@ -874,3 +932,5 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
         dismiss(animated: true)
     }
 }
+
+extension WMFActivityTabViewController: WMFFeatureAnnouncing {}

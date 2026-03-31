@@ -14,16 +14,25 @@ public enum ReadingChallengeState: Equatable {
 
 public enum ReadingChallengeStateConfig {
     public static var startDate: Date {
-        DateComponents(calendar: .current, year: 2026, month: 5, day: 1).date
-            ?? Date(timeIntervalSince1970: 1777593600) // 2026-05-01 UTC fallback
+        if WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday {
+            return Calendar.current.date(byAdding: .day, value: -5, to: Date()) ?? Date()
+        }
+        return DateComponents(calendar: .current, year: 2026, month: 5, day: 1).date
+            ?? Date(timeIntervalSince1970: 1777593600)
     }
     public static var endDate: Date {
-        DateComponents(calendar: .current, year: 2026, month: 5, day: 31).date
-            ?? Date(timeIntervalSince1970: 1780272000) // 2026-05-31 UTC fallback
+        if WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday {
+            return Calendar.current.date(byAdding: .day, value: 20, to: Date()) ?? Date()
+        }
+        return DateComponents(calendar: .current, year: 2026, month: 5, day: 31, hour: 23, minute: 59, second: 59).date
+            ?? Date(timeIntervalSince1970: 1780271999)
     }
     public static var removeDate: Date {
-        DateComponents(calendar: .current, year: 2026, month: 7, day: 10).date
-            ?? Date(timeIntervalSince1970: 1783728000) // 2026-07-10 UTC fallback
+        if WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday {
+            return Calendar.current.date(byAdding: .day, value: 50, to: Date()) ?? Date()
+        }
+        return DateComponents(calendar: .current, year: 2026, month: 7, day: 10).date
+            ?? Date(timeIntervalSince1970: 1783987200)
     }
     public static let streakGoal = 25
 }

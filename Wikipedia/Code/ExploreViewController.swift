@@ -17,6 +17,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
+    
+    private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
+    public var readingChallengeWidgetCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
@@ -983,17 +986,19 @@ extension ExploreViewController {
 
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     fileprivate func presentModalsIfNeeded() {
+        Task { @MainActor in
+            if await needsReadingChallengeAnnouncement() {
+                presentReadingChallengeAnnouncement(dataStore: dataStore)
+                return
+            }
 
-        if needsYearInReviewAnnouncement() {
-            updateProfileButton()
-            presentYearInReviewAnnouncement()
-        } else {
-            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+            if needsYearInReviewAnnouncement() {
+                updateProfileButton()
+                presentYearInReviewAnnouncement()
+            } else {
+                perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
+            }
         }
-
-        #if DEBUG
-        presentSearchWidgetAnnouncement()
-        #endif
     }
     
     @objc func listenForTooltips() {
@@ -1001,7 +1006,47 @@ extension ExploreViewController {
             appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
         }
     }
-    
+
+    func needsReadingChallengeAnnouncement() async -> Bool {
+        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
+            return false
+        }
+        guard presentedViewController == nil else {
+            return false
+        }
+        guard self.isViewLoaded && self.view.window != nil else {
+            return false
+        }
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        return await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn)
+    }
+
+    public func presentReadingChallengeAnnouncement(dataStore: MWKDataStore) {
+        guard let nav = navigationController else { return }
+        readingChallengeCoordinator = ReadingChallengeAnnouncementCoordinator(
+            navigationController: nav,
+            dataStore: dataStore,
+            theme: theme
+        )
+        readingChallengeCoordinator?.onEnroll = { [weak self] in
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+        }
+        readingChallengeCoordinator?.onDismiss = { [weak self] in
+            self?.readingChallengeCoordinator = nil
+        }
+        readingChallengeCoordinator?.start()
+    }
+
+    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
+        guard presentedViewController == nil else { return }
+        Task { @MainActor in
+            guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement()
+            readingChallengeWidgetCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
+            readingChallengeWidgetCoordinator?.start()
+        }
+    }
+
     private func needsYearInReviewAnnouncement() -> Bool {
 
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
