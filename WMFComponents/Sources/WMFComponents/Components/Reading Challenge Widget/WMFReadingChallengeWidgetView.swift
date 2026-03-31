@@ -73,7 +73,7 @@ public struct WMFReadingChallengeWidgetView: View {
 
     private var smallView: some View {
         switch viewModel.state {
-        case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
+        case .notEnrolled, .notLiveYet, .challengeRemoved:
             return AnyView(notEnrolledSmallView)
         default:
             if viewModel.displaySet.button1Title != nil {

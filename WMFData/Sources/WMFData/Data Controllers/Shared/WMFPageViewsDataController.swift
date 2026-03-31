@@ -409,7 +409,12 @@ extension WMFPageViewsDataController {
         }
 
         if streak == 0 {
-            return .enrolledNotStarted
+            let daysNeeded = calendar.date(byAdding: .day, value: config.streakGoal, to: calendar.startOfDay(for: now))!
+            if daysNeeded <= calendar.startOfDay(for: config.removeDate) {
+                return .enrolledNotStarted
+            } else {
+                return .challengeConcludedNoStreak
+            }
         }
 
         return hasReadToday
