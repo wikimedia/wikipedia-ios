@@ -1283,6 +1283,9 @@
 		832289DB1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */; };
 		832289DC1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */; };
 		832289DD1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */; };
+		8324EE8D2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */; };
+		8324EE8E2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */; };
+		8324EE8F2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */; };
 		832A7A5B23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
 		832A7A5C23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
 		832A7A5D23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
@@ -3573,6 +3576,7 @@
 		83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataClass.m"; sourceTree = "<group>"; };
 		83222DB01F8E554800338BE5 /* WMFContent+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataProperties.m"; sourceTree = "<group>"; };
 		832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeThatFitsReusableView.swift; sourceTree = "<group>"; };
+		8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "wikipedia-app-icon-experimental.icon"; sourceTree = "<group>"; };
 		832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+References.swift"; sourceTree = "<group>"; };
 		832A7A5F23EAE03200D0A750 /* String+JavaScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JavaScript.swift"; sourceTree = "<group>"; };
 		832B2B8323D9F9420087EB5F /* NSRegularExpression+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRegularExpression+Utilities.swift"; sourceTree = "<group>"; };
@@ -7824,6 +7828,7 @@
 				6768B9422D36C7680031003C /* logo-wikipedia.ttf */,
 				D8BA1F1F1DF1E19700502877 /* Resources */,
 				83D314162F5F56FA007F822D /* contributor-app-icon.icon */,
+				8324EE8C2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon */,
 				83D314172F5F56FA007F822D /* wikipedia-app-icon.icon */,
 			);
 			path = Wikipedia;
@@ -9266,6 +9271,7 @@
 				B0E804121C0CDE480065EBC0 /* EditSaveViewController.storyboard in Resources */,
 				D8D92B641DF22E1700B95311 /* NotificationBackgroundWarning.png in Resources */,
 				7A6CA2932289AF2200C7FD47 /* EditLinkViewController.xib in Resources */,
+				8324EE8E2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */,
 				D82E958A1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				7A2FE5562051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
@@ -9357,6 +9363,7 @@
 				6768B9442D36C7680031003C /* logo-wikipedia.ttf in Resources */,
 				7ABAD6BA20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				D8CE266F1E698E2400DAE2E0 /* NotificationBackgroundError.png in Resources */,
+				8324EE8D2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */,
 				D8CE26701E698E2400DAE2E0 /* WMFReferencePanels.storyboard in Resources */,
 				67AD18012C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				83023C0C20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
@@ -9464,6 +9471,7 @@
 				6768B9432D36C7680031003C /* logo-wikipedia.ttf in Resources */,
 				7ABAD6BB20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				D8EC3F6F1E9BDA35006712EB /* NotificationBackgroundError.png in Resources */,
+				8324EE8F2F756E8600A4D87B /* wikipedia-app-icon-experimental.icon in Resources */,
 				D8EC3F701E9BDA35006712EB /* WMFReferencePanels.storyboard in Resources */,
 				67AD18002C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				83023C0D20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
@@ -12931,7 +12939,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -12965,7 +12973,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -14510,7 +14518,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -14542,7 +14550,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -15435,7 +15443,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -15681,7 +15689,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16035,7 +16043,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16067,7 +16075,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16106,7 +16114,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16140,7 +16148,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16174,7 +16182,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16216,7 +16224,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16247,7 +16255,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16279,7 +16287,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16318,7 +16326,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16352,7 +16360,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16386,7 +16394,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -16420,7 +16428,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "contributor-app-icon";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "wikipedia-app-icon-experimental";
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

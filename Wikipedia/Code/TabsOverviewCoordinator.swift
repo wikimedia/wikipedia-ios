@@ -11,6 +11,11 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     let dataStore: MWKDataStore
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
+    private var presentTask: Task<Void, Never>?
+
+    deinit {
+        presentTask?.cancel()
+    }
 
     @discardableResult
     func start() -> Bool {
@@ -128,7 +133,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             }
         }
 
-        Task { [weak self] in
+        presentTask = Task { [weak self] in
             guard let self else { return }
             let articleTabsCount = (try? await dataController.tabsCount()) ?? 0
 
