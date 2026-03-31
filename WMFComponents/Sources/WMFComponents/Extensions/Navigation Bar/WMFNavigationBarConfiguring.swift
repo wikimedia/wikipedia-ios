@@ -10,7 +10,6 @@ public protocol WMFNavigationBarConfiguring {
 public struct WMFNavigationBarTitleConfig {
     
     public enum Alignment {
-        case leadingCompact
         case leadingLarge
         case centerCompact
         case hidden
@@ -156,34 +155,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             if let customTitleView = titleConfig.customView {
                 navigationItem.titleView = customTitleView
                 themeNavigationBarCustomCenteredTitleView()
-            }
-        case .leadingCompact:
-            navigationItem.title = titleConfig.title
-            navigationController?.navigationBar.prefersLargeTitles = false
-            navigationItem.largeTitleDisplayMode = .never
-            
-            navigationItem.titleView = UIView()
-            
-            if let customTitleView = titleConfig.customView {
-                let button = UIBarButtonItem(customView: customTitleView)
-                button.accessibilityTraits = .staticText
-                if #available(iOS 26.0, *) {
-                    button.hidesSharedBackground = true
-                    button.sharesBackground = false
-                }
-                navigationItem.leftBarButtonItem = button
-                themeNavigationBarLeadingTitleView()
-            } else {
-                let leadingTitleLabel = UILabel()
-                leadingTitleLabel.font = WMFFont.navigationBarLeadingCompactTitleFont
-                leadingTitleLabel.text = titleConfig.title
-                let button = UIBarButtonItem(customView: leadingTitleLabel)
-                if #available(iOS 26.0, *) {
-                    button.hidesSharedBackground = true
-                    button.sharesBackground = false
-                }
-                navigationItem.leftBarButtonItem = button
-                themeNavigationBarLeadingTitleView()
             }
         case .leadingLarge:
             navigationItem.title = titleConfig.title
