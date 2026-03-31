@@ -100,7 +100,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory)
+            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
+            safetyTitle: CommonStrings.legalAndSafety)
     }
 
     func asyncStart() async {
@@ -170,6 +171,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             tappedAbout()
         case .deleteDonationHistory:
             clearDonationHistory()
+        case .legalAndSafety:
+            tappedExternalLink(with: CommonStrings.legalAndSafetyContactUsURLString)
         }
     }
 
@@ -315,8 +318,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         if let url = URL(string: urlString) {
             let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
-            let newNavigationVC =
-            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .fullScreen)
+            let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .fullScreen)
             settingsNav.present(newNavigationVC, animated: true)
         }
     }
