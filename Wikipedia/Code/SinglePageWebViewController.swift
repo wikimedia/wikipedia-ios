@@ -166,8 +166,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         self.configType = configType
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
     
     required init?(coder aDecoder: NSCoder) {

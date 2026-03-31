@@ -162,7 +162,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
 
     required init?(coder aDecoder: NSCoder) {
