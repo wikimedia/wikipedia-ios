@@ -23,7 +23,7 @@ class NewsViewController: ColumnarCollectionViewController, WMFNavigationBarConf
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
     
     required init?(coder aDecoder: NSCoder) {

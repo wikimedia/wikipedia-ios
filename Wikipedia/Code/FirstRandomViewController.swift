@@ -12,7 +12,7 @@ class FirstRandomViewController: UIViewController, Themeable {
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
-        self.hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
     
     required init?(coder: NSCoder) {
