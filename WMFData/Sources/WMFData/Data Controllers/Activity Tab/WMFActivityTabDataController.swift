@@ -276,8 +276,9 @@ public actor WMFActivityTabDataController {
         hasEnrolledInReadingChallenge2026 = value
     }
     public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
-        // Developer override: always show when relative dates flag is enabled (for testing)
+        // Developer override: always show when relative dates flag is enabled (for testing, except after having seen)
         if WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday {
+            guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
             return isLoggedIn && !hasEnrolledInReadingChallenge2026
         }
         guard isLoggedIn else { return false }
