@@ -73,7 +73,7 @@ public struct WMFReadingChallengeWidgetView: View {
 
     private var smallView: some View {
         switch viewModel.state {
-        case .notEnrolled, .notLiveYet, .challengeRemoved:
+        case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
             return AnyView(notEnrolledSmallView)
         default:
             if viewModel.displaySet.button1Title != nil {
@@ -86,14 +86,14 @@ public struct WMFReadingChallengeWidgetView: View {
     
     private var notEnrolledSmallView: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .center, spacing: 8) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
+                        .layoutPriority(1)
                 }
-                Spacer()
                 if let button1Title = viewModel.displaySet.button1Title,
                    let button1URL = viewModel.displaySet.button1URL {
                     Link(destination: button1URL) {
@@ -110,7 +110,6 @@ public struct WMFReadingChallengeWidgetView: View {
             .padding()
             wIconOverlay
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var noButtonsSmallView: some View {
@@ -120,6 +119,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
+                        .frame(maxHeight: 100)
                 }
                 HStack {
                     switch viewModel.state {
@@ -158,6 +158,8 @@ public struct WMFReadingChallengeWidgetView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .layoutPriority(1)
                 }
                 Text(viewModel.displaySet.title)
                     .font(Font(WMFFont.for(.boldTitle1)))
@@ -188,6 +190,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             wIconOverlay
         }
@@ -343,6 +346,8 @@ public struct WMFReadingChallengeWidgetView: View {
                             Text(viewModel.displaySet.title)
                                 .font(Font(WMFFont.for(.boldTitle1)))
                                 .foregroundColor(viewModel.displaySet.color2)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .multilineTextAlignment(.leading)
                         }
                         if let subtitle = viewModel.displaySet.subtitle {
                             Text(subtitle)
