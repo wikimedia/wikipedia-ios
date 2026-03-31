@@ -638,6 +638,7 @@ extension SavedViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
         if currentView == .savedArticles {
+            allArticlesCoordinator?.contentViewController.viewModel.searchText = ""
             allArticlesCoordinator?.contentViewController.viewModel.loadArticles()
         }
     }
