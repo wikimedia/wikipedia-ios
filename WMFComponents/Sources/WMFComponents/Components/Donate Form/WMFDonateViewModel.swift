@@ -116,7 +116,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         @Published var isSelected: Bool = false
 
-        let localizedStrings: LocalizedStrings
+        @Published var localizedStrings: LocalizedStrings
 
         init(localizedStrings: LocalizedStrings, isSelected: Bool = false) {
             self.localizedStrings = localizedStrings
@@ -175,7 +175,10 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
     @Published var buttonViewModels: [AmountButtonViewModel]
     @Published var textfieldViewModel: AmountTextFieldViewModel
-    @Published var transactionFeeOptInViewModel: OptInViewModel
+    
+    @Published var transactionFeeOptInViewModel: OptInViewModel // represents view state
+    private var isTransactionFeeSelected: Bool = false // represents most-up-to-date state for finalAmount + button selected state calculations
+    
     @Published var monthlyRecurringViewModel: OptInViewModel
     @Published var emailOptInViewModel: OptInViewModel?
     @Published var errorViewModel: ErrorViewModel?
@@ -351,9 +354,8 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
             }
         }
 
-        // Reset transaction fee checkbox.
-        self.transactionFeeOptInViewModel = OptInViewModel(localizedStrings: transactionFeeOptInViewModel.localizedStrings)
-        addTransactionFeeSelectionListener()
+        isTransactionFeeSelected = false
+        transactionFeeOptInViewModel.isSelected = false
 
         // Update finalAmount for submission
         self.finalAmount = buttonViewModel.amount
@@ -370,7 +372,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         // Determine if a button should be automatically selected, to reflect textfield
 
         // Propagate new button selection values by replacing view models (changing isSelected directly causes infinite update loop)
-        let targetButtonAmount = finalAmount - (transactionFeeOptInViewModel.isSelected ? transactionFeeAmount : 0)
+        let targetButtonAmount = finalAmount - (isTransactionFeeSelected ? transactionFeeAmount : 0)
         let newButtonViewModels = buttonViewModels.map { AmountButtonViewModel(amount: $0.amount, isSelected: targetButtonAmount == $0.amount, currencyCode: currencyCode, accessibilityHint: localizedStrings.accessibilityAmountButtonHint, coordinatorDelegate: coordinatorDelegate, loggingDelegate: loggingDelegate) }
         self.buttonViewModels = newButtonViewModels
 
@@ -379,6 +381,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     }
 
     private func didChangeTransactionFeeSelection(isSelected: Bool) {
+        isTransactionFeeSelected = isSelected
         self.finalAmount = isSelected ? self.finalAmount + self.transactionFeeAmount : max(0, self.finalAmount - self.transactionFeeAmount)
         textfieldViewModel.amount = self.finalAmount
     }
@@ -399,13 +402,13 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     }
 
     private func recalculateTransactionFee() {
-
-        let originalAmount = transactionFeeOptInViewModel.isSelected ? finalAmount - transactionFeeAmount : finalAmount
-
+        
+        let originalAmount = isTransactionFeeSelected ? finalAmount - transactionFeeAmount : finalAmount
+        
         guard let transactionFee = Self.transactionFee(donateConfig: donateConfig, currencyCode: currencyCode, amount: originalAmount) else {
             return
         }
-
+        
         let formatter = NumberFormatter.wmfCurrencyFormatter
         formatter.currencyCode = currencyCode
 
@@ -415,11 +418,12 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         self.transactionFeeAmount = transactionFee
 
-        // Assign transactionFeeOptInViewModel again so that SwiftUI form updates
+        // Update so that transaction fee text represents the new calculated fee amount
         let text = String.localizedStringWithFormat(localizedStrings.transactionFeeOptInTextFormat, transactionFeeString)
-        let isOldModelSelected = transactionFeeOptInViewModel.isSelected
-        transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: text, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint), isSelected: isOldModelSelected)
-        addTransactionFeeSelectionListener()
+        transactionFeeOptInViewModel.localizedStrings = OptInViewModel.LocalizedStrings(
+            text: text,
+            accessibilityHint: localizedStrings.accessibilityTransactionFeeHint
+        )
     }
 
     private func addButtonSelectionListener() {
@@ -457,7 +461,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         }.store(in: &textFieldSubscribers)
     }
-
+    
     private func addTransactionFeeSelectionListener() {
 
         transactionFeeSubscribers.removeAll()
@@ -472,7 +476,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
             self.didChangeTransactionFeeSelection(isSelected: isSelected)
 
 
-        }.store(in: &textFieldSubscribers)
+        }.store(in: &transactionFeeSubscribers)
     }
 }
 

@@ -3,8 +3,9 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
+import WMFTestKitchen
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring, SearchResultsHosting {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -58,9 +59,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
             return existingYirCoordinator
     }
-
-    private var presentingSearchResults: Bool = false
-    var disableSearchCancelLogging: Bool = false
 
     // MARK: - Lifecycle
 
@@ -141,13 +139,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        if !isMovingFromParent {
-            disableSearchCancelLogging = true
-        }
-        
-        navigationItem.searchController = nil
-        disableSearchCancelLogging = false
+
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(listenForTooltips), object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -183,41 +176,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
-        
-        let searchResultsVC = SearchResultsViewController(source: .topOfFeed, dataStore: dataStore)
-        searchResultsVC.apply(theme: theme)
-        searchResultsVC.parentSearchControllerDelegate = self
-        searchResultsVC.populateSearchBarAction = { [weak self] searchTerm in
-            guard let searchBar = self?.navigationItem.searchController?.searchBar else { return }
-            searchBar.text = searchTerm
-            searchBar.becomeFirstResponder()
-        }
-        searchResultsVC.articleTappedAction = { [weak self] articleURL, needsNewTab in
-            guard let self, let navVC = navigationController else { return }
-            let coordinator = LinkCoordinator(
-                navigationController: navVC,
-                url: articleURL,
-                dataStore: dataStore,
-                theme: theme,
-                articleSource: .search,
-                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab
-            )
-            let success = coordinator.start()
-            if !success {
-                navigate(to: articleURL)
-            }
-        }
 
-        let searchConfig = WMFNavigationBarSearchConfig(
-            searchResultsController: searchResultsVC,
-            searchControllerDelegate: searchResultsVC,
-            searchResultsUpdater: searchResultsVC,
-            searchBarDelegate: nil,
-            searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
-            showsScopeBar: false, scopeButtonTitles: nil)
-        
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
 
+        // Need to override this so that "" does not appear as back button title.
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
         
         // Set up logo as left bar button item
@@ -363,12 +325,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 continue
             }
         }
-    }
-
-    // MARK: - Search
-
-    @objc func ensureWikipediaSearchIsShowing() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     // MARK: - State
@@ -705,11 +661,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         updateProfileButton()
         themeNavigationBarLeadingTitleView()
         themeNavigationBarCustomCenteredTitleView()
-        
-        if let searchResultsVC = navigationItem.searchController?.searchResultsController as? SearchResultsViewController {
-            searchResultsVC.theme = theme
-            searchResultsVC.apply(theme: theme)
-        }
 
         themeTopSafeAreaOverlay()
         
@@ -1036,13 +987,21 @@ extension ExploreViewController {
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
+        } else {
+            perform(#selector(listenForTooltips), with: nil, afterDelay: 2.0)
         }
 
         #if DEBUG
         presentSearchWidgetAnnouncement()
         #endif
     }
-
+    
+    @objc func listenForTooltips() {
+        if let appViewController = tabBarController as? WMFAppViewController {
+            appViewController.tipWrapper.listenForTooltips(appViewController: appViewController)
+        }
+    }
+    
     private func needsYearInReviewAnnouncement() -> Bool {
 
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
@@ -1795,13 +1754,12 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
     func logEditSaveViewControllerLogPublishFailed(abortSource: String?) {
         ImageRecommendationsFunnel.shared.logSaveChangesPublishFail(abortSource: abortSource)
     }
-
 }
 
 extension ExploreViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+    func didTapLogout(authInstrument: InstrumentImpl) {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }
@@ -1810,18 +1768,5 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
-    }
-}
-
-extension ExploreViewController: UISearchControllerDelegate {
-
-    func willPresentSearchController(_ searchController: UISearchController) {
-        presentingSearchResults = true
-        navigationController?.hidesBarsOnSwipe = false
-    }
-
-    func didDismissSearchController(_ searchController: UISearchController) {
-        presentingSearchResults = false
-        navigationController?.hidesBarsOnSwipe = true
     }
 }

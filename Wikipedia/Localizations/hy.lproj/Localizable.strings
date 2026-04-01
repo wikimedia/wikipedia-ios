@@ -129,8 +129,10 @@
 "main-menu-zero-faq" = "Վիքիպեդիա Զրո ՀՏՀ";
 "more-languages-tooltip-title" = "Ավելացնել լեզուներ";
 "navbar-title-mode-edit-wikitext-preview" = "Նախադիտում";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ֆուտ";
 "nearby-distance-label-km" = "$1 կմ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 մ";
 "nearby-distance-label-miles" = "$1 մղոն";
 "next-action-title" = "Հաջորդ";

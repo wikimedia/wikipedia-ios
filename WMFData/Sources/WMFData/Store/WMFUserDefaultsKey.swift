@@ -39,4 +39,6 @@ public enum WMFUserDefaultsKey: String {
     case showSearchLanguageBar = "show-search-language-bar"
     case openAppOnSearchTab = "open-app-on-search-tab"
     case isSubscribedToEchoNotifications = "is-subscribed-to-echo-notifications"
+    case activityTabSeenHistoryCallout = "activity-tab-seen-history-callout"
+    case forceHCaptchaChallenge = "force-hcaptcha-challenge"
 }

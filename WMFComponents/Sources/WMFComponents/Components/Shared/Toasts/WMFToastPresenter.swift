@@ -167,9 +167,17 @@ public final class WMFToastPresenter {
             constant: -16
         )
         let toolbarOffset = containerView.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
+        // When a tab bar or toolbar is present, offset above it with extra spacing.
+        // When neither is present, pin closer to the bottom of the safe area.
+        let bottomConstant: CGFloat
+        if toolbarOffset > 0 {
+            bottomConstant = -(24 + toolbarOffset)
+        } else {
+            bottomConstant = 0
+        }
         let bottom = shadowContainer.bottomAnchor.constraint(
             equalTo: containerView.safeAreaLayoutGuide.bottomAnchor,
-            constant: -(24 + toolbarOffset + (toolbarOffset > 0 ? 8 : 0))
+            constant: bottomConstant
         )
 
         leading.priority = .required
@@ -312,6 +320,12 @@ public final class WMFToastPresenter {
 
 extension UIViewController {
     func visibleToolbarHeightAboveSafeArea() -> CGFloat {
+        // If there's a modal presented over the full screen, the tab bar is not visible.
+        if let presented = presentedViewController,
+           presented.modalPresentationStyle == .fullScreen || presented.modalPresentationStyle == .overFullScreen {
+            return 0
+        }
+
         if let tab = self as? UITabBarController ?? (self as? UINavigationController)?.viewControllers.first as? UITabBarController {
             let bar = tab.tabBar
             if !bar.isHidden, bar.alpha > 0 {

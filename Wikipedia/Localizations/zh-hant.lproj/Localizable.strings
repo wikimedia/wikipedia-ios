@@ -836,8 +836,10 @@
 "more-menu" = "更多";
 "move-articles-to-reading-list" = "移動 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "navbar-title-mode-edit-wikitext-preview" = "預覽";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 英尺";
 "nearby-distance-label-km" = "$1 公里";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 公尺";
 "nearby-distance-label-miles" = "$1 英里";
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";
@@ -987,8 +989,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "open-article" = "開啟條目";
-"open-in-tab-tooltip-body" = "長按條目標題或藍色連結即可在新分頁中開啟。";
-"open-in-tab-tooltip-title" = "在新分頁開啟";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
 "page-history-bot-edits" = "機器人";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
@@ -1303,8 +1303,6 @@
 "tabs-main-page-subtitle" = "維基百科每日精彩內容";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 個分頁}}";
 "tabs-open-tab" = "開啟分頁";
-"tabs-overview-tooltip-body" = "在分頁總覽中切換開啟的條目。";
-"tabs-overview-tooltip-title" = "分頁總覽";
 "tabs-show-suggested-articles" = "顯示條目建議";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "建議現已隱藏";
 "tabs-survey-title" = "請協助改善分頁。您對此功能滿意嗎？";

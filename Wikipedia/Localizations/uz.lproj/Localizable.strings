@@ -186,8 +186,10 @@
 "more-languages-tooltip-description" = "Vikipediyani 300 dan ortiq tillarda qidiring";
 "more-languages-tooltip-title" = "Til qoʻshish";
 "navbar-title-mode-edit-wikitext-preview" = "Ko‘rib chiqish";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fut";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milya";
 "notifications-center-agent-description-from-format" = "$1 dan";

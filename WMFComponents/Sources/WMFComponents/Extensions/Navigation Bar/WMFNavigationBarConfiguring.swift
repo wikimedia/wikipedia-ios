@@ -78,6 +78,24 @@ public struct WMFNavigationBarTabsButtonConfig {
     }
 }
 
+public struct WMFNavigationBarSearchButtonConfig {
+    public let accessibilityLabel: String
+    public let accessibilityHint: String
+    public let target: Any
+    public let action: Selector
+    public let leadingBarButtonItem: UIBarButtonItem?
+    public let trailingBarButtonItem: UIBarButtonItem?
+
+    public init(accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
+        self.accessibilityLabel = accessibilityLabel
+        self.accessibilityHint = accessibilityHint
+        self.target = target
+        self.action = action
+        self.leadingBarButtonItem = leadingBarButtonItem
+        self.trailingBarButtonItem = trailingBarButtonItem
+    }
+}
+
 /// Search config for navigation bar
 public struct WMFNavigationBarSearchConfig {
     let searchResultsController: UIViewController?
@@ -119,6 +137,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                                 closeButtonConfig: WMFLargeCloseButtonConfig?,
                                 profileButtonConfig: WMFNavigationBarProfileButtonConfig?,
                                 tabsButtonConfig: WMFNavigationBarTabsButtonConfig?,
+                                searchButtonConfig: WMFNavigationBarSearchButtonConfig? = nil,
                                 searchBarConfig: WMFNavigationBarSearchConfig?,
                                 hideNavigationBarOnScroll: Bool) {
         
@@ -211,8 +230,10 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             rightBarButtonItems.append(profileButton)
 
             if let tabsButtonConfig {
+
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+
                 rightBarButtonItems.append(tabsButton)
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
@@ -226,7 +247,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.rightBarButtonItems = rightBarButtonItems
         }
 
-        
         // Setup close button if needed
         if let closeButtonConfig {
             
@@ -238,6 +258,39 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             case .trailing:
                 navigationItem.rightBarButtonItem = closeButton
             }
+        }
+        
+        if let searchButtonConfig {
+            var rightBarButtonItems: [UIBarButtonItem] = []
+
+            if let profileButtonConfig {
+                let profileImage = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
+                let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
+                profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
+                profileButton.accessibilityIdentifier = profileButtonAccessibilityID
+                rightBarButtonItems.append(profileButton)
+            }
+
+            if let tabsButtonConfig {
+                let tabsImage = WMFSFSymbolIcon.for(symbol: .tabsIcon)
+                let tabsButton = UIBarButtonItem(image: tabsImage, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+                tabsButton.accessibilityLabel = tabsButtonConfig.accessibilityLabel
+                tabsButton.accessibilityHint = tabsButtonConfig.accessibilityHint
+                rightBarButtonItems.append(tabsButton)
+            }
+
+            let image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
+            let searchButton = UIBarButtonItem(image: image, style: .plain, target: searchButtonConfig.target, action: searchButtonConfig.action)
+            rightBarButtonItems.append(searchButton)
+
+            if let leadingBarButtonItem = searchButtonConfig.leadingBarButtonItem {
+                navigationItem.leftBarButtonItem = leadingBarButtonItem
+            }
+            if let trailingBarButtonItem = searchButtonConfig.trailingBarButtonItem {
+                rightBarButtonItems.append(trailingBarButtonItem)
+            }
+
+            navigationItem.rightBarButtonItems = rightBarButtonItems
         }
         
         if let searchBarConfig,

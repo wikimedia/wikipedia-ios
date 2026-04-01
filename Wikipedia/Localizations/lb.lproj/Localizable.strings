@@ -30,7 +30,7 @@
 "account-creation-captcha-cannot-see-image" = "Kënnt Dir d'Bild net gesinn? $1";
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
 "account-creation-captcha-request-account" = "Benotzerkont ufroen.";
-"account-creation-captcha-title" = "CAPtCHA-Sécherheets-Check";
+"account-creation-captcha-title" = "CAPTCHA-Sécherheets-Check";
 "account-creation-create-account" = "Äre Benotzerkont uleeën";
 "account-creation-have-account" = "Hutt Dir schonn e Benotzerkont? $1";
 "account-creation-log-in" = "Aloggen.";
@@ -427,7 +427,7 @@
 "field-backup-token-title" = "Backup-Code";
 "field-backup-token-title-email" = "E-Mail-Code";
 "field-captcha-placeholder" = "CAPTCHA-Text";
-"field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
+"field-captcha-title" = "Gitt den Text an, deen Dir hei driwwer gesitt";
 "field-email-placeholder" = "beispill@example.org";
 "field-email-title" = "E-Mail";
 "field-email-title-optional" = "E-Mail (Fakultativ)";
@@ -457,7 +457,7 @@
 "history-clear-confirmation-heading" = "Sidd Dir sécher, datt Dir all Är rezent Elementer läsche wëllt?";
 "history-clear-delete-all" = "Jo, all läschen";
 "history-title" = "Versiounen";
-"home-button-explore-accessibility-label" = "Wikipedia, zréck bei d'Entdecken";
+"home-button-explore-accessibility-label" = "Wikipedia, zeréck bei d'Entdecken";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
 "home-more-like-footer" = "Méi wéi $1";
 "home-nearby-footer" = "Méi aus der Géigend, wou Dir elo sidd";
@@ -572,8 +572,9 @@
 "more-menu" = "Méi";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 Artikel|$1 Artikelen}} op d'Lieslëscht réckelen";
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
-"nearby-distance-label-feet" = "$1 Féiss";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 Fouss}}";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
@@ -677,8 +678,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
 "open-article" = "Artikel opmaachen";
-"open-in-tab-tooltip-body" = "Haalt en Artikeltitel oder e bloe Link laang gedréckt fir en an engem neien Tab opzemaachen.";
-"open-in-tab-tooltip-title" = "An neiem Tab opmaachen";
 "page-history-bot-edits" = "Bot";
 "page-history-compare-title" = "Vergläichen";
 "page-history-logged-in-edits" = "ageloggt";
@@ -905,8 +904,6 @@
 "tabs-close-tab" = "Tab zoumaachen";
 "tabs-hide-suggested-articles" = "Artikelvirschléi verstoppen";
 "tabs-open-tab" = "Tab opmaachen";
-"tabs-overview-tooltip-body" = "Tëscht oppenen Artikelen an der Tabiwwersiicht wiesselen.";
-"tabs-overview-tooltip-title" = "Tabiwwersiicht";
 "tabs-show-suggested-articles" = "Artikelvirschléi weisen";
 "tabs-thumbnail-subtitle" = "Fänkt Är Sich hei un";
 "tabs-title" = "Tabs";

@@ -118,7 +118,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         self.autoTip3 = Tip3(id: UUID().uuidString, localizedTitle: viewModel.localizedStrings.tooltipStrings.tooltip3Title, localizedMessage: viewModel.localizedStrings.tooltipStrings.tooltip3Body)
         
         super.init()
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
 
     required init?(coder: NSCoder) {

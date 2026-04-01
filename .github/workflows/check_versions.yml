@@ -12,6 +12,7 @@ on:
       - synchronize
     branches:
       - 'main'
+      - 'liquid-glass'
 
 jobs:
   check-version:

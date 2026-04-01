@@ -15,7 +15,7 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
 
     // MARK: - Event Logging Source
 
-    enum EventLoggingSource {
+    @objc enum EventLoggingSource: Int {
         case searchTab
         case topOfFeed
         case article

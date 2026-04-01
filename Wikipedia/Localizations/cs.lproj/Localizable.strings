@@ -482,8 +482,10 @@
 "more-languages-tooltip-title" = "Přidat jazyky";
 "move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 stop(y)";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Jste přihlášeni pomocí dočasného hesla. Chcete-li dokončit přihlášení, zadejte prosím nové heslo.";

@@ -32,4 +32,6 @@
 // @return The value for Info.plist key `MerchantID`
 - (NSString *)wmf_merchantID;
 
+// Heuristics for whether or not this is running in TestFlight or not (inspects the appStoreReceiptURL for sandbox)
+- (BOOL)isTestFlight;
 @end
