@@ -411,6 +411,8 @@
 		67033E192A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E182A61DC3700896852 /* ArticleViewController+Watchlist.swift */; };
 		67033E1A2A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E182A61DC3700896852 /* ArticleViewController+Watchlist.swift */; };
 		67033E1B2A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67033E182A61DC3700896852 /* ArticleViewController+Watchlist.swift */; };
+		670578982F7D4B8800B3E02B /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 00021DE124D48EFD00476F97 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6705789E2F7D4B9E00B3E02B /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 00021DE124D48EFD00476F97 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		67059DB52260D034009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
 		67059DB62260D619009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
 		67059DB72260D61A009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
@@ -2664,6 +2666,20 @@
 			remoteGlobalIDString = 0E8380621D64989F0076EDE4;
 			remoteInfo = ContinueReadingWidget;
 		};
+		670578992F7D4B8900B3E02B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00021DE024D48EFD00476F97;
+			remoteInfo = WidgetsExtension;
+		};
+		6705789F2F7D4B9E00B3E02B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00021DE024D48EFD00476F97;
+			remoteInfo = WidgetsExtension;
+		};
 		67623E122AFD2897007488C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -2817,6 +2833,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				6705789E2F7D4B9E00B3E02B /* WidgetsExtension.appex in Embed Foundation Extensions */,
 				676C867326D4170100A704C1 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
 				D8CE26A31E698E2400DAE2E0 /* ContinueReadingWidget.appex in Embed Foundation Extensions */,
 			);
@@ -2840,6 +2857,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				670578982F7D4B8800B3E02B /* WidgetsExtension.appex in Embed Foundation Extensions */,
 				676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
 				D8EC3FA31E9BDA35006712EB /* ContinueReadingWidget.appex in Embed Foundation Extensions */,
 			);
@@ -8858,6 +8876,7 @@
 				D8CE24D81E698E2400DAE2E0 /* PBXTargetDependency */,
 				D8CE24DA1E698E2400DAE2E0 /* PBXTargetDependency */,
 				676C867526D4170100A704C1 /* PBXTargetDependency */,
+				670578A02F7D4B9E00B3E02B /* PBXTargetDependency */,
 			);
 			name = Experimental;
 			packageProductDependencies = (
@@ -8884,6 +8903,7 @@
 				D8EC3DCF1E9BDA35006712EB /* PBXTargetDependency */,
 				D8EC3DD11E9BDA35006712EB /* PBXTargetDependency */,
 				676C867226D416FB00A704C1 /* PBXTargetDependency */,
+				6705789A2F7D4B8900B3E02B /* PBXTargetDependency */,
 			);
 			name = Staging;
 			packageProductDependencies = (
@@ -11872,6 +11892,16 @@
 			target = 0E8380621D64989F0076EDE4 /* ContinueReadingWidget */;
 			targetProxy = 0E83806E1D64989F0076EDE4 /* PBXContainerItemProxy */;
 		};
+		6705789A2F7D4B8900B3E02B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00021DE024D48EFD00476F97 /* WidgetsExtension */;
+			targetProxy = 670578992F7D4B8900B3E02B /* PBXContainerItemProxy */;
+		};
+		670578A02F7D4B9E00B3E02B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00021DE024D48EFD00476F97 /* WidgetsExtension */;
+			targetProxy = 6705789F2F7D4B9E00B3E02B /* PBXContainerItemProxy */;
+		};
 		67623E132AFD2897007488C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D4991434181D51DE00E6073C /* Wikipedia */;
@@ -12394,7 +12424,7 @@
 				MARKETING_VERSION = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -12434,7 +12464,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -12512,7 +12542,7 @@
 				MARKETING_VERSION = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -12591,7 +12621,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
