@@ -269,6 +269,7 @@ public struct WMFTheme: Equatable {
 
     private static let readingChallengeNotEnrolledBase = UIColor(red: 182/255, green: 212/255, blue: 251/255, alpha: 1)
     private static let readingChallengeYellow          = UIColor(red: 255/255, green: 228/255, blue: 156/255, alpha: 1)
+    private static let readingChallengeNotLiveYet      = UIColor(red: 174/255, green: 223/255, blue: 205/255, alpha: 1)
 
     // MARK: - ReadingChallengeColorSet
 
@@ -278,6 +279,7 @@ public struct WMFTheme: Equatable {
         case blue
         case notEnrolled
         case yellow
+        case green
 
         /// Flat background color — used as a fallback when no gradient is defined.
         public var primary: Color {
@@ -287,6 +289,7 @@ public struct WMFTheme: Equatable {
             case .blue:        return Color(uiColor: WMFTheme.readingChallengeBluePrimary)
             case .notEnrolled: return Color(uiColor: WMFTheme.readingChallengeNotEnrolledBase)
             case .yellow:      return Color(uiColor: WMFTheme.readingChallengeYellow)
+            case .green:       return Color(uiColor: WMFTheme.readingChallengeNotLiveYet)
             }
         }
 
@@ -298,6 +301,7 @@ public struct WMFTheme: Equatable {
             case .blue:        return Color(uiColor: WMFTheme.readingChallengeBlueSecondary)
             case .notEnrolled: return Color(uiColor: WMFColor.black)
             case .yellow:      return Color(uiColor: WMFColor.black)
+            case .green:       return Color(uiColor: WMFColor.black)
             }
         }
 
@@ -305,7 +309,7 @@ public struct WMFTheme: Equatable {
         public var tertiary: Color? {
             switch self {
             case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkTertiary)
-            case .orange, .yellow, .blue, .notEnrolled:      return nil
+            case .orange, .yellow, .blue, .notEnrolled, .green:      return nil
             }
         }
     }
