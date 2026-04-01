@@ -36,7 +36,8 @@ final public class WMFReadingListToastPresenter {
     // MARK: - Public API
 
     public var isToastHidden: Bool {
-        currentToastContainer?.superview == nil
+        currentToastContainer?.superview == nil ||
+        currentToastContainer?.window == nil // indicates it is on screen somewhere but not currently visible
     }
 
     /// Show a toast anchored to a specific view controller
