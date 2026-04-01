@@ -633,10 +633,12 @@ extension SavedViewController: UISearchBarDelegate {
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidBeginEditing: searchBar)
+        hideCustomLeadingLargeTitleLabel()
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
+        showCustomLeadingLargeTitleLabel()
         if currentView == .savedArticles {
             allArticlesCoordinator?.contentViewController.viewModel.searchText = ""
             allArticlesCoordinator?.contentViewController.viewModel.loadArticles()

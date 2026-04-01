@@ -159,7 +159,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 navigationItem.titleView = customTitleView
                 themeNavigationBarCustomCenteredTitleView()
             }
-            removeUpperLeadingLargeTitleLabel()
+            removeCustomLeadingLargeTitleLabel()
         case .leadingLarge:
             navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -170,7 +170,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 navigationItem.titleView = nil
             }
             navigationItem.leftBarButtonItem = nil
-            removeUpperLeadingLargeTitleLabel()
+            removeCustomLeadingLargeTitleLabel()
             
             if let customLargeTitleFont = titleConfig.customLargeTitleFont {
                 customizeNavBarAppearance(customLargeTitleFont: customLargeTitleFont)
@@ -181,7 +181,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.backButtonTitle = titleConfig.title
             navigationItem.titleView = nil
-            removeUpperLeadingLargeTitleLabel()
+            removeCustomLeadingLargeTitleLabel()
         case .customLeadingLarge:
             navigationItem.title = nil
             navigationController?.navigationBar.prefersLargeTitles = false
@@ -301,29 +301,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.searchController = searchController
         }
 
-        if let searchController = navigationItem.searchController,
-           let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel {
-            let searchBar = searchController.searchBar
 
-            // Set initial state
-            label.isHidden = searchController.isActive
-
-            let nc = NotificationCenter.default
-
-            // Remove any previous observers stored on this label
-            if let previous = objc_getAssociatedObject(label, &AssociatedKeys.searchBarObserverTokens) as? [NSObjectProtocol] {
-                previous.forEach { nc.removeObserver($0) }
-            }
-
-            let showToken = nc.addObserver(forName: UITextField.textDidBeginEditingNotification, object: searchBar.searchTextField, queue: .main) { [weak label] _ in
-                UIView.animate(withDuration: 0.2) { label?.isHidden = true }
-            }
-            let hideToken = nc.addObserver(forName: UITextField.textDidEndEditingNotification, object: searchBar.searchTextField, queue: .main) { [weak label] _ in
-                UIView.animate(withDuration: 0.2) { label?.isHidden = false }
-            }
-
-            objc_setAssociatedObject(label, &AssociatedKeys.searchBarObserverTokens, [showToken, hideToken], .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
     }
     
     func customizeNavBarAppearance(customLargeTitleFont: UIFont) {
@@ -396,11 +374,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     private var upperLeadingLargeTitleTag: Int { 0x574D465F_5469746C }  // "WMF_Titl" as a stable tag
 
-    /// Adds a large bold label pinned to the leading edge of the navigation bar, or updates its text/position if already present.
-    /// - Parameters:
-    ///   - title: The text to display.
-    ///   - pinToTop: When `true` the label is pinned to the top of the bar (for use when a stacked search bar occupies the bottom).
-    ///               When `false` (default) the label is pinned to the bottom, matching the standard large-title row position.
     private func addOrUpdateUpperLeadingLargeTitleLabel(title: String, pinToTop: Bool = false) {
         guard let navBar = navigationController?.navigationBar else { return }
 
@@ -430,22 +403,23 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         label.textColor = WMFAppEnvironment.current.theme.text
     }
 
-    /// Removes the upper-leading large title label from the navigation bar if present.
-    private func removeUpperLeadingLargeTitleLabel() {
+    private func removeCustomLeadingLargeTitleLabel() {
         navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag)?.removeFromSuperview()
     }
 
-    /// Call from UIViewController when theme changes to re-apply the correct text color.
-    ///     - from apply(theme:) if legacy
-    ///     - from appEnvironmentDidChange() if WMFComponents
-    func themeNavigationBarUpperLeadingLargeTitle() {
+    func themeNavigationBarCustomLeadingLargeTitle() {
         let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel
         label?.textColor = WMFAppEnvironment.current.theme.text
     }
-}
-// MARK: - Associated object keys
 
-private enum AssociatedKeys {
-    static var searchBarObserverTokens: UInt8 = 0
+    func hideCustomLeadingLargeTitleLabel() {
+        guard let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel else { return }
+        UIView.animate(withDuration: 0.2) { label.isHidden = true }
+    }
+
+    func showCustomLeadingLargeTitleLabel() {
+        guard let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel else { return }
+        UIView.animate(withDuration: 0.2) { label.isHidden = false }
+    }
 }
 

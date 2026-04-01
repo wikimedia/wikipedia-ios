@@ -345,7 +345,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Navigation Bar
 
     private func configureNavigationBar() {
-        let alignment: WMFNavigationBarTitleConfig.Alignment = isRootTabView ? .customLeadingLarge : .centerCompact
+        let alignment: WMFNavigationBarTitleConfig.Alignment
+        if isRootTabView {
+            alignment = isSearchActive ? .hidden : .customLeadingLarge
+        } else {
+            alignment = .centerCompact
+        }
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: alignment)
 
         var profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil
