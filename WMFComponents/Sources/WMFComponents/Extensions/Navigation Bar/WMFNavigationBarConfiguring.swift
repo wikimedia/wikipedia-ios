@@ -188,7 +188,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = nil
             navigationItem.leftBarButtonItem = nil
-            // Fixes wrong placement in Places and Saved, due to segmented control attached view
+            // Fixes wrong placement in Places and Saved, due to segmented control attached view.
+            // The search controller is wired to the label after it's created below.
             let pinToTop = searchBarConfig != nil
             addOrUpdateUpperLeadingLargeTitleLabel(title: titleConfig.title, pinToTop: pinToTop)
         }
@@ -298,6 +299,30 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.hidesSearchBarWhenScrolling = false
             navigationItem.preferredSearchBarPlacement = .stacked
             navigationItem.searchController = searchController
+        }
+
+        if let searchController = navigationItem.searchController,
+           let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel {
+            let searchBar = searchController.searchBar
+
+            // Set initial state
+            label.isHidden = searchController.isActive
+
+            let nc = NotificationCenter.default
+
+            // Remove any previous observers stored on this label
+            if let previous = objc_getAssociatedObject(label, &AssociatedKeys.searchBarObserverTokens) as? [NSObjectProtocol] {
+                previous.forEach { nc.removeObserver($0) }
+            }
+
+            let showToken = nc.addObserver(forName: UITextField.textDidBeginEditingNotification, object: searchBar.searchTextField, queue: .main) { [weak label] _ in
+                UIView.animate(withDuration: 0.2) { label?.isHidden = true }
+            }
+            let hideToken = nc.addObserver(forName: UITextField.textDidEndEditingNotification, object: searchBar.searchTextField, queue: .main) { [weak label] _ in
+                UIView.animate(withDuration: 0.2) { label?.isHidden = false }
+            }
+
+            objc_setAssociatedObject(label, &AssociatedKeys.searchBarObserverTokens, [showToken, hideToken], .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -418,3 +443,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         label?.textColor = WMFAppEnvironment.current.theme.text
     }
 }
+// MARK: - Associated object keys
+
+private enum AssociatedKeys {
+    static var searchBarObserverTokens: UInt8 = 0
+}
+
