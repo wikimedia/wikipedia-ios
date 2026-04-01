@@ -1179,6 +1179,7 @@
 "settings-help-and-feedback" = "Title for showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
+"settings-legal-sefaty-title" = "Title for legal and safety contatcs section in settings";
 "settings-my-languages" = "Title for list of user's preferred languages";
 "settings-new-article-tab-header-text" = "Header title for the New Article Tabs settings to determine between preferences";
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
