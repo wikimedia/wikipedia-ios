@@ -501,7 +501,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     // MARK: - Navigation Bar
     private func configureNavigationBar() {
 
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingLarge)
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .customLeadingLarge)
 
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?

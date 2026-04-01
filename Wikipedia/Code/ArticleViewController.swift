@@ -206,15 +206,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         
-        if #available(iOS 26, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                hidesBottomBarWhenPushed = false
-            } else {
-                hidesBottomBarWhenPushed = true
-            }
-        } else {
-            hidesBottomBarWhenPushed = true
-        }
+        configureHidesBottomBarWhenPushed()
     }
 
     deinit {
@@ -781,11 +773,9 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchButtonConfig: searchButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
 
-        let backItem = UIBarButtonItem()
-        backItem.title = String()
+        navigationItem.backButtonDisplayMode = .minimal
         let returnAccessibilityTitle = WMFLocalizedString("article-return-button-accessibility-title", value: "Return to: %1$@", comment: "Accessibility title read by assistive technologies for the button that takes the user back to the previous article. The %1$@ placeholder is replaced with the previous article title.")
-        backItem.accessibilityLabel = String.localizedStringWithFormat(returnAccessibilityTitle, articleURL.wmf_title ?? String())
-        navigationItem.backBarButtonItem = backItem
+        navigationItem.backBarButtonItem?.accessibilityLabel = String.localizedStringWithFormat(returnAccessibilityTitle, articleURL.wmf_title ?? String())
     }
 
     @objc func userDidTapSearch() {
