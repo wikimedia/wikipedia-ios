@@ -94,6 +94,18 @@ class ArticleToolbarController: Themeable {
 
     private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> IconBarButtonItem {
 
+        
+        let moreImage = WMFSFSymbolIcon.for(symbol: .ellipsisCircle)?.withConfiguration(UIImage.SymbolConfiguration(weight: .light))
+        
+        let menu = createMoreMenu(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+
+        let item = IconBarButtonItem(image: moreImage, menu: menu)
+
+        item.accessibilityLabel = CommonStrings.moreButton
+        return item
+    }
+    
+    private func createMoreMenu(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> UIMenu {
         var actions: [UIAction] = []
 
         let image = WMFIcon.pencil
@@ -138,19 +150,25 @@ class ArticleToolbarController: Themeable {
         }
 
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
-
-        let moreImage = WMFSFSymbolIcon.for(symbol: .ellipsisCircle)?.withConfiguration(UIImage.SymbolConfiguration(weight: .light))
-
-        let item = IconBarButtonItem(image: moreImage, menu: menu)
-
-        item.accessibilityLabel = CommonStrings.moreButton
-        return item
+        return menu
     }
 
     func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle?, nextArticleTab: WMFArticleTabsDataController.WMFArticle?) {
-        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        
+        let updatedMenu = createMoreMenu(
+            needsWatchButton: needsWatchButton,
+            needsUnwatchHalfButton: needsUnwatchHalfButton,
+            needsUnwatchFullButton: needsUnwatchFullButton,
+            previousArticleTab: previousArticleTab,
+            nextArticleTab: nextArticleTab
+        )
+        if let button = moreButton.customView as? UIButton {
+            button.menu = updatedMenu
+        } else {
+            moreButton.menu = updatedMenu
+        }
+        
         moreButton.apply(theme: theme)
-        update()
     }
 
     var moreButtonSourceView: UIView? {

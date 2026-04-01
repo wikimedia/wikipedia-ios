@@ -523,8 +523,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        if let _ = navigationController?.viewControllers.last as? ArticleViewController {
+            // We are moving to another ArticleViewController. Not hiding the system toolbar for a smoother transition.
+        } else {
+            navigationController?.setToolbarHidden(true, animated: true)
+        }
         
-        navigationController?.setToolbarHidden(true, animated: true)
         wTipObservationTask?.cancel()
         wTipObservationTask = nil
         saveArticleScrollPosition()
