@@ -182,16 +182,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.backButtonTitle = String()
         navigationItem.rightBarButtonItem?.accessibilityLabel = CommonStrings.exploreTabTitle
         
-        // Set up logo as left bar button item
-        
         let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
-        if #available(iOS 26.0, *) {
-            logoBarButtonItem.hidesSharedBackground = true
-            logoBarButtonItem.sharesBackground = false
-        }
         logoBarButtonItem.accessibilityLabel = WMFLocalizedString("home-title-accessibility-label", value: "Wikipedia, scroll to top of Explore", comment: "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
         navigationItem.leftBarButtonItem = logoBarButtonItem
-        
         if #unavailable(iOS 26.0) {
             logoBarButtonItem.tintColor = theme.colors.logoTintColor
         }
