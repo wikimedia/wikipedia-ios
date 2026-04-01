@@ -1420,6 +1420,7 @@ private extension ArticleViewController {
 
     func setupToolbar() {
         toolbarController = ArticleToolbarController(delegate: self)
+        toolbarController?.apply(theme: theme)
         navigationController?.setToolbarHidden(false, animated: false)
     }
 
