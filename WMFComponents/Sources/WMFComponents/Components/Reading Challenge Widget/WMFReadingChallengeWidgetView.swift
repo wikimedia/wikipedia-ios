@@ -37,8 +37,10 @@ public struct WMFReadingChallengeWidgetView: View {
                 case .streakOngoingRead:
                     mediumStreakView
                 case .streakOngoingNotYetRead:
-                    mediumTwoButtonView
-                case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
+                    mediumTwoButtonView(showFlame: true)
+                case .enrolledNotStarted:
+                    mediumTwoButtonView(showFlame: false)
+                case .notEnrolled, .notLiveYet, .challengeRemoved:
                     notEnrolledMediumView
                 default:
                     mediumView
@@ -84,14 +86,14 @@ public struct WMFReadingChallengeWidgetView: View {
     
     private var notEnrolledSmallView: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .center, spacing: 8) {
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
+                        .layoutPriority(1)
                 }
-                Spacer()
                 if let button1Title = viewModel.displaySet.button1Title,
                    let button1URL = viewModel.displaySet.button1URL {
                     Link(destination: button1URL) {
@@ -108,7 +110,6 @@ public struct WMFReadingChallengeWidgetView: View {
             .padding()
             wIconOverlay
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var noButtonsSmallView: some View {
@@ -118,6 +119,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
+                        .frame(maxHeight: 100)
                 }
                 HStack {
                     switch viewModel.state {
@@ -156,6 +158,8 @@ public struct WMFReadingChallengeWidgetView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .layoutPriority(1)
                 }
                 Text(viewModel.displaySet.title)
                     .font(Font(WMFFont.for(.boldTitle1)))
@@ -186,6 +190,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             wIconOverlay
         }
@@ -325,13 +330,13 @@ public struct WMFReadingChallengeWidgetView: View {
 
     // MARK: - Medium 2 Button View
 
-    private var mediumTwoButtonView: some View {
+    private func mediumTwoButtonView(showFlame: Bool) -> some View {
         ZStack {
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 4) {
-                            if let flameImage = UIImage(named: "flameWarning", in: .module, with: nil) {
+                            if showFlame, let flameImage = UIImage(named: "flameWarning", in: .module, with: nil) {
                                 Image(uiImage: flameImage)
                                     .resizable()
                                     .scaledToFit()
@@ -341,6 +346,8 @@ public struct WMFReadingChallengeWidgetView: View {
                             Text(viewModel.displaySet.title)
                                 .font(Font(WMFFont.for(.boldTitle1)))
                                 .foregroundColor(viewModel.displaySet.color2)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .multilineTextAlignment(.leading)
                         }
                         if let subtitle = viewModel.displaySet.subtitle {
                             Text(subtitle)

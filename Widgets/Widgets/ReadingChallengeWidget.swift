@@ -146,26 +146,32 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
 
     static func enrolledNotStartedSet(family: WidgetFamily) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: WMFTheme.ReadingChallengeColorSet.notEnrolled.primary,
-            color2: WMFTheme.ReadingChallengeColorSet.notEnrolled.secondary,
-            color3: WMFTheme.ReadingChallengeColorSet.notEnrolled.tertiary,
+            color: WMFTheme.ReadingChallengeColorSet.yellow.primary,
+            color2: WMFTheme.ReadingChallengeColorSet.yellow.secondary,
+            color3: WMFTheme.ReadingChallengeColorSet.yellow.tertiary,
             image: "readingGlobe",
-            title: WMFLocalizedString(
+            title: family == .systemSmall ? "" : WMFLocalizedString(
                 "reading-challenge-enrolled-not-started-title",
-                value: "You're in! Start your streak",
+                value: "Ready, set, read!",
                 comment: "Title shown on the reading challenge widget when enrolled but not yet started."
             ),
-            subtitle: WMFLocalizedString(
+            subtitle: family == .systemSmall ? nil : WMFLocalizedString(
                 "reading-challenge-enrolled-not-started-subtitle",
-                value: "Read any Wikipedia article today to begin your 25-day journey.",
+                value: "Start working towards a 25-day streak!",
                 comment: "Subtitle shown on the reading challenge widget when enrolled but not yet started."
             ),
-            button1Title: family == .systemSmall ? nil : CommonStrings.searchTitle,
-            button2Title: nil,
-            button1URL: family == .systemSmall ? nil : URL(string: "wikipedia://search"),
-            button2URL: nil,
+            button1Title: family == .systemSmall
+            ? CommonStrings.exploreTabTitle
+                : CommonStrings.searchTitle,
+            button2Title: family == .systemSmall ? nil : WMFLocalizedString(
+                "reading-challenge-random-button",
+                value: "Random",
+                comment: "Title for the Random article button on the reading challenge widget."
+            ),
+            button1URL: family == .systemSmall ? URL(string: "wikipedia://explore") : URL(string: "wikipedia://search"),
+            button2URL: family == .systemSmall ? nil : URL(string: "wikipedia://random"),
             button1Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .semiboldSubheadline),
-            button2Icon: nil
+            button2Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .diceFill, font: .semiboldSubheadline)
         )
     }
 
