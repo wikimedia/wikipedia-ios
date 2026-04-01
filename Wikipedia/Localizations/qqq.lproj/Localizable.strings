@@ -1050,10 +1050,13 @@
 "reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-enrolled-not-started-subtitle" = "Subtitle shown on the reading challenge widget when enrolled but not yet started.";
 "reading-challenge-enrolled-not-started-title" = "Title shown on the reading challenge widget when enrolled but not yet started.";
+"reading-challenge-explore-wikipedia-button" = "Button title on the reading challenge widget linking to the Explore feed.";
 "reading-challenge-join-button-medium" = "Button title on medium widget.";
 "reading-challenge-join-button-small" = "Button title on small widget.";
 "reading-challenge-not-enrolled-subtitle" = "Subtitle shown on the reading challenge widget when the user is not enrolled in the challenge.";
 "reading-challenge-not-enrolled-title" = "Title shown on the reading challenge widget when the user is not enrolled in the challenge.";
+"reading-challenge-not-live-yet-subtitle" = "Subtitle shown on the reading challenge widget when the challenge has not yet launched.";
+"reading-challenge-not-live-yet-title" = "Title shown on the reading challenge widget when the challenge has not yet launched.";
 "reading-challenge-not-yet-read-subtitle" = "Subtitle shown on the reading challenge widget when the user has not yet read today.";
 "reading-challenge-random-button" = "Title for the Random article button on the reading challenge widget.";
 "reading-challenge-streak-days" = "Number of days in a reading challenge streak. $1 is the number of days.";

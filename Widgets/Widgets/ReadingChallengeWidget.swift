@@ -174,6 +174,34 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             button2Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .diceFill, font: .semiboldSubheadline)
         )
     }
+    
+    static func notLiveYetSet(family: WidgetFamily) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+        WMFReadingChallengeWidgetViewModel.DisplaySet(
+            color: WMFTheme.ReadingChallengeColorSet.green.primary,
+            color2: WMFTheme.ReadingChallengeColorSet.green.secondary,
+            color3: WMFTheme.ReadingChallengeColorSet.green.tertiary,
+            image: "readingGlobe",
+            title: WMFLocalizedString(
+                "reading-challenge-not-live-yet-title",
+                value: "Get ready to read",
+                comment: "Title shown on the reading challenge widget when the challenge has not yet launched."
+            ),
+            subtitle: WMFLocalizedString(
+                "reading-challenge-not-live-yet-subtitle",
+                value: "A 25-day reading challenge is on the way.",
+                comment: "Subtitle shown on the reading challenge widget when the challenge has not yet launched."
+            ),
+            button1Title: family == .systemSmall
+                ? CommonStrings.exploreTabTitle
+                : WMFLocalizedString(
+                    "reading-challenge-explore-wikipedia-button",
+                    value: "Explore Wikipedia",
+                    comment: "Button title on the reading challenge widget linking to the Explore feed."
+                  ),
+            button1URL: URL(string: "wikipedia://explore"),
+            button1Icon: nil
+        )
+    }
 
     static let noStreakSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
         color: .gray,
@@ -225,8 +253,10 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             return noStreakSet
         case .notEnrolled:
             return notEnrolledSet(family: family)
-        case .notLiveYet, .challengeRemoved:
+        case .challengeRemoved:
             return notEnrolledSet(family: family)
+        case .notLiveYet:
+            return notLiveYetSet(family: family)
         case .enrolledNotStarted:
             return enrolledNotStartedSet(family: family)
         }

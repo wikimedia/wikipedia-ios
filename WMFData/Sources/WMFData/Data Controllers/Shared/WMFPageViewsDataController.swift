@@ -388,11 +388,12 @@ extension WMFPageViewsDataController {
         if calendar.startOfDay(for: now) > calendar.startOfDay(for: config.removeDate) {
             return .challengeRemoved
         }
+        
+        if calendar.startOfDay(for: now) < calendar.startOfDay(for: config.startDate) {
+            return .notLiveYet
+        }
 
         guard isEnrolled else {
-            if calendar.startOfDay(for: now) < calendar.startOfDay(for: config.startDate) {
-                return .notLiveYet
-            }
             return .notEnrolled
         }
 
