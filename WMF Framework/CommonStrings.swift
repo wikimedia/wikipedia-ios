@@ -226,6 +226,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let privacyPolicyURLString = "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy"
     @objc public static let termsOfUseURLString = "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
+    public static let legalAndSafetyContactUsURLString = "https://foundation.wikimedia.org/wiki/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information"
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
     @objc public static let logIn = WMFLocalizedString("main-menu-account-login", value: "Log in", comment: "Button text for logging in.")
@@ -718,6 +719,7 @@ public class CommonStrings: NSObject {
     @objc public static let confirmDeletionSubtitle = WMFLocalizedString("confirm-donation-history-deletion-subtitle", value: "This will only apply to donations made from this device.", comment: "Subtitle for confirm local donation history deletion alert")
 
     @objc public static let confirmedDeletion = WMFLocalizedString("confirmed-donation-history-deletion", value: "Local history deleted", comment: "Title for confirming deletion of locally saved donations alert")
+    public static let legalAndSafety = WMFLocalizedString("settings-legal-sefaty-title", value: "Legal & safety contacts", comment: "Title for legal and safety contatcs section in settings")
 
     // Year In Review
 

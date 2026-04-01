@@ -1191,7 +1191,8 @@ extension WMFAppViewController {
             rateTheAppTitle: CommonStrings.rateTheAppTitle,
             helpTitle: CommonStrings.helpAndfeedbackTitle,
             aboutTitle: CommonStrings.aboutTitle,
-            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory
+            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
+            safetyTitle: CommonStrings.legalAndSafety
         )
 
         let viewModel = WMFSettingsViewModel.__createSynchronously(

@@ -71,8 +71,9 @@ final public class WMFSettingsViewModel: ObservableObject {
         let helpTitle: String
         let aboutTitle: String
         let clearDonationHistoryTitle: String
+        let safetyTitle: String
 
-        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String) {
+        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String) {
             self.settingTitle = settingTitle
             self.doneButtonTitle = doneButtonTitle
             self.cancelButtonTitle = cancelButtonTitle
@@ -96,6 +97,7 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.helpTitle = helpTitle
             self.aboutTitle = aboutTitle
             self.clearDonationHistoryTitle = clearDonationHistoryTitle
+            self.safetyTitle = safetyTitle
         }
     }
 
@@ -326,12 +328,16 @@ final public class WMFSettingsViewModel: ObservableObject {
         let terms = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .textJustify), color: WMFColor.gray300, title: localizedStrings.termsOfUseTitle, subtitle: nil, accessory: .icon(WMFIcon.externalLink), action: {
             self.coordinatorDelegate?.handleSettingsAction(.termsOfUse)
         })
+        
+        let safety = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .infoCircleFill), color: WMFColor.blue300, title: localizedStrings.safetyTitle, subtitle: nil, accessory: .icon(WMFIcon.externalLink), action: {
+            self.coordinatorDelegate?.handleSettingsAction(.legalAndSafety)
+        })
 
         let deleteLocalDonations = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .heartFilled), color: WMFColor.gray300, title: localizedStrings.clearDonationHistoryTitle, subtitle: nil, accessory: .none, action: {
             self.coordinatorDelegate?.handleSettingsAction(.deleteDonationHistory)
         })
 
-        var section = SettingsSection(header: localizedStrings.privacyHeader, footer: nil, items:[privacy, terms])
+        var section = SettingsSection(header: localizedStrings.privacyHeader, footer: nil, items:[privacy, terms, safety])
         if await dataController.hasLocalDonations() {
             section.items.append(deleteLocalDonations)
         }
@@ -383,7 +389,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         } else {
             item = SettingsItem(
                 image: WMFSFSymbolIcon.for(symbol: .personFilled),
-                color: WMFColor.gray100,
+                color: WMFColor.gray300,
                 title: localizedStrings.logInTitle,
                 subtitle: nil,
                 accessory: .chevron(label: nil),
