@@ -219,7 +219,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
         if let profileButtonConfig {
 
-            var allItems: [UIBarButtonItem] = []
+            var rightBarButtonItems: [UIBarButtonItem] = []
 
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
@@ -227,24 +227,24 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
             profileButton.accessibilityIdentifier = profileButtonAccessibilityID
 
-            allItems.append(profileButton)
+            rightBarButtonItems.append(profileButton)
 
             if let tabsButtonConfig {
 
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
 
-                allItems.append(tabsButton)
+                rightBarButtonItems.append(tabsButton)
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
                     if #available(iOS 26.0, *), tabsButtonConfig.needsSeparateGlassContainer {
                         leadingBarButtonItem.sharesBackground = false
                     }
-                    allItems.append(leadingBarButtonItem)
+                    rightBarButtonItems.append(leadingBarButtonItem)
                 }
             }
 
-            navigationItem.trailingItemGroups = [UIBarButtonItemGroup(barButtonItems: allItems, representativeItem: nil)]
+            navigationItem.rightBarButtonItems = rightBarButtonItems
         }
 
         // Setup close button if needed
