@@ -1047,7 +1047,9 @@
 "reading-challenge-announcement-subtitle" = "Notice about privacy for reading challenge";
 "reading-challenge-announcement-title" = "Title for the reading challenge onboarding view.";
 "reading-challenge-collect-prize-button" = "Button title shown on the reading challenge widget when the user has completed the challenge.";
+"reading-challenge-completed-subtitle" = "Subtitle shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
+"reading-challenge-concluded-title" = "Title shown on the reading challenge widget when the challenge has ended.";
 "reading-challenge-enrolled-not-started-subtitle" = "Subtitle shown on the reading challenge widget when enrolled but not yet started.";
 "reading-challenge-enrolled-not-started-title" = "Title shown on the reading challenge widget when enrolled but not yet started.";
 "reading-challenge-explore-wikipedia-button" = "Button title on the reading challenge widget linking to the Explore feed.";
@@ -1060,6 +1062,7 @@
 "reading-challenge-not-yet-read-subtitle" = "Subtitle shown on the reading challenge widget when the user has not yet read today.";
 "reading-challenge-random-button" = "Title for the Random article button on the reading challenge widget.";
 "reading-challenge-streak-days" = "Number of days in a reading challenge streak. $1 is the number of days.";
+"reading-challenge-streak-of-days" = "Streak pill label shown on the reading challenge widget. $1 is the number of days completed out of 25.";
 "reading-challenge-subtitle" = "Subtitle shown on the reading challenge widget indicating the challenge length.";
 "reading-challenge-widget-announcement-body" = "Body text for the reading challenge widget announcement sheet.";
 "reading-challenge-widget-announcement-title" = "Title for the reading challenge widget announcement sheet.";

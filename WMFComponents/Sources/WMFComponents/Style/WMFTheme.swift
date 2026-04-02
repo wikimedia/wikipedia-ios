@@ -280,13 +280,14 @@ public struct WMFTheme: Equatable {
         case notEnrolled
         case yellow
         case green
+        case blueBlack
 
         /// Flat background color — used as a fallback when no gradient is defined.
         public var primary: Color {
             switch self {
             case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkPrimary)
             case .orange:      return Color(uiColor: WMFTheme.readingChallengeOrangePrimary)
-            case .blue:        return Color(uiColor: WMFTheme.readingChallengeBluePrimary)
+            case .blue, .blueBlack:        return Color(uiColor: WMFTheme.readingChallengeBluePrimary)
             case .notEnrolled: return Color(uiColor: WMFTheme.readingChallengeNotEnrolledBase)
             case .yellow:      return Color(uiColor: WMFTheme.readingChallengeYellow)
             case .green:       return Color(uiColor: WMFTheme.readingChallengeNotLiveYet)
@@ -299,9 +300,7 @@ public struct WMFTheme: Equatable {
             case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkSecondary)
             case .orange:      return Color(uiColor: WMFTheme.readingChallengeOrangeSecondary)
             case .blue:        return Color(uiColor: WMFTheme.readingChallengeBlueSecondary)
-            case .notEnrolled: return Color(uiColor: WMFColor.black)
-            case .yellow:      return Color(uiColor: WMFColor.black)
-            case .green:       return Color(uiColor: WMFColor.black)
+            case .notEnrolled, .yellow, .green, .blueBlack: return Color(uiColor: WMFColor.black)
             }
         }
 
@@ -309,7 +308,7 @@ public struct WMFTheme: Equatable {
         public var tertiary: Color? {
             switch self {
             case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkTertiary)
-            case .orange, .yellow, .blue, .notEnrolled, .green:      return nil
+            case .orange, .yellow, .blue, .notEnrolled, .green, .blueBlack:      return nil
             }
         }
     }
