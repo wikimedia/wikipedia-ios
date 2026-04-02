@@ -124,7 +124,7 @@ final public class WMFReadingListToastPresenter {
         })
     }
 
-    private func addToast(to oldPresenter: UIViewController, config: WMFReadingListToastConfig) {
+    private func addToast(to outsidePresenter: UIViewController, config: WMFReadingListToastConfig) {
         guard isToastHidden else { return }
         
         // Note: using top window as a presenter fixes freezing during pan and matches WMFToastPresenter
