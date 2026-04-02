@@ -283,6 +283,19 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
 
         configureNavigationBar()
+
+        if navigationItem.searchController?.isActive == true {
+            hideCustomLeadingLargeTitleLabel()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if !isMovingFromParent {
+            navigationItem.searchController?.isActive = false
+            hideCustomLeadingLargeTitleLabel()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -425,6 +438,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         addReadingListBarButtonItem.tintColor = theme.colors.warning
 
         themeNavigationBarLeadingTitleView()
+        themeNavigationBarCustomLeadingLargeTitle()
         themeTopSafeAreaOverlay()
 
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
@@ -439,8 +453,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
+        if #available(iOS 26.0, *) {
+            button.sharesBackground = false
+        }
         return button
     }()
 

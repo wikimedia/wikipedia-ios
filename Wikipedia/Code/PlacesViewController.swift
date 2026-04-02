@@ -2186,7 +2186,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     // MARK: - UISearchBarDelegate
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        hideUpperLeadingLargeTitleLabel()
+        hideCustomLeadingLargeTitleLabel()
         viewMode = .search
         deselectAllAnnotations()
 
@@ -2227,7 +2227,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        showUpperLeadingLargeTitleLabel()
+        showCustomLeadingLargeTitleLabel()
         updateViewModeFromSegmentedControl()
     }
 
@@ -2362,6 +2362,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         profileCoordinator?.theme = theme
         updateProfileButton()
+        themeNavigationBarCustomLeadingLargeTitle()
 
         searchSuggestionController.apply(theme: theme)
 

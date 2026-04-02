@@ -306,13 +306,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        if !isMovingFromParent {
-            disableSearchCancelLogging = true
+
+        disableSearchCancelLogging = !isMovingFromParent
+
+        if navigationItem.searchController?.isActive == true {
+            navigationItem.searchController?.isActive = false
         }
-        
+        isSearchActive = false
         navigationItem.searchController = nil
+        navigationItem.title = nil
         disableSearchCancelLogging = false
+        hideCustomLeadingLargeTitleLabel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -537,6 +541,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             updateProfileButton()
             profileCoordinator?.theme = theme
             yirCoordinator?.theme = theme
+            themeNavigationBarCustomLeadingLargeTitle()
         }
         
     }
