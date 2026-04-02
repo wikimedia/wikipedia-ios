@@ -550,14 +550,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         // Build flat collapsed menu so overflow items aren't nested on small screens
         let collapsedMenu = UIMenu(title: "", children: [
             UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "Profile", image: WMFSFSymbolIcon.for(symbol: needsBadge ? .personCropCircleBadge : .personCropCircle)) { [weak self] _ in self?.userDidTapProfile() },
-                UIAction(title: tabsButtonConfig.accessibilityLabel, image: WMFSFSymbolIcon.for(symbol: .tabsIcon)) { [weak self] _ in self?.userDidTapTabs() }
-            ]),
-            UIMenu(title: "", options: .displayInline, children: [
                 UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gearShape)) { [weak self] _ in self?.userDidTapCustomize() },
                 UIAction(title: CommonStrings.learnMoreTitle(), image: WMFSFSymbolIcon.for(symbol: .infoCircle)) { [weak self] _ in self?.userDidTapLearnMore() },
                 UIAction(title: WMFLocalizedString("activity-tab-menu-clear-history", value: "Clear reading history", comment: "Title for clear reading history option in the overflow menu button on activity tab"), image: WMFSFSymbolIcon.for(symbol: .clockBadgeX)) { [weak self] _ in self?.userDidTapClearReadingHistory() },
                 UIAction(title: CommonStrings.problemWithFeatureTitle, image: WMFSFSymbolIcon.for(symbol: .flag)) { [weak self] _ in self?.userDidTapReportIssue() }
+            ]),
+            UIMenu(title: "", options: .displayInline, children: [
+                UIAction(title: "Tabs", image: WMFSFSymbolIcon.for(symbol: .tabsIcon)) { [weak self] _ in self?.userDidTapTabs() },
+                UIAction(title: "Account", image: profileImage) { [weak self] _ in self?.userDidTapProfile() }
             ])
         ])
 
