@@ -739,6 +739,13 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     // MARK: Navigation Bar
+    
+    private var searchButtonItem: UIBarButtonItem {
+        let image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
+        let searchButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(userDidTapSearch))
+        searchButton.accessibilityLabel = CommonStrings.searchButtonAccessibilityHint
+        return searchButton
+    }
 
     private func configureNavigationBar() {
 
@@ -753,29 +760,27 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         }
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
 
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
 
         let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
 
-        var profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
 
-        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
-
-        var searchButtonConfig: WMFNavigationBarSearchButtonConfig? = nil
-
+        var tabsLeadingButton: UIBarButtonItem?
+        
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: nil, alignment: .hidden)
-                profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-                searchButtonConfig = nil
+                // do nothing
             } else if UIDevice.current.userInterfaceIdiom == .phone {
-                searchButtonConfig = self.searchButtonConfig(target: self, action: #selector(userDidTapSearch), dataStore: dataStore)
+                tabsLeadingButton = searchButtonItem
             }
         } else if UIDevice.current.userInterfaceIdiom == .phone {
-            searchButtonConfig = self.searchButtonConfig(target: self, action: #selector(userDidTapSearch), dataStore: dataStore)
+            tabsLeadingButton = searchButtonItem
         }
+        
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: tabsLeadingButton)
 
-        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchButtonConfig: searchButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
     }
 
     @objc func userDidTapSearch() {
@@ -788,7 +793,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     private func updateProfileButton() {
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
 
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
