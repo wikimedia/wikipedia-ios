@@ -95,7 +95,7 @@ class ArticleToolbarController: Themeable {
     private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> IconBarButtonItem {
 
         
-        let moreImage = WMFSFSymbolIcon.for(symbol: .ellipsisCircle)?.withConfiguration(UIImage.SymbolConfiguration(weight: .light))
+        let moreImage = WMFSFSymbolIcon.for(symbol: .ellipsis)?.withConfiguration(UIImage.SymbolConfiguration(weight: .light))
         
         let menu = createMoreMenu(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
 
