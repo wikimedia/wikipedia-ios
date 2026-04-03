@@ -194,6 +194,7 @@ import WMFComponents
     @MainActor
     private func performConfirmationAction(readingList: ReadingList) {
         guard let presenter else { return }
+        toastPresenter?.dismissToast()
 
         let detailVC = ReadingListDetailViewController(
             for: readingList,
