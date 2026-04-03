@@ -79,10 +79,7 @@ public final class WMFToastPresenter {
         allowsBackgroundTapToDismiss: Bool = false,
         dismissAction: (@Sendable (DismissEvent) -> Void)? = nil
     ) {
-        
-        // iOS 26 workaround: UIHostingController conflicts with active first responder
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        
+
         guard let containerView = UIApplication.shared.connectedScenes
             .compactMap({ $0 as? UIWindowScene })
             .flatMap({ $0.windows })
