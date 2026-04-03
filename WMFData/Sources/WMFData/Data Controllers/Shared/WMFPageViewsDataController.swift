@@ -382,14 +382,37 @@ extension WMFPageViewsDataController {
         now: Date = Date()
     ) async throws -> ReadingChallengeState {
 
+        // Developer override — only applies when master toggle is on
+        let devDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+        func devBool(_ key: WMFUserDefaultsKey) -> Bool {
+            devDefaults?.bool(forKey: key.rawValue) ?? false
+        }
+        if devBool(.devForceReadingChallengeEnabled) {
+            let storedStreak = devDefaults?.integer(forKey: WMFUserDefaultsKey.devForceReadingChallengeStreakCount.rawValue) ?? 0
+            let devStreak = storedStreak == 0 ? 7 : storedStreak
+            if devBool(.devForceReadingChallengeCompletedFullStreak) { return .challengeCompleted }
+            if devBool(.devForceReadingChallengeCompletedIncompleteStreak) { return .challengeConcludedIncomplete(streak: devStreak) }
+            if devBool(.devForceReadingChallengeCompletedNoStreak) { return .challengeConcludedNoStreak }
+            if devBool(.devForceReadingChallengeNotLiveYet) { return .notLiveYet }
+            if devBool(.devForceReadingChallengeEnrolledNotStarted) { return .enrolledNotStarted }
+            if devBool(.devForceReadingChallengeStreakOngoingRead) { return .streakOngoingRead(streak: devStreak) }
+            if devBool(.devForceReadingChallengeStreakOngoingNotYetRead) { return .streakOngoingNotYetRead(streak: devStreak) }
+            return .notEnrolled
+        }
+
         let config = ReadingChallengeStateConfig.self
         let calendar = Calendar.current
 
-        if calendar.startOfDay(for: now) > calendar.startOfDay(for: config.removeDate) {
+        let todayStart = calendar.startOfDay(for: now)
+        let removeDateStart = calendar.startOfDay(for: config.removeDate)
+        let startDateStart = calendar.startOfDay(for: config.startDate)
+        let endDateStart = calendar.startOfDay(for: config.endDate)
+
+        if todayStart > removeDateStart {
             return .challengeRemoved
         }
-        
-        if calendar.startOfDay(for: now) < calendar.startOfDay(for: config.startDate) {
+
+        if todayStart < startDateStart {
             return .notLiveYet
         }
 
@@ -397,35 +420,45 @@ extension WMFPageViewsDataController {
             return .notEnrolled
         }
 
-        let (streak, hasReadToday) = try await computeStreak(calendar: calendar, now: now)
+        let (streak, hasReadToday, streakStartedAfterEnrollmentCutoff) = try await computeStreak(
+            calendar: calendar,
+            now: now,
+            startDate: config.startDate,
+            endDate: config.endDate
+        )
 
-        if streak >= config.streakGoal {
+        // Cap at goal — completion is terminal, no need to count beyond it
+        let cappedStreak = min(streak, config.streakGoal)
+
+        if cappedStreak >= config.streakGoal {
             return .challengeCompleted
         }
 
-        if calendar.startOfDay(for: now) > calendar.startOfDay(for: config.endDate) {
-            return streak > 0
-                ? .challengeConcludedIncomplete(streak: streak)
+        if todayStart > endDateStart {
+            if streakStartedAfterEnrollmentCutoff {
+                return .challengeConcludedNoStreak
+            }
+
+            return cappedStreak > 1
+                ? .challengeConcludedIncomplete(streak: cappedStreak)
                 : .challengeConcludedNoStreak
         }
 
-        if streak == 0 {
-            if calendar.startOfDay(for: now) <= calendar.startOfDay(for: config.endDate) {
-                return .enrolledNotStarted
-            } else {
-                return .challengeConcludedNoStreak
-            }
+        if cappedStreak == 0 {
+            return .enrolledNotStarted
         }
 
         return hasReadToday
-            ? .streakOngoingRead(streak: streak)
-            : .streakOngoingNotYetRead(streak: streak)
+            ? .streakOngoingRead(streak: cappedStreak)
+            : .streakOngoingNotYetRead(streak: cappedStreak)
     }
 
     private func computeStreak(
         calendar: Calendar,
-        now: Date
-    ) async throws -> (streak: Int, hasReadToday: Bool) {
+        now: Date,
+        startDate: Date,
+        endDate: Date
+    ) async throws -> (streak: Int, hasReadToday: Bool, streakStartedAfterEnrollmentCutoff: Bool) {
 
         let backgroundContext = try coreDataStore.newBackgroundContext
 
@@ -434,9 +467,12 @@ extension WMFPageViewsDataController {
             fetchRequest.propertiesToFetch = ["timestamp"]
             let allViews = try backgroundContext.fetch(fetchRequest)
 
+            let startOfChallengeStart = calendar.startOfDay(for: startDate)
+
             var daysWithRead = Set<DateComponents>()
             for view in allViews {
                 guard let ts = view.timestamp else { continue }
+                guard calendar.startOfDay(for: ts) >= startOfChallengeStart else { continue }
                 let comps = calendar.dateComponents([.year, .month, .day], from: ts)
                 daysWithRead.insert(comps)
             }
@@ -447,6 +483,7 @@ extension WMFPageViewsDataController {
 
             var streak = 0
             var cursor = todayStart
+            var streakStartDate: Date = todayStart
 
             while true {
                 let cursorComps = calendar.dateComponents([.year, .month, .day], from: cursor)
@@ -459,6 +496,7 @@ extension WMFPageViewsDataController {
 
                 if daysWithRead.contains(cursorComps) {
                     streak += 1
+                    streakStartDate = cursor
                     guard let prev = calendar.date(byAdding: .day, value: -1, to: cursor) else { break }
                     cursor = prev
                 } else {
@@ -466,9 +504,15 @@ extension WMFPageViewsDataController {
                 }
             }
 
-            if hasReadToday { streak += 1 }
+            if hasReadToday {
+                streak += 1
+                if streak == 1 { streakStartDate = todayStart }
+            }
 
-            return (streak, hasReadToday)
+            let endDateStart = calendar.startOfDay(for: endDate)
+            let streakStartedAfterEnrollmentCutoff = streak > 0 && streakStartDate > endDateStart
+
+            return (streak, hasReadToday, streakStartedAfterEnrollmentCutoff)
         }
     }
 }

@@ -1046,8 +1046,10 @@
 "reading-challenge-announcement-secondary-cta" = "Learn more";
 "reading-challenge-announcement-subtitle" = "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "reading-challenge-announcement-title" = "Celebrate Wikipedia's 25th birthday by joining the 25-day reading challenge!";
-"reading-challenge-collect-prize-button" = "Collect prize";
-"reading-challenge-completed-title" = "25 of 25";
+"reading-challenge-collect-prize-button" = "Collect your prize!";
+"reading-challenge-completed-subtitle" = "25 of 25 days";
+"reading-challenge-completed-title" = "You did it!";
+"reading-challenge-concluded-title" = "Challenge Concluded";
 "reading-challenge-enrolled-not-started-subtitle" = "Start working towards a 25-day streak!";
 "reading-challenge-enrolled-not-started-title" = "Ready, set, read!";
 "reading-challenge-explore-wikipedia-button" = "Explore Wikipedia";
@@ -1060,6 +1062,7 @@
 "reading-challenge-not-yet-read-subtitle" = "Don't let today drift by, save your streak.";
 "reading-challenge-random-button" = "Random";
 "reading-challenge-streak-days" = "{{PLURAL:$1|$1 day|$1 days}}";
+"reading-challenge-streak-of-days" = "{{PLURAL:$1|$1 of 25 day|$1 of 25 days}}";
 "reading-challenge-subtitle" = "25-day reading challenge";
 "reading-challenge-widget-announcement-body" = "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.";
 "reading-challenge-widget-announcement-title" = "25-day reading challenge widget available";

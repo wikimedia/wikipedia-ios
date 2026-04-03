@@ -92,31 +92,46 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         )
     }
 
-    static func completedSet(colorSet: WMFTheme.ReadingChallengeColorSet = .blue) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+    static func completedSet(colorSet: WMFTheme.ReadingChallengeColorSet = .blueBlack) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: colorSet.primary,
             color2: colorSet.secondary,
             color3: colorSet.tertiary,
-            image: "globe1",
-            title: WMFLocalizedString("reading-challenge-completed-title", value: "25 of 25", comment: "Title shown on the reading challenge widget when the user has completed the challenge."),
-            subtitle: nil,
-            button1Title: WMFLocalizedString("reading-challenge-collect-prize-button", value: "Collect prize", comment: "Button title shown on the reading challenge widget when the user has completed the challenge."),
-            button1URL: URL(string: "wikipedia://activity")
+            image: "globeParty",
+            title: WMFLocalizedString("reading-challenge-completed-title", value: "You did it!", comment: "Title shown on the reading challenge widget when the user has completed the challenge."),
+            subtitle: WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
+            button1Title: WMFLocalizedString("reading-challenge-collect-prize-button", value: "Collect your prize!", comment: "Button title shown on the reading challenge widget when the user has completed the challenge."),
+            button1URL: URL(string: "wikipedia://activity"),
+            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
         )
     }
 
-    static func incompleteSet(streak: Int) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+    static func incompleteSet(streak: Int, colorSet: WMFTheme.ReadingChallengeColorSet = .blue) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: .red,
-            color2: .red,
-            image: "globe1",
-            title: String.localizedStringWithFormat(
-                WMFLocalizedString("reading-challenge-streak-days", value: "{{PLURAL:%1$d|%1$d day|%1$d days}}", comment: "Number of days in a reading challenge streak. $1 is the number of days."),
+            color: colorSet.primary,
+            color2: colorSet.secondary,
+            color3: colorSet.tertiary,
+            image: "readingGlobe",
+            title: WMFLocalizedString("reading-challenge-concluded-title", value: "Challenge Concluded", comment: "Title shown on the reading challenge widget when the challenge has ended."),
+            subtitle: String.localizedStringWithFormat(
+                WMFLocalizedString("reading-challenge-streak-of-days", value: "{{PLURAL:%1$d|%1$d of 25 day|%1$d of 25 days}}", comment: "Streak pill label shown on the reading challenge widget. %1$d is the number of days completed out of 25."),
                 streak
-            )
+            ),
+            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
         )
     }
-    
+
+    static func noStreakSet(colorSet: WMFTheme.ReadingChallengeColorSet = .blue) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+        WMFReadingChallengeWidgetViewModel.DisplaySet(
+            color: colorSet.primary,
+            color2: colorSet.secondary,
+            color3: colorSet.tertiary,
+            image: "readingGlobe",
+            title: WMFLocalizedString("reading-challenge-concluded-title", value: "Challenge Concluded", comment: "Title shown on the reading challenge widget when the challenge has ended."),
+            subtitle: nil
+        )
+    }
+
     static func notEnrolledSet(family: WidgetFamily) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
             color: WMFTheme.ReadingChallengeColorSet.notEnrolled.primary,
@@ -203,39 +218,6 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         )
     }
 
-    static let noStreakSet = WMFReadingChallengeWidgetViewModel.DisplaySet(
-        color: .gray,
-        color2: .gray,
-        image: "globe1",
-        title: ""
-    )
-    
-    private enum Strings {
-        static let title = WMFLocalizedString(
-            "reading-challenge-widget-announcement-title",
-            value: "25-day reading challenge widget available",
-            comment: "Title for the reading challenge widget announcement sheet."
-        )
-        static let body = WMFLocalizedString(
-            "reading-challenge-widget-announcement-body",
-            value: "Baby Globe is cheering you on. Add the Reading Challenge widget to track your progress from your homescreen.",
-            comment: "Body text for the reading challenge widget announcement sheet."
-        )
-    }
-
-    private func makeViewModel() -> WMFFeatureAnnouncementViewModel {
-        WMFFeatureAnnouncementViewModel(
-            title: Strings.title,
-            body: Strings.body,
-            primaryButtonTitle: CommonStrings.gotItButtonTitle,
-            image: UIImage(named: "readingChallengeWidget"),
-            backgroundImage: UIImage(named: "readingChallengeBackground"),
-            backgroundImageHeight: 220,
-            primaryButtonAction: {},
-            closeButtonAction: nil
-        )
-    }
-
     static func make(
         for state: ReadingChallengeState,
         family: WidgetFamily
@@ -250,7 +232,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         case .challengeConcludedIncomplete(let streak):
             return incompleteSet(streak: streak)
         case .challengeConcludedNoStreak:
-            return noStreakSet
+            return noStreakSet()
         case .notEnrolled:
             return notEnrolledSet(family: family)
         case .challengeRemoved:
