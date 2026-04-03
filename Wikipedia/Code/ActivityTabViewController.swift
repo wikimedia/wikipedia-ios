@@ -500,77 +500,21 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     // MARK: - Navigation Bar
     private func configureNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
 
-        // Leading compact title
-        navigationItem.title = CommonStrings.activityTitle
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.largeTitleDisplayMode = .never
-        navigationItem.titleView = UIView()
+       let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingCompact)
 
-        let leadingTitleLabel = UILabel()
-        leadingTitleLabel.font = WMFFont.navigationBarLeadingCompactTitleFont
-        leadingTitleLabel.text = CommonStrings.activityTitle
-        leadingTitleLabel.textColor = WMFAppEnvironment.current.theme.text
-        let leadingTitleButton = UIBarButtonItem(customView: leadingTitleLabel)
-        if #available(iOS 26.0, *) {
-            leadingTitleButton.hidesSharedBackground = true
-            leadingTitleButton.sharesBackground = false
-        }
-        navigationItem.leftBarButtonItem = leadingTitleButton
+       let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+       let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
+       if let dataStore {
+           profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
+           tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem, needsSeparateGlassContainer: true)
+       } else {
+           profileButtonConfig = nil
+           tabsButtonConfig = nil
+       }
 
-        // Profile + tabs buttons
-        guard let dataStore else { return }
-
-        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
-        let tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem, needsSeparateGlassContainer: true)
-
-        // Inline profileButtonImage logic
-        let needsBadge = profileButtonConfig.needsBadge
-        let theme = WMFAppEnvironment.current.theme
-        let paletteColors: [UIColor] = needsBadge ? [theme.destructive, theme.text] : [theme.text]
-        let profileImage = WMFSFSymbolIcon.for(symbol: needsBadge ? .personCropCircleBadge : .personCropCircle, paletteColors: paletteColors)
-
-        // Inline profileButtonAccessibilityStrings logic
-        let profileAccessibilityLabel = needsBadge ? profileButtonConfig.accessibilityLabelHasNotifications : profileButtonConfig.accessibilityLabelNoNotifications
-
-        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-        profileButton.accessibilityLabel = profileAccessibilityLabel
-        profileButton.accessibilityIdentifier = "profile-button"
-
-        let tabsButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabsIcon), style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-        tabsButton.accessibilityLabel = tabsButtonConfig.accessibilityLabel
-        tabsButton.accessibilityHint = tabsButtonConfig.accessibilityHint
-
-        if #available(iOS 26.0, *), tabsButtonConfig.needsSeparateGlassContainer {
-            moreBarButtonItem.sharesBackground = false
-        }
-
-        // Build flat collapsed menu so overflow items aren't nested on small screens
-        let collapsedMenu = UIMenu(title: "", children: [
-            UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gearShape)) { [weak self] _ in self?.userDidTapCustomize() },
-                UIAction(title: CommonStrings.learnMoreTitle(), image: WMFSFSymbolIcon.for(symbol: .infoCircle)) { [weak self] _ in self?.userDidTapLearnMore() },
-                UIAction(title: WMFLocalizedString("activity-tab-menu-clear-history", value: "Clear reading history", comment: "Title for clear reading history option in the overflow menu button on activity tab"), image: WMFSFSymbolIcon.for(symbol: .clockBadgeX)) { [weak self] _ in self?.userDidTapClearReadingHistory() },
-                UIAction(title: CommonStrings.problemWithFeatureTitle, image: WMFSFSymbolIcon.for(symbol: .flag)) { [weak self] _ in self?.userDidTapReportIssue() }
-            ]),
-            UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "Tabs", image: WMFSFSymbolIcon.for(symbol: .tabsIcon)) { [weak self] _ in self?.userDidTapTabs() },
-                UIAction(title: "Account", image: profileImage) { [weak self] _ in self?.userDidTapProfile() }
-            ])
-        ])
-
-        let representativeItem = UIBarButtonItem(title: nil, image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: collapsedMenu)
-
-        let group = UIBarButtonItemGroup.optionalGroup(
-            customizationIdentifier: "activity.trailing",
-            representativeItem: representativeItem,
-            items: [moreBarButtonItem, tabsButton, profileButton]
-        )
-
-        navigationItem.trailingItemGroups = [group]
-    }
+       configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+   }
 
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
