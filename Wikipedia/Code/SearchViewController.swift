@@ -13,7 +13,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - MEP / Hint
 
-    var readingListHintPresenter: WMFReadingListToastManager?
     var eventLoggingCategory: EventCategoryMEP { .history }
     var eventLoggingLabel: EventLabelMEP? { nil }
 
@@ -215,16 +214,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historyItem in
             guard let self, let dataStore, let articleURL = historyItem.url else { return }
             dataStore.savedPageList.addSavedPage(with: articleURL)
-            NotificationCenter.default.addObserver(self, selector: #selector(userDidSaveOrUnsaveArticle(_:)),
-                                                   name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: nil)
             historyItem.isSaved = true
         }
 
         let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historyItem in
             guard let self, let dataStore, let articleURL = historyItem.url else { return }
             dataStore.savedPageList.removeEntry(with: articleURL)
-            NotificationCenter.default.addObserver(self, selector: #selector(userDidSaveOrUnsaveArticle(_:)),
-                                                   name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: nil)
             historyItem.isSaved = false
         }
 
@@ -362,7 +357,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         
         if let dataStore,
            isRootTabView {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
 
             let historyClearButton: UIBarButtonItem? = isSearchActive ? nil : deleteButton
             tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: historyClearButton)
@@ -403,7 +398,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private func updateProfileButton() {
         guard let dataStore else { return }
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -468,32 +463,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 
-    // MARK: - Reading Lists Hint
-
-    private func setupReadingListsHelpers() {
-        guard let dataStore else { return }
-        readingListHintPresenter = WMFReadingListToastManager(dataStore: dataStore)
-        readingListHintPresenter?.apply(theme: theme)
-        NotificationCenter.default.addObserver(self, selector: #selector(userDidSaveOrUnsaveArticle(_:)),
-                                               name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: nil)
-    }
-
-    private func visibleHintPresentingViewController() -> UIViewController? {
-        if let nav = self.tabBarController?.selectedViewController as? UINavigationController {
-            return nav.topViewController
-        }
-        return nil
-    }
-
-    @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
-        guard let article = notification.object as? WMFArticle else { return }
-        guard let presentingVC = visibleHintPresentingViewController() else {
-            return
-        }
-
-        readingListHintPresenter?.toggle(presenter: presentingVC, article: article, theme: theme)
-    }
-    
     // MARK: - History
     
     private func embedHistoryIfNeeded() {
@@ -514,8 +483,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         ])
         historyViewController.disableContentInsetAdjustments()
         historyViewController.didMove(toParent: self)
-
-        setupReadingListsHelpers()
 
         historyViewModel.$isEmpty
             .receive(on: RunLoop.main)

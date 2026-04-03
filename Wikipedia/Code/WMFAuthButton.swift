@@ -52,6 +52,20 @@ class WMFAuthButton: AutoLayoutSafeMultiLineButton, Themeable {
         config.titleAlignment = .center
 
         configuration = config
+        
+        configurationUpdateHandler = { [weak self] button in
+            guard let self, var config = button.configuration else { return }
+
+            if button.state == .disabled {
+                config.background.backgroundColor = self.theme.colors.baseBackground
+                config.baseForegroundColor = self.theme.colors.inputAccessoryButtonTint
+            } else {
+                config.background.backgroundColor = self.theme.colors.link
+                config.baseForegroundColor = self.theme.colors.paperBackground
+            }
+
+            button.configuration = config
+        }
 
         invalidateIntrinsicContentSize()
         setNeedsLayout()
