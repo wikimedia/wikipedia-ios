@@ -88,7 +88,6 @@ import WMFComponents
                 Task { @MainActor in
                     guard let self, let articleURL else { return }
                     guard let article = self.dataStore.fetchArticle(with: articleURL) else { return }
-                    self.toastPresenter?.dismissToast()
                     self.performDefaultAction(article: article)
                 }
             }
@@ -170,8 +169,10 @@ import WMFComponents
         )
     }
 
+    @MainActor
     private func performDefaultAction(article: WMFArticle) {
         guard let presenter else { return }
+        toastPresenter?.dismissToast()
 
         let addVC = AddArticlesToReadingListViewController(
             with: dataStore,
@@ -190,6 +191,7 @@ import WMFComponents
         presenter.present(nav, animated: true)
     }
 
+    @MainActor
     private func performConfirmationAction(readingList: ReadingList) {
         guard let presenter else { return }
 
@@ -207,12 +209,7 @@ import WMFComponents
 
         themeableNavigationController = nav
 
-        presenter.present(nav, animated: true) { [weak self] in
-            guard let self, let toastPresenter = self.toastPresenter else { return }
-            Task { @MainActor in
-                toastPresenter.dismissToast()
-            }
-        }
+        presenter.present(nav, animated: true)
     }
 
     private func loadImageOffMain(from url: URL) async -> UIImage? {
