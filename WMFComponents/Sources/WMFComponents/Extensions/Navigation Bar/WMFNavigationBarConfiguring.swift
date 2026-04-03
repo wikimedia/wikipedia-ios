@@ -169,10 +169,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = nil
             navigationItem.leftBarButtonItem = nil
-            // Fixes wrong placement in Places and Saved, due to segmented control attached view.
-            // The search controller is wired to the label after it's created below.
-            let pinToTop = searchBarConfig != nil
-            addOrUpdateUpperLeadingLargeTitleLabel(title: titleConfig.title, pinToTop: pinToTop)
+
+            addOrUpdateUpperLeadingLargeTitleLabel(title: titleConfig.title)
         }
         
         // Better back button naming for article tabs
@@ -366,7 +364,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     private var upperLeadingLargeTitleTag: Int { 0x574D465F_5469746C }  // "WMF_Titl" as a stable tag
 
-    private func addOrUpdateUpperLeadingLargeTitleLabel(title: String, pinToTop: Bool = false) {
+    private func addOrUpdateUpperLeadingLargeTitleLabel(title: String) {
         guard let navBar = navigationController?.navigationBar else { return }
 
         // Remove any existing label so constraints are rebuilt when pin direction changes.
@@ -374,21 +372,14 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
         let label = UILabel()
         label.tag = upperLeadingLargeTitleTag
-        label.font = WMFFont.navigationBarLeadingLargeTitleFont
+        label.font = WMFFont.navigationBarCustomLeadingLargeTitleFont
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         navBar.addSubview(label)
 
-        let verticalConstraint: NSLayoutConstraint
-        if pinToTop {
-            verticalConstraint = label.topAnchor.constraint(equalTo: navBar.topAnchor, constant: 8)
-        } else {
-            verticalConstraint = label.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -8)
-        }
-
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: 16),
-            verticalConstraint
+            label.topAnchor.constraint(equalTo: navBar.topAnchor, constant: 7)
         ])
 
         label.text = title
