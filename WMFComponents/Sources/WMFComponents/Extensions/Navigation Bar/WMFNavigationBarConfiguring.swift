@@ -365,7 +365,10 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     private var upperLeadingLargeTitleTag: Int { 0x574D465F_5469746C }  // "WMF_Titl" as a stable tag
 
     private func addOrUpdateUpperLeadingLargeTitleLabel(title: String) {
-        guard let navBar = navigationController?.navigationBar else { return }
+        guard let navigationController,
+              navigationController.viewControllers.last == self else { return }
+        
+        let navBar = navigationController.navigationBar
         
         // No need to add custom title if floating tab bar title is displaying nearby.
         

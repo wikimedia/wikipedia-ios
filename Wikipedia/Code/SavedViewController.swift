@@ -663,6 +663,7 @@ extension SavedViewController: UISearchBarDelegate {
     }
 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        navigationItem.searchController?.isActive = false
         if selectedScope == 0 {
             currentView = .savedArticles
         } else {
