@@ -31,10 +31,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         }
     }
 
-    // MARK: - HintPresenting
-
-    var readingListHintPresenter: WMFReadingListToastManager?
-
     var eventLoggingCategory: EventCategoryMEP { .history }
     var eventLoggingLabel: EventLabelMEP? { nil }
 
@@ -129,7 +125,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
             contentContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        setupReadingListsHelpers()
         updateLanguageBarVisibility()
         reloadRecentSearches()
         showRecentSearches(animated: false)
@@ -465,33 +460,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         recentSearchesViewModel.recentSearchTerms = currentRecentSearchTerms()
     }
 
-    // MARK: - Reading Lists Hint
-
-    private func setupReadingListsHelpers() {
-        readingListHintPresenter = WMFReadingListToastManager(dataStore: dataStore)
-        readingListHintPresenter?.apply(theme: theme)
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(userDidSaveOrUnsaveArticle(_:)),
-            name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
-            object: nil
-        )
-    }
-
-    private func visibleHintPresentingViewController() -> UIViewController? {
-        return self.viewIfLoaded?.window != nil ? self : nil
-    }
-
-    @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
-        guard let article = notification.object as? WMFArticle else { return }
-        guard let presentingVC = visibleHintPresentingViewController() else {
-            return
-        }
-
-        readingListHintPresenter?.toggle(presenter: presentingVC, article: article, theme: theme)
-    }
-
     // MARK: - Theme
 
     override func apply(theme: Theme) {
@@ -503,7 +471,6 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         recentSearchesViewController.view.backgroundColor = theme.colors.paperBackground
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
-        readingListHintPresenter?.apply(theme: theme)
     }
 }
 

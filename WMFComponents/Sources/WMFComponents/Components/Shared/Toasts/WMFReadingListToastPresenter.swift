@@ -124,21 +124,30 @@ final public class WMFReadingListToastPresenter {
         })
     }
 
-    private func addToast(to presenter: UIViewController, config: WMFReadingListToastConfig) {
+    private func addToast(to outsidePresenter: UIViewController, config: WMFReadingListToastConfig) {
         guard isToastHidden else { return }
+        
+        // Note: using top window as a presenter fixes freezing during pan and matches WMFToastPresenter
+        guard let presenter = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow }) else {
+            debugPrint("No key window available")
+            return
+        }
 
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = .clear
 
         let bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea
-            ? presenter.view.bottomAnchor
-            : presenter.view.safeAreaLayoutGuide.bottomAnchor
+            ? presenter.bottomAnchor
+            : presenter.safeAreaLayoutGuide.bottomAnchor
 
         if let subview = subview {
-            presenter.view.insertSubview(containerView, belowSubview: subview)
+            presenter.insertSubview(containerView, belowSubview: subview)
         } else {
-            presenter.view.addSubview(containerView)
+            presenter.addSubview(containerView)
         }
 
         let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -(additionalBottomSpacing + 24))
@@ -146,8 +155,8 @@ final public class WMFReadingListToastPresenter {
 
         NSLayoutConstraint.activate([
             topConstraint,
-            containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
+            containerView.leadingAnchor.constraint(equalTo: presenter.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: presenter.trailingAnchor)
         ])
 
         containerViewConstraints = (top: topConstraint, bottom: bottomConstraint)
@@ -216,16 +225,41 @@ final public class WMFReadingListToastPresenter {
             ])
         }
 
-        presenter.addChild(hostingController)
-        hostingController.didMove(toParent: presenter)
-
         containerView.setContentHuggingPriority(.required, for: .vertical)
         containerView.setContentCompressionResistancePriority(.required, for: .vertical)
+        
+        // Swipe down to dismiss
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleToastPan(_:)))
+        containerView.addGestureRecognizer(panGesture)
 
         currentToastContainer = containerView
         currentHostingController = hostingController
 
-        presenter.view.layoutIfNeeded()
+        presenter.layoutIfNeeded()
+    }
+    
+    @objc private func handleToastPan(_ gesture: UIPanGestureRecognizer) {
+        guard let toast = gesture.view else { return }
+        let translation = gesture.translation(in: toast.superview)
+
+        switch gesture.state {
+        case .changed:
+            if translation.y > 0 {
+                toast.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            }
+        case .ended, .cancelled:
+            let velocity = gesture.velocity(in: toast)
+            let shouldDismiss = translation.y > 50 || velocity.y > 500
+
+            if shouldDismiss {
+                setToastHidden(true, config: nil)
+            } else {
+                UIView.animate(withDuration: 0.2) {
+                    toast.transform = .identity
+                }
+            }
+        default: break
+        }
     }
 
     private func removeToast() {
