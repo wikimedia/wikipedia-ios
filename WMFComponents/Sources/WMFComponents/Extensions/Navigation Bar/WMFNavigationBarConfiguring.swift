@@ -66,9 +66,8 @@ public struct WMFNavigationBarTabsButtonConfig {
     public let action: Selector
     public let leadingBarButtonItem: UIBarButtonItem?
     public let leadingBarButtonItemTitle: String?
-    public let needsSeparateGlassContainer: Bool
     
-    public init(title: String, accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, leadingBarButtonItemTitle: String? = nil, needsSeparateGlassContainer: Bool) {
+    public init(title: String, accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, leadingBarButtonItemTitle: String? = nil) {
         self.title = title
         self.accessibilityLabel = accessibilityLabel
         self.accessibilityHint = accessibilityHint
@@ -76,7 +75,6 @@ public struct WMFNavigationBarTabsButtonConfig {
         self.action = action
         self.leadingBarButtonItem = leadingBarButtonItem
         self.leadingBarButtonItemTitle = leadingBarButtonItemTitle
-        self.needsSeparateGlassContainer = needsSeparateGlassContainer
     }
 }
 
@@ -212,9 +210,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
 
                 if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
-                    if #available(iOS 26.0, *), tabsButtonConfig.needsSeparateGlassContainer {
-                        leadingBarButtonItem.sharesBackground = false
-                    }
                     trailingBarButtonItems.append(leadingBarButtonItem)
                     if let menu = leadingBarButtonItem.menu {
                         specificMenu = menu
