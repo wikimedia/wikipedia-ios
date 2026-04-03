@@ -619,6 +619,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateProfileButton()
         profileCoordinator?.theme = theme
         self.theme = theme
+        themeNavigationBarCustomLeadingLargeTitle()
     }
 
     // MARK: - Reachability
