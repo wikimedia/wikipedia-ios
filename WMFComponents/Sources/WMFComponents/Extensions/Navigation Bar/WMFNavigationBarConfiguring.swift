@@ -366,6 +366,15 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
     private func addOrUpdateUpperLeadingLargeTitleLabel(title: String) {
         guard let navBar = navigationController?.navigationBar else { return }
+        
+        // No need to add custom title if floating tab bar title is displaying nearby.
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && UITraitCollection.current.horizontalSizeClass == .regular {
+                removeCustomLeadingLargeTitleLabel()
+                return
+            }
+        }
 
         // Remove any existing label so constraints are rebuilt when pin direction changes.
         navBar.viewWithTag(upperLeadingLargeTitleTag)?.removeFromSuperview()
@@ -376,9 +385,17 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = false
         navBar.addSubview(label)
+        
+        var leadingPadding = CGFloat(16)
+        if #available(iOS 26, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && UITraitCollection.current.horizontalSizeClass == .compact {
+                // Add a little more for window close/minimize/expand buttons
+                leadingPadding = CGFloat(80)
+            }
+        }
 
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: 16),
+            label.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: leadingPadding),
             label.topAnchor.constraint(equalTo: navBar.topAnchor, constant: 7)
         ])
 

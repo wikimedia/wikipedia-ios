@@ -292,6 +292,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         searchResultsVC.showLanguageBar = showLanguageBar
         if let siteURL { searchResultsVC.siteURL = siteURL }
         embedHistoryIfNeeded()
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if previousTraitCollection.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                        configureNavigationBar()
+                    }
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
