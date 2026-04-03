@@ -82,6 +82,10 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var listTitle: String {
         WMFLocalizedString("places-list-title'", value: "List", comment: "Button that switches the display mode to the List view on the Places tab.")
     }
+    
+    private var filterTitle: String {
+        WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places")
+    }
 
     // MARK: - View Lifecycle
 
@@ -262,7 +266,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     private var filterButtonItem: UIBarButtonItem {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .filterLineHorizontalDecrease), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
-        button.accessibilityLabel = WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places")
+        button.accessibilityLabel = filterTitle
         return button
     }
 
@@ -271,7 +275,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
-        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem, needsSeparateGlassContainer: true)
+        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem, leadingBarButtonItemTitle: filterTitle, needsSeparateGlassContainer: true)
     }
 
     @objc func userDidTapTabs() {

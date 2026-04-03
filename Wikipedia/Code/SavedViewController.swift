@@ -472,7 +472,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         })
 
 
-        let mainMenu = UIMenu(title: String(), children: [sortAction, editAction])
+        let mainMenu = UIMenu(title: String(), options: .displayInline, children: [sortAction, editAction])
 
         return mainMenu
     }
