@@ -30,8 +30,8 @@ public final class WMFToastPresenter {
     private var backgroundTapGestureRecognizer: UITapGestureRecognizer?
     private var dismissWorkItem: DispatchWorkItem?
     private var dismissAction: (@Sendable (DismissEvent) -> Void)?
-    /// True while the current toast's dismiss animation is running.
-    private var isDismissing: Bool = false
+    
+    private var currentKeyboardHeight = CGFloat(0)
 
     // MARK: - Lifecycle
 
@@ -39,6 +39,7 @@ public final class WMFToastPresenter {
 
     private init() {
         subscribeToAppEnvironmentChanges()
+        subscribeToKeyboardChanges()
     }
 
     // MARK: - AppEnvironment Subscription
@@ -47,6 +48,11 @@ public final class WMFToastPresenter {
         WMFAppEnvironment.publisher
             .sink(receiveValue: { [weak self] _ in self?.appEnvironmentDidChange() })
             .store(in: &cancellables)
+    }
+    
+    private func subscribeToKeyboardChanges() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIWindow.keyboardWillHideNotification, object: nil)
     }
 
     // MARK: - Subclass Overrides
@@ -62,6 +68,18 @@ public final class WMFToastPresenter {
         if let borderLayer = currentToast?.layer.sublayers?.first(where: { $0.borderWidth > 0 }) {
             borderLayer.borderColor = theme.border.withAlphaComponent(0.15).cgColor
         }
+    }
+    
+    @objc private func keyboardWillChangeFrame(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).flatMap({ $0.windows }).first(where: { $0.isKeyWindow }) else { return }
+        
+        let keyboardHeight = window.bounds.height - keyboardFrame.minY
+        currentKeyboardHeight = max(0, keyboardHeight)
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        currentKeyboardHeight = 0
     }
 
     // MARK: - Public API.
@@ -165,7 +183,7 @@ public final class WMFToastPresenter {
             equalTo: containerView.safeAreaLayoutGuide.trailingAnchor,
             constant: -16
         )
-        let toolbarOffset = containerView.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
+        let toolbarOffset = currentKeyboardHeight > 0 ? currentKeyboardHeight : containerView.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
         // When a tab bar or toolbar is present, offset above it with extra spacing.
         // When neither is present, pin closer to the bottom of the safe area.
         let bottomConstant: CGFloat
@@ -314,6 +332,7 @@ public final class WMFToastPresenter {
 
 extension UIViewController {
     func visibleToolbarHeightAboveSafeArea() -> CGFloat {
+        
         // If there's a modal presented over the full screen, the tab bar is not visible.
         if let presented = presentedViewController,
            presented.modalPresentationStyle == .fullScreen || presented.modalPresentationStyle == .overFullScreen {
