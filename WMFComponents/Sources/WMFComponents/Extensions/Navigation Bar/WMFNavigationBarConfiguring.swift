@@ -374,7 +374,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
         let label = UILabel()
         label.tag = upperLeadingLargeTitleTag
-        label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+        label.font = WMFFont.navigationBarLeadingLargeTitleFont
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         navBar.addSubview(label)
