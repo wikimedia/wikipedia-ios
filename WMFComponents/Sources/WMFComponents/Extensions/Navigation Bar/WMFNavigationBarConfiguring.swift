@@ -222,12 +222,12 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                         specificMenu = UIMenu(title: "", options: .displayInline, children: [
                             UIAction(title: leadingBarButtonItem.title ?? tabsButtonConfig.leadingBarButtonItemTitle ?? "", image: leadingBarButtonItem.image) { _ in
                                 
-                                let target = leadingBarButtonItem.target
-                                let action = leadingBarButtonItem.action
-                                
-                                if let obj = target as? NSObject {
-                                    obj.perform(action)
+                                if let target = leadingBarButtonItem.target,
+                                   let action = leadingBarButtonItem.action {
+                                    UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
                                 }
+                                
+                                
                             }
                         ])
                     }
@@ -240,9 +240,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                     let target = tabsButtonConfig.target
                     let action = tabsButtonConfig.action
                     
-                    if let obj = target as? NSObject {
-                        obj.perform(action)
-                    }
+                    UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
                 })
             }
 
@@ -258,9 +256,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 let target = profileButtonConfig.target
                 let action = profileButtonConfig.action
                 
-                if let obj = target as? NSObject {
-                    obj.perform(action)
-                }
+                UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
             })
             
             var menuChildren: [UIMenu] = [ UIMenu(title: "", options: .displayInline, children: globalCollapsedActions) ]
