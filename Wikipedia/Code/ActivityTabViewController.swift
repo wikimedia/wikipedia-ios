@@ -401,7 +401,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             self.userDidTapCustomize()
         })
 
-        let mainMenu = UIMenu(title: String(), children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
+        let mainMenu = UIMenu(title: String(), options: .displayInline, children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
 
         return mainMenu
     }
@@ -501,20 +501,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     // MARK: - Navigation Bar
     private func configureNavigationBar() {
 
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingCompact)
+       let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingCompact)
 
-        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
-        if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem, needsSeparateGlassContainer: true)
-        } else {
-            profileButtonConfig = nil
-            tabsButtonConfig = nil
-        }
+       let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+       let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
+       if let dataStore {
+           profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
+           tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
+       } else {
+           profileButtonConfig = nil
+           tabsButtonConfig = nil
+       }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
-    }
+       configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+   }
 
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
@@ -541,7 +541,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             return
         }
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 

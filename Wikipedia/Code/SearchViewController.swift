@@ -348,7 +348,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         
         if let dataStore,
            isRootTabView {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
 
             let historyClearButton: UIBarButtonItem? = isSearchActive ? nil : deleteButton
             tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: historyClearButton)
@@ -389,7 +389,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private func updateProfileButton() {
         guard let dataStore else { return }
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
