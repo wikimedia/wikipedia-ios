@@ -46,9 +46,7 @@ struct ReadingChallengeProvider: TimelineProvider {
             let coreDataStore = try await WMFCoreDataStore(appContainerURL: appContainerURL)
             let controller = try WMFPageViewsDataController(coreDataStore: coreDataStore)
             let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
-            let s = try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
-            print(s)
-            return s
+            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
         } catch {
             return .notEnrolled
         }
