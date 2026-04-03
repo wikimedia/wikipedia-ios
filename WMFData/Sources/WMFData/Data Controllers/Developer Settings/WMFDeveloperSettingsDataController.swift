@@ -7,7 +7,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var showYiRV3: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
-    var readingChallengeDatesRelativeToToday: Bool { get }
     var devForceReadingChallengeEnabled: Bool { get set }
     var devForceReadingChallengeStreakCount: Int { get set }
     var devForceReadingChallengeCompletedFullStreak: Bool { get set }
@@ -99,11 +98,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public var forceHCaptchaChallenge: Bool {
         get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false }
         set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue) }
-    }
-
-    public var readingChallengeDatesRelativeToToday: Bool {
-        get { (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsReadingChallengeDatesRelativeToToday.rawValue)) ?? false }
-        set { try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsReadingChallengeDatesRelativeToToday.rawValue, value: newValue) }
     }
 
     // MARK: - Reading Challenge Forced States

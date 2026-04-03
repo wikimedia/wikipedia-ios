@@ -45,7 +45,6 @@ import WMFData
         let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
-        let readingChallengeDatesRelativeToToday = WMFFormItemSelectViewModel(title: "Reading Challenge: Use Relative Dates", isSelected: WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday)
         let rcForceEnabled = WMFFormItemSelectViewModel(title: "Force Reading Challenge State: ON", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeEnabled)
 
         // Reading Challenge force state (exclusive)
@@ -70,7 +69,6 @@ import WMFData
                 enableYiRVLoginExperimentControl,
                 enableYiRVLoginExperimentB,
                 forceHcaptchaChallenge,
-                readingChallengeDatesRelativeToToday,
                 rcForceEnabled
             ], selectType: .multi),
             WMFFormSectionSelectViewModel(header: "Force Reading Challenge State", items: [
@@ -120,10 +118,6 @@ import WMFData
         
         forceHcaptchaChallenge.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge = isSelected }
-            .store(in: &subscribers)
-        
-        readingChallengeDatesRelativeToToday.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.readingChallengeDatesRelativeToToday = isSelected }
             .store(in: &subscribers)
 
         rcForceEnabled.$isSelected
