@@ -106,10 +106,6 @@ import WMFData
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
             .store(in: &subscribers)
 
-        enableMoreDynamicTabsV2GroupC.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsV2GroupC = isSelected }
-            .store(in: &subscribers)
-
         showYiRV3.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected }
             .store(in: &subscribers)
