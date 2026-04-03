@@ -46,7 +46,9 @@ struct ReadingChallengeProvider: TimelineProvider {
             let coreDataStore = try await WMFCoreDataStore(appContainerURL: appContainerURL)
             let controller = try WMFPageViewsDataController(coreDataStore: coreDataStore)
             let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
-            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
+            let s = try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
+            print(s)
+            return s
         } catch {
             return .notEnrolled
         }
@@ -253,7 +255,7 @@ struct ReadingChallengeEntryView: View {
 
     var body: some View {
         let displaySet = WMFReadingChallengeWidgetViewModel.DisplaySet.make(
-            for: .challengeCompleted, // entry.state,
+            for: entry.state,
             family: family
         )
         return WMFReadingChallengeWidgetView(
@@ -262,7 +264,7 @@ struct ReadingChallengeEntryView: View {
                     title: displaySet.title
                 ),
                 displaySet: displaySet,
-                state: .challengeCompleted// entry.state
+                state: entry.state
             )
         )
         .containerBackground(for: .widget) {
