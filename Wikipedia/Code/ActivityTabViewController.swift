@@ -401,7 +401,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             self.userDidTapCustomize()
         })
 
-        let mainMenu = UIMenu(title: String(), children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
+        let mainMenu = UIMenu(title: String(), options: .displayInline, children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
 
         return mainMenu
     }
