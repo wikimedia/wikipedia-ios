@@ -374,7 +374,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         label.tag = upperLeadingLargeTitleTag
         label.font = WMFFont.navigationBarCustomLeadingLargeTitleFont
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontForContentSizeCategory = true
+        label.adjustsFontForContentSizeCategory = false
         navBar.addSubview(label)
 
         NSLayoutConstraint.activate([
