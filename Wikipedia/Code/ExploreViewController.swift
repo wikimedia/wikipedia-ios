@@ -192,9 +192,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
 
-        // Need to override this so that "" does not appear as back button title.
-        navigationItem.backButtonTitle = String()
-        navigationItem.rightBarButtonItem?.accessibilityLabel = CommonStrings.exploreTabTitle
+        navigationItem.backButtonDisplayMode = .minimal
+        navigationItem.backBarButtonItem?.accessibilityLabel = CommonStrings.exploreTabTitle
         
         let logoBarButtonItem = UIBarButtonItem(image: UIImage(named: "W"), style: .plain, target: self, action: #selector(titleBarButtonPressed(_:)))
         logoBarButtonItem.accessibilityLabel = WMFLocalizedString("home-title-accessibility-label", value: "Wikipedia, scroll to top of Explore", comment: "Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.")
