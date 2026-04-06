@@ -38,6 +38,22 @@ import WMFComponents
         (appViewController.currentTabNavigationController?.viewControllers.count ?? 0) == 1 else {
             return
         }
+        
+        // It seems like tabBarItem does not have a recognizable frame on iPad for TipUIPopoverViewController to point to. We are going to add a fake view that is about the area of the center of the tab bar, and remove the popover arrows.
+
+        var targetViewIPad: UIView? = nil
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appViewController.view.addSubview(tabSearchTargetViewIPad)
+                NSLayoutConstraint.activate([
+                    appViewController.view.centerXAnchor.constraint(equalTo: tabSearchTargetViewIPad.centerXAnchor, constant: 0),
+                    appViewController.view.topAnchor.constraint(equalTo: tabSearchTargetViewIPad.topAnchor, constant: -150),
+                    tabSearchTargetViewIPad.widthAnchor.constraint(equalToConstant: 1),
+                    tabSearchTargetViewIPad.heightAnchor.constraint(equalToConstant: 1)
+                ])
+                targetViewIPad = tabSearchTargetViewIPad
+            }
+        }
 
         tipObservationTask =  Task { @MainActor [weak self, weak appViewController] in
             guard let self, let appViewController else { return }
@@ -45,8 +61,16 @@ import WMFComponents
             for await status in tip.statusUpdates {
                 if status == .available {
                     
-                    let popoverController = TipUIPopoverViewController(tip, sourceItem: searchTabBarItem)
+                    let popoverController = TipUIPopoverViewController(tip, sourceItem: targetViewIPad ?? searchTabBarItem)
                     popoverController.overrideUserInterfaceStyle = appViewController.theme.isDark ? .dark : .light
+                    
+                    if #available(iOS 18, *) {
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            popoverController.view.tintColor = appViewController.theme.colors.secondaryText
+                            popoverController.popoverPresentationController?.permittedArrowDirections = []
+                        }
+                    }
+                    
                     self.tooltipVC = popoverController
                     appViewController.present(popoverController, animated: true) {
                         popoverController.presentationController?.delegate = self
@@ -93,6 +117,14 @@ fileprivate struct HistoryInSearchTip: Tip {
     }
     
     var image: SwiftUI.Image? {
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad,
+            let iconName = WMFSFSymbolIcon.magnifyingGlass.name {
+                return Image(systemName: iconName)
+            } else {
+                return nil
+            }
+        }
         return nil
     }
 }

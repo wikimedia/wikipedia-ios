@@ -20,7 +20,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
     fileprivate var topicReplyOnboardingHostingViewController: TalkPageTopicReplyOnboardingHostingController?
 
-    fileprivate lazy var shareButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(userDidTapShareButton))
+    fileprivate lazy var shareButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(userDidTapShareButton(_:)))
 
     fileprivate lazy var findButton: IconBarButtonItem = IconBarButtonItem(image: UIImage(systemName: "doc.text.magnifyingglass"), style: .plain, target: self, action: #selector(userDidTapFindButton))
 
@@ -162,7 +162,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -405,12 +405,17 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     // MARK: - Toolbar actions
 
 
-    @objc fileprivate func userDidTapShareButton() {
+    @objc fileprivate func userDidTapShareButton(_ sender: IconBarButtonItem) {
         guard let talkPageURL = viewModel.getTalkPageURL(encoded: false) else {
             return
         }
 
         let activityController = UIActivityViewController(activityItems: [talkPageURL], applicationActivities: [TUSafariActivity()])
+        
+        if let pop = activityController.popoverPresentationController {
+            pop.sourceItem = sender
+        }
+        
         present(activityController, animated: true)
     }
 

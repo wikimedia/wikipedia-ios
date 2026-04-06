@@ -37,6 +37,34 @@ open class WMFComponentNavigationController: UINavigationController {
         setBarAppearance(customLargeTitleFont: self.customLargeTitleFont)
     }
     
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        triggerNavigationBarRender()
+    }
+    
+    // HACK: Forces liquid glass bar button items to re-render with correct appearance.
+    // Without this, buttons render incorrectly until a layout event occurs (e.g. keyboard appearing).
+    public func triggerNavigationBarRender() {
+        if #available(iOS 26.0, *) {
+            if UIAccessibility.isReduceTransparencyEnabled {
+                if tabBarController != nil {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                        let frame = self.navigationBar.frame
+                        self.navigationBar.frame = frame.insetBy(dx: 0, dy: 0.1)
+                        self.navigationBar.frame = frame
+                    }
+                    
+                } else {
+                    let frame = navigationBar.frame
+                    navigationBar.frame = frame.insetBy(dx: 0, dy: 0.1)
+                    navigationBar.frame = frame
+                }
+
+            }
+        }
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -102,15 +130,18 @@ open class WMFComponentNavigationController: UINavigationController {
         appearance.configureWithDefaultBackground()
         appearance.shadowColor = nil
 
-
         let largeTitleFont = self.customLargeTitleFont ?? WMFFont.navigationBarLeadingLargeTitleFont
+        let titleColor = theme.text
 
         if let customLargeTitleFont {
-            appearance.largeTitleTextAttributes = [.font: customLargeTitleFont]
+            appearance.largeTitleTextAttributes = [.font: customLargeTitleFont, .foregroundColor: titleColor]
         } else {
-            appearance.largeTitleTextAttributes = [.font: largeTitleFont]
+            appearance.largeTitleTextAttributes = [.font: largeTitleFont, .foregroundColor: titleColor]
         }
 
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+
+        navigationBar.tintColor = theme.navigationBarTintColor
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
         navigationBar.compactAppearance = appearance

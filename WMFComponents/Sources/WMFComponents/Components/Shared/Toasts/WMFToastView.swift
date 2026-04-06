@@ -17,31 +17,35 @@ struct WMFToastView: View {
     private var spacing: CGFloat { 16 }
 
     var body: some View {
-        if #available(iOS 26.0, *) {
-            contentView
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, vPad)
-                .padding(.horizontal, hPad)
-                .padding(.vertical, 6)
-                .glassEffect(
-                    .regular
-                        .tint(Color(uiColor: theme.paperBackground).opacity(0.85))
-                        .interactive()
-                )
-                .clipShape(Capsule())
-                .onTapGesture { config.tapAction?() }
+        Group {
+            if #available(iOS 26.0, *) {
+                contentView
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.vertical, vPad)
+                    .padding(.horizontal, hPad)
+                    .padding(.vertical, 6)
+                    .glassEffect(
+                        .regular
+                            .tint(Color(uiColor: theme.paperBackground).opacity(0.85))
+                            .interactive(),
+                        in: .rect(cornerRadius: 24, style: .circular)
+                    )
+                    .onTapGesture { config.tapAction?() }
 
-        } else {
-            contentView
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, vPad)
-                .padding(.horizontal, hPad)
-                .padding(.vertical, 6)
-                .onTapGesture { config.tapAction?() }
-
-                .background(Color(uiColor: theme.paperBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 24, style: .circular))
+            } else {
+                contentView
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.vertical, vPad)
+                    .padding(.horizontal, hPad)
+                    .padding(.vertical, 6)
+                    .onTapGesture { config.tapAction?() }
+                    .background(Color(uiColor: theme.paperBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .circular))
+            }
         }
+        .focusable(false)
+        .focusEffectDisabled(true)
+        
     }
 
     @ViewBuilder
@@ -49,10 +53,9 @@ struct WMFToastView: View {
         HStack(alignment: .center, spacing: spacing) {
 
             if let icon = config.icon {
-                Image(uiImage: icon.withConfiguration(UIImage.SymbolConfiguration(weight: .semibold)))
+                Image(uiImage: icon.withConfiguration(UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold)))
                     .renderingMode(.template)
                     .foregroundStyle(Color(uiColor: theme.secondaryText))
-                    .frame(width: iconSize, height: iconSize)
                     .accessibilityHidden(true)
             }
 

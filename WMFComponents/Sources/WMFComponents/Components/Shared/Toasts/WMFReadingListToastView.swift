@@ -16,7 +16,6 @@ public struct WMFReadingListToastView: View {
 
     public var body: some View {
         let config = model.config
-        let shape = Capsule()
 
         HStack(alignment: .center, spacing: 16) {
             if let icon = config.icon {
@@ -51,8 +50,9 @@ public struct WMFReadingListToastView: View {
         .padding(.vertical, 18)
         .contentShape(Rectangle())
         .onTapGesture { config.tapAction?() }
-        .modifier(ToastGlassModifier(theme: theme, shape: shape))
-
+        .modifier(ToastGlassModifier(theme: theme))
+        .focusable(false)
+        .focusEffectDisabled(true)
     }
     @ViewBuilder
     private func iconView(_ icon: UIImage) -> some View {
@@ -77,7 +77,6 @@ public struct WMFReadingListToastView: View {
 
 private struct ToastGlassModifier: ViewModifier {
     let theme: WMFTheme
-    let shape: Capsule
 
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
@@ -86,14 +85,14 @@ private struct ToastGlassModifier: ViewModifier {
                 .glassEffect(
                     .regular
                         .tint(Color(uiColor: theme.paperBackground).opacity(0.85))
-                        .interactive()
+                        .interactive(),
+                    in: .rect(cornerRadius: 24, style: .circular)
                 )
-                .clipShape(shape)
         } else {
             content
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(uiColor: theme.paperBackground))
-                .clipShape(shape)
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
         }
     }
 }

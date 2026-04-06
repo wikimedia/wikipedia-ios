@@ -9,7 +9,7 @@ import WMFTestKitchen
         let numUnreadNotifications = (try? dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
         let needsProfileBadge = numUnreadNotifications != 0
         
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leadingCompact)
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leadingLarge)
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {

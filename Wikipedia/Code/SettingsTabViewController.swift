@@ -179,7 +179,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(
             title: CommonStrings.settingsTitle,
             customView: nil,
-            alignment: .leadingCompact
+            alignment: .leadingLarge
         )
 
         extendedLayoutIncludesOpaqueBars = false
@@ -203,8 +203,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
                 target: self,
                 action: #selector(userDidTapProfile),
                 dataStore: dataStore,
-                yirDataController: yirDataController,
-                leadingBarButtonItem: nil
+                yirDataController: yirDataController
             )
             tabsButtonConfig = self.tabsButtonConfig(
                 target: self,
@@ -279,8 +278,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
             target: self,
             action: #selector(userDidTapProfile),
             dataStore: dataStore,
-            yirDataController: yirDataController,
-            leadingBarButtonItem: nil
+            yirDataController: yirDataController
         )
 
         updateNavigationBarProfileButton(

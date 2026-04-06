@@ -27,4 +27,5 @@ public enum SettingsAction {
     case helpAndFeedback
     case about
     case deleteDonationHistory
+    case legalAndSafety
 }
