@@ -78,8 +78,9 @@ import WMFComponents
                     }
                     
                     self.tooltipVC = popoverController
-                    popoverController.presentationController?.delegate = self
-                    appViewController.present(popoverController, animated: true)
+                    appViewController.present(popoverController, animated: true) {
+                        popoverController.presentationController?.delegate = self
+                    }
                 } else if case .invalidated = status {
                     tooltipVC?.presentationController?.delegate = nil
                     tooltipVC?.dismiss(animated: true)
