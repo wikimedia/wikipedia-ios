@@ -39,60 +39,42 @@ public struct WMFNavigationBarBackButtonConfig {
 
 /// Profile button config for navigation bar
 public struct WMFNavigationBarProfileButtonConfig {
+    public let title: String
     public let accessibilityLabelNoNotifications: String
     public let accessibilityLabelHasNotifications: String
     public let accessibilityHint: String
     public let needsBadge: Bool
     public let target: Any
     public let action: Selector
-    public let leadingBarButtonItem: UIBarButtonItem?
     
-    public init(accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?) {
+    public init(title: String, accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector) {
+        self.title = title
         self.accessibilityLabelNoNotifications = accessibilityLabelNoNotifications
         self.accessibilityLabelHasNotifications = accessibilityLabelHasNotifications
         self.accessibilityHint = accessibilityHint
         self.needsBadge = needsBadge
         self.target = target
         self.action = action
-        self.leadingBarButtonItem = leadingBarButtonItem
     }
 }
 
 public struct WMFNavigationBarTabsButtonConfig {
+    public let title: String
     public let accessibilityLabel: String
     public let accessibilityHint: String
     public let target: Any
     public let action: Selector
     public let leadingBarButtonItem: UIBarButtonItem?
-    public let trailingBarButtonItem: UIBarButtonItem?
-    public let needsSeparateGlassContainer: Bool
+    public let leadingBarButtonItemTitle: String?
     
-    public init(accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?, needsSeparateGlassContainer: Bool) {
+    public init(title: String, accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, leadingBarButtonItemTitle: String? = nil) {
+        self.title = title
         self.accessibilityLabel = accessibilityLabel
         self.accessibilityHint = accessibilityHint
         self.target = target
         self.action = action
         self.leadingBarButtonItem = leadingBarButtonItem
-        self.trailingBarButtonItem = trailingBarButtonItem
-        self.needsSeparateGlassContainer = needsSeparateGlassContainer
-    }
-}
-
-public struct WMFNavigationBarSearchButtonConfig {
-    public let accessibilityLabel: String
-    public let accessibilityHint: String
-    public let target: Any
-    public let action: Selector
-    public let leadingBarButtonItem: UIBarButtonItem?
-    public let trailingBarButtonItem: UIBarButtonItem?
-
-    public init(accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
-        self.accessibilityLabel = accessibilityLabel
-        self.accessibilityHint = accessibilityHint
-        self.target = target
-        self.action = action
-        self.leadingBarButtonItem = leadingBarButtonItem
-        self.trailingBarButtonItem = trailingBarButtonItem
+        self.leadingBarButtonItemTitle = leadingBarButtonItemTitle
     }
 }
 
@@ -137,7 +119,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                                 closeButtonConfig: WMFLargeCloseButtonConfig?,
                                 profileButtonConfig: WMFNavigationBarProfileButtonConfig?,
                                 tabsButtonConfig: WMFNavigationBarTabsButtonConfig?,
-                                searchButtonConfig: WMFNavigationBarSearchButtonConfig? = nil,
                                 searchBarConfig: WMFNavigationBarSearchConfig?,
                                 hideNavigationBarOnScroll: Bool) {
         
@@ -219,7 +200,44 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
 
         if let profileButtonConfig {
 
-            var rightBarButtonItems: [UIBarButtonItem] = []
+            var trailingBarButtonItems: [UIBarButtonItem] = []
+            var specificMenu: UIMenu? = nil
+            var globalCollapsedActions: [UIAction] = []
+            
+            if let tabsButtonConfig {
+
+                let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
+                let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+
+                if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
+                    trailingBarButtonItems.append(leadingBarButtonItem)
+                    if let menu = leadingBarButtonItem.menu {
+                        specificMenu = menu
+                    } else {
+                        specificMenu = UIMenu(title: "", options: .displayInline, children: [
+                            UIAction(title: leadingBarButtonItem.title ?? tabsButtonConfig.leadingBarButtonItemTitle ?? "", image: leadingBarButtonItem.image) { _ in
+                                
+                                if let target = leadingBarButtonItem.target,
+                                   let action = leadingBarButtonItem.action {
+                                    UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
+                                }
+                                
+                                
+                            }
+                        ])
+                    }
+                    
+                }
+                
+                trailingBarButtonItems.append(tabsButton)
+                globalCollapsedActions.append(UIAction(title: tabsButtonConfig.title, image: tabsButton.image) { _ in
+                    
+                    let target = tabsButtonConfig.target
+                    let action = tabsButtonConfig.action
+                    
+                    UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
+                })
+            }
 
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
@@ -227,24 +245,31 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
             profileButton.accessibilityIdentifier = profileButtonAccessibilityID
 
-            rightBarButtonItems.append(profileButton)
-
-            if let tabsButtonConfig {
-
-                let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
-                let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-
-                rightBarButtonItems.append(tabsButton)
-
-                if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
-                    if #available(iOS 26.0, *), tabsButtonConfig.needsSeparateGlassContainer {
-                        leadingBarButtonItem.sharesBackground = false
-                    }
-                    rightBarButtonItems.append(leadingBarButtonItem)
-                }
+            trailingBarButtonItems.append(profileButton)
+            globalCollapsedActions.append(UIAction(title: profileButtonConfig.title, image: image) { _ in
+                
+                let target = profileButtonConfig.target
+                let action = profileButtonConfig.action
+                
+                UIApplication.shared.sendAction(action, to: target, from: nil, for: nil)
+            })
+            
+            var menuChildren: [UIMenu] = [ UIMenu(title: "", options: .displayInline, children: globalCollapsedActions) ]
+            if let specificMenu {
+                menuChildren.insert(specificMenu, at: 0)
             }
+            
+            let collapsedMenu = UIMenu(title: "", children: menuChildren)
+            
+            let representativeItem = UIBarButtonItem(title: nil, image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: collapsedMenu)
 
-            navigationItem.rightBarButtonItems = rightBarButtonItems
+            let group = UIBarButtonItemGroup.optionalGroup(
+                customizationIdentifier: "trailing",
+                representativeItem: representativeItem,
+                items: trailingBarButtonItems
+            )
+
+            navigationItem.trailingItemGroups = [group]
         }
 
         // Setup close button if needed
@@ -258,39 +283,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             case .trailing:
                 navigationItem.rightBarButtonItem = closeButton
             }
-        }
-        
-        if let searchButtonConfig {
-            var rightBarButtonItems: [UIBarButtonItem] = []
-
-            if let profileButtonConfig {
-                let profileImage = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
-                let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-                profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
-                profileButton.accessibilityIdentifier = profileButtonAccessibilityID
-                rightBarButtonItems.append(profileButton)
-            }
-
-            if let tabsButtonConfig {
-                let tabsImage = WMFSFSymbolIcon.for(symbol: .tabsIcon)
-                let tabsButton = UIBarButtonItem(image: tabsImage, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-                tabsButton.accessibilityLabel = tabsButtonConfig.accessibilityLabel
-                tabsButton.accessibilityHint = tabsButtonConfig.accessibilityHint
-                rightBarButtonItems.append(tabsButton)
-            }
-
-            let image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
-            let searchButton = UIBarButtonItem(image: image, style: .plain, target: searchButtonConfig.target, action: searchButtonConfig.action)
-            rightBarButtonItems.append(searchButton)
-
-            if let leadingBarButtonItem = searchButtonConfig.leadingBarButtonItem {
-                navigationItem.leftBarButtonItem = leadingBarButtonItem
-            }
-            if let trailingBarButtonItem = searchButtonConfig.trailingBarButtonItem {
-                rightBarButtonItems.append(trailingBarButtonItem)
-            }
-
-            navigationItem.rightBarButtonItems = rightBarButtonItems
         }
         
         if let searchBarConfig,

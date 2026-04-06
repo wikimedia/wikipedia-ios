@@ -307,7 +307,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
             tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
         } else {
             profileButtonConfig = nil
@@ -397,7 +397,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             return
         }
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -439,7 +439,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()
@@ -472,7 +472,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         })
 
 
-        let mainMenu = UIMenu(title: String(), children: [sortAction, editAction])
+        let mainMenu = UIMenu(title: String(), options: .displayInline, children: [sortAction, editAction])
 
         return mainMenu
     }
@@ -638,6 +638,7 @@ extension SavedViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
         if currentView == .savedArticles {
+            allArticlesCoordinator?.contentViewController.viewModel.searchText = ""
             allArticlesCoordinator?.contentViewController.viewModel.loadArticles()
         }
     }

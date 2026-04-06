@@ -413,5 +413,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         
         displayModeToggle.textColor = theme.colors.link
         subTitleLabel.textColor = theme.colors.secondaryText
+        
+        loginButton.apply(theme: theme)
     }
 }
