@@ -83,7 +83,7 @@ public struct WMFReadingChallengeWidgetView: View {
             }
         }
     }
-    
+
     private var notEnrolledSmallView: some View {
         ZStack {
             VStack(alignment: .center, spacing: 8) {
@@ -121,9 +121,9 @@ public struct WMFReadingChallengeWidgetView: View {
                         .scaledToFit()
                         .frame(maxHeight: 100)
                 }
-                HStack {
-                    switch viewModel.state {
-                    case .streakOngoingNotYetRead:
+                switch viewModel.state {
+                case .streakOngoingNotYetRead:
+                    HStack {
                         if let uiImage = UIImage(named: "flameWarning", in: .module, with: nil) {
                             Image(uiImage: uiImage)
                                 .resizable()
@@ -132,16 +132,41 @@ public struct WMFReadingChallengeWidgetView: View {
                                 .scaledToFit()
                                 .frame(width: 30)
                         }
-                    default:
+                        Text(viewModel.displaySet.title)
+                            .font(Font(WMFFont.for(.boldTitle1)))
+                            .foregroundColor(viewModel.displaySet.color2)
+                    }
+
+                case .challengeConcludedIncomplete:
+                    if let subtitle = viewModel.displaySet.subtitle {
+                        HStack(spacing: 4) {
+                            if let icon = viewModel.displaySet.icon {
+                                Image(uiImage: icon)
+                                    .font(Font(WMFFont.for(.subheadline)))
+                                    .foregroundStyle(viewModel.displaySet.color2)
+                            }
+                            Text(subtitle)
+                                .font(Font(WMFFont.for(.subheadline)))
+                                .foregroundStyle(viewModel.displaySet.color2)
+                        }
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: .infinity)
+                        .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
+                        .clipShape(Capsule())
+                    }
+
+                default:
+                    HStack {
                         if let icon = viewModel.displaySet.icon {
                             Image(uiImage: icon)
                                 .font(Font(WMFFont.for(.boldTitle1)))
                                 .foregroundStyle(viewModel.displaySet.color2)
                         }
+                        Text(viewModel.displaySet.title)
+                            .font(Font(WMFFont.for(.boldTitle1)))
+                            .foregroundColor(viewModel.displaySet.color2)
                     }
-                    Text(viewModel.displaySet.title)
-                        .font(Font(WMFFont.for(.boldTitle1)))
-                        .foregroundColor(viewModel.displaySet.color2)
                 }
             }
             .padding()
@@ -150,7 +175,6 @@ public struct WMFReadingChallengeWidgetView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    // Icon is now optional — renders button with or without leading icon
     private var oneButtonSmallView: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 8) {
@@ -214,10 +238,29 @@ public struct WMFReadingChallengeWidgetView: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     if let subtitle = viewModel.displaySet.subtitle {
-                        Text(subtitle)
-                            .font(Font(WMFFont.for(.subheadline)))
-                            .foregroundColor(viewModel.displaySet.color2)
-                            .fixedSize(horizontal: false, vertical: true)
+                        switch viewModel.state {
+                        case .challengeConcludedIncomplete:
+                            Spacer()
+                            HStack(spacing: 3) {
+                                if let icon = viewModel.displaySet.icon2 {
+                                    Image(uiImage: icon)
+                                        .font(Font(WMFFont.for(.subheadline)))
+                                        .foregroundStyle(viewModel.displaySet.color2)
+                                }
+                                Text(subtitle)
+                                    .font(Font(WMFFont.for(.subheadline)))
+                                    .foregroundColor(viewModel.displaySet.color2)
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 4)
+                            .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
+                            .clipShape(Capsule())
+                        default:
+                            Text(subtitle)
+                                .font(Font(WMFFont.for(.subheadline)))
+                                .foregroundColor(viewModel.displaySet.color2)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
                     }
                     Spacer()
                     HStack(spacing: 8) {
@@ -266,7 +309,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     }
                 }
                 .padding()
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
@@ -276,11 +319,12 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
             }
             wIconOverlay
+                .frame(maxWidth: .infinity)
         }
     }
 
     // MARK: - Not Enrolled Medium View
-    
+
     private var notEnrolledMediumView: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 0) {
