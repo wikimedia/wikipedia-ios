@@ -527,8 +527,12 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        if let _ = navigationController?.viewControllers.last as? ArticleViewController {
+            // We are moving to another ArticleViewController. Not hiding the system toolbar for a smoother transition.
+        } else {
+            navigationController?.setToolbarHidden(true, animated: true)
+        }
         
-        navigationController?.setToolbarHidden(true, animated: true)
         wTipObservationTask?.cancel()
         wTipObservationTask = nil
         saveArticleScrollPosition()
@@ -739,6 +743,13 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
     }
 
     // MARK: Navigation Bar
+    
+    private var searchButtonItem: UIBarButtonItem {
+        let image = WMFSFSymbolIcon.for(symbol: .magnifyingGlass)
+        let searchButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(userDidTapSearch))
+        searchButton.accessibilityLabel = CommonStrings.searchButtonAccessibilityHint
+        return searchButton
+    }
 
     private func configureNavigationBar() {
 
@@ -755,27 +766,29 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
 
-        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
+        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: false)
 
-        var profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
 
-        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
-
-        var searchButtonConfig: WMFNavigationBarSearchButtonConfig? = nil
-
+        var tabsLeadingButton: UIBarButtonItem?
+        
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
                 titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: nil, alignment: .hidden)
-                profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-                searchButtonConfig = nil
             } else if UIDevice.current.userInterfaceIdiom == .phone {
-                searchButtonConfig = self.searchButtonConfig(target: self, action: #selector(userDidTapSearch), dataStore: dataStore)
+                tabsLeadingButton = searchButtonItem
             }
         } else if UIDevice.current.userInterfaceIdiom == .phone {
-            searchButtonConfig = self.searchButtonConfig(target: self, action: #selector(userDidTapSearch), dataStore: dataStore)
+            tabsLeadingButton = searchButtonItem
         }
+        
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: tabsLeadingButton)
 
-        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchButtonConfig: searchButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+        
+        navigationItem.backButtonDisplayMode = .minimal
+        let returnAccessibilityTitle = WMFLocalizedString("article-return-button-accessibility-title", value: "Return to: %1$@", comment: "Accessibility title read by assistive technologies for the button that takes the user back to the previous article. The %1$@ placeholder is replaced with the previous article title.")
+        navigationItem.backBarButtonItem?.accessibilityLabel = String.localizedStringWithFormat(returnAccessibilityTitle, articleURL.wmf_title ?? String())
     }
 
     @objc func userDidTapSearch() {
@@ -788,7 +801,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
 
     private func updateProfileButton() {
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
 
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
@@ -1424,6 +1437,7 @@ private extension ArticleViewController {
 
     func setupToolbar() {
         toolbarController = ArticleToolbarController(delegate: self)
+        toolbarController?.apply(theme: theme)
         navigationController?.setToolbarHidden(false, animated: false)
     }
 

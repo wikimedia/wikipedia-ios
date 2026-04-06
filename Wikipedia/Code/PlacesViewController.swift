@@ -82,6 +82,10 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var listTitle: String {
         WMFLocalizedString("places-list-title'", value: "List", comment: "Button that switches the display mode to the List view on the Places tab.")
     }
+    
+    private var filterTitle: String {
+        WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places")
+    }
 
     // MARK: - View Lifecycle
 
@@ -262,16 +266,16 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     private var filterButtonItem: UIBarButtonItem {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .filterLineHorizontalDecrease), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
-        button.accessibilityLabel = WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places")
+        button.accessibilityLabel = filterTitle
         return button
     }
 
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
-        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController)
     }
 
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
-        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem, needsSeparateGlassContainer: true)
+        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem, leadingBarButtonItemTitle: filterTitle)
     }
 
     @objc func userDidTapTabs() {
@@ -283,7 +287,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     private func configureNavigationBar() {
 
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .customLeadingLarge)
 
         let showsScopeBar = isViewModeOverlay ? false : true
         let scopeButtonTitles = isViewModeOverlay ? nil : [mapTitle, listTitle]
@@ -471,7 +475,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private func updateProfileButton() {
-        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
+        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController)
         updateNavigationBarProfileButton(needsBadge: profileButtonConfig.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -2186,6 +2190,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     // MARK: - UISearchBarDelegate
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        hideCustomLeadingLargeTitleLabel()
         viewMode = .search
         deselectAllAnnotations()
 
@@ -2226,6 +2231,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        showCustomLeadingLargeTitleLabel()
         updateViewModeFromSegmentedControl()
     }
 
@@ -2360,6 +2366,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         profileCoordinator?.theme = theme
         updateProfileButton()
+        themeNavigationBarCustomLeadingLargeTitle()
 
         searchSuggestionController.apply(theme: theme)
 
