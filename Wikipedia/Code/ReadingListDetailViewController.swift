@@ -130,7 +130,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        configureNavigationBar()
         showImportSharedReadingListSurveyPromptIfNeeded()
     }
 

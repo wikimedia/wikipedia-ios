@@ -10,10 +10,12 @@ public protocol WMFNavigationBarConfiguring {
 public struct WMFNavigationBarTitleConfig {
     
     public enum Alignment {
-        case leadingCompact
         case leadingLarge
         case centerCompact
         case hidden
+        /// Large title pinned to the upper-leading edge of the bar, overlapping the area normally used by back buttons.
+        /// Intended for root tab-bar view controllers and views that have no back button.
+        case customLeadingLarge
     }
     
     let title: String
@@ -138,34 +140,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 navigationItem.titleView = customTitleView
                 themeNavigationBarCustomCenteredTitleView()
             }
-        case .leadingCompact:
-            navigationItem.title = titleConfig.title
-            navigationController?.navigationBar.prefersLargeTitles = false
-            navigationItem.largeTitleDisplayMode = .never
-            
-            navigationItem.titleView = UIView()
-            
-            if let customTitleView = titleConfig.customView {
-                let button = UIBarButtonItem(customView: customTitleView)
-                button.accessibilityTraits = .staticText
-                if #available(iOS 26.0, *) {
-                    button.hidesSharedBackground = true
-                    button.sharesBackground = false
-                }
-                navigationItem.leftBarButtonItem = button
-                themeNavigationBarLeadingTitleView()
-            } else {
-                let leadingTitleLabel = UILabel()
-                leadingTitleLabel.font = WMFFont.navigationBarLeadingCompactTitleFont
-                leadingTitleLabel.text = titleConfig.title
-                let button = UIBarButtonItem(customView: leadingTitleLabel)
-                if #available(iOS 26.0, *) {
-                    button.hidesSharedBackground = true
-                    button.sharesBackground = false
-                }
-                navigationItem.leftBarButtonItem = button
-                themeNavigationBarLeadingTitleView()
-            }
+            removeCustomLeadingLargeTitleLabel()
         case .leadingLarge:
             navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -176,6 +151,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 navigationItem.titleView = nil
             }
             navigationItem.leftBarButtonItem = nil
+            removeCustomLeadingLargeTitleLabel()
             
             if let customLargeTitleFont = titleConfig.customLargeTitleFont {
                 customizeNavBarAppearance(customLargeTitleFont: customLargeTitleFont)
@@ -186,6 +162,15 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.backButtonTitle = titleConfig.title
             navigationItem.titleView = nil
+            removeCustomLeadingLargeTitleLabel()
+        case .customLeadingLarge:
+            navigationItem.title = nil
+            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.titleView = nil
+            navigationItem.leftBarButtonItem = nil
+
+            addOrUpdateUpperLeadingLargeTitleLabel(title: titleConfig.title)
         }
         
         // Better back button naming for article tabs
@@ -305,6 +290,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.preferredSearchBarPlacement = .stacked
             navigationItem.searchController = searchController
         }
+
+
     }
     
     func customizeNavBarAppearance(customLargeTitleFont: UIFont) {
@@ -372,4 +359,70 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     func profileButtonAccessibilityStrings(config: WMFNavigationBarProfileButtonConfig) -> String {
         return config.needsBadge ? config.accessibilityLabelHasNotifications : config.accessibilityLabelNoNotifications
     }
+
+    // MARK: - Upper-leading large title helpers
+
+    private var upperLeadingLargeTitleTag: Int { 0x574D465F_5469746C }  // "WMF_Titl" as a stable tag
+
+    private func addOrUpdateUpperLeadingLargeTitleLabel(title: String) {
+        guard let navigationController,
+              navigationController.viewControllers.last == self else { return }
+        
+        let navBar = navigationController.navigationBar
+        
+        // No need to add custom title if floating tab bar title is displaying nearby.
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && UITraitCollection.current.horizontalSizeClass == .regular {
+                removeCustomLeadingLargeTitleLabel()
+                return
+            }
+        }
+
+        // Remove any existing label so constraints are rebuilt when pin direction changes.
+        navBar.viewWithTag(upperLeadingLargeTitleTag)?.removeFromSuperview()
+
+        let label = UILabel()
+        label.tag = upperLeadingLargeTitleTag
+        label.font = WMFFont.navigationBarCustomLeadingLargeTitleFont
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = false
+        navBar.addSubview(label)
+        
+        var leadingPadding = CGFloat(16)
+        if #available(iOS 26, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && UITraitCollection.current.horizontalSizeClass == .compact {
+                // Add a little more for window close/minimize/expand buttons
+                leadingPadding = CGFloat(80)
+            }
+        }
+
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: leadingPadding),
+            label.topAnchor.constraint(equalTo: navBar.topAnchor, constant: 7)
+        ])
+
+        label.text = title
+        label.textColor = WMFAppEnvironment.current.theme.text
+    }
+
+    private func removeCustomLeadingLargeTitleLabel() {
+        navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag)?.removeFromSuperview()
+    }
+
+    func themeNavigationBarCustomLeadingLargeTitle() {
+        let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel
+        label?.textColor = WMFAppEnvironment.current.theme.text
+    }
+
+    func hideCustomLeadingLargeTitleLabel() {
+        guard let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel else { return }
+        UIView.animate(withDuration: 0.2) { label.isHidden = true }
+    }
+
+    func showCustomLeadingLargeTitleLabel() {
+        guard let label = navigationController?.navigationBar.viewWithTag(upperLeadingLargeTitleTag) as? UILabel else { return }
+        UIView.animate(withDuration: 0.2) { label.isHidden = false }
+    }
 }
+

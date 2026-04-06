@@ -287,7 +287,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     private func configureNavigationBar() {
 
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .customLeadingLarge)
 
         let showsScopeBar = isViewModeOverlay ? false : true
         let scopeButtonTitles = isViewModeOverlay ? nil : [mapTitle, listTitle]
@@ -2190,6 +2190,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     // MARK: - UISearchBarDelegate
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        hideCustomLeadingLargeTitleLabel()
         viewMode = .search
         deselectAllAnnotations()
 
@@ -2230,6 +2231,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        showCustomLeadingLargeTitleLabel()
         updateViewModeFromSegmentedControl()
     }
 
@@ -2364,6 +2366,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         profileCoordinator?.theme = theme
         updateProfileButton()
+        themeNavigationBarCustomLeadingLargeTitle()
 
         searchSuggestionController.apply(theme: theme)
 
