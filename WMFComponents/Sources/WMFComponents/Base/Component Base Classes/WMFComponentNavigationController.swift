@@ -130,15 +130,18 @@ open class WMFComponentNavigationController: UINavigationController {
         appearance.configureWithDefaultBackground()
         appearance.shadowColor = nil
 
-
         let largeTitleFont = self.customLargeTitleFont ?? WMFFont.navigationBarLeadingLargeTitleFont
+        let titleColor = theme.text
 
         if let customLargeTitleFont {
-            appearance.largeTitleTextAttributes = [.font: customLargeTitleFont]
+            appearance.largeTitleTextAttributes = [.font: customLargeTitleFont, .foregroundColor: titleColor]
         } else {
-            appearance.largeTitleTextAttributes = [.font: largeTitleFont]
+            appearance.largeTitleTextAttributes = [.font: largeTitleFont, .foregroundColor: titleColor]
         }
 
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+
+        navigationBar.tintColor = theme.navigationBarTintColor
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
         navigationBar.compactAppearance = appearance

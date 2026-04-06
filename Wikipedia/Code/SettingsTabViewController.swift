@@ -179,7 +179,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(
             title: CommonStrings.settingsTitle,
             customView: nil,
-            alignment: .leadingCompact
+            alignment: .leadingLarge
         )
 
         extendedLayoutIncludesOpaqueBars = false

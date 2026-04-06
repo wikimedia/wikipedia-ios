@@ -2,29 +2,19 @@ import UIKit
 import SwiftUI
 import Combine
 
-fileprivate final class WMFSettingsHostingController: WMFComponentHostingController<WMFSettingsView> {}
-
-final public class WMFSettingsViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
+final public class WMFSettingsViewController: WMFComponentHostingController<WMFSettingsView>, WMFNavigationBarConfiguring {
 
     private let viewModel: WMFSettingsViewModel
-    private let hostingViewController: WMFSettingsHostingController
-    let coordinatorDelegate: SettingsCoordinatorDelegate?
+    public let coordinatorDelegate: SettingsCoordinatorDelegate?
 
     public init(viewModel: WMFSettingsViewModel, coordinatorDelegate: SettingsCoordinatorDelegate?) {
         self.viewModel = viewModel
         self.coordinatorDelegate = coordinatorDelegate
-        let rootView = WMFSettingsView(viewModel: viewModel)
-        self.hostingViewController = WMFSettingsHostingController(rootView: rootView)
-        super.init()
+        super.init(rootView: WMFSettingsView(viewModel: viewModel))
         viewModel.coordinatorDelegate = coordinatorDelegate
     }
 
     @MainActor required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        addComponent(hostingViewController, pinToEdges: true)
-    }
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,7 +32,7 @@ final public class WMFSettingsViewController: WMFCanvasViewController, WMFNaviga
         let titleConfig = WMFNavigationBarTitleConfig(
             title: viewModel.localizedStrings.settingTitle,
             customView: nil,
-            alignment: .leadingCompact
+            alignment: .leadingLarge
         )
 
         let closeConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(tappedDone), alignment: .trailing)

@@ -283,6 +283,19 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
 
         configureNavigationBar()
+
+        if navigationItem.searchController?.isActive == true {
+            hideCustomLeadingLargeTitleLabel()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if !isMovingFromParent {
+            navigationItem.searchController?.isActive = false
+            hideCustomLeadingLargeTitleLabel()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -302,7 +315,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     private func configureNavigationBar() {
 
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.savedTabTitle, customView: nil, alignment: .leadingCompact)
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.savedTabTitle, customView: nil, alignment: .customLeadingLarge)
 
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
@@ -425,6 +438,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         addReadingListBarButtonItem.tintColor = theme.colors.warning
 
         themeNavigationBarLeadingTitleView()
+        themeNavigationBarCustomLeadingLargeTitle()
         themeTopSafeAreaOverlay()
 
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
@@ -441,6 +455,9 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     private lazy var moreBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
+        if #available(iOS 26.0, *) {
+            button.sharesBackground = false
+        }
         return button
     }()
 
@@ -633,10 +650,12 @@ extension SavedViewController: UISearchBarDelegate {
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidBeginEditing: searchBar)
+        hideCustomLeadingLargeTitleLabel()
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
+        showCustomLeadingLargeTitleLabel()
         if currentView == .savedArticles {
             allArticlesCoordinator?.contentViewController.viewModel.searchText = ""
             allArticlesCoordinator?.contentViewController.viewModel.loadArticles()
@@ -644,6 +663,7 @@ extension SavedViewController: UISearchBarDelegate {
     }
 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        navigationItem.searchController?.isActive = false
         if selectedScope == 0 {
             currentView = .savedArticles
         } else {

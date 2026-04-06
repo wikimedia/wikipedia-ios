@@ -292,6 +292,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         searchResultsVC.showLanguageBar = showLanguageBar
         if let siteURL { searchResultsVC.siteURL = siteURL }
         embedHistoryIfNeeded()
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if previousTraitCollection.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                        configureNavigationBar()
+                    }
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -301,13 +312,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        if !isMovingFromParent {
-            disableSearchCancelLogging = true
+
+        disableSearchCancelLogging = !isMovingFromParent
+
+        if navigationItem.searchController?.isActive == true {
+            navigationItem.searchController?.isActive = false
         }
-        
+        isSearchActive = false
         navigationItem.searchController = nil
+        navigationItem.title = nil
         disableSearchCancelLogging = false
+        hideCustomLeadingLargeTitleLabel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -340,7 +355,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - Navigation Bar
 
     private func configureNavigationBar() {
-        let alignment: WMFNavigationBarTitleConfig.Alignment = isRootTabView ? .leadingCompact : .centerCompact
+        let alignment: WMFNavigationBarTitleConfig.Alignment
+        if isRootTabView {
+            alignment = isSearchActive ? .hidden : .customLeadingLarge
+        } else {
+            alignment = .centerCompact
+        }
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: alignment)
 
         var profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil
@@ -499,6 +519,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             updateProfileButton()
             profileCoordinator?.theme = theme
             yirCoordinator?.theme = theme
+            themeNavigationBarCustomLeadingLargeTitle()
         }
         
     }
