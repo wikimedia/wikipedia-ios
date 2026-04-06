@@ -988,6 +988,8 @@ extension ExploreViewController {
 
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     fileprivate func presentModalsIfNeeded() {
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(listenForTooltips), object: nil)
 
         if needsYearInReviewAnnouncement() {
             updateProfileButton()

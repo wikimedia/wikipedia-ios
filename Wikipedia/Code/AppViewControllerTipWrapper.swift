@@ -44,14 +44,18 @@ import WMFComponents
         var targetViewIPad: UIView? = nil
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad {
-                appViewController.view.addSubview(tabSearchTargetViewIPad)
-                NSLayoutConstraint.activate([
-                    appViewController.view.centerXAnchor.constraint(equalTo: tabSearchTargetViewIPad.centerXAnchor, constant: 0),
-                    appViewController.view.topAnchor.constraint(equalTo: tabSearchTargetViewIPad.topAnchor, constant: -150),
-                    tabSearchTargetViewIPad.widthAnchor.constraint(equalToConstant: 1),
-                    tabSearchTargetViewIPad.heightAnchor.constraint(equalToConstant: 1)
-                ])
-                targetViewIPad = tabSearchTargetViewIPad
+                if tabSearchTargetViewIPad.superview == nil {
+                    appViewController.view.addSubview(tabSearchTargetViewIPad)
+                    NSLayoutConstraint.activate([
+                        appViewController.view.centerXAnchor.constraint(equalTo: tabSearchTargetViewIPad.centerXAnchor, constant: 0),
+                        appViewController.view.topAnchor.constraint(equalTo: tabSearchTargetViewIPad.topAnchor, constant: -150),
+                        tabSearchTargetViewIPad.widthAnchor.constraint(equalToConstant: 1),
+                        tabSearchTargetViewIPad.heightAnchor.constraint(equalToConstant: 1)
+                    ])
+                    targetViewIPad = tabSearchTargetViewIPad
+                } else {
+                    return
+                }
             }
         }
 
@@ -60,6 +64,8 @@ import WMFComponents
             
             for await status in tip.statusUpdates {
                 if status == .available {
+                    
+                    guard appViewController.presentedViewController == nil else { return }
                     
                     let popoverController = TipUIPopoverViewController(tip, sourceItem: targetViewIPad ?? searchTabBarItem)
                     popoverController.overrideUserInterfaceStyle = appViewController.theme.isDark ? .dark : .light
