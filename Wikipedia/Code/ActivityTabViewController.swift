@@ -613,12 +613,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     // MARK: - Theming
 
     public func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
         updateProfileButton()
         profileCoordinator?.theme = theme
-        self.theme = theme
     }
 
     // MARK: - Reachability
