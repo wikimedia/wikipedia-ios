@@ -51,7 +51,8 @@ public struct WMFReadingListToastView: View {
         .contentShape(Rectangle())
         .onTapGesture { config.tapAction?() }
         .modifier(ToastGlassModifier(theme: theme))
-
+        .focusable(false)
+        .focusEffectDisabled(true)
     }
     @ViewBuilder
     private func iconView(_ icon: UIImage) -> some View {
