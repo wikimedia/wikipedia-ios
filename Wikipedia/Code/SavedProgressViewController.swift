@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 class SavedProgressViewController: UIViewController, Themeable {
     @IBOutlet weak var label: UILabel!
@@ -19,7 +19,7 @@ class SavedProgressViewController: UIViewController, Themeable {
     override func viewDidLoad() {
         super.viewDidLoad()
         label.text = WMFLocalizedString("saved-pages-progress-syncing", value: "Article download in progress...", comment: "Text for article download progress bar label")
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.font = WMFFont.for(.subheadline)
         label.adjustsFontForContentSizeCategory = true
         setupPillShape()
     }
