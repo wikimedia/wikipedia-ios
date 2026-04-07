@@ -66,4 +66,10 @@ import WMFNativeLocalizations
     @objc public static let diffErrorTitle = CommonStrings.diffErrorTitle
     @objc public static let plainWikipediaName = CommonStrings.plainWikipediaName
     @objc public static let logIn = CommonStrings.logIn
+    @objc public static let allArticlesEmptySavedTitle = CommonStrings.allArticlesEmptySavedTitle
+    @objc public static let allArticlesEmptySavedSubtitle = CommonStrings.allArticlesEmptySavedSubtitle
+    
+    @objc public static func onLangWikipedia(with languageCode: String? = nil) -> String {
+        CommonStrings.onLangWikipedia(with: languageCode)
+    }
 }

@@ -100,8 +100,8 @@
 + (instancetype)noSavedPagesEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"saved-blank"];
-    view.titleLabel.text = [WMFCommonStrings allArticlesEmptySavedTitle];
-    view.messageLabel.text = [WMFCommonStrings allArticlesEmptySavedSubtitle];
+    view.titleLabel.text = [WMFCommonStringsWrapper allArticlesEmptySavedTitle];
+    view.messageLabel.text = [WMFCommonStringsWrapper allArticlesEmptySavedSubtitle];
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];

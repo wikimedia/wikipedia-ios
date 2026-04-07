@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFCommonStringsWrapper.fromWikipedia fallingBackOnGenericString:WMFCommonStringsWrapper.defaultFromWikipedia];
         case WMFContentGroupKindTopRead: {
-            return [WMFCommonStrings onLangWikipediaWith:self.siteURL.wmf_languageCode];
+            return [WMFCommonStringsWrapper onLangWikipediaWith:self.siteURL.wmf_languageCode];
         }
         case WMFContentGroupKindNews:
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"in-the-news-sub-title-from-language-wikipedia", nil, nil, @"From %1$@ Wikipedia", @"Subtext beneath the 'In the news' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'From English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"in-the-news-sub-title-from-wikipedia", nil, nil, @"From Wikipedia", @"Subtext beneath the 'In the news' header when the specific language wikipedia is unknown.")];
