@@ -61,7 +61,7 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     
     private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
-        label.text = WMFLocalizedString("collect-prize-subtitle", value: "Celebrate completing the challenge with 15% off at the Wikipedia Store.", comment: "Subtitle for collect prize modal")
+        label.text = WMFLocalizedString("collect-prize-subtitle", value: "Celebrate completing the challenge with 15%% off at the Wikipedia Store.", comment: "Subtitle for collect prize modal")
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -135,7 +135,7 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     }
     
     @objc private func ctaTapped() {
-        guard let url = URL(string: "https://store.wikipedia.org/?discount=CHALLENGE15") else { return }
+        guard let url = URL(string: "https://store.wikimedia.org/discount/Widget15") else { return }
         UIApplication.shared.open(url)
     }
     

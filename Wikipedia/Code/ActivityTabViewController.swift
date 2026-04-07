@@ -133,6 +133,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     @objc public func presentCollectPrize() {
+        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn { }
         let prizeVC = CollectPrizeViewController(theme: theme)
         prizeVC.modalPresentationStyle = .pageSheet
         if let sheet = prizeVC.sheetPresentationController {
