@@ -1185,6 +1185,8 @@
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
 "settings-notifications-echo-failure-try-again" = "Text alerting the user to try action again after error";
 "settings-notifications-header" = "Text informing user of benefits of enabling push notifications.";
+"settings-notifications-permission-error-message" = "Message for alert shown when push notification permission cannot be obtained from the server.";
+"settings-notifications-permission-error-title" = "Title for alert shown when push notification permission cannot be obtained from the server.";
 "settings-off" = "Text indicating a value is off in app Settings.";
 "settings-on" = "Text indicating a value is on in app Settings.";
 "settings-primary-language" = "Label shown next to primary language {{Identical|Primary}}";

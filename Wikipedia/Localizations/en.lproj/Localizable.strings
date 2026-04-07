@@ -1185,6 +1185,8 @@
 "settings-notifications" = "Push notifications";
 "settings-notifications-echo-failure-try-again" = "Try again";
 "settings-notifications-header" = "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.";
+"settings-notifications-permission-error-message" = "Something went wrong while trying to enable push notifications. Please try again later.";
+"settings-notifications-permission-error-title" = "Unable to Enable Notifications";
 "settings-off" = "Off";
 "settings-on" = "On";
 "settings-primary-language" = "Primary";
