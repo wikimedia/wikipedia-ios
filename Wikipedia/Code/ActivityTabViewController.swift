@@ -131,6 +131,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
         return url?.absoluteString ?? ""
     }
+    
+    @objc public func presentCollectPrize() {
+        let prizeVC = CollectPrizeViewController(theme: theme)
+        prizeVC.modalPresentationStyle = .pageSheet
+        if let sheet = prizeVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+        }
+        present(prizeVC, animated: true)
+    }
 
     public func makeAnEdit() {
         ActivityTabFunnel.shared.logMakeEditClick()

@@ -130,7 +130,14 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     } else if ([url.host isEqualToString:@"saved"]) {
         return [self wmf_savedPagesViewActivity];
     } else if ([url.host isEqualToString:@"activity"]) {
-        return [self wmf_activityTabActivity];
+        NSUserActivity *activity = [self wmf_activityTabActivity];
+        NSString *collectPrize = [url wmf_valueForQueryKey:@"collectPrize"];
+        if ([collectPrize isEqualToString:@"true"]) {
+            NSMutableDictionary *userInfo = [activity.userInfo mutableCopy] ?: [NSMutableDictionary dictionary];
+            userInfo[@"collectPrize"] = @YES;
+            activity.userInfo = userInfo;
+        }
+        return activity;
     } else if ([url.host isEqualToString:@"search"]) {
         return [self wmf_searchViewActivity];
     } else if ([url.host isEqualToString:@"random"]) {

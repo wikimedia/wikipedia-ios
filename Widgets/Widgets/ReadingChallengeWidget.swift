@@ -92,18 +92,18 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
         )
     }
 
-    static func completedSet(family: WidgetFamily, colorSet: WMFTheme.ReadingChallengeColorSet = .blueBlack) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
+    static func completedSet(family: WidgetFamily) -> WMFReadingChallengeWidgetViewModel.DisplaySet {
         WMFReadingChallengeWidgetViewModel.DisplaySet(
-            color: colorSet.primary,
-            color2: colorSet.secondary,
-            color3: colorSet.tertiary,
+            color: WMFTheme.ReadingChallengeColorSet.blueBlack.primary,
+            color2: WMFTheme.ReadingChallengeColorSet.blueBlack.secondary,
+            color3: WMFTheme.ReadingChallengeColorSet.blueBlack.tertiary,
             image: "globeParty",
             title: WMFLocalizedString("reading-challenge-completed-title", value: "You did it!", comment: "Title shown on the reading challenge widget when the user has completed the challenge."),
             subtitle: WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
             button1Title: family == .systemSmall
-                ? WMFLocalizedString("reading-challenge-collect-prize-button-small", value: "Collect prize", comment: "Button title shown on the small reading challenge widget when the user has completed the challenge.")
+                ? WMFLocalizedString("reading-challenge-collect-prize-button-small", value: "Collect prize", comment: "Short button title on small reading challenge widget when challenge is complete.")
                 : WMFLocalizedString("reading-challenge-collect-prize-button", value: "Collect your prize!", comment: "Button title shown on the reading challenge widget when the user has completed the challenge."),
-            button1URL: URL(string: "wikipedia://activity"),
+            button1URL: URL(string: "wikipedia://activity?collectPrize=true"),
             button1Icon: WMFSFSymbolIcon.for(symbol: .appGiftFill, font: .semiboldSubheadline),
             icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
         )
