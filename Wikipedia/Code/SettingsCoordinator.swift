@@ -590,8 +590,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             title: CommonStrings.pushNotifications,
             headerText: WMFLocalizedString("settings-notifications-header", value: "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.", comment: "Text informing user of benefits of enabling push notifications."),
             pushNotificationsTitle: CommonStrings.pushNotifications,
-            permissionErrorTitle: WMFLocalizedString("settings-notifications-permission-error-title", value: "Unable to Enable Notifications", comment: "Title for alert shown when push notification permission cannot be obtained from the server."),
-            permissionErrorMessage: WMFLocalizedString("settings-notifications-permission-error-message", value: "Something went wrong while trying to enable push notifications. Please try again later.", comment: "Message for alert shown when push notification permission cannot be obtained from the server."),
+            permissionErrorTitle: WMFLocalizedString("settings-notifications-echo-failure-title", value: "Unable to Check for Echo Notification subscriptions", comment: "Alert title text informing user of failure when subscribing to Echo Notifications."),
+            permissionErrorMessage: WMFLocalizedString("settings-notifications-echo-failure-message", value: "An error occurred while checking for notification subscriptions related to your account.", comment: "Alert message text informing user of failure when subscribing to Echo Notifications."),
             errorAlertDismissButton: CommonStrings.okTitle
         )
 
