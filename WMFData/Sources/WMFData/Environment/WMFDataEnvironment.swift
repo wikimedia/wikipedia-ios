@@ -1,4 +1,5 @@
 import Foundation
+import WMFTestKitchen
 
 public struct WMFAppData: Sendable {
     let appLanguages: [WMFLanguage]
@@ -26,6 +27,7 @@ public final class WMFDataEnvironment: @unchecked Sendable {
     private var _userDefaultsStore: WMFKeyValueStore? = WMFUserDefaultsStore()
     private var _sharedCacheStore: WMFKeyValueStore?
     private var _coreDataStore: WMFCoreDataStore?
+    public var _testKitchenClient: TestKitchenClient?
 
     // MARK: - Public Accessors (thread-safe)
 
@@ -91,5 +93,10 @@ public final class WMFDataEnvironment: @unchecked Sendable {
                 NotificationCenter.default.post(name: WMFNSNotification.coreDataStoreSetup, object: nil)
             }
         } }
+    }
+    
+    public var testKitchenClient: TestKitchenClient? {
+        get { queue.sync { _testKitchenClient } }
+        set { queue.sync { self._testKitchenClient = newValue } }
     }
 }

@@ -13,10 +13,12 @@ public enum WMFIcon {
     static let media = UIImage(named: "media", in: .module, with: nil)
     static let more = UIImage(named: "more", in: .module, with: nil)
     public static let pencil = UIImage(named: "pencil", in: .module, with: nil)
+    static let editHistory = UIImage(named: "edit-history", in: .module, with: nil)
     static let plus = UIImage(named: "plus", in: .module, with: nil)
     static let plusCircle = UIImage(named: "plus-circle", in: .module, with: nil)
     static let replace = UIImage(named: "replace", in: .module, with: nil)
     static let thank = UIImage(named: "thank", in: .module, with: nil)
+    static let thankFill = UIImage(named: "thank-fill", in: .module, with: nil)
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
     public static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
     static let bot = UIImage(named: "bot", in: .module, with: nil)
@@ -27,6 +29,9 @@ public enum WMFIcon {
     public static let personCircleX = UIImage(named: "person-circle-x", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
     public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
+    public static let contributionsIcon = (UIImage(named: "user_contributions", in: .module, with: nil))
+    public static let share = UIImage(named: "swipe-action-share", in: .module, with: nil)
+    public static let delete = UIImage(named: "swipe-action-delete", in: .module, with: nil)
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -44,6 +49,7 @@ public enum WMFSFSymbolIcon {
     case checkmarkSquareFill
     case square
     case star
+    case starCircleFill
     case person
 	case personFilled
     case starLeadingHalfFilled
@@ -69,6 +75,7 @@ public enum WMFSFSymbolIcon {
     case italic
     case exclamationMarkCircle
     case exclamationMarkCircleFill
+    case exclamationMarkTriangle
     case exclamationMarkTriangleFill
     case textFormatSuperscript
     case textFormatSubscript
@@ -134,6 +141,8 @@ public enum WMFSFSymbolIcon {
         switch self {
         case .closeCircleFill:
             "xmark.circle.fill"
+        case .magnifyingGlass:
+            "magnifyingglass"
         default:
             nil
         }
@@ -153,6 +162,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square", withConfiguration: configuration)
         case .star:
             image = UIImage(systemName: "star", withConfiguration: configuration)
+        case .starCircleFill:
+            image = UIImage(systemName: "star.circle.fill", withConfiguration: configuration)
         case .person:
             image = UIImage(systemName: "person", withConfiguration: configuration)
         case .personFilled:
@@ -176,7 +187,7 @@ public enum WMFSFSymbolIcon {
         case .docTextMagnifyingGlass:
             image = UIImage(systemName: "doc.text.magnifyingglass", withConfiguration: configuration)
         case .magnifyingGlass:
-            image = UIImage(systemName: "magnifyingglass", withConfiguration: configuration)
+            image = UIImage(systemName: symbol.name ?? "magnifyingglass", withConfiguration: configuration)
         case .listBullet:
             image = UIImage(systemName: "list.bullet", withConfiguration: configuration)
         case .listNumber:
@@ -201,6 +212,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)
         case .exclamationMarkCircleFill:
             image = UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: configuration)
+        case .exclamationMarkTriangle:
+            image = UIImage(systemName: "exclamationmark.triangle", withConfiguration: configuration)
         case .exclamationMarkTriangleFill:
             image = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: configuration)
         case .textFormatSuperscript:

@@ -71,7 +71,7 @@ final class WMFGrowthTasksDataControllerTests: XCTestCase {
     
     func testFetchArticleSummary() async throws {
         
-        let controller = WMFArticleSummaryDataController()
+        let controller = WMFArticleSummaryDataController.shared
         
         let articleSummaryToTest = try await controller.fetchArticleSummary(project: csProject, title: "Novela (právo)")
         

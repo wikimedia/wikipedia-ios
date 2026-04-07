@@ -21,8 +21,6 @@
 "about-repositories-app-source-license" = "Төрүт тиэксэ бу усулуобуйаҕа тарҕанар $1.";
 "about-repositories-app-source-license-mit" = "MIT лиссиэнсийэ";
 "about-send-feedback" = "Дьибилгэт туһунан санааҕын ыыт";
-"about-testers" = "Тургутааччылар";
-"about-testers-details" = "Таһымын $1 тургуппут";
 "about-title" = "Бу туһунан";
 "about-translators" = "Тылбаасчыттар";
 "about-translators-details" = "Бу дьибилгэт $1 дьон босхо тылбаастаабыта";
@@ -181,12 +179,10 @@
 "forgot-password-email-sent" = "Аһарыгы уларытар туһунан сурук ыытылынна";
 "forgot-password-title" = "Аһарыгы саҥардыы";
 "forgot-password-username-or-email-title" = "Эбэтэр";
-"history-clear-all" = "Сот";
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
 "history-clear-delete-all" = "Оннук, барытын сот";
 "history-title" = "Устуоруйата";
 "home-button-explore-accessibility-label" = "Бикипиэдьийэ, Устуоруйатыгар төнүн";
-"home-button-history-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн";
 "home-button-saved-accessibility-label" = "Бикипиэдьийэ, бигэргэтиигэ төнүн.";
 "home-more-like-footer" = "Эбии манна $1 майгынныыр";
 // Fuzzy
@@ -239,8 +235,10 @@
 "main-menu-title" = "Эбии";
 "main-menu-zero-faq" = "Wikipedia Zero туһунан ыйытыылар";
 "navbar-title-mode-edit-wikitext-preview" = "Эрдэ көрүү";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фуут";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миилэ";
 "new-password-instructions" = "Быстах кэмҥэ туттуллар аһарыгынан киирдиҥ.\nТүмүктүүргэ саҥа аһарыгы суруйуохтааххын:";

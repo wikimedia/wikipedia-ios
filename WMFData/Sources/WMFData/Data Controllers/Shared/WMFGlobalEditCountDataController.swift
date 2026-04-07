@@ -11,7 +11,7 @@ actor WMFGlobalEditCountDataController {
         self.service = service
     }
     
-    func fetchEditCount(globalUserID: Int, startDate: Date, endDate: Date) async throws -> Int {
+    func fetchEditCount(startDate: Date, endDate: Date) async throws -> Int {
         guard let service = service else {
             throw WMFDataControllerError.basicServiceUnavailable
         }

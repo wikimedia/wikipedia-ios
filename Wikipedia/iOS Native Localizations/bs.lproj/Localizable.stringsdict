@@ -389,7 +389,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ na ovaj spisak. Dostigli ste ograničenje od %#@v2@ po spisku za čitanje za %3$@</string>
+		<string>%#@v1@ na ovaj spisak. Dostigli ste ograničenje od %2$d članaka po spisku za čitanje za %3$@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -400,17 +400,6 @@
 			<string>Članak ne može biti dodan</string>
 			<key>other</key>
 			<string>Članci ne mogu biti dodani</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d članka</string>
-			<key>other</key>
-			<string>%2$d članaka</string>
 		</dict>
 	</dict>
 	<key>reading-list-list-limit-exceeded-title</key>

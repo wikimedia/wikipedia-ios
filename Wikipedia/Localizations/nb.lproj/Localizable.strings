@@ -40,8 +40,6 @@
 "about-repositories-app-source-license" = "Kildekode tilgjengelig under $1.";
 "about-repositories-app-source-license-mit" = "MIT-lisensen";
 "about-send-feedback" = "Gi tilbakemelding på appen";
-"about-testers" = "Testere";
-"about-testers-details" = "Kvalitetssikret av $1";
 "about-title" = "Om";
 "about-translators" = "Oversettere";
 "about-translators-details" = "Oversatt av frivillige på $1";
@@ -539,12 +537,10 @@
 "forgot-password-username-or-email-title" = "Eller";
 "gan-variants-alert-body" = "Wikipedia-appen støtter nå følgende gan-varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\n贛語 原文 gan (gan)\n赣语 简体 forenklet gan (gan-hans)\n贛語 繁體 tradisjonell gan (gan-hant)";
 "gan-variants-alert-title" = "Oppdateringer i støtte for gan-varianter";
-"history-clear-all" = "Tøm";
 "history-clear-confirmation-heading" = "Er du sikker på at du vil tømme loggen din?";
 "history-clear-delete-all" = "Ja, slett alt";
 "history-title" = "Historikk";
 "home-button-explore-accessibility-label" = "Wikipedia, vend tilbake til Utforsk";
-"home-button-history-accessibility-label" = "Wikipedia, vend tilbake til Historikk";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbake til Lagret";
 "home-more-like-footer" = "Mer som ligner $1";
 "home-nearby-footer" = "Flere steder i nærheten av deg";
@@ -673,8 +669,10 @@
 "more-menu" = "Mer";
 "move-articles-to-reading-list" = "Flytt {{PLURAL:$1|$1 artikkel|$1 artikler}} til leselisten";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvis";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fot";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 amerikanske miles";
 "new-password-instructions" = "Du ble logget inn med et midlertidig passord. For å fullføre registreringen må du lage deg et nytt passord her.";

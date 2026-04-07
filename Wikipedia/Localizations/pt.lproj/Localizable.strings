@@ -43,8 +43,6 @@
 "about-repositories-app-source-license" = "Código fonte disponibilizado ao abrigo da $1.";
 "about-repositories-app-source-license-mit" = "Licença MIT";
 "about-send-feedback" = "Enviar comentários sobre a aplicação";
-"about-testers" = "Utilizadores de Teste";
-"about-testers-details" = "QA testado por $1";
 "about-title" = "Sobre";
 "about-translators" = "Tradutores";
 "about-translators-details" = "Traduzida por voluntários em $1";
@@ -115,7 +113,6 @@
 "activity-tab-onboarding-fourth-item-title" = "Mantenha-se em controle";
 "activity-tab-onboarding-header" = "Introdução à Atividade";
 "activity-tab-onboarding-second-button-title" = "Saiba mais sobre a 'Atividade'";
-"activity-tab-onboarding-third-item-title" = "Mais formas para se envolver";
 "activity-tab-read-title" = "Ver histórico de leitura";
 "activity-tab-satisfied" = "Satisfeito(a)";
 "activity-tab-saved" = "Artigos guardados este mês";
@@ -563,12 +560,10 @@
 "forgot-password-username-or-email-title" = "Ou";
 "gan-variants-alert-body" = "A aplicação da Wikipédia agora suporta as seguintes variantes de Gan como idiomas principais ou secundários dentro da aplicação, simplificando a leitura, procura e edição nas suas variantes preferidas:\n\n贛語 原文 - Gan (gan)\n赣语 简体 - Gan simplificado (gan-hans)\n贛語 繁體 - Gan tradicional (gan-hant)";
 "gan-variants-alert-title" = "Atualizações ao suporte de variantes do chinês gan";
-"history-clear-all" = "Limpar";
 "history-clear-confirmation-heading" = "Tem a certeza de que deseja eliminar todos os seus elementos recentes?";
 "history-clear-delete-all" = "Sim, eliminar todos";
 "history-title" = "Histórico";
 "home-button-explore-accessibility-label" = "Wikipédia, voltar a Explorar";
-"home-button-history-accessibility-label" = "Wikipédia, voltar ao Histórico";
 "home-button-saved-accessibility-label" = "Wikipédia, voltar aos Guardados";
 "home-more-like-footer" = "Mais, como $1";
 "home-nearby-footer" = "Mais lugares nas suas redondezas";
@@ -700,8 +695,10 @@
 "more-menu" = "Mais";
 "move-articles-to-reading-list" = "Mover $1 {{PLURAL:$1|artigo|artigos}} para a lista de leitura";
 "navbar-title-mode-edit-wikitext-preview" = "Antevisão";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pés";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milhas";
 "new-password-instructions" = "Autenticou-se com uma palavra-passe temporária. Para concluir a autenticação, defina uma palavra-passe nova aqui.";
@@ -850,8 +847,6 @@
 "on-this-day-no-internet-error" = "Não há dados disponíveis";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
-"open-in-tab-tooltip-body" = "Pressionar longo num título do artigo ou hiperligação azul para o abrir num novo separador.";
-"open-in-tab-tooltip-title" = "Abrir num novo separador";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
 "page-history-bot-edits" = "robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões a comparar";
@@ -1151,8 +1146,6 @@
 "tabs-hide-suggested-articles" = "Ocultar sugestões de artigo";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 separador|$1 separadores}}";
 "tabs-open-tab" = "Abrir separador";
-"tabs-overview-tooltip-body" = "Mude entre os artigos abertos na visão geral dos separadores.";
-"tabs-overview-tooltip-title" = "Visão geral dos separadores";
 "tabs-show-suggested-articles" = "Mostrar sugestões de artigo";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "As sugestões agora estão ocultadas";
 "tabs-survey-title" = "Ajude a melhorar os separadores. Está satisfeito com esta funcionalidade?";

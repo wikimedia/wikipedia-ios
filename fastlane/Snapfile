@@ -66,7 +66,7 @@ number_of_retries 0
 # Don't clean or it'll take one billion years when running the full device/lang matrix.
 clean false
 
-# Much faster when config'ed with it's own derived data folder - didn't seem to re-use otherwise.
+# Much faster when config'ed with its own derived data folder - didn't seem to re-use otherwise.
 derived_data_path "fastlane/snapshot_derived_data"
 
 localize_simulator true

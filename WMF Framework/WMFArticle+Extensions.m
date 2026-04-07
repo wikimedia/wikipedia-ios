@@ -2,6 +2,8 @@
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMF-Swift.h>
 
+@import WMFData;
+
 @interface NSManagedObjectContext (WMFArticle_Private)
 - (NSUInteger)countOfSavedArticleVariantsWithKey:(nullable NSString *)key error:(NSError **)error;
 - (nullable WMFArticle *)savedArticleVariantWithKey:(nullable NSString *)key error:(NSError **)error;
@@ -84,6 +86,9 @@
     if (width <= 0) {
        return nil;
     }
+
+    width = [ImageUtils standardizeWidthToMediaWiki:width];
+    
     NSString *imageURLString = self.imageURLString;
     NSNumber *imageWidth = self.imageWidth;
     if (!imageURLString || !imageWidth) {

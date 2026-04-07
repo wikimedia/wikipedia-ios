@@ -21,7 +21,6 @@
 "about-repositories" = "ߟߊ߬ߡߙߊ߬ߦߙߐ";
 "about-repositories-app-source-license" = "ߛߎ߲ ߘߏߝߙߍߕߍ ߦߋ߫ $1 ߟߊߓߌ߬ߟߊ ߟߋ߬ ߘߐ߫.";
 "about-send-feedback" = "ߟߥߊ߬ߟߌ߬ߟߊ߲ ߟߢߊ߬ߟߌ߬ ߗߋߛߓߍ ߗߋ߫";
-"about-testers-details" = "ߛߎ߯ߦߊ ߟߊߘߍ߲߬ߞߣߍ߬ߦߊ ߞߘߐߓߐߣߍ߲߫ ߦߋ߫ $1 ߟߋ߬ ߓߟߏ߫";
 "about-title" = "ߞߊ߬ ߓߍ߲߬";
 "about-translators" = "ߘߟߊߡߌߘߊߟߊ ߟߎ߬";
 "about-translators-details" = "ߓߐߒߖߘߍߘߐߟߊ ߟߎ߬ ߟߊ߫ ߘߟߊߡߌߘߊߟߌ $1 ߞߊ߲߬";
@@ -294,12 +293,10 @@
 "forgot-password-email-sent" = "ߢߎߡߍߙߋ߲ ߘߏ߫ ߓߘߊ߫ ߗߋ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬ߠߌ߲ ߟߊ߬ߘߏ߲߬ߠߌ߲ ߘߌ߫";
 "forgot-password-title" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߦߟߍ߬ߡߊ߲߬";
 "forgot-password-username-or-email-title" = "ߥߟߊ߫";
-"history-clear-all" = "ߊ߬ ߟߊߛߊ߬";
 "history-clear-confirmation-heading" = "ߌ ߟߊߣߴߊ߬ ߟߊ߫ ߓߊ߬ ߞߴߌ ߦߴߊ߬ ߝߍ߬ ߞߵߌ ߟߊ߫ ߞߐ߯ߟߊ߫ ߝߛߌ ߟߎ߬ ߓߍ߯ ߖߏ߬ߛߌ߫؟";
 "history-clear-delete-all" = "ߐ߲߬ߐ߲߬ߐ߲߫߸ ߊ߬ ߓߍ߯ ߖߏ߬ߛߌ߬ ߝߛߊߦߌ߫߹";
 "history-title" = "ߘߐ߬ߝߐ";
 "home-button-explore-accessibility-label" = "ߥߞߌߡߋߘߌߦߊ߫߸ ߌ ߞߐߛߊ߬ߦߌ߫ ߞߵߊ߬ ߓߍ߬ߙߍ߲߬ߓߍ߬ߙߍ߲߫";
-"home-button-history-accessibility-label" = "ߥߞߌߡߋߘߌߦߊ߫߸ ߌ ߞߐߛߊ߬ߦߌ߫ ߘߐ߬ߝߐ ߡߊ߬";
 "home-button-saved-accessibility-label" = "ߥߞߌߔߋߘߌߦߊ߫߸ ߌ ߞߐߛߊ߬ߦߌ߫ ߟߊ߬ߞߎ߲߬ߘߎ߬ߣߍ߲ ߡߊ߬";
 "home-more-like-footer" = "ߘߏ߫ ߜߘߍ߫ ߟߎ߫ ߦߏ߫ $1";
 "home-nearby-footer" = "ߦߙߐ߫ ߛߌߦߊߡߊ߲߫ ߜߘߍ߫ ߟߎ߫ ߌ ߘߌ߲߬ߞߌߙߊ ߕߙߐߝߍ߬";
@@ -366,8 +363,10 @@
 "more-languages-tooltip-title" = "ߞߊ߲ ߘߏ߫ ߝߊ߬ߙߊ߫";
 "move-articles-to-reading-list" = "{{PLURAL:$1|ߞߎߡߘߊ $1|ߞߎߡߘߊ $1 ߟߎ߬}} ߛߋ߲߬ߓߐ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߘߐ߫";
 "navbar-title-mode-edit-wikitext-preview" = "ߟߊ߬ߕߎ߲߰ߠߊ";
+// Fuzzy
 "nearby-distance-label-feet" = "ߛߋ߲߬ߝߘߍ߫ (ߝߌߕ) $1";
 "nearby-distance-label-km" = "ߞߎߘߍ߫ $1";
+// Fuzzy
 "nearby-distance-label-meters" = "ߜߟ $1";
 "nearby-distance-label-miles" = "ߡߟߌ $1";
 "new-password-instructions" = "ߌ ߓߘߴߌ ߜߊ߲߬ߞߎ߲߬ ߥߊ߯ߕߌ߫ ߟߊߕߊߡߌ߲߫ ߕߊߡߌ߲ߞߊ߲ ߠߊ߫.ߖߐ߲߬ߛߊ߫ ߌ ߘߴߌ ߟߊ߫ ߜߊ߲߬ߞߎ߲߬ߠߌ߲ ߠߊߞߎߙߊ߲߫߸ ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲߬ ߞߎߘߊ ߟߊߘߏ߲߬ ߦߊ߲߬ ߖߊ߰ߣߌ߲߬.";

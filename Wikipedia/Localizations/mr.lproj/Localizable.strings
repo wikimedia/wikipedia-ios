@@ -21,7 +21,6 @@
 "about-repositories-app-source-license" = "स्रोत संकेत $1 अंतर्गत उपलब्ध.";
 "about-repositories-app-source-license-mit" = "एमआयटी परवाना";
 "about-send-feedback" = "अॅपबद्दलची प्रतिक्रिया पाठवा";
-"about-testers" = "तपासनीस";
 "about-title" = "च्या विषयी";
 "about-translators" = "भाषांतरकार";
 "about-translators-details" = "$1 वर स्वयंसेवकांद्वारे भाषांतरीत";
@@ -71,7 +70,6 @@
 "explore-nearby-sub-heading-your-location" = "आपले ठिकाण";
 "explore-potd-heading" = "आजचे चित्र";
 "explore-random-article-heading" = "अविशिष्ट लेख";
-"history-clear-all" = "स्वछ करा";
 "history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
 "history-clear-delete-all" = "होय, सर्व वगळा";
 "history-title" = "इतिहास";
@@ -98,8 +96,10 @@
 "main-menu-title" = "अधिक";
 "main-menu-zero-faq" = "विकिपीडीया झीरो एफएक्यू";
 "navbar-title-mode-edit-wikitext-preview" = "झलक";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 फूट";
 "nearby-distance-label-km" = "$1 कि.मी.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 मी.";
 "nearby-distance-label-miles" = "$1 मैल";
 "no-email-account-alert" = "कृपया आपल्या उपकरणावर विपत्रपत्ता स्थापित करा व पुन्हा प्रयत्न करा.";

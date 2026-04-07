@@ -62,8 +62,6 @@
 "about-repositories-app-source-license" = "کد مبدأ تحت $1 در دسترس است.";
 "about-repositories-app-source-license-mit" = "مجوز ام‌‌آی‌تی";
 "about-send-feedback" = "فرستادن بازخورد نرم‌افزار";
-"about-testers" = "آزمایشگران";
-"about-testers-details" = "QA توسط $1 آزموده شد";
 "about-title" = "درباره";
 "about-translators" = "مترجم‌ها";
 "about-translators-details" = "این نرم‌افزار توسط داوطلبان در $1 ترجمه شده است";
@@ -116,6 +114,7 @@
 "action-unsave" = "عدم ذخیره";
 "action-unsaved-accessibility-notification" = "مقاله از ذخیره خارج شد";
 "action-update" = "روزآمدسازی";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 بازدید}}";
 "activity-tab-saved" = "مقاله‌های ذخیره‌شده در این ماه";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "advanced-settings-title" = "تنظیمات پیشرفته";
@@ -560,12 +559,10 @@
 "forgot-password-username-or-email-title" = "یا";
 "gan-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان گان به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان گان";
-"history-clear-all" = "پاک‌کردن";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همهٔ موارد اخیر را حذف کنید؟";
 "history-clear-delete-all" = "بله، حذف همه";
 "history-title" = "تاریخچه";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به بازدید";
-"home-button-history-accessibility-label" = "ویکی‌پدیا، بازگشت به تاریخچه";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده‌ها";
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
 "home-nearby-footer" = "مکان‌های بیشتر در نزدیکی موقعیت شما";
@@ -694,14 +691,34 @@
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 // Fuzzy
+"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "در سال ۲۰۲۴، داوطلبان ۴٬۱۰۴٬۸۵۲٬۹۶۹ بایت محتوا به ویکی‌پدیای انگلیسی افزوده‌اند. مجموع تمام کارهای آنان به تولید یک منبع دانش رو به بهبود، حقیقت‌محور و قابل اعتماد منجر شده است که آن را به جهان بخشیده‌اند. همهٔ ما دانشی برای به اشتراک گذاشتن داریم، [نحوهٔ مشارکت را بیاموزید]($1).";
+// Fuzzy
+"microsite-yir-english-edits-bytes-slide-title-updated" = "۴ میلیارد بایت محتوا افزوده شد";
+// Fuzzy
+"microsite-yir-english-edits-slide-subtitle-updated" = "داوطلبان ۹۸٬۲۲۲٬۴۰۷ تغییر در سرتاسر ۳۰۰ نسخهٔ زبانی مختلف ویکی‌پدیا اعمال کرده‌اند. بیش از ۳۷ میلیون تغییر در ویکی‌پدیای انگلیسی اعمال شده است. در هر ساعت از هر روز، داوطلبان در حال کار بر روی بهبود ویکی‌پدیا هستند.";
+// Fuzzy
+"microsite-yir-english-edits-slide-title-updated" = "ویرایشگران امسال ۹۸ میلیون تغییر اعمال کردند";
+// Fuzzy
+"microsite-yir-english-reading-slide-subtitle-updated" = "در سال ۲۰۲۴، افراد حدود ۲٫۹ میلیارد ساعت—۳۳۱٬۰۰۰ سال!— را صرف مطالعهٔ ویکی‌پدیای انگلیسی کرده‌اند. هرگاه بخواهید دربارهٔ دنیای رو به تغییرمان چیزی بدانید، در یک شرط‌بندی بین دوستانتان پیروز شوید، یا پاسخ سؤال یک کودک را پیدا کنید، ویکی‌پدیا در کنار شماست.";
+// Fuzzy
+"microsite-yir-english-reading-slide-title-updated" = "ما ۲٫۹ میلیارد ساعت را صرف مطالعه کرده‌ایم";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-subtitle-updated" = "کاربران فعال نرم‌افزار iOS بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌اند. افزودن مقاله‌ها به فهرست‌های مطالعه این امکان را به شما می‌دهد که حتی در صورت برخط نبودن به مقاله‌ها دسترسی داشته باشید. همچنین می‌توانید برای همگام‌سازی فهرست‌های مطالعه در تمام دستگاه‌های خود، به سامانه وارد شوید.";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-title-updated" = "ما بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌ایم";
+// Fuzzy
+"microsite-yir-english-top-read-slide-subtitle-updated" = "۵ مقالهٔ زیر، مقاله‌های پربازدید ویکی‌پدیای انگلیسی بوده‌اند:\n\n۱. $1\n۲. $2\n۳. $3\n۴. $4\n۵. $5\nدر $6پست وبلاگی اختصاصی ما$7 در این مورد بیشتر بخوانید.";
+// Fuzzy
 "microsite-yir-english-top-read-slide-title" = "پربازدیدترین مقاله‌های ویکی‌پدیای انگلیسی";
 "more-languages-tooltip-description" = "جستجو در ویکی‌پدیا به بیش از ۳۰۰ زبان";
 "more-languages-tooltip-title" = "افزودن زبان";
 "more-menu" = "بیشتر";
 "move-articles-to-reading-list" = "انتقال {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "navbar-title-mode-edit-wikitext-preview" = "پیش‌نمایش";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 پا";
 "nearby-distance-label-km" = "$1 کیلومتر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مایل";
 "new-password-instructions" = "با رمز عبور موقت به سامانه وارد شدید. برای تکمیل ورود، رمز عبور جدید انتخاب کنید.";

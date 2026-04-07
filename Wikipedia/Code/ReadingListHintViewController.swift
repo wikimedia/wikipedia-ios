@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFData
 
 @objc(WMFReadingListHintViewController)
 class ReadingListHintViewController: HintViewController {
@@ -75,7 +76,7 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         guard let name = readingList.name else {
             return
         }
-        if let imageURL = articles.first?.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth) {
+        if let imageURL = articles.first?.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth()) {
             confirmationImageView.isHidden = false
             confirmationImageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
         } else {

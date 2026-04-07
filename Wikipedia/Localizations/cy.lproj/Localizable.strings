@@ -23,8 +23,6 @@
 "about-repositories-app-source-license" = "Cod ffynhonnell ar gael o dan y $1.";
 "about-repositories-app-source-license-mit" = "Trwydded MIT";
 "about-send-feedback" = "Rhoi adborth am yr ap";
-"about-testers" = "Arbrofwyr";
-"about-testers-details" = "Wedi arbrofi gan $1";
 "about-title" = "Ynghylch";
 "about-translators" = "Cyfieithwyr";
 "about-translators-details" = "Cyfieithwyd gan wirfoddolwyr ar $1";
@@ -363,7 +361,6 @@
 "forgot-password-title" = "Ailosod cyfrinair";
 "forgot-password-username-or-email-title" = "Neu";
 "gan-variants-alert-title" = "Diweddariadau i gymorth Gan";
-"history-clear-all" = "Clirio";
 "history-clear-confirmation-heading" = "Hollol sicr eich bod am ddileu'r cyfan?";
 "history-clear-delete-all" = "Ie! Dileu'r cyfan!";
 "history-title" = "Hanes";
@@ -449,8 +446,10 @@
 "more-menu" = "Rhagor";
 "move-articles-to-reading-list" = "Symud {{PLURAL:$1|$1 erthygl}} i'r rhestr ddarllen";
 "navbar-title-mode-edit-wikitext-preview" = "Rhagolwg";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 troedfedd";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milltir";
 "new-password-title" = "Gosodwch eich cyfrinair";

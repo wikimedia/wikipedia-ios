@@ -5,8 +5,12 @@ import SwiftUI
 final class ContributionsViewModel: ObservableObject {
     let thisMonthCount: Int
     let lastMonthCount: Int
+    let lastEdited: Date?
+    weak var activityViewModel: WMFActivityTabViewModel?
+    @Published public var shouldShowEditCTA: Bool = false
 
-    init(data: WMFUserImpactData) {
+    init(data: WMFUserImpactData, activityViewModel: WMFActivityTabViewModel) {
+        self.activityViewModel = activityViewModel
         let calendar = Calendar.current
         let now = Date()
         
@@ -32,7 +36,35 @@ final class ContributionsViewModel: ObservableObject {
             }
         }
         
+        if thisMonthCount == 0 {
+            shouldShowEditCTA = true
+        } else {
+            shouldShowEditCTA = false
+        }
+        
         self.thisMonthCount = thisMonthCount
         self.lastMonthCount = lastMonthCount
+        self.lastEdited = data.lastEditTimestamp
+    }
+    
+    
+    var dateText: String {
+        guard let lastEdited = lastEdited else { return ""}
+        let calendar = Calendar.current
+
+        let title: String
+        if let activityViewModel {
+            if calendar.isDateInToday(lastEdited) {
+                title = activityViewModel.localizedStrings.todayTitle
+            } else if calendar.isDateInYesterday(lastEdited) {
+                title = activityViewModel.localizedStrings.yesterdayTitle
+            } else {
+                title = activityViewModel.formatDateTime(lastEdited)
+            }
+        } else {
+            return ""
+        }
+        
+        return title
     }
 }

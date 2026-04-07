@@ -84,11 +84,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return activity;
 }
 
-+ (instancetype)wmf_recentViewActivity {
-    NSUserActivity *activity = [self wmf_pageActivityWithName:@"History"];
-    return activity;
-}
-
 + (instancetype)wmf_searchViewActivity {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Search"];
     return activity;
@@ -127,8 +122,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         return [self wmf_placesActivityWithURL:url];
     } else if ([url.host isEqualToString:@"saved"]) {
         return [self wmf_savedPagesViewActivity];
-    } else if ([url.host isEqualToString:@"history"]) {
-        return [self wmf_recentViewActivity];
     } else if ([url.host isEqualToString:@"search"]) {
         return [self wmf_searchViewActivity];
     } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
@@ -217,8 +210,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypePlaces;
         } else if ([page isEqualToString:@"Saved"]) {
             return WMFUserActivityTypeSavedPages;
-        } else if ([page isEqualToString:@"History"]) {
-            return WMFUserActivityTypeHistory;
         } else if ([page isEqualToString:@"Search"]) {
             return WMFUserActivityTypeSearch;
         } else if ([page isEqualToString:@"AppearanceSettings"]) {
@@ -275,9 +266,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     switch (type) {
         case WMFUserActivityTypeSavedPages:
             host = @"saved";
-            break;
-        case WMFUserActivityTypeHistory:
-            host = @"history";
             break;
         case WMFUserActivityTypeSearchResults:
         case WMFUserActivityTypeSearch:

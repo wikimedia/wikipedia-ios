@@ -67,8 +67,6 @@
 "about-repositories-app-source-license" = "النص المصدر متاح بموجب ترخيص $1";
 "about-repositories-app-source-license-mit" = "ترخيص MIT";
 "about-send-feedback" = "إرسال الملاحظات على التطبيق";
-"about-testers" = "مختبرو التطبيق";
-"about-testers-details" = "تحقق من الجودة $1";
 "about-title" = "حول";
 "about-translators" = "المترجمون";
 "about-translators-details" = "ترجمه متطوعون في $1";
@@ -146,6 +144,12 @@
 "activity-tab-generic-no-edits" = "لم تُحرّر هذا الأسبوع. ابدأ الآن بتتبع مساهماتك.";
 "activity-tab-hours-minutes-read" = "$1 ساعة $2 دقيقة";
 "activity-tab-hours-on-wikipedia-ios" = "على ويكيبيديا iOS";
+"activity-tab-impact-edits-label" = "التعديلات";
+"activity-tab-impact-recent-startend-accessibility" = "من $1 إلى $2";
+"activity-tab-impact-thanks-label" = "شكراً";
+"activity-tab-impact-total-edits-label" = "إجمالي التعديلات";
+"activity-tab-impact-views-day" = "يوم";
+"activity-tab-impact-views-views" = "المشاهدات";
 "activity-tab-log-in-or-create-account" = "قم بتسجيل الدخول أو إنشاء حساب للاطلاع على المزيد من أنشطة التحرير والقراءة.";
 "activity-tab-logged-out-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لعرض نشاطك على تطبيق ويكيبيديا.";
 "activity-tab-logged-out-title" = "شاهد المزيد من رؤى القراءة والتحرير";
@@ -162,8 +166,6 @@
 "activity-tab-onboarding-second-button-title" = "تعرف على المزيد حول النشاط";
 "activity-tab-onboarding-second-item-subtitle" = "اكتشف رؤى حول مساهماتك ومدى المعرفة التي شاركتها.";
 "activity-tab-onboarding-second-item-title" = "أبرز النقاط المؤثرة";
-"activity-tab-onboarding-third-item-subtitle" = "استكشف الإحصائيات الخاصة بالمقالات المحفوظة والأنشطة الأخرى التي تربطك بشكل أعمق مع ويكيبيديا.";
-"activity-tab-onboarding-third-item-title" = "مزيد من الطرق للمشاركة";
 "activity-tab-read-title" = "عرض تاريخ القراءة";
 "activity-tab-remaining-articles" = "+ $1";
 "activity-tab-satisfied" = "راضي";
@@ -278,6 +280,7 @@
 "continue-button-title" = "يكمل";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
+"contributions-this-month" = "المساهمات هذا الشهر";
 "crimean-tatar-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية للغة التتار القرمية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل قراءتها والبحث عنها وتحريرها بالمتغيرات المفضلة لديك:\n\nQırımtatarca، اللاتينية، اللاتينية التتارية القرمية (chr-latn)\nкъырымтатарджа، Кирил، السيريلية التتارية القرمية (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "تحديثات لدعم متغير تتار القرم";
 "customize-action-title" = "تخصيص";
@@ -510,6 +513,8 @@
 "editor-toolbar-template-accessibility" = "تنسيق نص القالب";
 "editor-wikitext-loading-accessibility" = "تحميل نص المحرر";
 "editor-wikitext-textview-accessibility" = "محرر نصوص الويكي";
+"edits-last-month" = "التعديلات التي أجريت الشهر الماضي";
+"edits-this-month" = "التعديلات التي أُجريت هذا الشهر";
 "empty-diff-compare-title" = "لا فروق بين المراجعات";
 "empty-diff-single-title" = "لم يتم إجراء تغييرات مرئية";
 "empty-edit-summary" = "ملخص التحرير الفارغ";
@@ -672,12 +677,10 @@
 "forgot-password-username-or-email-title" = "أو";
 "gan-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Gan التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:\n\n贛語 原文 Gan (gan)\n赣语简体 غان، مبسط (غان-هانز)\n贛語 繁體 غان، تقليدي (غان-هانت)";
 "gan-variants-alert-title" = "تحديثات لدعم متغير Gan";
-"history-clear-all" = "امسح";
 "history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
 "history-clear-delete-all" = "نعم، احذف الكل";
 "history-title" = "التاريخ";
 "home-button-explore-accessibility-label" = "ويكيبيديا، ارجع إلى استكشف";
-"home-button-history-accessibility-label" = "ويكيبيديا، ارجع إلى التاريخ";
 "home-button-saved-accessibility-label" = "ويكيبيديا، ارجع إلى المحفوظة";
 "home-more-like-footer" = "المزيد مثل $1";
 "home-nearby-footer" = "المزيد من الأماكن بالقرب من موقعك";
@@ -787,6 +790,7 @@
 "languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
+"learn-about-editing" = "تعرّف على التحرير";
 "learn-more-title" = "معرفة المزيد";
 "lockscreen-search-widget-description" = "الوصول السريع للبحث في ويكيبيديا من شاشة القفل الخاصة بك.";
 "logged-out-continue-without-logging-in-button-title" = "المتابعة بدون تسجيل الدخول";
@@ -811,12 +815,12 @@
 "main-menu-title" = "المزيد";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
 "main-page" = "الصفحة الرئيسية";
-"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "في $1، أضاف المتطوعون {{PLURAL:$2|$2 بايت}} إلى ويكيبيديا الإنجليزية. يُثمر مجموع عملهم المشترك عن مصدر معرفة جدير بالثقة يتطوّر باستمرار يستند إلى حقائق، يقدمونه للعالم. لدينا جميعًا معرفة نشاركها، [تعرفوا على كيفية المشاركة] ($3).";
+"microsite-yir-english-edits-bytes-slide-subtitle-updated" = "في $1، أضاف المتطوعون {{PLURAL:$2|$2 بايت}} إلى ويكيبيديا الإنجليزية. يُثمر مجموع عملهم المشترك عن مصدر معرفة جدير بالثقة يتطوّر باستمرار يستند إلى حقائق، يقدمونه للعالم. لدينا جميعًا معرفة نشاركها، [تعرفوا على كيفية المشاركة]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "أضيفت مقدار قدره {{PLURAL:$1|$1 بايت}}";
 "microsite-yir-english-edits-slide-subtitle-updated" = "أجرى المتطوعون عدد {{PLURAL:$1|$1 تغييرات|$1 تغيير}} في أكثر من {{PLURAL:$2|$2 نسخة لغة|$2 نسختي لغات مختلفتين|$2 نسخ لغات مختلفة}} من ويكيبيديا. أُجري عدد {{PLURAL:$3|$3 تغييرات|$3 تغيير}} على ويكيبيديا الإنجليزية. في كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
 "microsite-yir-english-edits-slide-title-updated" = "أجرى المحررون عدد {{PLURAL:$1|$1 تغييرات|$1 تغيير}} هذا العام";
-"microsite-yir-english-reading-slide-subtitle-updated" = "يُقدَّر أن الناس أمضوا {{PLURAL:$1|$1 ساعة|$1 ساعتين|$1 ساعات|$1 ساعة}} — أي ما يعادل {{PLURAL:$2|$2 سنة|$2 سنتين|$2 سنوات|$2 سنة}} تقريبًا! — في قراءة ويكيبيديا الإنجليزية في $3. ويكيبيديا متاحة عندما ترغب في التعرّف على عالمنا المتغير أو الفوز برهان بين الأصدقاء أو الإجابة عن سؤال طفل فضولي.";
 "microsite-yir-english-reading-slide-subtitle-short-updated" = "يُقدَّر أن الناس أمضوا {{PLURAL:$1|$1 ساعة|$1 ساعتين|$1 ساعات|$1 ساعة}} — أي ما يعادل {{PLURAL:$2|$2 سنة|$2 سنتين|$2 سنوات|$2 سنة}} تقريبًا! — في قراءة ويكيبيديا الإنجليزية في $3.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "يُقدَّر أن الناس أمضوا {{PLURAL:$1|$1 ساعة|$1 ساعتين|$1 ساعات|$1 ساعة}} — أي ما يعادل {{PLURAL:$2|$2 سنة|$2 سنتين|$2 سنوات|$2 سنة}} تقريبًا! — في قراءة ويكيبيديا الإنجليزية في $3. ويكيبيديا متاحة عندما ترغب في التعرّف على عالمنا المتغير أو الفوز برهان بين الأصدقاء أو الإجابة عن سؤال طفل فضولي.";
 "microsite-yir-english-reading-slide-title-updated" = "لقد أمضينا {{PLURAL:$1|$1 ساعة|$1 ساعتين|$1 ساعات|$1 ساعة}} في القراءة";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "مستخدمو التطبيق النشطاء حفظوا {{PLURAL:$1|$1 مقالة|$1 مقالتين|$1 مقالات|$1 مقالة}} هذه السنة. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إليها حتى دون اتصال بالإنترنت. كما يمكنكم تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
 "microsite-yir-english-saved-reading-slide-title-updated" = "حفظنا {{PLURAL:$1|$1 مقالة|$1 مقالتين|$1 مقالات|$1 مقالة}}";
@@ -827,8 +831,9 @@
 "more-menu" = "المزيد";
 "move-articles-to-reading-list" = "نقل {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
-"nearby-distance-label-feet" = "$1 قدم";
+"nearby-distance-label-feet" = "{{PLURAL:$1|قدم|$1 قدم}}";
 "nearby-distance-label-km" = "$1 كيلومتر";
+// Fuzzy
 "nearby-distance-label-meters" = " $1 م";
 "nearby-distance-label-miles" = "$1 ميل";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
@@ -978,8 +983,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
 "open-article" = "افتح المقال";
-"open-in-tab-tooltip-body" = "اضغط مطولاً على عنوان المقالة أو الرابط الأزرق لفتحها في علامة تبويب جديدة.";
-"open-in-tab-tooltip-title" = "فتح في علامة تبويب جديدة";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
 "page-history-bot-edits" = "بوت";
 "page-history-compare-accessibility-hint" = "انقر لتحديد مراجعين للمقارنة";
@@ -1294,8 +1297,6 @@
 "tabs-main-page-subtitle" = "أبرز أحداث ويكيبيديا اليومية";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 لسان|$1 ألسنة}}";
 "tabs-open-tab" = "فتح علامة التبويب";
-"tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
-"tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
 "tabs-show-suggested-articles" = "عرض اقتراحات المقالة";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "الاقتراحات مخفية الآن";
 "tabs-survey-title" = "ساعد في تحسين علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
@@ -1424,6 +1425,7 @@
 "vanish-account-warning-title" = "تحذير";
 "variants-alert-dismiss-button" = "لا شكرًا";
 "variants-alert-preferences-button" = "راجع تفضيلاتك";
+"view-changes" = "عرض التغييرات";
 "watch" = "راقب";
 "watchlist" = "قائمة المراقبة";
 "watchlist-added-toast-one-month" = "تمت إضافته إلى قائمة مراقبتك لمدة شهر واحد.";
@@ -1534,7 +1536,7 @@
 "year-in-review-articles-slide-subtitle" = "إليكم المقالات التي زرتم أكثر من غيرها سنة 2025:\n$1";
 "year-in-review-base-editors-subtitle" = "إن قلب وروح ويكيبيديا هو مجتمعنا العالمي من المساهمين المتطوعين والمانحين ومليارات القراء مثلك - كلهم متحدون لمشاركة الوصول غير المحدود إلى المعلومات الموثوقة.";
 "year-in-review-base-editors-title-updated" = "أجرى المحررون مستخدمين تطبيقات ويكيبيديا الرسمية عدد {{PLURAL:$1|$1 تعديل|$1 تعديلين|$1 تعديلات|$1 تعديل}}";
-"year-in-review-base-edits-subtitle-updated" = "تُنشأ المقالات وتُحسّن بشكل تعاوني باستخدام مصادر موثوقة. لدينا جميعًا المعرفة لنشاركها، [تعلّم كيفية المشاركة] ( $1 ).";
+"year-in-review-base-edits-subtitle-updated" = "تُنشأ المقالات وتُحسّن بشكل تعاوني باستخدام مصادر موثوقة. لدينا جميعًا المعرفة لنشاركها، [تعلّم كيفية المشاركة]($1).";
 "year-in-review-base-edits-title-updated" = "جرى تعديل ويكيبيديا {{PLURAL:$1|$1 مرة|$1 مرتين|$1 مرات|$1 مرة}} في الدقيقة";
 "year-in-review-base-reading-subtitle-updated" = "اشتملت ويكيبيديا على {{PLURAL:$1| مقالة| مقالتين| مقالات| مقالة}} تغطي أكثر من {{PLURAL:$2|$2 لغة ناشطة|$2 لغتين ناشطتين|$2 لغات ناشطة|$2 لغة ناشطة}}. لقد انضممت إلى ملايين يسعون لنشر رقعة المعرفة والتعرف على مواضيع متنوعة.";
 "year-in-review-base-reading-title-updated" = "كانت ويكيبيديا متاحة بأكثر من {{PLURAL:$1|$1 لغة|$1 لغتين|$1 لغات|$1 لغة}}";
@@ -1551,8 +1553,8 @@
 "year-in-review-contributor-gift-subtitle" = "إذا لم تقم بتشغيله الآن، فيمكنك الوصول إليه لاحقًا في الإعدادات ضمن السمة.";
 "year-in-review-contributor-gift-title" = "تفعيل أيقونة التطبيق الجديد";
 "year-in-review-contributor-slide-subtitle-donor-updated" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.! إن مساهماتك كمتبرع بمبلغ $1 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة لويكيبيديا على الشاشة الرئيسية.";
-"year-in-review-contributor-slide-subtitle-editor-updated" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.! إن مساهماتك كمحرر بمبلغ $1 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة لويكيبيديا على الشاشة الرئيسية.";
 "year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.! إن مساهماتك كمتبرع ومحرر بمبلغ $1 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة لويكيبيديا على شاشتك الرئيسية.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.! إن مساهماتك كمحرر بمبلغ $1 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة لويكيبيديا على الشاشة الرئيسية.";
 "year-in-review-contributor-slide-title" = "تم فتح أيقونة التطبيق الجديدة على الشاشة الرئيسية";
 "year-in-review-day-friday" = "الجمعة";
 "year-in-review-day-monday" = "الإثنين";

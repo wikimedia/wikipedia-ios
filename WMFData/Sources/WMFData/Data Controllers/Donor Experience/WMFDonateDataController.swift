@@ -204,7 +204,7 @@ import Contacts
         if let appVersion {
             parameters["app_version"] = appVersion
         }
-        
+
         if let appInstallID {
             parameters["app_install_id"] = appInstallID
         }

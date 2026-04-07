@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFData
 
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var bottomSeparator = UIView()
@@ -290,7 +291,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         titleLabel.text = name
         descriptionLabel.text = description
         
-        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth
+        let imageWidthToRequest = imageView.frame.size.width < 300 ? ImageUtils.nearbyThumbnailWidth() : ImageUtils.leadImageWidth()
         let imageURLs = lastFourArticlesWithLeadImages.compactMap { $0.imageURL(forWidth: imageWidthToRequest) }
         
         isImageGridHidden = imageURLs.count != 4 // we need 4 images for the grid

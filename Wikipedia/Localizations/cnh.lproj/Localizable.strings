@@ -13,9 +13,6 @@
 // Fuzzy
 "about-repositories" = "bukbau";
 "about-send-feedback" = "App cung na ruahnak kuat ding";
-// Fuzzy
-"about-testers" = "teptu pawl";
-"about-testers-details" = "$1 a biahalnak";
 "about-title" = "Konglam";
 // Fuzzy
 "about-translators" = "Holh Lettu";
@@ -60,8 +57,10 @@
 "main-menu-title" = "Tamdeuh";
 "main-menu-zero-faq" = "Wikipedia Alak Biahalnak";
 "navbar-title-mode-edit-wikitext-preview" = "Zohchunawk";
+// Fuzzy
 "nearby-distance-label-feet" = "pe $1";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "meng $1";
 "page-protected-can-not-edit" = "Hi cahmai remhnak nawl na ngei lo.";

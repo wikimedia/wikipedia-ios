@@ -115,61 +115,88 @@ public actor WMFUserImpactDataController {
         _ jsonData: [String: Any]
     ) -> Result<WMFUserImpactData, Error> {
         
+        // Set up calendars for conversion
+        let utcTimezone = TimeZone.gmt
+        var utcCalendar = Calendar.current
+        utcCalendar.timeZone = utcTimezone
+        let localCalendar = Calendar.current
+        
         let totalPageviewsCount = jsonData["totalPageviewsCount"] as? Int
         
-        var topViewedArticles: [WMFUserImpactData.TopViewedArticle] = []
-        if let articles = jsonData["topViewedArticles"] as? [String: [String: Any]] {
-            for (title, value) in articles {
-                guard
-                    let viewsDict = value["views"] as? [String: Int],
-                    let viewsCount = value["viewsCount"] as? Int
-                else { continue }
-                
-                var views: [Date: Int] = [:]
-                for (key, count) in viewsDict {
-                    guard let date = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else { continue }
-                    views[date] = count
+        var finalTopViewedArticles: [WMFUserImpactData.TopViewedArticle] = []
+        if let topViewedArticles = jsonData["topViewedArticles"] as? [String: [String: Any]] {
+            for (key, value) in topViewedArticles {
+                guard let dates = value["views"] as? [String: Int] else {
+                    continue
                 }
                 
-                topViewedArticles.append(
-                    WMFUserImpactData.TopViewedArticle(
-                        title: title,
-                        views: views,
-                        viewsCount: viewsCount
-                    )
-                )
+                var views: [Date: Int] = [:]
+                for (dateKey, dateValue) in dates {
+                    guard let utcDate = DateFormatter.growthUserImpactAPIDateFormatter.date(from: dateKey) else {
+                        continue
+                    }
+                    
+                    // Convert UTC to local
+                    let normalizedUTCDate = utcCalendar.startOfDay(for: utcDate)
+                    let localDate = localCalendar.startOfDay(for: normalizedUTCDate)
+                    views[localDate] = dateValue
+                    
+                    views[localDate] = dateValue
+                }
+                
+                guard let viewsCount = value["viewsCount"] as? Int else {
+                    continue
+                }
+                
+                finalTopViewedArticles.append(WMFUserImpactData.TopViewedArticle(title: key, views: views, viewsCount: viewsCount))
             }
         }
         
-        var editCountByDay: [Date: Int] = [:]
-        if let edits = jsonData["editCountByDay"] as? [String: Int] {
-            for (key, value) in edits {
-                guard let date = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else { continue }
-                editCountByDay[date] = value
+        var localEditCounts: [Date: Int] = [:]
+        if let editCountByDay = jsonData["editCountByDay"] as? [String: Int] {
+            for (key, value) in editCountByDay {
+                guard let utcDate = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else {
+                    continue
+                }
+                
+                // Extract the date components (year, month, day) from UTC date
+                let components = utcCalendar.dateComponents([.year, .month, .day], from: utcDate)
+                
+                // Create a new date with those same components but in local timezone
+                guard let localDate = localCalendar.date(from: components) else {
+                    continue
+                }
+                
+                localEditCounts[localDate, default: 0] += value
             }
         }
-        
+
         let totalEditsCount = jsonData["totalEditsCount"] as? Int
         let receivedThanksCount = jsonData["receivedThanksCount"] as? Int
         
-        var longestEditingStreak: Int?
-        if
-            let streak = jsonData["longestEditingStreak"] as? [String: Any],
-            let datePeriod = streak["datePeriod"] as? [String: Any],
-            let days = datePeriod["days"] as? Int {
+        var longestEditingStreak: Int? = nil
+        if let streak = jsonData["longestEditingStreak"] as? [String: Any],
+           let datePeriod = streak["datePeriod"] as? [String: Any],
+           let days = datePeriod["days"] as? Int {
             longestEditingStreak = days
         }
         
-        var lastEditTimestamp: Date?
-        if let timestamp = jsonData["lastEditTimestamp"] as? TimeInterval {
-            lastEditTimestamp = Date(timeIntervalSince1970: timestamp)
+        var lastEditTimestamp: Date? = nil
+        if let lastEditTimestampInterval = jsonData["lastEditTimestamp"] as? TimeInterval {
+            lastEditTimestamp = Date(timeIntervalSince1970: lastEditTimestampInterval)
         }
         
-        var dailyTotalViews: [Date: Int] = [:]
-        if let totals = jsonData["dailyTotalViews"] as? [String: Int] {
-            for (key, value) in totals {
-                guard let date = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else { continue }
-                dailyTotalViews[date] = value
+        var finalDailyTotalViews: [Date: Int] = [:]
+        if let dailyTotalViews = jsonData["dailyTotalViews"] as? [String: Int] {
+            for (key, value) in dailyTotalViews {
+                guard let utcDate = DateFormatter.growthUserImpactAPIDateFormatter.date(from: key) else {
+                    continue
+                }
+                
+                // Convert UTC to local
+                let normalizedUTCDate = utcCalendar.startOfDay(for: utcDate)
+                let localDate = localCalendar.startOfDay(for: normalizedUTCDate)
+                finalDailyTotalViews[localDate, default: 0] += value
             }
         }
         

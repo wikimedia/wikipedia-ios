@@ -26,8 +26,6 @@
 "about-repositories-app-source-license" = "Códigu fonte disponible baxo la $1.";
 "about-repositories-app-source-license-mit" = "Llicencia MIT";
 "about-send-feedback" = "Unviar comentariu sobro la app";
-"about-testers" = "Probadores";
-"about-testers-details" = "Control de calidá comprobáu por $1";
 "about-title" = "Tocante a";
 "about-translators" = "Traductores";
 "about-translators-details" = "Traducida por voluntarios en $1";
@@ -288,12 +286,10 @@
 "forgot-password-instructions" = "Rellena unu de los campos d'abaxo pa recibir per corréu instrucciones pa reaniciar la contraseña";
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
-"history-clear-all" = "Llimpiar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
 "history-title" = "Historial";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Esplorar";
-"home-button-history-accessibility-label" = "Wikipedia, volver a Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardaos";
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más llugares cerca del to allugamientu";
@@ -336,8 +332,10 @@
 "more-languages-tooltip-title" = "Amestar llingües";
 "move-articles-to-reading-list" = "Treslladar {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milles";
 "new-password-instructions" = "Aniciasti sesión con una contraseña temporal. Pa terminar d'aniciar sesión, tienes de configurar una contraseña nueva equí.";

@@ -1,7 +1,8 @@
 #import <WMF/MWKImageInfoFetcher.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/WMF-Swift.h>
+
+@import WMFData;
 
 /// Required extmetadata keys, don't forget to add new ones to +requiredExtMetadataKeys!
 static NSString *const ExtMetadataImageDescriptionKey = @"ImageDescription";
@@ -47,7 +48,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
                                  success:(WMFSuccessIdHandler)success {
     [self fetchInfoForTitles:pageTitles
                  fromSiteURL:siteURL
-              thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]]
+              thumbnailWidth:[NSNumber numberWithInteger:[ImageUtils articleImageWidth]]
              extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys]
             metadataLanguage:metadataLanguage
                 useGenerator:YES
@@ -61,7 +62,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
                                                  failure:(void (^)(NSError *error))failure {
     return [self fetchInfoForTitles:imageTitles
                         fromSiteURL:siteURL
-                     thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]]
+                     thumbnailWidth:[NSNumber numberWithInteger:[ImageUtils articleImageWidth]]
                     extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys]
                    metadataLanguage:siteURL.wmf_languageCode
                        useGenerator:NO
@@ -172,7 +173,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
 - (nullable NSURL *)galleryInfoURLForImageTitles: (NSArray *)imageTitles
                             fromSiteURL: (NSURL *)siteURL {
     
-    NSDictionary *params = [self queryParametersForTitles:imageTitles fromSiteURL:siteURL thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]] extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys] metadataLanguage:siteURL.wmf_languageCode useGenerator:NO];
+    NSDictionary *params = [self queryParametersForTitles:imageTitles fromSiteURL:siteURL thumbnailWidth:[NSNumber numberWithInteger:[ImageUtils articleImageWidth]] extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys] metadataLanguage:siteURL.wmf_languageCode useGenerator:NO];
     
     if (siteURL.host) {
         return [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:params];

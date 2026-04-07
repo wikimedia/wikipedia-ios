@@ -12,7 +12,6 @@
 "about-content-license" = "Lisansê zerreki";
 "about-contributors" = "İştırakkeri";
 "about-libraries-license" = "Lisans";
-"about-testers" = "Testkerdoği";
 "about-title" = "Heqa";
 "about-translators" = "Çarnayoği";
 "about-wikipedia" = "Wikipediya";
@@ -71,7 +70,6 @@
 "find-textfield-accessibility" = "Bıvêne";
 "forgot-password-button-title" = "Raçarne";
 "forgot-password-title" = "Parola newe ke";
-"history-clear-all" = "Pak ke";
 "history-clear-confirmation-heading" = "Şıma qayılê vêrdey xo pêro besterê?";
 "history-clear-delete-all" = "Eya, pêro bestere";
 "history-title" = "Tarix";
@@ -102,8 +100,10 @@
 "main-menu-terms-of-use" = "Şertê gurenayışi";
 "main-menu-title" = "Zêde";
 "navbar-title-mode-edit-wikitext-preview" = "Verqayt";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fit";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 metre";
 "nearby-distance-label-miles" = "$1 mil";
 "no-internet-connection" = "Gıredayışê interneti çıniyo";

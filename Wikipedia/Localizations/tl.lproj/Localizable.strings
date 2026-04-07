@@ -30,8 +30,6 @@
 "about-repositories-app-source-license" = "Magagamit ang source code sa ilalim ng $1.";
 "about-repositories-app-source-license-mit" = "Lisensiyang MIT";
 "about-send-feedback" = "Magpadala ng feedback";
-"about-testers" = "Mga Sumubok";
-"about-testers-details" = "QA test ng $1";
 "about-title" = "Patungkol";
 "about-translators" = "Mga Nagsalin";
 "about-translators-details" = "Sinalin ng mga boluntaryo sa $1";
@@ -88,8 +86,10 @@
 "image-gallery-unknown-owner" = "Di-kilalang tagapatnugot";
 "in-the-news-sub-title-from-language-wikipedia" = "Mula sa Wikipediang $1";
 "languages-title" = "Baguhin ang wika";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 talampakan";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milya";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 mula sa Wikipediang $2";

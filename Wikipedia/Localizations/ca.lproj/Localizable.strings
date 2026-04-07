@@ -42,8 +42,6 @@
 "about-repositories-app-source-license" = "Codi font disponible sota la $1.";
 "about-repositories-app-source-license-mit" = "Llicència MIT";
 "about-send-feedback" = "Enviar comentaris sobre l'aplicació";
-"about-testers" = "Provadors";
-"about-testers-details" = "Provat per $1";
 "about-title" = "Quant a";
 "about-translators" = "Traductors";
 "about-translators-details" = "Traduït per voluntaris a $1";
@@ -454,12 +452,10 @@
 "forgot-password-username-or-email-title" = "O";
 "gan-variants-alert-body" = "Ara l’aplicació Wikipedia admet les següents variants Gan com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\n贛 語 原文 Gan (gan)\n赣 语 简体 Gan, simplificat (gan-hans)\n贛 語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualitzacions del suport a les variants Gan";
-"history-clear-all" = "Neteja";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
 "history-clear-delete-all" = "Sí, esborra-ho tot";
 "history-title" = "Historial";
 "home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
-"home-button-history-accessibility-label" = "Viquipèdia, torna a l'historial";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
 "home-more-like-footer" = "Més com $1";
 "home-nearby-footer" = "Més llocs prop de la vostra ubicació";
@@ -566,8 +562,10 @@
 "more-menu" = "Més";
 "move-articles-to-reading-list" = "Mou {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualitza";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 peus";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milles";
 "new-password-instructions" = "Heu iniciat una sessió amb una contrasenya temporal. Per a finalitzar la sessió definiu una altra contrasenya aquí.";

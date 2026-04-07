@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 fileprivate class FlowLayout: UICollectionViewFlowLayout {
     override init() {
@@ -71,7 +72,8 @@ final class InsertMediaSearchResult {
             assertionFailure("width must be greater than 0")
             return nil
         }
-        return URL(string: WMFChangeImageSourceURLSizePrefix(thumbnailURL.absoluteString, Int(width))) ?? imageInfo?.canonicalFileURL
+        let standardizedWidth = ImageUtils.standardizeWidthToMediaWiki(Int(width))
+        return URL(string: WMFChangeImageSourceURLSizePrefix(thumbnailURL.absoluteString, Int(standardizedWidth))) ?? imageInfo?.canonicalFileURL
     }
 
 }

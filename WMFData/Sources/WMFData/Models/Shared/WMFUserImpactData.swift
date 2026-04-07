@@ -2,10 +2,18 @@ import Foundation
 
 public struct WMFUserImpactData: Sendable {
     
-    public struct TopViewedArticle: Sendable {
+    public struct TopViewedArticle: Identifiable, Sendable {
+        public let id: String
         public let title: String
         let views: [Date: Int]
         public let viewsCount: Int
+        
+        public init(title: String, views: [Date : Int], viewsCount: Int) {
+            self.id = title
+            self.title = title
+            self.views = views
+            self.viewsCount = viewsCount
+        }
     }
     
     let totalPageviewsCount: Int?

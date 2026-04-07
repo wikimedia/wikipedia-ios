@@ -79,18 +79,10 @@ public struct WMFOnboardingView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-
-            if #available(iOS 17.0, *) {
-                ScrollView(showsIndicators: true) {
-                    scrollViewContent
-                }
-                .scrollIndicatorsFlash(trigger: flashScrollIndicators)
-            } else {
-                ScrollView(showsIndicators: true) {
-                    scrollViewContent
-                }
+            ScrollView(showsIndicators: true) {
+                scrollViewContent
             }
-
+            .scrollIndicatorsFlash(trigger: flashScrollIndicators)
             buttonArea
         }
         .background(Color(appEnvironment.theme.paperBackground).ignoresSafeArea())

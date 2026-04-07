@@ -17,7 +17,6 @@ public final class WMFCoreDataStore: Sendable {
         self.appContainerURL = appContainerURL
         
         let dataModelName = "WMFData"
-        
         let databaseFileName = "WMFData.sqlite"
         var databaseFileURL = appContainerURL
         databaseFileURL.appendPathComponent(databaseFileName, isDirectory: false)
@@ -44,16 +43,19 @@ public final class WMFCoreDataStore: Sendable {
     }
     
     private func loadPersistentStores() async throws {
-        
         guard let persistentContainer else {
             throw WMFCoreDataStoreError.setupMissingPersistentContainer
         }
         
         return try await withCheckedThrowingContinuation { continuation in
-            self.persistentContainer?.loadPersistentStores(completionHandler: { _, error in
+            persistentContainer.loadPersistentStores(completionHandler: { _, error in
                 if let error {
                     continuation.resume(throwing: error)
                 } else {
+                    // Access viewContext on background thread to trigger lazy init
+                    let context = persistentContainer.viewContext
+                    context.automaticallyMergesChangesFromParent = true
+                    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
                     
                     DispatchQueue.main.async {
                         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
@@ -64,7 +66,6 @@ public final class WMFCoreDataStore: Sendable {
                 }
             })
         }
-        
     }
     
     public var newBackgroundContext: NSManagedObjectContext {

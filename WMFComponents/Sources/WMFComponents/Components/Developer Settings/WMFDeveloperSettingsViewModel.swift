@@ -30,7 +30,6 @@ import WMFData
     let formViewModel: WMFFormViewModel
     private var subscribers: Set<AnyCancellable> = []
     private var yirLoginExperimentGroupCoordinator: YirLoginExperimentBindingCoordinator?
-    private var activityTabGroupCoordinator: ActivityTabBindingCoordinator?
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
@@ -51,12 +50,8 @@ import WMFData
         let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControlSyncBridge)
         
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentBSyncBridge)
-
-        let showActivityTab = WMFFormItemSelectViewModel(title: "Show Activity Tab", isSelected: WMFDeveloperSettingsDataController.shared.showActivityTabSyncBridge)
-
-        let activityTabForceControl =  WMFFormItemSelectViewModel(title: "Activity Tab Control (history)", isSelected: WMFDeveloperSettingsDataController.shared.forceActivityTabControlSyncBridge)
-
-        let activityTabForceExperiment =  WMFFormItemSelectViewModel(title: "Activity Tab Experiment", isSelected: WMFDeveloperSettingsDataController.shared.forceActivityTabExperimentSyncBridge)
+        
+        let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallengeSyncBridge)
 
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
@@ -70,9 +65,7 @@ import WMFData
                 showYiRV3,
                 enableYiRVLoginExperimentControl,
                 enableYiRVLoginExperimentB,
-                showActivityTab,
-                activityTabForceControl,
-                activityTabForceExperiment
+                forceHcaptchaChallenge
             ], selectType: .multi)
         ])
 
@@ -116,14 +109,6 @@ import WMFData
                 }
             }
             .store(in: &subscribers)
-        
-        showActivityTab.$isSelected
-            .sink { isSelected in
-                Task {
-                    await WMFDeveloperSettingsDataController.shared.setShowActivityTab(isSelected)
-                }
-            }
-            .store(in: &subscribers)
 
         showYiRV3.$isSelected
             .sink { isSelected in
@@ -149,15 +134,13 @@ import WMFData
             }
             .store(in: &subscribers)
         
+        forceHcaptchaChallenge.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge = isSelected }
+            .store(in: &subscribers)
+        
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(
             control: enableYiRVLoginExperimentControl,
             b: enableYiRVLoginExperimentB
-        )
-
-        activityTabGroupCoordinator = ActivityTabBindingCoordinator(
-            main: showActivityTab,
-            control: activityTabForceControl,
-            experiment: activityTabForceExperiment
         )
     }
 }
@@ -186,64 +169,5 @@ private final class YirLoginExperimentBindingCoordinator {
             }
         }.store(in: &subscribers)
 
-    }
-}
-
-private final class ActivityTabBindingCoordinator {
-    private var subscribers: Set<AnyCancellable> = []
-
-    init(main: WMFFormItemSelectViewModel, control: WMFFormItemSelectViewModel, experiment: WMFFormItemSelectViewModel) {
-        main.$isSelected
-            .sink { isSelected in
-                if !isSelected {
-                    control.isSelected = false
-                    experiment.isSelected = false
-                }
-
-            }
-            .store(in: &subscribers)
-
-        control.$isSelected
-            .sink { isSelected in
-                
-                Task {
-                    await WMFDeveloperSettingsDataController.shared.setForceActivityTabControl(isSelected)
-                }
-                
-                guard isSelected else {
-                    return
-                }
-                if !main.isSelected {
-                    main.isSelected = true
-                }
-                if experiment.isSelected {
-                    experiment.isSelected = false
-                }
-
-            }
-            .store(in: &subscribers)
-
-        experiment.$isSelected
-            .sink { isSelected in
-                
-                Task {
-                    await WMFDeveloperSettingsDataController.shared.setForceActivityTabExperiment(isSelected)
-                }
-
-                if isSelected {
-                    if !main.isSelected {
-                        main.isSelected = true
-                    }
-                    if control.isSelected {
-                        control.isSelected = false
-                    }
-                }
-                NotificationCenter.default.post(
-                    name: WMFNSNotification.activityTab,
-                    object: nil,
-                    userInfo: ["isOn": isSelected]
-                )
-            }
-            .store(in: &subscribers)
     }
 }

@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFData
 
 final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
     let imageView = UIImageView()
@@ -57,7 +58,9 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
         let imageViewDimension = size.width
         let selectedImageViewDimension = min(35, imageViewDimension * 0.2)
         
-        guard let scaledImageURL = WMFParseSizePrefixFromSourceURL(imageURL) < Int(imageViewDimension) ? URL(string: WMFChangeImageSourceURLSizePrefix(imageURL.absoluteString, Int(imageViewDimension))) : imageURL else {
+        let standardizedImageViewDimesion = ImageUtils.standardizeWidthToMediaWiki(Int(imageViewDimension))
+        
+        guard let scaledImageURL = WMFParseSizePrefixFromSourceURL(imageURL) < Int(imageViewDimension) ? URL(string: WMFChangeImageSourceURLSizePrefix(imageURL.absoluteString, standardizedImageViewDimesion)) : imageURL else {
             return super.sizeThatFits(size, apply: apply)
         }
 

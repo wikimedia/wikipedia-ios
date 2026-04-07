@@ -7,9 +7,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var showYiRV3SyncBridge: Bool { get }
     var enableYiRLoginExperimentControlSyncBridge: Bool { get }
     var enableYiRLoginExperimentBSyncBridge: Bool { get }
-    var showActivityTabSyncBridge: Bool { get }
-    var forceActivityTabControlSyncBridge: Bool { get }
-    var forceActivityTabExperimentSyncBridge: Bool { get }
 }
 
 // MARK: - Pure Swift Actor (Clean Implementation)
@@ -103,32 +100,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false
     }
     
-    public func setEnableYiRLoginExperimentB(_ value: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: value)
-    }
-    
-    public var showActivityTab: Bool {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
-    }
-    
-    public func setShowActivityTab(_ value: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: value)
-    }
-
-    public var forceActivityTabControl: Bool {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue)) ?? false
-    }
-    
-    public func setForceActivityTabControl(_ value: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabControl.rawValue, value: value)
-    }
-
-    public var forceActivityTabExperiment: Bool {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue)) ?? false
-    }
-    
-    public func setForceActivityTabExperiment(_ value: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceActivityTabExperiment.rawValue, value: value)
+    public var forceHCaptchaChallenge: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue)
+        }
     }
 
     // MARK: - Remote Settings from https://en.wikipedia.org/api/rest_v1/configuration

@@ -68,8 +68,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageFilter.h>
 
-#import <WMF/UIScreen+WMFImageWidth.h>
-
 #import <WMF/WMFNotificationsController.h>
 
 #import <WMF/MWKLanguageLinkController_Private.h>

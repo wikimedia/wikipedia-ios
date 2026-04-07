@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class WMFSourceEditorColors, WMFSourceEditorFonts, WMFSourceEditorFormatter;
 @protocol WMFSourceEditorStorageDelegate;
 
-@interface WMFSourceEditorTextStorage : NSTextStorage
+@interface WMFSourceEditorTextStorage : NSTextStorage // delete 
 
 @property (nonatomic, weak) id<WMFSourceEditorStorageDelegate> storageDelegate;
 @property (nonatomic, assign) BOOL syntaxHighlightProcessingEnabled;

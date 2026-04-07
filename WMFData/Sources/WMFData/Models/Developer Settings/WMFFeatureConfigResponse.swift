@@ -104,7 +104,18 @@ public struct WMFFeatureConfigResponse: Codable, Sendable {
     }
     
     public struct IOS: Codable, Sendable {
+        public let hCaptcha: HCaptcha?
         
+        public struct HCaptcha: Codable, Sendable {
+            public let baseURL: String
+            public let jsSrc: String
+            public let endpoint: String
+            public let assethost: String
+            public let imghost: String
+            public let reportapi: String
+            public let sentry: Bool
+            public let apiKey: String
+        }
     }
     
     public let common: Common
