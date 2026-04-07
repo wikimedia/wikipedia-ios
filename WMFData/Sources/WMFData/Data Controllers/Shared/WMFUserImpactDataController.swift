@@ -203,13 +203,13 @@ public actor WMFUserImpactDataController {
         return .success(
             WMFUserImpactData(
                 totalPageviewsCount: totalPageviewsCount,
-                topViewedArticles: topViewedArticles,
-                editCountByDay: editCountByDay,
+                topViewedArticles: finalTopViewedArticles,
+                editCountByDay: localEditCounts,
                 totalEditsCount: totalEditsCount,
                 receivedThanksCount: receivedThanksCount,
                 longestEditingStreak: longestEditingStreak,
                 lastEditTimestamp: lastEditTimestamp,
-                dailyTotalViews: dailyTotalViews
+                dailyTotalViews: finalDailyTotalViews
             )
         )
     }

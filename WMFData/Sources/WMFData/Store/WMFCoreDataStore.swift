@@ -55,7 +55,7 @@ public final class WMFCoreDataStore: Sendable {
                     // Access viewContext on background thread to trigger lazy init
                     let context = persistentContainer.viewContext
                     context.automaticallyMergesChangesFromParent = true
-                    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+                    context.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
                     
                     DispatchQueue.main.async {
                         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true

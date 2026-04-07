@@ -1,6 +1,17 @@
 import Foundation
 
 public struct WMFUserImpactData: Sendable {
+    public init(totalPageviewsCount: Int? = nil, topViewedArticles: [WMFUserImpactData.TopViewedArticle], editCountByDay: [Date : Int], totalEditsCount: Int? = nil, receivedThanksCount: Int? = nil, longestEditingStreak: Int? = nil, lastEditTimestamp: Date? = nil, dailyTotalViews: [Date : Int]) {
+        self.totalPageviewsCount = totalPageviewsCount
+        self.topViewedArticles = topViewedArticles
+        self.editCountByDay = editCountByDay
+        self.totalEditsCount = totalEditsCount
+        self.receivedThanksCount = receivedThanksCount
+        self.longestEditingStreak = longestEditingStreak
+        self.lastEditTimestamp = lastEditTimestamp
+        self.dailyTotalViews = dailyTotalViews
+    }
+    
     
     public struct TopViewedArticle: Identifiable, Sendable {
         public let id: String

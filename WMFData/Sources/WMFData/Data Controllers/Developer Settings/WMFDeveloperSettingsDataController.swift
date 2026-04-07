@@ -208,39 +208,6 @@ extension WMFDeveloperSettingsDataController {
         return result
     }
     
-    nonisolated public var showActivityTabSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await showActivityTab
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public var forceActivityTabControlSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await forceActivityTabControl
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public var forceActivityTabExperimentSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await forceActivityTabExperiment
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
-    }
-    
     nonisolated public var showYiRV3SyncBridge: Bool {
         var result = false
         let semaphore = DispatchSemaphore(value: 0)

@@ -1,14 +1,14 @@
 import Foundation
 
-public final class MessagesDataController {
+public actor MessagesDataController {
     
-    public struct APIResponse: Codable {
+    public struct APIResponse: Codable, Sendable {
 
-        public struct Query: Codable {
+        public struct Query: Codable, Sendable {
             let allmessages: [Message]
         }
         
-        public struct Message: Codable {
+        public struct Message: Codable, Sendable {
             public let name: String
             public let normalizedname: String
             public let content: String
@@ -18,18 +18,9 @@ public final class MessagesDataController {
     }
     
     public static let shared = MessagesDataController()
-    private let service = WMFDataEnvironment.current.mediaWikiService
     
     public init() {}
     
-    
-    /// Fetches translated messages for a particular wiki
-    /// - Parameters:
-    ///   - keys: Array of keys to fetch, e.g. "hcaptcha-privacy-policy"
-    ///   - parseLinks: true if you need additional client-side parsing of links (more efficient than a followup parse API call).
-    ///   - project: Wikimedia project to request from
-    /// - Returns: Array of translated message objects for keys.
-    ///     For example, if parseLinks = true, it might return `<a href \"https://www.hcaptcha.com/privacy\">Privacy Policy</a>`, if parseLinks = false, it might return `[https://www.hcaptcha.com/privacy Privacy Policy]`
     public func fetchMessages(keys: [String], parseLinks: Bool, project: WMFProject) async throws -> [APIResponse.Message] {
         
         let service = WMFDataEnvironment.current.mediaWikiService
@@ -55,28 +46,30 @@ public final class MessagesDataController {
             parameters: parameters
         )
         
-        return try await withCheckedThrowingContinuation { continuation in
+        // 1. Lift the callback into a Swift-native async result
+        let response: APIResponse = try await withCheckedThrowingContinuation { continuation in
             service.performDecodableGET(request: request) { (result: Result<APIResponse, Error>) in
-                switch result {
-                case .success(let response):
-                    guard parseLinks else {
-                        continuation.resume(returning: response.query?.allmessages ?? [])
-                        return
-                    }
-                    
-                    let parsedMessages = (response.query?.allmessages ?? []).map { message in
-                        return APIResponse.Message(name: message.name, normalizedname: message.normalizedname, content: self.convertExternalLink(message.content))
-                    }
-                    
-                    continuation.resume(returning: parsedMessages)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
-                }
+                continuation.resume(with: result)  // resume(with:) is @Sendable-safe
             }
+        }
+        
+        // 2. Post-process outside the closure — no concurrency boundary issues
+        let messages = response.query?.allmessages ?? []
+        
+        guard parseLinks else {
+            return messages
+        }
+        
+        return messages.map { message in
+            APIResponse.Message(
+                name: message.name,
+                normalizedname: message.normalizedname,
+                content: Self.convertExternalLink(message.content)
+            )
         }
     }
     
-    private func convertExternalLink(_ input: String) -> String {
+    private static func convertExternalLink(_ input: String) -> String {
         let pattern = #"\[(https?:\/\/[^\s\]]+)\s+([^\]]+)\]"#
 
         guard let regex = try? NSRegularExpression(pattern: pattern) else {

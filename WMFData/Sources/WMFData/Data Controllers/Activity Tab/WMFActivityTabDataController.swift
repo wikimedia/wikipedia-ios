@@ -436,11 +436,12 @@ public actor WMFActivityTabDataController {
             project: project
         )
 
-        historyDataController?.deleteHistoryItem(timelineToHistoryItem(item))
+        await historyDataController?.deleteHistoryItem(timelineToHistoryItem(item))
     }
 
+    //todo: fix URL
     private func timelineToHistoryItem(_ timelineItem: TimelineItem) -> HistoryItem {
-        return HistoryItem(id: timelineItem.id, url: timelineItem.url, titleHtml: timelineItem.titleHtml, description: timelineItem.description, shortDescription: timelineItem.snippet, imageURLString: timelineItem.imageURLString, isSaved: false, snippet: nil, variant: nil)
+        return HistoryItem(id: timelineItem.id, url: nil, titleHtml: timelineItem.titleHtml, description: timelineItem.description, shortDescription: timelineItem.snippet, imageURLString: timelineItem.imageURLString, isSaved: false, snippet: nil, variant: nil)
     }
 
     public func fetchSummary(for pageTitle: String, projectID: String) async throws -> WMFArticleSummary? {
@@ -550,6 +551,7 @@ public enum LoginState: Int {
 
 extension TimelineItem {
 
+    // todo: fix url
     init(articleEdit: ArticleEdit) {
         self.init(
             id: articleEdit.id,
@@ -557,7 +559,6 @@ extension TimelineItem {
             titleHtml: articleEdit.title,
             projectID: articleEdit.projectID,
             pageTitle: articleEdit.title,
-            url: articleEdit.url,
             namespaceID: 0,
             revisionID: articleEdit.revisionID,
             parentRevisionID: articleEdit.parentRevisionID,
