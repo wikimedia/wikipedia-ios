@@ -52,6 +52,10 @@ final public class LocationManager: NSObject {
     /// Returns the current locationManager permission state.
     public var authorizationStatus: CLAuthorizationStatus { locationManager.authorizationStatus }
 
+    /// Timeout tracking vars
+    private var locationTimeoutItem: DispatchWorkItem?
+    private static let locationTimeoutInterval: TimeInterval = 15
+
     /// Starts monitoring location and heading updates.
     public func startMonitoringLocation() {
         
@@ -75,10 +79,13 @@ final public class LocationManager: NSObject {
         startUpdatingHeading()
         isUpdating = true
         DDLogDebug("LocationManager - did start updating location & heading.")
+
+        scheduleLocationTimeout()
     }
 
     /// Stops monitoring location and heading updates.
     public func stopMonitoringLocation() {
+        cancelLocationTimeout()
         locationManager.stopUpdatingLocation()
         stopUpdatingHeading()
         isUpdating = false
@@ -167,15 +174,41 @@ final public class LocationManager: NSObject {
     private func updateHeadingOrientation() {
         locationManager.headingOrientation = device.orientation.clOrientation
     }
+
+    // MARK: - Timeout
+
+    private func scheduleLocationTimeout() {
+        cancelLocationTimeout()
+        let item = DispatchWorkItem { [weak self] in
+            guard let self, self.isUpdating else { return }
+            let error = NSError(
+                domain: kCLErrorDomain,
+                code: CLError.locationUnknown.rawValue,
+                userInfo: [NSLocalizedDescriptionKey: "Location fix timed out"]
+            )
+            DDLogWarn("LocationManager - location fix timed out after \(Self.locationTimeoutInterval)s.")
+            self.delegate?.locationManager?(self, didReceive: error)
+        }
+        locationTimeoutItem = item
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + Self.locationTimeoutInterval,
+            execute: item
+        )
+    }
+
+    private func cancelLocationTimeout() {
+        locationTimeoutItem?.cancel()
+        locationTimeoutItem = nil
+    }
 }
 
-// MARK: - LocationManagerDelegate
+// MARK: - CLLocationManagerDelegate
 
 extension LocationManager: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard isUpdating, let location = locations.last else { return }
-
+        cancelLocationTimeout()
         self.location = location
         delegate?.locationManager?(self, didUpdate: location)
         DDLogDebug("LocationManager - did update location: \(location).")
@@ -202,18 +235,34 @@ extension LocationManager: CLLocationManagerDelegate {
         }
         #endif
 
+        cancelLocationTimeout()
         delegate?.locationManager?(self, didReceive: error)
         DDLogError("LocationManager - encountered error: \(error).")
     }
-    
+
+    public func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
+        guard isUpdating else { return }
+        cancelLocationTimeout()
+        let error = NSError(
+            domain: kCLErrorDomain,
+            code: CLError.locationUnknown.rawValue,
+            userInfo: [NSLocalizedDescriptionKey: "Location updates paused by system"]
+        )
+        DDLogWarn("LocationManager - location updates paused by system, reporting as timeout.")
+        delegate?.locationManager?(self, didReceive: error)
+    }
+
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
         DDLogDebug("LocationManager - did change authorization status \(status.rawValue).")
         delegate?.locationManager?(self, didUpdateAuthorized: status.isAuthorized)
 
         if status.isAuthorized {
+            cancelLocationTimeout()
             authorizedCompletion?()
             authorizedCompletion = nil
+        } else {
+            cancelLocationTimeout()
         }
     }
 }
