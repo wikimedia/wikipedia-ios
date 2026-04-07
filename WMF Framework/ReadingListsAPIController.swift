@@ -259,11 +259,15 @@ public class ReadingListsAPIController: Fetcher {
                 DispatchQueue.global().async {
                     let taskGroup = WMFTaskGroup()
                     var listsByName: [String: (Int64?, Error?)] = [:]
+                    let serialQueue = DispatchQueue(label: "org.wikimedia.readingLists.listsByName")
+                    
                     for list in lists {
                         taskGroup.enter()
                         self.createList(name: list.name, description: list.description, completion: { (listID, error) in
+                            serialQueue.sync {
+                                listsByName[list.name] = (listID, error)
+                            }
                             taskGroup.leave()
-                            listsByName[list.name] = (listID, error)
                         })
                     }
                     taskGroup.wait()
