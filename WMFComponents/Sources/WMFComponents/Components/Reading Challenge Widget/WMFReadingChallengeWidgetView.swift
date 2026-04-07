@@ -75,6 +75,10 @@ public struct WMFReadingChallengeWidgetView: View {
         switch viewModel.state {
         case .notEnrolled, .notLiveYet, .challengeRemoved, .enrolledNotStarted:
             return AnyView(notEnrolledSmallView)
+        case .challengeConcludedNoStreak:
+            return AnyView(noStreakSmallView)
+        case .challengeCompleted:
+            return AnyView(completedSmallView)
         default:
             if viewModel.displaySet.button1Title != nil {
                 return AnyView(oneButtonSmallView)
@@ -82,6 +86,44 @@ public struct WMFReadingChallengeWidgetView: View {
                 return AnyView(noButtonsSmallView)
             }
         }
+    }
+    
+    private var completedSmallView: some View {
+        ZStack {
+            VStack(alignment: .center, spacing: 8) {
+                if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .layoutPriority(1)
+                }
+                if let subtitle = viewModel.displaySet.subtitle {
+                    Text(subtitle)
+                        .font(Font(WMFFont.for(.mediumSubheadline)))
+                        .foregroundColor(viewModel.displaySet.color2)
+                }
+                if let button1Title = viewModel.displaySet.button1Title,
+                   let button1URL = viewModel.displaySet.button1URL {
+                    Link(destination: button1URL) {
+                        HStack {
+                            Text(button1Title)
+                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .foregroundColor(buttonForeground)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(buttonBackground)
+                        .clipShape(Capsule())
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            wIconOverlay
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var notEnrolledSmallView: some View {
@@ -105,6 +147,21 @@ public struct WMFReadingChallengeWidgetView: View {
                             .background(buttonBackground)
                             .clipShape(Capsule())
                     }
+                }
+            }
+            .padding()
+            wIconOverlay
+        }
+    }
+    
+    private var noStreakSmallView: some View {
+        ZStack {
+            VStack(alignment: .leading, spacing: 0) {
+                if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxHeight: 100)
                 }
             }
             .padding()
@@ -139,19 +196,19 @@ public struct WMFReadingChallengeWidgetView: View {
 
                 case .challengeConcludedIncomplete:
                     if let subtitle = viewModel.displaySet.subtitle {
-                        HStack(spacing: 4) {
-                            if let icon = viewModel.displaySet.icon {
+                        Spacer()
+                        HStack(spacing: 3) {
+                            if let icon = viewModel.displaySet.icon2 {
                                 Image(uiImage: icon)
                                     .font(Font(WMFFont.for(.subheadline)))
                                     .foregroundStyle(viewModel.displaySet.color2)
                             }
                             Text(subtitle)
                                 .font(Font(WMFFont.for(.subheadline)))
-                                .foregroundStyle(viewModel.displaySet.color2)
+                                .foregroundColor(viewModel.displaySet.color2)
                         }
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
                         .background(viewModel.displaySet.color3 ?? viewModel.displaySet.color2)
                         .clipShape(Capsule())
                     }

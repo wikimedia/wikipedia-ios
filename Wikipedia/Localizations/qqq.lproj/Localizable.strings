@@ -1048,6 +1048,7 @@
 "reading-challenge-announcement-subtitle" = "Notice about privacy for reading challenge";
 "reading-challenge-announcement-title" = "Title for the reading challenge onboarding view.";
 "reading-challenge-collect-prize-button" = "Button title shown on the reading challenge widget when the user has completed the challenge.";
+"reading-challenge-collect-prize-button-small" = "Button title shown on the small reading challenge widget when the user has completed the challenge.";
 "reading-challenge-completed-subtitle" = "Subtitle shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-concluded-title" = "Title shown on the reading challenge widget when the challenge has ended.";
