@@ -26,8 +26,6 @@
 "about-repositories-app-source-license" = "Upprunakóði er tiltækur með $1.";
 "about-repositories-app-source-license-mit" = "MIT notkunarleyfi";
 "about-send-feedback" = "Senda ábendingar um appið";
-"about-testers" = "prófarar";
-"about-testers-details" = "Gæðaprófað af $1";
 "about-title" = "Um";
 "about-translators" = "þýðendur";
 "about-translators-details" = "Þýtt af sjálfboðaaðilum á $1";
@@ -420,12 +418,10 @@
 "forgot-password-title" = "Endurstilla lykilorð";
 "forgot-password-username-or-email-title" = "eða";
 "gan-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Gan";
-"history-clear-all" = "Hreinsa";
 "history-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "history-clear-delete-all" = "Já, eyða öllu";
 "history-title" = "Ferilskrá";
 "home-button-explore-accessibility-label" = "Wikipedia, fara aftur á 'Uppgötva'";
-"home-button-history-accessibility-label" = "Wikipedia, fara aftur á 'Ferilskrá'";
 "home-button-saved-accessibility-label" = "Wikipedia, fara aftur á 'Vistað'";
 "home-more-like-footer" = "Fleira í líkingu við $1";
 "home-nearby-footer" = "Fleiri staðir í nágrenninu";
@@ -505,8 +501,10 @@
 "more-menu" = "Meira";
 "move-articles-to-reading-list" = "Færa {{PLURAL:$1|$1 grein|$1 greinar}} á leslista";
 "navbar-title-mode-edit-wikitext-preview" = "Forskoðun";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 fet";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mílur";
 "new-password-instructions" = "Þú skráðir þig inn með bráðabirgðalykilorði. Til að klára að skrá þig inn, verður þú að velja nýtt lykilorð hér.";

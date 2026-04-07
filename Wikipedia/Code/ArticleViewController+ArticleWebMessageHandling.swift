@@ -1,5 +1,6 @@
 import WMF
 import WMFNativeLocalizations
+import WMFData
 
 extension ArticleViewController: ArticleWebMessageHandling {
     
@@ -97,7 +98,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
             leadImageHeightConstraint.constant = 0
             return
         }
-        guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: traitCollection.wmf_leadImageWidth, fromImageSource: source, withOriginalWidth: width ?? 0) else {
+        guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: ImageUtils.leadImageWidth(), fromImageSource: source, withOriginalWidth: width ?? 0) else {
             return
         }
         loadLeadImage(with: leadImageURLToRequest)

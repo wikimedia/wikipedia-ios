@@ -203,7 +203,6 @@
 "forgot-password-button-title" = "ولدا ٹھیک کرو";
 "forgot-password-title" = "پاس ورڈ ولدا ٹھیک کرو";
 "forgot-password-username-or-email-title" = "یا";
-"history-clear-all" = "صاف";
 "history-clear-delete-all" = "جیا سبھ مٹاؤ";
 "history-title" = "تاریخچہ";
 "home-more-like-footer" = "$1 وانگوں ٻئے";
@@ -263,8 +262,10 @@
 "more-languages-tooltip-title" = "زباناں شامل کرو";
 "more-menu" = "ٻئے";
 "navbar-title-mode-edit-wikitext-preview" = "پیشگی ݙکھالا";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 فٹ";
 "nearby-distance-label-km" = "$1 کلو میٹر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 میٹر";
 "nearby-distance-label-miles" = "$1 میل";
 "new-password-title" = "پاس ورڈ درج کرو";
@@ -508,6 +509,8 @@
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
 "year-in-review-donate" = "عطیہ";
+// Fuzzy
+"year-in-review-personalized-edit-views-subtitle-format-updated" = "دنیا بھر دے پڑھݨ ہار تہاݙی ہتھ بھرائی کوں سُلاہیندن۔  پچھلے 2 مہیناں وچ، تُہاݙے وٹا پھیر کردہ مضامین کوں $1 کل ملاحظات ملے ہِن۔  تہاݙے سویں ایڈیٹرز دا شکریہ، ویکیپیڈیا دنیا کیتے ہک پکا بہتر کرݨ آالا، حقائق تے مبنی، اَتے قابلِ اعتماد علمی وسیلہ ہے۔";
 "year-in-review-survey-neutral" = "غیر جانبدار";
 "year-in-review-survey-satisfied" = "مطمئن";
 "year-in-review-survey-unsatisfied" = "غیر مطمئن";

@@ -44,15 +44,6 @@
 extern double RoundWithPrecision(double (*rounder)(double), double x, unsigned int precision);
 
 /**
- *  Round @c x to 2 significant digits after the decimal point.
- *
- *  @param x Number to round.
- *
- *  @return @c x rounded to 2 decimal points.
- */
-extern double WMFFlooredPercentage(double x) __attribute__((const)) __attribute__((pure));
-
-/**
  *  Convert angle in radians into hours on a clockface.
  *
  *  If we imagine a clockface instead of a unit circle (the hour 12 is aligned with 0 radians),

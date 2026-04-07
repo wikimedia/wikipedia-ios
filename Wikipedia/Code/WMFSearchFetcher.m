@@ -1,6 +1,7 @@
 #import "WMFSearchFetcher_Testing.h"
 #import "WMFSearchResults_Internal.h"
 @import WMF;
+@import WMFData;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,7 +56,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"piprop": @"thumbnail",
                    //@"pilicense": @"any",
                    @"ppprop": @"displaytitle",
-                   @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
+                   @"pithumbsize": [NSNumber numberWithInteger:[ImageUtils listThumbnailWidth]],
                    @"pilimit": numResults,
                    //@"rrvlimit": @(1),
                    @"rvprop": @"ids",
@@ -89,7 +90,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                  @"gsrlimit": numResults,
                  @"piprop": @"thumbnail",
                  //@"pilicense": @"any",
-                 @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
+                 @"pithumbsize": [NSNumber numberWithInteger:[ImageUtils listThumbnailWidth]],
                  @"pilimit": numResults,
                  //@"rrvlimit": @(1),
                  @"rvprop": @"ids",
@@ -168,7 +169,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"coprop": @"type|dim",
                    @"piprop": @"thumbnail",
                    @"ppprop": @"displaytitle",
-                   @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
+                   @"pithumbsize": [NSNumber numberWithInteger:[ImageUtils listThumbnailWidth]],
                    @"pilimit": numResults,
                    @"rvprop": @"ids",
                    // -- Parameters causing prefix search to efficiently return suggestion.
@@ -200,7 +201,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"gsroffset": @0,
                    @"gsrlimit": numResults,
                    @"piprop": @"thumbnail",
-                   @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
+                   @"pithumbsize": [NSNumber numberWithInteger:[ImageUtils listThumbnailWidth]],
                    @"pilimit": numResults,
                    @"rvprop": @"ids",
                    @"continue": @"",

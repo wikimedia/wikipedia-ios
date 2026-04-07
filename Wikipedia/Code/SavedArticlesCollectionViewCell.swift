@@ -1,5 +1,6 @@
 import WMFComponents
 import WMFNativeLocalizations
+import WMFData
 
 public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
     func didSelect(_ tag: Tag)
@@ -42,13 +43,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             
             switch alertType {
             case .listLimitExceeded:
-                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-list-limit-exceeded", value: "List limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+                alertLabelText = CommonStrings.readingListsErrorListLimitExceeded
             case .entryLimitExceeded:
-                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-article-limit-exceeded", value: "Article limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+                alertLabelText = CommonStrings.readingListsErrorArticleLimitExceeded
             case .genericNotSynced:
-                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
+                alertLabelText = CommonStrings.readingListsErrorNotSynced
             case .downloading:
-                alertLabelText = WMFLocalizedString("reading-lists-article-queued-to-be-downloaded", value: "Article queued to be downloaded", comment: "Text of the alert label informing the user that article is queued to be downloaded.")
+                alertLabelText = CommonStrings.readingListsWarningArticleQueuedToBeDownloaded
             case .articleError(let articleError):
                 alertLabelText = articleError.localizedDescription
             }
@@ -275,7 +276,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         titleHTML = article.displayTitleHTML
         descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
         
-        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-width images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
+        let imageWidthToRequest = imageView.frame.size.width < 300 ? ImageUtils.nearbyThumbnailWidth() : ImageUtils.leadImageWidth() // 300 is used to distinguish between full-width images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
         if let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {

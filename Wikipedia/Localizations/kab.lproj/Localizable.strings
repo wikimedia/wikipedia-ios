@@ -21,8 +21,6 @@
 "about-repositories-app-source-license" = "Tangalt aɣbalu yella daw n $1";
 "about-repositories-app-source-license-mit" = "Turagt MIT";
 "about-send-feedback" = "Azen tikti deg usnas";
-"about-testers" = "Imsekyaden";
-"about-testers-details" = "QA (Ṭmana n tɣara) tettwaseyed sɣur $1";
 "about-title" = "Ɣef";
 "about-translators" = "Imsuqal";
 "about-translators-details" = "Suqlen-t imttekkiyen di $1";
@@ -162,12 +160,10 @@
 "forgot-password-instructions" = "Ččaṛ urtan ddaw-a akken ad d-remseḍ tinaḍin n uwennez n wawal uffir s yimayl";
 "forgot-password-title" = "Ales awennez n wawal uffir";
 "forgot-password-username-or-email-title" = "Neɣ";
-"history-clear-all" = "Sfeḍ";
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
 "history-clear-delete-all" = "Ih, kkes akk";
 "history-title" = "Amazray";
 "home-button-explore-accessibility-label" = "Wikipedia, uɣal ar umazray";
-"home-button-history-accessibility-label" = "Wikipedia, uɣal ar umazray";
 "home-button-saved-accessibility-label" = "Wikipedia, uɣal ar Yettwasekles";
 "home-more-like-footer" = "Ugar am $1";
 // Fuzzy
@@ -207,8 +203,10 @@
 "main-menu-zero-faq" = "Isteqsiyen FAQ Wikipedia Zero";
 "more-languages-tooltip-title" = "Rnu tutlayin";
 "navbar-title-mode-edit-wikitext-preview" = "Taskany";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 n uḍaṛ";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 n imilen";
 "new-password-instructions" = "Teqqneḍ s wawal uffir askudan. Akken ad fakeḍ tuqqna, sekcem awal-nniḍen uffir dagi.";

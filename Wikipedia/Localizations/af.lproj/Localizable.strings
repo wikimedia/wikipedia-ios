@@ -20,8 +20,6 @@
 "about-repositories-app-source-license" = "Bronkode beskikbaar onder die $1.";
 "about-repositories-app-source-license-mit" = "MIT-lisensie";
 "about-send-feedback" = "Stuur toep terugvoer";
-"about-testers" = "Toetsers";
-"about-testers-details" = "QA getoets deur $1";
 "about-title" = "Aangaande";
 "about-translators" = "Vertalers";
 "about-translators-details" = "Vertaal deur vrywilligers by $1";
@@ -116,7 +114,6 @@
 "forgot-password-email-sent" = "'n E-pos is gestuur met instruksies om die wagwoord te herstel";
 "forgot-password-title" = "Herstel wagwoord";
 "forgot-password-username-or-email-title" = "Of";
-"history-clear-all" = "Maak skoon";
 // Fuzzy
 "history-clear-confirmation-heading" = "Skrap alle onlangse items?";
 "history-clear-delete-all" = "Ja, skrap alles";
@@ -153,8 +150,10 @@
 "more-languages-tooltip-description" = "Deursoek Wikipedia in bykans 300 tale";
 "more-languages-tooltip-title" = "Voeg tale by";
 "navbar-title-mode-edit-wikitext-preview" = "Voorskou";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 voet";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 myl";
 "new-password-title" = "Stel u wagwoord";

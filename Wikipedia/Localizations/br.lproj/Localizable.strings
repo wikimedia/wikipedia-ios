@@ -26,8 +26,6 @@
 "about-repositories-app-source-license" = "Ar c'hod mammennoù a c'haller kaout dindan $1.";
 "about-repositories-app-source-license-mit" = "Aotre-implijout MIT";
 "about-send-feedback" = "Kas un ali diwar-benn an arload";
-"about-testers" = "Prouaderioù";
-"about-testers-details" = "AQ prouet gant $1";
 "about-title" = "Diwar-benn";
 "about-translators" = "Troerien";
 "about-translators-details" = "Troet eo bet an arload-mañ gant troerien a-youl vat e $1";
@@ -278,12 +276,10 @@
 "forgot-password-instructions" = "Leuniañ unan eus ar maeziennoù amañ dindan evit degemer ar c'hemennadurioù evit adderaouekaat ar ger-tremen dre bostel.";
 "forgot-password-title" = "Adderaouekaat ar ger-tremen";
 "forgot-password-username-or-email-title" = "Pe";
-"history-clear-all" = "Diverkañ";
 "history-clear-confirmation-heading" = "Ha sur eo ho peus c'hoant da lemel ho holl elfennoù nevez ?";
 "history-clear-delete-all" = "Ya, lemel pep tra";
 "history-title" = "Istor";
 "home-button-explore-accessibility-label" = "Wikipedia, distreiñ da Ergerzhiñ";
-"home-button-history-accessibility-label" = "Wikipedia, distreiñ da Istor";
 "home-button-saved-accessibility-label" = "Wikipedia, distreiñ da Enrollañ";
 "home-more-like-footer" = "Muioc'h evel $1";
 "home-nearby-footer" = "Muioc’h a zanvez eus lec’hioù tost ouzoc’h";
@@ -361,8 +357,10 @@
 "more-languages-tooltip-title" = "Ouzhpennañ yezhoù";
 "more-menu" = "Muioc'h";
 "navbar-title-mode-edit-wikitext-preview" = "Rakwelet";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 troad";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 metr";
 "nearby-distance-label-miles" = "$1 mil saoz";
 "new-password-instructions" = "Kevreet oc'h bet gant ur ger-tremen dibad.\nEvit echuiñ kevreañ e rankit lakaat ur ger-tremen nevez amañ :";

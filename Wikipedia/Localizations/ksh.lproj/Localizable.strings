@@ -17,8 +17,6 @@
 "about-repositories-app-source-license" = "De Projrmm-Quälle sin ze han onger $1.";
 "about-repositories-app-source-license-mit" = "dem MIT sing Lezänz";
 "about-send-feedback" = "En Rökmäldong jävve";
-"about-testers" = "Pröhver";
-"about-testers-details" = "Qualliteit jepröhf vun $1";
 "about-title" = "Övver";
 "about-translators" = "Övversäzer";
 "about-translators-details" = "Övvesaz vun Freihwelleje op $1";
@@ -61,7 +59,6 @@
 "explore-nearby-heading" = "Pläz en der Nöhde vun";
 "explore-potd-heading" = "Belld vum Daach";
 "explore-random-article-heading" = "Ene zohfälleje Atikel";
-"history-clear-all" = "Läddesch maache";
 "history-clear-confirmation-heading" = "Wells De veraftesch all Ding neujere Saache fott schmiiße?";
 "history-clear-delete-all" = "Joh, donn alle fottschmieße";
 "history-title" = "Väsjohne";
@@ -89,8 +86,10 @@
 "main-menu-title" = "Mih";
 "main-menu-zero-faq" = "Öff jeschtallte Frohre övver de Wikkiphedija Zero, un de Antwoote dozoh";
 "navbar-title-mode-edit-wikitext-preview" = "Vörschou";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 Fohß";
 "nearby-distance-label-km" = "$1 Killomehter";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 Mehter";
 "nearby-distance-label-miles" = "$1 Meile";
 "no-email-account-alert" = "Bes esu johd un donn op Dingem Apparahd en Adräß för de e-mail ennreeschte.";

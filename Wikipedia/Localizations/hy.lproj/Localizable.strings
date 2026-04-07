@@ -13,7 +13,6 @@
 
 "about-contributors" = "Հեղինակներ";
 "about-libraries-license" = "Թույլատրագիր";
-"about-testers" = "Փորձարկողներ";
 "about-title" = "Ծրագրի մասին";
 "about-translators" = "Թարգմանիչներ";
 "about-wikimedia-foundation" = "Վիքիմեդիա Հիմնադրամ";
@@ -89,10 +88,8 @@
 "find-textfield-accessibility" = "Գտնել";
 "forgot-password-button-title" = "Վերակայել";
 "forgot-password-username-or-email-title" = "Կամ";
-"history-clear-all" = "Մաքրել";
 "history-clear-delete-all" = "Այո, ջնջել ամբողջը";
 "history-title" = "Պատմություն";
-"home-button-history-accessibility-label" = "Վիքիպեդիա, վերադառնալ Պատմության";
 "home-button-saved-accessibility-label" = "Վիքիպեդիա, վերադառնալ Պահված";
 "icon-shortcut-random-title" = "Պատահական հոդված";
 "icon-shortcut-search-title" = "Որոնել Վիքիպեդիայում";
@@ -132,8 +129,10 @@
 "main-menu-zero-faq" = "Վիքիպեդիա Զրո ՀՏՀ";
 "more-languages-tooltip-title" = "Ավելացնել լեզուներ";
 "navbar-title-mode-edit-wikitext-preview" = "Նախադիտում";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ֆուտ";
 "nearby-distance-label-km" = "$1 կմ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 մ";
 "nearby-distance-label-miles" = "$1 մղոն";
 "next-action-title" = "Հաջորդ";

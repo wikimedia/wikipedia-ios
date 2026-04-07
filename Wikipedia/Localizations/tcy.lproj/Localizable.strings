@@ -14,7 +14,6 @@
 "about-contributors" = "ಕಾನಿಕೆ ಕೊರ್ನಾರ್";
 "about-libraries-complete-list" = "ಮಾಂತಾ ಪಟ್ಟಿ";
 "about-libraries-license" = "ಪರವಾನಿಗೆ";
-"about-testers-details" = "QA tested by $1";
 "about-title" = "ಎಂಕ್ಲೆನ ಬಗ್ಗೆ";
 "about-translators" = "ಅನುವಾದಕೆರ್";
 "about-wikimedia-foundation" = "ವಿಕಿಮೀಡಿಯಾ ಫೌಂಡೇಷನ್";
@@ -103,7 +102,6 @@
 "forgot-password-button-title" = "ಪಿರ ಸರಿಮಾನ್ಪಿ";
 "forgot-password-title" = "ಪ್ರವೇಸೊ ಪದೊನ್ ಪಿರ ಸ್ತಾಪನೆ ಮಲ್ಪುಲೆ";
 "forgot-password-username-or-email-title" = "ಅತ್ತಂಡಾ";
-"history-clear-all" = "ಮಾಜಲೇ";
 "history-clear-delete-all" = "ಅಂದ್, ಮಾನ್ತೆನ್ಲ ವಜಾ ಮಾನ್ಪಿ";
 "history-title" = "ಇತಿಹಾಸೊ";
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";
@@ -133,8 +131,10 @@
 "more-languages-tooltip-description" = "ಬೇತೆ ಬಾಸೆತ ೩೦೦ ವಿಕಿಪೀಡಿಯೊನ್ ನಾಡುಲೆ.";
 "more-languages-tooltip-title" = "ಬಾಸೆನ್ ಸೇರ್ಪಾಲೆ";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ಪೀಟ್";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 ಮೈಲ್";
 "new-password-title" = "ಪ್ರವೇಸೊ ಪದೊನ್ ಬರೆಲೆ";

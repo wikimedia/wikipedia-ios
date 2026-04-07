@@ -23,7 +23,6 @@
 "about-repositories" = "களஞ்சியங்கள்";
 "about-repositories-app-source-license-mit" = "எம்ஐடி உரிமம்";
 "about-send-feedback" = "நிரல் பின்னூட்டம் அனுப்புக";
-"about-testers" = "சோதிப்பவர்கள்";
 "about-title" = "இதைப் பற்றி";
 "about-translators" = "மொழிபெயர்ப்பாளர்கள்";
 "about-translators-details" = "$1யில் தன்னார்வலர்களால் மொழிபெயர்க்கப்பட்டுள்ளது";
@@ -138,11 +137,9 @@
 "forgot-password-button-title" = "மீட்டமை";
 "forgot-password-title" = "கடவுச்சொலை மீளமை";
 "forgot-password-username-or-email-title" = "அல்லது";
-"history-clear-all" = "அழி";
 "history-clear-delete-all" = "ஆம், யாவையும் நீக்கு";
 "history-title" = "வரலாறு";
 "home-button-explore-accessibility-label" = "விக்கிப்பீடியா, சுற்றிப்பார்க்க திரும்புக";
-"home-button-history-accessibility-label" = "விக்கிப்பீடியா, வரலாற்றுக்கு திரும்புக";
 "home-button-saved-accessibility-label" = "விக்கிப்பீடியா, சேமிக்கபட்டதற்கு திரும்புக";
 "home-more-like-footer" = "$1 போல மேலும்";
 "home-nearby-footer" = "உங்கள் இடத்திற்கு அருகாமையில் இருக்கும் மேலும் இடங்கள்";
@@ -173,11 +170,15 @@
 "main-menu-terms-of-use" = "பயன்பாட்டு விதிமுறைகள்";
 "main-menu-title" = "மேலும்";
 "main-menu-zero-faq" = "விக்கிப்பீடியா சுழி அடிக்கடிக் கேட்கப்படும் கேள்விகள்";
+// Fuzzy
+"microsite-yir-english-edits-bytes-slide-title-updated" = "$1 வகைகள் சேர்க்கப்பட்டன";
 "more-languages-tooltip-title" = "மொழிகளைச் சேர்க்கவும்";
 "more-menu" = "மேலும்";
 "navbar-title-mode-edit-wikitext-preview" = "முன்தோற்றம்";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 அடி";
 "nearby-distance-label-km" = "$1 கி.மீ.";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 மீ";
 "nearby-distance-label-miles" = "$1 மைல்கள்";
 "new-password-instructions" = "நீங்கள் தற்காலிகமாக மின்னஞ்சல் செய்யப்பட்ட குறியீடுடன் புகுபதிந்துள்ளீர்.\nபுகுபதிவை நிறைவு செய்ய, புதிய கடவுச்சொல்லை இங்கு உருவாக்குங்கள்:";

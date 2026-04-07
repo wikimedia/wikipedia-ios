@@ -6,6 +6,7 @@
 @import CoreServices;
 @import UniformTypeIdentifiers;
 @import WMFComponents;
+@import WMFData;
 
 // SINGLETONTODO - this whole file, find [MWKDataStore shared]
 
@@ -199,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didTapShareButton {
     id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
     MWKImageInfo *info = [photo bestImageInfo];
-    NSInteger targetWidth = [self.traitCollection wmf_galleryImageWidth];
+    NSInteger targetWidth = [ImageUtils galleryImageWidth];
     NSURL *url = [info imageURLForTargetWidth:targetWidth];
 
     @weakify(self);
@@ -392,7 +393,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSURL *)imageURL {
-    return [self.imageInfo imageURLForTargetWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]];
+    return [self.imageInfo imageURLForTargetWidth:[ImageUtils galleryImageWidth]];
 }
 
 - (nullable NSAttributedString *)attributedCaptionTitle {

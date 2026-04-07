@@ -19,8 +19,6 @@
 "about-repositories-app-source-license" = "Тӱҥалтыш текстым $1 почеш кучылташ лиеш.";
 "about-repositories-app-source-license-mit" = "MIT лицензий";
 "about-send-feedback" = "Приложений нерген шоныммутым колташ";
-"about-testers" = "Тестер-влак";
-"about-testers-details" = "Сайлыкым кучаш манын, $1 тестироватлен";
 "about-title" = "Приложений нерген";
 "about-translators" = "Кусарыше-влак";
 "about-translators-details" = "Тиде приложенийым $1 сайтыште вӱмазе-влак кусареныт";
@@ -470,12 +468,10 @@
 "forgot-password-email-sent" = "Шолыпмут вашталтыме инструкций ден серыш колтымо лийын";
 "forgot-password-title" = "Шолыпмутым кудалташ";
 "forgot-password-username-or-email-title" = "Але";
-"history-clear-all" = "Эрыкташ";
 "history-clear-confirmation-heading" = "Тый чынжымак чыла шкендын шукерте огылсо элемент-влакым кораҥдынет?";
 "history-clear-delete-all" = "Туге, чыла кораҥдаш";
 "history-title" = "Историй";
 "home-button-explore-accessibility-label" = "Википедий, тасма дек пӧртылаш";
-"home-button-history-accessibility-label" = "Википедий, историй дек пӧртылаш";
 "home-button-saved-accessibility-label" = "Википедий, аралыме дек пӧртылаш";
 "home-more-like-footer" = "$1 гай эше статья-влакым";
 "home-nearby-footer" = "Тыйын воктенет утларак вер-влак";
@@ -545,8 +541,10 @@
 "more-menu" = "Эше";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш кусараш";
 "navbar-title-mode-edit-wikitext-preview" = "Ончылгоч ончымаш";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут.";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-title" = "Шолыпмутым шынде";

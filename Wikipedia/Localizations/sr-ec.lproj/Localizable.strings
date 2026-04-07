@@ -39,8 +39,6 @@
 "about-repositories-app-source-license" = "Изворни кôд је доступан под $1.";
 "about-repositories-app-source-license-mit" = "MIT лиценца";
 "about-send-feedback" = "Пошаљите повратне информације";
-"about-testers" = "Тестери";
-"about-testers-details" = "Квалитет је осигурао $1";
 "about-title" = "О";
 "about-translators" = "Преводиоци";
 "about-translators-details" = "Превели добровољци на сајту $1";
@@ -96,6 +94,12 @@
 "activity-tab-add-images-subtitle" = "Додајте предложене слике у чланке на Википедији да би сте побољшали њихово разумевање.";
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-articles-read-graph-label" = "Чланци";
+"activity-tab-empty-title" = "Ништа за приказ";
+"activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈИ ЗА iOS";
+"activity-tab-impact-recent-startend-accessibility" = "Од $1 до $2";
+"activity-tab-impact-thanks-label" = "хвала";
+"activity-tab-impact-total-edits-label" = "укупно измена";
+"activity-tab-impact-views-day" = "Дан";
 "activity-tab-logged-out-title" = "Видите више уређивачких и читалачких активности";
 "activity-tab-neutral" = "Неутралан";
 "activity-tab-no-edits-title" = "Још нисте направили измене ове недеље. Додајте слике да би сте побољшали разумевање чланка.";
@@ -191,6 +195,7 @@
 "description-edit-title" = "Уређивање описа";
 "description-edit-warning" = "Покушајте да задржите описе кратким тако да корисници могу да разумеју тему чланка на први поглед";
 "description-edit-warning-casing" = "Само властите именице треба писати великим словима, чак и на почетку реченице.";
+"description-editing-temp-account-created-subtitle" = "Привремени налог $1 је направљен после објављивања Ваше измене. Привремени налог ће истећи за 90 дана.";
 "description-help-about-description" = "Описи чланака резимирају чланак како би читаоци на први поглед разумели његову тему.";
 "description-help-about-title" = "О";
 "description-help-about-wikidata" = "О Википодацима";
@@ -312,7 +317,7 @@
 "edit-summary-add-summary-text" = "Додај опис измене";
 "edit-summary-choice-added-image" = "Додата слика";
 "edit-summary-choice-added-image-and-caption" = "Додата слика и натпис";
-"edit-summary-choice-fixed-grammar" = "Исправљена правописна грешка";
+"edit-summary-choice-fixed-grammar" = "Граматичке грешке";
 "edit-summary-choice-fixed-typos" = "Исправљена грешка у куцању";
 "edit-summary-choice-linked-words" = "Додати линкови";
 "edit-summary-placeholder-text" = "Како сте побољшали чланак?";
@@ -475,6 +480,7 @@
 "explore-randomizer" = "Случајни чланак";
 "explore-suggested-edits-footer" = "Додај";
 "explore-suggested-edits-image-recs-title" = "Додај слику";
+"explore-wikipedia" = "Истражи Википедију";
 "export-user-data-confirmation-message" = "Дељење ваше библиотеке апликације укључује податке о вашим Листама за читање и историји, подешавањама, и садржају фида за истраживање. Ова датотека са подацима би требало да буде дељена искључиво са примаоцем од поверења за коришћење у сврхе техничке дијагностике.";
 "export-user-data-confirmation-title" = "Дели библиотеку апликације?";
 "export-user-data-generic-error" = "Дошло је до грешке приликом извоза ваших података. Молимо покушајте поново касније.";
@@ -493,6 +499,7 @@
 "field-alert-token-invalid" = "Неважећи кôд";
 "field-alert-username-unavailable" = "Корисничко име није доступно";
 "field-backup-token-title" = "Резервни кôд";
+"field-backup-token-title-email" = "Код из имејла";
 "field-captcha-placeholder" = "CAPTCHA текст";
 "field-captcha-title" = "Унесите горенаведени текст";
 "field-email-placeholder" = "primer@example.org";
@@ -522,12 +529,10 @@
 "forgot-password-instructions" = "Попуните једно од поља испод да бисте примили упутство за ресетовање лозинке путем имејла";
 "forgot-password-title" = "Ресетовање лозинке";
 "forgot-password-username-or-email-title" = "Или";
-"history-clear-all" = "Обриши";
 "history-clear-confirmation-heading" = "Желите ли заиста да избришете све недавне ставке?";
 "history-clear-delete-all" = "Да, избриши све";
 "history-title" = "Историја";
 "home-button-explore-accessibility-label" = "Википедија, назад на „Истражи”";
-"home-button-history-accessibility-label" = "Википедија, назад на историју";
 "home-button-saved-accessibility-label" = "Википедија, назад на сачуване";
 "home-more-like-footer" = "Још чланака попут $1";
 "home-nearby-footer" = "Још места у близини";
@@ -655,8 +660,9 @@
 "more-menu" = "Више";
 "move-articles-to-reading-list" = "Премести {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
-"nearby-distance-label-feet" = "$1 стопа";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 стопа}}";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миља";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
@@ -810,6 +816,7 @@
 "page-history-compare-accessibility-hint" = "Додирните како бисте изабрали две измене за упоређивање";
 "page-history-compare-title" = "Поређење";
 "page-history-graph-accessibility-label" = "Графикон измена током времена";
+"page-history-logged-in-edits" = "пријављени";
 "page-history-minor-edits" = "мање измене";
 "page-history-revision-author-accessibility-label" = "Аутор: $1";
 "page-history-revision-comment-accessibility-label" = "Коментар $1";
@@ -1200,6 +1207,7 @@
 "vanish-account-warning-title" = "Упозорење";
 "variants-alert-dismiss-button" = "Не, хвала";
 "variants-alert-preferences-button" = "Прегледајте своја подешавања";
+"view-changes" = "Прикажи измене";
 "watch" = "Надгледај";
 "watchlist" = "Списак надгледања";
 "watchlist-added-toast-one-month" = "На списку надгледања 1 месец.";
@@ -1337,3 +1345,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Википедијин W логотип";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Задужбине Викимедије";
 "yesterday-title" = "Јуче";
+"zero-edits-to-articles" = "0 измена чланака скорије";

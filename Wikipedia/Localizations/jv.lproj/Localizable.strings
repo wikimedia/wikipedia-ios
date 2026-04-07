@@ -26,8 +26,6 @@
 "about-repositories-app-source-license" = "Kodhe sumber cumepak ing pangayomané $1.";
 "about-repositories-app-source-license-mit" = "Lisènsi MIT";
 "about-send-feedback" = "Kirimi pamrayoga aplikasi";
-"about-testers" = "Pandhadhar";
-"about-testers-details" = "Jaminan Kwalitèt dipriksa déning $1";
 "about-title" = "Ngenani";
 "about-translators" = "Juru pamertal";
 "about-translators-details" = "Dipertal déning sukarilawan ing $1";
@@ -204,12 +202,10 @@
 "forgot-password-instructions" = "Isi ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung sandi lumantar layang-èl";
 "forgot-password-title" = "Ambali nyetèl tembung sandi";
 "forgot-password-username-or-email-title" = "Utawa";
-"history-clear-all" = "Resiki";
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
 "history-clear-delete-all" = "Ha'a, busak kabèh";
 "history-title" = "Sajarah";
 "home-button-explore-accessibility-label" = "Wikipédia, bali ing Dlajah";
-"home-button-history-accessibility-label" = "Wikipédia, bali nyang Sajarah";
 "home-button-saved-accessibility-label" = "Wikipédia, bali menyang Kasimpen";
 "home-more-like-footer" = "Liyané kang mèmper $1";
 "home-nearby-footer" = "Panggonan liyané ing pernahé panjenengan";
@@ -246,8 +242,10 @@
 "main-menu-title" = "Liyané";
 "main-menu-zero-faq" = "Pitakon Kerep Wikipédia Zéro";
 "navbar-title-mode-edit-wikitext-preview" = "Pratuduh";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 jangkah";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-instructions" = "Panjenengan wis mlebu log mawa tembung sandi sadhéla. Saperlu ngrampungaké olèhé panjenengan mlebu log, setèlen tembung sandi anyar ing kéné.";

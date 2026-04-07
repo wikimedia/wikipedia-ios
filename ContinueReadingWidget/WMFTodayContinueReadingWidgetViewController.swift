@@ -2,6 +2,7 @@ import WMFComponents
 import NotificationCenter
 import WMF
 import WMFNativeLocalizations
+import WMFData
 
 @available(*, deprecated, message: "TODO: Rework into iOS 14 home screen widget")
 class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWidgetProviding {
@@ -139,7 +140,7 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
             self.updatePreferredContentSize()
             completion(true)
         }
-        if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
+        if let imageURL = article.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth()) {
             self.collapseImageAndWidenLabels = false
             self.imageView.wmf_imageController = dataStore.cacheController
             self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in

@@ -20,8 +20,6 @@
 "about-repositories-app-source-license" = "Kodeu sumber nyangkaruk di handapeun $1.";
 "about-repositories-app-source-license-mit" = "Lisénsi MIT";
 "about-send-feedback" = "Kirim eupan balik aplikasi";
-"about-testers" = "Panguji";
-"about-testers-details" = "Jaminan Kualitas diuji ku $1";
 "about-title" = "Ngeunaan";
 "about-translators" = "Panarjamah";
 "about-translators-details" = "Ditarjamahkeun ku rélawan di $1";
@@ -146,12 +144,10 @@
 "forgot-password-instructions" = "Eusian salah sahiji widang di handap pikeun narima instruksi panyetelan ulang kecap sandi liwa surélék";
 "forgot-password-title" = "Setél ulang kecap sandi";
 "forgot-password-username-or-email-title" = "Atawa";
-"history-clear-all" = "Bersihkeun";
 "history-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh poin kiwari anjeun?";
 "history-clear-delete-all" = "Nya, hapus sadayana";
 "history-title" = "Jujutan";
 "home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
-"home-button-history-accessibility-label" = "Wikipédia, balik deui kana Jujutan";
 "home-button-saved-accessibility-label" = "Wikipédia, balik deui ka nu Kasimpen";
 "home-more-like-footer" = "Lianna nu siga $1";
 // Fuzzy
@@ -188,8 +184,10 @@
 "main-menu-title" = "Lianna";
 "main-menu-zero-faq" = "NLD Wikipédia Zéro";
 "navbar-title-mode-edit-wikitext-preview" = "Pramidang";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-instructions" = "Anjeun asup log migunakeun sandi témporér. Pikeun nganggeuskeun asup log, anjeun kudu nyieun kecap sandi anyar di dieu.";

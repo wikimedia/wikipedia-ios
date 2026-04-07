@@ -19,8 +19,6 @@
 "about-repositories-app-source-license" = "Maale zie be la a $1.";
 "about-repositories-app-source-license-mit" = "MIT sori terebo";
 "about-send-feedback" = "Tere app noɔre yɛlɛ";
-"about-testers" = "E kaabo";
-"about-testers-details" = "QA e kaa a $1";
 "about-title" = "Aŋa";
 "about-translators" = "Leɛ leɛre ba";
 "about-translators-details" = "Noba na ŋmɛ nyaa ka ba leɛre $1";
@@ -414,12 +412,10 @@
 "forgot-password-username-or-email-title" = "Bee";
 "gan-variants-alert-body" = "\nA Wikipiideɛ app pampana sage la a Gan aŋa paramare bee Sakondare kɔkɔɛ a app, na vɛŋ ka kannoo e mɔlɔ, bɔ ane maaloo:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Leɛ e Gan sommo";
-"history-clear-all" = "Iri";
 "history-clear-confirmation-heading" = "Fo serve boɔrɔ ka fo iri fo pampana boma bare?";
 "history-clear-delete-all" = "Ooo, iri a zaa";
 "history-title" = "Yipɔge";
 "home-button-explore-accessibility-label" = "Wikipiideɛ, leɛ gaa a yɛlɛ zie";
-"home-button-history-accessibility-label" = "Wikipiideɛ, leɛ gaa yipɔge";
 "home-button-saved-accessibility-label" = "Wikipiideɛ, leɛ anaŋ fo naŋ biŋ";
 "home-more-like-footer" = "Mine aŋa $1";
 "home-nearby-footer" = "Mine naŋ peɛlefi zie";
@@ -503,8 +499,10 @@
 "more-menu" = "Mine";
 "move-articles-to-reading-list" = "Gaa {{PLURAL:$1|$1 article|$1 articles}} a kannoo gama poɔ";
 "navbar-title-mode-edit-wikitext-preview" = "Leɛ kaa";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 gbɛre";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-title" = "Maale fo gu-bie";
@@ -560,7 +558,7 @@
 "notifications-center-status-filtered-by" = "Kyoore ne";
 "notifications-center-status-in-projects" = "{{PLURAL:$1|1=In 1 project|In $1 projects}}";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 project|$1 projects}}";
-"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 type|$1 types";
+"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 type|$1 types}}";
 "notifications-center-status-read" = "Kanne";
 "notifications-center-status-triple-concatenation" = "$1 ane $2 yi $3";
 "notifications-center-status-unread" = "Ba tõɔ kanne";

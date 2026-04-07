@@ -29,8 +29,6 @@
 "about-repositories-app-source-license" = "سەرچاوەی کۆدەکان بەردەستن لەژێر $1";
 "about-repositories-app-source-license-mit" = "مۆڵەتی MIT";
 "about-send-feedback" = "ناردنی وەڵام لەسەر بەرنامەکە";
-"about-testers" = "تاقیکەرەوەکان";
-"about-testers-details" = "دڵنیاکردنەوەی کوالێتی تاقیکراوەتەوە لەلایەن $1";
 "about-title" = "سه‌باره‌ت";
 "about-translators" = "وەرگێڕەکان";
 "about-translators-details" = "وەرگێڕدراوە لەلایەن خۆ بەخشان لە $1";
@@ -234,12 +232,10 @@
 "forgot-password-instructions" = "یەکێک لەم بۆشاییانەی خوارەوە پڕ بکەرەوە بۆ ئەوەی فێرکاری گۆڕینی تێپەڕوشەکەت پێ بگات بە ئیمەیڵ.";
 "forgot-password-title" = "ڕێکخستنەوەی تێپەڕوشە";
 "forgot-password-username-or-email-title" = "یان";
-"history-clear-all" = "سڕینەوە";
 "history-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕەکانت بسڕیتەوە؟";
 "history-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
 "history-title" = "مێژوو";
 "home-button-explore-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ گەڕان";
-"home-button-history-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ مێژوو";
 "home-button-saved-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ خەزێنەکراوەکان";
 "home-more-like-footer" = "زیاتر وەک $1";
 "home-nearby-footer" = "شوێنی زیاتر لە نزیک شوێنەکەت";
@@ -299,8 +295,10 @@
 "more-languages-tooltip-description" = "بە زیاتر لە ٣٠٠ زمان بگەڕێ لە ویکیپیدیادا";
 "more-languages-tooltip-title" = "زمان زیاد بکە";
 "navbar-title-mode-edit-wikitext-preview" = "پێشبینین";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 پێ";
 "nearby-distance-label-km" = "$1 کیلۆمەتر";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 مەتر";
 "nearby-distance-label-miles" = "$1 میل";
 "new-password-instructions" = "تۆ بە تێپەڕوشەیەکی کاتیی ھاتوویتە ژوورەوە. بۆ تەواوکردنی چوونە ژوورەوە تێپەڕوشەیەکی نوێ لێرە دابنێ.";

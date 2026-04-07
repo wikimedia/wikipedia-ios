@@ -24,7 +24,6 @@
 "about-repositories-app-source-license" = "ရင်းမြစ်ကုဒ်ကို $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
 "about-repositories-app-source-license-mit" = "MIT လိုင်စင်";
 "about-send-feedback" = "app အကြံပြုချက် ပို့ရန်";
-"about-testers" = "စမ်းသပ်သူများ";
 "about-title" = "အကြောင်း";
 "about-translators" = "ဘာသာပြန်သူများ";
 "about-translators-details" = "$1 ရှိ စေတနာ့ဝန်ထမ်းများမှ ဘာသာပြန်ခဲ့သည်";
@@ -288,12 +287,10 @@
 "forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";
 "forgot-password-title" = "စကားဝှက်ကို ပြန်ချိန်ရန်";
 "forgot-password-username-or-email-title" = "သို့မဟုတ်";
-"history-clear-all" = "ရှင်းလင်း";
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
 "history-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
 "history-title" = "ရာဇဝင်";
 "home-button-explore-accessibility-label" = "ဝီကီပီးဒီးယား၊ စူးစမ်းရေးသို့ ပြန်သွားရန်";
-"home-button-history-accessibility-label" = "ဝီကီပီးဒီးယား၊ ရာဇဝင်သို့ ပြန်သွားရန်";
 "home-button-saved-accessibility-label" = "ဝီကီပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်သွားရန်";
 "home-more-like-footer" = "$1 ကဲ့သို့ နောက်ထပ််";
 "home-nearby-footer" = "သင့်တည်နေရာအနီးရှိ နေရာများပို၍";
@@ -354,8 +351,10 @@
 "more-languages-tooltip-title" = "ဘာသာစကားများ ထည့်သွင်းရန်";
 "move-articles-to-reading-list" = "စာဖတ်စာရင်းသို့ ဆောင်းပါးပေါင်း {{PLURAL:$1|$1 ခု|$1 ခု}} ရွေ့ရန်";
 "navbar-title-mode-edit-wikitext-preview" = "နမူနာ";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ပေ";
 "nearby-distance-label-km" = "$1 ကီလိုမီတာ";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 မီတာ";
 "nearby-distance-label-miles" = "$1 မိုင်";
 "new-password-instructions" = "ယာယီစကားဝှက်ဖြင့် ဝင်ထားပါသည်၊ အပြီးသတ်ရန် စကားဝှက်အသစ်တစ်ခု ဆောင်ရွက်ပါ";

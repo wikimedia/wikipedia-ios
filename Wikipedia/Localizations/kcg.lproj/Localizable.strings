@@ -16,8 +16,6 @@
 "about-repositories" = "Tswányuo";
 "about-repositories-app-source-license-mit" = "Kwambwat A̱wat MIT";
 "about-send-feedback" = "Ta̱m ma̱ng a̱di̱dam tazwa ap";
-"about-testers" = "Nkyangmai";
-"about-testers-details" = "Á̱ mak QA mbwak $1";
 "about-title" = "Tazwa";
 "about-translators" = "Á̱nietbwan";
 "about-translators-details" = "Á̱nietbeang di̱ mi̱n teang bya bwuak ma̱ $1";
@@ -303,12 +301,10 @@
 "forgot-password-username-or-email-title" = "Ku";
 "gan-variants-alert-body" = "Ap Wikipidya wu ndi̱n a̱ma zwályiat a̱lyem Gan jinii ma̱ninika nang lilyem kuntyin ku nfeang a̱ni mami ap wu, ku si̱ yet doot a kin fang, zop a̱wot a bu jhyuk ma̱ hyohyoot a̱hyoot di̱ zwályiat lan-cat ang ji:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, A̱di̱dat (gan-hans)\n贛語 繁體 Gan, Taada (gan-hant)";
 "gan-variants-alert-title" = "Á̱fai nkhang mi̱ li̱n a̱ma zwalyiat A̱lyem Gan";
-"history-clear-all" = "Kak";
 "history-clear-confirmation-heading" = "A nwuak a̱cucuk a cat ti̱n a̱mgba̱m a̱yaangga mmam nani ang baa?";
 "history-clear-delete-all" = "Ii, ti̱n a̱mgba̱m";
 "history-title" = "Nkhang gbangbang";
 "home-button-explore-accessibility-label" = "Wikipidya, bwuok a nat Kat";
-"home-button-history-accessibility-label" = "Wikipidya, bwuok a nat Nkhang gbangbang";
 "home-button-saved-accessibility-label" = "Wikipidya, bwuok a nat Nkyang na nang á̱ nsak a̱ni";
 "home-more-like-footer" = "Ku tai $1 ba̱t";
 "home-nearby-footer" = "A̱ka̱vwuo á̱ghyang kpa̱mkpaan a̱gbang ang ka";
@@ -379,8 +375,10 @@
 "more-languages-tooltip-title" = "Mbeang lilyem";
 "move-articles-to-reading-list" = "Shyei {{PLURAL:$1|a̱ti̱kut $1|a̱yaati̱kut $1}} nat mi̱ lis fang";
 "navbar-title-mode-edit-wikitext-preview" = "Nwuana̱son";
+// Fuzzy
 "nearby-distance-label-feet" = "a̱ti̱tak $1";
 "nearby-distance-label-km" = "km $1";
+// Fuzzy
 "nearby-distance-label-meters" = "m $1";
 "nearby-distance-label-miles" = "met $1";
 // Fuzzy

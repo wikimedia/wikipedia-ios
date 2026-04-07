@@ -1,6 +1,7 @@
 import WMFComponents
 import WMFData
 import WMFNativeLocalizations
+import WMFTestKitchen
 
 @objc extension WMFSettingsViewController: WMFNavigationBarConfiguring, WMFNavigationBarHiding {
 
@@ -101,8 +102,8 @@ import WMFNativeLocalizations
 }
 
 extension WMFSettingsViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: self.theme) { [weak self] in
+    func didTapLogout(authInstrument: InstrumentImpl) {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: self.theme, authInstrument: authInstrument) { [weak self] in
             self?.dataStore.authenticationManager.logout(initiatedBy: .user, completion: {
                 // no-op
             })

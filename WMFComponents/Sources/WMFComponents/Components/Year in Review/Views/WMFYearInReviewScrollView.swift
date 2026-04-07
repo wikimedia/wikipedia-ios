@@ -26,25 +26,16 @@ struct WMFYearInReviewScrollView: View {
             scrollViewContents
         }
     }
-    
-    @available(iOS 17.0, *)
+
     private var flashingScrollView: some View {
         scrollView
         .scrollIndicatorsFlash(trigger: flashScrollIndicators)
         .scrollBounceBehavior(.basedOnSize, axes: .vertical)
     }
-    
-    private var nonFlashingScrollView: some View {
-        scrollView
-    }
-    
+
     private var content: some View {
         Group {
-            if #available(iOS 17.0, *) {
-                flashingScrollView
-            } else {
-                nonFlashingScrollView
-            }
+            flashingScrollView
         }
     }
 

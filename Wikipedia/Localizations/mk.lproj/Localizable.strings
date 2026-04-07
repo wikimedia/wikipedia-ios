@@ -28,8 +28,6 @@
 "about-repositories-app-source-license" = "Изворниот код е достапен под $1.";
 "about-repositories-app-source-license-mit" = "MIT-лиценца";
 "about-send-feedback" = "Испрати мислење за прилогот";
-"about-testers" = "Испробувачи";
-"about-testers-details" = "Квалитетот е испробан од $1";
 "about-title" = "За прилогот";
 "about-translators" = "Преведувачи";
 "about-translators-details" = "Прилогов го преведоа доброволни преведувачи на $1";
@@ -85,6 +83,7 @@
 "activity-tab-add-images-subtitle" = "Додавајте предложени слики во википедиски статии за да ја подобрите претставата за содржината.";
 "activity-tab-add-images-title" = "Додај слики";
 "activity-tab-additional-thoughts" = "Имате други размисли?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 посета|$1 посети}}";
 "activity-tab-articles-read" = "Прочитани статии овој месец";
 "activity-tab-articles-read-graph-label" = "Статии";
 "activity-tab-customize-all-time-impact" = "Севкупно влијание";
@@ -105,13 +104,29 @@
 "activity-tab-empty-subtitle" = "Почнете да читате и уредувате за да ја изградите вашата историја";
 "activity-tab-empty-title" = "Нема што да се прикаже";
 "activity-tab-generic-no-edits" = "Немате уредувано неделава. Почнете сега за да ги следите вашите придонеси.";
+"activity-tab-history-callout-body" = "Прелистувајте или исчистете ја вашата историја на читање во **Јазичето за пребарување**.";
+"activity-tab-history-callout-body-loggedout" = "Прелистувајте или исчистете ја вашата историја на читање во **Јазичето за пребарување**. Не ви треба сметка.";
+"activity-tab-hitory-callout-close" = "Затвори картичка со известување за историја";
 "activity-tab-hours-minutes-read" = "$1 ч. $2 м.";
 "activity-tab-hours-on-wikipedia-ios" = "НА ВИКИПЕДИЈА iOS";
+"activity-tab-impact-all-time-title" = "Севкупно влијание";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|еден ден|$1 дена}}";
+"activity-tab-impact-best-streak-label" = "најдобра тура";
+"activity-tab-impact-edits-label" = "уредувања";
+"activity-tab-impact-last-edited-label" = "последно уредување";
+"activity-tab-impact-recent-activity-title" = "Ваша скорешна активност (изминатите 30 дена)";
+"activity-tab-impact-recent-startend-accessibility" = "Од $1 до $2";
+"activity-tab-impact-thanks-label" = "благодарници";
+"activity-tab-impact-total-edits-label" = "вкупно уредувања";
+"activity-tab-impact-views-day" = "Ден";
+"activity-tab-impact-views-title" = "Посети на статии што ги имате уредувано";
+"activity-tab-impact-views-views" = "Посети";
 "activity-tab-log-in-or-create-account" = "Најавете се или направете сметка за да гледате повеќе уредувачка и читачка активност.";
 "activity-tab-logged-out-subtitle" = "Најавете се или направете сметка за да ги гледате вашите активности на Википедииниот прилог.";
 "activity-tab-logged-out-title" = "Погледајте повеќе сознанија за читање и уредување";
 "activity-tab-logged-out-track-what-youve-read" = "Следете го она што сте го прочитале и гледајте ги вашите придонеси со текот на времето на нов начин";
 "activity-tab-menu-clear-history" = "Исчисти историја на читање";
+"activity-tab-most-viewed" = "Најпосетени од вашето уредување наваму";
 "activity-tab-neutral" = "Воздржан";
 "activity-tab-no-edits-title" = "Немате уредувано неделава. Додавајте слики за статиите да бидат полесни за разбирање.";
 "activity-tab-no-username-reading-title" = "Вашето читање";
@@ -123,9 +138,10 @@
 "activity-tab-onboarding-second-button-title" = "Дознајте повеќе за Активност";
 "activity-tab-onboarding-second-item-subtitle" = "Откријте сознанија за вашите придоенси и досегот на знаењето што сте го споделиле.";
 "activity-tab-onboarding-second-item-title" = "Најважни моменти од влијанието";
-"activity-tab-onboarding-third-item-subtitle" = "Истражете статистика за зачувани статии и други активности што ве поврзуваат подлабоко со Википедија.";
-"activity-tab-onboarding-third-item-title" = "Повеќе начини на вклучување";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Активноста опфаќа содржаен времеслед на прочитани, зачувани и уредени статии. Вашата историја на читање сега е сместена во Пребарување.";
+"activity-tab-onboarding-third-item-title-updated" = "Историјата на читање сега е во Пребарување";
 "activity-tab-read-title" = "Погл. историја на читање";
+"activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Задоволен";
 "activity-tab-saved" = "Зачувани статии овој месец";
 "activity-tab-start-editing" = "Почнете со уредување";
@@ -238,6 +254,7 @@
 "continue-button-title" = "Продолжи";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
+"contributions-this-month" = "Придонеси овој месец";
 "crimean-tatar-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на кримскотатарски како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nQırımtatarca, Latin — кримскотатарски на латиница (chr-latn)\nкъырымтатарджа, Кирил — кримскотатарски на кирилица (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Новост за поддршка на кримскотатарски варијанти";
 "customize-action-title" = "Прилагоди";
@@ -470,6 +487,8 @@
 "editor-toolbar-template-accessibility" = "Форматирање на текст на предлошка";
 "editor-wikitext-loading-accessibility" = "Се вчитува текстот во уредувачот";
 "editor-wikitext-textview-accessibility" = "Уредувач на викитекст";
+"edits-last-month" = "уредувања минатиот месец";
+"edits-this-month" = "уредувања за овој месец";
 "empty-diff-compare-title" = "Нема разлики помеѓу преработките";
 "empty-diff-single-title" = "Нема направено видливи промени";
 "empty-edit-summary" = "Празен опис на измени";
@@ -582,6 +601,7 @@
 "explore-suggested-edits-image-recs-title" = "Додај слика";
 "explore-survey-subtitle" = "Пополнете кратка анкета за тековникот „Истражи“. Вашите мислења ќе ни помогнат да го подобриме во иднина.";
 "explore-survey-title" = "Помогнете ни да го подобриме „Истражи“";
+"explore-wikipedia" = "Истражете ја Википедија";
 "export-user-data-confirmation-message" = "Споделувањето на вашата библиотека на прилози вклучува податоци за вашите Списоци на читање и историја, вашите нагодувања, и содржината на тековникот Истражи. Оваа податочна податотека треба да се споделува само со доверлив примач и да се користи за техничка дијагностика.";
 "export-user-data-confirmation-title" = "Да се сподели библиотеката на прилози?";
 "export-user-data-generic-error" = "Се јави грешка при извозот на вашите податоци. Обидете се подоцна.";
@@ -632,12 +652,10 @@
 "forgot-password-username-or-email-title" = "Или";
 "gan-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на ган како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти\n\n贛語 原文 ган (gan)\n赣语 简体 ган, упростено (gan-hans)\n贛語 繁體 ган, традиционално (gan-hant)";
 "gan-variants-alert-title" = "Новост за поддршка на варијанти на ган";
-"history-clear-all" = "Исчисти";
 "history-clear-confirmation-heading" = "Сигурни сте дека сакате да ги избришам сите скорешни ставки?";
 "history-clear-delete-all" = "Да, избриши ги сите";
 "history-title" = "Историја";
 "home-button-explore-accessibility-label" = "Википедија, назад на Истражете";
-"home-button-history-accessibility-label" = "Википедија, назад на Историја";
 "home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
 "home-more-like-footer" = "Уште статии како $1";
 "home-nearby-footer" = "Уште места во близина";
@@ -747,6 +765,7 @@
 "languages-settings-title" = "Јазици";
 "languages-title" = "Смени јазик";
 "languages-wikipedia" = "Јазици на Википедија";
+"learn-about-editing" = "Дознајте за уредувањето";
 "learn-more-title" = "Дознајте повеќе";
 "lockscreen-search-widget-description" = "Брз пристап за пребарување на Википедија од заклучен екран.";
 "logged-out-continue-without-logging-in-button-title" = "Продолжи без најава";
@@ -757,6 +776,8 @@
 "login-join-wikipedia" = "Придружете ѝ се на Википедија.";
 "login-no-account" = "Немате корисничка сметка? $1.";
 "login-title" = "Најавете се со вашата сметка";
+"looking-for-something-new" = "Барате нешто ново за читање?";
+"looks-like-you-havent-made-an-edit" = "Изгледа дека немате направено уредување овој месец. Проширете го слободното знаење уредувајќи на теми што највеќе ви значат.";
 "main-menu-about" = "За прилогот";
 "main-menu-account-login" = "Најава";
 "main-menu-account-logout" = "Одјава";
@@ -773,10 +794,10 @@
 "main-page" = "Главна страница";
 "microsite-yir-english-edits-bytes-slide-subtitle-updated" = "Во $1 г. доброволците додадоа {{PLURAL:$2|$2 бајт|$2 бајти}} на Википедија на англиски. Збирот на сета нивна заедничка работа е дар за светот кој води до веродостоен и фактографски извор на знаење кој постојано се подобрува. Сите ние имаме знаење за споделување, па затоа [дознајте како да учествувате]($3).";
 "microsite-yir-english-edits-bytes-slide-title-updated" = "{{PLURAL:$1|Додаден $1 бајт|Додадени $1 бајти}}";
-"microsite-yir-english-edits-slide-subtitle-updated" = "Доброволците направија {PLURAL:$1|$1 промена|$1 промени}} на преку {{PLURAL:$2|$2 различно јазично издание|$2 различни јазични изданија}} на Википедија. На англиската Википедија беа направени преку $3 промени. Секој час од секој ден доброволците работат на подобрување на Википедија.";
+"microsite-yir-english-edits-slide-subtitle-updated" = "Доброволците направија {{PLURAL:$1|$1 промена|$1 промени}} на преку {{PLURAL:$2|$2 различно јазично издание|$2 различни јазични изданија}} на Википедија. На англиската Википедија беа направени преку $3 промени. Секој час од секој ден доброволците работат на подобрување на Википедија.";
 "microsite-yir-english-edits-slide-title-updated" = "Годинава уредниците направија {{PLURAL:$1|$1 промена|$1 промени}}";
-"microsite-yir-english-reading-slide-subtitle-updated" = "Во $3 г. луѓето проведоа околу {{PLURAL:$1|$1 час|$1 часа}} — околу {{PLURAL:$2|$2 година|$2 години}}! — читајќи ја Википедија на англиски. Википедија ви стои на располагање кога сакате да дознавате нешта за нашиот свет што се менува, да добиете облог меѓу пријателите или да одговорите на прашање на љубипитно дете.";
 "microsite-yir-english-reading-slide-subtitle-short-updated" = "По нашата проценка, во $3 г. луѓето проведоа {{PLURAL:$1|$1 час|$1 часа}} — околу {{PLURAL:$2|$2 година|$2 години}}! — читајќи ја Википедија на англиски.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "Во $3 г. луѓето проведоа околу {{PLURAL:$1|$1 час|$1 часа}} — околу {{PLURAL:$2|$2 година|$2 години}}! — читајќи ја Википедија на англиски. Википедија ви стои на располагање кога сакате да дознавате нешта за нашиот свет што се менува, да добиете облог меѓу пријателите или да одговорите на прашање на љубипитно дете.";
 "microsite-yir-english-reading-slide-title-updated" = "Проведовме {{PLURAL:$1|$1 час|$1 часа}} читајќи";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "Активните корисници од прилогот годинава зачуваа {{PLURAL:$1|$1 статија|$1 статии}}. Ставањето на статии во списоци за читање ви овозможува пристап до статии дури и кога немате линија. Можете и да се најавите за да ги усогласите списоците за читање на повеќе уреди.";
 "microsite-yir-english-saved-reading-slide-title-updated" = "Имавме {{PLURAL:$1|$1 зачувана статија|$1 зачувани статии}}";
@@ -787,8 +808,9 @@
 "more-menu" = "Повеќе";
 "move-articles-to-reading-list" = "Преместување на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
-"nearby-distance-label-feet" = "$1 стапки";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 стапка|$1 стапки}}";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 милји";
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
@@ -845,7 +867,7 @@
 "notifications-center-mark" = "Означи";
 "notifications-center-mark-all-as-read" = "Означи ги сите како прочитани";
 "notifications-center-mark-all-as-read-confirmation-format" = "Дали сигурно сакате да {{PLURAL:$1|ја означите оваа $1 порака|ги означите сите $1 пораки}} од вашите известувања како {{PLURAL:$1|прочитана|прочитани}}? Прочитаноста ќе се одрази на сите уреди.";
-"notifications-center-mark-all-as-read-missing-number" = "Дали сигурно сакате да и означите сите пораки од вашите известувања како {{PLURAL:$1|прочитана|прочитани}}? Прочитаноста ќе се одрази на сите уреди.";
+"notifications-center-mark-all-as-read-missing-number" = "Дали сигурно сакате да и означите сите пораки од вашите известувања како прочитани? Прочитаноста ќе се одрази на сите уреди.";
 "notifications-center-mark-as-read" = "Означи како прочитано";
 "notifications-center-mark-as-unread" = "Означи како непрочитано";
 "notifications-center-more-action-accessibility-label" = "Повеќе";
@@ -938,8 +960,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "open-article" = "Отвори статија";
-"open-in-tab-tooltip-body" = "Подржете на насловот на статија или сина врска за да отворите во ново јазиче.";
-"open-in-tab-tooltip-title" = "Отвори во ново јазиче";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
 "page-history-bot-edits" = "ботовски";
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
@@ -1160,6 +1180,7 @@
 "saved-title" = "Зачувано";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Со одзачувувањето, {{PLURAL:$1|статијава ќе биде отстранета|статииве ќе бидат отстранети}} од сите поврзани списоци за читање";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Да {{PLURAL:$1|ја одзачувам статијата|ги одзачувам статиите}}?";
+"search-button-accessibility-hint" = "Преоѓа на погледот за пребарување.";
 "search-button-accessibility-label" = "Пребарај ја Википедија";
 "search-clear-title" = "Исчисти";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
@@ -1254,8 +1275,6 @@
 "tabs-main-page-subtitle" = "Дневни истакнувања на Википедија";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 јазиче|$1 јазичиња}}";
 "tabs-open-tab" = "Отвори јазиче";
-"tabs-overview-tooltip-body" = "Префрлање помеѓу отворени статии во прегледот на јазичињата.";
-"tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-show-suggested-articles" = "Прикажи предложени статии";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Предлозите сега се скриени";
 "tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата. Дали сте задоволни од оваа функција?";
@@ -1359,6 +1378,8 @@
 "theme-default-explanation" = "Одговара на системскиот изглед";
 "theme-light-display-name" = "Светол";
 "theme-sepia-display-name" = "Сипа";
+"tip-history-in-search-subtitle" = "Најдете ја вашата историја на читање во јазичето „Пребарај“";
+"tip-history-in-search-title" = "Историјата е преместена во Пребарај";
 "today-title" = "Денес";
 "top-read-widget-description" = "Дознајте што чита светот денес на Википедија.";
 "top-read-widget-readers-count" = "$1 читатели";
@@ -1384,6 +1405,7 @@
 "vanish-account-warning-title" = "Предупредување";
 "variants-alert-dismiss-button" = "Не, благодарам";
 "variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
+"view-changes" = "Погл. промени";
 "watch" = "Набљудувај";
 "watchlist" = "Набљудувања";
 "watchlist-added-toast-one-month" = "Додадено во вашите набљудувани 1 месец.";
@@ -1511,8 +1533,8 @@
 "year-in-review-contributor-gift-subtitle" = "Ако не го вклучите сега, можете да дојдете до него подоцна во Нагодувањата под „Изглед“";
 "year-in-review-contributor-gift-title" = "Активирај нова икона за прилог";
 "year-in-review-contributor-slide-subtitle-donor-updated" = "Ви благодариме што вложувате во иднината на слободното знаење.\n\nВашите придонеси како дарител во $1 г. ни помагаат да го отвориме патот кон  свет на слободни информации. Поради придонесите, отклучивте прилагодлива учесничка икона за Википедија на вашиот почетен екран.";
-"year-in-review-contributor-slide-subtitle-editor-updated" = "Ви благодариме што вложувате во иднината на слободното знаење.\n\nВашите придонеси како уредник во $1 г. ни помагаат да го отвориме патот кон  свет на слободни информации. Поради придонесите, отклучивте прилагодлива учесничка икона за Википедија на вашиот почетен екран.";
 "year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "Ви благодариме што вложувате во иднината на слободното знаење.\n\nВашите придонеси како дарител и уредник во $1 г. ни помагаат да го отвориме патот кон  свет на слободни информации. Поради придонесите, отклучивте прилагодлива учесничка икона за Википедија на вашиот почетен екран.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "Ви благодариме што вложувате во иднината на слободното знаење.\n\nВашите придонеси како уредник во $1 г. ни помагаат да го отвориме патот кон  свет на слободни информации. Поради придонесите, отклучивте прилагодлива учесничка икона за Википедија на вашиот почетен екран.";
 "year-in-review-contributor-slide-title" = "Отклучена нова икона на прилог за вашиот почетен екран";
 "year-in-review-day-friday" = "петок";
 "year-in-review-day-monday" = "понеделник";
@@ -1598,3 +1620,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Лого W на Википедија";
 "year-in-review-wmf-logo-accessibility-label" = "Лого на Фондацијата Викимедија";
 "yesterday-title" = "Вчера";
+"zero-edits-to-articles" = "0 уредувања на статии во последно време";

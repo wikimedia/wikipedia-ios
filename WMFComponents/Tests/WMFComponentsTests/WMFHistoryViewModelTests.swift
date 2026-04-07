@@ -48,7 +48,8 @@ final class WMFHistoryViewModelTests: XCTestCase {
         saveForLaterActionTitle: "Save for Later",
         unsaveActionTitle: "Unsave",
         shareActionTitle: "Share",
-        deleteSwipeActionLabel: "Delete"
+        deleteSwipeActionLabel: "Delete",
+        historyHeaderTitle: "History"
     )
 
     func createViewModel(with controller: WMFHistoryDataControllerProtocol) -> WMFHistoryViewModel {

@@ -21,8 +21,6 @@
 "about-repositories-app-source-license" = "Kode wit kasedia ring sor $1.";
 "about-repositories-app-source-license-mit" = "Lisénsi MIT";
 "about-send-feedback" = "Kirim umpan walik aplikasi";
-"about-testers" = "Panguji";
-"about-testers-details" = "Jaminan Kualitas kauji olih $1";
 "about-title" = "Indik";
 "about-translators" = "Pangalih basa";
 "about-translators-details" = "Kaalih basa olih pangayah ring";
@@ -300,7 +298,6 @@
 "forgot-password-button-title" = "Jumu";
 "forgot-password-title" = "Jumu kruna sandi";
 "forgot-password-username-or-email-title" = "Utawi";
-"history-clear-all" = "Resikin";
 "history-clear-delete-all" = "Nggih, apus makasami";
 "history-title" = "Lelintihan";
 "home-more-like-footer" = "Liyanan sekadi $1";
@@ -363,6 +360,7 @@
 "move-articles-to-reading-list" = "Gingsirang {{PLURAL:$1|$1 suratan}} nuju lis wacénan";
 "navbar-title-mode-edit-wikitext-preview" = "Pracingak";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-title" = "Atur kruna sandi Ida";

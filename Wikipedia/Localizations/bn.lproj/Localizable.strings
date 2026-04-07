@@ -41,8 +41,6 @@
 "about-repositories-app-source-license" = "উৎস কোড $1-এর অধীনে উপলব্ধ।";
 "about-repositories-app-source-license-mit" = "এমআইটি লাইসেন্স";
 "about-send-feedback" = "অ্যাপ সম্পর্কে প্রতিক্রিয়া জানান";
-"about-testers" = "পরীক্ষকগণ";
-"about-testers-details" = "$1 দ্বারা QA পরীক্ষিত";
 "about-title" = "পরিচিতি";
 "about-translators" = "অনুবাদকগণ";
 "about-translators-details" = "$1 -এ স্বেচ্ছাসেবকদের দ্বারা অনূদিত";
@@ -204,12 +202,10 @@
 "forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
 "forgot-password-username-or-email-title" = "অথবা";
-"history-clear-all" = "পরিষ্কার করুন";
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
 "history-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
 "history-title" = "ইতিহাস";
 "home-button-explore-accessibility-label" = "উইকিপিডিয়া, অন্বেষণে ফেরত যান";
-"home-button-history-accessibility-label" = "উইকিপিডিয়া, ইতিহাসে ফেরত যান";
 "home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি আরও স্থান";
@@ -254,8 +250,10 @@
 "more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "more-menu" = "আরও";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 ফুট";
 "nearby-distance-label-km" = "$1 কিমি";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 মিটার";
 "nearby-distance-label-miles" = "$1 মাইল";
 "new-password-instructions" = "আপনি সাময়িক পাসওয়ার্ড দিয়ে প্রবেশ করেছেন। প্রবেশ সম্পূর্ণ করতে এখানে একটি নতুন পাসওয়ার্ড নির্ধারণ করুন।";
@@ -452,6 +450,8 @@
 "wikitext-upload-save" = "প্রকাশ করা হচ্ছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
+// Fuzzy
+"year-in-review-base-reading-title-updated" = "পড়া আমাদের একত্রিত করেছে";
 "year-in-review-day-friday" = "শুক্রবার";
 "year-in-review-day-monday" = "সোমবার";
 "year-in-review-day-saturday" = "শনিবার";
@@ -462,5 +462,7 @@
 "year-in-review-donate" = "অনুদান";
 // Fuzzy
 "year-in-review-feature-announcement-title" = "আপনার উইকিপিডিয়া বছরের পর্যালোচনা দেখুন";
+// Fuzzy
+"year-in-review-feature-explore-body-personalized-updated" = "উইকিপিডিয়া অ্যাপে আপনি কোন নিবন্ধগুলি পড়েন এবং যে সম্পাদনাগুলি করেছেন সে সম্পর্কে অন্তর্দৃষ্টি দেখুন। আপনার যাত্রা ভাগ করে নিন এবং আবিষ্কার করুন যে এই বছর আপনার জন্য কী আলাদা ছিল। আপনার পড়ার ইতিহাস গোপন রাখা হয়েছে। আপনার ডিভাইসে স্থানীয়ভাবে সংরক্ষিত ডেটা ব্যবহার করে পঠন অন্তর্দৃষ্টি গণনা করা হয়।";
 "year-in-review-time-evening" = "সন্ধ্যা";
 "year-in-review-time-morning" = "সকাল";

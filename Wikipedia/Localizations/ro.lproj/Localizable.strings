@@ -37,8 +37,6 @@
 "about-repositories-app-source-license" = "Codul sursă este disponibil sub $1.";
 "about-repositories-app-source-license-mit" = "licența MIT";
 "about-send-feedback" = "Trimiteți o părere despre aplicație";
-"about-testers" = "Testeri";
-"about-testers-details" = "QA testată de $1";
 "about-title" = "Despre";
 "about-translators" = "Traducători";
 "about-translators-details" = "Tradusă de traducătorii voluntari de la $1";
@@ -396,12 +394,10 @@
 "forgot-password-username-or-email-title" = "Sau";
 "gan-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante Gan ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplificat (gan-hans)\n贛語 繁體 Gan, Tradiţional (gan-hant)";
 "gan-variants-alert-title" = "Actualizări ale suportului pentru varianta Gan";
-"history-clear-all" = "Curăță";
 "history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
 "history-clear-delete-all" = "Da, șterge tot";
 "history-title" = "Istoric";
 "home-button-explore-accessibility-label" = "Wikipedia, reveniți la Explore";
-"home-button-history-accessibility-label" = "Wikipedia, reveniți la Istorie";
 "home-button-saved-accessibility-label" = "Wikipedia, reveniți la Salvat";
 "home-more-like-footer" = "Mai multe precum $1";
 "home-nearby-footer" = "Mai multe articole din aproMai multe locuri lângă locația dvs.pierea dumneavoastră";
@@ -480,8 +476,10 @@
 "more-menu" = "Mai mult";
 "move-articles-to-reading-list" = "Mută {{PLURAL:$1|$1 articol|$1 articole}} la lista de citit";
 "navbar-title-mode-edit-wikitext-preview" = "Previzualizare";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 picioare";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 metri";
 "nearby-distance-label-miles" = "$1 mile";
 "new-password-instructions" = "Sunteți autentificat cu o parolă temporară. Pentru a termina autentificarea, setați o parolă nouă aici.";
@@ -1006,3 +1004,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Modificările vor fi atribuite adresei IP a dispozitivului. Dacă vă autentificați $1Log in$2, veți avea mai multă confidențialitate.";
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";
+"year-in-review-donate-now" = "Donați acum";

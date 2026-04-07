@@ -11,6 +11,7 @@ public struct HtmlUtils {
         let boldFont: UIFont
         let italicsFont: UIFont
         let boldItalicsFont: UIFont
+        let linkFont: UIFont?
         let color: UIColor
         let linkColor: UIColor?
         let strongColor: UIColor?
@@ -18,11 +19,12 @@ public struct HtmlUtils {
         let listIndent: String
         let lineBreakMode: NSLineBreakMode
 
-        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor?, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent, lineBreakMode: NSLineBreakMode = .byWordWrapping) {
+        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, linkFont: UIFont? = nil, color: UIColor, linkColor: UIColor?, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent, lineBreakMode: NSLineBreakMode = .byWordWrapping) {
             self.font = font
             self.boldFont = boldFont
             self.italicsFont = italicsFont
             self.boldItalicsFont = boldItalicsFont
+            self.linkFont = linkFont
             self.color = color
             self.linkColor = linkColor
             self.strongColor = strongColor
@@ -167,6 +169,9 @@ public struct HtmlUtils {
                 
                 nsAttributedString.addAttribute(.foregroundColor, value: linkColor, range: linkRange)
                 nsAttributedString.addAttribute(.link, value: url, range: linkRange)
+                if let linkFont = styles.linkFont {
+                    nsAttributedString.addAttribute(.font, value: linkFont, range: linkRange)
+                }
             }
         }
         
@@ -318,6 +323,9 @@ public struct HtmlUtils {
                 if let linkRange = Range(linkNSRange, in: attributedString) {
                     attributedString[linkRange].foregroundColor = linkColor
                     attributedString[linkRange].link = URL(string:hrefString)
+                    if let linkFont = styles.linkFont {
+                        attributedString[linkRange].font = linkFont
+                    }
                 }
             }
         }

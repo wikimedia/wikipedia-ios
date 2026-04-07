@@ -10,7 +10,6 @@
 "about-contributors" = "Kontribuesit";
 "about-libraries-complete-list" = "Lista e plotë";
 "about-libraries-license" = "Licensa";
-"about-testers" = "Testuesit";
 "about-title" = "Rreth";
 "about-translators" = "Përkthyesit";
 "about-translators-details" = "Përkthyer nga vullnetarët në $1";
@@ -41,7 +40,6 @@
 "explore-nearby-sub-heading-your-location" = "Vendndodhja juaj";
 "explore-potd-heading" = "Fotografia e ditës";
 "explore-random-article-heading" = "Artikull i rastit";
-"history-clear-all" = "Pastro";
 // Fuzzy
 "history-clear-confirmation-heading" = "Fshini të gjithë artikujt e fundit?";
 // Fuzzy
@@ -64,8 +62,10 @@
 "main-menu-title" = "Më tepër...";
 "main-menu-zero-faq" = "Pyetje dhe përgjigje për Wikipedia Zero";
 "navbar-title-mode-edit-wikitext-preview" = "Parapamje";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 feet (1 feet = 0.3048 m)";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milje (1 milje = 1.60934 km)";
 // Fuzzy

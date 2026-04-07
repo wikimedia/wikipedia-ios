@@ -31,8 +31,6 @@
 "about-repositories-app-source-license" = "Código fonte dispoñible baixo a $1.";
 "about-repositories-app-source-license-mit" = "Licenza MIT";
 "about-send-feedback" = "Enviar comentarios sobre a aplicación";
-"about-testers" = "Probadores";
-"about-testers-details" = "QA probada por $1";
 "about-title" = "Acerca de";
 "about-translators" = "Tradutores";
 "about-translators-details" = "Esta aplicación foi traducida polos tradutores voluntarios en $1";
@@ -325,12 +323,10 @@
 "forgot-password-instructions" = "Encha un dos campos de abaixo para recibir as instrucións de reinicialización";
 "forgot-password-title" = "Restablecer o contrasinal";
 "forgot-password-username-or-email-title" = "Ou";
-"history-clear-all" = "Limpar";
 "history-clear-confirmation-heading" = "Está seguro de que quere borrar todos os seus elementos recentes?";
 "history-clear-delete-all" = "Si, borrar todo";
 "history-title" = "Historial";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
-"home-button-history-accessibility-label" = "Wikipedia, volver a Historico";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Gardado";
 "home-more-like-footer" = "Máis coma $1";
 "home-nearby-footer" = "Máis lugares próximos á súa localización";
@@ -362,7 +358,7 @@
 "insert-media-image-position-setting-right" = "Dereita";
 "insert-media-image-position-settings-title" = "Posición da imaxe";
 "insert-media-image-preview-more-information-action-title" = "Máis información";
-"insert-media-image-preview-select-image-action-title" = "Seleccionar imaxe";
+"insert-media-image-preview-select-image-action-title" = "Seleccionar unha imaxe";
 "insert-media-image-size-setting-custom" = "Personalizado";
 "insert-media-image-size-setting-default" = "Por defecto";
 "insert-media-image-size-settings-px-unit-name" = "px";
@@ -401,8 +397,9 @@
 "more-languages-tooltip-title" = "Engadir linguas";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artigo|$1 artigos}} á lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
-"nearby-distance-label-feet" = "$1 pés";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 pé|$1 pés}}";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-instructions" = "Conectouse cun contrasinal temporal. Para rematar a conexión, escolla un novo contrasinal aquí.";

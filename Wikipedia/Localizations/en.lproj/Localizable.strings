@@ -14,8 +14,6 @@
 "about-repositories-app-source-license" = "Source code available under the $1.";
 "about-repositories-app-source-license-mit" = "MIT License";
 "about-send-feedback" = "Send app feedback";
-"about-testers" = "Testers";
-"about-testers-details" = "QA tested by $1";
 "about-title" = "About";
 "about-translators" = "Translators";
 "about-translators-details" = "Translated by volunteers at $1";
@@ -71,6 +69,7 @@
 "activity-tab-add-images-subtitle" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "activity-tab-add-images-title" = "Add images";
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
+"activity-tab-amount-article-views" = "{{PLURAL:$1|$1 view|$1 views}}";
 "activity-tab-articles-read" = "Articles read this month";
 "activity-tab-articles-read-graph-label" = "Articles";
 "activity-tab-customize-all-time-impact" = "All time impact";
@@ -91,13 +90,29 @@
 "activity-tab-empty-subtitle" = "Start reading and editing to build your history";
 "activity-tab-empty-title" = "Nothing to show";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
+"activity-tab-history-callout-body" = "Browse or clear your reading history in the **Search tab**.";
+"activity-tab-history-callout-body-loggedout" = "Find and clear your reading history in the **Search tab**. No account needed.";
+"activity-tab-hitory-callout-close" = "Close history notice card";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
+"activity-tab-impact-all-time-title" = "All time impact";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 day|$1 days}}";
+"activity-tab-impact-best-streak-label" = "best streak";
+"activity-tab-impact-edits-label" = "edits";
+"activity-tab-impact-last-edited-label" = "last edited";
+"activity-tab-impact-recent-activity-title" = "Your recent activity (last 30 days)";
+"activity-tab-impact-recent-startend-accessibility" = "From $1 to $2";
+"activity-tab-impact-thanks-label" = "thanks";
+"activity-tab-impact-total-edits-label" = "total edits";
+"activity-tab-impact-views-day" = "Day";
+"activity-tab-impact-views-title" = "Views on articles you’ve edited";
+"activity-tab-impact-views-views" = "Views";
 "activity-tab-log-in-or-create-account" = "Log in or create an account to see more editing and reading activity.";
 "activity-tab-logged-out-subtitle" = "Log in or create an account to view your activity on the Wikipedia app.";
 "activity-tab-logged-out-title" = "See more reading and editing insights";
 "activity-tab-logged-out-track-what-youve-read" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-menu-clear-history" = "Clear reading history";
+"activity-tab-most-viewed" = "Most viewed since your edit";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-no-username-reading-title" = "Your reading";
@@ -109,8 +124,8 @@
 "activity-tab-onboarding-second-button-title" = "Learn more about Activity";
 "activity-tab-onboarding-second-item-subtitle" = "Discover insights about your contributions and the reach of the knowledge you've shared.";
 "activity-tab-onboarding-second-item-title" = "Impact highlights";
-"activity-tab-onboarding-third-item-subtitle" = "Explore stats for saved articles and other activities that connect you more deeply with Wikipedia.";
-"activity-tab-onboarding-third-item-title" = "More ways to engage";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Activity includes a comprehensive timeline of articles read, saved, and edited. Your reading history is now within the Search tab.";
+"activity-tab-onboarding-third-item-title-updated" = "Reading history is now in Search";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Satisfied";
@@ -225,6 +240,7 @@
 "continue-button-title" = "Continue";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"contributions-this-month" = "Contributions this month";
 "crimean-tatar-variants-alert-body" = "The Wikipedia app now supports the following Crimean Tatar variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Updates to Crimean Tatar variant support";
 "customize-action-title" = "Customize";
@@ -457,6 +473,8 @@
 "editor-toolbar-template-accessibility" = "Template text formatting";
 "editor-wikitext-loading-accessibility" = "Loading editor text";
 "editor-wikitext-textview-accessibility" = "Wiki text editor";
+"edits-last-month" = "edits last month";
+"edits-this-month" = "edits this month";
 "empty-diff-compare-title" = "No differences between revisions";
 "empty-diff-single-title" = "No viewable changes made";
 "empty-edit-summary" = "Empty edit summary";
@@ -570,6 +588,7 @@
 "explore-suggested-edits-image-recs-title" = "Add an image";
 "explore-survey-subtitle" = "Please take a short survey about the Explore feed. Your feedback will help shape upcoming app improvements.";
 "explore-survey-title" = "Help us improve Explore";
+"explore-wikipedia" = "Explore Wikipedia";
 "export-user-data-confirmation-message" = "Sharing your app library includes data about your Reading lists and history, preferences, and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.";
 "export-user-data-confirmation-title" = "Share app library?";
 "export-user-data-generic-error" = "There was an error while exporting your data. Please try again later.";
@@ -620,12 +639,10 @@
 "forgot-password-username-or-email-title" = "Or";
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Updates to Gan variant support";
-"history-clear-all" = "Clear";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-delete-all" = "Yes, delete all";
 "history-title" = "History";
 "home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
-"home-button-history-accessibility-label" = "Wikipedia, return to History";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More places near your location";
@@ -735,6 +752,7 @@
 "languages-settings-title" = "Languages";
 "languages-title" = "Change language";
 "languages-wikipedia" = "Wikipedia languages";
+"learn-about-editing" = "Learn about editing";
 "learn-more-title" = "Learn more";
 "lockscreen-search-widget-description" = "Quick access to search Wikipedia from your lock screen.";
 "logged-out-continue-without-logging-in-button-title" = "Continue without logging in";
@@ -745,6 +763,8 @@
 "login-join-wikipedia" = "Join Wikipedia.";
 "login-no-account" = "Don't have an account? $1";
 "login-title" = "Log in to your account";
+"looking-for-something-new" = "Looking for something new to read?";
+"looks-like-you-havent-made-an-edit" = "Looks like you haven't made an edit this month. Extend free knowledge by editing topics that matter most to you.";
 "main-menu-about" = "About the app";
 "main-menu-account-login" = "Log in";
 "main-menu-account-logout" = "Log out";
@@ -775,9 +795,9 @@
 "more-menu" = "More";
 "move-articles-to-reading-list" = "Move {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
-"nearby-distance-label-feet" = "$1 feet";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 foot|$1 feet}}";
 "nearby-distance-label-km" = "$1 km";
-"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 meter|$1 meters}}";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
@@ -926,8 +946,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
 "open-article" = "Open article";
-"open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
-"open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
@@ -1148,6 +1166,7 @@
 "saved-title" = "Saved";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
+"search-button-accessibility-hint" = "Navigates to the search view.";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
 "search-field-placeholder-text" = "Search Wikipedia";
@@ -1246,8 +1265,6 @@
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
 "tabs-open-tab" = "Open tab";
-"tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
-"tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-show-suggested-articles" = "Show article suggestions";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Suggestions are now hidden";
 "tabs-survey-title" = "Help improve tabs. Are you satisfied with this feature?";
@@ -1351,6 +1368,8 @@
 "theme-default-explanation" = "Matches system theme";
 "theme-light-display-name" = "Light";
 "theme-sepia-display-name" = "Sepia";
+"tip-history-in-search-subtitle" = "Find your reading history in the Search tab.";
+"tip-history-in-search-title" = "History moved to Search";
 "today-title" = "Today";
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";
@@ -1376,6 +1395,7 @@
 "vanish-account-warning-title" = "Warning";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
+"view-changes" = "View changes";
 "watch" = "Watch";
 "watchlist" = "Watchlist";
 "watchlist-added-toast-one-month" = "Added to your Watchlist for 1 month.";
@@ -1590,3 +1610,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";
 "yesterday-title" = "Yesterday";
+"zero-edits-to-articles" = "0 edits to articles recently";

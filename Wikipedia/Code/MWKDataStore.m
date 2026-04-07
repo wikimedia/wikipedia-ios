@@ -200,42 +200,46 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 }
 
 - (void)setupCoreDataStackWithContainerURL:(NSURL *)containerURL completion:(nullable dispatch_block_t)completion {
-    NSString *modelName = @"Wikipedia";
-    NSURL *modelURL = [[NSBundle wmf] URLForResource:modelName withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    NSString *coreDataDBName = @"Wikipedia.sqlite";
+    // Move heavy model loading and migration to background queue
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSString *modelName = @"Wikipedia";
+        NSURL *modelURL = [[NSBundle wmf] URLForResource:modelName withExtension:@"momd"];
+        NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        NSString *coreDataDBName = @"Wikipedia.sqlite";
 
-    NSPersistentContainer *container = [[NSPersistentContainer alloc] initWithName:modelName managedObjectModel:model];
-    NSURL *coreDataDBURL = [containerURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
-    NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:coreDataDBURL];
-    [description setOption:@YES forKey:NSMigratePersistentStoresAutomaticallyOption];
-    [description setOption:@YES forKey:NSInferMappingModelAutomaticallyOption];
-    description.shouldAddStoreAsynchronously = YES;
-    container.persistentStoreDescriptions = @[description];
+        NSPersistentContainer *container = [[NSPersistentContainer alloc] initWithName:modelName managedObjectModel:model];
+        NSURL *coreDataDBURL = [containerURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
+        NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:coreDataDBURL];
+        [description setOption:@YES forKey:NSMigratePersistentStoresAutomaticallyOption];
+        [description setOption:@YES forKey:NSInferMappingModelAutomaticallyOption];
+        description.shouldAddStoreAsynchronously = YES;
+        container.persistentStoreDescriptions = @[description];
 
-    [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *_Nonnull description, NSError *_Nullable error) {
-        if (error) {
-            // TODO: Metrics
-            DDLogError(@"Error adding persistent store: %@", error);
-            if (completion) {
-                completion();
+        [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *_Nonnull description, NSError *_Nullable error) {
+            if (error) {
+                DDLogError(@"Error adding persistent store: %@", error);
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
+                }
+                return;
             }
-            return;
-        }
 
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            self.persistentContainer = container;
-            self.viewContext = container.viewContext;
-            self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-            self.viewContext.automaticallyMergesChangesFromParent = YES;
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                self.persistentContainer = container;
+                self.viewContext = container.viewContext;
+                self.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+                self.viewContext.automaticallyMergesChangesFromParent = YES;
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.viewContext];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.viewContext];
 
-            if (completion) {
-                completion();
-            }
-        });
-    }];
+                if (completion) {
+                    completion();
+                }
+            });
+        }];
+    });
 }
 
 - (void)viewContextDidChange:(NSNotification *)note {
@@ -941,6 +945,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
 #if DEBUG
 - (NSManagedObjectContext *)viewContext {
+    NSAssert(_viewContext != nil, @"⚠️ viewContext accessed before Core Data setup completed!");
     NSAssert([NSThread isMainThread], @"View context must only be accessed on the main thread");
     return _viewContext;
 }

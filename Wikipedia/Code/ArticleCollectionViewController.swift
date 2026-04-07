@@ -1,5 +1,6 @@
 import UIKit
 import WMFNativeLocalizations
+import WMFData
 
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, MEPEventsProviding, CollectionViewContextMenuShowing {
@@ -43,7 +44,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         guard let article = article(at: indexPath) else {
             return nil
         }
-        return article.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth)
+        return article.imageURL(forWidth: ImageUtils.nearbyThumbnailWidth())
     }
     
     override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {

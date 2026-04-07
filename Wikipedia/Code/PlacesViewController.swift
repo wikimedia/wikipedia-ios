@@ -2,6 +2,7 @@ import WMFComponents
 import WMFData
 import WMF
 import CocoaLumberjackSwift
+import WMFTestKitchen
 import MapKit
 import WMFNativeLocalizations
 
@@ -238,7 +239,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
         locationManager.stopMonitoringLocation()
-        mapView.showsUserLocation = false
+        mapView?.showsUserLocation = false
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -2590,9 +2591,9 @@ extension PlacesViewController: UISearchResultsUpdating {
 }
 
 extension PlacesViewController: LogoutCoordinatorDelegate {
-    func didTapLogout() {
-        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
-            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+    func didTapLogout(authInstrument: InstrumentImpl) {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
         }
     }
 }

@@ -32,8 +32,6 @@
 "about-repositories-app-source-license" = "Fontokodo disponeblas laŭ la $1.";
 "about-repositories-app-source-license-mit" = "MIT-permesilo";
 "about-send-feedback" = "Sendi rimarkojn pri la aplikaĵo";
-"about-testers" = "Provantoj";
-"about-testers-details" = "Kvalito testita de $1";
 "about-title" = "Pri";
 "about-translators" = "Tradukantoj";
 "about-translators-details" = "Tradukita de volontuloj ĉe $1";
@@ -323,12 +321,10 @@
 "forgot-password-instructions" = "Plenigu unu el la kampoj ĉi-sube por ricevi instrukcioj pri restarigo de pasvorto per retpoŝto";
 "forgot-password-title" = "Restarigi pasvorton";
 "forgot-password-username-or-email-title" = "Aŭ";
-"history-clear-all" = "Malplenigi";
 "history-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn lastajn erojn?";
 "history-clear-delete-all" = "Jes, forigi ĉion";
 "history-title" = "Historio";
 "home-button-explore-accessibility-label" = "Vikipedio, reveni al Esplorado";
-"home-button-history-accessibility-label" = "Vikipedio, reveni al Historio";
 "home-button-saved-accessibility-label" = "Vikipedio, reveni al Konservitaj";
 "home-more-like-footer" = "Pliaj kiel $1";
 "home-nearby-footer" = "Pli da lokoj proksime al via loko";
@@ -403,8 +399,10 @@
 "more-languages-tooltip-title" = "Aldoni lingvojn";
 "move-articles-to-reading-list" = "Movi {{PLURAL:$1|$1 artikolon|$1 artikolojn}} al legolisto";
 "navbar-title-mode-edit-wikitext-preview" = "Antaŭrigardi";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 futoj";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mejloj";
 "new-password-instructions" = "Vi ensalutis per provizora pasvorto. Por fini vian ensalutadon, agordu novan pasvorton ĉi tie.";

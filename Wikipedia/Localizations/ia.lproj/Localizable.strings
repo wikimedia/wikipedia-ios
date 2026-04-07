@@ -20,8 +20,6 @@
 "about-repositories-app-source-license" = "Codice fonte disponibile sub le $1.";
 "about-repositories-app-source-license-mit" = "Licentia MIT";
 "about-send-feedback" = "Inviar commentario sur le app";
-"about-testers" = "Probatores";
-"about-testers-details" = "Qualitate assecurate per $1";
 "about-title" = "A proposito";
 "about-translators" = "Traductores";
 "about-translators-details" = "Traducite per voluntarios de $1";
@@ -77,13 +75,47 @@
 "activity-tab-add-images-subtitle" = "Adder imagines suggerite a articulos de Wikipedia pro meliorar le comprension.";
 "activity-tab-add-images-title" = "Adder imagines";
 "activity-tab-additional-thoughts" = "Altere commentos?";
+"activity-tab-amount-article-views" = "$1 visita{{PLURAL:$1||s}}";
 "activity-tab-articles-read" = "Articulos legite iste mense";
 "activity-tab-articles-read-graph-label" = "Articulos";
+"activity-tab-customize-all-time-impact" = "Impacto total";
+"activity-tab-customize-editing-insights" = "Analyticas de modification";
+"activity-tab-customize-empty-state" = "Le modulos de activitate es disactivate. $1Activa los$2 pro vider actualisationes in iste scheda.";
+"activity-tab-customize-footer" = "Le analyticas de lectura es basate sur le linguas del app fixate in le parametros. Le analyticas de modification es limitate al lingua primari de tu app. Le analyticas utilisa datos local, con exception del modificationes, le quales es public.";
+"activity-tab-customize-last-in-app-donation" = "Ultime donation in app";
+"activity-tab-customize-logout-warning" = "Es necessari aperir session pro activar iste analyse de activitate.";
+"activity-tab-customize-reading-insights" = "Analyticas de lectura";
+"activity-tab-customize-time-spent-reading" = "Tempore passate a leger";
+"activity-tab-customize-timeline-of-behavior" = "Chronologia de comportamento";
+"activity-tab-email-fifth-line" = "[Capturas de schermo o ligamines]";
+"activity-tab-email-first-line" = "Io ha incontrate un problema con le function Scheda de activitate:";
+"activity-tab-email-fourth-line" = "[Describe le comportamento desirate]";
+"activity-tab-email-second-line" = "- [Describe le problema specific]";
+"activity-tab-email-third-line" = "Le comportamento que io vole vider es:";
+"activity-tab-email-title" = "Reporto de problema: scheda Activitate";
+"activity-tab-empty-subtitle" = "Comencia a leger e modificar pro accumular tu historia";
+"activity-tab-empty-title" = "Nihil a monstrar";
 "activity-tab-generic-no-edits" = "Tu non ha apportate alcun modification iste septimana. Comencia a modificar ora pro traciar tu contributiones.";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "SUR WIKIPEDIA iOS";
+"activity-tab-impact-all-time-title" = "Impacto total";
+"activity-tab-impact-best-streak-format" = "{{PLURAL:$1|$1 die|$1 dies}}";
+"activity-tab-impact-best-streak-label" = "melior serie";
+"activity-tab-impact-edits-label" = "modificationes";
+"activity-tab-impact-last-edited-label" = "ultime modification";
+"activity-tab-impact-recent-activity-title" = "Tu activitate recente (ultime 30 dies)";
+"activity-tab-impact-recent-startend-accessibility" = "Del $1 al $2";
+"activity-tab-impact-thanks-label" = "gratias";
+"activity-tab-impact-total-edits-label" = "total de modificationes";
+"activity-tab-impact-views-day" = "Die";
+"activity-tab-impact-views-title" = "Visitas de articulos que tu ha modificate";
+"activity-tab-impact-views-views" = "Visitas";
+"activity-tab-log-in-or-create-account" = "Aperi session o crea un conto pro vider plus activitates de modification e de lectura.";
 "activity-tab-logged-out-subtitle" = "Aperi session o crea un conto pro vider tu activitate sur le app Wikipedia.";
 "activity-tab-logged-out-title" = "Vider plus analyses de lectura e modification";
+"activity-tab-logged-out-track-what-youve-read" = "Tracia lo que tu ha legite e vide tu contributiones in le curso del tempore de un nove maniera";
+"activity-tab-menu-clear-history" = "Rader le historia de lectura";
+"activity-tab-most-viewed" = "Le plus visitate post tu modification";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-title" = "Tu non ha apportate alcun modification iste septimana. Adde imagines pro meliorar le comprehensibilitate de articulos.";
 "activity-tab-no-username-reading-title" = "Tu lectura";
@@ -95,16 +127,18 @@
 "activity-tab-onboarding-second-button-title" = "Leger plus sur Activitate";
 "activity-tab-onboarding-second-item-subtitle" = "Discoperi le analyses de tu contributiones e le portata del cognoscentia que tu ha condividite.";
 "activity-tab-onboarding-second-item-title" = "Impacto principal";
-"activity-tab-onboarding-third-item-subtitle" = "Explora statisticas de articulos salveguardate e altere activitates que approfunda tu connexion con Wikipedia.";
-"activity-tab-onboarding-third-item-title" = "Plus manieras de ingagiar se";
+"activity-tab-onboarding-third-item-subtitle-updated" = "Le scheda Activitate contine un chronologia comprehensive de articulos legite, salveguardate e modificate. Tu historia de lectura se trova ora in le scheda Cercar.";
+"activity-tab-onboarding-third-item-title-updated" = "Le historia de lectura es ora in Cercar";
 "activity-tab-read-title" = "Vider historia de lectura";
 "activity-tab-satisfied" = "Satisfacite";
 "activity-tab-saved" = "Articulos salveguardate iste mense";
 "activity-tab-start-editing" = "Comenciar a modificar";
+"activity-tab-survey-subtitle" = "Adjuta a meliorar Activitate. Es tu satisfacite de iste function?";
 "activity-tab-survey-title" = "Sondage de satisfaction";
 "activity-tab-time-spent-reading" = "Tempore passate a leger iste septimana";
 "activity-tab-title" = "Activitate";
 "activity-tab-top-categories" = "Categorias principal de iste mense";
+"activity-tab-total-edits" = "Total de modificationes trans projectos";
 "activity-tab-unsatisfied" = "Non satisfacite";
 "activity-tab-usernames-reading-title" = "Lectura de $1";
 "activity-tab-very-satisfied" = "Multo satisfacite";
@@ -116,6 +150,7 @@
 "activity-tab-you-edited" = "Tu ha modificate $1 vice{{PLURAL:$1||s}} iste septimana.";
 "activity-tab-you-read" = "Tu ha legite $1 articulo{{PLURAL:$1||s}} iste septimana.";
 "activity-tab-you-saved" = "Tu ha salveguardate $1 articulo{{PLURAL:$1||s}} iste septimana.";
+"activity-tab-your-impact" = "Tu impacto";
 "add-articles-to-reading-list" = "Adder {{PLURAL:$1|$1 articulo|$1 articulos}} al lista de lectura";
 "advanced-settings-title" = "Parametros avantiate";
 "alert-temporary-account" = "Tu usa un conto temporari. Le conto expirara in 90 dies.";
@@ -207,8 +242,10 @@
 "continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar Wikipedia pro plus articulos a legerr";
 "continue-reading-empty-title" = "Necun articulo legite recentemente";
+"contributions-this-month" = "Contributiones iste mense";
 "crimean-tatar-variants-alert-body" = "Le application de Wikipedia supporta ora le sequente variantes del tataro de Crimea como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\nQırımtatarca, Latin – tataro de Crimea latin (chr-latn)\nкъырымтатарджа, Кирил – tataro de Crimea cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Actualisationes del supporto de variantes del tataro de Crimea";
+"customize-action-title" = "Personalisar";
 "data-migration-status" = "Actualisation…";
 "description-add-title" = "Adder description";
 "description-article-introduction-warning-message" = "Le ordine de elementos essera differente in le vista de modification que in le vista de articulo.";
@@ -314,8 +351,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tocca duo vices pro activar donationes automatic mensual in iste amonta.";
 "donate-accessibility-textfield-hint" = "Inserer un amonta personalisate a donar.";
 "donate-accessibility-transaction-fee-hint" = "Tocca duo vices pro adder le costo del transaction al amonta del donation.";
-// Fuzzy
-"donate-already-donated" = "Gratias, car donator! Tu generositate adjuta Wikipedia e su sitos fratres a prosperar.";
+"donate-already-donated" = "Gratias, car donator! Tu generositate adjuta Wikipedia e altere projectos associate de cognoscentia libere a prosperar.";
 "donate-apple-fine-print" = "Apple non es responsabile pro le collecta de fundos a iste fin.";
 "donate-email-opt-in-text" = "Si, le Fundation Wikimedia pote inviar me un message de e-mail occasional.";
 "donate-help-frequently-asked-questions" = "Folio a questiones";
@@ -367,6 +403,7 @@
 "edit-summary-short-description-updated" = "Curte description actualisate";
 "edit-watch-list-learn-more-text" = "Apprender plus sur le observatorio";
 "edit-watch-this-page-text" = "Observar iste pagina";
+"edited-article" = "Modificate";
 "editing-welcome-be-bold-subtitle" = "Sia intrepide ma non imprudente in modificar articulos. Non te preoccupa troppo de facer errores: omne version anterior de un pagina se conserva, de maniera que nostre communitate pote facilemente corriger errores.";
 "editing-welcome-be-bold-title" = "Tu voce es importante";
 "editing-welcome-citations-subtitle" = "Tote le contento debe esser verificabile. Quando se adde nove information a un articulo, le contributores deberea fornir un citation in linea a un fonte digne de fide que appoia directemente le contribution.";
@@ -438,6 +475,8 @@
 "editor-toolbar-template-accessibility" = "Patrono in formatation de texto";
 "editor-wikitext-loading-accessibility" = "Cargamento in curso del texto del editor";
 "editor-wikitext-textview-accessibility" = "Editor de texto wiki";
+"edits-last-month" = "modificationes del ultime mense";
+"edits-this-month" = "modificationes de iste mense";
 "empty-diff-compare-title" = "Nulle differentia inter versiones";
 "empty-diff-single-title" = "Il non ha modificationes visibile";
 "empty-edit-summary" = "Summario de modification vacue";
@@ -548,6 +587,9 @@
 "explore-suggested-edits-footer" = "Adder";
 "explore-suggested-edits-image-recs-body" = "Adder imagines suggerite a articulos de Wikipedia pro meliorar le comprension.";
 "explore-suggested-edits-image-recs-title" = "Adder un imagine";
+"explore-survey-subtitle" = "Per favor responde a un curte sondage sur le fluxo Explorar. Tu commentarios nos adjutara a meliorar le application.";
+"explore-survey-title" = "Adjuta nos a meliorar Explorar";
+"explore-wikipedia" = "Explorar Wikipedia";
 "export-user-data-confirmation-message" = "Condivider tu bibliotheca de applicationes include datos sur tu listas de lectura e historia, preferentias, e contento del canal Explorar. Iste file de datos solmente debe esser condividite con un destinatario de confidentia pro scopos diagnostic technic.";
 "export-user-data-confirmation-title" = "Condivider bibliotheca de applicationes?";
 "export-user-data-generic-error" = "Un error ha occurrite durante le exportation de tu datos. Per favor tenta lo de novo plus tarde.";
@@ -598,12 +640,10 @@
 "forgot-password-username-or-email-title" = "O";
 "gan-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del gan como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificate (gan-hans)\n贛語 繁體 Gan traditional (gan-hant)";
 "gan-variants-alert-title" = "Actualisationes del supporto de variantes del gan";
-"history-clear-all" = "Rader";
 "history-clear-confirmation-heading" = "Es tu secur de voler deler tote tu elementos recente?";
 "history-clear-delete-all" = "Si, dele toto";
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, retornar a Explorar";
-"home-button-history-accessibility-label" = "Wikipedia, retornar a Historia";
 "home-button-saved-accessibility-label" = "Wikipedia, retornar a Salveguardate";
 "home-more-like-footer" = "Plus como $1";
 "home-nearby-footer" = "Plus locos proxime a te";
@@ -713,8 +753,9 @@
 "languages-settings-title" = "Linguas";
 "languages-title" = "Cambiar de lingua";
 "languages-wikipedia" = "Linguas de Wikipedia";
+"learn-about-editing" = "Apprender a modificar";
 "learn-more-title" = "Leger plus";
-"lockscreen-search-widget-description" = "Accesso rapide pro cercar in Wikipedia a partir de tu schermo de serratura.";
+"lockscreen-search-widget-description" = "Accesso rapide pro cercar in Wikipedia a partir de tu schermo de serramento.";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sin aperir session";
 "logged-out-log-back-in-button-title" = "Reaperir session in tu conto";
 "logged-out-subtitle" = "Ha occurrite un problema de authentication de tu conto. A fin de synchronisar tu listas de lectura e modificar sub tu nomine de usator, per favor reaperi session.";
@@ -723,6 +764,8 @@
 "login-join-wikipedia" = "Uni te a Wikipedia.";
 "login-no-account" = "Non ha un conto? $1";
 "login-title" = "Aperir session in tu conto";
+"looking-for-something-new" = "Cerca qualcosa de nove a leger?";
+"looks-like-you-havent-made-an-edit" = "Pare que tu non ha apportate alcun modification iste mense. Extende le cognoscentia libere modificante le topicos que te interessa le plus.";
 "main-menu-about" = "A proposito del application";
 "main-menu-account-login" = "Aperir session";
 "main-menu-account-logout" = "Clauder session";
@@ -741,20 +784,22 @@
 "microsite-yir-english-edits-bytes-slide-title-updated" = "$1 byte{{PLURAL:$1||s}} addite";
 "microsite-yir-english-edits-slide-subtitle-updated" = "Le voluntarios ha apportate $1 modification{{PLURAL:$1||es}} in plus de $2 edition{{PLURAL:$2||es}} de Wikipedia in linguas differente. $3 modification{{PLURAL:$3||es}} ha essite apportate sur Wikipedia in anglese. Cata hora de cata die, voluntarios labora pro meliorar Wikipedia.";
 "microsite-yir-english-edits-slide-title-updated" = "Redactores ha apportate $1 modification{{PLURAL:$1||es}} iste anno";
-"microsite-yir-english-reading-slide-subtitle-updated" = "Le gente ha passate circa $1 hora{{PLURAL:$1||s}} (circa $2 anno{{PLURAL:$2||s}}!) a leger Wikipedia in anglese in $3. Wikipedia es a tu disposition quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.";
 "microsite-yir-english-reading-slide-subtitle-short-updated" = "Le gente ha passate circa $1 hora{{PLURAL:$1||s}} (circa $2 anno{{PLURAL:$2||s}}!) a leger Wikipedia in anglese in $3.";
+"microsite-yir-english-reading-slide-subtitle-updated" = "Le gente ha passate circa $1 hora{{PLURAL:$1||s}} (circa $2 anno{{PLURAL:$2||s}}!) a leger Wikipedia in anglese in $3. Wikipedia es a tu disposition quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.";
 "microsite-yir-english-reading-slide-title-updated" = "Nos ha passate $1 hora{{PLURAL:$1||s}} a leger";
 "microsite-yir-english-saved-reading-slide-subtitle-updated" = "Le usatores active del app habeva $1 articulo{{PLURAL:$1||s}} salveguardate iste anno. Adder articulos a listas de lectura te permitte acceder a articulos mesmo sin connexion. Tu pote tamben, post aperir session, synchronisar le listas de lectura inter apparatos.";
 "microsite-yir-english-saved-reading-slide-title-updated" = "Nos habeva $1 articulo{{PLURAL:$1||s}} salveguardate";
-// Fuzzy
+"microsite-yir-english-top-read-slide-subtitle-updated" = "Quando on vole apprender sur nostre mundo, on recurre a Wikipedia. Le cinque articulos le plus visitate sur Wikipedia in anglese esseva:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\nLege plus in $6nostre articulo special de blog$7.";
 "microsite-yir-english-top-read-slide-title" = "Le articulos le plus legite sur Wikipedia in anglese";
 "more-languages-tooltip-description" = "Cercar in Wikipedia in plus de 300 linguas";
 "more-languages-tooltip-title" = "Adder linguas";
 "more-menu" = "Plus";
 "move-articles-to-reading-list" = "Displaciar $1 articulo{{PLURAL:$1||s}} al lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualisation";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pedes";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millias";
 "new-password-instructions" = "Tu ha aperite session con un contrasigno temporari.\nPro completar le accesso, defini un nove contrasigno hic.";
@@ -903,8 +948,7 @@
 "on-this-day-no-internet-error" = "Nulle datos disponibile";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Le $1 sur Wikipedia in $2";
 "on-this-day-title" = "In iste die";
-"open-in-tab-tooltip-body" = "Preme longemente sur le titulo de un articulo o sur un ligamine blau pro aperir lo in un nove scheda.";
-"open-in-tab-tooltip-title" = "Aperir in un nove scheda";
+"open-article" = "Aperir articulo";
 "original-tab-button-popover-description" = "Tocca le 'W' pro retornar al scheda de ubi tu comenciava";
 "page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tocca pro seliger duo versiones a comparar";
@@ -1136,7 +1180,7 @@
 "search-recent-title" = "Cercate recentemente";
 "search-result-redirected-from" = "Redirigite ab: $1";
 "search-title" = "Cercar";
-"search-widget-announcement-body" = "Adde le modulo de recerca de Wikipedia a tu schermo principal o de serratura pro haber responsas plus rapide a portata de mano.";
+"search-widget-announcement-body" = "Adde le modulo de recerca de Wikipedia a tu schermo principal o de serramento pro haber responsas plus rapide a portata de mano.";
 "search-widget-announcement-title" = "Nove modulo de recerca disponibile";
 "search-widget-description" = "Accesso rapide al recerca sur Wikipedia.";
 "search-widget-wikipedia-title" = "Wikipedia";
@@ -1219,8 +1263,6 @@
 "tabs-main-page-subtitle" = "Hodie sur Wikipedia";
 "tabs-navbar-title-format" = "$1 scheda{{PLURAL:$1||s}}";
 "tabs-open-tab" = "Aperir scheda";
-"tabs-overview-tooltip-body" = "Cambia inter articulos aperte in le vista general de schedas.";
-"tabs-overview-tooltip-title" = "Vista general de schedas";
 "tabs-show-suggested-articles" = "Monstrar suggestiones de articulos";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Le suggestiones es ora celate";
 "tabs-survey-title" = "Adjuta a meliorar le schedas. Es tu satisfacite de iste function?";
@@ -1349,6 +1391,7 @@
 "vanish-account-warning-title" = "Advertimento";
 "variants-alert-dismiss-button" = "No, gratias";
 "variants-alert-preferences-button" = "Revider tu preferentias";
+"view-changes" = "Monstrar cambiamentos";
 "watch" = "Observar";
 "watchlist" = "Observatorio";
 "watchlist-added-toast-one-month" = "Addite a tu observatorio pro 1 mense.";
@@ -1468,8 +1511,7 @@
 "year-in-review-base-viewed-subtitle" = "Pro le gente de tote le le mundo, Wikipedia es le prime station quando on vole trovar le responsa a un question, cercar information pro schola o labor, o apprender un nove facto.";
 "year-in-review-base-viewed-title-updated" = "Le usatores del app ha consultate articulos de Wikipedia $1 vice{{PLURAL:$1||s}}";
 "year-in-review-button-title" = "Summario del anno";
-// Fuzzy
-"year-in-review-categories-slide-subtitle" = "Le categorias reuni articulos sur subjectos similar. In 2025, tu ha visitate articulos in iste categorias interessante plure vices:\n$1";
+"year-in-review-categories-slide-subtitle" = "Le categorias reuni articulos sur subjectos similar. In 2025, tu ha visitate articulos in iste categorias interessante plure vices.\n\n$1";
 "year-in-review-collective-article-views" = "Un illustration animate de un schermo de computator con un navigator del web, percurrente un articulo de Wikipedia.";
 "year-in-review-collective-edits" = "Un illustration de duo pecias de puzzle de Wikipedia, cata un portante un pecia de information.";
 "year-in-review-collective-languages" = "Un illustration animate de un petra gravate con inscriptiones representante varie linguas, symbolisante le collaboration que permitte a Wikipedia construer le cognoscentia a partir de culturas e regiones diverse.";
@@ -1477,8 +1519,8 @@
 "year-in-review-contributor-gift-subtitle" = "Si tu non lo activa ora, tu pote acceder a illo plus tarde in Parametros sub Thema.";
 "year-in-review-contributor-gift-title" = "Activar le nove icone del application";
 "year-in-review-contributor-slide-subtitle-donor-updated" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como donator in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
-"year-in-review-contributor-slide-subtitle-editor-updated" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
 "year-in-review-contributor-slide-subtitle-editor-and-donor-updated" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como donator e redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
+"year-in-review-contributor-slide-subtitle-editor-updated" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como redactor in $1 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor pro Wikipedia sur tu schermo initial.";
 "year-in-review-contributor-slide-title" = "Nove icone disvelate pro tu schermo initial";
 "year-in-review-day-friday" = "venerdis";
 "year-in-review-day-monday" = "lunedis";
@@ -1520,6 +1562,7 @@
 "year-in-review-intro-login-title" = "Aperi session pro personalisation";
 "year-in-review-most-read-categories-title" = "Tu categorias le plus interessante";
 "year-in-review-non-contributor-slide-title" = "Disvela tu recompensa de contributor pro le proxime anno!";
+"year-in-review-noncontributor-slide-subtitle-updated" = "Nos es felice que Wikipedia ha facite parte de tu anno $1! Disvela un recompensa special in tu Summario del anno $2 deveniente contributor: [modifica Wikipedia]($3) o dona desde le app al [Fundation Wikimedia]($4), le organisation sin scopo lucrative detra Wikipedia. Si Wikipedia te es utile, per favor considera donar pro adjutar a sustener su futuro e mantener lo libere, sin publicitate, digne de fide e accessibile pro omnes. Si tu ha ja donate in altere loco, tu appoio es profundemente appreciate.";
 "year-in-review-personalized-date-day-footer-v3" = "Die favorite pro leger";
 "year-in-review-personalized-date-month-footer-v3" = "Mense in le qual tu ha legite le plus";
 "year-in-review-personalized-date-time-footer-v3" = "Hora favorite pro leger";
@@ -1563,3 +1606,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "Logotypo “W” de Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logotypo del Fundation Wikimedia";
 "yesterday-title" = "Heri";
+"zero-edits-to-articles" = "0 modificationes recente de articulos";

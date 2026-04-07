@@ -31,8 +31,6 @@
 "about-repositories-app-source-license" = "Iturri kodea erabilgarri dago $1(r)en babespean.";
 "about-repositories-app-source-license-mit" = "MIT Lizentzia";
 "about-send-feedback" = "Aplikazioari buruzko feedbacka eman";
-"about-testers" = "Aztertzaileak";
-"about-testers-details" = "QA $1(e)k aztertu du";
 "about-title" = "Honi buruz";
 "about-translators" = "Itzultzaileak";
 "about-translators-details" = "$1(e)n boluntarioek itzulita";
@@ -223,12 +221,10 @@
 "forgot-password-instructions" = "Hurrengo hutsuneak bete, emailez jasotzeko pasahitza berrezartzeko jarraibideak";
 "forgot-password-title" = "Pasahitza berrezarri";
 "forgot-password-username-or-email-title" = "Edo";
-"history-clear-all" = "Garbitu";
 "history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
 "history-clear-delete-all" = "Bai, dena ezabatu";
 "history-title" = "Historia";
 "home-button-explore-accessibility-label" = "Wikipedia, Arakatzailera itzuli";
-"home-button-history-accessibility-label" = "Wikipedia, Historiara itzuli";
 "home-button-saved-accessibility-label" = "Wikipedia, Biltegira itzuli";
 "home-more-like-footer" = "$1 bezalako artikulu gehiago";
 "home-nearby-footer" = "Zure kokapenetik gertuko leku gehiago";
@@ -269,8 +265,10 @@
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
 "move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu bat|$1 artikulu}} irakurketa zerrendara";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 oin";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milia";
 "new-password-instructions" = "Aldi baterako pasahitza erabiliz hasi duzu saioa. \nSaio hasten amaitzeko, pasahitz berria ezarri beharko duzu hemen.";

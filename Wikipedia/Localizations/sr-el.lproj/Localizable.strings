@@ -22,8 +22,6 @@
 "about-repositories-app-source-license" = "Izvorni kôd je dostupan pod $1.";
 "about-repositories-app-source-license-mit" = "licencom MIT";
 "about-send-feedback" = "Pošaljite povratne informacije";
-"about-testers" = "Testeri";
-"about-testers-details" = "Kvalitet je osigurao $1";
 "about-title" = "O aplikaciji";
 "about-translators" = "Prevodioci";
 "about-translators-details" = "Preveli dobrovoljci na sajtu $1";
@@ -413,12 +411,10 @@
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste primili uputstvo za resetovanje lozinke putem imejla";
 "forgot-password-title" = "Resetovanje lozinke";
 "forgot-password-username-or-email-title" = "Ili";
-"history-clear-all" = "Obriši";
 "history-clear-confirmation-heading" = "Želite li zaista da izbrišete sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Istorija";
 "home-button-explore-accessibility-label" = "Vikipedija, nazad na „Istraži”";
-"home-button-history-accessibility-label" = "Vikipedija, nazad na istoriju";
 "home-button-saved-accessibility-label" = "Vikipedija, nazad na sačuvane";
 "home-more-like-footer" = "Još članaka poput $1";
 "home-nearby-footer" = "Još mesta u blizini";
@@ -497,8 +493,10 @@
 "more-menu" = "Više";
 "move-articles-to-reading-list" = "Premesti {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na listu za čitanje";
 "navbar-title-mode-edit-wikitext-preview" = "Pregled";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 stopa";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milja";
 "new-password-instructions" = "Prijavili ste se sa privremenom lozinkom. Da biste završili prijavu, ovde postavite novu.";

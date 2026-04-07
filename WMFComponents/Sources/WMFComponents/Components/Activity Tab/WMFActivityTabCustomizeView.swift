@@ -64,6 +64,14 @@ public struct WMFActivityTabCustomizeView: View {
                     isOn: $viewModel.isTimelineOfBehaviorOn
                 )
                 .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
+                .onChange(of: viewModel.isTimelineOfBehaviorOn) { newValue in
+                    guard newValue == true else { return }
+                    guard viewModel.isLoggedIn else {
+                        viewModel.isTimelineOfBehaviorOn = false
+                        viewModel.presentLoggedInToastAction?()
+                        return
+                    }
+                }
             } footer: {
                 Text(viewModel.localizedStrings.footer)
                     .font(Font(WMFFont.for(.caption1)))

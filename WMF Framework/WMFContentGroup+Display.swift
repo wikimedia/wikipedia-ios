@@ -1,10 +1,12 @@
+import WMFData
+
 extension WMFFeedDisplayType {
     public func imageWidthCompatibleWithTraitCollection(_ traitCollection: UITraitCollection) -> Int {
         switch self {
         case .pageWithPreview, .relatedPagesSourceArticle, .random, .continueReading:
-            return traitCollection.wmf_leadImageWidth
+            return ImageUtils.leadImageWidth()
         default:
-            return traitCollection.wmf_nearbyThumbnailWidth
+            return ImageUtils.nearbyThumbnailWidth()
         }
     }
 }
@@ -18,7 +20,7 @@ extension WMFContentGroup {
             }
             
             let fallback: (WMFFeedImage, UITraitCollection) -> URL = { imageInfo, traitCollection in
-                let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_leadImageWidth)) ?? imageInfo.imageThumbURL
+                let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, ImageUtils.leadImageWidth())) ?? imageInfo.imageThumbURL
                 return imageURL
             }
             

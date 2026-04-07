@@ -19,8 +19,6 @@
 "about-repositories" = "Referencials";
 "about-repositories-app-source-license-mit" = "Licéncia MIT";
 "about-send-feedback" = "Mandar un comentari sus l’aplicacion";
-"about-testers" = "Testaires";
-"about-testers-details" = "AQ testada per $1";
 "about-title" = "A prepaus";
 "about-translators" = "Traductors";
 "about-translators-details" = "Aquesta aplicacion es estada traduita per de traductors benevòls sus $1";
@@ -91,11 +89,9 @@
 "forgot-password-button-title" = "Reïnicializar";
 "forgot-password-title" = "Reïnicializar lo senhal";
 "forgot-password-username-or-email-title" = "O";
-"history-clear-all" = "Escafar";
 "history-clear-delete-all" = "Òc, suprimir tot";
 "history-title" = "Istoric";
 "home-button-explore-accessibility-label" = "Wikipèdia, tornar a Explorar";
-"home-button-history-accessibility-label" = "Wikipèdia, tornar a Istoric";
 "home-button-saved-accessibility-label" = "Wikipèdia, tornar a Enregistrats";
 "home-more-like-footer" = "Mai coma $1";
 // Fuzzy
@@ -123,8 +119,10 @@
 "main-menu-zero-faq" = "FAQ de Wikipèdia Zèro";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 article|$1 articles}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 pès";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-title" = "Definir vòstre senhal";
