@@ -68,7 +68,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 streak
             ),
             subtitle: WMFLocalizedString("reading-challenge-subtitle", value: "25-day reading challenge", comment: "Subtitle shown on the reading challenge widget indicating the challenge length."),
-            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
+            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldFootnote)
         )
     }
 
@@ -102,7 +102,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             subtitle: WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
             button1Title: WMFLocalizedString("reading-challenge-collect-prize-button", value: "Collect your prize!", comment: "Button title shown on the reading challenge widget when the user has completed the challenge."),
             button1URL: URL(string: "wikipedia://activity"),
-            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
+            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldFootnote)
         )
     }
 
@@ -117,7 +117,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 WMFLocalizedString("reading-challenge-streak-of-days", value: "{{PLURAL:%1$d|%1$d of 25 day|%1$d of 25 days}}", comment: "Streak pill label shown on the reading challenge widget. %1$d is the number of days completed out of 25."),
                 streak
             ),
-            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
+            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldFootnote)
         )
     }
 
@@ -185,8 +185,8 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             ),
             button1URL: family == .systemSmall ? URL(string: "wikipedia://explore") : URL(string: "wikipedia://search"),
             button2URL: family == .systemSmall ? nil : URL(string: "wikipedia://random"),
-            button1Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .semiboldSubheadline),
-            button2Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .diceFill, font: .semiboldSubheadline)
+            button1Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .caption1),
+            button2Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .diceFill, font: .caption1)
         )
     }
     
