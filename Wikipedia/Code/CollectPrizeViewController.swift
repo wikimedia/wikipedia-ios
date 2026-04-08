@@ -1,8 +1,5 @@
-import WMFData
-import CocoaLumberjackSwift
 import WMFComponents
 import WMF
-import Combine
 
 final class CollectPrizeViewController: UIViewController, Themeable {
     
