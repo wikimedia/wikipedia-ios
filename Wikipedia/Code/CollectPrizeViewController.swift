@@ -1,5 +1,3 @@
-import WMFData
-import CocoaLumberjackSwift
 import WMFComponents
 import WMF
 import Combine
@@ -160,7 +158,7 @@ final class CollectPrizeViewController: UIViewController, Themeable {
         subtitleLabel.font = WMFFont.for(.subheadline)
         subtitleLabel.textColor = theme.colors.secondaryText
         
-        closeButtonHostingController.view.backgroundColor = .clear
+        closeButtonHostingController.view.backgroundColor = theme.colors.paperBackground
         
         var config = primaryButton.configuration
         config?.baseBackgroundColor = theme.colors.link
