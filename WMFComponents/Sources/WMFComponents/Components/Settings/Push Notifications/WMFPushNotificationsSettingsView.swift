@@ -44,6 +44,11 @@ public struct WMFPushNotificationsSettingsView: View {
         .navigationTitle(viewModel.localizedStrings.title)
         .navigationBarTitleDisplayMode(.inline)
         .environment(\.colorScheme, theme.preferredColorScheme)
+        .alert(viewModel.localizedStrings.permissionErrorTitle, isPresented: $viewModel.showPermissionError) {
+            Button(viewModel.localizedStrings.errorAlertDismissButton, role: .cancel) { }
+        } message: {
+            Text(viewModel.localizedStrings.permissionErrorMessage)
+        }
     }
 
     // MARK: - Rows
