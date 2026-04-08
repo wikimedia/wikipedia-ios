@@ -45,7 +45,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             ),
             subtitle: WMFLocalizedString(
                 "reading-challenge-announcement-item2-subtitle",
-                value: "Complete a 25 day reading streak while the challenge is live to win special prizes.",
+                value: "Complete a 25-day reading streak while the challenge is live to win special prizes.",
                 comment: "Subtitle for reading challenge onboarding second item."
             ),
             fillIconBackground: false

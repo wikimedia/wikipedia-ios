@@ -237,7 +237,7 @@ public actor WMFActivityTabDataController {
 
     private static let sharedGroupID = "group.org.wikimedia.wikipedia"
 
-    public var hasEnrolledInReadingChallenge2026: Bool {
+    public nonisolated var hasEnrolledInReadingChallenge2026: Bool {
         get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
         set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
     }
@@ -278,6 +278,16 @@ public actor WMFActivityTabDataController {
     public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
         guard isLoggedIn else { return false }
         guard !hasEnrolledInReadingChallenge2026 else { return false }
+
+        // If forcing not enrolled or not live yet state, show announcement regardless of date/seen!! 
+        let devController = WMFDeveloperSettingsDataController.shared
+        if devController.devForceReadingChallengeEnabled {
+            let forcedState = devController.forcedReadingChallengeState
+            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
+                return true
+            }
+        }
+
         guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
         let now = Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
