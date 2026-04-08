@@ -413,63 +413,81 @@ public struct WMFReadingChallengeWidgetView: View {
     // MARK: - Medium Streak View
 
     private var mediumStreakView: some View {
-        ZStack {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        HStack {
-                            if let icon = WMFSFSymbolIcon.for(symbol: .trophy, font: .boldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
-                                Image(uiImage: icon)
-                                    .font(Font(WMFFont.for(.boldCaption1)))
-                                    .foregroundColor(viewModel.displaySet.color2)
-                                    .fixedSize()
+        
+        GeometryReader { geo in
+            let scaleX = geo.size.width / 329
+            let scaleY = geo.size.height / 155
+            let scale = min(scaleX, scaleY) // use min to preserve aspect ratio (like aspectFit)
+            
+            ZStack {
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            HStack(spacing: 3) {
+                                if let icon = WMFSFSymbolIcon.for(symbol: .trophy, font: .boldCaption1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                    Image(uiImage: icon)
+                                        .font(Font(WMFFont.for(.boldCaption1)))
+                                        .foregroundColor(viewModel.displaySet.color2)
+                                }
+                                if let subtitle = viewModel.displaySet.subtitle {
+                                    Text(subtitle)
+                                        .font(Font(WMFFont.for(.boldCaption1)))
+                                        .foregroundColor(viewModel.displaySet.color2)
+                                }
                             }
-                            if let subtitle = viewModel.displaySet.subtitle {
-                                Text(subtitle)
-                                    .font(Font(WMFFont.for(.boldCaption1)))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            // .background(Color.yellow)
+                            
+                            Spacer()
+                            
+                            HStack(spacing: 3) {
+                                if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
+                                    Image(uiImage: icon)
+                                        .foregroundColor(viewModel.displaySet.color2)
+                                }
+                                Text(viewModel.displaySet.title)
+                                    .font(Font(WMFFont.for(.boldTitle1)))
                                     .foregroundColor(viewModel.displaySet.color2)
-                                    .fixedSize(horizontal: true, vertical: false) // ← never truncate/wrap
-                                    .lineLimit(1)
+                                    .multilineTextAlignment(.leading)
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            // .background(Color.brown)
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        Spacer()
-                        HStack {
-                            if let icon = WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle3, paletteColors: [UIColor(viewModel.displaySet.color2)]) {
-                                Image(uiImage: icon)
-                                    .foregroundColor(viewModel.displaySet.color2)
-                            }
-                            Text(viewModel.displaySet.title)
-                                .font(Font(WMFFont.for(.boldTitle3)))
-                                .foregroundColor(viewModel.displaySet.color2)
-                                .multilineTextAlignment(.leading)
+                        
+                        if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 106, height: 79)
+                                // .background(.blue)
+                                .padding(.trailing, 5)
                         }
-                        .padding(.bottom, 8)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .layoutPriority(1)
-
-                    if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(minWidth: 60, maxWidth: 120)
-                            .layoutPriority(0)
-                            .padding(.trailing, 16)
-                            .padding(.bottom, 3)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    // .background(Color.purple)
+                    
+                    if case .streakOngoingRead(let streak) = viewModel.state {
+                        streakProgressBar(streak: streak)
+                            .padding(.top, 8)
+                    } else if case .streakOngoingNotYetRead(let streak) = viewModel.state {
+                        streakProgressBar(streak: streak)
+                            .padding(.top, 8)
                     }
                 }
-                if case .streakOngoingRead(let streak) = viewModel.state {
-                    streakProgressBar(streak: streak)
-                } else if case .streakOngoingNotYetRead(let streak) = viewModel.state {
-                    streakProgressBar(streak: streak)
-                }
+                
+                
+                Image("W")
+                    .foregroundColor(buttonForeground)
+                    .shadow(color: Color(uiColor: theme.text).opacity(0.25), radius: 4, x: 0, y: 0)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-            wIconOverlay
+            .padding(16)
+            .frame(width: 329, height: 155)
+            // .background(Color.green)
+            .scaleEffect(scale, anchor: .center)
+            .position(x: geo.size.width / 2, y: geo.size.height / 2)
         }
+            
     }
 
     // MARK: - Streak Progress Bar
