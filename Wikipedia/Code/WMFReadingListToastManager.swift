@@ -34,6 +34,12 @@ import WMFComponents
 
     // MARK: - Public Methods
 
+    @objc func dismissToast() {
+        Task { @MainActor [weak self] in
+            self?.toastPresenter?.dismissToast()
+        }
+    }
+
     var isToastHidden: Bool {
         guard let toastPresenter else { return true }
         return MainActor.assumeIsolated { toastPresenter.isToastHidden }
