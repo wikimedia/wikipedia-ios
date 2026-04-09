@@ -407,6 +407,8 @@ extension WMFPageViewsDataController {
         let removeDateStart = calendar.startOfDay(for: config.removeDate)
         let startDateStart = calendar.startOfDay(for: config.startDate)
         let endDateStart = calendar.startOfDay(for: config.endDate)
+        let oneDayInSeconds = 60 * 60  * 24
+        let maxDateToCompleteStreak = calendar.startOfDay(for:endDateStart.addingTimeInterval(TimeInterval((config.streakGoal * oneDayInSeconds))))
 
         if todayStart > removeDateStart {
             return .challengeRemoved
@@ -438,7 +440,9 @@ extension WMFPageViewsDataController {
             if streakStartedAfterEnrollmentCutoff {
                 return .challengeConcludedNoStreak
             }
-
+        }
+        
+        if todayStart > maxDateToCompleteStreak {
             return cappedStreak > 1
                 ? .challengeConcludedIncomplete(streak: cappedStreak)
                 : .challengeConcludedNoStreak
