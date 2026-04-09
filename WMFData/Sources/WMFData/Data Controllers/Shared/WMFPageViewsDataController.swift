@@ -440,6 +440,10 @@ extension WMFPageViewsDataController {
             if streakStartedAfterEnrollmentCutoff {
                 return .challengeConcludedNoStreak
             }
+            
+            if cappedStreak == 0 {
+                return .challengeConcludedNoStreak
+            }
         }
         
         if todayStart > maxDateToCompleteStreak {
