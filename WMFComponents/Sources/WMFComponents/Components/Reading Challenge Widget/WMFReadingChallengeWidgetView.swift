@@ -215,7 +215,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                 Image(uiImage: icon)
                             }
                             Text(viewModel.displaySet.title)
-                                .font(Font(WMFFont.for(.boldFootnote)))
+                                .font(viewModel.displaySet.subtitle == nil ? Font(WMFFont.for(.boldTitle3)) : Font(WMFFont.for(.boldFootnote)))
                                 .foregroundColor(viewModel.displaySet.color2)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
