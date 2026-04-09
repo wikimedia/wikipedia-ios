@@ -257,6 +257,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                  name:NSNotification.showErrorBanner
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleViewControllerDidDisappear:)
+                                                 name:NSNotification.articleViewControllerDidDisappear
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dismissReadingListToast:)
+                                                 name:NSNotification.dismissReadingListToast
+                                               object:nil];
+
     [self observeArticleTabsNSNotifications];
     [self setupReadingListsHelpers];
 
@@ -577,6 +587,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         NSError *error = notification.userInfo[NSNotification.showErrorBannerNSErrorKey];
         [[WMFToastManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousToasts:YES tapCallBack:nil];
     }
+}
+
+- (void)articleViewControllerDidDisappear:(NSNotification *)notification {
+    [self.readingListHintPresenter dismissToast];
+}
+
+- (void)dismissReadingListToast:(NSNotification *)notification {
+    [self.readingListHintPresenter dismissToast];
 }
 
 #pragma mark - Explore feed preferences
