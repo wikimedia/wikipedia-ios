@@ -684,13 +684,16 @@ extension WMFAppViewController {
 
     private func migrateShowLanguageBar() {
         let legacyKey = "ShowLanguageBar"
+        let settingsDataController = WMFSettingsDataController.shared
         guard let legacyValue = UserDefaults.standard.object(forKey: legacyKey) as? NSNumber else {
+            // No legacy value — set default to true if not yet stored
+            let hasStoredValue = UserDefaults.standard.object(forKey: WMFUserDefaultsKey.showSearchLanguageBar.rawValue) != nil
+            if !hasStoredValue {
+                settingsDataController.setShowSearchLanguageBar(true)
+            }
             return
         }
-        let settingsDataController = WMFSettingsDataController.shared
-        Task {
-            settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
-        }
+        settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
