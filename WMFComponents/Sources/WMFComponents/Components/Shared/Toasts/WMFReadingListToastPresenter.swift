@@ -1,5 +1,4 @@
 import UIKit
-import SwiftUI
 
 @MainActor
 final public class WMFReadingListToastPresenter {
@@ -9,8 +8,7 @@ final public class WMFReadingListToastPresenter {
     private weak var presenter: UIViewController?
 
     private var currentToastContainer: UIView?
-    private var currentHostingController: UIHostingController<WMFReadingListToastView>?
-    private var currentModel: WMFReadingListToastModel?
+    private var currentToastView: WMFReadingListToastView?
 
     private var containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)?
     private var dismissWorkItem: DispatchWorkItem?
@@ -19,11 +17,9 @@ final public class WMFReadingListToastPresenter {
     private var additionalBottomSpacing: CGFloat = 0
     private var extendsUnderSafeArea: Bool = false
 
-    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, subview: UIView? = nil) {
+    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, subview: UIView? = nil) {
         self.presenter = presenter
         self.currentToastContainer = currentToastContainer
-        self.currentHostingController = currentHostingController
-        self.currentModel = currentModel
         self.containerViewConstraints = containerViewConstraints
         self.dismissWorkItem = dismissWorkItem
         self.subview = subview
@@ -74,7 +70,7 @@ final public class WMFReadingListToastPresenter {
     }
 
     public func updateCurrentToast(with config: WMFReadingListToastConfig) {
-        currentModel?.config = config
+        currentToastView?.update(with: config)
         scheduleDismiss(config: config)
     }
 
@@ -161,43 +157,31 @@ final public class WMFReadingListToastPresenter {
 
         containerViewConstraints = (top: topConstraint, bottom: bottomConstraint)
 
-        let model = WMFReadingListToastModel(config: config)
-        currentModel = model
-
-        let toastView = WMFReadingListToastView(model: model, dismiss: { [weak self] in
+        let toastView = WMFReadingListToastView(config: config, dismiss: { [weak self] in
             guard let self else { return }
             Task { @MainActor in
                 self.setToastHidden(true, config: nil)
             }
         })
-
-        let hostingController = UIHostingController(rootView: toastView)
-        hostingController.view.backgroundColor = .clear
-        hostingController.view.insetsLayoutMarginsFromSafeArea = false
-        hostingController.view.layoutMargins = .zero
-        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        hostingController.view.setContentHuggingPriority(.required, for: .vertical)
-        hostingController.view.setContentCompressionResistancePriority(.required, for: .vertical)
-        hostingController.sizingOptions = [.intrinsicContentSize]
+        toastView.translatesAutoresizingMaskIntoConstraints = false
+        toastView.setContentHuggingPriority(.required, for: .vertical)
+        toastView.setContentCompressionResistancePriority(.required, for: .vertical)
 
         let shadowContainer = UIView()
         shadowContainer.translatesAutoresizingMaskIntoConstraints = false
         shadowContainer.backgroundColor = .clear
-        if #unavailable(iOS 26.0) {
-            // Glass effect handles its own depth on iOS 26+; add shadow on earlier versions
-            shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
-            shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
-            shadowContainer.layer.shadowRadius = 16
-            shadowContainer.layer.shadowOpacity = 1
-        }
+        shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
+        shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
+        shadowContainer.layer.shadowRadius = 16
+        shadowContainer.layer.shadowOpacity = 1
 
-        shadowContainer.addSubview(hostingController.view)
+        shadowContainer.addSubview(toastView)
 
         NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: shadowContainer.topAnchor),
-            hostingController.view.leadingAnchor.constraint(equalTo: shadowContainer.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: shadowContainer.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor)
+            toastView.topAnchor.constraint(equalTo: shadowContainer.topAnchor),
+            toastView.leadingAnchor.constraint(equalTo: shadowContainer.leadingAnchor),
+            toastView.trailingAnchor.constraint(equalTo: shadowContainer.trailingAnchor),
+            toastView.bottomAnchor.constraint(equalTo: shadowContainer.bottomAnchor)
         ])
 
         shadowContainer.setContentHuggingPriority(.required, for: .vertical)
@@ -233,7 +217,7 @@ final public class WMFReadingListToastPresenter {
         containerView.addGestureRecognizer(panGesture)
 
         currentToastContainer = containerView
-        currentHostingController = hostingController
+        currentToastView = toastView
 
         presenter.layoutIfNeeded()
     }
@@ -266,16 +250,11 @@ final public class WMFReadingListToastPresenter {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
 
-        currentHostingController?.willMove(toParent: nil)
-        currentHostingController?.view.removeFromSuperview()
-        currentHostingController?.removeFromParent()
-
         currentToastContainer?.removeFromSuperview()
 
-        currentHostingController = nil
+        currentToastView = nil
         currentToastContainer = nil
         containerViewConstraints = nil
-        currentModel = nil
     }
 
     private func scheduleDismiss(config: WMFReadingListToastConfig?) {
