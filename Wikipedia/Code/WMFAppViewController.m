@@ -262,6 +262,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                  name:NSNotification.articleViewControllerDidDisappear
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dismissReadingListToast:)
+                                                 name:NSNotification.dismissReadingListToast
+                                               object:nil];
+
     [self observeArticleTabsNSNotifications];
     [self setupReadingListsHelpers];
 
@@ -585,6 +590,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (void)articleViewControllerDidDisappear:(NSNotification *)notification {
+    [self.readingListHintPresenter dismissToast];
+}
+
+- (void)dismissReadingListToast:(NSNotification *)notification {
     [self.readingListHintPresenter dismissToast];
 }
 

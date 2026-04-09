@@ -34,15 +34,23 @@ import WMFComponents
 
     // MARK: - Public Methods
 
-    @objc func dismissToast() {
-        Task { @MainActor [weak self] in
-            self?.toastPresenter?.dismissToast()
-        }
-    }
-
     var isToastHidden: Bool {
         guard let toastPresenter else { return true }
         return MainActor.assumeIsolated { toastPresenter.isToastHidden }
+    }
+
+    /// Dismisses toast with animation - use for normal dismissals
+    @objc func dismissToast() {
+        guard let toastPresenter else { return }
+        Task { @MainActor in
+            toastPresenter.dismissToast()
+        }
+    }
+
+    /// Dismisses toast immediately without animation - use when keyboard is about to appear to prevent freezing
+    @MainActor
+    func dismissToastImmediately() {
+        toastPresenter?.dismissToastImmediately()
     }
 
     @objc func toggle(presenter: UIViewController, article: WMFArticle, theme: Theme) {
@@ -142,10 +150,8 @@ import WMFComponents
 
         Task { @MainActor [weak self] in
             guard let self else { return }
-            if let presenter = self.presenter {
-                self.toastPresenter?.show(config: config, in: presenter)
-            }
-            
+            guard let presenter = self.presenter, presenter.view.window != nil else { return }
+            self.toastPresenter?.show(config: config, in: presenter)
         }
     }
 

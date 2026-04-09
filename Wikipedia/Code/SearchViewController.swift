@@ -292,17 +292,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         searchResultsVC.showLanguageBar = showLanguageBar
         if let siteURL { searchResultsVC.siteURL = siteURL }
         embedHistoryIfNeeded()
-        
-        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
-            guard let self else { return }
-            if #available(iOS 18, *) {
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    if previousTraitCollection.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                        configureNavigationBar()
-                    }
-                }
-            }
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -529,6 +518,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
 extension SearchViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
+        // Dismiss the reading list toast so it doesn't interfere with the keyboard.
+        NotificationCenter.default.post(name: NSNotification.dismissReadingListToast, object: nil)
+        
         isSearchActive = true
         navigationController?.hidesBarsOnSwipe = false
         
@@ -579,3 +571,4 @@ extension SearchViewController: YearInReviewBadgeDelegate {
         updateProfileButton()
     }
 }
+
