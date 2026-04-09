@@ -387,6 +387,9 @@ extension WMFPageViewsDataController {
         func devBool(_ key: WMFUserDefaultsKey) -> Bool {
             devDefaults?.bool(forKey: key.rawValue) ?? false
         }
+        func setDevBool(_ key: WMFUserDefaultsKey, value: Bool) {
+            devDefaults?.set(true, forKey: key.rawValue)
+        }
         if devBool(.devForceReadingChallengeEnabled) {
             let storedStreak = devDefaults?.integer(forKey: WMFUserDefaultsKey.devForceReadingChallengeStreakCount.rawValue) ?? 0
             let devStreak = storedStreak == 0 ? 7 : storedStreak
@@ -431,8 +434,15 @@ extension WMFPageViewsDataController {
 
         // Cap at goal — completion is terminal, no need to count beyond it
         let cappedStreak = min(streak, config.streakGoal)
+        
+        // Note: once a user successfully completes a reading streak, computeStreak starts to evaluate to 0 a few days later.
+        // This user defaults boolean gets around that bug
+        if devBool(.userCompletedReadingChallenge) {
+            return .challengeCompleted
+        }
 
         if cappedStreak >= config.streakGoal {
+            setDevBool(.userCompletedReadingChallenge, value: true)
             return .challengeCompleted
         }
 
