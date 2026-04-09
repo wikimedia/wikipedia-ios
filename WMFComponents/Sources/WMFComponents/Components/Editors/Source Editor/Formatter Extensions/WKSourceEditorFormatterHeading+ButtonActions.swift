@@ -1,6 +1,4 @@
-import Foundation
-import WMFComponentsObjC
-
+import UIKit
 extension WMFSourceEditorFormatterHeading {
     func toggleHeadingFormatting(selectedHeading: WMFEditorInputView.HeadingButtonType, currentSelectionState: WMFSourceEditorSelectionState, textView: UITextView) {
         
