@@ -142,6 +142,7 @@
 "activity-tab-generic-no-edits" = "Você não editou esta semana. Comece agora a acompanhar suas contribuições.";
 "activity-tab-history-callout-body" = "Navegue ou limpe seu histórico de leitura na **guia Pesquisar**.";
 "activity-tab-history-callout-body-loggedout" = "Encontre e limpe seu histórico de leitura na **guia Pesquisar**. Nenhuma conta necessária.";
+"activity-tab-hitory-callout-close" = "Fechar o cartão de aviso do histórico";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "NA WIKIPÉDIA iOS";
 "activity-tab-impact-all-time-title" = "Impacto de todos os tempos";

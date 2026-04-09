@@ -136,6 +136,7 @@
 "activity-tab-onboarding-third-item-subtitle-updated" = "Áirítear leis an ngníomhaíocht amlíne chuimsitheach d’ailt a léadh, a sábháladh agus a cuireadh in eagar. Tá do stair léitheoireachta anois laistigh den chluaisín Cuardaigh.";
 "activity-tab-onboarding-third-item-title-updated" = "Tá stair léitheoireachta i gCuardach anois";
 "activity-tab-read-title" = "Féach ar stair léitheoireachta";
+"activity-tab-remaining-articles" = "+$1";
 "activity-tab-satisfied" = "Sásta";
 "activity-tab-saved" = "Airteagail sábháilte an mhí seo";
 "activity-tab-start-editing" = "Tosaigh ag eagarthóireacht";
@@ -734,6 +735,7 @@
 "insert-media-image-size-setting-default" = "Réamhshocrú";
 "insert-media-image-size-settings-measure-height" = "Airde";
 "insert-media-image-size-settings-measure-width" = "Leithead";
+"insert-media-image-size-settings-px-unit-name" = "px";
 "insert-media-image-size-settings-title" = "Méid íomhá";
 "insert-media-image-text-wrapping-setting" = "Fill téacs timpeall íomhá";
 "insert-media-image-type-setting-basic" = "Bunúsach";
@@ -803,8 +805,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Réamhamharc";
 "nearby-distance-label-feet" = "{{PLURAL:$1|$1 troigh|$1 troithe}}";
 "nearby-distance-label-km" = "$1 km";
-// Fuzzy
-"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-meters" = "{{PLURAL:$1|$1 méadar}}";
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Logáil tú isteach le pasfhocal sealadach. Socraigh pasfhocal nua anseo chun an logáil isteach a chríochnú.";
 "new-password-title" = "Socraigh do phasfhocal";
@@ -855,6 +856,7 @@
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Ní bheidh le feiceáil anseo ach tionscadail ar chruthaigh tú cuntas dóibh";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Tionscadail Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Vicipéidí";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Fógraí logála isteach";
 "notifications-center-mark" = "Marc";
 "notifications-center-mark-all-as-read" = "Marcáil gach rud mar léite";
@@ -979,6 +981,14 @@
 "panel-not-logged-in-continue-edit-action-title" = "Cuir in eagar gan logáil isteach";
 "panel-not-logged-in-subtitle" = "Beidh do sheoladh IP le feiceáil go poiblí má dhéanann tú aon athruithe. Má $1logálann tú isteach$2 nó má $3chruthaíonn tú cuntas$4, cuirfear do chuid athruithe i leith d’ainm úsáideora, mar aon le buntáistí eile.";
 "panel-not-logged-in-title" = "Níl tú logáilte isteach";
+"percentile-0.01" = "0.01";
+"percentile-1" = "1";
+"percentile-10" = "10";
+"percentile-20" = "20";
+"percentile-30" = "30";
+"percentile-40" = "40";
+"percentile-5" = "5";
+"percentile-50" = "50";
 "pictured" = "sa phictiúr";
 "places-accessibility-clear-saved-searches" = "Glan cuardaigh shábháilte";
 "places-accessibility-group" = "$1 alt";

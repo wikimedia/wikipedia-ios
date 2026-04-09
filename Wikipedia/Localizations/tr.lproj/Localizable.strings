@@ -843,8 +843,7 @@
 "more-menu" = "Daha fazla";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine taşıyın";
 "navbar-title-mode-edit-wikitext-preview" = "Önizleme";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 fit";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 fit}}";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 m";
