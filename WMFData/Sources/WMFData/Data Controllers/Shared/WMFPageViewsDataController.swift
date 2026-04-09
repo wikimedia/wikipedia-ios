@@ -422,6 +422,9 @@ extension WMFPageViewsDataController {
         }
 
         guard isEnrolled else {
+            if todayStart > endDateStart {
+                return .challengeConcludedNoStreak
+            }
             return .notEnrolled
         }
 
