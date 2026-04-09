@@ -455,7 +455,15 @@ extension WMFPageViewsDataController {
             }
             
             if cappedStreak == 0 {
-                return .challengeConcludedNoStreak
+                
+                // Show user's highest streak achieved up until that point
+                let highestStreak = try await computeLongestStreak(calendar: calendar, now: now, startDate: config.startDate)
+                
+                if highestStreak > 1 {
+                    return .challengeConcludedIncomplete(streak: highestStreak)
+                } else {
+                    return .challengeConcludedNoStreak
+                }
             }
         }
         
@@ -534,6 +542,53 @@ extension WMFPageViewsDataController {
             let streakStartedAfterEnrollmentCutoff = streak > 0 && streakStartDate > endDateStart
 
             return (streak, hasReadToday, streakStartedAfterEnrollmentCutoff)
+        }
+    }
+    
+    private func computeLongestStreak(
+        calendar: Calendar,
+        now: Date,
+        startDate: Date
+    ) async throws -> Int {
+
+        let startOfChallengeStart = calendar.startOfDay(for: startDate)
+        let todayStart = calendar.startOfDay(for: now)
+
+        // Early exit if now is before startDate
+        guard todayStart >= startOfChallengeStart else { return 0 }
+
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        return try await backgroundContext.perform {
+            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+            fetchRequest.propertiesToFetch = ["timestamp"]
+            let allViews = try backgroundContext.fetch(fetchRequest)
+
+            var daysWithRead = Set<DateComponents>()
+            for view in allViews {
+                guard let ts = view.timestamp else { continue }
+                guard calendar.startOfDay(for: ts) >= startOfChallengeStart else { continue }
+                let comps = calendar.dateComponents([.year, .month, .day], from: ts)
+                daysWithRead.insert(comps)
+            }
+
+            var longestStreak = 0
+            var currentStreak = 0
+            var cursor = startOfChallengeStart
+
+            while cursor <= todayStart {
+                let comps = calendar.dateComponents([.year, .month, .day], from: cursor)
+                if daysWithRead.contains(comps) {
+                    currentStreak += 1
+                    longestStreak = max(longestStreak, currentStreak)
+                } else {
+                    currentStreak = 0
+                }
+                guard let next = calendar.date(byAdding: .day, value: 1, to: cursor) else { break }
+                cursor = next
+            }
+
+            return longestStreak
         }
     }
 }
