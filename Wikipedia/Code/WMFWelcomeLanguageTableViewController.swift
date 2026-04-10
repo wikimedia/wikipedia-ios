@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFData
 
 // https://stackoverflow.com/a/34902501/135557
 class WMFWelcomeLanguageIntrinsicTableView: UITableView {
@@ -40,11 +41,16 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
         languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            updateFonts()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaults.standard.wmf_setShowSearchLanguageBar(MWKDataStore.shared().languageLinkController.preferredLanguages.count > 1)
+        WMFSettingsDataController.shared.setShowSearchLanguageBar(MWKDataStore.shared().languageLinkController.preferredLanguages.count > 1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,13 +80,8 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
         languageTableView.layoutIfNeeded() // Needed for the content offset reset below to work
         languageTableView.contentOffset = .zero
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-    }
 
     private func updateFonts() {
-        moreLanguagesButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        moreLanguagesButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
 }

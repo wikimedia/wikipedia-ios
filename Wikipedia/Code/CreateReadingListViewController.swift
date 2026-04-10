@@ -124,7 +124,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         view.wmf_addSubviewWithConstraintsToEdges(importLoadingView)
         
         let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: .centerCompact)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
+        let closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
@@ -191,7 +191,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
                     self.readingListNameTextField.isEnabled = false
                     self.descriptionTextField.isEnabled = false
                     self.createReadingListButton.isEnabled = false
-                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             }
         }

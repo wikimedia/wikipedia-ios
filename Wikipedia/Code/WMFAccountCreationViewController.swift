@@ -241,7 +241,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
@@ -273,7 +273,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         hcaptchaVC.errorAction = { error in
             hcaptchaVC.dismiss(animated: true) { [weak self] in
                 self?.hCaptchaToken = nil
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true)
             }
         }
         
@@ -336,7 +336,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        WMFAlertManager.sharedInstance.dismissAlert()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
         super.viewWillDisappear(animated)
     }
     
@@ -370,7 +370,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func login() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
         let username = usernameField.text ?? ""
         let password = passwordField.text ?? ""
         dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: nil, captchaWord: nil) { [weak self] (loginResult) in
@@ -383,7 +383,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 self.authInstrument.submitInteraction(action: "success")
                 
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
-                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 if let start = self.startDate {
                     LoginFunnel.shared.logCreateAccountSuccess(category: self.category, timeElapsed: fabs(start.timeIntervalSinceNow))
                 } else {
@@ -403,7 +403,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 self.authInstrument.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
                 self.setViewControllerUserInteraction(enabled: true)
                 self.enableProgressiveButtonIfNecessary()
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             }
         }
     }
@@ -440,7 +440,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 authInstrument.submitInteraction(action: "error", actionContext: ["validation_error": error.testKitchenValidationError])
             }
             
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-missing-fields", value:"You must enter a username, password, and password confirmation to create an account.", comment:"Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty."), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-missing-fields", value:"You must enter a username, password, and password confirmation to create an account.", comment:"Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty."), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             return
         }
 
@@ -450,7 +450,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             self.passwordRepeatField.keyboardAppearance = theme.keyboardAppearance
             self.passwordRepeatAlertLabel.isHidden = false
             self.scrollView.scrollSubview(toTop: self.passwordTitleLabel, offset: 6, animated: true)
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-passwords-mismatched", value:"Password fields do not match.", comment:"Alert shown if the user doesn't enter the same password in both password boxes"), sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
             return
         }
         wmf_hideKeyboard()
@@ -514,8 +514,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
     fileprivate func createAccount() {
         
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
-        
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+
         let siteURL = dataStore.primarySiteURL
         
         let creationFailure: WMFErrorHandler = {[weak self] error in
@@ -540,7 +540,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         self.usernameAlertLabel.alpha = 1
                         self.usernameField.textColor = self.theme.colors.error
                         self.usernameField.keyboardAppearance = self.theme.keyboardAppearance
-                        WMFAlertManager.sharedInstance.dismissAlert()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         return
                     case .wrongCaptcha:
                         isCaptchaError = true
@@ -551,7 +551,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                             if captcha?.classicInfo != nil {
                                 self.authInstrument.submitInteraction(action: "fancy_captcha_error", actionContext: ["captcha_error": error.testKitchenValidationError])
                                 self.authInstrument.submitInteraction(action: "fancy_captcha_show")
-                                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                                WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+
                                 self.captchaViewController?.captcha = captcha
                                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
                                 self.updateEmailFieldReturnKeyType()
@@ -569,8 +570,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                             break
                         }
                         
-                        WMFAlertManager.sharedInstance.dismissAlert()
-                        
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
+
                         self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
 
                     default:
@@ -583,7 +584,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 self.enableProgressiveButtonIfNecessary()
                 
                 if !isCaptchaError {
-                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
                 
             }

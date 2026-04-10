@@ -2,11 +2,12 @@ import Foundation
 import SwiftUI
 import WMF
 
+@MainActor
 protocol VanishAccountWarningViewDelegate: AnyObject {
     func userDidDismissVanishAccountWarningView(presentVanishView: Bool)
 }
 
-final class VanishAccountWarningViewHostingViewController: UIHostingController<VanishAccountWarningView>, UIAdaptivePresentationControllerDelegate, Themeable, RMessageSuppressing {
+final class VanishAccountWarningViewHostingViewController: UIHostingController<VanishAccountWarningView>, UIAdaptivePresentationControllerDelegate, Themeable {
 
     // MARK: - Properties
 

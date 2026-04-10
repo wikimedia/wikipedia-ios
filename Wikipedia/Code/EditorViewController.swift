@@ -66,7 +66,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
 
     private lazy var navigationItemController: EditorNavigationItemController = {
-        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem, dataStore: dataStore)
+        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem, navigationBar: navigationController?.navigationBar, dataStore: dataStore)
         navigationItemController.delegate = self
         return navigationItemController
     }()
@@ -129,11 +129,11 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     
     private func configureNavigationBar() {
+        
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(close(_ :)), alignment: .leading)
 
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_ :)), alignment: .leading)
-
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
@@ -258,7 +258,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 presentProtectedPageWarning(error: protectedPageError)
                 isDifferentErrorBannerShown = true
             } else if let otherError = wikitextFetchResponse.otherError {
-                WMFAlertManager.sharedInstance.showErrorAlertWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showToast(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousToasts: true)
                 isDifferentErrorBannerShown = true
             } else if let editNoticesViewModel,
               !editNoticesViewModel.notices.isEmpty {
@@ -287,7 +287,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 self.addChildEditor(wikitext: wikitextFetchResponse.wikitext, needsReadOnly: needsReadOnly, onloadSelectRange: wikitextFetchResponse.onloadSelectRange)
             }
             if shouldShowEditAlert && !isDifferentErrorBannerShown {
-                WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.editArticleWarning, duration: NSNumber(value: 5), sticky: false, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showToast(CommonStrings.editArticleWarning, sticky: false, dismissPreviousToasts: true)
                 UserDefaults.standard.didShowInformationEditingMessage = true
             }
         }
@@ -400,7 +400,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         if nsError.wmf_isNetworkConnectionError() {
             
             if !UIAccessibility.isVoiceOverRunning {
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
             } else {
                 UIAccessibility.post(notification: .announcement, argument: nsError.alertMessage())
             }
@@ -563,10 +563,10 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         addChild(sourceEditor)
         sourceEditor.view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(sourceEditor.view)
+        view.insertSubview(sourceEditor.view, belowSubview: focusNavigationView)
         
-        let top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: sourceEditor.view.topAnchor)
-        let bottom = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: sourceEditor.view.bottomAnchor)
+        let top = view.topAnchor.constraint(equalTo: sourceEditor.view.topAnchor)
+        let bottom = view.bottomAnchor.constraint(equalTo: sourceEditor.view.bottomAnchor)
         let leading = view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: sourceEditor.view.leadingAnchor)
         let trailing = view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: sourceEditor.view.trailingAnchor)
         
@@ -585,7 +585,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     private func showFocusNavigationView() {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        editorTopConstraint?.constant = -focusNavigationView.frame.height
+        editorTopConstraint?.constant = -view.safeAreaInsets.top
         focusNavigationView.isHidden = false
         navigationItemController.progressButton.isEnabled = false
         navigationItemController.readingThemesControlsToolbarItem.isEnabled = false

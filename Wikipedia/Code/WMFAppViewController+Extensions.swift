@@ -9,11 +9,15 @@ import TipKit
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
     static let showErrorBannerNSErrorKey = "nserror"
+    static let articleViewControllerDidDisappear = Notification.Name("WMFArticleViewControllerDidDisappear")
+    static let dismissReadingListToast = Notification.Name("WMFDismissReadingListToast")
 }
 
 @objc extension NSNotification {
     public static let showErrorBanner = Notification.Name.showErrorBanner
     static let showErrorBannerNSErrorKey = Notification.Name.showErrorBannerNSErrorKey
+    public static let articleViewControllerDidDisappear = Notification.Name.articleViewControllerDidDisappear
+    public static let dismissReadingListToast = Notification.Name.dismissReadingListToast
 }
 
 @objc public enum AppTab: Int {
@@ -25,6 +29,11 @@ extension Notification.Name {
 }
 
 extension WMFAppViewController {
+
+    @objc func shouldOpenAppOnSearchTab() -> Bool {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.openAppOnSearchTab.rawValue)) ?? false
+    }
 
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
 
@@ -68,35 +77,61 @@ extension WMFAppViewController {
 
     private func presentVariantAlert(for languageCode: String, remainingCodes: [String], completion: @escaping () -> Void) {
 
-        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler
-        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
+        let title = alertTitleForLanguageVariantCode(languageCode)
+        let message = alertBodyForLanguageVariantCode(languageCode)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        // If there are remaining codes
+        // If there are remaining codes, primary button shows the next variant alert
         if let nextCode = remainingCodes.first {
-
-            // If more to show, primary button shows next variant alert
-            primaryButtonTapHandler = { _, _ in
-                self.dismiss(animated: true) {
-                    self.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()), completion: completion)
-                }
-            }
-            // And no secondary button
-            secondaryButtonTapHandler = nil
-
+            alert.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: .default) { [weak self] _ in
+                self?.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()), completion: completion)
+            })
         } else {
-            // If no more to show, primary button navigates to languge settings
-            primaryButtonTapHandler = { _, _ in
-                self.displayPreferredLanguageSettings(completion: completion)
-            }
-
-            // And secondary button dismisses
-            secondaryButtonTapHandler = { _, _ in
-                self.dismiss(animated: true, completion: completion)
-            }
+            // No more to show: primary button navigates to language settings, secondary dismisses
+            alert.addAction(UIAlertAction(title: CommonStrings.variantsAlertPreferencesButton, style: .default) { [weak self] _ in
+                self?.displayPreferredLanguageSettings(completion: completion)
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.noThanksTitle, style: .cancel) { _ in
+                completion()
+            })
         }
-
-        let alert = LanguageVariantEducationalPanelViewController(primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, theme: self.theme, languageCode: languageCode)
         self.present(alert, animated: true, completion: nil)
+    }
+
+    private func alertTitleForLanguageVariantCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "crh": return CommonStrings.crimeanTatarVariantsAlertTitle
+        case "gan": return CommonStrings.ganVariantsAlertTitle
+        case "iu": return CommonStrings.inuktitutVariantsAlertTitle
+        case "kk": return CommonStrings.kazakhVariantsAlertTitle
+        case "ku": return CommonStrings.kurdishVariantsAlertTitle
+        case "sr": return CommonStrings.serbianVariantsAlertTitle
+        case "tg": return CommonStrings.tajikVariantsAlertTitle
+        case "uz": return CommonStrings.uzbekVariantsAlertTitle
+        case "zh": return CommonStrings.chineseVariantsAlertTitle
+        case "shi": return CommonStrings.tachelhitVariantsAlertTitle
+        default:
+            assertionFailure("No language variant alert title for language code '\(languageCode)'")
+            return ""
+        }
+    }
+
+    private func alertBodyForLanguageVariantCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "crh": return CommonStrings.crimeanTatarVariantsAlertBody
+        case "gan": return CommonStrings.ganVariantsAlertBody
+        case "iu": return CommonStrings.inuktitutVariantsAlertBody
+        case "kk": return CommonStrings.kazakhVariantsAlertBody
+        case "ku": return CommonStrings.kurdishVariantsAlertBody
+        case "sr": return CommonStrings.serbianVariantsAlertBody
+        case "tg": return CommonStrings.tajikVariantsAlertBody
+        case "uz": return CommonStrings.uzbekVariantsAlertBody
+        case "zh": return CommonStrings.chineseVariantsAlertBody
+        case "shi": return CommonStrings.tachelhitVariantsAlertBody
+        default:
+            assertionFailure("No language variant alert body for language code '\(languageCode)'")
+            return ""
+        }
     }
 
     // Don't present over modals or navigation stacks
@@ -317,23 +352,20 @@ extension WMFAppViewController: WMFWatchlistDelegate {
                     case .success:
                         let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
                         let successMessage = String.localizedStringWithFormat(successfulThanks, username)
-                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                        WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
                     case .failure(let failure):
-                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(failure.localizedDescription, subtitle: nil, image: nil, type: .error, customTypeName: nil, dismissPreviousAlerts: true)
+                        WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
                     }
                 })
             }
 
             if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
-                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] _, _ in
+                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: { [weak self] in
                     WatchlistFunnel.shared.logThanksTapSend(project: wikimediaProject)
                     UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
-                    self?.topMostViewController?.dismiss(animated: true, completion: {
-                        performThanks()
-                    })
-                }, cancelHandler: { [weak self] _, _ in
+                    performThanks()
+                }, cancelHandler: { [weak self] in
                     WatchlistFunnel.shared.logThanksTapCancel(project: wikimediaProject)
-                    self?.topMostViewController?.dismiss(animated: true)
                 })
             } else {
                 performThanks()
@@ -545,7 +577,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
     func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
 
         guard !articles.isEmpty else {
-            WMFAlertManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             return
         }
 
@@ -560,7 +592,7 @@ extension WMFAppViewController: CreateReadingListDelegate {
             case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
                 createReadingListViewController.handleReadingListNameError(readingListError)
             default:
-                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 createReadingListViewController.createReadingListButton.isEnabled = true
             }
         }
@@ -599,6 +631,11 @@ extension WMFAppViewController {
     @objc func setupWMFDataCoreDataStore() {
         WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
 
+        migrateAutoSignTalkPageDiscussions()
+        migrateShowLanguageBar()
+        migrateOpenAppOnSearchTab()
+        migrateIsSubscribedToEchoNotifications()
+
         Task(priority: .userInitiated) {
             do {
                 WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
@@ -625,6 +662,63 @@ extension WMFAppViewController {
             UIApplication.shared.endBackgroundTask(bgTask)
             bgTask = .invalid
         }
+    }
+
+    private func migrateAutoSignTalkPageDiscussions() {
+        let settingsDataController = WMFSettingsDataController.shared
+        guard !settingsDataController.didMigrateAutoSignTalkPageDiscussions() else {
+            return
+        }
+
+        if settingsDataController.hasStoredAutoSignTalkPageDiscussions() {
+            settingsDataController.setDidMigrateAutoSignTalkPageDiscussions(true)
+            return
+        }
+        let legacyKey = "WMFAutoSignTalkPageDiscussions"
+        let bundleID = Bundle.main.bundleIdentifier ?? ""
+        let persistedValue = UserDefaults.standard.persistentDomain(forName: bundleID)?[legacyKey] as? Bool ?? true
+        settingsDataController.setAutoSignTalkPageDiscussions(persistedValue)
+        settingsDataController.setDidMigrateAutoSignTalkPageDiscussions(true)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateShowLanguageBar() {
+        let legacyKey = "ShowLanguageBar"
+        let settingsDataController = WMFSettingsDataController.shared
+        guard let legacyValue = UserDefaults.standard.object(forKey: legacyKey) as? NSNumber else {
+            // No legacy value — set default to true if not yet stored
+            let hasStoredValue = UserDefaults.standard.object(forKey: WMFUserDefaultsKey.showSearchLanguageBar.rawValue) != nil
+            if !hasStoredValue {
+                settingsDataController.setShowSearchLanguageBar(true)
+            }
+            return
+        }
+        settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateOpenAppOnSearchTab() {
+        let legacyKey = "WMFOpenAppOnSearchTab"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        let settingsDataController = WMFSettingsDataController.shared
+        Task {
+            await settingsDataController.setOpenAppOnSearchTab(legacyValue)
+        }
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateIsSubscribedToEchoNotifications() {
+        let legacyKey = "WMFIsSubscribedToEchoNotifications"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        let store = WMFDataEnvironment.current.userDefaultsStore
+        try? store?.save(key: WMFUserDefaultsKey.isSubscribedToEchoNotifications.rawValue, value: legacyValue)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 
     @objc func setupWMFDataEnvironment() {
@@ -1053,7 +1147,7 @@ extension WMFAppViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .activityTab, action: action)
         } else if currentVC is SearchViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .search, action: action)
-        } else if currentVC is WMFSettingsViewController {
+        } else if currentVC is SettingsTabViewController {
             ActivityTabFunnel.shared.logTabBarSelected(from: .settings, action: action)
         } else if let article = currentVC as? ArticleViewController {
             guard let title = article.articleURL.wmf_title?.denormalizedPageTitle else {
@@ -1066,5 +1160,68 @@ extension WMFAppViewController {
                 ActivityTabFunnel.shared.logTabBarSelected(from: .article, action: action)
             }
         }
+    }
+
+    // MARK: - Settings
+
+    @objc func generateSettingsTab() -> SettingsTabViewController {
+        let dataController = WMFSettingsDataController.shared
+
+        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
+        let themeName = UserDefaults.standard.themeDisplayName
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+        let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
+        let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
+                            dataStore.authenticationManager.authStateIsTemporary
+        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+
+        let localizedStrings = WMFSettingsViewModel.LocalizedStrings(
+            settingTitle: CommonStrings.settingsTitle,
+            doneButtonTitle: CommonStrings.doneTitle,
+            cancelButtonTitle: CommonStrings.cancelActionTitle,
+            accountTitle: CommonStrings.account,
+            logInTitle: CommonStrings.logIn,
+            myLanguagesTitle: CommonStrings.myLanguages,
+            searchTitle: CommonStrings.searchTitle,
+            exploreFeedTitle: CommonStrings.exploreFeedTitle,
+            onTitle: CommonStrings.onTitle,
+            offTitle: CommonStrings.offTitle,
+            yirTitle: CommonStrings.yirTitle,
+            pushNotificationsTitle: CommonStrings.pushNotifications,
+            readingpreferences: CommonStrings.readingPreferences,
+            articleSyncing: CommonStrings.settingsStorageAndSyncing,
+            databasePopulation: "Database population",
+            clearCacheTitle: CommonStrings.clearCachedDataSettings,
+            privacyHeader: CommonStrings.privacyTermsHeader,
+            privacyPolicyTitle: CommonStrings.privacyPolicyTitle,
+            termsOfUseTitle: CommonStrings.termsOfUseTitle,
+            rateTheAppTitle: CommonStrings.rateTheAppTitle,
+            helpTitle: CommonStrings.helpAndfeedbackTitle,
+            aboutTitle: CommonStrings.aboutTitle,
+            clearDonationHistoryTitle: CommonStrings.deleteDonationHistory,
+            safetyTitle: CommonStrings.legalAndSafety
+        )
+
+        let viewModel = WMFSettingsViewModel.__createSynchronously(
+            localizedStrings: localizedStrings,
+            username: username,
+            tempUsername: tempUsername,
+            isTempAccount: isTempAccount,
+            primaryLanguage: language,
+            exploreFeedStatus: isExploreFeedOn,
+            readingPreferenceTheme: themeName,
+            coordinatorDelegate: nil,
+            dataController: dataController
+        )
+
+        let controller = SettingsTabViewController(
+            viewModel: viewModel,
+            coordinatorDelegate: nil,
+            dataStore: dataStore,
+            theme: theme,
+            dataController: dataController
+        )
+
+        return controller
     }
 }

@@ -32,12 +32,6 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeNoSavedPagesInReadingList:
             view = [WMFEmptyView noSavedPagesInReadingListEmptyView];
             break;
-        case WMFEmptyViewTypeNoHistory:
-            view = [WMFEmptyView noHistoryEmptyView];
-            break;
-        case WMFEmptyViewTypeNoReadingLists:
-            view = [WMFEmptyView noReadingListsEmptyViewWithTarget:target action:action];
-            break;
         case WMFEmptyViewTypeNoInternetConnection:
             view = [WMFEmptyView noInternetConnectionEmptyView];
             break;

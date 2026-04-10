@@ -82,7 +82,12 @@ public final class WMFDataEnvironment: @unchecked Sendable {
 
     public var sharedCacheStore: WMFKeyValueStore? {
         get { queue.sync { _sharedCacheStore } }
-        set { queue.sync { self._sharedCacheStore = newValue } }
+        set { queue.sync {
+            self._sharedCacheStore = newValue
+            if newValue != nil {
+                NotificationCenter.default.post(name: WMFNSNotification.sharedCacheStoreSetup, object: nil)
+            }
+        } }
     }
 
     public var coreDataStore: WMFCoreDataStore? {

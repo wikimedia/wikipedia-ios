@@ -45,10 +45,8 @@ public actor WMFArticleTabsDataController {
         }
     }
     
-    public enum MoreDynamicTabsExperimentAssignment { case groupC }
-    struct OnboardingStatus: Codable {
-        var hasPresentedOnboardingTooltips: Bool
-        static var `default`: OnboardingStatus { OnboardingStatus(hasPresentedOnboardingTooltips: false) }
+    public enum MoreDynamicTabsExperimentAssignment {
+        case groupC
     }
 
     public static let shared = WMFArticleTabsDataController()
@@ -122,19 +120,11 @@ public actor WMFArticleTabsDataController {
         return assignment
     }
 
-    public var moreDynamicTabsGroupCEnabled: Bool { true }
-    
-    internal var onboardingStatus: OnboardingStatus {
-        (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
+    public var moreDynamicTabsGroupCEnabled: Bool {
+        return true
     }
     
-    public var hasPresentedTooltips: Bool { onboardingStatus.hasPresentedOnboardingTooltips }
-    
-    public func setHasPresentedTooltips(_ value: Bool) {
-        var currentStatus = onboardingStatus
-        currentStatus.hasPresentedOnboardingTooltips = value
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
-    }
+    // MARK: - Tabs Manipulation Methods
     
     public func tabsCount() async throws -> Int {
         guard let moc = backgroundContext else { throw CustomError.missingContext }

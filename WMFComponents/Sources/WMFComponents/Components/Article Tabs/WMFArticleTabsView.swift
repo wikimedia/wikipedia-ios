@@ -312,7 +312,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                 .padding(.bottom, 0)
 
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action: {
+                    WMFSmallCloseButton(action: {
                         viewModel.closeTab(tab: tab)
                     })
                     .accessibilityHidden(true)
@@ -387,7 +387,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                 }
 
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action: {
+                    WMFSmallCloseButton(action: {
                         viewModel.closeTab(tab: tab)
                     })
                     .accessibilityHidden(true)

@@ -12,16 +12,11 @@ static const NSTimeInterval WMFActivityCompletionAnimationDuration = 0.15;
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
-@interface WMFLanguagesViewController () <UISearchBarDelegate>
+@interface WMFLanguagesViewController ()
 
-@property (strong, nonatomic) IBOutlet UISearchBar *languageFilterField;
 @property (strong, nonatomic) MWKLanguageFilter *languageFilter;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *languageFilterTopSpaceConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *filterDividerHeightConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *filterHeightConstraint;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, assign) BOOL hideLanguageFilter;
 @property (nonatomic) BOOL editing;
 @property (nonatomic) BOOL disableSelection;
 
@@ -112,22 +107,12 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    // stylize
-    if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
-        [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
-    }
-
-    self.languageFilterField.placeholder = WMFLocalizedStringWithDefaultValue(@"article-languages-filter-placeholder", nil, nil, @"Find language", @"Filter languages text box placeholder text.");
-
-    self.filterDividerHeightConstraint.constant = 0.5f;
-
     [self.tableView registerNib:[WMFLanguageCell wmf_classNib] forCellReuseIdentifier:[WMFLanguageCell wmf_nibName]];
     [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
     [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
 
-    //HAX: force these to take effect if they were set before the VC was presented/pushed.
+    // HAX: force these to take effect if they were set before the VC was presented/pushed.
     self.editing = self.editing;
-    self.hideLanguageFilter = self.hideLanguageFilter;
     self.disableSelection = self.disableSelection;
 
     [self applyTheme:self.theme];
@@ -135,7 +120,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)setHideLanguageFilter:(BOOL)hideLanguageFilter {
     _hideLanguageFilter = hideLanguageFilter;
-    self.filterHeightConstraint.constant = hideLanguageFilter ? 0 : 44;
+    if (self.viewIfLoaded != nil) {
+        [self configureNavigationBarFromObjCWithTitle:self.title];
+    }
 }
 
 - (void)setEditing:(BOOL)editing {
@@ -173,7 +160,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 #pragma mark - Section management
 
 - (void)reloadDataSections {
-    [[WMFAlertManager sharedInstance] dismissAlert];
+    [[WMFToastManager sharedInstance] dismissCurrentToast];
     [self.tableView reloadData];
 }
 
@@ -383,6 +370,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.navigationItem.searchController.active = NO;
     MWKLanguageLink *selectedLanguage = [self languageAtIndexPath:indexPath];
     if ([self.delegate respondsToSelector:@selector(languagesController:didSelectLanguage:)] && selectedLanguage) {
         [self.delegate languagesController:self didSelectLanguage:selectedLanguage];
@@ -409,6 +397,20 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     }
 }
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self isPreferredSection:indexPath.section] && [self tableView:tableView numberOfRowsInSection:indexPath.section] > 1) {
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                                                                   title:WMFCommonStrings.deleteActionTitle
+                                                                                 handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
+                                                                                     [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+                                                                                     completionHandler(YES);
+                                                                                 }];
+        deleteAction.backgroundColor = self.theme.colors.destructive;
+        return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+    }
+    return [UISwipeActionsConfiguration configurationWithActions:@[]];
+}
+
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
@@ -427,7 +429,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
             break;
     }
     self.languageFilter.languageFilter = @"";
-    self.languageFilterField.text = @"";
+    self.navigationItem.searchController.searchBar.text = @"";
     [tableView reloadData];
     [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
@@ -461,8 +463,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.view.backgroundColor = theme.colors.baseBackground;
     UIColor *backgroundColor = theme.colors.baseBackground;
     self.tableView.backgroundColor = backgroundColor;
-    self.languageFilterField.searchBarStyle = UISearchBarStyleMinimal;
-    self.languageFilterField.barTintColor = backgroundColor;
     [self.tableView reloadData];
 }
 
@@ -495,12 +495,12 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)reloadDataSections {
     [super reloadDataSections];
-    self.navigationItem.rightBarButtonItem = MWKDataStore.shared.languageLinkController.preferredLanguages.count > 1 ? self.editButtonItem : nil;
+    [self updateEditButtonWithIsEditing:self.isEditing];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //need to update the footer
+    // need to update the footer
     [self setEditing:self.editing animated:NO];
 
     self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
@@ -517,6 +517,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     [self.tableView setEditing:editing animated:animated];
+    [self updateEditButtonWithIsEditing:editing];
     if (animated) {
         [UIView animateWithDuration:0.30
                          animations:^{
@@ -600,10 +601,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
     [self notifyDelegateThatPreferredLanguagesDidUpdate];
-    if (MWKDataStore.shared.languageLinkController.preferredLanguages.count == 1) {
-        [self setEditing:NO animated:YES];
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+    [self updateEditButtonWithIsEditing:self.isEditing];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -708,7 +706,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
         }
         failure:^(NSError *__nonnull error) {
             [self setActivityIndicatorVisible:NO];
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            [[WMFToastManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousToasts:YES tapCallBack:NULL];
         }];
 }
 

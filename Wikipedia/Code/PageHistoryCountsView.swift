@@ -4,7 +4,7 @@ import WMFComponents
 class PageHistoryCountsView: UICollectionReusableView {
     fileprivate var pageTitle: String = ""
     fileprivate var locale: Locale = Locale.current
-    
+
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var pageTitleLabel: UILabel!
     @IBOutlet private weak var countsLabel: UILabel!
@@ -15,7 +15,7 @@ class PageHistoryCountsView: UICollectionReusableView {
 
     @IBOutlet private weak var separator: UIView!
     @IBOutlet weak var bottomSeparator: UIView!
-    
+
     @IBOutlet private weak var filterCountsContainerView: UIView!
     private lazy var filterCountsView = PageHistoryFilterCountsView()
 
@@ -47,6 +47,7 @@ class PageHistoryCountsView: UICollectionReusableView {
     private var theme = Theme.standard
 
     private var isFirstLayoutPass = true
+    private var hasRegisteredForTraitChanges = false
 
     private func setSparklineViewHidden(_ hidden: Bool) {
         layoutIfNeeded()
@@ -58,11 +59,11 @@ class PageHistoryCountsView: UICollectionReusableView {
             self.setNeedsLayout()
         }
     }
-    
+
     func configure(pageTitle: String, locale: Locale, totalEditCount: Int?, firstEditDate: Date?, editCountsGroupedByType: EditCountsGroupedByType?, timeseriesOfEditsCounts: [NSNumber]?, theme: Theme) {
         self.pageTitle = pageTitle
         self.locale = locale
-        
+
         setSparklineViewHidden(false)
         countsLabel.setTransparent(true)
 
@@ -78,28 +79,36 @@ class PageHistoryCountsView: UICollectionReusableView {
         sparklineView.accessibilityLabel = WMFLocalizedString("page-history-graph-accessibility-label", value: "Graph of edits over time", comment: "Accessibility label text used for edits graph")
 
         accessibilityElements = [titleLabel, pageTitleLabel, countsLabel, sparklineView, filterCountsView].compactMap { $0 as Any }
-        
+
         setNeedsLayout()
         layoutIfNeeded()
-        
+
         if let totalEditCount, let firstEditDate {
             self.set(totalEditCount: totalEditCount, firstEditDate: firstEditDate)
         }
-        
+
         if let editCountsGroupedByType {
             self.editCountsGroupedByType = editCountsGroupedByType
         }
-        
+
         if let timeseriesOfEditsCounts {
             self.timeseriesOfEditsCounts = timeseriesOfEditsCounts
         }
-       
+
+        if !hasRegisteredForTraitChanges {
+            hasRegisteredForTraitChanges = true
+            registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (view: Self, previousTraitCollection: UITraitCollection) in
+                guard let self else { return }
+                self.updateFonts()
+            }
+        }
+
         apply(theme: theme)
     }
-    
+
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
-        
+
         guard isFirstLayoutPass else {
             return
         }
@@ -111,11 +120,6 @@ class PageHistoryCountsView: UICollectionReusableView {
         titleLabel.font = WMFFont.for(.mediumFootnote)
         pageTitleLabel.font = WMFFont.for(.boldTitle1)
         countsLabel.font = WMFFont.for(.boldSubheadline)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 }
 

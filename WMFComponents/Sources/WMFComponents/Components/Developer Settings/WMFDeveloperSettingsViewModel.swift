@@ -10,7 +10,6 @@ import WMFData
     let enableYearinReview: String
     let bypassDonation: String
     let forceEmailAuth: String
-    let done: String
 
     @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableMoreDynamicTabsV2GroupC: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, done: String) {
         self.developerSettings = developerSettings
@@ -20,7 +19,6 @@ import WMFData
         self.enableYearinReview = enableYearinReview
         self.bypassDonation = bypassDonation
         self.forceEmailAuth = forceEmailAuth
-        self.done = done
     }
 }
 

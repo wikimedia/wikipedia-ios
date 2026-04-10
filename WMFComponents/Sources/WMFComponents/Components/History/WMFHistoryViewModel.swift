@@ -46,6 +46,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     // MARK: - Properties
 
     @Published public var topPadding: CGFloat = 0
+    @Published public var bottomPadding: CGFloat = 0
     @Published public var isEmpty: Bool = true
     var geometryFrames: [String: CGRect] = [:]
 
@@ -64,7 +65,9 @@ public final class WMFHistoryViewModel: ObservableObject {
         self.historyDataController = historyDataController
         self.topPadding = topPadding
 
-        // loadHistory()
+        Task { [weak self] in
+            self?.loadHistory()
+        }
     }
 
     // MARK: - Public functions
@@ -86,7 +89,7 @@ public final class WMFHistoryViewModel: ObservableObject {
             return HistorySection(dateWithoutTime: dataSection.dateWithoutTime, items: items)
         }
 
-        self.sections = viewModelSections
+        sections = viewModelSections
         isEmpty = dataSections.isEmpty || dataSections.allSatisfy { $0.items.isEmpty }
     }
 
@@ -99,9 +102,7 @@ public final class WMFHistoryViewModel: ObservableObject {
 
         section.items.remove(at: itemIndex)
         if section.items.isEmpty {
-            DispatchQueue.main.async {
-                self.sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
-            }
+            sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
         }
         await historyDataController.deleteHistoryItem(item)
 

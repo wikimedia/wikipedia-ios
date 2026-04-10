@@ -44,12 +44,23 @@ final class TalkPageCell: UICollectionViewCell {
     lazy var leadReplySpacer = VerticalSpacerView.spacerWith(space: 16)
 
     lazy var leadReplyButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 8
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.font = WMFFont.for(.boldCallout)
-        button.setTitleColor(.black, for: .normal)
-        button.setImage(UIImage(systemName: "arrowshape.turn.up.left"), for: .normal)
+        var config = UIButton.Configuration.filled()
+        config.image = UIImage(systemName: "arrowshape.turn.up.left")
+        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 13)
+        config.imagePadding = 4
+        config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12)
+        config.cornerStyle = .capsule
+
+        var container = AttributeContainer()
+        container.font = WMFFont.for(.boldCallout)
+        config.attributedTitle = AttributedString("", attributes: container)
+
+        let button = UIButton(configuration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.configurationUpdateHandler = { button in
+            var config = button.configuration
+            button.configuration = config
+        }
 
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -73,7 +84,7 @@ final class TalkPageCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         viewModel = nil
         delegate = nil
         topicView.disclosureButton.removeTarget(nil, action: nil, for: .allEvents)
@@ -84,7 +95,7 @@ final class TalkPageCell: UICollectionViewCell {
     func setup() {
         contentView.addSubview(rootContainer)
         rootContainer.addSubview(stackView)
-        
+
         let rootContainerBottomConstraint = rootContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         rootContainerBottomConstraint.priority = .defaultHigh
 
@@ -102,12 +113,12 @@ final class TalkPageCell: UICollectionViewCell {
 
         stackView.addArrangedSubview(topicView)
     }
-    
+
     // MARK: - Public
-    
+
     /// Seeks out and returns the associated comment view that is already in the cell view hierarchy.
     func commentViewForViewModel(_ commentViewModel: TalkPageCellCommentViewModel) -> TalkPageCellCommentView? {
-        
+
         return stackView.arrangedSubviews
                     .compactMap { $0 as? TalkPageCellCommentView }
                     .first(where: { $0.viewModel == commentViewModel })
@@ -117,14 +128,14 @@ final class TalkPageCell: UICollectionViewCell {
 
     func configure(viewModel: TalkPageCellViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
         self.viewModel = viewModel
-        
+
         topicView.configure(viewModel: viewModel)
         topicView.linkDelegate = linkDelegate
-        
+
         topicView.disclosureButton.addTarget(self, action: #selector(userDidTapDisclosureButton), for: .primaryActionTriggered)
         topicView.subscribeButton.addTarget(self, action: #selector(userDidTapSubscribeButton), for: .primaryActionTriggered)
         leadReplyButton.addTarget(self, action: #selector(userDidTapLeadReply), for: .touchUpInside)
-        
+
         let languageCode = viewModel.viewModel?.siteURL.wmf_languageCode
         leadReplyButton.setTitle(CommonStrings.talkPageReply(languageCode: languageCode), for: .normal)
         let replyButtonAccessibilityLabel = CommonStrings.talkPageReplyAccessibilityText
@@ -135,41 +146,41 @@ final class TalkPageCell: UICollectionViewCell {
         guard let semanticContentAttribute = viewModel.viewModel?.semanticContentAttribute else {
             return
         }
-        
+
         updateSemanticContentAttribute(semanticContentAttribute)
-        
+
         let showingOtherContent = viewModel.leadComment == nil && viewModel.otherContentHtml != nil
-        
+
         guard !showingOtherContent else {
             return
         }
-        
+
         if viewModel.isThreadExpanded {
-            
+
             stackView.addArrangedSubview(leadReplySpacer)
             stackView.addArrangedSubview(leadReplyButton)
-            
+
             for commentViewModel in viewModel.replies {
                 let separator = TalkPageCellCommentSeparator()
                 separator.setContentHuggingPriority(.defaultLow, for: .horizontal)
                 separator.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-                
+
                 let commentView = TalkPageCellCommentView()
                 commentView.replyDelegate = replyDelegate
                 commentView.configure(viewModel: commentViewModel)
                 commentView.linkDelegate = linkDelegate
-                
+
                 stackView.addArrangedSubview(separator)
                 stackView.addArrangedSubview(commentView)
             }
         }
     }
 
-    
+
     func updateSubscribedState(viewModel: TalkPageCellViewModel) {
         topicView.updateSubscribedState(cellViewModel: viewModel)
     }
-    
+
     func removeExpandedElements() {
         for subview in stackView.arrangedSubviews {
             if subview != topicView {
@@ -177,27 +188,15 @@ final class TalkPageCell: UICollectionViewCell {
             }
         }
     }
-    
+
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
         stackView.semanticContentAttribute = semanticContentAttribute
         leadReplySpacer.semanticContentAttribute = semanticContentAttribute
         leadReplyButton.semanticContentAttribute = semanticContentAttribute
         topicView.semanticContentAttribute = semanticContentAttribute
-        
+
         stackView.arrangedSubviews.forEach { subview in
             subview.semanticContentAttribute = semanticContentAttribute
-        }
-        
-        var deprecatedLeadReplyButton = leadReplyButton as DeprecatedButton
-        switch semanticContentAttribute {
-        case .forceRightToLeft:
-            deprecatedLeadReplyButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-            deprecatedLeadReplyButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-            deprecatedLeadReplyButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-        default:
-            deprecatedLeadReplyButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-            deprecatedLeadReplyButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-            deprecatedLeadReplyButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
         }
     }
 
@@ -210,13 +209,13 @@ final class TalkPageCell: UICollectionViewCell {
     @objc func userDidTapSubscribeButton() {
         delegate?.userDidTapSubscribeButton(cellViewModel: viewModel, cell: self)
     }
-    
+
     @objc func userDidTapLeadReply() {
-        
+
         guard let commentViewModel = viewModel?.leadComment else {
             return
         }
-        
+
         replyDelegate?.tappedReply(commentViewModel: commentViewModel, accessibilityFocusView: topicView.topicCommentTextView)
     }
 }
@@ -231,10 +230,11 @@ extension TalkPageCell: Themeable {
 
         stackView.arrangedSubviews.forEach { ($0 as? Themeable)?.apply(theme: theme) }
 
-        leadReplyButton.setTitleColor(theme.colors.paperBackground, for: .normal)
-        leadReplyButton.backgroundColor = theme.colors.link
-        leadReplyButton.tintColor = theme.colors.paperBackground
-        
+        var config = leadReplyButton.configuration
+        config?.baseForegroundColor = theme.colors.paperBackground
+        config?.baseBackgroundColor = theme.colors.link
+        leadReplyButton.configuration = config
+
         // Need to set textView and label textAlignments in the hierarchy again, after their attributed strings are set to the correct theme.
         let currentSemanticContentAttribute = stackView.semanticContentAttribute
         updateSemanticContentAttribute(currentSemanticContentAttribute)

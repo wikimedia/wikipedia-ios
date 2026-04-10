@@ -27,7 +27,7 @@ extension ExploreFeedSettingsItem {
 
     }
     func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
-        
+
     }
 }
 
@@ -291,28 +291,28 @@ extension BaseExploreFeedSettingsViewController {
 // MARK: - UITableViewDelegate
 
 extension BaseExploreFeedSettingsViewController {
-    
+
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     @objc func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let text = getSection(at: section).headerTitle
         return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, theme: theme)
     }
-    
+
     @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let text = getSection(at: section).footerTitle
         return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .footer, setShortTextAsProse: true, theme: theme)
     }
 
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        
+
         let text = getSection(at: section).footerTitle
         guard !text.isEmpty else {
             return 0
         }
-        
+
         return UITableView.automaticDimension
     }
 }
@@ -331,7 +331,7 @@ fileprivate extension MWKLanguageLink {
     private var feedContentController: WMFExploreFeedContentController {
         MWKDataStore.shared().feedContentController
     }
-    
+
     /**
      Flag indicating whether there are any visible customizable feed content sources in this language.
      Returns true if there is at least one content source in this language visible in the feed.
@@ -340,7 +340,7 @@ fileprivate extension MWKLanguageLink {
     var isInFeed: Bool {
         feedContentController.anyContentGroupsVisibleInTheFeed(forSiteURL: siteURL)
     }
-    
+
     /**
      Flag indicating whether the content group of given kind is visible in the feed in this language.
      Returns YES if the content group of given kind is visible in the feed in this language.

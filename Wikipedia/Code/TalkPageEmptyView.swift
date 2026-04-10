@@ -78,10 +78,17 @@ final class TalkPageEmptyView: SetupView {
     lazy var actionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.cornerRadius = 8
-        button.masksToBounds = true
-        button.titleLabel?.font = WMFFont.for(.boldCallout)
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
+
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = WMFFont.for(.boldCallout)
+            return outgoing
+        }
+        button.configuration = config
+
         return button
     }()
 
@@ -198,13 +205,13 @@ final class TalkPageEmptyView: SetupView {
             bodyLabel.attributedText = NSMutableAttributedString(string: String.localizedStringWithFormat(LocalizedStrings.userBody, viewModel.headerTitle), attributes: [.paragraphStyle: bodyLineHeightAttribute])
             actionButton.setTitle(LocalizedStrings.startDiscussion, for: .normal)
         }
-        
+
         let semanticContentAttribute = viewModel.semanticContentAttribute
         updateSemanticContentAttribute(semanticContentAttribute)
     }
-    
+
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
-        
+
         container.semanticContentAttribute = semanticContentAttribute
         imageView.semanticContentAttribute = semanticContentAttribute
         headerLabel.semanticContentAttribute = semanticContentAttribute
@@ -229,8 +236,11 @@ extension TalkPageEmptyView: Themeable {
         headerLabel.textColor = theme.colors.primaryText
         bodyLabel.textColor = theme.colors.primaryText
 
-        actionButton.backgroundColor = theme.colors.link
-        actionButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+        var config = actionButton.configuration ?? UIButton.Configuration.filled()
+        config.baseBackgroundColor = theme.colors.link
+        config.baseForegroundColor = theme.colors.paperBackground
+
+        actionButton.configuration = config
     }
 
 }

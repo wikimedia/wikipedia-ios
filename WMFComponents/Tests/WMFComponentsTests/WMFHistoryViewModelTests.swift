@@ -63,7 +63,8 @@ final class WMFHistoryViewModelTests: XCTestCase {
 
     // MARK: - Test loadHistory
 
-    func testLoadHistoryPopulatesSections() async throws {
+    func testLoadHistoryPopulatesSections() async {
+
         let today = Calendar.current.startOfDay(for: Date())
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
 
@@ -104,6 +105,12 @@ final class WMFHistoryViewModelTests: XCTestCase {
         let viewModel = createViewModel(with: fakeController)
         await viewModel.loadHistory()
 
+
+        await Task.yield() // allow the deferred loadHistory Task to run
+
+        XCTAssertEqual(viewModel.sections.count, 2, "There should be 2 sections loaded.")
+
+
         if let todaySection = viewModel.sections.first(where: { Calendar.current.isDate($0.dateWithoutTime, inSameDayAs: today) }) {
             XCTAssertEqual(todaySection.items.count, 2, "Today's section should have 2 items.")
         } else {
@@ -120,7 +127,8 @@ final class WMFHistoryViewModelTests: XCTestCase {
 
     // MARK: - Test delete functionality
 
-    func testDeleteItemInViewModel() async throws {
+    func testDeleteItemInViewModel() async {
+
         let today = Calendar.current.startOfDay(for: Date())
         let item = HistoryItem(id: "1",
                                url: URL(string: "https://example.com/1")!,
@@ -137,9 +145,9 @@ final class WMFHistoryViewModelTests: XCTestCase {
         fakeController.sections = [section]
 
         let viewModel = createViewModel(with: fakeController)
-        
-        await viewModel.loadHistory()
-        
+
+        await Task.yield() // allow the deferred loadHistory Task to run
+
         XCTAssertEqual(viewModel.sections.count, 1, "There should be one section initially.")
         guard let firstSection = viewModel.sections.first else {
             XCTFail("Section should exist")
@@ -153,12 +161,8 @@ final class WMFHistoryViewModelTests: XCTestCase {
 
         XCTAssertEqual(fakeController.deletedItems.count, 1, "deleteHistoryItem should be called once.")
         XCTAssertEqual(fakeController.deletedItems.first?.id, historyItem.id, "Deleted item's id should match.")
-
         XCTAssertEqual(firstSection.items.count, 0, "Section should have 0 items after deletion.")
-        
-        // Wait a bit for the async updates to complete
-        try await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
-        
+
         XCTAssertEqual(viewModel.sections.count, 0, "ViewModel sections should be empty after deleting the last item.")
     }
 
@@ -170,7 +174,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
         let savedItem = HistoryItem(
             id: "1",
             url: URL(string: "https://example.com/1")!,
-            titleHtml: "Article 1",
+            titleHtml: "Article 1",
             description: nil,
             shortDescription: nil,
             imageURLString: nil,
@@ -181,7 +185,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
         let unsavedItem = HistoryItem(
             id: "2",
             url: URL(string: "https://example.com/2")!,
-            titleHtml: "Article 2",
+            titleHtml: "Article 2",
             description: nil,
             shortDescription: nil,
             imageURLString: nil,
@@ -196,19 +200,20 @@ final class WMFHistoryViewModelTests: XCTestCase {
 
         let viewModel = createViewModel(with: fakeController)
 
-        await viewModel.loadHistory()
+        await Task.yield()
 
         guard let loadedSection = viewModel.sections.first,
               loadedSection.items.count == 2
         else {
-            XCTFail("HistorySection didn’t load correctly")
+            XCTFail("HistorySection didn't load correctly")
             return
         }
-        let firstItem  = section.items[0]  // true
-        let secondItem = section.items[1]  // false
+        let firstItem  = section.items[0]
+        let secondItem = section.items[1]
 
-        await viewModel.saveOrUnsave(item: firstItem,  in: loadedSection)
-        await viewModel.saveOrUnsave(item: secondItem, in: loadedSection)
+        viewModel.saveOrUnsave(item: firstItem,  in: loadedSection)
+        viewModel.saveOrUnsave(item: secondItem, in: loadedSection)
+
 
         XCTAssertEqual(
             fakeController.unsavedItems.map(\.id),
@@ -251,8 +256,8 @@ final class WMFHistoryViewModelTests: XCTestCase {
         viewModel.onTapArticle = { item in
             tappedItem = item
         }
-        
-        await viewModel.loadHistory()
+
+        await Task.yield()
 
         guard let loadedSection = viewModel.sections.first,
               let historyItem = loadedSection.items.first else {
