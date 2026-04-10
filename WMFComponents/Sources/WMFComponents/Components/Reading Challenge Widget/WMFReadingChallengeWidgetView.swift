@@ -198,7 +198,7 @@ public struct WMFReadingChallengeWidgetView: View {
                     if let subtitle = viewModel.displaySet.subtitle {
                         Spacer()
                         HStack(spacing: 3) {
-                            if let icon = viewModel.displaySet.icon2 {
+                            if let icon = viewModel.displaySet.smallerIcon1 {
                                 Image(uiImage: icon)
                                     .font(Font(WMFFont.for(.subheadline)))
                                     .foregroundStyle(viewModel.displaySet.color2)
@@ -299,7 +299,7 @@ public struct WMFReadingChallengeWidgetView: View {
                         case .challengeConcludedIncomplete:
                             Spacer()
                             HStack(spacing: 3) {
-                                if let icon = viewModel.displaySet.icon2 {
+                                if let icon = viewModel.displaySet.smallerIcon1 {
                                     Image(uiImage: icon)
                                         .font(Font(WMFFont.for(.subheadline)))
                                         .foregroundStyle(viewModel.displaySet.color2)
