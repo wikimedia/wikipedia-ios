@@ -73,9 +73,6 @@
         case WMFContentGroupKindOnThisDay:
             URL = [WMFContentGroup onThisDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
-        case WMFContentGroupKindNotification:
-            URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
-            break;
         case WMFContentGroupKindTheme:
             URL = [WMFContentGroup themeContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
@@ -113,9 +110,6 @@
             break;
         case WMFContentGroupKindAnnouncement:
             self.contentType = WMFContentTypeAnnouncement;
-            break;
-        case WMFContentGroupKindNotification:
-            self.contentType = WMFContentTypeNotification;
             break;
         case WMFContentGroupKindTheme:
             self.contentType = WMFContentTypeTheme;
@@ -180,9 +174,6 @@
             break;
         case WMFContentGroupKindNews:
             updatedDailySortPriority = contentLanguageSortOrder + 6;
-            break;
-        case WMFContentGroupKindNotification:
-            updatedDailySortPriority = -1;
             break;
         case WMFContentGroupKindPictureOfTheDay:
             updatedDailySortPriority = 8;
@@ -345,7 +336,6 @@
 
         } break;
         case WMFContentGroupKindMainPage:
-        case WMFContentGroupKindNotification:
         case WMFContentGroupKindLocationPlaceholder:
         case WMFContentGroupKindPictureOfTheDay:
         case WMFContentGroupKindRandom:

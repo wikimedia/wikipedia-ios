@@ -2,6 +2,9 @@ import UIKit
 import CocoaLumberjackSwift
 import WMF
 import WMFNativeLocalizations
+import WMFComponents
+import SwiftUI
+import UserNotifications
 
 protocol ExploreCardViewControllerDelegate: NestedCollectionViewContextMenuDelegate {
     var saveButtonsController: SaveButtonsController { get }
@@ -16,52 +19,52 @@ struct ExploreSaveButtonUserInfo {
 }
 
 class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate {
-    
+
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
-    
+
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
     }()
-    
+
     lazy var layout: ColumnarCollectionViewLayout = {
         return ColumnarCollectionViewLayout()
     }()
-    
+
     lazy var locationManager: LocationManagerProtocol = {
         let locationManager = LocationManager()
         locationManager.delegate = self
         return locationManager
     }()
-    
+
     deinit {
         if visibleLocationCellCount > 0 {
             locationManager.stopMonitoringLocation()
         }
     }
-    
+
     lazy var editController: CollectionViewEditController = {
         let editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
         return editController
     }()
-    
+
     var collectionView: UICollectionView {
         return view as! UICollectionView
     }
 
     var theme: Theme = Theme.standard
-    
+
     var dataStore: MWKDataStore!
-    
+
     // MARK: - View Lifecycle
-    
+
     override func loadView() {
         super.loadView()
         self.view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
     }
-    
+
     public func savedStateDidChangeForArticleWithKey(_ changedArticleKey: WMFInMemoryURLKey) {
         for i in 0..<numberOfItems {
             let indexPath = IndexPath(item: i, section: 0)
@@ -76,7 +79,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: false)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.isScrollEnabled = false
@@ -93,7 +96,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         collectionView.isOpaque = true
         view.isOpaque = true
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
@@ -106,7 +109,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             subCell.deselectSelectedSubItems(animated: animated)
         }
     }
-    
+
     override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         guard let delegateVC = delegate else {
             super.present(viewControllerToPresent, animated: flag, completion: completion)
@@ -114,7 +117,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         delegateVC.present(viewControllerToPresent, animated: flag, completion: completion)
     }
-    
+
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         guard let delegateVC = delegate else {
             super.dismiss(animated: flag, completion: completion)
@@ -122,7 +125,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         delegateVC.dismiss(animated: flag, completion: completion)
     }
-    
+
     // MARK: - Data
     private var visibleLocationCellCount: Int = 0
 
@@ -139,7 +142,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             reloadData()
         }
     }
-    
+
     private func reloadData() {
         contentHeightByWidth.removeAll()
         if visibleLocationCellCount > 0 {
@@ -148,9 +151,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         visibleLocationCellCount = 0
         collectionView.reloadData()
     }
-    
+
     var contentHeightByWidth: [Int: CGFloat] = [:]
-    
+
     public func contentHeight(forWidth width: CGFloat) -> CGFloat {
         let widthInt = Int(round(width))
         if let cachedHeight = contentHeightByWidth[widthInt] {
@@ -160,27 +163,27 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         contentHeightByWidth[widthInt] = height
         return height
     }
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard contentGroup != nil else {
             return 0
         }
         return 1
     }
-    
-    
+
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfItems
     }
-    
+
     var numberOfItems: Int {
         return contentGroup?.countOfPreviewItems ?? 0
     }
-    
+
     private func displayTypeAt(_ indexPath: IndexPath) -> WMFFeedDisplayType {
         return contentGroup?.displayTypeForItem(at: indexPath.row) ?? .page
     }
-    
+
     private func resuseIdentifierFor(_ displayType: WMFFeedDisplayType) -> String {
         switch displayType {
         case .ranked:
@@ -205,20 +208,20 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return ArticleFullWidthImageExploreCollectionViewCell.identifier
         }
     }
-    
+
     func articleURL(at indexPath: IndexPath) -> URL? {
         return contentGroup?.previewArticleURLForItemAtIndex(indexPath.row)
     }
-    
+
     private func article(at indexPath: IndexPath) -> WMFArticle? {
         guard let url = articleURL(at: indexPath) else {
             return nil
         }
         return dataStore.fetchArticle(with: url)
     }
-    
+
     // MARK: - cell configuration
-    
+
     private func configureArticleCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         guard let cell = cell as? ArticleCollectionViewCell, let articleURL = articleURL(at: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
@@ -229,7 +232,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
-    
+
     private func configureLocationCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         guard let cell = cell as? ArticleLocationExploreCollectionViewCell, let articleURL = articleURL(at: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
@@ -257,7 +260,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
-    
+
     private func configureNewsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
         guard let cell = cell as? NewsExploreCollectionViewCell, let story = contentGroup?.contentPreview as? WMFFeedNewsStory else {
             return
@@ -265,7 +268,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         cell.configure(with: story, dataStore: dataStore, showArticles: false, theme: theme, layoutOnly: layoutOnly)
         cell.selectionDelegate = self
     }
-    
+
     private func configureOnThisDayCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let index = indexPath.row
         guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], !events.isEmpty, events.indices.contains(index) else {
@@ -290,7 +293,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return contentGroup?.footerText
         }
     }
-    
+
     private func configurePhotoCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
         guard let cell = cell as? ImageCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
             return
@@ -306,7 +309,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.apply(theme: theme)
     }
-    
+
     private func configureAnnouncementCell(_ cell: UICollectionViewCell, displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         guard let cell = cell as? AnnouncementCollectionViewCell else {
             return
@@ -360,7 +363,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         cell.apply(theme: theme)
         cell.delegate = self
     }
-    
+
     private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         switch displayType {
         case .pageWithLocation, .pageWithLocationPlaceholder:
@@ -380,14 +383,14 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         cell.layoutMargins = layout.itemLayoutMargins
     }
-    
+
     private func configureSuggestedEditsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
         guard let cell = cell as? SuggestedEditsExploreCell else {
             return
         }
-        
+
         let languageCode = dataStore.languageLinkController.appLanguage?.languageCode
-        
+
         cell.title = WMFLocalizedString("explore-suggested-edits-image-recs-title", languageCode: languageCode, value: "Add an image", comment: "Title text shown in the image recommendations explore feed card.")
         cell.body = WMFLocalizedString("explore-suggested-edits-image-recs-body", languageCode: languageCode, value: "Add suggested images to Wikipedia articles to enhance understanding.", comment: "Body text shown in the image recommendations explore feed card.")
         cell.apply(theme: theme)
@@ -405,14 +408,14 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
 
     // MARK: - UICollectionViewDataSource
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let displayType = displayTypeAt(indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resuseIdentifierFor(displayType), for: indexPath)
         configure(cell: cell, forItemAt: indexPath, with: displayType, layoutOnly: false)
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ArticleFullWidthImageCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article, with: ExploreSaveButtonUserInfo(indexPath: indexPath, kind: contentGroup?.contentGroupKind, midnightUTCDate: contentGroup?.midnightUTCDate))
@@ -424,7 +427,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             }
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ArticleFullWidthImageCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
@@ -437,19 +440,19 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
-    
+
     // MARK: - UICollectionViewDelegate
-    
+
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return contentGroup?.isSelectable ?? false
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: indexPath)
     }
-    
+
     // MARK: - ColumnarCollectionViewLayoutDelegate
-    
+
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
@@ -476,15 +479,15 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         estimate.precalculated = true
         return estimate
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
         return true
     }
@@ -492,12 +495,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, shouldShowFooterForSection section: Int) -> Bool {
         return false
     }
-    
+
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         let kind = contentGroup?.contentGroupKind ?? .unknown
         let itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
         let layoutMargins: UIEdgeInsets
-        
+
         // add additional spacing around the section
         switch kind {
         case .location:
@@ -513,16 +516,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         default:
             layoutMargins = .zero
         }
-        
+
         return ColumnarCollectionViewLayoutMetrics.exploreCardMetrics(with: size, readableWidth: size.width, layoutMargins: layoutMargins)
     }
-    
-    func userDidTapTurnOnNotifications() {
-        let pushSettingsVC = PushNotificationsSettingsViewController.init(authenticationManager: self.dataStore.authenticationManager, notificationsController: self.dataStore.notificationsController)
-        pushSettingsVC.apply(theme: self.theme)
-        self.navigationController?.pushViewController(pushSettingsVC, animated: true)
-    }
-    
 }
 
 extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
@@ -549,19 +545,19 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
         guard let article = article(at: indexPath) else {
             return []
         }
-        
+
         var actions: [Action] = []
-        
+
         if article.isAnyVariantSaved {
             actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
         } else {
             actions.append(ActionType.save.action(with: self, indexPath: indexPath))
         }
-        
+
         actions.append(ActionType.share.action(with: self, indexPath: indexPath))
         return actions
     }
-    
+
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         let sourceView = collectionView.cellForItem(at: indexPath)
@@ -610,11 +606,11 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             DDLogError("Error saving after cell dismissal: \(error)")
         }
     }
-    
+
     func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell) {
         dismissAnnouncementCell(cell)
     }
-    
+
     func announcementCellDidTapActionButton(_ cell: AnnouncementCollectionViewCell) {
         guard let kind = contentGroup?.contentGroupKind else {
             return
@@ -627,9 +623,6 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             wmf_showLoginViewController(theme: theme)
             LoginFunnel.shared.logLoginStartInFeed()
             dismissAnnouncementCell(cell)
-        case .notification:
-            userDidTapTurnOnNotifications()
-            dismissAnnouncementCell(cell)
         default:
             guard let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
                 let url = announcement.actionURL else {
@@ -639,7 +632,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             dismissAnnouncementCell(cell)
         }
     }
-    
+
     func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL linkURL: URL) {
         navigate(to: linkURL, useSafari: true)
     }
@@ -651,11 +644,11 @@ extension ExploreCardViewController: ArticlePreviewingDelegate {
         let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
         coordinator.start()
     }
-    
+
     func saveArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, didSave: Bool, articleURL: URL) {
-        
+
     }
-    
+
     func shareArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, shareActivityController: UIActivityViewController) {
         if let popover = shareActivityController.popoverPresentationController {
             popover.sourceView = peekController.view
@@ -663,12 +656,12 @@ extension ExploreCardViewController: ArticlePreviewingDelegate {
         }
         present(shareActivityController, animated: true, completion: nil)
     }
-    
+
     func viewOnMapArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: peekController.articleURL)
         UIApplication.shared.open(placesURL)
     }
-    
+
     func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         guard let navVC = navigationController else { return }
         let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
@@ -724,7 +717,7 @@ extension ExploreCardViewController: MEPEventsProviding {
     var eventLoggingLabel: EventLabelMEP? {
         return contentGroup?.getAnalyticsLabel()
     }
-    
+
     var eventLoggingCategory: EventCategoryMEP {
         return .feed
     }
@@ -737,10 +730,10 @@ extension ExploreCardViewController {
         guard indexPath.item < numberOfItems else {
             return nil
         }
-        
+
         let articleURL = articleURL(at: indexPath)
         let article = article(at: indexPath)
-        
+
         return delegate?.contextMenu(contentGroup: contentGroup, articleURL: articleURL, article: article, itemIndex: indexPath.item)
     }
 

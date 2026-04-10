@@ -104,6 +104,11 @@ class ReadingThemesControlsViewController: UIViewController {
         evaluateShowsSyntaxHighlightingState()
         evaluateSyntaxHighlightingSelectedState()
         updatePreferredContentSize()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
     
     deinit {
@@ -162,11 +167,6 @@ class ReadingThemesControlsViewController: UIViewController {
         visible = true
         let currentTheme = UserDefaults.standard.theme(compatibleWith: traitCollection)
         apply(theme: currentTheme)
-    }
-    
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
     }
 
     private func updateFonts() {

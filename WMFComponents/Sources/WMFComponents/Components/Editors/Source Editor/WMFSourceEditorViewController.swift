@@ -157,8 +157,8 @@ public class WMFSourceEditorViewController: WMFComponentViewController {
         NSLayoutConstraint.activate([
             view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
             view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
-            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: textView.topAnchor),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
+            view.topAnchor.constraint(equalTo: textView.topAnchor),
+            view.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
         ])
         
         NotificationCenter.default.addObserver(self,

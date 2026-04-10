@@ -32,16 +32,16 @@ final class InsertMediaSettingsImageView: UIView {
         imageView.accessibilityIgnoresInvertColors = true
         updateFonts()
         configTitleButton()
-    }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (view: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
 
     private func updateFonts() {
         imageDescriptionLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
-        titleButton.titleLabel?.font = WMFFont.for(.boldHeadline, compatibleWith: traitCollection)
+        titleButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     @IBAction private func performTitleAction(_ sender: UIButton) {
@@ -75,5 +75,6 @@ extension InsertMediaSettingsImageView: Themeable {
         imageDescriptionLabel.textColor = theme.colors.secondaryText
         titleButton.setTitleColor(theme.colors.link, for: .normal)
         separatorView.backgroundColor = theme.colors.border
+        titleButton.tintColor = theme.colors.link
     }
 }

@@ -1,14 +1,14 @@
 import WMFComponents
 
 class DiffHeaderSummaryView: SetupView, Themeable {
-    
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
     }()
-    
+
     private lazy var headingLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +18,7 @@ class DiffHeaderSummaryView: SetupView, Themeable {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    
+
     private lazy var summaryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,10 +28,10 @@ class DiffHeaderSummaryView: SetupView, Themeable {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    
+
     override func setup() {
         super.setup()
-        
+
         addSubview(stackView)
         NSLayoutConstraint.activate([
             safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: -15),
@@ -39,11 +39,16 @@ class DiffHeaderSummaryView: SetupView, Themeable {
             topAnchor.constraint(equalTo: stackView.topAnchor, constant: -14),
             bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 14)
         ])
-        
+
         stackView.addArrangedSubview(headingLabel)
         stackView.addArrangedSubview(summaryLabel)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts(with: self.traitCollection)
+        }
     }
-    
+
     func update(_ viewModel: DiffHeaderEditSummaryViewModel) {
 
         headingLabel.text = viewModel.heading
@@ -65,16 +70,11 @@ class DiffHeaderSummaryView: SetupView, Themeable {
             }
             summaryLabel.accessibilityLabel = summary
         }
-        
+
         updateFonts(with: traitCollection)
 
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts(with: traitCollection)
-    }
-    
+
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         guard !UIAccessibility.isVoiceOverRunning else {
             return super.point(inside: point, with: event)

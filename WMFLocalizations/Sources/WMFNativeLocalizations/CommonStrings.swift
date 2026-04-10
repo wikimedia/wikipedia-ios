@@ -226,6 +226,7 @@ public class CommonStrings: NSObject {
 
     @objc public static let privacyPolicyURLString = "https://foundation.wikimedia.org/wiki/Policy:Privacy_policy"
     @objc public static let termsOfUseURLString = "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use"
+    public static let legalAndSafetyContactUsURLString = "https://foundation.wikimedia.org/wiki/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information"
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
     @objc public static let logIn = WMFLocalizedString("main-menu-account-login", value: "Log in", comment: "Button text for logging in.")
@@ -237,6 +238,16 @@ public class CommonStrings: NSObject {
     public static let tryAgain = WMFLocalizedString("settings-notifications-echo-failure-try-again", value: "Try again", comment: "Text alerting the user to try action again after error")
 
     @objc public static let settingsStorageAndSyncing = WMFLocalizedString("settings-storage-and-syncing-title", value: "Article storage and syncing", comment: "Title of the saved articles storage and syncing settings screen")
+
+    @objc public static let clearCachedDataSettings = WMFLocalizedString("settings-clear-cache", value: "Clear cached data", comment: "Title for the 'Clear cached data' settings row")
+
+    @objc public static let privacyTermsHeader = WMFLocalizedString("main-menu-heading-legal", value: "Privacy and Terms", comment: "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.")
+
+    @objc public static let rateTheAppTitle = WMFLocalizedString("main-menu-rate-app", value: "Rate the app", comment: "Button text for showing the app in the app store so user can rate the app")
+
+    @objc public static let helpAndfeedbackTitle = WMFLocalizedString("settings-help-and-feedback", value: "Help and feedback", comment: "Title for showing a screen that displays the FAQ and allows users to submit bug reports")
+
+    @objc public static let aboutTitle = WMFLocalizedString("about-title", value: "About", comment: "Title for credits page {{Identical|About}}")
 
     @objc public static let inTheNewsTitle = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
 
@@ -708,6 +719,7 @@ public class CommonStrings: NSObject {
     @objc public static let confirmDeletionSubtitle = WMFLocalizedString("confirm-donation-history-deletion-subtitle", value: "This will only apply to donations made from this device.", comment: "Subtitle for confirm local donation history deletion alert")
 
     @objc public static let confirmedDeletion = WMFLocalizedString("confirmed-donation-history-deletion", value: "Local history deleted", comment: "Title for confirming deletion of locally saved donations alert")
+    public static let legalAndSafety = WMFLocalizedString("settings-legal-sefaty-title", value: "Legal & safety contacts", comment: "Title for legal and safety contatcs section in settings")
 
     // Year In Review
 

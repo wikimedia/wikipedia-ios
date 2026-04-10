@@ -84,7 +84,7 @@ struct WMFFeatureAnnouncementView: View {
                             .frame(maxWidth: max(geometry.size.width - 64, 100))
                         }
 
-                        WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
+                        WMFLargeButton(style: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
                     }
                     .padding([.leading, .trailing], 32)
                     .padding(.top, 20)

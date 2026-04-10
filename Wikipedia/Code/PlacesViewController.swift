@@ -82,6 +82,10 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var listTitle: String {
         WMFLocalizedString("places-list-title'", value: "List", comment: "Button that switches the display mode to the List view on the Places tab.")
     }
+    
+    private var filterTitle: String {
+        WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places")
+    }
 
     // MARK: - View Lifecycle
 
@@ -144,23 +148,29 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         locationManager.delegate = self
 
         // Setup Redo search button
-        var deprecatedRedoSearchButton = (redoSearchButton as DeprecatedButton)
-        deprecatedRedoSearchButton.deprecatedContentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        redoSearchButton.setTitleColor(.white, for: .normal)
+        var redoConfig = UIButton.Configuration.filled()
+        redoConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 15)
+        redoConfig.cornerStyle = .capsule
+        redoSearchButton.configuration = redoConfig
+        redoSearchButton.titleLabel?.font = WMFFont.for(.body)
         redoSearchButton.setTitle(WMFLocalizedString("places-search-this-area", value:"Results in this area", comment:"A button title that indicates the search will be redone in the visible area"), for: .normal)
         redoSearchButton.isHidden = true
 
         // Setup Did You Mean button
-        didYouMeanButton.setTitleColor(.white, for: .normal)
+        var didYouMeanConfig = UIButton.Configuration.filled()
+        didYouMeanConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 15)
+        didYouMeanConfig.cornerStyle = .capsule
+        didYouMeanButton.configuration = didYouMeanConfig
+        didYouMeanButton.titleLabel?.font = WMFFont.for(.body)
+        didYouMeanButton.setTitle("", for: .normal)
         didYouMeanButton.isHidden = true
-        didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        didYouMeanButton.titleLabel?.textAlignment = .center
-        didYouMeanButton.titleLabel?.font = WMFFont.for(.callout)
 
         // Setup recenter button
+        var recenterConfig = UIButton.Configuration.filled()
+        recenterConfig.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        recenterConfig.cornerStyle = .capsule
+        recenterOnUserLocationButton.configuration = recenterConfig
         recenterOnUserLocationButton.accessibilityLabel = WMFLocalizedString("places-accessibility-recenter-map-on-user-location", value:"Recenter on your location", comment:"Accessibility label for the recenter map on the user's location button")
-        var deprecatedRecenterOnUserLocationButton = (recenterOnUserLocationButton as DeprecatedButton)
-        deprecatedRecenterOnUserLocationButton.deprecatedImageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
 
         listAndSearchOverlayContainerView.corners = [.topLeft, .topRight, .bottomLeft, .bottomRight]
 
@@ -186,6 +196,18 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         overlaySliderPanGestureRecognizer = panGR
 
         self.view.layoutIfNeeded()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if previousTraitCollection.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                        configureNavigationBar()
+                    }
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -242,28 +264,18 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         mapView?.showsUserLocation = false
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
-                }
-            }
-        }
-    }
-
     private var filterButtonItem: UIBarButtonItem {
-        return UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .filterLineHorizontalDecrease), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
+        button.accessibilityLabel = filterTitle
+        return button
     }
 
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
-        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController)
     }
-    
+
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
-        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem)
+        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem, leadingBarButtonItemTitle: filterTitle)
     }
 
     @objc func userDidTapTabs() {
@@ -271,24 +283,24 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         ArticleTabsFunnel.shared.logIconClick(interface: .places, project: nil)
     }
 
+    private lazy var searchBarIPadCustomizer = SearchBarIPadCustomizer(theme: theme)
+
     private func configureNavigationBar() {
 
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
-        extendedLayoutIncludesOpaqueBars = false
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingLarge)
-                extendedLayoutIncludesOpaqueBars = true
-                edgesForExtendedLayout = .all
-            }
-        }
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .customLeadingLarge)
 
         let showsScopeBar = isViewModeOverlay ? false : true
         let scopeButtonTitles = isViewModeOverlay ? nil : [mapTitle, listTitle]
 
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: searchBarIPadCustomizer, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+
+        searchBarIPadCustomizer.onClearTapped = { [weak self] searchController in
+            guard let self,
+            let searchBar = searchController?.searchBar else { return }
+            self.searchBar(searchBar, textDidChange: "")
+        }
     }
 
     private func updateScopeBarVisibility() {
@@ -419,7 +431,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         return existingYirCoordinator
     }
-    
+
     private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
         guard let self, let nav = self.navigationController else { return nil }
         return TabsOverviewCoordinator(
@@ -451,19 +463,19 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     @objc private func didTapProfileButton() {
-        
+
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
               let metricsID = DonateCoordinator.metricsID(for: .placesProfile, languageCode: languageCode) else {
             return
         }
-        
+
         DonateFunnel.shared.logPlacesProfile(metricsID: metricsID)
-        
+
         profileCoordinator?.start()
     }
 
     private func updateProfileButton() {
-        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
+        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController)
         updateNavigationBarProfileButton(needsBadge: profileButtonConfig.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -745,8 +757,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
                 guard result.error == nil else {
                     if let error = result.error {
-                        WMFAlertManager.sharedInstance.showWarningAlert(result.error!.localizedDescription, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-
+                        DispatchQueue.main.async {
+                            WMFToastManager.sharedInstance.showToast(result.error!.localizedDescription, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                        }
                         let nserror = error as NSError
                         if nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue) {
                             let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
@@ -755,7 +768,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                             }
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        DispatchQueue.main.async {
+                            WMFToastManager.sharedInstance.showToast(CommonStrings.unknownError, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
+                        }
                     }
                     return
                 }
@@ -782,12 +797,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         let title = String.localizedStringWithFormat(WMFLocalizedString("places-search-did-you-mean", value:"Did you mean %1$@?", comment:"Title displayed on a button shown when the current search has no results. %1$@ is replaced by the short description of the location of the most likely correction."), description)
 
-        redoSearchButton.titleLabel?.font = WMFFont.for(.callout)
+        let regularFont = WMFFont.for(.callout)
         let italicsFont = WMFFont.for(.italicCallout)
         let nsTitle = title as NSString
-        let attributedTitle = NSMutableAttributedString(string: title)
+        let attributedTitle = NSMutableAttributedString(string: title, attributes: [.font: regularFont])
         let descriptionRange = nsTitle.range(of: description)
         attributedTitle.addAttribute(NSAttributedString.Key.font, value: italicsFont, range: descriptionRange)
+
         self.didYouMeanButton.setAttributedTitle(attributedTitle, for: .normal)
     }
 
@@ -1330,28 +1346,23 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     // MARK: - Location Access
 
     func promptForLocationAccess() {
-        var skipSearchInDismissEnableLocationPanelHandler = false
-
-        let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
-            skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
-            self.presentedViewController?.dismiss(animated: true, completion: {
-                guard self.locationManager.authorizationStatus == .notDetermined else {
-                    UIApplication.shared.wmf_openAppSpecificSystemSettings()
-                    return
-                }
-                self.locationManager.startMonitoringLocation()
-            })
-        }
-
-        let dismissEnableLocationPanelHandler: ScrollableEducationPanelDismissHandler = {
-            if !skipSearchInDismissEnableLocationPanelHandler {
-                self.performDefaultSearchIfNecessary(withRegion: nil)
+        let alert = UIAlertController(
+            title: CommonStrings.localizedEnableLocationTitle,
+            message: CommonStrings.localizedEnableLocationDescription,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: CommonStrings.localizedEnableLocationButtonTitle, style: .default) { [weak self] _ in
+            guard let self else { return }
+            guard self.locationManager.authorizationStatus == .notDetermined else {
+                UIApplication.shared.wmf_openAppSpecificSystemSettings()
+                return
             }
-        }
-
-        let enableLocationPanelVC = EnableLocationPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler, theme: theme)
-
-        present(enableLocationPanelVC, animated: true, completion: nil)
+            self.locationManager.startMonitoringLocation()
+        })
+        alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { [weak self] _ in
+            self?.performDefaultSearchIfNecessary(withRegion: nil)
+        })
+        present(alert, animated: true, completion: nil)
     }
 
 
@@ -2179,6 +2190,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     // MARK: - UISearchBarDelegate
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        hideCustomLeadingLargeTitleLabel()
         viewMode = .search
         deselectAllAnnotations()
 
@@ -2219,6 +2231,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        showCustomLeadingLargeTitleLabel()
         updateViewModeFromSegmentedControl()
     }
 
@@ -2337,17 +2350,23 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        searchBarIPadCustomizer.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
+
         view.backgroundColor = theme.colors.baseBackground
 
-        if let searchBar = navigationItem.searchController?.searchBar {
-            searchBar.apply(theme: theme)
-            searchBar.backgroundColor = theme.colors.paperBackground
+        if #unavailable(iOS 26.0) {
+            if let searchBar = navigationItem.searchController?.searchBar {
+                searchBar.apply(theme: theme)
+                searchBar.backgroundColor = theme.colors.paperBackground
+            }
         }
+
         profileCoordinator?.theme = theme
         updateProfileButton()
+        themeNavigationBarCustomLeadingLargeTitle()
 
         searchSuggestionController.apply(theme: theme)
 
@@ -2363,10 +2382,22 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
         emptySearchOverlayView.detailLabel.textColor = theme.colors.secondaryText
 
-        recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
+        var recenterConfig = recenterOnUserLocationButton.configuration
+        recenterConfig?.baseForegroundColor = theme.colors.primaryText
+        recenterConfig?.baseBackgroundColor = theme.colors.chromeBackground
+        recenterOnUserLocationButton.configuration = recenterConfig
+
+        var redoConfig = redoSearchButton.configuration
+        redoConfig?.baseForegroundColor = theme.colors.paperBackground
+        redoConfig?.baseBackgroundColor = theme.colors.link
+        redoSearchButton.configuration = redoConfig
+
+        var didYouMeanConfig = didYouMeanButton.configuration
+        didYouMeanConfig?.baseForegroundColor = theme.colors.paperBackground
+        didYouMeanConfig?.baseBackgroundColor = theme.colors.link
+        didYouMeanButton.configuration = didYouMeanConfig
+
         selectedArticlePopover?.apply(theme: theme)
-        redoSearchButton.backgroundColor = theme.colors.link
-        didYouMeanButton.backgroundColor = theme.colors.link
         listViewController.apply(theme: theme)
         collectionView.backgroundColor = theme.colors.paperBackground
     }
@@ -2376,7 +2407,6 @@ extension PlacesViewController {
     func regionWillChange() {
         deselectAllAnnotations()
         isMovingToRegion = true
-        hintController?.dismissHintDueToUserInteraction()
     }
 
     func regionDidChange() {
@@ -2583,8 +2613,9 @@ extension PlacesViewController {
 
 extension PlacesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text,
-              !text.isEmpty else {
+        let text = searchController.searchBar.text ?? ""
+        searchBarIPadCustomizer.updateClearButtonVisibility(text: text, for: searchController)
+        guard !text.isEmpty else {
             return
         }
     }

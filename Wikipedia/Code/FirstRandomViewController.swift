@@ -12,7 +12,7 @@ class FirstRandomViewController: UIViewController, Themeable {
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
-        self.hidesBottomBarWhenPushed = true
+        configureHidesBottomBarWhenPushed()
     }
     
     required init?(coder: NSCoder) {
@@ -35,7 +35,7 @@ class FirstRandomViewController: UIViewController, Themeable {
                 guard let self else { return }
                 
                 if error != nil || articleURL == nil {
-                    WMFAlertManager.sharedInstance.showErrorAlert((error ?? Fetcher.unexpectedResponseError), sticky: false, dismissPreviousAlerts: false)
+                    WMFToastManager.sharedInstance.showErrorAlert((error ?? Fetcher.unexpectedResponseError), sticky: false, dismissPreviousToasts: false)
                     return
                 }
                 

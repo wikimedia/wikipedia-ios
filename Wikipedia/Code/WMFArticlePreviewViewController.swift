@@ -30,18 +30,18 @@ open class WMFArticlePreviewViewController: ExtensionViewController {
     @IBOutlet weak open var viewCountAndSparklineContainerView: UIView!
     @IBOutlet weak open var viewCountLabel: UILabel!
     @IBOutlet weak open var sparklineView: WMFSparklineView!
-    
+
     @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
     @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
 
     public required init() {
         super.init(nibName: "WMFArticlePreviewViewController", bundle: Bundle.wmf)
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     open override func viewDidLoad() {
         imageView.accessibilityIgnoresInvertColors = true
         updateFonts()
@@ -49,17 +49,17 @@ open class WMFArticlePreviewViewController: ExtensionViewController {
 
     open override func awakeFromNib() {
         collapseImageAndWidenLabels = true
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
     }
-    
+
     private func updateFonts() {
         updateTitle()
     }
-    
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-    }
-    
+
     @objc open var collapseImageAndWidenLabels: Bool = true {
         didSet {
             imageWidthConstraint.constant = collapseImageAndWidenLabels ? 0 : 86
@@ -68,7 +68,7 @@ open class WMFArticlePreviewViewController: ExtensionViewController {
             self.view.layoutIfNeeded()
         }
     }
-    
+
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {

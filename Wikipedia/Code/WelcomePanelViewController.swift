@@ -25,7 +25,7 @@ class WelcomePanelViewController: UIViewController {
         self.contentViewController = contentViewController
         super.init(nibName: "WelcomePanelViewController", bundle: Bundle.main)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -52,6 +52,19 @@ class WelcomePanelViewController: UIViewController {
         actionButton.setTitle(actionButtonTitle, for: .normal)
         actionButton.isHidden = actionButtonTitle == nil
         actionStackViewBottomConstraint.constant = actionButton.isHidden ? 21 : 0
+
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .capsule
+        config.baseBackgroundColor = theme.colors.link
+        config.baseForegroundColor = theme.colors.paperBackground
+
+        if let title = actionButtonTitle {
+            config.title = title
+        }
+
+        actionButton.configuration = config
+        actionButton.titleLabel?.numberOfLines = 0
+        actionButton.titleLabel?.lineBreakMode = .byWordWrapping
     }
 
     private func configureTitleLabel() {

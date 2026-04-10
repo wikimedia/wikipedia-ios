@@ -27,8 +27,8 @@ final class DatabasePopulationHostingController: WMFComponentHostingController<D
             alignment: .leadingLarge
         )
 
-        let closeConfig = WMFNavigationBarCloseButtonConfig(
-            text: CommonStrings.doneTitle,
+        let closeConfig = WMFLargeCloseButtonConfig(
+            imageType: .prominentCheck,
             target: self,
             action: #selector(tappedDone),
             alignment: .trailing
