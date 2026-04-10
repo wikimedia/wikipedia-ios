@@ -270,6 +270,7 @@ public struct WMFTheme: Equatable {
     private static let readingChallengeNotEnrolledBase = UIColor(red: 182/255, green: 212/255, blue: 251/255, alpha: 1)
     private static let readingChallengeYellow          = UIColor(red: 255/255, green: 228/255, blue: 156/255, alpha: 1)
     private static let readingChallengeNotLiveYet      = UIColor(red: 174/255, green: 223/255, blue: 205/255, alpha: 1)
+    private static let readingChallengeConcludedPill   = UIColor(red: 255/255, green: 204/255, blue: 51/255, alpha: 1)
 
     // MARK: - ReadingChallengeColorSet
 
@@ -281,6 +282,7 @@ public struct WMFTheme: Equatable {
         case yellow
         case green
         case blueBlack
+        case concluded
 
         /// Flat background color — used as a fallback when no gradient is defined.
         public var primary: Color {
@@ -291,6 +293,7 @@ public struct WMFTheme: Equatable {
             case .notEnrolled: return Color(uiColor: WMFTheme.readingChallengeNotEnrolledBase)
             case .yellow:      return Color(uiColor: WMFTheme.readingChallengeYellow)
             case .green:       return Color(uiColor: WMFTheme.readingChallengeNotLiveYet)
+            case .concluded: return Color(uiColor: WMFTheme.readingChallengeBluePrimary)
             }
         }
 
@@ -300,7 +303,7 @@ public struct WMFTheme: Equatable {
             case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkSecondary)
             case .orange:      return Color(uiColor: WMFTheme.readingChallengeOrangeSecondary)
             case .blue:        return Color(uiColor: WMFTheme.readingChallengeBlueSecondary)
-            case .notEnrolled, .yellow, .green, .blueBlack: return Color(uiColor: WMFColor.black)
+            case .notEnrolled, .yellow, .green, .blueBlack, .concluded: return Color(uiColor: WMFColor.black)
             }
         }
 
@@ -309,6 +312,7 @@ public struct WMFTheme: Equatable {
             switch self {
             case .pink:        return Color(uiColor: WMFTheme.readingChallengePinkTertiary)
             case .orange, .yellow, .blue, .notEnrolled, .green, .blueBlack:      return nil
+            case .concluded: return Color(uiColor: WMFTheme.readingChallengeConcludedPill)
             }
         }
     }

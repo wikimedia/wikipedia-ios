@@ -54,4 +54,5 @@ public enum WMFUserDefaultsKey: String {
     case devForceReadingChallengeStreakOngoingNotYetRead = "dev-force-reading-challenge-streak-ongoing-not-yet-read"
     case devForceReadingChallengeEnabled = "dev-force-reading-challenge-enabled"
     case devForceReadingChallengeStreakCount = "dev-force-reading-challenge-streak-count"
+    case userCompletedReadingChallenge = "user-completed-reading-challenge"
 }

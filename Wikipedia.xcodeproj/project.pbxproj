@@ -390,6 +390,9 @@
 		37B0D0162E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
 		37B0D0172E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
 		37B0D0182E6F2C7A0040A8C4 /* AppIconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */; };
+		37B5B2C22F85595700E9BED1 /* CollectPrizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5B2C12F85595100E9BED1 /* CollectPrizeViewController.swift */; };
+		37B5B2C32F85595700E9BED1 /* CollectPrizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5B2C12F85595100E9BED1 /* CollectPrizeViewController.swift */; };
+		37B5B2C42F85595700E9BED1 /* CollectPrizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B5B2C12F85595100E9BED1 /* CollectPrizeViewController.swift */; };
 		37C5C1FB2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
 		37C5C1FC2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
 		37C5C1FD2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
@@ -3175,6 +3178,7 @@
 		373BF9092E32A34E000F6643 /* WMFFeedDidYouKnowFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFFeedDidYouKnowFetcher.swift; sourceTree = "<group>"; };
 		379D3E012F742935005EA397 /* ReadingChallengeWidgetAnnouncementCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChallengeWidgetAnnouncementCoordinator.swift; sourceTree = "<group>"; };
 		37B0D0152E6F2C710040A8C4 /* AppIconUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconUtility.swift; sourceTree = "<group>"; };
+		37B5B2C12F85595100E9BED1 /* CollectPrizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectPrizeViewController.swift; sourceTree = "<group>"; };
 		37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsOverviewCoordinator.swift; sourceTree = "<group>"; };
 		37EE25132F6DB9AB0038504A /* ReadingChallengeAnnouncementCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChallengeAnnouncementCoordinator.swift; sourceTree = "<group>"; };
 		37FAFB342E45382000EEFEC5 /* DidYouKnowCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidYouKnowCache.swift; sourceTree = "<group>"; };
@@ -7884,6 +7888,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				37B5B2C12F85595100E9BED1 /* CollectPrizeViewController.swift */,
 				8319C8AE2F3BE2AF0027EE24 /* SettingsTabViewController.swift */,
 				67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */,
 				370C97F92EA17F7C00642A08 /* ActivityTabViewController.swift */,
@@ -10100,6 +10105,7 @@
 				8330532E23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
 				83E3E7252440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				D87914DD1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
+				37B5B2C42F85595700E9BED1 /* CollectPrizeViewController.swift in Sources */,
 				67E0691B223B32F1008550AC /* FocusNavigationView.swift in Sources */,
 				83DAA9B023FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				00FCCBCA2900848300C9ECD2 /* TalkPageViewController+FindInPage.swift in Sources */,
@@ -11014,6 +11020,7 @@
 				FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				83AE025E299D9CDD00C45F73 /* SearchFunnel.swift in Sources */,
 				673FC3D2273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */,
+				37B5B2C22F85595700E9BED1 /* CollectPrizeViewController.swift in Sources */,
 				67282FBF24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
 				6782DBF9234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,
 				83B01F9623DB41D7001185F4 /* ArticleViewController+FindInPage.swift in Sources */,
@@ -11556,6 +11563,7 @@
 				673FC3D1273F0EBE006E11AA /* WMFTableHeaderFooterLabelView+Extensions.swift in Sources */,
 				D8EC3E611E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				7A6ED51920ADBF950001849F /* SettingsFunnel.swift in Sources */,
+				37B5B2C32F85595700E9BED1 /* CollectPrizeViewController.swift in Sources */,
 				6782DBFC234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,
 				834C26A0240D49F400245BE7 /* ReferenceViewController.swift in Sources */,
 				00FCCBCB2900848300C9ECD2 /* TalkPageViewController+FindInPage.swift in Sources */,
