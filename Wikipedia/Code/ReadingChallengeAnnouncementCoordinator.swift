@@ -122,6 +122,9 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     private func enroll() {
         Task {
             await WMFActivityTabDataController.shared.enrollInReadingChallenge()
+            
+            // Sometimes widget continues to show the "Join challenge" state. Delaying slightly here in case it takes a bit for UserDefaults to propagate.
+            try? await Task.sleep(for: .seconds(0.5))
             WidgetController.shared.reloadReadingChallengeWidget()
         }
     }
