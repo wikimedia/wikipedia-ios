@@ -61,11 +61,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
-        var actionContext: [String: Any]? = nil
-        if let username = usernameField.text {
-            actionContext = ["username": username]
-        }
-        authInstrument.submitInteraction(action: "click", elementId: "submit_button", actionContext: actionContext)
+        authInstrument.submitInteraction(action: "click", elementId: "submit_button", actionContext: nil)
         save()
     }
     
