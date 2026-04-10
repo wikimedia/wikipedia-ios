@@ -256,6 +256,8 @@ public actor WMFActivityTabDataController {
         hasEnrolledInReadingChallenge2026 = true
         hasSeenFullPageReadingChallengeAnnouncement2026 = true
         // Do NOT mark widget announcement seen here — show it after enrollment
+        
+        UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
     }
 
     public func setHasSeenFullPageAnnouncement() {
