@@ -55,7 +55,7 @@ extension ArticleTabCoordinating {
                     tabConfig = .appendArticleAndAssignCurrentTab
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                        WMFToastManager.sharedInstance.showRichToast(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousToasts: true)
                     }
                 }
             default:
@@ -186,7 +186,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             self.articleURL?.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
         }
         
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID, needsFocusOnSearch: needsFocusOnSearch) else {
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
             return false
         }
         articleVC.isRestoringState = isRestoringState

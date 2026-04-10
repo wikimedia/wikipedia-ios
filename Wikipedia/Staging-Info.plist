@@ -31,10 +31,8 @@
 		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>AlphacAppIcon</string>
-			</array>
+			<key>CFBundleIconName</key>
+			<string>wikipedia-app-icon-experimental</string>
 			<key>UIPrerenderedIcon</key>
 			<false/>
 		</dict>

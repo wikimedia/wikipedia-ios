@@ -1,4 +1,4 @@
-import Foundation
+import WMFData
 import WMF
 import CocoaLumberjackSwift
 
@@ -241,6 +241,6 @@ class TalkPageDataController {
 
 private extension String {
     var signed: String {
-        return UserDefaults.standard.autoSignTalkPageDiscussions ? self + " ~~~~" : self
+        return WMFSettingsDataController.shared.autoSignTalkPageDiscussions() ? self + " ~~~~" : self
     }
 }

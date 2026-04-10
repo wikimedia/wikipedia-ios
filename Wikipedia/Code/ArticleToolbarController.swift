@@ -20,13 +20,16 @@ protocol ArticleToolbarHandling: AnyObject {
     func backInTab(article: WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController)
     func forwardInTab(article: WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
+    var navigationToolbar: UIToolbar? { get }
+    func updateToolbarItems()
 }
 
+@MainActor
 class ArticleToolbarController: Themeable {
     weak var delegate: ArticleToolbarHandling?
-    
-    let toolbar: UIToolbar
-    
+
+    var currentItems: [UIBarButtonItem] = []
+
     lazy var saveButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "save", target: self, action: #selector(toggleSave), for: .touchUpInside)
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleSaveButtonLongPress))
@@ -36,34 +39,34 @@ class ArticleToolbarController: Themeable {
         item.apply(theme: theme)
         return item
     }()
-    
+
     lazy var themeButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "font-size", target: self, action: #selector(showThemes), for: .touchUpInside)
         item.apply(theme: theme)
         return item
     }()
-    
+
     lazy var showTableOfContentsButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "toc", target: self, action: #selector(showTableOfContents), for: .touchUpInside)
         item.accessibilityLabel = WMFLocalizedString("table-of-contents-button-label", value: "Table of contents", comment: "Accessibility label for the Table of Contents button {{Identical|Table of contents}}")
         item.apply(theme: theme)
         return item
     }()
-    
+
     lazy var shareButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "share", target: self, action: #selector(share), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.accessibilityShareTitle
         item.apply(theme: theme)
         return item
     }()
-    
+
     lazy var findInPageButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "find-in-page", target: self, action: #selector(findInPage), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.findInPage
         item.apply(theme: theme)
         return item
     }()
-    
+
     lazy var hideTableOfContentsButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "toc", target: self, action: #selector(hideTableOfContents), for: .touchUpInside)
         if let button = item.customView as? UIButton {
@@ -74,71 +77,27 @@ class ArticleToolbarController: Themeable {
         item.apply(theme: theme)
         return item
     }()
-    
+
     lazy var languagesButton: IconBarButtonItem = {
         let item = IconBarButtonItem(iconName: "language", target: self, action: #selector(showLanguagePicker), for: .touchUpInside)
         item.accessibilityLabel = CommonStrings.accessibilityLanguagesTitle
         item.apply(theme: theme)
         return item
     }()
-    
+
     lazy var moreButton: IconBarButtonItem = {
         let item = createMoreButton()
         item.accessibilityLabel = CommonStrings.moreButton
         item.accessibilityHint = CommonStrings.userMenuButtonAccesibilityText
         return item
     }()
-    
-    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> IconBarButtonItem {
-        
-        var actions: [UIAction] = []
-        
-        let image = WMFIcon.pencil
-        actions.append(UIAction(title: CommonStrings.editSource, image: image, handler: { [weak self] _ in self?.tappedEditArticle() }))
-        
-        actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
-        
-        actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
-        
-        if needsWatchButton {
-           actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
-        } else if needsUnwatchHalfButton {
-            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.leadinghalf.filled"), handler: { [weak self] _ in self?.tappedUnwatch()}))
-        } else if needsUnwatchFullButton {
-            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
-        }
-        
-        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), handler: { [weak self] _ in self?.share()}))
-        
-            
-        if let title = nextArticleTab?.title.underscoresToSpaces.truncated() {
-            let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
-            actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in
-                
-                guard let self else { return }
-                
-                if let nextArticleTab {
-                    self.delegate?.forwardInTab(article: nextArticleTab, controller: self)
-                }
-            }))
-        }
-        
-        if let title = previousArticleTab?.title.underscoresToSpaces.truncated() {
-            let backAttributes: UIMenuElement.Attributes = previousArticleTab != nil ? [] : .disabled
-            actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in
-                
-                guard let self else { return }
-                
-                if let previousArticleTab {
-                    self.delegate?.backInTab(article: previousArticleTab, controller: self)
-                }
-            }))
-        }
-            
-        
-        let menu = UIMenu(title: "", options: .displayInline, children: actions)
 
-        let moreImage = WMFSFSymbolIcon.for(symbol: .ellipsisCircle)?.withConfiguration(UIImage.SymbolConfiguration(weight: .light))
+    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> IconBarButtonItem {
+
+        
+        let moreImage = WMFSFSymbolIcon.for(symbol: .ellipsis)?.withConfiguration(UIImage.SymbolConfiguration(weight: .light))
+        
+        let menu = createMoreMenu(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
 
         let item = IconBarButtonItem(image: moreImage, menu: menu)
 
@@ -146,90 +105,151 @@ class ArticleToolbarController: Themeable {
         return item
     }
     
+    private func createMoreMenu(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> UIMenu {
+        var actions: [UIAction] = []
+
+        let image = WMFIcon.pencil
+        actions.append(UIAction(title: CommonStrings.editSource, image: image, handler: { [weak self] _ in self?.tappedEditArticle() }))
+
+        actions.append(UIAction(title: CommonStrings.articleRevisionHistory, image: UIImage(named: "edit-history"), handler: { [weak self] _ in self?.tappedRevisionHistory() }))
+
+        actions.append(UIAction(title: CommonStrings.articleTalkPage, image: UIImage(systemName: "bubble.left.and.bubble.right"), handler: { [weak self] _ in self?.tappedArticleTalkPage() }))
+
+        if needsWatchButton {
+           actions.append(UIAction(title: CommonStrings.watch, image: UIImage(systemName: "star"), handler: { [weak self] _ in self?.tappedWatch() }))
+        } else if needsUnwatchHalfButton {
+            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.leadinghalf.filled"), handler: { [weak self] _ in self?.tappedUnwatch()}))
+        } else if needsUnwatchFullButton {
+            actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
+        }
+
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp), handler: { [weak self] _ in self?.share()}))
+
+        if let title = nextArticleTab?.title.underscoresToSpaces.truncated() {
+            let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
+            actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in
+
+                guard let self else { return }
+
+                if let nextArticleTab {
+                    self.delegate?.forwardInTab(article: nextArticleTab, controller: self)
+                }
+            }))
+        }
+
+        if let title = previousArticleTab?.title.underscoresToSpaces.truncated() {
+            let backAttributes: UIMenuElement.Attributes = previousArticleTab != nil ? [] : .disabled
+            actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in
+
+                guard let self else { return }
+
+                if let previousArticleTab {
+                    self.delegate?.backInTab(article: previousArticleTab, controller: self)
+                }
+            }))
+        }
+
+        let menu = UIMenu(title: "", options: .displayInline, children: actions)
+        return menu
+    }
+
     func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle?, nextArticleTab: WMFArticleTabsDataController.WMFArticle?) {
-        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
-        update()
-    }
-    
-    var moreButtonSourceView: UIView {
-        return toolbar
-    }
-    
-    var moreButtonSourceRect: CGRect? {
         
-        guard let findInPageButtonView = findInPageButton.customView,
+        let updatedMenu = createMoreMenu(
+            needsWatchButton: needsWatchButton,
+            needsUnwatchHalfButton: needsUnwatchHalfButton,
+            needsUnwatchFullButton: needsUnwatchFullButton,
+            previousArticleTab: previousArticleTab,
+            nextArticleTab: nextArticleTab
+        )
+        if let button = moreButton.customView as? UIButton {
+            button.menu = updatedMenu
+        } else {
+            moreButton.menu = updatedMenu
+        }
+        
+        moreButton.apply(theme: theme)
+    }
+
+    var moreButtonSourceView: UIView? {
+        return delegate?.navigationToolbar
+    }
+
+    var moreButtonSourceRect: CGRect? {
+
+        guard let navigationToolbar = delegate?.navigationToolbar,
+              let findInPageButtonView = findInPageButton.customView,
               let themeButtonView = themeButton.customView else {
             return nil
         }
-        
-        return WatchlistController.calculateToolbarFifthButtonSourceRect(toolbarView: toolbar, thirdButtonView: findInPageButtonView, fourthButtonView: themeButtonView)
+
+        return WatchlistController.calculateToolbarFifthButtonSourceRect(toolbarView: navigationToolbar, thirdButtonView: findInPageButtonView, fourthButtonView: themeButtonView)
     }
 
-    init(toolbar: UIToolbar, delegate: ArticleToolbarHandling) {
-        self.toolbar = toolbar
+    init(delegate: ArticleToolbarHandling) {
         self.delegate = delegate
         update()
     }
-    
+
     // MARK: Actions
-    
+
     @objc func toggleSave(_ sender: UIBarButtonItem) {
         delegate?.toggleSave(from: self)
     }
-    
+
     @objc func handleSaveButtonLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         guard longPressGestureRecognizer.state == .began else {
             return
         }
         delegate?.saveButtonWasLongPressed(from: self)
     }
-    
+
     @objc func showThemes() {
         delegate?.showThemePopover(from: self)
     }
-    
+
     @objc func showTableOfContents() {
         delegate?.showTableOfContents(from: self)
     }
-    
+
     @objc func hideTableOfContents() {
         delegate?.hideTableOfContents(from: self)
     }
-    
+
     @objc func showLanguagePicker() {
         delegate?.showLanguagePicker(from: self)
     }
-    
+
     @objc func share() {
         delegate?.share(from: self)
     }
-    
+
     @objc func findInPage() {
         delegate?.showFindInPage(from: self)
     }
-    
+
     @objc func tappedArticleTalkPage() {
         delegate?.showArticleTalkPage(from: self)
     }
-    
+
     @objc func tappedWatch() {
         delegate?.watch(from: self)
     }
-    
+
     @objc func tappedUnwatch() {
         delegate?.unwatch(from: self)
     }
-    
+
     @objc func tappedRevisionHistory() {
         delegate?.showRevisionHistory(from: self)
     }
-    
+
     @objc func tappedEditArticle() {
         delegate?.editArticle(from: self)
     }
-    
+
     // MARK: State
-    
+
     func setSavedState(isSaved: Bool) {
         saveButton.accessibilityLabel = isSaved ? CommonStrings.accessibilitySavedTitle : CommonStrings.saveTitle
         if let innerButton = saveButton.customView as? UIButton {
@@ -237,13 +257,14 @@ class ArticleToolbarController: Themeable {
             innerButton.setImage(UIImage(named: assetName), for: .normal)
         }
     }
-    
+
     // MARK: Theme
-    
+
     var theme: Theme = Theme.standard
-    
+
     func apply(theme: Theme) {
-        for item in toolbar.items ?? [] {
+        self.theme = theme
+        for item in currentItems {
             guard let item = item as? Themeable else {
                 continue
             }
@@ -251,39 +272,49 @@ class ArticleToolbarController: Themeable {
         }
         hideTableOfContentsButton.customView?.backgroundColor = theme.colors.midBackground
     }
-    
-    func override(items: [UIBarButtonItem]) {
-        // disable updating here if that's ever a thing
-        toolbar.items = items
-    }
-    
+
     private var flexibleSpaceToolbarItem: UIBarButtonItem {
         return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     }
-    
+
     func update() {
-        
+
         let tocItem = delegate?.isTableOfContentsVisible ?? false ? hideTableOfContentsButton : showTableOfContentsButton
-        
-        toolbar.items = [
-            flexibleSpaceToolbarItem,
-            tocItem,
-            flexibleSpaceToolbarItem,
-            languagesButton,
-            flexibleSpaceToolbarItem,
-            saveButton,
-            flexibleSpaceToolbarItem,
-            findInPageButton,
-            flexibleSpaceToolbarItem,
-            themeButton,
-            flexibleSpaceToolbarItem,
-            moreButton,
-            flexibleSpaceToolbarItem
-        ]
+
+        if #available(iOS 26.0, *) {
+            currentItems = [
+                tocItem,
+                flexibleSpaceToolbarItem,
+                languagesButton,
+                saveButton,
+                findInPageButton,
+                themeButton,
+                moreButton
+            ]
+        } else {
+            currentItems = [
+                flexibleSpaceToolbarItem,
+                tocItem,
+                flexibleSpaceToolbarItem,
+                languagesButton,
+                flexibleSpaceToolbarItem,
+                saveButton,
+                flexibleSpaceToolbarItem,
+                findInPageButton,
+                flexibleSpaceToolbarItem,
+                themeButton,
+                flexibleSpaceToolbarItem,
+                moreButton,
+                flexibleSpaceToolbarItem
+            ]
+        }
+
+
+        delegate?.updateToolbarItems()
     }
 
     func setToolbarButtons(enabled: Bool) {
-        toolbar.items?.forEach { $0.isEnabled = enabled }
+        currentItems.forEach { $0.isEnabled = enabled }
     }
 
 }
@@ -295,7 +326,7 @@ private extension String {
                 return self.prefix(20) + "..."
             }
         }
-        
+
         return self
     }
 }

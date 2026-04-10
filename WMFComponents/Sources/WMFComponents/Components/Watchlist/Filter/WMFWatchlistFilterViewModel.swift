@@ -8,7 +8,6 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
 
     public struct LocalizedStrings {
         let title: String
-        let doneTitle: String
         public var localizedProjectNames: [WMFProject: String]
         let wikimediaProjectsHeader: String
         let wikipediasHeader: String
@@ -36,9 +35,8 @@ public final class WMFWatchlistFilterViewModel: ObservableObject {
         let typeOfChangeLoggedActions: String
 		let addLanguage: String
 
-        public init(title: String, doneTitle: String, localizedProjectNames: [WMFProject : String], wikimediaProjectsHeader: String, wikipediasHeader: String, commonAll: String, latestRevisionsHeader: String, latestRevisionsLatestRevision: String, latestRevisionsNotLatestRevision: String, watchlistActivityHeader: String, watchlistActivityUnseenChanges: String, watchlistActivitySeenChanges: String, automatedContributionsHeader: String, automatedContributionsBot: String, automatedContributionsHuman: String, significanceHeader: String, significanceMinorEdits: String, significanceNonMinorEdits: String, userRegistrationHeader: String, userRegistrationUnregistered: String, userRegistrationRegistered: String, typeOfChangeHeader: String, typeOfChangePageEdits: String, typeOfChangePageCreations: String, typeOfChangeCategoryChanges: String, typeOfChangeWikidataEdits: String, typeOfChangeLoggedActions: String, addLanguage: String) {
+        public init(title: String, localizedProjectNames: [WMFProject : String], wikimediaProjectsHeader: String, wikipediasHeader: String, commonAll: String, latestRevisionsHeader: String, latestRevisionsLatestRevision: String, latestRevisionsNotLatestRevision: String, watchlistActivityHeader: String, watchlistActivityUnseenChanges: String, watchlistActivitySeenChanges: String, automatedContributionsHeader: String, automatedContributionsBot: String, automatedContributionsHuman: String, significanceHeader: String, significanceMinorEdits: String, significanceNonMinorEdits: String, userRegistrationHeader: String, userRegistrationUnregistered: String, userRegistrationRegistered: String, typeOfChangeHeader: String, typeOfChangePageEdits: String, typeOfChangePageCreations: String, typeOfChangeCategoryChanges: String, typeOfChangeWikidataEdits: String, typeOfChangeLoggedActions: String, addLanguage: String) {
             self.title = title
-            self.doneTitle = doneTitle
             self.localizedProjectNames = localizedProjectNames
             self.wikimediaProjectsHeader = wikimediaProjectsHeader
             self.wikipediasHeader = wikipediasHeader

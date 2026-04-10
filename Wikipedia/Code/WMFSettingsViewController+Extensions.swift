@@ -9,7 +9,7 @@ import WMFTestKitchen
         let numUnreadNotifications = (try? dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
         let needsProfileBadge = numUnreadNotifications != 0
         
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leadingCompact)
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leadingLarge)
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
@@ -20,19 +20,19 @@ import WMFTestKitchen
 
         let profileAccessibilityHint = CommonStrings.profileButtonAccessibilityHint
         
-        let closeButtonConfig: WMFNavigationBarCloseButtonConfig?
+        let closeButtonConfig: WMFLargeCloseButtonConfig?
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         
         // Indicates this is not embedded in the tab view and is presented as a modal. If so, show Close button instead of Profile.
         if self.tabBarController == nil {
             profileButtonConfig = nil
-            closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
+            closeButtonConfig = WMFLargeCloseButtonConfig(imageType: .prominentCheck, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
         } else {
             closeButtonConfig = nil
             profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabelNoNotifications: CommonStrings.profileButtonTitle, accessibilityLabelHasNotifications: CommonStrings.profileButtonBadgeTitle, accessibilityHint: profileAccessibilityHint, needsBadge: needsProfileBadge, target: self, action: #selector(tappedProfile), leadingBarButtonItem: nil)
         }
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc func updateProfileButtonFromObjC() {

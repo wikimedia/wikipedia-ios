@@ -17,20 +17,21 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
         view.backgroundColor = .clear
         
         descriptionLabel.text = WMFLocalizedString("welcome-intro-free-encyclopedia-description", value:"Wikipedia is written collaboratively by volunteers and consists of more than 40 million articles in over 300 languages.", comment:"Description for introductory welcome screen")
-
+        
         learnMoreButton.setTitle(WMFLocalizedString("welcome-intro-free-encyclopedia-more", value:"Learn more about Wikipedia", comment:"Text for link for learning more about Wikipedia on introductory welcome screen"), for: .normal)
         
         updateFonts()
         view.wmf_configureSubviewsForDynamicType()
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            
+            updateFonts()
+        }
     }
 
     private func updateFonts() {
-        learnMoreButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        learnMoreButton.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
 
     @IBAction func showLearnMoreAlert(withSender sender: AnyObject) {

@@ -53,7 +53,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNa
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
@@ -97,13 +97,13 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNa
     
     func sendPasswordResetEmail(userName: String?, email: String?) {
         guard let siteURL = MWKDataStore.shared().primarySiteURL else {
-            WMFAlertManager.sharedInstance.showAlert("No site url", sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFToastManager.sharedInstance.showToast("No site url", sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             return
         }
         
         let failure: WMFErrorHandler = { error in
             DispatchQueue.main.async {
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
             }
         }
         
@@ -113,7 +113,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNa
             email: email,
             success: { result in
                 DispatchQueue.main.async {
-                    WMFAlertManager.sharedInstance.showSuccessAlert(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showToast(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
         }, failure: failure)
     }

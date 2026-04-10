@@ -90,6 +90,12 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
 
         updateFonts()
         apply(theme: theme)
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+
+            updateFonts()
+        }
     }
     
     private func configureAndAddNextButton() {
@@ -128,14 +134,9 @@ class DescriptionWelcomePageViewController: UIPageViewController, UIPageViewCont
         view.addConstraints([leading, trailing])
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-    }
-
     private func updateFonts() {
-        skipButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
-        nextButton.titleLabel?.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
+        skipButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
+        nextButton.titleLabel?.font = WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     override func viewDidAppear(_ animated: Bool) {

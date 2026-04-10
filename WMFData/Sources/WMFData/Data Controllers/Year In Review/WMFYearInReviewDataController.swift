@@ -3,8 +3,8 @@ import UIKit
 import CoreData
 
 @preconcurrency
-@objc public class WMFYearInReviewDataController: NSObject {
-    
+@objc public class WMFYearInReviewDataController: NSObject, @unchecked Sendable {
+
     public enum CustomError: Error {
         case missingExperimentsDataController
         case unexpectedAssignment
@@ -12,7 +12,7 @@ import CoreData
         case notQualifiedForExperiment
         case missingPrimaryAppLanguage
     }
-    
+
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
@@ -23,7 +23,7 @@ import CoreData
 
     private let service = WMFDataEnvironment.current.mediaWikiService
     private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
-    
+
     struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
         static var `default`: FeatureAnnouncementStatus {
@@ -41,13 +41,13 @@ import CoreData
     @objc public static func dataControllerForObjectiveC() -> WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
-    
+
     public var config: WMFFeatureConfigResponse.Common.YearInReview? {
         if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
            let config = featureConfig.common.yir(year: Self.targetYear) {
             return config
         }
-        
+
         return nil
     }
 
@@ -75,9 +75,9 @@ import CoreData
     private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
     }
-    
+
     public func shouldShowYiRNotification(isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
-        
+
         if isTemporaryAccount {
             return false
         }
@@ -87,7 +87,7 @@ import CoreData
         }
         return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier)
     }
-    
+
     public var hasTappedProfileItem: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedYIR.rawValue)) ?? false
@@ -116,7 +116,7 @@ import CoreData
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
-        
+
         guard let config = self.config else {
             return false
         }
@@ -148,7 +148,7 @@ import CoreData
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
-        
+
         let currentDate = currentDate ?? Date()
 
         guard yearInReviewSettingsIsEnabled else {
@@ -158,7 +158,7 @@ import CoreData
         guard let countryCode else {
             return false
         }
-        
+
         guard let config = self.config else {
             return false
         }
@@ -193,7 +193,7 @@ import CoreData
         guard let countryCode else {
             return false
         }
-        
+
         guard let config = self.config else {
             return false
         }
@@ -216,54 +216,54 @@ import CoreData
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.yearInReviewSettingsIsEnabled.rawValue, value: newValue)
         }
     }
-    
+
     // MARK: - Experiment
-    
+
     public enum YiRLoginExperimentAssignment {
         case control
         case groupB
     }
-    
+
     private var assignmentCache: YiRLoginExperimentAssignment?
-    
+
     public func needsLoginExperimentAssignment() -> Bool {
         if developerSettingsDataController.enableYiRLoginExperimentB {
             return false
         }
-        
+
         if developerSettingsDataController.enableYiRLoginExperimentControl {
             return false
         }
-        
+
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return false
         }
-        
+
         guard primaryAppLanguage.qualifiesForExperiment else {
             return false
         }
-        
+
         guard let experimentsDataController else {
             return false
         }
-        
+
         guard experimentsDataController.bucketForExperiment(.yirLoginPrompt) == nil else {
             return false
         }
-        
+
         return true
     }
-    
+
     public func assignLoginExperimentIfNeeded() throws -> YiRLoginExperimentAssignment {
-        
+
         guard let experimentsDataController else {
             throw CustomError.missingExperimentsDataController
         }
-        
+
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.yirLoginPrompt, withPercentage: 50)
 
         let assignment: YiRLoginExperimentAssignment
-        
+
         switch bucketValue {
         case .yirLoginPromptControl:
             assignment = .control
@@ -272,20 +272,20 @@ import CoreData
         default:
             throw CustomError.unexpectedAssignment
         }
-        
+
         self.assignmentCache = assignment
         return assignment
     }
-    
+
     public var bypassLoginForPersonalizedFlow: Bool {
         if developerSettingsDataController.enableYiRLoginExperimentB {
             return true
         }
-        
+
         if developerSettingsDataController.enableYiRLoginExperimentControl {
             return false
         }
-        
+
         let assignment = getLoginExperimentAssignment()
         if let assignment {
             switch assignment {
@@ -295,34 +295,34 @@ import CoreData
                 return true
             }
         }
-        
+
         return false
     }
-    
+
     public func getLoginExperimentAssignment() -> YiRLoginExperimentAssignment? {
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return nil
         }
-        
+
         guard let experimentsDataController else {
             return nil
         }
-        
+
         guard primaryAppLanguage.qualifiesForExperiment else {
             return nil
         }
-        
+
         if let assignmentCache {
             return assignmentCache
         }
-        
+
         guard let bucketValue = experimentsDataController.bucketForExperiment(.yirLoginPrompt) else {
             return nil
         }
-        
+
         let assignment: YiRLoginExperimentAssignment
         switch bucketValue {
-            
+
         case .yirLoginPromptControl:
             assignment = .control
         case .yirLoginPromptGroupB:
@@ -330,27 +330,27 @@ import CoreData
         default:
             return nil
         }
-        
+
         self.assignmentCache = assignment
         return assignment
     }
-    
+
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?) -> Bool {
-        
+
         guard yearInReviewSettingsIsEnabled else {
             return false
         }
-        
+
         guard let countryCode else {
             return false
         }
-        
+
         guard let config = self.config else {
             return false
         }
-        
+
         guard config.isActive(for: Date()) else {
             return false
         }
@@ -365,27 +365,27 @@ import CoreData
     }
 
     private func beginDataPopulationBackgroundTask() async {
-        
+
         guard dataPopulationBackgroundTaskID == .invalid else {
             return
         }
-        
+
         dataPopulationBackgroundTaskID = await UIApplication.shared.beginBackgroundTask(withName: WMFBackgroundTasksNameKey.yearInReviewPopulateReportData.rawValue, expirationHandler: {
             UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
             self.dataPopulationBackgroundTaskID = .invalid
         })
     }
-    
+
     private func endDataPopulationBackgroundTask() {
-        
+
         guard dataPopulationBackgroundTaskID != .invalid else {
             return
         }
-        
+
         UIApplication.shared.endBackgroundTask(self.dataPopulationBackgroundTaskID)
         dataPopulationBackgroundTaskID = UIBackgroundTaskIdentifier.invalid
     }
-    
+
     @discardableResult
     public func populateYearInReviewReportData(for year: Int, countryCode: String,  primaryAppLanguageProject: WMFProject?, username: String?, userID: Int?, globalUserID: Int?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
 
@@ -394,13 +394,13 @@ import CoreData
         }
 
         await beginDataPopulationBackgroundTask()
-        
+
         defer {
             endDataPopulationBackgroundTask()
         }
 
         let backgroundContext = try coreDataStore.newBackgroundContext
-        
+
         guard let config = self.config else {
             return nil
         }
@@ -449,9 +449,9 @@ import CoreData
             )!
 
             cdReport.year = Int32(year)
-            
+
             var finalCDSlides: Set<CDYearInReviewSlide> = []
-            
+
             // Only preserve existing slides that should freeze
             for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
                 if let cdSlideID = slide.id,
@@ -472,11 +472,11 @@ import CoreData
             }
 
             cdReport.slides = Set(finalCDSlides) as NSSet
-            
+
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-            
+
             // Convert core data report to plain struct before returning
-            
+
             let slides = finalCDSlides.compactMap(self.makeSlide(from:))
             return WMFYearInReviewReport(year: year, slides: slides)
         }
@@ -532,7 +532,7 @@ import CoreData
     }
 
     public func deleteAllPersonalizedNetworkData() async throws {
-        
+
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         try await backgroundContext.perform { [weak self] in
@@ -559,7 +559,7 @@ import CoreData
                           let dataController = WMFYearInReviewPersonalizedSlideID(rawValue: slideID)?.dataController() else {
                         continue
                     }
-                    
+
                     guard dataController.containsPersonalizedNetworkData else { continue }
 
                     backgroundContext.delete(slide)
@@ -571,7 +571,7 @@ import CoreData
     }
 
     public func shouldHideDonateButton() -> Bool {
-        
+
         guard let config = self.config else {
             return false
         }
@@ -586,7 +586,7 @@ import CoreData
 
         return true
     }
-    
+
     // MARK: So far these are only called from unit tests
     public func deleteYearInReviewReport(year: Int) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
@@ -606,7 +606,7 @@ import CoreData
             }
         }
     }
-    
+
     public func fetchYearInReviewReports() async throws -> [WMFYearInReviewReport] {
         let viewContext = try coreDataStore.viewContext
         let reports: [WMFYearInReviewReport] = try await viewContext.perform {
@@ -621,13 +621,13 @@ import CoreData
         }
         return reports
     }
-    
+
     public func createNewYearInReviewReport(year: Int, slides: [WMFYearInReviewSlide]) async throws {
         let newReport = WMFYearInReviewReport(year: year, slides: slides)
 
         try await saveYearInReviewReport(newReport)
     }
-    
+
     public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
         guard let backgroundContext = try? coreDataStore.newBackgroundContext else { return }
 
@@ -647,7 +647,7 @@ import CoreData
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
-    
+
     private func makeCDSlide(from slide: WMFYearInReviewSlide, in context: NSManagedObjectContext) -> CDYearInReviewSlide? {
         do {
             let predicate = NSPredicate(format: "id == %@", slide.id.rawValue)
@@ -666,7 +666,7 @@ import CoreData
             return nil
         }
     }
-    
+
     public func updateContributorStatus(isContributor: Bool) {
         try? userDefaultsStore?.save(
             key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue,
@@ -693,7 +693,7 @@ public class SavedArticleSlideData: NSObject, Codable {
 public struct DonateAndEditCounts: Codable {
     public let donateCount: Int?
     public let editCount: Int?
-    
+
     public init(donateCount: Int?, editCount: Int?) {
         self.donateCount = donateCount
         self.editCount = editCount

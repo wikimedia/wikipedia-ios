@@ -3,7 +3,7 @@ import WMFComponents
 extension ArticleViewController {
     func showLanguages() {
         let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL)
-        themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
+        themesPresenter?.dismissReadingThemesPopoverIfActive(from: self)
         languagesVC.delegate = self
         languagesVC.apply(theme)
         presentEmbedded(languagesVC)

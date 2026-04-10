@@ -10,16 +10,16 @@ import _PassKit_SwiftUI
 }
 
 struct WMFDonateView: View {
-    
+
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFDonateViewModel
-    
+
     init(viewModel: WMFDonateViewModel) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -28,7 +28,7 @@ struct WMFDonateView: View {
                     Spacer()
                         .frame(height: 24)
                 }
-                
+
                 Group {
                     WMFDonateAmountTextfield(viewModel: viewModel.textfieldViewModel)
                     if let errorViewModel = viewModel.errorViewModel {
@@ -37,7 +37,7 @@ struct WMFDonateView: View {
                     Spacer()
                         .frame(height: 24)
                 }
-                
+
                 Group {
                     VStack(alignment: .leading, spacing: 12) {
                         WMFDonateOptInView(viewModel: viewModel.transactionFeeOptInViewModel)
@@ -49,7 +49,7 @@ struct WMFDonateView: View {
                     Spacer()
                         .frame(height: 20)
                 }
-                
+
                 Group {
                     PayWithApplePayButton(.donate) {
                         viewModel.textfieldViewModel.hasFocus = false
@@ -59,7 +59,7 @@ struct WMFDonateView: View {
                             errorViewModel.hasAccessibilityFocus = true
                         }
                     } fallback: {
-                        
+
                     }
                     .payWithApplePayButtonStyle(appEnvironment.theme.applePayPaymentButtonStyle)
                     .accessibilityHint(viewModel.accessibilityDonateButtonHint ?? "")
@@ -68,7 +68,7 @@ struct WMFDonateView: View {
                     Spacer()
                         .frame(height: 20)
                 }
-                
+
                 Group {
                     VStack(alignment: .leading, spacing: 15) {
                         WMFAppleFinePrint(viewModel: viewModel)
@@ -85,27 +85,27 @@ struct WMFDonateView: View {
         }
         .background(Color(appEnvironment.theme.paperBackground))
     }
-    
+
     private var sizeClassHorizontalPadding: CGFloat {
         horizontalSizeClass == .regular ? 64 : 32
     }
-    
+
     private var sizeClassDonateButtonPadding: CGFloat {
         horizontalSizeClass == .regular ? 120 : 0
     }
 }
 
 private struct WMFDonateAmountButtonGroupView: View {
-    
+
     @ObservedObject var viewModel: WMFDonateViewModel
-    
+
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.sizeCategory) var contentSizeCategory
-    
+
     var body: some View {
-        
+
         VStack(spacing: 12) {
-            
+
             if shouldDisplayVertically {
                 ForEach(viewModel.buttonViewModels) { buttonViewModel in
                     WMFDonateAmountButtonView(viewModel: buttonViewModel)
@@ -126,7 +126,7 @@ private struct WMFDonateAmountButtonGroupView: View {
             }
         }
     }
-    
+
     private var shouldDisplayVertically: Bool {
         return horizontalSizeClass == .compact && (contentSizeCategory == .accessibilityLarge ||
                                                    contentSizeCategory == .accessibilityExtraLarge ||
@@ -137,7 +137,7 @@ private struct WMFDonateAmountButtonGroupView: View {
 
 private struct WMFDonateAmountButtonView: View {
     @ObservedObject var viewModel: WMFDonateViewModel.AmountButtonViewModel
-    
+
     var body: some View {
         let configuration = WMFPriceButton.Configuration(currencyCode: viewModel.currencyCode, canDeselect: false, accessibilityHint: viewModel.accessibilityHint)
         WMFPriceButton(configuration: configuration, amount: $viewModel.amount, isSelected: $viewModel.isSelected, loggingTapAction: {
@@ -148,7 +148,7 @@ private struct WMFDonateAmountButtonView: View {
 
 private struct WMFDonateAmountTextfield: View {
     @ObservedObject var viewModel: WMFDonateViewModel.AmountTextFieldViewModel
-    
+
     var body: some View {
         let configuration = WMFPriceTextField.Configuration(currencyCode: viewModel.currencyCode, focusOnAppearance: true, doneTitle: viewModel.localizedStrings.doneTitle, textfieldAccessibilityHint: viewModel.localizedStrings.textfieldAccessibilityHint, doneAccessibilityHint: viewModel.localizedStrings.doneAccessibilityHint)
         WMFPriceTextField(configuration: configuration, amount: $viewModel.amount, hasFocus: $viewModel.hasFocus)
@@ -156,12 +156,12 @@ private struct WMFDonateAmountTextfield: View {
 }
 
 private struct WMFDonateErrorView: View {
-    
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFDonateViewModel.ErrorViewModel
-    
+
     @AccessibilityFocusState var accessibilityFocus: Bool
-    
+
     var body: some View {
         Spacer()
             .frame(height: 12)
@@ -170,11 +170,11 @@ private struct WMFDonateErrorView: View {
                 .font(Font(WMFFont.for(.mediumSubheadline)))
                 .foregroundColor(Color(appEnvironment.theme.destructive))
                 .accessibilityFocused($accessibilityFocus)
-                .onChange(of: viewModel.hasAccessibilityFocus) {
-                    accessibilityFocus = $0
+                .onChange(of: viewModel.hasAccessibilityFocus) { _, newValue in
+                    accessibilityFocus = newValue
                 }
-                .onChange(of: accessibilityFocus) {
-                    viewModel.hasAccessibilityFocus = $0
+                .onChange(of: accessibilityFocus) { _, newValue in
+                    viewModel.hasAccessibilityFocus = newValue
                 }
             Spacer()
         }
@@ -184,7 +184,7 @@ private struct WMFDonateErrorView: View {
 private struct WMFDonateOptInView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFDonateViewModel.OptInViewModel
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             WMFCheckmarkView(isSelected: viewModel.isSelected, configuration: WMFCheckmarkView.Configuration(style: .checkbox))
@@ -204,11 +204,11 @@ private struct WMFDonateOptInView: View {
 }
 
 private struct WMFDonateHelpLink: View {
-    
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let text: String
     let action: () -> Void
-    
+
     var body: some View {
         HStack {
             Button {
@@ -227,11 +227,11 @@ private struct WMFDonateHelpLink: View {
 private struct WMFDonateHelpLinks: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let viewModel: WMFDonateViewModel
-    
+
     init(viewModel: WMFDonateViewModel) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             WMFDonateHelpLink(text: viewModel.localizedStrings.helpLinkProblemsDonating) {
@@ -257,7 +257,7 @@ private struct WMFDonateHelpLinks: View {
 private struct WMFAppleFinePrint: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let viewModel: WMFDonateViewModel
-    
+
     var body: some View {
         HStack {
             Text(viewModel.localizedStrings.appleFinePrint)
@@ -272,15 +272,15 @@ private struct WMFWikimediaFinePrint: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let text: String
     let isAttributed: Bool
-    
+
     var attributedString: AttributedString? {
         if let finePrint = try? AttributedString(markdown: text, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
             return finePrint
         }
-        
+
         return AttributedString(text)
     }
-    
+
     @ViewBuilder
     var contentView: some View {
         if isAttributed,
@@ -290,13 +290,13 @@ private struct WMFWikimediaFinePrint: View {
             Text(text)
         }
     }
-    
+
     var body: some View {
         HStack {
             contentView
                 .foregroundColor(Color(appEnvironment.theme.secondaryText))
                 .font(Font(WMFFont.for(.caption1)))
-            
+
             Spacer()
         }
     }

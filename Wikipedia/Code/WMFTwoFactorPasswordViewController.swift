@@ -180,7 +180,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
+        let closeConfig = WMFLargeCloseButtonConfig(imageType: .plainX, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
@@ -322,7 +322,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         else {
             return
         }
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
 
         MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), emailAuthCode: token(), captchaID: captchaID, captchaWord: captchaWord) { [weak self] (loginResult) in // check if it's valid for email token formatting
             
@@ -331,9 +331,11 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
-                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+
+                WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
                 authInstrument?
                     .submitInteraction(action: "success", actionSource: self.loggingCustomActionSource)
+
                 let presenter = self.presentingViewController
                 self.dismiss(animated: true, completion: {
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
@@ -348,20 +350,20 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     
                     switch error {
                     case .temporaryPasswordNeedsChange:
-                        WMFAlertManager.sharedInstance.dismissAlert()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         self.showChangeTempPasswordViewController()
                         return
                     case .wrongToken:
                         self.tokenAlertLabel.text = error.localizedDescription
                         self.tokenAlertLabel.isHidden = false
-                        WMFAlertManager.sharedInstance.dismissAlert()
+                        WMFToastManager.sharedInstance.dismissCurrentToast()
                         return
                     default:
                         break
                     }
                     
                     self.enableProgressiveButton(true)
-                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                     self.oathTokenFields.forEach {$0.text = nil}
                     self.backupOathTokenField.text = nil
                     self.makeAppropriateFieldFirstResponder()
@@ -411,5 +413,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         
         displayModeToggle.textColor = theme.colors.link
         subTitleLabel.textColor = theme.colors.secondaryText
+        
+        loginButton.apply(theme: theme)
     }
 }

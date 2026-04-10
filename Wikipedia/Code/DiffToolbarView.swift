@@ -88,6 +88,11 @@ class DiffToolbarView: UIView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
         setItems()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            setItems()
+        }
     }
 
     @objc func tappedUndo(_ sender: UIBarButtonItem) {
@@ -124,12 +129,6 @@ class DiffToolbarView: UIView {
     
     @objc func tappedThank(_ sender: UIBarButtonItem) {
         delegate?.tappedThankButton()
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        setItems()
     }
     
     func updateMoreButton(needsRollbackButton: Bool? = nil, needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, needsArticleEditHistoryButton: Bool = false) {
@@ -185,6 +184,9 @@ class DiffToolbarView: UIView {
 
     private func setItems() {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        if #available(iOS 26.0, *) {
+            flexibleSpace.hidesSharedBackground = false
+        }
 
         toolbar.items = [flexibleSpace, nextButton, flexibleSpace, previousButton, flexibleSpace, undoButton, flexibleSpace, thankButton, flexibleSpace, moreButton, flexibleSpace]
     }
@@ -212,21 +214,26 @@ extension DiffToolbarView: Themeable {
         
         self.theme = theme
         
-        toolbar.isTranslucent = false
-        
-        toolbar.backgroundColor = theme.colors.chromeBackground
-        toolbar.barTintColor = theme.colors.chromeBackground
-        contentView.backgroundColor = theme.colors.chromeBackground
-        
-        // avoid toolbar disappearing when empty/error states are shown
-        if theme == Theme.black {
-            switch parentViewState {
-            case .error, .empty:
-                    toolbar.backgroundColor = theme.colors.paperBackground
-                    toolbar.barTintColor = theme.colors.paperBackground
-                    contentView.backgroundColor = theme.colors.paperBackground
-            default:
-                break
+        if #available(iOS 26, *) {
+            backgroundColor = .clear
+            contentView.backgroundColor = .clear
+        } else {
+            toolbar.isTranslucent = false
+            
+            toolbar.backgroundColor = theme.colors.chromeBackground
+            toolbar.barTintColor = theme.colors.chromeBackground
+            contentView.backgroundColor = theme.colors.chromeBackground
+            
+            // avoid toolbar disappearing when empty/error states are shown
+            if theme == Theme.black {
+                switch parentViewState {
+                case .error, .empty:
+                        toolbar.backgroundColor = theme.colors.paperBackground
+                        toolbar.barTintColor = theme.colors.paperBackground
+                        contentView.backgroundColor = theme.colors.paperBackground
+                default:
+                    break
+                }
             }
         }
         

@@ -13,52 +13,57 @@ class SizeThatFitsReusableView: UICollectionReusableView {
         updateFonts(with: traitCollection)
         reset()
         setNeedsLayout()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (view: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.maybeUpdateFonts(with: self.traitCollection)
+        }
     }
-    
+
     open func reset() {
-        
+
     }
-    
+
     // Subclassers should call super
     open func updateBackgroundColorOfLabels() {
-        
+
     }
-    
+
     // Subclassers should override sizeThatFits:apply: instead of layoutSubviews to lay out subviews.
     // In this method, subclassers should calculate the appropriate layout size and if apply is `true`,
     // apply the layout to the subviews.
     open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         return size
     }
-    
+
     // Subclassers should override updateAccessibilityElements to update any accessibility elements
     // that should be updated after layout. Subclassers must call super.updateAccessibilityElements()
     open func updateAccessibilityElements() {
-        
+
     }
-    
+
     // MARK: - Initializers
     // Don't override these initializers, use setup() instead
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: - Cell lifecycle
-    
+
     open override func prepareForReuse() {
         super.prepareForReuse()
         reset()
     }
-    
+
     // MARK: - Layout
-    
+
     final override public func layoutSubviews() {
         super.layoutSubviews()
         let size = bounds.size
@@ -71,11 +76,11 @@ class SizeThatFitsReusableView: UICollectionReusableView {
             }
         #endif
     }
-    
+
     final override public func sizeThatFits(_ size: CGSize) -> CGSize {
         return sizeThatFits(size, apply: false)
     }
-    
+
     final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         if let attributesToFit = layoutAttributes as? ColumnarCollectionViewLayoutAttributes {
             layoutMargins = attributesToFit.layoutMargins
@@ -83,7 +88,7 @@ class SizeThatFitsReusableView: UICollectionReusableView {
                 return attributesToFit
             }
         }
-        
+
         var sizeToFit = layoutAttributes.size
         sizeToFit.height = UIView.noIntrinsicMetric
         var fitSize = self.sizeThatFits(sizeToFit)
@@ -100,15 +105,10 @@ class SizeThatFitsReusableView: UICollectionReusableView {
             return layoutAttributes
         }
     }
-    
+
     // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
-    
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        maybeUpdateFonts(with: traitCollection)
-    }
-    
+
     var contentSizeCategory: UIContentSizeCategory?
     fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
         guard contentSizeCategory == nil || contentSizeCategory != traitCollection.preferredContentSizeCategory else {
@@ -117,9 +117,9 @@ class SizeThatFitsReusableView: UICollectionReusableView {
         contentSizeCategory = traitCollection.preferredContentSizeCategory
         updateFonts(with: traitCollection)
     }
-    
+
     // Override this method and call super
     open func updateFonts(with traitCollection: UITraitCollection) {
-        
+
     }
 }
