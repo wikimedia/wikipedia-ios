@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFNativeLocalizations
 
 /// Encapsulates the iPad 26 (regular-width) custom back-chevron and clear-button workarounds
 /// for `UISearchController`.

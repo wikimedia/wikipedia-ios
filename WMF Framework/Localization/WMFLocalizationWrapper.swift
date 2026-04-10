@@ -68,6 +68,11 @@ import WMFNativeLocalizations
     @objc public static let logIn = CommonStrings.logIn
     @objc public static let allArticlesEmptySavedTitle = CommonStrings.allArticlesEmptySavedTitle
     @objc public static let allArticlesEmptySavedSubtitle = CommonStrings.allArticlesEmptySavedSubtitle
+    @objc public static let rateTheAppTitle = CommonStrings.rateTheAppTitle
+    @objc public static let helpAndfeedbackTitle = CommonStrings.helpAndfeedbackTitle
+    @objc public static let clearCachedDataSettings = CommonStrings.clearCachedDataSettings
+    @objc public static let aboutTitle = CommonStrings.aboutTitle
+    @objc public static let gotItButtonTitle = CommonStrings.gotItButtonTitle
     
     @objc public static func onLangWikipedia(with languageCode: String? = nil) -> String {
         CommonStrings.onLangWikipedia(with: languageCode)

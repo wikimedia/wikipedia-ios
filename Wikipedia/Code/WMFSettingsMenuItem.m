@@ -162,7 +162,7 @@
         case WMFSettingsMenuItemType_RateApp: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title: [WMFCommonStrings rateTheAppTitle]
+                                                    title: [WMFCommonStringsWrapper rateTheAppTitle]
                                                  iconName:@"settings-rate"
                                                 iconColor:[UIColor wmf_orange]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
@@ -172,7 +172,7 @@
         case WMFSettingsMenuItemType_SendFeedback: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title: [WMFCommonStrings helpAndfeedbackTitle]
+                                                    title: [WMFCommonStringsWrapper helpAndfeedbackTitle]
                                                  iconName:@"settings-help-and-feedback"
                                                 iconColor:[UIColor wmf_red_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
@@ -192,7 +192,7 @@
         case WMFSettingsMenuItemType_ClearCache: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title: WMFCommonStrings.clearCachedDataSettings
+                                                    title: [WMFCommonStringsWrapper clearCachedDataSettings]
                                                  iconName:@"settings-clear-cache"
                                                 iconColor:[UIColor wmf_yellow_600]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_None

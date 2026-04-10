@@ -1,6 +1,7 @@
 import UIKit
 import WMFComponents
 @preconcurrency import WMFData
+import WMFNativeLocalizations
 
 @objc final class WMFReadingListToastManager: NSObject {
 

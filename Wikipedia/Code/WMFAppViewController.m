@@ -2243,7 +2243,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-title", nil, nil, @"Sync is enabled on this account", @"Title for panel informing user that sync was enabled on their Wikipedia account on another device");
     NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-enabled-panel-message", nil, nil, @"Reading list syncing is enabled for this account. To stop syncing, you can turn sync off for this account by updating your settings.", @"Message for panel informing user that sync is enabled for their account.");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:[WMFCommonStringsWrapper gotItButtonTitle] style:UIAlertActionStyleDefault handler:nil]];
     [presenter presentViewController:alert
                             animated:YES
                           completion:^{
@@ -2258,7 +2258,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *title = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-disabled-panel-title", nil, nil, @"Sync disabled", @"Title for panel informing user that sync was disabled on their Wikipedia account on another device");
     NSString *message = WMFLocalizedStringWithDefaultValue(@"reading-list-sync-disabled-panel-message", nil, nil, @"Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.", @"Message for panel informing user that sync was disabled on their Wikipedia account on another device.");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:WMFCommonStrings.gotItButtonTitle style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:[WMFCommonStringsWrapper gotItButtonTitle] style:UIAlertActionStyleDefault handler:nil]];
     UIViewController *presenter = self.presentedViewController ?: self;
     [presenter presentViewController:alert
                             animated:YES

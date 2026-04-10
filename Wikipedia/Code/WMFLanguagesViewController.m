@@ -400,7 +400,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self isPreferredSection:indexPath.section] && [self tableView:tableView numberOfRowsInSection:indexPath.section] > 1) {
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
-                                                                                   title:WMFCommonStrings.deleteActionTitle
+                                                                                   title:[WMFCommonStringsWrapper deleteActionTitle]
                                                                                  handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
                                                                                      [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
                                                                                      completionHandler(YES);
