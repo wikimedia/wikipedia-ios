@@ -464,7 +464,6 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             navigationController?.setToolbarHidden(false, animated: false)
         }
         
-        listenForTooltips()
         presentModalsIfNeeded()
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
@@ -506,15 +505,19 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
         Task { @MainActor in
             if await needsReadingChallengeAnnouncement() {
                 presentReadingChallengeAnnouncement(dataStore: dataStore)
-
-            } else if needsYearInReviewAnnouncement() {
-                willDisplayYearInReviewModal = true
-                updateProfileButton()
-                presentYearInReviewAnnouncement()
-
+                
             } else {
-                willDisplayYearInReviewModal = false
-                showFundraisingCampaignAnnouncementIfNeeded()
+                listenForTooltips()
+                
+                if needsYearInReviewAnnouncement() {
+                    willDisplayYearInReviewModal = true
+                    updateProfileButton()
+                    presentYearInReviewAnnouncement()
+
+                } else {
+                    willDisplayYearInReviewModal = false
+                    showFundraisingCampaignAnnouncementIfNeeded()
+                }
             }
         }
     }
