@@ -1244,10 +1244,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
         case WMFUserActivityTypeActivity:
             [self dismissPresentedViewControllers];
+            self.activityTabViewController.temporarilySuppressAppearanceModals = YES; // We are trying to deep link, don't let other modals get in the way.
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
             if ([activity.userInfo[@"collectPrize"] isEqual:@YES]) {
                 [self.activityTabViewController presentCollectPrize];
+            } else if ([activity.userInfo[@"join"] isEqual:@YES]) {
+                [self.activityTabViewController presentReadingChallengeAnnouncementFromWidget];
             }
             break;
         case WMFUserActivityTypeContent: {
