@@ -236,6 +236,10 @@
 "close-tab-confirmation" = "Confirmation prompt to close a single tab.";
 "close-tabs" = "Action to confirm closing multiple tabs.";
 "closed-all-tabs-confirmation-with-value" = "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.";
+"collect-prize-button-title" = "Button title for collect prize modal. Please leave %% unchanged for proper formatting.";
+"collect-prize-headline" = "Headline for collect prize modal";
+"collect-prize-subtitle" = "Subtitle for collect prize modal. Please leave %% unchanged for proper formatting.";
+"collect-prize-title" = "Title for collect prize modal sheet";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "confirm-donation-history-deletion-subtitle" = "Subtitle for confirm local donation history deletion alert";
 "confirm-donation-history-deletion-title" = "Title for confirm local donation history deletion alert";
@@ -1048,6 +1052,7 @@
 "reading-challenge-announcement-subtitle" = "Notice about privacy for reading challenge";
 "reading-challenge-announcement-title" = "Title for the reading challenge onboarding view.";
 "reading-challenge-collect-prize-button" = "Button title shown on the reading challenge widget when the user has completed the challenge.";
+"reading-challenge-collect-prize-button-small" = "Short button title on small reading challenge widget when challenge is complete.";
 "reading-challenge-completed-subtitle" = "Subtitle shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-concluded-title" = "Title shown on the reading challenge widget when the challenge has ended.";

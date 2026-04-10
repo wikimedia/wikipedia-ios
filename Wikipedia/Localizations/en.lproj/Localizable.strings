@@ -236,6 +236,10 @@
 "close-tab-confirmation" = "Close tab?";
 "close-tabs" = "Close tabs";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} closed.";
+"collect-prize-button-title" = "Get 15%% off at the store";
+"collect-prize-headline" = "Curiosity looks good on you! 🛍️";
+"collect-prize-subtitle" = "Celebrate completing the challenge with 15%% off at the Wikipedia Store.";
+"collect-prize-title" = "Collect your prize!";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
 "confirm-donation-history-deletion-title" = "Confirm deletion";
@@ -1048,6 +1052,7 @@
 "reading-challenge-announcement-subtitle" = "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "reading-challenge-announcement-title" = "Celebrate Wikipedia's 25th birthday by joining the 25-day reading challenge!";
 "reading-challenge-collect-prize-button" = "Collect your prize!";
+"reading-challenge-collect-prize-button-small" = "Collect prize";
 "reading-challenge-completed-subtitle" = "25 of 25 days";
 "reading-challenge-completed-title" = "You did it!";
 "reading-challenge-concluded-title" = "Challenge Concluded";

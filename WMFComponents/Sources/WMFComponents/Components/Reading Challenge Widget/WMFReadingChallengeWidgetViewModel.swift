@@ -32,6 +32,7 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
         public let button2Icon: UIImage?
         public let buttonBackgroundColor: Color?
         public let smallShowButtons: Bool
+        public let smallerIcon1: UIImage?
 
         public init(
             color: Color,
@@ -48,7 +49,8 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             button2Icon: UIImage? = nil,
             buttonBackgroundColor: Color? = nil,
             smallShowButtons: Bool = false,
-            icon: UIImage? = nil
+            icon: UIImage? = nil,
+            icon2: UIImage? = nil
         ) {
             self.color = color
             self.color2 = color2
@@ -65,6 +67,7 @@ public final class WMFReadingChallengeWidgetViewModel: ObservableObject {
             self.smallShowButtons = smallShowButtons
             self.icon = icon
             self.color3 = color3
+            self.smallerIcon1 = icon2
         }
     }
 
