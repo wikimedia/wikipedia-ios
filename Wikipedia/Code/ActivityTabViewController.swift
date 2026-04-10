@@ -17,6 +17,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let hostingController: WMFActivityTabHostingController
     public let viewModel: WMFActivityTabViewModel
     private let dataController: WMFActivityTabDataController
+    @objc public var temporarilySuppressAppearanceModals: Bool = false
 
     public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
         self.dataStore = dataStore
@@ -171,6 +172,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
 
         presentModalsIfNeeded()
+        temporarilySuppressAppearanceModals = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -314,6 +316,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     @MainActor
     private func presentModalsIfNeeded() {
+        
+        guard !temporarilySuppressAppearanceModals else {
+            return
+        }
+        
         Task {
             
             let needsReadingChallengeAnnouncement = await shouldShowReadingChallengeAnnouncement()
