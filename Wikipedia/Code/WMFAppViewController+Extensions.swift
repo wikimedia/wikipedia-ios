@@ -5,6 +5,7 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 import TipKit
+import WMFTestKitchen
 
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
@@ -1066,5 +1067,27 @@ extension WMFAppViewController {
                 ActivityTabFunnel.shared.logTabBarSelected(from: .article, action: action)
             }
         }
+    }
+    
+    @objc func createTwoFactorViewControllerFromAutoLoginNotification(userInfo: [AnyHashable : Any], needsEmailToken: Bool) -> WMFTwoFactorPasswordViewController? {
+        guard let message = userInfo["mediaWikiMessage"] as? String else {
+            return nil
+        }
+        
+        let authInstrument = userInfo["authInstrument"] as? WMFTestKitchen.InstrumentImpl
+        
+        let vc = WMFTwoFactorPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+        vc?.mediaWikiMessage = message
+        vc?.authInstrument = authInstrument
+        
+        if needsEmailToken {
+            vc?.setDisplayModeToShortAlphanumeric()
+        }
+        
+        vc?.cancelAction = { [weak self] in
+            self?.dataStore.authenticationManager.logout(initiatedBy: .app)
+        }
+        
+        return vc
     }
 }

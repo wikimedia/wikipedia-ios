@@ -32,6 +32,9 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var captchaID:String?
     public var captchaWord:String?
     public var authInstrument: InstrumentImpl?
+    
+    @objc public var cancelAction: (() -> Void)?
+    @objc public var mediaWikiMessage: String?
 
     private var isEmailAuth: Bool = false
     private var loggingElementId: String {
@@ -42,7 +45,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         isEmailAuth ? "email_verification_form" : "oath_verification_form"
     }
 
-    public func setDisplayModeToShortAlphanumeric() {
+    @objc public func setDisplayModeToShortAlphanumeric() {
         isEmailAuth = true
     }
 
@@ -264,7 +267,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             displayModeToggle.isHidden = true
 
             loginButton.setTitle(WMFLocalizedString("two-factor-email-login-continue", value:"Continue log in", comment:"Button text for finishing email two factor login"), for: .normal)
-            subTitleLabel.text = WMFLocalizedString("two-factor-email-login-instructions", value:"Please enter email verification code", comment:"Instructions for email two factor login interface")
+            
+            subTitleLabel.text = mediaWikiMessage ?? WMFLocalizedString("two-factor-email-login-instructions", value:"Please enter email verification code", comment:"Instructions for email two factor login interface")
         } else {
 
             oathTokenFields.sort { $0.tag < $1.tag }
@@ -282,7 +286,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             }
 
             loginButton.setTitle(WMFLocalizedString("two-factor-login-continue", value:"Continue log in", comment:"Button text for finishing two factor login"), for: .normal)
-            subTitleLabel.text = WMFLocalizedString("two-factor-login-instructions", value:"Please enter two factor verification code", comment:"Instructions for two factor login interface")
+            subTitleLabel.text = mediaWikiMessage ?? WMFLocalizedString("two-factor-login-instructions", value:"Please enter two factor verification code", comment:"Instructions for two factor login interface")
 
             displayMode = .shortNumeric
 
@@ -297,7 +301,9 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
         authInstrument?
             .submitInteraction(action: "click", actionSource: loggingCustomActionSource, elementId: "cancel")
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) { [weak self] in
+            self?.cancelAction?()
+        }
     }
     
     fileprivate func token() -> String {
@@ -320,8 +326,20 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             let userName = userName,
             let password = password
         else {
+            
+            // This case likely happens when we're trying to autologin in the background. Try to log in with saved credentials.
+            let token = token()
+            MWKDataStore.shared().authenticationManager.loginWithSavedCredentials(emailToken: token, oathToken: token, backgroundAuthInstrument: authInstrument) { result in
+                switch result {
+                case .success:
+                    self.dismiss(animated: true)
+                case .failure(let error):
+                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                }
+            }
             return
         }
+        
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
 
         MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), emailAuthCode: token(), captchaID: captchaID, captchaWord: captchaWord) { [weak self] (loginResult) in // check if it's valid for email token formatting
