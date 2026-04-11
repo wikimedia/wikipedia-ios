@@ -42,15 +42,11 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         configureNavigationBar()
         
-        if dataController.shouldShowMoreDynamicTabsV2SyncBridge {
-            if #available(iOS 26.0, *) {
-                overflowButton.sharesBackground = false
-            }
-
-            navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
-        } else {
-            navigationItem.rightBarButtonItem = addTabButton
+        if #available(iOS 26.0, *) {
+            overflowButton.sharesBackground = false
         }
+
+        navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
     }
 
     public override func viewDidLoad() {

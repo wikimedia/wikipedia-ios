@@ -16,7 +16,7 @@ public actor WMFImageRecommendationsDataController {
 
     // MARK: - Properties
 
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    nonisolated(unsafe) private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private let service = WMFDataEnvironment.current.mediaWikiService
 
     // MARK: - Lifecycle
@@ -102,16 +102,7 @@ public actor WMFImageRecommendationsDataController {
 extension WMFImageRecommendationsDataController {
     
     nonisolated public var hasPresentedOnboardingModalSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.hasPresentedOnboardingModal
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
+        return ((try? userDefaultsStore?.load(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue)) as OnboardingStatus? ?? OnboardingStatus.default).hasPresentedOnboardingModal
     }
     
     nonisolated public func setHasPresentedOnboardingModalSyncBridge(_ value: Bool) {
@@ -121,16 +112,7 @@ extension WMFImageRecommendationsDataController {
     }
     
     nonisolated public var hasPresentedOnboardingTooltipsSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.hasPresentedOnboardingTooltips
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
+        return ((try? userDefaultsStore?.load(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue)) as OnboardingStatus? ?? OnboardingStatus.default).hasPresentedOnboardingTooltips
     }
     
     nonisolated public func setHasPresentedOnboardingTooltipsSyncBridge(_ value: Bool) {

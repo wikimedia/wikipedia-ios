@@ -8,17 +8,17 @@ import Contacts
     @objc public static let shared = WMFDonateDataController()
     
     private var service: WMFService?
-    private var sharedCacheStore: WMFKeyValueStore?
+    nonisolated(unsafe) private var sharedCacheStore: WMFKeyValueStore?
     
-    private var donateConfig: WMFDonateConfig?
-    private var paymentMethods: WMFPaymentMethods?
+    nonisolated(unsafe) private var donateConfig: WMFDonateConfig?
+    nonisolated(unsafe) private var paymentMethods: WMFPaymentMethods?
     
-    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
-    private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
-    private let cachePaymentMethodsResponseFileName = "PaymentMethods"
-    private let cacheLocalDonateHistoryFileName = "AppLocalDonationHistory"
+    nonisolated(unsafe) private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
+    nonisolated(unsafe) private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
+    nonisolated(unsafe) private let cachePaymentMethodsResponseFileName = "PaymentMethods"
+    nonisolated(unsafe) private let cacheLocalDonateHistoryFileName = "AppLocalDonationHistory"
     
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    nonisolated(unsafe) private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     
     public func setService(_ service: WMFService) {
         self.service = service
@@ -303,32 +303,29 @@ import Contacts
 
 extension WMFDonateDataController {
     nonisolated public func loadConfigsSyncBridge() -> (donateConfig: WMFDonateConfig?, paymentMethods: WMFPaymentMethods?) {
-        
-        // Synchronous bridge using semaphore
-        var result: (WMFDonateConfig?, WMFPaymentMethods?) = (nil, nil)
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await loadConfigs()
-            semaphore.signal()
+        if let donateConfig, let paymentMethods {
+            return (donateConfig, paymentMethods)
         }
-        
-        semaphore.wait()
-        return result
+
+        let donateConfig: WMFDonateConfig? = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheDonateConfigContainerFileName)
+        let paymentMethods: WMFPaymentMethods? = try? sharedCacheStore?.load(key: cacheDirectoryName, cachePaymentMethodsResponseFileName)
+
+        guard let donateConfigCachedDate = donateConfig?.cachedDate,
+              let paymentMethodsCachedDate = paymentMethods?.cachedDate else {
+            return (nil, nil)
+        }
+
+        let sevenDays = TimeInterval(60 * 60 * 24 * 7)
+        guard (-donateConfigCachedDate.timeIntervalSinceNow) < sevenDays,
+              (-paymentMethodsCachedDate.timeIntervalSinceNow) < sevenDays else {
+            return (nil, nil)
+        }
+
+        return (donateConfig, paymentMethods)
     }
     
     @objc nonisolated public var hasLocallySavedDonationsSyncBridge: Bool {
-        // Synchronous bridge using semaphore
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await hasLocallySavedDonations
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue)) ?? false
     }
     
     nonisolated public func fetchConfigsForCountryCodeSyncBridge(_ countryCode: String, completion: @escaping @Sendable (Error?) -> Void) {
@@ -346,17 +343,18 @@ extension WMFDonateDataController {
             startDate: Date?,
             endDate: Date?
         ) -> [WMFDonateLocalHistory]? {
-            // Synchronous bridge
-            var result: [WMFDonateLocalHistory]?
-            let semaphore = DispatchSemaphore(value: 0)
-            
-            Task {
-                result = await loadLocalDonationHistory(startDate: startDate, endDate: endDate)
-                semaphore.signal()
+            guard let donations: [WMFDonateLocalHistory] = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName) else {
+                return nil
             }
-            
-            semaphore.wait()
-            return result
+
+            guard let startDate, let endDate else {
+                return donations
+            }
+
+            return donations.filter { donation in
+                guard let timestamp = DateFormatter.mediaWikiAPIDateFormatter.date(from: donation.donationTimestamp) else { return false }
+                return timestamp >= startDate && timestamp <= endDate
+            }
         }
     
     @objc nonisolated public func deleteLocalDonationHistorySyncBridge() {

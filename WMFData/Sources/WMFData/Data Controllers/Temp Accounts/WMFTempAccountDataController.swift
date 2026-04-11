@@ -8,7 +8,7 @@ import Foundation
     
     private let mediaWikiService: WMFService?
     
-    private var _primaryWikiHasTempAccountsEnabled: Bool?
+    nonisolated(unsafe) private var _primaryWikiHasTempAccountsEnabled: Bool?
     public var primaryWikiHasTempAccountsEnabled: Bool {
         return _primaryWikiHasTempAccountsEnabled ?? false
     }
@@ -102,17 +102,7 @@ private struct AutoCreateTempUser: Codable {
 
 extension WMFTempAccountDataController {
     @objc nonisolated public var primaryWikiHasTempAccountsEnabledSyncBridge: Bool {
-        // Synchronous bridge using semaphore
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-
-        Task {
-            result = await primaryWikiHasTempAccountsEnabled
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
+        return _primaryWikiHasTempAccountsEnabled ?? false
     }
     
     @objc nonisolated public func checkWikiTempAccountAvailabilitySyncBridge(language: String, isCheckingPrimaryWiki: Bool) {

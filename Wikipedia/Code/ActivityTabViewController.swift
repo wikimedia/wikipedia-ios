@@ -591,17 +591,21 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
     private func onTapEditArticle(item: TimelineItem) {
         ActivityTabFunnel.shared.logActivityTabArticleTap()
-
-        guard let articleURL = item.url,
-              let revID = item.revisionID,
+        
+        guard let revID = item.revisionID,
               let parentID = item.parentRevisionID else {
             return
         }
+        
+        guard let project = WMFProject(id: item.projectID),
+              let siteURL = project.siteURL else {
+            return
+        }
 
-        var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
+        var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false)
         components?.path = "/w/index.php"
         components?.queryItems = [
-            URLQueryItem(name: "title", value: articleURL.wmf_title),
+            URLQueryItem(name: "title", value: item.pageTitle),
             URLQueryItem(name: "diff", value: "\(revID)"),
             URLQueryItem(name: "oldid", value: "\(parentID)")
         ]

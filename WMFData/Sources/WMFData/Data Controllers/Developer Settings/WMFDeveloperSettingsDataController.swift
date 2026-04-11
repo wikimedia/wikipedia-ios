@@ -16,17 +16,16 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     @objc public static let shared = WMFDeveloperSettingsDataController()
     
     private let service: WMFService?
-    private var sharedCacheStore: WMFKeyValueStore?
+    nonisolated(unsafe) private var sharedCacheStore: WMFKeyValueStore?
     
-    private var featureConfig: WMFFeatureConfigResponse?
+    nonisolated(unsafe) private var featureConfig: WMFFeatureConfigResponse?
     
-    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
-    private let cacheFeatureConfigFileName = "AppsFeatureConfig"
+    nonisolated(unsafe) private let cacheDirectoryName = WMFSharedCacheDirectoryNames.developerSettings.rawValue
+    nonisolated(unsafe) private let cacheFeatureConfigFileName = "AppsFeatureConfig"
     
     public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self.service = service
         self.sharedCacheStore = sharedCacheStore
-        super.init()
         
         NotificationCenter.default.addObserver(
             forName: WMFNSNotification.coreDataStoreSetup,
@@ -46,7 +45,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     
     // MARK: - Local Settings from App Settings Menu
 
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    nonisolated(unsafe) private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     
     public var doNotPostImageRecommendationsEdit: Bool {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue)) ?? false
@@ -116,12 +115,20 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false
     }
     
+    public func setEnableYiRLoginExperimentB(_ value: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue, value: value)
+    }
+    
     public var forceHCaptchaChallenge: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: newValue)
         }
+    }
+    
+    public func setForceHCaptchaChallenge(_ value: Bool) {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue, value: value)
     }
 
     // MARK: - Remote Settings from https://en.wikipedia.org/api/rest_v1/configuration
@@ -181,113 +188,53 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
 extension WMFDeveloperSettingsDataController {
     nonisolated public var doNotPostImageRecommendationsEditSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await doNotPostImageRecommendationsEdit
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsDoNotPostImageRecommendationsEdit.rawValue)) ?? false
     }
     
     nonisolated public var sendAnalyticsToWMFLabsSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await sendAnalyticsToWMFLabs
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false
     }
     
     nonisolated public var bypassDonationSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await bypassDonation
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false
     }
     
     nonisolated public var forceEmailAuthSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await forceEmailAuth
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceEmailAuth.rawValue)) ?? false
     }
     
     nonisolated public var showYiRV3SyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await showYiRV3
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
     }
     
     nonisolated public var enableYiRLoginExperimentBSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await enableYiRLoginExperimentB
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentB.rawValue)) ?? false
     }
     
     nonisolated public var enableYiRLoginExperimentControlSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await enableYiRLoginExperimentControl
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRV3LoginExperimentControl.rawValue)) ?? false
     }
     
     nonisolated public var forceMaxArticleTabsTo5SyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await forceMaxArticleTabsTo5
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false
     }
     
     nonisolated public var enableMoreDynamicTabsV2GroupCSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await enableMoreDynamicTabsV2GroupC
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return result
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsV2GroupC.rawValue)) ?? false
+    }
+    
+    nonisolated public var forceHCaptchaChallengeSyncBridge: Bool {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceHCaptchaChallenge.rawValue)) ?? false
     }
     
     nonisolated public func loadFeatureConfigSyncBridge() -> WMFFeatureConfigResponse? {
-        var result: WMFFeatureConfigResponse? = nil
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            result = await loadFeatureConfig()
-            semaphore.signal()
+        if let featureConfig { return featureConfig }
+        guard let cached: WMFFeatureConfigResponse = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheFeatureConfigFileName),
+              let cachedDate = cached.cachedDate,
+              (-cachedDate.timeIntervalSinceNow) < TimeInterval(60 * 60 * 4) else {
+            return nil
         }
-        semaphore.wait()
-        return result
+        return cached
     }
     
     @objc nonisolated public func fetchFeatureConfig(completion: @escaping @Sendable (Error?) -> Void) {

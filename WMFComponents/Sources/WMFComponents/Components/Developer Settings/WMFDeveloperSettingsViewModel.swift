@@ -133,7 +133,11 @@ import WMFData
             .store(in: &subscribers)
         
         forceHcaptchaChallenge.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge = isSelected }
+            .sink { isSelected in
+                Task {
+                    await WMFDeveloperSettingsDataController.shared.setForceHCaptchaChallenge(isSelected)
+                }
+            }
             .store(in: &subscribers)
         
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(

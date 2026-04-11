@@ -256,7 +256,7 @@ public final class WMFSettingsHostingController: WMFComponentHostingController<W
 
             let username = self.dataStore?.authenticationManager.authStatePermanentUsername
             let tempUsername = self.dataStore?.authenticationManager.authStateTemporaryUsername
-            let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
+            let isTempAccount = await WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
                                 self.dataStore?.authenticationManager.authStateIsTemporary == true
 
             await self.viewModel.updateAuthenticationState(

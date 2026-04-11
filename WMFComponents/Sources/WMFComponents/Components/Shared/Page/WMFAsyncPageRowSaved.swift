@@ -323,6 +323,6 @@ struct WMFAsyncPageRowSaved: View {
             url = components?.url
         }
 
-        return WMFArticlePreviewViewModel(url: url, titleHtml: viewModel.title, description: viewModel.description, imageURLString: viewModel.imageURL?.absoluteString, isSaved: true, snippet: viewModel.snippet)
+        return WMFArticlePreviewViewModel(titleHtml: viewModel.title, description: viewModel.description, imageURLString: viewModel.imageURL?.absoluteString, isSaved: true, snippet: viewModel.snippet)
     }
 }

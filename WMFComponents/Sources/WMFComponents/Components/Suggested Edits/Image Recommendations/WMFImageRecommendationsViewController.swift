@@ -246,12 +246,15 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
 
         if !force {
-            if !dataController.hasPresentedOnboardingTooltips {
-                listenToTooltip1(dismissAction: tooltip1DismissAction)
-                Tip1.enableTip = true
-            } else {
-               Tip1.enableTip = false
+            Task {
+                if await !dataController.hasPresentedOnboardingTooltips {
+                    listenToTooltip1(dismissAction: tooltip1DismissAction)
+                    Tip1.enableTip = true
+                } else {
+                   Tip1.enableTip = false
+                }
             }
+            
         } else {
             autoTip1ObservationTask?.cancel()
             autoTip1ObservationTask = nil
@@ -386,7 +389,10 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
                         self.autoTip3ObservationTask?.cancel()
                         self.autoTip3ObservationTask = nil
                     }
-                    self.dataController.hasPresentedOnboardingTooltips = true
+                    Task {
+                        await self.dataController.setHasPresentedOnboardingTooltips(true)
+                    }
+                    
                     self.tooltipVC = nil
                     break
                 default:

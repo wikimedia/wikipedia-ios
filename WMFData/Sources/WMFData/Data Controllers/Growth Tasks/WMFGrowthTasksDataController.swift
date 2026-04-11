@@ -7,7 +7,7 @@ import Foundation
     private let service: WMFService?
     private let project: WMFProject
     
-    private static var currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] = [:]
+    nonisolated(unsafe) private static var currentImageRecommendations: [WMFProject: [WMFImageRecommendation.Page]] = [:]
 
     public init(project: WMFProject, service: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
         self.project = project

@@ -33,11 +33,7 @@ public struct WMFArticleTabsView: View {
                     } else if viewModel.articleTabs.isEmpty {
                         emptyStateContainer
                     } else {
-                        if viewModel.shouldShowTabsV2 {
-                            tabsV2Grid(geometry)
-                        } else {
-                            tabsGrid(geometry)
-                        }
+                        tabsV2Grid(geometry)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

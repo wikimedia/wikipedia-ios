@@ -70,7 +70,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 
     public func showAlertForArticleSuggestionsDisplayChangeConfirmation() {
 
-        if dataController.userHasHiddenArticleSuggestionsTabsSyncBridge {
+        if false { // dataController.userHasHiddenArticleSuggestionsTabs
             WMFToastManager.sharedInstance.showRichToast(
 
                 WMFLocalizedString("tabs-suggested-articles-hide-suggestions-confirmation", value: "Suggestions are now hidden", comment: "Confirmation on hiding of the suggested articles in tabs."),

@@ -75,7 +75,10 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         }
 
         viewModel.didTapOpenInNewTab = { [weak self] article in
-            WMFArticleTabsDataController.shared.didTapOpenNewTab()
+            Task {
+                await WMFArticleTabsDataController.shared.didTapOpenNewTab()
+            }
+            
             ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
             self?.showArticle(title: article.title, project: article.project, inNewTab: true)
         }
@@ -201,11 +204,11 @@ final class SavedAllArticlesCoordinator: NSObject, Coordinator {
         Task {
             do {
                 let articleTabsDataController = WMFArticleTabsDataController.shared
-                articleTabsDataController.didTapOpenNewTab()
+                await articleTabsDataController.didTapOpenNewTab()
 
                 let tabsCount = try await articleTabsDataController.tabsCount()
-                let tabsMax = articleTabsDataController.tabsMax
-                let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: project, articleURL: articleURL)
+                let tabsMax = await articleTabsDataController.tabsMax
+                let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: project)
                 if tabsCount >= tabsMax {
 
                     if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {

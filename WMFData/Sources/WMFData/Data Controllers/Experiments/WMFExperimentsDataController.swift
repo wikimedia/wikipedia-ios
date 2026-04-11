@@ -51,13 +51,13 @@ actor WMFExperimentsDataController {
     
     // MARK: Properties
     
-    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
+    nonisolated(unsafe) private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
 
     private static let moreDynamicTabsV2Config = ExperimentConfig(experiment: .moreDynamicTabsV2, percentageFileName: .moreDynamicTabsPercent, bucketFileName: .moreDynamicTabsV2Bucket, bucketValueControl: .moreDynamicTabsV2GroupC, bucketValueTest: .moreDynamicTabsV2GroupC, bucketValueTest2: .moreDynamicTabsV2GroupC)
     
     private static let yirLoginPromptConfig = ExperimentConfig(experiment: .yirLoginPrompt, percentageFileName: .yirLoginPromptPercent, bucketFileName: .yirLoginPromptBucket, bucketValueControl: .yirLoginPromptControl, bucketValueTest: .yirLoginPromptGroupB, bucketValueTest2: nil)
 
-    private let store: WMFKeyValueStore
+    nonisolated(unsafe) private let store: WMFKeyValueStore
     
     // MARK: Lifecycle
     
@@ -161,33 +161,44 @@ extension WMFExperimentsDataController {
     
     @discardableResult
     nonisolated public func determineBucketForExperimentSyncBridge(_ experiment: Experiment, withPercentage percentage: Int, forceValue: BucketValue? = nil) -> BucketValue? {
-        var result: BucketValue? = nil
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            do {
-                result = try await self.determineBucketForExperiment(experiment, withPercentage: percentage, forceValue: forceValue)
-            } catch {
-                print("Error determining bucket: \(error)")
-                result = nil
-            }
-            semaphore.signal()
+        guard percentage >= 0 && percentage <= 100 else { return nil }
+
+        let percentKey = experiment.config.percentageFileName.rawValue
+        let bucketKey = experiment.config.bucketFileName.rawValue
+
+        let maybeOldPercentage: Int? = try? store.load(key: cacheDirectoryName, percentKey)
+        let maybeOldBucketRaw: String? = try? store.load(key: cacheDirectoryName, bucketKey)
+        let maybeOldBucket = maybeOldBucketRaw.flatMap { BucketValue(rawValue: $0) }
+
+        if let oldPercentage = maybeOldPercentage,
+           let oldBucket = maybeOldBucket,
+           oldPercentage == percentage {
+            return oldBucket
         }
-        
-        semaphore.wait()
-        return result
+
+        let bucket: BucketValue
+        if let forceValue {
+            bucket = forceValue
+        } else {
+            let randomInt = Int.random(in: 1...100)
+            switch experiment {
+            case .moreDynamicTabsV2:
+                bucket = .moreDynamicTabsV2GroupC
+            case .yirLoginPrompt:
+                bucket = randomInt <= percentage ? .yirLoginPromptControl : .yirLoginPromptGroupB
+            }
+        }
+
+        try? store.save(key: cacheDirectoryName, bucketKey, value: bucket.rawValue)
+        try? store.save(key: cacheDirectoryName, percentKey, value: percentage)
+        return bucket
     }
     
     nonisolated public func bucketForExperimentSyncBridge(_ experiment: Experiment) -> BucketValue? {
-        var result: BucketValue? = nil
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.bucketForExperiment(experiment)
-            semaphore.signal()
+        let key = experiment.config.bucketFileName.rawValue
+        guard let rawValue: String = try? store.load(key: cacheDirectoryName, key) else {
+            return nil
         }
-        
-        semaphore.wait()
-        return result
+        return BucketValue(rawValue: rawValue)
     }
 }

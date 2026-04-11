@@ -66,7 +66,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         self.topPadding = topPadding
 
         Task { [weak self] in
-            self?.loadHistory()
+            await self?.loadHistory()
         }
     }
 

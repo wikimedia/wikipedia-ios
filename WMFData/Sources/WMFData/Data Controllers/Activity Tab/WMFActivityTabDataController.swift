@@ -443,7 +443,7 @@ public actor WMFActivityTabDataController {
         await historyDataController?.deleteHistoryItem(timelineToHistoryItem(item))
     }
 
-    //todo: fix URL
+    // todo: fix URL
     private func timelineToHistoryItem(_ timelineItem: TimelineItem) -> HistoryItem {
         return HistoryItem(id: timelineItem.id, url: nil, titleHtml: timelineItem.titleHtml, description: timelineItem.description, shortDescription: timelineItem.snippet, imageURLString: timelineItem.imageURLString, isSaved: false, snippet: nil, variant: nil)
     }

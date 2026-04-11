@@ -70,14 +70,6 @@ public actor WMFArticleTabsDataController {
     
     private var _coreDataStore: WMFCoreDataStore?
     private var coreDataStore: WMFCoreDataStore? { _coreDataStore ?? WMFDataEnvironment.current.coreDataStore }
-
-    public var userHasHiddenArticleSuggestionsTabs: Bool {
-        (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue)) ?? false
-    }
-    
-    public func setUserHasHiddenArticleSuggestionsTabs(_ value: Bool) {
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue, value: value)
-    }
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
                 developerSettingsDataController: WMFDeveloperSettingsDataController = .shared,
@@ -88,7 +80,6 @@ public actor WMFArticleTabsDataController {
     }
     
     private func shouldAssignToBucketV2() -> Bool { experimentsDataController?.bucketForExperimentSyncBridge(.moreDynamicTabsV2) == nil }
-    public var shouldShowMoreDynamicTabsV2: Bool { true }
     private var primaryAppLanguageProject: WMFProject? {
         guard let language = WMFDataEnvironment.current.appData.appLanguages.first else { return nil }
         return WMFProject.wikipedia(language)
@@ -564,45 +555,6 @@ private extension Locale {
 // MARK: - Sync Bridge Extension
 
 extension WMFArticleTabsDataController {
-    
-    nonisolated public var shouldShowMoreDynamicTabsV2SyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.shouldShowMoreDynamicTabsV2
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public var userHasHiddenArticleSuggestionsTabsSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.userHasHiddenArticleSuggestionsTabs
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public var hasPresentedTooltipsSyncBridge: Bool {
-        var result = false
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.hasPresentedTooltips
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
-    }
     
     nonisolated public func loadCurrentStateForRestorationSyncBridge() -> WMFArticleTab? {
         var result: WMFArticleTab? = nil

@@ -13,7 +13,7 @@ public actor WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
         WMFDataEnvironment.current.basicService
     }
 
-    public static var shared = WMFArticleSummaryDataController()
+    nonisolated(unsafe) public static var shared = WMFArticleSummaryDataController()
     
     private var cache: [WMFPage: WMFArticleSummary] = [:]
     private var inFlightRequests: [WMFPage: [(Result<WMFArticleSummary, Error>) -> Void]] = [:]

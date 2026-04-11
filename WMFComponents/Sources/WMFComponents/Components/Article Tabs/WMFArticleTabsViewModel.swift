@@ -61,7 +61,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.loggingDelegate = loggingDelegate
         self.articleTabs = []
         self.shouldShowCloseButton = false
-        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabsV2SyncBridge
+        self.shouldShowCurrentTabBorder = true
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
@@ -84,8 +84,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published public var shouldShowSuggestions: Bool = false
     
     private func updateShouldShowSuggestions() {
-        shouldShowSuggestions = dataController.shouldShowMoreDynamicTabsV2SyncBridge &&
-        !dataController.userHasHiddenArticleSuggestionsTabsSyncBridge
+        shouldShowSuggestions = false
     }
     
     public func refreshShouldShowSuggestionsFromDataController() {
@@ -161,11 +160,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             await refreshCurrentTab()
             updateNavigationBarTitleAction?(articleTabs.count)
 
-            if await dataController.shouldShowMoreDynamicTabsV2 {
-                shouldShowCloseButton = true
-            } else {
-                shouldShowCloseButton = articleTabs.count > 1
-            }
+            shouldShowCloseButton = true
 
         } catch {
             // Handle error appropriately
@@ -264,9 +259,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                         loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
                         articleTabs.removeAll { $0 == tab }
                         updateHasMultipleTabs()
-                        if await dataController.shouldShowMoreDynamicTabsV2 {
-                            shouldShowCloseButton = true
-                        }
+                        shouldShowCloseButton = true
                         await refreshCurrentTab()
                         updateNavigationBarTitleAction?(articleTabs.count)
                     }
@@ -274,10 +267,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 debugPrint("Error closing tab: \(error)")
             }
         }
-    }
-
-    var shouldShowTabsV2: Bool {
-        return dataController.shouldShowMoreDynamicTabsV2SyncBridge
     }
 
     // MARK: - Populate article summary
@@ -344,7 +333,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             if prefetchedTabIDs.contains(tab.id) || incomingTabIDs.contains(tab.id) { return nil }
             guard let last = tab.data.articles.last else { return nil }
             incomingTabIDs.insert(tab.id)
-            return Input(id: tab.id, project: last.project, title: last.title, url: last.articleURL, isMain: last.isMain)
+            return Input(id: tab.id, project: last.project, title: last.title, isMain: last.isMain)
         }
 
         guard !inputs.isEmpty else { return }
@@ -396,7 +385,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         let project    = last.project
         let title      = last.title
         let isMain     = last.isMain
-        let articleURL = last.articleURL
         let mainSubtitle    = localizedStrings.mainPageSubtitle
         let mainDescription = localizedStrings.mainPageDescription
 
@@ -414,7 +402,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 subtitle: subtitle,
                 image: summary.thumbnailURL,
                 description: snippet,
-                url: articleURL,
                 snippet: snippet
             )
 

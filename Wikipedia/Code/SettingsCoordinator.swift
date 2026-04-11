@@ -112,7 +112,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let username = dataStore.authenticationManager.authStatePermanentUsername
 
         let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
-        let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled && dataStore.authenticationManager.authStateIsTemporary
+        let isTempAccount = await WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled && dataStore.authenticationManager.authStateIsTemporary
 
         let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
 
@@ -500,7 +500,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
             let username = self.dataStore.authenticationManager.authStatePermanentUsername
             let tempUsername = self.dataStore.authenticationManager.authStateTemporaryUsername
-            let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
+            let isTempAccount = await WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
                                 self.dataStore.authenticationManager.authStateIsTemporary == true
 
             await self.settingsViewModel?.updateAuthenticationState(

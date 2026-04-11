@@ -49,18 +49,18 @@ public actor WMFSettingsDataController: ObservableObject {
     }
 
 
-    public func hasLocalDonations() -> Bool {
+    public func hasLocalDonations() async -> Bool {
         guard let donationDataController else {
             return false
         }
-        return donationDataController.hasLocallySavedDonations
+        return await donationDataController.hasLocallySavedDonations
     }
 
-    public func deleteLocalDonations() {
+    public func deleteLocalDonations() async {
         guard let donationDataController else {
             return
         }
-        donationDataController.deleteLocalDonationHistory()
+        await donationDataController.deleteLocalDonationHistory()
     }
 
 

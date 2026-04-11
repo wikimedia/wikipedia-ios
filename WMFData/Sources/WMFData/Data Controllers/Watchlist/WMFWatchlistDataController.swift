@@ -5,7 +5,7 @@ public actor WMFWatchlistDataController {
     
     private var service = WMFDataEnvironment.current.mediaWikiService
     private let sharedCacheStore = WMFDataEnvironment.current.sharedCacheStore
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    nonisolated(unsafe) private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     public init() { }
     
@@ -599,68 +599,32 @@ extension WMFWatchlistDataController {
     }
     
     nonisolated public func allWatchlistProjectsSyncBridge() -> [WMFProject] {
-        var result: [WMFProject] = []
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.allWatchlistProjects()
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public func offWatchlistProjectsSyncBridge() -> [WMFProject] {
-        var result: [WMFProject] = []
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.offWatchlistProjects()
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public func allChangeTypesSyncBridge() -> [WMFWatchlistFilterSettings.ChangeType] {
-        var result: [WMFWatchlistFilterSettings.ChangeType] = []
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.allChangeTypes()
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
-    }
-    
-    nonisolated public func offChangeTypesSyncBridge() -> [WMFWatchlistFilterSettings.ChangeType] {
-        var result: [WMFWatchlistFilterSettings.ChangeType] = []
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.offChangeTypes()
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
+        let appLanguages = WMFDataEnvironment.current.appData.appLanguages
+        guard !appLanguages.isEmpty else { return [] }
+        var projects = WMFProject.projectsFromLanguages(languages: appLanguages)
+        projects.append(.commons)
+        projects.append(.wikidata)
+        return projects
     }
     
     nonisolated public func loadFilterSettingsSyncBridge() -> WMFWatchlistFilterSettings {
-        var result: WMFWatchlistFilterSettings = WMFWatchlistFilterSettings()
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        Task {
-            result = await self.loadFilterSettings()
-            semaphore.signal()
-        }
-        
-        semaphore.wait()
-        return result
+        let key = WMFUserDefaultsKey.watchlistFilterSettings.rawValue
+        return (try? userDefaultsStore?.load(key: key)) ?? WMFWatchlistFilterSettings()
+    }
+    
+    nonisolated public func offWatchlistProjectsSyncBridge() -> [WMFProject] {
+        let allProjects = allWatchlistProjectsSyncBridge()
+        let filterSettings = loadFilterSettingsSyncBridge()
+        return allProjects.filter { !filterSettings.offProjects.contains($0) }
+    }
+    
+    nonisolated public func allChangeTypesSyncBridge() -> [WMFWatchlistFilterSettings.ChangeType] {
+        return WMFWatchlistFilterSettings.ChangeType.allCases
+    }
+    
+    nonisolated public func offChangeTypesSyncBridge() -> [WMFWatchlistFilterSettings.ChangeType] {
+        let filterSettings = loadFilterSettingsSyncBridge()
+        return filterSettings.offTypes.filter { WMFWatchlistFilterSettings.ChangeType.allCases.contains($0) }
     }
 }
 

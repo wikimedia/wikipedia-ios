@@ -531,14 +531,14 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             
         }
 
-        let dataController = WMFDonateDataController.shared
-        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID) { result in
-
-            switch result {
-            case .success:
+        Task {
+            
+            let dataController = WMFDonateDataController.shared
+            do {
+                try await dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion, appInstallID: appInstallID)
+                
                 self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
-            case .failure(let error):
-                // Only log errors, don't show to user since we are assuming success.
+            } catch {
                 if let dataControllerError = error as? WMFDonateDataControllerError {
                     switch dataControllerError {
                     case .paymentsWikiResponseError:
@@ -548,13 +548,15 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                     self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                 }
             }
-
+            
+            
             // Always end the background task
             if self.submitPaymentBackgroundTask != .invalid {
                 application.endBackgroundTask(self.submitPaymentBackgroundTask)
                 self.submitPaymentBackgroundTask = .invalid
             }
         }
+        
 
         // Immediately assume success
         completion(PKPaymentAuthorizationResult(status: .success, errors: []))
