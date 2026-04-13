@@ -3,7 +3,7 @@ import WMFComponents
 
 final class ReadingChallengeWidgetAnnouncementCoordinator {
 
-    private weak var presentingViewController: (UIViewController & WMFFeatureAnnouncing)?
+    private weak var presentingViewController: UIViewController?
 
     init(presentingViewController: UIViewController & WMFFeatureAnnouncing) {
         self.presentingViewController = presentingViewController
@@ -11,18 +11,23 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
 
     func start() {
         guard let presenting = presentingViewController else { return }
-        presenting.announceFeature(
-            viewModel: makeViewModel(),
-            sourceView: presenting.view,
-            sourceRect: CGRect(
-                origin: CGPoint(
-                    x: presenting.view.bounds.midX,
-                    y: presenting.view.bounds.midY
-                ),
-                size: .zero
-            ),
-            barButtonItem: nil
-        )
+
+        let controller = WMFFeatureAnnouncementViewController(viewModel: makeViewModel())
+
+        if let sheet = controller.sheetPresentationController {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                sheet.detents = [.large()]
+                controller.preferredContentSize = CGSize(width: 640, height: 720)
+            } else {
+                sheet.detents = [.medium()]
+            }
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 16
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+        }
+
+        controller.modalPresentationStyle = .pageSheet
+        presenting.present(controller, animated: true)
     }
 
     private func makeViewModel() -> WMFFeatureAnnouncementViewModel {
@@ -46,3 +51,4 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
         )
     }
 }
+

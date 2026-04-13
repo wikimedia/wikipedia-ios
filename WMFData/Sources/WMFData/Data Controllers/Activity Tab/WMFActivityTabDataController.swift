@@ -281,7 +281,7 @@ public actor WMFActivityTabDataController {
         guard isLoggedIn else { return false }
         guard !hasEnrolledInReadingChallenge2026 else { return false }
 
-        // If forcing not enrolled or not live yet state, show announcement regardless of date/seen!! 
+        // If forcing not enrolled or not live yet state, show announcemen
         let devController = WMFDeveloperSettingsDataController.shared
         if devController.devForceReadingChallengeEnabled {
             let forcedState = devController.forcedReadingChallengeState
@@ -297,6 +297,14 @@ public actor WMFActivityTabDataController {
 
     public func shouldShowReadingChallengeWidgetAnnouncement() -> Bool {
         guard !hasSeenWidgetReadingChallengeAnnouncement2026 else { return false }
+        // If forcing not enrolled or not live yet state, show announcement regardless of date/seen!!
+        let devController = WMFDeveloperSettingsDataController.shared
+        if devController.devForceReadingChallengeEnabled {
+            let forcedState = devController.forcedReadingChallengeState
+            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
+                return true
+            }
+        }
         guard hasEnrolledInReadingChallenge2026 else { return false }
         let now = Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
