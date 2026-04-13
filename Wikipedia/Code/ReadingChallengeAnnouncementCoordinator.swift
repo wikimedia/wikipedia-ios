@@ -1,6 +1,7 @@
 import UIKit
 import WMFData
 import WMFComponents
+import WMF
 
 @MainActor
 final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
@@ -140,10 +141,28 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
 
     func onboardingViewDidClickPrimaryButton() {
-        enroll()
-        navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
-            self?.onEnroll?()
-            self?.onDismiss?()
+        if dataStore.authenticationManager.authStateIsPermanent {
+            enroll()
+            navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
+                self?.onEnroll?()
+                self?.onDismiss?()
+            }
+        } else {
+            let alert = UIAlertController(
+                title: WMFLocalizedString("reading-challenge-login-title", value: "Log in to join the challenge", comment: "Title for alert that asks users to log in to join the reading challenge"),
+                message: WMFLocalizedString("reading-challenge-login-message", value: "Log in or create an account to track your progress towards the reading challenge.", comment: "Message for alert that asks users to log in to join the reading challenge"),
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
+                guard let self else { return }
+                self.navigationController.presentedViewController?.dismiss(animated: true) {
+                    self.navigationController.wmf_showLoginViewController(category: .login, theme: self.theme, loginDismissedCompletion: {
+                        self.navigationController.tabBarController?.selectedIndex = 3
+                    })
+                }
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+            navigationController.presentedViewController?.present(alert, animated: true)
         }
     }
 

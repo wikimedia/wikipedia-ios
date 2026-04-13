@@ -1061,6 +1061,8 @@
 "reading-challenge-explore-wikipedia-button" = "Explore Wikipedia";
 "reading-challenge-join-button-medium" = "Join the challenge";
 "reading-challenge-join-button-small" = "Join challenge";
+"reading-challenge-login-message" = "Log in or create an account to track your progress towards the reading challenge.";
+"reading-challenge-login-title" = "Log in to join the challenge";
 "reading-challenge-not-enrolled-subtitle" = "Join the 25-day challenge and unlock special prizes.";
 "reading-challenge-not-enrolled-title" = "Ready, set, read!";
 "reading-challenge-not-live-yet-subtitle" = "A 25-day reading challenge is on the way.";

@@ -1061,6 +1061,8 @@
 "reading-challenge-explore-wikipedia-button" = "Button title on the reading challenge widget linking to the Explore feed.";
 "reading-challenge-join-button-medium" = "Button title on medium widget.";
 "reading-challenge-join-button-small" = "Button title on small widget.";
+"reading-challenge-login-message" = "Message for alert that asks users to log in to join the reading challenge";
+"reading-challenge-login-title" = "Title for alert that asks users to log in to join the reading challenge";
 "reading-challenge-not-enrolled-subtitle" = "Subtitle shown on the reading challenge widget when the user is not enrolled in the challenge.";
 "reading-challenge-not-enrolled-title" = "Title shown on the reading challenge widget when the user is not enrolled in the challenge.";
 "reading-challenge-not-live-yet-subtitle" = "Subtitle shown on the reading challenge widget when the challenge has not yet launched.";
