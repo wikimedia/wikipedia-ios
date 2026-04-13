@@ -53,6 +53,7 @@ public struct WMFReadingListToastView: View {
         .modifier(ToastGlassModifier(theme: theme))
         .focusable(false)
         .focusEffectDisabled(true)
+        .ignoresSafeArea(.keyboard)
     }
     @ViewBuilder
     private func iconView(_ icon: UIImage) -> some View {

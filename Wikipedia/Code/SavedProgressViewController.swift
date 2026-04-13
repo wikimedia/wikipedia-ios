@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 class SavedProgressViewController: UIViewController, Themeable {
     @IBOutlet weak var label: UILabel!
@@ -9,9 +9,53 @@ class SavedProgressViewController: UIViewController, Themeable {
     
     fileprivate var theme: Theme = Theme.standard
 
+    private var glassEffectView: UIVisualEffectView?
+
+    private var innerContainerView: UIView? { view.subviews.first }
+
+    private let horizontalPadding: CGFloat = 16
+    private let bottomPadding: CGFloat = 8
+
     override func viewDidLoad() {
         super.viewDidLoad()
         label.text = WMFLocalizedString("saved-pages-progress-syncing", value: "Article download in progress...", comment: "Text for article download progress bar label")
+        label.font = WMFFont.for(.subheadline)
+        label.adjustsFontForContentSizeCategory = true
+        setupPillShape()
+    }
+
+    private func setupPillShape() {
+        // Root view is transparent — the inner container is the visible pill
+        view.backgroundColor = .clear
+
+        guard let pill = innerContainerView else { return }
+
+        // Remove the storyboard's edge-to-edge constraints so we can add horizontal insets
+        for constraint in view.constraints where constraint.firstItem === pill || constraint.secondItem === pill {
+            view.removeConstraint(constraint)
+        }
+
+        pill.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pill.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalPadding),
+            pill.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalPadding),
+            pill.topAnchor.constraint(equalTo: view.topAnchor),
+            pill.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -bottomPadding)
+        ])
+
+        pill.clipsToBounds = true
+        pill.layer.cornerRadius = 24
+        pill.layer.cornerCurve = .circular
+
+        if #available(iOS 26.0, *) {
+            let glassEffect = UIGlassEffect(style: .regular)
+            glassEffect.tintColor = theme.colors.paperBackground.withAlphaComponent(0.85)
+            let effectView = UIVisualEffectView(effect: glassEffect)
+            effectView.frame = pill.bounds
+            effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            pill.insertSubview(effectView, at: 0)
+            glassEffectView = effectView
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,8 +114,18 @@ class SavedProgressViewController: UIViewController, Themeable {
     
     func apply(theme: Theme) {
         self.theme = theme
-        view.backgroundColor = theme.colors.hintBackground
-        label.textColor = theme.colors.secondaryText
+        view.backgroundColor = .clear
+        if #available(iOS 26.0, *) {
+            glassEffectView?.effect = {
+                let glassEffect = UIGlassEffect(style: .regular)
+                glassEffect.tintColor = theme.colors.paperBackground.withAlphaComponent(0.85)
+                return glassEffect
+            }()
+            innerContainerView?.backgroundColor = .clear
+        } else {
+            innerContainerView?.backgroundColor = theme.colors.paperBackground
+        }
+        label.textColor = theme.colors.primaryText
         progressView.progressTintColor = theme.colors.accent
     }
 }

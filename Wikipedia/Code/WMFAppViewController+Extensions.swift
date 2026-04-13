@@ -9,11 +9,15 @@ import TipKit
 extension Notification.Name {
     static let showErrorBanner = Notification.Name("WMFShowErrorBanner")
     static let showErrorBannerNSErrorKey = "nserror"
+    static let articleViewControllerDidDisappear = Notification.Name("WMFArticleViewControllerDidDisappear")
+    static let dismissReadingListToast = Notification.Name("WMFDismissReadingListToast")
 }
 
 @objc extension NSNotification {
     public static let showErrorBanner = Notification.Name.showErrorBanner
     static let showErrorBannerNSErrorKey = Notification.Name.showErrorBannerNSErrorKey
+    public static let articleViewControllerDidDisappear = Notification.Name.articleViewControllerDidDisappear
+    public static let dismissReadingListToast = Notification.Name.dismissReadingListToast
 }
 
 @objc public enum AppTab: Int {
@@ -680,13 +684,16 @@ extension WMFAppViewController {
 
     private func migrateShowLanguageBar() {
         let legacyKey = "ShowLanguageBar"
+        let settingsDataController = WMFSettingsDataController.shared
         guard let legacyValue = UserDefaults.standard.object(forKey: legacyKey) as? NSNumber else {
+            // No legacy value — set default to true if not yet stored
+            let hasStoredValue = UserDefaults.standard.object(forKey: WMFUserDefaultsKey.showSearchLanguageBar.rawValue) != nil
+            if !hasStoredValue {
+                settingsDataController.setShowSearchLanguageBar(true)
+            }
             return
         }
-        let settingsDataController = WMFSettingsDataController.shared
-        Task {
-            settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
-        }
+        settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
         UserDefaults.standard.removeObject(forKey: legacyKey)
     }
 

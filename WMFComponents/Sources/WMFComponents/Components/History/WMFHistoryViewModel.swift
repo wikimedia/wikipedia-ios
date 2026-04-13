@@ -1,6 +1,7 @@
 import SwiftUI
 import WMFData
 
+@MainActor
 public final class WMFHistoryViewModel: ObservableObject {
 
     // MARK: - Nested Types
@@ -64,7 +65,9 @@ public final class WMFHistoryViewModel: ObservableObject {
         self.historyDataController = historyDataController
         self.topPadding = topPadding
 
-        loadHistory()
+        Task { [weak self] in
+            self?.loadHistory()
+        }
     }
 
     // MARK: - Public functions
@@ -86,9 +89,7 @@ public final class WMFHistoryViewModel: ObservableObject {
             return HistorySection(dateWithoutTime: dataSection.dateWithoutTime, items: items)
         }
 
-        DispatchQueue.main.async {
-            self.sections = viewModelSections
-        }
+        sections = viewModelSections
         isEmpty = dataSections.isEmpty || dataSections.allSatisfy { $0.items.isEmpty }
     }
 
@@ -101,9 +102,7 @@ public final class WMFHistoryViewModel: ObservableObject {
 
         section.items.remove(at: itemIndex)
         if section.items.isEmpty {
-            DispatchQueue.main.async {
-                self.sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
-            }
+            sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
         }
         historyDataController.deleteHistoryItem(item)
 
@@ -125,14 +124,10 @@ public final class WMFHistoryViewModel: ObservableObject {
         newSections[sectionIndex].items[itemIndex].isSaved = newIsSaved
         sections = newSections
 
-        Task {
-            await MainActor.run {
-                if newIsSaved {
-                    historyDataController.saveHistoryItem(sections[sectionIndex].items[itemIndex])
-                } else {
-                    historyDataController.unsaveHistoryItem(sections[sectionIndex].items[itemIndex])
-                }
-            }
+        if newIsSaved {
+            historyDataController.saveHistoryItem(sections[sectionIndex].items[itemIndex])
+        } else {
+            historyDataController.unsaveHistoryItem(sections[sectionIndex].items[itemIndex])
         }
     }
     

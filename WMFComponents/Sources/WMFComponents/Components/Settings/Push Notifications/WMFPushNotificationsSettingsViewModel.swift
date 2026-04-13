@@ -9,11 +9,17 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
         public let title: String
         public let headerText: String
         public let pushNotificationsTitle: String
+        public let permissionErrorTitle: String
+        public let permissionErrorMessage: String
+        public let errorAlertDismissButton: String
 
-        public init(title: String, headerText: String, pushNotificationsTitle: String) {
+        public init(title: String, headerText: String, pushNotificationsTitle: String, permissionErrorTitle: String, permissionErrorMessage: String, errorAlertDismissButton: String) {
             self.title = title
             self.headerText = headerText
             self.pushNotificationsTitle = pushNotificationsTitle
+            self.permissionErrorTitle = permissionErrorTitle
+            self.permissionErrorMessage = permissionErrorMessage
+            self.errorAlertDismissButton = errorAlertDismissButton
         }
     }
 
@@ -21,6 +27,7 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
     @Published public var isPushEnabled: Bool = false
     @Published public var isLoading: Bool = true
     @Published public var permissionStatus: PermissionStatus = .notDetermined
+    @Published public var showPermissionError: Bool = false
 
     public enum PermissionStatus {
         case authorized
@@ -137,6 +144,10 @@ public final class WMFPushNotificationsSettingsViewModel: ObservableObject {
         }
 
         await loadAndBuild()
+    }
+
+    public func showPermissionRequestError() {
+        showPermissionError = true
     }
 
     public func refreshAfterPermissionRequest(granted: Bool) async {
