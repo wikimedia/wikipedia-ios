@@ -37,7 +37,7 @@ final class CollectPrizeViewController: UIViewController, Themeable {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = WMFLocalizedString("collect-prize-title", value: "Collect your prize!", comment: "Title for collect prize modal sheet")
+        label.text = CommonStrings.collectPrizeTitle
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
