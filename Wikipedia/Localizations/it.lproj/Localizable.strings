@@ -10,6 +10,7 @@
 // Author: Brion
 // Author: Champ0999
 // Author: Chris96
+// Author: Daimona Eaytoy
 // Author: Dansita
 // Author: Devid Farinelli
 // Author: Dream Indigo
@@ -136,9 +137,9 @@
 "activity-tab-email-fifth-line" = "[Screenshot o Link]";
 "activity-tab-empty-title" = "Niente da mostrare";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
-"activity-tab-history-callout-body" = "Visualizza o cancella la tua cronologia di lettura nella scheda ** Cerca**.";
-"activity-tab-history-callout-body-loggedout" = "Trova e cancella la cronologia di lettura nella **scheda Cerca**. Non è necessario un account.";
-"activity-tab-hitory-callout-close" = "Chiudere la scheda di avviso di cronologia";
+"activity-tab-history-callout-body" = "Visualizza o cancella la tua cronologia di lettura nella **scheda Cerca**.";
+"activity-tab-history-callout-body-loggedout" = "Trova e cancella la cronologia di lettura nella **scheda Cerca**. Non è necessario avere un'utenza.";
+"activity-tab-hitory-callout-close" = "Chiudere la scheda di avviso sulla cronologia";
 "activity-tab-hours-minutes-read" = "$1h $2m";
 "activity-tab-hours-on-wikipedia-ios" = "SU WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "Impatto dall'inizio";
@@ -861,7 +862,7 @@
 "saved-reading-lists-search-placeholder" = "Cerca elenchi di lettura";
 "saved-reading-lists-title" = "Elenchi di lettura";
 "saved-title" = "Salvato";
-"search-button-accessibility-hint" = "Consente di accedere alla visualizzazione di ricerca.";
+"search-button-accessibility-hint" = "Consente di accedere alla schermata di ricerca.";
 "search-button-accessibility-label" = "Cerca su Wikipedia";
 "search-clear-title" = "Pulisci";
 "search-field-placeholder-text" = "Cerca su Wikipedia";

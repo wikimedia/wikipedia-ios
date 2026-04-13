@@ -250,8 +250,7 @@
 "more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "more-menu" = "আরও";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 ফুট";
+"nearby-distance-label-feet" = "{{PLURAL:$1|$1 ফুট}}";
 "nearby-distance-label-km" = "$1 কিমি";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 মিটার";

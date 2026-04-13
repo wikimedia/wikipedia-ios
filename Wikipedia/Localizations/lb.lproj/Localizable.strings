@@ -86,6 +86,7 @@
 "activity-tab-customize-time-spent-reading" = "Lieszäit";
 "activity-tab-email-fifth-line" = "[Screenshotten oder Linken]";
 "activity-tab-empty-title" = "Näischt fir ze weisen";
+"activity-tab-impact-edits-label" = "Ännerungen";
 // Fuzzy
 "activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
 "activity-tab-menu-clear-history" = "Lieshistorique eidel maachen";
@@ -765,6 +766,7 @@
 "reading-list-create-new-list-reading-list-name" = "Numm vun der Lieslëscht";
 "reading-list-create-new-list-title" = "Eng nei Lëscht uleeën";
 "reading-list-deleted-accessibility-notification" = "Lieslëscht geläscht";
+"reading-list-detail-search-placeholder" = "Lieslëscht duerchsichen";
 "reading-list-do-not-keep-button-title" = "Nee, Artikele vum Apparat läschen";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Den Artikel kann|D'Artikele kënnen}} net op dës Lëscht gesat ginn. Dir hutt d'Limitt vu(n) $2 Artikele pro Lieslëscht fir $3 erreecht.";
 "reading-list-exists-with-same-name" = "Numm vun der Lieslëscht gëtt scho benotzt";
@@ -898,7 +900,7 @@
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
-"table-of-contents-heading" = "Inhalter";
+"table-of-contents-heading" = "Inhalt";
 "table-of-contents-hide-button-label" = "Inhaltsverzeechnes verstoppen";
 "table-of-contents-subheading-label" = "Ënneriwwerschrëft $1";
 "tabs-close-tab" = "Tab zoumaachen";
