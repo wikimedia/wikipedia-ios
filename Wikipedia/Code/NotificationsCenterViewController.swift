@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import SwiftUI
 import WMFComponents
+import WMFData
 
 @objc
 final class NotificationsCenterViewController: ThemeableViewController, WMFNavigationBarConfiguring {
@@ -888,9 +889,14 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                     self.closeSwipeActionsPanelIfNecessary()
                 })
             case .notificationSubscriptionSettings(let data):
-                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
-                    let userActivity = NSUserActivity.wmf_notificationSettings()
-                    NSUserActivity.wmf_navigate(to: userActivity)
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { [weak self] alertAction in
+                    guard let self,
+                          let navVC = self.navigationController else {
+                        return
+                    }
+                    let coordinator = SettingsCoordinator(navigationController: navVC, theme: theme, dataStore: MWKDataStore.shared(), dataController: WMFSettingsDataController.shared)
+                    coordinator.handleSettingsAction(.notifications)
+                    
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
                         self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)

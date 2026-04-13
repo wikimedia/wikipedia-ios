@@ -589,7 +589,10 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         let strings = WMFPushNotificationsSettingsViewModel.LocalizedStrings(
             title: CommonStrings.pushNotifications,
             headerText: WMFLocalizedString("settings-notifications-header", value: "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.", comment: "Text informing user of benefits of enabling push notifications."),
-            pushNotificationsTitle: CommonStrings.pushNotifications
+            pushNotificationsTitle: CommonStrings.pushNotifications,
+            permissionErrorTitle: WMFLocalizedString("settings-notifications-echo-failure-title", value: "Unable to Check for Echo Notification subscriptions", comment: "Alert title text informing user of failure when subscribing to Echo Notifications."),
+            permissionErrorMessage: WMFLocalizedString("settings-notifications-echo-failure-message", value: "An error occurred while checking for notification subscriptions related to your account.", comment: "Alert message text informing user of failure when subscribing to Echo Notifications."),
+            errorAlertDismissButton: CommonStrings.okTitle
         )
 
         let viewModel = WMFPushNotificationsSettingsViewModel(
@@ -620,8 +623,11 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             switch settings.authorizationStatus {
             case .authorized, .provisional, .ephemeral:
                 UIApplication.shared.registerForRemoteNotifications()
-                await subscribeToEchoNotifications()
+                let subscribed = await subscribeToEchoNotifications()
                 await pushNotificationsViewModel?.refreshAfterPermissionRequest(granted: true)
+                if !subscribed {
+                    pushNotificationsViewModel?.showPermissionRequestError()
+                }
 
             case .notDetermined:
                 let result = await withCheckedContinuation { continuation in
@@ -632,7 +638,10 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
                 if result.authorized {
                     UIApplication.shared.registerForRemoteNotifications()
-                    await subscribeToEchoNotifications()
+                    let subscribed = await subscribeToEchoNotifications()
+                    if !subscribed {
+                        pushNotificationsViewModel?.showPermissionRequestError()
+                    }
                 }
                 await pushNotificationsViewModel?.refreshAfterPermissionRequest(granted: result.authorized)
 
@@ -645,16 +654,20 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
         }
     }
 
-    private func subscribeToEchoNotifications() async {
-        await withCheckedContinuation { continuation in
+    @discardableResult
+    private func subscribeToEchoNotifications() async -> Bool {
+        let success = await withCheckedContinuation { continuation in
             dataStore.notificationsController.subscribeToEchoNotifications { error in
                 if let error {
                     DDLogError("Error subscribing to echo notifications: \(error)")
+                    continuation.resume(returning: false)
+                } else {
+                    continuation.resume(returning: true)
                 }
-                continuation.resume()
             }
         }
         await pushNotificationsViewModel?.loadAndBuild()
+        return success
     }
 
     private func unsubscribeFromEchoNotifications() {
