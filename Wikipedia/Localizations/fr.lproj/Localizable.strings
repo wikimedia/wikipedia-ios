@@ -32,6 +32,7 @@
 // Author: Marphy 123
 // Author: McDutchie
 // Author: Melimeli
+// Author: Momo50WM
 // Author: Méthodes Bulebe Hangi
 // Author: Nemo bis
 // Author: Nharateh
@@ -153,6 +154,9 @@
 "activity-tab-empty-subtitle" = "Commencez à lire et à éditer pour construire votre historique";
 "activity-tab-empty-title" = "Rien à afficher";
 "activity-tab-generic-no-edits" = "Vous n’avez pas encore édité cette semaine. Commencez maintenant à suivre vos contributions.";
+"activity-tab-history-callout-body" = "Consultez ou effacez votre historique de lecture dans l’**onglet Recherche**.";
+"activity-tab-history-callout-body-loggedout" = "Trouvez et effacez votre historique de lecture dans l'onglet \"Recherche\" Aucun compte n'est nécessaire.";
+"activity-tab-hitory-callout-close" = "Fermeture de lacarte d'information sur l'historique";
 "activity-tab-hours-minutes-read" = "$1 h $2 min";
 "activity-tab-hours-on-wikipedia-ios" = "Sur WIKIPEDIA iOS";
 "activity-tab-impact-all-time-title" = "Impact global";
@@ -851,7 +855,6 @@
 "more-menu" = "Plus";
 "move-articles-to-reading-list" = "Placer {{PLURAL:$1|$1 article|$1 articles}} dans la liste de lecture";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
-// Fuzzy
 "nearby-distance-label-feet" = "{{PLURAL:$1|$1 pied|$1 pieds}}";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy
@@ -1216,6 +1219,7 @@
 "saved-title" = "Enregistré";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Ne plus sauvegarder {{PLURAL:$1|cet article|ces articles}} les supprimera de toutes les listes de lecture associées.";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Retirer {{PLURAL:$1|cet article|ces articles}} ?";
+"search-button-accessibility-hint" = "Naviguer vers la vue de recherche.";
 "search-button-accessibility-label" = "Rechercher dans Wikipédia";
 "search-clear-title" = "Effacer";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
@@ -1413,6 +1417,8 @@
 "theme-default-explanation" = "Correspond au thème du système";
 "theme-light-display-name" = "Clair";
 "theme-sepia-display-name" = "Sépia";
+"tip-history-in-search-subtitle" = "Trouvez votre historique de lecture dans l'onglet Recherche.";
+"tip-history-in-search-title" = "L'historique a été déplacé vers la recherche.";
 "today-title" = "Aujourd’hui";
 "top-read-widget-description" = "Apprendre ce qui est lu aujourd’hui dans le monde sur Wikipédia.";
 "top-read-widget-readers-count" = "$1 lecteurs";
