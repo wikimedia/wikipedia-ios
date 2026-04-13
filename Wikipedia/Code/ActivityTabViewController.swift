@@ -322,7 +322,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         
         Task {
-            
             let needsReadingChallengeAnnouncement = await shouldShowReadingChallengeAnnouncement()
             if needsReadingChallengeAnnouncement {
                 presentReadingChallengeWidgetAnnouncementIfNeeded()
@@ -379,6 +378,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         readingChallengeCoordinator?.onDismiss = { [weak self] in
             self?.readingChallengeCoordinator = nil
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
         }
         readingChallengeCoordinator?.start()
     }
