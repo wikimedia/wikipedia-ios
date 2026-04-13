@@ -4,7 +4,7 @@ protocol EditNoticesViewControllerDelegate: AnyObject {
     func editNoticesControllerUserTapped(url: URL)
 }
 
-class EditNoticesViewController: ThemeableViewController, RMessageSuppressing {
+class EditNoticesViewController: ThemeableViewController {
 
     // MARK: - Properties
 
@@ -38,12 +38,12 @@ class EditNoticesViewController: ThemeableViewController, RMessageSuppressing {
         editNoticesView.toggleSwitch.isOn = UserDefaults.standard.wmf_alwaysDisplayEditNotices
         editNoticesView.textView.delegate = self
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         UIAccessibility.post(notification: .screenChanged, argument: editNoticesView.editNoticesTitle)
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.editNoticesView.changeTextViewVoiceOverVisibility(isVisible: true)
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
@@ -71,16 +71,19 @@ class EditNoticesViewController: ThemeableViewController, RMessageSuppressing {
 
 extension EditNoticesViewController: UITextViewDelegate {
 
-    func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        guard let url = URL(string: url.absoluteString, relativeTo: viewModel.siteURL) else {
-             return false
-        }
+    func textView(_ textView: UITextView, primaryActionFor textItem: UITextItem, defaultAction: UIAction) -> UIAction? {
+        if case .link(let url) = textItem.content {
+            guard let fullURL = URL(string: url.absoluteString, relativeTo: viewModel.siteURL) else {
+                return nil
+            }
 
-        dismiss(animated: true) {
-            self.delegate?.editNoticesControllerUserTapped(url: url)
-        }
+            dismiss(animated: true) {
+                self.delegate?.editNoticesControllerUserTapped(url: fullURL)
+            }
 
-        return false
+            return nil
+        }
+        return defaultAction
     }
 
 }

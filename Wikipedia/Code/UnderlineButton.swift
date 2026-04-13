@@ -24,7 +24,7 @@ class UnderlineButton: AutoLayoutSafeMultiLineButton {
 
     private func configureStyle() {
         if useDefaultFont {
-            titleLabel?.font = WMFFont.for(.subheadline)
+            titleLabel?.font = WMFFont.for(.body)
         }
         addUnderline()
         setTitleColor(tintColor, for: .selected)

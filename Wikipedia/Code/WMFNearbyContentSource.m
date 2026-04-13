@@ -66,65 +66,63 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (![self.locationManager isAuthorized]) {
-            [moc performBlock:^{
-                [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-                if (![[NSUserDefaults standardUserDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
-                    [self showAuthorizationPlaceholderInManagedObjectContext:moc
-                                                                  completion:^{
-                                                                      if (completion) {
-                                                                          completion();
-                                                                      }
-                                                                  }];
-                } else if (completion) {
+    if (![self.locationManager isAuthorized]) {
+        [moc performBlock:^{
+            [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+            if (![[NSUserDefaults standardUserDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
+                [self showAuthorizationPlaceholderInManagedObjectContext:moc
+                                                              completion:^{
+                                                                  if (completion) {
+                                                                      completion();
+                                                                  }
+                                                              }];
+            } else if (completion) {
+                completion();
+            }
+        }];
+    } else {
+        [moc performBlock:^{
+            [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
+        }];
+
+        if (self.locationManager.location == nil) {
+            self.isFetchingInitialLocation = YES;
+            self.moc = moc;
+            self.completion = completion;
+            [self.locationManager startMonitoringLocation];
+        } else {
+            dispatch_block_t done = ^{
+                if (completion) {
                     completion();
                 }
-            }];
-        } else {
-            [moc performBlock:^{
-                [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
-            }];
-
-            if (self.locationManager.location == nil) {
-                self.isFetchingInitialLocation = YES;
-                self.moc = moc;
-                self.completion = completion;
-                [self.locationManager startMonitoringLocation];
-            } else {
-                dispatch_block_t done = ^{
-                    if (completion) {
-                        completion();
-                    }
-                };
-                [self getGroupForLocation:self.locationManager.location
-                    inManagedObjectContext:moc
-                    force:force
-                    completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
-                        id content = group.fullContent.object;
-                        if (group && [content isKindOfClass:[NSArray class]] && [content count] > 0) {
-                            NSDate *now = [NSDate date];
-                            NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
-                            if (force) {
-                                group.date = now;
-                                group.midnightUTCDate = todayMidnightUTC;
-                            }
-                            done();
-                            return;
+            };
+            [self getGroupForLocation:self.locationManager.location
+                inManagedObjectContext:moc
+                force:force
+                completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
+                    id content = group.fullContent.object;
+                    if (group && [content isKindOfClass:[NSArray class]] && [content count] > 0) {
+                        NSDate *now = [NSDate date];
+                        NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
+                        if (force) {
+                            group.date = now;
+                            group.midnightUTCDate = todayMidnightUTC;
                         }
-                        [self fetchResultsForLocation:location
-                                            placemark:placemark
-                               inManagedObjectContext:moc
-                                           completion:^{
-                                               done();
-                                           }];
-                    }
-                    failure:^(NSError *error) {
                         done();
-                    }];
-            }
+                        return;
+                    }
+                    [self fetchResultsForLocation:location
+                                        placemark:placemark
+                           inManagedObjectContext:moc
+                                       completion:^{
+                                           done();
+                                       }];
+                }
+                failure:^(NSError *error) {
+                    done();
+                }];
         }
-    });
+    }
 }
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {

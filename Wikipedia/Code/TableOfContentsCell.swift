@@ -40,11 +40,6 @@ class TableOfContentsCell: UITableViewCell {
         titleLabel.attributedText = NSAttributedString.attributedStringFromHtml(titleHTML, styles: styles)
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateTitle()
-    }
-    
     private var titleColor: UIColor = Theme.standard.colors.primaryText {
         didSet {
             titleLabel.textColor = titleColor
@@ -67,6 +62,11 @@ class TableOfContentsCell: UITableViewCell {
         super.awakeFromNib()
         selectedSectionIndicator.alpha = 0.0
         selectionStyle = .none
+        
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateTitle()
+        }
     }
     
     // MARK: - Accessors

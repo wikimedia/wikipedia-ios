@@ -1,6 +1,7 @@
 #import "WMFReferencePopoverMessageViewController.h"
 #import "Wikipedia-Swift.h"
 @import WMF.Swift;
+@import WMFComponents;
 
 NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNotification";
 
@@ -9,9 +10,10 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
 @property (strong, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *horizontalSeparatorHeightConstraint;
-@property (strong, nonatomic) IBOutlet UIButton *closeButton;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) WMFTheme *theme;
+@property (strong, nonatomic) IBOutlet UIView *headerContainerView;
+@property (strong, nonatomic, nullable) UIButton *closeButton;
 
 @end
 
@@ -46,14 +48,32 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     [self.widthConstraint setConstant:self.width];
 
     [self applyTheme:self.theme];
-
-    self.closeButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
-    [self.closeButton setTitle:WMFCommonStrings.doneTitle forState:UIControlStateNormal];
+    
+    [self setupCloseButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.view);
+}
+
+- (void)setupCloseButton {
+    WMFLargeCloseButtonConfig *config = [[WMFLargeCloseButtonConfig alloc] initWithImageType:WMFLargeCloseButtonImageTypePlainX target:self action:@selector(dismiss) alignment:AlignmentTrailing];
+    self.closeButton = [UIButton closeNavigationButtonWithConfig:config];
+    
+    self.closeButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+    
+    self.closeButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.closeButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.closeButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    
+    [self.headerContainerView addSubview:self.closeButton];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [self.headerContainerView.trailingAnchor constraintEqualToAnchor:self.closeButton.trailingAnchor constant:10],
+        [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.closeButton.leadingAnchor constant:10],
+        [self.titleLabel.centerYAnchor constraintEqualToAnchor:self.closeButton.centerYAnchor]
+    ]];
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
@@ -115,9 +135,12 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     return UIModalPresentationNone;
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferenceLinkTappedNotification object:URL];
-    return NO;
+- (UIAction *)textView:(UITextView *)textView primaryActionForTextItem:(UITextItem *)textItem defaultAction:(UIAction *)defaultAction {
+    if (textItem.link) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferenceLinkTappedNotification object:textItem.link];
+        return nil; // Prevent default action
+    }
+    return defaultAction;
 }
 
 - (IBAction)dismiss {

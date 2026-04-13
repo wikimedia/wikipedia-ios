@@ -172,7 +172,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
                 
         let failure: WMFErrorHandler = {error in }
         
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-captcha-obtaining", value:"Obtaining a new CAPTCHA...", comment: "Alert shown when user wants a new captcha when creating account"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFToastManager.sharedInstance.showToast(WMFLocalizedString("account-creation-captcha-obtaining", value:"Obtaining a new CAPTCHA...", comment: "Alert shown when user wants a new captcha when creating account"), sticky: false, dismissPreviousToasts: true, tapCallBack: nil)
         
         self.captchaResetter.resetCaptcha(siteURL: captchaBaseURL()!, success: { result in
             DispatchQueue.main.async {

@@ -21,6 +21,15 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
     var learnMoreURL: URL?
     var learnMoreAction: ((URL) -> Void)?
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (cell: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            self.updateFonts()
+        }
+    }
+
     func textViewConfigured(with delegate: UITextViewDelegate, placeholder: String?, placeholderDelegate: ThemeableTextViewPlaceholderDelegate, clearDelegate: ThemeableTextViewClearDelegate, tag: Int) -> UITextView {
         textView._delegate = delegate
         textView.placeholderDelegate = placeholderDelegate
@@ -37,16 +46,11 @@ class InsertMediaSettingsTextTableViewCell: UITableViewCell {
         return textView
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateFonts()
-    }
-
     private func updateFonts() {
         headerLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         footerLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         textView.font = WMFFont.for(.callout, compatibleWith: traitCollection)
-        learnMoreButton.titleLabel?.font =  WMFFont.for(.subheadline, compatibleWith: traitCollection)
+        learnMoreButton.titleLabel?.font =  WMFFont.for(.body, compatibleWith: traitCollection)
     }
 
     override func prepareForReuse() {
