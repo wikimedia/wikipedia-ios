@@ -11,20 +11,22 @@ final public class WMFReadingListToastPresenter {
     private var currentToastContainer: UIView?
     private var currentHostingController: UIHostingController<WMFReadingListToastView>?
     private var currentModel: WMFReadingListToastModel?
+    /// Dedicated window that hosts the toast. Isolates the toast's
+    /// UIHostingController from the key window's layout cycle so the
+    /// keyboard can appear without triggering a SwiftUI layout freeze.
+    private var toastWindow: ToastPassthroughWindow?
 
-    private var containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)?
     private var dismissWorkItem: DispatchWorkItem?
 
     private var subview: UIView?
     private var additionalBottomSpacing: CGFloat = 0
     private var extendsUnderSafeArea: Bool = false
 
-    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, containerViewConstraints: (top: NSLayoutConstraint?, bottom: NSLayoutConstraint?)? = nil, dismissWorkItem: DispatchWorkItem? = nil, subview: UIView? = nil) {
+    public init(presenter: UIViewController? = nil, currentToastContainer: UIView? = nil, currentHostingController: UIHostingController<WMFReadingListToastView>? = nil, currentModel: WMFReadingListToastModel? = nil, dismissWorkItem: DispatchWorkItem? = nil, subview: UIView? = nil) {
         self.presenter = presenter
         self.currentToastContainer = currentToastContainer
         self.currentHostingController = currentHostingController
         self.currentModel = currentModel
-        self.containerViewConstraints = containerViewConstraints
         self.dismissWorkItem = dismissWorkItem
         self.subview = subview
     }
@@ -68,6 +70,19 @@ final public class WMFReadingListToastPresenter {
         setToastHidden(true, config: nil)
     }
 
+    /// Dismisses the toast immediately without animation.
+    public func dismissToastImmediately() {
+        guard !isToastHidden else { return }
+        dismissWorkItem?.cancel()
+        dismissWorkItem = nil
+        currentHostingController?.view.removeFromSuperview()
+        currentToastContainer?.removeFromSuperview()
+        currentHostingController = nil
+        currentToastContainer = nil
+        currentModel = nil
+        tearDownWindow()
+    }
+
     public func resetToast() {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
@@ -81,7 +96,7 @@ final public class WMFReadingListToastPresenter {
     // MARK: - Private Methods
 
     private func setToastHidden(_ hidden: Bool, config: WMFReadingListToastConfig?, completion: (() -> Void)? = nil) {
-        guard isToastHidden != hidden, let presenter = presenter else {
+        guard isToastHidden != hidden else {
             completion?()
             return
         }
@@ -91,12 +106,11 @@ final public class WMFReadingListToastPresenter {
             dismissWorkItem = nil
         }
 
-        if !hidden, isToastHidden, presenter.presentedViewController != nil {
-            completion?()
-            return
-        }
-
         if !hidden {
+            guard let presenter, presenter.presentedViewController == nil else {
+                completion?()
+                return
+            }
             guard let config else {
                 completion?()
                 return
@@ -104,62 +118,105 @@ final public class WMFReadingListToastPresenter {
             addToast(to: presenter, config: config)
         }
 
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
-            if hidden {
-                self.containerViewConstraints?.bottom?.isActive = false
-                self.containerViewConstraints?.top?.isActive = true
-            } else {
-                self.containerViewConstraints?.top?.isActive = false
-                self.containerViewConstraints?.bottom?.isActive = true
-            }
-            self.currentToastContainer?.superview?.layoutIfNeeded()
-        }, completion: { _ in
-            if hidden {
+        let container = currentToastContainer
+        let translationY = (container?.frame.height ?? 100) + 50
+
+        if hidden {
+            UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseIn], animations: {
+                container?.transform = CGAffineTransform(translationX: 0, y: translationY)
+                container?.alpha = 0
+            }, completion: { _ in
                 self.removeToast()
                 completion?()
-            } else {
+            })
+        } else {
+            UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 0.6, options: [.curveEaseOut], animations: {
+                container?.transform = .identity
+                container?.alpha = 1
+            }, completion: { _ in
                 self.scheduleDismiss(config: config)
                 completion?()
-            }
-        })
+            })
+        }
     }
+
+    // MARK: - Toast Window
+
+    private func makeToastWindow() -> ToastPassthroughWindow? {
+        guard let scene = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first(where: { $0.activationState == .foregroundActive })
+                ?? UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first
+        else { return nil }
+
+        let window = ToastPassthroughWindow(windowScene: scene)
+        window.windowLevel = .normal + 1  // above normal but below alerts
+        window.backgroundColor = .clear
+        window.isUserInteractionEnabled = true
+
+        // An invisible root VC is required for the window to display.
+        let rootVC = UIViewController()
+        rootVC.view.backgroundColor = .clear
+        rootVC.view.isUserInteractionEnabled = true
+        window.rootViewController = rootVC
+        window.isHidden = false
+
+        return window
+    }
+
+    private func tearDownWindow() {
+        toastWindow?.isHidden = true
+        toastWindow?.rootViewController = nil
+        toastWindow = nil
+    }
+
+    // MARK: - Add / Remove Toast
 
     private func addToast(to outsidePresenter: UIViewController, config: WMFReadingListToastConfig) {
         guard isToastHidden else { return }
-        
-        // Note: using top window as a presenter fixes freezing during pan and matches WMFToastPresenter
-        guard let presenter = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .flatMap({ $0.windows })
-            .first(where: { $0.isKeyWindow }) else {
-            debugPrint("No key window available")
+
+        guard let window = makeToastWindow(),
+              let rootView = window.rootViewController?.view else {
+            debugPrint("Could not create toast window")
             return
         }
+        toastWindow = window
 
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = .clear
+        containerView.transform = CGAffineTransform(translationX: 0, y: 200)
+        containerView.alpha = 0
 
-        let bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea
-            ? presenter.bottomAnchor
-            : presenter.safeAreaLayoutGuide.bottomAnchor
+        rootView.addSubview(containerView)
 
-        if let subview = subview {
-            presenter.insertSubview(containerView, belowSubview: subview)
+        // Position above the tab bar / toolbar when visible, matching WMFToastPresenter.
+        // We read the toolbar offset from the key window's rootViewController since
+        // our toast window doesn't have a tab bar.
+        let keyWindow = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: { $0.isKeyWindow })
+        let toolbarOffset = keyWindow?.rootViewController?.visibleToolbarHeightAboveSafeArea() ?? 0
+
+        let bottomConstant: CGFloat
+        if toolbarOffset > 0 {
+            bottomConstant = -(additionalBottomSpacing + 24 + toolbarOffset)
         } else {
-            presenter.addSubview(containerView)
+            bottomConstant = -(additionalBottomSpacing + 24)
         }
 
-        let bottomConstraint = containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -(additionalBottomSpacing + 24))
-        let topConstraint = containerView.topAnchor.constraint(equalTo: bottomAnchor)
+        let anchor: NSLayoutYAxisAnchor = extendsUnderSafeArea
+            ? rootView.bottomAnchor
+            : rootView.safeAreaLayoutGuide.bottomAnchor
 
         NSLayoutConstraint.activate([
-            topConstraint,
-            containerView.leadingAnchor.constraint(equalTo: presenter.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: presenter.trailingAnchor)
+            containerView.bottomAnchor.constraint(equalTo: anchor, constant: bottomConstant),
+            containerView.leadingAnchor.constraint(equalTo: rootView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: rootView.trailingAnchor)
         ])
-
-        containerViewConstraints = (top: topConstraint, bottom: bottomConstraint)
 
         let model = WMFReadingListToastModel(config: config)
         currentModel = model
@@ -179,12 +236,12 @@ final public class WMFReadingListToastPresenter {
         hostingController.view.setContentHuggingPriority(.required, for: .vertical)
         hostingController.view.setContentCompressionResistancePriority(.required, for: .vertical)
         hostingController.sizingOptions = [.intrinsicContentSize]
+        hostingController.safeAreaRegions = []
 
         let shadowContainer = UIView()
         shadowContainer.translatesAutoresizingMaskIntoConstraints = false
         shadowContainer.backgroundColor = .clear
         if #unavailable(iOS 26.0) {
-            // Glass effect handles its own depth on iOS 26+; add shadow on earlier versions
             shadowContainer.layer.shadowColor = theme.toastShadow.cgColor
             shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 8)
             shadowContainer.layer.shadowRadius = 16
@@ -227,15 +284,13 @@ final public class WMFReadingListToastPresenter {
 
         containerView.setContentHuggingPriority(.required, for: .vertical)
         containerView.setContentCompressionResistancePriority(.required, for: .vertical)
-        
+
         // Swipe down to dismiss
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleToastPan(_:)))
         containerView.addGestureRecognizer(panGesture)
 
         currentToastContainer = containerView
         currentHostingController = hostingController
-
-        presenter.layoutIfNeeded()
     }
     
     @objc private func handleToastPan(_ gesture: UIPanGestureRecognizer) {
@@ -266,16 +321,13 @@ final public class WMFReadingListToastPresenter {
         dismissWorkItem?.cancel()
         dismissWorkItem = nil
 
-        currentHostingController?.willMove(toParent: nil)
         currentHostingController?.view.removeFromSuperview()
-        currentHostingController?.removeFromParent()
-
         currentToastContainer?.removeFromSuperview()
 
         currentHostingController = nil
         currentToastContainer = nil
-        containerViewConstraints = nil
         currentModel = nil
+        tearDownWindow()
     }
 
     private func scheduleDismiss(config: WMFReadingListToastConfig?) {
@@ -292,5 +344,25 @@ final public class WMFReadingListToastPresenter {
         }
         dismissWorkItem = workItem
         DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
+    }
+}
+
+// MARK: - Passthrough Window
+
+/// A UIWindow that passes through all touches that don't hit the toast itself.
+/// This prevents the toast window from stealing touches from the app below.
+private final class ToastPassthroughWindow: UIWindow {
+    /// Prevent this window from becoming key. If it becomes key the
+    /// keyboard presentation routes through it and freezes the app.
+    override var canBecomeKey: Bool { false }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hit = super.hitTest(point, with: event)
+        // If the hit view is the window itself or the root VC's view,
+        // the touch missed the toast — pass it through.
+        if hit === self || hit === rootViewController?.view {
+            return nil
+        }
+        return hit
     }
 }

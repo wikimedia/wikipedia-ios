@@ -536,6 +536,7 @@ class ArticleViewController: ThemeableViewController, UIScrollViewDelegate, WMFN
             navigationController?.setToolbarHidden(true, animated: true)
         }
         
+        NotificationCenter.default.post(name: NSNotification.articleViewControllerDidDisappear, object: nil)
         wTipObservationTask?.cancel()
         wTipObservationTask = nil
         saveArticleScrollPosition()

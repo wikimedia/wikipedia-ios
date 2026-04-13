@@ -172,6 +172,19 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if #available(iOS 26, *) {
+            let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+            effectView.translatesAutoresizingMaskIntoConstraints = false
+            view.insertSubview(effectView, at: 0)
+            NSLayoutConstraint.activate([
+                effectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                effectView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                effectView.topAnchor.constraint(equalTo: view.topAnchor),
+                effectView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        }
+
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
         otherLanguagesButton?.titleLabel?.font = WMFFont.for(.body)
 
@@ -332,13 +345,20 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
         guard viewIfLoaded != nil else {
             return
         }
-        let bgColor = theme.colors.paperBackground
-        view.backgroundColor = bgColor
+        if #available(iOS 26, *) {
+            view.backgroundColor = .clear
+            otherLanguagesButtonBackgroundView?.backgroundColor = .clear
+            let blurColor = theme.colors.paperBackground.withAlphaComponent(0)
+            gradientView.setStart(blurColor, end: blurColor)
+        } else {
+            let bgColor = theme.colors.paperBackground
+            view.backgroundColor = bgColor
+            otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
+            gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
+        }
         for languageButton in searchLanguageButtons() {
             languageButton.apply(theme: theme)
         }
-        gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
-        otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
         otherLanguagesButton?.setTitleColor(theme.colors.link, for: .normal)
     }
     
