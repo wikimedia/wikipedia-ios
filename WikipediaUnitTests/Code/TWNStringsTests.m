@@ -491,7 +491,7 @@
     // Load English strings from the Localizations directory
     NSString *enLprojPath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"en.lproj"];
     NSDictionary *enStrings = [self getTranslationStringsDictFromLprogAtPath:enLprojPath];
-    
+
     // Regex to find {{PLURAL:$n|...}} patterns and capture the variable number
     NSError *error = nil;
     NSRegularExpression *pluralRegex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\{PLURAL:\\$(\\d+)\\|[^}]*\\}\\}"
@@ -499,12 +499,13 @@
                                                                                    error:&error];
     XCTAssertNil(error, @"Failed to create regex: %@", error);
     XCTAssertNotNil(pluralRegex, @"Regex should not be nil");
-    
+
     // Helper block to extract plural variable numbers from a string
     NSSet<NSString *> * (^extractPluralVars)(NSString *) = ^NSSet<NSString *> *(NSString *string) {
         NSMutableSet<NSString *> *vars = [NSMutableSet set];
-        if (!string) return vars;
-        
+        if (!string)
+            return vars;
+
         NSArray<NSTextCheckingResult *> *matches = [pluralRegex matchesInString:string
                                                                         options:0
                                                                           range:NSMakeRange(0, string.length)];
@@ -519,37 +520,37 @@
         }
         return vars;
     };
-    
+
     // Iterate through all translation files
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         // Skip English and QQQ (comments) files
         if ([lprojFileName isEqualToString:@"en.lproj"] || [lprojFileName isEqualToString:@"qqq.lproj"]) {
             continue;
         }
-        
+
         NSString *lprojPath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName];
         NSDictionary *translationStrings = [self getTranslationStringsDictFromLprogAtPath:lprojPath];
-        
+
         for (NSString *key in translationStrings) {
             NSString *translatedString = translationStrings[key];
             NSString *enString = enStrings[key];
-            
+
             // Extract plural variables from both strings
             NSSet<NSString *> *translationPluralVars = extractPluralVars(translatedString);
             NSSet<NSString *> *enPluralVars = extractPluralVars(enString);
-            
+
             // Find variables that are pluralized in translation but not in English
             NSMutableSet<NSString *> *extraVars = [translationPluralVars mutableCopy];
             [extraVars minusSet:enPluralVars];
-            
+
             // Fail if translation introduces new plural variables
             XCTAssertTrue(extraVars.count == 0,
-                @"Translation for key '%@' in %@ introduces PLURAL syntax for variable(s) $%@ not pluralized in English.\nEN: %@\nTranslation: %@",
-                key,
-                lprojFileName,
-                [[extraVars allObjects] componentsJoinedByString:@", $"],
-                enString ?: @"(not found)",
-                translatedString);
+                          @"Translation for key '%@' in %@ introduces PLURAL syntax for variable(s) $%@ not pluralized in English.\nEN: %@\nTranslation: %@",
+                          key,
+                          lprojFileName,
+                          [[extraVars allObjects] componentsJoinedByString:@", $"],
+                          enString ?: @"(not found)",
+                          translatedString);
         }
     }
 }
@@ -562,24 +563,24 @@
         if ([lprojFileName isEqualToString:@"qqq.lproj"]) {
             continue;
         }
-        
+
         NSString *lprojPath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName];
         NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:lprojPath];
-        
+
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
-            
+
             // Check for {{ without matching }}
             NSUInteger openCount = [[localizedString componentsSeparatedByString:@"{{"] count] - 1;
             NSUInteger closeCount = [[localizedString componentsSeparatedByString:@"}}"] count] - 1;
-            
+
             XCTAssertEqual(openCount, closeCount,
-                @"Mismatched braces in key '%@' in %@. Found %lu '{{' and %lu '}}' occurrences.\nString: %@",
-                key,
-                lprojFileName,
-                (unsigned long)openCount,
-                (unsigned long)closeCount,
-                localizedString);
+                           @"Mismatched braces in key '%@' in %@. Found %lu '{{' and %lu '}}' occurrences.\nString: %@",
+                           key,
+                           lprojFileName,
+                           (unsigned long)openCount,
+                           (unsigned long)closeCount,
+                           localizedString);
         }
     }
 }
@@ -592,28 +593,70 @@
                                                                                             options:0
                                                                                               error:&error];
     XCTAssertNil(error, @"Failed to create regex: %@", error);
-    
+
     for (NSString *lprojFileName in TWNStringsTests.twnLprojFiles) {
         if ([lprojFileName isEqualToString:@"qqq.lproj"]) {
             continue;
         }
-        
+
         NSString *lprojPath = [TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:lprojFileName];
         NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:lprojPath];
-        
+
         for (NSString *key in stringsDict) {
             NSString *localizedString = stringsDict[key];
-            
+
             NSTextCheckingResult *match = [malformedMarkdownRegex firstMatchInString:localizedString
                                                                              options:0
                                                                                range:NSMakeRange(0, localizedString.length)];
-            
+
             XCTAssertNil(match,
-                @"Malformed markdown link in key '%@' in %@. Found '] (' which should be '](' with no space.\nString: %@",
-                key,
-                lprojFileName,
-                localizedString);
+                         @"Malformed markdown link in key '%@' in %@. Found '] (' which should be '](' with no space.\nString: %@",
+                         key,
+                         lprojFileName,
+                         localizedString);
         }
+    }
+}
+
+// Test that no files in the Localizations directory contain merge conflict markers
+- (void)testLocalizationFilesForMergeConflictMarkers {
+    NSArray<NSString *> *conflictMarkers = @[@"<<<<<<<", @"=======", @">>>>>>>"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *directory = TWNStringsTests.twnLocalizationsDirectory;
+    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtPath:directory];
+    NSString *relativePath;
+
+    while ((relativePath = [enumerator nextObject])) {
+        NSString *filePath = [directory stringByAppendingPathComponent:relativePath];
+
+        BOOL isDirectory = NO;
+        [fileManager fileExistsAtPath:filePath isDirectory:&isDirectory];
+        if (isDirectory) {
+            continue;
+        }
+
+        NSError *error = nil;
+        NSString *fileContents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+
+        if (error || !fileContents) {
+            continue; // Skip files that can't be read as UTF-8 text
+        }
+
+        NSArray<NSString *> *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+        [lines enumerateObjectsUsingBlock:^(NSString *line, NSUInteger lineIndex, BOOL *stop) {
+            for (NSString *marker in conflictMarkers) {
+                if ([line hasPrefix:marker]) {
+                    XCTFail(@"Merge conflict marker '%@' found in file %@ at line %lu: %@",
+                            marker,
+                            filePath,
+                            (unsigned long)(lineIndex + 1),
+                            line);
+                    *stop = YES;
+                    break;
+                }
+            }
+        }];
     }
 }
 
