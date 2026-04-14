@@ -334,7 +334,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 case .success:
                     self.dismiss(animated: true)
                 case .failure(let error):
-                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    WMFToastManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
                 }
             }
             return
