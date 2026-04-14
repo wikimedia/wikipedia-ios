@@ -324,18 +324,22 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         Task {
             let needsReadingChallengeAnnouncement = await shouldShowReadingChallengeAnnouncement()
             if needsReadingChallengeAnnouncement {
-                presentReadingChallengeWidgetAnnouncementIfNeeded()
+                await presentReadingChallengeAnnouncementIfNeeded()
             } else {
-                let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
-                if !hasSeenActivityTab {
-                    presentOnboarding()
-                    ActivityTabFunnel.shared.logOnboardingDidAppear()
-                    await dataController.setHasSeenActivityTab(true)
-                } else if await dataController.shouldShowSurvey() {
-                    presentSurveyIfNeeded()
+                let needsWidgetAnnouncement = await dataController.shouldShowReadingChallengeWidgetAnnouncement()
+                if needsWidgetAnnouncement {
+                    showWidgetAnnouncementAfterDelay()
+                } else {
+                    let hasSeenActivityTab = await dataController.getHasSeenActivityTab()
+                    if !hasSeenActivityTab {
+                        presentOnboarding()
+                        ActivityTabFunnel.shared.logOnboardingDidAppear()
+                        await dataController.setHasSeenActivityTab(true)
+                    } else if await dataController.shouldShowSurvey() {
+                        presentSurveyIfNeeded()
+                    }
                 }
             }
-            
         }
 
         viewModel.didTapPrimaryLoggedOutCTA = { [weak self] in
@@ -353,7 +357,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         guard isViewLoaded && view.window != nil else { return false }
         guard let dataStore else { return false }
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn) else { return false }
+        guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement_IgnoreHasSeen(isLoggedIn: isLoggedIn) else { return false }
         return true
     }
 
@@ -374,13 +378,21 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             theme: theme
         )
         readingChallengeCoordinator?.onEnroll = { [weak self] in
-            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+            self?.readingChallengeCoordinator = nil
+            self?.showWidgetAnnouncementAfterDelay()
         }
         readingChallengeCoordinator?.onDismiss = { [weak self] in
             self?.readingChallengeCoordinator = nil
-            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+            self?.showWidgetAnnouncementAfterDelay()
         }
         readingChallengeCoordinator?.start()
+    }
+
+    private func showWidgetAnnouncementAfterDelay() {
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 800_000_000) // 0.8s because a slight delay
+            presentReadingChallengeWidgetAnnouncementIfNeeded(alwaysShow: true)
+        }
     }
 
     @objc func presentReadingChallengeAnnouncementFromWidget() {
@@ -397,13 +409,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private var readingChallengeCoordinator: ReadingChallengeAnnouncementCoordinator?
     private var readingChallengeWidgetAnnouncementCoordinator: ReadingChallengeWidgetAnnouncementCoordinator?
 
-    private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
-        guard presentedViewController == nil else { return }
+    private func presentReadingChallengeWidgetAnnouncementIfNeeded(alwaysShow: Bool = false) {
         Task { @MainActor in
-            guard await dataController.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            // Wait for any previous dismissal animation to complete
+            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3s
+            guard presentedViewController == nil else { return }
+            if !alwaysShow {
+                guard await dataController.shouldShowReadingChallengeWidgetAnnouncement() else { return }
+            }
             // Mark seen immediately on presentation
             await dataController.setHasSeenWidgetReadingChallengeAnnouncement()
             readingChallengeWidgetAnnouncementCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
+            readingChallengeWidgetAnnouncementCoordinator?.onDismiss = { [weak self] in
+                self?.readingChallengeWidgetAnnouncementCoordinator = nil
+            }
             readingChallengeWidgetAnnouncementCoordinator?.start()
         }
     }

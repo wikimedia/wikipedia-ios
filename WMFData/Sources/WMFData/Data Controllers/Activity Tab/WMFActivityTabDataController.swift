@@ -258,6 +258,9 @@ public actor WMFActivityTabDataController {
         // Do NOT mark widget announcement seen here — show it after enrollment
         
         UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
+        
+        // If dev force is enabled, transition forced state from notEnrolled → enrolledNotStarted
+        WMFDeveloperSettingsDataController.shared.transitionToEnrolledStateIfForced()
     }
 
     public func setHasSeenFullPageAnnouncement() {
@@ -277,6 +280,7 @@ public actor WMFActivityTabDataController {
     public func setEnrolledInReadingChallenge(_ value: Bool) {
         hasEnrolledInReadingChallenge2026 = value
     }
+    
     public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
         guard isLoggedIn else { return false }
         guard !hasEnrolledInReadingChallenge2026 else { return false }
@@ -291,6 +295,22 @@ public actor WMFActivityTabDataController {
         }
 
         guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+        let now = Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
+    }
+    
+    public func shouldShowReadingChallengeAnnouncement_IgnoreHasSeen(isLoggedIn: Bool) -> Bool {
+        guard isLoggedIn else { return false }
+
+        // If forcing not enrolled or not live yet state, show announcemen
+        let devController = WMFDeveloperSettingsDataController.shared
+        if devController.devForceReadingChallengeEnabled {
+            let forcedState = devController.forcedReadingChallengeState
+            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
+                return true
+            }
+        }
+
         let now = Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
     }

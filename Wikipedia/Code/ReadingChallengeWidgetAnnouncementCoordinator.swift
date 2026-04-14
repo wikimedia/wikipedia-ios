@@ -4,6 +4,7 @@ import WMFComponents
 final class ReadingChallengeWidgetAnnouncementCoordinator {
 
     private weak var presentingViewController: UIViewController?
+    var onDismiss: (() -> Void)?
 
     init(presentingViewController: UIViewController & WMFFeatureAnnouncing) {
         self.presentingViewController = presentingViewController
@@ -12,14 +13,30 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
     func start() {
         guard let presenting = presentingViewController else { return }
 
-        let controller = WMFFeatureAnnouncementViewController(viewModel: makeViewModel())
+        let viewModel = makeViewModel()
+
+        // Wrap actions to dismiss the controller
+        let originalPrimary = viewModel.primaryButtonAction
+        viewModel.primaryButtonAction = { [weak self] in
+            self?.presentingViewController?.dismiss(animated: true) {
+                originalPrimary()
+                self?.onDismiss?()
+            }
+        }
+        viewModel.closeButtonAction = { [weak self] in
+            self?.presentingViewController?.dismiss(animated: true) {
+                self?.onDismiss?()
+            }
+        }
+
+        let controller = WMFFeatureAnnouncementViewController(viewModel: viewModel)
 
         if let sheet = controller.sheetPresentationController {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 sheet.detents = [.large()]
                 controller.preferredContentSize = CGSize(width: 640, height: 720)
             } else {
-                sheet.detents = [.medium()]
+                sheet.detents = [.medium(), .large()]
             }
             sheet.prefersGrabberVisible = true
             sheet.preferredCornerRadius = 16
@@ -51,4 +68,3 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
         )
     }
 }
-

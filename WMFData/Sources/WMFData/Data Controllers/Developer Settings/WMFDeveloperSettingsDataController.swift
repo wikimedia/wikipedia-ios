@@ -18,6 +18,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var devForceReadingChallengeStreakOngoingRead: Bool { get set }
     var devForceReadingChallengeStreakOngoingNotYetRead: Bool { get set }
     var forcedReadingChallengeState: ReadingChallengeState? { get }
+    func transitionToEnrolledStateIfForced()
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -129,6 +130,15 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             .devForceReadingChallengeStreakOngoingNotYetRead
         ]
         keys.forEach { save($0, false) }
+    }
+
+    /// When a user joins the challenge while dev force is enabled, transition the forced state to enrolledNotStarted
+    public func transitionToEnrolledStateIfForced() {
+        guard devForceReadingChallengeEnabled else { return }
+        // Only transition from pre-enrolled states
+        guard devForceReadingChallengeNotEnrolled || devForceReadingChallengeNotLiveYet || devForceReadingChallengeEnrolledNotStarted else { return }
+        clearAllForcedReadingChallengeStates()
+        saveAndReloadWidget(.devForceReadingChallengeEnrolledNotStarted, true)
     }
 
     public var devForceReadingChallengeEnabled: Bool {

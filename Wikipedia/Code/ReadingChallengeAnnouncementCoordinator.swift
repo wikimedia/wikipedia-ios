@@ -122,7 +122,9 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     private func enroll() {
         Task {
             await WMFActivityTabDataController.shared.enrollInReadingChallenge()
-            WidgetController.shared.reloadReadingChallengeWidget()
+            await MainActor.run {
+                WidgetController.shared.reloadReadingChallengeWidget()
+            }
         }
     }
 
@@ -143,7 +145,6 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
         enroll()
         navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
             self?.onEnroll?()
-            self?.onDismiss?()
         }
     }
 
