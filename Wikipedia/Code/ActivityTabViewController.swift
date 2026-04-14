@@ -134,14 +134,36 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
     
     @objc public func presentCollectPrize() {
-        guard let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn else { return }
-        let prizeVC = CollectPrizeViewController(theme: theme)
-        prizeVC.modalPresentationStyle = .pageSheet
-        if let sheet = prizeVC.sheetPresentationController {
-            sheet.detents = [.medium()]
-            sheet.prefersGrabberVisible = true
+        guard let dataStore else { return }
+        if dataStore.authenticationManager.authStateIsPermanent {
+            showCollectPrizeModal()
+        } else {
+            presentFullLoginFlow(loginSuccessCompletion: { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.showCollectPrizeModal()
+            })
         }
-        present(prizeVC, animated: true)
+    }
+
+    private func showCollectPrizeModal() {
+        let show = { [weak self] in
+            guard let self else { return }
+            let prizeVC = CollectPrizeViewController(theme: self.theme)
+            prizeVC.modalPresentationStyle = .pageSheet
+            if let sheet = prizeVC.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.prefersGrabberVisible = true
+            }
+            self.present(prizeVC, animated: true)
+        }
+
+        if let presented = presentedViewController {
+            presented.dismiss(animated: true, completion: show)
+        } else {
+            show()
+        }
     }
 
     public func makeAnEdit() {
@@ -216,7 +238,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         setupLoginState(needsRefetch: true)
     }
 
-    private func presentFullLoginFlow(fromCustomizeToast: Bool = false) {
+    private func presentFullLoginFlow(fromCustomizeToast: Bool = false, loginSuccessCompletion: (() -> Void)? = nil) {
         if fromCustomizeToast {
             // TODO: Will probably need some special logging here.
         } else {
@@ -234,12 +256,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         loginCoordinator.loginSuccessCompletion = {
             WMFToastPresenter.shared.dismissCurrentToast()
+            loginSuccessCompletion?()
         }
 
         loginCoordinator.createAccountSuccessCustomDismissBlock = {
             WMFToastPresenter.shared.dismissCurrentToast()
             if let createVC = nav.presentedViewController {
-                createVC.dismiss(animated: true)
+                createVC.dismiss(animated: true) {
+                     loginSuccessCompletion?()
+                }
+            } else {
+                loginSuccessCompletion?()
             }
         }
 
@@ -355,9 +382,8 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private func shouldShowReadingChallengeAnnouncement() async -> Bool {
         guard presentedViewController == nil else { return false }
         guard isViewLoaded && view.window != nil else { return false }
-        guard let dataStore else { return false }
-        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement_IgnoreHasSeen(isLoggedIn: isLoggedIn) else { return false }
+        
+        guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement_IgnoreHasSeen() else { return false }
         return true
     }
 

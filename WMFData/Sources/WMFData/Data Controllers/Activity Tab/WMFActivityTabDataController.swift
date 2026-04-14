@@ -281,8 +281,8 @@ public actor WMFActivityTabDataController {
         hasEnrolledInReadingChallenge2026 = value
     }
     
-    public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
-        guard isLoggedIn else { return false }
+    public func shouldShowReadingChallengeAnnouncement() -> Bool {
+
         guard !hasEnrolledInReadingChallenge2026 else { return false }
 
         // If forcing not enrolled or not live yet state, show announcemen
@@ -299,8 +299,7 @@ public actor WMFActivityTabDataController {
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
     }
     
-    public func shouldShowReadingChallengeAnnouncement_IgnoreHasSeen(isLoggedIn: Bool) -> Bool {
-        guard isLoggedIn else { return false }
+    public func shouldShowReadingChallengeAnnouncement_IgnoreHasSeen() -> Bool {
 
         // If forcing not enrolled or not live yet state, show announcemen
         let devController = WMFDeveloperSettingsDataController.shared

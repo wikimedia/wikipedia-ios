@@ -239,7 +239,7 @@
 "collect-prize-button-title" = "Button title for collect prize modal. Please leave %% unchanged for proper formatting.";
 "collect-prize-headline" = "Headline for collect prize modal";
 "collect-prize-subtitle" = "Subtitle for collect prize modal. Please leave %% unchanged for proper formatting.";
-"collect-prize-title" = "Title for collect prize modal sheet";
+"collect-prize-title" = "Title for collect prize modal sheet and button";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "confirm-donation-history-deletion-subtitle" = "Subtitle for confirm local donation history deletion alert";
 "confirm-donation-history-deletion-title" = "Title for confirm local donation history deletion alert";
@@ -1051,7 +1051,6 @@
 "reading-challenge-announcement-secondary-cta" = "Secondary button title";
 "reading-challenge-announcement-subtitle" = "Notice about privacy for reading challenge";
 "reading-challenge-announcement-title" = "Title for the reading challenge onboarding view.";
-"reading-challenge-collect-prize-button" = "Button title shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-collect-prize-button-small" = "Short button title on small reading challenge widget when challenge is complete.";
 "reading-challenge-completed-subtitle" = "Subtitle shown on the reading challenge widget when the user has completed the challenge.";
 "reading-challenge-completed-title" = "Title shown on the reading challenge widget when the user has completed the challenge.";
@@ -1067,6 +1066,8 @@
 "reading-challenge-explore-wikipedia-button" = "Button title on the reading challenge widget linking to the Explore feed.";
 "reading-challenge-join-button-medium" = "Button title on medium widget.";
 "reading-challenge-join-button-small" = "Button title on small widget.";
+"reading-challenge-login-message" = "Message for alert that asks users to log in to join the reading challenge";
+"reading-challenge-login-title" = "Title for alert that asks users to log in to join the reading challenge";
 "reading-challenge-not-enrolled-subtitle" = "Subtitle shown on the reading challenge widget when the user is not enrolled in the challenge.";
 "reading-challenge-not-enrolled-title" = "Title shown on the reading challenge widget when the user is not enrolled in the challenge.";
 "reading-challenge-not-live-yet-subtitle" = "Subtitle shown on the reading challenge widget when the challenge has not yet launched.";

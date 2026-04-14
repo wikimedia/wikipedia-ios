@@ -1274,11 +1274,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self dismissPresentedViewControllers];
             [self showRandomArticleFromShortcutWithSiteURL:[self siteURL] animated:animated];
             break;
-        case WMFUserActivityTypeActivity:
+        case WMFUserActivityTypeActivity: {
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
-            break;
+            BOOL shouldCollectPrize = [activity.userInfo[@"collectPrize"] boolValue];
+            if (shouldCollectPrize) {
+                WMFActivityTabViewController *activityVC = self.activityTabViewController;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [activityVC presentCollectPrize];
+                });
+            }
+        } break;
         case WMFUserActivityTypeContent: {
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];

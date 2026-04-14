@@ -197,7 +197,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             subtitle: WMFLocalizedString("reading-challenge-completed-subtitle", value: "25 of 25 days", comment: "Subtitle shown on the reading challenge widget when the user has completed the challenge."),
             button1Title: family == .systemSmall
                 ? WMFLocalizedString("reading-challenge-collect-prize-button-small", value: "Collect prize", comment: "Short button title on small reading challenge widget when challenge is complete.")
-                : WMFLocalizedString("reading-challenge-collect-prize-button", value: "Collect your prize!", comment: "Button title shown on the reading challenge widget when the user has completed the challenge."),
+                : CommonStrings.collectPrizeTitle,
             button1URL: URL(string: "wikipedia://activity?collectPrize=true"),
             icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldFootnote)
         )
