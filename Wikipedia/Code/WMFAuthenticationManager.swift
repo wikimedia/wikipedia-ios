@@ -52,6 +52,8 @@ import WMFTestKitchen
     @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
     @objc public static let didLogInNotification = Notification.Name("WMFAuthenticationManagerDidLogIn")
     @objc public static let didHandlePrimaryLanguageChange = Notification.Name("WMFAuthenticationManagerDidHandlePrimaryLanguageChange")
+    @objc public static let autoLoginNeedsEmailToken = Notification.Name("WMFAuthenticationManagerAutoLoginNeedsEmailToken")
+    @objc public static let autoLoginNeedsOathToken = Notification.Name("WMFAuthenticationManagerAutoLoginNeedsOathToken")
     
     @objc weak var delegate: WMFAuthenticationManagerDelegate?
     
@@ -218,10 +220,10 @@ import WMFTestKitchen
     /// - Parameters:
     ///   - reattemptOn401Response: Attempts login again if response http is 401.
     ///   - completion: Completion handler with current user object upon success
-    public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
+    public func loginWithSavedCredentials(reattemptOn401Response: Bool = false, emailToken: String? = nil, oathToken: String? = nil, backgroundAuthInstrument: WMFTestKitchen.InstrumentImpl? = nil, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         
         // Instrument a background login attempt
-        backgroundAuthInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
+        self.backgroundAuthInstrument = backgroundAuthInstrument ?? TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
             .setDefaultActionSource("background_login")
             .startFunnel(name: "login_account")
         
@@ -231,7 +233,7 @@ import WMFTestKitchen
         else {
             let error = LoginError.blankUsernameOrPassword
             // This is legitimate for logged out users, so we won't log this error via authInstrument
-            backgroundAuthInstrument = nil
+            self.backgroundAuthInstrument = nil
             completion(.failure(error))
             return
         }
@@ -240,14 +242,14 @@ import WMFTestKitchen
         
         guard let siteURL = loginSiteURL else {
             let error = LoginError.missingLoginURL
-            backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
-            backgroundAuthInstrument = nil
+            self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": error.logDescription])
+            self.backgroundAuthInstrument = nil
             completion(.failure(error))
             return
         }
         
         let performLogin: () -> Void = {
-            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
+            self.login(username: userName, password: password, retypePassword: nil, oathToken: oathToken, emailAuthCode: emailToken, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
                 DispatchQueue.main.async {
                     switch loginResult {
                     case .success(let user):
@@ -274,14 +276,35 @@ import WMFTestKitchen
                         
                         if let recognizedError = error as? WMFAccountLoginError {
                             self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["validation_error": recognizedError.testKitchenValidationError])
+                            
+                            switch recognizedError {
+                            case .needsOathTokenFor2FA(let mediaWikiMessage):
+                                
+                                var userInfo: [AnyHashable : Any] = ["mediaWikiMessage": mediaWikiMessage?.text as Any]
+                                if let backgroundAuthInstrument = self.backgroundAuthInstrument {
+                                    userInfo["authInstrument"] = backgroundAuthInstrument
+                                }
+                                
+                                NotificationCenter.default.post(name: WMFAuthenticationManager.autoLoginNeedsOathToken, object: nil, userInfo: userInfo)
+                                completion(.failure(error))
+                            case .needsEmailAuthToken(let mediaWikiMessage):
+                                var userInfo: [AnyHashable : Any] = ["mediaWikiMessage": mediaWikiMessage?.text as Any]
+                                
+                                if let backgroundAuthInstrument = self.backgroundAuthInstrument {
+                                    userInfo["authInstrument"] = backgroundAuthInstrument
+                                }
+                                
+                                NotificationCenter.default.post(name: WMFAuthenticationManager.autoLoginNeedsEmailToken, object: nil, userInfo: userInfo)
+                                completion(.failure(error))
+                            default:
+                                self.logout(initiatedBy: .app)
+                                completion(.failure(error))
+                            }
                         } else {
                             self.backgroundAuthInstrument?.submitInteraction(action: "error", actionContext: ["code": error.logDescription])
+                            self.logout(initiatedBy: .app)
+                            completion(.failure(error))
                         }
-                        
-                        self.backgroundAuthInstrument = nil
-                        
-                        self.logout(initiatedBy: .app)
-                        completion(.failure(error))
                     }
                 }
             })
@@ -378,12 +401,14 @@ import WMFTestKitchen
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
             }
             
-            if self.isUserUnawareOfLogout {
+            if self.isUserUnawareOfLogout && self.backgroundAuthInstrument == nil {
                 // Instrument a background logout attempt
                 self.backgroundAuthInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-authentication")
                     .setDefaultActionSource("background_logout")
                     .startFunnel(name: "logout_account")
                 self.backgroundAuthInstrument?.submitInteraction(action: "start")
+            } else if self.isUserUnawareOfLogout && self.backgroundAuthInstrument != nil {
+                self.backgroundAuthInstrument?.setDefaultActionSource("background_logout")
             }
             
             guard let loginSiteURL = self.loginSiteURL else {
