@@ -378,7 +378,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         guard isViewLoaded && view.window != nil else { return false }
         guard let dataStore else { return false }
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement(isLoggedIn: isLoggedIn) else { return false }
+        guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeAnnouncement() else { return false }
         return true
     }
 

@@ -277,8 +277,7 @@ public actor WMFActivityTabDataController {
     public func setEnrolledInReadingChallenge(_ value: Bool) {
         hasEnrolledInReadingChallenge2026 = value
     }
-    public func shouldShowReadingChallengeAnnouncement(isLoggedIn: Bool) -> Bool {
-        guard isLoggedIn else { return false }
+    public func shouldShowReadingChallengeAnnouncement() -> Bool {
         guard !hasEnrolledInReadingChallenge2026 else { return false }
         guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
         let now = Date()
