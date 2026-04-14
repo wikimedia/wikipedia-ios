@@ -55,4 +55,11 @@ public enum WMFUserDefaultsKey: String {
     case devForceReadingChallengeEnabled = "dev-force-reading-challenge-enabled"
     case devForceReadingChallengeStreakCount = "dev-force-reading-challenge-streak-count"
     case userCompletedReadingChallenge = "user-completed-reading-challenge"
+    case readingChallengeStreakOngoingReadRandomIndex = "reading-challenge-streak-ongoing-read-random-index"
+    case readingChallengeStreakReadRandomIndex = "reading-challenge-read-random-index"
+    case readingChallengeStreakReadRandomIndexDate = "reading-challenge-read-random-index-date"
+    case readingChallengeStreakNotReadRandomIndex = "reading-challenge-not-read-random-index"
+    case readingChallengeStreakNotReadRandomIndexDate = "reading-challenge-not-read-random-index-date"
+    case readingChallengeEnrolledNotStartedRandomIndex = "reading-challenge-enrolled-not-started"
+    case readingChallengeEnrolledNotStartedRandomIndexDate = "reading-challenge-enrolled-not-started-date"
 }
