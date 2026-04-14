@@ -170,6 +170,7 @@ extension ArticleViewController {
         }
         readingChallengeCoordinator?.onDismiss = { [weak self] in
             self?.readingChallengeCoordinator = nil
+            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
         }
         readingChallengeCoordinator?.start()
     }

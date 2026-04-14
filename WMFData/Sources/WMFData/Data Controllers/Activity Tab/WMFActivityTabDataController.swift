@@ -237,7 +237,7 @@ public actor WMFActivityTabDataController {
 
     private static let sharedGroupID = "group.org.wikimedia.wikipedia"
 
-    public var hasEnrolledInReadingChallenge2026: Bool {
+    public nonisolated var hasEnrolledInReadingChallenge2026: Bool {
         get { UserDefaults(suiteName: Self.sharedGroupID)?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false }
         set { UserDefaults(suiteName: Self.sharedGroupID)?.set(newValue, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) }
     }
@@ -258,6 +258,9 @@ public actor WMFActivityTabDataController {
         // Do NOT mark widget announcement seen here — show it after enrollment
         
         UserDefaults(suiteName: Self.sharedGroupID)?.synchronize()
+        
+        // If dev force is enabled, transition forced state from notEnrolled → enrolledNotStarted
+        WMFDeveloperSettingsDataController.shared.transitionToEnrolledStateIfForced()
     }
 
     public func setHasSeenFullPageAnnouncement() {
@@ -277,15 +280,50 @@ public actor WMFActivityTabDataController {
     public func setEnrolledInReadingChallenge(_ value: Bool) {
         hasEnrolledInReadingChallenge2026 = value
     }
+    
     public func shouldShowReadingChallengeAnnouncement() -> Bool {
+
         guard !hasEnrolledInReadingChallenge2026 else { return false }
+
+        // If forcing not enrolled or not live yet state, show announcemen
+        let devController = WMFDeveloperSettingsDataController.shared
+        if devController.devForceReadingChallengeEnabled {
+            let forcedState = devController.forcedReadingChallengeState
+            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
+                return true
+            }
+        }
+
         guard !hasSeenFullPageReadingChallengeAnnouncement2026 else { return false }
+        let now = Date()
+        return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
+    }
+    
+    public func shouldShowReadingChallengeAnnouncement_IgnoreHasSeen() -> Bool {
+
+        // If forcing not enrolled or not live yet state, show announcemen
+        let devController = WMFDeveloperSettingsDataController.shared
+        if devController.devForceReadingChallengeEnabled {
+            let forcedState = devController.forcedReadingChallengeState
+            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
+                return true
+            }
+        }
+
         let now = Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
     }
 
     public func shouldShowReadingChallengeWidgetAnnouncement() -> Bool {
         guard !hasSeenWidgetReadingChallengeAnnouncement2026 else { return false }
+        // If forcing not enrolled or not live yet state, show announcement regardless of date/seen!!
+        let devController = WMFDeveloperSettingsDataController.shared
+        if devController.devForceReadingChallengeEnabled {
+            let forcedState = devController.forcedReadingChallengeState
+            if forcedState == .notEnrolled || forcedState == .notLiveYet || forcedState == .enrolledNotStarted {
+                return true
+            }
+        }
         guard hasEnrolledInReadingChallenge2026 else { return false }
         let now = Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate

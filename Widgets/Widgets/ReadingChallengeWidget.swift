@@ -199,8 +199,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
                 ? WMFLocalizedString("reading-challenge-collect-prize-button-small", value: "Collect prize", comment: "Short button title on small reading challenge widget when challenge is complete.")
                 : CommonStrings.collectPrizeTitle,
             button1URL: URL(string: "wikipedia://activity?collectPrize=true"),
-            button1Icon: WMFSFSymbolIcon.for(symbol: .appGiftFill, font: .semiboldSubheadline),
-            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldTitle1)
+            icon: WMFSFSymbolIcon.for(symbol: .flameFill, font: .boldFootnote)
         )
     }
 
@@ -298,8 +297,8 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             ),
             button1URL: family == .systemSmall ? URL(string: "wikipedia://explore") : URL(string: "wikipedia://search"),
             button2URL: family == .systemSmall ? nil : URL(string: "wikipedia://random"),
-            button1Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .semiboldSubheadline),
-            button2Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .diceFill, font: .semiboldSubheadline)
+            button1Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .magnifyingGlass, font: .caption1),
+            button2Icon: family == .systemSmall ? nil : WMFSFSymbolIcon.for(symbol: .diceFill, font: .caption1)
         )
     }
 
