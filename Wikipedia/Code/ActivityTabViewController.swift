@@ -262,9 +262,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         loginCoordinator.createAccountSuccessCustomDismissBlock = {
             WMFToastPresenter.shared.dismissCurrentToast()
             if let createVC = nav.presentedViewController {
-                createVC.dismiss(animated: true)
+                createVC.dismiss(animated: true) {
+                     loginSuccessCompletion?()
+                }
+            } else {
+                loginSuccessCompletion?()
             }
-            loginSuccessCompletion?()
         }
 
         loginCoordinator.start()
