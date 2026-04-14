@@ -8,7 +8,7 @@ import WMFTestKitchen
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}
 
-@objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
+@objc final class WMFActivityTabViewController: UIViewController, WMFNavigationBarConfiguring, Themeable {
     private var theme: Theme
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -25,7 +25,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         self.hostingController = WMFActivityTabHostingController(rootView: view)
         self.dataController = dataController
         self.theme = theme
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -37,15 +37,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogInNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didLogOutNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLoginState), name:WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
-        addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
+
+        embedHostingController()
 
         setupLoginState(needsRefetch: false)
-        
+
         viewModel.openCustomize = userDidTapCustomize
         viewModel.pushToContributions = pushToContributions
         viewModel.exploreWikipedia = presentExplore
         viewModel.makeAnEdit = makeAnEdit
-        
+
         viewModel.fetchDataCompleteAction = { [weak self] onAppearance in
             guard let self else { return }
             if onAppearance {
@@ -56,44 +57,79 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                                        !viewModel.customizeViewModel.isReadingInsightsOn &&
                                        !viewModel.customizeViewModel.isEditingInsightsOn &&
                                        !viewModel.customizeViewModel.isTimelineOfBehaviorOn
-                    
+
                     if allModulesOff {
                         ActivityTabFunnel.shared.logActivityTabOffImpression()
                     } else {
                         ActivityTabFunnel.shared.logActivityTabImpressionState(empty: "complete")
                     }
                 }
+                
+                // First-time fetch: Need to re-render the navigation bar after activity tab leaves the loading state.
+                (navigationController as? WMFComponentNavigationController)?.triggerNavigationBarRender()
+                
             }
         }
-        
+
         viewModel.presentCustomizeLogInToastAction = { [weak self] in
             guard let self else {
                 return
             }
-            
-            let localizableStrings = WMFToastViewBasicViewModel.LocalizableStrings(title: WMFLocalizedString("activity-tab-customize-logout-warning", value: "You must be logged in to turn on this activity insight.", comment: "Activity tab - warning toast title displayed when a logged out user tries to enable a module requiring login."), buttonTitle: CommonStrings.logIn)
-            
-            let buttonAction: () -> Void = { [weak self] in
-                self?.presentFullLoginFlow(fromCustomizeToast: true)
-            }
-            
-            let viewModel = WMFToastViewBasicViewModel(localizableStrings: localizableStrings, buttonAction: buttonAction)
-            let view = WMFToastViewBasicView(viewModel: viewModel)
-            WMFToastPresenter.shared.presentToastView(view: view)
+
+            let title = WMFLocalizedString("activity-tab-customize-logout-warning", value: "You must be logged in to turn on this activity insight.", comment: "Activity tab - warning toast title displayed when a logged out user tries to enable a module requiring login.")
+
+            let config = WMFToastConfig(
+                title: title,
+                duration: nil,
+                buttonTitle: CommonStrings.logIn,
+                buttonAction: { [weak self] in
+                    self?.presentFullLoginFlow(fromCustomizeToast: true)
+                }
+            )
+
+            WMFToastPresenter.shared.show(config)
+
         }
 
-        dataController.historyDataController = historyDataController
+        Task {
+            await dataController.setHistoryDataController(historyDataController)
+        }
+
+        registerForTraitChanges([UITraitPreferredContentSizeCategory.self, UITraitHorizontalSizeClass.self, UITraitVerticalSizeClass.self]) { [weak self] (viewController: Self, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if previousTraitCollection.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                        configureNavigationBar()
+                    }
+                }
+            }
+        }
     }
-    
+
+    private func embedHostingController() {
+        addChild(hostingController)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hostingController.view)
+        NSLayoutConstraint.activate([
+            hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        hostingController.didMove(toParent: self)
+    }
+
     var editingFAQURLString: String {
         guard let appLanguage = WMFDataEnvironment.current.primaryAppLanguage else {
             return ""
         }
-        
+
         let url = WMFProject.mediawiki.translatedHelpURL(pathComponents: ["Wikimedia Apps", "iOS FAQ"], section: "Editing", language: appLanguage)
         return url?.absoluteString ?? ""
     }
-    
+
     public func makeAnEdit() {
         ActivityTabFunnel.shared.logMakeEditClick()
         guard let url = URL(string: editingFAQURLString) else { return }
@@ -107,7 +143,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         return articleURL
     }
-    
+
     public func pushToContributions() {
         guard let url =  userContributionsURL else { return }
         navigate(to: url)
@@ -120,7 +156,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if !reachabilityNotifier.isReachable {
             showOfflineAlertIfNeeded()
         }
-        
+
         presentModalsIfNeeded()
     }
 
@@ -129,7 +165,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         reachabilityNotifier.stop()
     }
-    
+
     private func setupLoginState(needsRefetch: Bool) {
         var userID: Int?
 
@@ -137,13 +173,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
            let permanentUser = dataStore?.authenticationManager.permanentUser(siteURL: siteURL) {
             userID = permanentUser.userID
         }
-        
+
         let primaryAppLanguageCode = dataStore?.languageLinkController.appLanguage?.languageCode
-        
+
         viewModel.updateID(userID: userID)
         viewModel.updateYourImpactOnWikipediaSubtitle(CommonStrings.onLangWikipedia(with: primaryAppLanguageCode))
         viewModel.getURL = getURL
-        
+
         if let username = dataStore?.authenticationManager.authStatePermanentUsername {
             viewModel.updateUsername(username: username)
             viewModel.timelineViewModel.setUser(username: username)
@@ -151,7 +187,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             viewModel.updateUsername(username: nil)
             viewModel.timelineViewModel.setUser(username: nil)
         }
-        
+
         if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn {
             viewModel.updateAuthenticationState(authState: .loggedIn, needsRefetch: needsRefetch)
         } else if let isTemp = dataStore?.authenticationManager.authStateIsTemporary, isTemp {
@@ -172,7 +208,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             ActivityTabFunnel.shared.logLoginClick()
             LoginFunnel.shared.logLoginStartFromActivityTab()
         }
-        
+
         guard let nav = navigationController else { return }
 
         let loginCoordinator = LoginCoordinator(
@@ -180,7 +216,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             theme: theme,
             loggingCategory: .activity
         )
-        
+
         loginCoordinator.loginSuccessCompletion = {
             WMFToastPresenter.shared.dismissCurrentToast()
         }
@@ -241,7 +277,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         return existingProfileCoordinator
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -262,7 +298,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         configureNavigationBar()
     }
-    
+
     @MainActor
     private func presentModalsIfNeeded() {
         Task {
@@ -335,23 +371,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private let activityOnboardingHeader = WMFLocalizedString("activity-tab-onboarding-header", value: "Introducing Activity", comment: "Activity tabs onboarding header")
     private let learnMoreAboutActivity = WMFLocalizedString("activity-tab-onboarding-second-button-title", value: "Learn more about Activity", comment: "Activity tabs secondary button to learn more")
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
-                }
-            }
-        }
-    }
-
-
     // MARK: - Overflow Menu
 
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle) , primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsis) , primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()
@@ -373,28 +396,28 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             self.userDidTapReportIssue()
             ActivityTabFunnel.shared.logActivityTabOverflowMenuProblem()
         })
-        
+
         let customizeAction = UIAction(title: CommonStrings.customize, image: WMFSFSymbolIcon.for(symbol: .gearShape), handler: { _ in
             self.userDidTapCustomize()
         })
-        
-        let mainMenu = UIMenu(title: String(), children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
+
+        let mainMenu = UIMenu(title: String(), options: .displayInline, children: [customizeAction, learnMoreAction, clearAction, reportIssueAction])
 
         return mainMenu
     }
-    
+
     private func userDidTapCustomize() {
         let allModulesOff = !viewModel.customizeViewModel.isTimeSpentReadingOn &&
                            !viewModel.customizeViewModel.isReadingInsightsOn &&
                            !viewModel.customizeViewModel.isEditingInsightsOn &&
                            !viewModel.customizeViewModel.isTimelineOfBehaviorOn
-        
+
         if allModulesOff {
             ActivityTabFunnel.shared.logActivityTabOffCustomizeClick()
         } else {
             ActivityTabFunnel.shared.logActivityTabCustomizeClick()
         }
-        
+
         let customizeVC = self.customizeViewController()
         navigationController?.present(customizeVC, animated: true)
     }
@@ -469,7 +492,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let encodedMailto = mailto,
             let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL)
         else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
+            WMFToastManager.sharedInstance.showToast(CommonStrings.noEmailClient, sticky: false, dismissPreviousToasts: false)
             return
         }
         UIApplication.shared.open(mailtoURL)
@@ -478,27 +501,20 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     // MARK: - Navigation Bar
     private func configureNavigationBar() {
 
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingCompact)
-        extendedLayoutIncludesOpaqueBars = false
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingLarge)
-                extendedLayoutIncludesOpaqueBars = true
-            }
-        }
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .customLeadingLarge)
 
-        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
-        if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
-        } else {
-            profileButtonConfig = nil
-            tabsButtonConfig = nil
-        }
+       let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+       let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
+       if let dataStore {
+           profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
+           tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
+       } else {
+           profileButtonConfig = nil
+           tabsButtonConfig = nil
+       }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
-    }
+       configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+   }
 
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
@@ -525,7 +541,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             return
         }
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -564,17 +580,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             articleCoordinator.start()
         }
     }
-    
+
     private func onTapArticleURL(articleURL: URL) {
         if let dataStore, let navVC = navigationController {
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .activity)
             articleCoordinator.start()
         }
     }
-    
+
     private func onTapEditArticle(item: TimelineItem) {
         ActivityTabFunnel.shared.logActivityTabArticleTap()
-        
+
         guard let articleURL = item.url,
               let revID = item.revisionID,
               let parentID = item.parentRevisionID else {
@@ -593,16 +609,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             navigate(to: diffURL)
         }
     }
-    
+
     // MARK: - Theming
 
     public func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
             return
         }
         updateProfileButton()
         profileCoordinator?.theme = theme
-        self.theme = theme
+        themeNavigationBarCustomLeadingLargeTitle()
     }
 
     // MARK: - Reachability
@@ -623,7 +640,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }()
 
     private func hideOfflineAlertIfNeeded() {
-        WMFAlertManager.sharedInstance.dismissAllAlerts()
+        WMFToastManager.sharedInstance.dismissCurrentToast()
     }
 
     private func showOfflineAlertIfNeeded() {
@@ -631,7 +648,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, sticky: false, dismissPreviousAlerts: true)
+            WMFToastManager.sharedInstance.showToast(title, sticky: false, dismissPreviousToasts: true)
         }
     }
 
@@ -749,28 +766,28 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
 
         ActivityTabFunnel.shared.logOnboardingDidTapLearnMore()
     }
-    
+
     @MainActor
     private func presentSurveyIfNeeded() {
         Task { [weak self] in
-            
+
             guard let self else {
                 return
             }
-            
+
             guard await dataController.shouldShowSurvey() else {
                 return
             }
-            
+
             let surveyView = createSurveyView()
             let hostedView = WMFComponentHostingController(rootView: surveyView)
             present(hostedView, animated: true)
             ActivityTabFunnel.shared.logActivityTabSurveyImpression()
-            
+
             await dataController.setHasSeenSurvey(value: true)
         }
     }
-    
+
     private func createSurveyView() -> WMFSurveyView {
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
             title: CommonStrings.satisfactionSurveyTitle,
@@ -790,24 +807,24 @@ extension WMFActivityTabViewController: WMFOnboardingViewDelegate {
         ]
 
         return WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
-            
+
             ActivityTabFunnel.shared.logActivityTabSurveyCancel()
-            
+
             self?.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
-            
+
             ActivityTabFunnel.shared.logFeedbackSubmit(selectedItems: options, comment: otherText)
-            
+
             self?.dismiss(animated: true, completion: {
-                let image = UIImage(systemName: "checkmark.circle.fill")
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                let image = WMFSFSymbolIcon.for(symbol: .checkmarkCircleFill)
+                WMFToastManager.sharedInstance.showRichToast(CommonStrings.feedbackSurveyToastTitle, image: image)
             })
         })
     }
 }
 
 final class WMFActivityCustomizeHostingController: WMFComponentHostingController<WMFActivityTabCustomizeView>, WMFNavigationBarConfiguring, UIAdaptivePresentationControllerDelegate {
-    
+
     init(rootView: WMFActivityTabCustomizeView, theme: Theme) {
         self.theme = theme
         super.init(rootView: rootView)
@@ -816,7 +833,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private var theme: Theme
 
     override func viewDidLoad() {
@@ -827,11 +844,11 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             customView: nil,
             alignment: .centerCompact
         )
-        
+
         navigationController?.presentationController?.delegate = self
 
-        let closeConfig = WMFNavigationBarCloseButtonConfig(
-            text: CommonStrings.doneTitle,
+        let closeConfig = WMFLargeCloseButtonConfig(
+            imageType: .plainX,
             target: self,
             action: #selector(closeTapped),
             alignment: .trailing
@@ -846,7 +863,7 @@ final class WMFActivityCustomizeHostingController: WMFComponentHostingController
             hideNavigationBarOnScroll: false
         )
     }
-    
+
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         ActivityTabFunnel.shared.logActivityTabCustomizeExit(
             viewModel: rootView.viewModel

@@ -740,8 +740,7 @@
 "more-menu" = "Mere";
 "move-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvisning";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 fod";
+"nearby-distance-label-feet" = "{{PLURAL:$1|fod}}";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 m";

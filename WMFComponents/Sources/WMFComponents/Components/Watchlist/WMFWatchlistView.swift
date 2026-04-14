@@ -177,22 +177,22 @@ fileprivate struct WMFWatchlistViewCell: View {
                                 .accessibilityHidden(true)
 
                             
-							HStack {
-								WMFSmallSwiftUIMenuButton(configuration: WMFSmallMenuButton.Configuration(
-									title: itemViewModel.username,
-									image: userIcon,
-									primaryColor: \.link,
-									menuItems: menuItemsForRevisionAuthor,
-									metadata: [
-                                    WMFWatchlistViewModel.ItemViewModel.wmfProjectMetadataKey: itemViewModel.project,
-                                    WMFWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID,
-                                    WMFWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey: itemViewModel.oldRevisionID,
-                                    WMFWatchlistViewModel.ItemViewModel.articleMetadataKey: itemViewModel.title
-                                        ]
+                            HStack {
+                                WMFSmallSwiftUIMenuButton(configuration: WMFSmallMenuButton.Configuration(
+                                    title: itemViewModel.username,
+                                    image: userIcon,
+                                    primaryColor: \.link,
+                                    menuItems: menuItemsForRevisionAuthor,
+                                    metadata: [
+                                        WMFWatchlistViewModel.ItemViewModel.wmfProjectMetadataKey: itemViewModel.project,
+                                        WMFWatchlistViewModel.ItemViewModel.revisionIDMetadataKey: itemViewModel.revisionID,
+                                        WMFWatchlistViewModel.ItemViewModel.oldRevisionIDMetadataKey: itemViewModel.oldRevisionID,
+                                        WMFWatchlistViewModel.ItemViewModel.articleMetadataKey: itemViewModel.title
+                                    ]
                                 ), menuButtonDelegate: menuButtonDelegate)
                                 .accessibilityAddTraits(.isButton)
-								Spacer()
-							}
+                                Spacer()
+                            }
 						}
 					}
 					.padding([.top, .bottom], 12)

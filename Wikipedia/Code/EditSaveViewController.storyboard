@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YCc-it-nqb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YCc-it-nqb">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Mag-UH-fwc">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fI-DJ-2eF" userLabel="Scroll Container">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="626"/>
@@ -75,17 +74,17 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="49"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="NvK-2d-NGU">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="294" height="49"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="282" height="49"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rf9-ar-bHj">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="294" height="18"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="282" height="18"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Pxq-wG-5IZ" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="19" width="294" height="30"/>
+                                                                                        <rect key="frame" x="0.0" y="19" width="282" height="30"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                                         <state key="normal" title="Button"/>
@@ -97,7 +96,7 @@
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </stackView>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wq7-Dh-cIU">
-                                                                                <rect key="frame" x="294" y="9" width="51" height="31"/>
+                                                                                <rect key="frame" x="282" y="10.5" width="63" height="28"/>
                                                                             </switch>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -112,17 +111,17 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="49"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="999" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="0k3-qz-JG7">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="294" height="49"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="282" height="49"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTw-He-TRu">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="294" height="18"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="282" height="18"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SDy-gO-kQw" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="19" width="294" height="30"/>
+                                                                                        <rect key="frame" x="0.0" y="19" width="282" height="30"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                                         <state key="normal" title="Button"/>
@@ -134,7 +133,7 @@
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </stackView>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FAR-zq-Bq9">
-                                                                                <rect key="frame" x="294" y="9" width="51" height="31"/>
+                                                                                <rect key="frame" x="282" y="10.5" width="63" height="28"/>
                                                                             </switch>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -225,8 +224,8 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="7fI-DJ-2eF" firstAttribute="top" secondItem="Mag-UH-fwc" secondAttribute="top" id="PiW-jj-vPK"/>
                                     <constraint firstAttribute="width" secondItem="7fI-DJ-2eF" secondAttribute="width" id="TjP-my-jN3"/>
+                                    <constraint firstItem="7fI-DJ-2eF" firstAttribute="top" secondItem="Mag-UH-fwc" secondAttribute="top" id="UVd-CS-RI3"/>
                                     <constraint firstItem="7fI-DJ-2eF" firstAttribute="leading" secondItem="Mag-UH-fwc" secondAttribute="leading" id="V04-F6-7Jr"/>
                                     <constraint firstAttribute="trailing" secondItem="7fI-DJ-2eF" secondAttribute="trailing" id="cyA-jM-bUl"/>
                                     <constraint firstAttribute="bottom" secondItem="7fI-DJ-2eF" secondAttribute="bottom" id="kw4-Up-EDJ"/>
@@ -236,13 +235,12 @@
                         <viewLayoutGuide key="safeArea" id="cRp-15-jBV"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Mag-UH-fwc" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" id="35T-1S-ljt"/>
                             <constraint firstItem="cRp-15-jBV" firstAttribute="trailing" secondItem="Mag-UH-fwc" secondAttribute="trailing" id="5F6-MN-KEe"/>
                             <constraint firstItem="Mag-UH-fwc" firstAttribute="leading" secondItem="cRp-15-jBV" secondAttribute="leading" id="JrE-lt-4xQ"/>
-                            <constraint firstItem="Mag-UH-fwc" firstAttribute="top" secondItem="cRp-15-jBV" secondAttribute="top" id="VXh-Jh-00R"/>
                             <constraint firstItem="cRp-15-jBV" firstAttribute="bottom" secondItem="Mag-UH-fwc" secondAttribute="bottom" id="eZt-vu-ydd"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="addToWatchlistButton" destination="SDy-gO-kQw" id="5Hx-2l-dap"/>
                         <outlet property="addToWatchlistLabel" destination="zTw-He-TRu" id="LAM-ZQ-Fvz"/>
@@ -280,12 +278,4 @@
             <point key="canvasLocation" x="404.48000000000002" y="-7461.5465880253296"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="Pxq-wG-5IZ">
-            <size key="intrinsicContentSize" width="46" height="30"/>
-        </designable>
-        <designable name="SDy-gO-kQw">
-            <size key="intrinsicContentSize" width="46" height="30"/>
-        </designable>
-    </designables>
 </document>

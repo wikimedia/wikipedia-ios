@@ -423,7 +423,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showClearCacheInProgressBanner) object:nil];
-            [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-complete", nil, nil, @"Clearing cache complete.", @"Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
+            [[WMFToastManager sharedInstance] showToast:WMFLocalizedStringWithDefaultValue(@"clearing-cache-complete", nil, nil, @"Clearing cache complete.", @"Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.") sticky:NO dismissPreviousToasts:YES tapCallBack:nil];
         });
     }];
 
@@ -432,7 +432,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)showClearCacheInProgressBanner {
-    [[WMFAlertManager sharedInstance] showAlert:WMFLocalizedStringWithDefaultValue(@"clearing-cache-in-progress", nil, nil, @"Clearing cache in progress.", @"Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.") sticky:NO dismissPreviousAlerts:YES tapCallBack:nil];
+    [[WMFToastManager sharedInstance] showToast:WMFLocalizedStringWithDefaultValue(@"clearing-cache-in-progress", nil, nil, @"Clearing cache in progress.", @"Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.") sticky:NO dismissPreviousToasts:YES tapCallBack:nil];
 }
 
 #pragma mark - Languages

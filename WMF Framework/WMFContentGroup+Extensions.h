@@ -30,7 +30,6 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
     WMFContentGroupKindFeaturedArticle = 7,
     WMFContentGroupKindTopRead = 8,
     WMFContentGroupKindNews = 9,
-    WMFContentGroupKindNotification = 10,
     WMFContentGroupKindAnnouncement = 11,
     WMFContentGroupKindLocationPlaceholder = 12,
     WMFContentGroupKindOnThisDay = 13,

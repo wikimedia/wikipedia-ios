@@ -162,6 +162,7 @@
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
 "appearance-settings-expand-tables" = "Title for the setting that expands tables in an article by default";
 "appearance-settings-expand-tables-footer" = "Footer of the expand tables section in Appearance settings, explaining the expand tables setting";
+"appearance-settings-icon-contributor-title" = "Title for item in icon list for the contributor app icon, which celebrates the user's in-app contributions to Wikipedia in 2025. Contributions can be edits or in-app donations.";
 "appearance-settings-image-dimming-footer" = "Footer of the Theme options section in Appearance settings, explaining image dimming";
 "appearance-settings-reading-themes" = "Title of the Reading themes section in Appearance settings";
 "appearance-settings-set-automatic-table-opening" = "Tables in article will be opened automatically";
@@ -179,6 +180,7 @@
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
 "article-reference-view-title" = "Title for the reference view. $1 is replaced by the reference link name, for example [1].";
+"article-return-button-accessibility-title" = "Accessibility title read by assistive technologies for the button that takes the user back to the previous article. The $1 placeholder is replaced with the previous article title.";
 "article-revision-history" = "Title for menu option that leads to article revision history.";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
@@ -222,6 +224,7 @@
 "chinese-variants-alert-title" = "Title of alert used to inform users about Chinese variant support.";
 "clear-title-accessibility-label" = "Accessibility label title for action that clears text";
 "clearing-cache-complete" = "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.";
+"clearing-cache-error" = "Title of banner that appears when a user taps clear cache button in Settings and an error occurs during the clearing of cache.";
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-all-tabs" = "Action to close all open tabs.";
 "close-all-tabs-confirmation" = "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.";
@@ -273,7 +276,6 @@
 "description-help-title" = "Title for description editing help page";
 "description-help-wikidata-guide" = "Wikidata guide label text";
 "description-published-button-title" = "Title for done button.";
-"description-published-footer" = "Title for footer explaining articles may be edited too - not just descriptions.";
 "description-published-subtitle" = "Subtitle encouraging user to continue editing";
 "description-published-title" = "Title for letting the user know their description change succeeded.";
 "description-welcome-concise-sub-title" = "Subtitle text explaining descriptions should be concise";
@@ -385,8 +387,6 @@
 "edit-notices-always-display" = "Title for toggle switch label in edit notices view.";
 "edit-notices-please-read" = "Subtitle displayed in edit notices view.";
 "edit-preview-simplified-format-message" = "Message displayed when the edit preview view loads. Preview is in a simplified web format.";
-"edit-published" = "Title edit published panel letting user know their edit was saved.";
-"edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
 "edit-sheet-ip-account-notice" = "Temporary account sheet for editors";
 "edit-sheet-temp-account-notice" = "Temporary account sheet for editors";
 "edit-show-web-preview" = "Title of button that will show a web preview of the edit.";
@@ -585,8 +585,6 @@
 "explore-suggested-edits-footer" = "Footer for presenting user option to see list of suggested edits.";
 "explore-suggested-edits-image-recs-body" = "Body text shown in the image recommendations explore feed card.";
 "explore-suggested-edits-image-recs-title" = "Title text shown in the image recommendations explore feed card.";
-"explore-survey-subtitle" = "Subtitle of one-time survey prompt displayed to users on the Explore feed.";
-"explore-survey-title" = "Title of one-time survey prompt displayed to users on the Explore feed.";
 "explore-wikipedia" = "Button title to explore Wikipedia";
 "export-user-data-confirmation-message" = "Message of confirmation modal after user taps \"Export User Data\" button.";
 "export-user-data-confirmation-title" = "Title of confirmation modal after user taps \"Export User Data\" button.";
@@ -699,7 +697,6 @@
 "image-recs-yes-title" = "Button title for accepting an image suggestion";
 "import-shared-reading-list-default-title" = "Default title of a reading list imported through a shared link.";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Title of action button on import reading list survey prompt, which takes user to external survey.";
-"import-shared-reading-list-survey-prompt-footer" = "Title of footer button on import shared reading list survey prompt, which takes user to the privacy policy. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting";
 "import-shared-reading-list-survey-prompt-subtitle" = "Subtitle of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-survey-prompt-title" = "Title of prompt to take a survey, displayed after user successfully imports a shared reading list.";
 "import-shared-reading-list-title" = "Title of screen that imports a shared reading list.";
@@ -804,8 +801,6 @@
 "next-action-title" = "Title for insert action indicating the user can go to the next step";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "no-internet-connection" = "String used in various places to indicate no internet connection";
-"no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
-"no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "not-now-title" = "Text for the dismiss button across various features.";
 "notifications-center-agent-description-from-format" = "Text indicating who triggered a notification in notifications center. $1 will be replaced with the origin agent of the notification, which could be a username.";
 "notifications-center-alert" = "Description of various \"alert\" notification types, used on the notifications cell and detail views.";
@@ -824,7 +819,6 @@
 "notifications-center-empty-state-filters-subtitle" = "Format of empty state subtitle when the user has filters on - $1 is replaced with a string representing the number of filters the user has set.";
 "notifications-center-empty-state-no-projects-selected" = "Empty state subtitle indicating the user has unselected all projects.";
 "notifications-center-empty-state-num-filters" = "Portion of empty state subtitle showing number of filters the user has set in notifications center - $1 is replaced with the number filters.";
-"notifications-center-feed-card-title" = "Title for the 'Notification' explore feed card";
 "notifications-center-feed-news-notification-button-text" = "Text for button to turn on push notifications";
 "notifications-center-feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get push notifications for all Wikimedia projects through the app";
 "notifications-center-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in an unselected state indicating that filters are not applied.";
@@ -970,7 +964,7 @@
 "panel-compare-revisions-text" = "Text for educational panel about comparing revisions";
 "panel-compare-revisions-title" = "Title for educational panel about comparing revisions";
 "panel-not-logged-in-continue-edit-action-title" = "Title for button that continues publishing the edit anonymously.";
-"panel-not-logged-in-subtitle" = "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Parameters:\n* $1 - app-specific text formatting - beginning bold text, $2 - app-specific text formatting - ending bold text, $3 - app-specific text formatting - beginning bold text, $4 - app-specific text formatting - ending bold text.";
+"panel-not-logged-in-subtitle-plain" = "Subtitle for letting user know that they are not logged in.";
 "panel-not-logged-in-title" = "Title for education panel letting user know they are not logged in.";
 "percentile-0.01" = "0.01th percentile range";
 "percentile-1" = "1st percentile range";
@@ -1045,9 +1039,10 @@
 "project-name-wiktionary" = "Project name for Wiktionary.";
 "reading-list-add-generic-hint-title" = "Title of the reading list hint that appears after an article is saved.";
 "reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved. $1 will be replaced with the saved article title";
-"reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list. The question being asked is: There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
+"reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list.";
 "reading-list-add-saved-subtitle" = "Subtitle explaining that saved articles can be added to reading lists.";
 "reading-list-add-saved-title" = "Title explaining saved articles were found.";
+"reading-list-alert-see-list" = "Title for button on alert to see the reading list after adding an article to it.";
 "reading-list-api-error-entry-limit" = "You have too many entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "You have too many lists.";
@@ -1138,15 +1133,6 @@
 "relative-date-seconds-abbreviated" = "Relative seconds, abbreviated. $1 will be replaced with the number of seconds.";
 "relative-date-seconds-ago-abbreviated" = "Relative seconds ago, abbreviated. $1 will be replaced with the number of seconds ago.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with the number of years ago.";
-"replace-button-accessibility" = "Accessibility label for button that triggers replace action. $1 is replaced by \"Replace single instance\" or \"Replace all instances\"";
-"replace-buttons-replace-accessibility" = "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing a single instance.";
-"replace-buttons-replace-all-accessibility" = "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing all instances.";
-"replace-clear-button-accessibility" = "Accessibility label for the clear values X button in the replace textfield.";
-"replace-infolabel-method-replace" = "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.";
-"replace-infolabel-method-replace-all" = "Title for label indicating which replace method they have currently selected. This is for replacing all instances.";
-"replace-method-button-accessibility" = "Accessibility label for replace method switch button in Find and Replace. $1 is replaced by \"Replace single instance\" or \"Replace all instances\"";
-"replace-textfield-accessibility" = "Accessibility label for the replace text field.";
-"replace-textfield-placeholder" = "Placeholder text seen in replace textfield before textfield is focused.";
 "return-button-title" = "Title for button indicating that is possible return from this point";
 "return-to-article" = "Title for button indicating that is possible to go back to article";
 "reverted-edit-title" = "Title for notification informing user that their edit was reverted.";
@@ -1169,7 +1155,6 @@
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-clear-title" = "Text of the button shown to clear recent search terms";
 "search-field-placeholder-text" = "Search field placeholder text";
-"search-reading-list-placeholder-text" = "Placeholder text for the search bar in reading list detail view.";
 "search-recent-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "search-recent-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
 "search-recent-clear-delete-all" = "Button text for confirming delete all action {{Identical|Delete all}}";
@@ -1191,9 +1176,10 @@
 "settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-donate" = "Link to donate";
-"settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
+"settings-help-and-feedback" = "Title for showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
+"settings-legal-sefaty-title" = "Title for legal and safety contatcs section in settings";
 "settings-my-languages" = "Title for list of user's preferred languages";
 "settings-new-article-tab-header-text" = "Header title for the New Article Tabs settings to determine between preferences";
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
@@ -1201,11 +1187,6 @@
 "settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
 "settings-notifications-echo-failure-try-again" = "Text alerting the user to try action again after error";
 "settings-notifications-header" = "Text informing user of benefits of enabling push notifications.";
-"settings-notifications-info" = "A short description of notifications shown in settings";
-"settings-notifications-learn-more" = "A title for a button to learn more about notifications";
-"settings-notifications-push-notifications" = "A title for a list of Push notifications";
-"settings-notifications-system-turn-on" = "Title for a button for turnining on notifications in the system settings";
-"settings-notifications-trending" = "Title for the setting for trending notifications";
 "settings-off" = "Text indicating a value is off in app Settings.";
 "settings-on" = "Text indicating a value is on in app Settings.";
 "settings-primary-language" = "Label shown next to primary language {{Identical|Primary}}";
@@ -1474,9 +1455,6 @@
 "welcome-languages-add-or-edit-button" = "Title for button for managing languages";
 "welcome-languages-description" = "Title label describing detected languages";
 "welcome-languages-search-title" = "Title for welcome screen describing Wikipedia languages";
-"welcome-notifications-tell-me-more-creation" = "An explanation of how notifications are created";
-"welcome-notifications-tell-me-more-storage" = "An explanation of how notifications are stored";
-"welcome-notifications-tell-me-more-title" = "Title for detailed notification explanation";
 "welcome-privacy-subtitle" = "Sub-title explaining how data usage is anonymous";
 "welcome-privacy-terms-button-text" = "Text for links for learning more about data privacy policy and terms of use";
 "widget-onthisday-description" = "Description for 'On this day' view in iOS widget gallery";

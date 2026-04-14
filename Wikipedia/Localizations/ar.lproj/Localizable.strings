@@ -26,6 +26,7 @@
 // Author: Mhurd
 // Author: Michel Bakni
 // Author: Mido
+// Author: Mo.Hajeer
 // Author: Mohammed Qays
 // Author: Musab Moahmmed
 // Author: NEHAOUA
@@ -142,19 +143,28 @@
 "activity-tab-empty-subtitle" = "ابدأ بالقراءة والتحرير لبناء تاريخك";
 "activity-tab-empty-title" = "لا يوجد شيء لعرضه";
 "activity-tab-generic-no-edits" = "لم تُحرّر هذا الأسبوع. ابدأ الآن بتتبع مساهماتك.";
+"activity-tab-history-callout-body" = "تصفّح أو امسح سجلّ القراءة الخاص بك في علامة تبويب البحث.";
+"activity-tab-history-callout-body-loggedout" = "اعثر على سجلّ القراءة الخاص بك وامسحه في علامة تبويب البحث. بدون الحاجة لحساب.";
+"activity-tab-hitory-callout-close" = "إغلاق بطاقة إشعار السجلّ";
 "activity-tab-hours-minutes-read" = "$1 ساعة $2 دقيقة";
 "activity-tab-hours-on-wikipedia-ios" = "على ويكيبيديا iOS";
+"activity-tab-impact-all-time-title" = "الأثر الإجمالي في كلّ الأوقات";
+"activity-tab-impact-best-streak-label" = "أفضل سلسلة متتالية";
 "activity-tab-impact-edits-label" = "التعديلات";
+"activity-tab-impact-last-edited-label" = "آخر تعديل";
+"activity-tab-impact-recent-activity-title" = "نشاطك الأخير (آخر 30 يومًا)";
 "activity-tab-impact-recent-startend-accessibility" = "من $1 إلى $2";
 "activity-tab-impact-thanks-label" = "شكراً";
 "activity-tab-impact-total-edits-label" = "إجمالي التعديلات";
 "activity-tab-impact-views-day" = "يوم";
+"activity-tab-impact-views-title" = "عدد مشاهدات المقالات التي عدلتها";
 "activity-tab-impact-views-views" = "المشاهدات";
 "activity-tab-log-in-or-create-account" = "قم بتسجيل الدخول أو إنشاء حساب للاطلاع على المزيد من أنشطة التحرير والقراءة.";
 "activity-tab-logged-out-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لعرض نشاطك على تطبيق ويكيبيديا.";
 "activity-tab-logged-out-title" = "شاهد المزيد من رؤى القراءة والتحرير";
 "activity-tab-logged-out-track-what-youve-read" = "تتبّع ما قرأته واطلع على مساهماتك بمرور الوقت بطريقة جديدة";
 "activity-tab-menu-clear-history" = "مسح تاريخ القراءة";
+"activity-tab-most-viewed" = "الأكثر مشاهدة منذ تعديلك";
 "activity-tab-neutral" = "محايد";
 "activity-tab-no-edits-title" = "لم تُحرّر هذا الأسبوع. أضف صورًا لتحسين فهم المقالة.";
 "activity-tab-no-username-reading-title" = "قراءتك";
@@ -166,6 +176,8 @@
 "activity-tab-onboarding-second-button-title" = "تعرف على المزيد حول النشاط";
 "activity-tab-onboarding-second-item-subtitle" = "اكتشف رؤى حول مساهماتك ومدى المعرفة التي شاركتها.";
 "activity-tab-onboarding-second-item-title" = "أبرز النقاط المؤثرة";
+"activity-tab-onboarding-third-item-subtitle-updated" = "يتضمن قسم النشاط مخططًا زمنيًا شاملاً للمقالات التي قرأتها وحفظتها وعدّلتها. أصبح سجلّ قراءتك الآن ضمن علامة تبويب البحث.";
+"activity-tab-onboarding-third-item-title-updated" = "سجل القراءة متاح الآن في البحث";
 "activity-tab-read-title" = "عرض تاريخ القراءة";
 "activity-tab-remaining-articles" = "+ $1";
 "activity-tab-satisfied" = "راضي";
@@ -625,8 +637,7 @@
 "explore-suggested-edits-footer" = "أضف";
 "explore-suggested-edits-image-recs-body" = "أضف الصور المقترحة إلى مقالات ويكيبيديا لتحسين الفهم.";
 "explore-suggested-edits-image-recs-title" = "أضف صورة";
-"explore-survey-subtitle" = "يرجى المشاركة في استطلاع رأي قصير حول موجز \"استكشاف\". ستساعد ملاحظاتك في صياغة التحسينات القادمة للتطبيق.";
-"explore-survey-title" = "ساعدنا على التحسين استكشف";
+"explore-wikipedia" = "استكشف ويكيبيديا";
 "export-user-data-confirmation-message" = "تتضمن مشاركة مكتبة التطبيقات الخاصة بك بيانات حول قوائم القراءة والمحفوظات والتفضيلات واستكشاف محتوى الخلاصة. يجب مشاركة ملف البيانات هذا فقط مع شخص موثوق به لاستخدامه في أغراض التشخيص التقني.";
 "export-user-data-confirmation-title" = "مشاركة مكتبة التطبيقات؟";
 "export-user-data-generic-error" = "حدث خطأ أثناء تصدير بياناتك. الرجاء معاودة المحاولة في وقت لاحق.";
@@ -801,6 +812,8 @@
 "login-join-wikipedia" = "انضم لويكيبيديا";
 "login-no-account" = "لا حساب لديك؟ $1";
 "login-title" = "تسجيل الدخول إلى حسابك";
+"looking-for-something-new" = "هل تبحث عن شيء جديد لتقرأه؟";
+"looks-like-you-havent-made-an-edit" = "يبدو أنك لم تقم بأي تعديل هذا الشهر. ساهم في نشر المعرفة الحرة عبر تعديل الموضوعات التي تهمك أكثر.";
 "main-menu-about" = "عن التطبيق";
 "main-menu-account-login" = "تسجيل الدخول";
 "main-menu-account-logout" = "تسجيل الخروج";
@@ -1203,6 +1216,7 @@
 "saved-title" = "المحفوظة";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "عدم حفظ هذه {{PLURAL:$1|المقالة|المقالات}} سيزيلها من جميع قوائم القراءة المرتبطة";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "إلغاء حفظ {{PLURAL:$1|مقالة|مقالات}}؟";
+"search-button-accessibility-hint" = "الانتقال لشاشة البحث";
 "search-button-accessibility-label" = "البحث في ويكيبيديا";
 "search-clear-title" = "مسح";
 "search-field-placeholder-text" = "البحث في ويكيبيديا";
@@ -1400,6 +1414,8 @@
 "theme-default-explanation" = "يطابق موضوع النظام";
 "theme-light-display-name" = "فاتح";
 "theme-sepia-display-name" = "بني داكن";
+"tip-history-in-search-subtitle" = "اعثر على سجلّ قراءتك في علامة تبويب البحث.";
+"tip-history-in-search-title" = "نُقل السجل إلى البحث.";
 "today-title" = "اليوم";
 "top-read-widget-description" = "تعرَّف على ما أكثر ما قُرأ على ويكيبيديا اليوم";
 "top-read-widget-readers-count" = "$1 قارئ";
@@ -1640,3 +1656,4 @@
 "year-in-review-wikipedia-w-accessibility-label" = "ويكيبيديا مع الشعار";
 "year-in-review-wmf-logo-accessibility-label" = "شعار مؤسسة ويكيميديا";
 "yesterday-title" = "أمس";
+"zero-edits-to-articles" = "0 تعديل على المقالات مؤخرًا.";
