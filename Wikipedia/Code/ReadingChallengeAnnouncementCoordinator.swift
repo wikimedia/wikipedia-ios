@@ -45,7 +45,7 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
             ),
             subtitle: WMFLocalizedString(
                 "reading-challenge-announcement-item2-subtitle",
-                value: "Complete a 25 day reading streak while the challenge is live to win special prizes.",
+                value: "Complete a 25-day reading streak while the challenge is live to win special prizes.",
                 comment: "Subtitle for reading challenge onboarding second item."
             ),
             fillIconBackground: false
@@ -122,7 +122,9 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
     private func enroll() {
         Task {
             await WMFActivityTabDataController.shared.enrollInReadingChallenge()
-            WidgetController.shared.reloadReadingChallengeWidget()
+            await MainActor.run {
+                WidgetController.shared.reloadReadingChallengeWidget()
+            }
         }
     }
 
@@ -143,7 +145,6 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
         enroll()
         navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
             self?.onEnroll?()
-            self?.onDismiss?()
         }
     }
 

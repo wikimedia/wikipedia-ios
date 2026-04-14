@@ -10,8 +10,8 @@ public class WMFFeatureAnnouncementViewModel {
     let image: UIImage?
     let backgroundImage: UIImage?
     let backgroundImageHeight: CGFloat
-    var primaryButtonAction: (() -> Void)
-    var closeButtonAction: (() -> Void)?
+    public var primaryButtonAction: (() -> Void)
+    public var closeButtonAction: (() -> Void)?
     
     public init(title: String, body: String, primaryButtonTitle: String, image: UIImage? = nil, backgroundImage: UIImage? = nil, backgroundImageHeight: CGFloat = 140, gifName: String? = nil, altText: String? = nil, primaryButtonAction: @escaping () -> Void, closeButtonAction: (() -> Void)? = nil) {
         self.title = title

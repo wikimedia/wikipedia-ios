@@ -26,6 +26,7 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var devForceReadingChallengeStreakOngoingRead: Bool { get { false } set {} }
     var devForceReadingChallengeStreakOngoingNotYetRead: Bool { get { false } set {} }
     var forcedReadingChallengeState: ReadingChallengeState? { return nil }
+    func transitionToEnrolledStateIfForced() {}
 
     private let featureConfig: WMFData.WMFFeatureConfigResponse
 

@@ -1036,21 +1036,30 @@ extension ExploreViewController {
             theme: theme
         )
         readingChallengeCoordinator?.onEnroll = { [weak self] in
-            self?.presentReadingChallengeWidgetAnnouncementIfNeeded()
+            guard let self else {
+                return
+            }
+            self.presentReadingChallengeWidgetAnnouncementIfNeeded()
         }
         readingChallengeCoordinator?.onDismiss = { [weak self] in
-            self?.readingChallengeCoordinator = nil
+            guard let self else {
+                return
+            }
+            self.readingChallengeCoordinator = nil
+            self.presentReadingChallengeWidgetAnnouncementIfNeeded()
         }
         readingChallengeCoordinator?.start()
     }
 
     private func presentReadingChallengeWidgetAnnouncementIfNeeded() {
         guard presentedViewController == nil else { return }
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             guard await WMFActivityTabDataController.shared.shouldShowReadingChallengeWidgetAnnouncement() else { return }
             await WMFActivityTabDataController.shared.setHasSeenWidgetReadingChallengeAnnouncement()
-            readingChallengeWidgetCoordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
-            readingChallengeWidgetCoordinator?.start()
+            let coordinator = ReadingChallengeWidgetAnnouncementCoordinator(presentingViewController: self)
+            self.readingChallengeWidgetCoordinator = coordinator
+            coordinator.start()
         }
     }
 
