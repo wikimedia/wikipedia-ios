@@ -68,8 +68,9 @@ public class WMFProfileViewModel: ObservableObject {
         let donateSubtext: String
         let yearInReviewTitle: String
         let yearInReviewLoggedOutSubtext: String
+        let pickerTestTitle: String
 
-        public init(pageTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
+        public init(pageTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String, pickerTestTitle: String) {
             self.pageTitle = pageTitle
             self.notificationsTitle = notificationsTitle
             self.userPageTitle = userPageTitle
@@ -83,6 +84,7 @@ public class WMFProfileViewModel: ObservableObject {
             self.donateSubtext = donateSubtext
             self.yearInReviewTitle = yearInReviewTitle
             self.yearInReviewLoggedOutSubtext = yearInReviewLoggedOutSubtext
+            self.pickerTestTitle = pickerTestTitle
         }
     }
 }
@@ -216,6 +218,17 @@ enum ProfileState {
                     coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
+            let pickerTestItem = ProfileListItem(
+                text: localizedStrings.pickerTestTitle,
+                image: WMFSFSymbolIcon.for(symbol: .calendar),
+                imageColor: UIColor(Color.indigo),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showDatePickerTest)
+                }
+            )
             return [
                 ProfileSection(
                     listItems: [
@@ -238,7 +251,8 @@ enum ProfileState {
                 ),
                 ProfileSection(
                     listItems: [
-                        settingsItem
+                        settingsItem,
+                        pickerTestItem
                     ],
                     subtext: nil
                 )
@@ -313,6 +327,17 @@ enum ProfileState {
                    coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
+            let pickerTestItem = ProfileListItem(
+                text: localizedStrings.pickerTestTitle,
+                image: WMFSFSymbolIcon.for(symbol: .calendar),
+                imageColor: UIColor(Color.indigo),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showDatePickerTest)
+                }
+            )
 
             let joinSection = ProfileSection(
                 listItems: [
@@ -329,7 +354,7 @@ enum ProfileState {
                 subtext: localizedStrings.donateSubtext
             )
             let notificationsSection = ProfileSection(listItems: [notificationsItem], subtext: nil)
-            let settingsSection = ProfileSection(listItems: [settingsItem], subtext: nil)
+            let settingsSection = ProfileSection(listItems: [settingsItem, pickerTestItem], subtext: nil)
 
             let sections = [notificationsSection, joinSection, donateSection, settingsSection]
             return sections
@@ -389,6 +414,17 @@ enum ProfileState {
                     coordinatorDelegate?.handleProfileAction(.showSettings)
                 }
             )
+            let pickerTestItem = ProfileListItem(
+                text: localizedStrings.pickerTestTitle,
+                image: WMFSFSymbolIcon.for(symbol: .calendar),
+                imageColor: UIColor(Color.indigo),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showDatePickerTest)
+                }
+            )
             
             let joinSection = ProfileSection(
                 listItems: [
@@ -410,7 +446,8 @@ enum ProfileState {
                 )
             let settingsSection = ProfileSection(
                 listItems: [
-                    settingsItem
+                    settingsItem,
+                    pickerTestItem
                 ],
                 subtext: nil
             )

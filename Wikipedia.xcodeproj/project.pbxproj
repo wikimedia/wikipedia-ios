@@ -1302,6 +1302,9 @@
 		8338AF8E21F7B33E000C4055 /* WMFLegacyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */; };
 		833B8C89281AE2100021C12C /* RemoteNotificationsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */; };
 		833B8C8A281AE2110021C12C /* RemoteNotificationsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */; };
+		833EC78C2F8E84D600B472FB /* DatePickerTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833EC78B2F8E84D600B472FB /* DatePickerTestViewController.swift */; };
+		833EC78D2F8E84D600B472FB /* DatePickerTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833EC78B2F8E84D600B472FB /* DatePickerTestViewController.swift */; };
+		833EC78E2F8E84D600B472FB /* DatePickerTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833EC78B2F8E84D600B472FB /* DatePickerTestViewController.swift */; };
 		8341A345299ACD8C00016535 /* MEPEventProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A344299ACD8C00016535 /* MEPEventProviding.swift */; };
 		8341A347299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */; };
 		8341A348299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */; };
@@ -3580,6 +3583,7 @@
 		8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MediaWikiAcceptLanguageMapping.json; sourceTree = "<group>"; };
 		8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLegacyFetcher.h; sourceTree = "<group>"; };
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
+		833EC78B2F8E84D600B472FB /* DatePickerTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTestViewController.swift; sourceTree = "<group>"; };
 		8341A344299ACD8C00016535 /* MEPEventProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEPEventProviding.swift; sourceTree = "<group>"; };
 		8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistorySnapshotCache.swift; sourceTree = "<group>"; };
 		8346F6DA2EB27ADA0071A7FE /* Wikipedia 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 8.xcdatamodel"; sourceTree = "<group>"; };
@@ -7899,6 +7903,7 @@
 				83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */,
 				83DE45B72449C09B00671878 /* SplashScreenViewController.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
+				833EC78B2F8E84D600B472FB /* DatePickerTestViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -10037,6 +10042,7 @@
 				678D29AE2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */,
 				7A827659226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				672D69A9273ACAA100B123B3 /* UITabBarAppearance+Extensions.swift in Sources */,
+				833EC78E2F8E84D600B472FB /* DatePickerTestViewController.swift in Sources */,
 				B0E8036D1C0CD98B0065EBC0 /* TableOfContentsViewController.swift in Sources */,
 				7A9F2776225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				0036C8B3282C2AAA00EADB35 /* Notification+NotificationsCenter.swift in Sources */,
@@ -11150,6 +11156,7 @@
 				678D29B02729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */,
 				675D875F2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */,
 				006ABEEF2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift in Sources */,
+				833EC78D2F8E84D600B472FB /* DatePickerTestViewController.swift in Sources */,
 				B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D8CE25D01E698E2400DAE2E0 /* WMFLanguageCell.m in Sources */,
 				678ECA622D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */,
@@ -11690,6 +11697,7 @@
 				D8EC3ECE1E9BDA35006712EB /* WMFLanguageCell.m in Sources */,
 				675D875E2B8FA0FA007D63F8 /* SuggestedEditsExploreCell.swift in Sources */,
 				006ABEEE2901E92D00722DF8 /* VanishAccountWarningViewHostingViewController.swift in Sources */,
+				833EC78C2F8E84D600B472FB /* DatePickerTestViewController.swift in Sources */,
 				B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				678ECA642D114E0E00D59837 /* WMFImageGalleryViewController+Extensions.swift in Sources */,
