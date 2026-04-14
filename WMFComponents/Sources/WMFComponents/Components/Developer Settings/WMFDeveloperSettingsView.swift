@@ -16,24 +16,28 @@ struct WMFDeveloperSettingsView: View {
                 if let selectSection = section as? WMFFormSectionSelectViewModel {
                     WMFFormSectionSelectView(viewModel: selectSection)
                         .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
-                    // Inject stepper row directly after the forced state section
-                    if selectSection.header == "Force Reading Challenge State" {
-                        Section {
-                            HStack {
-                                Text("Streak days: \(viewModel.streakCount)")
-                                    .foregroundColor(Color(theme.text))
-                                    .font(Font(WMFFont.for(.callout)))
-                                Spacer()
-                                Stepper("", value: Binding(
-                                    get: { viewModel.streakCount },
-                                    set: { viewModel.setStreakCount($0) }
-                                ), in: 1...25)
-                                .labelsHidden()
-                            }
-                            .listRowBackground(Color(theme.paperBackground))
-                        }
-                    }
                 }
+            }
+            
+            Section(header: Text("Reading Challenge Widget")) {
+                Toggle("Override Current Date", isOn: $viewModel.readingChallengeOverrideCurrentDate)
+
+                if viewModel.readingChallengeOverrideCurrentDate {
+                    DatePicker(
+                        "",
+                        selection: $viewModel.readingChallengeCurrentDate,
+                        displayedComponents: .date
+                    )
+                    .datePickerStyle(.graphical)
+                    .labelsHidden()
+                }
+                
+                Button {
+                    viewModel.clearAllReadingChallengePersistence()
+                } label: {
+                    Text("Clear all widget persistence")
+                }
+
             }
         }
         .listStyle(InsetGroupedListStyle())

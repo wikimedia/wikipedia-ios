@@ -26,10 +26,29 @@ import WMFData
 
     let localizedStrings: WMFDeveloperSettingsLocalizedStrings
     let formViewModel: WMFFormViewModel
-    @Published public var streakCount: Int = WMFDeveloperSettingsDataController.shared.devForceReadingChallengeStreakCount
+    
     private var subscribers: Set<AnyCancellable> = []
     private var yirLoginExperimentGroupCoordinator: YirLoginExperimentBindingCoordinator?
-    private var readingChallengeForceStateCoordinator: ReadingChallengeForceStateBindingCoordinator?
+    
+    @Published public var readingChallengeOverrideCurrentDate: Bool = false {
+        didSet {
+            if readingChallengeOverrideCurrentDate == true {
+                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
+            } else {
+                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
+            }
+        }
+    }
+    
+    @Published public var readingChallengeCurrentDate: Date = Date() {
+        didSet {
+            if readingChallengeOverrideCurrentDate == true {
+                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
+            } else {
+                WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
+            }
+        }
+    }
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
@@ -45,17 +64,6 @@ import WMFData
         let enableYiRVLoginExperimentControl = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment Control", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentControl)
         let enableYiRVLoginExperimentB = WMFFormItemSelectViewModel(title: "Force Year in Review Login Experiment B", isSelected: WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB)
         let forceHcaptchaChallenge = WMFFormItemSelectViewModel(title: "Force hCaptcha Challenge", isSelected: WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge)
-        let rcForceEnabled = WMFFormItemSelectViewModel(title: "Force Reading Challenge State: ON", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeEnabled)
-
-        // Reading Challenge force state (exclusive)
-        let rcNotLiveYet = WMFFormItemSelectViewModel(title: "Force: Not live yet", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeNotLiveYet)
-        let rcNotEnrolled = WMFFormItemSelectViewModel(title: "Force: Not enrolled", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeNotEnrolled)
-        let rcEnrolledNotStarted = WMFFormItemSelectViewModel(title: "Force: Enrolled, not started", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeEnrolledNotStarted)
-        let rcStreakRead = WMFFormItemSelectViewModel(title: "Force: Streak ongoing - read today", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeStreakOngoingRead)
-        let rcStreakNotYetRead = WMFFormItemSelectViewModel(title: "Force: Streak ongoing - not yet read", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeStreakOngoingNotYetRead)
-        let rcCompletedFull = WMFFormItemSelectViewModel(title: "Force: Completed - full streak", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeCompletedFullStreak)
-        let rcCompletedIncomplete = WMFFormItemSelectViewModel(title: "Force: Completed - incomplete streak", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeCompletedIncompleteStreak)
-        let rcCompletedNoStreak = WMFFormItemSelectViewModel(title: "Force: Completed - no streak", isSelected: WMFDeveloperSettingsDataController.shared.devForceReadingChallengeCompletedNoStreak)
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
@@ -68,18 +76,7 @@ import WMFData
                 showYiRV3,
                 enableYiRVLoginExperimentControl,
                 enableYiRVLoginExperimentB,
-                forceHcaptchaChallenge,
-                rcForceEnabled
-            ], selectType: .multi),
-            WMFFormSectionSelectViewModel(header: "Force Reading Challenge State", items: [
-                rcNotLiveYet,
-                rcNotEnrolled,
-                rcEnrolledNotStarted,
-                rcStreakRead,
-                rcStreakNotYetRead,
-                rcCompletedFull,
-                rcCompletedIncomplete,
-                rcCompletedNoStreak
+                forceHcaptchaChallenge
             ], selectType: .multi)
         ])
 
@@ -120,35 +117,14 @@ import WMFData
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceHCaptchaChallenge = isSelected }
             .store(in: &subscribers)
 
-        rcForceEnabled.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.devForceReadingChallengeEnabled = isSelected }
-            .store(in: &subscribers)
-
         yirLoginExperimentGroupCoordinator = YirLoginExperimentBindingCoordinator(
             control: enableYiRVLoginExperimentControl,
             b: enableYiRVLoginExperimentB
         )
-
-        readingChallengeForceStateCoordinator = ReadingChallengeForceStateBindingCoordinator(
-            notLiveYet: rcNotLiveYet,
-            notEnrolled: rcNotEnrolled,
-            enrolledNotStarted: rcEnrolledNotStarted,
-            streakRead: rcStreakRead,
-            streakNotYetRead: rcStreakNotYetRead,
-            completedFull: rcCompletedFull,
-            completedIncomplete: rcCompletedIncomplete,
-            completedNoStreak: rcCompletedNoStreak
-        )
     }
 
-    public func resetReadingChallengeState() {
-        WMFDeveloperSettingsDataController.shared.resetReadingChallengeState()
-    }
-
-    public func setStreakCount(_ count: Int) {
-        let clamped = min(max(count, 1), 25)
-        streakCount = clamped
-        WMFDeveloperSettingsDataController.shared.devForceReadingChallengeStreakCount = clamped
+    public func clearAllReadingChallengePersistence() {
+        WMFDeveloperSettingsDataController.shared.devClearAllReadingChallengePersistence()
     }
 }
 
@@ -164,38 +140,5 @@ private final class YirLoginExperimentBindingCoordinator {
             WMFDeveloperSettingsDataController.shared.enableYiRLoginExperimentB = isSelected
             if isSelected { control.isSelected = false }
         }.store(in: &subscribers)
-    }
-}
-
-private final class ReadingChallengeForceStateBindingCoordinator {
-    private var subscribers: Set<AnyCancellable> = []
-
-    init(
-        notLiveYet: WMFFormItemSelectViewModel,
-        notEnrolled: WMFFormItemSelectViewModel,
-        enrolledNotStarted: WMFFormItemSelectViewModel,
-        streakRead: WMFFormItemSelectViewModel,
-        streakNotYetRead: WMFFormItemSelectViewModel,
-        completedFull: WMFFormItemSelectViewModel,
-        completedIncomplete: WMFFormItemSelectViewModel,
-        completedNoStreak: WMFFormItemSelectViewModel
-    ) {
-        let all = [notLiveYet, notEnrolled, enrolledNotStarted, streakRead, streakNotYetRead, completedFull, completedIncomplete, completedNoStreak]
-
-        func bind(_ item: WMFFormItemSelectViewModel, setter: @escaping (Bool) -> Void) {
-            item.$isSelected.sink { isSelected in
-                setter(isSelected)
-                if isSelected { all.forEach { if $0 !== item { $0.isSelected = false } } }
-            }.store(in: &subscribers)
-        }
-
-        bind(notLiveYet) { WMFDeveloperSettingsDataController.shared.devForceReadingChallengeNotLiveYet = $0 }
-        bind(notEnrolled) { WMFDeveloperSettingsDataController.shared.devForceReadingChallengeNotEnrolled = $0 }
-        bind(enrolledNotStarted) { WMFDeveloperSettingsDataController.shared.devForceReadingChallengeEnrolledNotStarted = $0 }
-        bind(streakRead) { WMFDeveloperSettingsDataController.shared.devForceReadingChallengeStreakOngoingRead = $0 }
-        bind(streakNotYetRead) { WMFDeveloperSettingsDataController.shared.devForceReadingChallengeStreakOngoingNotYetRead = $0 }
-        bind(completedFull) { WMFDeveloperSettingsDataController.shared.devForceReadingChallengeCompletedFullStreak = $0 }
-        bind(completedIncomplete) { WMFDeveloperSettingsDataController.shared.devForceReadingChallengeCompletedIncompleteStreak = $0 }
-        bind(completedNoStreak) { WMFDeveloperSettingsDataController.shared.devForceReadingChallengeCompletedNoStreak = $0 }
     }
 }

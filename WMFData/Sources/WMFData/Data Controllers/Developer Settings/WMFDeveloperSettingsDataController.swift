@@ -7,18 +7,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var showYiRV3: Bool { get }
     var enableYiRLoginExperimentControl: Bool { get }
     var enableYiRLoginExperimentB: Bool { get }
-    var devForceReadingChallengeEnabled: Bool { get set }
-    var devForceReadingChallengeStreakCount: Int { get set }
-    var devForceReadingChallengeCompletedFullStreak: Bool { get set }
-    var devForceReadingChallengeCompletedIncompleteStreak: Bool { get set }
-    var devForceReadingChallengeCompletedNoStreak: Bool { get set }
-    var devForceReadingChallengeNotLiveYet: Bool { get set }
-    var devForceReadingChallengeNotEnrolled: Bool { get set }
-    var devForceReadingChallengeEnrolledNotStarted: Bool { get set }
-    var devForceReadingChallengeStreakOngoingRead: Bool { get set }
-    var devForceReadingChallengeStreakOngoingNotYetRead: Bool { get set }
-    var forcedReadingChallengeState: ReadingChallengeState? { get }
-    func transitionToEnrolledStateIfForced()
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -105,126 +93,44 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private var sharedDefaults: UserDefaults? { UserDefaults(suiteName: "group.org.wikimedia.wikipedia") }
 
-    private func load(_ key: WMFUserDefaultsKey) -> Bool {
+    private func loadSharedStore(_ key: WMFUserDefaultsKey) -> Bool {
         sharedDefaults?.bool(forKey: key.rawValue) ?? false
     }
 
-    private func save(_ key: WMFUserDefaultsKey, _ value: Bool) {
+    private func saveSharedStore(_ key: WMFUserDefaultsKey, _ value: Any?) {
         sharedDefaults?.set(value, forKey: key.rawValue)
     }
-
-    private func saveAndReloadWidget(_ key: WMFUserDefaultsKey, _ value: Bool) {
-        save(key, value)
-        NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
-    }
-
-    private func clearAllForcedReadingChallengeStates() {
-        let keys: [WMFUserDefaultsKey] = [
-            .devForceReadingChallengeCompletedFullStreak,
-            .devForceReadingChallengeCompletedIncompleteStreak,
-            .devForceReadingChallengeCompletedNoStreak,
-            .devForceReadingChallengeNotLiveYet,
-            .devForceReadingChallengeNotEnrolled,
-            .devForceReadingChallengeEnrolledNotStarted,
-            .devForceReadingChallengeStreakOngoingRead,
-            .devForceReadingChallengeStreakOngoingNotYetRead
-        ]
-        keys.forEach { save($0, false) }
-    }
-
-    /// When a user joins the challenge while dev force is enabled, transition the forced state to enrolledNotStarted
-    public func transitionToEnrolledStateIfForced() {
-        guard devForceReadingChallengeEnabled else { return }
-        // Only transition from pre-enrolled states
-        guard devForceReadingChallengeNotEnrolled || devForceReadingChallengeNotLiveYet || devForceReadingChallengeEnrolledNotStarted else { return }
-        clearAllForcedReadingChallengeStates()
-        saveAndReloadWidget(.devForceReadingChallengeEnrolledNotStarted, true)
-    }
-
-    public var devForceReadingChallengeEnabled: Bool {
-        get { load(.devForceReadingChallengeEnabled) }
-        set {
-            saveAndReloadWidget(.devForceReadingChallengeEnabled, newValue)
-            if newValue {
-                if forcedReadingChallengeState == nil {
-                    saveAndReloadWidget(.devForceReadingChallengeNotEnrolled, true)
-                }
-            } else {
-                clearAllForcedReadingChallengeStates()
-            }
-        }
-    }
-
-    public var devForceReadingChallengeStreakCount: Int {
-        get {
-            let stored = sharedDefaults?.integer(forKey: WMFUserDefaultsKey.devForceReadingChallengeStreakCount.rawValue) ?? 0
-            return stored == 0 ? 7 : stored
-        }
-        set {
-            let clamped = min(max(newValue, 1), 25)
-            sharedDefaults?.set(clamped, forKey: WMFUserDefaultsKey.devForceReadingChallengeStreakCount.rawValue)
+    
+    public func devClearAllReadingChallengePersistence() {
+        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+        
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeCurrentDate.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.userCompletedReadingChallenge.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndex.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndexDate.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakNotReadRandomIndex.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakNotReadRandomIndexDate.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndex.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeEnrolledNotStartedRandomIndexDate.rawValue)
+        
+        Task {
+            let dataController = try? WMFPageViewsDataController()
+            try? await dataController?.deleteAllPageViewsAndCategories()
+            
             NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
         }
     }
 
-    public var devForceReadingChallengeCompletedFullStreak: Bool {
-        get { load(.devForceReadingChallengeCompletedFullStreak) }
-        set { if newValue { clearAllForcedReadingChallengeStates() }; saveAndReloadWidget(.devForceReadingChallengeCompletedFullStreak, newValue) }
+    public var devReadingChallengeCurrentDate: Bool {
+        loadSharedStore(.devReadingChallengeCurrentDate)
     }
-
-    public var devForceReadingChallengeCompletedIncompleteStreak: Bool {
-        get { load(.devForceReadingChallengeCompletedIncompleteStreak) }
-        set { if newValue { clearAllForcedReadingChallengeStates() }; saveAndReloadWidget(.devForceReadingChallengeCompletedIncompleteStreak, newValue) }
-    }
-
-    public var devForceReadingChallengeCompletedNoStreak: Bool {
-        get { load(.devForceReadingChallengeCompletedNoStreak) }
-        set { if newValue { clearAllForcedReadingChallengeStates() }; saveAndReloadWidget(.devForceReadingChallengeCompletedNoStreak, newValue) }
-    }
-
-    public var devForceReadingChallengeNotLiveYet: Bool {
-        get { load(.devForceReadingChallengeNotLiveYet) }
-        set { if newValue { clearAllForcedReadingChallengeStates() }; saveAndReloadWidget(.devForceReadingChallengeNotLiveYet, newValue) }
-    }
-
-    public var devForceReadingChallengeNotEnrolled: Bool {
-        get { load(.devForceReadingChallengeNotEnrolled) }
-        set { if newValue { clearAllForcedReadingChallengeStates() }; saveAndReloadWidget(.devForceReadingChallengeNotEnrolled, newValue) }
-    }
-
-    public var devForceReadingChallengeEnrolledNotStarted: Bool {
-        get { load(.devForceReadingChallengeEnrolledNotStarted) }
-        set { if newValue { clearAllForcedReadingChallengeStates() }; saveAndReloadWidget(.devForceReadingChallengeEnrolledNotStarted, newValue) }
-    }
-
-    public var devForceReadingChallengeStreakOngoingRead: Bool {
-        get { load(.devForceReadingChallengeStreakOngoingRead) }
-        set { if newValue { clearAllForcedReadingChallengeStates() }; saveAndReloadWidget(.devForceReadingChallengeStreakOngoingRead, newValue) }
-    }
-
-    public var devForceReadingChallengeStreakOngoingNotYetRead: Bool {
-        get { load(.devForceReadingChallengeStreakOngoingNotYetRead) }
-        set { if newValue { clearAllForcedReadingChallengeStates() }; saveAndReloadWidget(.devForceReadingChallengeStreakOngoingNotYetRead, newValue) }
-    }
-
-    public var forcedReadingChallengeState: ReadingChallengeState? {
-        if load(.devForceReadingChallengeCompletedFullStreak) { return .challengeCompleted }
-        if load(.devForceReadingChallengeCompletedIncompleteStreak) { return .challengeConcludedIncomplete(streak: 12) }
-        if load(.devForceReadingChallengeCompletedNoStreak) { return .challengeConcludedNoStreak }
-        if load(.devForceReadingChallengeNotLiveYet) { return .notLiveYet }
-        if load(.devForceReadingChallengeNotEnrolled) { return .notEnrolled }
-        if load(.devForceReadingChallengeEnrolledNotStarted) { return .enrolledNotStarted }
-        if load(.devForceReadingChallengeStreakOngoingRead) { return .streakOngoingRead(streak: 7) }
-        if load(.devForceReadingChallengeStreakOngoingNotYetRead) { return .streakOngoingNotYetRead(streak: 7) }
-        return nil
-    }
-
-    public func resetReadingChallengeState() {
-        clearAllForcedReadingChallengeStates()
-        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-        sharedDefaults?.set(false, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
-        sharedDefaults?.set(false, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)
-        sharedDefaults?.set(false, forKey: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue)
+    
+    public func setDevReadingChallengeCurrentDate(_ date: Date?) {
+        saveSharedStore(.devReadingChallengeCurrentDate, date)
+        NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
     }
 
     // MARK: - Remote Settings

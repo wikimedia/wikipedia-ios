@@ -390,18 +390,6 @@ extension WMFPageViewsDataController {
         func setDevBool(_ key: WMFUserDefaultsKey, value: Bool) {
             devDefaults?.set(true, forKey: key.rawValue)
         }
-        if devBool(.devForceReadingChallengeEnabled) {
-            let storedStreak = devDefaults?.integer(forKey: WMFUserDefaultsKey.devForceReadingChallengeStreakCount.rawValue) ?? 0
-            let devStreak = storedStreak == 0 ? 7 : storedStreak
-            if devBool(.devForceReadingChallengeCompletedFullStreak) { return .challengeCompleted }
-            if devBool(.devForceReadingChallengeCompletedIncompleteStreak) { return .challengeConcludedIncomplete(streak: devStreak) }
-            if devBool(.devForceReadingChallengeCompletedNoStreak) { return .challengeConcludedNoStreak }
-            if devBool(.devForceReadingChallengeNotLiveYet) { return .notLiveYet }
-            if devBool(.devForceReadingChallengeEnrolledNotStarted) { return .enrolledNotStarted }
-            if devBool(.devForceReadingChallengeStreakOngoingRead) { return .streakOngoingRead(streak: devStreak) }
-            if devBool(.devForceReadingChallengeStreakOngoingNotYetRead) { return .streakOngoingNotYetRead(streak: devStreak) }
-            return .notEnrolled
-        }
 
         let config = ReadingChallengeStateConfig.self
         let calendar = Calendar.current
