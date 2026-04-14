@@ -156,9 +156,11 @@ extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
             alert.addAction(UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
                 guard let self else { return }
                 self.navigationController.presentedViewController?.dismiss(animated: true) {
-                    self.navigationController.wmf_showLoginViewController(category: .login, theme: self.theme, loginDismissedCompletion: {
+                    let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .login)
+                    loginCoordinator.loginSuccessCompletion = {
                         self.navigationController.tabBarController?.selectedIndex = 3
-                    })
+                    }
+                    loginCoordinator.start()
                 }
             })
             alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
