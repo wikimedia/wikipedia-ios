@@ -125,7 +125,8 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
             wIconOverlay
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -155,7 +156,8 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding(.horizontal, 20).padding(.vertical, 16)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
             wIconOverlay
         }
     }
@@ -170,14 +172,16 @@ public struct WMFReadingChallengeWidgetView: View {
                         .frame(maxHeight: 100)
                 }
             }
-            .padding()
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
             wIconOverlay
         }
     }
 
     private var noButtonsSmallView: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .center, spacing: 0) {
+                Spacer()
                 if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                     Image(uiImage: uiImage)
                         .resizable()
@@ -199,6 +203,19 @@ public struct WMFReadingChallengeWidgetView: View {
                             .font(Font(WMFFont.for(.boldTitle1)))
                             .foregroundColor(viewModel.displaySet.color2)
                     }
+                case .streakOngoingRead:
+                    HStack(alignment: .center) {
+                        if let icon = viewModel.displaySet.icon {
+                            Image(uiImage: icon)
+                                .font(Font(WMFFont.for(.boldTitle3)))
+                                .foregroundStyle(viewModel.displaySet.color2)
+                        }
+                        Text(viewModel.displaySet.title)
+                            .font(Font(WMFFont.for(.boldTitle3)))
+                            .foregroundColor(viewModel.displaySet.color2)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
 
                 case .challengeConcludedIncomplete:
                     if let subtitle = viewModel.displaySet.subtitle {
@@ -233,10 +250,12 @@ public struct WMFReadingChallengeWidgetView: View {
                     Text(viewModel.displaySet.title)
                         .font(Font(WMFFont.for(.boldFootnote)))
                         .foregroundColor(viewModel.displaySet.color2)
+                    Spacer()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding(.horizontal, 20).padding(.vertical, 16)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
             wIconOverlay
         }
     }
@@ -280,7 +299,8 @@ public struct WMFReadingChallengeWidgetView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding(.horizontal, 20).padding(.vertical, 16)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
             wIconOverlay
         }
     }
