@@ -34,7 +34,7 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
         if let sheet = controller.sheetPresentationController {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 sheet.detents = [.large()]
-                controller.preferredContentSize = CGSize(width: 640, height: 720)
+                // controller.preferredContentSize = CGSize(width: 640, height: 720)
             } else {
                 sheet.detents = [.medium(), .large()]
             }
@@ -44,7 +44,16 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
         }
 
         controller.modalPresentationStyle = .pageSheet
-        presenting.present(controller, animated: true)
+        presenting.present(controller, animated: true) {
+            let closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .xMark), style: .plain, target: nil, action: nil)
+            closeButton.primaryAction = UIAction { [weak controller] _ in
+                controller?.dismiss(animated: true) {
+                    self.onDismiss?()
+                }
+            }
+            controller.navigationItem.leftBarButtonItem = closeButton
+            controller.navigationItem.rightBarButtonItem = nil
+        }
     }
 
     private func makeViewModel() -> WMFFeatureAnnouncementViewModel {
