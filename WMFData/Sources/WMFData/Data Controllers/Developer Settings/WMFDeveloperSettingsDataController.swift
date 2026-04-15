@@ -152,7 +152,9 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     
     public var devReadingChallengeState: ReadingChallengeState? {
         get {
-            guard let data = sharedDefaults?.data(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue) else { return nil }
+            guard let data = sharedDefaults?.data(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue) else {
+                return nil
+            }
             return try? JSONDecoder().decode(ReadingChallengeState.self, from: data)
         }
         set {

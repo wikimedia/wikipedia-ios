@@ -381,6 +381,10 @@ extension WMFPageViewsDataController {
         isEnrolled: Bool,
         now: Date = Date()
     ) async throws -> ReadingChallengeState {
+        
+        if let devStateOverride = WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
+            return devStateOverride
+        }
 
         let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
         
