@@ -428,12 +428,12 @@ extension WMFPageViewsDataController {
         
         // Note: once a user successfully completes a reading streak, computeStreak starts to evaluate to 0 a few days later.
         // This user defaults boolean gets around that bug
-        if devBool(.userCompletedReadingChallenge) {
+        if devBool(.readingChallengeUserCompleted) {
             return .challengeCompleted
         }
 
         if cappedStreak >= config.streakGoal {
-            setDevBool(.userCompletedReadingChallenge, value: true)
+            setDevBool(.readingChallengeUserCompleted, value: true)
             return .challengeCompleted
         }
 

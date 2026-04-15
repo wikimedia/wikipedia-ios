@@ -49,7 +49,8 @@ struct ReadingChallengeProvider: TimelineProvider {
             UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.synchronize()
             
             let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
-            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
+            let currentDate = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled, now: currentDate)
         } catch {
             return .notEnrolled
         }

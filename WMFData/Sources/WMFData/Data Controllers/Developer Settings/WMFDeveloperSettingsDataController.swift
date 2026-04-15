@@ -93,8 +93,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     private var sharedDefaults: UserDefaults? { UserDefaults(suiteName: "group.org.wikimedia.wikipedia") }
 
-    private func loadSharedStore(_ key: WMFUserDefaultsKey) -> Bool {
-        sharedDefaults?.bool(forKey: key.rawValue) ?? false
+    private func loadSharedStore(_ key: WMFUserDefaultsKey) -> Any? {
+        sharedDefaults?.value(forKey: key.rawValue)
     }
 
     private func saveSharedStore(_ key: WMFUserDefaultsKey, _ value: Any?) {
@@ -104,11 +104,12 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public func devClearAllReadingChallengePersistence() {
         let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
         
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeCurrentDate.rawValue)
+        
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenFullPageReadingChallengeAnnouncement2026.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.hasSeenWidgetReadingChallengeAnnouncement2026.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.devReadingChallengeCurrentDate.rawValue)
-        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.userCompletedReadingChallenge.rawValue)
+        sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeUserCompleted.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndex.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakReadRandomIndexDate.rawValue)
         sharedDefaults?.set(nil, forKey: WMFUserDefaultsKey.readingChallengeStreakNotReadRandomIndex.rawValue)
@@ -123,14 +124,25 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
         }
     }
+    
+    public var devReadingChallengeOverrideCurrentDate: Bool? {
+        loadSharedStore(.devReadingChallengeOverrideCurrentDate) as? Bool
+    }
+    
+    public func setDevReadingChallengeOverrideCurrentDate(_ value: Bool?) {
+        saveSharedStore(.devReadingChallengeOverrideCurrentDate, value)
+    }
+    
+    public func reloadWidget() {
+        NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
+    }
 
-    public var devReadingChallengeCurrentDate: Bool {
-        loadSharedStore(.devReadingChallengeCurrentDate)
+    public var devReadingChallengeCurrentDate: Date? {
+        loadSharedStore(.devReadingChallengeCurrentDate) as? Date
     }
     
     public func setDevReadingChallengeCurrentDate(_ date: Date?) {
         saveSharedStore(.devReadingChallengeCurrentDate, date)
-        NotificationCenter.default.post(name: WMFNSNotification.readingChallengeWidgetReload, object: nil)
     }
 
     // MARK: - Remote Settings

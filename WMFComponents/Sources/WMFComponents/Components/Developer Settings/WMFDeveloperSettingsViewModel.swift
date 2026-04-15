@@ -30,23 +30,30 @@ import WMFData
     private var subscribers: Set<AnyCancellable> = []
     private var yirLoginExperimentGroupCoordinator: YirLoginExperimentBindingCoordinator?
     
-    @Published public var readingChallengeOverrideCurrentDate: Bool = false {
+    @Published public var readingChallengeOverrideCurrentDate: Bool = WMFDeveloperSettingsDataController.shared.devReadingChallengeOverrideCurrentDate ?? false {
         didSet {
+            
+            WMFDeveloperSettingsDataController.shared.setDevReadingChallengeOverrideCurrentDate(readingChallengeOverrideCurrentDate)
+            
             if readingChallengeOverrideCurrentDate == true {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
             } else {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
             }
+            
+            WMFDeveloperSettingsDataController.shared.reloadWidget()
         }
     }
     
-    @Published public var readingChallengeCurrentDate: Date = Date() {
+    @Published public var readingChallengeCurrentDate: Date = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date() {
         didSet {
             if readingChallengeOverrideCurrentDate == true {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
             } else {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
             }
+            
+            WMFDeveloperSettingsDataController.shared.reloadWidget()
         }
     }
 
