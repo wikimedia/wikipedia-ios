@@ -80,7 +80,12 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
        
         let lastDate = userDefaults.object(forKey: dateKey.rawValue) as? Date ?? .distantPast
 
-        guard today > lastDate else { return index } // same day, return old index without incrementing
+        guard today > lastDate ||
+               WMFDeveloperSettingsDataController.shared.devReadingChallengeState != nil else {
+            // on same day, return old index without incrementing
+            // but allow increment on same day if forcing a particular state
+            return index
+        }
         
         let nextIndex = (index + 1) % optionsCount
         userDefaults.set(nextIndex, forKey: indexKey.rawValue)
