@@ -343,13 +343,29 @@ public struct WMFReadingChallengeWidgetView: View {
                                             .foregroundStyle(buttonForeground)
                                             .frame(width: 14, height: 14)
                                         Text(button1Title)
-                                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                            .font(Font(WMFFont.for(.footnote)))
                                             .foregroundColor(buttonForeground)
                                     }
                                     .padding(.horizontal, 14).padding(.vertical, 8)
                                     .frame(maxWidth: .infinity)
                                     .background(buttonBackground)
                                     .clipShape(Capsule())
+                                }
+                            } else {
+                                if let button1Title = viewModel.displaySet.button1Title,
+                                   let button1URL = viewModel.displaySet.button1URL {
+                                    Link(destination: button1URL) {
+                                        HStack(spacing: 4) {
+                                            Text(button1Title)
+                                                .font(Font(WMFFont.for(.footnote)))
+                                                .foregroundColor(buttonForeground)
+                                        }
+                                        .padding(.horizontal, 14)
+                                        .padding(.vertical, 8)
+                                        .frame(maxWidth: .infinity)
+                                        .background(buttonBackground)
+                                        .clipShape(Capsule())
+                                    }
                                 }
                             }
                             if let button2Title = viewModel.displaySet.button2Title,
@@ -363,7 +379,7 @@ public struct WMFReadingChallengeWidgetView: View {
                                             .foregroundStyle(buttonForeground)
                                             .frame(width: 14, height: 14)
                                         Text(button2Title)
-                                            .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                            .font(Font(WMFFont.for(.footnote)))
                                             .foregroundColor(buttonForeground)
                                     }
                                     .padding(.horizontal, 14).padding(.vertical, 8)
@@ -374,7 +390,6 @@ public struct WMFReadingChallengeWidgetView: View {
                             }
                         }
                     }
-                    .padding()
                     .frame(maxWidth: .infinity)
                     if let uiImage = UIImage(named: viewModel.displaySet.image, in: .module, with: nil) {
                         Image(uiImage: uiImage)
