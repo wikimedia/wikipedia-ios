@@ -31,14 +31,9 @@ struct WMFFeatureAnnouncementView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Spacer()
-                                Button(
-                                    action: {
-                                        viewModel.closeButtonAction?()
-                                    },
-                                    label: {
-                                        closeImage
-                                    })
-                                .foregroundColor(Color(uiColor: appEnvironment.theme.icon))
+                                WMFLargeCloseButton(imageType: .plainX) {
+                                    viewModel.closeButtonAction?()
+                                }
                             }
                             Text(viewModel.title)
                                 .font(Font(WMFFont.for(.boldTitle3)))

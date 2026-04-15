@@ -381,26 +381,19 @@ extension WMFPageViewsDataController {
         isEnrolled: Bool,
         now: Date = Date()
     ) async throws -> ReadingChallengeState {
+        
+        if let devStateOverride = WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
+            return devStateOverride
+        }
 
-        // Developer override — only applies when master toggle is on
-        let devDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
-        func devBool(_ key: WMFUserDefaultsKey) -> Bool {
-            devDefaults?.bool(forKey: key.rawValue) ?? false
+        let sharedDefaults = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")
+        
+        func sharedDefaultsBool(_ key: WMFUserDefaultsKey) -> Bool {
+            sharedDefaults?.bool(forKey: key.rawValue) ?? false
         }
-        func setDevBool(_ key: WMFUserDefaultsKey, value: Bool) {
-            devDefaults?.set(true, forKey: key.rawValue)
-        }
-        if devBool(.devForceReadingChallengeEnabled) {
-            let storedStreak = devDefaults?.integer(forKey: WMFUserDefaultsKey.devForceReadingChallengeStreakCount.rawValue) ?? 0
-            let devStreak = storedStreak == 0 ? 7 : storedStreak
-            if devBool(.devForceReadingChallengeCompletedFullStreak) { return .challengeCompleted }
-            if devBool(.devForceReadingChallengeCompletedIncompleteStreak) { return .challengeConcludedIncomplete(streak: devStreak) }
-            if devBool(.devForceReadingChallengeCompletedNoStreak) { return .challengeConcludedNoStreak }
-            if devBool(.devForceReadingChallengeNotLiveYet) { return .notLiveYet }
-            if devBool(.devForceReadingChallengeEnrolledNotStarted) { return .enrolledNotStarted }
-            if devBool(.devForceReadingChallengeStreakOngoingRead) { return .streakOngoingRead(streak: devStreak) }
-            if devBool(.devForceReadingChallengeStreakOngoingNotYetRead) { return .streakOngoingNotYetRead(streak: devStreak) }
-            return .notEnrolled
+        
+        func setSharedDefaultsBool(_ key: WMFUserDefaultsKey, value: Bool) {
+            sharedDefaults?.set(true, forKey: key.rawValue)
         }
 
         let config = ReadingChallengeStateConfig.self
@@ -440,12 +433,12 @@ extension WMFPageViewsDataController {
         
         // Note: once a user successfully completes a reading streak, computeStreak starts to evaluate to 0 a few days later.
         // This user defaults boolean gets around that bug
-        if devBool(.userCompletedReadingChallenge) {
+        if sharedDefaultsBool(.readingChallengeUserCompleted) {
             return .challengeCompleted
         }
 
         if cappedStreak >= config.streakGoal {
-            setDevBool(.userCompletedReadingChallenge, value: true)
+            setSharedDefaultsBool(.readingChallengeUserCompleted, value: true)
             return .challengeCompleted
         }
 

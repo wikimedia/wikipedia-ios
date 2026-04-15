@@ -16,8 +16,9 @@ extension ArticleViewController {
            let wmfProject = project.wmfProject {
             Task {
                 do {
+                    let timestamp = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
                     let pageViewsDataController = try WMFPageViewsDataController()
-                    let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, previousPageViewObjectID: previousPageViewObjectID)
+                    let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, previousPageViewObjectID: previousPageViewObjectID, timestamp: timestamp)
                     self.pageViewObjectID = objectID
                     self.trackBeganViewingDate()
                     WidgetCenter.shared.reloadTimelines(ofKind: "org.wikimedia.wikipedia.widgets.readingChallenge")

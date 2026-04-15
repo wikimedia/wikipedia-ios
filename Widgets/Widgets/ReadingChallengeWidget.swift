@@ -49,7 +49,8 @@ struct ReadingChallengeProvider: TimelineProvider {
             UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.synchronize()
             
             let isEnrolled = UserDefaults(suiteName: "group.org.wikimedia.wikipedia")?.bool(forKey: WMFUserDefaultsKey.hasEnrolledInReadingChallenge2026.rawValue) ?? false
-            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled)
+            let currentDate = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
+            return try await controller.fetchReadingChallengeState(isEnrolled: isEnrolled, now: currentDate)
         } catch {
             return .notEnrolled
         }
@@ -67,7 +68,7 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
             return nil
         }
         
-        let today = Calendar.current.startOfDay(for: Date())
+        let today = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Calendar.current.startOfDay(for: Date())
         
         if userDefaults.object(forKey: indexKey.rawValue) == nil {
             userDefaults.set(0, forKey: indexKey.rawValue)
@@ -79,7 +80,12 @@ private extension WMFReadingChallengeWidgetViewModel.DisplaySet {
        
         let lastDate = userDefaults.object(forKey: dateKey.rawValue) as? Date ?? .distantPast
 
-        guard today > lastDate else { return index } // same day, return old index without incrementing
+        guard today > lastDate ||
+               WMFDeveloperSettingsDataController.shared.devReadingChallengeState != nil else {
+            // on same day, return old index without incrementing
+            // but allow increment on same day if forcing a particular state
+            return index
+        }
         
         let nextIndex = (index + 1) % optionsCount
         userDefaults.set(nextIndex, forKey: indexKey.rawValue)
