@@ -63,7 +63,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         let readingpreferences: String
         let articleSyncing: String
         let databasePopulation: String
-        let developerSettings: String
         let clearCacheTitle: String
         let privacyHeader: String
         let privacyPolicyTitle: String
@@ -74,7 +73,7 @@ final public class WMFSettingsViewModel: ObservableObject {
         let clearDonationHistoryTitle: String
         let safetyTitle: String
 
-        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, developerSettings: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String) {
+        public init(settingTitle: String, doneButtonTitle: String, cancelButtonTitle: String, accountTitle: String, logInTitle: String, myLanguagesTitle: String, searchTitle: String, exploreFeedTitle: String, onTitle: String, offTitle: String, yirTitle: String, pushNotificationsTitle: String, readingpreferences: String, articleSyncing: String, databasePopulation: String, clearCacheTitle: String, privacyHeader: String, privacyPolicyTitle: String, termsOfUseTitle: String, rateTheAppTitle: String, helpTitle: String, aboutTitle: String, clearDonationHistoryTitle: String, safetyTitle: String) {
             self.settingTitle = settingTitle
             self.doneButtonTitle = doneButtonTitle
             self.cancelButtonTitle = cancelButtonTitle
@@ -90,7 +89,6 @@ final public class WMFSettingsViewModel: ObservableObject {
             self.readingpreferences = readingpreferences
             self.articleSyncing = articleSyncing
             self.databasePopulation = databasePopulation
-            self.developerSettings = developerSettings
             self.clearCacheTitle = clearCacheTitle
             self.privacyHeader = privacyHeader
             self.privacyPolicyTitle = privacyPolicyTitle
@@ -307,10 +305,6 @@ final public class WMFSettingsViewModel: ObservableObject {
         let dangerZone = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .handRaisedFill), color: WMFColor.blue700, title: localizedStrings.databasePopulation, subtitle: nil, accessory: .chevron(label: nil), action: {
             self.coordinatorDelegate?.handleSettingsAction(.databasePopulation)
         })
-        
-        let developerSettings = SettingsItem(image: WMFSFSymbolIcon.for(symbol: .testTubeFill), color: WMFColor.blue700, title: localizedStrings.developerSettings, subtitle: nil, accessory: .chevron(label: nil), action: {
-            self.coordinatorDelegate?.handleSettingsAction(.developerSettings)
-        })
 
         let clearCache = SettingsItem(image: WMFIcon.settingsClearCache, color: WMFColor.yellow600, title: localizedStrings.clearCacheTitle, subtitle: nil, accessory: .none, action: {
             self.coordinatorDelegate?.handleSettingsAction(.clearCachedData)
@@ -320,10 +314,6 @@ final public class WMFSettingsViewModel: ObservableObject {
 
         if await dataController.shouldShowYiRSettingsItem() {
             section.items.insert(yearInReview, at: 3)
-        }
-        
-        if WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
-            section.items.insert(developerSettings, at: 7)
         }
         
 #if DEBUG

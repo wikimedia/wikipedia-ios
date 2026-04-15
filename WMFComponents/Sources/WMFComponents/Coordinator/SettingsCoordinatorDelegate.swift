@@ -20,7 +20,6 @@ public enum SettingsAction {
     case readingPreferences
     case articleSyncing
     case databasePopulation
-    case developerSettings
     case clearCachedData
     case privacyPolicy
     case termsOfUse

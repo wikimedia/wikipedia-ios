@@ -1191,7 +1191,6 @@ extension WMFAppViewController {
             readingpreferences: CommonStrings.readingPreferences,
             articleSyncing: CommonStrings.settingsStorageAndSyncing,
             databasePopulation: "Database population",
-            developerSettings: "Developer settings",
             clearCacheTitle: CommonStrings.clearCachedDataSettings,
             privacyHeader: CommonStrings.privacyTermsHeader,
             privacyPolicyTitle: CommonStrings.privacyPolicyTitle,
