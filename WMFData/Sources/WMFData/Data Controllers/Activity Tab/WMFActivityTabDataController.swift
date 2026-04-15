@@ -290,7 +290,7 @@ public actor WMFActivityTabDataController {
     public func shouldShowReadingChallengeAnnouncement_IgnoreHasSeen(isLoggedIn: Bool) -> Bool {
         guard isLoggedIn else { return false }
         
-        let now = Date()
+        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.endDate
     }
 
@@ -298,7 +298,7 @@ public actor WMFActivityTabDataController {
         guard !hasSeenWidgetReadingChallengeAnnouncement2026 else { return false }
 
         guard hasEnrolledInReadingChallenge2026 else { return false }
-        let now = Date()
+        let now = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date()
         return now >= ReadingChallengeStateConfig.startDate && now <= ReadingChallengeStateConfig.removeDate
     }
 
