@@ -32,19 +32,59 @@ import WMFData
     
     @Published public var readingChallengeOverrideCurrentDate: Bool = WMFDeveloperSettingsDataController.shared.devReadingChallengeOverrideCurrentDate ?? false {
         didSet {
-            
             WMFDeveloperSettingsDataController.shared.setDevReadingChallengeOverrideCurrentDate(readingChallengeOverrideCurrentDate)
-            
+
             if readingChallengeOverrideCurrentDate == true {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(readingChallengeCurrentDate)
+                if readingChallengeState != nil {
+                    readingChallengeState = nil
+                }
             } else {
                 WMFDeveloperSettingsDataController.shared.setDevReadingChallengeCurrentDate(nil)
             }
-            
+
             WMFDeveloperSettingsDataController.shared.reloadWidget()
         }
     }
     
+    @Published public var readingChallengeStreakCount: Int = {
+        switch WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
+        case .streakOngoingRead(let streak), .streakOngoingNotYetRead(let streak), .challengeConcludedIncomplete(let streak):
+            return streak
+        default:
+            return 7
+        }
+    }() {
+        didSet {
+            let clamped = max(1, min(24, readingChallengeStreakCount))
+            if clamped != readingChallengeStreakCount {
+                readingChallengeStreakCount = clamped
+                return
+            }
+            switch readingChallengeState {
+            case .streakOngoingRead:
+                readingChallengeState = .streakOngoingRead(streak: clamped)
+            case .streakOngoingNotYetRead:
+                readingChallengeState = .streakOngoingNotYetRead(streak: clamped)
+            case .challengeConcludedIncomplete:
+                readingChallengeState = .challengeConcludedIncomplete(streak: clamped)
+            default:
+                break
+            }
+        }
+    }
+
+    @Published public var readingChallengeState: ReadingChallengeState? = WMFDeveloperSettingsDataController.shared.devReadingChallengeState {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.devReadingChallengeState = readingChallengeState
+            if readingChallengeState == nil {
+                readingChallengeStreakCount = 7
+            } else if readingChallengeOverrideCurrentDate {
+                readingChallengeOverrideCurrentDate = false
+            }
+        }
+    }
+
     @Published public var readingChallengeCurrentDate: Date = WMFDeveloperSettingsDataController.shared.devReadingChallengeCurrentDate ?? Date() {
         didSet {
             if readingChallengeOverrideCurrentDate == true {
@@ -140,6 +180,8 @@ import WMFData
     public func clearAllReadingChallengePersistence() {
         readingChallengeOverrideCurrentDate = false
         readingChallengeCurrentDate = Date()
+        readingChallengeState = nil
+        readingChallengeStreakCount = 7
         WMFDeveloperSettingsDataController.shared.devClearAllReadingChallengePersistence()
     }
 }

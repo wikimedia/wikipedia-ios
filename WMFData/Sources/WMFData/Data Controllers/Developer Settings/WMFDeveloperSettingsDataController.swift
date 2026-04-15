@@ -149,6 +149,20 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     public func setDevReadingChallengeCurrentDate(_ date: Date?) {
         saveSharedStore(.devReadingChallengeCurrentDate, date)
     }
+    
+    public var devReadingChallengeState: ReadingChallengeState? {
+        get {
+            guard let data = sharedDefaults?.data(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue) else { return nil }
+            return try? JSONDecoder().decode(ReadingChallengeState.self, from: data)
+        }
+        set {
+            if let newValue, let data = try? JSONEncoder().encode(newValue) {
+                sharedDefaults?.set(data, forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
+            } else {
+                sharedDefaults?.removeObject(forKey: WMFUserDefaultsKey.devReadingChallengeState.rawValue)
+            }
+        }
+    }
 
     // MARK: - Remote Settings
 

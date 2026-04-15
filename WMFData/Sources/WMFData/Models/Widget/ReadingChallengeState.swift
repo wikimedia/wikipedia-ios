@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ReadingChallengeState: Equatable {
+public enum ReadingChallengeState: Equatable, Codable, Hashable {
     case challengeRemoved
     case notLiveYet
     case notEnrolled
