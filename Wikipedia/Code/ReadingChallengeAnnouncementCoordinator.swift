@@ -1,6 +1,7 @@
 import UIKit
 import WMFData
 import WMFComponents
+import WMF
 
 @MainActor
 final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
@@ -49,12 +50,6 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
                 
                 presentFullPageAnnouncement()
             }
-            
-            // todo: login prompt here
-            // if isLoggedIn {
-            //
-            // } else {
-            
         }
 
         return true
@@ -239,14 +234,71 @@ final class ReadingChallengeAnnouncementCoordinator: NSObject, Coordinator {
 extension ReadingChallengeAnnouncementCoordinator: WMFOnboardingViewDelegate {
 
     func onboardingViewDidClickPrimaryButton() {
-        enroll()
-        navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
-            guard let self else { return }
-            if !fromWidgetJoinChallengeButton {
-                self.presentWidgetAnnouncement()
-            } else {
-                self.onComplete?(true)
+        if dataStore.authenticationManager.authStateIsPermanent {
+            enroll()
+            navigationController.presentedViewController?.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                if !fromWidgetJoinChallengeButton {
+                    self.presentWidgetAnnouncement()
+                } else {
+                    self.onComplete?(true)
+                }
             }
+        } else {
+            let alert = UIAlertController(
+                title: WMFLocalizedString("reading-challenge-login-title", value: "Log in to join the challenge", comment: "Title for alert that asks users to log in to join the reading challenge"),
+                message: WMFLocalizedString("reading-challenge-login-message", value: "Log in or create an account to track your progress towards the reading challenge.", comment: "Message for alert that asks users to log in to join the reading challenge"),
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: CommonStrings.joinLoginTitle, style: .default) { [weak self] _ in
+                guard let self else { return }
+                self.navigationController.presentedViewController?.dismiss(animated: true) {
+                    let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme, loggingCategory: .login)
+                    
+                    loginCoordinator.loginSuccessCompletion = { [weak self] in
+                        
+                        guard let self else { return }
+                        
+                        if let loginVC = self.navigationController.presentedViewController {
+                            loginVC.dismiss(animated: true) { [weak self] in
+                                guard let self else { return }
+                                
+                                enroll()
+                                
+                                if !fromWidgetJoinChallengeButton {
+                                    presentWidgetAnnouncement()
+                                } else {
+                                    onComplete?(true)
+                                }
+                            }
+                        }
+                        
+                        
+                    }
+                    
+                    loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
+                        guard let self else { return }
+                        
+                        if let createAccountVC = self.navigationController.presentedViewController {
+                            createAccountVC.dismiss(animated: true) { [weak self] in
+                                guard let self else { return }
+                                
+                                enroll()
+                                
+                                if !fromWidgetJoinChallengeButton {
+                                    presentWidgetAnnouncement()
+                                } else {
+                                    onComplete?(true)
+                                }
+                            }
+                        }
+                    }
+                    
+                    loginCoordinator.start()
+                }
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+            navigationController.presentedViewController?.present(alert, animated: true)
         }
     }
     
