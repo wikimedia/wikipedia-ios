@@ -7,6 +7,7 @@ import WMFData
 import WMFTestKitchen
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable, WMFNavigationBarConfiguring {
+    
     @IBOutlet fileprivate var usernameField: ThemeableTextField!
     @IBOutlet fileprivate var passwordRepeatField: ThemeableTextField!
     @IBOutlet fileprivate var emailField: ThemeableTextField!
@@ -62,11 +63,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
-        var actionContext: [String: Any]? = nil
-        if let username = usernameField.text {
-            actionContext = ["username": username]
-        }
-        authInstrument.submitInteraction(action: "click", elementId: "submit_button", actionContext: actionContext)
+        authInstrument.submitInteraction(action: "click", elementId: "submit_button", actionContext: nil)
         save()
     }
     
@@ -381,7 +378,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             switch loginResult {
             case .success:
                 
-                self.authInstrument.submitInteraction(action: "success")
+                var actionContext: [String: String]? = nil
+                if let category {
+                    actionContext = ["invoke_source": category.rawValue]
+                }
+                self.authInstrument.submitInteraction(action: "success", actionContext: actionContext)
                 
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFToastManager.sharedInstance.showToast(loggedInMessage, sticky: false, dismissPreviousToasts: true, tapCallBack: nil)

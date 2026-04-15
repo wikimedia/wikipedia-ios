@@ -256,6 +256,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(showErrorBanner:)
                                                  name:NSNotification.showErrorBanner
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(autoLoginNeedsEmailToken:)
+                                                 name:WMFAuthenticationManager.autoLoginNeedsEmailToken
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(autoLoginNeedsOathToken:)
+                                                 name:WMFAuthenticationManager.autoLoginNeedsOathToken
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleViewControllerDidDisappear:)
@@ -586,6 +596,33 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if ([notification.userInfo[NSNotification.showErrorBannerNSErrorKey] isKindOfClass:[NSError class]]) {
         NSError *error = notification.userInfo[NSNotification.showErrorBannerNSErrorKey];
         [[WMFToastManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousToasts:YES tapCallBack:nil];
+    }
+}
+
+
+- (void)autoLoginNeedsEmailToken:(NSNotification *)notification {
+    WMFTwoFactorPasswordViewController *vc = [self createTwoFactorViewControllerFromAutoLoginNotificationWithUserInfo:notification.userInfo needsEmailToken:YES];
+    
+    if (vc) {
+        WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
+        [self.currentTabNavigationController presentViewController:navVC animated:true completion:nil];
+    } else {
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp completion:^{
+            // no-op
+        }];
+    }
+}
+
+- (void)autoLoginNeedsOathToken:(NSNotification *)notification {
+    WMFTwoFactorPasswordViewController *vc = [self createTwoFactorViewControllerFromAutoLoginNotificationWithUserInfo:notification.userInfo needsEmailToken:NO];
+    
+    if (vc) {
+        WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
+        [self.currentTabNavigationController presentViewController:navVC animated:true completion:nil];
+    } else {
+        [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorApp completion:^{
+            // no-op
+        }];
     }
 }
 
