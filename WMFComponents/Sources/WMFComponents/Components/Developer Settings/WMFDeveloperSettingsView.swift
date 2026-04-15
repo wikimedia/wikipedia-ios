@@ -36,11 +36,9 @@ struct WMFDeveloperSettingsView: View {
 
     var body: some View {
         List {
-            ForEach(viewModel.formViewModel.sections) { section in
-                if let selectSection = section as? WMFFormSectionSelectViewModel {
-                    WMFFormSectionSelectView(viewModel: selectSection)
-                        .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
-                }
+            
+            Section {
+                Toggle("Enable Developer Mode", isOn: $viewModel.enableDeveloperMode)
             }
             
             Section(header: Text("Reading Challenge Widget")) {
@@ -71,7 +69,13 @@ struct WMFDeveloperSettingsView: View {
                 } label: {
                     Text("Clear all widget persistence")
                 }
-
+            }
+            
+            ForEach(viewModel.formViewModel.sections) { section in
+                if let selectSection = section as? WMFFormSectionSelectViewModel {
+                    WMFFormSectionSelectView(viewModel: selectSection)
+                        .listRowBackground(Color(theme.paperBackground).edgesIgnoringSafeArea([.all]))
+                }
             }
         }
         .listStyle(InsetGroupedListStyle())

@@ -30,6 +30,12 @@ import WMFData
     private var subscribers: Set<AnyCancellable> = []
     private var yirLoginExperimentGroupCoordinator: YirLoginExperimentBindingCoordinator?
     
+    @Published public var enableDeveloperMode: Bool = WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode {
+        didSet {
+            WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode = enableDeveloperMode
+        }
+    }
+    
     @Published public var readingChallengeOverrideCurrentDate: Bool = WMFDeveloperSettingsDataController.shared.devReadingChallengeOverrideCurrentDate ?? false {
         didSet {
             WMFDeveloperSettingsDataController.shared.setDevReadingChallengeOverrideCurrentDate(readingChallengeOverrideCurrentDate)
@@ -101,7 +107,6 @@ import WMFData
         self.localizedStrings = localizedStrings
 
         // Form Items
-        let enableDeveloperModeItem = WMFFormItemSelectViewModel(title: "Enable developer mode", isSelected: WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode)
         let doNotPostImageRecommendationsEditItem = WMFFormItemSelectViewModel(title: localizedStrings.doNotPostImageRecommendations, isSelected: WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit)
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataController.shared.bypassDonation)
@@ -115,7 +120,6 @@ import WMFData
 
         formViewModel = WMFFormViewModel(sections: [
             WMFFormSectionSelectViewModel(items: [
-                enableDeveloperModeItem,
                 doNotPostImageRecommendationsEditItem,
                 sendAnalyticsToWMFLabsItem,
                 bypassDonationItem,
@@ -130,10 +134,6 @@ import WMFData
         ])
 
         // Individual Toggle Bindings
-        
-        enableDeveloperModeItem.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.developerSettingsEnableDeveloperMode = isSelected }
-            .store(in: &subscribers)
         
         doNotPostImageRecommendationsEditItem.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected }
