@@ -1,6 +1,7 @@
 public enum WMFUserDefaultsKey: String {
     case watchlistFilterSettings = "watchlist-filter-settings"
     case imageRecommendationsOnboarding = "image-recommendations-onboarding"
+    case developerSettingsEnableDeveloperMode = "dev-enable-developer-mode"
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"

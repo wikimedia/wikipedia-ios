@@ -167,6 +167,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 }
 
 - (void)didTapTitleViewWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
+    
     self.titleLabelTappedCount += 1;
 
     if (self.titleLabelTappedCount >= 7) {

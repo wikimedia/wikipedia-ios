@@ -93,6 +93,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             readingpreferences: CommonStrings.readingPreferences,
             articleSyncing: CommonStrings.settingsStorageAndSyncing,
             databasePopulation: "Database population",
+            developerSettings: "Developer settings",
             clearCacheTitle: CommonStrings.clearCachedDataSettings,
             privacyHeader: CommonStrings.privacyTermsHeader,
             privacyPolicyTitle: CommonStrings.privacyPolicyTitle,
@@ -157,6 +158,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             showArticleSyncing()
         case .databasePopulation:
             tappedDatabasePopulation()
+        case .developerSettings:
+            tappedDeveloperSettings()
         case .clearCachedData:
             showClearCacheActionSheet()
         case .privacyPolicy:
@@ -300,6 +303,36 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private func tappedDatabasePopulation() {
         let vc = DatabasePopulationHostingController()
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
+        guard let settingsNav = settingsNavigationController else {
+            return
+        }
+
+        settingsNav.present(navVC, animated: true)
+    }
+    
+    private func tappedDeveloperSettings() {
+        
+        let developerSettings = "Developer Settings"
+        let doNotPostImageRecommendations = "Do not post image recommendations edit."
+        let sendAnalyticsToWMFLabs = "Send analytics to wmflabs."
+        let enableYearInReview = "Enable Year in Review"
+        let bypassDonation = "Bypass Donation"
+        let forceEmailAuth = "Force email auth"
+        let enableMoreDynamicTabsV2GroupC = "Enable tabs V2 with group C"
+
+        let localizedStrings = WMFDeveloperSettingsLocalizedStrings(
+            developerSettings: developerSettings,
+            doNotPostImageRecommendations: doNotPostImageRecommendations,
+            sendAnalyticsToWMFLabs: sendAnalyticsToWMFLabs,
+            enableMoreDynamicTabsV2GroupC: enableMoreDynamicTabsV2GroupC,
+            enableYearinReview: enableYearInReview,
+            bypassDonation: bypassDonation,
+            forceEmailAuth: forceEmailAuth,
+            done: CommonStrings.doneTitle
+        )
+        let viewModel = WMFDeveloperSettingsViewModel(localizedStrings: localizedStrings)
+        let vc = WMFDeveloperSettingsViewController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .pageSheet)
         guard let settingsNav = settingsNavigationController else {
             return
