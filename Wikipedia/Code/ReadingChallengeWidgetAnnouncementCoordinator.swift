@@ -34,7 +34,7 @@ final class ReadingChallengeWidgetAnnouncementCoordinator {
         if let sheet = controller.sheetPresentationController {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 sheet.detents = [.large()]
-                // controller.preferredContentSize = CGSize(width: 640, height: 720)
+                controller.preferredContentSize = CGSize(width: 640, height: 720)
             } else {
                 sheet.detents = [.medium(), .large()]
             }
